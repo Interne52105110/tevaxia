@@ -17,7 +17,12 @@
     "evaluer": "Evaluate",
     "tarifs": "Pricing",
     "mesEval": "My valuations",
-    "connexion": "Sign in"
+    "connexion": "Sign in",
+    "hedonique": "Hedonic Valuation",
+    "vefa": "VEFA Calculator",
+    "amlKyc": "AML / KYC",
+    "pagPap": "Zoning (PAG/PAP)",
+    "marche": "Market Database"
   },
   "common": {
     "language": "Language",

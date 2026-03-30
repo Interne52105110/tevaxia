@@ -21,6 +21,7 @@ const MENU_GROUPS: MenuGroup[] = [
     key: "estimer",
     items: [
       { href: "/estimation", key: "estimation" },
+      { href: "/hedonique", key: "hedonique" },
       { href: "/carte", key: "carte" },
     ],
   },
@@ -31,8 +32,11 @@ const MENU_GROUPS: MenuGroup[] = [
       { href: "/frais-acquisition", key: "frais" },
       { href: "/plus-values", key: "plusValues" },
       { href: "/simulateur-aides", key: "aides" },
+      { href: "/vefa", key: "vefa" },
       { href: "/outils-bancaires", key: "bancaire" },
       { href: "/achat-vs-location", key: "achatLocation" },
+      { href: "/aml-kyc", key: "amlKyc" },
+      { href: "/pag-pap", key: "pagPap" },
     ],
   },
   {
