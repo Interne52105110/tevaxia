@@ -35,6 +35,8 @@ import MarketDataPanel from "@/components/MarketDataPanel";
 import { calculerAjustDate } from "@/lib/adjustments";
 import { downloadReport } from "@/components/ValuationReport";
 import { genererNarrative } from "@/lib/narrative";
+import { estimerCoutsRenovation } from "@/lib/renovation-costs";
+import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
 
@@ -990,9 +992,10 @@ function TabESG() {
 // TAB — RÉSIDUELLE ÉNERGÉTIQUE
 // ============================================================
 
-function TabEnergie({ valeurMarcheCible }: { valeurMarcheCible: number }) {
+function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: number; surfaceBien: number }) {
   const [classeActuelle, setClasseActuelle] = useState("E");
   const [classeCible, setClasseCible] = useState("B");
+  const [anneeConstruction, setAnneeConstruction] = useState(1985);
   const [valeurApres, setValeurApres] = useState(valeurMarcheCible);
   const [coutTravaux, setCoutTravaux] = useState(80000);
   const [honoraires, setHonoraires] = useState(8000);
@@ -1050,6 +1053,15 @@ function TabEnergie({ valeurMarcheCible }: { valeurMarcheCible: number }) {
             />
           </div>
           <InputField
+            label="Année de construction"
+            value={anneeConstruction}
+            onChange={(v) => setAnneeConstruction(Number(v))}
+            min={1800}
+            max={2026}
+            className="mt-4"
+            hint="Pour estimer la complexité de la rénovation"
+          />
+          <InputField
             label="Valeur estimée après rénovation"
             value={valeurApres}
             onChange={(v) => setValeurApres(Number(v))}
@@ -1060,7 +1072,54 @@ function TabEnergie({ valeurMarcheCible }: { valeurMarcheCible: number }) {
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Coûts de rénovation</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-base font-semibold text-navy">Coûts de rénovation</h2>
+            <button
+              onClick={() => {
+                const est = estimerCoutsRenovation(classeActuelle, classeCible, surfaceBien, anneeConstruction);
+                if (est.totalMoyen > 0) {
+                  setCoutTravaux(est.totalMoyen);
+                  setHonoraires(est.honoraires);
+                }
+              }}
+              className="rounded-lg bg-gold px-3 py-1.5 text-xs font-medium text-navy-dark hover:bg-gold-light transition-colors"
+            >
+              Estimer automatiquement
+            </button>
+          </div>
+
+          {/* Détail estimation auto */}
+          {(() => {
+            const est = estimerCoutsRenovation(classeActuelle, classeCible, surfaceBien, anneeConstruction);
+            if (est.postes.length === 0) return null;
+            return (
+              <div className="mb-4 rounded-lg bg-background border border-card-border p-3">
+                <div className="text-xs font-semibold text-navy mb-2">Estimation automatique ({classeActuelle} → {classeCible}, {surfaceBien} m², {anneeConstruction})</div>
+                <div className="space-y-1">
+                  {est.postes.map((p) => (
+                    <div key={p.label} className="flex justify-between text-xs">
+                      <span className="text-muted">{p.label}</span>
+                      <span className="font-mono">{formatEUR(p.coutMin)} – {formatEUR(p.coutMax)}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between text-xs font-semibold border-t border-card-border pt-1 mt-1">
+                    <span>Total travaux (fourchette)</span>
+                    <span className="font-mono">{formatEUR(est.totalMin)} – {formatEUR(est.totalMax)}</span>
+                  </div>
+                  <div className="flex justify-between text-xs text-muted">
+                    <span>+ Honoraires (~10%)</span>
+                    <span className="font-mono">{formatEUR(est.honoraires)}</span>
+                  </div>
+                  <div className="flex justify-between text-xs text-muted">
+                    <span>Durée estimée</span>
+                    <span>{est.dureeEstimeeMois} mois</span>
+                  </div>
+                </div>
+                <p className="mt-2 text-[10px] text-muted">Fourchettes indicatives — marché luxembourgeois. Cliquez "Estimer automatiquement" pour pré-remplir les champs.</p>
+              </div>
+            );
+          })()}
+
           <div className="space-y-4">
             <InputField label="Travaux de rénovation énergétique" value={coutTravaux} onChange={(v) => setCoutTravaux(Number(v))} suffix="€" hint="Isolation, menuiseries, chauffage, ventilation..." />
             <InputField label="Honoraires et études" value={honoraires} onChange={(v) => setHonoraires(Number(v))} suffix="€" hint="Audit énergétique, maîtrise d'œuvre, bureau d'études" />
@@ -1638,6 +1697,52 @@ export default function Valorisation() {
           </div>
         </div>
 
+        {/* Checklist EVS */}
+        {(() => {
+          const check = evaluerChecklist({
+            communeSelectionnee: !!selectedCommune,
+            surfaceRenseignee: surfaceBien > 0,
+            assetTypeSelectionne: true,
+            evsTypeSelectionne: true,
+            comparaisonFaite: valeurComparaison > 0,
+            nbComparables: comparables.length,
+            capitalisationFaite: valeurCapitalisation > 0,
+            dcfFait: valeurDCF > 0,
+            esgEvalue: false,
+            classeEnergieRenseignee: false,
+            donnesMarcheConsultees: !!selectedCommune,
+            reconciliationFaite: valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0,
+            scenariosAnalyses: false,
+            narrativeGeneree: valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0,
+            mlvCalculee: false,
+          });
+          const score = scoreChecklist(check);
+          if (score.remplis === 0) return null;
+          return (
+            <div className="mb-4 rounded-xl border border-card-border bg-card p-4 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-xs font-semibold text-navy">Conformité EVS 2025</div>
+                <div className={`text-xs font-bold ${score.pctCompletion >= 80 ? "text-success" : score.pctCompletion >= 50 ? "text-warning" : "text-error"}`}>
+                  {score.remplis}/{score.total} ({score.pctCompletion.toFixed(0)}%)
+                </div>
+              </div>
+              <div className="h-2 rounded-full bg-gray-100">
+                <div
+                  className={`h-2 rounded-full transition-all ${score.pctCompletion >= 80 ? "bg-success" : score.pctCompletion >= 50 ? "bg-warning" : "bg-error"}`}
+                  style={{ width: `${score.pctCompletion}%` }}
+                />
+              </div>
+              {score.obligatoiresManquants.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {score.obligatoiresManquants.map((item) => (
+                    <span key={item.id} className="rounded bg-red-50 px-2 py-0.5 text-[10px] text-red-700">{item.label}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })()}
+
         {/* Tabs */}
         <div className="mb-8 flex gap-1 overflow-x-auto rounded-xl bg-card border border-card-border p-1">
           {TABS.map((tab) => (
@@ -1674,7 +1779,7 @@ export default function Valorisation() {
         {activeTab === "terme_reversion" && <TabTermeReversion onValeur={onValeurCap} />}
         {activeTab === "dcf" && <TabDCF onValeur={onValeurDCF} />}
         {activeTab === "esg" && <TabESG />}
-        {activeTab === "energie" && <TabEnergie valeurMarcheCible={valeurMarchePourMLV} />}
+        {activeTab === "energie" && <TabEnergie valeurMarcheCible={valeurMarchePourMLV} surfaceBien={surfaceBien} />}
         {activeTab === "mlv" && <TabMLV valeurMarche={valeurMarchePourMLV} />}
         {activeTab === "reconciliation" && (
           <TabReconciliation

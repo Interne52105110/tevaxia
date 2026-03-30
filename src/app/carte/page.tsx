@@ -5,6 +5,7 @@ import Link from "next/link";
 import { formatEUR } from "@/lib/calculations";
 import { rechercherCommune, type MarketDataCommune, type SearchResult } from "@/lib/market-data";
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
+import { getDemographics } from "@/lib/demographics";
 import dynamic from "next/dynamic";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
@@ -240,6 +241,26 @@ export default function Carte() {
                       </Link>
                     </div>
                   </div>
+
+                  {/* Démographie */}
+                  {(() => {
+                    const demo = getDemographics(selectedCommune.commune);
+                    if (!demo) return null;
+                    return (
+                      <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
+                        <h3 className="text-sm font-semibold text-navy mb-2">Démographie</h3>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div><span className="text-muted">Population</span><br/><span className="font-semibold">{demo.population.toLocaleString("fr-LU")}</span></div>
+                          <div><span className="text-muted">Croissance</span><br/><span className="font-semibold text-success">+{demo.croissancePct}%</span> <span className="text-[10px] text-muted">(10 ans)</span></div>
+                          <div><span className="text-muted">Densité</span><br/><span className="font-semibold">{demo.densiteHabKm2} hab/km²</span></div>
+                          <div><span className="text-muted">% étrangers</span><br/><span className="font-semibold">{demo.pctEtrangers}%</span></div>
+                          {demo.revenuMedian && <div><span className="text-muted">Revenu médian</span><br/><span className="font-semibold">{formatEUR(demo.revenuMedian)}/an</span></div>}
+                          {demo.tauxEmploi && <div><span className="text-muted">Taux d'emploi</span><br/><span className="font-semibold">{demo.tauxEmploi}%</span></div>}
+                        </div>
+                        <p className="mt-2 text-[10px] text-muted">Source : STATEC (estimations 2025)</p>
+                      </div>
+                    );
+                  })()}
 
                   {/* Quartiers si dispo */}
                   {selectedCommune.quartiers && selectedCommune.quartiers.length > 0 && (
