@@ -35,10 +35,10 @@ type ActiveTab = "comparaison" | "capitalisation" | "dcf" | "energie" | "mlv" | 
 
 const TABS: { id: ActiveTab; label: string }[] = [
   { id: "comparaison", label: "Comparaison" },
-  { id: "capitalisation", label: "Capitalisation" },
-  { id: "dcf", label: "DCF" },
-  { id: "energie", label: "Résiduelle Énergie" },
-  { id: "mlv", label: "MLV / CRR" },
+  { id: "capitalisation", label: "Capitalisation directe" },
+  { id: "dcf", label: "Flux actualisés (DCF)" },
+  { id: "energie", label: "Résiduelle énergie" },
+  { id: "mlv", label: "Valeur hypothécaire" },
   { id: "reconciliation", label: "Réconciliation" },
 ];
 
@@ -50,17 +50,27 @@ function TabComparaison({
   surfaceBien,
   onValeur,
   assetType,
+  communeSearch,
+  setCommuneSearch,
+  selectedResult,
+  setSelectedResult,
+  searchResults,
+  selectedCommune,
+  comparables,
+  setComparables,
 }: {
   surfaceBien: number;
   onValeur: (v: number) => void;
   assetType: AssetType;
+  communeSearch: string;
+  setCommuneSearch: (v: string) => void;
+  selectedResult: SearchResult | null;
+  setSelectedResult: (v: SearchResult | null) => void;
+  searchResults: SearchResult[];
+  selectedCommune: MarketDataCommune | null;
+  comparables: Comparable[];
+  setComparables: React.Dispatch<React.SetStateAction<Comparable[]>>;
 }) {
-  const [comparables, setComparables] = useState<Comparable[]>([]);
-  const [communeSearch, setCommuneSearch] = useState("");
-  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
-
-  const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
-  const selectedCommune = selectedResult?.commune ?? null;
 
   const result = useMemo(() => {
     if (comparables.length === 0) {
@@ -484,13 +494,13 @@ function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
 
       <div className="space-y-6">
         <ResultPanel
-          title="Net Operating Income (NOI)"
+          title="Résultat net d'exploitation (NOI)"
           lines={[
             { label: "Loyer brut annuel", value: formatEUR(loyerBrut) },
             { label: `Vacance (${tauxVacance}%)`, value: `- ${formatEUR(loyerBrut * tauxVacance / 100)}`, sub: true },
             { label: "Loyer brut effectif", value: formatEUR(result.loyerBrutEffectif) },
             { label: "Charges propriétaire", value: `- ${formatEUR(result.totalCharges)}` },
-            { label: "NOI", value: formatEUR(result.noi), highlight: true, large: true },
+            { label: "Résultat net d'exploitation", value: formatEUR(result.noi), highlight: true, large: true },
           ]}
         />
 
@@ -498,7 +508,7 @@ function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
           title="Valeur par capitalisation"
           className="border-gold/30"
           lines={[
-            { label: "NOI / Taux capitalisation", value: `${formatEUR(result.noi)} / ${tauxCap}%`, sub: true },
+            { label: "Résultat net / Taux capitalisation", value: `${formatEUR(result.noi)} / ${tauxCap}%`, sub: true },
             { label: "Valeur estimée", value: formatEUR(result.valeur), highlight: true, large: true },
             { label: "Rendement brut", value: formatPct(result.rendementBrut), sub: true },
             { label: "Rendement net", value: formatPct(result.rendementNet), sub: true },
@@ -578,7 +588,7 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
             <h2 className="mb-4 text-base font-semibold text-navy">Taux d'actualisation & sortie</h2>
             <div className="space-y-4">
               <InputField
-                label="Taux d'actualisation (discount rate)"
+                label="Taux d'actualisation"
                 value={tauxActu}
                 onChange={(v) => setTauxActu(Number(v))}
                 suffix="%"
@@ -586,7 +596,7 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
                 hint="Configurable — coût d'opportunité du capital, intègre la prime de risque"
               />
               <InputField
-                label="Taux de capitalisation de sortie (exit cap)"
+                label="Taux de capitalisation de sortie"
                 value={tauxCapSortie}
                 onChange={(v) => setTauxCapSortie(Number(v))}
                 suffix="%"
@@ -597,9 +607,9 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
             </div>
             <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
               <p className="text-xs text-amber-800 leading-relaxed">
-                <strong>Taux d'actualisation et exit cap :</strong> Ces deux paramètres sont les plus sensibles du modèle DCF.
+                <strong>Taux d'actualisation et taux de sortie :</strong> Ces deux paramètres sont les plus sensibles du modèle.
                 Le taux d'actualisation reflète le rendement attendu par l'investisseur (taux sans risque + prime de risque immobilier).
-                L'exit cap rate est généralement supérieur au cap rate d'entrée pour refléter le vieillissement du bien.
+                Le taux de sortie sert à estimer la valeur de revente en fin de période — il est généralement supérieur au taux de capitalisation d'entrée pour refléter le vieillissement du bien.
                 Un écart de 0,5% sur l'un ou l'autre peut modifier la valeur de 10-15%.
               </p>
             </div>
@@ -611,12 +621,12 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
             title="Valeur DCF"
             className="border-gold/30"
             lines={[
-              { label: "Somme des NOI actualisés", value: formatEUR(result.totalNOIActualise) },
-              { label: `NOI terminal (année ${periodeAnalyse + 1})`, value: formatEUR(result.noiTerminal), sub: true },
-              { label: "Valeur terminale brute", value: formatEUR(result.valeurTerminaleBrute), sub: true },
+              { label: "Revenus nets actualisés (cumul)", value: formatEUR(result.totalNOIActualise) },
+              { label: `Revenu net année ${periodeAnalyse + 1} (projection)`, value: formatEUR(result.noiTerminal), sub: true },
+              { label: "Valeur de revente estimée (brute)", value: formatEUR(result.valeurTerminaleBrute), sub: true },
               { label: `Frais de cession (${fraisCession}%)`, value: `- ${formatEUR(result.fraisCession)}`, sub: true },
-              { label: "Valeur terminale nette", value: formatEUR(result.valeurTerminaleNette), sub: true },
-              { label: "Valeur terminale actualisée", value: formatEUR(result.valeurTerminaleActualisee) },
+              { label: "Valeur de revente nette", value: formatEUR(result.valeurTerminaleNette), sub: true },
+              { label: "Valeur de revente actualisée", value: formatEUR(result.valeurTerminaleActualisee) },
               { label: "Valeur DCF", value: formatEUR(result.valeurDCF), highlight: true, large: true },
             ]}
           />
@@ -635,8 +645,8 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
               />
             </div>
             <div className="mt-2 flex justify-between text-xs text-muted">
-              <span>Cash flows : {result.valeurDCF > 0 ? ((result.totalNOIActualise / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
-              <span>Terminal value : {result.valeurDCF > 0 ? ((result.valeurTerminaleActualisee / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
+              <span>Revenus nets : {result.valeurDCF > 0 ? ((result.totalNOIActualise / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
+              <span>Valeur de revente : {result.valeurDCF > 0 ? ((result.valeurTerminaleActualisee / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
             </div>
           </div>
         </div>
@@ -651,9 +661,9 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
               <th className="px-3 py-2.5 text-right font-semibold text-navy">Loyer brut</th>
               <th className="px-3 py-2.5 text-right font-semibold text-navy">Vacance</th>
               <th className="px-3 py-2.5 text-right font-semibold text-navy">Charges</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">NOI</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">Revenu net</th>
               <th className="px-3 py-2.5 text-right font-semibold text-navy">Facteur actu.</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">NOI actualisé</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">Revenu actualisé</th>
             </tr>
           </thead>
           <tbody>
@@ -875,7 +885,7 @@ function TabMLV({ valeurMarche }: { valeurMarche: number }) {
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Décotes prudentielles</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">Décotes prudentielles (marge de sécurité bancaire)</h2>
           <div className="space-y-4">
             <InputField
               label="Décote conjoncturelle"
@@ -883,7 +893,7 @@ function TabMLV({ valeurMarche }: { valeurMarche: number }) {
               onChange={(v) => setDecoteConj(Number(v))}
               suffix="%"
               step={0.5}
-              hint="Configurable — marge vs conditions de marché actuelles. CRR Art. 229 : exclure éléments spéculatifs."
+              hint="Configurable — marge de prudence par rapport aux conditions de marché actuelles (exclure les éléments spéculatifs)"
             />
             <InputField
               label="Décote commercialisation"
@@ -904,8 +914,9 @@ function TabMLV({ valeurMarche }: { valeurMarche: number }) {
           </div>
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs text-amber-800 leading-relaxed">
-              <strong>CRR Art. 229 / EVS3 :</strong> La Mortgage Lending Value doit refléter la valeur soutenable
-              à long terme, en excluant les éléments spéculatifs et les conditions de marché exceptionnelles.
+              <strong>Valeur hypothécaire (Règlement CRR Art. 229 / Norme EVS3) :</strong> La valeur hypothécaire est la valeur
+              que la banque retient comme garantie du prêt. Elle doit refléter la valeur soutenable à long terme, en excluant
+              les éléments spéculatifs et les conditions de marché exceptionnelles.
               L'évaluateur doit documenter et justifier chaque décote. Il n'existe pas de taux réglementaire fixe — les décotes
               sont des jugements professionnels.
             </p>
@@ -915,7 +926,7 @@ function TabMLV({ valeurMarche }: { valeurMarche: number }) {
 
       <div className="space-y-6">
         <ResultPanel
-          title="Mortgage Lending Value (MLV)"
+          title="Valeur hypothécaire (Mortgage Lending Value)"
           className="border-gold/30"
           lines={[
             { label: "Valeur de marché (MV)", value: formatEUR(result.valeurMarche) },
@@ -924,7 +935,7 @@ function TabMLV({ valeurMarche }: { valeurMarche: number }) {
             { label: `Décote spécifique (${decoteSpec}%)`, value: `- ${formatEUR(result.valeurMarche * decoteSpec / 100)}`, sub: true },
             { label: "Total décotes", value: `- ${formatEUR(result.totalDecotes)} (${result.totalDecotesPct.toFixed(1)}%)` },
             { label: "MLV", value: formatEUR(result.mlv), highlight: true, large: true },
-            { label: "Ratio MLV / MV", value: `${(result.ratioMLVsurMV * 100).toFixed(1)}%`, sub: true },
+            { label: "Ratio valeur hypothécaire / valeur de marché", value: `${(result.ratioMLVsurMV * 100).toFixed(1)}%`, sub: true },
           ]}
         />
 
@@ -1076,6 +1087,15 @@ export default function Valorisation() {
   const [assetType, setAssetType] = useState<AssetType>("residential_apartment");
   const [evsValueType, setEvsValueType] = useState<EVSValueType>("market_value");
 
+  // Recherche commune — état global (persiste entre onglets)
+  const [communeSearch, setCommuneSearch] = useState("");
+  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
+  const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
+  const selectedCommune = selectedResult?.commune ?? null;
+
+  // Comparables — état global (persiste entre onglets)
+  const [comparables, setComparables] = useState<Comparable[]>([]);
+
   const assetConfig = useMemo(() => getAssetTypeConfig(assetType), [assetType]);
   const evsInfo = useMemo(() => EVS_VALUE_TYPES.find((e) => e.id === evsValueType)!, [evsValueType]);
 
@@ -1091,6 +1111,16 @@ export default function Valorisation() {
 
   // Valeur de marché pour MLV (prend la réconciliée ou la meilleure dispo)
   const valeurMarchePourMLV = valeurComparaison || valeurCapitalisation || valeurDCF || 750000;
+
+  // Reset complet
+  const handleReset = useCallback(() => {
+    setCommuneSearch("");
+    setSelectedResult(null);
+    setComparables([]);
+    setValeurComparaison(0);
+    setValeurCapitalisation(0);
+    setValeurDCF(0);
+  }, []);
 
   return (
     <div className="bg-background py-8 sm:py-12">
@@ -1161,11 +1191,11 @@ export default function Valorisation() {
             <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
               <div className="text-xs font-medium text-slate mb-2">Paramètres de référence — {assetConfig.label}</div>
               <div className="space-y-1 text-xs text-muted">
-                <div className="flex justify-between"><span>Taux de cap.</span><span className="font-mono">{assetConfig.defaults.capRateMin}–{assetConfig.defaults.capRateMax}%</span></div>
-                <div className="flex justify-between"><span>Vacance</span><span className="font-mono">{assetConfig.defaults.vacancyRate}%</span></div>
-                <div className="flex justify-between"><span>Discount rate</span><span className="font-mono">{assetConfig.defaults.discountRateDefault}%</span></div>
-                <div className="flex justify-between"><span>Exit cap</span><span className="font-mono">{assetConfig.defaults.exitCapDefault}%</span></div>
-                <div className="flex justify-between"><span>Décotes MLV</span><span className="font-mono">{assetConfig.defaults.mlvConjoncturelleDefault + assetConfig.defaults.mlvCommercialisationDefault + assetConfig.defaults.mlvSpecifiqueDefault}%</span></div>
+                <div className="flex justify-between"><span>Taux de capitalisation</span><span className="font-mono">{assetConfig.defaults.capRateMin}–{assetConfig.defaults.capRateMax}%</span></div>
+                <div className="flex justify-between"><span>Taux de vacance</span><span className="font-mono">{assetConfig.defaults.vacancyRate}%</span></div>
+                <div className="flex justify-between"><span>Taux d'actualisation</span><span className="font-mono">{assetConfig.defaults.discountRateDefault}%</span></div>
+                <div className="flex justify-between"><span>Taux de sortie (revente)</span><span className="font-mono">{assetConfig.defaults.exitCapDefault}%</span></div>
+                <div className="flex justify-between"><span>Décotes valeur hypothécaire</span><span className="font-mono">{assetConfig.defaults.mlvConjoncturelleDefault + assetConfig.defaults.mlvCommercialisationDefault + assetConfig.defaults.mlvSpecifiqueDefault}%</span></div>
               </div>
               {assetConfig.specificMetrics.length > 0 && (
                 <div className="mt-2 pt-2 border-t border-card-border text-xs text-muted">
@@ -1181,8 +1211,16 @@ export default function Valorisation() {
             <p className="text-xs text-slate leading-relaxed">{assetConfig.notes}</p>
           </div>
 
-          {/* Valeurs en cours */}
-          <div className="flex flex-wrap gap-4 text-sm">
+          {/* Résumé persistant : commune + valeurs + reset */}
+          <div className="flex flex-wrap items-center gap-3 text-sm">
+            {selectedCommune && (
+              <div className="rounded-lg bg-navy/5 border border-navy/10 px-3 py-2">
+                <span className="text-muted">Commune :</span>{" "}
+                <span className="font-semibold text-navy">{selectedCommune.commune}</span>
+                {selectedResult?.isLocalite && <span className="text-muted"> ({selectedResult.matchedOn})</span>}
+                {selectedCommune.prixM2Existant && <span className="ml-2 font-mono text-xs text-muted">{formatEUR(selectedCommune.prixM2Existant)}/m²</span>}
+              </div>
+            )}
             {valeurComparaison > 0 && (
               <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">Comparaison :</span> <span className="font-semibold text-navy">{formatEUR(valeurComparaison)}</span></div>
             )}
@@ -1191,6 +1229,22 @@ export default function Valorisation() {
             )}
             {valeurDCF > 0 && (
               <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">DCF :</span> <span className="font-semibold text-navy">{formatEUR(valeurDCF)}</span></div>
+            )}
+            {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
+              <button
+                onClick={() => window.print()}
+                className="rounded-lg bg-gold px-3 py-2 text-xs font-medium text-navy-dark hover:bg-gold-light transition-colors"
+              >
+                Rapport PDF
+              </button>
+            )}
+            {(selectedCommune || comparables.length > 0 || valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
+              <button
+                onClick={handleReset}
+                className="rounded-lg border border-error/30 px-3 py-2 text-xs font-medium text-error hover:bg-error/5 transition-colors"
+              >
+                Réinitialiser
+              </button>
             )}
           </div>
         </div>
@@ -1212,7 +1266,21 @@ export default function Valorisation() {
           ))}
         </div>
 
-        {activeTab === "comparaison" && <TabComparaison surfaceBien={surfaceBien} onValeur={onValeurComp} assetType={assetType} />}
+        {activeTab === "comparaison" && (
+          <TabComparaison
+            surfaceBien={surfaceBien}
+            onValeur={onValeurComp}
+            assetType={assetType}
+            communeSearch={communeSearch}
+            setCommuneSearch={setCommuneSearch}
+            selectedResult={selectedResult}
+            setSelectedResult={setSelectedResult}
+            searchResults={searchResults}
+            selectedCommune={selectedCommune}
+            comparables={comparables}
+            setComparables={setComparables}
+          />
+        )}
         {activeTab === "capitalisation" && <TabCapitalisation onValeur={onValeurCap} />}
         {activeTab === "dcf" && <TabDCF onValeur={onValeurDCF} />}
         {activeTab === "energie" && <TabEnergie valeurMarcheCible={valeurMarchePourMLV} />}

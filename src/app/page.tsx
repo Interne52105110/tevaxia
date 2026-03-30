@@ -2,6 +2,30 @@ import Link from "next/link";
 
 const MODULES = [
   {
+    href: "/estimation",
+    title: "Estimation instantanée",
+    description: "Commune, surface, étage, état, énergie — obtenez une estimation avec fourchette de prix basée sur les données publiques luxembourgeoises.",
+    icon: (
+      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.841m2.699-2.067a14.997 14.997 0 01-3.44 0" />
+      </svg>
+    ),
+    tag: "Nouveau",
+    color: "from-rose-500 to-pink-500",
+  },
+  {
+    href: "/carte",
+    title: "Carte des prix",
+    description: "Prix au m² par commune et par quartier. Données Observatoire de l'Habitat, triables par canton, prix ou nom.",
+    icon: (
+      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+      </svg>
+    ),
+    tag: "Nouveau",
+    color: "from-indigo-500 to-blue-500",
+  },
+  {
     href: "/calculateur-loyer",
     title: "Capital Investi & Loyer",
     description: "Calculez le plafond légal de loyer selon la règle des 5% du capital investi. Coefficients de réévaluation, vétusté, gestion colocation.",

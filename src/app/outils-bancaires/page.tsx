@@ -17,10 +17,10 @@ import {
 type ActiveTab = "ltv" | "capacite" | "amortissement" | "dscr";
 
 const TABS: { id: ActiveTab; label: string }[] = [
-  { id: "ltv", label: "LTV" },
+  { id: "ltv", label: "Ratio prêt / valeur" },
   { id: "capacite", label: "Capacité d'emprunt" },
   { id: "amortissement", label: "Amortissement" },
-  { id: "dscr", label: "DSCR" },
+  { id: "dscr", label: "Couverture de dette" },
 ];
 
 function TabLTV() {
@@ -45,7 +45,7 @@ function TabLTV() {
       </div>
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-8 shadow-sm text-center">
-          <div className="text-sm text-muted">Loan-to-Value (LTV)</div>
+          <div className="text-sm text-muted">Ratio prêt / valeur du bien (LTV)</div>
           <div className={`mt-2 text-5xl font-bold ${ltvColor}`}>
             {(ltv * 100).toFixed(1)} %
           </div>
@@ -218,7 +218,7 @@ function TabDSCR() {
       </div>
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-8 shadow-sm text-center">
-          <div className="text-sm text-muted">Debt Service Coverage Ratio</div>
+          <div className="text-sm text-muted">Ratio de couverture du service de la dette (DSCR)</div>
           <div className={`mt-2 text-5xl font-bold ${dscrColor}`}>{dscr.toFixed(2)}</div>
           <div className={`mt-2 text-sm font-medium ${dscrColor}`}>{dscrLabel}</div>
         </div>

@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { href: "/calculateur-loyer", label: "Loyer / Capital Investi" },
-  { href: "/frais-acquisition", label: "Frais d'Acquisition" },
-  { href: "/plus-values", label: "Plus-Values" },
-  { href: "/simulateur-aides", label: "Simulateur d'Aides" },
+  { href: "/estimation", label: "Estimation" },
+  { href: "/carte", label: "Carte des prix" },
   { href: "/valorisation", label: "Valorisation EVS" },
-  { href: "/outils-bancaires", label: "Outils Bancaires" },
+  { href: "/calculateur-loyer", label: "Loyer" },
+  { href: "/frais-acquisition", label: "Frais" },
+  { href: "/plus-values", label: "Plus-Values" },
+  { href: "/simulateur-aides", label: "Aides" },
+  { href: "/outils-bancaires", label: "Bancaire" },
 ];
 
 export default function Header() {

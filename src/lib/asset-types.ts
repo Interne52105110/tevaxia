@@ -54,12 +54,11 @@ export const EVS_VALUE_TYPES: { id: EVSValueType; label: string; evs: string; de
 export type AssetType =
   | "residential_apartment"
   | "residential_house"
-  | "residential_building" // Immeuble de rapport
+  | "residential_building" // Immeuble de rapport (pur résidentiel ou mixte)
   | "office"
   | "retail"
   | "hotel"
   | "logistics"
-  | "mixed_use"
   | "land";
 
 export interface AssetTypeConfig {
@@ -129,15 +128,15 @@ export const ASSET_TYPES: AssetTypeConfig[] = [
     label: "Immeuble de rapport",
     icon: "building",
     defaults: {
-      capRateMin: 3.5, capRateMax: 6.0, capRateDefault: 4.5,
+      capRateMin: 3.5, capRateMax: 6.5, capRateDefault: 4.5,
       vacancyRate: 4, managementFee: 6, maintenanceProvision: 4,
       insuranceRate: 3, propertyTax: 2,
       dcfPeriod: 10, discountRateDefault: 5.5, exitCapDefault: 5.0, indexationDefault: 2.0,
       mlvConjoncturelleDefault: 5, mlvCommercialisationDefault: 3, mlvSpecifiqueDefault: 3,
     },
-    specificMetrics: ["Nb logements", "Loyer total annuel", "Rendement brut/net", "WAULT (si baux en cours)"],
+    specificMetrics: ["Nb logements / lots", "Loyer total annuel", "Rendement brut/net", "Durée restante moy. des baux", "Ventilation par usage (si mixte)"],
     recommendedMethods: ["Capitalisation (dominante)", "DCF", "Comparaison (vérification)"],
-    notes: "L'immeuble de rapport se valorise principalement par le rendement. Analyser chaque lot : loyer en place vs ERV (loyer de marché), durée restante des baux, potentiel de réversion. Le plafond des 5% s'applique lot par lot.",
+    notes: "L'immeuble de rapport se valorise principalement par le rendement. Analyser chaque lot : loyer en place vs ERV, durée restante des baux, potentiel de réversion. Le plafond des 5% s'applique lot par lot pour la partie résidentielle. Si l'immeuble comporte une composante commerciale (commerce en RDC, bureaux), évaluer chaque composante séparément avec ses propres paramètres (cap rate, vacance, ERV) puis additionner. Le cap rate global est alors la moyenne pondérée par les loyers.",
   },
   {
     id: "office",
@@ -150,7 +149,7 @@ export const ASSET_TYPES: AssetTypeConfig[] = [
       dcfPeriod: 10, discountRateDefault: 6.5, exitCapDefault: 5.5, indexationDefault: 1.5,
       mlvConjoncturelleDefault: 8, mlvCommercialisationDefault: 5, mlvSpecifiqueDefault: 3,
     },
-    specificMetrics: ["Surface utile nette (SUN)", "Loyer facial vs effectif", "WAULT", "Taux d'occupation", "Incentives (mois gratuits)"],
+    specificMetrics: ["Surface utile nette", "Loyer affiché vs loyer réel (après franchises)", "Durée restante moy. des baux", "Taux d'occupation", "Avantages consentis (mois gratuits, aménagements)"],
     recommendedMethods: ["DCF (dominante)", "Capitalisation", "Comparaison (vérification)"],
     notes: "Luxembourg-Ville : marché de bureaux mature avec segmentation CBD / Kirchberg / Cloche d'Or / Gare. Prime rents ~50-55 €/m²/mois au Kirchberg. Vacance structurelle ~5-7%. Analyser les incentives (franchise de loyer, aménagements) qui réduisent le loyer effectif vs facial. Baux commerciaux 3/6/9 ou fermes.",
   },
@@ -165,7 +164,7 @@ export const ASSET_TYPES: AssetTypeConfig[] = [
       dcfPeriod: 10, discountRateDefault: 7.0, exitCapDefault: 6.0, indexationDefault: 1.5,
       mlvConjoncturelleDefault: 10, mlvCommercialisationDefault: 7, mlvSpecifiqueDefault: 5,
     },
-    specificMetrics: ["Surface de vente (GLA)", "Loyer /m² Zone A", "Taux d'effort locataire", "Flux piétons", "Chiffre d'affaires locataire"],
+    specificMetrics: ["Surface de vente", "Loyer /m² emplacement n°1", "Taux d'effort locataire", "Flux piétons", "Chiffre d'affaires locataire"],
     recommendedMethods: ["Capitalisation", "DCF", "Comparaison (high street uniquement)"],
     notes: "Distinguer high street (Grand-Rue, avenue de la Gare) des retail parks et centres commerciaux. Le loyer en Zone A est la référence pour la comparaison. Risque structurel e-commerce sur certains segments. Analyser le taux d'effort du locataire (loyer / CA) — au-delà de 8-10%, risque de non-renouvellement.",
   },
@@ -180,7 +179,7 @@ export const ASSET_TYPES: AssetTypeConfig[] = [
       dcfPeriod: 10, discountRateDefault: 8.0, exitCapDefault: 7.0, indexationDefault: 2.0,
       mlvConjoncturelleDefault: 10, mlvCommercialisationDefault: 8, mlvSpecifiqueDefault: 5,
     },
-    specificMetrics: ["Nb chambres", "RevPAR", "ADR", "Taux d'occupation", "GOP / GOPPAR", "EBITDA par chambre"],
+    specificMetrics: ["Nb chambres", "Revenu par chambre dispo. (RevPAR)", "Prix moyen par nuit (ADR)", "Taux d'occupation", "Résultat brut d'exploitation", "Résultat avant charges financières par chambre"],
     recommendedMethods: ["DCF (dominante)", "Capitalisation sur EBITDA", "Prix par chambre (vérification)"],
     notes: "L'hôtellerie se valorise sur la capacité bénéficiaire (EBITDA stabilisé), pas sur le loyer. Distinguer l'immobilier de l'exploitation (murs vs fonds). Luxembourg : marché institutionnel/affaires avec saisonnalité faible mais occupancy ~70-75%. ADR en hausse. Méthode des profits (EVS) recommandée.",
   },
@@ -195,24 +194,9 @@ export const ASSET_TYPES: AssetTypeConfig[] = [
       dcfPeriod: 10, discountRateDefault: 7.0, exitCapDefault: 6.0, indexationDefault: 1.5,
       mlvConjoncturelleDefault: 7, mlvCommercialisationDefault: 5, mlvSpecifiqueDefault: 5,
     },
-    specificMetrics: ["Surface utile (m²)", "Hauteur libre", "Nb quais", "Charge au sol", "Accessibilité PL"],
+    specificMetrics: ["Surface utile (m²)", "Hauteur libre", "Nb quais", "Charge au sol", "Accessibilité poids lourds"],
     recommendedMethods: ["Capitalisation", "DCF", "Coût de remplacement (si spécialisé)"],
     notes: "Luxembourg : stock logistique limité, concentré sur Eurohub Sud (Bettembourg/Dudelange) et zones d'activités. Loyers ~6-9 €/m²/mois. Baux longs (6-9 ans fermes). ESG de plus en plus important (certifications BREEAM, panneaux solaires toiture).",
-  },
-  {
-    id: "mixed_use",
-    label: "Mixte (commerces + logements)",
-    icon: "mixed",
-    defaults: {
-      capRateMin: 4.0, capRateMax: 6.5, capRateDefault: 4.8,
-      vacancyRate: 4, managementFee: 6, maintenanceProvision: 4,
-      insuranceRate: 4, propertyTax: 2,
-      dcfPeriod: 10, discountRateDefault: 6.0, exitCapDefault: 5.5, indexationDefault: 1.8,
-      mlvConjoncturelleDefault: 7, mlvCommercialisationDefault: 5, mlvSpecifiqueDefault: 3,
-    },
-    specificMetrics: ["Ventilation surfaces par usage", "Loyers par composante", "Rendement pondéré"],
-    recommendedMethods: ["Capitalisation par composante", "DCF", "Comparaison (pour la partie résidentielle)"],
-    notes: "Évaluer chaque composante séparément (résidentiel, commercial, parkings) avec ses propres paramètres (cap rate, vacance, ERV), puis additionner. Le cap rate global est la moyenne pondérée par les loyers.",
   },
   {
     id: "land",

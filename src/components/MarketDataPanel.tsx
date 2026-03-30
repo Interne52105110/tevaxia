@@ -33,7 +33,7 @@ function OfficePanel() {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <div className="rounded-lg bg-navy/5 p-2 text-center">
-          <div className="text-[10px] text-muted">Yield prime</div>
+          <div className="text-[10px] text-muted">Rendement prime</div>
           <div className="text-lg font-bold text-navy">{OFFICE_MARKET_SUMMARY.yieldPrime}%</div>
         </div>
         <div className="rounded-lg bg-navy/5 p-2 text-center">
@@ -41,12 +41,12 @@ function OfficePanel() {
           <div className="text-lg font-bold text-navy">{OFFICE_MARKET_SUMMARY.vacanceGlobale}%</div>
         </div>
         <div className="rounded-lg bg-navy/5 p-2 text-center">
-          <div className="text-[10px] text-muted">Take-up {OFFICE_MARKET_SUMMARY.periode}</div>
+          <div className="text-[10px] text-muted">Surfaces louées {OFFICE_MARKET_SUMMARY.periode}</div>
           <div className="text-lg font-bold text-navy">{(OFFICE_MARKET_SUMMARY.takeUpAnnuel / 1000).toFixed(0)}k m²</div>
           <div className="text-[9px] text-success">{OFFICE_MARKET_SUMMARY.takeUpEvolution}</div>
         </div>
         <div className="rounded-lg bg-navy/5 p-2 text-center">
-          <div className="text-[10px] text-muted">Pipeline</div>
+          <div className="text-[10px] text-muted">En construction</div>
           <div className="text-lg font-bold text-navy">{(OFFICE_MARKET_SUMMARY.pipelineEnConstruction / 1000).toFixed(0)}k m²</div>
         </div>
       </div>
@@ -88,11 +88,11 @@ function RetailPanel() {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2">
         <div className="rounded-lg bg-gold/10 p-2 text-center">
-          <div className="text-[10px] text-muted">Yield prime</div>
+          <div className="text-[10px] text-muted">Rendement prime</div>
           <div className="text-lg font-bold text-gold-dark">{RETAIL_MARKET_SUMMARY.yieldPrime}%</div>
         </div>
         <div className="rounded-lg bg-gold/10 p-2 text-center">
-          <div className="text-[10px] text-muted">Taux d'effort moyen</div>
+          <div className="text-[10px] text-muted">Poids du loyer / chiffre d'affaires</div>
           <div className="text-lg font-bold text-gold-dark">{RETAIL_MARKET_SUMMARY.tauxEffortMoyen}</div>
           <div className="text-[9px] text-muted">Loyer / CA locataire</div>
         </div>
@@ -133,7 +133,7 @@ function LogisticsPanel() {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2">
         <div className="rounded-lg bg-teal/10 p-2 text-center">
-          <div className="text-[10px] text-muted">Yield prime</div>
+          <div className="text-[10px] text-muted">Rendement prime</div>
           <div className="text-lg font-bold text-teal">{LOGISTICS_MARKET_SUMMARY.yieldPrime}%</div>
         </div>
         <div className="rounded-lg bg-teal/10 p-2 text-center">
@@ -179,15 +179,15 @@ function HotelPanel() {
           <div className="text-lg font-bold text-purple-700">{(HOTEL_MARKET.nuiteesAnnuelles / 1_000_000).toFixed(1)}M</div>
         </div>
         <div className="rounded-lg bg-purple-50 p-2 text-center">
-          <div className="text-[10px] text-muted">Occupancy (est.)</div>
+          <div className="text-[10px] text-muted">Taux d'occupation (est.)</div>
           <div className="text-lg font-bold text-purple-700">{HOTEL_MARKET.occupancyEstimee}</div>
         </div>
         <div className="rounded-lg bg-purple-50 p-2 text-center">
-          <div className="text-[10px] text-muted">ADR (est.)</div>
+          <div className="text-[10px] text-muted">Prix moyen / nuit (est.)</div>
           <div className="text-lg font-bold text-purple-700">{HOTEL_MARKET.adrEstimee}</div>
         </div>
         <div className="rounded-lg bg-purple-50 p-2 text-center">
-          <div className="text-[10px] text-muted">Yield (est.)</div>
+          <div className="text-[10px] text-muted">Rendement (est.)</div>
           <div className="text-lg font-bold text-purple-700">{HOTEL_MARKET.yieldEstimee}</div>
         </div>
       </div>
@@ -287,12 +287,12 @@ export default function MarketDataPanel({ assetType }: { assetType: AssetType })
     <div className="space-y-4">
       <MacroPanel />
       {(assetType === "office") && <OfficePanel />}
-      {(assetType === "retail" || assetType === "mixed_use") && <RetailPanel />}
+      {(assetType === "retail") && <RetailPanel />}
+      {(assetType === "residential_building") && <><HousesPanel /><RetailPanel /></>}
       {(assetType === "logistics") && <LogisticsPanel />}
       {(assetType === "hotel") && <HotelPanel />}
       {(assetType === "land") && <LandPanel />}
       {(assetType === "residential_house") && <HousesPanel />}
-      {(assetType === "residential_building") && <HousesPanel />}
     </div>
   );
 }

@@ -24,6 +24,8 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">Outils</h3>
             <ul className="space-y-2 text-sm">
+              <li><Link href="/estimation" className="hover:text-white transition-colors">Estimation instantanée</Link></li>
+              <li><Link href="/carte" className="hover:text-white transition-colors">Carte des prix</Link></li>
               <li><Link href="/calculateur-loyer" className="hover:text-white transition-colors">Capital investi & Loyer</Link></li>
               <li><Link href="/frais-acquisition" className="hover:text-white transition-colors">Frais d'acquisition</Link></li>
               <li><Link href="/plus-values" className="hover:text-white transition-colors">Plus-values</Link></li>
