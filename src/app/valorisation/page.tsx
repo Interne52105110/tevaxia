@@ -16,9 +16,9 @@ import {
 } from "@/lib/valuation";
 import {
   rechercherCommune,
-  getMarketDataCommune,
   DATA_SOURCES,
   type MarketDataCommune,
+  type SearchResult,
 } from "@/lib/market-data";
 import {
   ASSET_TYPES,
@@ -27,6 +27,9 @@ import {
   type AssetType,
   type EVSValueType,
 } from "@/lib/asset-types";
+import AdjustmentGuidePanel from "@/components/AdjustmentGuide";
+import MarketDataPanel from "@/components/MarketDataPanel";
+import { calculerAjustDate } from "@/lib/adjustments";
 
 type ActiveTab = "comparaison" | "capitalisation" | "dcf" | "energie" | "mlv" | "reconciliation";
 
@@ -46,15 +49,18 @@ const TABS: { id: ActiveTab; label: string }[] = [
 function TabComparaison({
   surfaceBien,
   onValeur,
+  assetType,
 }: {
   surfaceBien: number;
   onValeur: (v: number) => void;
+  assetType: AssetType;
 }) {
   const [comparables, setComparables] = useState<Comparable[]>([]);
   const [communeSearch, setCommuneSearch] = useState("");
-  const [selectedCommune, setSelectedCommune] = useState<MarketDataCommune | null>(null);
+  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
 
   const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
+  const selectedCommune = selectedResult?.commune ?? null;
 
   const result = useMemo(() => {
     if (comparables.length === 0) {
@@ -89,11 +95,6 @@ function TabComparaison({
     setComparables((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const selectCommune = (c: MarketDataCommune) => {
-    setSelectedCommune(c);
-    setCommuneSearch(c.commune);
-  };
-
   return (
     <div className="space-y-6">
       {/* Références de marché — données publiques */}
@@ -105,21 +106,32 @@ function TabComparaison({
           <input
             type="text"
             value={communeSearch}
-            onChange={(e) => { setCommuneSearch(e.target.value); if (!e.target.value) setSelectedCommune(null); }}
-            placeholder="Rechercher une commune..."
+            onChange={(e) => { setCommuneSearch(e.target.value); if (!e.target.value) setSelectedResult(null); }}
+            placeholder="Rechercher une commune ou localité (ex: Bourglinster, Kirchberg, Howald...)"
             className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2.5 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
           />
-          {communeSearch.length >= 2 && searchResults.length > 0 && !selectedCommune && (
-            <div className="absolute z-10 mt-1 w-full rounded-lg border border-card-border bg-card shadow-lg max-h-48 overflow-y-auto">
-              {searchResults.map((c) => (
+          {communeSearch.length >= 2 && searchResults.length > 0 && !selectedResult && (
+            <div className="absolute z-10 mt-1 w-full rounded-lg border border-card-border bg-card shadow-lg max-h-60 overflow-y-auto">
+              {searchResults.map((r) => (
                 <button
-                  key={c.commune}
-                  onClick={() => selectCommune(c)}
+                  key={r.commune.commune + r.matchedOn}
+                  onClick={() => { setSelectedResult(r); setCommuneSearch(r.isLocalite ? `${r.matchedOn} (${r.commune.commune})` : r.commune.commune); }}
                   className="w-full px-3 py-2 text-left text-sm hover:bg-background transition-colors"
                 >
-                  <span className="font-medium">{c.commune}</span>
-                  <span className="text-muted ml-2">({c.canton})</span>
-                  {c.prixM2Existant && <span className="float-right font-mono text-navy">{formatEUR(c.prixM2Existant)}/m²</span>}
+                  {r.isLocalite ? (
+                    <>
+                      <span className="font-medium">{r.matchedOn}</span>
+                      <span className="text-muted ml-1">— {r.quartier ? "quartier de" : "commune de"} {r.commune.commune}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="font-medium">{r.commune.commune}</span>
+                      <span className="text-muted ml-2">({r.commune.canton})</span>
+                    </>
+                  )}
+                  <span className="float-right font-mono text-navy">
+                    {r.quartier ? formatEUR(r.quartier.prixM2) : r.commune.prixM2Existant ? formatEUR(r.commune.prixM2Existant) : "—"}/m²
+                  </span>
                 </button>
               ))}
             </div>
@@ -127,7 +139,37 @@ function TabComparaison({
         </div>
 
         {selectedCommune && (
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-4">
+            {selectedResult?.isLocalite && (
+              <p className="text-xs text-muted mb-2">
+                <span className="font-medium text-slate">{selectedResult.matchedOn}</span> — {selectedResult.quartier ? "quartier de" : "commune de"} <span className="font-medium text-slate">{selectedCommune.commune}</span> ({selectedCommune.canton}).
+                {selectedResult.quartier && (
+                  <span className="ml-1 text-slate">{selectedResult.quartier.note}</span>
+                )}
+              </p>
+            )}
+
+            {/* Prix quartier spécifique si dispo */}
+            {selectedResult?.quartier && (
+              <div className="mb-3 rounded-lg border-2 border-navy/20 bg-navy/5 p-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-sm font-semibold text-navy">{selectedResult.quartier.nom}</div>
+                    <div className="text-xs text-muted">{selectedResult.quartier.note}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-bold text-navy">{formatEUR(selectedResult.quartier.prixM2)}/m²</div>
+                    {selectedResult.quartier.loyerM2 && (
+                      <div className="text-xs text-muted">Loyer : {selectedResult.quartier.loyerM2.toFixed(1)} €/m²/mois</div>
+                    )}
+                    <div className={`text-xs font-medium ${selectedResult.quartier.tendance === "hausse" ? "text-success" : selectedResult.quartier.tendance === "baisse" ? "text-error" : "text-muted"}`}>
+                      Tendance : {selectedResult.quartier.tendance}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="rounded-lg bg-navy/5 p-3 text-center">
               <div className="text-xs text-muted">Prix /m² transactions</div>
               <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "—"}</div>
@@ -148,6 +190,7 @@ function TabComparaison({
               <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "—"}</div>
               <div className="text-[10px] text-muted">Annonces — données agrégées</div>
             </div>
+            </div>
           </div>
         )}
 
@@ -157,7 +200,52 @@ function TabComparaison({
             <span>{selectedCommune.source}</span>
           </div>
         )}
+
+        {/* Grille quartiers si disponible */}
+        {selectedCommune?.quartiers && selectedCommune.quartiers.length > 0 && (
+          <div className="mt-4">
+            <h3 className="text-xs font-semibold text-navy mb-2">Prix par quartier — {selectedCommune.commune}</h3>
+            <div className="rounded-lg border border-card-border bg-card shadow-sm overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-card-border bg-background">
+                    <th className="px-3 py-2 text-left font-semibold text-navy">Quartier</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">€/m²</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">Loyer/m²</th>
+                    <th className="px-3 py-2 text-center font-semibold text-navy">Tendance</th>
+                    <th className="px-3 py-2 text-left font-semibold text-navy">Caractéristique</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedCommune.quartiers
+                    .sort((a, b) => b.prixM2 - a.prixM2)
+                    .map((qr) => (
+                    <tr key={qr.nom} className={`border-b border-card-border/50 hover:bg-background/50 ${selectedResult?.quartier?.nom === qr.nom ? "bg-navy/5" : ""}`}>
+                      <td className="px-3 py-1.5 font-medium">{qr.nom}</td>
+                      <td className="px-3 py-1.5 text-right font-mono font-semibold">{formatEUR(qr.prixM2)}</td>
+                      <td className="px-3 py-1.5 text-right font-mono text-muted">{qr.loyerM2 ? `${qr.loyerM2.toFixed(1)} €` : "—"}</td>
+                      <td className="px-3 py-1.5 text-center">
+                        <span className={`inline-block rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
+                          qr.tendance === "hausse" ? "bg-green-100 text-green-700" :
+                          qr.tendance === "baisse" ? "bg-red-100 text-red-700" :
+                          "bg-gray-100 text-gray-600"
+                        }`}>{qr.tendance}</span>
+                      </td>
+                      <td className="px-3 py-1.5 text-muted">{qr.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-1 text-[10px] text-muted">Source : Observatoire de l'Habitat — prix annoncés par quartier. Données indicatives, triées par prix décroissant.</p>
+          </div>
+        )}
       </div>
+
+      {/* Données marché par segment (non-résidentiel) */}
+      {assetType !== "residential_apartment" && (
+        <MarketDataPanel assetType={assetType} />
+      )}
 
       {/* Sources de données */}
       <div className="rounded-lg border border-card-border bg-card p-4 shadow-sm">
@@ -224,15 +312,55 @@ function TabComparaison({
                 <InputField label="Date vente" type="text" value={comp.dateVente} onChange={(v) => updateComp(i, "dateVente", v)} hint="AAAA-MM" />
               </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                <InputField label="Localisation" value={comp.ajustLocalisation} onChange={(v) => updateComp(i, "ajustLocalisation", v)} suffix="%" step={0.5} />
-                <InputField label="État" value={comp.ajustEtat} onChange={(v) => updateComp(i, "ajustEtat", v)} suffix="%" step={0.5} />
-                <InputField label="Étage / Vue" value={comp.ajustEtage} onChange={(v) => updateComp(i, "ajustEtage", v)} suffix="%" step={0.5} />
-                <InputField label="Extérieur" value={comp.ajustExterieur} onChange={(v) => updateComp(i, "ajustExterieur", v)} suffix="%" step={0.5} />
-                <InputField label="Parking" value={comp.ajustParking} onChange={(v) => updateComp(i, "ajustParking", v)} suffix="%" step={0.5} />
-                <InputField label="Date (index.)" value={comp.ajustDate} onChange={(v) => updateComp(i, "ajustDate", v)} suffix="%" step={0.5} />
-                <InputField label="Autre" value={comp.ajustAutre} onChange={(v) => updateComp(i, "ajustAutre", v)} suffix="%" step={0.5} />
-                <InputField label="Poids" value={comp.poids} onChange={(v) => updateComp(i, "poids", v)} suffix="%" min={0} max={100} />
+              {/* Ajustements avec guides statistiques */}
+              <div className="mt-4 space-y-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-semibold text-navy">Ajustements</span>
+                  <span className="text-[10px] text-muted">Cliquez sur une suggestion pour appliquer la valeur</span>
+                </div>
+
+                <div className="grid gap-3 lg:grid-cols-2">
+                  {/* Localisation */}
+                  <div className="flex gap-2">
+                    <InputField label="Localisation" value={comp.ajustLocalisation} onChange={(v) => updateComp(i, "ajustLocalisation", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <AdjustmentGuidePanel critere="localisation" currentValue={comp.ajustLocalisation} onApply={(v) => updateComp(i, "ajustLocalisation", v)} />
+                  </div>
+
+                  {/* État */}
+                  <div className="flex gap-2">
+                    <InputField label="État" value={comp.ajustEtat} onChange={(v) => updateComp(i, "ajustEtat", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <AdjustmentGuidePanel critere="etat" currentValue={comp.ajustEtat} onApply={(v) => updateComp(i, "ajustEtat", v)} />
+                  </div>
+
+                  {/* Étage */}
+                  <div className="flex gap-2">
+                    <InputField label="Étage / Vue" value={comp.ajustEtage} onChange={(v) => updateComp(i, "ajustEtage", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <AdjustmentGuidePanel critere="etage" currentValue={comp.ajustEtage} onApply={(v) => updateComp(i, "ajustEtage", v)} />
+                  </div>
+
+                  {/* Extérieur */}
+                  <div className="flex gap-2">
+                    <InputField label="Extérieur" value={comp.ajustExterieur} onChange={(v) => updateComp(i, "ajustExterieur", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <AdjustmentGuidePanel critere="exterieur" currentValue={comp.ajustExterieur} onApply={(v) => updateComp(i, "ajustExterieur", v)} />
+                  </div>
+
+                  {/* Parking */}
+                  <div className="flex gap-2">
+                    <InputField label="Parking" value={comp.ajustParking} onChange={(v) => updateComp(i, "ajustParking", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <AdjustmentGuidePanel critere="parking" currentValue={comp.ajustParking} onApply={(v) => updateComp(i, "ajustParking", v)} />
+                  </div>
+
+                  {/* Date — avec auto-calcul STATEC */}
+                  <div className="flex gap-2">
+                    <InputField label="Date (index.)" value={comp.ajustDate} onChange={(v) => updateComp(i, "ajustDate", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <AdjustmentGuidePanel critere="date" currentValue={comp.ajustDate} onApply={(v) => updateComp(i, "ajustDate", v)} dateVente={comp.dateVente} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  <InputField label="Autre ajustement" value={comp.ajustAutre} onChange={(v) => updateComp(i, "ajustAutre", v)} suffix="%" step={0.5} hint="Libre — justifier" />
+                  <InputField label="Poids" value={comp.poids} onChange={(v) => updateComp(i, "poids", v)} suffix="%" min={0} max={100} hint="Pondération dans la moyenne" />
+                </div>
               </div>
             </div>
           ))}
@@ -1084,7 +1212,7 @@ export default function Valorisation() {
           ))}
         </div>
 
-        {activeTab === "comparaison" && <TabComparaison surfaceBien={surfaceBien} onValeur={onValeurComp} />}
+        {activeTab === "comparaison" && <TabComparaison surfaceBien={surfaceBien} onValeur={onValeurComp} assetType={assetType} />}
         {activeTab === "capitalisation" && <TabCapitalisation onValeur={onValeurCap} />}
         {activeTab === "dcf" && <TabDCF onValeur={onValeurDCF} />}
         {activeTab === "energie" && <TabEnergie valeurMarcheCible={valeurMarchePourMLV} />}

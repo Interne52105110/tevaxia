@@ -51,24 +51,26 @@ export default function CookieBanner() {
         <p className="text-sm text-slate leading-relaxed">
           Ce site utilise des cookies de mesure d'audience (Google Analytics) pour
           améliorer votre expérience. Aucune donnée personnelle n'est collectée via
-          les calculateurs.{" "}
-          <a href="/confidentialite" className="text-navy font-medium hover:underline">
+          les calculateurs.
+        </p>
+        <div className="mt-4 flex items-center justify-between">
+          <a href="/confidentialite" className="text-xs text-muted hover:text-navy hover:underline transition-colors">
             Politique de confidentialité
           </a>
-        </p>
-        <div className="mt-4 flex gap-3">
-          <button
-            onClick={accept}
-            className="rounded-lg bg-navy px-5 py-2 text-sm font-medium text-white hover:bg-navy-light transition-colors"
-          >
-            Accepter
-          </button>
-          <button
-            onClick={refuse}
-            className="rounded-lg border border-card-border px-5 py-2 text-sm font-medium text-muted hover:bg-background transition-colors"
-          >
-            Refuser
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={refuse}
+              className="rounded-lg border border-card-border px-5 py-2 text-sm font-medium text-muted hover:bg-background transition-colors"
+            >
+              Refuser
+            </button>
+            <button
+              onClick={accept}
+              className="rounded-lg bg-navy px-5 py-2 text-sm font-medium text-white hover:bg-navy-light transition-colors"
+            >
+              Accepter
+            </button>
+          </div>
         </div>
       </div>
     </div>

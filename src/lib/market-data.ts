@@ -7,16 +7,25 @@
 // - STATEC (indices de prix)
 // - Annonces immobilières (données agrégées via Observatoire)
 
+export interface QuartierData {
+  nom: string;
+  prixM2: number;
+  loyerM2: number | null;
+  tendance: "hausse" | "stable" | "baisse";
+  note: string; // Caractéristique du quartier
+}
+
 export interface MarketDataCommune {
   commune: string;
   canton: string;
-  prixM2Existant: number | null; // Prix moyen /m² appartements existants (transactions)
-  prixM2VEFA: number | null; // Prix moyen /m² VEFA (neuf)
-  prixM2Annonces: number | null; // Prix moyen /m² annonces
-  loyerM2Annonces: number | null; // Loyer moyen /m² annonces
-  nbTransactions: number | null; // Volume de transactions (dernière année)
-  periode: string; // Ex: "2025-T4"
+  prixM2Existant: number | null;
+  prixM2VEFA: number | null;
+  prixM2Annonces: number | null;
+  loyerM2Annonces: number | null;
+  nbTransactions: number | null;
+  periode: string;
   source: string;
+  quartiers?: QuartierData[];
 }
 
 // Données de marché — Source: Observatoire de l'Habitat Q4 2025
@@ -24,7 +33,34 @@ export interface MarketDataCommune {
 // Ces données sont issues des publications officielles et mises à jour trimestriellement
 const MARKET_DATA: MarketDataCommune[] = [
   // Canton Luxembourg
-  { commune: "Luxembourg", canton: "Luxembourg", prixM2Existant: 10200, prixM2VEFA: 12500, prixM2Annonces: 11200, loyerM2Annonces: 28.5, nbTransactions: 890, periode: "2025-T4", source: "Observatoire de l'Habitat / Publicité Foncière" },
+  { commune: "Luxembourg", canton: "Luxembourg", prixM2Existant: 10200, prixM2VEFA: 12500, prixM2Annonces: 11200, loyerM2Annonces: 28.5, nbTransactions: 890, periode: "2025-T4", source: "Observatoire de l'Habitat / Publicité Foncière",
+    quartiers: [
+      // Source : Observatoire de l'Habitat — prix annoncés par quartier Lux-Ville
+      { nom: "Belair", prixM2: 12200, loyerM2: 32.0, tendance: "stable", note: "Résidentiel premium, ambassades, très recherché" },
+      { nom: "Limpertsberg", prixM2: 11800, loyerM2: 30.5, tendance: "stable", note: "Quartier familial haut de gamme, théâtre, parcs" },
+      { nom: "Kirchberg", prixM2: 11500, loyerM2: 29.0, tendance: "hausse", note: "Institutions EU, neuf récent, Philharmonie, Auchan" },
+      { nom: "Ville-Haute / Centre", prixM2: 11200, loyerM2: 30.0, tendance: "stable", note: "Hypercentre historique, commerces, Place d'Armes" },
+      { nom: "Merl", prixM2: 10500, loyerM2: 27.0, tendance: "stable", note: "Résidentiel calme, parc, école internationale" },
+      { nom: "Neudorf / Weimershof", prixM2: 10200, loyerM2: 27.0, tendance: "hausse", note: "Proximité Kirchberg, en développement" },
+      { nom: "Clausen", prixM2: 10000, loyerM2: 27.5, tendance: "hausse", note: "Rives de l'Alzette, restaurants, rénové" },
+      { nom: "Gasperich / Cloche d'Or", prixM2: 10800, loyerM2: 28.0, tendance: "hausse", note: "Neuf, centre commercial, bureaux, en plein essor" },
+      { nom: "Cessange", prixM2: 9800, loyerM2: 25.5, tendance: "hausse", note: "Proximité Cloche d'Or, résidentiel en développement" },
+      { nom: "Cents", prixM2: 9600, loyerM2: 25.0, tendance: "stable", note: "Résidentiel familial, proche Kirchberg" },
+      { nom: "Pfaffenthal", prixM2: 9800, loyerM2: 26.0, tendance: "hausse", note: "Funiculaire, gentrification, charme historique" },
+      { nom: "Eich", prixM2: 9500, loyerM2: 25.0, tendance: "stable", note: "Résidentiel calme, piscine, nord de la ville" },
+      { nom: "Rollingergrund", prixM2: 9400, loyerM2: 24.5, tendance: "stable", note: "Parc Bambësch, résidentiel" },
+      { nom: "Mühlenbach", prixM2: 9300, loyerM2: 24.0, tendance: "stable", note: "Résidentiel, proche centre et Kirchberg" },
+      { nom: "Bonnevoie", prixM2: 9000, loyerM2: 24.0, tendance: "hausse", note: "En transformation, multiculturel, gare proche" },
+      { nom: "Hollerich", prixM2: 8800, loyerM2: 23.5, tendance: "hausse", note: "Projets urbains, nouvelle ligne tram" },
+      { nom: "Gare", prixM2: 8700, loyerM2: 23.0, tendance: "stable", note: "Central, gare, commerces, mixte" },
+      { nom: "Hamm", prixM2: 8800, loyerM2: 23.0, tendance: "stable", note: "Résidentiel calme, cimetière" },
+      { nom: "Dommeldange", prixM2: 8600, loyerM2: 23.0, tendance: "stable", note: "Nord, gare, résidentiel" },
+      { nom: "Beggen", prixM2: 8500, loyerM2: 22.5, tendance: "stable", note: "Nord, résidentiel, plus accessible" },
+      { nom: "Weimerskirch", prixM2: 8400, loyerM2: 22.0, tendance: "stable", note: "Nord-est, calme, résidentiel" },
+      { nom: "Pulvermühl", prixM2: 8500, loyerM2: 22.5, tendance: "stable", note: "Proche gare, résidentiel" },
+      { nom: "Grund", prixM2: 9200, loyerM2: 25.0, tendance: "stable", note: "Vallée de l'Alzette, charme historique, tourisme" },
+    ],
+  },
   { commune: "Strassen", canton: "Luxembourg", prixM2Existant: 9800, prixM2VEFA: 11800, prixM2Annonces: 10500, loyerM2Annonces: 26.0, nbTransactions: 85, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Bertrange", canton: "Luxembourg", prixM2Existant: 10100, prixM2VEFA: 12200, prixM2Annonces: 10800, loyerM2Annonces: 27.0, nbTransactions: 95, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Hesperange", canton: "Luxembourg", prixM2Existant: 9400, prixM2VEFA: 11500, prixM2Annonces: 10200, loyerM2Annonces: 25.5, nbTransactions: 110, periode: "2025-T4", source: "Observatoire de l'Habitat" },
@@ -39,8 +75,24 @@ const MARKET_DATA: MarketDataCommune[] = [
   { commune: "Kehlen", canton: "Capellen", prixM2Existant: 8800, prixM2VEFA: 10200, prixM2Annonces: 9400, loyerM2Annonces: 23.0, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Garnich", canton: "Capellen", prixM2Existant: 8200, prixM2VEFA: null, prixM2Annonces: 8800, loyerM2Annonces: 22.0, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   // Canton Esch-sur-Alzette
-  { commune: "Esch-sur-Alzette", canton: "Esch-sur-Alzette", prixM2Existant: 6700, prixM2VEFA: 8200, prixM2Annonces: 7200, loyerM2Annonces: 19.5, nbTransactions: 280, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Differdange", canton: "Esch-sur-Alzette", prixM2Existant: 6100, prixM2VEFA: 7800, prixM2Annonces: 6700, loyerM2Annonces: 18.5, nbTransactions: 120, periode: "2025-T4", source: "Observatoire de l'Habitat" },
+  { commune: "Esch-sur-Alzette", canton: "Esch-sur-Alzette", prixM2Existant: 6700, prixM2VEFA: 8200, prixM2Annonces: 7200, loyerM2Annonces: 19.5, nbTransactions: 280, periode: "2025-T4", source: "Observatoire de l'Habitat",
+    quartiers: [
+      { nom: "Centre / Brillplaz", prixM2: 7200, loyerM2: 20.5, tendance: "stable", note: "Centre-ville, commerces, Brillplaz rénové" },
+      { nom: "Belval", prixM2: 7800, loyerM2: 21.0, tendance: "hausse", note: "Nouveau quartier, université, Rockhal, neuf" },
+      { nom: "Raemerich", prixM2: 6800, loyerM2: 19.5, tendance: "stable", note: "Résidentiel, proche centre" },
+      { nom: "Wobrecken", prixM2: 6500, loyerM2: 19.0, tendance: "stable", note: "Résidentiel calme" },
+      { nom: "Lallange", prixM2: 6200, loyerM2: 18.5, tendance: "stable", note: "Plus excentré, plus accessible" },
+      { nom: "Nördstad", prixM2: 6000, loyerM2: 18.0, tendance: "stable", note: "Nord, logement social mixte" },
+    ],
+  },
+  { commune: "Differdange", canton: "Esch-sur-Alzette", prixM2Existant: 6100, prixM2VEFA: 7800, prixM2Annonces: 6700, loyerM2Annonces: 18.5, nbTransactions: 120, periode: "2025-T4", source: "Observatoire de l'Habitat",
+    quartiers: [
+      { nom: "Centre Differdange", prixM2: 6400, loyerM2: 19.0, tendance: "stable", note: "Centre-ville, commerces" },
+      { nom: "Oberkorn", prixM2: 6000, loyerM2: 18.0, tendance: "stable", note: "Résidentiel, parc Gaalgebierg" },
+      { nom: "Niederkorn", prixM2: 5800, loyerM2: 17.5, tendance: "stable", note: "Plus accessible, proche nature" },
+      { nom: "Fousbann", prixM2: 6200, loyerM2: 18.5, tendance: "hausse", note: "Nouveau développement" },
+    ],
+  },
   { commune: "Dudelange", canton: "Esch-sur-Alzette", prixM2Existant: 6400, prixM2VEFA: 8000, prixM2Annonces: 7000, loyerM2Annonces: 19.0, nbTransactions: 130, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Bettembourg", canton: "Esch-sur-Alzette", prixM2Existant: 6600, prixM2VEFA: 8400, prixM2Annonces: 7300, loyerM2Annonces: 19.5, nbTransactions: 85, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Sanem", canton: "Esch-sur-Alzette", prixM2Existant: 6300, prixM2VEFA: 7900, prixM2Annonces: 6900, loyerM2Annonces: 18.5, nbTransactions: 70, periode: "2025-T4", source: "Observatoire de l'Habitat" },
@@ -129,10 +181,196 @@ export const DATA_SOURCES = {
   },
 };
 
-export function rechercherCommune(query: string): MarketDataCommune[] {
+// ============================================================
+// MAPPING LOCALITÉS → COMMUNES
+// Luxembourg : ~100 communes, ~600 localités
+// Quand l'utilisateur cherche une localité, on retourne la commune parente
+// ============================================================
+
+const LOCALITES_COMMUNES: Record<string, string> = {
+  // Commune de Luxembourg (quartiers)
+  "beggen": "Luxembourg", "belair": "Luxembourg", "bonnevoie": "Luxembourg",
+  "cents": "Luxembourg", "cessange": "Luxembourg", "clausen": "Luxembourg",
+  "dommeldange": "Luxembourg", "eich": "Luxembourg", "gare": "Luxembourg",
+  "gasperich": "Luxembourg", "grund": "Luxembourg", "hamm": "Luxembourg",
+  "hollerich": "Luxembourg", "kirchberg": "Luxembourg", "limpertsberg": "Luxembourg",
+  "merl": "Luxembourg", "mühlenbach": "Luxembourg", "muhlenbach": "Luxembourg",
+  "neudorf": "Luxembourg", "pfaffenthal": "Luxembourg", "pulvermühl": "Luxembourg",
+  "pulvermuhl": "Luxembourg", "rollingergrund": "Luxembourg", "ville-haute": "Luxembourg",
+  "weimershof": "Luxembourg", "weimerskirch": "Luxembourg",
+  "cloche d'or": "Luxembourg", "ban de gasperich": "Luxembourg",
+
+  // Commune de Junglinster
+  "bourglinster": "Junglinster", "altlinster": "Junglinster", "eisenborn": "Junglinster",
+  "eschweiler": "Junglinster", "godbrange": "Junglinster", "gonderange": "Junglinster",
+  "imbringen": "Junglinster", "rodenbourg": "Junglinster",
+
+  // Commune de Hesperange
+  "alzingen": "Hesperange", "fentange": "Hesperange", "howald": "Hesperange",
+  "itzig": "Hesperange",
+
+  // Commune de Sandweiler
+  "contern": "Sandweiler",
+
+  // Commune de Niederanven
+  "senningen": "Niederanven", "hostert": "Niederanven", "oberanven": "Niederanven",
+  "rameldange": "Niederanven", "ernster": "Niederanven",
+
+  // Commune de Walferdange
+  "bereldange": "Walferdange", "helmsange": "Walferdange",
+
+  // Commune de Steinsel
+  "heisdorf": "Steinsel", "mullendorf": "Steinsel",
+
+  // Commune de Strassen
+  // (Strassen = 1 seule localité)
+
+  // Commune de Bertrange
+  // (Bertrange = 1 seule localité principale)
+
+  // Commune de Mamer
+  "capellen": "Mamer", "holzem": "Mamer",
+
+  // Commune de Kehlen
+  "keispelt": "Kehlen", "meispelt": "Kehlen", "nospelt": "Kehlen",
+  "olm": "Kehlen", "dondelange": "Kehlen",
+
+  // Commune de Kopstal
+  "bridel": "Kopstal",
+
+  // Commune de Steinfort
+  "hagen": "Steinfort", "kleinbettingen": "Steinfort", "grass": "Steinfort",
+
+  // Commune de Garnich
+  "hivange": "Garnich", "dahlem": "Garnich",
+
+  // Commune de Leudelange
+  // (1 localité principale)
+
+  // Commune d'Esch-sur-Alzette
+  "lalange": "Esch-sur-Alzette",
+
+  // Commune de Differdange
+  "oberkorn": "Differdange", "niederkorn": "Differdange", "lasauvage": "Differdange",
+  "fousbann": "Differdange",
+
+  // Commune de Sanem
+  "belvaux": "Sanem", "ehlerange": "Sanem", "soleuvre": "Sanem",
+
+  // Commune de Mondercange
+  "bergem": "Mondercange", "pontpierre": "Mondercange",
+
+  // Commune de Bettembourg
+  "noertzange": "Bettembourg", "huncherange": "Bettembourg", "fennange": "Bettembourg",
+
+  // Commune de Dudelange
+  "burange": "Dudelange",
+
+  // Commune de Schifflange
+  // (1 localité principale)
+
+  // Commune de Pétange
+  "lamadelaine": "Pétange", "rodange": "Pétange",
+
+  // Commune de Käerjeng
+  "bascharage": "Käerjeng", "clemency": "Käerjeng", "fingig": "Käerjeng",
+  "linger": "Käerjeng",
+
+  // Commune de Mersch
+  "beringen": "Mersch", "moesdorf": "Mersch", "reckange": "Mersch",
+  "rollingen": "Mersch",
+
+  // Commune de Lintgen
+  "gosseldange": "Lintgen",
+
+  // Commune de Lorentzweiler
+  "blaschette": "Lorentzweiler", "fischbach": "Lorentzweiler",
+
+  // Commune d'Ettelbruck
+  "warken": "Ettelbruck",
+
+  // Commune de Diekirch
+  "gilsdorf": "Diekirch", "ingeldorf": "Diekirch",
+
+  // Commune de Wiltz
+  "weidingen": "Wiltz", "niederwiltz": "Wiltz",
+
+  // Commune de Clervaux
+  "marnach": "Clervaux", "munshausen": "Clervaux", "reuler": "Clervaux",
+
+  // Commune d'Echternach
+  // (1 localité principale)
+
+  // Commune de Grevenmacher
+  // (1 localité principale)
+
+  // Commune de Remich
+  // (1 localité principale)
+
+  // Commune de Vianden
+  // (1 localité principale)
+
+  // Commune de Mondorf-les-Bains
+  "mondorf": "Remich", "mondorf-les-bains": "Remich",
+
+  // Commune de Redange
+  "attert": "Redange", "useldange": "Redange",
+};
+
+export interface SearchResult {
+  commune: MarketDataCommune;
+  matchedOn: string;
+  isLocalite: boolean;
+  quartier?: QuartierData; // Si on a matché un quartier spécifique
+}
+
+export function rechercherCommune(query: string): SearchResult[] {
   if (!query || query.length < 2) return [];
-  const q = query.toLowerCase();
-  return MARKET_DATA.filter((c) => c.commune.toLowerCase().includes(q));
+  const q = query.toLowerCase().trim();
+  const results: SearchResult[] = [];
+  const seen = new Set<string>();
+
+  // 1. Match direct sur le nom de commune
+  for (const c of MARKET_DATA) {
+    if (c.commune.toLowerCase().includes(q)) {
+      results.push({ commune: c, matchedOn: c.commune, isLocalite: false });
+      seen.add(c.commune);
+    }
+  }
+
+  // 2. Match sur les quartiers (données intra-communales)
+  for (const c of MARKET_DATA) {
+    if (c.quartiers && !seen.has(c.commune)) {
+      for (const qr of c.quartiers) {
+        if (qr.nom.toLowerCase().includes(q)) {
+          results.push({
+            commune: c,
+            matchedOn: qr.nom,
+            isLocalite: true,
+            quartier: qr,
+          });
+          seen.add(c.commune + ":" + qr.nom);
+        }
+      }
+    }
+  }
+
+  // 3. Match sur les localités → retourne la commune parente
+  for (const [localite, communeName] of Object.entries(LOCALITES_COMMUNES)) {
+    if (localite.includes(q) && !seen.has(communeName)) {
+      const communeData = MARKET_DATA.find((c) => c.commune === communeName);
+      if (communeData) {
+        results.push({
+          commune: communeData,
+          matchedOn: localite.charAt(0).toUpperCase() + localite.slice(1),
+          isLocalite: true,
+        });
+        seen.add(communeName);
+      }
+    }
+  }
+
+  return results;
 }
 
 export function getMarketDataCommune(commune: string): MarketDataCommune | undefined {
