@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "estimation": "Estimation",
+    "carte": "Carte des prix",
+    "valorisation": "Valorisation EVS",
+    "loyer": "Loyer",
+    "frais": "Frais",
+    "plusValues": "Plus-Values",
+    "aides": "Aides",
+    "achatLocation": "Achat vs Location",
+    "bilanPromoteur": "Bilan Promoteur",
+    "dcfMulti": "DCF Multi",
+    "bancaire": "Bancaire"
+  },
+  "common": {
+    "language": "Langue",
+    "french": "Français",
+    "english": "English",
+    "tools": "Outils",
+    "legal": "Légal",
+    "contact": "Contact",
+    "legalNotice": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "disclaimer": "Les calculs sont fournis à titre indicatif et ne constituent pas un conseil juridique, fiscal ou en évaluation.",
+    "suggestionText": "Suggestion d'outil, signalement d'erreur, question — on répond.",
+    "reset": "Réinitialiser",
+    "pdfReport": "Rapport PDF",
+    "copyLink": "Copier le lien",
+    "linkCopied": "Lien copié !"
+  },
+  "home": {
+    "heroTitle": "L'immobilier luxembourgeois,",
+    "heroHighlight": "calculé avec précision",
+    "heroDescription": "Outils de calcul, de simulation et base pratique pour les professionnels de l'immobilier au Luxembourg. Capital investi, frais d'acquisition, plus-values, aides étatiques — tout en un seul endroit.",
+    "missingTool": "Un outil vous manque ?",
+    "missingToolDescription": "tevaxia.lu est en construction active. Si vous avez besoin d'un calculateur spécifique, d'une fonctionnalité pour votre pratique professionnelle, ou si vous constatez une erreur dans nos calculs — faites-le nous savoir.",
+    "upcomingModules": "Prochains modules prévus",
+    "dataSources": "Sources de données intégrées"
+  },
+  "footer": {
+    "toolsTitle": "Outils",
+    "legalTitle": "Légal",
+    "contactTitle": "Contact"
+  }
+}

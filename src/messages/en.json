@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "estimation": "Estimation",
+    "carte": "Price Map",
+    "valorisation": "Valuation EVS",
+    "loyer": "Rent Cap",
+    "frais": "Acquisition Fees",
+    "plusValues": "Capital Gains",
+    "aides": "Subsidies",
+    "achatLocation": "Buy vs Rent",
+    "bilanPromoteur": "Developer P&L",
+    "dcfMulti": "Multi-tenant DCF",
+    "bancaire": "Banking"
+  },
+  "common": {
+    "language": "Language",
+    "french": "Français",
+    "english": "English",
+    "tools": "Tools",
+    "legal": "Legal",
+    "contact": "Contact",
+    "legalNotice": "Legal Notice",
+    "privacy": "Privacy Policy",
+    "disclaimer": "Calculations are provided for informational purposes only and do not constitute legal, tax, or valuation advice.",
+    "suggestionText": "Tool suggestion, error report, question — we respond.",
+    "reset": "Reset",
+    "pdfReport": "PDF Report",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!"
+  },
+  "home": {
+    "heroTitle": "Luxembourg real estate,",
+    "heroHighlight": "calculated with precision",
+    "heroDescription": "Calculation tools, simulators and practical reference for real estate professionals in Luxembourg. Rent caps, acquisition fees, capital gains, state subsidies — all in one place.",
+    "missingTool": "Missing a tool?",
+    "missingToolDescription": "tevaxia.lu is under active development. If you need a specific calculator, a feature for your professional practice, or if you find an error in our calculations — let us know.",
+    "upcomingModules": "Upcoming modules",
+    "dataSources": "Integrated data sources"
+  },
+  "footer": {
+    "toolsTitle": "Tools",
+    "legalTitle": "Legal",
+    "contactTitle": "Contact"
+  }
+}

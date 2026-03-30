@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const NAV_ITEMS = [
   { href: "/estimation", label: "Estimation" },
@@ -46,6 +47,8 @@ export default function Header() {
               </Link>
             ))}
           </nav>
+
+          <LanguageSwitcher />
 
           {/* Mobile menu button */}
           <button
