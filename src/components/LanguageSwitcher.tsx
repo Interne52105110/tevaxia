@@ -1,45 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-export function useLocale(): string {
-  const [locale, setLocale] = useState("fr");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("tevaxia_locale") || "fr";
-    setLocale(saved);
-  }, []);
-
-  return locale;
-}
-
-export function setLocale(locale: string) {
-  localStorage.setItem("tevaxia_locale", locale);
-  document.cookie = `locale=${locale};path=/;max-age=31536000`;
-  window.location.reload();
-}
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function LanguageSwitcher() {
-  const locale = useLocale();
+  const pathname = usePathname();
+
+  // Extract current locale and path without locale
+  const currentLocale = pathname.startsWith("/en") ? "en" : "fr";
+  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, "") || "/";
 
   return (
     <div className="flex gap-0.5 rounded-lg bg-white/10 p-0.5">
-      <button
-        onClick={() => setLocale("fr")}
+      <Link
+        href={`/fr${pathWithoutLocale}`}
         className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
-          locale === "fr" ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
+          currentLocale === "fr" ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
         }`}
       >
         FR
-      </button>
-      <button
-        onClick={() => setLocale("en")}
+      </Link>
+      <Link
+        href={`/en${pathWithoutLocale}`}
         className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
-          locale === "en" ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
+          currentLocale === "en" ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
         }`}
       >
         EN
-      </button>
+      </Link>
     </div>
   );
 }
