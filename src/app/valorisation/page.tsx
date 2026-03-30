@@ -34,6 +34,7 @@ import AdjustmentGuidePanel from "@/components/AdjustmentGuide";
 import MarketDataPanel from "@/components/MarketDataPanel";
 import { calculerAjustDate } from "@/lib/adjustments";
 import { downloadReport } from "@/components/ValuationReport";
+import { genererNarrative } from "@/lib/narrative";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
 
@@ -1277,10 +1278,18 @@ function TabReconciliation({
   valeurComparaison,
   valeurCapitalisation,
   valeurDCF,
+  selectedCommune,
+  assetType,
+  evsInfo,
+  surfaceBien,
 }: {
   valeurComparaison: number;
   valeurCapitalisation: number;
   valeurDCF: number;
+  selectedCommune: MarketDataCommune | null;
+  assetType: string;
+  evsInfo: { label: string };
+  surfaceBien: number;
 }) {
   const [poidsComp, setPoidsComp] = useState(50);
   const [poidsCap, setPoidsCap] = useState(25);
@@ -1421,6 +1430,29 @@ function TabReconciliation({
           plus fine, utilisez les matrices de sensibilité dans chaque onglet de méthode.
         </p>
       </div>
+
+      {/* Texte narratif */}
+      {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
+        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+          <h3 className="text-base font-semibold text-navy mb-4">Analyse narrative</h3>
+          <div className="prose prose-sm text-slate leading-relaxed space-y-3">
+            {genererNarrative({
+              commune: selectedCommune?.commune,
+              assetType,
+              evsType: evsInfo.label,
+              surface: surfaceBien,
+              valeurComparaison: valeurComparaison || undefined,
+              valeurCapitalisation: valeurCapitalisation || undefined,
+              valeurDCF: valeurDCF || undefined,
+              valeurReconciliee: resultBase.valeurReconciliee || undefined,
+              prixM2Commune: selectedCommune?.prixM2Existant || undefined,
+              nbTransactions: selectedCommune?.nbTransactions || undefined,
+            }).split("\n\n").map((para, i) => (
+              <p key={i} className="text-sm" dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>") }} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1649,6 +1681,10 @@ export default function Valorisation() {
             valeurComparaison={valeurComparaison}
             valeurCapitalisation={valeurCapitalisation}
             valeurDCF={valeurDCF}
+            selectedCommune={selectedCommune}
+            assetType={assetConfig.label}
+            evsInfo={evsInfo}
+            surfaceBien={surfaceBien}
           />
         )}
       </div>
