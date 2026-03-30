@@ -2,30 +2,31 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const NAV_ITEMS = [
-  { href: "/estimation", label: "Estimation" },
-  { href: "/carte", label: "Carte des prix" },
-  { href: "/valorisation", label: "Valorisation EVS" },
-  { href: "/calculateur-loyer", label: "Loyer" },
-  { href: "/frais-acquisition", label: "Frais" },
-  { href: "/plus-values", label: "Plus-Values" },
-  { href: "/simulateur-aides", label: "Aides" },
-  { href: "/achat-vs-location", label: "Achat vs Location" },
-  { href: "/bilan-promoteur", label: "Bilan Promoteur" },
-  { href: "/dcf-multi", label: "DCF Multi" },
-  { href: "/outils-bancaires", label: "Bancaire" },
+const NAV_KEYS = [
+  { href: "/estimation", key: "estimation" },
+  { href: "/carte", key: "carte" },
+  { href: "/valorisation", key: "valorisation" },
+  { href: "/calculateur-loyer", key: "loyer" },
+  { href: "/frais-acquisition", key: "frais" },
+  { href: "/plus-values", key: "plusValues" },
+  { href: "/simulateur-aides", key: "aides" },
+  { href: "/achat-vs-location", key: "achatLocation" },
+  { href: "/bilan-promoteur", key: "bilanPromoteur" },
+  { href: "/dcf-multi", key: "dcfMulti" },
+  { href: "/outils-bancaires", key: "bancaire" },
 ];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const t = useTranslations("nav");
 
   return (
     <header className="sticky top-0 z-50 bg-navy text-white shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold text-navy-dark font-bold text-lg">
               T
@@ -35,25 +36,25 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
+            {NAV_KEYS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className="rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
           </nav>
 
-          <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
-            Mes éval.
-          </Link>
-          <LanguageSwitcher />
+          <div className="flex items-center gap-2">
+            <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+              Mes éval.
+            </Link>
+            <LanguageSwitcher />
+          </div>
 
-          {/* Mobile menu button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden rounded-lg p-2 text-white/80 hover:bg-white/10 hover:text-white"
@@ -69,17 +70,16 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile nav */}
         {menuOpen && (
           <nav className="lg:hidden border-t border-white/10 py-3 space-y-1">
-            {NAV_ITEMS.map((item) => (
+            {NAV_KEYS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white"
                 onClick={() => setMenuOpen(false)}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
           </nav>

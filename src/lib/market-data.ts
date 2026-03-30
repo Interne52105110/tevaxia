@@ -75,6 +75,7 @@ const MARKET_DATA: MarketDataCommune[] = [
   { commune: "Mamer", canton: "Capellen", prixM2Existant: 9500, prixM2VEFA: 11200, prixM2Annonces: 10100, loyerM2Annonces: 25.0, nbTransactions: 75, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Steinfort", canton: "Capellen", prixM2Existant: 6900, prixM2VEFA: 8500, prixM2Annonces: 7500, loyerM2Annonces: 20.0, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Kehlen", canton: "Capellen", prixM2Existant: 8800, prixM2VEFA: 10200, prixM2Annonces: 9400, loyerM2Annonces: 23.0, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat" },
+  { commune: "Koerich", canton: "Capellen", prixM2Existant: 7800, prixM2VEFA: 9200, prixM2Annonces: 8400, loyerM2Annonces: 21.0, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Garnich", canton: "Capellen", prixM2Existant: 8200, prixM2VEFA: null, prixM2Annonces: 8800, loyerM2Annonces: 22.0, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Habscht", canton: "Capellen", prixM2Existant: 7200, prixM2VEFA: null, prixM2Annonces: 7800, loyerM2Annonces: 20.5, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Septfontaines", canton: "Capellen", prixM2Existant: 7500, prixM2VEFA: null, prixM2Annonces: 8100, loyerM2Annonces: 21.0, nbTransactions: 12, periode: "2025-T4", source: "Observatoire de l'Habitat" },
@@ -116,6 +117,7 @@ const MARKET_DATA: MarketDataCommune[] = [
     ],
   },
   { commune: "Käerjeng", canton: "Esch-sur-Alzette", prixM2Existant: 6000, prixM2VEFA: 7600, prixM2Annonces: 6600, loyerM2Annonces: 17.5, nbTransactions: 45, periode: "2025-T4", source: "Observatoire de l'Habitat" },
+  { commune: "Kayl", canton: "Esch-sur-Alzette", prixM2Existant: 5900, prixM2VEFA: 7500, prixM2Annonces: 6400, loyerM2Annonces: 17.5, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Leudelange", canton: "Esch-sur-Alzette", prixM2Existant: 8400, prixM2VEFA: 10200, prixM2Annonces: 9100, loyerM2Annonces: 23.0, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Roeser", canton: "Esch-sur-Alzette", prixM2Existant: 7800, prixM2VEFA: 9500, prixM2Annonces: 8400, loyerM2Annonces: 22.0, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Frisange", canton: "Esch-sur-Alzette", prixM2Existant: 7200, prixM2VEFA: 8800, prixM2Annonces: 7800, loyerM2Annonces: 20.5, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
@@ -124,6 +126,7 @@ const MARKET_DATA: MarketDataCommune[] = [
   // Canton Mersch
   { commune: "Mersch", canton: "Mersch", prixM2Existant: 7100, prixM2VEFA: 8800, prixM2Annonces: 7700, loyerM2Annonces: 21.0, nbTransactions: 55, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Lintgen", canton: "Mersch", prixM2Existant: 7300, prixM2VEFA: 9000, prixM2Annonces: 7900, loyerM2Annonces: 21.5, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
+  { commune: "Larochette", canton: "Mersch", prixM2Existant: 6200, prixM2VEFA: 7800, prixM2Annonces: 6800, loyerM2Annonces: 18.5, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Lorentzweiler", canton: "Mersch", prixM2Existant: 7500, prixM2VEFA: 9200, prixM2Annonces: 8100, loyerM2Annonces: 22.0, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Bissen", canton: "Mersch", prixM2Existant: 6600, prixM2VEFA: 8200, prixM2Annonces: 7200, loyerM2Annonces: 19.5, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
   { commune: "Colmar-Berg", canton: "Mersch", prixM2Existant: 6400, prixM2VEFA: 8000, prixM2Annonces: 7000, loyerM2Annonces: 19.0, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
@@ -350,6 +353,12 @@ const LOCALITES_COMMUNES: Record<string, string> = {
 
   // Commune de Käerjeng
   "bascharage": "Käerjeng", "clemency": "Käerjeng", "fingig": "Käerjeng",
+  // Commune de Kayl
+  "kayl": "Kayl", "tétange": "Kayl", "tetange": "Kayl", "rumelange": "Kayl",
+  // Commune de Koerich
+  "koerich": "Koerich", "goetzingen": "Koerich", "goeblange": "Koerich", "windhof": "Koerich",
+  // Commune de Larochette
+  "larochette": "Larochette", "heffingen": "Larochette", "angelsberg": "Larochette",
   "linger": "Käerjeng",
 
   // Commune de Mersch
