@@ -100,7 +100,7 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <Link href="/pricing" className="rounded-lg px-3 py-2 text-xs font-medium text-gold/80 hover:text-gold hover:bg-white/10 transition-colors">
+            <Link href="/pricing" className="rounded-lg bg-gold/15 border border-gold/30 px-3 py-2 text-sm font-medium text-gold hover:bg-gold/25 transition-colors">
               Tarifs
             </Link>
           </nav>
