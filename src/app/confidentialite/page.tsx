@@ -25,8 +25,16 @@ export default function Confidentialite() {
             <p>
               <strong>Données saisies dans les calculateurs :</strong> Les données que vous
               entrez dans les outils de calcul (montants, surfaces, dates) sont traitées
-              exclusivement côté client (dans votre navigateur). Elles ne sont ni transmises
-              à nos serveurs, ni stockées, ni partagées avec des tiers.
+              côté client (dans votre navigateur) si vous n'avez pas de compte. Si vous
+              créez un compte, vos évaluations sauvegardées sont stockées sur nos serveurs
+              (hébergés par Supabase, infrastructure européenne) et associées à votre compte.
+            </p>
+            <p>
+              <strong>Compte utilisateur :</strong> Si vous créez un compte, nous collectons
+              votre adresse email et votre mot de passe (haché, non lisible). Vos évaluations
+              sauvegardées (paramètres de calcul, résultats) sont stockées et accessibles
+              uniquement par vous. Vous pouvez supprimer votre compte et toutes vos données
+              à tout moment en nous contactant.
             </p>
             <p>
               <strong>Contact :</strong> Si vous nous contactez par email, nous collectons
@@ -39,8 +47,9 @@ export default function Confidentialite() {
             <h2 className="text-lg font-semibold text-navy">3. Base légale du traitement</h2>
             <p>
               Le traitement des données de navigation repose sur votre consentement
-              (article 6.1.a du RGPD). Vous pouvez retirer votre consentement à tout
-              moment en paramétrant votre navigateur ou en nous contactant.
+              (article 6.1.a du RGPD). Le traitement des données de compte repose
+              sur l'exécution du contrat (article 6.1.b — fourniture du service de
+              sauvegarde). Vous pouvez retirer votre consentement à tout moment.
             </p>
           </section>
 
@@ -99,6 +108,11 @@ export default function Confidentialite() {
               États-Unis. Ce transfert est encadré par les clauses contractuelles types
               de la Commission européenne et la décision d'adéquation UE-US Data Privacy
               Framework.
+            </p>
+            <p>
+              Les données de compte utilisateur sont hébergées par Supabase (infrastructure
+              AWS région eu-central-1, Francfort). Les mots de passe sont hachés et ne sont
+              jamais stockés en clair.
             </p>
           </section>
         </div>

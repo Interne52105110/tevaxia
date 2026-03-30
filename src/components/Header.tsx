@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useAuth } from "./AuthProvider";
 
 const NAV_KEYS = [
   { href: "/estimation", key: "estimation" },
@@ -22,6 +23,7 @@ const NAV_KEYS = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const t = useTranslations("nav");
+  const { user } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-navy text-white shadow-lg">
@@ -49,9 +51,15 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
-              Mes éval.
-            </Link>
+            {user ? (
+              <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                Mes éval.
+              </Link>
+            ) : (
+              <Link href="/connexion" className="rounded-lg bg-gold/90 px-3 py-1 text-xs font-medium text-navy-dark hover:bg-gold transition-colors">
+                Connexion
+              </Link>
+            )}
             <LanguageSwitcher />
           </div>
 
