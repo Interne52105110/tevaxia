@@ -5,25 +5,26 @@ import Link from "next/link";
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
+  const isEN = pathname.startsWith("/en");
 
-  // Extract current locale and path without locale
-  const currentLocale = pathname.startsWith("/en") ? "en" : "fr";
-  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, "") || "/";
+  // Build the alternate path
+  const frPath = isEN ? pathname.replace(/^\/en/, "") || "/" : pathname;
+  const enPath = isEN ? pathname : `/en${pathname}`;
 
   return (
     <div className="flex gap-0.5 rounded-lg bg-white/10 p-0.5">
       <Link
-        href={`/fr${pathWithoutLocale}`}
+        href={frPath}
         className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
-          currentLocale === "fr" ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
+          !isEN ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
         }`}
       >
         FR
       </Link>
       <Link
-        href={`/en${pathWithoutLocale}`}
+        href={enPath}
         className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
-          currentLocale === "en" ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
+          isEN ? "bg-white/20 text-white" : "text-white/50 hover:text-white"
         }`}
       >
         EN
