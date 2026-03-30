@@ -60,6 +60,13 @@ interface ReportData {
   sensibiliteCap?: { tauxCap: number; valeur: number }[];
   // Sensibilité DCF
   sensibiliteDCF?: { tauxActu: number; tauxCapSortie: number; valeur: number }[];
+  // ESG
+  esgScore?: number;
+  esgNiveau?: string;
+  esgImpact?: number;
+  classeEnergie?: string;
+  // Narrative
+  narrative?: string;
 }
 
 function ReportDocument({ data }: { data: ReportData }) {
@@ -172,6 +179,24 @@ function ReportDocument({ data }: { data: ReportData }) {
             <Text style={s.sectionTitle}>5. Valeur hypothécaire (MLV)</Text>
             <View style={s.rowHighlight}><Text style={{ ...s.label, fontFamily: "Helvetica-Bold" }}>Valeur hypothécaire</Text><Text style={s.valueLarge}>{formatEUR(data.mlv)}</Text></View>
             {data.ratioMLV !== undefined && <View style={s.row}><Text style={s.label}>Ratio MLV / Valeur de marché</Text><Text style={s.value}>{(data.ratioMLV * 100).toFixed(1)}%</Text></View>}
+          </View>
+        )}
+
+        {/* ESG */}
+        {data.esgScore !== undefined && (
+          <View>
+            <Text style={s.sectionTitle}>6. Facteurs ESG / Durabilité</Text>
+            <View style={s.row}><Text style={s.label}>Classe énergie</Text><Text style={s.value}>{data.classeEnergie || "—"}</Text></View>
+            <View style={s.row}><Text style={s.label}>Score ESG</Text><Text style={s.value}>{data.esgScore}/100 (Niveau {data.esgNiveau})</Text></View>
+            <View style={s.row}><Text style={s.label}>Impact estimé sur la valeur</Text><Text style={s.value}>{data.esgImpact !== undefined ? `${data.esgImpact > 0 ? "+" : ""}${data.esgImpact}%` : "—"}</Text></View>
+          </View>
+        )}
+
+        {/* Narrative */}
+        {data.narrative && (
+          <View>
+            <Text style={s.sectionTitle}>7. Analyse narrative</Text>
+            <Text style={{ ...s.note, fontSize: 8, lineHeight: 1.5 }}>{data.narrative}</Text>
           </View>
         )}
 

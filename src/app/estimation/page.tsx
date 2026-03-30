@@ -8,6 +8,7 @@ import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
 import { formatEUR } from "@/lib/calculations";
 import ConfidenceGauge from "@/components/ConfidenceGauge";
+import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { updateUrlHash, readUrlHash } from "@/lib/url-state";
 import { sauvegarderEvaluation } from "@/lib/storage";
@@ -177,6 +178,30 @@ export default function Estimation() {
 
               {/* Confiance */}
               <ConfidenceGauge level={result.confiance} note={result.confianceNote} />
+
+              {/* Estimation rénovation si classe énergie faible */}
+              {classeEnergie >= "E" && (() => {
+                const reno = estimerCoutsRenovation(classeEnergie, "B", surface);
+                if (reno.postes.length === 0) return null;
+                return (
+                  <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                    <h3 className="text-sm font-semibold text-navy mb-2">Estimation de rénovation énergétique ({classeEnergie} → B)</h3>
+                    <div className="space-y-1 text-xs">
+                      {reno.postes.map((p) => (
+                        <div key={p.label} className="flex justify-between">
+                          <span className="text-muted">{p.label}</span>
+                          <span className="font-mono">{formatEUR(p.coutMin)} – {formatEUR(p.coutMax)}</span>
+                        </div>
+                      ))}
+                      <div className="flex justify-between font-semibold border-t border-card-border pt-1 mt-1">
+                        <span>Total estimé (travaux + honoraires)</span>
+                        <span className="font-mono">{formatEUR(reno.totalAvecHonoraires)}</span>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-[10px] text-muted">Fourchettes indicatives — marché luxembourgeois. Éligible Klimabonus (jusqu'à 62,5%).</p>
+                  </div>
+                );
+              })()}
 
               {/* Graphique évolution prix */}
               <PriceEvolutionChart />
