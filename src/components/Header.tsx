@@ -48,6 +48,9 @@ export default function Header() {
             ))}
           </nav>
 
+          <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+            Mes éval.
+          </Link>
           <LanguageSwitcher />
 
           {/* Mobile menu button */}

@@ -10,6 +10,7 @@ import { formatEUR } from "@/lib/calculations";
 import ConfidenceGauge from "@/components/ConfidenceGauge";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { updateUrlHash, readUrlHash } from "@/lib/url-state";
+import { sauvegarderEvaluation } from "@/lib/storage";
 
 export default function Estimation() {
   const [linkCopied, setLinkCopied] = useState(false);
@@ -227,7 +228,22 @@ export default function Estimation() {
                   }}
                   className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
                 >
-                  {linkCopied ? "Lien copié !" : "Copier le lien de cette estimation"}
+                  {linkCopied ? "Lien copié !" : "Copier le lien"}
+                </button>
+                <button
+                  onClick={() => {
+                    sauvegarderEvaluation({
+                      nom: `${selectedResult?.commune.commune || communeSearch} — ${surface} m²`,
+                      type: "estimation",
+                      commune: selectedResult?.commune.commune,
+                      valeurPrincipale: result.estimationCentrale,
+                      data: { communeSearch, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf },
+                    });
+                    alert("Évaluation sauvegardée !");
+                  }}
+                  className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
+                >
+                  Sauvegarder
                 </button>
               </div>
 
