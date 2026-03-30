@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { href: "/simulateur-aides", label: "Aides" },
   { href: "/achat-vs-location", label: "Achat vs Location" },
   { href: "/bilan-promoteur", label: "Bilan Promoteur" },
+  { href: "/dcf-multi", label: "DCF Multi" },
   { href: "/outils-bancaires", label: "Bancaire" },
 ];
 
