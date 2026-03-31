@@ -124,18 +124,17 @@ export default function BilanPromoteur() {
 
               <h2 className="mb-4 text-base font-semibold text-navy">Terrain</h2>
               <div className="space-y-4 mb-6">
-                <InputField label="Surface terrain" value={surfaceTerrain} onChange={(v) => setSurfaceTerrain(Number(v))} suffix="m²" />
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" checked={coutTerrainConnu} onChange={(e) => setCoutTerrainConnu(e.target.checked)} className="rounded" />
-                  <label className="text-sm text-slate">Coût du terrain connu</label>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <InputField label="Coût total du terrain" value={surfaceTerrain * prixTerrainM2} onChange={(v) => setPrixTerrainM2(surfaceTerrain > 0 ? Number(v) / surfaceTerrain : 0)} suffix="€" />
+                  <InputField label="Surface terrain" value={surfaceTerrain} onChange={(v) => setSurfaceTerrain(Number(v))} suffix="m²" />
                 </div>
-                {coutTerrainConnu && (
-                  <InputField label="Prix du terrain /m²" value={prixTerrainM2} onChange={(v) => setPrixTerrainM2(Number(v))} suffix="€/m²"
-                    hint={`Total : ${formatEUR(surfaceTerrain * prixTerrainM2)}`} />
+                {surfaceTerrain > 0 && prixTerrainM2 > 0 && (
+                  <p className="text-xs text-muted">Soit {formatEUR(prixTerrainM2)}/m² de terrain</p>
                 )}
-                {!coutTerrainConnu && (
-                  <p className="text-xs text-muted">Mode compte à rebours : la charge foncière maximale sera calculée.</p>
-                )}
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" checked={!coutTerrainConnu} onChange={(e) => setCoutTerrainConnu(!e.target.checked)} className="rounded" />
+                  <label className="text-sm text-slate">Mode compte à rebours (terrain inconnu — calculer la charge foncière max)</label>
+                </div>
               </div>
 
               <h2 className="mb-4 text-base font-semibold text-navy">Recettes prévisionnelles</h2>
@@ -189,14 +188,19 @@ export default function BilanPromoteur() {
                 ? "bg-gradient-to-br from-navy to-navy-light text-white"
                 : "bg-gradient-to-br from-error to-red-600 text-white"
             }`}>
-              <div className="text-sm text-white/60">Charge foncière maximale (valeur résiduelle du terrain)</div>
+              <div className="text-sm text-white/60">
+                {coutTerrainConnu ? "Marge résiduelle de l'opération" : "Charge foncière maximale (valeur résiduelle du terrain)"}
+              </div>
               <div className="mt-2 text-5xl font-bold">{formatEUR(result.chargeFonciere)}</div>
               <div className="mt-2 text-sm text-white/60">
-                soit {formatEUR(result.chargeFonciereM2Terrain)} /m² vendable
+                {coutTerrainConnu
+                  ? `Terrain : ${formatEUR(result.coutTerrain)} (${formatEUR(prixTerrainM2)}/m²)`
+                  : `soit ${formatEUR(result.chargeFonciereM2Terrain)} /m² vendable`
+                }
               </div>
               {result.chargeFonciere <= 0 && (
                 <div className="mt-3 text-sm text-white/80">
-                  L'opération n'est pas viable avec ces paramètres — la charge foncière est négative
+                  {coutTerrainConnu ? "L'opération n'est pas rentable avec ce prix de terrain" : "La charge foncière est négative — l'opération n'est pas viable"}
                 </div>
               )}
             </div>
@@ -207,10 +211,11 @@ export default function BilanPromoteur() {
                 { label: "CA Logements", value: formatEUR(result.caLogements) },
                 { label: "CA Parkings", value: formatEUR(result.caParkings), sub: true },
                 { label: "Chiffre d'affaires total", value: formatEUR(result.caTotal), highlight: true },
+                ...(coutTerrainConnu && result.coutTerrain > 0 ? [{ label: `Terrain (${formatEUR(prixTerrainM2)}/m²)`, value: `- ${formatEUR(result.coutTerrain)}` }] : []),
                 { label: `Construction (${formatPct(result.ratioConstructionCA)})`, value: `- ${formatEUR(result.totalConstruction)}` },
                 { label: `Frais promotion (${formatPct(result.ratioFraisCA)})`, value: `- ${formatEUR(result.totalFrais)}` },
                 { label: `Marge promoteur (${margePromoteur}%)`, value: `- ${formatEUR(result.margeMontant)}` },
-                { label: "= Charge foncière résiduelle", value: formatEUR(result.chargeFonciere), highlight: true, large: true },
+                { label: coutTerrainConnu ? "= Marge résiduelle" : "= Charge foncière maximale", value: formatEUR(result.chargeFonciere), highlight: true, large: true },
               ]}
             />
 
