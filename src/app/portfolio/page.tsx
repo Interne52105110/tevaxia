@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
+
+const STORAGE_KEY = "tevaxia_portfolio";
 
 interface PortfolioAsset {
   id: string;
@@ -21,11 +23,45 @@ const EMPTY_ASSET: Omit<PortfolioAsset, "id"> = {
   nom: "", type: "Appartement", commune: "", valeur: 0, loyerAnnuel: 0, surface: 0, dette: 0,
 };
 
+const DEFAULT_ASSETS: PortfolioAsset[] = [
+  { id: "1", nom: "Appartement Kirchberg", type: "Appartement", commune: "Luxembourg", valeur: 750000, loyerAnnuel: 28800, surface: 75, dette: 500000 },
+  { id: "2", nom: "Bureau Cloche d'Or", type: "Bureau", commune: "Luxembourg", valeur: 1200000, loyerAnnuel: 72000, surface: 150, dette: 800000 },
+];
+
+function loadFromStorage(): PortfolioAsset[] {
+  if (typeof window === "undefined") return DEFAULT_ASSETS;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {
+    // ignore corrupt data
+  }
+  return DEFAULT_ASSETS;
+}
+
 export default function Portfolio() {
-  const [assets, setAssets] = useState<PortfolioAsset[]>([
-    { id: "1", nom: "Appartement Kirchberg", type: "Appartement", commune: "Luxembourg", valeur: 750000, loyerAnnuel: 28800, surface: 75, dette: 500000 },
-    { id: "2", nom: "Bureau Cloche d'Or", type: "Bureau", commune: "Luxembourg", valeur: 1200000, loyerAnnuel: 72000, surface: 150, dette: 800000 },
-  ]);
+  const [assets, setAssets] = useState<PortfolioAsset[]>(DEFAULT_ASSETS);
+  const hydrated = useRef(false);
+
+  // Load from localStorage on mount (client only)
+  useEffect(() => {
+    const stored = loadFromStorage();
+    setAssets(stored);
+    hydrated.current = true;
+  }, []);
+
+  // Auto-save to localStorage on every change
+  useEffect(() => {
+    if (!hydrated.current) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(assets));
+    } catch {
+      // storage full or unavailable — silently ignore
+    }
+  }, [assets]);
 
   const updateAsset = (index: number, field: keyof PortfolioAsset, value: string | number) => {
     setAssets((prev) => {
@@ -67,6 +103,7 @@ export default function Portfolio() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">Portfolio immobilier</h1>
           <p className="mt-2 text-muted">Agrégez vos biens et suivez la performance globale</p>
+          <p className="mt-1 text-xs text-muted/70">Données sauvegardées localement</p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3">

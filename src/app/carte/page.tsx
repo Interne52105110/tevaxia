@@ -7,6 +7,7 @@ import { rechercherCommune, type MarketDataCommune, type SearchResult } from "@/
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
 import { getDemographics } from "@/lib/demographics";
 import { getMarketCycle } from "@/lib/market-cycle";
+import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
 import dynamic from "next/dynamic";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
@@ -36,6 +37,7 @@ const CANTONS_ORDER = [
 ];
 
 type PriceField = "prixM2Existant" | "prixM2VEFA" | "prixM2Annonces";
+type ViewMode = PriceField | "rendement";
 
 const PRICE_TYPES: { key: PriceField; label: string }[] = [
   { key: "prixM2Existant", label: "Existant" },
@@ -43,11 +45,25 @@ const PRICE_TYPES: { key: PriceField; label: string }[] = [
   { key: "prixM2Annonces", label: "Annonces" },
 ];
 
+function computeYield(commune: MarketDataCommune): number | null {
+  if (!commune.loyerM2Annonces || !commune.prixM2Existant) return null;
+  return (commune.loyerM2Annonces * 12) / commune.prixM2Existant * 100;
+}
+
+function getYieldColor(yieldPct: number | null): string {
+  if (yieldPct == null) return "bg-gray-100 text-gray-400";
+  if (yieldPct >= 4) return "bg-green-100 text-green-800 border-green-200";
+  if (yieldPct >= 3) return "bg-amber-100 text-amber-800 border-amber-200";
+  return "bg-red-100 text-red-800 border-red-200";
+}
+
 export default function Carte() {
   const [search, setSearch] = useState("");
   const [selectedCommune, setSelectedCommune] = useState<MarketDataCommune | null>(null);
   const [sortBy, setSortBy] = useState<"prix" | "canton" | "nom">("canton");
-  const [priceField, setPriceField] = useState<PriceField>("prixM2Existant");
+  const [viewMode, setViewMode] = useState<ViewMode>("prixM2Existant");
+  const isRendement = viewMode === "rendement";
+  const priceField: PriceField = isRendement ? "prixM2Existant" : viewMode;
 
   const allCommunes = useMemo(() => {
     const names = getAllCommunes();
@@ -97,25 +113,35 @@ export default function Carte() {
         </div>
 
         {/* Légende */}
-        <div className="mb-6 flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-muted">Prix /m² :</span>
-          <span className="rounded px-2 py-0.5 bg-emerald-100 text-emerald-800">{"< 5 000 €"}</span>
-          <span className="rounded px-2 py-0.5 bg-green-100 text-green-800">5–6k €</span>
-          <span className="rounded px-2 py-0.5 bg-lime-100 text-lime-800">6–7k €</span>
-          <span className="rounded px-2 py-0.5 bg-yellow-100 text-yellow-800">7–8k €</span>
-          <span className="rounded px-2 py-0.5 bg-amber-100 text-amber-800">8–9k €</span>
-          <span className="rounded px-2 py-0.5 bg-orange-100 text-orange-800">9–10k €</span>
-          <span className="rounded px-2 py-0.5 bg-red-100 text-red-800">{"> 10 000 €"}</span>
-        </div>
+        {isRendement ? (
+          <div className="mb-6 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-muted">Rendement brut :</span>
+            <span className="rounded px-2 py-0.5 bg-red-100 text-red-800">{"< 3 %"}</span>
+            <span className="rounded px-2 py-0.5 bg-amber-100 text-amber-800">3–4 %</span>
+            <span className="rounded px-2 py-0.5 bg-green-100 text-green-800">{"> 4 %"}</span>
+            <span className="text-muted ml-2">(loyer annonces x 12 / prix existant)</span>
+          </div>
+        ) : (
+          <div className="mb-6 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-muted">Prix /m² :</span>
+            <span className="rounded px-2 py-0.5 bg-emerald-100 text-emerald-800">{"< 5 000 €"}</span>
+            <span className="rounded px-2 py-0.5 bg-green-100 text-green-800">5–6k €</span>
+            <span className="rounded px-2 py-0.5 bg-lime-100 text-lime-800">6–7k €</span>
+            <span className="rounded px-2 py-0.5 bg-yellow-100 text-yellow-800">7–8k €</span>
+            <span className="rounded px-2 py-0.5 bg-amber-100 text-amber-800">8–9k €</span>
+            <span className="rounded px-2 py-0.5 bg-orange-100 text-orange-800">9–10k €</span>
+            <span className="rounded px-2 py-0.5 bg-red-100 text-red-800">{"> 10 000 €"}</span>
+          </div>
+        )}
 
         {/* Price type toggle */}
-        <div className="mb-4 flex gap-2">
+        <div className="mb-4 flex flex-wrap gap-2">
           {PRICE_TYPES.map((pt) => (
             <button
               key={pt.key}
-              onClick={() => setPriceField(pt.key)}
+              onClick={() => setViewMode(pt.key)}
               className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                priceField === pt.key
+                viewMode === pt.key
                   ? "bg-navy text-white"
                   : "bg-background text-muted border border-card-border hover:bg-navy/5"
               }`}
@@ -123,6 +149,16 @@ export default function Carte() {
               {pt.label}
             </button>
           ))}
+          <button
+            onClick={() => setViewMode("rendement")}
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              isRendement
+                ? "bg-teal text-white"
+                : "bg-background text-muted border border-card-border hover:bg-teal/5"
+            }`}
+          >
+            Rendement
+          </button>
         </div>
 
         {/* Search + Sort */}
@@ -152,6 +188,7 @@ export default function Carte() {
             onSelectCommune={setSelectedCommune}
             selectedCommune={selectedCommune?.commune}
             priceField={priceField}
+            viewMode={viewMode}
           />
           <p className="mt-2 text-xs text-muted text-center">Taille des cercles proportionnelle au volume de transactions. Cliquez pour voir le détail.</p>
         </div>
@@ -170,6 +207,7 @@ export default function Carte() {
                       <div className="grid gap-2 sm:grid-cols-2">
                         {communes.map((c) => {
                           const prix = c[priceField];
+                          const yieldPct = computeYield(c);
                           return (
                           <button
                             key={c.commune}
@@ -178,17 +216,29 @@ export default function Carte() {
                               selectedCommune?.commune === c.commune ? "border-navy ring-2 ring-navy/20" : "border-card-border"
                             } bg-card`}
                           >
-                            <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
-                              {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
-                            </div>
+                            {isRendement ? (
+                              <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getYieldColor(yieldPct)}`}>
+                                {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "—"}
+                              </div>
+                            ) : (
+                              <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
+                                {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
+                              </div>
+                            )}
                             <div className="flex-1 min-w-0">
                               <div className="text-sm font-medium text-slate truncate">{c.commune}</div>
-                              <div className="h-1.5 rounded-full bg-gray-100 mt-1">
-                                <div
-                                  className="h-1.5 rounded-full bg-navy/30"
-                                  style={{ width: getPriceBarWidth(prix, maxPrix) }}
-                                />
-                              </div>
+                              {isRendement ? (
+                                <div className="text-xs text-muted mt-0.5">
+                                  {c.loyerM2Annonces ? `${c.loyerM2Annonces.toFixed(1)} €/m²/mois` : "—"}
+                                </div>
+                              ) : (
+                                <div className="h-1.5 rounded-full bg-gray-100 mt-1">
+                                  <div
+                                    className="h-1.5 rounded-full bg-navy/30"
+                                    style={{ width: getPriceBarWidth(prix, maxPrix) }}
+                                  />
+                                </div>
+                              )}
                             </div>
                           </button>
                           );
@@ -202,6 +252,7 @@ export default function Carte() {
               <div className="grid gap-2 sm:grid-cols-2">
                 {sortedCommunes.map((c) => {
                   const prix = c[priceField];
+                  const yieldPct = computeYield(c);
                   return (
                   <button
                     key={c.commune}
@@ -210,9 +261,15 @@ export default function Carte() {
                       selectedCommune?.commune === c.commune ? "border-navy ring-2 ring-navy/20" : "border-card-border"
                     } bg-card`}
                   >
-                    <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
-                      {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
-                    </div>
+                    {isRendement ? (
+                      <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getYieldColor(yieldPct)}`}>
+                        {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "—"}
+                      </div>
+                    ) : (
+                      <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
+                        {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
+                      </div>
+                    )}
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-slate truncate">{c.commune}</div>
                       <div className="text-xs text-muted">{c.canton}</div>
@@ -256,6 +313,19 @@ export default function Carte() {
                       </div>
                     </div>
 
+                    {/* Rendement brut */}
+                    {(() => {
+                      const yieldPct = computeYield(selectedCommune);
+                      if (yieldPct == null) return null;
+                      return (
+                        <div className={`mt-3 rounded-lg p-3 text-center ${isRendement ? "ring-2 ring-teal/40" : ""} ${getYieldColor(yieldPct)}`}>
+                          <div className="text-xs font-medium">Rendement brut</div>
+                          <div className="text-xl font-bold">{yieldPct.toFixed(2)} %</div>
+                          <div className="text-[10px]">loyer annuel / prix existant</div>
+                        </div>
+                      );
+                    })()}
+
                     {/* Cycle de marché badge */}
                     {selectedCommune.quartiers && selectedCommune.quartiers.length > 0 && (() => {
                       // Determine dominant trend from quartier data
@@ -277,6 +347,34 @@ export default function Carte() {
                             <span>{cycle.icon}</span>
                             <span>{cycle.phase}</span>
                           </span>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Score de marche */}
+                    {(() => {
+                      const score = computeMarketScore(selectedCommune);
+                      const color = getScoreColor(score.level);
+                      const barColor = getScoreBarColor(score.level);
+                      return (
+                        <div className="mt-3 rounded-lg bg-background p-3">
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="text-xs text-muted">Score de marche</span>
+                            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${color}`}>
+                              {score.level} ({score.score}/100)
+                            </span>
+                          </div>
+                          <div className="h-2 rounded-full bg-gray-200">
+                            <div className={`h-2 rounded-full ${barColor} transition-all`} style={{ width: `${score.score}%` }} />
+                          </div>
+                          <div className="mt-1.5 grid grid-cols-2 gap-1">
+                            {score.components.map((comp) => (
+                              <div key={comp.label} className="flex items-center justify-between text-[10px]">
+                                <span className="text-muted">{comp.label}</span>
+                                <span className="font-mono font-medium text-slate">{comp.score}/25</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       );
                     })()}

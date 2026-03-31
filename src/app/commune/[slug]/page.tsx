@@ -8,6 +8,7 @@ import { getDemographics } from "@/lib/demographics";
 import { formatEUR } from "@/lib/calculations";
 import { INDICES_PRIX_ANNUELS } from "@/lib/adjustments";
 import { PriceEvolutionChart } from "@/components/PriceChart";
+import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
 
 export default function CommunePage() {
   const params = useParams();
@@ -70,6 +71,34 @@ export default function CommunePage() {
             <div className="text-2xl font-bold text-teal">{rendementBrut ? `${rendementBrut.toFixed(1)}%` : "—"}</div>
           </div>
         </div>
+
+        {/* Market score */}
+        {(() => {
+          const score = computeMarketScore(commune);
+          const color = getScoreColor(score.level);
+          const barColor = getScoreBarColor(score.level);
+          return (
+            <div className="mt-6 rounded-xl border border-card-border bg-card p-6 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                <h2 className="text-base font-semibold text-navy">Score de marche</h2>
+                <span className={`rounded-full px-3 py-1 text-xs font-semibold ${color}`}>
+                  {score.level} &mdash; {score.score}/100
+                </span>
+              </div>
+              <div className="h-2.5 rounded-full bg-gray-200">
+                <div className={`h-2.5 rounded-full ${barColor} transition-all`} style={{ width: `${score.score}%` }} />
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {score.components.map((comp) => (
+                  <div key={comp.label} className="text-center">
+                    <div className="text-xs text-muted">{comp.label}</div>
+                    <div className="text-sm font-semibold text-navy">{comp.score}/25</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           {/* Left */}

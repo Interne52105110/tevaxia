@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SoftwareApplicationJsonLd } from "@/components/JsonLd";
+import OnboardingIntent from "@/components/OnboardingIntent";
 
 const MODULES = [
   {
@@ -177,6 +178,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Onboarding by intent */}
+      <OnboardingIntent />
 
       {/* Modules grid */}
       <section className="py-16 sm:py-20">

@@ -22,6 +22,7 @@ const LABELS: Record<string, string> = {
   vefa: "VEFA",
   "terres-agricoles": "Terres agricoles",
   "aml-kyc": "AML / KYC",
+  comparer: "Comparer deux biens",
   pricing: "Tarifs",
   en: "English",
   particuliers: "Particuliers",

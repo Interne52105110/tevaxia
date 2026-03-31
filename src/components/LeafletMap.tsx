@@ -29,15 +29,30 @@ function getRadius(nbTransactions: number | null): number {
 }
 
 type PriceField = "prixM2Existant" | "prixM2VEFA" | "prixM2Annonces";
+type ViewMode = PriceField | "rendement";
+
+function computeYield(commune: MarketDataCommune): number | null {
+  if (!commune.loyerM2Annonces || !commune.prixM2Existant) return null;
+  return (commune.loyerM2Annonces * 12) / commune.prixM2Existant * 100;
+}
+
+function getYieldMarkerColor(yieldPct: number | null): string {
+  if (yieldPct == null) return "#9CA3AF";
+  if (yieldPct >= 4) return "#16A34A"; // green
+  if (yieldPct >= 3) return "#D97706"; // amber
+  return "#DC2626"; // red
+}
 
 interface LeafletMapProps {
   communes: MarketDataCommune[];
   onSelectCommune: (commune: MarketDataCommune) => void;
   selectedCommune?: string;
   priceField?: PriceField;
+  viewMode?: ViewMode;
 }
 
-export default function LeafletMap({ communes, onSelectCommune, selectedCommune, priceField = "prixM2Existant" }: LeafletMapProps) {
+export default function LeafletMap({ communes, onSelectCommune, selectedCommune, priceField = "prixM2Existant", viewMode }: LeafletMapProps) {
+  const isRendement = viewMode === "rendement";
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const [ready, setReady] = useState(false);
@@ -54,7 +69,13 @@ export default function LeafletMap({ communes, onSelectCommune, selectedCommune,
   }, []);
 
   useEffect(() => {
-    if (!ready || !L || !mapRef.current || mapInstanceRef.current) return;
+    if (!ready || !L || !mapRef.current) return;
+
+    // Clean up previous map instance before recreating
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.remove();
+      mapInstanceRef.current = null;
+    }
 
     const map = L.map(mapRef.current, {
       center: [49.75, 6.15],
@@ -74,7 +95,8 @@ export default function LeafletMap({ communes, onSelectCommune, selectedCommune,
       if (!coords) continue;
 
       const prix = commune[priceField];
-      const color = getPriceColor(prix);
+      const yieldPct = computeYield(commune);
+      const color = isRendement ? getYieldMarkerColor(yieldPct) : getPriceColor(prix);
       const radius = getRadius(commune.nbTransactions);
 
       const marker = L.circleMarker(coords, {
@@ -86,10 +108,11 @@ export default function LeafletMap({ communes, onSelectCommune, selectedCommune,
         fillOpacity: 0.8,
       }).addTo(map);
 
-      marker.bindTooltip(
-        `<strong>${commune.commune}</strong><br/>${prix ? formatEUR(prix) + "/m²" : "—"}`,
-        { direction: "top", offset: [0, -radius] }
-      );
+      const tooltipContent = isRendement
+        ? `<strong>${commune.commune}</strong><br/>${yieldPct != null ? yieldPct.toFixed(2) + " % rendement" : "—"}`
+        : `<strong>${commune.commune}</strong><br/>${prix ? formatEUR(prix) + "/m²" : "—"}`;
+
+      marker.bindTooltip(tooltipContent, { direction: "top", offset: [0, -radius] });
 
       marker.on("click", () => onSelectCommune(commune));
     }
@@ -100,7 +123,7 @@ export default function LeafletMap({ communes, onSelectCommune, selectedCommune,
       map.remove();
       mapInstanceRef.current = null;
     };
-  }, [ready, communes, onSelectCommune, priceField]);
+  }, [ready, communes, onSelectCommune, priceField, isRendement]);
 
   if (!ready) {
     return (
