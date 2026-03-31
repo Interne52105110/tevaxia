@@ -46,6 +46,101 @@ export default function BilanPromoteur() {
   // Marge
   const [margePromoteur, setMargePromoteur] = useState(15); // % CA
 
+  // Plan de trésorerie — VEFA call schedule (standard LU)
+  // 5% / 15% / 20% / 20% / 15% / 15% / 10% spread across 24 months
+  const vefaSchedule = useMemo(() => {
+    // 7 tranches spread across 24 months
+    // Each tranche is triggered at a specific month milestone
+    const tranches = [
+      { month: 1, pct: 5, label: "Signature" },
+      { month: 4, pct: 15, label: "Fondations" },
+      { month: 8, pct: 20, label: "Dalle haute RDC" },
+      { month: 12, pct: 20, label: "Mise hors d'eau" },
+      { month: 16, pct: 15, label: "Cloisons" },
+      { month: 20, pct: 15, label: "Finitions" },
+      { month: 24, pct: 10, label: "Livraison" },
+    ];
+    return tranches;
+  }, []);
+
+  const treasuryPlan = useMemo(() => {
+    // We need result values — compute key totals here too
+    const caTotal_ = surfaceVendable * prixVenteM2 + nbParkings * prixParking;
+    const coutsConstruction_ = surfaceBrute * coutConstructionM2;
+    const coutsVoirie_ = voirie;
+    const coutsArchitecte_ = coutsConstruction_ * (honorairesArchitecte / 100);
+    const coutsBET_ = coutsConstruction_ * (honorairesBET / 100);
+    const coutsEtudes_ = etudesAutres;
+    const coutsAleas_ = coutsConstruction_ * (aleas / 100);
+    const coutsLotissement_ = typeOperation !== "immeuble" ? fraisGeometre + fraisLotissement : 0;
+    const totalConstruction_ = coutsConstruction_ + coutsVoirie_ + coutsArchitecte_ + coutsBET_ + coutsEtudes_ + coutsAleas_ + coutsLotissement_;
+
+    // Terrain cost
+    const coutTerrain_ = coutTerrainConnu ? surfaceTerrain * prixTerrainM2 : 0;
+
+    // Monthly construction cost (spread evenly over 24 months)
+    const monthlyConstruction = totalConstruction_ / 24;
+
+    // Revenue from pre-sold units (VEFA calls)
+    const preVenduCA = caTotal_ * (tauxPreCommercialisation / 100);
+
+    // Build monthly arrays (1-indexed: month 1..24)
+    const months = 24;
+    const quarterlyData: {
+      quarter: string;
+      cumExpenditure: number;
+      cumRevenue: number;
+      netPosition: number;
+    }[] = [];
+
+    let cumExpenditure = 0;
+    let cumRevenue = 0;
+    let peakNeed = 0;
+    let peakQuarter = "";
+
+    for (let q = 1; q <= 8; q++) {
+      const startMonth = (q - 1) * 3 + 1;
+      const endMonth = q * 3;
+
+      // Expenditure this quarter
+      let qExpenditure = 0;
+      // Land purchase in Q1 (months 1-3)
+      if (q === 1) {
+        qExpenditure += coutTerrain_;
+      }
+      // Construction spread over 24 months
+      qExpenditure += monthlyConstruction * 3;
+
+      cumExpenditure += qExpenditure;
+
+      // Revenue this quarter: check each VEFA tranche
+      let qRevenue = 0;
+      for (const tranche of vefaSchedule) {
+        if (tranche.month >= startMonth && tranche.month <= endMonth) {
+          qRevenue += preVenduCA * (tranche.pct / 100);
+        }
+      }
+      cumRevenue += qRevenue;
+
+      const net = cumRevenue - cumExpenditure;
+      const label = `T${q} (M${startMonth}-${endMonth})`;
+
+      if (net < peakNeed) {
+        peakNeed = net;
+        peakQuarter = label;
+      }
+
+      quarterlyData.push({
+        quarter: label,
+        cumExpenditure,
+        cumRevenue,
+        netPosition: net,
+      });
+    }
+
+    return { quarterlyData, peakNeed, peakQuarter };
+  }, [surfaceVendable, prixVenteM2, nbParkings, prixParking, coutConstructionM2, surfaceBrute, voirie, honorairesArchitecte, honorairesBET, etudesAutres, aleas, margePromoteur, surfaceTerrain, prixTerrainM2, coutTerrainConnu, typeOperation, fraisGeometre, fraisLotissement, tauxPreCommercialisation, vefaSchedule]);
+
   const result = useMemo(() => {
     // RECETTES
     const caLogements = surfaceVendable * prixVenteM2;
@@ -259,6 +354,56 @@ export default function BilanPromoteur() {
                 Au Luxembourg, les coûts de construction sont parmi les plus élevés d'Europe (2 500-3 500 €/m²).
                 Le ratio charge foncière / CA se situe typiquement entre 15% et 30% selon la localisation.
               </p>
+            </div>
+
+            {/* Plan de trésorerie */}
+            <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+              <h3 className="mb-2 text-base font-semibold text-navy">Plan de trésorerie</h3>
+              <p className="mb-4 text-xs text-muted">
+                Cash flow simplifié sur 24 mois — Appels de fonds VEFA ({tauxPreCommercialisation}% pré-vendu) selon le calendrier standard LU (5/15/20/20/15/15/10)
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-card-border text-left">
+                      <th className="py-2 pr-3 font-semibold text-slate">Trimestre</th>
+                      <th className="py-2 px-3 font-semibold text-slate text-right">Dépenses cum.</th>
+                      <th className="py-2 px-3 font-semibold text-slate text-right">Recettes cum.</th>
+                      <th className="py-2 pl-3 font-semibold text-slate text-right">Position nette</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {treasuryPlan.quarterlyData.map((row, i) => {
+                      const isPeak = row.netPosition === treasuryPlan.peakNeed && treasuryPlan.peakNeed < 0;
+                      return (
+                        <tr key={i} className={`border-b border-card-border/50 ${isPeak ? "bg-red-50" : ""}`}>
+                          <td className="py-2 pr-3 font-medium text-slate">{row.quarter}</td>
+                          <td className="py-2 px-3 text-right font-mono text-muted">{formatEUR(row.cumExpenditure)}</td>
+                          <td className="py-2 px-3 text-right font-mono text-success">{formatEUR(row.cumRevenue)}</td>
+                          <td className={`py-2 pl-3 text-right font-mono font-semibold ${row.netPosition >= 0 ? "text-success" : "text-error"}`}>
+                            {formatEUR(row.netPosition)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              {treasuryPlan.peakNeed < 0 && (
+                <div className="mt-4 rounded-lg bg-red-50 border border-red-200 p-3">
+                  <p className="text-xs text-red-800">
+                    <strong>Besoin de financement maximal :</strong> {formatEUR(Math.abs(treasuryPlan.peakNeed))} atteint en {treasuryPlan.peakQuarter}.
+                    C'est le montant que le promoteur devra couvrir par fonds propres et/ou crédit promoteur.
+                  </p>
+                </div>
+              )}
+              {treasuryPlan.peakNeed >= 0 && (
+                <div className="mt-4 rounded-lg bg-green-50 border border-green-200 p-3">
+                  <p className="text-xs text-green-800">
+                    <strong>Pas de besoin de financement :</strong> Les appels de fonds VEFA couvrent les dépenses tout au long du chantier.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

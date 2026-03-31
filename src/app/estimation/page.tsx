@@ -187,6 +187,36 @@ export default function Estimation() {
                 </div>
               </div>
 
+              {/* Double modèle : transactions vs annonces */}
+              {result.estimationTransactions != null && result.estimationAnnonces != null && (
+                <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                  <h3 className="text-sm font-semibold text-navy mb-3">Comparaison des sources de prix</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="rounded-lg bg-blue-50 border border-blue-200 p-3 text-center">
+                      <div className="text-xs text-blue-600 font-medium">Estimation transactions</div>
+                      <div className="text-xs text-blue-400 mb-1">Actes notariés</div>
+                      <div className="text-lg font-bold text-blue-800">{formatEUR(result.estimationTransactions)}</div>
+                    </div>
+                    <div className="rounded-lg bg-purple-50 border border-purple-200 p-3 text-center">
+                      <div className="text-xs text-purple-600 font-medium">Estimation annonces</div>
+                      <div className="text-xs text-purple-400 mb-1">Prix affichés</div>
+                      <div className="text-lg font-bold text-purple-800">{formatEUR(result.estimationAnnonces)}</div>
+                    </div>
+                  </div>
+                  {result.ecartPct != null && (
+                    <div className="mt-3 text-center">
+                      <span className="text-xs text-muted">
+                        Écart : <span className={`font-semibold ${result.ecartPct > 0 ? "text-amber-600" : "text-green-600"}`}>{result.ecartPct > 0 ? "+" : ""}{result.ecartPct}%</span>
+                        {" "}— Estimation centrale (moyenne) : <span className="font-semibold text-navy">{formatEUR(Math.round((result.estimationTransactions + result.estimationAnnonces) / 2))}</span>
+                      </span>
+                    </div>
+                  )}
+                  <p className="mt-2 text-[10px] text-muted">
+                    Les transactions reflètent les prix réellement payés (actes notariés). Les annonces reflètent les prix demandés (souvent plus élevés). L'écart est un indicateur de la marge de négociation.
+                  </p>
+                </div>
+              )}
+
               {/* Emphytéose */}
               {bailEmphyteotique && result && (() => {
                 const emph = calculerDecoteEmphyteose({

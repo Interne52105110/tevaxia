@@ -33,6 +33,10 @@ export interface EstimationResult {
   estimationHaute: number;
   confiance: "forte" | "moyenne" | "faible";
   confianceNote: string;
+  // Double modèle : transactions vs annonces
+  estimationTransactions: number | null; // basé sur prixM2Existant
+  estimationAnnonces: number | null;     // basé sur prixM2Annonces
+  ecartPct: number | null;               // écart en % entre les deux
 }
 
 // Impact de la classe énergie sur le prix (en %)
@@ -155,6 +159,25 @@ export function estimer(input: EstimationInput): EstimationResult | null {
     confianceNote = "Basé sur les prix annonces uniquement — pas de données de transactions disponibles pour cette commune.";
   }
 
+  // Double modèle : calculer les estimations basées sur transactions et annonces
+  const multiplicateur = 1 + totalAjustements / 100;
+  let estimationTransactions: number | null = null;
+  let estimationAnnonces: number | null = null;
+  let ecartPct: number | null = null;
+
+  // Si on est sur un quartier, pas de double modèle (une seule source)
+  if (!bestResult.quartier) {
+    if (commune.prixM2Existant) {
+      estimationTransactions = Math.round(commune.prixM2Existant * multiplicateur * input.surface);
+    }
+    if (commune.prixM2Annonces) {
+      estimationAnnonces = Math.round(commune.prixM2Annonces * multiplicateur * input.surface);
+    }
+    if (estimationTransactions != null && estimationAnnonces != null && estimationTransactions > 0) {
+      ecartPct = Math.round(((estimationAnnonces - estimationTransactions) / estimationTransactions) * 1000) / 10;
+    }
+  }
+
   return {
     prixM2Base,
     sourceBase,
@@ -166,5 +189,8 @@ export function estimer(input: EstimationInput): EstimationResult | null {
     estimationHaute: Math.round(estimationCentrale * (1 + marge)),
     confiance,
     confianceNote,
+    estimationTransactions,
+    estimationAnnonces,
+    ecartPct,
   };
 }

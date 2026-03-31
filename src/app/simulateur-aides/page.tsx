@@ -43,10 +43,83 @@ function AideCard({ aide }: { aide: AideDetail }) {
   );
 }
 
+// --- Klimabonus mesures détaillées ---
+interface KlimaMesure {
+  id: string;
+  label: string;
+  type: "surface" | "count" | "kwp" | "forfait";
+  unitLabel?: string;
+  unitPrix: number; // €/unité ou forfait
+  klimaPct: number; // % Klimabonus (50% par défaut)
+}
+
+const KLIMA_MESURES: KlimaMesure[] = [
+  { id: "isolation_facade", label: "Isolation façade", type: "surface", unitLabel: "m²", unitPrix: 150, klimaPct: 50 },
+  { id: "isolation_toiture", label: "Isolation toiture", type: "surface", unitLabel: "m²", unitPrix: 120, klimaPct: 50 },
+  { id: "fenetres", label: "Fenêtres", type: "count", unitLabel: "fenêtres", unitPrix: 5000, klimaPct: 50 },
+  { id: "pac", label: "Pompe à chaleur", type: "forfait", unitPrix: 25000, klimaPct: 50 },
+  { id: "vmc", label: "VMC double flux", type: "forfait", unitPrix: 8000, klimaPct: 50 },
+  { id: "pv", label: "Panneaux photovoltaïques", type: "kwp", unitLabel: "kWp", unitPrix: 1800, klimaPct: 50 },
+  { id: "solaire_thermique", label: "Panneaux solaires thermiques", type: "forfait", unitPrix: 8000, klimaPct: 50 },
+];
+
+// Klimabonus par mesure (subventions spécifiques)
+const KLIMA_SUBVENTIONS: Record<string, { parUnite: number; label: string }> = {
+  isolation_facade: { parUnite: 50, label: "50 €/m²" },
+  isolation_toiture: { parUnite: 40, label: "40 €/m²" },
+  fenetres: { parUnite: 2000, label: "2 000 €/fenêtre" },
+  pac: { parUnite: 8000, label: "8 000 € forfait" },
+  vmc: { parUnite: 3000, label: "3 000 € forfait" },
+  pv: { parUnite: 500, label: "500 €/kWp" },
+  solaire_thermique: { parUnite: 2500, label: "2 500 € forfait" },
+};
+
+interface MesureState {
+  active: boolean;
+  quantite: number;
+}
+
 export default function SimulateurAides() {
   const [typeProjet, setTypeProjet] = useState<"acquisition" | "construction" | "renovation">("acquisition");
   const [prixBien, setPrixBien] = useState(750000);
   const [montantTravaux, setMontantTravaux] = useState(50000);
+  const [klimaMode, setKlimaMode] = useState<"simplifie" | "detaille">("simplifie");
+  const [mesures, setMesures] = useState<Record<string, MesureState>>(() => {
+    const init: Record<string, MesureState> = {};
+    for (const m of KLIMA_MESURES) {
+      init[m.id] = { active: false, quantite: m.type === "forfait" ? 1 : m.type === "surface" ? 100 : m.type === "kwp" ? 5 : 4 };
+    }
+    return init;
+  });
+
+  // Compute detailed Klimabonus totals
+  const klimaDetail = useMemo(() => {
+    if (klimaMode !== "detaille") return null;
+    const lignes: { id: string; label: string; coutTravaux: number; klimabonus: number; klimaLabel: string }[] = [];
+    let totalTravaux = 0;
+    let totalKlima = 0;
+    for (const m of KLIMA_MESURES) {
+      const state = mesures[m.id];
+      if (!state?.active) continue;
+      const qty = m.type === "forfait" ? 1 : state.quantite;
+      const coutTravaux = m.unitPrix * qty;
+      const sub = KLIMA_SUBVENTIONS[m.id];
+      const klimabonus = sub ? sub.parUnite * qty : coutTravaux * 0.5;
+      totalTravaux += coutTravaux;
+      totalKlima += klimabonus;
+      lignes.push({
+        id: m.id,
+        label: m.label,
+        coutTravaux,
+        klimabonus,
+        klimaLabel: sub?.label || "50%",
+      });
+    }
+    return { lignes, totalTravaux, totalKlima };
+  }, [klimaMode, mesures]);
+
+  // In detailed mode, use calculated total as montantTravaux for the simulation
+  const montantTravauxEffectif = klimaMode === "detaille" && klimaDetail ? klimaDetail.totalTravaux : montantTravaux;
   const [revenuMenage, setRevenuMenage] = useState(80000);
   const [nbEmprunteurs, setNbEmprunteurs] = useState<1 | 2>(2);
   const [nbEnfants, setNbEnfants] = useState(1);
@@ -62,7 +135,7 @@ export default function SimulateurAides() {
       simulerAides({
         typeProjet,
         prixBien,
-        montantTravaux: typeProjet === "renovation" ? montantTravaux : undefined,
+        montantTravaux: typeProjet === "renovation" ? montantTravauxEffectif : undefined,
         revenuMenage,
         nbEmprunteurs,
         nbEnfants,
@@ -73,7 +146,7 @@ export default function SimulateurAides() {
         epargneReguliere3ans,
         commune,
       }),
-    [typeProjet, prixBien, montantTravaux, revenuMenage, nbEmprunteurs, nbEnfants, typeBien, residencePrincipale, estNeuf, montantPret, epargneReguliere3ans, commune]
+    [typeProjet, prixBien, montantTravauxEffectif, revenuMenage, nbEmprunteurs, nbEnfants, typeBien, residencePrincipale, estNeuf, montantPret, epargneReguliere3ans, commune]
   );
 
   // Group aides by category
@@ -127,13 +200,94 @@ export default function SimulateurAides() {
                   suffix="€"
                 />
                 {typeProjet === "renovation" && (
-                  <InputField
-                    label="Montant des travaux"
-                    value={montantTravaux}
-                    onChange={(v) => setMontantTravaux(Number(v))}
-                    suffix="€"
-                    hint="Travaux de rénovation énergétique"
-                  />
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-muted">Mode Klimabonus :</span>
+                      <button
+                        onClick={() => setKlimaMode("simplifie")}
+                        className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${klimaMode === "simplifie" ? "bg-navy text-white" : "bg-background text-muted border border-card-border"}`}
+                      >
+                        Simplifié
+                      </button>
+                      <button
+                        onClick={() => setKlimaMode("detaille")}
+                        className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${klimaMode === "detaille" ? "bg-navy text-white" : "bg-background text-muted border border-card-border"}`}
+                      >
+                        Détaillé par mesure
+                      </button>
+                    </div>
+
+                    {klimaMode === "simplifie" ? (
+                      <InputField
+                        label="Montant des travaux"
+                        value={montantTravaux}
+                        onChange={(v) => setMontantTravaux(Number(v))}
+                        suffix="€"
+                        hint="Travaux de rénovation énergétique"
+                      />
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="text-xs font-medium text-navy">Mesures de rénovation</div>
+                        {KLIMA_MESURES.map((m) => {
+                          const state = mesures[m.id];
+                          const sub = KLIMA_SUBVENTIONS[m.id];
+                          return (
+                            <div key={m.id} className={`rounded-lg border p-3 transition-colors ${state.active ? "border-navy/30 bg-navy/5" : "border-card-border bg-background"}`}>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  checked={state.active}
+                                  onChange={(e) => setMesures((prev) => ({ ...prev, [m.id]: { ...prev[m.id], active: e.target.checked } }))}
+                                  className="h-4 w-4 rounded border-gray-300 text-navy focus:ring-navy"
+                                />
+                                <span className="text-sm font-medium text-foreground flex-1">{m.label}</span>
+                                <span className="text-[10px] text-teal font-medium">{sub?.label}</span>
+                              </div>
+                              {state.active && m.type !== "forfait" && (
+                                <div className="mt-2 ml-6 flex items-center gap-2">
+                                  <input
+                                    type="number"
+                                    value={state.quantite}
+                                    onChange={(e) => setMesures((prev) => ({ ...prev, [m.id]: { ...prev[m.id], quantite: Math.max(1, Number(e.target.value)) } }))}
+                                    className="w-20 rounded border border-input-border bg-input-bg px-2 py-1 text-sm text-right font-mono focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy/20"
+                                    min={1}
+                                  />
+                                  <span className="text-xs text-muted">{m.unitLabel}</span>
+                                  <span className="text-xs text-muted ml-auto">
+                                    Travaux : <span className="font-mono">{formatEUR(m.unitPrix * state.quantite)}</span>
+                                  </span>
+                                </div>
+                              )}
+                              {state.active && m.type === "forfait" && (
+                                <div className="mt-1 ml-6 text-xs text-muted">
+                                  Travaux estimés : <span className="font-mono">{formatEUR(m.unitPrix)}</span>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                        {klimaDetail && klimaDetail.lignes.length > 0 && (
+                          <div className="rounded-lg border border-teal/30 bg-teal/5 p-3 mt-2">
+                            <div className="text-xs font-semibold text-teal mb-2">Récapitulatif Klimabonus</div>
+                            {klimaDetail.lignes.map((l) => (
+                              <div key={l.id} className="flex justify-between text-xs py-0.5">
+                                <span className="text-muted">{l.label} <span className="text-teal/70">({l.klimaLabel})</span></span>
+                                <span className="font-mono font-medium text-teal">{formatEUR(l.klimabonus)}</span>
+                              </div>
+                            ))}
+                            <div className="flex justify-between text-xs font-semibold border-t border-teal/20 pt-1 mt-1">
+                              <span className="text-foreground">Total travaux</span>
+                              <span className="font-mono">{formatEUR(klimaDetail.totalTravaux)}</span>
+                            </div>
+                            <div className="flex justify-between text-xs font-semibold">
+                              <span className="text-teal">Total Klimabonus estimé</span>
+                              <span className="font-mono text-teal">{formatEUR(klimaDetail.totalKlima)}</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 )}
                 <InputField
                   label="Type de bien"
