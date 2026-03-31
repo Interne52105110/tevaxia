@@ -117,9 +117,14 @@ export default function Header() {
 
           <div className="flex items-center gap-2">
             {user ? (
-              <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
-                {t("mesEval")}
-              </Link>
+              <div className="flex items-center gap-1">
+                <Link href="/profil" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                  Profil
+                </Link>
+                <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                  {t("mesEval")}
+                </Link>
+              </div>
             ) : (
               <Link href="/connexion" className="rounded-lg bg-gold/90 px-3 py-1 text-xs font-medium text-navy-dark hover:bg-gold transition-colors">
                 {t("connexion")}

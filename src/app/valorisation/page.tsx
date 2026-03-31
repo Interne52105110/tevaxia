@@ -34,6 +34,7 @@ import AdjustmentGuidePanel from "@/components/AdjustmentGuide";
 import MarketDataPanel from "@/components/MarketDataPanel";
 import { calculerAjustDate } from "@/lib/adjustments";
 import { downloadReport } from "@/components/ValuationReport";
+import { downloadDocxReport } from "@/components/ValuationDocx";
 import { genererNarrative } from "@/lib/narrative";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
@@ -1651,7 +1652,7 @@ export default function Valorisation() {
             {valeurDCF > 0 && (
               <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">DCF :</span> <span className="font-semibold text-navy">{formatEUR(valeurDCF)}</span></div>
             )}
-            {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
+            {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (<>
               <button
                 onClick={() => downloadReport({
                   dateRapport: new Date().toISOString().split("T")[0],
@@ -1665,9 +1666,24 @@ export default function Valorisation() {
                 })}
                 className="rounded-lg bg-gold px-3 py-2 text-xs font-medium text-navy-dark hover:bg-gold-light transition-colors"
               >
-                Rapport PDF
+                PDF
               </button>
-            )}
+              <button
+                onClick={() => downloadDocxReport({
+                  dateRapport: new Date().toISOString().split("T")[0],
+                  commune: selectedCommune?.commune,
+                  assetType: assetConfig.label,
+                  evsType: evsInfo.label,
+                  surface: surfaceBien,
+                  valeurComparaison: valeurComparaison || undefined,
+                  valeurCapitalisation: valeurCapitalisation || undefined,
+                  valeurDCF: valeurDCF || undefined,
+                })}
+                className="rounded-lg border border-gold px-3 py-2 text-xs font-medium text-gold-dark hover:bg-gold/10 transition-colors"
+              >
+                DOCX
+              </button>
+            </>)}
             {(selectedCommune || comparables.length > 0 || valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
               <button
                 onClick={handleReset}
