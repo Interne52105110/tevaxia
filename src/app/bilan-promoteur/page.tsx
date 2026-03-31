@@ -7,18 +7,31 @@ import { formatEUR, formatPct } from "@/lib/calculations";
 
 export default function BilanPromoteur() {
   // Recettes
+  // Type d'opération
+  const [typeOperation, setTypeOperation] = useState<"immeuble" | "lotissement" | "maisons">("immeuble");
+
   const [surfaceVendable, setSurfaceVendable] = useState(2000);
   const [prixVenteM2, setPrixVenteM2] = useState(8500);
   const [nbParkings, setNbParkings] = useState(30);
   const [prixParking, setPrixParking] = useState(35000);
 
+  // Terrain
+  const [surfaceTerrain, setSurfaceTerrain] = useState(3000);
+  const [prixTerrainM2, setPrixTerrainM2] = useState(0); // 0 = compte à rebours, sinon coût connu
+  const [coutTerrainConnu, setCoutTerrainConnu] = useState(false);
+
   // Coûts construction
   const [coutConstructionM2, setCoutConstructionM2] = useState(2800);
-  const [surfaceBrute, setSurfaceBrute] = useState(2800); // Surface brute > vendable (parties communes)
+  const [surfaceBrute, setSurfaceBrute] = useState(2800);
   const [voirie, setVoirie] = useState(200000);
-  const [honorairesArchitecte, setHonorairesArchitecte] = useState(8); // % coûts construction
+  const [honorairesArchitecte, setHonorairesArchitecte] = useState(8);
   const [honorairesBET, setHonorairesBET] = useState(4);
   const [etudesAutres, setEtudesAutres] = useState(50000);
+
+  // Frais spécifiques lotissement/maisons
+  const [fraisGeometre, setFraisGeometre] = useState(typeOperation !== "immeuble" ? 15000 : 0);
+  const [fraisLotissement, setFraisLotissement] = useState(typeOperation !== "immeuble" ? 30000 : 0);
+  const [nbLots, setNbLots] = useState(typeOperation !== "immeuble" ? 6 : 0);
 
   // Frais promoteur
   const [fraisCommerciaux, setFraisCommerciaux] = useState(3); // % CA
@@ -36,6 +49,9 @@ export default function BilanPromoteur() {
     const caParkings = nbParkings * prixParking;
     const caTotal = caLogements + caParkings;
 
+    // TERRAIN (si coût connu)
+    const coutTerrain = coutTerrainConnu ? surfaceTerrain * prixTerrainM2 : 0;
+
     // COÛTS CONSTRUCTION
     const coutsConstruction = surfaceBrute * coutConstructionM2;
     const coutsVoirie = voirie;
@@ -43,7 +59,8 @@ export default function BilanPromoteur() {
     const coutsBET = coutsConstruction * (honorairesBET / 100);
     const coutsEtudes = etudesAutres;
     const coutsAleas = coutsConstruction * (aleas / 100);
-    const totalConstruction = coutsConstruction + coutsVoirie + coutsArchitecte + coutsBET + coutsEtudes + coutsAleas;
+    const coutsLotissement = typeOperation !== "immeuble" ? fraisGeometre + fraisLotissement : 0;
+    const totalConstruction = coutsConstruction + coutsVoirie + coutsArchitecte + coutsBET + coutsEtudes + coutsAleas + coutsLotissement;
 
     // FRAIS PROMOTEUR
     const fCommerciaux = caTotal * (fraisCommerciaux / 100);
@@ -56,7 +73,9 @@ export default function BilanPromoteur() {
     const margeMontant = caTotal * (margePromoteur / 100);
 
     // CHARGE FONCIÈRE RÉSIDUELLE = CA - Construction - Frais - Marge
-    const chargeFonciere = caTotal - totalConstruction - totalFrais - margeMontant;
+    // Si terrain connu : marge résiduelle = CA - terrain - construction - frais - marge
+    // Si terrain inconnu (compte à rebours) : charge foncière max = CA - construction - frais - marge
+    const chargeFonciere = caTotal - totalConstruction - totalFrais - margeMontant - coutTerrain;
     const chargeFonciereM2Terrain = surfaceVendable > 0 ? chargeFonciere / surfaceVendable : 0;
 
     // Ratios
@@ -71,13 +90,13 @@ export default function BilanPromoteur() {
 
     return {
       caLogements, caParkings, caTotal,
-      coutsConstruction, coutsVoirie, coutsArchitecte, coutsBET, coutsEtudes, coutsAleas, totalConstruction,
+      coutTerrain, coutsConstruction, coutsVoirie, coutsArchitecte, coutsBET, coutsEtudes, coutsAleas, coutsLotissement, totalConstruction,
       fCommerciaux, fFinanciers, fAssurances, fGestion, totalFrais,
       margeMontant,
       chargeFonciere, chargeFonciereM2Terrain,
       ratioFoncierCA, ratioConstructionCA, ratioFraisCA, margeEffective, rentaFP,
     };
-  }, [surfaceVendable, prixVenteM2, nbParkings, prixParking, coutConstructionM2, surfaceBrute, voirie, honorairesArchitecte, honorairesBET, etudesAutres, fraisCommerciaux, fraisFinanciers, assurances, fraisGestion, aleas, margePromoteur]);
+  }, [surfaceVendable, prixVenteM2, nbParkings, prixParking, coutConstructionM2, surfaceBrute, voirie, honorairesArchitecte, honorairesBET, etudesAutres, fraisCommerciaux, fraisFinanciers, assurances, fraisGestion, aleas, margePromoteur, surfaceTerrain, prixTerrainM2, coutTerrainConnu, typeOperation, fraisGeometre, fraisLotissement]);
 
   return (
     <div className="bg-background py-8 sm:py-12">
@@ -93,6 +112,32 @@ export default function BilanPromoteur() {
           {/* Inputs */}
           <div className="space-y-6">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+              <h2 className="mb-4 text-base font-semibold text-navy">Type d'opération</h2>
+              <div className="flex gap-2 mb-6">
+                {([["immeuble", "Immeuble collectif"], ["lotissement", "Lotissement"], ["maisons", "Maisons individuelles"]] as const).map(([val, label]) => (
+                  <button key={val} onClick={() => setTypeOperation(val)}
+                    className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${typeOperation === val ? "bg-navy text-white" : "bg-background text-muted border border-card-border hover:bg-navy/5"}`}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              <h2 className="mb-4 text-base font-semibold text-navy">Terrain</h2>
+              <div className="space-y-4 mb-6">
+                <InputField label="Surface terrain" value={surfaceTerrain} onChange={(v) => setSurfaceTerrain(Number(v))} suffix="m²" />
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" checked={coutTerrainConnu} onChange={(e) => setCoutTerrainConnu(e.target.checked)} className="rounded" />
+                  <label className="text-sm text-slate">Coût du terrain connu</label>
+                </div>
+                {coutTerrainConnu && (
+                  <InputField label="Prix du terrain /m²" value={prixTerrainM2} onChange={(v) => setPrixTerrainM2(Number(v))} suffix="€/m²"
+                    hint={`Total : ${formatEUR(surfaceTerrain * prixTerrainM2)}`} />
+                )}
+                {!coutTerrainConnu && (
+                  <p className="text-xs text-muted">Mode compte à rebours : la charge foncière maximale sera calculée.</p>
+                )}
+              </div>
+
               <h2 className="mb-4 text-base font-semibold text-navy">Recettes prévisionnelles</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <InputField label="Surface vendable" value={surfaceVendable} onChange={(v) => setSurfaceVendable(Number(v))} suffix="m²" hint="Surface habitable vendable totale" />
@@ -112,6 +157,11 @@ export default function BilanPromoteur() {
                 <InputField label="Honoraires architecte" value={honorairesArchitecte} onChange={(v) => setHonorairesArchitecte(Number(v))} suffix="% constr." hint="Configurable — typiquement 7-10%" step={0.5} />
                 <InputField label="Honoraires BET" value={honorairesBET} onChange={(v) => setHonorairesBET(Number(v))} suffix="% constr." hint="Bureau d'études techniques" step={0.5} />
                 <InputField label="Aléas / Imprévus" value={aleas} onChange={(v) => setAleas(Number(v))} suffix="% constr." hint="Configurable — 3 à 8%" step={0.5} />
+                {typeOperation !== "immeuble" && (<>
+                  <InputField label="Géomètre / Bornage" value={fraisGeometre} onChange={(v) => setFraisGeometre(Number(v))} suffix="€" hint="Lotissement : bornage, division parcellaire" />
+                  <InputField label="Frais de lotissement" value={fraisLotissement} onChange={(v) => setFraisLotissement(Number(v))} suffix="€" hint="PAP NQ, raccordements individuels, espaces communs" />
+                  <InputField label="Nombre de lots" value={nbLots} onChange={(v) => setNbLots(Number(v))} hint="Pour calcul du coût par lot" />
+                </>)}
               </div>
             </div>
 
