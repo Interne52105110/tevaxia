@@ -1,7 +1,7 @@
 // ============================================================
 // DCF MULTI-LOCATAIRES — Modélisation bail par bail
 // ============================================================
-// Standard ARGUS-like : chaque bail est modélisé individuellement
+// Modélisation bail par bail : chaque locataire avec ses propres conditions
 // avec ses propres dates, loyer, indexation, franchise, renouvellement.
 
 import { calculerIRR } from "./valuation";

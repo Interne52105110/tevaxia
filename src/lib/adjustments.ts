@@ -4,7 +4,7 @@
 // Sources :
 // - Observatoire de l'Habitat — modèle hédonique (data.public.lu)
 // - STATEC — indices des prix résidentiels
-// - Publications Athome/Wort — analyses marché
+// - Publications presse luxembourgeoise — analyses marché
 // - Pratique professionnelle évaluation LU
 
 // Types (déclarés en premier pour être utilisés dans les constantes)
