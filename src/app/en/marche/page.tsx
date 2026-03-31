@@ -11,6 +11,45 @@ import {
   MACRO_DATA,
 } from "@/lib/market-data-commercial";
 import { formatEUR } from "@/lib/calculations";
+import { PriceEvolutionChart } from "@/components/PriceChart";
+
+// ---------------------------------------------------------------------------
+// CSV export helper
+// ---------------------------------------------------------------------------
+
+function downloadCSV(filename: string, headers: string[], rows: (string | number | null | undefined)[][]) {
+  const escape = (v: string | number | null | undefined) => {
+    if (v == null) return "";
+    const s = String(v);
+    if (s.includes(",") || s.includes('"') || s.includes("\n")) {
+      return `"${s.replace(/"/g, '""')}"`;
+    }
+    return s;
+  };
+  const csv = [headers.map(escape).join(","), ...rows.map((r) => r.map(escape).join(","))].join("\n");
+  const BOM = "\uFEFF";
+  const blob = new Blob([BOM + csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function ExportCSVButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="inline-flex items-center gap-1.5 rounded-lg border border-card-border bg-card px-3 py-2 text-sm font-medium text-navy shadow-sm transition-colors hover:bg-background"
+    >
+      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+      </svg>
+      Export CSV
+    </button>
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -65,7 +104,7 @@ function SourceList({ sources }: { sources: { nom: string; url: string; frequenc
     Mensuel: "Monthly",
     Live: "Live",
     Ponctuel: "Ad hoc",
-    "Périodique": "Periodic",
+    "Periodique": "Periodic",
   };
   return (
     <div className="mt-8 rounded-xl border border-card-border bg-card p-5 shadow-sm">
@@ -185,13 +224,32 @@ function TabResidential() {
   const fmtRent = (v: number | null) => (v != null ? `${v.toFixed(1)} \u20AC` : "\u2014");
   const fmtTx = (v: number | null) => (v != null ? v.toLocaleString("fr-LU") : "\u2014");
 
+  function handleExportCSV() {
+    const headers = ["Commune", "Canton", "Price/sqm existing", "Price/sqm VEFA", "Listed price", "Rent/sqm", "Transactions"];
+    const rows = filtered.map((c) => [
+      c.commune,
+      c.canton,
+      c.prixM2Existant,
+      c.prixM2VEFA,
+      c.prixM2Annonces,
+      c.loyerM2Annonces,
+      c.nbTransactions,
+    ]);
+    downloadCSV("market-residential.csv", headers, rows);
+  }
+
   return (
     <div className="space-y-4">
+      <PriceEvolutionChart />
+
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
           <SearchInput value={search} onChange={setSearch} placeholder="Search by commune or canton..." />
         </div>
-        <p className="text-sm text-muted">{filtered.length} commune{filtered.length > 1 ? "s" : ""}</p>
+        <div className="flex items-center gap-3">
+          <p className="text-sm text-muted">{filtered.length} commune{filtered.length > 1 ? "s" : ""}</p>
+          <ExportCSVButton onClick={handleExportCSV} />
+        </div>
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -298,20 +356,27 @@ function TabOffices() {
     }
   }
 
+  function handleExportCSV() {
+    const headers = ["Submarket", "Prime rent (EUR/sqm/mo)", "Average rent", "Vacancy (%)", "Stock (sqm)", "Trend"];
+    const rows = filtered.map((o) => [o.nom, o.loyerPrime, o.loyerMoyen, o.vacance, o.stock, o.tendance]);
+    downloadCSV("market-offices.csv", headers, rows);
+  }
+
   return (
     <div className="space-y-4">
       {/* Summary cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <SummaryCard label="Annual take-up" value={`${(OFFICE_MARKET_SUMMARY.takeUpAnnuel).toLocaleString("fr-LU")} sqm`} sub={OFFICE_MARKET_SUMMARY.takeUpEvolution} />
+        <SummaryCard label="Annual take-up" value={`${(OFFICE_MARKET_SUMMARY.takeUpAnnuel).toLocaleString("fr-LU")} m\u00B2`} sub={OFFICE_MARKET_SUMMARY.takeUpEvolution} />
         <SummaryCard label="Prime yield" value={`${OFFICE_MARKET_SUMMARY.yieldPrime} %`} />
         <SummaryCard label="Overall vacancy" value={`${OFFICE_MARKET_SUMMARY.vacanceGlobale} %`} />
-        <SummaryCard label="Under construction" value={`${(OFFICE_MARKET_SUMMARY.pipelineEnConstruction).toLocaleString("fr-LU")} sqm`} />
+        <SummaryCard label="Under construction" value={`${(OFFICE_MARKET_SUMMARY.pipelineEnConstruction).toLocaleString("fr-LU")} m\u00B2`} />
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
           <SearchInput value={search} onChange={setSearch} placeholder="Search a submarket..." />
         </div>
+        <ExportCSVButton onClick={handleExportCSV} />
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -390,12 +455,19 @@ function TabRetail() {
     }
   }
 
+  function handleExportCSV() {
+    const headers = ["Location", "Type", "Prime rent (EUR/sqm/mo)", "Average rent", "Trend"];
+    const rows = filtered.map((r) => [r.nom, r.type, r.loyerPrime, r.loyerMoyen, r.tendance]);
+    downloadCSV("market-retail.csv", headers, rows);
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
           <SearchInput value={search} onChange={setSearch} placeholder="Search a location..." />
         </div>
+        <ExportCSVButton onClick={handleExportCSV} />
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -476,12 +548,19 @@ function TabLogistics() {
     }
   }
 
+  function handleExportCSV() {
+    const headers = ["Zone", "Min rent (EUR/sqm/mo)", "Max rent", "Estimated stock (sqm)", "Trend"];
+    const rows = filtered.map((z) => [z.nom, z.loyerMin, z.loyerMax, z.stockEstime, z.tendance]);
+    downloadCSV("market-logistics.csv", headers, rows);
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
           <SearchInput value={search} onChange={setSearch} placeholder="Search a zone..." />
         </div>
+        <ExportCSVButton onClick={handleExportCSV} />
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -558,8 +637,18 @@ function TabLand() {
     }
   }
 
+  function handleExportCSV() {
+    const headers = ["Zone", "Price/sqm", "Price/are", "Change"];
+    const rows = sorted.map((z) => [z.zone, z.prixM2, z.prixMedianAre, z.evolution]);
+    downloadCSV("market-land.csv", headers, rows);
+  }
+
   return (
     <div className="space-y-4">
+      <div className="flex justify-end">
+        <ExportCSVButton onClick={handleExportCSV} />
+      </div>
+
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
@@ -623,8 +712,28 @@ function SummaryCard({ label, value, sub }: { label: string; value: string; sub?
 
 function TabMacro() {
   const inv = MACRO_DATA.investissementCRE2025;
+
+  function handleExportCSV() {
+    const headers = ["Indicator", "Value", "Detail"];
+    const rows = [
+      ["Average mortgage rate", `${MACRO_DATA.tauxHypothecaire.taux} %`, `${MACRO_DATA.tauxHypothecaire.date} - ${MACRO_DATA.tauxHypothecaire.source}`],
+      ["Construction cost index", MACRO_DATA.indiceCoutConstruction.evolution, `${MACRO_DATA.indiceCoutConstruction.date} - ${MACRO_DATA.indiceCoutConstruction.source}`],
+      ["Residential rental yield", MACRO_DATA.rendementLocatifResidentiel.brut, `Gross - ${MACRO_DATA.rendementLocatifResidentiel.source}`],
+      ["CRE investment 2025 - Total", String(inv.total), ""],
+      ["CRE investment 2025 - Offices", `${(inv.bureaux * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.bureaux))],
+      ["CRE investment 2025 - Retail", `${(inv.retail * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.retail))],
+      ["CRE investment 2025 - Logistics", `${(inv.logistique * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.logistique))],
+      ["CRE investment 2025 - Other", `${(inv.autre * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.autre))],
+    ];
+    downloadCSV("market-macro.csv", headers, rows);
+  }
+
   return (
     <div className="space-y-6">
+      <div className="flex justify-end">
+        <ExportCSVButton onClick={handleExportCSV} />
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MacroCard
           label="Average mortgage rate"
@@ -650,7 +759,7 @@ function TabMacro() {
 
       {/* CRE breakdown */}
       <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-        <h3 className="mb-4 text-base font-semibold text-navy">CRE investment breakdown ({formatEUR(inv.total)})</h3>
+        <h3 className="mb-4 text-base font-semibold text-navy">CRE investment breakdown ({MACRO_DATA.investissementCRE2025.total > 0 ? formatEUR(inv.total) : "\u2014"})</h3>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { label: "Offices", pct: inv.bureaux },

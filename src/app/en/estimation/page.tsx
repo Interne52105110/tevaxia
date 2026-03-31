@@ -8,6 +8,8 @@ import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
 import { formatEUR } from "@/lib/calculations";
 import ConfidenceGauge from "@/components/ConfidenceGauge";
+import { estimerCoutsRenovation } from "@/lib/renovation-costs";
+import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { updateUrlHash, readUrlHash } from "@/lib/url-state";
 import { sauvegarderEvaluation } from "@/lib/storage";
@@ -24,6 +26,9 @@ export default function Estimation() {
   const [parking, setParking] = useState(true);
   const [classeEnergie, setClasseEnergie] = useState("D");
   const [estNeuf, setEstNeuf] = useState(false);
+  const [bailEmphyteotique, setBailEmphyteotique] = useState(false);
+  const [dureeRestanteEmph, setDureeRestanteEmph] = useState(85);
+  const [canonAnnuel, setCanonAnnuel] = useState(1200);
 
   const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
 
@@ -105,7 +110,7 @@ export default function Estimation() {
 
           {/* Property features */}
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">Property Features</h2>
+            <h2 className="mb-4 text-base font-semibold text-navy">Property features</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <InputField label="Living area" value={surface} onChange={(v) => setSurface(Number(v))} suffix="m²" min={10} max={500} />
               <InputField label="Number of bedrooms" value={nbChambres} onChange={(v) => setNbChambres(Number(v))} min={0} max={10} />
@@ -149,6 +154,13 @@ export default function Estimation() {
             <div className="mt-4 space-y-3">
               <ToggleField label="Parking included" checked={parking} onChange={setParking} hint="+4% on average" />
               <ToggleField label="New build (VEFA)" checked={estNeuf} onChange={setEstNeuf} hint="Uses VEFA reference price instead of existing" />
+              <ToggleField label="Emphyteutic lease" checked={bailEmphyteotique} onChange={setBailEmphyteotique} hint="Property under ground lease / emphyteusis (not full ownership)" />
+              {bailEmphyteotique && (
+                <div className="grid gap-3 sm:grid-cols-2 mt-2">
+                  <InputField label="Remaining term" value={dureeRestanteEmph} onChange={(v) => setDureeRestanteEmph(Number(v))} suffix="years" min={1} max={99} />
+                  <InputField label="Annual canon" value={canonAnnuel} onChange={(v) => setCanonAnnuel(Number(v))} suffix="EUR/year" hint="Annual fee paid to the landowner" />
+                </div>
+              )}
             </div>
           </div>
 
@@ -171,19 +183,94 @@ export default function Estimation() {
                   </div>
                 </div>
                 <div className="mt-3 text-xs text-white/50">
-                  {result.prixM2Ajuste} €/m² × {surface} m²
+                  {result.prixM2Ajuste} EUR/m² x {surface} m²
                 </div>
               </div>
 
+              {/* Double model: transactions vs listings */}
+              {result.estimationTransactions != null && result.estimationAnnonces != null && (
+                <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                  <h3 className="text-sm font-semibold text-navy mb-3">Price source comparison</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="rounded-lg bg-blue-50 border border-blue-200 p-3 text-center">
+                      <div className="text-xs text-blue-600 font-medium">Transaction estimate</div>
+                      <div className="text-xs text-blue-400 mb-1">Notarial deeds</div>
+                      <div className="text-lg font-bold text-blue-800">{formatEUR(result.estimationTransactions)}</div>
+                    </div>
+                    <div className="rounded-lg bg-purple-50 border border-purple-200 p-3 text-center">
+                      <div className="text-xs text-purple-600 font-medium">Listing estimate</div>
+                      <div className="text-xs text-purple-400 mb-1">Asking prices</div>
+                      <div className="text-lg font-bold text-purple-800">{formatEUR(result.estimationAnnonces)}</div>
+                    </div>
+                  </div>
+                  {result.ecartPct != null && (
+                    <div className="mt-3 text-center">
+                      <span className="text-xs text-muted">
+                        Gap: <span className={`font-semibold ${result.ecartPct > 0 ? "text-amber-600" : "text-green-600"}`}>{result.ecartPct > 0 ? "+" : ""}{result.ecartPct}%</span>
+                        {" "}— Central estimate (average): <span className="font-semibold text-navy">{formatEUR(Math.round((result.estimationTransactions + result.estimationAnnonces) / 2))}</span>
+                      </span>
+                    </div>
+                  )}
+                  <p className="mt-2 text-[10px] text-muted">
+                    Transactions reflect prices actually paid (notarial deeds). Listings reflect asking prices (often higher). The gap is an indicator of negotiation margin.
+                  </p>
+                </div>
+              )}
+
+              {/* Emphyteutic lease */}
+              {bailEmphyteotique && result && (() => {
+                const emph = calculerDecoteEmphyteose({
+                  valeurPleinePropriete: result.estimationCentrale,
+                  dureeRestante: dureeRestanteEmph,
+                  canonAnnuel,
+                  tauxActualisation: 3.5,
+                });
+                return (
+                  <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
+                    <h3 className="text-sm font-semibold text-amber-800 mb-2">Emphyteutic lease — Discount</h3>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between"><span className="text-amber-700">Full ownership value</span><span className="font-mono">{formatEUR(result.estimationCentrale)}</span></div>
+                      <div className="flex justify-between"><span className="text-amber-700">Emphyteutic discount ({emph.decotePct.toFixed(1)}%)</span><span className="font-mono text-error">- {formatEUR(emph.decote)}</span></div>
+                      <div className="flex justify-between font-semibold border-t border-amber-200 pt-1"><span className="text-amber-900">Value under emphyteusis</span><span className="font-mono text-navy">{formatEUR(emph.valeurEmphyteose)}</span></div>
+                    </div>
+                    <p className="mt-2 text-xs text-amber-700">{emph.explication}</p>
+                  </div>
+                );
+              })()}
+
               {/* Confidence */}
               <ConfidenceGauge level={result.confiance} note={result.confianceNote} />
+
+              {/* Renovation cost estimate for low energy classes */}
+              {classeEnergie >= "E" && (() => {
+                const reno = estimerCoutsRenovation(classeEnergie, "B", surface);
+                if (reno.postes.length === 0) return null;
+                return (
+                  <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                    <h3 className="text-sm font-semibold text-navy mb-2">Energy renovation estimate ({classeEnergie} to B)</h3>
+                    <div className="space-y-1 text-xs">
+                      {reno.postes.map((p) => (
+                        <div key={p.label} className="flex justify-between">
+                          <span className="text-muted">{p.label}</span>
+                          <span className="font-mono">{formatEUR(p.coutMin)} – {formatEUR(p.coutMax)}</span>
+                        </div>
+                      ))}
+                      <div className="flex justify-between font-semibold border-t border-card-border pt-1 mt-1">
+                        <span>Total estimated (works + fees)</span>
+                        <span className="font-mono">{formatEUR(reno.totalAvecHonoraires)}</span>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-[10px] text-muted">Indicative ranges — Luxembourg market. Eligible for Klimabonus (up to 62.5%).</p>
+                  </div>
+                );
+              })()}
 
               {/* Price evolution chart */}
               <PriceEvolutionChart />
 
               {/* Detail */}
               <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                <h3 className="mb-3 text-base font-semibold text-navy">Estimate Breakdown</h3>
+                <h3 className="mb-3 text-base font-semibold text-navy">Estimate breakdown</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted">Base price /m²</span>

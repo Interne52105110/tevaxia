@@ -34,17 +34,26 @@ const CANTONS_ORDER = [
   "Redange", "Wiltz", "Clervaux", "Vianden",
 ];
 
+type PriceField = "prixM2Existant" | "prixM2VEFA" | "prixM2Annonces";
+
+const PRICE_TYPES: { key: PriceField; label: string }[] = [
+  { key: "prixM2Existant", label: "Existing" },
+  { key: "prixM2VEFA", label: "New (VEFA)" },
+  { key: "prixM2Annonces", label: "Listings" },
+];
+
 export default function Carte() {
   const [search, setSearch] = useState("");
   const [selectedCommune, setSelectedCommune] = useState<MarketDataCommune | null>(null);
   const [sortBy, setSortBy] = useState<"prix" | "canton" | "nom">("canton");
+  const [priceField, setPriceField] = useState<PriceField>("prixM2Existant");
 
   const allCommunes = useMemo(() => {
     const names = getAllCommunes();
     return names.map((n) => getMarketDataCommune(n)).filter(Boolean) as MarketDataCommune[];
   }, []);
 
-  const maxPrix = useMemo(() => Math.max(...allCommunes.map((c) => c.prixM2Existant || 0)), [allCommunes]);
+  const maxPrix = useMemo(() => Math.max(...allCommunes.map((c) => c[priceField] || 0)), [allCommunes, priceField]);
 
   const searchResults = useMemo(() => rechercherCommune(search), [search]);
 
@@ -54,15 +63,15 @@ export default function Carte() {
       : allCommunes;
 
     return [...filtered].sort((a, b) => {
-      if (sortBy === "prix") return (b.prixM2Existant || 0) - (a.prixM2Existant || 0);
+      if (sortBy === "prix") return (b[priceField] || 0) - (a[priceField] || 0);
       if (sortBy === "nom") return a.commune.localeCompare(b.commune);
       // canton
       const ai = CANTONS_ORDER.indexOf(a.canton);
       const bi = CANTONS_ORDER.indexOf(b.canton);
       if (ai !== bi) return ai - bi;
-      return (b.prixM2Existant || 0) - (a.prixM2Existant || 0);
+      return (b[priceField] || 0) - (a[priceField] || 0);
     });
-  }, [allCommunes, searchResults, search, sortBy]);
+  }, [allCommunes, searchResults, search, sortBy, priceField]);
 
   // Group by canton for canton view
   const communesByCanton = useMemo(() => {
@@ -98,6 +107,23 @@ export default function Carte() {
           <span className="rounded px-2 py-0.5 bg-red-100 text-red-800">{"> 10,000 €"}</span>
         </div>
 
+        {/* Price type toggle */}
+        <div className="mb-4 flex gap-2">
+          {PRICE_TYPES.map((pt) => (
+            <button
+              key={pt.key}
+              onClick={() => setPriceField(pt.key)}
+              className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                priceField === pt.key
+                  ? "bg-navy text-white"
+                  : "bg-background text-muted border border-card-border hover:bg-navy/5"
+              }`}
+            >
+              {pt.label}
+            </button>
+          ))}
+        </div>
+
         {/* Search + Sort */}
         <div className="mb-6 flex gap-3">
           <input
@@ -124,6 +150,7 @@ export default function Carte() {
             communes={allCommunes}
             onSelectCommune={setSelectedCommune}
             selectedCommune={selectedCommune?.commune}
+            priceField={priceField}
           />
           <p className="mt-2 text-xs text-muted text-center">Circle size proportional to transaction volume. Click for details.</p>
         </div>
@@ -140,7 +167,9 @@ export default function Carte() {
                     <div key={canton}>
                       <h3 className="text-sm font-semibold text-navy mb-2">Canton of {canton}</h3>
                       <div className="grid gap-2 sm:grid-cols-2">
-                        {communes.map((c) => (
+                        {communes.map((c) => {
+                          const prix = c[priceField];
+                          return (
                           <button
                             key={c.commune}
                             onClick={() => setSelectedCommune(c)}
@@ -148,20 +177,21 @@ export default function Carte() {
                               selectedCommune?.commune === c.commune ? "border-navy ring-2 ring-navy/20" : "border-card-border"
                             } bg-card`}
                           >
-                            <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(c.prixM2Existant)}`}>
-                              {c.prixM2Existant ? `${(c.prixM2Existant / 1000).toFixed(1)}k` : "—"}
+                            <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
+                              {prix ? `${(prix / 1000).toFixed(1)}k` : "\u2014"}
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="text-sm font-medium text-slate truncate">{c.commune}</div>
                               <div className="h-1.5 rounded-full bg-gray-100 mt-1">
                                 <div
                                   className="h-1.5 rounded-full bg-navy/30"
-                                  style={{ width: getPriceBarWidth(c.prixM2Existant, maxPrix) }}
+                                  style={{ width: getPriceBarWidth(prix, maxPrix) }}
                                 />
                               </div>
                             </div>
                           </button>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   );
@@ -169,7 +199,9 @@ export default function Carte() {
               </div>
             ) : (
               <div className="grid gap-2 sm:grid-cols-2">
-                {sortedCommunes.map((c) => (
+                {sortedCommunes.map((c) => {
+                  const prix = c[priceField];
+                  return (
                   <button
                     key={c.commune}
                     onClick={() => setSelectedCommune(c)}
@@ -177,15 +209,16 @@ export default function Carte() {
                       selectedCommune?.commune === c.commune ? "border-navy ring-2 ring-navy/20" : "border-card-border"
                     } bg-card`}
                   >
-                    <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(c.prixM2Existant)}`}>
-                      {c.prixM2Existant ? `${(c.prixM2Existant / 1000).toFixed(1)}k` : "—"}
+                    <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
+                      {prix ? `${(prix / 1000).toFixed(1)}k` : "\u2014"}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-slate truncate">{c.commune}</div>
                       <div className="text-xs text-muted">{c.canton}</div>
                     </div>
                   </button>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
@@ -200,24 +233,24 @@ export default function Carte() {
                     <p className="text-xs text-muted">{selectedCommune.canton} — {selectedCommune.periode}</p>
 
                     <div className="mt-4 grid grid-cols-2 gap-3">
-                      <div className="rounded-lg bg-navy/5 p-3 text-center">
+                      <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Existant" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>
                         <div className="text-xs text-muted">Existing</div>
-                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "—"}</div>
+                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "\u2014"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
-                      <div className="rounded-lg bg-navy/5 p-3 text-center">
+                      <div className={`rounded-lg p-3 text-center ${priceField === "prixM2VEFA" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>
                         <div className="text-xs text-muted">New (VEFA)</div>
-                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2VEFA ? formatEUR(selectedCommune.prixM2VEFA) : "—"}</div>
+                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2VEFA ? formatEUR(selectedCommune.prixM2VEFA) : "\u2014"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
-                      <div className="rounded-lg bg-gold/10 p-3 text-center">
+                      <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Annonces" ? "bg-gold/20 ring-2 ring-gold/40" : "bg-gold/10"}`}>
                         <div className="text-xs text-muted">Listings</div>
-                        <div className="text-lg font-bold text-gold-dark">{selectedCommune.prixM2Annonces ? formatEUR(selectedCommune.prixM2Annonces) : "—"}</div>
+                        <div className="text-lg font-bold text-gold-dark">{selectedCommune.prixM2Annonces ? formatEUR(selectedCommune.prixM2Annonces) : "\u2014"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
                       <div className="rounded-lg bg-teal/10 p-3 text-center">
                         <div className="text-xs text-muted">Rent</div>
-                        <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "—"}</div>
+                        <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "\u2014"}</div>
                         <div className="text-[10px] text-muted">/m²/month</div>
                       </div>
                     </div>
