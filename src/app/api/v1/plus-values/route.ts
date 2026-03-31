@@ -1,12 +1,8 @@
-import { NextResponse } from "next/server";
 import { calculerPlusValue } from "@/lib/calculations";
+import { handleCalculation } from "@/lib/api-utils";
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const result = calculerPlusValue(body);
-    return NextResponse.json({ success: true, data: result });
-  } catch (e) {
-    return NextResponse.json({ success: false, error: "Paramètres invalides" }, { status: 400 });
-  }
+  return handleCalculation(request, calculerPlusValue, [
+    "prixAcquisition", "anneeAcquisition", "prixCession", "anneeCession",
+  ]);
 }

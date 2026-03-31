@@ -1507,7 +1507,7 @@ function TabReconciliation({
               prixM2Commune: selectedCommune?.prixM2Existant || undefined,
               nbTransactions: selectedCommune?.nbTransactions || undefined,
             }).split("\n\n").map((para, i) => (
-              <p key={i} className="text-sm" dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>") }} />
+              <p key={i} className="text-sm">{para.split(/\*\*(.+?)\*\*/g).map((seg, j) => j % 2 === 1 ? <strong key={j}>{seg}</strong> : seg)}</p>
             ))}
           </div>
         </div>

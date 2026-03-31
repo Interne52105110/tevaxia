@@ -214,18 +214,14 @@ function ReportDocument({ data }: { data: ReportData }) {
   );
 }
 
-export async function generateReport(data: ReportData): Promise<Blob> {
+export async function downloadReport(data: ReportData) {
+  // Dynamic import — @react-pdf (~500KB) only loaded when user clicks "PDF Report"
+  const { pdf } = await import("@react-pdf/renderer");
   const blob = await pdf(<ReportDocument data={data} />).toBlob();
-  return blob;
-}
-
-export function downloadReport(data: ReportData) {
-  generateReport(data).then((blob) => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `tevaxia-rapport-${data.dateRapport}.pdf`;
-    a.click();
-    URL.revokeObjectURL(url);
-  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `tevaxia-rapport-${data.dateRapport}.pdf`;
+  a.click();
+  URL.revokeObjectURL(url);
 }

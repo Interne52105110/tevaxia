@@ -1,12 +1,8 @@
-import { NextResponse } from "next/server";
 import { calculerMLV } from "@/lib/valuation";
+import { handleCalculation } from "@/lib/api-utils";
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const result = calculerMLV(body);
-    return NextResponse.json({ success: true, data: result });
-  } catch (e) {
-    return NextResponse.json({ success: false, error: "Paramètres invalides" }, { status: 400 });
-  }
+  return handleCalculation(request, calculerMLV, [
+    "valeurMarche", "decoteConjoncturelle", "decoteCommercialisation", "decoteSpecifique",
+  ]);
 }

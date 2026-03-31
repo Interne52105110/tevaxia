@@ -64,12 +64,9 @@ async function fetchDatasetInfo(id: string, label: string): Promise<DatasetInfo>
 }
 
 export async function GET() {
-  const results: DatasetInfo[] = [];
-
-  for (const [key, ds] of Object.entries(DATASETS)) {
-    const info = await fetchDatasetInfo(ds.id, ds.label);
-    results.push(info);
-  }
+  const results = await Promise.all(
+    Object.values(DATASETS).map((ds) => fetchDatasetInfo(ds.id, ds.label))
+  );
 
   // Indice STATEC
   try {
