@@ -262,21 +262,24 @@ export default function Home() {
               </div>
               <div className="space-y-3">
                 <div className="rounded-lg bg-white/10 px-4 py-3">
-                  <div className="text-sm font-medium text-white">Prochains modules prévus</div>
+                  <div className="text-sm font-medium text-white">Déjà disponible</div>
                   <ul className="mt-2 space-y-1 text-sm text-white/60">
-                    <li>Analyse PAG/PAP par commune</li>
-                    <li>Base de données marché (prix/m², loyers, transactions)</li>
-                    <li>Valorisation hédonique (modèle propre)</li>
-                    <li>Calculateur bail VEFA</li>
+                    <li>Estimation, carte des prix, valorisation hédonique</li>
+                    <li>Valorisation EVS 2025 (8 méthodes, 9 types d'actifs)</li>
+                    <li>DCF multi-locataires, bilan promoteur, portfolio</li>
+                    <li>Frais, plus-values, aides (Klimabonus détaillé), VEFA</li>
+                    <li>PAG/PAP avec carte Geoportail, terres agricoles</li>
+                    <li>AML/KYC, outils bancaires, achat vs location</li>
                   </ul>
                 </div>
                 <div className="rounded-lg bg-white/10 px-4 py-3">
                   <div className="text-sm font-medium text-white">Sources de données intégrées</div>
                   <ul className="mt-2 space-y-1 text-sm text-white/60">
                     <li>Observatoire de l'Habitat (data.public.lu)</li>
-                    <li>STATEC — Indices de prix</li>
-                    <li>Geoportail.lu — Cadastre</li>
-                    <li>Annonces immobilières (données agrégées)</li>
+                    <li>STATEC — Indices de prix et coûts construction</li>
+                    <li>Geoportail.lu — Cadastre et PAG</li>
+                    <li>JLL, Cushman & Wakefield, CBRE — Bureaux et commerces</li>
+                    <li>BCL — Taux hypothécaires</li>
                   </ul>
                 </div>
               </div>

@@ -168,12 +168,24 @@ export default function HomeEN() {
               </div>
               <div className="space-y-3">
                 <div className="rounded-lg bg-white/10 px-4 py-3">
-                  <div className="text-sm font-medium text-white">Data sources</div>
+                  <div className="text-sm font-medium text-white">Already available</div>
+                  <ul className="mt-2 space-y-1 text-sm text-white/60">
+                    <li>Estimation, price map, hedonic valuation</li>
+                    <li>EVS 2025 valuation (8 methods, 9 asset types)</li>
+                    <li>Multi-tenant DCF, developer feasibility, portfolio</li>
+                    <li>Fees, capital gains, subsidies (detailed Klimabonus), VEFA</li>
+                    <li>PAG/PAP with Geoportail map, agricultural land</li>
+                    <li>AML/KYC, banking tools, buy vs rent</li>
+                  </ul>
+                </div>
+                <div className="rounded-lg bg-white/10 px-4 py-3">
+                  <div className="text-sm font-medium text-white">Integrated data sources</div>
                   <ul className="mt-2 space-y-1 text-sm text-white/60">
                     <li>Observatoire de l'Habitat (data.public.lu)</li>
-                    <li>STATEC — Price indices</li>
-                    <li>Geoportail.lu — Cadastre</li>
-                    <li>Aggregated listings data</li>
+                    <li>STATEC — Price indices & construction costs</li>
+                    <li>Geoportail.lu — Cadastre & PAG zoning</li>
+                    <li>JLL, Cushman & Wakefield, CBRE — Office & retail</li>
+                    <li>BCL — Mortgage rates</li>
                   </ul>
                 </div>
               </div>
