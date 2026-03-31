@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F1B33"/>
+      <stop offset="50%" style="stop-color:#1B2A4A"/>
+      <stop offset="100%" style="stop-color:#2D4A7A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Logo -->
+  <rect x="520" y="80" width="70" height="70" rx="14" fill="#C8A951"/>
+  <text x="555" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="44" fill="#0F1B33">T</text>
+  <!-- Name -->
+  <text x="600" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="36" fill="white">tevaxia<tspan fill="#C8A951">.lu</tspan></text>
+  <!-- Title -->
+  <text x="600" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="38" fill="white">L'immobilier luxembourgeois,</text>
+  <text x="600" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="38" fill="#C8A951">calculé avec précision</text>
+  <!-- Subtitle -->
+  <text x="600" y="420" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="rgba(255,255,255,0.5)">100 communes · 8 méthodes EVS · 9 types d'actifs · FR &amp; EN</text>
+  <!-- Tags -->
+  <text x="600" y="520" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" fill="rgba(255,255,255,0.35)">Estimation · Frais · Aides · Valorisation EVS · DCF · MLV/CRR · Portfolio</text>
+</svg>

@@ -53,14 +53,36 @@ function TabLTV() {
           <div className="mt-4 text-xs text-muted">Down payment: {formatEUR(valeurBien - montantPret)} ({formatPct(1 - ltv)})</div>
         </div>
         <ResultPanel
-          title="Prudential thresholds"
+          title="LTV Thresholds — Luxembourg Regulations"
           lines={[
-            { label: "LTV <= 80%", value: "Residential standard", sub: true },
-            { label: "LTV <= 90%", value: "First-time buyer (with conditions)", sub: true },
-            { label: "LTV > 90%", value: "Requires State guarantee", sub: true, warning: true },
-            { label: "CRR/EBA prudent value", value: formatEUR(valeurBien * 0.85), sub: true },
+            { label: "LTV <= 80%", value: "Residential standard — 35% risk weight (CRR2 Art. 125)", sub: true },
+            { label: "LTV <= 90%", value: "First-time buyer primary residence — tolerated by CSSF with conditions", sub: true },
+            { label: "LTV > 90%", value: "State guarantee required (max 303,862 EUR)", sub: true, warning: true },
           ]}
         />
+
+        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+          <h3 className="text-base font-semibold text-navy mb-3">Prudent Value — CRR Art. 229</h3>
+          <p className="text-xs text-muted leading-relaxed mb-3">
+            The Prudent Value is not a fixed percentage of market value.
+            It is the <strong className="text-slate">Mortgage Lending Value (MLV)</strong> determined by an
+            independent appraiser under Article 229 of the CRR, excluding speculative elements and
+            exceptional market conditions.
+          </p>
+          <div className="space-y-2 text-xs text-muted">
+            <p><strong className="text-slate">Method:</strong> The appraiser applies prudential haircuts
+            to the market value to reflect long-term sustainability:
+            cyclical haircut (margin vs. current conditions), marketing haircut (time/liquidity),
+            specific haircut (risks inherent to the property). The result is typically 80-95% of market value,
+            but this ratio is not regulatory — it depends on the property and context.</p>
+            <p><strong className="text-slate">Legal basis:</strong> CRR Art. 4(1)(74) defines the MLV.
+            CRR Art. 229 requires an assessment by a qualified independent expert.
+            EBA GL/2020/06 specifies monitoring and revaluation requirements.</p>
+            <p><strong className="text-slate">To calculate:</strong> Use the{" "}
+            <a href="/en/valorisation" className="text-navy font-medium hover:underline">Mortgage Lending Value</a>{" "}
+            tab in the EVS valuation module — it applies CRR haircuts with justification.</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -72,6 +94,7 @@ function TabCapacite() {
   const [tauxEndettement, setTauxEndettement] = useState(40);
   const [tauxInteret, setTauxInteret] = useState(3.5);
   const [duree, setDuree] = useState(25);
+  const [tauxAssurance, setTauxAssurance] = useState(0.30); // % of capital
 
   const result = useMemo(
     () =>
@@ -95,6 +118,18 @@ function TabCapacite() {
           <InputField label="Max debt-to-income ratio" value={tauxEndettement} onChange={(v) => setTauxEndettement(Number(v))} suffix="%" min={10} max={50} />
           <InputField label="Interest rate" value={tauxInteret} onChange={(v) => setTauxInteret(Number(v))} suffix="%" step={0.1} />
           <InputField label="Loan term" value={duree} onChange={(v) => setDuree(Number(v))} suffix="years" min={5} max={35} />
+          <InputField label="Outstanding balance insurance" value={tauxAssurance} onChange={(v) => setTauxAssurance(Number(v))} suffix="% capital" step={0.05} hint="Typically 0.20-0.40%. Mandatory in Luxembourg." />
+        </div>
+        <div className="mt-4 rounded-lg bg-navy/5 p-3">
+          <div className="text-xs font-semibold text-navy mb-2">Indicative Luxembourg rates (March 2026)</div>
+          <div className="grid grid-cols-2 gap-1 text-xs text-muted">
+            <span>Fixed 10 years</span><span className="font-mono text-right">2.90-3.20%</span>
+            <span>Fixed 15 years</span><span className="font-mono text-right">3.00-3.30%</span>
+            <span>Fixed 20 years</span><span className="font-mono text-right">3.10-3.50%</span>
+            <span>Fixed 25 years</span><span className="font-mono text-right">3.20-3.60%</span>
+            <span>Variable</span><span className="font-mono text-right">2.80-3.10%</span>
+          </div>
+          <p className="mt-1 text-[10px] text-muted">Source: BCL / Luxembourg banks. Indicative rates, vary by borrower profile.</p>
         </div>
       </div>
       <div className="space-y-6">
@@ -102,15 +137,16 @@ function TabCapacite() {
           title="Results"
           lines={[
             { label: "Max available monthly payment", value: formatEUR2(result.mensualiteMax) },
+            { label: `Of which insurance (${tauxAssurance}%)`, value: formatEUR2(result.capaciteEmprunt * tauxAssurance / 100 / 12), sub: true },
             { label: "Borrowing capacity", value: formatEUR(result.capaciteEmprunt), highlight: true, large: true },
           ]}
         />
         <ResultPanel
           title="With a down payment of..."
           lines={[
-            { label: "+ 50,000 € down payment", value: formatEUR(result.capaciteEmprunt + 50000), sub: true },
-            { label: "+ 100,000 € down payment", value: formatEUR(result.capaciteEmprunt + 100000), sub: true },
-            { label: "+ 150,000 € down payment", value: formatEUR(result.capaciteEmprunt + 150000), sub: true },
+            { label: "+ 50,000 EUR down payment", value: formatEUR(result.capaciteEmprunt + 50000), sub: true },
+            { label: "+ 100,000 EUR down payment", value: formatEUR(result.capaciteEmprunt + 100000), sub: true },
+            { label: "+ 150,000 EUR down payment", value: formatEUR(result.capaciteEmprunt + 150000), sub: true },
           ]}
         />
       </div>
@@ -146,7 +182,7 @@ function TabAmortissement() {
     <div className="space-y-6">
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Loan parameters</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">Loan Parameters</h2>
           <div className="space-y-4">
             <InputField label="Borrowed capital" value={capital} onChange={(v) => setCapital(Number(v))} suffix="€" />
             <InputField label="Annual interest rate" value={taux} onChange={(v) => setTaux(Number(v))} suffix="%" step={0.1} />

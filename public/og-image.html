@@ -1,0 +1,72 @@
+<!-- Open this in a browser, it will auto-download the PNG -->
+<html><body style="margin:0;background:#0F1B33">
+<canvas id="c" width="1200" height="630"></canvas>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+
+// Background gradient
+const grad = ctx.createLinearGradient(0,0,1200,630);
+grad.addColorStop(0, '#0F1B33');
+grad.addColorStop(0.5, '#1B2A4A');
+grad.addColorStop(1, '#2D4A7A');
+ctx.fillStyle = grad;
+ctx.fillRect(0,0,1200,630);
+
+// Logo box
+ctx.beginPath();
+ctx.roundRect(520, 100, 70, 70, 14);
+ctx.fillStyle = '#C8A951';
+ctx.fill();
+
+// Logo T
+ctx.fillStyle = '#0F1B33';
+ctx.font = 'bold 44px system-ui';
+ctx.textAlign = 'center';
+ctx.fillText('T', 555, 148);
+
+// Logo text
+ctx.fillStyle = '#fff';
+ctx.font = 'bold 36px system-ui';
+ctx.textAlign = 'center';
+ctx.fillText('tevaxia', 555, 210);
+ctx.fillStyle = '#C8A951';
+ctx.fillText('.lu', 648, 210);
+
+// Main title
+ctx.fillStyle = '#fff';
+ctx.font = 'bold 40px system-ui';
+ctx.fillText("L'immobilier luxembourgeois,", 600, 300);
+ctx.fillStyle = '#C8A951';
+ctx.fillText('calculé avec précision', 600, 350);
+
+// Subtitle
+ctx.fillStyle = 'rgba(255,255,255,0.5)';
+ctx.font = '22px system-ui';
+ctx.fillText('100 communes · 8 méthodes EVS · 9 types d\'actifs · FR & EN', 600, 420);
+
+// Tags
+const tags = ['Estimation','Frais','Aides','Valorisation EVS','DCF','MLV/CRR'];
+ctx.font = '14px system-ui';
+let tx = 600 - (tags.length * 55);
+tags.forEach(tag => {
+  const w = ctx.measureText(tag).width + 20;
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(tx, 470, w, 30, 15);
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.fillText(tag, tx + 10, 490);
+  tx += w + 10;
+});
+
+// Auto download
+setTimeout(() => {
+  const a = document.createElement('a');
+  a.download = 'og-image.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}, 500);
+</script>
+</body></html>

@@ -78,8 +78,8 @@ function TabLTV() {
             <p><strong className="text-slate">Base légale :</strong> CRR Art. 4(1)(74) définit la MLV.
             CRR Art. 229 impose une évaluation par un expert indépendant qualifié.
             EBA GL/2020/06 précise les exigences de monitoring et réévaluation.</p>
-            <p><strong className="text-slate">Pour calculer :</strong> Utilisez l'onglet
-            <a href="/valorisation" className="text-navy font-medium hover:underline ml-1">Valeur hypothécaire</a>
+            <p><strong className="text-slate">Pour calculer :</strong> Utilisez l'onglet{" "}
+            <a href="/valorisation" className="text-navy font-medium hover:underline">Valeur hypothécaire</a>{" "}
             dans le module de valorisation EVS — il applique les décotes CRR avec justification.</p>
           </div>
         </div>
