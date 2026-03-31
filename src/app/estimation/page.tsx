@@ -9,6 +9,7 @@ import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
 import { formatEUR } from "@/lib/calculations";
 import ConfidenceGauge from "@/components/ConfidenceGauge";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
+import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { updateUrlHash, readUrlHash } from "@/lib/url-state";
 import { sauvegarderEvaluation } from "@/lib/storage";
@@ -25,6 +26,9 @@ export default function Estimation() {
   const [parking, setParking] = useState(true);
   const [classeEnergie, setClasseEnergie] = useState("D");
   const [estNeuf, setEstNeuf] = useState(false);
+  const [bailEmphyteotique, setBailEmphyteotique] = useState(false);
+  const [dureeRestanteEmph, setDureeRestanteEmph] = useState(85);
+  const [canonAnnuel, setCanonAnnuel] = useState(1200);
 
   const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
 
@@ -150,6 +154,13 @@ export default function Estimation() {
             <div className="mt-4 space-y-3">
               <ToggleField label="Parking inclus" checked={parking} onChange={setParking} hint="+4% en moyenne" />
               <ToggleField label="Bien neuf (VEFA)" checked={estNeuf} onChange={setEstNeuf} hint="Prix de référence VEFA au lieu d'existant" />
+              <ToggleField label="Bail emphytéotique" checked={bailEmphyteotique} onChange={setBailEmphyteotique} hint="Bien en droit de superficie / emphytéose (pas pleine propriété)" />
+              {bailEmphyteotique && (
+                <div className="grid gap-3 sm:grid-cols-2 mt-2">
+                  <InputField label="Durée restante" value={dureeRestanteEmph} onChange={(v) => setDureeRestanteEmph(Number(v))} suffix="ans" min={1} max={99} />
+                  <InputField label="Canon annuel" value={canonAnnuel} onChange={(v) => setCanonAnnuel(Number(v))} suffix="€/an" hint="Redevance annuelle au propriétaire du terrain" />
+                </div>
+              )}
             </div>
           </div>
 
@@ -175,6 +186,27 @@ export default function Estimation() {
                   {result.prixM2Ajuste} €/m² × {surface} m²
                 </div>
               </div>
+
+              {/* Emphytéose */}
+              {bailEmphyteotique && result && (() => {
+                const emph = calculerDecoteEmphyteose({
+                  valeurPleinePropriete: result.estimationCentrale,
+                  dureeRestante: dureeRestanteEmph,
+                  canonAnnuel,
+                  tauxActualisation: 3.5,
+                });
+                return (
+                  <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
+                    <h3 className="text-sm font-semibold text-amber-800 mb-2">Bail emphytéotique — Décote</h3>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between"><span className="text-amber-700">Valeur pleine propriété</span><span className="font-mono">{formatEUR(result.estimationCentrale)}</span></div>
+                      <div className="flex justify-between"><span className="text-amber-700">Décote emphytéotique ({emph.decotePct.toFixed(1)}%)</span><span className="font-mono text-error">- {formatEUR(emph.decote)}</span></div>
+                      <div className="flex justify-between font-semibold border-t border-amber-200 pt-1"><span className="text-amber-900">Valeur en emphytéose</span><span className="font-mono text-navy">{formatEUR(emph.valeurEmphyteose)}</span></div>
+                    </div>
+                    <p className="mt-2 text-xs text-amber-700">{emph.explication}</p>
+                  </div>
+                );
+              })()}
 
               {/* Confiance */}
               <ConfidenceGauge level={result.confiance} note={result.confianceNote} />

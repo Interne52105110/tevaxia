@@ -47,6 +47,7 @@ const MENU_GROUPS: MenuGroup[] = [
     items: [
       { href: "/marche", key: "marche" },
       { href: "/pag-pap", key: "pagPap" },
+      { href: "/terres-agricoles", key: "terresAgricoles" },
     ],
   },
 ];
