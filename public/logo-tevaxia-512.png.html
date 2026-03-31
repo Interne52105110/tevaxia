@@ -1,0 +1,26 @@
+<!-- Ouvre ce fichier dans un navigateur, puis fais clic droit → Enregistrer l'image sous → logo-tevaxia-512.png -->
+<html><body style="margin:0;padding:40px;background:#f0f0f0">
+<canvas id="c" width="512" height="512"></canvas>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+// Fond doré arrondi
+ctx.beginPath();
+ctx.roundRect(0, 0, 512, 512, 96);
+ctx.fillStyle = '#C8A951';
+ctx.fill();
+// Lettre T
+ctx.fillStyle = '#0F1B33';
+ctx.font = 'bold 340px system-ui, sans-serif';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText('T', 256, 270);
+// Téléchargement auto
+setTimeout(() => {
+  const link = document.createElement('a');
+  link.download = 'logo-tevaxia-512.png';
+  link.href = c.toDataURL('image/png');
+  link.click();
+}, 500);
+</script>
+</body></html>

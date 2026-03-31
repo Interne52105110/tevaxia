@@ -30,11 +30,21 @@ export default function Confidentialite() {
               (hébergés par Supabase, infrastructure européenne) et associées à votre compte.
             </p>
             <p>
-              <strong>Compte utilisateur :</strong> Si vous créez un compte, nous collectons
-              votre adresse email et votre mot de passe (haché, non lisible). Vos évaluations
-              sauvegardées (paramètres de calcul, résultats) sont stockées et accessibles
-              uniquement par vous. Vous pouvez supprimer votre compte et toutes vos données
-              à tout moment en nous contactant.
+              <strong>Compte utilisateur :</strong> Vous pouvez créer un compte par email/mot de passe
+              ou via un service tiers (Google, LinkedIn). Dans tous les cas, nous collectons
+              votre adresse email et votre nom (tel que fourni par le service d'authentification).
+              Les mots de passe sont hachés et non lisibles. Vos évaluations sauvegardées
+              (paramètres de calcul, résultats) sont stockées et accessibles uniquement par vous.
+              Vous pouvez supprimer votre compte et toutes vos données à tout moment en nous contactant.
+            </p>
+            <p>
+              <strong>Connexion via Google ou LinkedIn :</strong> Si vous choisissez de vous
+              connecter via Google ou LinkedIn, nous recevons de ces services votre nom et
+              votre adresse email. Nous ne recevons pas votre mot de passe Google ou LinkedIn,
+              ni vos contacts, ni aucune autre donnée de votre compte. L'authentification est
+              gérée par Supabase Auth via le protocole OAuth 2.0 / OpenID Connect. Vous pouvez
+              révoquer l'accès à tout moment depuis les paramètres de sécurité de votre compte
+              Google (myaccount.google.com) ou LinkedIn.
             </p>
             <p>
               <strong>Contact :</strong> Si vous nous contactez par email, nous collectons

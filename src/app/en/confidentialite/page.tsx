@@ -31,11 +31,21 @@ export default function Confidentialite() {
               your account.
             </p>
             <p>
-              <strong>User account:</strong> If you create an account, we collect
-              your email address and password (hashed, not readable). Your saved
-              valuations (calculation parameters, results) are stored and accessible
-              only by you. You may delete your account and all your data at any time
-              by contacting us.
+              <strong>User account:</strong> You can create an account via email/password
+              or through a third-party service (Google, LinkedIn). In all cases, we collect
+              your email address and name (as provided by the authentication service).
+              Passwords are hashed and not readable. Your saved valuations (calculation
+              parameters, results) are stored and accessible only by you. You may delete
+              your account and all your data at any time by contacting us.
+            </p>
+            <p>
+              <strong>Sign in via Google or LinkedIn:</strong> If you choose to sign in
+              via Google or LinkedIn, we receive your name and email address from these
+              services. We do not receive your Google or LinkedIn password, contacts, or
+              any other data from your account. Authentication is handled by Supabase Auth
+              via the OAuth 2.0 / OpenID Connect protocol. You can revoke access at any
+              time from your Google account settings (myaccount.google.com) or LinkedIn
+              security settings.
             </p>
             <p>
               <strong>Contact:</strong> If you contact us by email, we collect your
