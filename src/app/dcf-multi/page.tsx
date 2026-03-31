@@ -33,7 +33,7 @@ export default function DCFMulti() {
   const [fraisCession, setFraisCession] = useState(7);
   const [chargesProprio, setChargesProprio] = useState(12000);
   const [vacanceERV, setVacanceERV] = useState(5);
-  const [dateValeur, setDateValeur] = useState("2026-01");
+  const [dateValeur, setDateValeur] = useState(new Date().toISOString().slice(0, 7));
   // Leveraged IRR
   const [montantDette, setMontantDette] = useState(0);
   const [tauxDette, setTauxDette] = useState(3.5);

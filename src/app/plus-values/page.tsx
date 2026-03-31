@@ -5,8 +5,12 @@ import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { calculerPlusValue, formatEUR } from "@/lib/calculations";
+import { sauvegarderEvaluation } from "@/lib/storage";
+import { useToast, Toast } from "@/components/Toast";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function PlusValues() {
+  const toast = useToast();
   const [prixAcquisition, setPrixAcquisition] = useState(400000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2015);
   const [prixCession, setPrixCession] = useState(550000);
@@ -297,9 +301,29 @@ export default function PlusValues() {
                 </p>
               </div>
             </div>
+
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  sauvegarderEvaluation({
+                    nom: `Plus-value — ${formatEUR(prixAcquisition)} → ${formatEUR(prixCession)}`,
+                    type: "plus-values",
+                    valeurPrincipale: result.gainImposable,
+                    data: { prixAcquisition, anneeAcquisition, prixCession, anneeCession, fraisAcquisition, travauxDeductibles, estResidencePrincipale, estCouple },
+                  });
+                  toast.show("Évaluation sauvegardée !");
+                }}
+                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
+              >
+                Sauvegarder
+              </button>
+            </div>
+
+            <RelatedTools keys={["estimation", "frais", "valorisation"]} />
           </div>
         </div>
       </div>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }

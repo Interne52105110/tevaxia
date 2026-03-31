@@ -52,14 +52,32 @@ function TabLTV() {
           <div className={`mt-2 text-sm font-medium ${ltvColor}`}>{ltvLabel}</div>
           <div className="mt-4 text-xs text-muted">Apport : {formatEUR(valeurBien - montantPret)} ({formatPct(1 - ltv)})</div>
         </div>
-        <ResultPanel
-          title="Seuils LTV — Réglementation luxembourgeoise"
-          lines={[
-            { label: "LTV ≤ 80%", value: "Standard résidentiel — pondération 35% (CRR2 Art. 125)", sub: true },
-            { label: "LTV ≤ 90%", value: "Primo-accédant RP — toléré par la CSSF avec conditions", sub: true },
-            { label: "LTV > 90%", value: "Garantie de l'État requise (max 303 862 €)", sub: true, warning: true },
-          ]}
-        />
+        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+          <h3 className="text-base font-semibold text-navy mb-3">Seuils LTV au Luxembourg</h3>
+          <div className="space-y-3">
+            <div className="flex items-start gap-3 rounded-lg bg-green-50 border border-green-200 p-3">
+              <span className="shrink-0 rounded-full bg-success px-2.5 py-0.5 text-xs font-bold text-white">≤ 80%</span>
+              <div>
+                <div className="text-sm font-medium text-slate">Standard résidentiel</div>
+                <p className="text-xs text-muted mt-0.5">La plupart des banques luxembourgeoises prêtent jusqu'à 80% de la valeur du bien. Vous devez apporter au moins 20% d'apport personnel.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
+              <span className="shrink-0 rounded-full bg-warning px-2.5 py-0.5 text-xs font-bold text-white">≤ 90%</span>
+              <div>
+                <div className="text-sm font-medium text-slate">Primo-accédant (résidence principale)</div>
+                <p className="text-xs text-muted mt-0.5">Pour un premier achat en résidence principale, certaines banques acceptent un LTV jusqu'à 90% sous conditions (revenus stables, CDI, jeune ménage).</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg bg-red-50 border border-red-200 p-3">
+              <span className="shrink-0 rounded-full bg-error px-2.5 py-0.5 text-xs font-bold text-white">&gt; 90%</span>
+              <div>
+                <div className="text-sm font-medium text-slate">Nécessite la garantie de l'État</div>
+                <p className="text-xs text-muted mt-0.5">Au-delà de 90%, la banque exige généralement la garantie de l'État luxembourgeois (max 303 862 €). Conditions : épargne régulière ≥ 3 ans, plafond de revenus.</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
           <h3 className="text-base font-semibold text-navy mb-3">Valeur prudente — CRR Art. 229</h3>

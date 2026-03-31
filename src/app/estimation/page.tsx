@@ -13,8 +13,11 @@ import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { updateUrlHash, readUrlHash } from "@/lib/url-state";
 import { sauvegarderEvaluation } from "@/lib/storage";
+import { useToast, Toast } from "@/components/Toast";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function Estimation() {
+  const toast = useToast();
   const [linkCopied, setLinkCopied] = useState(false);
   const [communeSearch, setCommuneSearch] = useState("");
   const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
@@ -152,6 +155,10 @@ export default function Estimation() {
               />
             </div>
             <div className="mt-4 space-y-3">
+              <InputField label="Type de bien" type="select" value="appartement" onChange={() => {}} options={[
+                { value: "appartement", label: "Appartement" },
+                { value: "maison", label: "Maison" },
+              ]} hint="Les données de l'Observatoire couvrent principalement les appartements" />
               <ToggleField label="Parking inclus" checked={parking} onChange={setParking} hint="+4% en moyenne" />
               <ToggleField label="Bien neuf (VEFA)" checked={estNeuf} onChange={setEstNeuf} hint="Prix de référence VEFA au lieu d'existant" />
               <ToggleField label="Bail emphytéotique" checked={bailEmphyteotique} onChange={setBailEmphyteotique} hint="Bien en droit de superficie / emphytéose (pas pleine propriété)" />
@@ -326,13 +333,15 @@ export default function Estimation() {
                       valeurPrincipale: result.estimationCentrale,
                       data: { communeSearch, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf },
                     });
-                    alert("Évaluation sauvegardée !");
+                    toast.show("Évaluation sauvegardée !");
                   }}
                   className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
                 >
                   Sauvegarder
                 </button>
               </div>
+
+              <RelatedTools keys={["frais", "achatLocation", "loyer"]} />
 
               {/* Disclaimer */}
               <p className="text-xs text-muted text-center leading-relaxed">
@@ -351,6 +360,7 @@ export default function Estimation() {
           )}
         </div>
       </div>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }

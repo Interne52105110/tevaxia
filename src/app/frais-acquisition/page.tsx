@@ -6,8 +6,12 @@ import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { calculerFraisAcquisition, formatEUR, formatPct } from "@/lib/calculations";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { sauvegarderEvaluation } from "@/lib/storage";
+import { useToast, Toast } from "@/components/Toast";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function FraisAcquisition() {
+  const toast = useToast();
   const [prixBien, setPrixBien] = useState(750000);
   const [estNeuf, setEstNeuf] = useState(false);
   const [partTerrain, setPartTerrain] = useState(250000);
@@ -230,9 +234,29 @@ export default function FraisAcquisition() {
                 </p>
               </div>
             </div>
+
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  sauvegarderEvaluation({
+                    nom: `Frais — ${formatEUR(prixBien)}`,
+                    type: "frais",
+                    valeurPrincipale: result.totalFrais,
+                    data: { prixBien, estNeuf, partTerrain, residencePrincipale, nbAcquereurs, montantHypotheque },
+                  });
+                  toast.show("Évaluation sauvegardée !");
+                }}
+                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
+              >
+                Sauvegarder
+              </button>
+            </div>
+
+            <RelatedTools keys={["aides", "estimation", "vefa"]} />
           </div>
         </div>
       </div>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }

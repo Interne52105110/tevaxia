@@ -110,7 +110,7 @@ function TabComparaison({
         adresse: selectedCommune ? `${selectedCommune.commune} — à compléter` : "",
         prixVente: prixM2Ref > 0 ? prixM2Ref * surfaceBien : 0,
         surface: surfaceBien,
-        dateVente: "2025-01",
+        dateVente: new Date().toISOString().slice(0, 7),
         ajustLocalisation: 0, ajustEtat: 0, ajustEtage: 0,
         ajustExterieur: 0, ajustParking: 0, ajustDate: 0, ajustAutre: 0,
         poids: 33,
@@ -1864,7 +1864,7 @@ export default function Valorisation() {
         })()}
 
         {/* Tabs */}
-        <div className="mb-8 flex gap-1 overflow-x-auto rounded-xl bg-card border border-card-border p-1">
+        <div className="sticky top-16 z-30 mb-8 flex gap-1 overflow-x-auto rounded-xl bg-card border border-card-border p-1 shadow-sm">
           {TABS.map((tab) => (
             <button
               key={tab.id}

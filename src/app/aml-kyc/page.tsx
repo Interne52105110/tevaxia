@@ -19,6 +19,7 @@ const AML_CHECKLIST: CheckItem[] = [
   { id: "id_3", categorie: "Identification du client", label: "Bénéficiaire effectif identifié", description: "Si personne morale : registre RBE, organigramme, statuts", obligatoire: true, reference: "Art. 3-6 Loi AML" },
   { id: "id_4", categorie: "Identification du client", label: "Source des fonds vérifiée", description: "Origine des fonds pour l'acquisition (salaire, vente, héritage, emprunt)", obligatoire: true, reference: "Art. 3-2(d) Loi AML" },
   { id: "id_5", categorie: "Identification du client", label: "Questionnaire PPE complété", description: "Vérification si le client est une Personne Politiquement Exposée ou proche d'une PPE", obligatoire: true, reference: "Art. 3-4 Loi AML" },
+  { id: "id_5b", categorie: "Identification du client", label: "Client identifié comme PPE", description: "Le client EST une Personne Politiquement Exposée (ou proche) — déclenche vigilance renforcée", obligatoire: false, reference: "Art. 3-4 Loi AML" },
 
   // Vigilance renforcée
   { id: "vig_1", categorie: "Vigilance renforcée", label: "Screening listes de sanctions", description: "Vérification UE, ONU, OFAC, listes nationales", obligatoire: true, reference: "Art. 3-3 Loi AML" },
@@ -38,7 +39,7 @@ const AML_CHECKLIST: CheckItem[] = [
 ];
 
 /* IDs that trigger "Élevé" risk when checked */
-const HIGH_RISK_IDS = new Set(["id_5", "vig_2", "vig_3"]); // PPE, high-risk country, complex structure
+const HIGH_RISK_IDS = new Set(["id_5b", "vig_2", "vig_3"]); // Client IS PPE, high-risk country, complex structure
 
 const IDENTIFICATION_IDS = AML_CHECKLIST.filter((c) => c.categorie === "Identification du client").map((c) => c.id);
 const VIGILANCE_IDS = AML_CHECKLIST.filter((c) => c.categorie === "Vigilance renforcée").map((c) => c.id);

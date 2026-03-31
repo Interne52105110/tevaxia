@@ -5,8 +5,12 @@ import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { calculerCapitalInvesti, formatEUR, formatEUR2 } from "@/lib/calculations";
+import { sauvegarderEvaluation } from "@/lib/storage";
+import { useToast, Toast } from "@/components/Toast";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function CalculateurLoyer() {
+  const toast = useToast();
   const [prixAcquisition, setPrixAcquisition] = useState(500000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2010);
   const [travauxMontant, setTravauxMontant] = useState(0);
@@ -262,9 +266,29 @@ export default function CalculateurLoyer() {
                 </p>
               </div>
             </div>
+
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  sauvegarderEvaluation({
+                    nom: `Loyer — ${formatEUR(prixAcquisition)} (${surfaceHabitable} m²)`,
+                    type: "loyer",
+                    valeurPrincipale: result.loyerMensuelMax,
+                    data: { prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, appliquerVetuste, tauxVetuste, avecColocation, nbColocataires, estMeuble },
+                  });
+                  toast.show("Évaluation sauvegardée !");
+                }}
+                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
+              >
+                Sauvegarder
+              </button>
+            </div>
+
+            <RelatedTools keys={["estimation", "carte", "achatLocation"]} />
           </div>
         </div>
       </div>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }

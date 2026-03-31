@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import { simulerAides, formatEUR, type AideDetail } from "@/lib/calculations";
+import RelatedTools from "@/components/RelatedTools";
 
 const CATEGORIE_LABELS: Record<string, { label: string; color: string; bg: string }> = {
   etatique_acquisition: { label: "Aides étatiques (acquisition)", color: "text-navy", bg: "bg-navy/5 border-navy/20" },
@@ -472,6 +473,8 @@ export default function SimulateurAides() {
                 </p>
               </div>
             </div>
+
+            <RelatedTools keys={["frais", "estimation", "vefa"]} />
           </div>
         </div>
       </div>
