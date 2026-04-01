@@ -1,5 +1,5 @@
 // Client API pour le backend Spring Boot energy-api
-// En dev : http://localhost:8080, en prod : https://api.energy.tevaxia.eu
+// En dev : http://localhost:8081, en prod : https://energy.tevaxia.lu
 
 const API_BASE = process.env.NEXT_PUBLIC_ENERGY_API_URL || "http://localhost:8081";
 

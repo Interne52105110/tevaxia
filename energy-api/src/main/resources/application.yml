@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: ${PORT:8081}
 
 spring:
   application:
@@ -13,7 +13,7 @@ springdoc:
     operations-sorter: method
     tags-sorter: alpha
   info:
-    title: energy.tevaxia.eu API
+    title: energy.tevaxia.lu API
     description: >
       API REST pour les simulateurs de performance énergétique immobilière au Luxembourg.
       Trois endpoints : impact CPE sur la valeur, ROI rénovation énergétique, communauté d'énergie.
