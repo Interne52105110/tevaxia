@@ -1,0 +1,179 @@
+"use client";
+
+import { useState, useCallback, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { calculerRenovation, type RenovationResponse } from "@/lib/energy-api";
+import { estimerCoutsRenovation } from "@/lib/renovation-costs";
+
+const CLASSES = ["A", "B", "C", "D", "E", "F", "G"] as const;
+const IMPACT_ENERGIE: Record<string, number> = { A: 5, B: 3, C: 1, D: 0, E: -3, F: -6, G: -10 };
+const CLASS_COLORS: Record<string, string> = {
+  A: "bg-green-600 text-white", B: "bg-green-500 text-white", C: "bg-lime-500 text-white",
+  D: "bg-yellow-400 text-gray-900", E: "bg-orange-400 text-white", F: "bg-orange-600 text-white", G: "bg-red-600 text-white",
+};
+
+function fmt(n: number): string { return n.toLocaleString("fr-LU", { maximumFractionDigits: 0 }); }
+
+function fallbackLocal(ca: string, cc: string, surface: number, annee: number, valeur: number): RenovationResponse | null {
+  if (CLASSES.indexOf(cc as typeof CLASSES[number]) >= CLASSES.indexOf(ca as typeof CLASSES[number])) return null;
+  const est = estimerCoutsRenovation(ca, cc, surface, annee);
+  if (est.postes.length === 0) return null;
+  const gainPct = (IMPACT_ENERGIE[cc] || 0) - (IMPACT_ENERGIE[ca] || 0);
+  const gainValeur = Math.round(valeur * (gainPct / 100));
+  const roi = est.totalAvecHonoraires > 0 ? Math.round((gainValeur * 100 / est.totalAvecHonoraires) * 10) / 10 : 0;
+  return {
+    sautClasse: `${ca} → ${cc}`, postes: est.postes.map((p) => ({ label: p.label, coutMin: p.coutMin, coutMax: p.coutMax, coutMoyen: p.coutMoyen })),
+    totalMin: est.totalMin, totalMax: est.totalMax, totalMoyen: est.totalMoyen,
+    honoraires: est.honoraires, totalProjet: est.totalAvecHonoraires, dureeEstimeeMois: est.dureeEstimeeMois,
+    gainValeur, gainValeurPct: Math.round(gainPct * 10) / 10, roiPct: roi,
+  };
+}
+
+export default function RenovationPage() {
+  const t = useTranslations("energy.renovation");
+  const [classeActuelle, setClasseActuelle] = useState<typeof CLASSES[number]>("F");
+  const [classeCible, setClasseCible] = useState<typeof CLASSES[number]>("B");
+  const [surface, setSurface] = useState(120);
+  const [annee, setAnnee] = useState(1975);
+  const [valeur, setValeur] = useState(650000);
+  const [result, setResult] = useState<RenovationResponse | null>(null);
+  const [apiOk, setApiOk] = useState<boolean | null>(null);
+
+  const compute = useCallback(async (ca: string, cc: string, s: number, a: number, v: number) => {
+    if (CLASSES.indexOf(cc as typeof CLASSES[number]) >= CLASSES.indexOf(ca as typeof CLASSES[number])) { setResult(null); return; }
+    try {
+      const data = await calculerRenovation({ classeActuelle: ca, classeCible: cc, surface: s, anneeConstruction: a, valeurBien: v });
+      setResult(data); setApiOk(true);
+    } catch { setResult(fallbackLocal(ca, cc, s, a, v)); setApiOk(false); }
+  }, []);
+
+  useEffect(() => { compute(classeActuelle, classeCible, surface, annee, valeur); },
+    [classeActuelle, classeCible, surface, annee, valeur, compute]);
+
+  return (
+    <div className="py-8 sm:py-12">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{t("title")}</h1>
+          <p className="mt-2 text-muted">{t("description")}</p>
+          {apiOk === false && <div className="mt-2 inline-flex items-center gap-1.5 text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1">{t("localFallback")}</div>}
+          {apiOk === true && <div className="mt-2 inline-flex items-center gap-1.5 text-xs text-energy bg-energy/5 border border-energy/20 rounded-lg px-3 py-1">{t("apiConnected")}</div>}
+        </div>
+
+        <div className="rounded-2xl border border-card-border bg-card p-6 shadow-sm mb-8">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">{t("classeActuelle")}</label>
+              <div className="flex gap-1">
+                {CLASSES.map((c) => (
+                  <button key={c} onClick={() => { setClasseActuelle(c); if (CLASSES.indexOf(classeCible) >= CLASSES.indexOf(c)) setClasseCible(CLASSES[Math.max(0, CLASSES.indexOf(c) - 2)]); }}
+                    className={`flex-1 rounded-lg py-2 text-xs font-bold transition-all ${classeActuelle === c ? `${CLASS_COLORS[c]} ring-2 ring-offset-1 ring-energy` : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}>{c}</button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">{t("classeCible")}</label>
+              <div className="flex gap-1">
+                {CLASSES.map((c) => {
+                  const disabled = CLASSES.indexOf(c) >= CLASSES.indexOf(classeActuelle);
+                  return (<button key={c} onClick={() => !disabled && setClasseCible(c)} disabled={disabled}
+                    className={`flex-1 rounded-lg py-2 text-xs font-bold transition-all ${disabled ? "bg-gray-50 text-gray-300 cursor-not-allowed" : classeCible === c ? `${CLASS_COLORS[c]} ring-2 ring-offset-1 ring-energy` : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}>{c}</button>);
+                })}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">{t("surface")}</label>
+              <input type="number" value={surface} onChange={(e) => setSurface(Number(e.target.value))} className="w-full rounded-lg border border-input-border bg-input-bg px-4 py-2.5 text-foreground" min={20} max={500} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">{t("anneeConstruction")}</label>
+              <input type="number" value={annee} onChange={(e) => setAnnee(Number(e.target.value))} className="w-full rounded-lg border border-input-border bg-input-bg px-4 py-2.5 text-foreground" min={1800} max={2025} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">{t("valeurBien")}</label>
+              <div className="relative">
+                <input type="number" value={valeur} onChange={(e) => setValeur(Number(e.target.value))} className="w-full rounded-lg border border-input-border bg-input-bg px-4 py-2.5 pr-10 text-foreground" min={50000} step={10000} />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted text-sm">€</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {result && result.postes.length > 0 && (
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
+              <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
+                <h2 className="font-semibold text-foreground">{t("resultTitle")}</h2>
+                <p className="text-xs text-muted mt-0.5">{result.sautClasse} · {surface} m² · {annee}</p>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead><tr className="border-b border-card-border text-left">
+                    <th className="px-6 py-3 font-medium text-muted">{t("poste")}</th>
+                    <th className="px-6 py-3 font-medium text-muted text-right">{t("coutMin")}</th>
+                    <th className="px-6 py-3 font-medium text-muted text-right">{t("coutMax")}</th>
+                    <th className="px-6 py-3 font-medium text-muted text-right">{t("coutMoyen")}</th>
+                  </tr></thead>
+                  <tbody>
+                    {result.postes.map((p) => (
+                      <tr key={p.label} className="border-b border-card-border last:border-0 hover:bg-gray-50">
+                        <td className="px-6 py-3 text-foreground">{p.label}</td>
+                        <td className="px-6 py-3 text-right font-mono text-muted">{fmt(p.coutMin)} €</td>
+                        <td className="px-6 py-3 text-right font-mono text-muted">{fmt(p.coutMax)} €</td>
+                        <td className="px-6 py-3 text-right font-mono font-semibold">{fmt(p.coutMoyen)} €</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                <div className="text-xs text-muted uppercase tracking-wider">{t("totalProjet")}</div>
+                <div className="mt-1 text-2xl font-bold text-foreground">{fmt(result.totalProjet)} €</div>
+                <div className="mt-1 text-xs text-muted">{t("totalTravaux")} : {fmt(result.totalMoyen)} € + {t("honoraires")} : {fmt(result.honoraires)} €</div>
+              </div>
+              <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                <div className="text-xs text-muted uppercase tracking-wider">{t("duree")}</div>
+                <div className="mt-1 text-2xl font-bold text-foreground">{result.dureeEstimeeMois} {t("mois")}</div>
+                <div className="mt-1 text-xs text-muted">{result.postes.length} {t("postesDeTravaux")}</div>
+              </div>
+              <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                <div className="text-xs text-muted uppercase tracking-wider">{t("gainValeur")}</div>
+                <div className={`mt-1 text-2xl font-bold ${result.gainValeur > 0 ? "text-green-600" : "text-red-600"}`}>
+                  {result.gainValeur > 0 ? "+" : ""}{fmt(result.gainValeur)} €
+                </div>
+                <div className="mt-1 text-xs text-muted">{result.gainValeurPct > 0 ? "+" : ""}{result.gainValeurPct}% {t("deValeur")}</div>
+              </div>
+              <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                <div className="text-xs text-muted uppercase tracking-wider">{t("roi")}</div>
+                <div className={`mt-1 text-2xl font-bold ${result.roiPct > 100 ? "text-green-600" : result.roiPct > 50 ? "text-yellow-600" : "text-red-600"}`}>{result.roiPct}%</div>
+                <div className="mt-1 text-xs text-muted">{result.roiPct >= 100 ? t("roiRentable") : result.roiPct >= 50 ? t("roiPartiel") : t("roiNegatif")}</div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-card-border bg-gradient-to-r from-energy/5 to-transparent p-5">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted">{t("fourchetteTravaux")}</span>
+                <span className="font-mono font-semibold text-foreground">{fmt(result.totalMin)} € — {fmt(result.totalMax)} €</span>
+              </div>
+              <div className="mt-2 h-2 rounded-full bg-gray-200 overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-energy to-energy-light rounded-full"
+                  style={{ width: `${result.totalMax > result.totalMin ? ((result.totalMoyen - result.totalMin) / (result.totalMax - result.totalMin)) * 100 : 50}%` }} />
+              </div>
+              <div className="mt-1 flex justify-between text-xs text-muted">
+                <span>{t("min")} : {fmt(result.totalMin)} €</span>
+                <span>{t("max")} : {fmt(result.totalMax)} €</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {result && result.postes.length === 0 && (
+          <div className="rounded-2xl border border-card-border bg-card p-8 text-center text-muted">{t("aucunPoste")}</div>
+        )}
+      </div>
+    </div>
+  );
+}

@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 export default getRequestConfig(async () => {
   const headersList = await headers();
   const url = headersList.get("x-url") || "";
-  const locale = url.startsWith("/en") ? "en" : "fr";
+  const locale = url === "/en" || url.startsWith("/en/") ? "en" : "fr";
 
   return {
     locale,

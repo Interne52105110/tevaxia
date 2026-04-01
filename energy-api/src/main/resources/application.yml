@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: energy-api
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  info:
+    title: energy.tevaxia.eu API
+    description: >
+      API REST pour les simulateurs de performance énergétique immobilière au Luxembourg.
+      Trois endpoints : impact CPE sur la valeur, ROI rénovation énergétique, communauté d'énergie.
+    version: 1.0.0
+    contact:
+      name: Erwan Bargain
+      email: contact@tevaxia.lu
+
+# CORS configuré dans CorsConfig.java

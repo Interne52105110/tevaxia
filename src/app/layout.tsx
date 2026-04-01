@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
+import { headers } from "next/headers";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -53,11 +54,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const messages = await getMessages();
+  const [messages, locale, headersList] = await Promise.all([
+    getMessages(),
+    getLocale(),
+    headers(),
+  ]);
+  const url = headersList.get("x-url") || "";
+  const isEnergy = headersList.get("x-energy-subdomain") === "1"
+    || url.startsWith("/energy")
+    || url.startsWith("/en/energy");
 
   return (
     <html
-      lang="fr"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
@@ -91,12 +100,16 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
-          <AuthProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <CookieBanner />
-          </AuthProvider>
+          {isEnergy ? (
+            <>{children}</>
+          ) : (
+            <AuthProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <CookieBanner />
+            </AuthProvider>
+          )}
         </NextIntlClientProvider>
       </body>
     </html>

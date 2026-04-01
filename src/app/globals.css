@@ -20,6 +20,9 @@
   --success: #059669;
   --warning: #D97706;
   --error: #DC2626;
+  --energy: #16A34A;
+  --energy-light: #22C55E;
+  --energy-dark: #15803D;
 }
 
 @theme inline {
@@ -42,6 +45,9 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-energy: var(--energy);
+  --color-energy-light: var(--energy-light);
+  --color-energy-dark: var(--energy-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -70,7 +76,7 @@ input[type="number"] { -moz-appearance: textfield; }
    ============================================================ */
 @media print {
   /* Masquer navigation, footer, cookie banner, boutons interactifs */
-  header, footer, .print\\:hidden,
+  header, footer, [class*="print:hidden"],
   button, select, input, textarea,
   [role="switch"] {
     display: none !important;
@@ -86,8 +92,8 @@ input[type="number"] { -moz-appearance: textfield; }
 
   /* Pas de marges excessives */
   .mx-auto { max-width: 100% !important; }
-  .px-4, .sm\\:px-6, .lg\\:px-8 { padding-left: 1rem !important; padding-right: 1rem !important; }
-  .py-8, .sm\\:py-12 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+  .px-4, [class*="sm:px-6"], [class*="lg:px-8"] { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .py-8, [class*="sm:py-12"] { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
 
   /* Enlever les ombres et arrondis excessifs */
   .shadow-sm, .shadow-lg { box-shadow: none !important; }
@@ -108,8 +114,8 @@ input[type="number"] { -moz-appearance: textfield; }
   th, td { padding: 4px 8px !important; }
 
   /* En-tête rapport & print-only elements */
-  .print\\:block { display: block !important; }
-  .print\\:inline-block { display: inline-block !important; }
+  [class*="print:block"] { display: block !important; }
+  [class*="print:inline-block"] { display: inline-block !important; }
 
   /* Forcer les couleurs à l'impression */
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
