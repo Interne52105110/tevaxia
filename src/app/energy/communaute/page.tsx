@@ -179,6 +179,93 @@ export default function CommunautePage() {
             </div>
           </div>
 
+          {/* Investissement & payback */}
+          <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-amber-500/5 to-transparent">
+              <h2 className="font-semibold text-foreground">{t("investTitle")}</h2>
+            </div>
+            <div className="p-6">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                <div className="rounded-xl border border-card-border p-4 text-center">
+                  <div className="text-xs text-muted uppercase tracking-wider">{t("coutHTVA")}</div>
+                  <div className="mt-1 text-xl font-bold text-foreground">{fmt(result.coutInstallationHTVA)} €</div>
+                </div>
+                <div className="rounded-xl border border-card-border p-4 text-center">
+                  <div className="text-xs text-muted uppercase tracking-wider">{t("tva")}</div>
+                  <div className="mt-1 text-xl font-bold text-foreground">{fmt(result.coutInstallationTVA)} €</div>
+                </div>
+                <div className="rounded-xl border border-card-border p-4 text-center bg-amber-50">
+                  <div className="text-xs text-amber-700 uppercase tracking-wider">{t("coutTTC")}</div>
+                  <div className="mt-1 text-xl font-bold text-amber-700">{fmt(result.coutInstallationTTC)} €</div>
+                </div>
+                <div className="rounded-xl border border-card-border p-4 text-center">
+                  <div className="text-xs text-muted uppercase tracking-wider">{t("coutParPart")}</div>
+                  <div className="mt-1 text-xl font-bold text-foreground">{fmt(result.coutParParticipant)} €</div>
+                  <div className="text-xs text-muted">/ {nbParticipants} participants</div>
+                </div>
+                <div className="rounded-xl border border-card-border p-4 text-center">
+                  <div className="text-xs text-muted uppercase tracking-wider">{t("payback")}</div>
+                  <div className={`mt-1 text-xl font-bold ${result.paybackGlobalAnnees < 15 ? "text-green-600" : result.paybackGlobalAnnees < 25 ? "text-amber-600" : "text-red-600"}`}>
+                    {result.paybackGlobalAnnees} {t("annees")}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3 text-xs text-muted">{t("coutBase")}</div>
+            </div>
+          </div>
+
+          {/* Production mensuelle */}
+          <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
+              <h2 className="font-semibold text-foreground">{t("prodMensTitle")}</h2>
+            </div>
+            <div className="p-6">
+              <div className="flex items-end gap-1 h-40">
+                {result.productionMensuelle.map((m) => {
+                  const maxKwh = Math.max(...result.productionMensuelle.map((x) => x.kwh));
+                  const pct = maxKwh > 0 ? (m.kwh / maxKwh) * 100 : 0;
+                  return (
+                    <div key={m.mois} className="flex-1 flex flex-col items-center gap-1">
+                      <div className="text-xs font-mono text-muted">{fmt(m.kwh)}</div>
+                      <div className="w-full bg-energy/80 rounded-t" style={{ height: `${pct}%` }} />
+                      <div className="text-xs text-muted">{m.mois.slice(0, 3)}</div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-3 text-xs text-muted text-center">{t("prodMensDesc")}</div>
+            </div>
+          </div>
+
+          {/* Conformité réglementaire */}
+          <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-blue-500/5 to-transparent">
+              <h2 className="font-semibold text-foreground">{t("conformiteTitle")}</h2>
+            </div>
+            <div className="p-6">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { label: t("confStatut"), value: result.conformite.statutJuridique },
+                  { label: t("confPerimetre"), value: result.conformite.perimetre },
+                  { label: t("confContrat"), value: result.conformite.contratRepartition },
+                  { label: t("confILR"), value: result.conformite.declarationILR },
+                  { label: t("confLoi"), value: result.conformite.loiReference },
+                  { label: t("confReglement"), value: result.conformite.reglementILR },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-2 rounded-lg border border-card-border p-3">
+                    <svg className="h-5 w-5 text-blue-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <div className="text-xs font-semibold text-foreground">{item.label}</div>
+                      <div className="text-xs text-muted">{item.value}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="rounded-xl border border-energy/20 bg-energy/5 p-5">
             <h3 className="font-medium text-foreground text-sm mb-2">{t("parametresModele")}</h3>
             <ul className="text-xs text-muted space-y-1">

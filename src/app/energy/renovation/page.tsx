@@ -43,7 +43,9 @@ function fallbackLocal(ca: string, cc: string, surface: number, annee: number, v
     klimapret: { montantMax: Math.min(resteACharge, 100000), taux: 0.015, dureeMois: 180, mensualite: 0 },
     subventionConseil: subvConseil, totalAides, resteACharge,
     economieAnnuelleKwh: ecoKwh, economieAnnuelleEur: ecoEur,
-    paybackAnnees: payback, van20ans: 0, triPct: 0,
+    paybackAnnees: payback,
+    van20ans: (() => { let v = -resteACharge; for (let a = 1; a <= 20; a++) { v += ecoEur * Math.pow(1.03, a) / Math.pow(1.03, a); } return Math.round(v); })(),
+    triPct: ecoEur > 0 && resteACharge > 0 ? Math.round((ecoEur / resteACharge) * 1000) / 10 : 0,
   };
 }
 

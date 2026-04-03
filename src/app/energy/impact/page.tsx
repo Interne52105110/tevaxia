@@ -145,6 +145,38 @@ export default function ImpactPage() {
           </div>
           <div className="px-6 py-3 bg-gray-50 text-xs text-muted">{t("classeRef")} · {t("source")}</div>
         </div>
+
+        {/* Graphique barres horizontales */}
+        <div className="mt-6 rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
+            <h2 className="font-semibold text-foreground">{t("chartTitle")}</h2>
+          </div>
+          <div className="p-6 space-y-2">
+            {result.classes.map((c) => {
+              const maxAbs = Math.max(...result.classes.map((x) => Math.abs(x.ajustementPct)));
+              const pct = maxAbs > 0 ? (c.ajustementPct / maxAbs) * 50 : 0;
+              const isActive = c.classe === classeActuelle;
+              return (
+                <div key={c.classe} className={`flex items-center gap-3 rounded-lg px-3 py-1.5 ${isActive ? "bg-energy/10" : ""}`}>
+                  <span className={`inline-flex items-center justify-center w-7 h-7 rounded text-xs font-bold shrink-0 ${CLASS_COLORS[c.classe]}`}>{c.classe}</span>
+                  <div className="flex-1 flex items-center h-6">
+                    <div className="w-full relative h-full">
+                      <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300" />
+                      {c.ajustementPct >= 0 ? (
+                        <div className="absolute left-1/2 top-1 bottom-1 bg-green-500 rounded-r" style={{ width: `${pct}%` }} />
+                      ) : (
+                        <div className="absolute right-1/2 top-1 bottom-1 bg-red-500 rounded-l" style={{ width: `${Math.abs(pct)}%` }} />
+                      )}
+                    </div>
+                  </div>
+                  <span className={`text-xs font-mono w-12 text-right shrink-0 ${c.ajustementPct > 0 ? "text-green-600" : c.ajustementPct < 0 ? "text-red-600" : "text-muted"}`}>
+                    {c.ajustementPct > 0 ? "+" : ""}{c.ajustementPct}%
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
