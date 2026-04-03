@@ -69,8 +69,19 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Energy + Contact */}
           <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">
+              <svg className="inline h-3.5 w-3.5 mr-1 -mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+              </svg>
+              Energy
+            </h3>
+            <ul className="space-y-1.5 text-sm mb-6">
+              <li><a href="https://energy.tevaxia.lu/energy/impact" className="hover:text-energy-light transition-colors">Impact CPE</a></li>
+              <li><a href="https://energy.tevaxia.lu/energy/renovation" className="hover:text-energy-light transition-colors">ROI Rénovation</a></li>
+              <li><a href="https://energy.tevaxia.lu/energy/communaute" className="hover:text-energy-light transition-colors">Communauté d'énergie</a></li>
+            </ul>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">Contact</h3>
             <a href="mailto:contact@tevaxia.lu" className="inline-flex items-center gap-2 text-sm text-gold hover:text-gold-light transition-colors">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">

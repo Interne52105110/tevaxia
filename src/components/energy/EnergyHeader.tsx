@@ -27,7 +27,7 @@ export default function EnergyHeader() {
             </div>
             <span className="text-xl font-bold tracking-tight">
               energy<span className="text-energy-light">.tevaxia</span>
-              <span className="text-white/40 text-sm">.eu</span>
+              <span className="text-white/40 text-sm">.lu</span>
             </span>
           </Link>
 
@@ -41,12 +41,12 @@ export default function EnergyHeader() {
                 {t(item.key)}
               </Link>
             ))}
-            <Link
-              href="/"
+            <a
+              href="https://tevaxia.lu"
               className="ml-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-white/50 hover:text-white hover:border-white/30 transition-colors"
             >
               tevaxia.lu
-            </Link>
+            </a>
           </nav>
 
           <div className="flex items-center gap-2">

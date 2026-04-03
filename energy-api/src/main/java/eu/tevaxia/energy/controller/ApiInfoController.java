@@ -27,6 +27,8 @@ public class ApiInfoController {
                 "api", "energy.tevaxia.lu",
                 "version", "1.0.0",
                 "description", "API REST pour les simulateurs de performance énergétique immobilière au Luxembourg",
+                "frontend", "https://energy.tevaxia.lu",
+                "plateforme", "https://tevaxia.lu",
                 "documentation", "/swagger-ui.html",
                 "endpoints", List.of(
                         Map.of("method", "POST", "path", "/api/v1/impact", "description", "Impact CPE sur la valeur (classes A-I)"),
