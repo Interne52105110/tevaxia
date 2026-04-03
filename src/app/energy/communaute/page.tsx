@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { calculerCommunaute, type CommunauteResponse } from "@/lib/energy-api";
 
-const PRODUCTION_KWH_PAR_KWC = 920;
+const PRODUCTION_KWH_PAR_KWC = 950;
 const TAUX_AUTOCONSO_BASE = 0.40;
 const FACTEUR_FOISONNEMENT = 0.025;
 const TARIF_RACHAT_SURPLUS = 0.07;
@@ -20,6 +20,11 @@ function fallbackLocal(nb: number, pv: number, conso: number, tr: number, tp: nu
   const econAutoC = energieAutoconsommee * (tr - tp);
   const revenuSurplus = surplus * TARIF_RACHAT_SURPLUS;
   const economieTotale = Math.round(econAutoC + revenuSurplus);
+  const coutHTVA = Math.round(pv * 1200);
+  const coutTVA = Math.round(coutHTVA * 0.17);
+  const coutTTC = coutHTVA + coutTVA;
+  const mois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+  const repartMensuelle = [0.04,0.06,0.09,0.11,0.12,0.12,0.12,0.11,0.09,0.07,0.04,0.03];
   return {
     productionAnnuelle, consoTotale,
     tauxCouverturePct: consoTotale > 0 ? Math.round(productionAnnuelle * 1000 / consoTotale) / 10 : 0,
@@ -28,7 +33,12 @@ function fallbackLocal(nb: number, pv: number, conso: number, tr: number, tp: nu
     economieTotale, economieParParticipant: Math.round(economieTotale / nb),
     revenuSurplus: Math.round(revenuSurplus),
     co2EviteKg: Math.round(energieAutoconsommee * CO2_FACTEUR / 1000),
+    coutInstallationHTVA: coutHTVA, coutInstallationTVA: coutTVA, coutInstallationTTC: coutTTC,
+    coutParParticipant: Math.round(coutTTC / nb),
+    paybackGlobalAnnees: economieTotale > 0 ? Math.round(coutTTC * 10 / economieTotale) / 10 : 99,
+    productionMensuelle: mois.map((m, i) => ({ mois: m, kwh: Math.round(productionAnnuelle * repartMensuelle[i]) })),
     parametres: { productionParKwc: PRODUCTION_KWH_PAR_KWC, tauxAutoConsoBase: TAUX_AUTOCONSO_BASE, facteurFoisonnement: FACTEUR_FOISONNEMENT, tarifRachatSurplus: TARIF_RACHAT_SURPLUS, co2Facteur: CO2_FACTEUR },
+    conformite: { statutJuridique: "Copropriété, ASBL ou coopérative", perimetre: "Même poste de transformation ou < 1 km", contratRepartition: "Contrat de répartition entre participants requis", declarationILR: "Déclaration auprès de l'ILR obligatoire", loiReference: "Loi du 21 mai 2021 (transposition RED II)", reglementILR: "Règlement ILR E23/14" },
   };
 }
 

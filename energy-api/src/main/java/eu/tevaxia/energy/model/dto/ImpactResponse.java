@@ -14,20 +14,26 @@ public record ImpactResponse(
         String classeActuelle,
 
         @Schema(description = "Détail par classe énergie")
-        List<ClasseImpact> classes
+        List<ClasseImpact> classes,
+
+        @Schema(description = "Méthodologie de calcul")
+        String methodologie,
+
+        @Schema(description = "Sources des données")
+        List<String> sources
 ) {
     @Schema(description = "Impact d'une classe énergie sur la valeur")
     public record ClasseImpact(
-            @Schema(description = "Classe énergie (A à G)", example = "B")
+            @Schema(description = "Classe énergie (A à I)", example = "B")
             String classe,
 
-            @Schema(description = "Pourcentage d'ajustement vs classe D", example = "3.0")
+            @Schema(description = "Pourcentage d'ajustement vs classe D", example = "5.0")
             double ajustementPct,
 
-            @Schema(description = "Valeur ajustée en euros", example = "772500")
+            @Schema(description = "Valeur ajustée en euros", example = "787500")
             long valeurAjustee,
 
-            @Schema(description = "Écart en euros par rapport à la classe actuelle", example = "+22500")
+            @Schema(description = "Écart en euros par rapport à la classe actuelle", example = "+37500")
             long delta
     ) {}
 }

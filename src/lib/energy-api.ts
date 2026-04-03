@@ -1,5 +1,5 @@
 // Client API pour le backend Spring Boot energy-api
-// En dev : http://localhost:8081, en prod : https://energy.tevaxia.lu
+// En dev : http://localhost:8081, en prod : https://tevaxia-energy-api.onrender.com
 
 const API_BASE = process.env.NEXT_PUBLIC_ENERGY_API_URL || "http://localhost:8081";
 
@@ -36,6 +36,8 @@ export interface ImpactResponse {
   valeurBase: number;
   classeActuelle: string;
   classes: ClasseImpact[];
+  methodologie: string;
+  sources: string[];
 }
 
 export function calculerImpact(request: ImpactRequest): Promise<ImpactResponse> {
@@ -59,6 +61,20 @@ export interface PosteTravaux {
   coutMoyen: number;
 }
 
+export interface Klimabonus {
+  sautClasses: number;
+  taux: number;
+  montant: number;
+  description: string;
+}
+
+export interface Klimapret {
+  montantMax: number;
+  taux: number;
+  dureeMois: number;
+  mensualite: number;
+}
+
 export interface RenovationResponse {
   sautClasse: string;
   postes: PosteTravaux[];
@@ -71,6 +87,16 @@ export interface RenovationResponse {
   gainValeur: number;
   gainValeurPct: number;
   roiPct: number;
+  klimabonus: Klimabonus;
+  klimapret: Klimapret;
+  subventionConseil: number;
+  totalAides: number;
+  resteACharge: number;
+  economieAnnuelleKwh: number;
+  economieAnnuelleEur: number;
+  paybackAnnees: number;
+  van20ans: number;
+  triPct: number;
 }
 
 export function calculerRenovation(request: RenovationRequest): Promise<RenovationResponse> {
@@ -87,6 +113,20 @@ export interface CommunauteRequest {
   tarifPartage: number;
 }
 
+export interface ProductionMensuelle {
+  mois: string;
+  kwh: number;
+}
+
+export interface Conformite {
+  statutJuridique: string;
+  perimetre: string;
+  contratRepartition: string;
+  declarationILR: string;
+  loiReference: string;
+  reglementILR: string;
+}
+
 export interface CommunauteResponse {
   productionAnnuelle: number;
   consoTotale: number;
@@ -98,6 +138,12 @@ export interface CommunauteResponse {
   economieParParticipant: number;
   revenuSurplus: number;
   co2EviteKg: number;
+  coutInstallationHTVA: number;
+  coutInstallationTVA: number;
+  coutInstallationTTC: number;
+  coutParParticipant: number;
+  paybackGlobalAnnees: number;
+  productionMensuelle: ProductionMensuelle[];
   parametres: {
     productionParKwc: number;
     tauxAutoConsoBase: number;
@@ -105,6 +151,7 @@ export interface CommunauteResponse {
     tarifRachatSurplus: number;
     co2Facteur: number;
   };
+  conformite: Conformite;
 }
 
 export function calculerCommunaute(request: CommunauteRequest): Promise<CommunauteResponse> {

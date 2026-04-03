@@ -5,11 +5,13 @@ import { useTranslations } from "next-intl";
 import { calculerRenovation, type RenovationResponse } from "@/lib/energy-api";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 
-const CLASSES = ["A", "B", "C", "D", "E", "F", "G"] as const;
-const IMPACT_ENERGIE: Record<string, number> = { A: 5, B: 3, C: 1, D: 0, E: -3, F: -6, G: -10 };
+const CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
+const IMPACT_ENERGIE: Record<string, number> = { A: 8, B: 5, C: 2, D: 0, E: -3, F: -7, G: -12, H: -18, I: -25 };
+const CONSO_PAR_CLASSE: Record<string, number> = { A: 35, B: 60, C: 93, D: 130, E: 180, F: 255, G: 350, H: 450, I: 550 };
 const CLASS_COLORS: Record<string, string> = {
   A: "bg-green-600 text-white", B: "bg-green-500 text-white", C: "bg-lime-500 text-white",
-  D: "bg-yellow-400 text-gray-900", E: "bg-orange-400 text-white", F: "bg-orange-600 text-white", G: "bg-red-600 text-white",
+  D: "bg-yellow-400 text-gray-900", E: "bg-orange-400 text-white", F: "bg-orange-600 text-white",
+  G: "bg-red-600 text-white", H: "bg-red-700 text-white", I: "bg-red-900 text-white",
 };
 
 function fmt(n: number): string { return n.toLocaleString("fr-LU", { maximumFractionDigits: 0 }); }
@@ -21,11 +23,27 @@ function fallbackLocal(ca: string, cc: string, surface: number, annee: number, v
   const gainPct = (IMPACT_ENERGIE[cc] || 0) - (IMPACT_ENERGIE[ca] || 0);
   const gainValeur = Math.round(valeur * (gainPct / 100));
   const roi = est.totalAvecHonoraires > 0 ? Math.round((gainValeur * 100 / est.totalAvecHonoraires) * 10) / 10 : 0;
+  const saut = CLASSES.indexOf(ca as typeof CLASSES[number]) - CLASSES.indexOf(cc as typeof CLASSES[number]);
+  const tauxKB = saut >= 4 ? 0.625 : saut === 3 ? 0.50 : saut === 2 ? 0.375 : 0.25;
+  const montantKB = Math.round(est.totalMoyen * tauxKB);
+  const subvConseil = 1500;
+  const totalAides = montantKB + subvConseil;
+  const resteACharge = Math.max(est.totalAvecHonoraires - totalAides, 0);
+  const consoAct = CONSO_PAR_CLASSE[ca] || 130;
+  const consoCib = CONSO_PAR_CLASSE[cc] || 130;
+  const ecoKwh = Math.round((consoAct - consoCib) * 0.75 * surface);
+  const ecoEur = Math.round(ecoKwh * 0.12);
+  const payback = ecoEur > 0 ? Math.round(resteACharge * 10 / ecoEur) / 10 : 99;
   return {
     sautClasse: `${ca} → ${cc}`, postes: est.postes.map((p) => ({ label: p.label, coutMin: p.coutMin, coutMax: p.coutMax, coutMoyen: p.coutMoyen })),
     totalMin: est.totalMin, totalMax: est.totalMax, totalMoyen: est.totalMoyen,
     honoraires: est.honoraires, totalProjet: est.totalAvecHonoraires, dureeEstimeeMois: est.dureeEstimeeMois,
     gainValeur, gainValeurPct: Math.round(gainPct * 10) / 10, roiPct: roi,
+    klimabonus: { sautClasses: saut, taux: tauxKB, montant: montantKB, description: `Saut ${ca} → ${cc} (${saut} classes) : ${tauxKB * 100}% des travaux subventionnés` },
+    klimapret: { montantMax: Math.min(resteACharge, 100000), taux: 0.015, dureeMois: 180, mensualite: 0 },
+    subventionConseil: subvConseil, totalAides, resteACharge,
+    economieAnnuelleKwh: ecoKwh, economieAnnuelleEur: ecoEur,
+    paybackAnnees: payback, van20ans: 0, triPct: 0,
   };
 }
 

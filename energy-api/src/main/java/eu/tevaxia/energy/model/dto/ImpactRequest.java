@@ -14,7 +14,7 @@ public record ImpactRequest(
         Double valeurBien,
 
         @NotNull
-        @Pattern(regexp = "^[A-G]$", message = "Classe énergie invalide (A à G)")
-        @Schema(description = "Classe énergie actuelle du bien (A à G)", example = "D")
+        @Pattern(regexp = "^[A-I]$", message = "Classe énergie invalide (A à I)")
+        @Schema(description = "Classe énergie actuelle du bien (A à I)", example = "D")
         String classeActuelle
 ) {}

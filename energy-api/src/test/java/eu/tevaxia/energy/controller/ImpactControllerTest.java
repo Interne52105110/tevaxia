@@ -27,7 +27,9 @@ class ImpactControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.classeActuelle").value("D"))
                 .andExpect(jsonPath("$.classes").isArray())
-                .andExpect(jsonPath("$.classes.length()").value(7));
+                .andExpect(jsonPath("$.classes.length()").value(9))
+                .andExpect(jsonPath("$.methodologie").isNotEmpty())
+                .andExpect(jsonPath("$.sources").isArray());
     }
 
     @Test

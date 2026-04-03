@@ -34,7 +34,13 @@ class RenovationControllerTest {
                 .andExpect(jsonPath("$.sautClasse").value("F → B"))
                 .andExpect(jsonPath("$.postes").isArray())
                 .andExpect(jsonPath("$.totalProjet").isNumber())
-                .andExpect(jsonPath("$.roiPct").isNumber());
+                .andExpect(jsonPath("$.roiPct").isNumber())
+                .andExpect(jsonPath("$.klimabonus").isNotEmpty())
+                .andExpect(jsonPath("$.klimapret").isNotEmpty())
+                .andExpect(jsonPath("$.economieAnnuelleKwh").isNumber())
+                .andExpect(jsonPath("$.paybackAnnees").isNumber())
+                .andExpect(jsonPath("$.van20ans").isNumber())
+                .andExpect(jsonPath("$.triPct").isNumber());
     }
 
     @Test

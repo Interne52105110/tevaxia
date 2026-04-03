@@ -3,22 +3,24 @@ package eu.tevaxia.energy.service;
 import eu.tevaxia.energy.model.dto.CommunauteRequest;
 import eu.tevaxia.energy.model.dto.CommunauteResponse;
 import eu.tevaxia.energy.model.dto.CommunauteResponse.Parametres;
+import eu.tevaxia.energy.model.dto.CommunauteResponse.Conformite;
+import eu.tevaxia.energy.model.dto.CommunauteResponse.ProductionMensuelle;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Service de simulation d'une communauté d'énergie renouvelable.
  * <p>
- * Modèle simplifié basé sur :
- * - Production PV au Luxembourg (~920 kWh/kWc/an, orientation sud, 35°)
- * - Effet de foisonnement augmentant l'autoconsommation par participant
- * - Tarifs réseau et partage communautaire
- * - Facteur d'émission CO₂ du mix électrique luxembourgeois
+ * Conforme SPEC-FONCTIONNELLE §5.5–5.7 et cadre réglementaire :
+ * - Loi du 21 mai 2021 (transposition RED II)
+ * - Règlement ILR E23/14
  */
 @Service
 public class CommunauteService {
 
-    /** Production annuelle en kWh par kWc installé (Luxembourg, sud, 35°). */
-    private static final int PRODUCTION_PAR_KWC = 920;
+    /** Production annuelle en kWh par kWc installé (Luxembourg, sud, 35°). Conforme §5.5. */
+    private static final int PRODUCTION_PAR_KWC = 950;
 
     /** Taux d'autoconsommation de base (1 participant). */
     private static final double TAUX_AUTOCONSO_BASE = 0.40;
@@ -34,6 +36,23 @@ public class CommunauteService {
 
     /** Plafond réaliste du taux d'autoconsommation. */
     private static final double TAUX_AUTOCONSO_MAX = 0.85;
+
+    /** Coût moyen d'une installation PV au Luxembourg (€/kWc HTVA). */
+    private static final double COUT_PV_PAR_KWC = 1_200;
+
+    /** TVA sur installation PV résidentielle (17%). */
+    private static final double TVA_PV = 0.17;
+
+    /** Répartition mensuelle de la production PV au Luxembourg (% de la production annuelle). */
+    private static final double[] REPARTITION_MENSUELLE = {
+            0.04, 0.06, 0.09, 0.11, 0.12, 0.12,
+            0.12, 0.11, 0.09, 0.07, 0.04, 0.03
+    };
+
+    private static final String[] MOIS = {
+            "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+            "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+    };
 
     public CommunauteResponse calculer(CommunauteRequest request) {
         int nbParticipants = request.nbParticipants();
@@ -69,12 +88,37 @@ public class CommunauteService {
                 : 0.0;
         double tauxAutoConsoPct = Math.round(tauxAutoConso * 1000.0) / 10.0;
 
+        // Coût installation
+        long coutHTVA = Math.round(puissancePV * COUT_PV_PAR_KWC);
+        long tva = Math.round(coutHTVA * TVA_PV);
+        long coutTTC = coutHTVA + tva;
+        long coutParParticipant = Math.round((double) coutTTC / nbParticipants);
+
+        // Payback global
+        double paybackGlobal = economieTotale > 0 ? (double) coutTTC / economieTotale : 99.0;
+
+        // Production mensuelle
+        List<ProductionMensuelle> productionMensuelleList = new java.util.ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            long kwh = Math.round(productionAnnuelle * REPARTITION_MENSUELLE[i]);
+            productionMensuelleList.add(new ProductionMensuelle(MOIS[i], kwh));
+        }
+
         var parametres = new Parametres(
                 PRODUCTION_PAR_KWC,
                 TAUX_AUTOCONSO_BASE,
                 FACTEUR_FOISONNEMENT,
                 TARIF_RACHAT_SURPLUS,
                 CO2_FACTEUR
+        );
+
+        var conformite = new Conformite(
+                "Copropriété, ASBL ou coopérative",
+                "Même poste de transformation ou < 1 km",
+                "Contrat de répartition entre participants requis",
+                "Déclaration auprès de l'ILR obligatoire",
+                "Loi du 21 mai 2021 (transposition RED II)",
+                "Règlement ILR E23/14"
         );
 
         return new CommunauteResponse(
@@ -84,7 +128,11 @@ public class CommunauteService {
                 economieTotale, economieParParticipant,
                 Math.round(revenuSurplus),
                 co2EviteKg,
-                parametres
+                coutHTVA, tva, coutTTC, coutParParticipant,
+                Math.round(paybackGlobal * 10.0) / 10.0,
+                productionMensuelleList,
+                parametres,
+                conformite
         );
     }
 }

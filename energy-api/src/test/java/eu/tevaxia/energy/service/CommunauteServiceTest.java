@@ -15,8 +15,8 @@ class CommunauteServiceTest {
         var request = new CommunauteRequest(6, 30.0, 4500.0, 0.28, 0.15);
         CommunauteResponse response = service.calculer(request);
 
-        // 30 kWc × 920 kWh/kWc = 27 600 kWh
-        assertEquals(27_600, response.productionAnnuelle());
+        // 30 kWc × 950 kWh/kWc = 28 500 kWh
+        assertEquals(28_500, response.productionAnnuelle());
     }
 
     @Test
@@ -62,18 +62,71 @@ class CommunauteServiceTest {
         CommunauteResponse response = service.calculer(request);
 
         assertNotNull(response.parametres());
-        assertEquals(920, response.parametres().productionParKwc());
+        assertEquals(950, response.parametres().productionParKwc());
         assertEquals(0.40, response.parametres().tauxAutoConsoBase());
         assertEquals(300, response.parametres().co2Facteur());
     }
 
     @Test
     void tauxAutoConsoPlafonne() {
-        // 50 participants → le taux ne devrait pas dépasser 85%
         var request = new CommunauteRequest(50, 100.0, 4500.0, 0.28, 0.15);
         CommunauteResponse response = service.calculer(request);
 
         assertTrue(response.tauxAutoConsoPct() <= 85.0,
                 "Le taux d'autoconsommation ne devrait pas dépasser 85%");
+    }
+
+    // --- Nouveaux tests conformité spec ---
+
+    @Test
+    void coutInstallationCalculeCorrectement() {
+        var request = new CommunauteRequest(6, 30.0, 4500.0, 0.28, 0.15);
+        CommunauteResponse response = service.calculer(request);
+
+        // 30 kWc × 1 200 €/kWc = 36 000 € HTVA
+        assertEquals(36_000, response.coutInstallationHTVA());
+        assertTrue(response.coutInstallationTVA() > 0);
+        assertEquals(response.coutInstallationHTVA() + response.coutInstallationTVA(),
+                response.coutInstallationTTC());
+    }
+
+    @Test
+    void coutParParticipantCalcule() {
+        var request = new CommunauteRequest(6, 30.0, 4500.0, 0.28, 0.15);
+        CommunauteResponse response = service.calculer(request);
+
+        assertTrue(response.coutParParticipant() > 0);
+        assertEquals(response.coutInstallationTTC() / 6, response.coutParParticipant(), 1);
+    }
+
+    @Test
+    void paybackGlobalPositif() {
+        var request = new CommunauteRequest(6, 30.0, 4500.0, 0.28, 0.15);
+        CommunauteResponse response = service.calculer(request);
+
+        assertTrue(response.paybackGlobalAnnees() > 0);
+    }
+
+    @Test
+    void productionMensuellePresente() {
+        var request = new CommunauteRequest(6, 30.0, 4500.0, 0.28, 0.15);
+        CommunauteResponse response = service.calculer(request);
+
+        assertEquals(12, response.productionMensuelle().size());
+        long somme = response.productionMensuelle().stream()
+                .mapToLong(CommunauteResponse.ProductionMensuelle::kwh).sum();
+        // La somme mensuelle doit approcher la production annuelle (arrondis)
+        assertEquals(response.productionAnnuelle(), somme, 50);
+    }
+
+    @Test
+    void conformiteReglementairePresente() {
+        var request = new CommunauteRequest(6, 30.0, 4500.0, 0.28, 0.15);
+        CommunauteResponse response = service.calculer(request);
+
+        assertNotNull(response.conformite());
+        assertNotNull(response.conformite().statutJuridique());
+        assertNotNull(response.conformite().loiReference());
+        assertTrue(response.conformite().loiReference().contains("2021"));
     }
 }

@@ -38,7 +38,37 @@ public record RenovationResponse(
         double gainValeurPct,
 
         @Schema(description = "Retour sur investissement en pourcentage (gain / coût projet)")
-        double roiPct
+        double roiPct,
+
+        @Schema(description = "Subventions Klimabonus")
+        Klimabonus klimabonus,
+
+        @Schema(description = "Prêt climatique à taux préférentiel")
+        Klimapret klimapret,
+
+        @Schema(description = "Subvention conseil en énergie")
+        long subventionConseil,
+
+        @Schema(description = "Total des aides en euros")
+        long totalAides,
+
+        @Schema(description = "Reste à charge après aides en euros")
+        long resteACharge,
+
+        @Schema(description = "Économie annuelle d'énergie en kWh")
+        long economieAnnuelleKwh,
+
+        @Schema(description = "Économie annuelle d'énergie en euros")
+        long economieAnnuelleEur,
+
+        @Schema(description = "Temps de retour sur investissement net (après aides) en années")
+        double paybackAnnees,
+
+        @Schema(description = "Valeur actuelle nette sur 20 ans en euros")
+        long van20ans,
+
+        @Schema(description = "Taux de rendement interne en %")
+        double triPct
 ) {
     @Schema(description = "Détail d'un poste de travaux de rénovation")
     public record PosteTravaux(
@@ -53,5 +83,35 @@ public record RenovationResponse(
 
             @Schema(description = "Coût moyen en euros")
             long coutMoyen
+    ) {}
+
+    @Schema(description = "Subventions Klimabonus pour la rénovation énergétique")
+    public record Klimabonus(
+            @Schema(description = "Nombre de classes sautées")
+            int sautClasses,
+
+            @Schema(description = "Taux de subvention (ex: 0.50 = 50%)")
+            double taux,
+
+            @Schema(description = "Montant de la subvention en euros")
+            long montant,
+
+            @Schema(description = "Description du calcul")
+            String description
+    ) {}
+
+    @Schema(description = "Prêt climatique à taux préférentiel (Klimaprêt)")
+    public record Klimapret(
+            @Schema(description = "Montant maximum empruntable en euros")
+            long montantMax,
+
+            @Schema(description = "Taux d'intérêt annuel")
+            double taux,
+
+            @Schema(description = "Durée maximale en mois")
+            int dureeMois,
+
+            @Schema(description = "Mensualité indicative en euros")
+            long mensualite
     ) {}
 }

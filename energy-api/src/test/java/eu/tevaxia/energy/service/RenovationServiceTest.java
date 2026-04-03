@@ -73,4 +73,83 @@ class RenovationServiceTest {
         assertTrue(service.calculer(grande).totalMoyen() > service.calculer(petite).totalMoyen(),
                 "Plus de surface = plus de coûts");
     }
+
+    // --- Tests Klimabonus (§5.4) ---
+
+    @Test
+    void klimabonus_unSaut_25pourcent() {
+        var request = new RenovationRequest("E", "D", 100.0, 1990, 500_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertEquals(0.25, response.klimabonus().taux());
+        assertTrue(response.klimabonus().montant() > 0);
+    }
+
+    @Test
+    void klimabonus_quatreSauts_625pourcent() {
+        var request = new RenovationRequest("G", "C", 100.0, 1990, 500_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertEquals(0.625, response.klimabonus().taux());
+    }
+
+    @Test
+    void resteAChargeInferieurAuProjet() {
+        var request = new RenovationRequest("F", "B", 120.0, 1975, 650_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertTrue(response.resteACharge() < response.totalProjet(),
+                "Le reste à charge doit être inférieur au coût total grâce aux aides");
+        assertTrue(response.totalAides() > 0);
+    }
+
+    // --- Tests profitabilité ---
+
+    @Test
+    void economieAnnuellePositive() {
+        var request = new RenovationRequest("F", "B", 120.0, 1975, 650_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertTrue(response.economieAnnuelleKwh() > 0, "Économie kWh positive");
+        assertTrue(response.economieAnnuelleEur() > 0, "Économie € positive");
+    }
+
+    @Test
+    void paybackRaisonnable() {
+        var request = new RenovationRequest("F", "B", 120.0, 1975, 650_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertTrue(response.paybackAnnees() > 0 && response.paybackAnnees() < 50,
+                "Le payback devrait être entre 0 et 50 ans");
+    }
+
+    @Test
+    void vanPositiveSurVingtAns() {
+        var request = new RenovationRequest("G", "B", 120.0, 1975, 650_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertTrue(response.van20ans() > 0,
+                "La VAN sur 20 ans devrait être positive pour un gros saut de classe");
+    }
+
+    @Test
+    void triPositif() {
+        var request = new RenovationRequest("F", "B", 120.0, 1975, 650_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertTrue(response.triPct() > 0, "Le TRI devrait être positif");
+    }
+
+    // --- Test classes H et I ---
+
+    @Test
+    void sautIversA_fonctionneCorrectement() {
+        var request = new RenovationRequest("I", "A", 100.0, 1940, 500_000.0);
+        RenovationResponse response = service.calculer(request);
+
+        assertEquals("I → A", response.sautClasse());
+        assertFalse(response.postes().isEmpty());
+        assertTrue(response.gainValeur() > 0);
+        assertEquals(0.625, response.klimabonus().taux(), "8 sauts >= 4 → 62,5%");
+    }
 }

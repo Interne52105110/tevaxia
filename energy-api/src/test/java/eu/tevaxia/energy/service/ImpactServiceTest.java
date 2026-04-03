@@ -18,7 +18,6 @@ class ImpactServiceTest {
         ImpactResponse response = service.calculer(request);
 
         assertEquals("D", response.classeActuelle());
-        // Classe D = référence, delta doit être 0
         var classeD = response.classes().stream()
                 .filter(c -> c.classe().equals("D"))
                 .findFirst().orElseThrow();
@@ -27,31 +26,31 @@ class ImpactServiceTest {
     }
 
     @Test
-    void classeA_vautPlusQueClasseG() {
+    void classeA_vautPlusQueClasseI() {
         var request = new ImpactRequest(500_000.0, "D");
         ImpactResponse response = service.calculer(request);
 
         long valeurA = response.classes().stream()
                 .filter(c -> c.classe().equals("A")).findFirst().orElseThrow()
                 .valeurAjustee();
-        long valeurG = response.classes().stream()
-                .filter(c -> c.classe().equals("G")).findFirst().orElseThrow()
+        long valeurI = response.classes().stream()
+                .filter(c -> c.classe().equals("I")).findFirst().orElseThrow()
                 .valeurAjustee();
 
-        assertTrue(valeurA > valeurG, "Classe A devrait valoir plus que G");
+        assertTrue(valeurA > valeurI, "Classe A devrait valoir plus que I");
     }
 
     @Test
-    void retourneSeptClasses() {
+    void retourneNeufClasses() {
         var request = new ImpactRequest(600_000.0, "C");
         ImpactResponse response = service.calculer(request);
 
-        assertEquals(7, response.classes().size());
+        assertEquals(9, response.classes().size());
     }
 
     @ParameterizedTest
-    @CsvSource({"A,5.0", "B,3.0", "C,1.0", "D,0.0", "E,-3.0", "F,-6.0", "G,-10.0"})
-    void ajustementsPourcentagesCorrects(String classe, double expectedPct) {
+    @CsvSource({"A,8.0", "B,5.0", "C,2.0", "D,0.0", "E,-3.0", "F,-7.0", "G,-12.0", "H,-18.0", "I,-25.0"})
+    void ajustementsPourcentagesConformesSpec(String classe, double expectedPct) {
         var request = new ImpactRequest(1_000_000.0, "D");
         ImpactResponse response = service.calculer(request);
 
@@ -64,16 +63,38 @@ class ImpactServiceTest {
 
     @Test
     void normalisationDepuisClasseF() {
-        // Un bien à 500 000 € en classe F (−6%), la valeur base D devrait être plus élevée
         var request = new ImpactRequest(500_000.0, "F");
         ImpactResponse response = service.calculer(request);
 
         assertTrue(response.valeurBase() > 500_000,
                 "La valeur base (D) devrait être supérieure à la valeur en classe F");
 
-        // Le delta de la classe F devrait être 0 (c'est la classe actuelle)
         var classeF = response.classes().stream()
                 .filter(c -> c.classe().equals("F")).findFirst().orElseThrow();
         assertEquals(0, classeF.delta());
+    }
+
+    @Test
+    void normalisationDepuisClasseI() {
+        var request = new ImpactRequest(400_000.0, "I");
+        ImpactResponse response = service.calculer(request);
+
+        assertTrue(response.valeurBase() > 400_000,
+                "La valeur base (D) devrait être supérieure à la valeur en classe I");
+
+        var classeI = response.classes().stream()
+                .filter(c -> c.classe().equals("I")).findFirst().orElseThrow();
+        assertEquals(0, classeI.delta());
+    }
+
+    @Test
+    void responseContientMethodologieEtSources() {
+        var request = new ImpactRequest(500_000.0, "D");
+        ImpactResponse response = service.calculer(request);
+
+        assertNotNull(response.methodologie());
+        assertFalse(response.methodologie().isEmpty());
+        assertNotNull(response.sources());
+        assertFalse(response.sources().isEmpty());
     }
 }

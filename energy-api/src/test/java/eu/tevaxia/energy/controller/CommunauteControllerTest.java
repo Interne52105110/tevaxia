@@ -31,11 +31,17 @@ class CommunauteControllerTest {
                                 }
                                 """))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.productionAnnuelle").value(27600))
+                .andExpect(jsonPath("$.productionAnnuelle").value(28500))
                 .andExpect(jsonPath("$.consoTotale").value(27000))
                 .andExpect(jsonPath("$.economieTotale").isNumber())
                 .andExpect(jsonPath("$.co2EviteKg").isNumber())
-                .andExpect(jsonPath("$.parametres").isNotEmpty());
+                .andExpect(jsonPath("$.parametres").isNotEmpty())
+                .andExpect(jsonPath("$.coutInstallationHTVA").isNumber())
+                .andExpect(jsonPath("$.coutInstallationTTC").isNumber())
+                .andExpect(jsonPath("$.paybackGlobalAnnees").isNumber())
+                .andExpect(jsonPath("$.productionMensuelle").isArray())
+                .andExpect(jsonPath("$.productionMensuelle.length()").value(12))
+                .andExpect(jsonPath("$.conformite").isNotEmpty());
     }
 
     @Test

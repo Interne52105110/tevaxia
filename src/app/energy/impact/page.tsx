@@ -4,10 +4,10 @@ import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { calculerImpact, type ImpactResponse, type ClasseImpact } from "@/lib/energy-api";
 
-const CLASSES = ["A", "B", "C", "D", "E", "F", "G"] as const;
+const CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
 
 const IMPACT_ENERGIE: Record<string, number> = {
-  A: 5, B: 3, C: 1, D: 0, E: -3, F: -6, G: -10,
+  A: 8, B: 5, C: 2, D: 0, E: -3, F: -7, G: -12, H: -18, I: -25,
 };
 
 const CLASS_COLORS: Record<string, string> = {
@@ -18,6 +18,8 @@ const CLASS_COLORS: Record<string, string> = {
   E: "bg-orange-400 text-white",
   F: "bg-orange-600 text-white",
   G: "bg-red-600 text-white",
+  H: "bg-red-700 text-white",
+  I: "bg-red-900 text-white",
 };
 
 function fmt(n: number): string {
@@ -32,7 +34,9 @@ function fallbackLocal(valeur: number, classeActuelle: string): ImpactResponse {
     const valeurAjustee = Math.round(valeurBase * (1 + pct / 100));
     return { classe: c, ajustementPct: pct, valeurAjustee, delta: valeurAjustee - valeur };
   });
-  return { valeurBase: Math.round(valeurBase), classeActuelle, classes };
+  return { valeurBase: Math.round(valeurBase), classeActuelle, classes,
+    methodologie: "Green premium / brown discount basé sur les écarts de prix observés par classe énergétique au Luxembourg.",
+    sources: ["Observatoire de l'Habitat 2025", "ECB Climate Risk Assessment"] };
 }
 
 export default function ImpactPage() {

@@ -12,24 +12,39 @@ import java.util.Map;
 /**
  * Service de calcul de l'impact de la classe énergie (CPE) sur la valeur immobilière.
  * <p>
- * Source des coefficients : Observatoire de l'Habitat, analyses Spuerkeess,
- * tendances marché luxembourgeois.
+ * Green premium / brown discount basé sur les études de marché luxembourgeoises.
  * La classe D sert de référence (0 %).
+ * <p>
+ * Sources : Observatoire de l'Habitat 2025, ECB Climate Risk Assessment,
+ * analyses Spuerkeess/BIL, tendances marché luxembourgeois.
  */
 @Service
 public class ImpactService {
 
-    private static final List<String> CLASSES = List.of("A", "B", "C", "D", "E", "F", "G");
+    static final List<String> CLASSES = List.of("A", "B", "C", "D", "E", "F", "G", "H", "I");
 
-    /** Ajustement en % par rapport à la classe D (référence). */
-    private static final Map<String, Double> IMPACT_ENERGIE = Map.of(
-            "A", 5.0,
-            "B", 3.0,
-            "C", 1.0,
-            "D", 0.0,
+    /** Ajustement en % par rapport à la classe D (référence). Conforme SPEC-FONCTIONNELLE §5.1. */
+    static final Map<String, Double> IMPACT_ENERGIE = Map.of(
+            "A",  8.0,
+            "B",  5.0,
+            "C",  2.0,
+            "D",  0.0,
             "E", -3.0,
-            "F", -6.0,
-            "G", -10.0
+            "F", -7.0,
+            "G", -12.0,
+            "H", -18.0,
+            "I", -25.0
+    );
+
+    private static final String METHODOLOGIE =
+            "Green premium / brown discount basé sur les écarts de prix observés par classe " +
+            "énergétique au Luxembourg. La classe D (modale du parc) sert de référence (0 %). " +
+            "Fourchette indicative : ±1,5 point de pourcentage selon commune et type de bien.";
+
+    private static final List<String> SOURCES = List.of(
+            "Observatoire de l'Habitat 2025",
+            "ECB Climate Risk Assessment",
+            "Analyses marché Spuerkeess / BIL"
     );
 
     public ImpactResponse calculer(ImpactRequest request) {
@@ -46,6 +61,7 @@ public class ImpactService {
             impacts.add(new ClasseImpact(classe, pct, valeurAjustee, delta));
         }
 
-        return new ImpactResponse(Math.round(valeurBase), request.classeActuelle(), impacts);
+        return new ImpactResponse(Math.round(valeurBase), request.classeActuelle(), impacts,
+                METHODOLOGIE, SOURCES);
     }
 }

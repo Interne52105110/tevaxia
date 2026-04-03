@@ -9,12 +9,12 @@ import jakarta.validation.constraints.Pattern;
 public record RenovationRequest(
 
         @NotNull
-        @Pattern(regexp = "^[A-G]$", message = "Classe énergie invalide (A à G)")
+        @Pattern(regexp = "^[A-I]$", message = "Classe énergie invalide (A à I)")
         @Schema(description = "Classe énergie actuelle", example = "F")
         String classeActuelle,
 
         @NotNull
-        @Pattern(regexp = "^[A-G]$", message = "Classe énergie invalide (A à G)")
+        @Pattern(regexp = "^[A-I]$", message = "Classe énergie invalide (A à I)")
         @Schema(description = "Classe énergie cible (doit être meilleure que l'actuelle)", example = "B")
         String classeCible,
 
