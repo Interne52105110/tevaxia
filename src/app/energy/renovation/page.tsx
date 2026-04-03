@@ -185,6 +185,90 @@ export default function RenovationPage() {
                 <span>{t("max")} : {fmt(result.totalMax)} €</span>
               </div>
             </div>
+
+            {/* Aides & subventions */}
+            {result.klimabonus && (
+              <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-green-500/5 to-transparent">
+                  <h2 className="font-semibold text-foreground">{t("aidesTitle")}</h2>
+                </div>
+                <div className="p-6 space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-xl border border-green-200 bg-green-50 p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-semibold text-green-800">{t("klimabonus")}</span>
+                        <span className="text-xs bg-green-600 text-white rounded-full px-2 py-0.5">{(result.klimabonus.taux * 100).toFixed(1)}%</span>
+                      </div>
+                      <div className="text-2xl font-bold text-green-700">{fmt(result.klimabonus.montant)} €</div>
+                      <div className="text-xs text-green-600 mt-1">{result.klimabonus.description}</div>
+                    </div>
+                    <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-semibold text-blue-800">{t("klimapret")}</span>
+                        <span className="text-xs bg-blue-600 text-white rounded-full px-2 py-0.5">{(result.klimapret.taux * 100).toFixed(1)}%</span>
+                      </div>
+                      <div className="text-2xl font-bold text-blue-700">{fmt(result.klimapret.montantMax)} €</div>
+                      <div className="text-xs text-blue-600 mt-1">
+                        {t("klimapretDuree")} : {result.klimapret.dureeMois / 12} ans · {t("klimapretTaux")} : {(result.klimapret.taux * 100).toFixed(1)}%
+                        {result.klimapret.mensualite > 0 && <> · {t("klimapretMensualite")} : {fmt(result.klimapret.mensualite)} €/mois</>}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted">
+                    <span>{t("subventionConseil")} : {fmt(result.subventionConseil)} €</span>
+                  </div>
+                  <div className="flex items-center justify-between border-t border-card-border pt-3">
+                    <div>
+                      <div className="text-sm text-muted">{t("totalAides")}</div>
+                      <div className="text-lg font-bold text-green-600">{fmt(result.totalAides)} €</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm text-muted">{t("resteACharge")}</div>
+                      <div className="text-lg font-bold text-foreground">{fmt(result.resteACharge)} €</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Rentabilité */}
+            {result.economieAnnuelleKwh > 0 && (
+              <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-amber-500/5 to-transparent">
+                  <h2 className="font-semibold text-foreground">{t("rentabiliteTitle")}</h2>
+                </div>
+                <div className="p-6">
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="rounded-xl border border-card-border p-4 text-center">
+                      <div className="text-xs text-muted uppercase tracking-wider">{t("economieAnnuelle")}</div>
+                      <div className="mt-1 text-2xl font-bold text-energy">{fmt(result.economieAnnuelleEur)} €</div>
+                      <div className="text-xs text-muted mt-0.5">{fmt(result.economieAnnuelleKwh)} kWh {t("economieKwh")}</div>
+                    </div>
+                    <div className="rounded-xl border border-card-border p-4 text-center">
+                      <div className="text-xs text-muted uppercase tracking-wider">{t("payback")}</div>
+                      <div className={`mt-1 text-2xl font-bold ${result.paybackAnnees < 15 ? "text-green-600" : result.paybackAnnees < 25 ? "text-amber-600" : "text-red-600"}`}>
+                        {result.paybackAnnees} {t("paybackAnnees")}
+                      </div>
+                      <div className="text-xs text-muted mt-0.5">{t("resteACharge")} / {t("economieAnnuelle").toLowerCase()}</div>
+                    </div>
+                    <div className="rounded-xl border border-card-border p-4 text-center">
+                      <div className="text-xs text-muted uppercase tracking-wider">{t("van")}</div>
+                      <div className={`mt-1 text-2xl font-bold ${result.van20ans > 0 ? "text-green-600" : "text-red-600"}`}>
+                        {result.van20ans > 0 ? "+" : ""}{fmt(result.van20ans)} €
+                      </div>
+                      <div className="text-xs text-muted mt-0.5">{t("vanDesc")}</div>
+                    </div>
+                    <div className="rounded-xl border border-card-border p-4 text-center">
+                      <div className="text-xs text-muted uppercase tracking-wider">{t("tri")}</div>
+                      <div className={`mt-1 text-2xl font-bold ${result.triPct > 5 ? "text-green-600" : result.triPct > 0 ? "text-amber-600" : "text-red-600"}`}>
+                        {result.triPct}%
+                      </div>
+                      <div className="text-xs text-muted mt-0.5">{t("triDesc")}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
