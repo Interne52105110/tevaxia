@@ -7,10 +7,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/impact")
@@ -21,6 +20,17 @@ public class ImpactController {
 
     public ImpactController(ImpactService impactService) {
         this.impactService = impactService;
+    }
+
+    @GetMapping
+    @Operation(summary = "Usage du endpoint impact", hidden = true)
+    public ResponseEntity<Map<String, Object>> usage() {
+        return ResponseEntity.ok(Map.of(
+                "endpoint", "POST /api/v1/impact",
+                "description", "Calcul de l'impact CPE sur la valeur immobilière",
+                "exemple", Map.of("valeurBien", 750000, "classeActuelle", "D"),
+                "documentation", "/swagger-ui.html"
+        ));
     }
 
     @PostMapping

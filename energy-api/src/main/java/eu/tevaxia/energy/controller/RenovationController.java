@@ -7,10 +7,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/renovation")
@@ -21,6 +20,17 @@ public class RenovationController {
 
     public RenovationController(RenovationService renovationService) {
         this.renovationService = renovationService;
+    }
+
+    @GetMapping
+    @Operation(summary = "Usage du endpoint rénovation", hidden = true)
+    public ResponseEntity<Map<String, Object>> usage() {
+        return ResponseEntity.ok(Map.of(
+                "endpoint", "POST /api/v1/renovation",
+                "description", "Simulation ROI rénovation énergétique avec Klimabonus, VAN, TRI",
+                "exemple", Map.of("classeActuelle", "F", "classeCible", "B", "surface", 120, "anneeConstruction", 1975, "valeurBien", 650000),
+                "documentation", "/swagger-ui.html"
+        ));
     }
 
     @PostMapping
