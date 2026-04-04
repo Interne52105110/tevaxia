@@ -175,7 +175,7 @@ export default function PortfolioPage() {
   /* ---- Computed portfolio stats ---------------------------------- */
 
   const stats = useMemo(() => {
-    if (properties.length < 2) return null;
+    if (properties.length === 0) return null;
 
     const totalSurface = properties.reduce((s, p) => s + p.surface, 0);
     const totalValeur = properties.reduce((s, p) => s + p.valeur, 0);
@@ -783,7 +783,7 @@ export default function PortfolioPage() {
         {/* ============================================================ */}
         {/*  COMPARISON TABLE                                             */}
         {/* ============================================================ */}
-        {properties.length >= 2 && (
+        {properties.length >= 1 && (
           <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
             <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
               <h2 className="font-semibold text-foreground">
