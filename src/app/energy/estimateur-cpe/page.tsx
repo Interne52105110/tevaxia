@@ -362,7 +362,7 @@ export default function EstimateurCpePage() {
               </p>
               <div className="grid gap-3 sm:grid-cols-3">
                 <Link
-                  href="/impact"
+                  href={`/impact?classe=${estimatedClass}`}
                   className="flex flex-col items-center gap-2 rounded-xl border-2 border-card-border bg-card px-4 py-5 text-center transition-all hover:border-energy hover:bg-energy/5"
                 >
                   <svg
@@ -386,7 +386,7 @@ export default function EstimateurCpePage() {
                   </span>
                 </Link>
                 <Link
-                  href="/renovation"
+                  href={`/renovation?classe=${estimatedClass}`}
                   className="flex flex-col items-center gap-2 rounded-xl border-2 border-card-border bg-card px-4 py-5 text-center transition-all hover:border-energy hover:bg-energy/5"
                 >
                   <svg
@@ -410,7 +410,7 @@ export default function EstimateurCpePage() {
                   </span>
                 </Link>
                 <Link
-                  href="/epbd"
+                  href={`/epbd?classe=${estimatedClass}`}
                   className="flex flex-col items-center gap-2 rounded-xl border-2 border-card-border bg-card px-4 py-5 text-center transition-all hover:border-energy hover:bg-energy/5"
                 >
                   <svg

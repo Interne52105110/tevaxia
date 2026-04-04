@@ -47,8 +47,8 @@ function fallbackLocal(ca: string, cc: string, surface: number, annee: number, v
     subventionConseil: subvConseil, totalAides, resteACharge,
     economieAnnuelleKwh: ecoKwh, economieAnnuelleEur: ecoEur,
     paybackAnnees: payback,
-    van20ans: (() => { let v = -resteACharge; for (let a = 1; a <= 20; a++) { v += ecoEur * Math.pow(1.03, a) / Math.pow(1.03, a); } return Math.round(v); })(),
-    triPct: ecoEur > 0 && resteACharge > 0 ? Math.round((ecoEur / resteACharge) * 1000) / 10 : 0,
+    van20ans: (() => { const h = 0.03, d = 0.03; let v = -resteACharge; for (let a = 1; a <= 20; a++) { v += ecoEur * Math.pow(1 + h, a) / Math.pow(1 + d, a); } return Math.round(v); })(),
+    triPct: (() => { if (ecoEur <= 0 || resteACharge <= 0) return 0; let r = 0.10; for (let i = 0; i < 50; i++) { let npv = -resteACharge, dnpv = 0; for (let a = 1; a <= 20; a++) { const f = ecoEur * Math.pow(1.03, a); npv += f / Math.pow(1 + r, a); dnpv -= a * f / Math.pow(1 + r, a + 1); } if (Math.abs(dnpv) < 1e-10) break; const nr = r - npv / dnpv; if (Math.abs(nr - r) < 1e-8) break; r = nr; } return Math.round(Math.max(r, 0) * 1000) / 10; })(),
   };
 }
 
@@ -139,19 +139,19 @@ export default function RenovationPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5">Prix énergie (€/kWh)</label>
+              <label className="block text-sm font-medium text-foreground mb-1.5">{t("prixEnergie")}</label>
               <input type="number" value={prixEnergie} onChange={(e) => setPrixEnergie(Number(e.target.value))} className="w-full rounded-lg border border-input-border bg-input-bg px-4 py-2.5 text-foreground" min={0.05} max={0.50} step={0.01} />
-              <p className="text-xs text-muted mt-0.5">Tarif moyen LU 2025 : 0,12 €/kWh</p>
+              <p className="text-xs text-muted mt-0.5">{t("prixEnergieHint")}</p>
             </div>
           </div>
           <div className="mt-4 pt-4 border-t border-card-border flex items-center gap-4">
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" checked={modeCopro} onChange={(e) => setModeCopro(e.target.checked)} className="rounded border-input-border text-energy focus:ring-energy" />
-              <span className="text-sm font-medium text-foreground">Mode copropriété</span>
+              <span className="text-sm font-medium text-foreground">{t("modeCopro")}</span>
             </label>
             {modeCopro && (
               <div className="flex items-center gap-2">
-                <label className="text-sm text-muted">Nombre de lots :</label>
+                <label className="text-sm text-muted">{t("nbLots")} :</label>
                 <input type="number" value={nbLots} onChange={(e) => setNbLots(Math.max(2, Number(e.target.value)))} className="w-20 rounded-lg border border-input-border bg-input-bg px-3 py-1.5 text-sm text-foreground" min={2} max={200} />
               </div>
             )}
@@ -300,28 +300,28 @@ export default function RenovationPage() {
             {/* Comparaison avant / après */}
             <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
               <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
-                <h2 className="font-semibold text-foreground">Comparaison avant / après rénovation</h2>
+                <h2 className="font-semibold text-foreground">{t("comparaisonTitle")}</h2>
               </div>
               <div className="p-6">
                 <div className="grid grid-cols-2 gap-4">
-                  {[{ label: "Avant", classe: classeActuelle }, { label: "Après", classe: classeCible }].map((side) => {
+                  {[{ key: "before", classe: classeActuelle }, { key: "after", classe: classeCible }].map((side) => {
                     const conso = (CONSO_PAR_CLASSE[side.classe] || 130) * 0.75 * surface;
                     const co2 = Math.round(conso * CO2_FACTEUR / 1000);
                     const val = Math.round(valeur * (1 + (IMPACT_ENERGIE[side.classe] || 0) / 100));
                     return (
-                      <div key={side.label} className={`rounded-xl border p-5 ${side.label === "Après" ? "border-energy/30 bg-energy/5" : "border-card-border bg-gray-50"}`}>
+                      <div key={side.key} className={`rounded-xl border p-5 ${side.key === "after" ? "border-energy/30 bg-energy/5" : "border-card-border bg-gray-50"}`}>
                         <div className="flex items-center gap-3 mb-4">
                           <span className={`inline-flex items-center justify-center w-10 h-10 rounded-xl text-lg font-bold ${CLASS_COLORS[side.classe]}`}>{side.classe}</span>
                           <div>
-                            <div className="text-sm font-semibold text-foreground">{side.label} rénovation</div>
-                            <div className="text-xs text-muted">Classe {side.classe}</div>
+                            <div className="text-sm font-semibold text-foreground">{t(side.key === "before" ? "comparaisonAvant" : "comparaisonApres")}</div>
+                            <div className="text-xs text-muted">{t("comparaisonClasse", { classe: side.classe })}</div>
                           </div>
                         </div>
                         <div className="space-y-2 text-sm">
-                          <div className="flex justify-between"><span className="text-muted">Valeur estimée</span><span className="font-mono font-semibold">{fmt(val)} €</span></div>
-                          <div className="flex justify-between"><span className="text-muted">Consommation</span><span className="font-mono">{fmt(Math.round(conso))} kWh/an</span></div>
+                          <div className="flex justify-between"><span className="text-muted">{t("comparaisonValeur")}</span><span className="font-mono font-semibold">{fmt(val)} €</span></div>
+                          <div className="flex justify-between"><span className="text-muted">{t("comparaisonConso")}</span><span className="font-mono">{fmt(Math.round(conso))} kWh/an</span></div>
                           <div className="flex justify-between"><span className="text-muted">CO₂</span><span className="font-mono">{fmt(co2)} kg/an</span></div>
-                          <div className="flex justify-between"><span className="text-muted">Coût énergie</span><span className="font-mono">{fmt(Math.round(conso * prixEnergie))} €/an</span></div>
+                          <div className="flex justify-between"><span className="text-muted">{t("comparaisonCout")}</span><span className="font-mono">{fmt(Math.round(conso * prixEnergie))} €/an</span></div>
                         </div>
                       </div>
                     );
@@ -334,9 +334,9 @@ export default function RenovationPage() {
                   const ecoEnergie = Math.round((consoAvant - consoApres) * prixEnergie);
                   return (
                     <div className="mt-4 grid grid-cols-3 gap-3 pt-4 border-t border-card-border">
-                      <div className="text-center"><div className="text-lg font-bold text-green-600">-{fmt(Math.round(consoAvant - consoApres))} kWh</div><div className="text-xs text-muted">Énergie économisée / an</div></div>
-                      <div className="text-center"><div className="text-lg font-bold text-green-600">-{fmt(ecoCO2)} kg CO₂</div><div className="text-xs text-muted">Émissions évitées / an</div></div>
-                      <div className="text-center"><div className="text-lg font-bold text-green-600">-{fmt(ecoEnergie)} €</div><div className="text-xs text-muted">Facture énergie / an</div></div>
+                      <div className="text-center"><div className="text-lg font-bold text-green-600">-{fmt(Math.round(consoAvant - consoApres))} kWh</div><div className="text-xs text-muted">{t("comparaisonEcoEnergie")}</div></div>
+                      <div className="text-center"><div className="text-lg font-bold text-green-600">-{fmt(ecoCO2)} kg CO₂</div><div className="text-xs text-muted">{t("comparaisonEcoCO2")}</div></div>
+                      <div className="text-center"><div className="text-lg font-bold text-green-600">-{fmt(ecoEnergie)} €</div><div className="text-xs text-muted">{t("comparaisonEcoFacture")}</div></div>
                     </div>
                   );
                 })()}
@@ -357,7 +357,7 @@ export default function RenovationPage() {
                       <div className="text-xs text-muted mt-0.5">{fmt(result.economieAnnuelleKwh)} kWh {t("economieKwh")}</div>
                     </div>
                     <div className="rounded-xl border border-card-border p-4 text-center">
-                      <div className="text-xs text-muted uppercase tracking-wider">CO₂ évité</div>
+                      <div className="text-xs text-muted uppercase tracking-wider">{t("co2Evite")}</div>
                       <div className="mt-1 text-2xl font-bold text-energy">{fmt(Math.round(result.economieAnnuelleKwh * CO2_FACTEUR / 1000))} kg/an</div>
                       <div className="text-xs text-muted mt-0.5">{(result.economieAnnuelleKwh * CO2_FACTEUR / 1000000).toFixed(1)} tonnes/an</div>
                     </div>

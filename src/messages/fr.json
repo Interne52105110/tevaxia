@@ -108,6 +108,8 @@
       "chartTitle": "Green premium / Brown discount",
       "classeRef": "Classe de référence (D)",
       "source": "Source : Observatoire de l'Habitat, analyses Spuerkeess",
+      "co2Column": "CO₂ (kg/m²/an)",
+      "downloadPdf": "Télécharger PDF",
       "actuelle": "actuelle",
       "apiConnecting": "Connexion au serveur de calcul... Le premier chargement peut prendre jusqu'à 60 secondes.",
       "localFallback": "Calcul local — API Spring Boot non connectée",
@@ -181,7 +183,22 @@
       "klimapretAvantage": "Avantage Klimaprêt",
       "klimapretVsMarche": "vs marché {taux}%",
       "klimapretEcoDesc": "Mensualité Klimaprêt : {mens} €/mois vs {mensMarche} €/mois au taux du marché",
-      "klimapretZeroCash": "Aucune avance de fonds — le Klimaprêt finance la totalité du reste à charge"
+      "klimapretZeroCash": "Aucune avance de fonds — le Klimaprêt finance la totalité du reste à charge",
+      "prixEnergie": "Prix énergie (€/kWh)",
+      "prixEnergieHint": "Tarif moyen LU 2025 : 0,12 €/kWh",
+      "modeCopro": "Mode copropriété",
+      "nbLots": "Nombre de lots",
+      "co2Evite": "CO₂ évité",
+      "comparaisonTitle": "Comparaison avant / après rénovation",
+      "comparaisonAvant": "Avant rénovation",
+      "comparaisonApres": "Après rénovation",
+      "comparaisonClasse": "Classe {classe}",
+      "comparaisonValeur": "Valeur estimée",
+      "comparaisonConso": "Consommation",
+      "comparaisonCout": "Coût énergie",
+      "comparaisonEcoEnergie": "Énergie économisée / an",
+      "comparaisonEcoCO2": "Émissions évitées / an",
+      "comparaisonEcoFacture": "Facture énergie / an"
     },
     "communaute": {
       "title": "Simulateur Communauté d'énergie",
@@ -232,7 +249,10 @@
       "confReglement": "Règlement applicable",
       "apiConnecting": "Connexion au serveur de calcul... Le premier chargement peut prendre jusqu'à 60 secondes.",
       "localFallback": "Calcul local — API Spring Boot non connectée",
-      "apiConnected": "Connecté à l'API Spring Boot"
+      "apiConnected": "Connecté à l'API Spring Boot",
+      "downloadPdf": "Télécharger PDF",
+      "chartProductionPV": "Production PV",
+      "chartConsoMensuelle": "Consommation mensuelle moy."
     },
     "epbd": {
       "title": "Directive EPBD — Chronologie et risque de stranding",

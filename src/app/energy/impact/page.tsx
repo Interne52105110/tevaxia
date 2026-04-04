@@ -133,7 +133,7 @@ export default function ImpactPage() {
                   <th className="px-6 py-3 font-medium text-muted text-right">{t("ajustement")}</th>
                   <th className="px-6 py-3 font-medium text-muted text-right">{t("valeurAjustee")}</th>
                   <th className="px-6 py-3 font-medium text-muted text-right">{t("delta")}</th>
-                  <th className="px-6 py-3 font-medium text-muted text-right">CO₂ (kg/m²/an)</th>
+                  <th className="px-6 py-3 font-medium text-muted text-right">{t("co2Column")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -169,7 +169,7 @@ export default function ImpactPage() {
           </div>
           <div className="px-6 py-3 bg-gray-50 flex items-center justify-between">
             <span className="text-xs text-muted">{t("classeRef")} · {t("source")}</span>
-            <PdfButton onClick={() => downloadImpactPdf(result, classeActuelle, valeur)} label="Télécharger PDF" />
+            <PdfButton onClick={() => downloadImpactPdf(result, classeActuelle, valeur)} label={t("downloadPdf")} />
           </div>
         </div>
 

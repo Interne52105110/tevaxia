@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import { calculerCommunaute, type CommunauteResponse } from "@/lib/energy-api";
 import { downloadCommunautePdf, PdfButton } from "@/components/energy/EnergyPdf";
 
@@ -252,8 +252,8 @@ export default function CommunautePage() {
                 </ResponsiveContainer>
               </div>
               <div className="mt-2 flex items-center justify-center gap-6 text-xs text-muted">
-                <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-green-500" /> Production PV</div>
-                <div className="flex items-center gap-1.5"><div className="w-6 h-0 border-t-2 border-dashed border-red-500" /> Consommation mensuelle moy.</div>
+                <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-green-500" /> {t("chartProductionPV")}</div>
+                <div className="flex items-center gap-1.5"><div className="w-6 h-0 border-t-2 border-dashed border-red-500" /> {t("chartConsoMensuelle")}</div>
               </div>
               <div className="mt-3 text-xs text-muted text-center">{t("prodMensDesc")}</div>
             </div>
@@ -289,7 +289,7 @@ export default function CommunautePage() {
           </div>
 
           <div className="flex justify-end">
-            <PdfButton onClick={() => downloadCommunautePdf(result, { nbParticipants, puissancePV, consoMoyenneParParticipant: consoMoyenne, tarifReseau, tarifPartage })} label="Télécharger PDF" />
+            <PdfButton onClick={() => downloadCommunautePdf(result, { nbParticipants, puissancePV, consoMoyenneParParticipant: consoMoyenne, tarifReseau, tarifPartage })} label={t("downloadPdf")} />
           </div>
 
           <div className="rounded-xl border border-energy/20 bg-energy/5 p-5">

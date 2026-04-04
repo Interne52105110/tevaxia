@@ -108,6 +108,8 @@
       "chartTitle": "Green premium / Brown discount",
       "classeRef": "Reference class (D)",
       "source": "Source: Observatoire de l'Habitat, Spuerkeess analyses",
+      "co2Column": "CO₂ (kg/m²/yr)",
+      "downloadPdf": "Download PDF",
       "actuelle": "current",
       "apiConnecting": "Connecting to calculation server... First load may take up to 60 seconds.",
       "localFallback": "Local calculation — Spring Boot API not connected",
@@ -181,7 +183,22 @@
       "klimapretAvantage": "Klimaprêt advantage",
       "klimapretVsMarche": "vs market {taux}%",
       "klimapretEcoDesc": "Klimaprêt payment: {mens} €/mo vs {mensMarche} €/mo at market rate",
-      "klimapretZeroCash": "Zero upfront cash — Klimaprêt finances the full remaining cost"
+      "klimapretZeroCash": "Zero upfront cash — Klimaprêt finances the full remaining cost",
+      "prixEnergie": "Energy price (€/kWh)",
+      "prixEnergieHint": "Average LU tariff 2025: €0.12/kWh",
+      "modeCopro": "Co-ownership mode",
+      "nbLots": "Number of lots",
+      "co2Evite": "CO₂ avoided",
+      "comparaisonTitle": "Before / after renovation comparison",
+      "comparaisonAvant": "Before renovation",
+      "comparaisonApres": "After renovation",
+      "comparaisonClasse": "Class {classe}",
+      "comparaisonValeur": "Estimated value",
+      "comparaisonConso": "Consumption",
+      "comparaisonCout": "Energy cost",
+      "comparaisonEcoEnergie": "Energy saved / year",
+      "comparaisonEcoCO2": "Emissions avoided / year",
+      "comparaisonEcoFacture": "Energy bill / year"
     },
     "communaute": {
       "title": "Energy Community Simulator",
@@ -232,7 +249,10 @@
       "confReglement": "Applicable regulation",
       "apiConnecting": "Connecting to calculation server... First load may take up to 60 seconds.",
       "localFallback": "Local calculation — Spring Boot API not connected",
-      "apiConnected": "Connected to Spring Boot API"
+      "apiConnected": "Connected to Spring Boot API",
+      "downloadPdf": "Download PDF",
+      "chartProductionPV": "PV production",
+      "chartConsoMensuelle": "Avg. monthly consumption"
     },
     "epbd": {
       "title": "EPBD Directive — Timeline & Stranding Risk",

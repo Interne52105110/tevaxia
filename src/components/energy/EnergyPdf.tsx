@@ -6,7 +6,6 @@ import type {
   ClasseImpact,
   RenovationResponse,
   CommunauteResponse,
-  CommunauteRequest,
 } from "@/lib/energy-api";
 
 // ---------- Formatting helpers (French locale) ----------
