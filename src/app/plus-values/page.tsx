@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
@@ -11,6 +12,7 @@ import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function PlusValues() {
+  const t = useTranslations("plusValues");
   const toast = useToast();
   const [prixAcquisition, setPrixAcquisition] = useState(400000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2015);
@@ -38,10 +40,10 @@ export default function PlusValues() {
 
   const typeLabel =
     result.typeGain === "exonere"
-      ? "Exonéré"
+      ? t("typeExonere")
       : result.typeGain === "speculation"
-      ? "Gain de spéculation"
-      : "Gain de cession";
+      ? t("typeSpeculation")
+      : t("typeCession");
 
   const typeBadgeColor =
     result.typeGain === "exonere"
@@ -56,10 +58,10 @@ export default function PlusValues() {
         <Breadcrumbs />
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Calculateur de Plus-Values Immobilières
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            Art. 99ter (spéculation) et Art. 99bis / 102 LIR (cession) — Coefficients de réévaluation STATEC
+            {t("subtitle")}
           </p>
         </div>
 
@@ -67,17 +69,17 @@ export default function PlusValues() {
           {/* Inputs */}
           <div className="space-y-6">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Acquisition</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionAcquisition")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <InputField
-                  label="Prix d'acquisition"
+                  label={t("prixAcquisition")}
                   value={prixAcquisition}
                   onChange={(v) => setPrixAcquisition(Number(v))}
                   suffix="€"
                   min={0}
                 />
                 <InputField
-                  label="Année d'acquisition"
+                  label={t("anneeAcquisition")}
                   value={anneeAcquisition}
                   onChange={(v) => setAnneeAcquisition(Number(v))}
                   min={1960}
@@ -87,17 +89,17 @@ export default function PlusValues() {
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Cession</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionCession")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <InputField
-                  label="Prix de cession"
+                  label={t("prixCession")}
                   value={prixCession}
                   onChange={(v) => setPrixCession(Number(v))}
                   suffix="€"
                   min={0}
                 />
                 <InputField
-                  label="Année de cession"
+                  label={t("anneeCession")}
                   value={anneeCession}
                   onChange={(v) => setAnneeCession(Number(v))}
                   min={1960}
@@ -107,41 +109,41 @@ export default function PlusValues() {
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Déductions</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionDeductions")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <InputField
-                  label="Frais d'acquisition"
+                  label={t("fraisAcquisition")}
                   value={fraisAcquisition}
                   onChange={(v) => setFraisAcquisition(Number(v))}
                   suffix="€"
                   min={0}
-                  hint="Droits, notaire, agence..."
+                  hint={t("fraisAcquisitionHint")}
                 />
                 <InputField
-                  label="Travaux de plus-value"
+                  label={t("travauxPlusValue")}
                   value={travauxDeductibles}
                   onChange={(v) => setTravauxDeductibles(Number(v))}
                   suffix="€"
                   min={0}
-                  hint="Travaux augmentant la valeur"
+                  hint={t("travauxHint")}
                 />
               </div>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Situation</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionSituation")}</h2>
               <div className="space-y-3">
                 <ToggleField
-                  label="Résidence principale"
+                  label={t("residencePrincipale")}
                   checked={estResidencePrincipale}
                   onChange={setEstResidencePrincipale}
-                  hint="Occupée effectivement et de manière continue"
+                  hint={t("residencePrincipaleHint")}
                 />
                 <ToggleField
-                  label="Couple / Imposition collective"
+                  label={t("coupleLabel")}
                   checked={estCouple}
                   onChange={setEstCouple}
-                  hint="Abattement doublé (100 000 € au lieu de 50 000 €)"
+                  hint={t("coupleHint")}
                 />
               </div>
             </div>
@@ -155,7 +157,7 @@ export default function PlusValues() {
                 {typeLabel}
               </span>
               <span className="text-sm text-muted">
-                Détention : {result.dureeDetention} an{result.dureeDetention > 1 ? "s" : ""}
+                {t("detention", { duree: result.dureeDetention, s: result.dureeDetention > 1 ? "s" : "" })}
               </span>
             </div>
 
@@ -166,7 +168,7 @@ export default function PlusValues() {
               const pctTwoYears = (2 / maxYears) * 100;
               return (
                 <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                  <h3 className="mb-3 text-sm font-semibold text-navy">Durée de détention — régime applicable</h3>
+                  <h3 className="mb-3 text-sm font-semibold text-navy">{t("timelineTitle")}</h3>
                   {/* Bar */}
                   <div className="relative h-7 w-full rounded-full overflow-hidden bg-gray-100">
                     {/* Red zone: 0-2 years */}
@@ -183,7 +185,7 @@ export default function PlusValues() {
                     <div
                       className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-5 w-5 rounded-full border-2 border-white bg-navy shadow-md z-10"
                       style={{ left: `${pctUser}%` }}
-                      title={`${result.dureeDetention} an${result.dureeDetention > 1 ? "s" : ""}`}
+                      title={t("detention", { duree: result.dureeDetention, s: result.dureeDetention > 1 ? "s" : "" })}
                     />
                   </div>
                   {/* Labels under the bar */}
@@ -193,28 +195,28 @@ export default function PlusValues() {
                       className="absolute -translate-x-1/2 text-red-700"
                       style={{ left: `${pctTwoYears}%` }}
                     >
-                      2 ans
+                      {t("deuxAns")}
                     </span>
-                    <span className="absolute right-0 text-amber-700">{maxYears} ans</span>
+                    <span className="absolute right-0 text-amber-700">{t("nAns", { n: maxYears })}</span>
                   </div>
                   {/* Legend */}
                   <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-xs">
                     <span className="flex items-center gap-1.5">
                       <span className="inline-block h-2.5 w-2.5 rounded-sm bg-red-400" />
-                      <span className="text-muted">0–2 ans : Spéculation — taux global</span>
+                      <span className="text-muted">{t("legendeSpeculation")}</span>
                     </span>
                     <span className="flex items-center gap-1.5">
                       <span className="inline-block h-2.5 w-2.5 rounded-sm bg-amber-400" />
-                      <span className="text-muted">{"> "}2 ans : Cession — demi-taux global + réévaluation STATEC</span>
+                      <span className="text-muted">{t("legendeCession")}</span>
                     </span>
                     <span className="flex items-center gap-1.5">
                       <span className="inline-block h-2.5 w-2.5 rounded-sm bg-green-500" />
-                      <span className="text-muted">Résidence principale = exonéré</span>
+                      <span className="text-muted">{t("legendeExonere")}</span>
                     </span>
                     <span className="flex items-center gap-1.5">
                       <span className="inline-block h-4 w-4 rounded-full border-2 border-navy bg-navy" />
                       <span className="text-slate font-semibold">
-                        Votre détention : {result.dureeDetention} an{result.dureeDetention > 1 ? "s" : ""}
+                        {t("votreDetention", { duree: result.dureeDetention, s: result.dureeDetention > 1 ? "s" : "" })}
                       </span>
                     </span>
                   </div>
@@ -224,82 +226,78 @@ export default function PlusValues() {
 
             {result.typeGain === "exonere" ? (
               <div className="rounded-xl border-2 border-green-200 bg-green-50 p-6">
-                <h3 className="text-lg font-semibold text-green-800">Exonération totale</h3>
+                <h3 className="text-lg font-semibold text-green-800">{t("exonerationTotale")}</h3>
                 <p className="mt-2 text-sm text-green-700">
                   {result.explication}
                 </p>
                 <p className="mt-3 text-sm text-green-600">
-                  Plus-value brute : {formatEUR(result.gainBrut)} — non imposable
+                  {t("plusValueBruteNonImposable", { montant: formatEUR(result.gainBrut) })}
                 </p>
               </div>
             ) : (
               <>
                 <ResultPanel
-                  title="Calcul de la plus-value"
+                  title={t("calculPlusValueTitle")}
                   lines={[
-                    { label: "Prix de cession", value: formatEUR(prixCession) },
+                    { label: t("prixCessionResult"), value: formatEUR(prixCession) },
                     ...(result.typeGain === "cession"
                       ? [
-                          { label: "Prix d'acquisition", value: formatEUR(prixAcquisition), sub: true },
+                          { label: t("prixAcquisitionResult"), value: formatEUR(prixAcquisition), sub: true },
                           {
-                            label: `Coefficient réévaluation (${anneeAcquisition})`,
+                            label: t("coefficientReevaluation", { annee: anneeAcquisition }),
                             value: result.coefficient.toFixed(2),
                             sub: true,
                           },
                           {
-                            label: "Prix d'acquisition revalorisé",
+                            label: t("prixAcquisitionRevalorise"),
                             value: `- ${formatEUR(result.prixAcquisitionRevalorise)}`,
                           },
                         ]
-                      : [{ label: "Prix d'acquisition", value: `- ${formatEUR(prixAcquisition)}` }]),
+                      : [{ label: t("prixAcquisitionResult"), value: `- ${formatEUR(prixAcquisition)}` }]),
                     ...(result.fraisForfaitaires > 0
-                      ? [{ label: "Frais déductibles", value: `- ${formatEUR(result.fraisForfaitaires)}`, sub: true }]
+                      ? [{ label: t("fraisDeductibles"), value: `- ${formatEUR(result.fraisForfaitaires)}`, sub: true }]
                       : []),
-                    { label: "Plus-value brute", value: formatEUR(result.gainBrut), highlight: true },
+                    { label: t("plusValueBrute"), value: formatEUR(result.gainBrut), highlight: true },
                     ...(result.abattement > 0
                       ? [
                           {
-                            label: `Abattement décennal${estCouple ? " (couple)" : ""}`,
+                            label: t("abattementDecennal", { couple: estCouple ? ` ${t("couple")}` : "" }),
                             value: `- ${formatEUR(result.abattement)}`,
                           },
                         ]
                       : []),
-                    { label: "Plus-value imposable", value: formatEUR(result.gainImposable), highlight: true, large: true },
+                    { label: t("plusValueImposable"), value: formatEUR(result.gainImposable), highlight: true, large: true },
                   ]}
                 />
 
                 <ResultPanel
-                  title="Estimation d'impôt"
+                  title={t("estimationImpotTitle")}
                   className="border-warning/30"
                   lines={[
                     {
-                      label: result.typeGain === "speculation" ? "Taux global estimé" : "Demi-taux global estimé",
+                      label: result.typeGain === "speculation" ? t("tauxGlobal") : t("demiTauxGlobal"),
                       value: `~${(result.tauxEffectif * 100).toFixed(0)} %`,
                       sub: true,
                     },
-                    { label: "Impôt estimé", value: formatEUR(result.estimationImpot), highlight: true, large: true },
-                    { label: "Net après impôt", value: formatEUR(result.netApresImpot), highlight: true },
+                    { label: t("impotEstime"), value: formatEUR(result.estimationImpot), highlight: true, large: true },
+                    { label: t("netApresImpot"), value: formatEUR(result.netApresImpot), highlight: true },
                   ]}
                 />
               </>
             )}
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-navy">Explication</h3>
+              <h3 className="mb-3 text-base font-semibold text-navy">{t("explicationTitle")}</h3>
               <p className="text-sm text-muted leading-relaxed">{result.explication}</p>
               <div className="mt-4 space-y-2 text-sm text-muted leading-relaxed">
                 <p>
-                  <strong className="text-slate">Spéculation (≤ 2 ans)</strong> — Imposée au taux global
-                  (barème progressif). Pas de réévaluation du prix d'acquisition.
+                  <strong className="text-slate">{t("infoSpeculationTitle")}</strong> — {t("infoSpeculationText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Cession ({">"} 2 ans)</strong> — Prix d'acquisition revalorisé par
-                  les coefficients STATEC. Abattement décennal de 50 000 € (100 000 € couple). Imposée
-                  au demi-taux global.
+                  <strong className="text-slate">{t("infoCessionTitle")}</strong> — {t("infoCessionText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Résidence principale</strong> — Exonération totale si
-                  occupée effectivement et de manière continue.
+                  <strong className="text-slate">{t("infoResidenceTitle")}</strong> — {t("infoResidenceText")}
                 </p>
               </div>
             </div>
@@ -308,16 +306,16 @@ export default function PlusValues() {
               <button
                 onClick={() => {
                   sauvegarderEvaluation({
-                    nom: `Plus-value — ${formatEUR(prixAcquisition)} → ${formatEUR(prixCession)}`,
+                    nom: `${t("savePrefix")} — ${formatEUR(prixAcquisition)} → ${formatEUR(prixCession)}`,
                     type: "plus-values",
                     valeurPrincipale: result.gainImposable,
                     data: { prixAcquisition, anneeAcquisition, prixCession, anneeCession, fraisAcquisition, travauxDeductibles, estResidencePrincipale, estCouple },
                   });
-                  toast.show("Évaluation sauvegardée !");
+                  toast.show(t("evaluationSauvegardee"));
                 }}
                 className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
               >
-                Sauvegarder
+                {t("sauvegarder")}
               </button>
             </div>
 

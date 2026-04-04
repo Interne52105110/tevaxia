@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import {
   LineChart,
   Line,
@@ -35,6 +36,7 @@ function deductionInteretsMax(annee: number, nbPersonnes: number): number {
 }
 
 export default function AchatVsLocation() {
+  const t = useTranslations("achatLocation");
   const [viewMode, setViewMode] = useState<"quick" | "full">("quick");
 
   // Achat
@@ -226,8 +228,8 @@ export default function AchatVsLocation() {
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">Acheter ou louer ?</h1>
-          <p className="mt-2 text-muted">Comparez le coût total et le patrimoine constitué sur la durée</p>
+          <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+          <p className="mt-2 text-muted">{t("subtitle")}</p>
           <div className="mt-4 inline-flex rounded-lg border border-card-border bg-card p-1 shadow-sm">
             <button
               onClick={() => setViewMode("quick")}
@@ -237,7 +239,7 @@ export default function AchatVsLocation() {
                   : "text-muted hover:text-foreground"
               }`}
             >
-              Vue rapide
+              {t("viewQuick")}
             </button>
             <button
               onClick={() => setViewMode("full")}
@@ -247,7 +249,7 @@ export default function AchatVsLocation() {
                   : "text-muted hover:text-foreground"
               }`}
             >
-              Vue détaillée
+              {t("viewFull")}
             </button>
           </div>
         </div>
@@ -257,13 +259,13 @@ export default function AchatVsLocation() {
           <div className="space-y-6">
             {/* Quick mode: 5 essential inputs */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Paramètres essentiels</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionEssentials")}</h2>
               <div className="space-y-4">
-                <InputField label="Prix du bien" value={prixBien} onChange={(v) => setPrixBien(Number(v))} suffix="€" />
-                <InputField label="Apport personnel" value={apport} onChange={(v) => setApport(Number(v))} suffix="€" />
-                <InputField label="Taux du crédit" value={tauxCredit} onChange={(v) => setTauxCredit(Number(v))} suffix="%" step={0.1} />
-                <InputField label="Loyer mensuel" value={loyerMensuel} onChange={(v) => setLoyerMensuel(Number(v))} suffix="€" />
-                <InputField label="Durée de comparaison" value={horizon} onChange={(v) => setHorizon(Number(v))} suffix="ans" min={1} max={35} />
+                <InputField label={t("prixBien")} value={prixBien} onChange={(v) => setPrixBien(Number(v))} suffix="€" />
+                <InputField label={t("apport")} value={apport} onChange={(v) => setApport(Number(v))} suffix="€" />
+                <InputField label={t("tauxCredit")} value={tauxCredit} onChange={(v) => setTauxCredit(Number(v))} suffix="%" step={0.1} />
+                <InputField label={t("loyerMensuel")} value={loyerMensuel} onChange={(v) => setLoyerMensuel(Number(v))} suffix="€" />
+                <InputField label={t("dureeComparaison")} value={horizon} onChange={(v) => setHorizon(Number(v))} suffix={t("suffixAns")} min={1} max={35} />
               </div>
             </div>
 
@@ -271,68 +273,68 @@ export default function AchatVsLocation() {
             {viewMode === "full" && (
               <>
                 <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                  <h2 className="mb-4 text-base font-semibold text-navy">Achat — détails</h2>
+                  <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionAchatDetails")}</h2>
                   <div className="space-y-4">
-                    <InputField label="Durée du crédit" value={dureeCredit} onChange={(v) => setDureeCredit(Number(v))} suffix="ans" />
-                    <InputField label="Frais d'acquisition" value={fraisAcquisitionPct} onChange={(v) => setFraisAcquisitionPct(Number(v))} suffix="%" hint="Droits 7% - Bëllegen Akt. Utilisez le simulateur pour le détail." />
-                    <InputField label="Charges copropriété" value={chargesCoproMensuel} onChange={(v) => setChargesCoproMensuel(Number(v))} suffix="€/mois" />
-                    <InputField label="Impôt foncier" value={taxeFonciereAn} onChange={(v) => setTaxeFonciereAn(Number(v))} suffix="€/an" hint="Très faible au Luxembourg" />
-                    <InputField label="Entretien annuel" value={entretienAnPct} onChange={(v) => setEntretienAnPct(Number(v))} suffix="% prix" hint="Configurable — typiquement 0,5-1,5%" step={0.1} />
-                    <InputField label="Appréciation annuelle du bien" value={appreciationAn} onChange={(v) => setAppreciationAn(Number(v))} suffix="%" step={0.1} hint="Configurable — historique LU ~3-5%/an, récent ~2%" />
+                    <InputField label={t("dureeCredit")} value={dureeCredit} onChange={(v) => setDureeCredit(Number(v))} suffix={t("suffixAns")} />
+                    <InputField label={t("fraisAcquisition")} value={fraisAcquisitionPct} onChange={(v) => setFraisAcquisitionPct(Number(v))} suffix="%" hint={t("fraisAcquisitionHint")} />
+                    <InputField label={t("chargesCopro")} value={chargesCoproMensuel} onChange={(v) => setChargesCoproMensuel(Number(v))} suffix={t("suffixEuroMois")} />
+                    <InputField label={t("impotFoncier")} value={taxeFonciereAn} onChange={(v) => setTaxeFonciereAn(Number(v))} suffix={t("suffixEuroAn")} hint={t("impotFoncierHint")} />
+                    <InputField label={t("entretienAnnuel")} value={entretienAnPct} onChange={(v) => setEntretienAnPct(Number(v))} suffix={t("suffixPctPrix")} hint={t("entretienAnnuelHint")} step={0.1} />
+                    <InputField label={t("appreciationAnnuelle")} value={appreciationAn} onChange={(v) => setAppreciationAn(Number(v))} suffix="%" step={0.1} hint={t("appreciationAnnuelleHint")} />
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                  <h2 className="mb-4 text-base font-semibold text-navy">Assurance solde restant dû</h2>
+                  <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionAssuranceSRD")}</h2>
                   <div className="space-y-4">
                     <InputField
-                      label="Taux assurance SRD"
+                      label={t("tauxAssuranceSRD")}
                       value={tauxAssuranceSRD}
                       onChange={(v) => setTauxAssuranceSRD(Number(v))}
-                      suffix="% capital"
+                      suffix={t("suffixPctCapital")}
                       step={0.05}
-                      hint="Typiquement 0,20-0,40% du capital emprunté par an"
+                      hint={t("tauxAssuranceSRDHint")}
                     />
                     <div className="text-xs text-muted">
-                      Coût mensuel : <span className="font-semibold text-foreground">{formatEUR2(result.assuranceSRDMensuel)}</span>
+                      {t("coutMensuelLabel")} <span className="font-semibold text-foreground">{formatEUR2(result.assuranceSRDMensuel)}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                  <h2 className="mb-4 text-base font-semibold text-navy">Déduction intérêts débiteurs</h2>
+                  <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionDeductionInterets")}</h2>
                   <p className="mb-3 text-xs text-muted">
-                    Art. 98bis LIR — Résidence principale. Max 2 000 €/pers. (5 prem. années), 1 500 € (6-10), 1 000 € (11+).
+                    {t("deductionInteretsDescription")}
                   </p>
                   <div className="space-y-4">
                     <InputField
-                      label="Nombre de personnes (foyer fiscal)"
+                      label={t("nbPersonnes")}
                       value={nbPersonnes}
                       onChange={(v) => setNbPersonnes(Math.max(1, Math.min(2, Number(v))))}
-                      suffix="pers."
+                      suffix={t("suffixPers")}
                       min={1}
                       max={2}
                     />
                     <InputField
-                      label="Taux marginal d'imposition"
+                      label={t("tauxMarginal")}
                       value={tauxMarginalIR}
                       onChange={(v) => setTauxMarginalIR(Number(v))}
                       suffix="%"
                       step={1}
-                      hint="Pour estimer l'économie fiscale réelle"
+                      hint={t("tauxMarginalHint")}
                     />
                     <div className="text-xs text-muted">
-                      Plafond déduction an 1 : <span className="font-semibold text-foreground">{formatEUR(deductionInteretsMax(1, nbPersonnes))}</span>
-                      {" — "}Économie fiscale an 1 : <span className="font-semibold text-foreground">{formatEUR2(economieFiscaleMensuelleAn1 * 12)}/an</span>
+                      {t("plafondDeductionAn1")} <span className="font-semibold text-foreground">{formatEUR(deductionInteretsMax(1, nbPersonnes))}</span>
+                      {" — "}{t("economieFiscaleAn1")} <span className="font-semibold text-foreground">{formatEUR2(economieFiscaleMensuelleAn1 * 12)}/{t("perAn")}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                  <h2 className="mb-4 text-base font-semibold text-navy">Location — détails</h2>
+                  <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionLocationDetails")}</h2>
                   <div className="space-y-4">
-                    <InputField label="Indexation annuelle du loyer" value={indexationLoyer} onChange={(v) => setIndexationLoyer(Number(v))} suffix="%" step={0.1} hint="Augmentation max 10% / 2 ans (réforme 2024)" />
-                    <InputField label="Rendement placement alternatif" value={rendementPlacement} onChange={(v) => setRendementPlacement(Number(v))} suffix="%" step={0.1} hint="Configurable — si on loue, on place l'apport ailleurs" />
+                    <InputField label={t("indexationLoyer")} value={indexationLoyer} onChange={(v) => setIndexationLoyer(Number(v))} suffix="%" step={0.1} hint={t("indexationLoyerHint")} />
+                    <InputField label={t("rendementPlacement")} value={rendementPlacement} onChange={(v) => setRendementPlacement(Number(v))} suffix="%" step={0.1} hint={t("rendementPlacementHint")} />
                   </div>
                 </div>
               </>
@@ -349,22 +351,22 @@ export default function AchatVsLocation() {
             }`}>
               <div className="text-sm text-white/60">
                 {result.derniere.patrimoineNetAchat > result.derniere.patrimoineNetLocation
-                  ? `Acheter est plus avantageux sur ${horizon} ans`
-                  : `Louer est plus avantageux sur ${horizon} ans`}
+                  ? t("verdictAchat", { horizon })
+                  : t("verdictLocation", { horizon })}
               </div>
               <div className="mt-4 grid grid-cols-2 gap-8">
                 <div>
-                  <div className="text-xs text-white/50">Patrimoine net si achat</div>
+                  <div className="text-xs text-white/50">{t("patrimoineAchat")}</div>
                   <div className="text-3xl font-bold mt-1">{formatEUR(result.derniere.patrimoineNetAchat)}</div>
                 </div>
                 <div>
-                  <div className="text-xs text-white/50">Capital si location + placement</div>
+                  <div className="text-xs text-white/50">{t("capitalLocation")}</div>
                   <div className="text-3xl font-bold mt-1">{formatEUR(result.derniere.patrimoineNetLocation)}</div>
                 </div>
               </div>
               {result.croisement && (
                 <div className="mt-4 text-sm text-white/70">
-                  L&apos;achat devient plus avantageux à partir de l&apos;année {result.croisement.annee}
+                  {t("croisementMessage", { annee: result.croisement.annee })}
                 </div>
               )}
             </div>
@@ -372,9 +374,9 @@ export default function AchatVsLocation() {
             {/* Crossover chart */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <div className="mb-4">
-                <h3 className="text-base font-semibold text-navy">Évolution du patrimoine net</h3>
+                <h3 className="text-base font-semibold text-navy">{t("chartTitle")}</h3>
                 <p className="text-xs text-muted mt-1">
-                  Patrimoine achat (valeur du bien − capital restant dû) vs capital accumulé si location + placement
+                  {t("chartDescription")}
                 </p>
               </div>
               <ResponsiveContainer width="100%" height={340}>
@@ -397,7 +399,7 @@ export default function AchatVsLocation() {
                     tick={{ fontSize: 11 }}
                     tickLine={false}
                     axisLine={false}
-                    label={{ value: "Année", position: "insideBottomRight", offset: -5, fontSize: 11, fill: "#6B7280" }}
+                    label={{ value: t("axisAnnee"), position: "insideBottomRight", offset: -5, fontSize: 11, fill: "#6B7280" }}
                   />
                   <YAxis
                     tick={{ fontSize: 11 }}
@@ -414,9 +416,9 @@ export default function AchatVsLocation() {
                   <Tooltip
                     formatter={(value, name) => [
                       formatEUR(Number(value)),
-                      name === "achat" ? "Patrimoine achat" : "Capital location",
+                      name === "achat" ? t("legendeAchat") : t("legendeLocation"),
                     ]}
-                    labelFormatter={(label) => `Année ${label}`}
+                    labelFormatter={(label) => t("tooltipAnnee", { annee: label })}
                     contentStyle={{
                       fontSize: 12,
                       borderRadius: 8,
@@ -431,7 +433,7 @@ export default function AchatVsLocation() {
                       strokeDasharray="6 4"
                       strokeWidth={2}
                       label={{
-                        value: `Croisement ~an ${result.crossoverYear.toFixed(1)}`,
+                        value: t("croisementLabel", { annee: result.crossoverYear.toFixed(1) }),
                         position: "top",
                         fontSize: 11,
                         fill: "#C8A951",
@@ -462,16 +464,16 @@ export default function AchatVsLocation() {
               <div className="mt-3 flex items-center justify-center gap-6 text-xs text-muted">
                 <span className="flex items-center gap-1.5">
                   <span className="inline-block h-2.5 w-5 rounded-sm" style={{ background: "#1B2A4A" }} />
-                  Patrimoine achat
+                  {t("legendeAchat")}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="inline-block h-2.5 w-5 rounded-sm" style={{ background: "#2A9D8F" }} />
-                  Capital location
+                  {t("legendeLocation")}
                 </span>
                 {result.crossoverYear && (
                   <span className="flex items-center gap-1.5">
                     <span className="inline-block h-2.5 w-5 rounded-sm border-b-2 border-dashed" style={{ borderColor: "#C8A951" }} />
-                    Point de croisement
+                    {t("legendeCroisement")}
                   </span>
                 )}
               </div>
@@ -482,24 +484,24 @@ export default function AchatVsLocation() {
                 {/* Coûts mensuels comparés */}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <ResultPanel
-                    title="Coût mensuel — Achat"
+                    title={t("coutMensuelAchat")}
                     lines={[
-                      { label: "Mensualité crédit", value: formatEUR2(result.mensualiteCredit) },
-                      { label: "Charges copropriété", value: formatEUR2(chargesCoproMensuel), sub: true },
-                      { label: "Impôt foncier", value: formatEUR2(taxeFonciereAn / 12), sub: true },
-                      { label: "Entretien", value: formatEUR2(prixBien * entretienAnPct / 100 / 12), sub: true },
-                      { label: "Assurance SRD", value: formatEUR2(result.assuranceSRDMensuel), sub: true },
-                      { label: "Total brut mensuel", value: formatEUR2(coutMensuelTotal), highlight: true },
-                      { label: "Économie fiscale intérêts (an 1)", value: `- ${formatEUR2(economieFiscaleMensuelleAn1)}`, sub: true },
-                      { label: "Coût net mensuel (an 1)", value: formatEUR2(coutMensuelNetAchat), highlight: true },
+                      { label: t("mensualiteCredit"), value: formatEUR2(result.mensualiteCredit) },
+                      { label: t("chargesCopro"), value: formatEUR2(chargesCoproMensuel), sub: true },
+                      { label: t("impotFoncier"), value: formatEUR2(taxeFonciereAn / 12), sub: true },
+                      { label: t("entretien"), value: formatEUR2(prixBien * entretienAnPct / 100 / 12), sub: true },
+                      { label: t("assuranceSRD"), value: formatEUR2(result.assuranceSRDMensuel), sub: true },
+                      { label: t("totalBrutMensuel"), value: formatEUR2(coutMensuelTotal), highlight: true },
+                      { label: t("economieFiscaleInteretsAn1"), value: `- ${formatEUR2(economieFiscaleMensuelleAn1)}`, sub: true },
+                      { label: t("coutNetMensuelAn1"), value: formatEUR2(coutMensuelNetAchat), highlight: true },
                     ]}
                   />
                   <ResultPanel
-                    title="Coût mensuel — Location"
+                    title={t("coutMensuelLocation")}
                     lines={[
-                      { label: "Loyer (année 1)", value: formatEUR2(loyerMensuel) },
-                      { label: `Loyer (année ${horizon})`, value: formatEUR2(loyerMensuel * Math.pow(1 + indexationLoyer / 100, horizon - 1)), sub: true },
-                      { label: "Différence mensuelle nette (an 1)", value: formatEUR2(coutMensuelNetAchat - loyerMensuel), highlight: true },
+                      { label: t("loyerAnnee1"), value: formatEUR2(loyerMensuel) },
+                      { label: t("loyerAnneeN", { annee: horizon }), value: formatEUR2(loyerMensuel * Math.pow(1 + indexationLoyer / 100, horizon - 1)), sub: true },
+                      { label: t("differenceMensuelleAn1"), value: formatEUR2(coutMensuelNetAchat - loyerMensuel), highlight: true },
                     ]}
                   />
                 </div>
@@ -507,19 +509,19 @@ export default function AchatVsLocation() {
                 {/* Déduction intérêts — résumé */}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <ResultPanel
-                    title="Déduction intérêts débiteurs"
+                    title={t("deductionInteretsTitle")}
                     lines={[
-                      { label: "Intérêts an 1", value: formatEUR2(result.annees.length > 0 ? result.annees[0].deductionInterets : 0) },
-                      { label: "Plafond an 1", value: formatEUR(deductionInteretsMax(1, nbPersonnes)), sub: true },
-                      { label: `Économie fiscale cumulée (${horizon} ans)`, value: formatEUR(result.derniere.economieFiscaleCumul), highlight: true },
+                      { label: t("interetsAn1"), value: formatEUR2(result.annees.length > 0 ? result.annees[0].deductionInterets : 0) },
+                      { label: t("plafondAn1"), value: formatEUR(deductionInteretsMax(1, nbPersonnes)), sub: true },
+                      { label: t("economieFiscaleCumulee", { horizon }), value: formatEUR(result.derniere.economieFiscaleCumul), highlight: true },
                     ]}
                   />
                   <ResultPanel
-                    title="Assurance solde restant dû"
+                    title={t("assuranceSRDTitle")}
                     lines={[
-                      { label: "Coût mensuel", value: formatEUR2(result.assuranceSRDMensuel) },
-                      { label: "Coût annuel", value: formatEUR2(result.assuranceSRDMensuel * 12), sub: true },
-                      { label: `Coût total (${Math.min(horizon, dureeCredit)} ans)`, value: formatEUR(result.assuranceSRDMensuel * 12 * Math.min(horizon, dureeCredit)), highlight: true },
+                      { label: t("coutMensuel"), value: formatEUR2(result.assuranceSRDMensuel) },
+                      { label: t("coutAnnuel"), value: formatEUR2(result.assuranceSRDMensuel * 12), sub: true },
+                      { label: t("coutTotal", { annees: Math.min(horizon, dureeCredit) }), value: formatEUR(result.assuranceSRDMensuel * 12 * Math.min(horizon, dureeCredit)), highlight: true },
                     ]}
                   />
                 </div>
@@ -529,12 +531,12 @@ export default function AchatVsLocation() {
                   <table className="w-full text-xs">
                     <thead>
                       <tr className="border-b border-card-border bg-background">
-                        <th className="px-3 py-2 text-left font-semibold text-navy">Année</th>
-                        <th className="px-3 py-2 text-right font-semibold text-navy">Valeur bien</th>
-                        <th className="px-3 py-2 text-right font-semibold text-navy">Capital restant dû</th>
-                        <th className="px-3 py-2 text-right font-semibold text-navy">Patrimoine achat</th>
-                        <th className="px-3 py-2 text-right font-semibold text-navy">Capital placement</th>
-                        <th className="px-3 py-2 text-right font-semibold text-navy">Avantage</th>
+                        <th className="px-3 py-2 text-left font-semibold text-navy">{t("colAnnee")}</th>
+                        <th className="px-3 py-2 text-right font-semibold text-navy">{t("colValeurBien")}</th>
+                        <th className="px-3 py-2 text-right font-semibold text-navy">{t("colCapitalRestant")}</th>
+                        <th className="px-3 py-2 text-right font-semibold text-navy">{t("colPatrimoineAchat")}</th>
+                        <th className="px-3 py-2 text-right font-semibold text-navy">{t("colCapitalPlacement")}</th>
+                        <th className="px-3 py-2 text-right font-semibold text-navy">{t("colAvantage")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -548,7 +550,7 @@ export default function AchatVsLocation() {
                             <td className="px-3 py-1.5 text-right font-mono font-semibold">{formatEUR(a.patrimoineNetAchat)}</td>
                             <td className="px-3 py-1.5 text-right font-mono">{formatEUR(a.patrimoineNetLocation)}</td>
                             <td className={`px-3 py-1.5 text-right font-mono font-semibold ${diff > 0 ? "text-navy" : "text-teal"}`}>
-                              {diff > 0 ? "Achat" : "Location"} {formatEUR(Math.abs(diff))}
+                              {diff > 0 ? t("achat") : t("location")} {formatEUR(Math.abs(diff))}
                             </td>
                           </tr>
                         );
@@ -559,13 +561,7 @@ export default function AchatVsLocation() {
 
                 <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
                   <p className="text-xs text-amber-800 leading-relaxed">
-                    <strong>Hypothèses configurables :</strong> Le résultat dépend fortement de l&apos;appréciation du bien
-                    ({appreciationAn}%/an) et du rendement du placement alternatif ({rendementPlacement}%/an).
-                    Modifiez ces paramètres pour tester différents scénarios. Les frais d&apos;acquisition au Luxembourg (Bëllegen Akt)
-                    rendent l&apos;achat plus attractif qu&apos;en France grâce au crédit d&apos;impôt.
-                    La déduction des intérêts débiteurs (art. 98bis LIR) réduit le coût effectif de l&apos;achat,
-                    surtout les 5 premières années (max {formatEUR(2000 * nbPersonnes)}/an pour {nbPersonnes} personne{nbPersonnes > 1 ? "s" : ""}).
-                    L&apos;assurance solde restant dû ({tauxAssuranceSRD}%) est un coût souvent oublié.
+                    <strong>{t("hypothesesTitle")}</strong> {t("hypothesesText", { appreciation: appreciationAn, rendement: rendementPlacement, plafond: formatEUR(2000 * nbPersonnes), nbPersonnes, tauxSRD: tauxAssuranceSRD })}
                   </p>
                 </div>
               </>

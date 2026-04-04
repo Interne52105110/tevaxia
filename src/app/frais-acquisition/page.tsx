@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
@@ -12,6 +13,7 @@ import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function FraisAcquisition() {
+  const t = useTranslations("fraisAcquisition");
   const toast = useToast();
   const [prixBien, setPrixBien] = useState(750000);
   const [estNeuf, setEstNeuf] = useState(false);
@@ -42,10 +44,10 @@ export default function FraisAcquisition() {
         <Breadcrumbs />
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Simulateur de Frais d'Acquisition
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            Droits d'enregistrement, Bëllegen Akt, TVA, émoluments notariaux, frais d'hypothèque
+            {t("subtitle")}
           </p>
         </div>
 
@@ -53,37 +55,37 @@ export default function FraisAcquisition() {
           {/* Inputs */}
           <div className="space-y-6">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Le bien</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionBien")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label="Prix du bien"
+                  label={t("prixBien")}
                   value={prixBien}
                   onChange={(v) => setPrixBien(Number(v))}
                   suffix="€"
                   min={0}
                 />
                 <ToggleField
-                  label="Bien neuf (VEFA / construction)"
+                  label={t("neufLabel")}
                   checked={estNeuf}
                   onChange={setEstNeuf}
-                  hint="TVA applicable sur la part construction"
+                  hint={t("neufHint")}
                 />
                 {estNeuf && (
                   <div className="grid gap-4 sm:grid-cols-2">
                     <InputField
-                      label="Part terrain"
+                      label={t("partTerrain")}
                       value={partTerrain}
                       onChange={(v) => setPartTerrain(Number(v))}
                       suffix="€"
                       min={0}
-                      hint="Soumis aux droits d'enregistrement 7%"
+                      hint={t("partTerrainHint")}
                     />
                     <InputField
-                      label="Part construction"
+                      label={t("partConstruction")}
                       value={partConstruction}
                       onChange={() => {}}
                       suffix="€"
-                      hint="= Prix − Terrain (soumise à TVA)"
+                      hint={t("partConstructionHint")}
                     />
                   </div>
                 )}
@@ -91,36 +93,36 @@ export default function FraisAcquisition() {
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Acquéreur</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionAcquereur")}</h2>
               <div className="space-y-4">
                 <ToggleField
-                  label="Résidence principale"
+                  label={t("residencePrincipale")}
                   checked={residencePrincipale}
                   onChange={setResidencePrincipale}
-                  hint="Ouvre droit au Bëllegen Akt et TVA 3%"
+                  hint={t("residencePrincipaleHint")}
                 />
                 <InputField
-                  label="Nombre d'acquéreurs"
+                  label={t("nbAcquereurs")}
                   type="select"
                   value={String(nbAcquereurs)}
                   onChange={(v) => setNbAcquereurs(Number(v) as 1 | 2)}
                   options={[
-                    { value: "1", label: "1 personne (40 000 € Bëllegen Akt)" },
-                    { value: "2", label: "2 personnes / couple (80 000 € Bëllegen Akt)" },
+                    { value: "1", label: t("acquereur1") },
+                    { value: "2", label: t("acquereur2") },
                   ]}
                 />
               </div>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Financement</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionFinancement")}</h2>
               <InputField
-                label="Montant de l'hypothèque"
+                label={t("montantHypotheque")}
                 value={montantHypotheque}
                 onChange={(v) => setMontantHypotheque(Number(v))}
                 suffix="€"
                 min={0}
-                hint="Pour le calcul des frais d'inscription hypothécaire"
+                hint={t("montantHypothequeHint")}
               />
             </div>
           </div>
@@ -128,60 +130,60 @@ export default function FraisAcquisition() {
           {/* Results */}
           <div className="space-y-6">
             <ResultPanel
-              title="Droits d'enregistrement & transcription"
+              title={t("resultDroitsTitle")}
               lines={[
-                { label: "Base taxable", value: formatEUR(result.baseDroits), sub: true },
-                { label: "Droits d'enregistrement (6%)", value: formatEUR(result.droitsEnregistrement) },
-                { label: "Droit de transcription (1%)", value: formatEUR(result.droitsTranscription) },
-                { label: "Total droits bruts (7%)", value: formatEUR(result.droitsTotal) },
+                { label: t("baseTaxable"), value: formatEUR(result.baseDroits), sub: true },
+                { label: t("droitsEnregistrement"), value: formatEUR(result.droitsEnregistrement) },
+                { label: t("droitsTranscription"), value: formatEUR(result.droitsTranscription) },
+                { label: t("totalDroitsBruts"), value: formatEUR(result.droitsTotal) },
                 ...(result.creditBellegenAkt > 0
                   ? [
                       {
-                        label: `Bëllegen Akt (${nbAcquereurs} × 40 000 €)`,
+                        label: t("bellegenAkt", { nb: nbAcquereurs }),
                         value: `- ${formatEUR(result.creditBellegenAkt)}`,
                       },
                     ]
                   : []),
-                { label: "Droits nets à payer", value: formatEUR(result.droitsApresCredit), highlight: true },
+                { label: t("droitsNets"), value: formatEUR(result.droitsApresCredit), highlight: true },
               ]}
             />
 
             {estNeuf && (
               <ResultPanel
-                title="TVA"
+                title={t("resultTvaTitle")}
                 lines={[
-                  { label: "Base TVA (construction)", value: formatEUR(result.tvaApplicable), sub: true },
+                  { label: t("baseTva"), value: formatEUR(result.tvaApplicable), sub: true },
                   {
-                    label: `Taux appliqué`,
-                    value: residencePrincipale ? "3 % (réduit)" : "17 % (normal)",
+                    label: t("tauxApplique"),
+                    value: residencePrincipale ? t("tauxReduit") : t("tauxNormal"),
                   },
-                  { label: "Montant TVA", value: formatEUR(result.montantTva) },
+                  { label: t("montantTva"), value: formatEUR(result.montantTva) },
                   ...(result.faveurFiscaleTva > 0
-                    ? [{ label: "Faveur fiscale TVA 3%", value: formatEUR(result.faveurFiscaleTva), sub: true }]
+                    ? [{ label: t("faveurFiscaleTva"), value: formatEUR(result.faveurFiscaleTva), sub: true }]
                     : []),
                 ]}
               />
             )}
 
             <ResultPanel
-              title="Autres frais"
+              title={t("resultAutresFrais")}
               lines={[
-                { label: "Émoluments notariaux", value: formatEUR(result.emolumentsNotaire) },
+                { label: t("emolumentsNotaire"), value: formatEUR(result.emolumentsNotaire) },
                 ...(montantHypotheque > 0
                   ? [
-                      { label: "Frais d'hypothèque", value: formatEUR(result.fraisHypotheque) },
+                      { label: t("fraisHypotheque"), value: formatEUR(result.fraisHypotheque) },
                     ]
                   : []),
               ]}
             />
 
             <ResultPanel
-              title="Total"
+              title={t("resultTotal")}
               className="border-gold/30"
               lines={[
-                { label: "Prix du bien", value: formatEUR(prixBien) },
-                { label: `Total des frais (${formatPct(result.totalPourcentage)})`, value: formatEUR(result.totalFrais) },
-                { label: "Coût total d'acquisition", value: formatEUR(result.coutTotalAcquisition), highlight: true, large: true },
+                { label: t("prixDuBien"), value: formatEUR(prixBien) },
+                { label: t("totalFrais", { pct: formatPct(result.totalPourcentage) }), value: formatEUR(result.totalFrais) },
+                { label: t("coutTotalAcquisition"), value: formatEUR(result.coutTotalAcquisition), highlight: true, large: true },
               ]}
             />
 
@@ -189,14 +191,14 @@ export default function FraisAcquisition() {
             {/* Camembert décomposition */}
             {result.totalFrais > 0 && (() => {
               const data = [
-                { name: "Droits nets", value: result.droitsApresCredit, color: "#1B2A4A" },
-                ...(result.montantTva > 0 ? [{ name: "TVA", value: result.montantTva, color: "#C8A951" }] : []),
-                { name: "Notaire", value: result.emolumentsNotaire, color: "#2A9D8F" },
-                ...(result.fraisHypotheque > 0 ? [{ name: "Hypothèque", value: result.fraisHypotheque, color: "#6B7280" }] : []),
+                { name: t("chartDroitsNets"), value: result.droitsApresCredit, color: "#1B2A4A" },
+                ...(result.montantTva > 0 ? [{ name: t("chartTva"), value: result.montantTva, color: "#C8A951" }] : []),
+                { name: t("chartNotaire"), value: result.emolumentsNotaire, color: "#2A9D8F" },
+                ...(result.fraisHypotheque > 0 ? [{ name: t("chartHypotheque"), value: result.fraisHypotheque, color: "#6B7280" }] : []),
               ].filter((d) => d.value > 0);
               return (
                 <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                  <h3 className="mb-3 text-sm font-semibold text-navy">Décomposition des frais</h3>
+                  <h3 className="mb-3 text-sm font-semibold text-navy">{t("decompositionTitle")}</h3>
                   <ResponsiveContainer width="100%" height={180}>
                     <PieChart>
                       <Pie data={data} dataKey="value" cx="50%" cy="50%" innerRadius={40} outerRadius={70} paddingAngle={2}>
@@ -218,21 +220,16 @@ export default function FraisAcquisition() {
               );
             })()}
 
-              <h3 className="mb-3 text-base font-semibold text-navy">Bon à savoir</h3>
+              <h3 className="mb-3 text-base font-semibold text-navy">{t("bonASavoir")}</h3>
               <div className="space-y-2 text-sm text-muted leading-relaxed">
                 <p>
-                  <strong className="text-slate">Bëllegen Akt</strong> — Crédit d'impôt de 40 000 € par
-                  acquéreur (80 000 € pour un couple) sur les droits d'enregistrement. Applicable uniquement
-                  pour la résidence principale et lors de la première utilisation.
+                  <strong className="text-slate">{t("infobellegenTitle")}</strong> — {t("infobellegenText")}
                 </p>
                 <p>
-                  <strong className="text-slate">VEFA / Neuf</strong> — Les droits de 7% ne portent que
-                  sur la part terrain. La part construction est soumise à la TVA (3% résidence principale,
-                  17% sinon), avec un plafond de faveur fiscale de 50 000 €.
+                  <strong className="text-slate">{t("infoVefaTitle")}</strong> — {t("infoVefaText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Émoluments notariaux</strong> — Calculés selon un barème
-                  dégressif réglementé (4% jusqu'à 10 000 € puis dégressif).
+                  <strong className="text-slate">{t("infoNotaireTitle")}</strong> — {t("infoNotaireText")}
                 </p>
               </div>
             </div>
@@ -241,16 +238,16 @@ export default function FraisAcquisition() {
               <button
                 onClick={() => {
                   sauvegarderEvaluation({
-                    nom: `Frais — ${formatEUR(prixBien)}`,
+                    nom: `${t("savePrefix")} — ${formatEUR(prixBien)}`,
                     type: "frais",
                     valeurPrincipale: result.totalFrais,
                     data: { prixBien, estNeuf, partTerrain, residencePrincipale, nbAcquereurs, montantHypotheque },
                   });
-                  toast.show("Évaluation sauvegardée !");
+                  toast.show(t("evaluationSauvegardee"));
                 }}
                 className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
               >
-                Sauvegarder
+                {t("sauvegarder")}
               </button>
             </div>
 

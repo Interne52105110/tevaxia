@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { formatEUR } from "@/lib/calculations";
 import { rechercherCommune, type MarketDataCommune, type SearchResult } from "@/lib/market-data";
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
@@ -39,12 +40,6 @@ const CANTONS_ORDER = [
 type PriceField = "prixM2Existant" | "prixM2VEFA" | "prixM2Annonces";
 type ViewMode = PriceField | "rendement";
 
-const PRICE_TYPES: { key: PriceField; label: string }[] = [
-  { key: "prixM2Existant", label: "Existant" },
-  { key: "prixM2VEFA", label: "Neuf (VEFA)" },
-  { key: "prixM2Annonces", label: "Annonces" },
-];
-
 function computeYield(commune: MarketDataCommune): number | null {
   if (!commune.loyerM2Annonces || !commune.prixM2Existant) return null;
   return (commune.loyerM2Annonces * 12) / commune.prixM2Existant * 100;
@@ -58,12 +53,19 @@ function getYieldColor(yieldPct: number | null): string {
 }
 
 export default function Carte() {
+  const t = useTranslations("carte");
   const [search, setSearch] = useState("");
   const [selectedCommune, setSelectedCommune] = useState<MarketDataCommune | null>(null);
   const [sortBy, setSortBy] = useState<"prix" | "canton" | "nom">("canton");
   const [viewMode, setViewMode] = useState<ViewMode>("prixM2Existant");
   const isRendement = viewMode === "rendement";
   const priceField: PriceField = isRendement ? "prixM2Existant" : viewMode;
+
+  const PRICE_TYPES: { key: PriceField; label: string }[] = [
+    { key: "prixM2Existant", label: t("existing") },
+    { key: "prixM2VEFA", label: t("newVefa") },
+    { key: "prixM2Annonces", label: t("listings") },
+  ];
 
   const allCommunes = useMemo(() => {
     const names = getAllCommunes();
@@ -105,25 +107,25 @@ export default function Carte() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Carte des prix immobiliers
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            Prix moyens au m² par commune — Source : Observatoire de l'Habitat (actes notariés)
+            {t("subtitle")}
           </p>
         </div>
 
         {/* Légende */}
         {isRendement ? (
           <div className="mb-6 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-muted">Rendement brut :</span>
+            <span className="text-muted">{t("grossYield")} :</span>
             <span className="rounded px-2 py-0.5 bg-red-100 text-red-800">{"< 3 %"}</span>
             <span className="rounded px-2 py-0.5 bg-amber-100 text-amber-800">3–4 %</span>
             <span className="rounded px-2 py-0.5 bg-green-100 text-green-800">{"> 4 %"}</span>
-            <span className="text-muted ml-2">(loyer annonces x 12 / prix existant)</span>
+            <span className="text-muted ml-2">{t("yieldFormula")}</span>
           </div>
         ) : (
           <div className="mb-6 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-muted">Prix /m² :</span>
+            <span className="text-muted">{t("pricePerSqm")} :</span>
             <span className="rounded px-2 py-0.5 bg-emerald-100 text-emerald-800">{"< 5 000 €"}</span>
             <span className="rounded px-2 py-0.5 bg-green-100 text-green-800">5–6k €</span>
             <span className="rounded px-2 py-0.5 bg-lime-100 text-lime-800">6–7k €</span>
@@ -157,7 +159,7 @@ export default function Carte() {
                 : "bg-background text-muted border border-card-border hover:bg-teal/5"
             }`}
           >
-            Rendement
+            {t("yield")}
           </button>
         </div>
 
@@ -167,7 +169,7 @@ export default function Carte() {
             type="text"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setSelectedCommune(null); }}
-            placeholder="Rechercher une commune ou localité..."
+            placeholder={t("searchPlaceholder")}
             className="flex-1 rounded-lg border border-input-border bg-input-bg px-3 py-2.5 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
           />
           <select
@@ -175,9 +177,9 @@ export default function Carte() {
             onChange={(e) => setSortBy(e.target.value as "prix" | "canton" | "nom")}
             className="rounded-lg border border-input-border bg-input-bg px-3 py-2.5 text-sm shadow-sm"
           >
-            <option value="canton">Par canton</option>
-            <option value="prix">Par prix (décroissant)</option>
-            <option value="nom">Par nom</option>
+            <option value="canton">{t("sortByCanton")}</option>
+            <option value="prix">{t("sortByPrice")}</option>
+            <option value="nom">{t("sortByName")}</option>
           </select>
         </div>
 
@@ -190,7 +192,7 @@ export default function Carte() {
             priceField={priceField}
             viewMode={viewMode}
           />
-          <p className="mt-2 text-xs text-muted text-center">Taille des cercles proportionnelle au volume de transactions. Cliquez pour voir le détail.</p>
+          <p className="mt-2 text-xs text-muted text-center">{t("mapHint")}</p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3">
@@ -203,7 +205,7 @@ export default function Carte() {
                   if (!communes || communes.length === 0) return null;
                   return (
                     <div key={canton}>
-                      <h3 className="text-sm font-semibold text-navy mb-2">Canton de {canton}</h3>
+                      <h3 className="text-sm font-semibold text-navy mb-2">{t("cantonOf", { canton })}</h3>
                       <div className="grid gap-2 sm:grid-cols-2">
                         {communes.map((c) => {
                           const prix = c[priceField];
@@ -218,18 +220,18 @@ export default function Carte() {
                           >
                             {isRendement ? (
                               <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getYieldColor(yieldPct)}`}>
-                                {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "—"}
+                                {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "\u2014"}
                               </div>
                             ) : (
                               <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
-                                {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
+                                {prix ? `${(prix / 1000).toFixed(1)}k` : "\u2014"}
                               </div>
                             )}
                             <div className="flex-1 min-w-0">
                               <div className="text-sm font-medium text-slate truncate">{c.commune}</div>
                               {isRendement ? (
                                 <div className="text-xs text-muted mt-0.5">
-                                  {c.loyerM2Annonces ? `${c.loyerM2Annonces.toFixed(1)} €/m²/mois` : "—"}
+                                  {c.loyerM2Annonces ? `${c.loyerM2Annonces.toFixed(1)} €/m²/${t("month")}` : "\u2014"}
                                 </div>
                               ) : (
                                 <div className="h-1.5 rounded-full bg-gray-100 mt-1">
@@ -263,11 +265,11 @@ export default function Carte() {
                   >
                     {isRendement ? (
                       <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getYieldColor(yieldPct)}`}>
-                        {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "—"}
+                        {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "\u2014"}
                       </div>
                     ) : (
                       <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
-                        {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
+                        {prix ? `${(prix / 1000).toFixed(1)}k` : "\u2014"}
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
@@ -292,24 +294,24 @@ export default function Carte() {
 
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Existant" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>
-                        <div className="text-xs text-muted">Existant</div>
-                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "—"}</div>
+                        <div className="text-xs text-muted">{t("existing")}</div>
+                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "\u2014"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2VEFA" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>
-                        <div className="text-xs text-muted">Neuf (VEFA)</div>
-                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2VEFA ? formatEUR(selectedCommune.prixM2VEFA) : "—"}</div>
+                        <div className="text-xs text-muted">{t("newVefa")}</div>
+                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2VEFA ? formatEUR(selectedCommune.prixM2VEFA) : "\u2014"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Annonces" ? "bg-gold/20 ring-2 ring-gold/40" : "bg-gold/10"}`}>
-                        <div className="text-xs text-muted">Annonces</div>
-                        <div className="text-lg font-bold text-gold-dark">{selectedCommune.prixM2Annonces ? formatEUR(selectedCommune.prixM2Annonces) : "—"}</div>
+                        <div className="text-xs text-muted">{t("listings")}</div>
+                        <div className="text-lg font-bold text-gold-dark">{selectedCommune.prixM2Annonces ? formatEUR(selectedCommune.prixM2Annonces) : "\u2014"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
                       <div className="rounded-lg bg-teal/10 p-3 text-center">
-                        <div className="text-xs text-muted">Loyer</div>
-                        <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "—"}</div>
-                        <div className="text-[10px] text-muted">/m²/mois</div>
+                        <div className="text-xs text-muted">{t("rent")}</div>
+                        <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "\u2014"}</div>
+                        <div className="text-[10px] text-muted">/m²/{t("month")}</div>
                       </div>
                     </div>
 
@@ -319,9 +321,9 @@ export default function Carte() {
                       if (yieldPct == null) return null;
                       return (
                         <div className={`mt-3 rounded-lg p-3 text-center ${isRendement ? "ring-2 ring-teal/40" : ""} ${getYieldColor(yieldPct)}`}>
-                          <div className="text-xs font-medium">Rendement brut</div>
+                          <div className="text-xs font-medium">{t("grossYield")}</div>
                           <div className="text-xl font-bold">{yieldPct.toFixed(2)} %</div>
-                          <div className="text-[10px]">loyer annuel / prix existant</div>
+                          <div className="text-[10px]">{t("yieldFormulaShort")}</div>
                         </div>
                       );
                     })()}
@@ -338,7 +340,7 @@ export default function Carte() {
                       const cycle = getMarketCycle(dominant);
                       return (
                         <div className="mt-3 flex items-center gap-2">
-                          <span className="text-xs text-muted">Cycle de march\u00e9</span>
+                          <span className="text-xs text-muted">{t("marketCycle")}</span>
                           <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${cycle.color} ${
                             dominant === "hausse" ? "bg-green-100" :
                             dominant === "baisse" ? "bg-red-100" :
@@ -359,7 +361,7 @@ export default function Carte() {
                       return (
                         <div className="mt-3 rounded-lg bg-background p-3">
                           <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-xs text-muted">Score de marche</span>
+                            <span className="text-xs text-muted">{t("marketScore")}</span>
                             <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${color}`}>
                               {score.level} ({score.score}/100)
                             </span>
@@ -380,7 +382,7 @@ export default function Carte() {
                     })()}
 
                     <div className="mt-3 text-xs text-muted">
-                      {selectedCommune.nbTransactions} transactions — {selectedCommune.source}
+                      {t("transactions", { count: selectedCommune.nbTransactions ?? 0 })} — {selectedCommune.source}
                     </div>
 
                     <div className="mt-4 flex gap-2">
@@ -388,13 +390,13 @@ export default function Carte() {
                         href="/estimation"
                         className="flex-1 rounded-lg bg-navy px-3 py-2 text-center text-xs font-medium text-white hover:bg-navy-light transition-colors"
                       >
-                        Estimer un bien
+                        {t("estimateProperty")}
                       </Link>
                       <Link
                         href="/valorisation"
                         className="flex-1 rounded-lg border border-navy px-3 py-2 text-center text-xs font-medium text-navy hover:bg-navy/5 transition-colors"
                       >
-                        Valorisation pro
+                        {t("proValuation")}
                       </Link>
                     </div>
                   </div>
@@ -405,16 +407,16 @@ export default function Carte() {
                     if (!demo) return null;
                     return (
                       <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-                        <h3 className="text-sm font-semibold text-navy mb-2">Démographie</h3>
+                        <h3 className="text-sm font-semibold text-navy mb-2">{t("demographics")}</h3>
                         <div className="grid grid-cols-2 gap-2 text-xs">
-                          <div><span className="text-muted">Population</span><br/><span className="font-semibold">{demo.population.toLocaleString("fr-LU")}</span></div>
-                          <div><span className="text-muted">Croissance</span><br/><span className="font-semibold text-success">+{demo.croissancePct}%</span> <span className="text-[10px] text-muted">(10 ans)</span></div>
-                          <div><span className="text-muted">Densité</span><br/><span className="font-semibold">{demo.densiteHabKm2} hab/km²</span></div>
-                          <div><span className="text-muted">% étrangers</span><br/><span className="font-semibold">{demo.pctEtrangers}%</span></div>
-                          {demo.revenuMedian && <div><span className="text-muted">Revenu médian</span><br/><span className="font-semibold">{formatEUR(demo.revenuMedian)}/an</span></div>}
-                          {demo.tauxEmploi && <div><span className="text-muted">Taux d'emploi</span><br/><span className="font-semibold">{demo.tauxEmploi}%</span></div>}
+                          <div><span className="text-muted">{t("population")}</span><br/><span className="font-semibold">{demo.population.toLocaleString("fr-LU")}</span></div>
+                          <div><span className="text-muted">{t("growth")}</span><br/><span className="font-semibold text-success">+{demo.croissancePct}%</span> <span className="text-[10px] text-muted">{t("tenYears")}</span></div>
+                          <div><span className="text-muted">{t("density")}</span><br/><span className="font-semibold">{demo.densiteHabKm2} {t("densityUnit")}</span></div>
+                          <div><span className="text-muted">{t("foreignersPct")}</span><br/><span className="font-semibold">{demo.pctEtrangers}%</span></div>
+                          {demo.revenuMedian && <div><span className="text-muted">{t("medianIncome")}</span><br/><span className="font-semibold">{formatEUR(demo.revenuMedian)}/{t("perYear")}</span></div>}
+                          {demo.tauxEmploi && <div><span className="text-muted">{t("employmentRate")}</span><br/><span className="font-semibold">{demo.tauxEmploi}%</span></div>}
                         </div>
-                        <p className="mt-2 text-[10px] text-muted">Source : STATEC (estimations 2025)</p>
+                        <p className="mt-2 text-[10px] text-muted">{t("demographicsSource")}</p>
                       </div>
                     );
                   })()}
@@ -422,7 +424,7 @@ export default function Carte() {
                   {/* Quartiers si dispo */}
                   {selectedCommune.quartiers && selectedCommune.quartiers.length > 0 && (
                     <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-                      <h3 className="text-sm font-semibold text-navy mb-3">Quartiers</h3>
+                      <h3 className="text-sm font-semibold text-navy mb-3">{t("neighborhoods")}</h3>
                       <div className="space-y-1">
                         {selectedCommune.quartiers
                           .sort((a, b) => b.prixM2 - a.prixM2)
@@ -446,7 +448,7 @@ export default function Carte() {
               ) : (
                 <>
                   <div className="rounded-xl border-2 border-dashed border-card-border p-8 text-center">
-                    <p className="text-sm text-muted">Cliquez sur une commune pour voir le détail</p>
+                    <p className="text-sm text-muted">{t("clickCommune")}</p>
                   </div>
                   <PriceEvolutionChart />
                   <PriceIndexChart />

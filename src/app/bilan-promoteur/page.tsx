@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
 
 export default function BilanPromoteur() {
+  const t = useTranslations("bilanPromoteur");
   // Recettes
   // Type d'opération
   const [typeOperation, setTypeOperation] = useState<"immeuble" | "lotissement" | "maisons">("immeuble");
@@ -52,16 +54,16 @@ export default function BilanPromoteur() {
     // 7 tranches spread across 24 months
     // Each tranche is triggered at a specific month milestone
     const tranches = [
-      { month: 1, pct: 5, label: "Signature" },
-      { month: 4, pct: 15, label: "Fondations" },
-      { month: 8, pct: 20, label: "Dalle haute RDC" },
-      { month: 12, pct: 20, label: "Mise hors d'eau" },
-      { month: 16, pct: 15, label: "Cloisons" },
-      { month: 20, pct: 15, label: "Finitions" },
-      { month: 24, pct: 10, label: "Livraison" },
+      { month: 1, pct: 5, label: t("vefaSignature") },
+      { month: 4, pct: 15, label: t("vefaFoundations") },
+      { month: 8, pct: 20, label: t("vefaGroundFloorSlab") },
+      { month: 12, pct: 20, label: t("vefaRoofed") },
+      { month: 16, pct: 15, label: t("vefaPartitions") },
+      { month: 20, pct: 15, label: t("vefaFinishing") },
+      { month: 24, pct: 10, label: t("vefaDelivery") },
     ];
     return tranches;
-  }, []);
+  }, [t]);
 
   const treasuryPlan = useMemo(() => {
     // We need result values — compute key totals here too
@@ -200,9 +202,9 @@ export default function BilanPromoteur() {
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">Bilan promoteur</h1>
+          <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
           <p className="mt-2 text-muted">
-            Méthode du compte à rebours — Déterminez la charge foncière maximale à partir du prix de vente
+            {t("subtitle")}
           </p>
         </div>
 
@@ -210,9 +212,9 @@ export default function BilanPromoteur() {
           {/* Inputs */}
           <div className="space-y-6">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Type d'opération</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("operationType")}</h2>
               <div className="flex gap-2 mb-6">
-                {([["immeuble", "Immeuble collectif"], ["lotissement", "Lotissement"], ["maisons", "Maisons individuelles"]] as const).map(([val, label]) => (
+                {([["immeuble", t("collectiveBuilding")], ["lotissement", t("subdivision")], ["maisons", t("individualHouses")]] as const).map(([val, label]) => (
                   <button key={val} onClick={() => setTypeOperation(val)}
                     className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${typeOperation === val ? "bg-navy text-white" : "bg-background text-muted border border-card-border hover:bg-navy/5"}`}>
                     {label}
@@ -220,62 +222,62 @@ export default function BilanPromoteur() {
                 ))}
               </div>
 
-              <h2 className="mb-4 text-base font-semibold text-navy">Terrain</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("land")}</h2>
               <div className="space-y-4 mb-6">
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <InputField label="Coût total du terrain" value={surfaceTerrain * prixTerrainM2} onChange={(v) => setPrixTerrainM2(surfaceTerrain > 0 ? Number(v) / surfaceTerrain : 0)} suffix="€" />
-                  <InputField label="Surface terrain" value={surfaceTerrain} onChange={(v) => setSurfaceTerrain(Number(v))} suffix="m²" />
+                  <InputField label={t("totalLandCost")} value={surfaceTerrain * prixTerrainM2} onChange={(v) => setPrixTerrainM2(surfaceTerrain > 0 ? Number(v) / surfaceTerrain : 0)} suffix="€" />
+                  <InputField label={t("landArea")} value={surfaceTerrain} onChange={(v) => setSurfaceTerrain(Number(v))} suffix="m²" />
                 </div>
                 {surfaceTerrain > 0 && prixTerrainM2 > 0 && (
-                  <p className="text-xs text-muted">Soit {formatEUR(prixTerrainM2)}/m² de terrain</p>
+                  <p className="text-xs text-muted">{t("landPricePerSqm", { price: formatEUR(prixTerrainM2) })}</p>
                 )}
                 <div className="flex items-center gap-2">
                   <input type="checkbox" checked={!coutTerrainConnu} onChange={(e) => setCoutTerrainConnu(!e.target.checked)} className="rounded" />
-                  <label className="text-sm text-slate">Mode compte à rebours (terrain inconnu — calculer la charge foncière max)</label>
+                  <label className="text-sm text-slate">{t("residualMode")}</label>
                 </div>
               </div>
 
-              <h2 className="mb-4 text-base font-semibold text-navy">Recettes prévisionnelles</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("projectedRevenue")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
-                <InputField label="Surface vendable" value={surfaceVendable} onChange={(v) => setSurfaceVendable(Number(v))} suffix="m²" hint="Surface habitable vendable totale" />
-                <InputField label="Prix de vente /m²" value={prixVenteM2} onChange={(v) => setPrixVenteM2(Number(v))} suffix="€" hint="Prix moyen de sortie TTC" />
-                <InputField label="Nombre de parkings" value={nbParkings} onChange={(v) => setNbParkings(Number(v))} />
-                <InputField label="Prix par parking" value={prixParking} onChange={(v) => setPrixParking(Number(v))} suffix="€" />
+                <InputField label={t("sellableArea")} value={surfaceVendable} onChange={(v) => setSurfaceVendable(Number(v))} suffix="m²" hint={t("sellableAreaHint")} />
+                <InputField label={t("sellingPricePerSqm")} value={prixVenteM2} onChange={(v) => setPrixVenteM2(Number(v))} suffix="€" hint={t("sellingPricePerSqmHint")} />
+                <InputField label={t("parkingCount")} value={nbParkings} onChange={(v) => setNbParkings(Number(v))} />
+                <InputField label={t("parkingPrice")} value={prixParking} onChange={(v) => setPrixParking(Number(v))} suffix="€" />
               </div>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Coûts de construction</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("constructionCosts")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
-                <InputField label="Surface brute (SHOB)" value={surfaceBrute} onChange={(v) => setSurfaceBrute(Number(v))} suffix="m²" hint="Incluant parties communes, parkings" />
-                <InputField label="Coût construction /m² brut" value={coutConstructionM2} onChange={(v) => setCoutConstructionM2(Number(v))} suffix="€" hint="Configurable — LU : 2 500-3 500 €/m²" />
-                <InputField label="VRD / Voirie" value={voirie} onChange={(v) => setVoirie(Number(v))} suffix="€" />
-                <InputField label="Études diverses" value={etudesAutres} onChange={(v) => setEtudesAutres(Number(v))} suffix="€" hint="Géomètre, sol, environnement..." />
-                <InputField label="Honoraires architecte" value={honorairesArchitecte} onChange={(v) => setHonorairesArchitecte(Number(v))} suffix="% constr." hint="Configurable — typiquement 7-10%" step={0.5} />
-                <InputField label="Honoraires BET" value={honorairesBET} onChange={(v) => setHonorairesBET(Number(v))} suffix="% constr." hint="Bureau d'études techniques" step={0.5} />
-                <InputField label="Aléas / Imprévus" value={aleas} onChange={(v) => setAleas(Number(v))} suffix="% constr." hint="Configurable — 3 à 8%" step={0.5} />
+                <InputField label={t("grossArea")} value={surfaceBrute} onChange={(v) => setSurfaceBrute(Number(v))} suffix="m²" hint={t("grossAreaHint")} />
+                <InputField label={t("constructionCostPerSqm")} value={coutConstructionM2} onChange={(v) => setCoutConstructionM2(Number(v))} suffix="€" hint={t("constructionCostPerSqmHint")} />
+                <InputField label={t("roadworks")} value={voirie} onChange={(v) => setVoirie(Number(v))} suffix="€" />
+                <InputField label={t("miscStudies")} value={etudesAutres} onChange={(v) => setEtudesAutres(Number(v))} suffix="€" hint={t("miscStudiesHint")} />
+                <InputField label={t("architectFees")} value={honorairesArchitecte} onChange={(v) => setHonorairesArchitecte(Number(v))} suffix={t("pctConstr")} hint={t("architectFeesHint")} step={0.5} />
+                <InputField label={t("betFees")} value={honorairesBET} onChange={(v) => setHonorairesBET(Number(v))} suffix={t("pctConstr")} hint={t("betFeesHint")} step={0.5} />
+                <InputField label={t("contingencies")} value={aleas} onChange={(v) => setAleas(Number(v))} suffix={t("pctConstr")} hint={t("contingenciesHint")} step={0.5} />
                 {typeOperation !== "immeuble" && (<>
-                  <InputField label="Géomètre / Bornage" value={fraisGeometre} onChange={(v) => setFraisGeometre(Number(v))} suffix="€" hint="Lotissement : bornage, division parcellaire" />
-                  <InputField label="Frais de lotissement" value={fraisLotissement} onChange={(v) => setFraisLotissement(Number(v))} suffix="€" hint="PAP NQ, raccordements individuels, espaces communs" />
-                  <InputField label="Nombre de lots" value={nbLots} onChange={(v) => setNbLots(Number(v))} hint="Pour calcul du coût par lot" />
+                  <InputField label={t("surveyorFees")} value={fraisGeometre} onChange={(v) => setFraisGeometre(Number(v))} suffix="€" hint={t("surveyorFeesHint")} />
+                  <InputField label={t("subdivisionFees")} value={fraisLotissement} onChange={(v) => setFraisLotissement(Number(v))} suffix="€" hint={t("subdivisionFeesHint")} />
+                  <InputField label={t("lotCount")} value={nbLots} onChange={(v) => setNbLots(Number(v))} hint={t("lotCountHint")} />
                 </>)}
               </div>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Frais de promotion</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("promotionFees")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
-                <InputField label="Frais commerciaux" value={fraisCommerciaux} onChange={(v) => setFraisCommerciaux(Number(v))} suffix="% CA" hint="Commercialisation, publicité" step={0.5} />
-                <InputField label="Frais financiers" value={fraisFinanciers} onChange={(v) => setFraisFinanciers(Number(v))} suffix="% coûts" hint="Intérêts intercalaires" step={0.5} />
-                <InputField label="Assurances" value={assurances} onChange={(v) => setAssurances(Number(v))} suffix="% constr." step={0.5} />
-                <InputField label="Frais de gestion" value={fraisGestion} onChange={(v) => setFraisGestion(Number(v))} suffix="% CA" hint="Gestion de programme" step={0.5} />
-                <InputField label="Pré-commercialisation" value={tauxPreCommercialisation} onChange={(v) => setTauxPreCommercialisation(Number(v))} suffix="% vendu" min={0} max={100} hint="% pré-vendu avant construction. Impact coût financier." />
+                <InputField label={t("commercialFees")} value={fraisCommerciaux} onChange={(v) => setFraisCommerciaux(Number(v))} suffix={t("pctCA")} hint={t("commercialFeesHint")} step={0.5} />
+                <InputField label={t("financialFees")} value={fraisFinanciers} onChange={(v) => setFraisFinanciers(Number(v))} suffix={t("pctCosts")} hint={t("financialFeesHint")} step={0.5} />
+                <InputField label={t("insurance")} value={assurances} onChange={(v) => setAssurances(Number(v))} suffix={t("pctConstr")} step={0.5} />
+                <InputField label={t("managementFees")} value={fraisGestion} onChange={(v) => setFraisGestion(Number(v))} suffix={t("pctCA")} hint={t("managementFeesHint")} step={0.5} />
+                <InputField label={t("preCommercialisation")} value={tauxPreCommercialisation} onChange={(v) => setTauxPreCommercialisation(Number(v))} suffix={t("pctSold")} min={0} max={100} hint={t("preCommercialisationHint")} />
               </div>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Marge du promoteur</h2>
-              <InputField label="Marge sur CA" value={margePromoteur} onChange={(v) => setMargePromoteur(Number(v))} suffix="%" hint="Configurable — typiquement 10-20% du CA" step={1} />
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("developerMargin")}</h2>
+              <InputField label={t("marginOnCA")} value={margePromoteur} onChange={(v) => setMargePromoteur(Number(v))} suffix="%" hint={t("marginOnCAHint")} step={1} />
             </div>
           </div>
 
@@ -288,88 +290,85 @@ export default function BilanPromoteur() {
                 : "bg-gradient-to-br from-error to-red-600 text-white"
             }`}>
               <div className="text-sm text-white/60">
-                {coutTerrainConnu ? "Marge résiduelle de l'opération" : "Charge foncière maximale (valeur résiduelle du terrain)"}
+                {coutTerrainConnu ? t("residualMargin") : t("maxLandCharge")}
               </div>
               <div className="mt-2 text-5xl font-bold">{formatEUR(result.chargeFonciere)}</div>
               <div className="mt-2 text-sm text-white/60">
                 {coutTerrainConnu
-                  ? `Terrain : ${formatEUR(result.coutTerrain)} (${formatEUR(prixTerrainM2)}/m²)`
-                  : `soit ${formatEUR(result.chargeFonciereM2Terrain)} /m² vendable`
+                  ? t("landCostSummary", { cost: formatEUR(result.coutTerrain), perSqm: formatEUR(prixTerrainM2) })
+                  : t("perSqmSellable", { price: formatEUR(result.chargeFonciereM2Terrain) })
                 }
               </div>
               {result.chargeFonciere <= 0 && (
                 <div className="mt-3 text-sm text-white/80">
-                  {coutTerrainConnu ? "L'opération n'est pas rentable avec ce prix de terrain" : "La charge foncière est négative — l'opération n'est pas viable"}
+                  {coutTerrainConnu ? t("notProfitableWithLand") : t("negativeLandCharge")}
                 </div>
               )}
             </div>
 
             <ResultPanel
-              title="Compte à rebours"
+              title={t("residualCalculation")}
               lines={[
-                { label: "CA Logements", value: formatEUR(result.caLogements) },
-                { label: "CA Parkings", value: formatEUR(result.caParkings), sub: true },
-                { label: "Chiffre d'affaires total", value: formatEUR(result.caTotal), highlight: true },
-                ...(coutTerrainConnu && result.coutTerrain > 0 ? [{ label: `Terrain (${formatEUR(prixTerrainM2)}/m²)`, value: `- ${formatEUR(result.coutTerrain)}` }] : []),
-                { label: `Construction (${formatPct(result.ratioConstructionCA)})`, value: `- ${formatEUR(result.totalConstruction)}` },
-                { label: `Frais promotion (${formatPct(result.ratioFraisCA)})`, value: `- ${formatEUR(result.totalFrais)}` },
-                { label: `Marge promoteur (${margePromoteur}%)`, value: `- ${formatEUR(result.margeMontant)}` },
-                { label: coutTerrainConnu ? "= Marge résiduelle" : "= Charge foncière maximale", value: formatEUR(result.chargeFonciere), highlight: true, large: true },
+                { label: t("revenueHousing"), value: formatEUR(result.caLogements) },
+                { label: t("revenueParking"), value: formatEUR(result.caParkings), sub: true },
+                { label: t("totalRevenue"), value: formatEUR(result.caTotal), highlight: true },
+                ...(coutTerrainConnu && result.coutTerrain > 0 ? [{ label: t("landLine", { perSqm: formatEUR(prixTerrainM2) }), value: `- ${formatEUR(result.coutTerrain)}` }] : []),
+                { label: t("constructionLine", { pct: formatPct(result.ratioConstructionCA) }), value: `- ${formatEUR(result.totalConstruction)}` },
+                { label: t("feesLine", { pct: formatPct(result.ratioFraisCA) }), value: `- ${formatEUR(result.totalFrais)}` },
+                { label: t("marginLine", { pct: margePromoteur }), value: `- ${formatEUR(result.margeMontant)}` },
+                { label: coutTerrainConnu ? t("equalsResidualMargin") : t("equalsMaxLandCharge"), value: formatEUR(result.chargeFonciere), highlight: true, large: true },
               ]}
             />
 
             <ResultPanel
-              title="Détail des coûts"
+              title={t("costDetail")}
               lines={[
-                { label: `Construction brute (${surfaceBrute} m² × ${formatEUR(coutConstructionM2)})`, value: formatEUR(result.coutsConstruction) },
-                { label: "VRD / Voirie", value: formatEUR(result.coutsVoirie), sub: true },
-                { label: `Architecte (${honorairesArchitecte}%)`, value: formatEUR(result.coutsArchitecte), sub: true },
-                { label: `BET (${honorairesBET}%)`, value: formatEUR(result.coutsBET), sub: true },
-                { label: "Études diverses", value: formatEUR(result.coutsEtudes), sub: true },
-                { label: `Aléas (${aleas}%)`, value: formatEUR(result.coutsAleas), sub: true },
-                { label: "Total construction", value: formatEUR(result.totalConstruction), highlight: true },
-                { label: `Commerciaux (${fraisCommerciaux}% CA)`, value: formatEUR(result.fCommerciaux), sub: true },
-                { label: `Financiers (${fraisFinanciers}%)`, value: formatEUR(result.fFinanciers), sub: true },
-                { label: `Assurances (${assurances}%)`, value: formatEUR(result.fAssurances), sub: true },
-                { label: `Gestion (${fraisGestion}% CA)`, value: formatEUR(result.fGestion), sub: true },
-                { label: "Total frais", value: formatEUR(result.totalFrais), highlight: true },
+                { label: t("grossConstruction", { area: surfaceBrute, cost: formatEUR(coutConstructionM2) }), value: formatEUR(result.coutsConstruction) },
+                { label: t("roadworksShort"), value: formatEUR(result.coutsVoirie), sub: true },
+                { label: t("architectLine", { pct: honorairesArchitecte }), value: formatEUR(result.coutsArchitecte), sub: true },
+                { label: t("betLine", { pct: honorairesBET }), value: formatEUR(result.coutsBET), sub: true },
+                { label: t("miscStudiesShort"), value: formatEUR(result.coutsEtudes), sub: true },
+                { label: t("contingenciesLine", { pct: aleas }), value: formatEUR(result.coutsAleas), sub: true },
+                { label: t("totalConstructionLabel"), value: formatEUR(result.totalConstruction), highlight: true },
+                { label: t("commercialLine", { pct: fraisCommerciaux }), value: formatEUR(result.fCommerciaux), sub: true },
+                { label: t("financialLine", { pct: fraisFinanciers }), value: formatEUR(result.fFinanciers), sub: true },
+                { label: t("insuranceLine", { pct: assurances }), value: formatEUR(result.fAssurances), sub: true },
+                { label: t("managementLine", { pct: fraisGestion }), value: formatEUR(result.fGestion), sub: true },
+                { label: t("totalFeesLabel"), value: formatEUR(result.totalFrais), highlight: true },
               ]}
             />
 
             <ResultPanel
-              title="Ratios"
+              title={t("ratios")}
               lines={[
-                { label: "Charge foncière / CA", value: formatPct(result.ratioFoncierCA), warning: result.ratioFoncierCA < 0.10 },
-                { label: "Construction / CA", value: formatPct(result.ratioConstructionCA) },
-                { label: "Frais / CA", value: formatPct(result.ratioFraisCA) },
-                { label: "Marge / CA", value: formatPct(result.margeEffective) },
-                { label: "Rentabilité sur fonds propres (est.)", value: formatPct(result.rentaFP), sub: true },
+                { label: t("landChargeOverCA"), value: formatPct(result.ratioFoncierCA), warning: result.ratioFoncierCA < 0.10 },
+                { label: t("constructionOverCA"), value: formatPct(result.ratioConstructionCA) },
+                { label: t("feesOverCA"), value: formatPct(result.ratioFraisCA) },
+                { label: t("marginOverCA"), value: formatPct(result.margeEffective) },
+                { label: t("returnOnEquity"), value: formatPct(result.rentaFP), sub: true },
               ]}
             />
 
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
               <p className="text-xs text-amber-800 leading-relaxed">
-                <strong>Méthode du compte à rebours :</strong> Prix de vente − Coûts de construction − Frais − Marge
-                = Charge foncière maximale que le promoteur peut payer pour le terrain.
-                Au Luxembourg, les coûts de construction sont parmi les plus élevés d'Europe (2 500-3 500 €/m²).
-                Le ratio charge foncière / CA se situe typiquement entre 15% et 30% selon la localisation.
+                {t("methodNote")}
               </p>
             </div>
 
             {/* Plan de trésorerie */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="mb-2 text-base font-semibold text-navy">Plan de trésorerie</h3>
+              <h3 className="mb-2 text-base font-semibold text-navy">{t("treasuryPlanTitle")}</h3>
               <p className="mb-4 text-xs text-muted">
-                Cash flow simplifié sur 24 mois — Appels de fonds VEFA ({tauxPreCommercialisation}% pré-vendu) selon le calendrier standard LU (5/15/20/20/15/15/10)
+                {t("treasuryPlanDesc", { pct: tauxPreCommercialisation })}
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="border-b border-card-border text-left">
-                      <th className="py-2 pr-3 font-semibold text-slate">Trimestre</th>
-                      <th className="py-2 px-3 font-semibold text-slate text-right">Dépenses cum.</th>
-                      <th className="py-2 px-3 font-semibold text-slate text-right">Recettes cum.</th>
-                      <th className="py-2 pl-3 font-semibold text-slate text-right">Position nette</th>
+                      <th className="py-2 pr-3 font-semibold text-slate">{t("quarter")}</th>
+                      <th className="py-2 px-3 font-semibold text-slate text-right">{t("cumExpenditure")}</th>
+                      <th className="py-2 px-3 font-semibold text-slate text-right">{t("cumRevenue")}</th>
+                      <th className="py-2 pl-3 font-semibold text-slate text-right">{t("netPosition")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -392,15 +391,14 @@ export default function BilanPromoteur() {
               {treasuryPlan.peakNeed < 0 && (
                 <div className="mt-4 rounded-lg bg-red-50 border border-red-200 p-3">
                   <p className="text-xs text-red-800">
-                    <strong>Besoin de financement maximal :</strong> {formatEUR(Math.abs(treasuryPlan.peakNeed))} atteint en {treasuryPlan.peakQuarter}.
-                    C'est le montant que le promoteur devra couvrir par fonds propres et/ou crédit promoteur.
+                    {t("maxFinancingNeed", { amount: formatEUR(Math.abs(treasuryPlan.peakNeed)), quarter: treasuryPlan.peakQuarter })}
                   </p>
                 </div>
               )}
               {treasuryPlan.peakNeed >= 0 && (
                 <div className="mt-4 rounded-lg bg-green-50 border border-green-200 p-3">
                   <p className="text-xs text-green-800">
-                    <strong>Pas de besoin de financement :</strong> Les appels de fonds VEFA couvrent les dépenses tout au long du chantier.
+                    {t("noFinancingNeed")}
                   </p>
                 </div>
               )}

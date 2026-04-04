@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
@@ -11,6 +12,7 @@ import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function CalculateurLoyer() {
+  const t = useTranslations("calculLoyer");
   const toast = useToast();
   const [prixAcquisition, setPrixAcquisition] = useState(500000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2010);
@@ -49,10 +51,10 @@ export default function CalculateurLoyer() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Calculateur de Capital Investi & Plafond de Loyer
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            Loi modifiée du 21 septembre 2006 — Le loyer annuel ne peut excéder 5% du capital investi
+            {t("subtitle")}
           </p>
         </div>
 
@@ -60,40 +62,40 @@ export default function CalculateurLoyer() {
           {/* Inputs */}
           <div className="space-y-6">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Acquisition</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionAcquisition")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <InputField
-                  label="Prix d'acquisition"
+                  label={t("prixAcquisition")}
                   value={prixAcquisition}
                   onChange={(v) => setPrixAcquisition(Number(v))}
                   suffix="€"
                   min={0}
-                  hint="Prix payé (hors frais)"
+                  hint={t("prixAcquisitionHint")}
                 />
                 <InputField
-                  label="Année d'acquisition"
+                  label={t("anneeAcquisition")}
                   value={anneeAcquisition}
                   onChange={(v) => setAnneeAcquisition(Number(v))}
                   min={1960}
                   max={2026}
-                  hint="Pour le coefficient de réévaluation"
+                  hint={t("anneeAcquisitionHint")}
                 />
               </div>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Travaux d'amélioration</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionTravaux")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <InputField
-                  label="Montant des travaux"
+                  label={t("montantTravaux")}
                   value={travauxMontant}
                   onChange={(v) => setTravauxMontant(Number(v))}
                   suffix="€"
                   min={0}
-                  hint="Travaux d'amélioration (pas d'entretien)"
+                  hint={t("montantTravauxHint")}
                 />
                 <InputField
-                  label="Année des travaux"
+                  label={t("anneeTravaux")}
                   value={travauxAnnee}
                   onChange={(v) => setTravauxAnnee(Number(v))}
                   min={1960}
@@ -103,17 +105,17 @@ export default function CalculateurLoyer() {
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Bail & Surface</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionBailSurface")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <InputField
-                  label="Année du bail"
+                  label={t("anneeBail")}
                   value={anneeBail}
                   onChange={(v) => setAnneeBail(Number(v))}
                   min={1960}
                   max={2030}
                 />
                 <InputField
-                  label="Surface habitable"
+                  label={t("surfaceHabitable")}
                   value={surfaceHabitable}
                   onChange={(v) => setSurfaceHabitable(Number(v))}
                   suffix="m²"
@@ -122,20 +124,20 @@ export default function CalculateurLoyer() {
               </div>
               <div className="mt-4 space-y-3">
                 <ToggleField
-                  label="Logement meublé"
+                  label={t("logementMeuble")}
                   checked={estMeuble}
                   onChange={setEstMeuble}
-                  hint="Supplément de 10% autorisé sur le loyer maximal"
+                  hint={t("logementMeubleHint")}
                 />
                 <ToggleField
-                  label="Colocation"
+                  label={t("colocation")}
                   checked={avecColocation}
                   onChange={setAvecColocation}
-                  hint="Somme des loyers ≤ plafond (réforme 2024)"
+                  hint={t("colocationHint")}
                 />
                 {avecColocation && (
                   <InputField
-                    label="Nombre de colocataires"
+                    label={t("nbColocataires")}
                     value={nbColocataires}
                     onChange={(v) => setNbColocataires(Number(v))}
                     min={2}
@@ -146,34 +148,30 @@ export default function CalculateurLoyer() {
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Vétusté (optionnel)</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionVetuste")}</h2>
               <div className="space-y-3">
                 <ToggleField
-                  label="Appliquer une décote vétusté"
+                  label={t("appliquerVetuste")}
                   checked={appliquerVetuste}
                   onChange={setAppliquerVetuste}
-                  hint="Non imposé par la loi — à utiliser si le bien est en mauvais état"
+                  hint={t("appliquerVetusteHint")}
                 />
                 {appliquerVetuste && (
                   <InputField
-                    label="Taux annuel de vétusté"
+                    label={t("tauxVetuste")}
                     value={tauxVetuste}
                     onChange={(v) => setTauxVetuste(Number(v))}
                     suffix="%"
                     min={0}
                     max={5}
                     step={0.5}
-                    hint="Pratique courante : 1-2%. Aucun taux légal imposé."
+                    hint={t("tauxVetusteHint")}
                   />
                 )}
               </div>
               <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
                 <p className="text-xs text-amber-800 leading-relaxed">
-                  <strong>Attention :</strong> La loi de 2006 ne fixe aucun taux de vétusté. Le taux de 2% parfois
-                  cité vient de conventions comptables (amortissement sur 50 ans), pas du texte légal.
-                  Les coefficients de réévaluation STATEC compensent déjà l'érosion monétaire —
-                  la vétusté ne devrait refléter que l'usure physique réelle du bâtiment.
-                  En pratique, les commissions des loyers l'apprécient au cas par cas.
+                  <strong>{t("vetusteWarningTitle")}</strong> {t("vetusteWarningText")}
                 </p>
               </div>
             </div>
@@ -181,7 +179,7 @@ export default function CalculateurLoyer() {
             {/* Tableau coefficients STATEC */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <button onClick={() => setShowCoefficients(!showCoefficients)} className="flex items-center justify-between w-full text-left">
-                <h2 className="text-base font-semibold text-navy">Coefficients de réévaluation STATEC</h2>
+                <h2 className="text-base font-semibold text-navy">{t("coefficientsSTATEC")}</h2>
                 <svg className={`h-5 w-5 text-muted transition-transform ${showCoefficients ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
@@ -206,40 +204,40 @@ export default function CalculateurLoyer() {
           {/* Results */}
           <div className="space-y-6">
             <ResultPanel
-              title="Capital investi"
+              title={t("resultCapitalInvesti")}
               lines={[
-                { label: "Prix d'acquisition", value: formatEUR(prixAcquisition) },
-                { label: `Coefficient réévaluation (${anneeAcquisition})`, value: result.coeffAcquisition.toFixed(2), sub: true },
-                { label: "Prix réévalué", value: formatEUR(result.prixReevalue) },
+                { label: t("prixAcquisition"), value: formatEUR(prixAcquisition) },
+                { label: t("coeffReevaluation", { annee: anneeAcquisition }), value: result.coeffAcquisition.toFixed(2), sub: true },
+                { label: t("prixReevalue"), value: formatEUR(result.prixReevalue) },
                 ...(travauxMontant > 0
                   ? [
-                      { label: "Travaux d'amélioration", value: formatEUR(travauxMontant) },
-                      { label: `Coefficient réévaluation (${travauxAnnee})`, value: result.coeffTravaux.toFixed(2), sub: true },
-                      { label: "Travaux réévalués", value: formatEUR(result.travauxReevalues) },
+                      { label: t("travauxAmelioration"), value: formatEUR(travauxMontant) },
+                      { label: t("coeffReevaluation", { annee: travauxAnnee }), value: result.coeffTravaux.toFixed(2), sub: true },
+                      { label: t("travauxReevalues"), value: formatEUR(result.travauxReevalues) },
                     ]
                   : []),
                 ...(appliquerVetuste
                   ? [{
-                      label: `Vétusté (${result.anneesVetuste} ans × ${tauxVetuste}%)`,
+                      label: t("vetusteLabel", { annees: result.anneesVetuste, taux: tauxVetuste }),
                       value: `- ${formatEUR(result.decoteVetuste)} (${(result.decoteVetustePct * 100).toFixed(0)}%)`,
                       warning: result.decoteVetustePct >= 0.5,
                     }]
                   : []),
-                { label: "Capital investi", value: formatEUR(result.capitalInvesti), highlight: true, large: true },
+                { label: t("capitalInvesti"), value: formatEUR(result.capitalInvesti), highlight: true, large: true },
               ]}
             />
 
             <ResultPanel
-              title="Plafond de loyer"
+              title={t("resultPlafondLoyer")}
               className="border-gold/30"
               lines={[
-                { label: "Loyer annuel maximum (5%)", value: formatEUR2(result.loyerAnnuelMax) },
-                { label: "Loyer mensuel maximum", value: formatEUR2(result.loyerMensuelMax), highlight: true, large: true },
-                { label: "Loyer au m²/mois", value: formatEUR2(result.loyerM2Mensuel), sub: true },
+                { label: t("loyerAnnuelMax"), value: formatEUR2(result.loyerAnnuelMax) },
+                { label: t("loyerMensuelMax"), value: formatEUR2(result.loyerMensuelMax), highlight: true, large: true },
+                { label: t("loyerM2Mois"), value: formatEUR2(result.loyerM2Mensuel), sub: true },
                 ...(avecColocation && result.loyerParColocataire
                   ? [
                       {
-                        label: `Loyer max par colocataire (${nbColocataires})`,
+                        label: t("loyerParColocataire", { nb: nbColocataires }),
                         value: formatEUR2(result.loyerParColocataire),
                         highlight: true,
                       },
@@ -250,21 +248,16 @@ export default function CalculateurLoyer() {
 
             {/* Explications */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-navy">Base légale</h3>
+              <h3 className="mb-3 text-base font-semibold text-navy">{t("baseLegaleTitle")}</h3>
               <div className="space-y-2 text-sm text-muted leading-relaxed">
                 <p>
-                  <strong className="text-slate">Loi modifiée du 21 septembre 2006</strong> — Le loyer annuel
-                  ne peut excéder 5% du capital investi dans le logement.
+                  <strong className="text-slate">{t("loi2006Title")}</strong> — {t("loi2006Text")}
                 </p>
                 <p>
-                  <strong className="text-slate">Capital investi</strong> = prix d'acquisition réévalué
-                  (coefficients STATEC) + travaux d'amélioration réévalués − vétusté éventuelle
-                  (appréciée au cas par cas, pas de taux légal fixe).
+                  <strong className="text-slate">{t("capitalInvestiTitle")}</strong> = {t("capitalInvestiText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Réforme juillet 2024</strong> — La distinction "logement de
-                  luxe" est supprimée. Frais d'agence partagés 50/50. Garantie locative réduite à 2 mois.
-                  Augmentations limitées à 10% tous les 2 ans. Colocation : somme des loyers ≤ plafond.
+                  <strong className="text-slate">{t("reforme2024Title")}</strong> — {t("reforme2024Text")}
                 </p>
               </div>
             </div>
@@ -273,16 +266,16 @@ export default function CalculateurLoyer() {
               <button
                 onClick={() => {
                   sauvegarderEvaluation({
-                    nom: `Loyer — ${formatEUR(prixAcquisition)} (${surfaceHabitable} m²)`,
+                    nom: `${t("savePrefix")} — ${formatEUR(prixAcquisition)} (${surfaceHabitable} m²)`,
                     type: "loyer",
                     valeurPrincipale: result.loyerMensuelMax,
                     data: { prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, appliquerVetuste, tauxVetuste, avecColocation, nbColocataires, estMeuble },
                   });
-                  toast.show("Évaluation sauvegardée !");
+                  toast.show(t("saveToast"));
                 }}
                 className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
               >
-                Sauvegarder
+                {t("saveButton")}
               </button>
             </div>
 

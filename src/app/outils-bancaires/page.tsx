@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import {
@@ -16,89 +17,81 @@ import {
 
 type ActiveTab = "ltv" | "capacite" | "amortissement" | "dscr";
 
-const TABS: { id: ActiveTab; label: string }[] = [
-  { id: "ltv", label: "Ratio prêt / valeur" },
-  { id: "capacite", label: "Capacité d'emprunt" },
-  { id: "amortissement", label: "Amortissement" },
-  { id: "dscr", label: "Couverture de dette" },
-];
-
 function TabLTV() {
+  const t = useTranslations("outilsBancaires");
   const [valeurBien, setValeurBien] = useState(750000);
   const [montantPret, setMontantPret] = useState(600000);
 
   const ltv = calculerLTV({ valeurBien, montantPret });
   const ltvColor = ltv > 0.9 ? "text-error" : ltv > 0.8 ? "text-warning" : "text-success";
   const ltvLabel =
-    ltv > 0.9 ? "Élevé — risque accru" : ltv > 0.8 ? "Acceptable — attention" : "Sain";
+    ltv > 0.9 ? t("ltvHigh") : ltv > 0.8 ? t("ltvAcceptable") : t("ltvHealthy");
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Paramètres LTV</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("ltvParams")}</h2>
           <div className="space-y-4">
-            <InputField label="Valeur du bien" value={valeurBien} onChange={(v) => setValeurBien(Number(v))} suffix="€" />
-            <InputField label="Montant du prêt" value={montantPret} onChange={(v) => setMontantPret(Number(v))} suffix="€" />
+            <InputField label={t("propertyValue")} value={valeurBien} onChange={(v) => setValeurBien(Number(v))} suffix="€" />
+            <InputField label={t("loanAmount")} value={montantPret} onChange={(v) => setMontantPret(Number(v))} suffix="€" />
           </div>
         </div>
       </div>
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-8 shadow-sm text-center">
-          <div className="text-sm text-muted">Ratio prêt / valeur du bien (LTV)</div>
+          <div className="text-sm text-muted">{t("ltvRatio")}</div>
           <div className={`mt-2 text-5xl font-bold ${ltvColor}`}>
             {(ltv * 100).toFixed(1)} %
           </div>
           <div className={`mt-2 text-sm font-medium ${ltvColor}`}>{ltvLabel}</div>
-          <div className="mt-4 text-xs text-muted">Apport : {formatEUR(valeurBien - montantPret)} ({formatPct(1 - ltv)})</div>
+          <div className="mt-4 text-xs text-muted">{t("deposit")} : {formatEUR(valeurBien - montantPret)} ({formatPct(1 - ltv)})</div>
         </div>
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-3">Seuils LTV au Luxembourg</h3>
+          <h3 className="text-base font-semibold text-navy mb-3">{t("ltvThresholdsTitle")}</h3>
           <div className="space-y-3">
             <div className="flex items-start gap-3 rounded-lg bg-green-50 border border-green-200 p-3">
               <span className="shrink-0 rounded-full bg-success px-2.5 py-0.5 text-xs font-bold text-white">≤ 80%</span>
               <div>
-                <div className="text-sm font-medium text-slate">Standard résidentiel</div>
-                <p className="text-xs text-muted mt-0.5">La plupart des banques luxembourgeoises prêtent jusqu'à 80% de la valeur du bien. Vous devez apporter au moins 20% d'apport personnel.</p>
+                <div className="text-sm font-medium text-slate">{t("ltvStandard")}</div>
+                <p className="text-xs text-muted mt-0.5">{t("ltvStandardDesc")}</p>
               </div>
             </div>
             <div className="flex items-start gap-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
               <span className="shrink-0 rounded-full bg-warning px-2.5 py-0.5 text-xs font-bold text-white">≤ 90%</span>
               <div>
-                <div className="text-sm font-medium text-slate">Primo-accédant (résidence principale)</div>
-                <p className="text-xs text-muted mt-0.5">Pour un premier achat en résidence principale, certaines banques acceptent un LTV jusqu'à 90% sous conditions (revenus stables, CDI, jeune ménage).</p>
+                <div className="text-sm font-medium text-slate">{t("ltvFirstBuyer")}</div>
+                <p className="text-xs text-muted mt-0.5">{t("ltvFirstBuyerDesc")}</p>
               </div>
             </div>
             <div className="flex items-start gap-3 rounded-lg bg-red-50 border border-red-200 p-3">
               <span className="shrink-0 rounded-full bg-error px-2.5 py-0.5 text-xs font-bold text-white">&gt; 90%</span>
               <div>
-                <div className="text-sm font-medium text-slate">Nécessite la garantie de l'État</div>
-                <p className="text-xs text-muted mt-0.5">Au-delà de 90%, la banque exige généralement la garantie de l'État luxembourgeois (max 303 862 €). Conditions : épargne régulière ≥ 3 ans, plafond de revenus.</p>
+                <div className="text-sm font-medium text-slate">{t("ltvStateGuarantee")}</div>
+                <p className="text-xs text-muted mt-0.5">{t("ltvStateGuaranteeDesc")}</p>
               </div>
             </div>
           </div>
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-3">Valeur prudente — CRR Art. 229</h3>
+          <h3 className="text-base font-semibold text-navy mb-3">{t("prudentValueTitle")}</h3>
           <p className="text-xs text-muted leading-relaxed mb-3">
-            La valeur prudente (Prudent Value) n'est pas un pourcentage fixe de la valeur de marché.
-            C'est la <strong className="text-slate">valeur hypothécaire (MLV)</strong> déterminée par un évaluateur
-            indépendant selon l'article 229 du CRR, en excluant les éléments spéculatifs et les conditions
-            de marché exceptionnelles.
+            {t.rich("prudentValueIntro", {
+              strong: (chunks) => <strong className="text-slate">{chunks}</strong>,
+            })}
           </p>
           <div className="space-y-2 text-xs text-muted">
-            <p><strong className="text-slate">Méthode :</strong> L'évaluateur applique des décotes prudentielles
-            à la valeur de marché pour refléter la soutenabilité à long terme :
-            décote conjoncturelle (marge vs conditions actuelles), décote de commercialisation (délai/liquidité),
-            décote spécifique (risques propres au bien). Le résultat est typiquement 80-95% de la valeur de marché,
-            mais ce ratio n'est pas réglementaire — il dépend du bien et du contexte.</p>
-            <p><strong className="text-slate">Base légale :</strong> CRR Art. 4(1)(74) définit la MLV.
-            CRR Art. 229 impose une évaluation par un expert indépendant qualifié.
-            EBA GL/2020/06 précise les exigences de monitoring et réévaluation.</p>
-            <p><strong className="text-slate">Pour calculer :</strong> Utilisez l'onglet{" "}
-            <a href="/valorisation" className="text-navy font-medium hover:underline">Valeur hypothécaire</a>{" "}
-            dans le module de valorisation EVS — il applique les décotes CRR avec justification.</p>
+            <p>{t.rich("prudentValueMethod", {
+              strong: (chunks) => <strong className="text-slate">{chunks}</strong>,
+            })}</p>
+            <p>{t.rich("prudentValueLegal", {
+              strong: (chunks) => <strong className="text-slate">{chunks}</strong>,
+            })}</p>
+            <p>{t.rich("prudentValueCalculate", {
+              strong: (chunks) => <strong className="text-slate">{chunks}</strong>,
+              link: (chunks) => <a href="/valorisation" className="text-navy font-medium hover:underline">{chunks}</a>,
+            })}</p>
           </div>
         </div>
       </div>
@@ -107,6 +100,7 @@ function TabLTV() {
 }
 
 function TabCapacite() {
+  const t = useTranslations("outilsBancaires");
   const [revenuNet, setRevenuNet] = useState(5000);
   const [charges, setCharges] = useState(500);
   const [tauxEndettement, setTauxEndettement] = useState(40);
@@ -129,42 +123,42 @@ function TabCapacite() {
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-base font-semibold text-navy">Revenus & Charges</h2>
+        <h2 className="mb-4 text-base font-semibold text-navy">{t("incomeAndCharges")}</h2>
         <div className="space-y-4">
-          <InputField label="Revenu net mensuel" value={revenuNet} onChange={(v) => setRevenuNet(Number(v))} suffix="€" />
-          <InputField label="Charges mensuelles existantes" value={charges} onChange={(v) => setCharges(Number(v))} suffix="€" hint="Crédits en cours, pensions..." />
-          <InputField label="Taux d'endettement max" value={tauxEndettement} onChange={(v) => setTauxEndettement(Number(v))} suffix="%" min={10} max={50} />
-          <InputField label="Taux d'intérêt" value={tauxInteret} onChange={(v) => setTauxInteret(Number(v))} suffix="%" step={0.1} />
-          <InputField label="Durée du prêt" value={duree} onChange={(v) => setDuree(Number(v))} suffix="ans" min={5} max={35} />
-          <InputField label="Assurance solde restant dû" value={tauxAssurance} onChange={(v) => setTauxAssurance(Number(v))} suffix="% capital" step={0.05} hint="Typiquement 0.20-0.40%. Obligatoire au Luxembourg." />
+          <InputField label={t("netMonthlyIncome")} value={revenuNet} onChange={(v) => setRevenuNet(Number(v))} suffix="€" />
+          <InputField label={t("existingMonthlyCharges")} value={charges} onChange={(v) => setCharges(Number(v))} suffix="€" hint={t("existingMonthlyChargesHint")} />
+          <InputField label={t("maxDebtRatio")} value={tauxEndettement} onChange={(v) => setTauxEndettement(Number(v))} suffix="%" min={10} max={50} />
+          <InputField label={t("interestRate")} value={tauxInteret} onChange={(v) => setTauxInteret(Number(v))} suffix="%" step={0.1} />
+          <InputField label={t("loanDuration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
+          <InputField label={t("remainingBalanceInsurance")} value={tauxAssurance} onChange={(v) => setTauxAssurance(Number(v))} suffix={t("pctCapital")} step={0.05} hint={t("remainingBalanceInsuranceHint")} />
         </div>
         <div className="mt-4 rounded-lg bg-navy/5 p-3">
-          <div className="text-xs font-semibold text-navy mb-2">Taux indicatifs Luxembourg (mars 2026)</div>
+          <div className="text-xs font-semibold text-navy mb-2">{t("indicativeRatesTitle")}</div>
           <div className="grid grid-cols-2 gap-1 text-xs text-muted">
-            <span>Fixe 10 ans</span><span className="font-mono text-right">2.90-3.20%</span>
-            <span>Fixe 15 ans</span><span className="font-mono text-right">3.00-3.30%</span>
-            <span>Fixe 20 ans</span><span className="font-mono text-right">3.10-3.50%</span>
-            <span>Fixe 25 ans</span><span className="font-mono text-right">3.20-3.60%</span>
-            <span>Variable</span><span className="font-mono text-right">2.80-3.10%</span>
+            <span>{t("fixed10y")}</span><span className="font-mono text-right">2.90-3.20%</span>
+            <span>{t("fixed15y")}</span><span className="font-mono text-right">3.00-3.30%</span>
+            <span>{t("fixed20y")}</span><span className="font-mono text-right">3.10-3.50%</span>
+            <span>{t("fixed25y")}</span><span className="font-mono text-right">3.20-3.60%</span>
+            <span>{t("variable")}</span><span className="font-mono text-right">2.80-3.10%</span>
           </div>
-          <p className="mt-1 text-[10px] text-muted">Source : BCL / banques luxembourgeoises. Taux indicatifs, variables selon profil emprunteur.</p>
+          <p className="mt-1 text-[10px] text-muted">{t("indicativeRatesSource")}</p>
         </div>
       </div>
       <div className="space-y-6">
         <ResultPanel
-          title="Résultats"
+          title={t("results")}
           lines={[
-            { label: "Mensualité max disponible", value: formatEUR2(result.mensualiteMax) },
-            { label: `Dont assurance (${tauxAssurance}%)`, value: formatEUR2(result.capaciteEmprunt * tauxAssurance / 100 / 12), sub: true },
-            { label: "Capacité d'emprunt", value: formatEUR(result.capaciteEmprunt), highlight: true, large: true },
+            { label: t("maxMonthlyPayment"), value: formatEUR2(result.mensualiteMax) },
+            { label: t("ofWhichInsurance", { pct: tauxAssurance }), value: formatEUR2(result.capaciteEmprunt * tauxAssurance / 100 / 12), sub: true },
+            { label: t("borrowingCapacity"), value: formatEUR(result.capaciteEmprunt), highlight: true, large: true },
           ]}
         />
         <ResultPanel
-          title="Avec un apport de..."
+          title={t("withDeposit")}
           lines={[
-            { label: "+ 50 000 € d'apport", value: formatEUR(result.capaciteEmprunt + 50000), sub: true },
-            { label: "+ 100 000 € d'apport", value: formatEUR(result.capaciteEmprunt + 100000), sub: true },
-            { label: "+ 150 000 € d'apport", value: formatEUR(result.capaciteEmprunt + 150000), sub: true },
+            { label: t("plusDeposit", { amount: "50 000" }), value: formatEUR(result.capaciteEmprunt + 50000), sub: true },
+            { label: t("plusDeposit", { amount: "100 000" }), value: formatEUR(result.capaciteEmprunt + 100000), sub: true },
+            { label: t("plusDeposit", { amount: "150 000" }), value: formatEUR(result.capaciteEmprunt + 150000), sub: true },
           ]}
         />
       </div>
@@ -173,6 +167,7 @@ function TabCapacite() {
 }
 
 function TabAmortissement() {
+  const t = useTranslations("outilsBancaires");
   const [capital, setCapital] = useState(600000);
   const [taux, setTaux] = useState(3.5);
   const [duree, setDuree] = useState(25);
@@ -200,20 +195,20 @@ function TabAmortissement() {
     <div className="space-y-6">
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Paramètres du prêt</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("loanParams")}</h2>
           <div className="space-y-4">
-            <InputField label="Capital emprunté" value={capital} onChange={(v) => setCapital(Number(v))} suffix="€" />
-            <InputField label="Taux d'intérêt annuel" value={taux} onChange={(v) => setTaux(Number(v))} suffix="%" step={0.1} />
-            <InputField label="Durée" value={duree} onChange={(v) => setDuree(Number(v))} suffix="ans" min={5} max={35} />
+            <InputField label={t("borrowedCapital")} value={capital} onChange={(v) => setCapital(Number(v))} suffix="€" />
+            <InputField label={t("annualInterestRate")} value={taux} onChange={(v) => setTaux(Number(v))} suffix="%" step={0.1} />
+            <InputField label={t("duration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
           </div>
         </div>
         <ResultPanel
-          title="Synthèse"
+          title={t("summary")}
           lines={[
-            { label: "Mensualité", value: formatEUR2(mensualite), highlight: true, large: true },
-            { label: "Total des intérêts", value: formatEUR(totalInterets) },
-            { label: "Coût total du crédit", value: formatEUR(capital + totalInterets) },
-            { label: "Ratio intérêts / capital", value: formatPct(totalInterets / capital), sub: true },
+            { label: t("monthlyPayment"), value: formatEUR2(mensualite), highlight: true, large: true },
+            { label: t("totalInterest"), value: formatEUR(totalInterets) },
+            { label: t("totalCreditCost"), value: formatEUR(capital + totalInterets) },
+            { label: t("interestCapitalRatio"), value: formatPct(totalInterets / capital), sub: true },
           ]}
         />
       </div>
@@ -223,10 +218,10 @@ function TabAmortissement() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-card-border bg-background">
-              <th className="px-4 py-3 text-left font-semibold text-navy">Année</th>
-              <th className="px-4 py-3 text-right font-semibold text-navy">Capital remboursé</th>
-              <th className="px-4 py-3 text-right font-semibold text-navy">Intérêts payés</th>
-              <th className="px-4 py-3 text-right font-semibold text-navy">Capital restant</th>
+              <th className="px-4 py-3 text-left font-semibold text-navy">{t("year")}</th>
+              <th className="px-4 py-3 text-right font-semibold text-navy">{t("capitalRepaid")}</th>
+              <th className="px-4 py-3 text-right font-semibold text-navy">{t("interestPaid")}</th>
+              <th className="px-4 py-3 text-right font-semibold text-navy">{t("remainingCapital")}</th>
             </tr>
           </thead>
           <tbody>
@@ -246,6 +241,7 @@ function TabAmortissement() {
 }
 
 function TabDSCR() {
+  const t = useTranslations("outilsBancaires");
   const [revenuLocatif, setRevenuLocatif] = useState(36000);
   const [charges, setCharges] = useState(6000);
   const [serviceDette, setServiceDette] = useState(24000);
@@ -258,41 +254,41 @@ function TabDSCR() {
 
   const dscrColor = dscr < 1.0 ? "text-error" : dscr < 1.2 ? "text-warning" : "text-success";
   const dscrLabel =
-    dscr < 1.0 ? "Insuffisant — déficit de couverture" : dscr < 1.2 ? "Limite — marge faible" : "Sain";
+    dscr < 1.0 ? t("dscrInsufficient") : dscr < 1.2 ? t("dscrLimit") : t("dscrHealthy");
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-base font-semibold text-navy">Paramètres DSCR</h2>
+        <h2 className="mb-4 text-base font-semibold text-navy">{t("dscrParams")}</h2>
         <div className="space-y-4">
-          <InputField label="Revenu locatif annuel brut" value={revenuLocatif} onChange={(v) => setRevenuLocatif(Number(v))} suffix="€" />
-          <InputField label="Charges annuelles d'exploitation" value={charges} onChange={(v) => setCharges(Number(v))} suffix="€" hint="Gestion, assurance, entretien, vacance..." />
-          <InputField label="Service de la dette annuel" value={serviceDette} onChange={(v) => setServiceDette(Number(v))} suffix="€" hint="Capital + intérêts annuels" />
+          <InputField label={t("grossRentalIncome")} value={revenuLocatif} onChange={(v) => setRevenuLocatif(Number(v))} suffix="€" />
+          <InputField label={t("annualOperatingCharges")} value={charges} onChange={(v) => setCharges(Number(v))} suffix="€" hint={t("annualOperatingChargesHint")} />
+          <InputField label={t("annualDebtService")} value={serviceDette} onChange={(v) => setServiceDette(Number(v))} suffix="€" hint={t("annualDebtServiceHint")} />
         </div>
       </div>
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-8 shadow-sm text-center">
-          <div className="text-sm text-muted">Ratio de couverture du service de la dette (DSCR)</div>
+          <div className="text-sm text-muted">{t("dscrRatio")}</div>
           <div className={`mt-2 text-5xl font-bold ${dscrColor}`}>{dscr.toFixed(2)}</div>
           <div className={`mt-2 text-sm font-medium ${dscrColor}`}>{dscrLabel}</div>
         </div>
         <ResultPanel
-          title="Détail"
+          title={t("detail")}
           lines={[
-            { label: "Revenu locatif brut", value: formatEUR(revenuLocatif) },
-            { label: "Charges d'exploitation", value: `- ${formatEUR(charges)}` },
-            { label: "NOI (Net Operating Income)", value: formatEUR(revenuLocatif - charges), highlight: true },
-            { label: "Service de la dette", value: formatEUR(serviceDette) },
-            { label: "DSCR = NOI / Service dette", value: dscr.toFixed(2), highlight: true, large: true },
+            { label: t("grossRentalIncomeShort"), value: formatEUR(revenuLocatif) },
+            { label: t("operatingCharges"), value: `- ${formatEUR(charges)}` },
+            { label: t("noi"), value: formatEUR(revenuLocatif - charges), highlight: true },
+            { label: t("debtService"), value: formatEUR(serviceDette) },
+            { label: t("dscrFormula"), value: dscr.toFixed(2), highlight: true, large: true },
           ]}
         />
         <ResultPanel
-          title="Seuils de référence"
+          title={t("referenceThresholds")}
           lines={[
-            { label: "DSCR < 1,0", value: "Déficit — NOI ne couvre pas la dette", sub: true, warning: true },
-            { label: "DSCR 1,0 – 1,2", value: "Acceptable avec garanties", sub: true },
-            { label: "DSCR > 1,2", value: "Sain — marge de sécurité", sub: true },
-            { label: "DSCR > 1,5", value: "Confortable — investissement solide", sub: true },
+            { label: t("dscrBelow1"), value: t("dscrBelow1Desc"), sub: true, warning: true },
+            { label: t("dscr1to1_2"), value: t("dscr1to1_2Desc"), sub: true },
+            { label: t("dscrAbove1_2"), value: t("dscrAbove1_2Desc"), sub: true },
+            { label: t("dscrAbove1_5"), value: t("dscrAbove1_5Desc"), sub: true },
           ]}
         />
       </div>
@@ -301,17 +297,25 @@ function TabDSCR() {
 }
 
 export default function OutilsBancaires() {
+  const t = useTranslations("outilsBancaires");
   const [activeTab, setActiveTab] = useState<ActiveTab>("ltv");
+
+  const TABS: { id: ActiveTab; label: string }[] = [
+    { id: "ltv", label: t("tabLtv") },
+    { id: "capacite", label: t("tabCapacite") },
+    { id: "amortissement", label: t("tabAmortissement") },
+    { id: "dscr", label: t("tabDscr") },
+  ];
 
   return (
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Outils Bancaires
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            LTV, capacité d'emprunt, tableaux d'amortissement, DSCR — Référentiels CRR / EBA
+            {t("subtitle")}
           </p>
         </div>
 

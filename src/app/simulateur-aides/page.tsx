@@ -1,36 +1,39 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import { simulerAides, formatEUR, type AideDetail } from "@/lib/calculations";
 import RelatedTools from "@/components/RelatedTools";
 
-const CATEGORIE_LABELS: Record<string, { label: string; color: string; bg: string }> = {
-  etatique_acquisition: { label: "Aides étatiques (acquisition)", color: "text-navy", bg: "bg-navy/5 border-navy/20" },
-  etatique_energie: { label: "Aides étatiques (énergie)", color: "text-teal", bg: "bg-teal/5 border-teal/20" },
-  privee: { label: "Aides privées", color: "text-gold-dark", bg: "bg-gold/5 border-gold/20" },
-  communale: { label: "Aides communales", color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" },
-  patrimoine: { label: "Patrimoine", color: "text-purple-700", bg: "bg-purple-50 border-purple-200" },
-};
+function AideCard({ aide, t }: { aide: AideDetail; t: (key: string) => string }) {
+  const CATEGORIE_LABELS: Record<string, { color: string; bg: string }> = {
+    etatique_acquisition: { color: "text-navy", bg: "bg-navy/5 border-navy/20" },
+    etatique_energie: { color: "text-teal", bg: "bg-teal/5 border-teal/20" },
+    privee: { color: "text-gold-dark", bg: "bg-gold/5 border-gold/20" },
+    communale: { color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" },
+    patrimoine: { color: "text-purple-700", bg: "bg-purple-50 border-purple-200" },
+  };
 
-const NATURE_LABELS: Record<string, { label: string; color: string }> = {
-  directe: { label: "Aide directe", color: "bg-green-100 text-green-700" },
-  economie: { label: "Économie estimée", color: "bg-blue-100 text-blue-700" },
-  garantie: { label: "Garantie", color: "bg-gray-100 text-gray-700" },
-};
+  const NATURE_COLORS: Record<string, string> = {
+    directe: "bg-green-100 text-green-700",
+    economie: "bg-blue-100 text-blue-700",
+    garantie: "bg-gray-100 text-gray-700",
+  };
 
-function AideCard({ aide }: { aide: AideDetail }) {
-  const cat = CATEGORIE_LABELS[aide.categorie] || { label: aide.categorie, color: "text-slate", bg: "bg-gray-50" };
-  const nature = NATURE_LABELS[aide.nature] || NATURE_LABELS.directe;
+  const cat = CATEGORIE_LABELS[aide.categorie] || { color: "text-slate", bg: "bg-gray-50" };
+  const natureColor = NATURE_COLORS[aide.nature] || NATURE_COLORS.directe;
+  const natureKey = `nature_${aide.nature}` as string;
+
   return (
     <div className={`rounded-lg border p-4 ${cat.bg}`}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <h4 className={`text-sm font-semibold ${cat.color}`}>{aide.nom}</h4>
-            <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${nature.color}`}>
-              {nature.label}
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${natureColor}`}>
+              {t(natureKey)}
             </span>
           </div>
           <p className="mt-1 text-xs text-muted">{aide.description}</p>
@@ -47,32 +50,32 @@ function AideCard({ aide }: { aide: AideDetail }) {
 // --- Klimabonus mesures détaillées ---
 interface KlimaMesure {
   id: string;
-  label: string;
+  labelKey: string;
   type: "surface" | "count" | "kwp" | "forfait";
-  unitLabel?: string;
+  unitLabelKey?: string;
   unitPrix: number; // €/unité ou forfait
   klimaPct: number; // % Klimabonus (50% par défaut)
 }
 
 const KLIMA_MESURES: KlimaMesure[] = [
-  { id: "isolation_facade", label: "Isolation façade", type: "surface", unitLabel: "m²", unitPrix: 150, klimaPct: 50 },
-  { id: "isolation_toiture", label: "Isolation toiture", type: "surface", unitLabel: "m²", unitPrix: 120, klimaPct: 50 },
-  { id: "fenetres", label: "Fenêtres", type: "count", unitLabel: "fenêtres", unitPrix: 5000, klimaPct: 50 },
-  { id: "pac", label: "Pompe à chaleur", type: "forfait", unitPrix: 25000, klimaPct: 50 },
-  { id: "vmc", label: "VMC double flux", type: "forfait", unitPrix: 8000, klimaPct: 50 },
-  { id: "pv", label: "Panneaux photovoltaïques", type: "kwp", unitLabel: "kWp", unitPrix: 1800, klimaPct: 50 },
-  { id: "solaire_thermique", label: "Panneaux solaires thermiques", type: "forfait", unitPrix: 8000, klimaPct: 50 },
+  { id: "isolation_facade", labelKey: "klima_isolation_facade", type: "surface", unitLabelKey: "unitM2", unitPrix: 150, klimaPct: 50 },
+  { id: "isolation_toiture", labelKey: "klima_isolation_toiture", type: "surface", unitLabelKey: "unitM2", unitPrix: 120, klimaPct: 50 },
+  { id: "fenetres", labelKey: "klima_fenetres", type: "count", unitLabelKey: "unitFenetres", unitPrix: 5000, klimaPct: 50 },
+  { id: "pac", labelKey: "klima_pac", type: "forfait", unitPrix: 25000, klimaPct: 50 },
+  { id: "vmc", labelKey: "klima_vmc", type: "forfait", unitPrix: 8000, klimaPct: 50 },
+  { id: "pv", labelKey: "klima_pv", type: "kwp", unitLabelKey: "unitKwp", unitPrix: 1800, klimaPct: 50 },
+  { id: "solaire_thermique", labelKey: "klima_solaire_thermique", type: "forfait", unitPrix: 8000, klimaPct: 50 },
 ];
 
 // Klimabonus par mesure (subventions spécifiques)
-const KLIMA_SUBVENTIONS: Record<string, { parUnite: number; label: string }> = {
-  isolation_facade: { parUnite: 50, label: "50 €/m²" },
-  isolation_toiture: { parUnite: 40, label: "40 €/m²" },
-  fenetres: { parUnite: 2000, label: "2 000 €/fenêtre" },
-  pac: { parUnite: 8000, label: "8 000 € forfait" },
-  vmc: { parUnite: 3000, label: "3 000 € forfait" },
-  pv: { parUnite: 500, label: "500 €/kWp" },
-  solaire_thermique: { parUnite: 2500, label: "2 500 € forfait" },
+const KLIMA_SUBVENTIONS: Record<string, { parUnite: number; labelKey: string }> = {
+  isolation_facade: { parUnite: 50, labelKey: "klimaSub_isolation_facade" },
+  isolation_toiture: { parUnite: 40, labelKey: "klimaSub_isolation_toiture" },
+  fenetres: { parUnite: 2000, labelKey: "klimaSub_fenetres" },
+  pac: { parUnite: 8000, labelKey: "klimaSub_pac" },
+  vmc: { parUnite: 3000, labelKey: "klimaSub_vmc" },
+  pv: { parUnite: 500, labelKey: "klimaSub_pv" },
+  solaire_thermique: { parUnite: 2500, labelKey: "klimaSub_solaire_thermique" },
 };
 
 interface MesureState {
@@ -81,6 +84,7 @@ interface MesureState {
 }
 
 export default function SimulateurAides() {
+  const t = useTranslations("simulateurAides");
   const [typeProjet, setTypeProjet] = useState<"acquisition" | "construction" | "renovation">("acquisition");
   const [prixBien, setPrixBien] = useState(750000);
   const [montantTravaux, setMontantTravaux] = useState(50000);
@@ -93,10 +97,19 @@ export default function SimulateurAides() {
     return init;
   });
 
+  // Category labels (using t())
+  const CATEGORIE_LABELS: Record<string, { label: string; color: string; bg: string }> = {
+    etatique_acquisition: { label: t("cat_etatique_acquisition"), color: "text-navy", bg: "bg-navy/5 border-navy/20" },
+    etatique_energie: { label: t("cat_etatique_energie"), color: "text-teal", bg: "bg-teal/5 border-teal/20" },
+    privee: { label: t("cat_privee"), color: "text-gold-dark", bg: "bg-gold/5 border-gold/20" },
+    communale: { label: t("cat_communale"), color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" },
+    patrimoine: { label: t("cat_patrimoine"), color: "text-purple-700", bg: "bg-purple-50 border-purple-200" },
+  };
+
   // Compute detailed Klimabonus totals
   const klimaDetail = useMemo(() => {
     if (klimaMode !== "detaille") return null;
-    const lignes: { id: string; label: string; coutTravaux: number; klimabonus: number; klimaLabel: string }[] = [];
+    const lignes: { id: string; labelKey: string; coutTravaux: number; klimabonus: number; klimaLabelKey: string }[] = [];
     let totalTravaux = 0;
     let totalKlima = 0;
     for (const m of KLIMA_MESURES) {
@@ -110,10 +123,10 @@ export default function SimulateurAides() {
       totalKlima += klimabonus;
       lignes.push({
         id: m.id,
-        label: m.label,
+        labelKey: m.labelKey,
         coutTravaux,
         klimabonus,
-        klimaLabel: sub?.label || "50%",
+        klimaLabelKey: sub?.labelKey || "klimaSub_default",
       });
     }
     return { lignes, totalTravaux, totalKlima };
@@ -166,14 +179,14 @@ export default function SimulateurAides() {
         <div className="mb-8">
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-              Simulateur d'Aides
+              {t("title")}
             </h1>
             <span className="rounded-full bg-gold/20 px-3 py-0.5 text-xs font-semibold text-gold-dark">
-              5 couches d'aides
+              {t("badge")}
             </span>
           </div>
           <p className="mt-2 text-muted">
-            Étatiques acquisition + rénovation énergie + privées + communales + patrimoine — le simulateur le plus complet du Luxembourg
+            {t("subtitle")}
           </p>
         </div>
 
@@ -181,21 +194,21 @@ export default function SimulateurAides() {
           {/* Inputs - 2 cols */}
           <div className="space-y-6 lg:col-span-2">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Projet</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionProjet")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label="Type de projet"
+                  label={t("typeProjet")}
                   type="select"
                   value={typeProjet}
                   onChange={(v) => setTypeProjet(v as "acquisition" | "construction" | "renovation")}
                   options={[
-                    { value: "acquisition", label: "Acquisition (ancien)" },
-                    { value: "construction", label: "Construction / VEFA (neuf)" },
-                    { value: "renovation", label: "Rénovation énergétique" },
+                    { value: "acquisition", label: t("typeAcquisition") },
+                    { value: "construction", label: t("typeConstruction") },
+                    { value: "renovation", label: t("typeRenovation") },
                   ]}
                 />
                 <InputField
-                  label="Prix du bien"
+                  label={t("prixBien")}
                   value={prixBien}
                   onChange={(v) => setPrixBien(Number(v))}
                   suffix="€"
@@ -203,32 +216,32 @@ export default function SimulateurAides() {
                 {typeProjet === "renovation" && (
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-medium text-muted">Mode Klimabonus :</span>
+                      <span className="text-xs font-medium text-muted">{t("klimaModeLabel")}</span>
                       <button
                         onClick={() => setKlimaMode("simplifie")}
                         className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${klimaMode === "simplifie" ? "bg-navy text-white" : "bg-background text-muted border border-card-border"}`}
                       >
-                        Simplifié
+                        {t("klimaSimplifie")}
                       </button>
                       <button
                         onClick={() => setKlimaMode("detaille")}
                         className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${klimaMode === "detaille" ? "bg-navy text-white" : "bg-background text-muted border border-card-border"}`}
                       >
-                        Détaillé par mesure
+                        {t("klimaDetaille")}
                       </button>
                     </div>
 
                     {klimaMode === "simplifie" ? (
                       <InputField
-                        label="Montant des travaux"
+                        label={t("montantTravaux")}
                         value={montantTravaux}
                         onChange={(v) => setMontantTravaux(Number(v))}
                         suffix="€"
-                        hint="Travaux de rénovation énergétique"
+                        hint={t("montantTravauxHint")}
                       />
                     ) : (
                       <div className="space-y-2">
-                        <div className="text-xs font-medium text-navy">Mesures de rénovation</div>
+                        <div className="text-xs font-medium text-navy">{t("mesuresRenovation")}</div>
                         {KLIMA_MESURES.map((m) => {
                           const state = mesures[m.id];
                           const sub = KLIMA_SUBVENTIONS[m.id];
@@ -241,8 +254,8 @@ export default function SimulateurAides() {
                                   onChange={(e) => setMesures((prev) => ({ ...prev, [m.id]: { ...prev[m.id], active: e.target.checked } }))}
                                   className="h-4 w-4 rounded border-gray-300 text-navy focus:ring-navy"
                                 />
-                                <span className="text-sm font-medium text-foreground flex-1">{m.label}</span>
-                                <span className="text-[10px] text-teal font-medium">{sub?.label}</span>
+                                <span className="text-sm font-medium text-foreground flex-1">{t(m.labelKey)}</span>
+                                <span className="text-[10px] text-teal font-medium">{sub ? t(sub.labelKey) : ""}</span>
                               </div>
                               {state.active && m.type !== "forfait" && (
                                 <div className="mt-2 ml-6 flex items-center gap-2">
@@ -253,15 +266,15 @@ export default function SimulateurAides() {
                                     className="w-20 rounded border border-input-border bg-input-bg px-2 py-1 text-sm text-right font-mono focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy/20"
                                     min={1}
                                   />
-                                  <span className="text-xs text-muted">{m.unitLabel}</span>
+                                  <span className="text-xs text-muted">{m.unitLabelKey ? t(m.unitLabelKey) : ""}</span>
                                   <span className="text-xs text-muted ml-auto">
-                                    Travaux : <span className="font-mono">{formatEUR(m.unitPrix * state.quantite)}</span>
+                                    {t("travauxLabel")} <span className="font-mono">{formatEUR(m.unitPrix * state.quantite)}</span>
                                   </span>
                                 </div>
                               )}
                               {state.active && m.type === "forfait" && (
                                 <div className="mt-1 ml-6 text-xs text-muted">
-                                  Travaux estimés : <span className="font-mono">{formatEUR(m.unitPrix)}</span>
+                                  {t("travauxEstimes")} <span className="font-mono">{formatEUR(m.unitPrix)}</span>
                                 </div>
                               )}
                             </div>
@@ -269,19 +282,19 @@ export default function SimulateurAides() {
                         })}
                         {klimaDetail && klimaDetail.lignes.length > 0 && (
                           <div className="rounded-lg border border-teal/30 bg-teal/5 p-3 mt-2">
-                            <div className="text-xs font-semibold text-teal mb-2">Récapitulatif Klimabonus</div>
+                            <div className="text-xs font-semibold text-teal mb-2">{t("recapKlimabonus")}</div>
                             {klimaDetail.lignes.map((l) => (
                               <div key={l.id} className="flex justify-between text-xs py-0.5">
-                                <span className="text-muted">{l.label} <span className="text-teal/70">({l.klimaLabel})</span></span>
+                                <span className="text-muted">{t(l.labelKey)} <span className="text-teal/70">({t(l.klimaLabelKey)})</span></span>
                                 <span className="font-mono font-medium text-teal">{formatEUR(l.klimabonus)}</span>
                               </div>
                             ))}
                             <div className="flex justify-between text-xs font-semibold border-t border-teal/20 pt-1 mt-1">
-                              <span className="text-foreground">Total travaux</span>
+                              <span className="text-foreground">{t("totalTravaux")}</span>
                               <span className="font-mono">{formatEUR(klimaDetail.totalTravaux)}</span>
                             </div>
                             <div className="flex justify-between text-xs font-semibold">
-                              <span className="text-teal">Total Klimabonus estimé</span>
+                              <span className="text-teal">{t("totalKlimabonus")}</span>
                               <span className="font-mono text-teal">{formatEUR(klimaDetail.totalKlima)}</span>
                             </div>
                           </div>
@@ -291,54 +304,54 @@ export default function SimulateurAides() {
                   </div>
                 )}
                 <InputField
-                  label="Type de bien"
+                  label={t("typeBien")}
                   type="select"
                   value={typeBien}
                   onChange={(v) => setTypeBien(v as typeof typeBien)}
                   options={[
-                    { value: "appartement", label: "Appartement / copropriété (+40%)" },
-                    { value: "maison_rangee", label: "Maison en rangée (+40%)" },
-                    { value: "maison_jumelee", label: "Maison jumelée (+15%)" },
-                    { value: "maison_isolee", label: "Maison isolée" },
+                    { value: "appartement", label: t("typeBienAppartement") },
+                    { value: "maison_rangee", label: t("typeBienMaisonRangee") },
+                    { value: "maison_jumelee", label: t("typeBienMaisonJumelee") },
+                    { value: "maison_isolee", label: t("typeBienMaisonIsolee") },
                   ]}
                 />
                 <ToggleField
-                  label="Résidence principale"
+                  label={t("residencePrincipale")}
                   checked={residencePrincipale}
                   onChange={setResidencePrincipale}
                 />
                 {typeProjet === "construction" && (
                   <ToggleField
-                    label="Bien neuf"
+                    label={t("bienNeuf")}
                     checked={estNeuf}
                     onChange={setEstNeuf}
-                    hint="TVA super-réduite 3%"
+                    hint={t("bienNeufHint")}
                   />
                 )}
               </div>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Profil</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionProfil")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label="Revenu annuel du ménage"
+                  label={t("revenuMenage")}
                   value={revenuMenage}
                   onChange={(v) => setRevenuMenage(Number(v))}
                   suffix="€"
                 />
                 <InputField
-                  label="Nombre d'emprunteurs"
+                  label={t("nbEmprunteurs")}
                   type="select"
                   value={String(nbEmprunteurs)}
                   onChange={(v) => setNbEmprunteurs(Number(v) as 1 | 2)}
                   options={[
-                    { value: "1", label: "1 emprunteur" },
-                    { value: "2", label: "2 emprunteurs" },
+                    { value: "1", label: t("emprunteur1") },
+                    { value: "2", label: t("emprunteur2") },
                   ]}
                 />
                 <InputField
-                  label="Nombre d'enfants à charge"
+                  label={t("nbEnfants")}
                   value={nbEnfants}
                   onChange={(v) => setNbEnfants(Number(v))}
                   min={0}
@@ -348,26 +361,26 @@ export default function SimulateurAides() {
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Financement</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionFinancement")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label="Montant du prêt"
+                  label={t("montantPret")}
                   value={montantPret}
                   onChange={(v) => setMontantPret(Number(v))}
                   suffix="€"
                 />
                 <ToggleField
-                  label="Épargne régulière ≥ 3 ans"
+                  label={t("epargneReguliere")}
                   checked={epargneReguliere3ans}
                   onChange={setEpargneReguliere3ans}
-                  hint="1 000 €/an min. — requis pour garantie État et prime épargne"
+                  hint={t("epargneReguliereHint")}
                 />
                 <InputField
-                  label="Commune"
+                  label={t("commune")}
                   type="text"
                   value={commune}
                   onChange={setCommune}
-                  hint="Pour les aides communales spécifiques"
+                  hint={t("communeHint")}
                 />
               </div>
             </div>
@@ -379,48 +392,46 @@ export default function SimulateurAides() {
             <div className="rounded-xl bg-gradient-to-br from-navy to-navy-light p-6 text-white shadow-lg">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-xs text-white/50 uppercase tracking-wider">Aides directes</div>
+                  <div className="text-xs text-white/50 uppercase tracking-wider">{t("aidesDirectes")}</div>
                   <div className="mt-1 text-3xl font-bold">{formatEUR(result.totalAidesDirectes)}</div>
-                  <div className="mt-1 text-xs text-white/50">Cash reçu ou impôt économisé</div>
+                  <div className="mt-1 text-xs text-white/50">{t("aidesDirectesDesc")}</div>
                 </div>
                 <div>
-                  <div className="text-xs text-white/50 uppercase tracking-wider">Économies estimées</div>
+                  <div className="text-xs text-white/50 uppercase tracking-wider">{t("economiesEstimees")}</div>
                   <div className="mt-1 text-3xl font-bold text-gold-light">{formatEUR(result.totalEconomies)}</div>
-                  <div className="mt-1 text-xs text-white/50">Intérêts évités sur la durée du prêt</div>
+                  <div className="mt-1 text-xs text-white/50">{t("economiesEstimeesDesc")}</div>
                 </div>
               </div>
               {result.garantieEtat && (
                 <div className="mt-4 rounded-lg bg-white/10 p-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-sm font-medium">Garantie de l'État</div>
+                      <div className="text-sm font-medium">{t("garantieEtat")}</div>
                       <div className="text-xs text-white/60">
-                        Caution publique de {formatEUR(result.garantieEtat.montantGaranti)} — ce n'est pas du cash,
-                        c'est une garantie qui remplace la caution bancaire privée
+                        {t("garantieEtatDesc", { montant: formatEUR(result.garantieEtat.montantGaranti) })}
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs text-white/50">Économie réelle</div>
+                      <div className="text-xs text-white/50">{t("economieReelle")}</div>
                       <div className="text-lg font-bold text-gold-light">
                         ~{formatEUR(result.garantieEtat.economieEstimee)}
                       </div>
-                      <div className="text-[10px] text-white/40">~1,5% du montant garanti</div>
+                      <div className="text-[10px] text-white/40">{t("garantiePct")}</div>
                     </div>
                   </div>
                 </div>
               )}
               <div className="mt-4 border-t border-white/20 pt-3 flex items-center justify-between">
-                <span className="text-sm text-white/70">Bénéfice total estimé</span>
+                <span className="text-sm text-white/70">{t("beneficeTotal")}</span>
                 <span className="text-2xl font-bold">{formatEUR(result.totalGeneral)}</span>
               </div>
             </div>
 
             {!residencePrincipale && (
               <div className="rounded-xl border-2 border-warning/30 bg-amber-50 p-6">
-                <h3 className="text-base font-semibold text-warning">Résidence principale requise</h3>
+                <h3 className="text-base font-semibold text-warning">{t("residenceRequiseTitle")}</h3>
                 <p className="mt-1 text-sm text-amber-700">
-                  La quasi-totalité des aides luxembourgeoises sont conditionnées à l'occupation en tant
-                  que résidence principale. Activez cette option pour voir les aides disponibles.
+                  {t("residenceRequiseText")}
                 </p>
               </div>
             )}
@@ -436,7 +447,7 @@ export default function SimulateurAides() {
                 </h3>
                 <div className="space-y-3">
                   {aides.map((aide, i) => (
-                    <AideCard key={i} aide={aide} />
+                    <AideCard key={i} aide={aide} t={t} />
                   ))}
                 </div>
               </div>
@@ -444,32 +455,26 @@ export default function SimulateurAides() {
 
             {/* Disclaimer */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-navy">Important</h3>
+              <h3 className="mb-3 text-base font-semibold text-navy">{t("importantTitle")}</h3>
               <div className="space-y-2 text-sm text-muted leading-relaxed">
                 <p>
-                  <strong className="text-slate">Estimations</strong> — Les montants affichés sont des estimations
-                  basées sur les barèmes officiels. Les aides réelles dépendent de l'instruction de votre dossier
-                  par le ministère du Logement et les organismes concernés.
+                  <strong className="text-slate">{t("estimationsTitle")}</strong> — {t("estimationsText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Aides communales</strong> — Chaque commune vote ses propres
-                  aides via règlement communal. Elles se cumulent aux aides étatiques. Exemples documentés :
+                  <strong className="text-slate">{t("aidesCommunalesTitle")}</strong> — {t("aidesCommunalesText")}
                 </p>
                 <ul className="list-disc pl-5 space-y-1 text-xs text-muted mt-1">
-                  <li><strong>Luxembourg-Ville</strong> — Subvention rénovation de façade : 750 à 20 000 € par
-                  immeuble en secteur protégé, +10% en zone UNESCO (Service Urbanisme)</li>
-                  <li><strong>Lintgen</strong> — 50% de l'aide étatique, plafonnée à 1 500 €</li>
-                  <li><strong>Bertrange</strong> — Complément communal ~50% de l'aide étatique (plafond variable)</li>
-                  <li><strong>Beckerich</strong> — Suppléments énergie renouvelable et rénovation (commune Klimapakt)</li>
-                  <li><strong>Esch-sur-Alzette / Dudelange</strong> — Subventions façade en zones de rénovation urbaine</li>
+                  <li><strong>Luxembourg-Ville</strong> — {t("communeLuxVille")}</li>
+                  <li><strong>Lintgen</strong> — {t("communeLintgen")}</li>
+                  <li><strong>Bertrange</strong> — {t("communeBertrange")}</li>
+                  <li><strong>Beckerich</strong> — {t("communeBeckerich")}</li>
+                  <li><strong>Esch-sur-Alzette / Dudelange</strong> — {t("communeEschDudelange")}</li>
                 </ul>
                 <p className="mt-2 text-xs text-muted">
-                  Contactez le service urbanisme/logement de votre commune pour les montants exacts en vigueur.
-                  Les règlements sont votés par le conseil communal et peuvent évoluer.
+                  {t("contactCommune")}
                 </p>
                 <p>
-                  <strong className="text-slate">Cumul</strong> — Les 5 couches d'aides sont en principe
-                  cumulables, dans la limite d'un plafond global de 35 000 € pour les primes en capital.
+                  <strong className="text-slate">{t("cumulTitle")}</strong> — {t("cumulText")}
                 </p>
               </div>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import { estimer } from "@/lib/estimation";
@@ -20,6 +21,7 @@ import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function Estimation() {
+  const t = useTranslations("estimation");
   const toast = useToast();
   const [linkCopied, setLinkCopied] = useState(false);
   const [communeSearch, setCommuneSearch] = useState("");
@@ -64,10 +66,10 @@ export default function Estimation() {
         <Breadcrumbs />
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Estimation immobilière
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            Estimation guidée par les données publiques luxembourgeoises
+            {t("subtitle")}
           </p>
         </div>
 
@@ -75,13 +77,13 @@ export default function Estimation() {
         <div className="space-y-6">
           {/* Commune */}
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">Localisation</h2>
+            <h2 className="mb-4 text-base font-semibold text-navy">{t("localisation")}</h2>
             <div className="relative">
               <input
                 type="text"
                 value={communeSearch}
                 onChange={(e) => { setCommuneSearch(e.target.value); if (!e.target.value) setSelectedResult(null); }}
-                placeholder="Commune, localité ou quartier..."
+                placeholder={t("searchPlaceholder")}
                 className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-3 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
               />
               {communeSearch.length >= 2 && searchResults.length > 0 && !selectedResult && (
@@ -93,7 +95,7 @@ export default function Estimation() {
                       className="w-full px-3 py-2 text-left text-sm hover:bg-background transition-colors"
                     >
                       {r.isLocalite ? (
-                        <><span className="font-medium">{r.matchedOn}</span><span className="text-muted ml-1">— {r.quartier ? "quartier" : "commune"} de {r.commune.commune}</span></>
+                        <><span className="font-medium">{r.matchedOn}</span><span className="text-muted ml-1">— {r.quartier ? t("searchQuartier") : t("searchCommune")} {t("searchDe")} {r.commune.commune}</span></>
                       ) : (
                         <><span className="font-medium">{r.commune.commune}</span><span className="text-muted ml-2">({r.commune.canton})</span></>
                       )}
@@ -117,59 +119,59 @@ export default function Estimation() {
 
           {/* Caractéristiques */}
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">Caractéristiques du bien</h2>
+            <h2 className="mb-4 text-base font-semibold text-navy">{t("characteristics")}</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <InputField label="Surface habitable" value={surface} onChange={(v) => setSurface(Number(v))} suffix="m²" min={10} max={500} />
-              <InputField label="Nombre de chambres" value={nbChambres} onChange={(v) => setNbChambres(Number(v))} min={0} max={10} />
+              <InputField label={t("surfaceLabel")} value={surface} onChange={(v) => setSurface(Number(v))} suffix="m²" min={10} max={500} />
+              <InputField label={t("chambresLabel")} value={nbChambres} onChange={(v) => setNbChambres(Number(v))} min={0} max={10} />
               <InputField
-                label="Étage"
+                label={t("etageLabel")}
                 type="select"
                 value={etage}
                 onChange={setEtage}
                 options={AJUST_ETAGE.map((a) => ({ value: a.label, label: `${a.label} (${a.value > 0 ? "+" : ""}${a.value}%)` }))}
               />
               <InputField
-                label="État du bien"
+                label={t("etatLabel")}
                 type="select"
                 value={etat}
                 onChange={setEtat}
                 options={AJUST_ETAT.map((a) => ({ value: a.label, label: `${a.label} (${a.value > 0 ? "+" : ""}${a.value}%)` }))}
               />
               <InputField
-                label="Extérieur"
+                label={t("exterieurLabel")}
                 type="select"
                 value={exterieur}
                 onChange={setExterieur}
                 options={AJUST_EXTERIEUR.map((a) => ({ value: a.label, label: `${a.label} (${a.value > 0 ? "+" : ""}${a.value}%)` }))}
               />
               <InputField
-                label="Classe énergie (CPE)"
+                label={t("classeEnergieLabel")}
                 type="select"
                 value={classeEnergie}
                 onChange={setClasseEnergie}
                 options={[
-                  { value: "A", label: "A — Très performant (+5%)" },
-                  { value: "B", label: "B — Performant (+3%)" },
-                  { value: "C", label: "C — Assez performant (+1%)" },
-                  { value: "D", label: "D — Moyen (réf.)" },
-                  { value: "E", label: "E — Peu performant (-3%)" },
-                  { value: "F", label: "F — Très peu performant (-6%)" },
-                  { value: "G", label: "G — Extrêmement peu performant (-10%)" },
+                  { value: "A", label: t("energieA") },
+                  { value: "B", label: t("energieB") },
+                  { value: "C", label: t("energieC") },
+                  { value: "D", label: t("energieD") },
+                  { value: "E", label: t("energieE") },
+                  { value: "F", label: t("energieF") },
+                  { value: "G", label: t("energieG") },
                 ]}
               />
             </div>
             <div className="mt-4 space-y-3">
-              <InputField label="Type de bien" type="select" value="appartement" onChange={() => {}} options={[
-                { value: "appartement", label: "Appartement" },
-                { value: "maison", label: "Maison" },
-              ]} hint="Les données de l'Observatoire couvrent principalement les appartements" />
-              <ToggleField label="Parking inclus" checked={parking} onChange={setParking} hint="+4% en moyenne" />
-              <ToggleField label="Bien neuf (VEFA)" checked={estNeuf} onChange={setEstNeuf} hint="Prix de référence VEFA au lieu d'existant" />
-              <ToggleField label="Bail emphytéotique" checked={bailEmphyteotique} onChange={setBailEmphyteotique} hint="Bien en droit de superficie / emphytéose (pas pleine propriété)" />
+              <InputField label={t("typeBienLabel")} type="select" value="appartement" onChange={() => {}} options={[
+                { value: "appartement", label: t("typeBienAppartement") },
+                { value: "maison", label: t("typeBienMaison") },
+              ]} hint={t("typeBienHint")} />
+              <ToggleField label={t("parkingLabel")} checked={parking} onChange={setParking} hint={t("parkingHint")} />
+              <ToggleField label={t("neufLabel")} checked={estNeuf} onChange={setEstNeuf} hint={t("neufHint")} />
+              <ToggleField label={t("emphyteotiqueLabel")} checked={bailEmphyteotique} onChange={setBailEmphyteotique} hint={t("emphyteotiqueHint")} />
               {bailEmphyteotique && (
                 <div className="grid gap-3 sm:grid-cols-2 mt-2">
-                  <InputField label="Durée restante" value={dureeRestanteEmph} onChange={(v) => setDureeRestanteEmph(Number(v))} suffix="ans" min={1} max={99} />
-                  <InputField label="Canon annuel" value={canonAnnuel} onChange={(v) => setCanonAnnuel(Number(v))} suffix="€/an" hint="Redevance annuelle au propriétaire du terrain" />
+                  <InputField label={t("dureeRestanteLabel")} value={dureeRestanteEmph} onChange={(v) => setDureeRestanteEmph(Number(v))} suffix={t("ansSuffix")} min={1} max={99} />
+                  <InputField label={t("canonAnnuelLabel")} value={canonAnnuel} onChange={(v) => setCanonAnnuel(Number(v))} suffix={t("canonSuffix")} hint={t("canonHint")} />
                 </div>
               )}
             </div>
@@ -180,50 +182,50 @@ export default function Estimation() {
             <div className="space-y-4">
               {/* Estimation principale */}
               <div className="rounded-2xl bg-gradient-to-br from-navy to-navy-light p-8 text-white text-center shadow-lg">
-                <div className="text-sm text-white/60">Estimation centrale</div>
+                <div className="text-sm text-white/60">{t("estimationCentrale")}</div>
                 <div className="mt-2 text-5xl font-bold">{formatEUR(result.estimationCentrale)}</div>
                 <div className="mt-3 flex items-center justify-center gap-6 text-sm text-white/70">
                   <div>
-                    <div className="text-white/40 text-xs">Basse</div>
+                    <div className="text-white/40 text-xs">{t("estimationBasse")}</div>
                     <div className="font-semibold">{formatEUR(result.estimationBasse)}</div>
                   </div>
                   <div className="h-8 w-px bg-white/20" />
                   <div>
-                    <div className="text-white/40 text-xs">Haute</div>
+                    <div className="text-white/40 text-xs">{t("estimationHaute")}</div>
                     <div className="font-semibold">{formatEUR(result.estimationHaute)}</div>
                   </div>
                 </div>
                 <div className="mt-3 text-xs text-white/50">
-                  {result.prixM2Ajuste} €/m² × {surface} m²
+                  {t("prixM2Detail", { prixM2: result.prixM2Ajuste, surface })}
                 </div>
               </div>
 
               {/* Double modèle : transactions vs annonces */}
               {result.estimationTransactions != null && result.estimationAnnonces != null && (
                 <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                  <h3 className="text-sm font-semibold text-navy mb-3">Comparaison des sources de prix</h3>
+                  <h3 className="text-sm font-semibold text-navy mb-3">{t("comparaisonSources")}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="rounded-lg bg-blue-50 border border-blue-200 p-3 text-center">
-                      <div className="text-xs text-blue-600 font-medium">Estimation transactions</div>
-                      <div className="text-xs text-blue-400 mb-1">Actes notariés</div>
+                      <div className="text-xs text-blue-600 font-medium">{t("estimationTransactions")}</div>
+                      <div className="text-xs text-blue-400 mb-1">{t("actesNotaries")}</div>
                       <div className="text-lg font-bold text-blue-800">{formatEUR(result.estimationTransactions)}</div>
                     </div>
                     <div className="rounded-lg bg-purple-50 border border-purple-200 p-3 text-center">
-                      <div className="text-xs text-purple-600 font-medium">Estimation annonces</div>
-                      <div className="text-xs text-purple-400 mb-1">Prix affichés</div>
+                      <div className="text-xs text-purple-600 font-medium">{t("estimationAnnonces")}</div>
+                      <div className="text-xs text-purple-400 mb-1">{t("prixAffiches")}</div>
                       <div className="text-lg font-bold text-purple-800">{formatEUR(result.estimationAnnonces)}</div>
                     </div>
                   </div>
                   {result.ecartPct != null && (
                     <div className="mt-3 text-center">
                       <span className="text-xs text-muted">
-                        Écart : <span className={`font-semibold ${result.ecartPct > 0 ? "text-amber-600" : "text-green-600"}`}>{result.ecartPct > 0 ? "+" : ""}{result.ecartPct}%</span>
-                        {" "}— Estimation centrale (moyenne) : <span className="font-semibold text-navy">{formatEUR(Math.round((result.estimationTransactions + result.estimationAnnonces) / 2))}</span>
+                        {t("ecartLabel")} : <span className={`font-semibold ${result.ecartPct > 0 ? "text-amber-600" : "text-green-600"}`}>{result.ecartPct > 0 ? "+" : ""}{result.ecartPct}%</span>
+                        {" "}— {t("estimationCentraleMoyenne")} : <span className="font-semibold text-navy">{formatEUR(Math.round((result.estimationTransactions + result.estimationAnnonces) / 2))}</span>
                       </span>
                     </div>
                   )}
                   <p className="mt-2 text-[10px] text-muted">
-                    Les transactions reflètent les prix réellement payés (actes notariés). Les annonces reflètent les prix demandés (souvent plus élevés). L'écart est un indicateur de la marge de négociation.
+                    {t("comparaisonExplication")}
                   </p>
                 </div>
               )}
@@ -237,10 +239,10 @@ export default function Estimation() {
                     </div>
                     <div>
                       <div className="text-sm font-semibold text-amber-900">
-                        Marge de négociation indicative : {result.ecartPct}%
+                        {t("margeNegociation", { pct: result.ecartPct })}
                       </div>
                       <p className="mt-1 text-xs text-amber-700 leading-relaxed">
-                        Les prix affichés en annonces sont en moyenne <span className="font-semibold">{result.ecartPct}% plus élevés</span> que les prix réellement payés (actes notariés) dans cette commune. Cet écart constitue une indication de la marge de négociation possible.
+                        {t("margeNegociationDetail", { pct: result.ecartPct })}
                       </p>
                     </div>
                   </div>
@@ -257,11 +259,11 @@ export default function Estimation() {
                 });
                 return (
                   <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-amber-800 mb-2">Bail emphytéotique — Décote</h3>
+                    <h3 className="text-sm font-semibold text-amber-800 mb-2">{t("emphyteoseTitle")}</h3>
                     <div className="space-y-1 text-sm">
-                      <div className="flex justify-between"><span className="text-amber-700">Valeur pleine propriété</span><span className="font-mono">{formatEUR(result.estimationCentrale)}</span></div>
-                      <div className="flex justify-between"><span className="text-amber-700">Décote emphytéotique ({emph.decotePct.toFixed(1)}%)</span><span className="font-mono text-error">- {formatEUR(emph.decote)}</span></div>
-                      <div className="flex justify-between font-semibold border-t border-amber-200 pt-1"><span className="text-amber-900">Valeur en emphytéose</span><span className="font-mono text-navy">{formatEUR(emph.valeurEmphyteose)}</span></div>
+                      <div className="flex justify-between"><span className="text-amber-700">{t("valeurPleinePropriete")}</span><span className="font-mono">{formatEUR(result.estimationCentrale)}</span></div>
+                      <div className="flex justify-between"><span className="text-amber-700">{t("decoteEmphyteotique", { pct: emph.decotePct.toFixed(1) })}</span><span className="font-mono text-error">- {formatEUR(emph.decote)}</span></div>
+                      <div className="flex justify-between font-semibold border-t border-amber-200 pt-1"><span className="text-amber-900">{t("valeurEmphyteose")}</span><span className="font-mono text-navy">{formatEUR(emph.valeurEmphyteose)}</span></div>
                     </div>
                     <p className="mt-2 text-xs text-amber-700">{emph.explication}</p>
                   </div>
@@ -279,30 +281,30 @@ export default function Estimation() {
                 const totalMensuel = mensualiteCredit + chargesCopro + impotFoncier;
                 return (
                   <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-navy mb-1">Si vous achetez ce bien</h3>
-                    <p className="text-[10px] text-muted mb-3">Simulation indicative — 80% financement, 25 ans, taux 3,3%</p>
+                    <h3 className="text-sm font-semibold text-navy mb-1">{t("siVousAchetez")}</h3>
+                    <p className="text-[10px] text-muted mb-3">{t("simulationIndicative")}</p>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-muted">Mensualité crédit estimée</span>
-                        <span className="font-mono">{formatEUR(Math.round(mensualiteCredit))}/mois</span>
+                        <span className="text-muted">{t("mensualiteCredit")}</span>
+                        <span className="font-mono">{formatEUR(Math.round(mensualiteCredit))}/{t("mois")}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted">Charges copropriété estimées</span>
-                        <span className="font-mono">{formatEUR(chargesCopro)}/mois</span>
+                        <span className="text-muted">{t("chargesCopro")}</span>
+                        <span className="font-mono">{formatEUR(chargesCopro)}/{t("mois")}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted">Impôt foncier estimé</span>
-                        <span className="font-mono">{formatEUR(impotFoncier)}/mois</span>
+                        <span className="text-muted">{t("impotFoncier")}</span>
+                        <span className="font-mono">{formatEUR(impotFoncier)}/{t("mois")}</span>
                       </div>
                       <div className="flex justify-between font-semibold border-t border-card-border pt-2 mt-2">
-                        <span className="text-navy">Total mensuel</span>
-                        <span className="text-navy font-mono">{formatEUR(Math.round(totalMensuel))}/mois</span>
+                        <span className="text-navy">{t("totalMensuel")}</span>
+                        <span className="text-navy font-mono">{formatEUR(Math.round(totalMensuel))}/{t("mois")}</span>
                       </div>
                     </div>
-                    <p className="mt-2 text-[10px] text-muted">Charges copro ~250 €/mois pour un appartement au Luxembourg. Impôt foncier très faible au LU (~15 €/mois).</p>
+                    <p className="mt-2 text-[10px] text-muted">{t("chargesExplication")}</p>
                     <div className="mt-3 text-center">
                       <Link href="/achat-vs-location" className="text-xs font-medium text-navy hover:underline">
-                        Comparer avec la location →
+                        {t("comparerLocation")}
                       </Link>
                     </div>
                   </div>
@@ -318,38 +320,38 @@ export default function Estimation() {
                 if (!demo) return null;
                 return (
                   <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-navy mb-3">Profil de {demo.commune}</h3>
+                    <h3 className="text-sm font-semibold text-navy mb-3">{t("profilCommune", { commune: demo.commune })}</h3>
                     <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
                       <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">Population</div>
+                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("population")}</div>
                         <div className="font-semibold font-mono">{demo.population.toLocaleString("fr-LU")}</div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">Croissance</div>
-                        <div className="font-semibold font-mono">+{demo.croissancePct}%<span className="text-[10px] text-muted font-normal ml-1">/ 10 ans</span></div>
+                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("croissance")}</div>
+                        <div className="font-semibold font-mono">+{demo.croissancePct}%<span className="text-[10px] text-muted font-normal ml-1">{t("croissancePeriode")}</span></div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">Densité</div>
-                        <div className="font-semibold font-mono">{demo.densiteHabKm2.toLocaleString("fr-LU")} hab/km²</div>
+                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("densite")}</div>
+                        <div className="font-semibold font-mono">{demo.densiteHabKm2.toLocaleString("fr-LU")} {t("densiteUnit")}</div>
                       </div>
                       {demo.revenuMedian && (
                         <div>
-                          <div className="text-[10px] text-muted uppercase tracking-wide">Revenu médian</div>
-                          <div className="font-semibold font-mono">{formatEUR(demo.revenuMedian)}/an</div>
+                          <div className="text-[10px] text-muted uppercase tracking-wide">{t("revenuMedian")}</div>
+                          <div className="font-semibold font-mono">{formatEUR(demo.revenuMedian)}/{t("an")}</div>
                         </div>
                       )}
                       <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">% étrangers</div>
+                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("pctEtrangers")}</div>
                         <div className="font-semibold font-mono">{demo.pctEtrangers}%</div>
                       </div>
                       {demo.tauxEmploi && (
                         <div>
-                          <div className="text-[10px] text-muted uppercase tracking-wide">Taux d'emploi</div>
+                          <div className="text-[10px] text-muted uppercase tracking-wide">{t("tauxEmploi")}</div>
                           <div className="font-semibold font-mono">{demo.tauxEmploi}%</div>
                         </div>
                       )}
                     </div>
-                    <p className="mt-3 text-[10px] text-muted">Sources : STATEC, data.public.lu — estimations 2025</p>
+                    <p className="mt-3 text-[10px] text-muted">{t("sourcesDemographiques")}</p>
                   </div>
                 );
               })()}
@@ -360,7 +362,7 @@ export default function Estimation() {
                 if (reno.postes.length === 0) return null;
                 return (
                   <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-navy mb-2">Estimation de rénovation énergétique ({classeEnergie} → B)</h3>
+                    <h3 className="text-sm font-semibold text-navy mb-2">{t("renovationTitle", { classeFrom: classeEnergie, classeTo: "B" })}</h3>
                     <div className="space-y-1 text-xs">
                       {reno.postes.map((p) => (
                         <div key={p.label} className="flex justify-between">
@@ -369,11 +371,11 @@ export default function Estimation() {
                         </div>
                       ))}
                       <div className="flex justify-between font-semibold border-t border-card-border pt-1 mt-1">
-                        <span>Total estimé (travaux + honoraires)</span>
+                        <span>{t("totalRenovation")}</span>
                         <span className="font-mono">{formatEUR(reno.totalAvecHonoraires)}</span>
                       </div>
                     </div>
-                    <p className="mt-2 text-[10px] text-muted">Fourchettes indicatives — marché luxembourgeois. Éligible Klimabonus (jusqu'à 62,5%).</p>
+                    <p className="mt-2 text-[10px] text-muted">{t("renovationDisclaimer")}</p>
                   </div>
                 );
               })()}
@@ -383,10 +385,10 @@ export default function Estimation() {
 
               {/* Détail */}
               <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                <h3 className="mb-3 text-base font-semibold text-navy">Détail de l'estimation</h3>
+                <h3 className="mb-3 text-base font-semibold text-navy">{t("detailTitle")}</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted">Prix de base /m²</span>
+                    <span className="text-muted">{t("prixBaseM2")}</span>
                     <span className="font-mono font-semibold">{formatEUR(result.prixM2Base)}</span>
                   </div>
                   <div className="text-xs text-muted pl-2">{result.sourceBase} — {selectedResult?.commune.periode}</div>
@@ -402,7 +404,7 @@ export default function Estimation() {
                         </div>
                       ))}
                       <div className="flex justify-between text-xs font-semibold border-t border-card-border pt-1">
-                        <span>Total ajustements</span>
+                        <span>{t("totalAjustements")}</span>
                         <span className={result.totalAjustements > 0 ? "text-success" : result.totalAjustements < 0 ? "text-error" : ""}>
                           {result.totalAjustements > 0 ? "+" : ""}{result.totalAjustements}%
                         </span>
@@ -411,7 +413,7 @@ export default function Estimation() {
                   )}
 
                   <div className="flex justify-between text-sm font-semibold border-t border-card-border pt-2 mt-2">
-                    <span className="text-navy">Prix ajusté /m²</span>
+                    <span className="text-navy">{t("prixAjusteM2")}</span>
                     <span className="text-navy font-mono">{formatEUR(result.prixM2Ajuste)}</span>
                   </div>
                 </div>
@@ -428,7 +430,7 @@ export default function Estimation() {
                   }}
                   className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
                 >
-                  {linkCopied ? "Lien copié !" : "Copier le lien"}
+                  {linkCopied ? t("lienCopie") : t("copierLien")}
                 </button>
                 <button
                   onClick={() => {
@@ -439,11 +441,11 @@ export default function Estimation() {
                       valeurPrincipale: result.estimationCentrale,
                       data: { communeSearch, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf },
                     });
-                    toast.show("Évaluation sauvegardée !");
+                    toast.show(t("evaluationSauvegardee"));
                   }}
                   className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
                 >
-                  Sauvegarder
+                  {t("sauvegarder")}
                 </button>
               </div>
 
@@ -451,17 +453,15 @@ export default function Estimation() {
 
               {/* Disclaimer */}
               <p className="text-xs text-muted text-center leading-relaxed">
-                Estimation indicative basée sur les données publiques de l'Observatoire de l'Habitat
-                et les coefficients d'ajustement statistiques. Ne constitue pas une évaluation professionnelle.
-                Pour une expertise conforme EVS 2025, utilisez le{" "}
-                <a href="/valorisation" className="text-navy font-medium hover:underline">module de valorisation</a>.
+                {t("disclaimer")}{" "}
+                <a href="/valorisation" className="text-navy font-medium hover:underline">{t("disclaimerLink")}</a>.
               </p>
             </div>
           )}
 
           {!selectedResult && (
             <div className="text-center py-8 text-muted text-sm">
-              Sélectionnez une commune pour obtenir une estimation
+              {t("selectCommune")}
             </div>
           )}
         </div>

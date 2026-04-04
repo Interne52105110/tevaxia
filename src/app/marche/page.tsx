@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { getAllCommunes, getMarketDataCommune } from "@/lib/market-data";
 import {
   OFFICE_SUBMARKETS,
@@ -37,7 +38,7 @@ function downloadCSV(filename: string, headers: string[], rows: (string | number
   URL.revokeObjectURL(url);
 }
 
-function ExportCSVButton({ onClick }: { onClick: () => void }) {
+function ExportCSVButton({ label, onClick }: { label: string; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
@@ -46,7 +47,7 @@ function ExportCSVButton({ onClick }: { onClick: () => void }) {
       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
       </svg>
-      Exporter CSV
+      {label}
     </button>
   );
 }
@@ -59,47 +60,33 @@ type ActiveTab = "residentiel" | "bureaux" | "commerces" | "logistique" | "terra
 
 type SortDir = "asc" | "desc";
 
-const TABS: { id: ActiveTab; label: string }[] = [
-  { id: "residentiel", label: "Résidentiel" },
-  { id: "bureaux", label: "Bureaux" },
-  { id: "commerces", label: "Commerces" },
-  { id: "logistique", label: "Logistique" },
-  { id: "terrains", label: "Terrains" },
-  { id: "macro", label: "Macro" },
-];
-
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
-function TendanceBadge({ t }: { t: "hausse" | "stable" | "baisse" }) {
+function TendanceBadge({ tendance, labels }: { tendance: "hausse" | "stable" | "baisse"; labels: { hausse: string; stable: string; baisse: string } }) {
   const cls =
-    t === "hausse"
+    tendance === "hausse"
       ? "bg-emerald-100 text-emerald-700"
-      : t === "baisse"
+      : tendance === "baisse"
         ? "bg-red-100 text-red-700"
         : "bg-gray-100 text-gray-600";
-  const label = t === "hausse" ? "Hausse" : t === "baisse" ? "Baisse" : "Stable";
+  const label = tendance === "hausse" ? labels.hausse : tendance === "baisse" ? labels.baisse : labels.stable;
   return <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${cls}`}>{label}</span>;
 }
 
-function RetailTypeBadge({ t }: { t: string }) {
-  const map: Record<string, string> = {
-    high_street: "High Street",
-    centre_commercial: "Centre commercial",
-    retail_park: "Retail Park",
-  };
+function RetailTypeBadge({ type, labels }: { type: string; labels: Record<string, string> }) {
   return (
     <span className="inline-block rounded-full bg-navy/10 px-2.5 py-0.5 text-xs font-medium text-navy">
-      {map[t] ?? t}
+      {labels[type] ?? type}
     </span>
   );
 }
 
-function SourceList({ sources }: { sources: { nom: string; url: string; frequence: string }[] }) {
+function SourceList({ title, sources }: { title: string; sources: { nom: string; url: string; frequence: string }[] }) {
   return (
     <div className="mt-8 rounded-xl border border-card-border bg-card p-5 shadow-sm">
-      <h3 className="mb-3 text-sm font-semibold text-navy">Sources</h3>
+      <h3 className="mb-3 text-sm font-semibold text-navy">{title}</h3>
       <ul className="space-y-1.5 text-xs text-muted">
         {sources.map((s) => (
           <li key={s.nom}>
@@ -165,6 +152,7 @@ function SortableHeader({
 // ---------------------------------------------------------------------------
 
 function TabResidentiel() {
+  const t = useTranslations("marche");
   const [search, setSearch] = useState("");
   const [sortField, setSortField] = useState("commune");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
@@ -216,7 +204,7 @@ function TabResidentiel() {
   const fmtTx = (v: number | null) => (v != null ? v.toLocaleString("fr-LU") : "\u2014");
 
   function handleExportCSV() {
-    const headers = ["Commune", "Canton", "Prix/m2 existant", "Prix/m2 VEFA", "Prix annonces", "Loyer/m2", "Transactions"];
+    const headers = [t("commune"), t("canton"), t("priceExisting"), t("priceVefa"), t("priceListings"), t("rentPerSqm"), t("transactionsHeader")];
     const rows = filtered.map((c) => [
       c.commune,
       c.canton,
@@ -235,11 +223,11 @@ function TabResidentiel() {
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
-          <SearchInput value={search} onChange={setSearch} placeholder="Rechercher une commune ou un canton..." />
+          <SearchInput value={search} onChange={setSearch} placeholder={t("searchCommuneCanton")} />
         </div>
         <div className="flex items-center gap-3">
-          <p className="text-sm text-muted">{filtered.length} commune{filtered.length > 1 ? "s" : ""}</p>
-          <ExportCSVButton onClick={handleExportCSV} />
+          <p className="text-sm text-muted">{t("communeCount", { count: filtered.length })}</p>
+          <ExportCSVButton label={t("exportCSV")} onClick={handleExportCSV} />
         </div>
       </div>
 
@@ -252,7 +240,7 @@ function TabResidentiel() {
                 onClick={() => handleSort("commune")}
               >
                 <span className="inline-flex items-center gap-1">
-                  Commune
+                  {t("commune")}
                   <span className="text-xs">{sortField === "commune" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span>
                 </span>
               </th>
@@ -261,15 +249,15 @@ function TabResidentiel() {
                 onClick={() => handleSort("canton")}
               >
                 <span className="inline-flex items-center gap-1">
-                  Canton
+                  {t("canton")}
                   <span className="text-xs">{sortField === "canton" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span>
                 </span>
               </th>
-              <SortableHeader label="Prix/m² existant" field="prixM2Existant" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Prix/m² VEFA" field="prixM2VEFA" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Prix annonces" field="prixM2Annonces" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Loyer/m²" field="loyerM2Annonces" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Transactions" field="nbTransactions" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("priceExisting")} field="prixM2Existant" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("priceVefa")} field="prixM2VEFA" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("priceListings")} field="prixM2Annonces" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("rentPerSqm")} field="loyerM2Annonces" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("transactionsHeader")} field="nbTransactions" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
             </tr>
           </thead>
           <tbody>
@@ -286,7 +274,7 @@ function TabResidentiel() {
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-muted">Aucune commune trouvée.</td>
+                <td colSpan={7} className="px-4 py-8 text-center text-muted">{t("noCommuneFound")}</td>
               </tr>
             )}
           </tbody>
@@ -294,9 +282,10 @@ function TabResidentiel() {
       </div>
 
       <SourceList
+        title={t("sources")}
         sources={[
-          { nom: "Observatoire de l'Habitat / Publicité Foncière", url: "https://data.public.lu/en/datasets/prix-annonces-des-logements-par-commune/", frequence: "Trimestriel" },
-          { nom: "STATEC — Indices des prix de l'immobilier", url: "https://lustat.statec.lu/", frequence: "Trimestriel" },
+          { nom: "Observatoire de l'Habitat / Publicité Foncière", url: "https://data.public.lu/en/datasets/prix-annonces-des-logements-par-commune/", frequence: t("quarterly") },
+          { nom: "STATEC — Indices des prix de l'immobilier", url: "https://lustat.statec.lu/", frequence: t("quarterly") },
         ]}
       />
     </div>
@@ -308,9 +297,12 @@ function TabResidentiel() {
 // ---------------------------------------------------------------------------
 
 function TabBureaux() {
+  const t = useTranslations("marche");
   const [search, setSearch] = useState("");
   const [sortField, setSortField] = useState("nom");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
+
+  const tendanceLabels = { hausse: t("trendUp"), stable: t("trendStable"), baisse: t("trendDown") };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -348,7 +340,7 @@ function TabBureaux() {
   }
 
   function handleExportCSV() {
-    const headers = ["Sous-marche", "Loyer prime (EUR/m2/mois)", "Loyer moyen", "Vacance (%)", "Stock (m2)", "Tendance"];
+    const headers = [t("submarket"), t("primeRent"), t("averageRent"), t("vacancyPct"), t("stockSqm"), t("trend")];
     const rows = filtered.map((o) => [o.nom, o.loyerPrime, o.loyerMoyen, o.vacance, o.stock, o.tendance]);
     downloadCSV("marche-bureaux.csv", headers, rows);
   }
@@ -357,17 +349,17 @@ function TabBureaux() {
     <div className="space-y-4">
       {/* Summary cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <SummaryCard label="Take-up annuel" value={`${(OFFICE_MARKET_SUMMARY.takeUpAnnuel).toLocaleString("fr-LU")} m\u00B2`} sub={OFFICE_MARKET_SUMMARY.takeUpEvolution} />
-        <SummaryCard label="Rendement prime" value={`${OFFICE_MARKET_SUMMARY.yieldPrime} %`} />
-        <SummaryCard label="Vacance globale" value={`${OFFICE_MARKET_SUMMARY.vacanceGlobale} %`} />
-        <SummaryCard label="Pipeline en construction" value={`${(OFFICE_MARKET_SUMMARY.pipelineEnConstruction).toLocaleString("fr-LU")} m\u00B2`} />
+        <SummaryCard label={t("annualTakeUp")} value={`${(OFFICE_MARKET_SUMMARY.takeUpAnnuel).toLocaleString("fr-LU")} m\u00B2`} sub={OFFICE_MARKET_SUMMARY.takeUpEvolution} />
+        <SummaryCard label={t("primeYield")} value={`${OFFICE_MARKET_SUMMARY.yieldPrime} %`} />
+        <SummaryCard label={t("globalVacancy")} value={`${OFFICE_MARKET_SUMMARY.vacanceGlobale} %`} />
+        <SummaryCard label={t("pipelineUnderConstruction")} value={`${(OFFICE_MARKET_SUMMARY.pipelineEnConstruction).toLocaleString("fr-LU")} m\u00B2`} />
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
-          <SearchInput value={search} onChange={setSearch} placeholder="Rechercher un sous-marché..." />
+          <SearchInput value={search} onChange={setSearch} placeholder={t("searchSubmarket")} />
         </div>
-        <ExportCSVButton onClick={handleExportCSV} />
+        <ExportCSVButton label={t("exportCSV")} onClick={handleExportCSV} />
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -375,13 +367,13 @@ function TabBureaux() {
           <thead>
             <tr className="border-b border-card-border bg-background">
               <th className="cursor-pointer select-none whitespace-nowrap px-4 py-3 text-left font-semibold text-navy hover:text-navy-light" onClick={() => handleSort("nom")}>
-                <span className="inline-flex items-center gap-1">Sous-marché<span className="text-xs">{sortField === "nom" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
+                <span className="inline-flex items-center gap-1">{t("submarket")}<span className="text-xs">{sortField === "nom" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
               </th>
-              <SortableHeader label="Loyer prime (€/m²/mois)" field="loyerPrime" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Loyer moyen" field="loyerMoyen" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Vacance (%)" field="vacance" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Stock (m²)" field="stock" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">Tendance</th>
+              <SortableHeader label={t("primeRentEur")} field="loyerPrime" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("averageRent")} field="loyerMoyen" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("vacancyPct")} field="vacance" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("stockSqm")} field="stock" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">{t("trend")}</th>
             </tr>
           </thead>
           <tbody>
@@ -392,14 +384,14 @@ function TabBureaux() {
                 <td className="px-4 py-2.5 text-right font-mono">{o.loyerMoyen} \u20AC</td>
                 <td className="px-4 py-2.5 text-right font-mono">{o.vacance.toFixed(1)} %</td>
                 <td className="px-4 py-2.5 text-right font-mono">{o.stock.toLocaleString("fr-LU")}</td>
-                <td className="px-4 py-2.5 text-right"><TendanceBadge t={o.tendance} /></td>
+                <td className="px-4 py-2.5 text-right"><TendanceBadge tendance={o.tendance} labels={tendanceLabels} /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <SourceList sources={OFFICE_MARKET_SUMMARY.sources.map((s) => ({ nom: s.nom, url: s.url, frequence: s.frequence }))} />
+      <SourceList title={t("sources")} sources={OFFICE_MARKET_SUMMARY.sources.map((s) => ({ nom: s.nom, url: s.url, frequence: s.frequence }))} />
     </div>
   );
 }
@@ -409,9 +401,17 @@ function TabBureaux() {
 // ---------------------------------------------------------------------------
 
 function TabCommerces() {
+  const t = useTranslations("marche");
   const [search, setSearch] = useState("");
   const [sortField, setSortField] = useState("nom");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
+
+  const tendanceLabels = { hausse: t("trendUp"), stable: t("trendStable"), baisse: t("trendDown") };
+  const retailTypeLabels: Record<string, string> = {
+    high_street: t("highStreet"),
+    centre_commercial: t("shoppingCenter"),
+    retail_park: t("retailPark"),
+  };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -447,7 +447,7 @@ function TabCommerces() {
   }
 
   function handleExportCSV() {
-    const headers = ["Emplacement", "Type", "Loyer prime (EUR/m2/mois)", "Loyer moyen", "Tendance"];
+    const headers = [t("location"), t("type"), t("primeRent"), t("averageRent"), t("trend")];
     const rows = filtered.map((r) => [r.nom, r.type, r.loyerPrime, r.loyerMoyen, r.tendance]);
     downloadCSV("marche-commerces.csv", headers, rows);
   }
@@ -456,9 +456,9 @@ function TabCommerces() {
     <div className="space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
-          <SearchInput value={search} onChange={setSearch} placeholder="Rechercher un emplacement..." />
+          <SearchInput value={search} onChange={setSearch} placeholder={t("searchLocation")} />
         </div>
-        <ExportCSVButton onClick={handleExportCSV} />
+        <ExportCSVButton label={t("exportCSV")} onClick={handleExportCSV} />
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -466,31 +466,31 @@ function TabCommerces() {
           <thead>
             <tr className="border-b border-card-border bg-background">
               <th className="cursor-pointer select-none whitespace-nowrap px-4 py-3 text-left font-semibold text-navy hover:text-navy-light" onClick={() => handleSort("nom")}>
-                <span className="inline-flex items-center gap-1">Emplacement<span className="text-xs">{sortField === "nom" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
+                <span className="inline-flex items-center gap-1">{t("location")}<span className="text-xs">{sortField === "nom" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left font-semibold text-navy">Type</th>
-              <SortableHeader label="Loyer prime (€/m²/mois)" field="loyerPrime" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Loyer moyen" field="loyerMoyen" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">Tendance</th>
+              <th className="whitespace-nowrap px-4 py-3 text-left font-semibold text-navy">{t("type")}</th>
+              <SortableHeader label={t("primeRentEur")} field="loyerPrime" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("averageRent")} field="loyerMoyen" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">{t("trend")}</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((r) => (
               <tr key={r.nom} className="border-b border-card-border/50 hover:bg-background/50" title={r.note}>
                 <td className="px-4 py-2.5 font-medium text-navy">{r.nom}</td>
-                <td className="px-4 py-2.5"><RetailTypeBadge t={r.type} /></td>
+                <td className="px-4 py-2.5"><RetailTypeBadge type={r.type} labels={retailTypeLabels} /></td>
                 <td className="px-4 py-2.5 text-right font-mono">{r.loyerPrime} \u20AC</td>
                 <td className="px-4 py-2.5 text-right font-mono">{r.loyerMoyen} \u20AC</td>
-                <td className="px-4 py-2.5 text-right"><TendanceBadge t={r.tendance} /></td>
+                <td className="px-4 py-2.5 text-right"><TendanceBadge tendance={r.tendance} labels={tendanceLabels} /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <SourceList sources={[
-        { nom: "INOWAI Retail Market Report", url: "https://www.inowai.com/en/real-estate-research-data/", frequence: "Semestriel" },
-        { nom: "JLL Annual Review", url: "https://www.jll.com/en-belux/insights/market-dynamics/luxembourg-office", frequence: "Annuel" },
+      <SourceList title={t("sources")} sources={[
+        { nom: "INOWAI Retail Market Report", url: "https://www.inowai.com/en/real-estate-research-data/", frequence: t("biannual") },
+        { nom: "JLL Annual Review", url: "https://www.jll.com/en-belux/insights/market-dynamics/luxembourg-office", frequence: t("annual") },
       ]} />
     </div>
   );
@@ -501,9 +501,12 @@ function TabCommerces() {
 // ---------------------------------------------------------------------------
 
 function TabLogistique() {
+  const t = useTranslations("marche");
   const [search, setSearch] = useState("");
   const [sortField, setSortField] = useState("nom");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
+
+  const tendanceLabels = { hausse: t("trendUp"), stable: t("trendStable"), baisse: t("trendDown") };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -540,7 +543,7 @@ function TabLogistique() {
   }
 
   function handleExportCSV() {
-    const headers = ["Zone", "Loyer min (EUR/m2/mois)", "Loyer max", "Stock estime (m2)", "Tendance"];
+    const headers = [t("zone"), t("rentMin"), t("rentMax"), t("estimatedStockSqm"), t("trend")];
     const rows = filtered.map((z) => [z.nom, z.loyerMin, z.loyerMax, z.stockEstime, z.tendance]);
     downloadCSV("marche-logistique.csv", headers, rows);
   }
@@ -549,9 +552,9 @@ function TabLogistique() {
     <div className="space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-sm">
-          <SearchInput value={search} onChange={setSearch} placeholder="Rechercher une zone..." />
+          <SearchInput value={search} onChange={setSearch} placeholder={t("searchZone")} />
         </div>
-        <ExportCSVButton onClick={handleExportCSV} />
+        <ExportCSVButton label={t("exportCSV")} onClick={handleExportCSV} />
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -559,12 +562,12 @@ function TabLogistique() {
           <thead>
             <tr className="border-b border-card-border bg-background">
               <th className="cursor-pointer select-none whitespace-nowrap px-4 py-3 text-left font-semibold text-navy hover:text-navy-light" onClick={() => handleSort("nom")}>
-                <span className="inline-flex items-center gap-1">Zone<span className="text-xs">{sortField === "nom" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
+                <span className="inline-flex items-center gap-1">{t("zone")}<span className="text-xs">{sortField === "nom" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
               </th>
-              <SortableHeader label="Loyer min (€/m²/mois)" field="loyerMin" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Loyer max" field="loyerMax" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Stock estimé (m²)" field="stockEstime" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">Tendance</th>
+              <SortableHeader label={t("rentMinEur")} field="loyerMin" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("rentMax")} field="loyerMax" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("estimatedStockSqm")} field="stockEstime" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">{t("trend")}</th>
             </tr>
           </thead>
           <tbody>
@@ -574,16 +577,16 @@ function TabLogistique() {
                 <td className="px-4 py-2.5 text-right font-mono">{z.loyerMin} \u20AC</td>
                 <td className="px-4 py-2.5 text-right font-mono">{z.loyerMax} \u20AC</td>
                 <td className="px-4 py-2.5 text-right font-mono">{z.stockEstime.toLocaleString("fr-LU")}</td>
-                <td className="px-4 py-2.5 text-right"><TendanceBadge t={z.tendance} /></td>
+                <td className="px-4 py-2.5 text-right"><TendanceBadge tendance={z.tendance} labels={tendanceLabels} /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <SourceList sources={[
-        { nom: "Savills Luxembourg Logistics", url: "https://www.savills.lu/research-and-news/research.aspx", frequence: "Annuel" },
-        { nom: "BNP Paribas RE Logistics", url: "https://www.realestate.bnpparibas.lu/en/press/logistics-capital-markets", frequence: "Annuel" },
+      <SourceList title={t("sources")} sources={[
+        { nom: "Savills Luxembourg Logistics", url: "https://www.savills.lu/research-and-news/research.aspx", frequence: t("annual") },
+        { nom: "BNP Paribas RE Logistics", url: "https://www.realestate.bnpparibas.lu/en/press/logistics-capital-markets", frequence: t("annual") },
         { nom: "WarehouseRentInfo.lu", url: "https://www.warehouserentinfo.lu/", frequence: "Live" },
       ]} />
     </div>
@@ -595,6 +598,7 @@ function TabLogistique() {
 // ---------------------------------------------------------------------------
 
 function TabTerrains() {
+  const t = useTranslations("marche");
   const [sortField, setSortField] = useState("zone");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
 
@@ -629,7 +633,7 @@ function TabTerrains() {
   }
 
   function handleExportCSV() {
-    const headers = ["Zone", "Prix/m2", "Prix/are", "Evolution"];
+    const headers = [t("zone"), t("pricePerSqm"), t("pricePerAre"), t("evolution")];
     const rows = sorted.map((z) => [z.zone, z.prixM2, z.prixMedianAre, z.evolution]);
     downloadCSV("marche-terrains.csv", headers, rows);
   }
@@ -637,7 +641,7 @@ function TabTerrains() {
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
-        <ExportCSVButton onClick={handleExportCSV} />
+        <ExportCSVButton label={t("exportCSV")} onClick={handleExportCSV} />
       </div>
 
       <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
@@ -645,11 +649,11 @@ function TabTerrains() {
           <thead>
             <tr className="border-b border-card-border bg-background">
               <th className="cursor-pointer select-none whitespace-nowrap px-4 py-3 text-left font-semibold text-navy hover:text-navy-light" onClick={() => handleSort("zone")}>
-                <span className="inline-flex items-center gap-1">Zone<span className="text-xs">{sortField === "zone" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
+                <span className="inline-flex items-center gap-1">{t("zone")}<span className="text-xs">{sortField === "zone" ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25B4\u25BE"}</span></span>
               </th>
-              <SortableHeader label="Prix/m²" field="prixM2" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <SortableHeader label="Prix/are" field="prixMedianAre" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
-              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">Evolution</th>
+              <SortableHeader label={t("pricePerSqm")} field="prixM2" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <SortableHeader label={t("pricePerAre")} field="prixMedianAre" currentField={sortField} currentDir={sortDir} onSort={handleSort} />
+              <th className="whitespace-nowrap px-4 py-3 text-right font-semibold text-navy">{t("evolution")}</th>
             </tr>
           </thead>
           <tbody>
@@ -669,9 +673,9 @@ function TabTerrains() {
         </table>
       </div>
 
-      <SourceList sources={[
-        { nom: "Observatoire de l'Habitat — Rapport #19 (prix terrains)", url: "https://gouvernement.lu/dam-assets/images-documents/actualites/2025/10/10-observatoire-habitat-rapport/oh-rapport-analyse-19.pdf", frequence: "Annuel" },
-        { nom: "Observatoire de l'Habitat — Rapport #15 (segmentation)", url: "https://gouvernement.lu/dam-assets/images-documents/actualites/2025/02/11-observatoire-habitat/rapport-analyse-15-segmentation-foncier.pdf", frequence: "Annuel" },
+      <SourceList title={t("sources")} sources={[
+        { nom: "Observatoire de l'Habitat — Rapport #19 (prix terrains)", url: "https://gouvernement.lu/dam-assets/images-documents/actualites/2025/10/10-observatoire-habitat-rapport/oh-rapport-analyse-19.pdf", frequence: t("annual") },
+        { nom: "Observatoire de l'Habitat — Rapport #15 (segmentation)", url: "https://gouvernement.lu/dam-assets/images-documents/actualites/2025/02/11-observatoire-habitat/rapport-analyse-15-segmentation-foncier.pdf", frequence: t("annual") },
       ]} />
     </div>
   );
@@ -702,62 +706,65 @@ function SummaryCard({ label, value, sub }: { label: string; value: string; sub?
 }
 
 function TabMacro() {
+  const t = useTranslations("marche");
   const inv = MACRO_DATA.investissementCRE2025;
 
   function handleExportCSV() {
-    const headers = ["Indicateur", "Valeur", "Detail"];
+    const headers = [t("indicator"), t("value"), t("detail")];
     const rows = [
-      ["Taux hypothecaire moyen", `${MACRO_DATA.tauxHypothecaire.taux} %`, `${MACRO_DATA.tauxHypothecaire.date} - ${MACRO_DATA.tauxHypothecaire.source}`],
-      ["Indice cout de construction", MACRO_DATA.indiceCoutConstruction.evolution, `${MACRO_DATA.indiceCoutConstruction.date} - ${MACRO_DATA.indiceCoutConstruction.source}`],
-      ["Rendement locatif residentiel", MACRO_DATA.rendementLocatifResidentiel.brut, `Brut - ${MACRO_DATA.rendementLocatifResidentiel.source}`],
-      ["Investissement CRE 2025 - Total", String(inv.total), ""],
-      ["Investissement CRE 2025 - Bureaux", `${(inv.bureaux * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.bureaux))],
-      ["Investissement CRE 2025 - Commerces", `${(inv.retail * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.retail))],
-      ["Investissement CRE 2025 - Logistique", `${(inv.logistique * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.logistique))],
-      ["Investissement CRE 2025 - Autre", `${(inv.autre * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.autre))],
+      [t("avgMortgageRate"), `${MACRO_DATA.tauxHypothecaire.taux} %`, `${MACRO_DATA.tauxHypothecaire.date} - ${MACRO_DATA.tauxHypothecaire.source}`],
+      [t("constructionCostIndex"), MACRO_DATA.indiceCoutConstruction.evolution, `${MACRO_DATA.indiceCoutConstruction.date} - ${MACRO_DATA.indiceCoutConstruction.source}`],
+      [t("residentialRentalYield"), MACRO_DATA.rendementLocatifResidentiel.brut, `${t("gross")} - ${MACRO_DATA.rendementLocatifResidentiel.source}`],
+      [t("creInvestment2025Total"), String(inv.total), ""],
+      [t("creInvestment2025Offices"), `${(inv.bureaux * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.bureaux))],
+      [t("creInvestment2025Retail"), `${(inv.retail * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.retail))],
+      [t("creInvestment2025Logistics"), `${(inv.logistique * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.logistique))],
+      [t("creInvestment2025Other"), `${(inv.autre * 100).toFixed(0)} %`, String(Math.round(inv.total * inv.autre))],
     ];
     downloadCSV("marche-macro.csv", headers, rows);
   }
 
+  const creSegments = [
+    { label: t("offices"), pct: inv.bureaux },
+    { label: t("retail"), pct: inv.retail },
+    { label: t("logistics"), pct: inv.logistique },
+    { label: t("other"), pct: inv.autre },
+  ];
+
   return (
     <div className="space-y-6">
       <div className="flex justify-end">
-        <ExportCSVButton onClick={handleExportCSV} />
+        <ExportCSVButton label={t("exportCSV")} onClick={handleExportCSV} />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MacroCard
-          label="Taux hypothecaire moyen"
+          label={t("avgMortgageRate")}
           value={`${MACRO_DATA.tauxHypothecaire.taux} %`}
           sub={`${MACRO_DATA.tauxHypothecaire.date} \u2014 ${MACRO_DATA.tauxHypothecaire.source}`}
         />
         <MacroCard
-          label="Indice cout de construction"
+          label={t("constructionCostIndex")}
           value={MACRO_DATA.indiceCoutConstruction.evolution}
           sub={`${MACRO_DATA.indiceCoutConstruction.date} \u2014 ${MACRO_DATA.indiceCoutConstruction.source}`}
         />
         <MacroCard
-          label="Rendement locatif residentiel"
+          label={t("residentialRentalYield")}
           value={MACRO_DATA.rendementLocatifResidentiel.brut}
-          sub={`Brut \u2014 ${MACRO_DATA.rendementLocatifResidentiel.source}`}
+          sub={`${t("gross")} \u2014 ${MACRO_DATA.rendementLocatifResidentiel.source}`}
         />
         <MacroCard
-          label="Investissement CRE 2025"
+          label={t("creInvestment2025")}
           value={formatEUR(inv.total)}
-          sub="Total immobilier commercial"
+          sub={t("totalCommercialRE")}
         />
       </div>
 
       {/* CRE breakdown */}
       <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-        <h3 className="mb-4 text-base font-semibold text-navy">Ventilation investissement CRE ({MACRO_DATA.investissementCRE2025.total > 0 ? formatEUR(inv.total) : "\u2014"})</h3>
+        <h3 className="mb-4 text-base font-semibold text-navy">{t("creBreakdown", { total: MACRO_DATA.investissementCRE2025.total > 0 ? formatEUR(inv.total) : "\u2014" })}</h3>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { label: "Bureaux", pct: inv.bureaux },
-            { label: "Commerces", pct: inv.retail },
-            { label: "Logistique", pct: inv.logistique },
-            { label: "Autre", pct: inv.autre },
-          ].map((seg) => (
+          {creSegments.map((seg) => (
             <div key={seg.label} className="text-center">
               <div className="text-2xl font-bold text-navy">{(seg.pct * 100).toFixed(0)} %</div>
               <div className="mt-1 text-sm text-muted">{seg.label}</div>
@@ -770,7 +777,7 @@ function TabMacro() {
         </div>
       </div>
 
-      <SourceList sources={MACRO_DATA.sources.map((s) => ({ nom: s.nom, url: s.url, frequence: s.frequence }))} />
+      <SourceList title={t("sources")} sources={MACRO_DATA.sources.map((s) => ({ nom: s.nom, url: s.url, frequence: s.frequence }))} />
     </div>
   );
 }
@@ -780,17 +787,27 @@ function TabMacro() {
 // ---------------------------------------------------------------------------
 
 export default function MarchePage() {
+  const t = useTranslations("marche");
   const [activeTab, setActiveTab] = useState<ActiveTab>("residentiel");
+
+  const TABS: { id: ActiveTab; label: string }[] = [
+    { id: "residentiel", label: t("tabResidentiel") },
+    { id: "bureaux", label: t("tabBureaux") },
+    { id: "commerces", label: t("tabCommerces") },
+    { id: "logistique", label: t("tabLogistique") },
+    { id: "terrains", label: t("tabTerrains") },
+    { id: "macro", label: t("tabMacro") },
+  ];
 
   return (
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Base de donnees marche
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            Prix, loyers et indicateurs du marche immobilier luxembourgeois — Toutes les donnees en un seul endroit
+            {t("subtitle")}
           </p>
         </div>
 

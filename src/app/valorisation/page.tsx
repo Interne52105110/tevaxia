@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
@@ -42,17 +43,6 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
 
-const TABS: { id: ActiveTab; label: string }[] = [
-  { id: "comparaison", label: "Comparaison" },
-  { id: "capitalisation", label: "Capitalisation" },
-  { id: "terme_reversion", label: "Terme & Réversion" },
-  { id: "dcf", label: "Flux actualisés" },
-  { id: "esg", label: "ESG" },
-  { id: "energie", label: "Résiduelle énergie" },
-  { id: "mlv", label: "Valeur hypothécaire" },
-  { id: "reconciliation", label: "Réconciliation" },
-];
-
 // ============================================================
 // TAB 1 — COMPARAISON
 // ============================================================
@@ -82,6 +72,7 @@ function TabComparaison({
   comparables: Comparable[];
   setComparables: React.Dispatch<React.SetStateAction<Comparable[]>>;
 }) {
+  const t = useTranslations("valorisation");
 
   const result = useMemo(() => {
     if (comparables.length === 0) {
@@ -108,7 +99,7 @@ function TabComparaison({
       ...prev,
       {
         id: String(Date.now()),
-        adresse: selectedCommune ? `${selectedCommune.commune} — à compléter` : "",
+        adresse: selectedCommune ? `${selectedCommune.commune} — ${t("aCompleter")}` : "",
         prixVente: prixM2Ref > 0 ? prixM2Ref * surfaceBien : 0,
         surface: surfaceBien,
         dateVente: new Date().toISOString().slice(0, 7),
@@ -127,15 +118,15 @@ function TabComparaison({
     <div className="space-y-6">
       {/* Références de marché — données publiques */}
       <div className="rounded-xl border-2 border-navy/20 bg-card p-6 shadow-sm">
-        <h2 className="text-base font-semibold text-navy mb-1">Références de marché par commune</h2>
-        <p className="text-xs text-muted mb-4">Source : Observatoire de l'Habitat / Publicité Foncière (actes notariés) — données ouvertes CC0</p>
+        <h2 className="text-base font-semibold text-navy mb-1">{t("refMarcheParCommune")}</h2>
+        <p className="text-xs text-muted mb-4">{t("refMarcheSource")}</p>
 
         <div className="relative">
           <input
             type="text"
             value={communeSearch}
             onChange={(e) => { setCommuneSearch(e.target.value); if (!e.target.value) setSelectedResult(null); }}
-            placeholder="Rechercher une commune ou localité (ex: Bourglinster, Kirchberg, Howald...)"
+            placeholder={t("searchPlaceholder")}
             className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2.5 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
           />
           {communeSearch.length >= 2 && searchResults.length > 0 && !selectedResult && (
@@ -149,7 +140,7 @@ function TabComparaison({
                   {r.isLocalite ? (
                     <>
                       <span className="font-medium">{r.matchedOn}</span>
-                      <span className="text-muted ml-1">— {r.quartier ? "quartier de" : "commune de"} {r.commune.commune}</span>
+                      <span className="text-muted ml-1">— {r.quartier ? t("quartierDe") : t("communeDe")} {r.commune.commune}</span>
                     </>
                   ) : (
                     <>
@@ -170,7 +161,7 @@ function TabComparaison({
           <div className="mt-4">
             {selectedResult?.isLocalite && (
               <p className="text-xs text-muted mb-2">
-                <span className="font-medium text-slate">{selectedResult.matchedOn}</span> — {selectedResult.quartier ? "quartier de" : "commune de"} <span className="font-medium text-slate">{selectedCommune.commune}</span> ({selectedCommune.canton}).
+                <span className="font-medium text-slate">{selectedResult.matchedOn}</span> — {selectedResult.quartier ? t("quartierDe") : t("communeDe")} <span className="font-medium text-slate">{selectedCommune.commune}</span> ({selectedCommune.canton}).
                 {selectedResult.quartier && (
                   <span className="ml-1 text-slate">{selectedResult.quartier.note}</span>
                 )}
@@ -188,10 +179,10 @@ function TabComparaison({
                   <div className="text-right">
                     <div className="text-xl font-bold text-navy">{formatEUR(selectedResult.quartier.prixM2)}/m²</div>
                     {selectedResult.quartier.loyerM2 && (
-                      <div className="text-xs text-muted">Loyer : {selectedResult.quartier.loyerM2.toFixed(1)} €/m²/mois</div>
+                      <div className="text-xs text-muted">{t("loyer")} : {selectedResult.quartier.loyerM2.toFixed(1)} €/m²/{t("suffixMois")}</div>
                     )}
                     <div className={`text-xs font-medium ${selectedResult.quartier.tendance === "hausse" ? "text-success" : selectedResult.quartier.tendance === "baisse" ? "text-error" : "text-muted"}`}>
-                      Tendance : {selectedResult.quartier.tendance}
+                      {t("tendance")} : {selectedResult.quartier.tendance}
                     </div>
                   </div>
                 </div>
@@ -199,24 +190,24 @@ function TabComparaison({
             )}
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="rounded-lg bg-navy/5 p-3 text-center">
-              <div className="text-xs text-muted">Prix /m² transactions</div>
+              <div className="text-xs text-muted">{t("prixM2Transactions")}</div>
               <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "—"}</div>
-              <div className="text-[10px] text-muted">Existant — actes notariés</div>
+              <div className="text-[10px] text-muted">{t("existantActes")}</div>
             </div>
             <div className="rounded-lg bg-navy/5 p-3 text-center">
-              <div className="text-xs text-muted">Prix /m² VEFA</div>
+              <div className="text-xs text-muted">{t("prixM2VEFA")}</div>
               <div className="text-lg font-bold text-navy">{selectedCommune.prixM2VEFA ? formatEUR(selectedCommune.prixM2VEFA) : "—"}</div>
-              <div className="text-[10px] text-muted">Neuf — actes notariés</div>
+              <div className="text-[10px] text-muted">{t("neufActes")}</div>
             </div>
             <div className="rounded-lg bg-gold/10 p-3 text-center">
-              <div className="text-xs text-muted">Prix /m² annonces</div>
+              <div className="text-xs text-muted">{t("prixM2Annonces")}</div>
               <div className="text-lg font-bold text-gold-dark">{selectedCommune.prixM2Annonces ? formatEUR(selectedCommune.prixM2Annonces) : "—"}</div>
-              <div className="text-[10px] text-muted">Annonces — données agrégées</div>
+              <div className="text-[10px] text-muted">{t("annoncesDonnees")}</div>
             </div>
             <div className="rounded-lg bg-teal/10 p-3 text-center">
-              <div className="text-xs text-muted">Loyer /m²/mois</div>
+              <div className="text-xs text-muted">{t("loyerM2Mois")}</div>
               <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "—"}</div>
-              <div className="text-[10px] text-muted">Annonces — données agrégées</div>
+              <div className="text-[10px] text-muted">{t("annoncesDonnees")}</div>
             </div>
             </div>
           </div>
@@ -224,7 +215,7 @@ function TabComparaison({
 
         {selectedCommune && (
           <div className="mt-3 flex items-center justify-between text-xs text-muted">
-            <span>{selectedCommune.nbTransactions} transactions — {selectedCommune.periode}</span>
+            <span>{t("nbTransactions", { nb: selectedCommune.nbTransactions ?? 0, periode: selectedCommune.periode ?? "" })}</span>
             <span>{selectedCommune.source}</span>
           </div>
         )}
@@ -232,16 +223,16 @@ function TabComparaison({
         {/* Grille quartiers si disponible */}
         {selectedCommune?.quartiers && selectedCommune.quartiers.length > 0 && (
           <div className="mt-4">
-            <h3 className="text-xs font-semibold text-navy mb-2">Prix par quartier — {selectedCommune.commune}</h3>
+            <h3 className="text-xs font-semibold text-navy mb-2">{t("prixParQuartier", { commune: selectedCommune.commune })}</h3>
             <div className="rounded-lg border border-card-border bg-card shadow-sm overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
                   <tr className="border-b border-card-border bg-background">
-                    <th className="px-3 py-2 text-left font-semibold text-navy">Quartier</th>
+                    <th className="px-3 py-2 text-left font-semibold text-navy">{t("thQuartier")}</th>
                     <th className="px-3 py-2 text-right font-semibold text-navy">€/m²</th>
-                    <th className="px-3 py-2 text-right font-semibold text-navy">Loyer/m²</th>
-                    <th className="px-3 py-2 text-center font-semibold text-navy">Tendance</th>
-                    <th className="px-3 py-2 text-left font-semibold text-navy">Caractéristique</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">{t("thLoyerM2")}</th>
+                    <th className="px-3 py-2 text-center font-semibold text-navy">{t("tendance")}</th>
+                    <th className="px-3 py-2 text-left font-semibold text-navy">{t("thCaracteristique")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -265,7 +256,7 @@ function TabComparaison({
                 </tbody>
               </table>
             </div>
-            <p className="mt-1 text-[10px] text-muted">Source : Observatoire de l'Habitat — prix annoncés par quartier. Données indicatives, triées par prix décroissant.</p>
+            <p className="mt-1 text-[10px] text-muted">{t("quartiersSourceNote")}</p>
           </div>
         )}
       </div>
@@ -277,7 +268,7 @@ function TabComparaison({
 
       {/* Sources de données */}
       <div className="rounded-lg border border-card-border bg-card p-4 shadow-sm">
-        <h3 className="text-sm font-semibold text-navy mb-2">Sources de données ouvertes</h3>
+        <h3 className="text-sm font-semibold text-navy mb-2">{t("sourcesOuvertes")}</h3>
         <div className="grid gap-2 sm:grid-cols-2 text-xs">
           <a href={DATA_SOURCES.prixTransactionsParCommune.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded px-2 py-1.5 hover:bg-background transition-colors">
             <span className="shrink-0 rounded bg-navy/10 px-1.5 py-0.5 text-[10px] font-medium text-navy">{DATA_SOURCES.prixTransactionsParCommune.format}</span>
@@ -301,11 +292,11 @@ function TabComparaison({
       {/* Évaluation rapide par ajustement du prix communal */}
       {selectedCommune && selectedCommune.prixM2Existant && (
         <div className="rounded-xl border-2 border-gold/30 bg-card p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-navy mb-1">Évaluation par ajustement</h2>
+          <h2 className="text-base font-semibold text-navy mb-1">{t("evalParAjustement")}</h2>
           <p className="text-xs text-muted mb-4">
-            Prix de base : <strong className="text-navy">{formatEUR(selectedCommune.prixM2Existant)}/m²</strong> ({selectedCommune.commune})
-            {selectedResult?.quartier && <> — quartier {selectedResult.quartier.nom} : <strong className="text-navy">{formatEUR(selectedResult.quartier.prixM2)}/m²</strong></>}
-            . Ajustez selon les caractéristiques du bien.
+            {t("prixDeBase")} : <strong className="text-navy">{formatEUR(selectedCommune.prixM2Existant)}/m²</strong> ({selectedCommune.commune})
+            {selectedResult?.quartier && <> — {t("thQuartier").toLowerCase()} {selectedResult.quartier.nom} : <strong className="text-navy">{formatEUR(selectedResult.quartier.prixM2)}/m²</strong></>}
+            . {t("ajustezCaracteristiques")}
           </p>
 
           {/* Ajustements inline — sans avoir à créer de comparable */}
@@ -315,10 +306,10 @@ function TabComparaison({
                 onClick={addComp}
                 className="w-full rounded-lg bg-navy px-4 py-3 text-sm font-medium text-white hover:bg-navy-light transition-colors"
               >
-                Commencer l'évaluation — partir du prix moyen de {selectedCommune.commune}
+                {t("commencerEvaluation", { commune: selectedCommune.commune })}
               </button>
               <p className="mt-2 text-xs text-muted text-center">
-                Un comparable sera créé avec le prix moyen communal comme base. Vous ajusterez ensuite chaque critère.
+                {t("compCreePrixMoyen")}
               </p>
             </div>
           )}
@@ -330,14 +321,14 @@ function TabComparaison({
       <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-base font-semibold text-navy">Comparables ({comparables.length})</h2>
-            <p className="text-xs text-muted">Ajustez les critères par rapport au bien évalué</p>
+            <h2 className="text-base font-semibold text-navy">{t("comparablesTitle", { count: comparables.length })}</h2>
+            <p className="text-xs text-muted">{t("comparablesSub")}</p>
           </div>
           <button
             onClick={addComp}
             className="rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-light transition-colors"
           >
-            + Ajouter un comparable
+            {t("ajouterComparable")}
           </button>
         </div>
 
@@ -345,67 +336,67 @@ function TabComparaison({
           {comparables.map((comp, i) => (
             <div key={comp.id} className="rounded-lg border border-card-border bg-background p-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-semibold text-navy">Comparable {i + 1}</span>
+                <span className="text-sm font-semibold text-navy">{t("comparableN", { n: i + 1 })}</span>
                 <button onClick={() => removeComp(i)} className="text-xs text-error hover:underline">
-                  Supprimer
+                  {t("supprimer")}
                 </button>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                <InputField label="Adresse" type="text" value={comp.adresse} onChange={(v) => updateComp(i, "adresse", v)} className="sm:col-span-3" />
-                <InputField label="Prix de vente" value={comp.prixVente} onChange={(v) => updateComp(i, "prixVente", v)} suffix="€" />
-                <InputField label="Surface" value={comp.surface} onChange={(v) => updateComp(i, "surface", v)} suffix="m²" />
-                <InputField label="Date vente" type="text" value={comp.dateVente} onChange={(v) => updateComp(i, "dateVente", v)} hint="AAAA-MM" />
+                <InputField label={t("adresse")} type="text" value={comp.adresse} onChange={(v) => updateComp(i, "adresse", v)} className="sm:col-span-3" />
+                <InputField label={t("prixDeVente")} value={comp.prixVente} onChange={(v) => updateComp(i, "prixVente", v)} suffix="€" />
+                <InputField label={t("surface")} value={comp.surface} onChange={(v) => updateComp(i, "surface", v)} suffix="m²" />
+                <InputField label={t("dateVente")} type="text" value={comp.dateVente} onChange={(v) => updateComp(i, "dateVente", v)} hint={t("dateHintAAAAMM")} />
               </div>
 
               {/* Ajustements avec guides statistiques */}
               <div className="mt-4 space-y-3">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-semibold text-navy">Ajustements</span>
-                  <span className="text-[10px] text-muted">Cliquez sur une suggestion pour appliquer la valeur</span>
+                  <span className="text-xs font-semibold text-navy">{t("ajustementsTitle")}</span>
+                  <span className="text-[10px] text-muted">{t("ajustementsHint")}</span>
                 </div>
 
                 <div className="grid gap-3 lg:grid-cols-2">
                   {/* Localisation */}
                   <div className="flex gap-2">
-                    <InputField label="Localisation" value={comp.ajustLocalisation} onChange={(v) => updateComp(i, "ajustLocalisation", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <InputField label={t("localisation")} value={comp.ajustLocalisation} onChange={(v) => updateComp(i, "ajustLocalisation", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
                     <AdjustmentGuidePanel critere="localisation" currentValue={comp.ajustLocalisation} onApply={(v) => updateComp(i, "ajustLocalisation", v)} />
                   </div>
 
                   {/* État */}
                   <div className="flex gap-2">
-                    <InputField label="État" value={comp.ajustEtat} onChange={(v) => updateComp(i, "ajustEtat", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <InputField label={t("etat")} value={comp.ajustEtat} onChange={(v) => updateComp(i, "ajustEtat", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
                     <AdjustmentGuidePanel critere="etat" currentValue={comp.ajustEtat} onApply={(v) => updateComp(i, "ajustEtat", v)} />
                   </div>
 
                   {/* Étage */}
                   <div className="flex gap-2">
-                    <InputField label="Étage / Vue" value={comp.ajustEtage} onChange={(v) => updateComp(i, "ajustEtage", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <InputField label={t("etageVue")} value={comp.ajustEtage} onChange={(v) => updateComp(i, "ajustEtage", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
                     <AdjustmentGuidePanel critere="etage" currentValue={comp.ajustEtage} onApply={(v) => updateComp(i, "ajustEtage", v)} />
                   </div>
 
                   {/* Extérieur */}
                   <div className="flex gap-2">
-                    <InputField label="Extérieur" value={comp.ajustExterieur} onChange={(v) => updateComp(i, "ajustExterieur", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <InputField label={t("exterieur")} value={comp.ajustExterieur} onChange={(v) => updateComp(i, "ajustExterieur", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
                     <AdjustmentGuidePanel critere="exterieur" currentValue={comp.ajustExterieur} onApply={(v) => updateComp(i, "ajustExterieur", v)} />
                   </div>
 
                   {/* Parking */}
                   <div className="flex gap-2">
-                    <InputField label="Parking" value={comp.ajustParking} onChange={(v) => updateComp(i, "ajustParking", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <InputField label={t("parking")} value={comp.ajustParking} onChange={(v) => updateComp(i, "ajustParking", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
                     <AdjustmentGuidePanel critere="parking" currentValue={comp.ajustParking} onApply={(v) => updateComp(i, "ajustParking", v)} />
                   </div>
 
                   {/* Date — avec auto-calcul STATEC */}
                   <div className="flex gap-2">
-                    <InputField label="Date (index.)" value={comp.ajustDate} onChange={(v) => updateComp(i, "ajustDate", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
+                    <InputField label={t("dateIndex")} value={comp.ajustDate} onChange={(v) => updateComp(i, "ajustDate", v)} suffix="%" step={0.5} className="w-28 shrink-0" />
                     <AdjustmentGuidePanel critere="date" currentValue={comp.ajustDate} onApply={(v) => updateComp(i, "ajustDate", v)} dateVente={comp.dateVente} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                  <InputField label="Autre ajustement" value={comp.ajustAutre} onChange={(v) => updateComp(i, "ajustAutre", v)} suffix="%" step={0.5} hint="Libre — justifier" />
-                  <InputField label="Poids" value={comp.poids} onChange={(v) => updateComp(i, "poids", v)} suffix="%" min={0} max={100} hint="Pondération dans la moyenne" />
+                  <InputField label={t("autreAjustement")} value={comp.ajustAutre} onChange={(v) => updateComp(i, "ajustAutre", v)} suffix="%" step={0.5} hint={t("autreAjustementHint")} />
+                  <InputField label={t("poids")} value={comp.poids} onChange={(v) => updateComp(i, "poids", v)} suffix="%" min={0} max={100} hint={t("poidsHint")} />
                 </div>
               </div>
             </div>
@@ -416,7 +407,7 @@ function TabComparaison({
 
       {!selectedCommune && comparables.length === 0 && (
         <div className="rounded-xl border-2 border-dashed border-card-border py-12 text-center">
-          <p className="text-sm text-muted">Sélectionnez une commune ci-dessus pour commencer l'évaluation</p>
+          <p className="text-sm text-muted">{t("selectCommuneStart")}</p>
         </div>
       )}
 
@@ -427,17 +418,17 @@ function TabComparaison({
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-card-border bg-background">
-                  <th className="px-3 py-2.5 text-left font-semibold text-navy">Comp.</th>
-                  <th className="px-3 py-2.5 text-right font-semibold text-navy">€/m² brut</th>
-                  <th className="px-3 py-2.5 text-right font-semibold text-navy">Ajust. total</th>
-                  <th className="px-3 py-2.5 text-right font-semibold text-navy">€/m² ajusté</th>
-                  <th className="px-3 py-2.5 text-right font-semibold text-navy">Poids</th>
+                  <th className="px-3 py-2.5 text-left font-semibold text-navy">{t("thComp")}</th>
+                  <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("thEurM2Brut")}</th>
+                  <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("thAjustTotal")}</th>
+                  <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("thEurM2Ajuste")}</th>
+                  <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("poids")}</th>
                 </tr>
               </thead>
               <tbody>
                 {result.comparables.map((c, i) => (
                   <tr key={c.id} className="border-b border-card-border/50">
-                    <td className="px-3 py-2 font-medium">{c.adresse || `Comp. ${i + 1}`}</td>
+                    <td className="px-3 py-2 font-medium">{c.adresse || `${t("thComp")} ${i + 1}`}</td>
                     <td className="px-3 py-2 text-right font-mono">{formatEUR(c.prixM2Brut)}</td>
                     <td className="px-3 py-2 text-right font-mono text-muted">{c.totalAjustements > 0 ? "+" : ""}{c.totalAjustements.toFixed(1)}%</td>
                     <td className="px-3 py-2 text-right font-mono font-semibold">{formatEUR(c.prixM2Ajuste)}</td>
@@ -449,12 +440,12 @@ function TabComparaison({
           </div>
 
           <ResultPanel
-            title="Valeur par comparaison"
+            title={t("valeurParComparaison")}
             lines={[
-              { label: "Prix moyen ajusté /m²", value: formatEUR(result.prixM2Moyen), sub: true },
-              { label: "Prix moyen pondéré /m²", value: formatEUR(result.prixM2MoyenPondere) },
-              { label: "Surface du bien", value: `${surfaceBien} m²`, sub: true },
-              { label: "Valeur estimée (pondérée)", value: formatEUR(result.valeurEstimeePonderee), highlight: true, large: true },
+              { label: t("prixMoyenAjusteM2"), value: formatEUR(result.prixM2Moyen), sub: true },
+              { label: t("prixMoyenPondereM2"), value: formatEUR(result.prixM2MoyenPondere) },
+              { label: t("surfaceDuBien"), value: `${surfaceBien} m²`, sub: true },
+              { label: t("valeurEstimeePonderee"), value: formatEUR(result.valeurEstimeePonderee), highlight: true, large: true },
             ]}
           />
         </>
@@ -468,6 +459,7 @@ function TabComparaison({
 // ============================================================
 
 function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
+  const t = useTranslations("valorisation");
   const [loyerBrut, setLoyerBrut] = useState(36000);
   const [chargesNonRecup, setChargesNonRecup] = useState(1800);
   const [tauxVacance, setTauxVacance] = useState(5);
@@ -498,51 +490,48 @@ function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Revenus</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("capRevenus")}</h2>
           <div className="space-y-4">
-            <InputField label="Loyer brut annuel" value={loyerBrut} onChange={(v) => setLoyerBrut(Number(v))} suffix="€" hint={`${formatEUR2(loyerBrut / 12)} /mois`} />
-            <InputField label="Taux de vacance" value={tauxVacance} onChange={(v) => setTauxVacance(Number(v))} suffix="%" step={0.5} hint="Configurable — dépend du marché local et du type de bien" />
+            <InputField label={t("loyerBrutAnnuel")} value={loyerBrut} onChange={(v) => setLoyerBrut(Number(v))} suffix="€" hint={`${formatEUR2(loyerBrut / 12)} /${t("suffixMois")}`} />
+            <InputField label={t("tauxDeVacance")} value={tauxVacance} onChange={(v) => setTauxVacance(Number(v))} suffix="%" step={0.5} hint={t("tauxVacanceHint")} />
           </div>
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Charges propriétaire</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("capChargesProprietaire")}</h2>
           <div className="space-y-4">
-            <InputField label="Charges non récupérables" value={chargesNonRecup} onChange={(v) => setChargesNonRecup(Number(v))} suffix="€/an" />
-            <InputField label="Provision gros entretien" value={provisionEntretien} onChange={(v) => setProvisionEntretien(Number(v))} suffix="% loyer" step={0.5} />
-            <InputField label="Assurance PNO" value={assurancePNO} onChange={(v) => setAssurancePNO(Number(v))} suffix="€/an" />
-            <InputField label="Frais de gestion" value={fraisGestion} onChange={(v) => setFraisGestion(Number(v))} suffix="% loyer" step={0.5} />
-            <InputField label="Impôt foncier" value={taxeFonciere} onChange={(v) => setTaxeFonciere(Number(v))} suffix="€/an" hint="Très faible au Luxembourg vs France" />
+            <InputField label={t("chargesNonRecup")} value={chargesNonRecup} onChange={(v) => setChargesNonRecup(Number(v))} suffix={t("suffixEurAn")} />
+            <InputField label={t("provisionEntretien")} value={provisionEntretien} onChange={(v) => setProvisionEntretien(Number(v))} suffix={t("suffixPctLoyer")} step={0.5} />
+            <InputField label={t("assurancePNO")} value={assurancePNO} onChange={(v) => setAssurancePNO(Number(v))} suffix={t("suffixEurAn")} />
+            <InputField label={t("fraisGestion")} value={fraisGestion} onChange={(v) => setFraisGestion(Number(v))} suffix={t("suffixPctLoyer")} step={0.5} />
+            <InputField label={t("impotFoncier")} value={taxeFonciere} onChange={(v) => setTaxeFonciere(Number(v))} suffix={t("suffixEurAn")} hint={t("impotFoncierHint")} />
           </div>
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Valeur locative de marché (optionnel)</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("capERVTitle")}</h2>
           <InputField
-            label="Loyer de marché annuel (ERV)"
+            label={t("loyerMarcheERV")}
             value={ervAnnuel}
             onChange={(v) => setErvAnnuel(Number(v))}
             suffix="€"
-            hint="Si différent du loyer en place — permet de calculer le rendement réversionnaire et le potentiel de réversion"
+            hint={t("loyerMarcheERVHint")}
           />
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Taux de capitalisation</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("capTauxCap")}</h2>
           <InputField
-            label="Taux de capitalisation"
+            label={t("tauxDeCapitalisation")}
             value={tauxCap}
             onChange={(v) => setTauxCap(Number(v))}
             suffix="%"
             step={0.1}
-            hint="Configurable — paramètre subjectif, dépend du marché, de la localisation et du risque"
+            hint={t("tauxCapHint")}
           />
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs text-amber-800 leading-relaxed">
-              <strong>Taux de capitalisation :</strong> Pas de valeur universelle. Au Luxembourg, les taux
-              résidentiels se situent entre 3% (prime, Luxembourg-Ville) et 5,5% (secondaire, nord).
-              Le choix du taux impacte fortement la valeur — un écart de 0,5% peut représenter
-              +15% de valeur. Justifier systématiquement.
+              {t("capTauxCapNote")}
             </p>
           </div>
         </div>
@@ -550,41 +539,41 @@ function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
 
       <div className="space-y-6">
         <ResultPanel
-          title="Résultat net d'exploitation (NOI)"
+          title={t("capResultNOI")}
           lines={[
-            { label: "Loyer brut annuel", value: formatEUR(loyerBrut) },
-            { label: `Vacance (${tauxVacance}%)`, value: `- ${formatEUR(loyerBrut * tauxVacance / 100)}`, sub: true },
-            { label: "Loyer brut effectif", value: formatEUR(result.loyerBrutEffectif) },
-            { label: "Charges propriétaire", value: `- ${formatEUR(result.totalCharges)}` },
-            { label: "Résultat net d'exploitation", value: formatEUR(result.noi), highlight: true, large: true },
+            { label: t("loyerBrutAnnuel"), value: formatEUR(loyerBrut) },
+            { label: t("capVacanceLine", { pct: tauxVacance }), value: `- ${formatEUR(loyerBrut * tauxVacance / 100)}`, sub: true },
+            { label: t("capLoyerBrutEffectif"), value: formatEUR(result.loyerBrutEffectif) },
+            { label: t("capChargesProprietaireLine"), value: `- ${formatEUR(result.totalCharges)}` },
+            { label: t("capNOI"), value: formatEUR(result.noi), highlight: true, large: true },
           ]}
         />
 
         <ResultPanel
-          title="Valeur par capitalisation"
+          title={t("valeurParCapitalisation")}
           className="border-gold/30"
           lines={[
-            { label: "Résultat net / Taux capitalisation", value: `${formatEUR(result.noi)} / ${tauxCap}%`, sub: true },
-            { label: "Valeur estimée", value: formatEUR(result.valeur), highlight: true, large: true },
-            { label: "Rendement initial (loyer en place)", value: formatPct(result.rendementInitial) },
-            { label: "Rendement brut", value: formatPct(result.rendementBrut), sub: true },
-            { label: "Rendement net", value: formatPct(result.rendementNet), sub: true },
+            { label: t("capNOIDivTaux", { noi: formatEUR(result.noi), taux: tauxCap }), value: `${formatEUR(result.noi)} / ${tauxCap}%`, sub: true },
+            { label: t("valeurEstimee"), value: formatEUR(result.valeur), highlight: true, large: true },
+            { label: t("rendementInitial"), value: formatPct(result.rendementInitial) },
+            { label: t("rendementBrut"), value: formatPct(result.rendementBrut), sub: true },
+            { label: t("rendementNet"), value: formatPct(result.rendementNet), sub: true },
             ...(result.rendementReversionnaire !== undefined ? [
-              { label: "Rendement réversionnaire (loyer de marché)", value: formatPct(result.rendementReversionnaire) },
-              { label: result.sousLoue ? "Sous-loué — potentiel de réversion" : "Sur-loué — risque de réversion", value: `${result.potentielReversion ? (result.potentielReversion > 0 ? "+" : "") + result.potentielReversion.toFixed(1) + "%" : "0%"}`, warning: !result.sousLoue },
+              { label: t("rendementReversionnaire"), value: formatPct(result.rendementReversionnaire) },
+              { label: result.sousLoue ? t("sousLoue") : t("surLoue"), value: `${result.potentielReversion ? (result.potentielReversion > 0 ? "+" : "") + result.potentielReversion.toFixed(1) + "%" : "0%"}`, warning: !result.sousLoue },
             ] : []),
           ]}
         />
 
         {/* Sensibilité au taux de capitalisation */}
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="mb-3 text-base font-semibold text-navy">Analyse de sensibilité — Taux de capitalisation</h3>
+          <h3 className="mb-3 text-base font-semibold text-navy">{t("capSensibiliteTauxCap")}</h3>
           <div className="space-y-1">
             {result.sensibilite.map((s) => {
               const isActive = Math.abs(s.tauxCap - tauxCap) < 0.01;
               return (
                 <div key={s.tauxCap} className={`flex justify-between py-1.5 px-2 rounded text-sm ${isActive ? "bg-navy/5 font-semibold" : ""}`}>
-                  <span className="text-muted">Taux {s.tauxCap.toFixed(2)}%</span>
+                  <span className="text-muted">{t("taux")} {s.tauxCap.toFixed(2)}%</span>
                   <span className="font-mono">{formatEUR(s.valeur)}</span>
                 </div>
               );
@@ -601,6 +590,7 @@ function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
 // ============================================================
 
 function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
+  const t = useTranslations("valorisation");
   const [loyerInitial, setLoyerInitial] = useState(36000);
   const [tauxIndex, setTauxIndex] = useState(2.0);
   const [tauxVacance, setTauxVacance] = useState(5);
@@ -632,44 +622,41 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-6">
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">Cash flows</h2>
+            <h2 className="mb-4 text-base font-semibold text-navy">{t("dcfCashFlows")}</h2>
             <div className="space-y-4">
-              <InputField label="Loyer annuel initial" value={loyerInitial} onChange={(v) => setLoyerInitial(Number(v))} suffix="€" />
-              <InputField label="Indexation annuelle" value={tauxIndex} onChange={(v) => setTauxIndex(Number(v))} suffix="%" step={0.1} hint="Configurable — croissance prévue des loyers" />
-              <InputField label="Taux de vacance" value={tauxVacance} onChange={(v) => setTauxVacance(Number(v))} suffix="%" step={0.5} />
-              <InputField label="Charges propriétaire (année 1)" value={chargesAnnuelles} onChange={(v) => setChargesAnnuelles(Number(v))} suffix="€" />
-              <InputField label="Progression annuelle charges" value={progressionCharges} onChange={(v) => setProgressionCharges(Number(v))} suffix="%" step={0.1} />
-              <InputField label="Période d'analyse" value={periodeAnalyse} onChange={(v) => setPeriodeAnalyse(Number(v))} suffix="ans" min={5} max={20} />
+              <InputField label={t("dcfLoyerInitial")} value={loyerInitial} onChange={(v) => setLoyerInitial(Number(v))} suffix="€" />
+              <InputField label={t("dcfIndexation")} value={tauxIndex} onChange={(v) => setTauxIndex(Number(v))} suffix="%" step={0.1} hint={t("dcfIndexationHint")} />
+              <InputField label={t("tauxDeVacance")} value={tauxVacance} onChange={(v) => setTauxVacance(Number(v))} suffix="%" step={0.5} />
+              <InputField label={t("dcfChargesAn1")} value={chargesAnnuelles} onChange={(v) => setChargesAnnuelles(Number(v))} suffix="€" />
+              <InputField label={t("dcfProgressionCharges")} value={progressionCharges} onChange={(v) => setProgressionCharges(Number(v))} suffix="%" step={0.1} />
+              <InputField label={t("periodeAnalyse")} value={periodeAnalyse} onChange={(v) => setPeriodeAnalyse(Number(v))} suffix={t("suffixAns")} min={5} max={20} />
             </div>
           </div>
 
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">Taux d'actualisation & sortie</h2>
+            <h2 className="mb-4 text-base font-semibold text-navy">{t("dcfTauxActuSortie")}</h2>
             <div className="space-y-4">
               <InputField
-                label="Taux d'actualisation"
+                label={t("tauxActualisation")}
                 value={tauxActu}
                 onChange={(v) => setTauxActu(Number(v))}
                 suffix="%"
                 step={0.1}
-                hint="Configurable — coût d'opportunité du capital, intègre la prime de risque"
+                hint={t("tauxActualisationHint")}
               />
               <InputField
-                label="Taux de capitalisation de sortie"
+                label={t("tauxCapSortie")}
                 value={tauxCapSortie}
                 onChange={(v) => setTauxCapSortie(Number(v))}
                 suffix="%"
                 step={0.1}
-                hint="Configurable — généralement ≥ cap rate d'entrée pour refléter le vieillissement"
+                hint={t("tauxCapSortieHint")}
               />
-              <InputField label="Frais de cession" value={fraisCession} onChange={(v) => setFraisCession(Number(v))} suffix="%" hint="Droits, notaire, agence (~7% au Luxembourg)" />
+              <InputField label={t("fraisCession")} value={fraisCession} onChange={(v) => setFraisCession(Number(v))} suffix="%" hint={t("fraisCessionHint")} />
             </div>
             <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
               <p className="text-xs text-amber-800 leading-relaxed">
-                <strong>Taux d'actualisation et taux de sortie :</strong> Ces deux paramètres sont les plus sensibles du modèle.
-                Le taux d'actualisation reflète le rendement attendu par l'investisseur (taux sans risque + prime de risque immobilier).
-                Le taux de sortie sert à estimer la valeur de revente en fin de période — il est généralement supérieur au taux de capitalisation d'entrée pour refléter le vieillissement du bien.
-                Un écart de 0,5% sur l'un ou l'autre peut modifier la valeur de 10-15%.
+                {t("dcfTauxNote")}
               </p>
             </div>
           </div>
@@ -677,28 +664,28 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
 
         <div className="space-y-6">
           <ResultPanel
-            title="Valeur DCF"
+            title={t("dcfValeurTitle")}
             className="border-gold/30"
             lines={[
-              { label: "Revenus nets actualisés (cumul)", value: formatEUR(result.totalNOIActualise) },
-              { label: `Revenu net année ${periodeAnalyse + 1} (projection)`, value: formatEUR(result.noiTerminal), sub: true },
-              { label: "Valeur de revente estimée (brute)", value: formatEUR(result.valeurTerminaleBrute), sub: true },
-              { label: `Frais de cession (${fraisCession}%)`, value: `- ${formatEUR(result.fraisCession)}`, sub: true },
-              { label: "Valeur de revente nette", value: formatEUR(result.valeurTerminaleNette), sub: true },
-              { label: "Valeur de revente actualisée", value: formatEUR(result.valeurTerminaleActualisee) },
-              { label: "Valeur DCF", value: formatEUR(result.valeurDCF), highlight: true, large: true },
-              { label: "Taux de rendement interne (TRI/IRR)", value: `${(result.irr * 100).toFixed(2)} %`, highlight: true },
+              { label: t("dcfRevenusNetsActualises"), value: formatEUR(result.totalNOIActualise) },
+              { label: t("dcfRevenuNetProjection", { annee: periodeAnalyse + 1 }), value: formatEUR(result.noiTerminal), sub: true },
+              { label: t("dcfValeurReventeBrute"), value: formatEUR(result.valeurTerminaleBrute), sub: true },
+              { label: t("dcfFraisCessionPct", { pct: fraisCession }), value: `- ${formatEUR(result.fraisCession)}`, sub: true },
+              { label: t("dcfValeurReventeNette"), value: formatEUR(result.valeurTerminaleNette), sub: true },
+              { label: t("dcfValeurReventeActualisee"), value: formatEUR(result.valeurTerminaleActualisee) },
+              { label: t("dcfValeurDCF"), value: formatEUR(result.valeurDCF), highlight: true, large: true },
+              { label: t("dcfTRI"), value: `${(result.irr * 100).toFixed(2)} %`, highlight: true },
             ]}
           />
 
           {/* Matrice de sensibilité DCF */}
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="mb-3 text-sm font-semibold text-navy">Sensibilité — Taux d'actualisation × Taux de sortie</h3>
+            <h3 className="mb-3 text-sm font-semibold text-navy">{t("dcfSensibiliteTitle")}</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
                   <tr className="border-b border-card-border">
-                    <th className="px-2 py-1.5 text-left text-navy">Actu. \ Sortie</th>
+                    <th className="px-2 py-1.5 text-left text-navy">{t("dcfActuVsSortie")}</th>
                     {[...new Set(result.sensibilite.map((s) => s.tauxCapSortie))].map((tc) => (
                       <th key={tc} className="px-2 py-1.5 text-right text-navy">{tc.toFixed(1)}%</th>
                     ))}
@@ -721,12 +708,12 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
                 </tbody>
               </table>
             </div>
-            <p className="mt-2 text-[10px] text-muted">La case en surbrillance correspond aux paramètres actuels. Variation de ±0,5%.</p>
+            <p className="mt-2 text-[10px] text-muted">{t("dcfSensibiliteNote")}</p>
           </div>
 
           {/* Proportion cash flows vs terminal */}
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="mb-3 text-sm font-semibold text-navy">Décomposition de la valeur</h3>
+            <h3 className="mb-3 text-sm font-semibold text-navy">{t("dcfDecompositionTitle")}</h3>
             <div className="flex gap-1 h-6 rounded-full overflow-hidden">
               <div
                 className="bg-navy rounded-l-full"
@@ -738,8 +725,8 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
               />
             </div>
             <div className="mt-2 flex justify-between text-xs text-muted">
-              <span>Revenus nets : {result.valeurDCF > 0 ? ((result.totalNOIActualise / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
-              <span>Valeur de revente : {result.valeurDCF > 0 ? ((result.valeurTerminaleActualisee / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
+              <span>{t("dcfRevenusNets")} : {result.valeurDCF > 0 ? ((result.totalNOIActualise / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
+              <span>{t("dcfValeurRevente")} : {result.valeurDCF > 0 ? ((result.valeurTerminaleActualisee / result.valeurDCF) * 100).toFixed(0) : 0}%</span>
             </div>
           </div>
         </div>
@@ -750,13 +737,13 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-card-border bg-background">
-              <th className="px-3 py-2.5 text-left font-semibold text-navy">Année</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">Loyer brut</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">Vacance</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">Charges</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">Revenu net</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">Facteur actu.</th>
-              <th className="px-3 py-2.5 text-right font-semibold text-navy">Revenu actualisé</th>
+              <th className="px-3 py-2.5 text-left font-semibold text-navy">{t("dcfThAnnee")}</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("dcfThLoyerBrut")}</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("dcfThVacance")}</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("dcfThCharges")}</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("dcfThRevenuNet")}</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("dcfThFacteurActu")}</th>
+              <th className="px-3 py-2.5 text-right font-semibold text-navy">{t("dcfThRevenuActualise")}</th>
             </tr>
           </thead>
           <tbody>
@@ -783,6 +770,7 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
 // ============================================================
 
 function TabTermeReversion({ onValeur }: { onValeur: (v: number) => void }) {
+  const t = useTranslations("valorisation");
   const [loyerEnPlace, setLoyerEnPlace] = useState(36000);
   const [erv, setErv] = useState(42000);
   const [dureeRestante, setDureeRestante] = useState(5);
@@ -805,38 +793,36 @@ function TabTermeReversion({ onValeur }: { onValeur: (v: number) => void }) {
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Revenus</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("capRevenus")}</h2>
           <div className="space-y-4">
-            <InputField label="Loyer en place (annuel)" value={loyerEnPlace} onChange={(v) => setLoyerEnPlace(Number(v))} suffix="€" hint="Loyer actuellement perçu" />
-            <InputField label="Valeur locative de marché — ERV (annuel)" value={erv} onChange={(v) => setErv(Number(v))} suffix="€" hint="Loyer de marché estimé au renouvellement" />
-            <InputField label="Durée restante du bail" value={dureeRestante} onChange={(v) => setDureeRestante(Number(v))} suffix="ans" min={0} max={30} />
+            <InputField label={t("trLoyerEnPlace")} value={loyerEnPlace} onChange={(v) => setLoyerEnPlace(Number(v))} suffix="€" hint={t("trLoyerEnPlaceHint")} />
+            <InputField label={t("trERV")} value={erv} onChange={(v) => setErv(Number(v))} suffix="€" hint={t("trERVHint")} />
+            <InputField label={t("trDureeRestante")} value={dureeRestante} onChange={(v) => setDureeRestante(Number(v))} suffix={t("suffixAns")} min={0} max={30} />
           </div>
         </div>
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Taux de rendement</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("trTauxRendement")}</h2>
           <div className="space-y-4">
-            <InputField label="Taux terme (loyer en place — plus sécurisé)" value={tauxTerme} onChange={(v) => setTauxTerme(Number(v))} suffix="%" step={0.1} hint="Configurable — appliqué au loyer contractuel, plus faible car revenu garanti" />
-            <InputField label="Taux réversion (ERV — plus risqué)" value={tauxReversion} onChange={(v) => setTauxReversion(Number(v))} suffix="%" step={0.1} hint="Configurable — appliqué au loyer de marché futur, plus élevé car incertain" />
+            <InputField label={t("trTauxTerme")} value={tauxTerme} onChange={(v) => setTauxTerme(Number(v))} suffix="%" step={0.1} hint={t("trTauxTermeHint")} />
+            <InputField label={t("trTauxReversion")} value={tauxReversion} onChange={(v) => setTauxReversion(Number(v))} suffix="%" step={0.1} hint={t("trTauxReversionHint")} />
           </div>
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs text-amber-800 leading-relaxed">
-              <strong>Méthode terme & réversion :</strong> Le loyer en place est capitalisé au taux terme pour la durée restante
-              du bail (revenu contractuel, plus sûr). L'ERV est capitalisé en perpétuité au taux de réversion, différé de la durée
-              restante (revenu futur, moins certain). La somme donne la valeur. Le taux terme est inférieur au taux de réversion.
+              {t("trMethodeNote")}
             </p>
           </div>
         </div>
       </div>
       <div className="space-y-6">
         <ResultPanel
-          title="Valeur par terme & réversion"
+          title={t("trResultTitle")}
           className="border-gold/30"
           lines={[
-            { label: `Terme : ${formatEUR(loyerEnPlace)} × ${result.facteurTerme.toFixed(3)} (YP ${dureeRestante} ans à ${tauxTerme}%)`, value: formatEUR(result.valeurTerme) },
-            { label: `Réversion : ${formatEUR(erv)} × ${result.facteurReversionPerp.toFixed(2)} × ${result.facteurDiffere.toFixed(4)}`, value: formatEUR(result.valeurReversion) },
-            { label: "Valeur totale", value: formatEUR(result.valeur), highlight: true, large: true },
-            { label: "Rendement équivalent", value: formatPct(result.rendementEquivalent), sub: true },
-            { label: loyerEnPlace < erv ? "Sous-loué — potentiel de réversion" : "Sur-loué — risque à l'échéance", value: `${((erv - loyerEnPlace) / loyerEnPlace * 100).toFixed(1)}%`, warning: loyerEnPlace > erv },
+            { label: t("trTermeLine", { loyer: formatEUR(loyerEnPlace), facteur: result.facteurTerme.toFixed(3), duree: dureeRestante, taux: tauxTerme }), value: formatEUR(result.valeurTerme) },
+            { label: t("trReversionLine", { erv: formatEUR(erv), facteurPerp: result.facteurReversionPerp.toFixed(2), facteurDiff: result.facteurDiffere.toFixed(4) }), value: formatEUR(result.valeurReversion) },
+            { label: t("trValeurTotale"), value: formatEUR(result.valeur), highlight: true, large: true },
+            { label: t("trRendementEquivalent"), value: formatPct(result.rendementEquivalent), sub: true },
+            { label: loyerEnPlace < erv ? t("sousLoue") : t("surLoue"), value: `${((erv - loyerEnPlace) / loyerEnPlace * 100).toFixed(1)}%`, warning: loyerEnPlace > erv },
           ]}
         />
       </div>
@@ -849,6 +835,7 @@ function TabTermeReversion({ onValeur }: { onValeur: (v: number) => void }) {
 // ============================================================
 
 function TabESG() {
+  const t = useTranslations("valorisation");
   const [classeEnergie, setClasseEnergie] = useState("D");
   const [anneeConstruction, setAnneeConstruction] = useState(1990);
   const [zoneInondable, setZoneInondable] = useState(false);
@@ -881,33 +868,33 @@ function TabESG() {
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Performance énergétique</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgPerfEnergetique")}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <InputField label="Classe énergie (CPE)" type="select" value={classeEnergie} onChange={setClasseEnergie} options={[
+            <InputField label={t("esgClasseEnergie")} type="select" value={classeEnergie} onChange={setClasseEnergie} options={[
               { value: "A", label: "A" }, { value: "B", label: "B" }, { value: "C", label: "C" },
               { value: "D", label: "D" }, { value: "E", label: "E" }, { value: "F", label: "F" }, { value: "G", label: "G" },
             ]} />
-            <InputField label="Année de construction" value={anneeConstruction} onChange={(v) => setAnneeConstruction(Number(v))} min={1800} max={2026} />
+            <InputField label={t("esgAnneeConstruction")} value={anneeConstruction} onChange={(v) => setAnneeConstruction(Number(v))} min={1800} max={2026} />
           </div>
         </div>
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Risques environnementaux</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgRisquesEnv")}</h2>
           <div className="space-y-3">
-            <ToggleField label="Zone inondable" checked={zoneInondable} onChange={setZoneInondable} />
-            <ToggleField label="Risque sécheresse (retrait-gonflement)" checked={risqueSecheresse} onChange={setRisqueSecheresse} />
-            <ToggleField label="Risque glissement de terrain" checked={risqueGlissement} onChange={setRisqueGlissement} />
-            <ToggleField label="Proximité site pollué" checked={proximitePollue} onChange={setProximitePollue} />
+            <ToggleField label={t("esgZoneInondable")} checked={zoneInondable} onChange={setZoneInondable} />
+            <ToggleField label={t("esgRisqueSecheresse")} checked={risqueSecheresse} onChange={setRisqueSecheresse} />
+            <ToggleField label={t("esgRisqueGlissement")} checked={risqueGlissement} onChange={setRisqueGlissement} />
+            <ToggleField label={t("esgProximitePollue")} checked={proximitePollue} onChange={setProximitePollue} />
           </div>
         </div>
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Équipements durables</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgEquipementsDurables")}</h2>
           <div className="space-y-3">
-            <ToggleField label="Isolation récente (< 10 ans)" checked={isolationRecente} onChange={setIsolationRecente} />
-            <ToggleField label="Panneaux solaires" checked={panneauxSolaires} onChange={setPanneauxSolaires} />
-            <ToggleField label="Pompe à chaleur" checked={pompeAChaleur} onChange={setPompeAChaleur} />
+            <ToggleField label={t("esgIsolationRecente")} checked={isolationRecente} onChange={setIsolationRecente} />
+            <ToggleField label={t("esgPanneauxSolaires")} checked={panneauxSolaires} onChange={setPanneauxSolaires} />
+            <ToggleField label={t("esgPompeAChaleur")} checked={pompeAChaleur} onChange={setPompeAChaleur} />
           </div>
           <div className="mt-4">
-            <label className="block text-sm font-medium text-slate mb-2">Certifications</label>
+            <label className="block text-sm font-medium text-slate mb-2">{t("esgCertifications")}</label>
             <div className="flex flex-wrap gap-2">
               {["BREEAM", "DGNB", "WELL", "LEED", "HQE", "Minergie"].map((cert) => (
                 <button key={cert} onClick={() => setCertifications((prev) => prev.includes(cert) ? prev.filter((c) => c !== cert) : [...prev, cert])}
@@ -922,16 +909,16 @@ function TabESG() {
       <div className="space-y-6">
         {/* Score ESG */}
         <div className="rounded-2xl border border-card-border bg-card p-8 text-center shadow-sm">
-          <div className="text-sm text-muted">Score ESG</div>
+          <div className="text-sm text-muted">{t("esgScoreESG")}</div>
           <div className={`text-5xl font-bold mt-2 ${scoreColor}`}>{result.score}/100</div>
-          <div className={`mt-2 text-lg font-semibold ${scoreColor}`}>Niveau {result.niveau} — {result.niveauLabel}</div>
+          <div className={`mt-2 text-lg font-semibold ${scoreColor}`}>{t("esgNiveau")} {result.niveau} — {result.niveauLabel}</div>
           <div className="mt-3 text-sm font-medium">
-            Impact estimé sur la valeur : <span className={result.impactValeur >= 0 ? "text-success" : "text-error"}>{result.impactValeur > 0 ? "+" : ""}{result.impactValeur}%</span>
+            {t("esgImpactEstime")} : <span className={result.impactValeur >= 0 ? "text-success" : "text-error"}>{result.impactValeur > 0 ? "+" : ""}{result.impactValeur}%</span>
           </div>
         </div>
         {/* Risques */}
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-3">Risques identifiés</h3>
+          <h3 className="text-base font-semibold text-navy mb-3">{t("esgRisquesIdentifies")}</h3>
           <div className="space-y-2">
             {result.risques.map((r, i) => (
               <div key={i} className="flex items-center gap-2 text-sm">
@@ -945,7 +932,7 @@ function TabESG() {
         </div>
         {result.opportunites.length > 0 && (
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-base font-semibold text-navy mb-3">Points positifs</h3>
+            <h3 className="text-base font-semibold text-navy mb-3">{t("esgPointsPositifs")}</h3>
             <ul className="space-y-1 text-sm text-slate">
               {result.opportunites.map((o, i) => <li key={i}>+ {o}</li>)}
             </ul>
@@ -953,7 +940,7 @@ function TabESG() {
         )}
         {result.recommandations.length > 0 && (
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-base font-semibold text-navy mb-3">Recommandations</h3>
+            <h3 className="text-base font-semibold text-navy mb-3">{t("esgRecommandations")}</h3>
             <ul className="space-y-1 text-sm text-slate">
               {result.recommandations.map((r, i) => <li key={i}>{r}</li>)}
             </ul>
@@ -961,10 +948,7 @@ function TabESG() {
         )}
         <div className="rounded-lg bg-navy/5 border border-navy/10 p-3">
           <p className="text-xs text-slate leading-relaxed">
-            <strong>EVS 2025 / Red Book 2025 :</strong> Les facteurs ESG doivent être pris en compte dans toute évaluation.
-            Le score ESG influence la valeur via la prime verte (green premium) pour les biens performants et la décote brune
-            (brown discount) pour les passoires énergétiques. Conformément à l'article 208 des orientations EBA, les facteurs
-            environnementaux doivent être intégrés dans l'évaluation des collatéraux immobiliers.
+            {t("esgEVSNote")}
           </p>
         </div>
       </div>
@@ -977,6 +961,7 @@ function TabESG() {
 // ============================================================
 
 function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: number; surfaceBien: number }) {
+  const t = useTranslations("valorisation");
   const [classeActuelle, setClasseActuelle] = useState("E");
   const [classeCible, setClasseCible] = useState("B");
   const [anneeConstruction, setAnneeConstruction] = useState(1985);
@@ -986,6 +971,23 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
   const [fraisFinancement, setFraisFinancement] = useState(3000);
   const [margePrudentielle, setMargePrudentielle] = useState(10);
   const [aidesPrevues, setAidesPrevues] = useState(40000);
+
+  const energyClassOptions = [
+    { value: "A", label: t("classeA") },
+    { value: "B", label: t("classeB") },
+    { value: "C", label: t("classeC") },
+    { value: "D", label: t("classeD") },
+    { value: "E", label: t("classeE") },
+    { value: "F", label: t("classeF") },
+    { value: "G", label: t("classeG") },
+  ];
+
+  const targetClassOptions = [
+    { value: "A", label: t("classeA") },
+    { value: "B", label: t("classeB") },
+    { value: "C", label: t("classeC") },
+    { value: "D", label: t("classeD") },
+  ];
 
   const result = useMemo(
     () =>
@@ -1006,58 +1008,45 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Performance énergétique</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgPerfEnergetique")}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <InputField
-              label="Classe actuelle"
+              label={t("enClasseActuelle")}
               type="select"
               value={classeActuelle}
               onChange={setClasseActuelle}
-              options={[
-                { value: "A", label: "A — Très performant" },
-                { value: "B", label: "B — Performant" },
-                { value: "C", label: "C — Assez performant" },
-                { value: "D", label: "D — Moyen" },
-                { value: "E", label: "E — Peu performant" },
-                { value: "F", label: "F — Très peu performant" },
-                { value: "G", label: "G — Extrêmement peu performant" },
-              ]}
+              options={energyClassOptions}
             />
             <InputField
-              label="Classe cible après rénovation"
+              label={t("enClasseCible")}
               type="select"
               value={classeCible}
               onChange={setClasseCible}
-              options={[
-                { value: "A", label: "A — Très performant" },
-                { value: "B", label: "B — Performant" },
-                { value: "C", label: "C — Assez performant" },
-                { value: "D", label: "D — Moyen" },
-              ]}
+              options={targetClassOptions}
             />
           </div>
           <InputField
-            label="Année de construction"
+            label={t("esgAnneeConstruction")}
             value={anneeConstruction}
             onChange={(v) => setAnneeConstruction(Number(v))}
             min={1800}
             max={2026}
             className="mt-4"
-            hint="Pour estimer la complexité de la rénovation"
+            hint={t("enAnneeConstructionHint")}
           />
           <InputField
-            label="Valeur estimée après rénovation"
+            label={t("enValeurApresRenovation")}
             value={valeurApres}
             onChange={(v) => setValeurApres(Number(v))}
             suffix="€"
             className="mt-4"
-            hint="Valeur de marché si le bien était à la classe cible"
+            hint={t("enValeurApresHint")}
           />
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base font-semibold text-navy">Coûts de rénovation</h2>
+            <h2 className="text-base font-semibold text-navy">{t("enCoutsRenovation")}</h2>
             <button
               onClick={() => {
                 const est = estimerCoutsRenovation(classeActuelle, classeCible, surfaceBien, anneeConstruction);
@@ -1068,7 +1057,7 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
               }}
               className="rounded-lg bg-gold px-3 py-1.5 text-xs font-medium text-navy-dark hover:bg-gold-light transition-colors"
             >
-              Estimer automatiquement
+              {t("enEstimerAuto")}
             </button>
           </div>
 
@@ -1078,7 +1067,7 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
             if (est.postes.length === 0) return null;
             return (
               <div className="mb-4 rounded-lg bg-background border border-card-border p-3">
-                <div className="text-xs font-semibold text-navy mb-2">Estimation automatique ({classeActuelle} → {classeCible}, {surfaceBien} m², {anneeConstruction})</div>
+                <div className="text-xs font-semibold text-navy mb-2">{t("enEstimationAutoTitle", { classeActuelle, classeCible, surface: surfaceBien, annee: anneeConstruction })}</div>
                 <div className="space-y-1">
                   {est.postes.map((p) => (
                     <div key={p.label} className="flex justify-between text-xs">
@@ -1087,46 +1076,46 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
                     </div>
                   ))}
                   <div className="flex justify-between text-xs font-semibold border-t border-card-border pt-1 mt-1">
-                    <span>Total travaux (fourchette)</span>
+                    <span>{t("enTotalTravauxFourchette")}</span>
                     <span className="font-mono">{formatEUR(est.totalMin)} – {formatEUR(est.totalMax)}</span>
                   </div>
                   <div className="flex justify-between text-xs text-muted">
-                    <span>+ Honoraires (~10%)</span>
+                    <span>{t("enHonoraires10pct")}</span>
                     <span className="font-mono">{formatEUR(est.honoraires)}</span>
                   </div>
                   <div className="flex justify-between text-xs text-muted">
-                    <span>Durée estimée</span>
-                    <span>{est.dureeEstimeeMois} mois</span>
+                    <span>{t("enDureeEstimee")}</span>
+                    <span>{est.dureeEstimeeMois} {t("suffixMois")}</span>
                   </div>
                 </div>
-                <p className="mt-2 text-[10px] text-muted">Fourchettes indicatives — marché luxembourgeois. Cliquez "Estimer automatiquement" pour pré-remplir les champs.</p>
+                <p className="mt-2 text-[10px] text-muted">{t("enFourchetteNote")}</p>
               </div>
             );
           })()}
 
           <div className="space-y-4">
-            <InputField label="Travaux de rénovation énergétique" value={coutTravaux} onChange={(v) => setCoutTravaux(Number(v))} suffix="€" hint="Isolation, menuiseries, chauffage, ventilation..." />
-            <InputField label="Honoraires et études" value={honoraires} onChange={(v) => setHonoraires(Number(v))} suffix="€" hint="Audit énergétique, maîtrise d'œuvre, bureau d'études" />
-            <InputField label="Frais de financement" value={fraisFinancement} onChange={(v) => setFraisFinancement(Number(v))} suffix="€" hint="Intérêts intercalaires si financement" />
+            <InputField label={t("enTravauxRenovation")} value={coutTravaux} onChange={(v) => setCoutTravaux(Number(v))} suffix="€" hint={t("enTravauxHint")} />
+            <InputField label={t("enHonorairesEtudes")} value={honoraires} onChange={(v) => setHonoraires(Number(v))} suffix="€" hint={t("enHonorairesHint")} />
+            <InputField label={t("enFraisFinancement")} value={fraisFinancement} onChange={(v) => setFraisFinancement(Number(v))} suffix="€" hint={t("enFraisFinancementHint")} />
             <InputField
-              label="Marge prudentielle (aléas)"
+              label={t("enMargePrudentielle")}
               value={margePrudentielle}
               onChange={(v) => setMargePrudentielle(Number(v))}
               suffix="%"
               step={1}
-              hint="Configurable — aléas chantier, surprises techniques. Typiquement 5-15%."
+              hint={t("enMargePrudentielleHint")}
             />
           </div>
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Aides prévues</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("enAidesPrevues")}</h2>
           <InputField
-            label="Total des aides estimées"
+            label={t("enTotalAides")}
             value={aidesPrevues}
             onChange={(v) => setAidesPrevues(Number(v))}
             suffix="€"
-            hint="Klimabonus, Topup, Enoprimes, aides communales — utiliser le simulateur d'aides"
+            hint={t("enTotalAidesHint")}
           />
         </div>
       </div>
@@ -1134,7 +1123,7 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
       <div className="space-y-6">
         {/* Diagramme visuel classe énergétique */}
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="mb-3 text-sm font-semibold text-navy">Transition énergétique</h3>
+          <h3 className="mb-3 text-sm font-semibold text-navy">{t("enTransitionEnergetique")}</h3>
           <div className="flex items-center justify-center gap-4">
             <div className="text-center">
               <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-xl text-2xl font-bold text-white ${
@@ -1142,7 +1131,7 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
               }`}>
                 {classeActuelle}
               </div>
-              <div className="mt-1 text-xs text-muted">Actuelle</div>
+              <div className="mt-1 text-xs text-muted">{t("enActuelle")}</div>
             </div>
             <svg className="h-6 w-6 text-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -1153,41 +1142,37 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
               }`}>
                 {classeCible}
               </div>
-              <div className="mt-1 text-xs text-muted">Cible</div>
+              <div className="mt-1 text-xs text-muted">{t("enCible")}</div>
             </div>
           </div>
         </div>
 
         <ResultPanel
-          title="Approche résiduelle énergétique"
+          title={t("enResultTitle")}
           className="border-gold/30"
           lines={[
-            { label: `Valeur après rénovation (classe ${classeCible})`, value: formatEUR(result.valeurApresRenovation) },
-            { label: "Travaux + honoraires + financement", value: `- ${formatEUR(result.coutTotalBrut)}`, sub: true },
-            { label: `Marge prudentielle (${margePrudentielle}%)`, value: `- ${formatEUR(result.margePrudentielleMontant)}`, sub: true },
-            { label: "Coût total brut avec marge", value: `- ${formatEUR(result.coutTotalAvecMarge)}` },
-            { label: "Aides prévues", value: `+ ${formatEUR(result.aidesDeduites)}` },
-            { label: "Coût net après aides", value: `- ${formatEUR(result.coutNetApresAides)}` },
-            { label: "Valeur résiduelle (état actuel)", value: formatEUR(result.valeurResiduelle), highlight: true, large: true },
-            { label: "Décote énergétique", value: `${formatEUR(result.decoteEnergetique)} (${result.decoteEnergetiquePct.toFixed(1)}%)`, warning: result.decoteEnergetiquePct > 15 },
+            { label: t("enValeurApresClasse", { classe: classeCible }), value: formatEUR(result.valeurApresRenovation) },
+            { label: t("enTravauxHonoFinancement"), value: `- ${formatEUR(result.coutTotalBrut)}`, sub: true },
+            { label: t("enMargePrudentiellePct", { pct: margePrudentielle }), value: `- ${formatEUR(result.margePrudentielleMontant)}`, sub: true },
+            { label: t("enCoutTotalBrutMarge"), value: `- ${formatEUR(result.coutTotalAvecMarge)}` },
+            { label: t("enAidesPrevuesLine"), value: `+ ${formatEUR(result.aidesDeduites)}` },
+            { label: t("enCoutNetApresAides"), value: `- ${formatEUR(result.coutNetApresAides)}` },
+            { label: t("enValeurResiduelle"), value: formatEUR(result.valeurResiduelle), highlight: true, large: true },
+            { label: t("enDecoteEnergetique"), value: `${formatEUR(result.decoteEnergetique)} (${result.decoteEnergetiquePct.toFixed(1)}%)`, warning: result.decoteEnergetiquePct > 15 },
           ]}
         />
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="mb-3 text-base font-semibold text-navy">Méthode EVS 2025</h3>
+          <h3 className="mb-3 text-base font-semibold text-navy">{t("enMethodeEVSTitle")}</h3>
           <div className="space-y-2 text-sm text-muted leading-relaxed">
             <p>
-              <strong className="text-slate">Principe :</strong> La valeur actuelle du bien se déduit de sa valeur
-              hypothétique une fois rénové, diminuée des coûts nécessaires pour atteindre la performance cible.
+              <strong className="text-slate">{t("enPrincipe")} :</strong> {t("enPrincipeText")}
             </p>
             <p>
-              <strong className="text-slate">Valeur résiduelle</strong> = Valeur après rénovation − (Coûts travaux + Honoraires
-              + Financement + Marge aléas) + Aides publiques
+              <strong className="text-slate">{t("enValeurResiduelle")}</strong> = {t("enFormule")}
             </p>
             <p>
-              <strong className="text-slate">Art. 208 EBA :</strong> Les facteurs ESG, notamment la performance
-              énergétique, doivent être intégrés dans l'évaluation du collatéral. La décote énergétique
-              reflète le coût de mise en conformité que l'acquéreur devra supporter.
+              <strong className="text-slate">{t("enArt208EBA")} :</strong> {t("enArt208EBAText")}
             </p>
           </div>
         </div>
@@ -1201,6 +1186,7 @@ function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: num
 // ============================================================
 
 function TabMLV({ valeurMarche }: { valeurMarche: number }) {
+  const t = useTranslations("valorisation");
   const [decoteConj, setDecoteConj] = useState(5);
   const [decoteComm, setDecoteComm] = useState(3);
   const [decoteSpec, setDecoteSpec] = useState(2);
@@ -1220,49 +1206,45 @@ function TabMLV({ valeurMarche }: { valeurMarche: number }) {
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Valeur de marché</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("mlvValeurMarche")}</h2>
           <div className="text-center py-4">
-            <div className="text-sm text-muted">Valeur de marché (EVS1)</div>
+            <div className="text-sm text-muted">{t("mlvValeurMarcheEVS1")}</div>
             <div className="text-3xl font-bold text-navy mt-1">{formatEUR(valeurMarche)}</div>
-            <p className="text-xs text-muted mt-2">Issue de la réconciliation ou saisie directe</p>
+            <p className="text-xs text-muted mt-2">{t("mlvIssueReconciliation")}</p>
           </div>
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">Décotes prudentielles (marge de sécurité bancaire)</h2>
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("mlvDecotesPrudentielles")}</h2>
           <div className="space-y-4">
             <InputField
-              label="Décote conjoncturelle"
+              label={t("mlvDecoteConjoncturelle")}
               value={decoteConj}
               onChange={(v) => setDecoteConj(Number(v))}
               suffix="%"
               step={0.5}
-              hint="Configurable — marge de prudence par rapport aux conditions de marché actuelles (exclure les éléments spéculatifs)"
+              hint={t("mlvDecoteConjHint")}
             />
             <InputField
-              label="Décote commercialisation"
+              label={t("mlvDecoteCommercialisation")}
               value={decoteComm}
               onChange={(v) => setDecoteComm(Number(v))}
               suffix="%"
               step={0.5}
-              hint="Configurable — risque de liquidité / délai de vente"
+              hint={t("mlvDecoteCommHint")}
             />
             <InputField
-              label="Décote spécifique"
+              label={t("mlvDecoteSpecifique")}
               value={decoteSpec}
               onChange={(v) => setDecoteSpec(Number(v))}
               suffix="%"
               step={0.5}
-              hint="Configurable — risques propres au bien (état, localisation secondaire, etc.)"
+              hint={t("mlvDecoteSpecHint")}
             />
           </div>
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs text-amber-800 leading-relaxed">
-              <strong>Valeur hypothécaire (Règlement CRR Art. 229 / Norme EVS3) :</strong> La valeur hypothécaire est la valeur
-              que la banque retient comme garantie du prêt. Elle doit refléter la valeur soutenable à long terme, en excluant
-              les éléments spéculatifs et les conditions de marché exceptionnelles.
-              L'évaluateur doit documenter et justifier chaque décote. Il n'existe pas de taux réglementaire fixe — les décotes
-              sont des jugements professionnels.
+              {t("mlvCRRNote")}
             </p>
           </div>
         </div>
@@ -1270,31 +1252,31 @@ function TabMLV({ valeurMarche }: { valeurMarche: number }) {
 
       <div className="space-y-6">
         <ResultPanel
-          title="Valeur hypothécaire (Mortgage Lending Value)"
+          title={t("mlvResultTitle")}
           className="border-gold/30"
           lines={[
-            { label: "Valeur de marché (MV)", value: formatEUR(result.valeurMarche) },
-            { label: `Décote conjoncturelle (${decoteConj}%)`, value: `- ${formatEUR(result.valeurMarche * decoteConj / 100)}`, sub: true },
-            { label: `Décote commercialisation (${decoteComm}%)`, value: `- ${formatEUR(result.valeurMarche * decoteComm / 100)}`, sub: true },
-            { label: `Décote spécifique (${decoteSpec}%)`, value: `- ${formatEUR(result.valeurMarche * decoteSpec / 100)}`, sub: true },
-            { label: "Total décotes", value: `- ${formatEUR(result.totalDecotes)} (${result.totalDecotesPct.toFixed(1)}%)` },
+            { label: t("mlvValeurMarcheMV"), value: formatEUR(result.valeurMarche) },
+            { label: t("mlvDecoteConjLine", { pct: decoteConj }), value: `- ${formatEUR(result.valeurMarche * decoteConj / 100)}`, sub: true },
+            { label: t("mlvDecoteCommLine", { pct: decoteComm }), value: `- ${formatEUR(result.valeurMarche * decoteComm / 100)}`, sub: true },
+            { label: t("mlvDecoteSpecLine", { pct: decoteSpec }), value: `- ${formatEUR(result.valeurMarche * decoteSpec / 100)}`, sub: true },
+            { label: t("mlvTotalDecotes"), value: `- ${formatEUR(result.totalDecotes)} (${result.totalDecotesPct.toFixed(1)}%)` },
             { label: "MLV", value: formatEUR(result.mlv), highlight: true, large: true },
-            { label: "Ratio valeur hypothécaire / valeur de marché", value: `${(result.ratioMLVsurMV * 100).toFixed(1)}%`, sub: true },
+            { label: t("mlvRatioMLVMV"), value: `${(result.ratioMLVsurMV * 100).toFixed(1)}%`, sub: true },
           ]}
         />
 
         {/* CRR Risk Weight bands */}
         <div className="rounded-xl border border-card-border bg-card shadow-sm">
           <div className="px-6 pt-5 pb-3">
-            <h3 className="text-base font-semibold text-navy">Pondérations CRR2 — Art. 125 (résidentiel)</h3>
-            <p className="text-xs text-muted mt-1">Montants maximaux de prêt par bande de LTV, basés sur la MLV</p>
+            <h3 className="text-base font-semibold text-navy">{t("mlvCRR2Title")}</h3>
+            <p className="text-xs text-muted mt-1">{t("mlvCRR2Subtitle")}</p>
           </div>
           <table className="w-full text-sm">
             <thead>
               <tr className="border-y border-card-border bg-background">
-                <th className="px-4 py-2 text-left font-semibold text-navy">Bande LTV</th>
-                <th className="px-4 py-2 text-right font-semibold text-navy">Risk Weight</th>
-                <th className="px-4 py-2 text-right font-semibold text-navy">Prêt max</th>
+                <th className="px-4 py-2 text-left font-semibold text-navy">{t("mlvThBandeLTV")}</th>
+                <th className="px-4 py-2 text-right font-semibold text-navy">{t("mlvThRiskWeight")}</th>
+                <th className="px-4 py-2 text-right font-semibold text-navy">{t("mlvThPretMax")}</th>
               </tr>
             </thead>
             <tbody>
@@ -1334,6 +1316,7 @@ function TabReconciliation({
   evsInfo: { label: string };
   surfaceBien: number;
 }) {
+  const t = useTranslations("valorisation");
   const [poidsComp, setPoidsComp] = useState(50);
   const [poidsCap, setPoidsCap] = useState(25);
   const [poidsDCF, setPoidsDCF] = useState(25);
@@ -1363,57 +1346,57 @@ function TabReconciliation({
         {/* Pondérations */}
         <div className="space-y-6">
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">Valeurs par méthode et pondération</h2>
+            <h2 className="mb-4 text-base font-semibold text-navy">{t("recValeursMethodePonderation")}</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between rounded-lg bg-background p-3">
                 <div>
-                  <div className="text-sm font-medium text-slate">Comparaison</div>
+                  <div className="text-sm font-medium text-slate">{t("tabComparaison")}</div>
                   <div className="text-lg font-bold text-navy">{valeurComparaison ? formatEUR(valeurComparaison) : "—"}</div>
                 </div>
-                <InputField label="Poids" value={poidsComp} onChange={(v) => setPoidsComp(Number(v))} suffix="%" min={0} max={100} className="w-24" />
+                <InputField label={t("poids")} value={poidsComp} onChange={(v) => setPoidsComp(Number(v))} suffix="%" min={0} max={100} className="w-24" />
               </div>
               <div className="flex items-center justify-between rounded-lg bg-background p-3">
                 <div>
-                  <div className="text-sm font-medium text-slate">Capitalisation</div>
+                  <div className="text-sm font-medium text-slate">{t("tabCapitalisation")}</div>
                   <div className="text-lg font-bold text-navy">{valeurCapitalisation ? formatEUR(valeurCapitalisation) : "—"}</div>
                 </div>
-                <InputField label="Poids" value={poidsCap} onChange={(v) => setPoidsCap(Number(v))} suffix="%" min={0} max={100} className="w-24" />
+                <InputField label={t("poids")} value={poidsCap} onChange={(v) => setPoidsCap(Number(v))} suffix="%" min={0} max={100} className="w-24" />
               </div>
               <div className="flex items-center justify-between rounded-lg bg-background p-3">
                 <div>
                   <div className="text-sm font-medium text-slate">DCF</div>
                   <div className="text-lg font-bold text-navy">{valeurDCF ? formatEUR(valeurDCF) : "—"}</div>
                 </div>
-                <InputField label="Poids" value={poidsDCF} onChange={(v) => setPoidsDCF(Number(v))} suffix="%" min={0} max={100} className="w-24" />
+                <InputField label={t("poids")} value={poidsDCF} onChange={(v) => setPoidsDCF(Number(v))} suffix="%" min={0} max={100} className="w-24" />
               </div>
             </div>
           </div>
 
           {/* Paramètres scénarios */}
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">Scénarios</h2>
+            <h2 className="mb-4 text-base font-semibold text-navy">{t("recScenarios")}</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <InputField label="Scénario haut (+%)" value={scenarioHautPct} onChange={(v) => setScenarioHautPct(Number(v))} suffix="%" min={1} max={30} hint="Hypothèse optimiste" />
-              <InputField label="Scénario bas (−%)" value={scenarioBasPct} onChange={(v) => setScenarioBasPct(Number(v))} suffix="%" min={1} max={30} hint="Hypothèse prudente" />
+              <InputField label={t("recScenarioHaut")} value={scenarioHautPct} onChange={(v) => setScenarioHautPct(Number(v))} suffix="%" min={1} max={30} hint={t("recScenarioHautHint")} />
+              <InputField label={t("recScenarioBas")} value={scenarioBasPct} onChange={(v) => setScenarioBasPct(Number(v))} suffix="%" min={1} max={30} hint={t("recScenarioBasHint")} />
             </div>
-            <p className="mt-2 text-xs text-muted">Applique un ajustement uniforme sur les valeurs de chaque méthode avant réconciliation.</p>
+            <p className="mt-2 text-xs text-muted">{t("recScenarioNote")}</p>
           </div>
         </div>
 
         {/* Résultat base */}
         <div className="space-y-6">
           <div className="rounded-xl border-2 border-gold/40 bg-gradient-to-br from-card to-gold/5 p-8 shadow-sm text-center">
-            <div className="text-sm text-muted uppercase tracking-wider">Valeur de marché réconciliée</div>
+            <div className="text-sm text-muted uppercase tracking-wider">{t("recValeurReconciliee")}</div>
             <div className="mt-2 text-4xl font-bold text-navy">{formatEUR(resultBase.valeurReconciliee)}</div>
-            <div className="mt-2 text-sm text-muted">Scénario central — EVS1</div>
+            <div className="mt-2 text-sm text-muted">{t("recScenarioCentral")}</div>
           </div>
 
           <ResultPanel
-            title="Contrôle qualité"
+            title={t("recControleQualite")}
             lines={[
-              { label: "Écart max entre méthodes", value: `${resultBase.ecartMaxPct.toFixed(1)}%`, warning: resultBase.ecartMaxPct > 20 },
-              { label: "Écart-type", value: formatEUR(resultBase.ecartType), sub: true },
-              ...(resultBase.ecartMaxPct > 20 ? [{ label: "Alerte", value: "Écart > 20% — analyser les divergences", warning: true }] : []),
+              { label: t("recEcartMaxMethodes"), value: `${resultBase.ecartMaxPct.toFixed(1)}%`, warning: resultBase.ecartMaxPct > 20 },
+              { label: t("recEcartType"), value: formatEUR(resultBase.ecartType), sub: true },
+              ...(resultBase.ecartMaxPct > 20 ? [{ label: t("recAlerte"), value: t("recAlerteEcart"), warning: true }] : []),
             ]}
           />
         </div>
@@ -1425,15 +1408,15 @@ function TabReconciliation({
           <thead>
             <tr className="border-b border-card-border bg-background">
               <th className="px-4 py-3 text-left font-semibold text-navy"></th>
-              <th className="px-4 py-3 text-center font-semibold text-error">Scénario bas (−{scenarioBasPct}%)</th>
-              <th className="px-4 py-3 text-center font-semibold text-navy bg-navy/5">Scénario central</th>
-              <th className="px-4 py-3 text-center font-semibold text-success">Scénario haut (+{scenarioHautPct}%)</th>
+              <th className="px-4 py-3 text-center font-semibold text-error">{t("recScenarioBasCol", { pct: scenarioBasPct })}</th>
+              <th className="px-4 py-3 text-center font-semibold text-navy bg-navy/5">{t("recScenarioCentralCol")}</th>
+              <th className="px-4 py-3 text-center font-semibold text-success">{t("recScenarioHautCol", { pct: scenarioHautPct })}</th>
             </tr>
           </thead>
           <tbody>
             {valeurComparaison > 0 && (
               <tr className="border-b border-card-border/50">
-                <td className="px-4 py-2 text-muted">Comparaison</td>
+                <td className="px-4 py-2 text-muted">{t("tabComparaison")}</td>
                 <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurComparaison * (1 - scenarioBasPct / 100))}</td>
                 <td className="px-4 py-2 text-center font-mono bg-navy/5 font-semibold">{formatEUR(valeurComparaison)}</td>
                 <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurComparaison * (1 + scenarioHautPct / 100))}</td>
@@ -1441,7 +1424,7 @@ function TabReconciliation({
             )}
             {valeurCapitalisation > 0 && (
               <tr className="border-b border-card-border/50">
-                <td className="px-4 py-2 text-muted">Capitalisation</td>
+                <td className="px-4 py-2 text-muted">{t("tabCapitalisation")}</td>
                 <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurCapitalisation * (1 - scenarioBasPct / 100))}</td>
                 <td className="px-4 py-2 text-center font-mono bg-navy/5 font-semibold">{formatEUR(valeurCapitalisation)}</td>
                 <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurCapitalisation * (1 + scenarioHautPct / 100))}</td>
@@ -1456,7 +1439,7 @@ function TabReconciliation({
               </tr>
             )}
             <tr className="bg-background font-semibold">
-              <td className="px-4 py-3 text-navy">Valeur réconciliée</td>
+              <td className="px-4 py-3 text-navy">{t("recValeurReconciliee")}</td>
               <td className="px-4 py-3 text-center font-mono text-error text-lg">{formatEUR(resultBas.valeurReconciliee)}</td>
               <td className="px-4 py-3 text-center font-mono text-navy text-lg bg-navy/5">{formatEUR(resultBase.valeurReconciliee)}</td>
               <td className="px-4 py-3 text-center font-mono text-success text-lg">{formatEUR(resultHaut.valeurReconciliee)}</td>
@@ -1467,10 +1450,7 @@ function TabReconciliation({
 
       <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
         <p className="text-xs text-amber-800 leading-relaxed">
-          <strong>Analyse par scénarios :</strong> Les scénarios haut et bas appliquent un ajustement uniforme
-          sur les valeurs de chaque méthode. En pratique, les variations peuvent être asymétriques
-          (ex: cap rate +50bps en scénario bas mais comparaison −5% seulement). Pour une analyse
-          plus fine, utilisez les matrices de sensibilité dans chaque onglet de méthode.
+          {t("recScenariosNote")}
         </p>
       </div>
 
@@ -1483,8 +1463,8 @@ function TabReconciliation({
 
         // ERV +/- 10% => ~10% impact on all methods (weighted by their contribution)
         items.push({
-          label: "ERV ± 10 %",
-          description: "Loyer de marché estimé (Estimated Rental Value)",
+          label: t("sensERV"),
+          description: t("sensERVDesc"),
           impactPos: base * 0.10,
           impactNeg: -base * 0.10,
         });
@@ -1494,8 +1474,8 @@ function TabReconciliation({
           const capWeight = poidsCap / (poidsComp + poidsCap + poidsDCF || 1);
           const capImpact = valeurCapitalisation * 0.10 * capWeight;
           items.push({
-            label: "Taux de capitalisation ± 50 bps",
-            description: "Variation du rendement locatif",
+            label: t("sensTauxCap"),
+            description: t("sensTauxCapDesc"),
             impactPos: capImpact,
             impactNeg: -capImpact,
           });
@@ -1506,8 +1486,8 @@ function TabReconciliation({
           const dcfWeight = poidsDCF / (poidsComp + poidsCap + poidsDCF || 1);
           const dcfImpact = valeurDCF * 0.05 * dcfWeight;
           items.push({
-            label: "Taux d\u2019actualisation ± 50 bps",
-            description: "Co\u00fbt du capital / taux de rendement exig\u00e9",
+            label: t("sensTauxActu"),
+            description: t("sensTauxActuDesc"),
             impactPos: dcfImpact,
             impactNeg: -dcfImpact,
           });
@@ -1520,8 +1500,8 @@ function TabReconciliation({
           if (incomeWeight > 0) {
             const vacImpact = base * 0.03 * incomeWeight;
             items.push({
-              label: "Vacance ± 200 bps",
-              description: "Taux d\u2019inoccupation structurelle",
+              label: t("sensVacance"),
+              description: t("sensVacanceDesc"),
               impactPos: vacImpact,
               impactNeg: -vacImpact,
             });
@@ -1535,10 +1515,9 @@ function TabReconciliation({
 
         return (
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-base font-semibold text-navy mb-1">Analyse de sensibilit\u00e9 \u2014 Variables cl\u00e9s</h3>
+            <h3 className="text-base font-semibold text-navy mb-1">{t("sensTitle")}</h3>
             <p className="text-xs text-muted mb-6">
-              Impact estim\u00e9 sur la valeur r\u00e9concili\u00e9e ({formatEUR(base)}) d\u2019une variation unitaire de chaque param\u00e8tre,
-              toutes choses \u00e9gales par ailleurs. Les barres indiquent l\u2019amplitude de la variation \u00e0 la hausse (vert) et \u00e0 la baisse (rouge).
+              {t("sensSubtitle", { base: formatEUR(base) })}
             </p>
             <div className="space-y-4">
               {items.map((item) => {
@@ -1586,10 +1565,7 @@ function TabReconciliation({
             </div>
             <div className="mt-5 pt-4 border-t border-card-border/50">
               <p className="text-xs text-muted leading-relaxed">
-                <strong>Note :</strong> Ces sensibilit\u00e9s sont des estimations simplifi\u00e9es. Le taux de capitalisation \u00b150 bps
-                impacte \u2248 \u00b110 % la valeur par capitalisation ; le taux d\u2019actualisation \u00b150 bps impacte \u2248 \u00b15 % la valeur DCF ;
-                l\u2019ERV \u00b110 % impacte \u2248 \u00b110 % toutes les m\u00e9thodes ; la vacance \u00b1200 bps impacte \u2248 \u00b13 % les m\u00e9thodes
-                par revenus. L\u2019impact r\u00e9el d\u00e9pend des pond\u00e9rations et de la structure du bien.
+                {t("sensFootnote")}
               </p>
             </div>
           </div>
@@ -1599,7 +1575,7 @@ function TabReconciliation({
       {/* Texte narratif */}
       {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-4">Analyse narrative</h3>
+          <h3 className="text-base font-semibold text-navy mb-4">{t("recAnalyseNarrative")}</h3>
           <div className="prose prose-sm text-slate leading-relaxed space-y-3">
             {genererNarrative({
               commune: selectedCommune?.commune,
@@ -1627,6 +1603,7 @@ function TabReconciliation({
 // ============================================================
 
 export default function Valorisation() {
+  const t = useTranslations("valorisation");
   const [activeTab, setActiveTab] = useState<ActiveTab>("comparaison");
   const [surfaceBien, setSurfaceBien] = useState(80);
   const [assetType, setAssetType] = useState<AssetType>("residential_apartment");
@@ -1657,6 +1634,18 @@ export default function Valorisation() {
   // Valeur de marché pour MLV (prend la réconciliée ou la meilleure dispo)
   const valeurMarchePourMLV = valeurComparaison || valeurCapitalisation || valeurDCF || 750000;
 
+  // Tab labels inside component to use t()
+  const TABS: { id: ActiveTab; label: string }[] = [
+    { id: "comparaison", label: t("tabComparaison") },
+    { id: "capitalisation", label: t("tabCapitalisation") },
+    { id: "terme_reversion", label: t("tabTermeReversion") },
+    { id: "dcf", label: t("tabDCF") },
+    { id: "esg", label: t("tabESG") },
+    { id: "energie", label: t("tabEnergie") },
+    { id: "mlv", label: t("tabMLV") },
+    { id: "reconciliation", label: t("tabReconciliation") },
+  ];
+
   // Reset complet
   const handleReset = useCallback(() => {
     setCommuneSearch("");
@@ -1674,14 +1663,14 @@ export default function Valorisation() {
         <div className="mb-8">
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-              Valorisation Immobilière
+              {t("pageTitle")}
             </h1>
             <span className="rounded-full bg-navy/10 px-3 py-0.5 text-xs font-semibold text-navy">
               EVS 2025
             </span>
           </div>
           <p className="mt-2 text-muted">
-            Conforme TEGOVA European Valuation Standards 2025 (10e édition)
+            {t("pageSubtitle")}
           </p>
         </div>
 
@@ -1710,7 +1699,7 @@ export default function Valorisation() {
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
               <InputField
-                label="Base de valeur (EVS 2025)"
+                label={t("baseDeValeur")}
                 type="select"
                 value={evsValueType}
                 onChange={(v) => setEvsValueType(v as EVSValueType)}
@@ -1721,13 +1710,13 @@ export default function Valorisation() {
 
             <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
               <InputField
-                label="Surface du bien"
+                label={t("surfaceDuBien")}
                 value={surfaceBien}
                 onChange={(v) => setSurfaceBien(Number(v))}
                 suffix="m²"
               />
               <div className="mt-3 text-xs text-muted">
-                <div className="font-medium text-slate mb-1">Méthodes recommandées :</div>
+                <div className="font-medium text-slate mb-1">{t("methodesRecommandees")} :</div>
                 {assetConfig.recommendedMethods.map((m, i) => (
                   <div key={i}>• {m}</div>
                 ))}
@@ -1735,17 +1724,17 @@ export default function Valorisation() {
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-              <div className="text-xs font-medium text-slate mb-2">Paramètres de référence — {assetConfig.label}</div>
+              <div className="text-xs font-medium text-slate mb-2">{t("parametresReference")} — {assetConfig.label}</div>
               <div className="space-y-1 text-xs text-muted">
-                <div className="flex justify-between"><span>Taux de capitalisation</span><span className="font-mono">{assetConfig.defaults.capRateMin}–{assetConfig.defaults.capRateMax}%</span></div>
-                <div className="flex justify-between"><span>Taux de vacance</span><span className="font-mono">{assetConfig.defaults.vacancyRate}%</span></div>
-                <div className="flex justify-between"><span>Taux d'actualisation</span><span className="font-mono">{assetConfig.defaults.discountRateDefault}%</span></div>
-                <div className="flex justify-between"><span>Taux de sortie (revente)</span><span className="font-mono">{assetConfig.defaults.exitCapDefault}%</span></div>
-                <div className="flex justify-between"><span>Décotes valeur hypothécaire</span><span className="font-mono">{assetConfig.defaults.mlvConjoncturelleDefault + assetConfig.defaults.mlvCommercialisationDefault + assetConfig.defaults.mlvSpecifiqueDefault}%</span></div>
+                <div className="flex justify-between"><span>{t("tauxDeCapitalisation")}</span><span className="font-mono">{assetConfig.defaults.capRateMin}–{assetConfig.defaults.capRateMax}%</span></div>
+                <div className="flex justify-between"><span>{t("tauxDeVacance")}</span><span className="font-mono">{assetConfig.defaults.vacancyRate}%</span></div>
+                <div className="flex justify-between"><span>{t("tauxActualisation")}</span><span className="font-mono">{assetConfig.defaults.discountRateDefault}%</span></div>
+                <div className="flex justify-between"><span>{t("tauxSortieRevente")}</span><span className="font-mono">{assetConfig.defaults.exitCapDefault}%</span></div>
+                <div className="flex justify-between"><span>{t("decotesMLV")}</span><span className="font-mono">{assetConfig.defaults.mlvConjoncturelleDefault + assetConfig.defaults.mlvCommercialisationDefault + assetConfig.defaults.mlvSpecifiqueDefault}%</span></div>
               </div>
               {assetConfig.specificMetrics.length > 0 && (
                 <div className="mt-2 pt-2 border-t border-card-border text-xs text-muted">
-                  <span className="font-medium text-slate">Métriques clés : </span>
+                  <span className="font-medium text-slate">{t("metriquesCles")} : </span>
                   {assetConfig.specificMetrics.join(", ")}
                 </div>
               )}
@@ -1761,17 +1750,17 @@ export default function Valorisation() {
           <div className="flex flex-wrap items-center gap-3 text-sm">
             {selectedCommune && (
               <div className="rounded-lg bg-navy/5 border border-navy/10 px-3 py-2">
-                <span className="text-muted">Commune :</span>{" "}
+                <span className="text-muted">{t("commune")} :</span>{" "}
                 <span className="font-semibold text-navy">{selectedCommune.commune}</span>
                 {selectedResult?.isLocalite && <span className="text-muted"> ({selectedResult.matchedOn})</span>}
                 {selectedCommune.prixM2Existant && <span className="ml-2 font-mono text-xs text-muted">{formatEUR(selectedCommune.prixM2Existant)}/m²</span>}
               </div>
             )}
             {valeurComparaison > 0 && (
-              <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">Comparaison :</span> <span className="font-semibold text-navy">{formatEUR(valeurComparaison)}</span></div>
+              <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">{t("tabComparaison")} :</span> <span className="font-semibold text-navy">{formatEUR(valeurComparaison)}</span></div>
             )}
             {valeurCapitalisation > 0 && (
-              <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">Capitalisation :</span> <span className="font-semibold text-navy">{formatEUR(valeurCapitalisation)}</span></div>
+              <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">{t("tabCapitalisation")} :</span> <span className="font-semibold text-navy">{formatEUR(valeurCapitalisation)}</span></div>
             )}
             {valeurDCF > 0 && (
               <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">DCF :</span> <span className="font-semibold text-navy">{formatEUR(valeurDCF)}</span></div>
@@ -1813,7 +1802,7 @@ export default function Valorisation() {
                 onClick={handleReset}
                 className="rounded-lg border border-error/30 px-3 py-2 text-xs font-medium text-error hover:bg-error/5 transition-colors"
               >
-                Réinitialiser
+                {t("reinitialiser")}
               </button>
             )}
           </div>
@@ -1843,7 +1832,7 @@ export default function Valorisation() {
           return (
             <div className="mb-4 rounded-xl border border-card-border bg-card p-4 shadow-sm">
               <div className="flex items-center justify-between mb-2">
-                <div className="text-xs font-semibold text-navy">Conformité EVS 2025</div>
+                <div className="text-xs font-semibold text-navy">{t("conformiteEVS")}</div>
                 <div className={`text-xs font-bold ${score.pctCompletion >= 80 ? "text-success" : score.pctCompletion >= 50 ? "text-warning" : "text-error"}`}>
                   {score.remplis}/{score.total} ({score.pctCompletion.toFixed(0)}%)
                 </div>
