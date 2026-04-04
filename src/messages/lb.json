@@ -1771,5 +1771,238 @@
     "privacyLink": "Dateschutz",
     "refuse": "Refuséieren",
     "accept": "Akzeptéieren"
+  },
+  "pricing": {
+    "title": "Tariffer",
+    "subtitle": "All Berechnungstools si gratis an ouni Limitt. Maacht e Kont op fir ze späicheren an z'exportéieren.",
+    "contact": "Froen oder Virschléi?",
+    "free": {
+      "name": "Gratis",
+      "price": "0 €",
+      "priceNote": "Fir ëmmer gratis",
+      "description": "All Rechner, Resultater a Richtung",
+      "cta": "Ufänken",
+      "f1": "12+ Immobilientools (Schätzung, Käschten, Wäertzouwuess, Loyer, Hëllefen, asw.)",
+      "f2": "7 Energiesimulatoren (CPE-Impakt, Renovatioun, Gemeinschaft, EPBD, CPE, LENOZ, Portfolio)",
+      "f3": "Interaktiv Präiskaart no Gemeng",
+      "f4": "Maartdatebank (Wunnen, Büroen, Handel, Logistik)",
+      "f5": "Onlimitéiert Sofortresultater",
+      "f6": "5 Sproochen (FR, EN, DE, PT, LB)",
+      "f7": "Lokal Späicherung (Browser)"
+    },
+    "account": {
+      "name": "Gratis Kont",
+      "price": "0 €",
+      "priceNote": "Gratis Aschreiwung",
+      "description": "Späicheren, exportéieren, personaliséieren",
+      "cta": "E Kont erstellen",
+      "badge": "Recommandéiert",
+      "inherited": "Alles vum Gratis Tier, plus:",
+      "f1": "PDF-Export bei allen Tools",
+      "f2": "Onlimitéiert Cloud-Späicherung (Multi-Apparat)",
+      "f3": "Komplett Simulatiounsverlaf",
+      "f4": "Personaliséiert Profil op de Berichter (Numm, Logo, Kontaktdaten)",
+      "f5": "Persistent Multi-Immobilie-Portfolio",
+      "f6": "Detailléiert Schätzung (Vergläichsobjekter, Vertrauensintervall)",
+      "f7": "Detailléiert Hëllefen-Simulator (Opschlësselung no Moossnam)",
+      "f8": "Maartalarmer (nei Donnéeën iwwer Är Gemengen)",
+      "f9": "Umeldung mat Google / LinkedIn / E-Mail"
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "49 €/Mount",
+      "priceNote": "Geschwënn disponibel",
+      "description": "Fir Immobilieprofien",
+      "cta": "Kontaktéiert eis",
+      "badge": "Geschwënn",
+      "inherited": "Alles vum Kont Tier, plus:",
+      "f1": "Individuell PDF/DOCX-Berichter (Logo, Kappzeil, Corporate Design)",
+      "f2": "CSV-Export vun de Maartdonnéeën",
+      "f3": "REST-API (19 Berechnungs- + Datenendpunkten)",
+      "f4": "Teammodus (Bewäertungen mat Kollege deelen)",
+      "f5": "Batch-Berichter (10+ PDFs op eemol)",
+      "f6": "Erweidert Multi-Locataire-DCF",
+      "f7": "Onlimitéiert EVS-Bewäertung mat Szenarioen",
+      "f8": "Prioritär E-Mail-Support",
+      "f9": "Fréien Zougang zu neie Funktiounen"
+    },
+    "faq": {
+      "title": "Heefeg gestallte Froen",
+      "q1": "Sinn déi gratis Tools wierklech onlimitéiert?",
+      "a1": "Jo. All Rechner a Simulatoren funktionéieren ouni Notzungslimitt, ouni Aschreiwung an ouni Reklamm. Dir kritt Är Resultater direkt.",
+      "q2": "Firwat e Kont erstellen, wann et scho gratis ass?",
+      "a2": "E Kont erlaabt Iech, Är Simulatiounen an der Cloud ze späicheren (vun all Apparat zougänglech), professionell PDF-Berichter z'exportéieren an Äre Profil op generéierten Dokumenter unzepassen.",
+      "q3": "Sinn meng Donnéeë sécher?",
+      "a3": "Är Donnéeë sinn an Europa op sécheren Serveren (Supabase) gehost. Mir verkafen oder deelen Är Informatiounen net. Ouni Kont verléisst näischt Äre Browser.",
+      "q4": "Wéini ass de Pro-Tier disponibel?",
+      "a4": "De Pro-Tier ass a Entwécklung. Kontaktéiert eis op contact@tevaxia.lu fir beim Start informéiert ze ginn oder fir Är spezifesch Besoinen ze beschwätzen.",
+      "q5": "Kann ech tevaxia fir offiziell Bewäertungsberichter benotzen?",
+      "a5": "D'Tools liwweren indikativ Berechnungen. De Pro-Tier wäert personaliséierbar EVS-2025-konform Berichter enthalen. Fir en zertifizéierte Bewäertungsbericht ass e qualifizéierten Expert nach ëmmer néideg."
+    }
+  },
+  "mentionsLegales": {
+    "title": "Impressum",
+    "lastUpdate": "Lescht Aktualiséierung: Abrëll 2026",
+    "editeur": {
+      "title": "1. Erausgeber vum Site",
+      "name": "tevaxia.lu",
+      "contact": "Kontakt",
+      "langues": "De Site ass a fënnef Sproochen disponibel: Franséisch, Englesch, Däitsch, Portugisesch a Lëtzebuergesch."
+    },
+    "hebergement": {
+      "title": "2. Hosting",
+      "frontend": "Frontend (tevaxia.lu):",
+      "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, Vereenegt Staaten.",
+      "api": "API (energy-api):",
+      "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, Vereenegt Staaten.",
+      "subdomain": "D'Subdomain energy.tevaxia.lu beherbergt d'Energiesimulatoren vun der Plattform."
+    },
+    "propriete": {
+      "title": "3. Geeschtegt Eegentum",
+      "p1": "Den gesamten Inhalt vun dësem Site (Texter, Rechner, Grafiken, Simulatoren, Quellcode) ass Eegentum vu tevaxia.lu an ass duerch d'Urheberrecht geschützt.",
+      "p2": "All Reproduktioun, Duerstallung, Ännerung oder Exploitatioun, och deelweis, vum ganzen oder engem Deel vum Inhalt vun dësem Site ass ouni schrëftlech Autorisatioun am Viraus verbueden."
+    },
+    "sources": {
+      "title": "4. Datequellen",
+      "p1": "D'Donnéeën, déi vun de Berechnungs- a Simulatiounstools benotzt ginn, kommen aus ëffentlech zougängleche Quellen, dorënner:",
+      "observatoire": "Observatoire de l'Habitat du Luxembourg (Wunnengsbeobachtungsstell)",
+      "statec": "STATEC (Nationalen Institut fir Statistik a Wirtschaftsstudien)",
+      "geoportail": "Geoportail.lu (Kataster- a Topografieverwaltung)",
+      "datapublic": "data.public.lu (Open-Data-Portal Lëtzebuerg, CC0-Lizenz)",
+      "p2": "Neibewäertungskoeffiziente, Steiertariffer a reglementaresch Schwellewäerter kommen aus de gëltege lëtzebuerger Gesetztexter."
+    },
+    "disclaimer": {
+      "title": "5. Haftungsbeschränkung",
+      "p1": "D'Berechnungs- a Simulatiounstools, déi op tevaxia.lu ugebuede ginn, sinn nëmme fir Informatiounszwecker. Si stellen an engem Fall eng juristesch, steierlechm finanziell oder immobiliensbezunnen Berodung duer.",
+      "p2": "D'Resultater vun de Rechner sinn Schätzungen op Basis vun den Tariffer a Virschrëften, déi zum Zäitpunkt vun der leschter Aktualiséierung a Kraaft waren. Si ersetzen net de Rot vun engem qualifizéierte Fachmann (Notaire, Affekot, Steierberoder, zertifiéierte REV/TRV-Gutachter).",
+      "p3": "tevaxia.lu iwwerhëlt keng Haftung fir Entscheedungen, déi op Basis vun de Resultater vu sengen Tools getraff ginn, souwéi fir méiglech Feeler an de Berechnungen oder de benotzte Donnéeën."
+    },
+    "droit": {
+      "title": "6. Applizéierbar Recht",
+      "p1": "Dëse Site ënnerläit dem lëtzebuerger Recht. All Sträit am Zesummenhang mat der Notzung vum Site fällt an déi exklusiv Kompetenz vun de Geriichter vum Groussherzogtum Lëtzebuerg."
+    }
+  },
+  "confidentialite": {
+    "title": "Dateschutzrichtlinn",
+    "lastUpdate": "Lescht Aktualiséierung: Abrëll 2026",
+    "responsable": {
+      "title": "1. Responsabele fir d'Dateveraarbechtung",
+      "name": "tevaxia.lu",
+      "contact": "Kontakt"
+    },
+    "donnees": {
+      "title": "2. Gesammelten Donnéeën",
+      "navigation": {
+        "label": "Navigatiounsdonnéeën:",
+        "text": "Technesch Cookies, déi fir de Fonctionnement vum Site néideg sinn. Google Analytics (mat virhereger Zoustëmmung) fir d'Besuchermessung: besichten Säiten, Besuchsdauer, Browsertyp, anonymiséiert IP-Adress."
+      },
+      "compte": {
+        "label": "Benotzerkonto:",
+        "text": "E-Mail-Adress, Numm (optional), Beruff (optional), gehashte Passwuert. Dir kënnt e Konto per E-Mail/Passwuert oder iwwer en Drëttubidder-Service (Google, LinkedIn) erstellen."
+      },
+      "oauth": {
+        "label": "OAuth-Umeldung (Google, LinkedIn):",
+        "text": "Nëmmen Är E-Mail-Adress an Ären Numm ginn vun dëse Servicer iwwerdroe. Mir kréien weder Ärt Passwuert nach Är Kontakter nach soss Donnéeë vun Ärem Drëttubidder-Konto. D'Authentifikatioun gëtt vum Supabase Auth iwwer den OAuth 2.0 / OpenID Connect-Protokoll geréiert."
+      },
+      "simulations": {
+        "label": "Simulatiounsdonnéeën:",
+        "text": "Donnéeën, déi an d'Rechner a Simulatoren aginn ginn (Beträg, Flächen, Energieparameter, asw.) ginn am Supabase gespäichert wann Dir ageloggt sidd, oder am localStorage vun Ärem Browser soss."
+      },
+      "profil": {
+        "label": "Gutachterprofil:",
+        "text": "Numm, Firma, berufflech Kontaktdonnéeën — gespäichert am localStorage vun Ärem Browser oder am Supabase wann Dir ageloggt sidd. Dës Donnéeë ginn benotzt fir Bewäertungsberichter ze personaliséieren."
+      }
+    },
+    "finalites": {
+      "title": "3. Zwecker vun der Veraarbechtung",
+      "fonctionnement": "Fonctionnement vum Service (Berechnungen, Simulatiounen, Uweisunge vu Resultater)",
+      "sauvegarde": "Späichere vu Simulatiounen a Bewäertungen op Ärem Konto",
+      "personnalisation": "Personaliséierung vun de Bewäertungsberichter (Gutachterprofil)",
+      "amelioration": "Verbesserung vum Service (anonymiséiert Besucherstatistiken)"
+    },
+    "baseLegale": {
+      "title": "4. Rechtsgrondlag vun der Veraarbechtung",
+      "consentement": {
+        "label": "Zoustëmmung (Art. 6 Abs. 1 lit. a DSGVO):",
+        "text": "analytesch Cookies vu Google Analytics."
+      },
+      "contrat": {
+        "label": "Vertragserfëllung (Art. 6 Abs. 1 lit. b DSGVO):",
+        "text": "Erstelle a Gestioun vun Ärem Konto, Späichere vun Äre Simulatiounen."
+      },
+      "interet": {
+        "label": "Berechtegte Interêt (Art. 6 Abs. 1 lit. f DSGVO):",
+        "text": "Verbesserung vum Service, Sécherheet vun der Plattform."
+      },
+      "retrait": "Dir kënnt Är Zoustëmmung zu all Moment fir Veraarbechtunge widerruffen, déi op dëser Grondlag baséieren."
+    },
+    "soustraitants": {
+      "title": "5. Ënnertrieder",
+      "headerName": "Ubidder",
+      "headerRole": "Roll",
+      "headerLocation": "Standort",
+      "supabase": "Datebank-Hosting an Authentifikatioun",
+      "supabaseLoc": "EU-Serveren (AWS eu-central-1, Frankfurt)",
+      "vercel": "Frontend-Hosting",
+      "vercelLoc": "Vereenegt Staaten (Standardvertragsklauselen)",
+      "render": "energy-api API-Hosting",
+      "renderLoc": "Vereenegt Staaten",
+      "google": "Analytics, OAuth-Authentifikatioun",
+      "googleLoc": "Vereenegt Staaten (EU-US Data Privacy Framework)",
+      "linkedin": "OAuth-Authentifikatioun",
+      "linkedinLoc": "Vereenegt Staaten (Standardvertragsklauselen)"
+    },
+    "duree": {
+      "title": "6. Dauer vun der Opbewahrung",
+      "compte": "Kontodonnéeën: ginn opbewahrt bis de Konto vum Benotzer geläscht gëtt.",
+      "simulations": "Simulatiounsdonnéeën: ginn 2 Joer no der leschter Aktivitéit opbewahrt.",
+      "cookies": "Cookies: maximal Dauer vun 13 Méint."
+    },
+    "droits": {
+      "title": "7. Är Rechter",
+      "intro": "Am Aklang mat der Dateschutz-Grondverordnung (DSGVO) an dem lëtzebuerger Gesetz vum 1. August 2018 hutt Dir folgend Rechter:",
+      "acces": "Recht op Auskunft iwwer Är perséinlech Donnéeën",
+      "rectification": "Recht op Berichtegung",
+      "effacement": "Recht op Läschung (\u201ERecht op Vergiessenwierdung\u201C)",
+      "portabilite": "Recht op Datenportabilitéit",
+      "opposition": "Widdersprocherecht géint d'Veraarbechtung",
+      "exercer": "Fir dës Rechter auszeüben, kontaktéiert eis ënnert"
+    },
+    "cookies": {
+      "title": "8. Cookies",
+      "techniques": {
+        "label": "Technesch Cookies (néideg):",
+        "text": "onverzichtbar fir de Fonctionnement vum Site (Sproochvirléiften, Sessioun). Keng Zoustëmmung erfuerderlech."
+      },
+      "analytiques": {
+        "label": "Analytesch Cookies (Zoustëmmung):",
+        "text": "Google Analytics, ginn nëmmen no ausdrécklecher Zoustëmmung gesat. Erméiglechen anonymiséiert Besuchermessung."
+      },
+      "auth": {
+        "label": "Authentifikatiounscookies:",
+        "text": "Supabase-Sessiounsverwaltung (Umeldetoken). Erfuerderlech fir d'Fonctionnement vum Benotzerkonto."
+      }
+    },
+    "transferts": {
+      "title": "9. Dateniwwerdroung ausserhalb vun der Europäescher Unioun",
+      "p1": "E puer vun eisen Ënnertrieder sinn an de Vereenegt Staate lokaliséiert. Dës Iwwerdrounge ginn duerch Standardvertragsklauselen, déi vun der Europäescher Kommissioun guttgeheescht sinn, an/oder den Adäquatheitsbeschloss zum EU-US Data Privacy Framework gereegelt.",
+      "p2": "D'Konto- a Simulatiounsdonnéeë ginn vum Supabase op Serveren an der Europäescher Unioun gehostet (AWS eu-central-1, Frankfurt, Däitschland)."
+    },
+    "securite": {
+      "title": "10. Sécherheetsmoossnahmen",
+      "intro": "Mir setzen folgend technesch an organisatoresch Moossnahmen zum Schutz vun Ären Donnéeën ëm:",
+      "https": "Verschlësselung vun de Kommunikatiounen iwwer HTTPS (TLS)",
+      "csp": "Content Security Policy (CSP)",
+      "rls": "Row Level Security (RLS) op Supabase: All Benotzer kann nëmmen op seng eegen Donnéeë zougräifen",
+      "hash": "Gehashte Passwierder (ginn ni am Kloertext gespäichert)"
+    },
+    "dpo": {
+      "title": "11. Dateschutzbeoptragten / Kontakt",
+      "text": "Fir all Froen zum Schutz vun Äre perséinlechen Donnéeë kënnt Dir eis kontaktéieren ënnert"
+    },
+    "reclamation": {
+      "title": "12. Recht op Reklamatioun",
+      "text": "Wann Dir der Meenung sidd, datt d'Veraarbechtung vun Äre perséinlechen Donnéeën e Verstouss géint d'DSGVO duerstellt, hutt Dir d'Recht, eng Beschwerd bei der lëtzebuerger Kontrollbehéird eranzereechen:"
+    }
   }
 }

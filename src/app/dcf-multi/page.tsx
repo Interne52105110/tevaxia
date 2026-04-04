@@ -6,6 +6,7 @@ import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2, formatPct } from "@/lib/calculations";
 import { calculerDCFLeases, type Lease } from "@/lib/dcf-leases";
+import { downloadDcfMultiPdf, PdfButton } from "@/components/ToolsPdf";
 
 const EMPTY_LEASE: Omit<Lease, "id"> = {
   locataire: "",
@@ -242,6 +243,27 @@ export default function DCFMulti() {
                     </span>
                   </div>
                 ))}
+              </div>
+              <div className="mt-4 flex justify-end">
+                <PdfButton
+                  label="PDF"
+                  onClick={() =>
+                    downloadDcfMultiPdf({
+                      baux: leases.map((l) => ({
+                        locataire: l.locataire || "—",
+                        loyer: l.loyerAnnuel,
+                        echeance: l.dateFin,
+                      })),
+                      loyerTotal: result.loyerTotalAnnuel,
+                      tauxActualisation: tauxActu,
+                      valeurDCF: result.totalNOIActualise,
+                      valeurTerminale: result.valeurTerminaleActualisee,
+                      valeurTotale: result.valeurDCF,
+                      tri: result.irr * 100,
+                      rendement: result.valeurDCF > 0 ? (result.loyerTotalAnnuel / result.valeurDCF) * 100 : undefined,
+                    })
+                  }
+                />
               </div>
             </div>
 

@@ -41,7 +41,17 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export const supabase = supabaseUrl && supabaseKey
-  ? createClient(supabaseUrl, supabaseKey)
+  ? createClient(supabaseUrl, supabaseKey, {
+      auth: {
+        // Partage la session entre tevaxia.lu et energy.tevaxia.lu
+        storage: typeof window !== "undefined" ? window.localStorage : undefined,
+        storageKey: "tevaxia-auth",
+        flowType: "pkce",
+      },
+      global: {
+        headers: { "x-client-info": "tevaxia-web" },
+      },
+    })
   : null;
 
 export const isSupabaseConfigured = !!supabase;

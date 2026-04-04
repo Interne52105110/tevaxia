@@ -1,128 +1,188 @@
-export default function Confidentialite() {
+import { getTranslations } from "next-intl/server";
+
+export default async function Confidentialite() {
+  const t = await getTranslations("confidentialite");
+
   return (
     <div className="bg-background py-12">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h1 className="text-2xl font-bold text-navy mb-8">Politique de confidentialité</h1>
+        <h1 className="text-2xl font-bold text-navy mb-8">{t("title")}</h1>
+        <p className="text-muted mb-8">{t("lastUpdate")}</p>
         <div className="prose prose-sm text-slate space-y-6">
-          <p className="text-muted">Dernière mise à jour : mars 2026</p>
 
+          {/* 1. Responsable du traitement */}
           <section>
-            <h2 className="text-lg font-semibold text-navy">1. Responsable du traitement</h2>
+            <h2 className="text-lg font-semibold text-navy">{t("responsable.title")}</h2>
             <p>
-              tevaxia.lu<br />
-              Contact : <a href="mailto:contact@tevaxia.lu" className="text-navy hover:underline">contact@tevaxia.lu</a>
+              {t("responsable.name")}<br />
+              {t("responsable.contact")} :{" "}
+              <a href="mailto:contact@tevaxia.lu" className="text-navy hover:underline">contact@tevaxia.lu</a>
             </p>
           </section>
 
+          {/* 2. Données collectées */}
           <section>
-            <h2 className="text-lg font-semibold text-navy">2. Données collectées</h2>
+            <h2 className="text-lg font-semibold text-navy">{t("donnees.title")}</h2>
             <p>
-              <strong>Données de navigation :</strong> Lors de votre visite, des données
-              techniques peuvent être collectées automatiquement (adresse IP, type de
-              navigateur, pages visitées, durée de visite) via Google Analytics à des fins
-              de mesure d'audience.
+              <strong>{t("donnees.navigation.label")}</strong><br />
+              {t("donnees.navigation.text")}
             </p>
             <p>
-              <strong>Données saisies dans les calculateurs :</strong> Les données que vous
-              entrez dans les outils de calcul (montants, surfaces, dates) sont traitées
-              côté client (dans votre navigateur) si vous n'avez pas de compte. Si vous
-              créez un compte, vos évaluations sauvegardées sont stockées sur nos serveurs
-              (hébergés par Supabase, infrastructure européenne) et associées à votre compte.
+              <strong>{t("donnees.compte.label")}</strong><br />
+              {t("donnees.compte.text")}
             </p>
             <p>
-              <strong>Compte utilisateur :</strong> Vous pouvez créer un compte par email/mot de passe
-              ou via un service tiers (Google, LinkedIn). Dans tous les cas, nous collectons
-              votre adresse email et votre nom (tel que fourni par le service d'authentification).
-              Les mots de passe sont hachés et non lisibles. Vos évaluations sauvegardées
-              (paramètres de calcul, résultats) sont stockées et accessibles uniquement par vous.
-              Vous pouvez supprimer votre compte et toutes vos données à tout moment en nous contactant.
+              <strong>{t("donnees.oauth.label")}</strong><br />
+              {t("donnees.oauth.text")}
             </p>
             <p>
-              <strong>Connexion via Google ou LinkedIn :</strong> Si vous choisissez de vous
-              connecter via Google ou LinkedIn, nous recevons de ces services votre nom et
-              votre adresse email. Nous ne recevons pas votre mot de passe Google ou LinkedIn,
-              ni vos contacts, ni aucune autre donnée de votre compte. L'authentification est
-              gérée par Supabase Auth via le protocole OAuth 2.0 / OpenID Connect. Vous pouvez
-              révoquer l'accès à tout moment depuis les paramètres de sécurité de votre compte
-              Google (myaccount.google.com) ou LinkedIn.
+              <strong>{t("donnees.simulations.label")}</strong><br />
+              {t("donnees.simulations.text")}
             </p>
             <p>
-              <strong>Contact :</strong> Si vous nous contactez par email, nous collectons
-              votre adresse email et le contenu de votre message dans le seul but de vous
-              répondre.
+              <strong>{t("donnees.profil.label")}</strong><br />
+              {t("donnees.profil.text")}
             </p>
           </section>
 
+          {/* 3. Finalités */}
           <section>
-            <h2 className="text-lg font-semibold text-navy">3. Base légale du traitement</h2>
-            <p>
-              Le traitement des données de navigation repose sur votre consentement
-              (article 6.1.a du RGPD). Le traitement des données de compte repose
-              sur l'exécution du contrat (article 6.1.b — fourniture du service de
-              sauvegarde). Vous pouvez retirer votre consentement à tout moment.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-navy">4. Cookies</h2>
-            <p>
-              Le site utilise des cookies à des fins de mesure d'audience (Google Analytics).
-              Ces cookies permettent de collecter des informations anonymisées sur la
-              fréquentation du site. Vous pouvez les refuser via les paramètres de votre
-              navigateur.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-navy">5. Durée de conservation</h2>
-            <p>
-              Les données de navigation sont conservées pendant 14 mois maximum (durée
-              standard Google Analytics). Les emails de contact sont conservés le temps
-              nécessaire au traitement de votre demande, puis supprimés.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-navy">6. Vos droits (RGPD)</h2>
-            <p>
-              Conformément au Règlement Général sur la Protection des Données (RGPD) et à
-              la loi luxembourgeoise du 1er août 2018, vous disposez des droits suivants :
-            </p>
+            <h2 className="text-lg font-semibold text-navy">{t("finalites.title")}</h2>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Droit d'accès à vos données personnelles</li>
-              <li>Droit de rectification</li>
-              <li>Droit à l'effacement</li>
-              <li>Droit à la limitation du traitement</li>
-              <li>Droit à la portabilité des données</li>
-              <li>Droit d'opposition</li>
+              <li>{t("finalites.fonctionnement")}</li>
+              <li>{t("finalites.sauvegarde")}</li>
+              <li>{t("finalites.personnalisation")}</li>
+              <li>{t("finalites.amelioration")}</li>
             </ul>
-            <p>
-              Pour exercer ces droits, contactez-nous à{" "}
+          </section>
+
+          {/* 4. Base légale */}
+          <section>
+            <h2 className="text-lg font-semibold text-navy">{t("baseLegale.title")}</h2>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><strong>{t("baseLegale.consentement.label")}</strong> {t("baseLegale.consentement.text")}</li>
+              <li><strong>{t("baseLegale.contrat.label")}</strong> {t("baseLegale.contrat.text")}</li>
+              <li><strong>{t("baseLegale.interet.label")}</strong> {t("baseLegale.interet.text")}</li>
+            </ul>
+            <p className="mt-2">{t("baseLegale.retrait")}</p>
+          </section>
+
+          {/* 5. Sous-traitants */}
+          <section>
+            <h2 className="text-lg font-semibold text-navy">{t("soustraitants.title")}</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate/20">
+                    <th className="text-left py-2 pr-4 font-semibold">{t("soustraitants.headerName")}</th>
+                    <th className="text-left py-2 pr-4 font-semibold">{t("soustraitants.headerRole")}</th>
+                    <th className="text-left py-2 font-semibold">{t("soustraitants.headerLocation")}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate/10">
+                  <tr>
+                    <td className="py-2 pr-4">Supabase Inc.</td>
+                    <td className="py-2 pr-4">{t("soustraitants.supabase")}</td>
+                    <td className="py-2">{t("soustraitants.supabaseLoc")}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">Vercel Inc.</td>
+                    <td className="py-2 pr-4">{t("soustraitants.vercel")}</td>
+                    <td className="py-2">{t("soustraitants.vercelLoc")}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">Render.com</td>
+                    <td className="py-2 pr-4">{t("soustraitants.render")}</td>
+                    <td className="py-2">{t("soustraitants.renderLoc")}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">Google LLC</td>
+                    <td className="py-2 pr-4">{t("soustraitants.google")}</td>
+                    <td className="py-2">{t("soustraitants.googleLoc")}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">LinkedIn (Microsoft)</td>
+                    <td className="py-2 pr-4">{t("soustraitants.linkedin")}</td>
+                    <td className="py-2">{t("soustraitants.linkedinLoc")}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* 6. Durée de conservation */}
+          <section>
+            <h2 className="text-lg font-semibold text-navy">{t("duree.title")}</h2>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>{t("duree.compte")}</li>
+              <li>{t("duree.simulations")}</li>
+              <li>{t("duree.cookies")}</li>
+            </ul>
+          </section>
+
+          {/* 7. Droits */}
+          <section>
+            <h2 className="text-lg font-semibold text-navy">{t("droits.title")}</h2>
+            <p>{t("droits.intro")}</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>{t("droits.acces")}</li>
+              <li>{t("droits.rectification")}</li>
+              <li>{t("droits.effacement")}</li>
+              <li>{t("droits.portabilite")}</li>
+              <li>{t("droits.opposition")}</li>
+            </ul>
+            <p className="mt-2">
+              {t("droits.exercer")}{" "}
               <a href="mailto:contact@tevaxia.lu" className="text-navy hover:underline">contact@tevaxia.lu</a>.
             </p>
           </section>
 
+          {/* 8. Cookies */}
           <section>
-            <h2 className="text-lg font-semibold text-navy">7. Autorité de contrôle</h2>
+            <h2 className="text-lg font-semibold text-navy">{t("cookies.title")}</h2>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><strong>{t("cookies.techniques.label")}</strong> {t("cookies.techniques.text")}</li>
+              <li><strong>{t("cookies.analytiques.label")}</strong> {t("cookies.analytiques.text")}</li>
+              <li><strong>{t("cookies.auth.label")}</strong> {t("cookies.auth.text")}</li>
+            </ul>
+          </section>
+
+          {/* 9. Transferts hors UE */}
+          <section>
+            <h2 className="text-lg font-semibold text-navy">{t("transferts.title")}</h2>
+            <p>{t("transferts.p1")}</p>
+            <p>{t("transferts.p2")}</p>
+          </section>
+
+          {/* 10. Sécurité */}
+          <section>
+            <h2 className="text-lg font-semibold text-navy">{t("securite.title")}</h2>
+            <p>{t("securite.intro")}</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>{t("securite.https")}</li>
+              <li>{t("securite.csp")}</li>
+              <li>{t("securite.rls")}</li>
+              <li>{t("securite.hash")}</li>
+            </ul>
+          </section>
+
+          {/* 11. DPO / Contact */}
+          <section>
+            <h2 className="text-lg font-semibold text-navy">{t("dpo.title")}</h2>
             <p>
-              En cas de litige, vous pouvez introduire une réclamation auprès de la
-              Commission Nationale pour la Protection des Données (CNPD),
-              15 Boulevard du Jazz, L-4370 Belvaux, Luxembourg.
+              {t("dpo.text")}{" "}
+              <a href="mailto:contact@tevaxia.lu" className="text-navy hover:underline">contact@tevaxia.lu</a>.
             </p>
           </section>
 
+          {/* 12. Réclamation */}
           <section>
-            <h2 className="text-lg font-semibold text-navy">8. Transferts internationaux</h2>
-            <p>
-              L'utilisation de Google Analytics implique un transfert de données vers les
-              États-Unis. Ce transfert est encadré par les clauses contractuelles types
-              de la Commission européenne et la décision d'adéquation UE-US Data Privacy
-              Framework.
-            </p>
-            <p>
-              Les données de compte utilisateur sont hébergées par Supabase (infrastructure
-              AWS région eu-central-1, Francfort). Les mots de passe sont hachés et ne sont
-              jamais stockés en clair.
+            <h2 className="text-lg font-semibold text-navy">{t("reclamation.title")}</h2>
+            <p>{t("reclamation.text")}</p>
+            <p className="mt-2">
+              Commission Nationale pour la Protection des Donn&eacute;es (CNPD)<br />
+              15 Boulevard du Jazz, L-4370 Belvaux, Luxembourg<br />
+              <a href="https://cnpd.public.lu" className="text-navy hover:underline" target="_blank" rel="noopener noreferrer">cnpd.public.lu</a>
             </p>
           </section>
         </div>

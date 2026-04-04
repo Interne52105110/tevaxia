@@ -19,6 +19,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import { useToast, Toast } from "@/components/Toast";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { downloadEstimationPdf, PdfButton } from "@/components/ToolsPdf";
 
 export default function Estimation() {
   const t = useTranslations("estimation");
@@ -420,7 +421,7 @@ export default function Estimation() {
               </div>
 
               {/* Partager */}
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-2">
                 <button
                   onClick={() => {
                     updateUrlHash({ c: communeSearch, s: surface, ch: nbChambres, et: etage, ea: etat, ex: exterieur, p: parking, e: classeEnergie, n: estNeuf });
@@ -447,6 +448,25 @@ export default function Estimation() {
                 >
                   {t("sauvegarder")}
                 </button>
+                <PdfButton
+                  label="PDF"
+                  onClick={() =>
+                    downloadEstimationPdf({
+                      commune: selectedResult?.commune.commune || communeSearch,
+                      typeBien: "Appartement",
+                      surface,
+                      chambres: nbChambres,
+                      prixBas: result.estimationBasse,
+                      prixMoyen: result.estimationCentrale,
+                      prixHaut: result.estimationHaute,
+                      prixM2: result.prixM2Ajuste,
+                      adjustments: result.ajustements.map((a) => ({
+                        label: a.label,
+                        impact: `${a.pct > 0 ? "+" : ""}${a.pct}%`,
+                      })),
+                    })
+                  }
+                />
               </div>
 
               <RelatedTools keys={["frais", "achatLocation", "loyer"]} />

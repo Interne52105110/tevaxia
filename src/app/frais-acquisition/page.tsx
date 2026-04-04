@@ -11,6 +11,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import { useToast, Toast } from "@/components/Toast";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { downloadFraisPdf, PdfButton } from "@/components/ToolsPdf";
 
 export default function FraisAcquisition() {
   const t = useTranslations("fraisAcquisition");
@@ -234,7 +235,7 @@ export default function FraisAcquisition() {
               </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-2">
               <button
                 onClick={() => {
                   sauvegarderEvaluation({
@@ -249,6 +250,22 @@ export default function FraisAcquisition() {
               >
                 {t("sauvegarder")}
               </button>
+              <PdfButton
+                label="PDF"
+                onClick={() =>
+                  downloadFraisPdf({
+                    prixAchat: prixBien,
+                    droitsEnregistrement: result.droitsEnregistrement,
+                    droitTranscription: result.droitsTranscription,
+                    tva: estNeuf ? result.montantTva : undefined,
+                    fraisNotaire: result.emolumentsNotaire,
+                    fraisHypotheque: montantHypotheque > 0 ? result.fraisHypotheque : undefined,
+                    totalFrais: result.totalFrais,
+                    totalAcquisition: result.coutTotalAcquisition,
+                    isVEFA: estNeuf,
+                  })
+                }
+              />
             </div>
 
             <RelatedTools keys={["aides", "estimation", "vefa"]} />

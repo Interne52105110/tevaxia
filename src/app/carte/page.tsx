@@ -10,6 +10,7 @@ import { getDemographics } from "@/lib/demographics";
 import { getMarketCycle } from "@/lib/market-cycle";
 import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
 import dynamic from "next/dynamic";
+import { downloadCartePdf, PdfButton } from "@/components/ToolsPdf";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
 
@@ -398,6 +399,31 @@ export default function Carte() {
                       >
                         {t("proValuation")}
                       </Link>
+                    </div>
+                    <div className="mt-3 flex justify-end">
+                      <PdfButton
+                        label="PDF"
+                        onClick={() =>
+                          downloadCartePdf({
+                            commune: selectedCommune.commune,
+                            prixMoyenM2: selectedCommune.prixM2Existant || 0,
+                            prixMedianM2: selectedCommune.prixM2Annonces || undefined,
+                            nbTransactions: selectedCommune.nbTransactions || undefined,
+                            fourchetteBasse: selectedCommune.prixM2Existant
+                              ? Math.round(selectedCommune.prixM2Existant * 0.85)
+                              : undefined,
+                            fourchetteHaute: selectedCommune.prixM2VEFA || undefined,
+                            details: [
+                              ...(selectedCommune.prixM2VEFA
+                                ? [{ label: "Prix VEFA/m2", value: `${formatEUR(selectedCommune.prixM2VEFA)}/m2` }]
+                                : []),
+                              ...(selectedCommune.loyerM2Annonces
+                                ? [{ label: "Loyer/m2/mois", value: `${selectedCommune.loyerM2Annonces.toFixed(1)} EUR` }]
+                                : []),
+                            ],
+                          })
+                        }
+                      />
                     </div>
                   </div>
 

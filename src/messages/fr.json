@@ -1771,5 +1771,238 @@
     "privacyLink": "Politique de confidentialité",
     "refuse": "Refuser",
     "accept": "Accepter"
+  },
+  "pricing": {
+    "title": "Tarifs",
+    "subtitle": "Tous les outils de calcul sont gratuits, sans limite. Créez un compte pour sauvegarder et exporter.",
+    "contact": "Questions ou suggestions ?",
+    "free": {
+      "name": "Gratuit",
+      "price": "0 €",
+      "priceNote": "Gratuit pour toujours",
+      "description": "Tous les calculateurs, résultats en direct",
+      "cta": "Commencer",
+      "f1": "12+ outils immobiliers (estimation, frais, plus-values, loyer, aides, etc.)",
+      "f2": "7 simulateurs énergie (impact CPE, rénovation, communauté, EPBD, CPE, LENOZ, portfolio)",
+      "f3": "Carte interactive des prix par commune",
+      "f4": "Base de données marché (résidentiel, bureaux, commerces, logistique)",
+      "f5": "Résultats instantanés sans limite",
+      "f6": "5 langues (FR, EN, DE, PT, LB)",
+      "f7": "Sauvegarde locale (navigateur)"
+    },
+    "account": {
+      "name": "Compte gratuit",
+      "price": "0 €",
+      "priceNote": "Inscription gratuite",
+      "description": "Sauvegardez, exportez, personnalisez",
+      "cta": "Créer un compte",
+      "badge": "Recommandé",
+      "inherited": "Tout le tier Gratuit, plus :",
+      "f1": "Export PDF sur tous les outils",
+      "f2": "Sauvegarde cloud illimitée (multi-appareils)",
+      "f3": "Historique complet de vos simulations",
+      "f4": "Profil personnalisé sur les rapports (nom, logo, coordonnées)",
+      "f5": "Portfolio multi-biens persistant",
+      "f6": "Estimation détaillée (comparables, intervalle de confiance)",
+      "f7": "Simulateur d'aides détaillé (ventilation par mesure)",
+      "f8": "Alertes marché (nouvelles données sur vos communes)",
+      "f9": "Connexion Google / LinkedIn / Email"
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "49 €/mois",
+      "priceNote": "Bientôt disponible",
+      "description": "Pour les professionnels de l'immobilier",
+      "cta": "Nous contacter",
+      "badge": "Bientôt",
+      "inherited": "Tout le tier Compte, plus :",
+      "f1": "Rapports PDF/DOCX personnalisés (logo, en-tête, charte graphique)",
+      "f2": "Export CSV des données marché",
+      "f3": "API REST (19 endpoints de calcul + données)",
+      "f4": "Mode équipe (partager des évaluations entre collègues)",
+      "f5": "Rapports batch (10+ PDFs en une fois)",
+      "f6": "DCF multi-locataires avancé",
+      "f7": "Valorisation EVS illimitée avec scénarios",
+      "f8": "Support prioritaire par email",
+      "f9": "Accès anticipé aux nouvelles fonctionnalités"
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "q1": "Les outils gratuits sont-ils vraiment illimités ?",
+      "a1": "Oui. Tous les calculateurs et simulateurs fonctionnent sans limite d'utilisation, sans inscription et sans publicité. Vous obtenez vos résultats instantanément.",
+      "q2": "Pourquoi créer un compte si c'est déjà gratuit ?",
+      "a2": "Le compte vous permet de sauvegarder vos simulations dans le cloud (accessibles depuis n'importe quel appareil), d'exporter des rapports PDF professionnels et de personnaliser votre profil sur les documents générés.",
+      "q3": "Mes données sont-elles en sécurité ?",
+      "a3": "Vos données sont hébergées en Europe sur des serveurs sécurisés (Supabase). Nous ne vendons ni ne partageons vos informations. Sans compte, rien ne quitte votre navigateur.",
+      "q4": "Quand le tier Pro sera-t-il disponible ?",
+      "a4": "Le tier Pro est en cours de développement. Contactez-nous à contact@tevaxia.lu pour être informé dès son lancement ou pour discuter de vos besoins spécifiques.",
+      "q5": "Puis-je utiliser tevaxia pour des rapports d'évaluation officiels ?",
+      "a5": "Les outils fournissent des calculs à titre indicatif. Le tier Pro inclura des rapports conformes EVS 2025 personnalisables. Pour un rapport d'évaluation certifié, un évaluateur agréé reste nécessaire."
+    }
+  },
+  "mentionsLegales": {
+    "title": "Mentions légales",
+    "lastUpdate": "Dernière mise à jour : avril 2026",
+    "editeur": {
+      "title": "1. Éditeur du site",
+      "name": "tevaxia.lu",
+      "contact": "Contact",
+      "langues": "Le site est disponible en cinq langues : français, anglais, allemand, portugais et luxembourgeois."
+    },
+    "hebergement": {
+      "title": "2. Hébergement",
+      "frontend": "Frontend (tevaxia.lu) :",
+      "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.",
+      "api": "API (energy-api) :",
+      "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, États-Unis.",
+      "subdomain": "Le sous-domaine energy.tevaxia.lu héberge les simulateurs énergétiques de la plateforme."
+    },
+    "propriete": {
+      "title": "3. Propriété intellectuelle",
+      "p1": "L'ensemble du contenu de ce site (textes, calculateurs, graphiques, simulateurs, code source) est la propriété de tevaxia.lu et est protégé par le droit d'auteur.",
+      "p2": "Toute reproduction, représentation, modification ou exploitation, même partielle, de tout ou partie du contenu de ce site est interdite sans autorisation écrite préalable."
+    },
+    "sources": {
+      "title": "4. Sources des données",
+      "p1": "Les données utilisées par les outils de calcul et de simulation proviennent de sources publiques ouvertes, notamment :",
+      "observatoire": "Observatoire de l'Habitat du Luxembourg",
+      "statec": "STATEC (Institut national de la statistique et des études économiques)",
+      "geoportail": "Geoportail.lu (Administration du Cadastre et de la Topographie)",
+      "datapublic": "data.public.lu (portail Open Data du Luxembourg, licence CC0)",
+      "p2": "Les coefficients de réévaluation, barèmes fiscaux et seuils réglementaires sont issus des textes de loi luxembourgeois en vigueur."
+    },
+    "disclaimer": {
+      "title": "5. Limitation de responsabilité",
+      "p1": "Les outils de calcul et de simulation proposés sur tevaxia.lu sont fournis à titre informatif et indicatif uniquement. Ils ne constituent en aucun cas un conseil juridique, fiscal, financier ou en évaluation immobilière.",
+      "p2": "Les résultats des calculateurs sont des estimations basées sur les barèmes et réglementations en vigueur à la date de leur dernière mise à jour. Ils ne sauraient se substituer à l'avis d'un professionnel qualifié (notaire, avocat, expert-comptable, évaluateur certifié REV/TRV).",
+      "p3": "tevaxia.lu décline toute responsabilité quant aux décisions prises sur la base des résultats de ses outils, ainsi qu'en cas d'erreurs éventuelles dans les calculs ou les données utilisées."
+    },
+    "droit": {
+      "title": "6. Droit applicable",
+      "p1": "Le présent site est soumis au droit luxembourgeois. Tout litige relatif à l'utilisation du site sera de la compétence exclusive des tribunaux du Grand-Duché de Luxembourg."
+    }
+  },
+  "confidentialite": {
+    "title": "Politique de confidentialité",
+    "lastUpdate": "Dernière mise à jour : avril 2026",
+    "responsable": {
+      "title": "1. Responsable du traitement",
+      "name": "tevaxia.lu",
+      "contact": "Contact"
+    },
+    "donnees": {
+      "title": "2. Données collectées",
+      "navigation": {
+        "label": "Données de navigation :",
+        "text": "Cookies techniques nécessaires au fonctionnement du site. Google Analytics (avec consentement préalable) pour la mesure d'audience : pages visitées, durée de visite, type de navigateur, adresse IP anonymisée."
+      },
+      "compte": {
+        "label": "Compte utilisateur :",
+        "text": "Adresse email, nom (optionnel), profession (optionnel), mot de passe hashé. Vous pouvez créer un compte par email/mot de passe ou via un service tiers (Google, LinkedIn)."
+      },
+      "oauth": {
+        "label": "Connexion OAuth (Google, LinkedIn) :",
+        "text": "Seuls votre adresse email et votre nom sont transmis par ces services. Nous ne recevons ni votre mot de passe, ni vos contacts, ni aucune autre donnée de votre compte tiers. L'authentification est gérée par Supabase Auth via le protocole OAuth 2.0 / OpenID Connect."
+      },
+      "simulations": {
+        "label": "Données de simulation :",
+        "text": "Les données saisies dans les calculateurs et simulateurs (montants, surfaces, paramètres énergétiques, etc.) sont stockées dans Supabase si vous êtes connecté, ou dans le localStorage de votre navigateur dans le cas contraire."
+      },
+      "profil": {
+        "label": "Profil évaluateur :",
+        "text": "Nom, société, coordonnées professionnelles — stockés dans le localStorage de votre navigateur ou dans Supabase si vous êtes connecté. Ces données servent à personnaliser les rapports d'évaluation."
+      }
+    },
+    "finalites": {
+      "title": "3. Finalités du traitement",
+      "fonctionnement": "Fonctionnement du service (calculs, simulations, affichage des résultats)",
+      "sauvegarde": "Sauvegarde des simulations et évaluations sur votre compte",
+      "personnalisation": "Personnalisation des rapports d'évaluation (profil évaluateur)",
+      "amelioration": "Amélioration du service (statistiques d'audience anonymisées)"
+    },
+    "baseLegale": {
+      "title": "4. Base légale du traitement",
+      "consentement": {
+        "label": "Consentement (art. 6.1.a RGPD) :",
+        "text": "cookies analytiques Google Analytics."
+      },
+      "contrat": {
+        "label": "Exécution du contrat (art. 6.1.b RGPD) :",
+        "text": "création et gestion de votre compte, sauvegarde de vos simulations."
+      },
+      "interet": {
+        "label": "Intérêt légitime (art. 6.1.f RGPD) :",
+        "text": "amélioration du service, sécurité de la plateforme."
+      },
+      "retrait": "Vous pouvez retirer votre consentement à tout moment pour les traitements fondés sur cette base."
+    },
+    "soustraitants": {
+      "title": "5. Sous-traitants",
+      "headerName": "Prestataire",
+      "headerRole": "Rôle",
+      "headerLocation": "Localisation",
+      "supabase": "Hébergement base de données et authentification",
+      "supabaseLoc": "Serveurs UE (AWS eu-central-1, Francfort)",
+      "vercel": "Hébergement frontend",
+      "vercelLoc": "États-Unis (clauses contractuelles types)",
+      "render": "Hébergement API energy-api",
+      "renderLoc": "États-Unis",
+      "google": "Analytics, authentification OAuth",
+      "googleLoc": "États-Unis (EU-US Data Privacy Framework)",
+      "linkedin": "Authentification OAuth",
+      "linkedinLoc": "États-Unis (clauses contractuelles types)"
+    },
+    "duree": {
+      "title": "6. Durée de conservation",
+      "compte": "Données de compte : conservées jusqu'à la suppression du compte par l'utilisateur.",
+      "simulations": "Données de simulation : conservées pendant 2 ans à compter de la dernière activité.",
+      "cookies": "Cookies : durée maximale de 13 mois."
+    },
+    "droits": {
+      "title": "7. Vos droits",
+      "intro": "Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi luxembourgeoise du 1er août 2018, vous disposez des droits suivants :",
+      "acces": "Droit d'accès à vos données personnelles",
+      "rectification": "Droit de rectification",
+      "effacement": "Droit à l'effacement (« droit à l'oubli »)",
+      "portabilite": "Droit à la portabilité des données",
+      "opposition": "Droit d'opposition au traitement",
+      "exercer": "Pour exercer ces droits, contactez-nous à"
+    },
+    "cookies": {
+      "title": "8. Cookies",
+      "techniques": {
+        "label": "Cookies techniques (nécessaires) :",
+        "text": "indispensables au fonctionnement du site (préférences de langue, session). Aucun consentement requis."
+      },
+      "analytiques": {
+        "label": "Cookies analytiques (consentement) :",
+        "text": "Google Analytics, déposés uniquement après consentement explicite. Permettent la mesure d'audience anonymisée."
+      },
+      "auth": {
+        "label": "Cookies d'authentification :",
+        "text": "gestion de la session Supabase (token de connexion). Nécessaires au fonctionnement du compte utilisateur."
+      }
+    },
+    "transferts": {
+      "title": "9. Transferts de données hors Union européenne",
+      "p1": "Certains de nos sous-traitants sont situés aux États-Unis. Ces transferts sont encadrés par des clauses contractuelles types approuvées par la Commission européenne et/ou la décision d'adéquation EU-US Data Privacy Framework.",
+      "p2": "Les données de compte et de simulation sont hébergées par Supabase sur des serveurs situés dans l'Union européenne (AWS eu-central-1, Francfort, Allemagne)."
+    },
+    "securite": {
+      "title": "10. Mesures de sécurité",
+      "intro": "Nous mettons en œuvre les mesures techniques et organisationnelles suivantes pour protéger vos données :",
+      "https": "Chiffrement des communications via HTTPS (TLS)",
+      "csp": "Politique de sécurité du contenu (Content Security Policy — CSP)",
+      "rls": "Row Level Security (RLS) sur Supabase : chaque utilisateur n'accède qu'à ses propres données",
+      "hash": "Mots de passe hashés (jamais stockés en clair)"
+    },
+    "dpo": {
+      "title": "11. Délégué à la protection des données / Contact",
+      "text": "Pour toute question relative à la protection de vos données personnelles, vous pouvez nous contacter à"
+    },
+    "reclamation": {
+      "title": "12. Droit de réclamation",
+      "text": "Si vous estimez que le traitement de vos données personnelles constitue une violation du RGPD, vous avez le droit d'introduire une réclamation auprès de l'autorité de contrôle luxembourgeoise :"
+    }
   }
 }

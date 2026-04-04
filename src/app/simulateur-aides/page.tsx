@@ -6,6 +6,7 @@ import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import { simulerAides, formatEUR, type AideDetail } from "@/lib/calculations";
 import RelatedTools from "@/components/RelatedTools";
+import { downloadAidesPdf, PdfButton } from "@/components/ToolsPdf";
 
 function AideCard({ aide, t }: { aide: AideDetail; t: (key: string) => string }) {
   const CATEGORIE_LABELS: Record<string, { color: string; bg: string }> = {
@@ -425,6 +426,26 @@ export default function SimulateurAides() {
                 <span className="text-sm text-white/70">{t("beneficeTotal")}</span>
                 <span className="text-2xl font-bold">{formatEUR(result.totalGeneral)}</span>
               </div>
+            </div>
+
+            <div className="flex justify-end">
+              <PdfButton
+                label="PDF"
+                onClick={() =>
+                  downloadAidesPdf({
+                    profil: typeProjet === "acquisition" ? "Acquisition" : typeProjet === "construction" ? "Construction" : "Renovation",
+                    revenus: `${formatEUR(revenuMenage)}/an`,
+                    aides: result.aides.map((a) => ({
+                      label: a.nom,
+                      montant: a.montant,
+                      description: a.description,
+                    })),
+                    totalAides: result.totalAidesDirectes,
+                    economiesFiscales: result.totalEconomies > 0 ? result.totalEconomies : undefined,
+                    totalAvantage: result.totalGeneral > 0 ? result.totalGeneral : undefined,
+                  })
+                }
+              />
             </div>
 
             {!residencePrincipale && (

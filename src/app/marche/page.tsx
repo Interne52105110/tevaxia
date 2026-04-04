@@ -13,6 +13,7 @@ import {
 } from "@/lib/market-data-commercial";
 import { formatEUR } from "@/lib/calculations";
 import { PriceEvolutionChart } from "@/components/PriceChart";
+import { downloadMarchePdf, PdfButton } from "@/components/ToolsPdf";
 
 // ---------------------------------------------------------------------------
 // CSV export helper
@@ -228,6 +229,27 @@ function TabResidentiel() {
         <div className="flex items-center gap-3">
           <p className="text-sm text-muted">{t("communeCount", { count: filtered.length })}</p>
           <ExportCSVButton label={t("exportCSV")} onClick={handleExportCSV} />
+          <PdfButton
+            label="PDF"
+            onClick={() => {
+              const withPrix = filtered.filter((c) => c.prixM2Existant != null);
+              const avgPrix = withPrix.length > 0 ? Math.round(withPrix.reduce((s, c) => s + (c.prixM2Existant || 0), 0) / withPrix.length) : 0;
+              const totalTx = filtered.reduce((s, c) => s + (c.nbTransactions || 0), 0);
+              const withVefa = filtered.filter((c) => c.prixM2VEFA != null);
+              const avgVefa = withVefa.length > 0 ? Math.round(withVefa.reduce((s, c) => s + (c.prixM2VEFA || 0), 0) / withVefa.length) : undefined;
+              downloadMarchePdf({
+                commune: search ? `Recherche : ${search}` : "Luxembourg (national)",
+                prixM2Appart: avgPrix > 0 ? avgPrix : undefined,
+                prixM2Maison: avgVefa,
+                volumeTransactions: totalTx > 0 ? totalTx : undefined,
+                indicateurs: [
+                  { label: "Communes", value: String(filtered.length) },
+                  ...(avgPrix > 0 ? [{ label: "Prix moyen existant/m2", value: `${formatEUR(avgPrix)}/m2` }] : []),
+                  ...(avgVefa ? [{ label: "Prix moyen VEFA/m2", value: `${formatEUR(avgVefa)}/m2` }] : []),
+                ],
+              });
+            }}
+          />
         </div>
       </div>
 

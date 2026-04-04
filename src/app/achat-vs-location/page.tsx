@@ -14,6 +14,7 @@ import {
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2 } from "@/lib/calculations";
+import { downloadAchatLocationPdf, PdfButton } from "@/components/ToolsPdf";
 
 /**
  * Luxembourg "déduction des intérêts débiteurs" (art. 98bis LIR).
@@ -369,6 +370,27 @@ export default function AchatVsLocation() {
                   {t("croisementMessage", { annee: result.croisement.annee })}
                 </div>
               )}
+            </div>
+
+            <div className="flex justify-end">
+              <PdfButton
+                label="PDF"
+                onClick={() =>
+                  downloadAchatLocationPdf({
+                    verdict: result.derniere.patrimoineNetAchat > result.derniere.patrimoineNetLocation ? "Achat" : "Location",
+                    prixAchat: prixBien,
+                    loyerMensuel,
+                    dureeAns: horizon,
+                    tauxCredit,
+                    patrimoineAchat: result.derniere.patrimoineNetAchat,
+                    patrimoineLocation: result.derniere.patrimoineNetLocation,
+                    crossoverYear: result.crossoverYear != null ? Math.round(result.crossoverYear) : undefined,
+                    economieAchat: result.derniere.patrimoineNetAchat > result.derniere.patrimoineNetLocation
+                      ? result.derniere.patrimoineNetAchat - result.derniere.patrimoineNetLocation
+                      : undefined,
+                  })
+                }
+              />
             </div>
 
             {/* Crossover chart */}

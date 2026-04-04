@@ -10,6 +10,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import { useToast, Toast } from "@/components/Toast";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { downloadLoyerPdf, PdfButton } from "@/components/ToolsPdf";
 
 export default function CalculateurLoyer() {
   const t = useTranslations("calculLoyer");
@@ -262,7 +263,7 @@ export default function CalculateurLoyer() {
               </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-2">
               <button
                 onClick={() => {
                   sauvegarderEvaluation({
@@ -277,6 +278,19 @@ export default function CalculateurLoyer() {
               >
                 {t("saveButton")}
               </button>
+              <PdfButton
+                label="PDF"
+                onClick={() =>
+                  downloadLoyerPdf({
+                    capitalInvesti: result.capitalInvesti,
+                    surface: surfaceHabitable,
+                    plafondLoyer: result.loyerAnnuelMax,
+                    loyerMensuel: result.loyerMensuelMax,
+                    loyerM2: result.loyerM2Mensuel,
+                    rendementBrut: result.capitalInvesti > 0 ? (result.loyerAnnuelMax / result.capitalInvesti) * 100 : 0,
+                  })
+                }
+              />
             </div>
 
             <RelatedTools keys={["estimation", "carte", "achatLocation"]} />

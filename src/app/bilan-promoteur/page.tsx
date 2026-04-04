@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
+import { downloadBilanPromoteurPdf, PdfButton } from "@/components/ToolsPdf";
 
 export default function BilanPromoteur() {
   const t = useTranslations("bilanPromoteur");
@@ -348,6 +349,29 @@ export default function BilanPromoteur() {
                 { label: t("returnOnEquity"), value: formatPct(result.rentaFP), sub: true },
               ]}
             />
+
+            <div className="flex justify-end">
+              <PdfButton
+                label="PDF"
+                onClick={() =>
+                  downloadBilanPromoteurPdf({
+                    surfaceTerrain,
+                    surfacePlancher: surfaceVendable,
+                    prixVenteM2,
+                    recettesTotales: result.caTotal,
+                    coutConstruction: result.coutsConstruction,
+                    coutHonoraires: result.coutsArchitecte + result.coutsBET + result.coutsEtudes,
+                    coutFinancement: result.fFinanciers,
+                    coutCommercialisation: result.fCommerciaux,
+                    totalCouts: result.totalConstruction + result.totalFrais,
+                    margeBrute: result.margeMontant,
+                    margePct: result.margeEffective * 100,
+                    chargeFonciere: result.chargeFonciere,
+                    chargeFonciereM2: result.chargeFonciereM2Terrain,
+                  })
+                }
+              />
+            </div>
 
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
               <p className="text-xs text-amber-800 leading-relaxed">

@@ -9,6 +9,7 @@ export default function Connexion() {
   const { user, signOut } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [profession, setProfession] = useState("");
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -59,7 +60,11 @@ export default function Connexion() {
     if (!supabase) return;
 
     if (mode === "signup") {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: profession ? { data: { profession } } : undefined,
+      });
       if (error) {
         setError(error.message);
       } else {
@@ -159,6 +164,27 @@ export default function Connexion() {
                 placeholder="Min. 6 caractères"
               />
             </div>
+
+            {mode === "signup" && (
+              <div>
+                <label className="block text-sm font-medium text-slate mb-1">Profession <span className="text-muted font-normal">(optionnel)</span></label>
+                <select
+                  value={profession}
+                  onChange={(e) => setProfession(e.target.value)}
+                  className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2.5 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                >
+                  <option value="">-- Sélectionner --</option>
+                  <option value="evaluateur">Évaluateur immobilier</option>
+                  <option value="analyste_bancaire">Analyste bancaire</option>
+                  <option value="syndic">Syndic / Gestionnaire</option>
+                  <option value="promoteur">Promoteur immobilier</option>
+                  <option value="notaire">Notaire</option>
+                  <option value="architecte">Architecte / Ingénieur</option>
+                  <option value="particulier">Particulier</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+            )}
 
             {error && (
               <div className="rounded-lg bg-red-50 border border-red-200 p-3">

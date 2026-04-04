@@ -10,6 +10,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import { useToast, Toast } from "@/components/Toast";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { downloadPlusValuesPdf, PdfButton } from "@/components/ToolsPdf";
 
 export default function PlusValues() {
   const t = useTranslations("plusValues");
@@ -302,7 +303,7 @@ export default function PlusValues() {
               </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-2">
               <button
                 onClick={() => {
                   sauvegarderEvaluation({
@@ -317,6 +318,26 @@ export default function PlusValues() {
               >
                 {t("sauvegarder")}
               </button>
+              <PdfButton
+                label="PDF"
+                onClick={() =>
+                  downloadPlusValuesPdf({
+                    prixAcquisition,
+                    prixCession,
+                    anneeAcquisition,
+                    anneeCession,
+                    dureeDetention: result.dureeDetention,
+                    coefficientReeval: result.typeGain === "cession" ? result.coefficient : undefined,
+                    prixAcquisitionReevalue: result.typeGain === "cession" ? result.prixAcquisitionRevalorise : undefined,
+                    plusValueBrute: result.gainBrut,
+                    abattement: result.abattement > 0 ? result.abattement : undefined,
+                    plusValueImposable: result.gainImposable,
+                    tauxImposition: result.tauxEffectif * 100,
+                    impot: result.estimationImpot,
+                    isSpeculative: result.typeGain === "speculation",
+                  })
+                }
+              />
             </div>
 
             <RelatedTools keys={["estimation", "frais", "valorisation"]} />

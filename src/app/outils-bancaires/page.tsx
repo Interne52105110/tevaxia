@@ -14,6 +14,7 @@ import {
   formatEUR2,
   formatPct,
 } from "@/lib/calculations";
+import { downloadBancairePdf, PdfButton } from "@/components/ToolsPdf";
 
 type ActiveTab = "ltv" | "capacite" | "amortissement" | "dscr";
 
@@ -211,6 +212,27 @@ function TabAmortissement() {
             { label: t("interestCapitalRatio"), value: formatPct(totalInterets / capital), sub: true },
           ]}
         />
+        <div className="flex justify-end">
+          <PdfButton
+            label="PDF"
+            onClick={() => {
+              const prixBien = Math.round(capital / 0.8);
+              const apport = prixBien - capital;
+              downloadBancairePdf({
+                prixBien,
+                apport,
+                montantCredit: capital,
+                dureeAns: duree,
+                tauxNominal: taux,
+                mensualite,
+                coutTotal: capital + totalInterets,
+                coutInterets: totalInterets,
+                ltv: 80,
+                tauxEndettement: 0,
+              });
+            }}
+          />
+        </div>
       </div>
 
       {/* Tableau annuel */}
