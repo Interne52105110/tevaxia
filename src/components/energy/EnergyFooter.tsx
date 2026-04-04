@@ -32,19 +32,20 @@ export default function EnergyFooter() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">{t("simulateurs")}</h3>
             <ul className="space-y-1.5 text-sm">
-              <li><Link href="/energy/impact" className="hover:text-white transition-colors">{t("impact")}</Link></li>
-              <li><Link href="/energy/renovation" className="hover:text-white transition-colors">{t("renovation")}</Link></li>
-              <li><Link href="/energy/communaute" className="hover:text-white transition-colors">{t("communaute")}</Link></li>
+              <li><Link href="/impact" className="hover:text-white transition-colors">{t("impact")}</Link></li>
+              <li><Link href="/renovation" className="hover:text-white transition-colors">{t("renovation")}</Link></li>
+              <li><Link href="/communaute" className="hover:text-white transition-colors">{t("communaute")}</Link></li>
             </ul>
           </div>
 
-          {/* Liens tevaxia.lu */}
+          {/* Outils */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">tevaxia.lu</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">{t("outils")}</h3>
             <ul className="space-y-1.5 text-sm">
-              <li><a href="https://tevaxia.lu/estimation" className="hover:text-white transition-colors">Estimation</a></li>
-              <li><a href="https://tevaxia.lu/valorisation" className="hover:text-white transition-colors">Valorisation EVS</a></li>
-              <li><a href="https://tevaxia.lu/simulateur-aides" className="hover:text-white transition-colors">Simulateur d&apos;aides</a></li>
+              <li><Link href="/epbd" className="hover:text-white transition-colors">{t("epbd")}</Link></li>
+              <li><Link href="/estimateur-cpe" className="hover:text-white transition-colors">{t("estimateurCpe")}</Link></li>
+              <li><Link href="/lenoz" className="hover:text-white transition-colors">{t("lenoz")}</Link></li>
+              <li><Link href="/portfolio" className="hover:text-white transition-colors">{t("portfolio")}</Link></li>
             </ul>
           </div>
 
@@ -52,6 +53,7 @@ export default function EnergyFooter() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">{tc("legal")}</h3>
             <ul className="space-y-1.5 text-sm">
+              <li><a href="https://tevaxia.lu" className="hover:text-white transition-colors">tevaxia.lu</a></li>
               <li><a href="https://tevaxia.lu/mentions-legales" className="hover:text-white transition-colors">{tc("legalNotice")}</a></li>
               <li><a href="https://tevaxia.lu/confidentialite" className="hover:text-white transition-colors">{tc("privacy")}</a></li>
             </ul>

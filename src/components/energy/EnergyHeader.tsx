@@ -1,19 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "../LanguageSwitcher";
 
-const NAV_ITEMS = [
+const SIMULATEURS = [
   { href: "/impact", key: "impact" },
   { href: "/renovation", key: "renovation" },
   { href: "/communaute", key: "communaute" },
+];
+
+const OUTILS = [
   { href: "/epbd", key: "epbd" },
   { href: "/estimateur-cpe", key: "estimateurCpe" },
   { href: "/lenoz", key: "lenoz" },
   { href: "/portfolio", key: "portfolio" },
 ];
+
+function Dropdown({ label, items, t }: { label: string; items: typeof SIMULATEURS; t: (k: string) => string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button onClick={() => setOpen(!open)} className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+        {label}
+        <svg className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-1 w-52 rounded-xl bg-navy-dark border border-white/10 shadow-xl py-1 z-50">
+          {items.map((item) => (
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}
+              className="block px-4 py-2.5 text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors">
+              {t(item.key)}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function EnergyHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,15 +71,8 @@ export default function EnergyHeader() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                {t(item.key)}
-              </Link>
-            ))}
+            <Dropdown label={t("simulateurs")} items={SIMULATEURS} t={t} />
+            <Dropdown label={t("outils")} items={OUTILS} t={t} />
             <a
               href="https://tevaxia.lu"
               className="ml-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-white/50 hover:text-white hover:border-white/30 transition-colors"
@@ -73,13 +101,17 @@ export default function EnergyHeader() {
 
         {menuOpen && (
           <nav className="md:hidden border-t border-white/10 py-3 space-y-1">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white"
-                onClick={() => setMenuOpen(false)}
-              >
+            <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/30">{t("simulateurs")}</div>
+            {SIMULATEURS.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
+                {t(item.key)}
+              </Link>
+            ))}
+            <div className="px-3 py-1 mt-2 text-xs font-semibold uppercase tracking-wider text-white/30">{t("outils")}</div>
+            {OUTILS.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
                 {t(item.key)}
               </Link>
             ))}

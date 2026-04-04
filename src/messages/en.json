@@ -66,7 +66,8 @@
       "estimateurCpe": "CPE Estimator",
       "lenoz": "LENOZ",
       "portfolio": "Portfolio",
-      "simulateurs": "Simulators"
+      "simulateurs": "Simulators",
+      "outils": "Tools"
     },
     "home": {
       "heroTitle": "Energy performance",
