@@ -40,6 +40,8 @@ import { genererNarrative } from "@/lib/narrative";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { sauvegarderEvaluation } from "@/lib/storage";
+import { useToast, Toast } from "@/components/Toast";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
 
@@ -1604,6 +1606,7 @@ function TabReconciliation({
 
 export default function Valorisation() {
   const t = useTranslations("valorisation");
+  const toast = useToast();
   const [activeTab, setActiveTab] = useState<ActiveTab>("comparaison");
   const [surfaceBien, setSurfaceBien] = useState(80);
   const [assetType, setAssetType] = useState<AssetType>("residential_apartment");
@@ -1767,6 +1770,21 @@ export default function Valorisation() {
             )}
             {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (<>
               <button
+                onClick={() => {
+                  sauvegarderEvaluation({
+                    nom: `Valorisation — ${selectedCommune?.commune || "?"} — ${surfaceBien} m²`,
+                    type: "valorisation",
+                    commune: selectedCommune?.commune,
+                    valeurPrincipale: valeurComparaison || valeurCapitalisation || valeurDCF,
+                    data: { surfaceBien, assetType, evsValueType, commune: selectedCommune?.commune, valeurComparaison, valeurCapitalisation, valeurDCF },
+                  });
+                  toast.show("Évaluation sauvegardée !");
+                }}
+                className="rounded-lg border border-card-border px-3 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
+              >
+                Sauvegarder
+              </button>
+              <button
                 onClick={() => downloadReport({
                   dateRapport: new Date().toISOString().split("T")[0],
                   commune: selectedCommune?.commune,
@@ -1904,6 +1922,7 @@ export default function Valorisation() {
           />
         )}
       </div>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }

@@ -11,6 +11,7 @@ import { getMarketCycle } from "@/lib/market-cycle";
 import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
 import dynamic from "next/dynamic";
 import { downloadCartePdf, PdfButton } from "@/components/ToolsPdf";
+import MarketAlertButton from "@/components/MarketAlertButton";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
 
@@ -290,8 +291,13 @@ export default function Carte() {
               {selectedCommune ? (
                 <>
                   <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                    <h2 className="text-lg font-bold text-navy">{selectedCommune.commune}</h2>
-                    <p className="text-xs text-muted">{selectedCommune.canton} — {selectedCommune.periode}</p>
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <h2 className="text-lg font-bold text-navy">{selectedCommune.commune}</h2>
+                        <p className="text-xs text-muted">{selectedCommune.canton} — {selectedCommune.periode}</p>
+                      </div>
+                      <MarketAlertButton commune={selectedCommune.commune} />
+                    </div>
 
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Existant" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>

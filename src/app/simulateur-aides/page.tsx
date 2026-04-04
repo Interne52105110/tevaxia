@@ -7,6 +7,9 @@ import ToggleField from "@/components/ToggleField";
 import { simulerAides, formatEUR, type AideDetail } from "@/lib/calculations";
 import RelatedTools from "@/components/RelatedTools";
 import { downloadAidesPdf, PdfButton } from "@/components/ToolsPdf";
+import { sauvegarderEvaluation } from "@/lib/storage";
+import { useToast, Toast } from "@/components/Toast";
+import AuthGate from "@/components/AuthGate";
 
 function AideCard({ aide, t }: { aide: AideDetail; t: (key: string) => string }) {
   const CATEGORIE_LABELS: Record<string, { color: string; bg: string }> = {
@@ -86,6 +89,7 @@ interface MesureState {
 
 export default function SimulateurAides() {
   const t = useTranslations("simulateurAides");
+  const toast = useToast();
   const [typeProjet, setTypeProjet] = useState<"acquisition" | "construction" | "renovation">("acquisition");
   const [prixBien, setPrixBien] = useState(750000);
   const [montantTravaux, setMontantTravaux] = useState(50000);
@@ -428,7 +432,21 @@ export default function SimulateurAides() {
               </div>
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => {
+                  sauvegarderEvaluation({
+                    nom: `Aides — ${typeProjet} — ${formatEUR(prixBien)}`,
+                    type: "aides",
+                    valeurPrincipale: result.totalGeneral,
+                    data: { typeProjet, prixBien, montantTravaux, revenuMenage, nbEmprunteurs, nbEnfants, typeBien, residencePrincipale, estNeuf, montantPret, epargneReguliere3ans, commune },
+                  });
+                  toast.show("Évaluation sauvegardée !");
+                }}
+                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
+              >
+                Sauvegarder
+              </button>
               <PdfButton
                 label="PDF"
                 onClick={() =>
@@ -458,6 +476,7 @@ export default function SimulateurAides() {
             )}
 
             {/* Aides grouped by category */}
+            <AuthGate>
             {Object.entries(aidesByCategorie).map(([categorie, aides]) => (
               <div key={categorie}>
                 <h3 className={`mb-3 text-sm font-semibold uppercase tracking-wider ${CATEGORIE_LABELS[categorie]?.color || "text-slate"}`}>
@@ -473,6 +492,7 @@ export default function SimulateurAides() {
                 </div>
               </div>
             ))}
+            </AuthGate>
 
             {/* Disclaimer */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
@@ -504,6 +524,7 @@ export default function SimulateurAides() {
           </div>
         </div>
       </div>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }

@@ -2,14 +2,17 @@
 
 import { useState, useEffect } from "react";
 import InputField from "@/components/InputField";
-import { getProfile, saveProfile, type UserProfile } from "@/lib/profile";
+import { getProfile, saveProfile, loadAndMergeProfile, type UserProfile } from "@/lib/profile";
 
 export default function Profil() {
   const [profile, setProfile] = useState<UserProfile>(getProfile());
   const [saved, setSaved] = useState(false);
+  const [syncing, setSyncing] = useState(false);
 
   useEffect(() => {
+    // Charge le profil local immédiatement, puis merge avec le cloud
     setProfile(getProfile());
+    loadAndMergeProfile().then((merged) => setProfile(merged));
   }, []);
 
   const update = (field: keyof UserProfile, value: string) => {
@@ -17,8 +20,10 @@ export default function Profil() {
     setSaved(false);
   };
 
-  const handleSave = () => {
-    saveProfile(profile);
+  const handleSave = async () => {
+    setSyncing(true);
+    await saveProfile(profile);
+    setSyncing(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -66,15 +71,16 @@ export default function Profil() {
 
           <button
             onClick={handleSave}
-            className="w-full rounded-lg bg-navy px-4 py-3 text-sm font-medium text-white hover:bg-navy-light transition-colors"
+            disabled={syncing}
+            className="w-full rounded-lg bg-navy px-4 py-3 text-sm font-medium text-white hover:bg-navy-light transition-colors disabled:opacity-60"
           >
-            {saved ? "Profil sauvegardé !" : "Enregistrer le profil"}
+            {syncing ? "Synchronisation..." : saved ? "Profil sauvegardé !" : "Enregistrer le profil"}
           </button>
 
           <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs text-amber-800">
-              Votre profil est stocké localement dans votre navigateur. Il sera utilisé pour personnaliser
-              les rapports PDF et DOCX générés depuis le module de valorisation.
+              Votre profil est stocké localement et synchronisé avec votre compte si vous êtes connecté.
+              Il sera utilisé pour personnaliser les rapports PDF et DOCX.
             </p>
           </div>
         </div>

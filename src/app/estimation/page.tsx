@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
@@ -14,17 +14,20 @@ import Link from "next/link";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
 import { PriceEvolutionChart } from "@/components/PriceChart";
-import { updateUrlHash, readUrlHash } from "@/lib/url-state";
+import { readUrlHash } from "@/lib/url-state";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import { useToast, Toast } from "@/components/Toast";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { downloadEstimationPdf, PdfButton } from "@/components/ToolsPdf";
+import ShareButton from "@/components/ShareButton";
+import AuthGate from "@/components/AuthGate";
+import MarketAlertButton from "@/components/MarketAlertButton";
 
 export default function Estimation() {
   const t = useTranslations("estimation");
   const toast = useToast();
-  const [linkCopied, setLinkCopied] = useState(false);
+
   const [communeSearch, setCommuneSearch] = useState("");
   const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
   const [surface, setSurface] = useState(80);
@@ -38,6 +41,37 @@ export default function Estimation() {
   const [bailEmphyteotique, setBailEmphyteotique] = useState(false);
   const [dureeRestanteEmph, setDureeRestanteEmph] = useState(85);
   const [canonAnnuel, setCanonAnnuel] = useState(1200);
+
+  // ── Pre-remplissage depuis URL search params OU hash (lien partagé) ──
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    // Aussi supporter l'ancien format hash
+    const hash = readUrlHash();
+
+    const commune = params.get("c") ?? (hash?.c as string | undefined);
+    const surf = params.get("s") ?? (hash?.s as string | undefined);
+    const ch = params.get("ch") ?? (hash?.ch as string | undefined);
+    const et = params.get("et") ?? (hash?.et as string | undefined);
+    const ea = params.get("ea") ?? (hash?.ea as string | undefined);
+    const ex = params.get("ex") ?? (hash?.ex as string | undefined);
+    const p = params.get("p") ?? (hash?.p as string | undefined);
+    const e = params.get("e") ?? (hash?.e as string | undefined);
+    const n = params.get("n") ?? (hash?.n as string | undefined);
+
+    if (commune) {
+      setCommuneSearch(String(commune));
+      const results = rechercherCommune(String(commune));
+      if (results.length > 0) setSelectedResult(results[0]);
+    }
+    if (surf) setSurface(Number(surf));
+    if (ch) setNbChambres(Number(ch));
+    if (et) setEtage(String(et));
+    if (ea) setEtat(String(ea));
+    if (ex) setExterieur(String(ex));
+    if (p !== undefined && p !== null) setParking(p === "true" || p === "1");
+    if (e) setClasseEnergie(String(e));
+    if (n !== undefined && n !== null) setEstNeuf(n === "true" || n === "1");
+  }, []);
 
   const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
 
@@ -109,11 +143,14 @@ export default function Estimation() {
               )}
             </div>
             {selectedResult && (
-              <div className="mt-2 text-xs text-muted">
-                {selectedResult.quartier
-                  ? `${selectedResult.quartier.nom} — ${selectedResult.quartier.note}`
-                  : `${selectedResult.commune.commune} (${selectedResult.commune.canton})`
-                }
+              <div className="mt-2 flex items-center gap-2">
+                <div className="text-xs text-muted flex-1">
+                  {selectedResult.quartier
+                    ? `${selectedResult.quartier.nom} — ${selectedResult.quartier.note}`
+                    : `${selectedResult.commune.commune} (${selectedResult.commune.canton})`
+                  }
+                </div>
+                <MarketAlertButton commune={selectedResult.commune.commune} />
               </div>
             )}
           </div>
@@ -201,6 +238,7 @@ export default function Estimation() {
                 </div>
               </div>
 
+              <AuthGate>
               {/* Double modèle : transactions vs annonces */}
               {result.estimationTransactions != null && result.estimationAnnonces != null && (
                 <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
@@ -419,20 +457,24 @@ export default function Estimation() {
                   </div>
                 </div>
               </div>
+              </AuthGate>
 
               {/* Partager */}
               <div className="flex justify-center gap-2">
-                <button
-                  onClick={() => {
-                    updateUrlHash({ c: communeSearch, s: surface, ch: nbChambres, et: etage, ea: etat, ex: exterieur, p: parking, e: classeEnergie, n: estNeuf });
-                    navigator.clipboard.writeText(window.location.href);
-                    setLinkCopied(true);
-                    setTimeout(() => setLinkCopied(false), 2000);
+                <ShareButton
+                  label={t("copierLien")}
+                  params={{
+                    c: communeSearch,
+                    s: surface,
+                    ch: nbChambres,
+                    et: etage,
+                    ea: etat,
+                    ex: exterieur,
+                    p: parking ? "1" : "0",
+                    e: classeEnergie,
+                    n: estNeuf ? "1" : "0",
                   }}
-                  className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-                >
-                  {linkCopied ? t("lienCopie") : t("copierLien")}
-                </button>
+                />
                 <button
                   onClick={() => {
                     sauvegarderEvaluation({

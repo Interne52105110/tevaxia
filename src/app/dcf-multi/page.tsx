@@ -7,6 +7,8 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2, formatPct } from "@/lib/calculations";
 import { calculerDCFLeases, type Lease } from "@/lib/dcf-leases";
 import { downloadDcfMultiPdf, PdfButton } from "@/components/ToolsPdf";
+import { sauvegarderEvaluation } from "@/lib/storage";
+import { useToast, Toast } from "@/components/Toast";
 
 const EMPTY_LEASE: Omit<Lease, "id"> = {
   locataire: "",
@@ -25,6 +27,7 @@ const EMPTY_LEASE: Omit<Lease, "id"> = {
 
 export default function DCFMulti() {
   const t = useTranslations("dcfMulti");
+  const toast = useToast();
 
   const [leases, setLeases] = useState<Lease[]>([
     { ...EMPTY_LEASE, id: "1", locataire: t("defaultTenantA"), surface: 300, loyerAnnuel: 72000, dateDebut: "2021-01", dateFin: "2027-12", ervM2: 260, probabiliteRenouvellement: 80 },
@@ -244,7 +247,21 @@ export default function DCFMulti() {
                   </div>
                 ))}
               </div>
-              <div className="mt-4 flex justify-end">
+              <div className="mt-4 flex justify-end gap-2">
+                <button
+                  onClick={() => {
+                    sauvegarderEvaluation({
+                      nom: `DCF Multi — ${leases.length} baux — ${formatEUR(result.valeurDCF)}`,
+                      type: "dcf-multi",
+                      valeurPrincipale: result.valeurDCF,
+                      data: { leases, periodeAnalyse, tauxActu, tauxCapSortie, fraisCession, chargesProprio, vacanceERV, dateValeur, montantDette, tauxDette, capexAnnuel },
+                    });
+                    toast.show("Évaluation sauvegardée !");
+                  }}
+                  className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
+                >
+                  Sauvegarder
+                </button>
                 <PdfButton
                   label="PDF"
                   onClick={() =>
@@ -299,6 +316,7 @@ export default function DCFMulti() {
           </div>
         </div>
       </div>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }
