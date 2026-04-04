@@ -1,6 +1,7 @@
 package eu.tevaxia.energy.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -10,6 +11,7 @@ public record ImpactRequest(
 
         @NotNull
         @Min(10_000)
+        @Max(100_000_000)
         @Schema(description = "Valeur estimée du bien en euros", example = "750000")
         Double valeurBien,
 

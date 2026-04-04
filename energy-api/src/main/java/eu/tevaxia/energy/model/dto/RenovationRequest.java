@@ -1,6 +1,7 @@
 package eu.tevaxia.energy.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -20,14 +21,17 @@ public record RenovationRequest(
 
         @NotNull
         @Min(10)
+        @Max(2_000)
         @Schema(description = "Surface habitable en m²", example = "120")
         Double surface,
 
+        @Max(2026)
         @Schema(description = "Année de construction du bâtiment", example = "1975")
         Integer anneeConstruction,
 
         @NotNull
         @Min(10_000)
+        @Max(100_000_000)
         @Schema(description = "Valeur actuelle du bien en euros", example = "650000")
         Double valeurBien
 ) {

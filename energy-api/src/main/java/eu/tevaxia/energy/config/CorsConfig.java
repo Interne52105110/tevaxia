@@ -18,11 +18,10 @@ public class CorsConfig {
                 "http://localhost:*",
                 "https://tevaxia.lu",
                 "https://*.tevaxia.lu",
-                "https://energy.tevaxia.lu",
-                "https://*.onrender.com"
+                "https://*.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedHeaders(List.of("Content-Type", "Accept"));
         config.setAllowCredentials(false);
 
         var source = new UrlBasedCorsConfigurationSource();

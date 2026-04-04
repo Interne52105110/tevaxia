@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
+              "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https://*.tile.openstreetmap.org",
               "connect-src 'self' https://*.supabase.co https://data.public.lu https://statistiques.public.lu https://www.google-analytics.com https://*.onrender.com https://energy.tevaxia.lu",
