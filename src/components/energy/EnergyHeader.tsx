@@ -82,15 +82,15 @@ export default function EnergyHeader() {
           <div className="flex items-center gap-2">
             {user ? (
               <div className="hidden sm:flex items-center gap-1">
-                <a href="https://tevaxia.lu/profil" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                <a href="/profil" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
                   Profil
                 </a>
-                <a href="https://tevaxia.lu/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                <a href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
                   Mes éval.
                 </a>
               </div>
             ) : (
-              <a href="https://tevaxia.lu/connexion" className="hidden sm:inline-flex rounded-lg bg-energy/90 px-3 py-1 text-xs font-medium text-white hover:bg-energy transition-colors">
+              <a href="/connexion" className="hidden sm:inline-flex rounded-lg bg-energy/90 px-3 py-1 text-xs font-medium text-white hover:bg-energy transition-colors">
                 Connexion
               </a>
             )}
@@ -122,15 +122,15 @@ export default function EnergyHeader() {
             <div className="border-t border-white/10 mt-2 pt-2">
               {user ? (
                 <>
-                  <a href="https://tevaxia.lu/profil" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
+                  <a href="/profil" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
                     Profil
                   </a>
-                  <a href="https://tevaxia.lu/mes-evaluations" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
+                  <a href="/mes-evaluations" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
                     Mes évaluations
                   </a>
                 </>
               ) : (
-                <a href="https://tevaxia.lu/connexion" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
+                <a href="/connexion" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
                   Connexion
                 </a>
               )}
