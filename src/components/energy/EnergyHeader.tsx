@@ -90,7 +90,7 @@ export default function EnergyHeader() {
                 </a>
               </div>
             ) : (
-              <a href="/connexion" className="hidden sm:inline-flex rounded-lg bg-energy/90 px-3 py-1 text-xs font-medium text-white hover:bg-energy transition-colors">
+              <a href="/connexion?returnTo=/" className="hidden sm:inline-flex rounded-lg bg-energy/90 px-3 py-1 text-xs font-medium text-white hover:bg-energy transition-colors">
                 Connexion
               </a>
             )}
@@ -130,7 +130,7 @@ export default function EnergyHeader() {
                   </a>
                 </>
               ) : (
-                <a href="/connexion" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
+                <a href="/connexion?returnTo=/" className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
                   Connexion
                 </a>
               )}

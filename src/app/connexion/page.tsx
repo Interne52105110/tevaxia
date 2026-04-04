@@ -15,6 +15,10 @@ export default function Connexion() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  // Detect energy subdomain + returnTo param
+  const isEnergy = typeof window !== "undefined" && window.location.hostname.includes("energy");
+  const returnTo = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("returnTo") : null;
+
   if (!supabase) {
     return (
       <div className="bg-background py-16">
@@ -38,9 +42,19 @@ export default function Connexion() {
             <h2 className="text-lg font-semibold text-navy">Connecté</h2>
             <p className="mt-1 text-sm text-muted">{user.email}</p>
             <div className="mt-6 space-y-3">
-              <Link href="/mes-evaluations" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
-                Mes évaluations
-              </Link>
+              {returnTo ? (
+                <a href={returnTo} className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
+                  Retour
+                </a>
+              ) : isEnergy ? (
+                <Link href="/" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
+                  Retour aux simulateurs énergie
+                </Link>
+              ) : (
+                <Link href="/mes-evaluations" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
+                  Mes évaluations
+                </Link>
+              )}
               <button onClick={signOut} className="block w-full rounded-lg border border-card-border px-4 py-2.5 text-sm font-medium text-muted hover:bg-background transition-colors">
                 Se déconnecter
               </button>
