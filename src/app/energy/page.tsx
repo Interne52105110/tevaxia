@@ -109,11 +109,14 @@ export default async function EnergyHomePage() {
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SIMULATORS.map((sim) => (
+            {SIMULATORS.map((sim, i) => (
               <Link
                 key={sim.href}
                 href={sim.href}
-                className="group relative overflow-hidden rounded-2xl border border-card-border bg-card p-6 shadow-sm transition-all hover:shadow-lg hover:-translate-y-1"
+                className={`group relative overflow-hidden rounded-2xl border border-card-border bg-card p-6 shadow-sm transition-all hover:shadow-lg hover:-translate-y-1 ${
+                  i === SIMULATORS.length - 1 && SIMULATORS.length % 3 === 1 ? "sm:col-span-2 lg:col-span-1 lg:col-start-2" :
+                  i === SIMULATORS.length - 1 && SIMULATORS.length % 2 === 1 ? "sm:col-start-1 sm:col-span-2 sm:mx-auto sm:max-w-md lg:col-span-1 lg:col-start-2 lg:max-w-none lg:mx-0" : ""
+                }`}
               >
                 <div className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-br ${sim.color} p-3 text-white mb-4`}>
                   {sim.icon}
