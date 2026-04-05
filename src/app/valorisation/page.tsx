@@ -34,7 +34,8 @@ import {
 import AdjustmentGuidePanel from "@/components/AdjustmentGuide";
 import MarketDataPanel from "@/components/MarketDataPanel";
 import { calculerAjustDate } from "@/lib/adjustments";
-import { downloadReport } from "@/components/ValuationReport";
+import { generateReportBlob } from "@/components/ValuationReport";
+import { PdfButton } from "@/components/energy/EnergyPdf";
 import { downloadDocxReport } from "@/components/ValuationDocx";
 import { genererNarrative } from "@/lib/narrative";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
@@ -1813,8 +1814,8 @@ export default function Valorisation() {
                 label="Sauvegarder"
                 successLabel="Sauvegardé !"
               />
-              <button
-                onClick={() => downloadReport({
+              <PdfButton
+                generateBlob={() => generateReportBlob({
                   dateRapport: new Date().toISOString().split("T")[0],
                   commune: selectedCommune?.commune,
                   assetType: assetConfig.label,
@@ -1824,10 +1825,9 @@ export default function Valorisation() {
                   valeurCapitalisation: valeurCapitalisation || undefined,
                   valeurDCF: valeurDCF || undefined,
                 })}
-                className="rounded-lg bg-gold px-3 py-2 text-xs font-medium text-navy-dark hover:bg-gold-light transition-colors"
-              >
-                PDF
-              </button>
+                filename={`tevaxia-rapport-${new Date().toISOString().split("T")[0]}.pdf`}
+                label="PDF"
+              />
               <button
                 onClick={() => downloadDocxReport({
                   dateRapport: new Date().toISOString().split("T")[0],

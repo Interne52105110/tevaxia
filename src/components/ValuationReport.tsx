@@ -234,10 +234,13 @@ function ReportDocument({ data }: { data: ReportData }) {
   );
 }
 
-export async function downloadReport(data: ReportData) {
-  // Dynamic import — @react-pdf (~500KB) only loaded when user clicks "PDF Report"
+export async function generateReportBlob(data: ReportData): Promise<Blob> {
   const { pdf } = await import("@react-pdf/renderer");
-  const blob = await pdf(<ReportDocument data={data} />).toBlob();
+  return pdf(<ReportDocument data={data} />).toBlob();
+}
+
+export async function downloadReport(data: ReportData) {
+  const blob = await generateReportBlob(data);
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
