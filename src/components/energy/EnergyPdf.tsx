@@ -713,19 +713,19 @@ export function PdfButton({ onClick, label, generateBlob, filename }: { onClick?
           <button
             type="button"
             onClick={() => gatedAction(handlePreview)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-navy-800 bg-white transition hover:bg-gray-50 active:scale-95 border-r border-card-border"
-            title="Previsualiser"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-navy bg-white transition hover:bg-gray-50 active:scale-95 border-r border-card-border"
+            title="Prévisualiser"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
               <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
               <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
             </svg>
-            Previsualiser
+            Prévisualiser
           </button>
           <button
             type="button"
             onClick={() => gatedAction(handleDownload)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-white bg-navy-800 transition hover:bg-navy-700 active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-white bg-navy transition hover:bg-navy-light active:scale-95"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
