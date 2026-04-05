@@ -686,9 +686,18 @@ export function PdfButton({ onClick, label, generateBlob, filename }: { onClick?
 
   const handlePreview = async () => {
     if (!generateBlob) return;
-    const blob = await generateBlob();
-    const url = URL.createObjectURL(blob);
-    window.open(url, "_blank");
+    // Ouvrir la fenêtre AVANT l'await pour éviter le popup blocker
+    const win = window.open("", "_blank");
+    if (!win) return;
+    win.document.title = "Génération du PDF...";
+    win.document.body.innerHTML = '<p style="font-family:sans-serif;padding:40px;color:#666">Génération du PDF en cours...</p>';
+    try {
+      const blob = await generateBlob();
+      const url = URL.createObjectURL(blob);
+      win.location.href = url;
+    } catch {
+      win.document.body.innerHTML = '<p style="font-family:sans-serif;padding:40px;color:red">Erreur lors de la génération du PDF.</p>';
+    }
   };
 
   const handleDownload = async () => {
