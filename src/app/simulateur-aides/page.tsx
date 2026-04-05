@@ -8,7 +8,7 @@ import { simulerAides, formatEUR, type AideDetail } from "@/lib/calculations";
 import RelatedTools from "@/components/RelatedTools";
 import { downloadAidesPdf, PdfButton } from "@/components/ToolsPdf";
 import { sauvegarderEvaluation } from "@/lib/storage";
-import { useToast, Toast } from "@/components/Toast";
+import SaveButton from "@/components/SaveButton";
 import AuthGate from "@/components/AuthGate";
 
 function AideCard({ aide, t }: { aide: AideDetail; t: (key: string) => string }) {
@@ -89,7 +89,6 @@ interface MesureState {
 
 export default function SimulateurAides() {
   const t = useTranslations("simulateurAides");
-  const toast = useToast();
   const [typeProjet, setTypeProjet] = useState<"acquisition" | "construction" | "renovation">("acquisition");
   const [prixBien, setPrixBien] = useState(750000);
   const [montantTravaux, setMontantTravaux] = useState(50000);
@@ -433,7 +432,7 @@ export default function SimulateurAides() {
             </div>
 
             <div className="flex justify-end gap-2">
-              <button
+              <SaveButton
                 onClick={() => {
                   sauvegarderEvaluation({
                     nom: `Aides — ${typeProjet} — ${formatEUR(prixBien)}`,
@@ -441,12 +440,10 @@ export default function SimulateurAides() {
                     valeurPrincipale: result.totalGeneral,
                     data: { typeProjet, prixBien, montantTravaux, revenuMenage, nbEmprunteurs, nbEnfants, typeBien, residencePrincipale, estNeuf, montantPret, epargneReguliere3ans, commune },
                   });
-                  toast.show("Évaluation sauvegardée !");
                 }}
-                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-              >
-                Sauvegarder
-              </button>
+                label="Sauvegarder"
+                successLabel="Sauvegardé !"
+              />
               <PdfButton
                 label="PDF"
                 onClick={() =>
@@ -524,7 +521,7 @@ export default function SimulateurAides() {
           </div>
         </div>
       </div>
-      <Toast message={toast.message} visible={toast.visible} />
+
     </div>
   );
 }

@@ -7,14 +7,13 @@ import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { calculerPlusValue, formatEUR } from "@/lib/calculations";
 import { sauvegarderEvaluation } from "@/lib/storage";
-import { useToast, Toast } from "@/components/Toast";
+import SaveButton from "@/components/SaveButton";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { downloadPlusValuesPdf, PdfButton } from "@/components/ToolsPdf";
 
 export default function PlusValues() {
   const t = useTranslations("plusValues");
-  const toast = useToast();
   const [prixAcquisition, setPrixAcquisition] = useState(400000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2015);
   const [prixCession, setPrixCession] = useState(550000);
@@ -304,7 +303,7 @@ export default function PlusValues() {
             </div>
 
             <div className="flex justify-center gap-2">
-              <button
+              <SaveButton
                 onClick={() => {
                   sauvegarderEvaluation({
                     nom: `${t("savePrefix")} — ${formatEUR(prixAcquisition)} → ${formatEUR(prixCession)}`,
@@ -312,12 +311,10 @@ export default function PlusValues() {
                     valeurPrincipale: result.gainImposable,
                     data: { prixAcquisition, anneeAcquisition, prixCession, anneeCession, fraisAcquisition, travauxDeductibles, estResidencePrincipale, estCouple },
                   });
-                  toast.show(t("evaluationSauvegardee"));
                 }}
-                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-              >
-                {t("sauvegarder")}
-              </button>
+                label={t("sauvegarder")}
+                successLabel={t("evaluationSauvegardee")}
+              />
               <PdfButton
                 label="PDF"
                 onClick={() =>
@@ -344,7 +341,7 @@ export default function PlusValues() {
           </div>
         </div>
       </div>
-      <Toast message={toast.message} visible={toast.visible} />
+
     </div>
   );
 }

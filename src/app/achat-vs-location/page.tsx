@@ -16,7 +16,7 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2 } from "@/lib/calculations";
 import { downloadAchatLocationPdf, PdfButton } from "@/components/ToolsPdf";
 import { sauvegarderEvaluation } from "@/lib/storage";
-import { useToast, Toast } from "@/components/Toast";
+import SaveButton from "@/components/SaveButton";
 
 /**
  * Luxembourg "déduction des intérêts débiteurs" (art. 98bis LIR).
@@ -40,7 +40,6 @@ function deductionInteretsMax(annee: number, nbPersonnes: number): number {
 
 export default function AchatVsLocation() {
   const t = useTranslations("achatLocation");
-  const toast = useToast();
   const [viewMode, setViewMode] = useState<"quick" | "full">("quick");
 
   // Achat
@@ -376,7 +375,7 @@ export default function AchatVsLocation() {
             </div>
 
             <div className="flex justify-end gap-2">
-              <button
+              <SaveButton
                 onClick={() => {
                   sauvegarderEvaluation({
                     nom: `Achat vs Location — ${formatEUR(prixBien)} vs ${formatEUR(loyerMensuel)}/mois`,
@@ -384,12 +383,10 @@ export default function AchatVsLocation() {
                     valeurPrincipale: result.derniere.patrimoineNetAchat,
                     data: { prixBien, apport, tauxCredit, dureeCredit, loyerMensuel, horizon, fraisAcquisitionPct, chargesCoproMensuel, taxeFonciereAn, entretienAnPct, appreciationAn, indexationLoyer, rendementPlacement },
                   });
-                  toast.show("Évaluation sauvegardée !");
                 }}
-                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-              >
-                Sauvegarder
-              </button>
+                label="Sauvegarder"
+                successLabel="Sauvegardé !"
+              />
               <PdfButton
                 label="PDF"
                 onClick={() =>
@@ -608,7 +605,7 @@ export default function AchatVsLocation() {
           </div>
         </div>
       </div>
-      <Toast message={toast.message} visible={toast.visible} />
+
     </div>
   );
 }

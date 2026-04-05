@@ -16,7 +16,7 @@ import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { readUrlHash } from "@/lib/url-state";
 import { sauvegarderEvaluation } from "@/lib/storage";
-import { useToast, Toast } from "@/components/Toast";
+import SaveButton from "@/components/SaveButton";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { downloadEstimationPdf, PdfButton } from "@/components/ToolsPdf";
@@ -26,7 +26,7 @@ import MarketAlertButton from "@/components/MarketAlertButton";
 
 export default function Estimation() {
   const t = useTranslations("estimation");
-  const toast = useToast();
+
 
   const [communeSearch, setCommuneSearch] = useState("");
   const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
@@ -475,7 +475,7 @@ export default function Estimation() {
                     n: estNeuf ? "1" : "0",
                   }}
                 />
-                <button
+                <SaveButton
                   onClick={() => {
                     sauvegarderEvaluation({
                       nom: `${selectedResult?.commune.commune || communeSearch} — ${surface} m²`,
@@ -484,12 +484,10 @@ export default function Estimation() {
                       valeurPrincipale: result.estimationCentrale,
                       data: { communeSearch, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf },
                     });
-                    toast.show(t("evaluationSauvegardee"));
                   }}
-                  className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-                >
-                  {t("sauvegarder")}
-                </button>
+                  label={t("sauvegarder")}
+                  successLabel={t("evaluationSauvegardee")}
+                />
                 <PdfButton
                   label="PDF"
                   onClick={() =>
@@ -528,7 +526,7 @@ export default function Estimation() {
           )}
         </div>
       </div>
-      <Toast message={toast.message} visible={toast.visible} />
+
     </div>
   );
 }

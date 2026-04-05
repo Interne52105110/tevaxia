@@ -41,7 +41,7 @@ import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { sauvegarderEvaluation } from "@/lib/storage";
-import { useToast, Toast } from "@/components/Toast";
+import SaveButton from "@/components/SaveButton";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
 
@@ -101,7 +101,7 @@ function TabComparaison({
       ...prev,
       {
         id: String(Date.now()),
-        adresse: selectedCommune ? `${selectedCommune.commune} — ${t("aCompleter")}` : "",
+        adresse: selectedCommune ? `${t("compVirtuelLabel")} — ${selectedCommune.commune}` : "",
         prixVente: prixM2Ref > 0 ? prixM2Ref * surfaceBien : 0,
         surface: surfaceBien,
         dateVente: new Date().toISOString().slice(0, 7),
@@ -321,6 +321,12 @@ function TabComparaison({
       {/* Comparables */}
       {comparables.length > 0 && (
       <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+        <div className="rounded-lg bg-navy/5 border border-navy/10 p-4 mb-4">
+          <p className="text-sm text-foreground leading-relaxed">
+            <strong className="text-navy">{t("compGuideTitle")}</strong>{" "}
+            {t("compGuideText")}
+          </p>
+        </div>
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-base font-semibold text-navy">{t("comparablesTitle", { count: comparables.length })}</h2>
@@ -1606,7 +1612,6 @@ function TabReconciliation({
 
 export default function Valorisation() {
   const t = useTranslations("valorisation");
-  const toast = useToast();
   const [activeTab, setActiveTab] = useState<ActiveTab>("comparaison");
   const [surfaceBien, setSurfaceBien] = useState(80);
   const [assetType, setAssetType] = useState<AssetType>("residential_apartment");
@@ -1769,7 +1774,7 @@ export default function Valorisation() {
               <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">DCF :</span> <span className="font-semibold text-navy">{formatEUR(valeurDCF)}</span></div>
             )}
             {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (<>
-              <button
+              <SaveButton
                 onClick={() => {
                   sauvegarderEvaluation({
                     nom: `Valorisation — ${selectedCommune?.commune || "?"} — ${surfaceBien} m²`,
@@ -1778,12 +1783,10 @@ export default function Valorisation() {
                     valeurPrincipale: valeurComparaison || valeurCapitalisation || valeurDCF,
                     data: { surfaceBien, assetType, evsValueType, commune: selectedCommune?.commune, valeurComparaison, valeurCapitalisation, valeurDCF },
                   });
-                  toast.show("Évaluation sauvegardée !");
                 }}
-                className="rounded-lg border border-card-border px-3 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-              >
-                Sauvegarder
-              </button>
+                label="Sauvegarder"
+                successLabel="Sauvegardé !"
+              />
               <button
                 onClick={() => downloadReport({
                   dateRapport: new Date().toISOString().split("T")[0],
@@ -1922,7 +1925,7 @@ export default function Valorisation() {
           />
         )}
       </div>
-      <Toast message={toast.message} visible={toast.visible} />
+
     </div>
   );
 }

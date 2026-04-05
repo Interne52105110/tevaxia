@@ -7,14 +7,13 @@ import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { calculerCapitalInvesti, formatEUR, formatEUR2 } from "@/lib/calculations";
 import { sauvegarderEvaluation } from "@/lib/storage";
-import { useToast, Toast } from "@/components/Toast";
+import SaveButton from "@/components/SaveButton";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { downloadLoyerPdf, PdfButton } from "@/components/ToolsPdf";
 
 export default function CalculateurLoyer() {
   const t = useTranslations("calculLoyer");
-  const toast = useToast();
   const [prixAcquisition, setPrixAcquisition] = useState(500000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2010);
   const [travauxMontant, setTravauxMontant] = useState(0);
@@ -264,7 +263,7 @@ export default function CalculateurLoyer() {
             </div>
 
             <div className="flex justify-center gap-2">
-              <button
+              <SaveButton
                 onClick={() => {
                   sauvegarderEvaluation({
                     nom: `${t("savePrefix")} — ${formatEUR(prixAcquisition)} (${surfaceHabitable} m²)`,
@@ -272,12 +271,10 @@ export default function CalculateurLoyer() {
                     valeurPrincipale: result.loyerMensuelMax,
                     data: { prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, appliquerVetuste, tauxVetuste, avecColocation, nbColocataires, estMeuble },
                   });
-                  toast.show(t("saveToast"));
                 }}
-                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-              >
-                {t("saveButton")}
-              </button>
+                label={t("saveButton")}
+                successLabel={t("saveToast")}
+              />
               <PdfButton
                 label="PDF"
                 onClick={() =>
@@ -297,7 +294,7 @@ export default function CalculateurLoyer() {
           </div>
         </div>
       </div>
-      <Toast message={toast.message} visible={toast.visible} />
+
     </div>
   );
 }

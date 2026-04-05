@@ -7,11 +7,10 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
 import { downloadBilanPromoteurPdf, PdfButton } from "@/components/ToolsPdf";
 import { sauvegarderEvaluation } from "@/lib/storage";
-import { useToast, Toast } from "@/components/Toast";
+import SaveButton from "@/components/SaveButton";
 
 export default function BilanPromoteur() {
   const t = useTranslations("bilanPromoteur");
-  const toast = useToast();
   // Recettes
   // Type d'opération
   const [typeOperation, setTypeOperation] = useState<"immeuble" | "lotissement" | "maisons">("immeuble");
@@ -354,7 +353,7 @@ export default function BilanPromoteur() {
             />
 
             <div className="flex justify-end gap-2">
-              <button
+              <SaveButton
                 onClick={() => {
                   sauvegarderEvaluation({
                     nom: `Bilan promoteur — ${surfaceVendable} m² — ${formatEUR(prixVenteM2)}/m²`,
@@ -362,12 +361,10 @@ export default function BilanPromoteur() {
                     valeurPrincipale: result.chargeFonciere,
                     data: { surfaceVendable, prixVenteM2, nbParkings, prixParking, surfaceTerrain, prixTerrainM2, coutTerrainConnu, coutConstructionM2, surfaceBrute, voirie, honorairesArchitecte, honorairesBET, etudesAutres, fraisCommerciaux, fraisFinanciers, assurances, fraisGestion, aleas, margePromoteur, typeOperation },
                   });
-                  toast.show("Évaluation sauvegardée !");
                 }}
-                className="rounded-lg border border-card-border px-4 py-2 text-xs font-medium text-muted hover:bg-background transition-colors"
-              >
-                Sauvegarder
-              </button>
+                label="Sauvegarder"
+                successLabel="Sauvegardé !"
+              />
               <PdfButton
                 label="PDF"
                 onClick={() =>
@@ -447,7 +444,7 @@ export default function BilanPromoteur() {
           </div>
         </div>
       </div>
-      <Toast message={toast.message} visible={toast.visible} />
+
     </div>
   );
 }
