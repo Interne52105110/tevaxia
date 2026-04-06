@@ -778,8 +778,10 @@ export function PdfButton({ onClick, label, generateBlob, filename }: { onClick?
       const blob = await generateBlob();
       const url = URL.createObjectURL(blob);
       win.location.href = url;
-    } catch {
-      win.document.body.innerHTML = '<p style="font-family:sans-serif;padding:40px;color:red">Erreur lors de la génération du PDF.</p>';
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      win.document.body.innerHTML = `<div style="font-family:sans-serif;padding:40px"><p style="color:red;font-weight:bold">Erreur lors de la génération du PDF</p><pre style="color:#666;font-size:12px;margin-top:12px;white-space:pre-wrap">${msg}</pre></div>`;
+      console.error("PDF generation error:", err);
     }
   };
 

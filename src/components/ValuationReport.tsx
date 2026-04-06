@@ -21,18 +21,20 @@ import {
 } from "@/components/energy/EnergyPdf";
 
 // ============================================================
-// Font registration — Inter (same as EnergyPdf)
+// Font — fallback to Helvetica (Inter loaded by EnergyPdf if available)
 // ============================================================
-if (typeof window !== "undefined") {
-  Font.register({
-    family: "Inter",
-    fonts: [
-      { src: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjQ.ttf", fontWeight: 400 },
-      { src: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYAZ9hjQ.ttf", fontWeight: 600 },
-      { src: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hjQ.ttf", fontWeight: 700 },
-    ],
-  });
-}
+try {
+  if (typeof window !== "undefined") {
+    Font.register({
+      family: "Inter",
+      fonts: [
+        { src: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjQ.ttf", fontWeight: 400 },
+        { src: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYAZ9hjQ.ttf", fontWeight: 600 },
+        { src: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hjQ.ttf", fontWeight: 700 },
+      ],
+    });
+  }
+} catch { /* Font already registered by EnergyPdf or unavailable */ }
 
 // ============================================================
 // Formatting helpers
@@ -562,7 +564,7 @@ function MethodesPage({ data, reference }: { data: ReportData; reference: string
       {hasComp && (
         <>
           <Text style={s.sectionSm}>Approche par comparaison</Text>
-          <Row label="Valeur par comparaison" value={fmtEur(data.valeurComparaison!)} />
+          <Row label="Valeur par comparaison" value={fmtEur(data.valeurComparaison || 0)} />
           {data.surface > 0 && (
             <Row label="Prix unitaire" value={`${fmtEur(data.valeurComparaison! / data.surface)} /m2`} />
           )}
@@ -579,7 +581,7 @@ function MethodesPage({ data, reference }: { data: ReportData; reference: string
           <Text style={s.sectionSm}>Capitalisation directe</Text>
           {data.noi != null && <Row label="Resultat net d'exploitation (NOI)" value={fmtEur(data.noi)} />}
           {data.tauxCap != null && <Row label="Taux de capitalisation" value={fmtPct2(data.tauxCap, 2)} />}
-          <Row label="Valeur par capitalisation" value={fmtEur(data.valeurCapitalisation!)} />
+          <Row label="Valeur par capitalisation" value={fmtEur(data.valeurCapitalisation || 0)} />
           {data.rendementInitial != null && (
             <Row label="Rendement initial" value={formatPct(data.rendementInitial * 100)} />
           )}
@@ -614,7 +616,7 @@ function MethodesPage({ data, reference }: { data: ReportData; reference: string
           <Text style={s.sectionSm}>Actualisation des flux futurs (DCF)</Text>
           {data.tauxActualisation != null && <Row label="Taux d'actualisation" value={fmtPct2(data.tauxActualisation, 2)} />}
           {data.tauxCapSortie != null && <Row label="Taux de capitalisation en sortie" value={fmtPct2(data.tauxCapSortie, 2)} />}
-          <Row label="Valeur DCF" value={fmtEur(data.valeurDCF!)} />
+          <Row label="Valeur DCF" value={fmtEur(data.valeurDCF || 0)} />
           {data.irr != null && (
             <RowHL label="TRI (IRR)" value={fmtPct2(data.irr * 100, 2)} />
           )}
