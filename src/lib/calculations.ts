@@ -587,14 +587,51 @@ export function simulerAides(input: AidesInput): AidesResult {
     });
   }
 
+  // Klimaprêt (financement à taux réduit)
+  if (input.typeProjet === "renovation" && input.montantTravaux) {
+    const klimabonusTotal = aides.filter(a => a.nom.includes("Klimabonus") || a.nom.includes("Subvention conseil")).reduce((s, a) => s + a.montant, 0);
+    const resteACharge = Math.max(input.montantTravaux - klimabonusTotal, 0);
+    const montantKlimapret = Math.min(resteACharge, 100_000);
+    if (montantKlimapret > 0) {
+      // Économie = différence d'intérêts Klimaprêt 1,5% vs marché ~4% sur 15 ans
+      const dureeMois = 180;
+      const rKlima = 0.015 / 12;
+      const rMarche = 0.04 / 12;
+      const mensKlima = montantKlimapret * rKlima / (1 - Math.pow(1 + rKlima, -dureeMois));
+      const mensMarche = montantKlimapret * rMarche / (1 - Math.pow(1 + rMarche, -dureeMois));
+      const economieInterets = Math.round((mensMarche - mensKlima) * dureeMois);
+      aides.push({
+        nom: "Klimaprêt (taux 1,5%)",
+        categorie: "etatique_energie",
+        montant: economieInterets,
+        description: `Prêt ${formatEUR(montantKlimapret)} à 1,5% au lieu de ~4% marché. Économie d'intérêts sur 15 ans. Aucune avance de fonds.`,
+        conditions: "Max 100 000 €, durée max 15 ans",
+        nature: "economie",
+      });
+    }
+  }
+
+  // TVA super-réduite 3% sur travaux de rénovation (résidence principale)
+  if (input.typeProjet === "renovation" && input.montantTravaux && input.residencePrincipale) {
+    const faveurTVA = Math.min(input.montantTravaux * 0.14, 50_000); // diff 17% - 3% = 14%, plafonnée
+    aides.push({
+      nom: "TVA 3% sur travaux de rénovation",
+      categorie: "etatique_acquisition",
+      montant: faveurTVA,
+      description: "TVA réduite à 3% au lieu de 17% pour travaux sur résidence principale (> 20 ans)",
+      conditions: "Résidence principale, logement de plus de 20 ans",
+      nature: "directe",
+    });
+  }
+
   // --- COUCHE 3 : Aides privées ---
   if (input.typeProjet === "renovation" && input.montantTravaux) {
     aides.push({
       nom: "Enoprimes (fournisseurs énergie)",
       categorie: "privee",
       montant: input.montantTravaux * 0.05,
-      description: "Primes des fournisseurs d'énergie, cumulables avec Klimabonus",
-      conditions: "Selon le type de travaux et le fournisseur",
+      description: "Primes des fournisseurs d'énergie (Enovos, Sudstroum, etc.), cumulables avec Klimabonus",
+      conditions: "Selon le type de travaux et le fournisseur — demander un devis",
       nature: "directe",
     });
   }
