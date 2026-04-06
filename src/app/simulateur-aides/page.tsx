@@ -563,44 +563,92 @@ export default function SimulateurAides() {
                 </h3>
                 <div className="text-sm text-emerald-700 space-y-2">
                   {(() => {
-                    const communeAides: Record<string, string> = {
-                      "Luxembourg": "Subvention rénovation de façade : 750 à 20 000 € par immeuble en secteur protégé, +10% en zone UNESCO. Prime énergie communale complémentaire.",
-                      "Esch-sur-Alzette": "Subventions façade en zones de rénovation urbaine. Complément communal aux aides étatiques pour la rénovation énergétique.",
-                      "Differdange": "Prime communale rénovation énergétique. Aide complémentaire pour l'installation de panneaux photovoltaïques.",
-                      "Dudelange": "Subventions façade en zones de rénovation urbaine. Prime mobilité douce.",
-                      "Sanem": "Complément communal ~50% de l'aide étatique (plafond variable). Prime énergie renouvelable.",
-                      "Bertrange": "Complément communal ~50% de l'aide étatique (plafond variable). Prime isolation.",
-                      "Hesperange": "Prime communale énergie renouvelable. Subvention bornes de recharge.",
-                      "Bettembourg": "Aide complémentaire rénovation. Prime panneaux solaires thermiques.",
-                      "Lintgen": "50% de l'aide étatique, plafonnée à 1 500 €. Prime Klimapakt.",
-                      "Beckerich": "Suppléments énergie renouvelable et rénovation (commune Klimapakt). Prime mobilité électrique.",
-                      "Mersch": "Complément communal rénovation énergétique. Prime vélo électrique.",
-                      "Mamer": "Aide communale acquisition résidence principale. Prime énergie.",
-                      "Strassen": "Subvention isolation façade. Complément Klimabonus communal.",
-                      "Schifflange": "Prime rénovation urbaine. Aide complémentaire énergie.",
-                      "Pétange": "Subvention rénovation façade. Prime énergie renouvelable communale.",
-                      "Käerjeng": "Complément Klimapakt. Prime panneaux photovoltaïques.",
-                      "Mondercange": "Aide communale rénovation. Prime mobilité douce.",
-                      "Steinsel": "Subvention énergie renouvelable. Aide complémentaire isolation.",
-                      "Walferdange": "Prime communale rénovation. Subvention bornes de recharge.",
-                      "Niederanven": "Complément communal énergie. Prime véhicule électrique.",
-                      "Sandweiler": "Aide communale Klimapakt. Prime isolation.",
-                      "Contern": "Subvention énergie renouvelable. Aide rénovation.",
-                      "Junglinster": "Complément communal rénovation énergétique. Prime Klimapakt.",
-                      "Echternach": "Subvention rénovation façade en secteur protégé. Prime patrimoine historique.",
-                      "Diekirch": "Aide communale rénovation. Prime énergie.",
-                      "Ettelbruck": "Subvention rénovation urbaine. Complément Klimabonus.",
-                      "Wiltz": "Aide rénovation urbaine. Prime énergie (commune Klimapakt Gold).",
-                      "Clervaux": "Complément communal rénovation. Aide énergie renouvelable.",
-                      "Vianden": "Subvention rénovation patrimoine. Prime énergie.",
-                      "Remich": "Aide communale rénovation façade. Prime énergie.",
-                      "Grevenmacher": "Subvention rénovation. Complément communal énergie.",
+                    const communeAides: Record<string, { description: string; source: string }> = {
+                      "Luxembourg": {
+                        description: "Prime construction/acquisition : 7 200 € (+1 200 €/enfant). Rénovation énergie : 50% de l'aide étatique (isolation, fenêtres). Remplacement électroménager haute efficacité : 50% du prix (max 100 €/appareil). Réparation : 75% des coûts (max 200 €/ménage/an).",
+                        source: "vdl.lu — Règlement communal du 17/10/2022"
+                      },
+                      "Esch-sur-Alzette": {
+                        description: "Rénovation logement : 25% de la prime étatique. Efficacité énergétique (depuis 02/2016) : isolation murs/toiture 20%, fenêtres 50%, VMC 10% (max 600 €), capteurs solaires 30%, PV 10%, PAC 10%, conseil énergétique 20% — de l'aide étatique.",
+                        source: "administration.esch.lu — Règlement efficience énergétique"
+                      },
+                      "Differdange": {
+                        description: "40% de la subvention étatique pour les mesures énergétiques (photovoltaïque et autres). Règlement communal du 08/03/2016.",
+                        source: "differdange.lu — Règlement communal subventions"
+                      },
+                      "Dudelange": {
+                        description: "Construction durable : 10% aide étatique. Isolation/fenêtres/VMC : 25%. Solaire/PV/PAC/bois : 25%. Électroménager : 15% du prix (classe A-C). Vélo : 50% aide étatique (max 150 €). Véhicule électrique : max 500 €. Borne recharge : 25%.",
+                        source: "dudelange.lu — Service écologique, Maison Verte"
+                      },
+                      "Bertrange": {
+                        description: "Prime acquisition : 50% aide étatique. Efficacité énergétique/renouvelable : 25% aide étatique. Rénovation façade : 5% du coût (max 2 000 €, bâtiment 40+ ans). Eau de pluie : 30% (max 1 000 €). Toiture végétalisée : 100-300 €. Véhicule électrique : 500 € forfait.",
+                        source: "bertrange.lu — Subsides & allocations"
+                      },
+                      "Hesperange": {
+                        description: "Prime construction/acquisition : 1 500 € (+500 €/enfant, max 3 000 €). Subventions écologiques : 35% de l'aide étatique (max 8 500 €). Conditions : résidence principale 10 ans min.",
+                        source: "hesperange.lu — Règlement subventions écologiques"
+                      },
+                      "Bettembourg": {
+                        description: "Construction durable : 10% aide étatique. Conseil énergétique immeuble : 20% (max 560 €). Check chauffage : 50% (max 50 €). Pompe circulation HE : 50% (max 100 €). Eau de pluie : 50% aide étatique (max 500 €). Pacte Climat Gold (81,3%).",
+                        source: "bettembourg.lu — Développement durable"
+                      },
+                      "Mamer": {
+                        description: "30% de l'aide étatique pour PV et rénovations (max 7 200 €). Subvention d'intérêt pour construction/acquisition. Récupération eau de pluie.",
+                        source: "mamer.lu — Grants"
+                      },
+                      "Strassen": {
+                        description: "Subvention loyer : 75% de l'aide étatique. Allocation vie chère : 30% de l'allocation étatique FNS. Subventions assainissement énergétique, énergies renouvelables et récupération eau de pluie.",
+                        source: "strassen.lu — Subsides & allocations"
+                      },
+                      "Lintgen": {
+                        description: "Rénovation énergétique : 50% de l'aide étatique (max 1 500 €). Aides spécifiques chauffage biomasse et récupération eau de pluie.",
+                        source: "bauerenergie.lu / lu.solution-energie.com"
+                      },
+                      "Beckerich": {
+                        description: "Commune modèle développement durable — European Energy Award Gold (84,6%). Réseau chaleur biogaz. Suppléments Klimapakt+ pour rénovation et énergie renouvelable. Pacte Climat Gold (81,7%).",
+                        source: "beckerich.lu — Pacte Climat"
+                      },
+                      "Junglinster": {
+                        description: "Conseil énergétique : 75% aide étatique. Isolation/fenêtres : 20% (matériaux écologiques requis pour toiture). PAC géothermique : 50%. Solaire thermique chauffage : 40%. PV : 20% (max 500 €). Toiture végétalisée : 20% (max 1 500 €). Certificat LENOZ : 100%.",
+                        source: "junglinster.lu — Subventions environnement"
+                      },
+                      "Sandweiler": {
+                        description: "Prime construction : 50% aide étatique (max 2 479 €). Énergie/renouvelable : 30% aide étatique (max 7 200 €). Eau de pluie : 75% (max 750 €). Pompe circulation : 100 €. Électroménager basse conso : 100 €. E-bike : 10% (max 200 €).",
+                        source: "sandweiler.lu — Subsides & allocations"
+                      },
+                      "Kayl": {
+                        description: "Isolation (art.3) : 10% aide étatique. Renouvelables (art.4) : 25% aide étatique. Circulateur HE : 50% (max 100 €). Eau de pluie : 50% aide étatique (max 800 €). Demande dans les 6 mois après aide État.",
+                        source: "kayl.lu — Règlement développement durable"
+                      },
+                      "Pétange": {
+                        description: "Montant fixe de 500 € pour travaux liés à l'énergie et au logement. Condition : aide étatique obtenue préalablement.",
+                        source: "bauerenergie.lu"
+                      },
+                      "Schifflange": {
+                        description: "Aide financière logement individuel. Subvention conseil énergétique. Aides vélos/trottinettes électriques. Pacte Climat Gold (86,5%). CO₂ réduit de 50% depuis 2000.",
+                        source: "schifflange.lu — Pacte Climat"
+                      },
+                      "Wiltz": {
+                        description: "Mesures efficacité énergétique et utilisation rationnelle de l'énergie. Allocation de compensation mensuelle (5,41 €/personne). Pacte Climat certifié.",
+                        source: "wiltz.lu — Aides financières"
+                      },
+                      "Diekirch": {
+                        description: "Service Énergies & Environnement actif. Fait partie du réseau Nordenergie (avec Ettelbruck). Contacter directement pour montants.",
+                        source: "diekirch.lu — Service Énergies"
+                      },
+                      "Ettelbruck": {
+                        description: "Fait partie de la Nordstad. Accompagnement logement via Nordstad. Contacter directement pour les aides spécifiques.",
+                        source: "ettelbruck.lu"
+                      },
                     };
                     const aide = communeAides[commune];
                     return aide ? (
                       <>
-                        <p>{aide}</p>
-                        <p className="text-xs text-emerald-600 mt-2">
+                        <p>{aide.description}</p>
+                        <p className="text-xs text-emerald-500 mt-2 italic">
+                          Source : {aide.source}
+                        </p>
+                        <p className="text-xs text-emerald-600 mt-1">
                           Contactez le service urbanisme/logement de {commune} pour les montants exacts et les conditions en vigueur.
                         </p>
                       </>

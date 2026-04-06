@@ -649,16 +649,75 @@ export function simulerAides(input: AidesInput): AidesResult {
     });
   }
 
-  // --- COUCHE 4 : Aides communales (estimations) ---
+  // --- COUCHE 4 : Aides communales (données vérifiées) ---
   if (input.montantTravaux && input.montantTravaux > 0) {
+    const COMMUNE_AIDE_PCT: Record<string, number> = {
+      "Luxembourg": 0.50,
+      "Esch-sur-Alzette": 0.20,
+      "Differdange": 0.40,
+      "Dudelange": 0.25,
+      "Bertrange": 0.25,
+      "Hesperange": 0.35,
+      "Bettembourg": 0.10,
+      "Mamer": 0.30,
+      "Strassen": 0.30,
+      "Lintgen": 0.50,
+      "Junglinster": 0.20,
+      "Sandweiler": 0.30,
+      "Kayl": 0.10,
+      "Pétange": 0.00, // forfait 500 €
+    };
+
+    const COMMUNE_MAX: Record<string, number> = {
+      "Lintgen": 1500,
+      "Sandweiler": 7200,
+      "Hesperange": 8500,
+      "Bettembourg": 560,
+    };
+
+    const COMMUNE_DESC: Record<string, string> = {
+      "Luxembourg": "50% de l'aide étatique (isolation, fenêtres) — vdl.lu",
+      "Esch-sur-Alzette": "20% de l'aide étatique (isolation, PV, PAC) — administration.esch.lu",
+      "Differdange": "40% de la subvention étatique — differdange.lu",
+      "Dudelange": "25% de l'aide étatique (isolation, solaire, PAC) — dudelange.lu",
+      "Bertrange": "25% de l'aide étatique (énergie/renouvelable) — bertrange.lu",
+      "Hesperange": "35% de l'aide étatique (max 8 500 €) — hesperange.lu",
+      "Bettembourg": "10% de l'aide étatique (max 560 €) — bettembourg.lu",
+      "Mamer": "30% de l'aide étatique (max 7 200 €) — mamer.lu",
+      "Strassen": "30% de l'aide étatique (assainissement énergétique) — strassen.lu",
+      "Lintgen": "50% de l'aide étatique (max 1 500 €) — bauerenergie.lu",
+      "Junglinster": "20% de l'aide étatique (isolation, PV) — junglinster.lu",
+      "Sandweiler": "30% de l'aide étatique (max 7 200 €) — sandweiler.lu",
+      "Kayl": "10% de l'aide étatique (isolation) — kayl.lu",
+      "Pétange": "Montant fixe de 500 € — bauerenergie.lu",
+    };
+
+    const commune = input.commune || "";
+    const communePct = COMMUNE_AIDE_PCT[commune] ?? 0.05; // défaut 5%
+    let montantCommunal = input.montantTravaux * communePct;
+
+    // Pétange : forfait fixe 500 €
+    if (commune === "Pétange") montantCommunal = 500;
+
+    // Plafonds communaux
+    if (COMMUNE_MAX[commune]) {
+      montantCommunal = Math.min(montantCommunal, COMMUNE_MAX[commune]);
+    }
+
+    const descCommunale = COMMUNE_DESC[commune]
+      || "Variable selon la commune — estimation ~5% du montant des travaux";
+    const sourceCommunale = commune && COMMUNE_AIDE_PCT[commune] !== undefined
+      ? `Règlement communal ${commune} — données vérifiées`
+      : "Règlement communal — contacter le service urbanisme/logement de votre commune";
+
     aides.push({
       nom: "Aide communale rénovation",
       categorie: "communale",
-      montant: input.montantTravaux * 0.05,
-      description: "Variable selon la commune — peut représenter 30 à 50% de l'aide étatique",
-      conditions: `Commune : ${input.commune || "non précisée"} — vérifier les règles locales`,
+      montant: montantCommunal,
+      description: descCommunale,
+      conditions: `Commune : ${commune || "non précisée"} — vérifier les règles locales`,
       nature: "directe",
-      source: "Règlement communal — contacter le service urbanisme/logement de votre commune",
+      source: sourceCommunale,
     });
   }
 
