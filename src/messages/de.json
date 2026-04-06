@@ -279,7 +279,7 @@
       "klimapretEcoDesc": "Klimaprêt-Monatsrate: {mens} €/Monat vs. {mensMarche} €/Monat zum Marktzins",
       "klimapretZeroCash": "Kein Eigenkapitalvorschuss — der Klimaprêt finanziert den gesamten Eigenanteil",
       "prixEnergie": "Energiepreis (€/kWh)",
-      "prixEnergieHint": "Durchschnittstarif LU 2025: 0,12 €/kWh",
+      "prixEnergieHint": "Durchschnittstarif LU 2026: 0,12 €/kWh",
       "modeCopro": "Eigentümergemeinschaftsmodus",
       "nbLots": "Anzahl Einheiten",
       "co2Evite": "Vermiedenes CO₂",
@@ -331,7 +331,7 @@
       "coutParPart": "Kosten / Teilnehmer",
       "payback": "Amortisationszeit",
       "annees": "Jahre",
-      "coutBase": "Basis: 1 200 €/kWp netto (PV-Module, Wechselrichter, Verkabelung, Montage). Luxemburger Markt 2025.",
+      "coutBase": "Basis: 1 200 €/kWp netto (PV-Module, Wechselrichter, Verkabelung, Montage). Luxemburger Markt 2026.",
       "prodMensTitle": "Geschätzte monatliche Produktion",
       "prodMensDesc": "Verteilung basierend auf der durchschnittlichen Sonneneinstrahlung in Luxemburg (Südausrichtung, 35°)",
       "conformiteTitle": "Regulatorische Konformität",
@@ -967,7 +967,7 @@
   },
   "simulateurAides": {
     "title": "Fördermittel-Simulator",
-    "badge": "2025",
+    "badge": "2026",
     "subtitle": "Schätzen Sie die staatlichen, kommunalen und steuerlichen Vorteile, auf die Sie bei Ihrem Immobilienprojekt in Luxemburg Anspruch haben.",
     "sectionProjet": "Ihr Projekt",
     "typeProjet": "Projekttyp",
@@ -2000,7 +2000,6 @@
     "rptA_7_calculs": "A7 — Detaillierte Bewertungsberechnungen",
     "rptA_8_esg": "A8 — ESG-Faktoren (A8.1 Energieleistung, A8.2 Physische Risiken, A8.3 Transitionsrisiken)",
     "rptA_9_qualifications": "A9 — Qualifikationen des Sachverständigen",
-
     "evsMarketValueLabel": "Marktwert",
     "evsMarketValueDesc": "Der geschätzte Betrag, zu dem ein Vermögenswert am Bewertungsstichtag zwischen einem vertragswilligen Käufer und einem vertragswilligen Verkäufer in einer marktüblichen Transaktion nach angemessener Vermarktung getauscht werden sollte, wobei die Parteien sachkundig, umsichtig und ohne Zwang gehandelt haben.",
     "evsMarketRentLabel": "Marktmiete (ERV)",
@@ -2013,7 +2012,6 @@
     "evsFairValueDesc": "Der Preis, der beim Verkauf eines Vermögenswerts erzielt oder bei Übertragung einer Verbindlichkeit in einer geordneten Transaktion zwischen Marktteilnehmern am Bewertungsstichtag gezahlt würde. Konzept der 'höchsten und besten Nutzung'.",
     "evsEquitableValueLabel": "Angemessener Wert",
     "evsEquitableValueDesc": "Der geschätzte Preis für die Übertragung eines Vermögenswerts zwischen identifizierten, sachkundigen und vertragswilligen Parteien, der die jeweiligen Interessen dieser Parteien widerspiegelt.",
-
     "assetResAppartement": "Wohnimmobilie — Wohnung",
     "assetResMaison": "Wohnimmobilie — Haus",
     "assetImmeubleRapport": "Mehrfamilienhaus",
@@ -2022,7 +2020,6 @@
     "assetHotellerie": "Hotel",
     "assetLogistique": "Logistik / Industrie",
     "assetTerrain": "Baugrundstück",
-
     "metricPrixM2": "Preis/m²",
     "metricLoyerM2Mois": "Miete/m²/Monat",
     "metricCapitalInvesti": "Investiertes Kapital (Gesetz 2006)",
@@ -2057,7 +2054,6 @@
     "metricDroitsAConstruire": "Baurechte (m² BGF)",
     "metricViabilisation": "Erschlossenes Grundstück",
     "metricZonePAG": "PAG-Zone",
-
     "methodComparaisonDom": "Vergleichswertverfahren (dominant)",
     "methodCapitalisation": "Ertragswertverfahren",
     "methodDCFInvest": "DCF (bei Investition)",
@@ -2071,7 +2067,6 @@
     "methodPrixChambreVerif": "Preis pro Zimmer (Kontrolle)",
     "methodCoutRemplacementSpec": "Sachwertverfahren (bei Spezialimmobilien)",
     "methodResiduellePromoteur": "Residualwertverfahren (Bauträgerrechnung)",
-
     "notesResAppartement": "In Luxemburg wird der Wohnungsmarkt vom Vergleichswertverfahren dominiert. Die Miete ist auf 5% des investierten Kapitals begrenzt (Gesetz 2006). Der Leerstand ist historisch sehr niedrig (<3%).",
     "notesResMaison": "Vergleichsdaten für Häuser sind in Luxemburg begrenzt — das Observatoire de l'Habitat veröffentlicht keine detaillierten Statistiken mangels ausreichender Katasterdaten. Längere Vermarktungsdauer als bei Wohnungen.",
     "notesImmeubleRapport": "Mehrfamilienhäuser werden hauptsächlich nach der Rendite bewertet. Jede Einheit analysieren: Ist-Miete vs. ERV, Restmietdauer, Reversionspotenzial. Die 5%-Grenze gilt pro Wohneinheit.",
@@ -2080,7 +2075,6 @@
     "notesHotellerie": "Hotels werden nach der Ertragskraft (stabilisiertes EBITDA) bewertet, nicht nach der Miete. Unterscheidung Immobilie / Betrieb. Luxemburg: institutioneller/Geschäftsmarkt, Auslastung ~70-75%.",
     "notesLogistique": "Luxemburg: begrenzter Logistikbestand, konzentriert auf Eurohub Süd (Bettemburg/Düdelingen). Mieten ~6-9 €/m²/Monat. Lange Mietverträge (6-9 Jahre fest). ESG zunehmend wichtig.",
     "notesTerrain": "In Luxemburg besteht ein Preisverhältnis von 1 zu 6 zwischen Grundstücken in Luxemburg-Stadt und dem Norden. PAG/PAP prüfen: Bauzone, GFZ, Dienstbarkeiten. Das Residualwertverfahren leitet den Bodenwert ab.",
-
     "esgNiveauExcellent": "Ausgezeichnet",
     "esgNiveauBon": "Gut",
     "esgNiveauMoyen": "Durchschnittlich",
@@ -2102,7 +2096,6 @@
     "esgNiveauRisque_faible": "niedrig",
     "esgNiveauRisque_moyen": "mittel",
     "esgNiveauRisque_eleve": "hoch",
-
     "checkCommune": "Gemeinde / Standort identifiziert",
     "checkSurface": "Immobilienfläche angegeben",
     "checkAssetType": "Immobilientyp ausgewählt",
@@ -2119,7 +2112,6 @@
     "checkScenarios": "Szenarioanalyse",
     "checkNarrative": "Narrative Analyse erstellt",
     "checkMLV": "Beleihungswert (MLV) berechnet",
-
     "adjEtageSousSol": "Untergeschoss / Gartengeschoss",
     "adjEtageRDC": "Erdgeschoss",
     "adjEtage1er": "1. Obergeschoss",
@@ -2173,7 +2165,6 @@
     "adjDateIndices": "STATEC-Indizes:",
     "adjDateExplication": "Kumulierte Veränderung seit dem Verkauf des Vergleichsobjekts. Positiv = Markt ist seit dem Verkauf gestiegen.",
     "adjDateSource": "Quelle: STATEC — Wohnimmobilienpreisindizes",
-
     "renovIsolFacade": "Fassadendämmung (WDVS)",
     "renovIsolToiture": "Dach-/Dachbodendämmung",
     "renovIsolSol": "Boden-/Kellerdämmung",
@@ -2183,10 +2174,8 @@
     "renovSolaireTherm": "Solarthermische Paneele",
     "renovSolairePV": "Photovoltaikmodule",
     "renovElectricite": "Elektroinstallation auf Standard",
-
     "sauvegarder": "Speichern",
     "sauvegarde": "Gespeichert!",
-
     "narrCommuneDe": "Gemeinde {commune}",
     "narrLocNonPrecisee": "Standort nicht angegeben",
     "narrIntroduction": "Gegenstand dieser Analyse ist ein {assetType} mit einer Fläche von {surface} m², gelegen in {localisation}. Die Bewertung erfolgt auf Grundlage des {evsType} gemäß den European Valuation Standards 2025 (TEGOVA, 10. Ausgabe).",
@@ -2217,7 +2206,6 @@
     "narrESGMoyen": "Das ESG-Profil ist durchschnittlich (Score {score}/100, Niveau {niveau}). Energetische Sanierungsarbeiten könnten die Bewertung verbessern.",
     "narrESGInsuffisant": "Das ESG-Profil ist unzureichend (Score {score}/100, Niveau {niveau}). Der geschätzte Energieabschlag beträgt {impact}%. Eine Sanierung wird empfohlen.",
     "narrReserves": "Diese Analyse dient nur zu Informationszwecken auf Basis öffentlich verfügbarer Daten und vom Benutzer eingegebener Parameter. Sie stellt kein Wertgutachten im Sinne der EVS 2025 dar. Für eine offizielle Bewertung wenden Sie sich bitte an einen TEGOVA-zertifizierten Gutachter (REV/TRV).",
-
     "estAjustEtage": "Stockwerk: {etage}",
     "estAjustEtat": "Zustand: {etat}",
     "estAjustExterieur": "Außenbereich: {exterieur}",

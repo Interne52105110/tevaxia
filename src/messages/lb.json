@@ -967,7 +967,7 @@
   },
   "simulateurAides": {
     "title": "Simulator vun den Hëllefen",
-    "badge": "2025",
+    "badge": "2026",
     "subtitle": "Schätzt déi staatlech, kommunal a steierlechen Hëllefen, op déi Dir bei Ärem Immobiliëprojet zu Lëtzebuerg Usproch hutt.",
     "sectionProjet": "Äre Projet",
     "typeProjet": "Projettyp",
@@ -2000,7 +2000,6 @@
     "rptA_7_calculs": "A7 — Detailléiert Bewäertungsberechnungen",
     "rptA_8_esg": "A8 — ESG-Faktoren (A8.1 Energieleeschtung, A8.2 Physesch Risiken, A8.3 Transitiounsrisiken)",
     "rptA_9_qualifications": "A9 — Qualifikatiounen vum Expert",
-
     "evsMarketValueLabel": "Marchéwäert",
     "evsMarketValueDesc": "De geschate Betrag, fir deen en Aktiv um Bewäertungsdatum tëscht engem gewëllegten Keefer an engem gewëllegten Verkeefer an enger marchéiweleg Transaktioun no adequater Vermaartung gewiesselt soll ginn.",
     "evsMarketRentLabel": "Marchélounswäert (ERV)",
@@ -2013,7 +2012,6 @@
     "evsFairValueDesc": "De Präis deen een kréie géif fir e Verkaf oder bezuelt géif fir en Transfer an enger geordenter Transaktioun tëscht Marchédeelhueler um Bewäertungsdatum.",
     "evsEquitableValueLabel": "Equitabele Wäert",
     "evsEquitableValueDesc": "De geschate Präis fir den Transfer vun engem Aktiv tëscht identifizéierten, informéierten a gewëllegten Parteien, dee respektiv Interessi vun deene Parteien reflektéiert.",
-
     "assetResAppartement": "Wunnen — Appartement",
     "assetResMaison": "Wunnen — Haus",
     "assetImmeubleRapport": "Renditsgebai",
@@ -2022,7 +2020,6 @@
     "assetHotellerie": "Hotellerie",
     "assetLogistique": "Logistik / Industrie",
     "assetTerrain": "Bauterrain",
-
     "metricPrixM2": "Präis/m²",
     "metricLoyerM2Mois": "Loyer/m²/Mount",
     "metricCapitalInvesti": "Investéiert Kapital (Gesetz 2006)",
@@ -2057,7 +2054,6 @@
     "metricDroitsAConstruire": "Baurechter (m² BGF)",
     "metricViabilisation": "Erschlosst Terrain",
     "metricZonePAG": "PAG-Zone",
-
     "methodComparaisonDom": "Vergläich (dominant)",
     "methodCapitalisation": "Kapitaliséierung",
     "methodDCFInvest": "DCF (wann Investitioun)",
@@ -2071,7 +2067,6 @@
     "methodPrixChambreVerif": "Präis pro Zëmmer (Kontroll)",
     "methodCoutRemplacementSpec": "Ersatzwäertmethod (wann spezialiséiert)",
     "methodResiduellePromoteur": "Residualmethod (Promoteur-Rechnung)",
-
     "notesResAppartement": "Am Lëtzebuerg gëtt de Wunnmarché vum Vergläichsmethod dominéiert. D'Loyer ass op 5% vum investéierte Kapital limitéiert (Gesetz 2006). Leerstand historesch ganz niddreg (<3%).",
     "notesResMaison": "Vergläichsdaten fir Haiser sinn am Lëtzebuerg limitéiert — d'Observatoire de l'Habitat publizéiert keng detailléiert Statistiken. Méi laang Vermaartungsdauer wéi Appartementer.",
     "notesImmeubleRapport": "D'Renditsgebai gëtt haaptsächlech nom Rendement bewäert. All Lot analyséieren: aktuellen Loyer vs ERV, Reschtzäit vum Bail, Reversionspotenzial.",
@@ -2080,7 +2075,6 @@
     "notesHotellerie": "D'Hotellerie gëtt no der Ertragskraaft (stabiliséierten EBITDA) bewäert, net nom Loyer. Lëtzebuerg: institutionellen/Geschäftsmarché, Besetung ~70-75%.",
     "notesLogistique": "Lëtzebuerg: limitéierte Logistikbestand, konzentréiert op Eurohub Süd (Beetebuerg/Diddeleng). Loyer ~6-9 €/m²/Mount. Laang Baux (6-9 Joer fest). ESG ëmmer méi wichteg.",
     "notesTerrain": "Am Lëtzebuerg besteet e Präisverhältnis vun 1 zu 6 tëscht Terraine a Lëtzebuerg-Stad an am Norden. PAG/PAP kontrolléieren: Bauzon, COS, Servituten.",
-
     "esgNiveauExcellent": "Excellent",
     "esgNiveauBon": "Gutt",
     "esgNiveauMoyen": "Duerchschnëttlech",
@@ -2102,7 +2096,6 @@
     "esgNiveauRisque_faible": "niddreg",
     "esgNiveauRisque_moyen": "mëttel",
     "esgNiveauRisque_eleve": "héich",
-
     "checkCommune": "Gemeng / Standuert identifizéiert",
     "checkSurface": "Fläch vum Immobilie ugi",
     "checkAssetType": "Immobilientyp ausgewielt",
@@ -2119,7 +2112,6 @@
     "checkScenarios": "Szenarioanalyse",
     "checkNarrative": "Narrativ Analyse generéiert",
     "checkMLV": "Hypothekewäert (MLV) berechent",
-
     "adjEtageSousSol": "Ënnerkeller / Gaardengrondfläch",
     "adjEtageRDC": "Äerdgeschoss",
     "adjEtage1er": "1. Stack",
@@ -2173,7 +2165,6 @@
     "adjDateIndices": "STATEC-Indizen:",
     "adjDateExplication": "Kumuléiert Variatioun zanter dem Verkaf vum Vergläichsobjekt. Positiv = Marché ass geklommen zanter dem Verkaf.",
     "adjDateSource": "Quell: STATEC — Wunnimmobiliepräisindizen",
-
     "renovIsolFacade": "Fassadendämmung (WDVS)",
     "renovIsolToiture": "Daach-/Dachbodendämmung",
     "renovIsolSol": "Buedem-/Kellerdämmung",
@@ -2183,10 +2174,8 @@
     "renovSolaireTherm": "Solarthermesch Panneauen",
     "renovSolairePV": "Photovoltaikmoduler",
     "renovElectricite": "Elektroinstallatioun op Standard",
-
     "sauvegarder": "Späicheren",
     "sauvegarde": "Gespäichert!",
-
     "narrCommuneDe": "Gemeng {commune}",
     "narrLocNonPrecisee": "Standuert net uginn",
     "narrIntroduction": "De Sujet vun dëser Analyse ass en {assetType} mat enger Fläch vun {surface} m², geleeën zu {localisation}. D'Bewäertung gëtt op der Basis vum {evsType} no den European Valuation Standards 2025 (TEGOVA, 10. Editioun) duerchgefouert.",
@@ -2217,7 +2206,6 @@
     "narrESGMoyen": "D'ESG-Profil ass duerchschnëttlech (Score {score}/100, Niveau {niveau}). Energeetesch Sanéierungsaarbechte kéinten d'Bewäertung verbesseren.",
     "narrESGInsuffisant": "D'ESG-Profil ass onzureichend (Score {score}/100, Niveau {niveau}). Den geschaten Energieofschlag ass {impact}%. Eng Sanéierung gëtt empfohlen.",
     "narrReserves": "Dës Analyse gëtt nëmme fir informativen Zweck op Basis vu verfügbaren ëffentlechen Donnéeën an ageene Parameteren duerchgefouert. Si stellt keng Immobiliebewäertung am Sënn vun den EVS 2025 duer. Fir eng offiziell Bewäertung, kontaktéiert w.e.g. en TEGOVA-zertifizéierten Bewäerter (REV/TRV).",
-
     "estAjustEtage": "Stack: {etage}",
     "estAjustEtat": "Zoustand: {etat}",
     "estAjustExterieur": "Baussebäirag: {exterieur}",

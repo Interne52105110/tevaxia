@@ -18,7 +18,7 @@ export default function CalculateurLoyer() {
   const [anneeAcquisition, setAnneeAcquisition] = useState(2010);
   const [travauxMontant, setTravauxMontant] = useState(0);
   const [travauxAnnee, setTravauxAnnee] = useState(2015);
-  const [anneeBail, setAnneeBail] = useState(2025);
+  const [anneeBail, setAnneeBail] = useState(2026);
   const [surfaceHabitable, setSurfaceHabitable] = useState(80);
   const [appliquerVetuste, setAppliquerVetuste] = useState(false);
   const [tauxVetuste, setTauxVetuste] = useState(2);

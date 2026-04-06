@@ -17,7 +17,7 @@ export default function PlusValues() {
   const [prixAcquisition, setPrixAcquisition] = useState(400000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2015);
   const [prixCession, setPrixCession] = useState(550000);
-  const [anneeCession, setAnneeCession] = useState(2025);
+  const [anneeCession, setAnneeCession] = useState(2026);
   const [fraisAcquisition, setFraisAcquisition] = useState(0);
   const [travauxDeductibles, setTravauxDeductibles] = useState(0);
   const [estResidencePrincipale, setEstResidencePrincipale] = useState(false);

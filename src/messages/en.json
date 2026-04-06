@@ -279,7 +279,7 @@
       "klimapretEcoDesc": "Klimaprêt payment: {mens} €/mo vs {mensMarche} €/mo at market rate",
       "klimapretZeroCash": "Zero upfront cash — Klimaprêt finances the full remaining cost",
       "prixEnergie": "Energy price (€/kWh)",
-      "prixEnergieHint": "Average LU tariff 2025: €0.12/kWh",
+      "prixEnergieHint": "Average LU tariff 2026: €0.12/kWh",
       "modeCopro": "Co-ownership mode",
       "nbLots": "Number of lots",
       "co2Evite": "CO₂ avoided",
@@ -331,7 +331,7 @@
       "coutParPart": "Cost / participant",
       "payback": "Payback period",
       "annees": "years",
-      "coutBase": "Based on €1,200/kWp ex-VAT (PV modules, inverter, wiring, installation). Luxembourg market 2025.",
+      "coutBase": "Based on €1,200/kWp ex-VAT (PV modules, inverter, wiring, installation). Luxembourg market 2026.",
       "prodMensTitle": "Estimated monthly production",
       "prodMensDesc": "Distribution based on average solar irradiance in Luxembourg (south-facing, 35° tilt)",
       "conformiteTitle": "Regulatory compliance",
@@ -967,7 +967,7 @@
   },
   "simulateurAides": {
     "title": "Housing Assistance Simulator",
-    "badge": "2025",
+    "badge": "2026",
     "subtitle": "Estimate the state, municipal and tax benefits you may be entitled to for your real estate project in Luxembourg.",
     "sectionProjet": "Your project",
     "typeProjet": "Project type",
@@ -2000,7 +2000,6 @@
     "rptA_7_calculs": "A7 — Detailed valuation calculations",
     "rptA_8_esg": "A8 — ESG factors (A8.1 Energy performance, A8.2 Physical risks, A8.3 Transition risks)",
     "rptA_9_qualifications": "A9 — Expert's qualifications",
-
     "evsMarketValueLabel": "Market Value",
     "evsMarketValueDesc": "The estimated amount for which an asset or liability should exchange on the valuation date between a willing buyer and a willing seller in an arm's length transaction, after proper marketing, wherein the parties had each acted knowledgeably, prudently, and without compulsion.",
     "evsMarketRentLabel": "Market Rental Value (ERV)",
@@ -2013,7 +2012,6 @@
     "evsFairValueDesc": "The price that would be received to sell an asset or paid to transfer a liability in an orderly transaction between market participants at the measurement date. Concept of 'highest and best use'.",
     "evsEquitableValueLabel": "Equitable Value",
     "evsEquitableValueDesc": "The estimated price for the transfer of an asset between identified, knowledgeable, and willing parties that reflects the respective interests of those parties.",
-
     "assetResAppartement": "Residential — Apartment",
     "assetResMaison": "Residential — House",
     "assetImmeubleRapport": "Multi-unit building",
@@ -2022,7 +2020,6 @@
     "assetHotellerie": "Hotel",
     "assetLogistique": "Logistics / Industrial",
     "assetTerrain": "Development land",
-
     "metricPrixM2": "Price/m²",
     "metricLoyerM2Mois": "Rent/m²/month",
     "metricCapitalInvesti": "Invested capital (2006 law)",
@@ -2057,7 +2054,6 @@
     "metricDroitsAConstruire": "Building rights (m² GFA)",
     "metricViabilisation": "Serviced plot",
     "metricZonePAG": "PAG zone",
-
     "methodComparaisonDom": "Comparison (dominant)",
     "methodCapitalisation": "Capitalisation",
     "methodDCFInvest": "DCF (if investment)",
@@ -2071,7 +2067,6 @@
     "methodPrixChambreVerif": "Price per room (cross-check)",
     "methodCoutRemplacementSpec": "Replacement cost (if specialised)",
     "methodResiduellePromoteur": "Residual method (developer's appraisal)",
-
     "notesResAppartement": "In Luxembourg, the residential market is dominated by the comparison method. Rent is capped at 5% of invested capital (2006 law). Vacancy rates are historically very low (<3%).",
     "notesResMaison": "Comparison data is limited in Luxembourg — the Housing Observatory does not publish detailed statistics for houses due to insufficient cadastral data. Longer marketing period than apartments.",
     "notesImmeubleRapport": "Multi-unit buildings are valued primarily on yield. Analyse each unit: passing rent vs ERV, remaining lease term, reversion potential. The 5% cap applies per residential unit. If the building includes a commercial component, value each component separately then aggregate.",
@@ -2080,7 +2075,6 @@
     "notesHotellerie": "Hotels are valued on earnings capacity (stabilised EBITDA), not rent. Distinguish real estate from the operating business. Luxembourg: institutional/business market, occupancy ~70-75%. ADR rising. Profits method (EVS) recommended.",
     "notesLogistique": "Luxembourg: limited logistics stock, concentrated on Eurohub South (Bettembourg/Dudelange). Rents ~6-9 EUR/m²/month. Long leases (6-9 years firm). ESG increasingly important (BREEAM, rooftop solar).",
     "notesTerrain": "In Luxembourg, a 1 to 6 price ratio exists between land in Luxembourg City and the north. Check PAG/PAP: buildable zone, COS, CTV/CTL servitudes. The developer's residual method deducts land value from selling price minus construction costs and margin.",
-
     "esgNiveauExcellent": "Excellent",
     "esgNiveauBon": "Good",
     "esgNiveauMoyen": "Average",
@@ -2102,7 +2096,6 @@
     "esgNiveauRisque_faible": "low",
     "esgNiveauRisque_moyen": "medium",
     "esgNiveauRisque_eleve": "high",
-
     "checkCommune": "Municipality / location identified",
     "checkSurface": "Property area specified",
     "checkAssetType": "Asset type selected",
@@ -2119,7 +2112,6 @@
     "checkScenarios": "Scenario analysis",
     "checkNarrative": "Narrative analysis generated",
     "checkMLV": "Mortgage Lending Value (MLV) calculated",
-
     "adjEtageSousSol": "Basement / garden level",
     "adjEtageRDC": "Ground floor",
     "adjEtage1er": "1st floor",
@@ -2173,7 +2165,6 @@
     "adjDateIndices": "STATEC indices:",
     "adjDateExplication": "Cumulative variation since the sale of the comparable. Positive = market has risen since the sale, comparable underestimates current value.",
     "adjDateSource": "Source: STATEC — Residential price indices",
-
     "renovIsolFacade": "Facade insulation (ETICS)",
     "renovIsolToiture": "Roof / attic insulation",
     "renovIsolSol": "Floor / basement insulation",
@@ -2183,10 +2174,8 @@
     "renovSolaireTherm": "Solar thermal panels",
     "renovSolairePV": "Photovoltaic panels",
     "renovElectricite": "Electrical upgrade to standard",
-
     "sauvegarder": "Save",
     "sauvegarde": "Saved!",
-
     "narrCommuneDe": "municipality of {commune}",
     "narrLocNonPrecisee": "location not specified",
     "narrIntroduction": "The subject of this analysis is a {assetType} with an area of {surface} m², located in {localisation}. The valuation is carried out on the basis of the {evsType} in accordance with the European Valuation Standards 2025 (TEGOVA, 10th edition).",
@@ -2217,7 +2206,6 @@
     "narrESGMoyen": "The ESG profile is average (score {score}/100, level {niveau}). Energy renovation works could improve the valuation.",
     "narrESGInsuffisant": "The ESG profile is insufficient (score {score}/100, level {niveau}). The estimated energy discount is {impact}%. Renovation is recommended.",
     "narrReserves": "This analysis is provided for indicative purposes based on available public data and user-entered parameters. It does not constitute a property valuation within the meaning of EVS 2025 or the Valuation Charter. For an official valuation, please consult a TEGOVA-certified valuer (REV/TRV).",
-
     "estAjustEtage": "Floor: {etage}",
     "estAjustEtat": "Condition: {etat}",
     "estAjustExterieur": "Outdoor: {exterieur}",

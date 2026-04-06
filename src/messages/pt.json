@@ -967,7 +967,7 @@
   },
   "simulateurAides": {
     "title": "Simulador de apoios à aquisição",
-    "badge": "2025",
+    "badge": "2026",
     "subtitle": "Estime os apoios estatais, municipais e as poupanças fiscais a que pode ter direito para o seu projeto imobiliário no Luxemburgo.",
     "sectionProjet": "O seu projeto",
     "typeProjet": "Tipo de projeto",
@@ -2000,7 +2000,6 @@
     "rptA_7_calculs": "A7 — Cálculos detalhados de avaliação",
     "rptA_8_esg": "A8 — Fatores ESG (A8.1 Desempenho energético, A8.2 Riscos físicos, A8.3 Riscos de transição)",
     "rptA_9_qualifications": "A9 — Qualificações do perito",
-
     "evsMarketValueLabel": "Valor de mercado",
     "evsMarketValueDesc": "O montante estimado pelo qual um ativo deveria ser transacionado na data da avaliação entre um comprador e um vendedor dispostos, numa transação equilibrada, após comercialização adequada, tendo as partes agido com conhecimento, prudência e sem constrangimento.",
     "evsMarketRentLabel": "Valor locativo de mercado (ERV)",
@@ -2013,7 +2012,6 @@
     "evsFairValueDesc": "O preço que seria recebido pela venda de um ativo ou pago pela transferência de um passivo numa transação ordenada entre participantes do mercado na data de avaliação. Conceito de 'highest and best use'.",
     "evsEquitableValueLabel": "Valor equitativo",
     "evsEquitableValueDesc": "O preço estimado para a transferência de um ativo entre partes identificadas, bem informadas e dispostas, que reflete os interesses respetivos dessas partes.",
-
     "assetResAppartement": "Residencial — Apartamento",
     "assetResMaison": "Residencial — Moradia",
     "assetImmeubleRapport": "Edifício de rendimento",
@@ -2022,7 +2020,6 @@
     "assetHotellerie": "Hotelaria",
     "assetLogistique": "Logística / Industrial",
     "assetTerrain": "Terreno para construção",
-
     "metricPrixM2": "Preço/m²",
     "metricLoyerM2Mois": "Renda/m²/mês",
     "metricCapitalInvesti": "Capital investido (lei 2006)",
@@ -2057,7 +2054,6 @@
     "metricDroitsAConstruire": "Direitos de construção (m² AB)",
     "metricViabilisation": "Infraestruturas",
     "metricZonePAG": "Zona PAG",
-
     "methodComparaisonDom": "Comparação (dominante)",
     "methodCapitalisation": "Capitalização",
     "methodDCFInvest": "DCF (se investimento)",
@@ -2071,7 +2067,6 @@
     "methodPrixChambreVerif": "Preço por quarto (verificação)",
     "methodCoutRemplacementSpec": "Custo de reposição (se especializado)",
     "methodResiduellePromoteur": "Método residual (conta do promotor)",
-
     "notesResAppartement": "No Luxemburgo, o mercado residencial é dominado pelo método de comparação. A renda é limitada a 5% do capital investido (lei 2006). Taxa de vacância historicamente muito baixa (<3%).",
     "notesResMaison": "Dados de comparação limitados no Luxemburgo — o Observatório da Habitação não publica estatísticas detalhadas para moradias. Prazo de comercialização mais longo do que apartamentos.",
     "notesImmeubleRapport": "O edifício de rendimento é avaliado principalmente pelo rendimento. Analisar cada fração: renda atual vs ERV, duração restante do contrato, potencial de reversão.",
@@ -2080,7 +2075,6 @@
     "notesHotellerie": "A hotelaria é avaliada pela capacidade de gerar lucros (EBITDA estabilizado), não pela renda. Luxemburgo: mercado institucional/negócios, ocupação ~70-75%. ADR em alta.",
     "notesLogistique": "Luxemburgo: stock logístico limitado, concentrado em Eurohub Sul (Bettembourg/Dudelange). Rendas ~6-9 €/m²/mês. Contratos longos (6-9 anos firmes). ESG cada vez mais importante.",
     "notesTerrain": "No Luxemburgo, existe uma relação de 1 para 6 entre os preços dos terrenos na cidade do Luxemburgo e no norte. Verificar PAG/PAP: zona construtível, COS, servidões. O método residual deduz o valor do terreno do preço de venda.",
-
     "esgNiveauExcellent": "Excelente",
     "esgNiveauBon": "Bom",
     "esgNiveauMoyen": "Médio",
@@ -2102,7 +2096,6 @@
     "esgNiveauRisque_faible": "baixo",
     "esgNiveauRisque_moyen": "médio",
     "esgNiveauRisque_eleve": "elevado",
-
     "checkCommune": "Município / localização identificada",
     "checkSurface": "Área do imóvel indicada",
     "checkAssetType": "Tipo de ativo selecionado",
@@ -2119,7 +2112,6 @@
     "checkScenarios": "Análise de cenários",
     "checkNarrative": "Análise narrativa gerada",
     "checkMLV": "Valor hipotecário (MLV) calculado",
-
     "adjEtageSousSol": "Cave / rés-do-chão ajardinado",
     "adjEtageRDC": "Rés-do-chão",
     "adjEtage1er": "1.º andar",
@@ -2173,7 +2165,6 @@
     "adjDateIndices": "Índices STATEC:",
     "adjDateExplication": "Variação acumulada desde a venda do comparável. Positivo = mercado subiu desde a venda.",
     "adjDateSource": "Fonte: STATEC — Índices de preços residenciais",
-
     "renovIsolFacade": "Isolamento de fachada (ETICS)",
     "renovIsolToiture": "Isolamento de cobertura / sótão",
     "renovIsolSol": "Isolamento de piso / cave",
@@ -2183,10 +2174,8 @@
     "renovSolaireTherm": "Painéis solares térmicos",
     "renovSolairePV": "Painéis fotovoltaicos",
     "renovElectricite": "Atualização elétrica às normas",
-
     "sauvegarder": "Guardar",
     "sauvegarde": "Guardado!",
-
     "narrCommuneDe": "município de {commune}",
     "narrLocNonPrecisee": "localização não especificada",
     "narrIntroduction": "O imóvel objeto da presente análise é um {assetType} com uma área de {surface} m², situado em {localisation}. A avaliação é realizada com base no {evsType} em conformidade com os European Valuation Standards 2025 (TEGOVA, 10.ª edição).",
@@ -2217,7 +2206,6 @@
     "narrESGMoyen": "O perfil ESG é médio (score {score}/100, nível {niveau}). Obras de renovação energética poderiam melhorar a avaliação.",
     "narrESGInsuffisant": "O perfil ESG é insuficiente (score {score}/100, nível {niveau}). O desconto energético estimado é de {impact}%. A renovação é recomendada.",
     "narrReserves": "A presente análise é realizada a título indicativo com base em dados públicos disponíveis e parâmetros introduzidos pelo utilizador. Não constitui uma avaliação imobiliária no sentido das EVS 2025. Para uma avaliação oficial, consulte um avaliador certificado TEGOVA (REV/TRV).",
-
     "estAjustEtage": "Andar: {etage}",
     "estAjustEtat": "Estado: {etat}",
     "estAjustExterieur": "Exterior: {exterieur}",
