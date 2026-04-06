@@ -1837,7 +1837,7 @@ export default function Valorisation() {
                     valeurComparaison: valeurComparaison || undefined,
                     valeurCapitalisation: valeurCapitalisation || undefined,
                     valeurDCF: valeurDCF || undefined,
-                    prixM2Commune: selectedCommune?.prixM2Existant,
+                    prixM2Commune: selectedCommune?.prixM2Existant || undefined,
                     transactionsCommune: selectedCommune?.nbTransactions || undefined,
                     comparables: comparables.filter(c => c.prixVente > 0).map(c => ({
                       adresse: c.adresse,
