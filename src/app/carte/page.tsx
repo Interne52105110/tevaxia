@@ -222,18 +222,18 @@ export default function Carte() {
                           >
                             {isRendement ? (
                               <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getYieldColor(yieldPct)}`}>
-                                {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "\u2014"}
+                                {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "—"}
                               </div>
                             ) : (
                               <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
-                                {prix ? `${(prix / 1000).toFixed(1)}k` : "\u2014"}
+                                {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
                               </div>
                             )}
                             <div className="flex-1 min-w-0">
                               <div className="text-sm font-medium text-slate truncate">{c.commune}</div>
                               {isRendement ? (
                                 <div className="text-xs text-muted mt-0.5">
-                                  {c.loyerM2Annonces ? `${c.loyerM2Annonces.toFixed(1)} €/m²/${t("month")}` : "\u2014"}
+                                  {c.loyerM2Annonces ? `${c.loyerM2Annonces.toFixed(1)} €/m²/${t("month")}` : "—"}
                                 </div>
                               ) : (
                                 <div className="h-1.5 rounded-full bg-gray-100 mt-1">
@@ -267,11 +267,11 @@ export default function Carte() {
                   >
                     {isRendement ? (
                       <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getYieldColor(yieldPct)}`}>
-                        {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "\u2014"}
+                        {yieldPct != null ? `${yieldPct.toFixed(1)}%` : "—"}
                       </div>
                     ) : (
                       <div className={`flex h-10 w-16 items-center justify-center rounded text-xs font-bold ${getPriceColor(prix)}`}>
-                        {prix ? `${(prix / 1000).toFixed(1)}k` : "\u2014"}
+                        {prix ? `${(prix / 1000).toFixed(1)}k` : "—"}
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
@@ -302,22 +302,22 @@ export default function Carte() {
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Existant" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>
                         <div className="text-xs text-muted">{t("existing")}</div>
-                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "\u2014"}</div>
+                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "—"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2VEFA" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>
                         <div className="text-xs text-muted">{t("newVefa")}</div>
-                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2VEFA ? formatEUR(selectedCommune.prixM2VEFA) : "\u2014"}</div>
+                        <div className="text-lg font-bold text-navy">{selectedCommune.prixM2VEFA ? formatEUR(selectedCommune.prixM2VEFA) : "—"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Annonces" ? "bg-gold/20 ring-2 ring-gold/40" : "bg-gold/10"}`}>
                         <div className="text-xs text-muted">{t("listings")}</div>
-                        <div className="text-lg font-bold text-gold-dark">{selectedCommune.prixM2Annonces ? formatEUR(selectedCommune.prixM2Annonces) : "\u2014"}</div>
+                        <div className="text-lg font-bold text-gold-dark">{selectedCommune.prixM2Annonces ? formatEUR(selectedCommune.prixM2Annonces) : "—"}</div>
                         <div className="text-[10px] text-muted">/m²</div>
                       </div>
                       <div className="rounded-lg bg-teal/10 p-3 text-center">
                         <div className="text-xs text-muted">{t("rent")}</div>
-                        <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "\u2014"}</div>
+                        <div className="text-lg font-bold text-teal">{selectedCommune.loyerM2Annonces ? `${selectedCommune.loyerM2Annonces.toFixed(1)} €` : "—"}</div>
                         <div className="text-[10px] text-muted">/m²/{t("month")}</div>
                       </div>
                     </div>

@@ -200,9 +200,9 @@ function TabResidentiel() {
     }
   }
 
-  const fmtPrice = (v: number | null) => (v != null ? formatEUR(v) : "\u2014");
-  const fmtRent = (v: number | null) => (v != null ? `${v.toFixed(1)} \u20AC` : "\u2014");
-  const fmtTx = (v: number | null) => (v != null ? v.toLocaleString("fr-LU") : "\u2014");
+  const fmtPrice = (v: number | null) => (v != null ? formatEUR(v) : "—");
+  const fmtRent = (v: number | null) => (v != null ? `${v.toFixed(1)} €` : "—");
+  const fmtTx = (v: number | null) => (v != null ? v.toLocaleString("fr-LU") : "—");
 
   function handleExportCSV() {
     const headers = [t("commune"), t("canton"), t("priceExisting"), t("priceVefa"), t("priceListings"), t("rentPerSqm"), t("transactionsHeader")];
@@ -372,10 +372,10 @@ function TabBureaux() {
     <div className="space-y-4">
       {/* Summary cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <SummaryCard label={t("annualTakeUp")} value={`${(OFFICE_MARKET_SUMMARY.takeUpAnnuel).toLocaleString("fr-LU")} m\u00B2`} sub={OFFICE_MARKET_SUMMARY.takeUpEvolution} />
+        <SummaryCard label={t("annualTakeUp")} value={`${(OFFICE_MARKET_SUMMARY.takeUpAnnuel).toLocaleString("fr-LU")} m²`} sub={OFFICE_MARKET_SUMMARY.takeUpEvolution} />
         <SummaryCard label={t("primeYield")} value={`${OFFICE_MARKET_SUMMARY.yieldPrime} %`} />
         <SummaryCard label={t("globalVacancy")} value={`${OFFICE_MARKET_SUMMARY.vacanceGlobale} %`} />
-        <SummaryCard label={t("pipelineUnderConstruction")} value={`${(OFFICE_MARKET_SUMMARY.pipelineEnConstruction).toLocaleString("fr-LU")} m\u00B2`} />
+        <SummaryCard label={t("pipelineUnderConstruction")} value={`${(OFFICE_MARKET_SUMMARY.pipelineEnConstruction).toLocaleString("fr-LU")} m²`} />
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -403,8 +403,8 @@ function TabBureaux() {
             {filtered.map((o) => (
               <tr key={o.nom} className="border-b border-card-border/50 hover:bg-background/50" title={o.note}>
                 <td className="px-4 py-2.5 font-medium text-navy">{o.nom}</td>
-                <td className="px-4 py-2.5 text-right font-mono">{o.loyerPrime} \u20AC</td>
-                <td className="px-4 py-2.5 text-right font-mono">{o.loyerMoyen} \u20AC</td>
+                <td className="px-4 py-2.5 text-right font-mono">{o.loyerPrime} €</td>
+                <td className="px-4 py-2.5 text-right font-mono">{o.loyerMoyen} €</td>
                 <td className="px-4 py-2.5 text-right font-mono">{o.vacance.toFixed(1)} %</td>
                 <td className="px-4 py-2.5 text-right font-mono">{o.stock.toLocaleString("fr-LU")}</td>
                 <td className="px-4 py-2.5 text-right"><TendanceBadge tendance={o.tendance} labels={tendanceLabels} /></td>
@@ -502,8 +502,8 @@ function TabCommerces() {
               <tr key={r.nom} className="border-b border-card-border/50 hover:bg-background/50" title={r.note}>
                 <td className="px-4 py-2.5 font-medium text-navy">{r.nom}</td>
                 <td className="px-4 py-2.5"><RetailTypeBadge type={r.type} labels={retailTypeLabels} /></td>
-                <td className="px-4 py-2.5 text-right font-mono">{r.loyerPrime} \u20AC</td>
-                <td className="px-4 py-2.5 text-right font-mono">{r.loyerMoyen} \u20AC</td>
+                <td className="px-4 py-2.5 text-right font-mono">{r.loyerPrime} €</td>
+                <td className="px-4 py-2.5 text-right font-mono">{r.loyerMoyen} €</td>
                 <td className="px-4 py-2.5 text-right"><TendanceBadge tendance={r.tendance} labels={tendanceLabels} /></td>
               </tr>
             ))}
@@ -597,8 +597,8 @@ function TabLogistique() {
             {filtered.map((z) => (
               <tr key={z.nom} className="border-b border-card-border/50 hover:bg-background/50" title={z.note}>
                 <td className="px-4 py-2.5 font-medium text-navy">{z.nom}</td>
-                <td className="px-4 py-2.5 text-right font-mono">{z.loyerMin} \u20AC</td>
-                <td className="px-4 py-2.5 text-right font-mono">{z.loyerMax} \u20AC</td>
+                <td className="px-4 py-2.5 text-right font-mono">{z.loyerMin} €</td>
+                <td className="px-4 py-2.5 text-right font-mono">{z.loyerMax} €</td>
                 <td className="px-4 py-2.5 text-right font-mono">{z.stockEstime.toLocaleString("fr-LU")}</td>
                 <td className="px-4 py-2.5 text-right"><TendanceBadge tendance={z.tendance} labels={tendanceLabels} /></td>
               </tr>
@@ -764,17 +764,17 @@ function TabMacro() {
         <MacroCard
           label={t("avgMortgageRate")}
           value={`${MACRO_DATA.tauxHypothecaire.taux} %`}
-          sub={`${MACRO_DATA.tauxHypothecaire.date} \u2014 ${MACRO_DATA.tauxHypothecaire.source}`}
+          sub={`${MACRO_DATA.tauxHypothecaire.date} — ${MACRO_DATA.tauxHypothecaire.source}`}
         />
         <MacroCard
           label={t("constructionCostIndex")}
           value={MACRO_DATA.indiceCoutConstruction.evolution}
-          sub={`${MACRO_DATA.indiceCoutConstruction.date} \u2014 ${MACRO_DATA.indiceCoutConstruction.source}`}
+          sub={`${MACRO_DATA.indiceCoutConstruction.date} — ${MACRO_DATA.indiceCoutConstruction.source}`}
         />
         <MacroCard
           label={t("residentialRentalYield")}
           value={MACRO_DATA.rendementLocatifResidentiel.brut}
-          sub={`${t("gross")} \u2014 ${MACRO_DATA.rendementLocatifResidentiel.source}`}
+          sub={`${t("gross")} — ${MACRO_DATA.rendementLocatifResidentiel.source}`}
         />
         <MacroCard
           label={t("creInvestment2025")}
@@ -785,7 +785,7 @@ function TabMacro() {
 
       {/* CRE breakdown */}
       <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-        <h3 className="mb-4 text-base font-semibold text-navy">{t("creBreakdown", { total: MACRO_DATA.investissementCRE2025.total > 0 ? formatEUR(inv.total) : "\u2014" })}</h3>
+        <h3 className="mb-4 text-base font-semibold text-navy">{t("creBreakdown", { total: MACRO_DATA.investissementCRE2025.total > 0 ? formatEUR(inv.total) : "—" })}</h3>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {creSegments.map((seg) => (
             <div key={seg.label} className="text-center">
