@@ -46,6 +46,9 @@ export default function Footer() {
               <li><Link href="/hedonique" className="hover:text-white transition-colors">{tn("hedonique")}</Link></li>
               <li><Link href="/dcf-multi" className="hover:text-white transition-colors">{tn("dcfMulti")}</Link></li>
               <li><Link href="/bilan-promoteur" className="hover:text-white transition-colors">{tn("bilanPromoteur")}</Link></li>
+              <li><Link href="/estimateur-construction" className="hover:text-white transition-colors">{tn("estimateurConstruction")}</Link></li>
+              <li><Link href="/calculateur-vrd" className="hover:text-white transition-colors">{tn("calculateurVrd")}</Link></li>
+              <li><Link href="/convertisseur-surfaces" className="hover:text-white transition-colors">{tn("convertisseurSurfaces")}</Link></li>
               <li><Link href="/outils-bancaires" className="hover:text-white transition-colors">{tn("bancaire")}</Link></li>
               <li><Link href="/portfolio" className="hover:text-white transition-colors">{tn("portfolio")}</Link></li>
               <li><Link href="/aml-kyc" className="hover:text-white transition-colors">{tn("amlKyc")}</Link></li>

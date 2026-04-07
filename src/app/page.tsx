@@ -104,6 +104,42 @@ export default async function Home() {
       color: "from-amber-600 to-amber-500",
     },
     {
+      href: "/estimateur-construction",
+      title: t("modules.estimateurConstruction.title"),
+      description: t("modules.estimateurConstruction.description"),
+      icon: (
+        <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
+        </svg>
+      ),
+      tag: t("modules.estimateurConstruction.tag"),
+      color: "from-orange-600 to-orange-500",
+    },
+    {
+      href: "/calculateur-vrd",
+      title: t("modules.calculateurVrd.title"),
+      description: t("modules.calculateurVrd.description"),
+      icon: (
+        <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+        </svg>
+      ),
+      tag: t("modules.calculateurVrd.tag"),
+      color: "from-stone-600 to-stone-500",
+    },
+    {
+      href: "/convertisseur-surfaces",
+      title: t("modules.convertisseurSurfaces.title"),
+      description: t("modules.convertisseurSurfaces.description"),
+      icon: (
+        <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+        </svg>
+      ),
+      tag: t("modules.convertisseurSurfaces.tag"),
+      color: "from-violet-600 to-violet-500",
+    },
+    {
       href: "/valorisation",
       title: t("modules.valorisation.title"),
       description: t("modules.valorisation.description"),
@@ -227,7 +263,7 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {[
-              { value: "12+", label: t("stats.tools") },
+              { value: "15+", label: t("stats.tools") },
               { value: "7", label: t("stats.energySimulators") },
               { value: "100", label: t("stats.communes") },
               { value: "5", label: t("stats.languages") },

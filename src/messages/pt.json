@@ -9,6 +9,9 @@
     "aides": "Simulador de apoios",
     "achatLocation": "Comprar ou arrendar",
     "bilanPromoteur": "Balanço promotor",
+    "estimateurConstruction": "Custo construção",
+    "calculateurVrd": "Estimador VRD",
+    "convertisseurSurfaces": "Superfícies",
     "dcfMulti": "DCF multi-inquilinos",
     "bancaire": "Ferramentas bancárias",
     "portfolio": "Portfólio",
@@ -100,6 +103,21 @@
         "title": "Balanço Promotor",
         "description": "Método residual: preço de venda − custos − taxas − margem = encargo fundiário máximo. Adaptado aos custos de construção luxemburgueses.",
         "tag": "Método residual"
+      },
+      "estimateurConstruction": {
+        "title": "Custo de construção",
+        "description": "Decomposição detalhada por ofício (classificação STATEC). 17 postos, ajuste por classe energética e nível de acabamento.",
+        "tag": "STATEC out. 2025"
+      },
+      "calculateurVrd": {
+        "title": "Estimador VRD",
+        "description": "Medições, mapa de quantidades e estimativa orçamental para projetos de infraestrutura. 9 lotes, preços referenciados (Batiprix, CTG, CSDC-CT).",
+        "tag": "Gabinete de estudos"
+      },
+      "convertisseurSurfaces": {
+        "title": "Conversor de superfícies",
+        "description": "Conversão ABC ↔ APC ↔ área útil ↔ área habitável. Ponderação ACT para caves, varandas, terraços.",
+        "tag": "OAI FC.04 / ILNAS 101"
       },
       "valorisation": {
         "title": "Avaliação EVS 2025",
@@ -219,7 +237,11 @@
       "explainSource1": "Observatoire de l&apos;Habitat du Luxembourg — Análise dos preços de venda por classe energética (2023-2025)",
       "explainSource2": "BCE — Climate risk and real estate: emerging evidence on pricing (2024)",
       "explainSource3": "Diretiva EPBD recast 2024/1275 — Objetivo parque zero emissões 2050",
-      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)"
+      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)",
+      "fourchette": "Intervalo",
+      "fourchetteTip": "As variações dependem da localização, tipo de imóvel e condições de mercado",
+      "sourceData": "Fonte",
+      "calibrationNote": "Coeficientes calibrados com base nas diferenças de preço por classe energética observadas no Luxemburgo (Observatoire de l'Habitat 2025) e estudos europeus (BCE, PriceHubble)."
     },
     "renovation": {
       "title": "ROI Renovação energética",
@@ -490,7 +512,15 @@
       "linkRenovationSub": "Custos, apoios & rentabilidade",
       "linkEpbdTitle": "Cronologia EPBD",
       "linkEpbdSub": "Prazos regulamentares",
-      "restart": "Recomeçar a estimativa"
+      "restart": "Recomeçar a estimativa",
+      "surfaceLabel": "Área habitável",
+      "surfaceUnit": "m²",
+      "consoEstimee": "Consumo estimado",
+      "consoFourchette": "Intervalo: {min} — {max} kWh/m²/ano",
+      "consoTotale": "Consumo total anual",
+      "coutEstime": "Custo energético estimado",
+      "emissionsCO2": "Emissões de CO₂ estimadas",
+      "prixKwh": "Base: 0,22 €/kWh (mix luxemburguês 2026)"
     },
     "lenoz": {
       "title": "Scoring LENOZ simplificado",
@@ -618,7 +648,15 @@
       "colConso": "Consumo kWh/ano",
       "colCO2": "CO₂ kg/ano",
       "colImpact": "Impacto valor",
-      "downloadPdf": "Transferir PDF"
+      "downloadPdf": "Transferir PDF",
+      "csvImport": "Importar CSV",
+      "csvExport": "Exportar CSV",
+      "csvTemplate": "Modelo CSV",
+      "csvSuccess": "{count} imóvel(eis) importado(s) com sucesso",
+      "csvSkipped": "{count} linha(s) ignorada(s)",
+      "csvErrorFormat": "Formato CSV inválido. Verifique as colunas: nome, classe, área, valor, tipo, ano.",
+      "csvErrorRead": "Impossível ler o ficheiro.",
+      "csvOrImport": "ou importe um ficheiro CSV"
     }
   },
   "estimation": {
@@ -709,7 +747,12 @@
     "evaluationSauvegardee": "Avaliação guardada!",
     "disclaimer": "Estimativa indicativa baseada em dados públicos do Observatoire de l'Habitat e coeficientes de ajustamento estatísticos. Não constitui uma avaliação profissional. Para uma peritagem conforme EVS 2025, utilize o",
     "disclaimerLink": "módulo de avaliação",
-    "selectCommune": "Selecione um município para obter uma estimativa"
+    "selectCommune": "Selecione um município para obter uma estimativa",
+    "quartierTitle": "Preços por bairro — {commune}",
+    "quartierSource": "Preços indicativos por bairro — Fonte: anúncios agregados",
+    "quartierHausse": "em alta",
+    "quartierStable": "estável",
+    "quartierBaisse": "em baixa"
   },
   "fraisAcquisition": {
     "title": "Simulador de Encargos de Aquisição",
@@ -824,7 +867,16 @@
     "infoResidenceText": "Isenção total se ocupada efetiva e continuamente.",
     "sauvegarder": "Guardar",
     "evaluationSauvegardee": "Avaliação guardada!",
-    "savePrefix": "Mais-valia"
+    "savePrefix": "Mais-valia",
+    "modeAchat": "Compra",
+    "modeSuccession": "Herança",
+    "modeDonation": "Doação",
+    "valeurSuccessorale": "Valor sucessório declarado",
+    "anneeDeces": "Ano do falecimento",
+    "valeurDonation": "Valor declarado no ato",
+    "anneeDonation": "Ano da doação",
+    "successionHint": "Valor utilizado na declaração de sucessão",
+    "donationHint": "Valor utilizado no ato notarial de doação"
   },
   "calculLoyer": {
     "title": "Calculadora de renda — Capital investido",
@@ -1055,7 +1107,11 @@
     "communeEschDudelange": "Prémios municipais de renovação energética acumuláveis",
     "contactCommune": "Contacte a sua administração municipal para conhecer os apoios exatos de que pode beneficiar.",
     "cumulTitle": "Acumulação de apoios",
-    "cumulText": "Os apoios estatais e municipais são geralmente acumuláveis, até um limite global (em regra, a acumulação não pode exceder o custo total do projeto)."
+    "cumulText": "Os apoios estatais e municipais são geralmente acumuláveis, até um limite global (em regra, a acumulação não pode exceder o custo total do projeto).",
+    "topupSocial": "Suplemento social (rendimentos baixos)",
+    "topupSocialHint": "Aumento de x1,5 dos subsídios Klimabonus se rendimento tributável ≤ 60.000 €/ano (novo 2026)",
+    "bonusEco": "incl. bónus materiais ecológicos",
+    "klimabonusRegime": "Barema Klimabonus Wunnen 2026"
   },
   "dcfMulti": {
     "title": "DCF Multilocatário",
@@ -1255,7 +1311,19 @@
     "dscrAbove1_2": "DSCR ≥ 1,2",
     "dscrAbove1_2Desc": "Limiar mínimo exigido pela maioria dos bancos LU",
     "dscrAbove1_5": "DSCR ≥ 1,5",
-    "dscrAbove1_5Desc": "Perfil de investidor sólido — condições preferenciais"
+    "dscrAbove1_5Desc": "Perfil de investidor sólido — condições preferenciais",
+    "tauxMarcheTitle": "Taxas do mercado luxemburguês",
+    "tauxMarcheSource": "Fonte: BCL / Switchr.lu — taxas médias observadas",
+    "tauxMarcheDate": "Atualizado: {date}",
+    "tauxDirecteurBCE": "Taxa diretora do BCE",
+    "tauxDepotBCE": "Taxa de depósito do BCE",
+    "tauxNote": "Taxas indicativas — consulte o seu banco para uma oferta personalizada",
+    "tauxClickHint": "Clique numa taxa para pré-preencher",
+    "fixedLabel10y": "Fixo 10 anos",
+    "fixedLabel15y": "Fixo 15 anos",
+    "fixedLabel20y": "Fixo 20 anos",
+    "fixedLabel25y": "Fixo 25 anos",
+    "variableLabel": "Variável"
   },
   "bilanPromoteur": {
     "title": "Balanço do promotor",
@@ -1363,7 +1431,18 @@
     "vefaRoofed": "Impermeabilizado",
     "vefaPartitions": "Divisórias concluídas",
     "vefaFinishing": "Acabamentos",
-    "vefaDelivery": "Entrega"
+    "vefaDelivery": "Entrega",
+    "sensitivityTitle": "Análise de sensibilidade",
+    "sensitivityDesc": "Variação da margem residual em diferentes cenários. As células mostram a margem (% da receita) e o valor fundiário resultante.",
+    "sensitivityPrixConstr": "Preço de venda vs Custo de construção",
+    "sensitivityPrixTaux": "Preço de venda vs Taxa de financiamento",
+    "sensitivitySalePrice": "Preço venda/m²",
+    "sensitivityConstrCost": "Custo construção/m²",
+    "sensitivityFinRate": "Taxa de financiamento",
+    "sensitivityCurrent": "atual",
+    "sensitivityGreen": "Margem > 15%",
+    "sensitivityYellow": "Margem 5–15%",
+    "sensitivityRed": "Margem < 5%"
   },
   "marche": {
     "title": "Base de dados de mercado",
@@ -2257,7 +2336,7 @@
   },
   "pricing": {
     "title": "Precos",
-    "subtitle": "Todas as ferramentas de calculo sao gratuitas e sem limites. Crie uma conta para guardar e exportar.",
+    "subtitle": "22 ferramentas imobiliarias + 7 simuladores de energia. Resultados instantaneos, exportacao PDF, relatorio EVS 2025.",
     "contact": "Questoes ou sugestoes?",
     "free": {
       "name": "Gratuito",
@@ -2265,13 +2344,15 @@
       "priceNote": "Gratuito para sempre",
       "description": "Todas as calculadoras, resultados em direto",
       "cta": "Comecar",
-      "f1": "12+ ferramentas imobiliarias (estimativa, custos, mais-valias, renda, apoios, etc.)",
+      "f1": "22 ferramentas imobiliarias (estimativa, custos, mais-valias, renda, apoios, avaliacao EVS, DCF, custo construcao, VRD, superficies, etc.)",
       "f2": "7 simuladores de energia (impacto CPE, renovacao, comunidade, EPBD, CPE, LENOZ, portfolio)",
       "f3": "Mapa interativo de precos por municipio",
       "f4": "Base de dados de mercado (residencial, escritorios, comercio, logistica)",
-      "f5": "Resultados instantaneos sem limite",
-      "f6": "5 linguas (FR, EN, DE, PT, LB)",
-      "f7": "Armazenamento local (navegador)"
+      "f5": "Estimador de custo de construção (17 ofícios STATEC) + conversor de superfícies (OAI/ILNAS)",
+      "f6": "Estimador VRD para gabinetes de estudos (9 lotes, mapa de quantidades detalhado, preços referenciados Batiprix/CTG/CSDC-CT)",
+      "f7": "Dados macro LU (OAT, taxas hipotecárias, índice construção, PIB)",
+      "f8": "5 línguas (FR, EN, DE, PT, LB)",
+      "f9": "Armazenamento local (navegador)"
     },
     "account": {
       "name": "Conta gratuita",
@@ -2281,7 +2362,7 @@
       "cta": "Criar uma conta",
       "badge": "Recomendado",
       "inherited": "Tudo do tier Gratuito, mais:",
-      "f1": "Exportacao PDF em todas as ferramentas",
+      "f1": "Exportacao PDF nas 22 ferramentas + 7 simuladores de energia",
       "f2": "Armazenamento cloud ilimitado (multi-dispositivo)",
       "f3": "Historico completo das suas simulacoes",
       "f4": "Perfil personalizado nos relatorios (nome, logotipo, contactos)",

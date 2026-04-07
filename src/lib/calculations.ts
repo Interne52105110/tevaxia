@@ -25,6 +25,7 @@ import {
   GARANTIE_ETAT_PLAFOND_PCT,
   GARANTIE_REVENU_PLAFOND_SEUL,
   GARANTIE_REVENU_PLAFOND_MULTI,
+  BAREME_IR_CLASSE1,
 } from "./constants";
 
 // ============================================================
@@ -301,6 +302,65 @@ export function calculerFraisAcquisition(input: FraisAcquisitionInput): FraisAcq
 }
 
 // ============================================================
+// CALCUL IMPÔT PROGRESSIF (BARÈME IR LU — CLASSE 1)
+// ============================================================
+
+/** Calcule l'impôt dû sur un revenu imposable selon le barème progressif classe 1 */
+export function calculerImpotBareme(revenuImposable: number): number {
+  let impot = 0;
+  let seuil = 0;
+  for (const tranche of BAREME_IR_CLASSE1) {
+    const largeur = tranche.limite - seuil;
+    const montantDansTranche = Math.min(Math.max(revenuImposable - seuil, 0), largeur);
+    impot += montantDansTranche * tranche.taux;
+    seuil = tranche.limite;
+    if (revenuImposable <= seuil) break;
+  }
+  return impot;
+}
+
+/** Taux moyen d'imposition pour un revenu donné */
+export function tauxMoyenIR(revenuImposable: number): number {
+  if (revenuImposable <= 0) return 0;
+  return calculerImpotBareme(revenuImposable) / revenuImposable;
+}
+
+/**
+ * Calcule l'impôt sur un gain de spéculation (taux global = barème progressif).
+ * Si revenuImposable est fourni : calcul du taux marginal réel.
+ * Sinon : estimation à 40% (taux marginal max).
+ */
+function impotSpeculation(gainImposable: number, revenuImposable?: number): { impot: number; taux: number; estEstimation: boolean } {
+  if (gainImposable <= 0) return { impot: 0, taux: 0, estEstimation: false };
+  if (revenuImposable != null && revenuImposable > 0) {
+    const impotSansGain = calculerImpotBareme(revenuImposable);
+    const impotAvecGain = calculerImpotBareme(revenuImposable + gainImposable);
+    const impot = impotAvecGain - impotSansGain;
+    const taux = impot / gainImposable;
+    return { impot, taux, estEstimation: false };
+  }
+  return { impot: gainImposable * 0.40, taux: 0.40, estEstimation: true };
+}
+
+/**
+ * Calcule l'impôt sur un gain de cession (demi-taux global).
+ * Art. 130(4) LIR : impôt = gain × (taux moyen global / 2).
+ * Si revenuImposable est fourni : calcul du demi-taux réel.
+ * Sinon : estimation à 20%.
+ */
+function impotCession(gainImposable: number, revenuImposable?: number): { impot: number; taux: number; estEstimation: boolean } {
+  if (gainImposable <= 0) return { impot: 0, taux: 0, estEstimation: false };
+  if (revenuImposable != null && revenuImposable > 0) {
+    const revenuTotal = revenuImposable + gainImposable;
+    const tauxGlobal = tauxMoyenIR(revenuTotal);
+    const demiTaux = tauxGlobal / 2;
+    const impot = gainImposable * demiTaux;
+    return { impot, taux: demiTaux, estEstimation: false };
+  }
+  return { impot: gainImposable * 0.20, taux: 0.20, estEstimation: true };
+}
+
+// ============================================================
 // MODULE 3 — PLUS-VALUES IMMOBILIÈRES
 // ============================================================
 
@@ -314,6 +374,7 @@ export interface PlusValueInput {
   estResidencePrincipale: boolean;
   estCouple: boolean;
   revenuImposable?: number; // Pour calcul taux global (spéculation)
+  modeAcquisition?: "achat" | "succession" | "donation";
 }
 
 export interface PlusValueResult {
@@ -333,6 +394,15 @@ export interface PlusValueResult {
 
 export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
   const dureeDetention = input.anneeCession - input.anneeAcquisition;
+  const mode = input.modeAcquisition || "achat";
+
+  // Label du prix d'acquisition selon le mode
+  const prixLabel =
+    mode === "succession"
+      ? "Valeur successorale déclarée (art. 102 LIR)"
+      : mode === "donation"
+      ? "Valeur déclarée dans l'acte de donation (art. 102 LIR)"
+      : "Prix d'acquisition";
 
   // Exonération résidence principale
   if (input.estResidencePrincipale) {
@@ -348,7 +418,12 @@ export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
       estimationImpot: 0,
       tauxEffectif: 0,
       netApresImpot: input.prixCession - input.prixAcquisition,
-      explication: "Exonération totale : résidence principale occupée effectivement et de manière continue depuis l'acquisition ou pendant les 5 années précédant la cession.",
+      explication:
+        mode === "succession"
+          ? "Exonération totale : résidence principale occupée effectivement et de manière continue. Base d'acquisition = valeur successorale déclarée (art. 102 LIR)."
+          : mode === "donation"
+          ? "Exonération totale : résidence principale occupée effectivement et de manière continue. Base d'acquisition = valeur déclarée dans l'acte de donation (art. 102 LIR)."
+          : "Exonération totale : résidence principale occupée effectivement et de manière continue depuis l'acquisition ou pendant les 5 années précédant la cession.",
     };
   }
 
@@ -357,9 +432,19 @@ export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
     const fraisDeductibles = (input.fraisAcquisition || 0) + (input.travauxDeductibles || 0);
     const gainBrut = input.prixCession - input.prixAcquisition - fraisDeductibles;
     const gainImposable = Math.max(0, gainBrut);
-    // Taux global (barème progressif) — estimation simplifiée à 40%
-    const tauxEstime = 0.40;
-    const estimationImpot = gainImposable * tauxEstime;
+    // Taux global (barème progressif) — calcul réel si revenu connu, sinon estimation 40%
+    const { impot: estimationImpot, taux: tauxEffectif, estEstimation } = impotSpeculation(gainImposable, input.revenuImposable);
+
+    const modeExplication =
+      mode === "succession"
+        ? ` Base d'acquisition = valeur successorale déclarée (art. 102 LIR).`
+        : mode === "donation"
+        ? ` Base d'acquisition = valeur déclarée dans l'acte de donation (art. 102 LIR).`
+        : "";
+
+    const tauxExplication = estEstimation
+      ? `Estimation au taux marginal max de 40% (renseignez votre revenu imposable pour un calcul précis).`
+      : `Taux marginal effectif de ${formatPct(tauxEffectif)} calculé selon le barème IR classe 1.`;
 
     return {
       typeGain: "speculation",
@@ -371,9 +456,9 @@ export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
       abattement: 0,
       gainImposable,
       estimationImpot,
-      tauxEffectif: tauxEstime,
+      tauxEffectif,
       netApresImpot: input.prixCession - input.prixAcquisition - estimationImpot,
-      explication: `Gain de spéculation (détention ≤ 2 ans). Imposé au taux global (barème progressif). Estimation au taux marginal de 40%.`,
+      explication: `Gain de spéculation (détention ≤ 2 ans). Imposé au taux global (barème progressif). ${tauxExplication}${modeExplication}`,
     };
   }
 
@@ -384,9 +469,19 @@ export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
   const gainBrut = input.prixCession - prixAcquisitionRevalorise - fraisForfaitaires;
   const abattement = input.estCouple ? ABATTEMENT_CESSION_COUPLE : ABATTEMENT_CESSION;
   const gainImposable = Math.max(0, gainBrut - abattement);
-  // Demi-taux global — estimation simplifiée à ~20%
-  const tauxEstime = 0.20;
-  const estimationImpot = gainImposable * tauxEstime;
+  // Demi-taux global (art. 130(4) LIR) — calcul réel si revenu connu, sinon estimation 20%
+  const { impot: estimationImpot, taux: tauxEffectif, estEstimation } = impotCession(gainImposable, input.revenuImposable);
+
+  const modeExplication =
+    mode === "succession"
+      ? ` Base d'acquisition = valeur successorale déclarée (art. 102 LIR).`
+      : mode === "donation"
+      ? ` Base d'acquisition = valeur déclarée dans l'acte de donation (art. 102 LIR).`
+      : "";
+
+  const tauxExplication = estEstimation
+    ? `Imposé au demi-taux global (estimation ~20% — renseignez votre revenu imposable pour un calcul précis).`
+    : `Imposé au demi-taux global de ${formatPct(tauxEffectif)} (art. 130(4) LIR, barème classe 1).`;
 
   return {
     typeGain: "cession",
@@ -398,9 +493,9 @@ export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
     abattement,
     gainImposable,
     estimationImpot,
-    tauxEffectif: tauxEstime,
+    tauxEffectif,
     netApresImpot: input.prixCession - input.prixAcquisition - estimationImpot,
-    explication: `Gain de cession (détention > 2 ans). Prix d'acquisition revalorisé par le coefficient ${coefficient.toFixed(2)}. Abattement décennal de ${formatEUR(abattement)}. Imposé au demi-taux global (estimation ~20%).`,
+    explication: `Gain de cession (détention > 2 ans). ${prixLabel} revalorisé${mode === "achat" ? " par le coefficient" : " (coefficient"} ${coefficient.toFixed(2)}${mode !== "achat" ? ")" : ""}. Abattement décennal de ${formatEUR(abattement)}. ${tauxExplication}${modeExplication}`,
   };
 }
 
@@ -651,63 +746,40 @@ export function simulerAides(input: AidesInput): AidesResult {
 
   // --- COUCHE 4 : Aides communales (données vérifiées) ---
   if (input.montantTravaux && input.montantTravaux > 0) {
-    const COMMUNE_AIDE_PCT: Record<string, number> = {
-      "Luxembourg": 0.50,
-      "Esch-sur-Alzette": 0.20,
-      "Differdange": 0.40,
-      "Dudelange": 0.25,
-      "Bertrange": 0.25,
-      "Hesperange": 0.35,
-      "Bettembourg": 0.10,
-      "Mamer": 0.30,
-      "Strassen": 0.30,
-      "Lintgen": 0.50,
-      "Junglinster": 0.20,
-      "Sandweiler": 0.30,
-      "Kayl": 0.10,
-      "Pétange": 0.00, // forfait 500 €
-    };
-
-    const COMMUNE_MAX: Record<string, number> = {
-      "Lintgen": 1500,
-      "Sandweiler": 7200,
-      "Hesperange": 8500,
-      "Bettembourg": 560,
-    };
-
-    const COMMUNE_DESC: Record<string, string> = {
-      "Luxembourg": "50% de l'aide étatique (isolation, fenêtres) — vdl.lu",
-      "Esch-sur-Alzette": "20% de l'aide étatique (isolation, PV, PAC) — administration.esch.lu",
-      "Differdange": "40% de la subvention étatique — differdange.lu",
-      "Dudelange": "25% de l'aide étatique (isolation, solaire, PAC) — dudelange.lu",
-      "Bertrange": "25% de l'aide étatique (énergie/renouvelable) — bertrange.lu",
-      "Hesperange": "35% de l'aide étatique (max 8 500 €) — hesperange.lu",
-      "Bettembourg": "10% de l'aide étatique (max 560 €) — bettembourg.lu",
-      "Mamer": "30% de l'aide étatique (max 7 200 €) — mamer.lu",
-      "Strassen": "30% de l'aide étatique (assainissement énergétique) — strassen.lu",
-      "Lintgen": "50% de l'aide étatique (max 1 500 €) — bauerenergie.lu",
-      "Junglinster": "20% de l'aide étatique (isolation, PV) — junglinster.lu",
-      "Sandweiler": "30% de l'aide étatique (max 7 200 €) — sandweiler.lu",
-      "Kayl": "10% de l'aide étatique (isolation) — kayl.lu",
-      "Pétange": "Montant fixe de 500 € — bauerenergie.lu",
+    const COMMUNES_AIDES: Record<string, { pct: number; max?: number; forfait?: number; desc: string }> = {
+      "Luxembourg":       { pct: 0.50,                 desc: "50% de l'aide étatique (isolation, fenêtres) — vdl.lu" },
+      "Esch-sur-Alzette": { pct: 0.20,                 desc: "20% de l'aide étatique (isolation, PV, PAC) — administration.esch.lu" },
+      "Differdange":      { pct: 0.40,                 desc: "40% de la subvention étatique — differdange.lu" },
+      "Dudelange":        { pct: 0.25,                 desc: "25% de l'aide étatique (isolation, solaire, PAC) — dudelange.lu" },
+      "Bertrange":        { pct: 0.25,                 desc: "25% de l'aide étatique (énergie/renouvelable) — bertrange.lu" },
+      "Hesperange":       { pct: 0.35, max: 8_500,     desc: "35% de l'aide étatique (max 8 500 €) — hesperange.lu" },
+      "Bettembourg":      { pct: 0.10, max: 560,       desc: "10% de l'aide étatique (max 560 €) — bettembourg.lu" },
+      "Mamer":            { pct: 0.30, max: 7_200,     desc: "30% de l'aide étatique (max 7 200 €) — mamer.lu" },
+      "Strassen":         { pct: 0.30,                 desc: "30% de l'aide étatique (assainissement énergétique) — strassen.lu" },
+      "Lintgen":          { pct: 0.50, max: 1_500,     desc: "50% de l'aide étatique (max 1 500 €) — bauerenergie.lu" },
+      "Junglinster":      { pct: 0.20,                 desc: "20% de l'aide étatique (isolation, PV) — junglinster.lu" },
+      "Sandweiler":       { pct: 0.30, max: 7_200,     desc: "30% de l'aide étatique (max 7 200 €) — sandweiler.lu" },
+      "Kayl":             { pct: 0.10,                 desc: "10% de l'aide étatique (isolation) — kayl.lu" },
+      "Pétange":          { pct: 0.00, forfait: 500,   desc: "Montant fixe de 500 € — bauerenergie.lu" },
     };
 
     const commune = input.commune || "";
-    const communePct = COMMUNE_AIDE_PCT[commune] ?? 0.05; // défaut 5%
-    let montantCommunal = input.montantTravaux * communePct;
+    const communeData = COMMUNES_AIDES[commune];
+    let montantCommunal: number;
 
-    // Pétange : forfait fixe 500 €
-    if (commune === "Pétange") montantCommunal = 500;
-
-    // Plafonds communaux
-    if (COMMUNE_MAX[commune]) {
-      montantCommunal = Math.min(montantCommunal, COMMUNE_MAX[commune]);
+    if (communeData) {
+      montantCommunal = communeData.forfait ?? input.montantTravaux * communeData.pct;
+      if (communeData.max != null) {
+        montantCommunal = Math.min(montantCommunal, communeData.max);
+      }
+    } else {
+      montantCommunal = input.montantTravaux * 0.05; // défaut 5%
     }
 
-    const descCommunale = COMMUNE_DESC[commune]
+    const descCommunale = communeData?.desc
       || "Variable selon la commune — estimation ~5% du montant des travaux";
-    const sourceCommunale = commune && COMMUNE_AIDE_PCT[commune] !== undefined
-      ? `Règlement communal ${commune} — données vérifiées`
+    const sourceCommunale = communeData
+      ? `Règlement communal de ${commune} — données vérifiées`
       : "Règlement communal — contacter le service urbanisme/logement de votre commune";
 
     aides.push({

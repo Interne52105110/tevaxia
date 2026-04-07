@@ -54,7 +54,7 @@ export default async function Pricing() {
             </Link>
 
             <ul className="mt-6 space-y-2.5">
-              {(["f1","f2","f3","f4","f5","f6","f7"] as const).map((k) => (
+              {(["f1","f2","f3","f4","f5","f6","f7","f8","f9"] as const).map((k) => (
                 <li key={k} className="flex items-start gap-2 text-sm text-slate"><CheckIcon />{t(`free.${k}`)}</li>
               ))}
             </ul>

@@ -9,6 +9,9 @@
     "aides": "Simulateur d'aides",
     "achatLocation": "Acheter ou louer",
     "bilanPromoteur": "Bilan promoteur",
+    "estimateurConstruction": "Coût construction",
+    "calculateurVrd": "Estimateur VRD",
+    "convertisseurSurfaces": "Surfaces",
     "dcfMulti": "DCF multi-locataires",
     "bancaire": "Outils bancaires",
     "portfolio": "Portfolio",
@@ -100,6 +103,21 @@
         "title": "Bilan Promoteur",
         "description": "Compte à rebours : prix de vente − coûts − frais − marge = charge foncière maximale. Adapté aux coûts de construction luxembourgeois.",
         "tag": "Compte à rebours"
+      },
+      "estimateurConstruction": {
+        "title": "Coût de construction",
+        "description": "Décomposition détaillée par corps de métier (classification STATEC). 17 postes, ajustement classe énergétique et finition.",
+        "tag": "STATEC oct. 2025"
+      },
+      "calculateurVrd": {
+        "title": "Estimateur VRD",
+        "description": "Métrés, bordereau de prix et estimation budgétaire pour projets d'infrastructure. 9 lots, prix sourcés (Batiprix, CTG, CSDC-CT).",
+        "tag": "Bureau d'études"
+      },
+      "convertisseurSurfaces": {
+        "title": "Convertisseur de surfaces",
+        "description": "Conversion SCB ↔ SCP ↔ surface utile ↔ surface habitable. Pondération ACT pour caves, balcons, terrasses.",
+        "tag": "OAI FC.04 / ILNAS 101"
       },
       "valorisation": {
         "title": "Valorisation EVS 2025",
@@ -219,7 +237,11 @@
       "explainSource1": "Observatoire de l'Habitat du Luxembourg — Analyse des prix de vente par classe énergétique (2023-2025)",
       "explainSource2": "BCE — Climate risk and real estate: emerging evidence on pricing (2024)",
       "explainSource3": "Directive EPBD recast 2024/1275 — Objectif parc zéro-émission 2050",
-      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)"
+      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)",
+      "fourchette": "Fourchette",
+      "fourchetteTip": "Les écarts varient selon la localisation, le type de bien et les conditions de marché",
+      "sourceData": "Source",
+      "calibrationNote": "Coefficients calibrés sur les écarts de prix par classe énergétique observés au Luxembourg (Observatoire de l'Habitat 2025) et études européennes (ECB, PriceHubble)."
     },
     "renovation": {
       "title": "ROI Rénovation énergétique",
@@ -490,7 +512,15 @@
       "linkRenovationSub": "Coûts, aides & rentabilité",
       "linkEpbdTitle": "Timeline EPBD",
       "linkEpbdSub": "Échéances réglementaires",
-      "restart": "Recommencer l'estimation"
+      "restart": "Recommencer l'estimation",
+      "surfaceLabel": "Surface habitable",
+      "surfaceUnit": "m²",
+      "consoEstimee": "Consommation estimée",
+      "consoFourchette": "Fourchette : {min} — {max} kWh/m²/an",
+      "consoTotale": "Consommation totale annuelle",
+      "coutEstime": "Coût énergétique estimé",
+      "emissionsCO2": "Émissions CO₂ estimées",
+      "prixKwh": "Base : 0,22 €/kWh (mix luxembourgeois 2026)"
     },
     "lenoz": {
       "title": "Scoring LENOZ simplifié",
@@ -618,7 +648,15 @@
       "colConso": "Conso kWh/an",
       "colCO2": "CO₂ kg/an",
       "colImpact": "Impact valeur",
-      "downloadPdf": "Télécharger PDF"
+      "downloadPdf": "Télécharger PDF",
+      "csvImport": "Importer CSV",
+      "csvExport": "Exporter CSV",
+      "csvTemplate": "Modèle CSV",
+      "csvSuccess": "{count} bien(s) importé(s) avec succès",
+      "csvSkipped": "{count} ligne(s) ignorée(s)",
+      "csvErrorFormat": "Format CSV invalide. Vérifiez les colonnes : nom, classe, surface, valeur, type, annee.",
+      "csvErrorRead": "Impossible de lire le fichier.",
+      "csvOrImport": "ou importez un fichier CSV"
     }
   },
   "estimation": {
@@ -709,7 +747,12 @@
     "evaluationSauvegardee": "Évaluation sauvegardée !",
     "disclaimer": "Estimation indicative basée sur les données publiques de l'Observatoire de l'Habitat et les coefficients d'ajustement statistiques. Ne constitue pas une évaluation professionnelle. Pour une expertise conforme EVS 2025, utilisez le",
     "disclaimerLink": "module de valorisation",
-    "selectCommune": "Sélectionnez une commune pour obtenir une estimation"
+    "selectCommune": "Sélectionnez une commune pour obtenir une estimation",
+    "quartierTitle": "Prix par quartier — {commune}",
+    "quartierSource": "Prix indicatifs par quartier — Source : annonces agrégées",
+    "quartierHausse": "hausse",
+    "quartierStable": "stable",
+    "quartierBaisse": "baisse"
   },
   "fraisAcquisition": {
     "title": "Simulateur de Frais d'Acquisition",
@@ -824,7 +867,16 @@
     "infoResidenceText": "Exonération totale si occupée effectivement et de manière continue.",
     "sauvegarder": "Sauvegarder",
     "evaluationSauvegardee": "Évaluation sauvegardée !",
-    "savePrefix": "Plus-value"
+    "savePrefix": "Plus-value",
+    "modeAchat": "Achat",
+    "modeSuccession": "Succession",
+    "modeDonation": "Donation",
+    "valeurSuccessorale": "Valeur successorale déclarée",
+    "anneeDeces": "Année du décès",
+    "valeurDonation": "Valeur déclarée dans l'acte",
+    "anneeDonation": "Année de la donation",
+    "successionHint": "Valeur retenue dans la déclaration de succession",
+    "donationHint": "Valeur retenue dans l'acte notarié de donation"
   },
   "calculLoyer": {
     "title": "Calculateur de loyer — Capital investi",
@@ -988,13 +1040,13 @@
     "klima_vmc": "VMC double flux",
     "klima_pv": "Panneaux photovoltaïques",
     "klima_solaire_thermique": "Solaire thermique",
-    "klimaSub_isolation_facade": "50 €/m² Klimabonus",
-    "klimaSub_isolation_toiture": "40 €/m² Klimabonus",
-    "klimaSub_fenetres": "2 000 €/fenêtre Klimabonus",
-    "klimaSub_pac": "8 000 € Klimabonus",
-    "klimaSub_vmc": "3 000 € Klimabonus",
+    "klimaSub_isolation_facade": "55 €/m² + 10 €/m² éco",
+    "klimaSub_isolation_toiture": "45 €/m² + 8 €/m² éco",
+    "klimaSub_fenetres": "2 500 €/fenêtre Klimabonus",
+    "klimaSub_pac": "10 000 € Klimabonus",
+    "klimaSub_vmc": "3 500 € Klimabonus",
     "klimaSub_pv": "500 €/kWc Klimabonus",
-    "klimaSub_solaire_thermique": "2 500 € Klimabonus",
+    "klimaSub_solaire_thermique": "3 000 € Klimabonus",
     "klimaSub_default": "Klimabonus 50 %",
     "unitM2": "m²",
     "unitFenetres": "fenêtres",
@@ -1055,7 +1107,11 @@
     "communeEschDudelange": "Primes rénovation énergétique communales cumulables",
     "contactCommune": "Contactez votre administration communale pour connaître les aides exactes dont vous pouvez bénéficier.",
     "cumulTitle": "Cumul des aides",
-    "cumulText": "Les aides étatiques et communales sont généralement cumulables, dans la limite d'un plafond global (en règle générale, le cumul ne peut dépasser le coût total du projet)."
+    "cumulText": "Les aides étatiques et communales sont généralement cumulables, dans la limite d'un plafond global (en règle générale, le cumul ne peut dépasser le coût total du projet).",
+    "topupSocial": "Topup social (revenus modestes)",
+    "topupSocialHint": "Majoration x1.5 des aides Klimabonus si revenu imposable ≤ 60 000 €/an (nouveau 2026)",
+    "bonusEco": "dont bonus matériaux écologiques",
+    "klimabonusRegime": "Barème Klimabonus Wunnen 2026"
   },
   "dcfMulti": {
     "title": "DCF multi-locataires",
@@ -1255,7 +1311,19 @@
     "dscrAbove1_2": "DSCR ≥ 1,2",
     "dscrAbove1_2Desc": "Seuil minimum exigé par la plupart des banques LU",
     "dscrAbove1_5": "DSCR ≥ 1,5",
-    "dscrAbove1_5Desc": "Profil investisseur solide — conditions préférentielles"
+    "dscrAbove1_5Desc": "Profil investisseur solide — conditions préférentielles",
+    "tauxMarcheTitle": "Taux du marché luxembourgeois",
+    "tauxMarcheSource": "Source : BCL / Switchr.lu — taux moyens observés",
+    "tauxMarcheDate": "Mis à jour : {date}",
+    "tauxDirecteurBCE": "Taux directeur BCE",
+    "tauxDepotBCE": "Taux de dépôt BCE",
+    "tauxNote": "Taux indicatifs — consultez votre banque pour une offre personnalisée",
+    "tauxClickHint": "Cliquez sur un taux pour pré-remplir",
+    "fixedLabel10y": "Fixe 10 ans",
+    "fixedLabel15y": "Fixe 15 ans",
+    "fixedLabel20y": "Fixe 20 ans",
+    "fixedLabel25y": "Fixe 25 ans",
+    "variableLabel": "Variable"
   },
   "bilanPromoteur": {
     "title": "Bilan promoteur",
@@ -1363,7 +1431,18 @@
     "vefaRoofed": "Hors d'eau",
     "vefaPartitions": "Cloisons achevées",
     "vefaFinishing": "Finitions",
-    "vefaDelivery": "Livraison"
+    "vefaDelivery": "Livraison",
+    "sensitivityTitle": "Analyse de sensibilité",
+    "sensitivityDesc": "Variation de la marge résiduelle selon différents scénarios. Les cellules affichent la marge (% du CA) et la charge foncière résultante.",
+    "sensitivityPrixConstr": "Prix de vente vs Coût de construction",
+    "sensitivityPrixTaux": "Prix de vente vs Taux de financement",
+    "sensitivitySalePrice": "Prix vente/m²",
+    "sensitivityConstrCost": "Coût constr./m²",
+    "sensitivityFinRate": "Taux financier",
+    "sensitivityCurrent": "actuel",
+    "sensitivityGreen": "Marge > 15 %",
+    "sensitivityYellow": "Marge 5–15 %",
+    "sensitivityRed": "Marge < 5 %"
   },
   "marche": {
     "title": "Base de données marché",
@@ -2257,7 +2336,7 @@
   },
   "pricing": {
     "title": "Tarifs",
-    "subtitle": "19 outils immobiliers + 7 simulateurs énergie. Résultats instantanés, export PDF, rapport EVS 2025.",
+    "subtitle": "22 outils immobiliers + 7 simulateurs énergie. Résultats instantanés, export PDF, rapport EVS 2025.",
     "launchBanner": "Phase de lancement — le tier Pro est offert gratuitement",
     "contact": "Questions ou suggestions ?",
     "free": {
@@ -2266,13 +2345,15 @@
       "priceNote": "Sans inscription, sans limite",
       "description": "Tous les calculateurs fonctionnels avec résultats en direct. Aucune friction.",
       "cta": "Commencer",
-      "f1": "19 outils immobiliers (estimation, frais, plus-values, loyer, aides, valorisation EVS, DCF, etc.)",
+      "f1": "22 outils immobiliers (estimation, frais, plus-values, loyer, aides, valorisation EVS, DCF, coût construction, VRD, surfaces, etc.)",
       "f2": "7 simulateurs énergie (impact CPE, rénovation ROI, communauté, EPBD, CPE, LENOZ, portfolio)",
       "f3": "Carte interactive des prix — 100 communes",
       "f4": "Base de données marché (résidentiel, bureaux, commerces, logistique, terrains)",
-      "f5": "Données macro LU (OAT, taux hypothécaires, indice construction, PIB)",
-      "f6": "5 langues (FR, EN, DE, PT, LB)",
-      "f7": "Sauvegarde locale (navigateur)"
+      "f5": "Estimateur coût construction (17 corps de métier STATEC) + convertisseur de surfaces (OAI/ILNAS)",
+      "f6": "Estimateur VRD bureau d'études (9 lots, bordereau détaillé, prix sourcés Batiprix/CTG/CSDC-CT)",
+      "f7": "Données macro LU (OAT, taux hypothécaires, indice construction, PIB)",
+      "f8": "5 langues (FR, EN, DE, PT, LB)",
+      "f9": "Sauvegarde locale (navigateur)"
     },
     "account": {
       "name": "Compte gratuit",
@@ -2282,7 +2363,7 @@
       "cta": "Créer mon compte",
       "badge": "Recommandé",
       "inherited": "Tout l'accès libre, plus :",
-      "f1": "Export PDF sur les 19 outils + 7 simulateurs énergie",
+      "f1": "Export PDF sur les 22 outils + 7 simulateurs énergie",
       "f2": "Sauvegarde cloud illimitée — accessible multi-appareils",
       "f3": "Historique complet de toutes vos simulations",
       "f4": "Profil personnalisé (nom, logo uploadé, coordonnées, mention légale)",

@@ -10,7 +10,8 @@ const PAGES = [
   "/simulateur-aides", "/vefa", "/outils-bancaires",
   "/achat-vs-location", "/bilan-promoteur", "/valorisation",
   "/dcf-multi", "/portfolio", "/pag-pap", "/terres-agricoles",
-  "/aml-kyc", "/pricing", "/connexion",
+  "/aml-kyc", "/estimateur-construction", "/calculateur-vrd",
+  "/convertisseur-surfaces", "/pricing", "/connexion",
   "/mentions-legales", "/confidentialite",
 ];
 

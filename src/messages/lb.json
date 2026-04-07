@@ -9,6 +9,9 @@
     "aides": "Hëllefen-Simulator",
     "achatLocation": "Kafen oder lounen",
     "bilanPromoteur": "Promoteur-Bilanz",
+    "estimateurConstruction": "Baukaschten",
+    "calculateurVrd": "VRD-Schätzer",
+    "convertisseurSurfaces": "Flächen",
     "dcfMulti": "DCF Multi-Locatairen",
     "bancaire": "Bankinstrumenter",
     "portfolio": "Portfolio",
@@ -100,6 +103,21 @@
         "title": "Promoteur-Bilanz",
         "description": "Restwäertmethod: Verkafspräis − Käschten − Gebüren − Marge = maximal Grondstéckbelaaschtung. Ugepasst u Lëtzebuerger Baukäschten.",
         "tag": "Restwäertmethod"
+      },
+      "estimateurConstruction": {
+        "title": "Baukaschten",
+        "description": "Detailléiert Opschlësselung no Gewierk (STATEC-Klassifikatioun). 17 Posten, Upassung no Energieklass a Fäerdegstellungsgrad.",
+        "tag": "STATEC Okt. 2025"
+      },
+      "calculateurVrd": {
+        "title": "VRD-Schätzer",
+        "description": "Mengenermëttlung, Leeschtungsverzechnes a Budgetschätzung fir Infrastrukturprojeten. 9 Loser, beleete Präisser (Batiprix, CTG, CSDC-CT).",
+        "tag": "Ingenieurbüro"
+      },
+      "convertisseurSurfaces": {
+        "title": "Flächen-Ëmrechner",
+        "description": "Ëmrechnung BGF ↔ GF ↔ Notzfläch ↔ Wunnfläch. ACT-Gewiichtung fir Keller, Balkonen, Terrassen.",
+        "tag": "OAI FC.04 / ILNAS 101"
       },
       "valorisation": {
         "title": "Bewäertung EVS 2025",
@@ -219,7 +237,11 @@
       "explainSource1": "Observatoire de l'Habitat du Luxembourg — Analyse vun de Verkafspräisser no Energieklass (2023-2025)",
       "explainSource2": "EZB — Climate risk and real estate: emerging evidence on pricing (2024)",
       "explainSource3": "Directive EPBD recast 2024/1275 — Zil Nullemissiounspark 2050",
-      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)"
+      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)",
+      "fourchette": "Spannwäit",
+      "fourchetteTip": "D'Ofwäichunge sinn ofhängeg vun der Lag, dem Immobilientyp an de Maartbedéngungen",
+      "sourceData": "Quell",
+      "calibrationNote": "Koeffiziente kalibréiert op Basis vun de Präisënnerscheeder pro Energieklass am Lëtzebuerg (Observatoire de l'Habitat 2025) an europäesche Studien (EZB, PriceHubble)."
     },
     "renovation": {
       "title": "ROI Energeetesch Renovatioun",
@@ -490,7 +512,15 @@
       "linkRenovationSub": "Käschten, Hëllefen & Rentabilitéit",
       "linkEpbdTitle": "EPBD Timeline",
       "linkEpbdSub": "Reglementaresch Fristen",
-      "restart": "D'Schätzung nei starten"
+      "restart": "D'Schätzung nei starten",
+      "surfaceLabel": "Wunnfläch",
+      "surfaceUnit": "m²",
+      "consoEstimee": "Geschate Verbrauch",
+      "consoFourchette": "Spannwäit: {min} — {max} kWh/m²/Joer",
+      "consoTotale": "Gesamte Joersverbrauch",
+      "coutEstime": "Geschate Energiekäschten",
+      "emissionsCO2": "Geschate CO₂-Emissiounen",
+      "prixKwh": "Basis: 0,22 €/kWh (Lëtzebuerger Mix 2026)"
     },
     "lenoz": {
       "title": "LENOZ Scoring vereinfacht",
@@ -618,7 +648,15 @@
       "colConso": "Verbrauch kWh/Joer",
       "colCO2": "CO₂ kg/Joer",
       "colImpact": "Impakt op de Wäert",
-      "downloadPdf": "PDF eroflueden"
+      "downloadPdf": "PDF eroflueden",
+      "csvImport": "CSV importéieren",
+      "csvExport": "CSV exportéieren",
+      "csvTemplate": "CSV-Schabloun",
+      "csvSuccess": "{count} Immobilie(n) erfollegräich importéiert",
+      "csvSkipped": "{count} Zeil(en) iwwersprong",
+      "csvErrorFormat": "Ongëltegt CSV-Format. Spalten iwwerpréiwen: Numm, Klass, Fläch, Wäert, Typ, Joer.",
+      "csvErrorRead": "Fichier konnt net gelies ginn.",
+      "csvOrImport": "oder CSV-Fichier importéieren"
     }
   },
   "estimation": {
@@ -709,7 +747,12 @@
     "evaluationSauvegardee": "Bewäertung gespäichert!",
     "disclaimer": "Indikativ Schätzung op Basis vun ëffentlechen Donnéeë vum Observatoire de l'Habitat an de statistesche Upassungskoefficienten. Stellt keng professionell Bewäertung duer. Fir eng EVS 2025 konform Expertise benotzt d'",
     "disclaimerLink": "Bewäertungsmodul",
-    "selectCommune": "Wielt eng Gemeng fir eng Schätzung ze kréien"
+    "selectCommune": "Wielt eng Gemeng fir eng Schätzung ze kréien",
+    "quartierTitle": "Präisser pro Quartier — {commune}",
+    "quartierSource": "Richtpräisser pro Quartier — Quell: aggregéiert Annoncen",
+    "quartierHausse": "am Klammen",
+    "quartierStable": "stabil",
+    "quartierBaisse": "am Falen"
   },
   "fraisAcquisition": {
     "title": "Erwerbskäschtesimulator",
@@ -824,7 +867,16 @@
     "infoResidenceText": "Komplett Befreiung wann effektiv an ënnërbriechungsfräi bewunnt.",
     "sauvegarder": "Späicheren",
     "evaluationSauvegardee": "Bewäertung gespäichert!",
-    "savePrefix": "Wäertzouwuess"
+    "savePrefix": "Wäertzouwuess",
+    "modeAchat": "Kaf",
+    "modeSuccession": "Ierfschaft",
+    "modeDonation": "Schenkung",
+    "valeurSuccessorale": "Erkläerten Ierfschaftswäert",
+    "anneeDeces": "Doudesjoer",
+    "valeurDonation": "Am Akt erkläerte Wäert",
+    "anneeDonation": "Joer vun der Schenkung",
+    "successionHint": "Wäert aus der Ierfschaftserklärung",
+    "donationHint": "Wäert aus dem notarielle Schenkungsakt"
   },
   "calculLoyer": {
     "title": "Loyersrechner — Investéiert Kapital",
@@ -1055,7 +1107,11 @@
     "communeEschDudelange": "Kumuléierbar kommunal Energiesanéierungsprimmen",
     "contactCommune": "Kontaktéiert Är Gemengverwaltung fir déi genee Hëllefen ze erfahren, op déi Dir Usproch hutt.",
     "cumulTitle": "Kumuléierung vun Hëllefen",
-    "cumulText": "Staatlech a kommunal Hëllefen kënne grondsätzlech kumuléiert ginn, bis zu enger Gesamtobergrenz (an der Reegel dierf d'Kumuléierung d'Gesamtkäschte vum Projet net iwwerschreiden)."
+    "cumulText": "Staatlech a kommunal Hëllefen kënne grondsätzlech kumuléiert ginn, bis zu enger Gesamtobergrenz (an der Reegel dierf d'Kumuléierung d'Gesamtkäschte vum Projet net iwwerschreiden).",
+    "topupSocial": "Sozialen Zouschlag (niddregt Akommes)",
+    "topupSocialHint": "x1,5 Erhéijung vun de Klimabonus-Zouschëss wann steierpflichtegt Akommes ≤ 60.000 €/Joer (nei 2026)",
+    "bonusEco": "dorënner Öko-Material-Bonus",
+    "klimabonusRegime": "Klimabonus Wunnen 2026 Barème"
   },
   "dcfMulti": {
     "title": "DCF Multi-Locatairen",
@@ -1255,7 +1311,19 @@
     "dscrAbove1_2": "DSCR ≥ 1,2",
     "dscrAbove1_2Desc": "Mindestschwellwäert gefuerdert vun de meeschte LU-Banken",
     "dscrAbove1_5": "DSCR ≥ 1,5",
-    "dscrAbove1_5Desc": "Solide Investorsprofil — Vorzuchsbedéngungen"
+    "dscrAbove1_5Desc": "Solide Investorsprofil — Vorzuchsbedéngungen",
+    "tauxMarcheTitle": "Lëtzebuerger Maartzënsen",
+    "tauxMarcheSource": "Quell: BCL / Switchr.lu — observéiert Duerchschnëttszënsen",
+    "tauxMarcheDate": "Aktualiséiert: {date}",
+    "tauxDirecteurBCE": "EZB-Leetzëns",
+    "tauxDepotBCE": "EZB-Depot-Zëns",
+    "tauxNote": "Richtzënsen — frot Är Bank no engem perséinlechen Ugebott",
+    "tauxClickHint": "Klickt op en Zëns fir virzefëllen",
+    "fixedLabel10y": "Fix 10 J.",
+    "fixedLabel15y": "Fix 15 J.",
+    "fixedLabel20y": "Fix 20 J.",
+    "fixedLabel25y": "Fix 25 J.",
+    "variableLabel": "Variabel"
   },
   "bilanPromoteur": {
     "title": "Bauträger-Bilanz",
@@ -1363,7 +1431,18 @@
     "vefaRoofed": "Rohbau dicht",
     "vefaPartitions": "Trennwänn fäerdeg",
     "vefaFinishing": "Ausbau",
-    "vefaDelivery": "Iwwergab"
+    "vefaDelivery": "Iwwergab",
+    "sensitivityTitle": "Sensibilitéitsanalyse",
+    "sensitivityDesc": "Variatioun vun der Restmarge ënner verschiddene Szenarien. D'Zellen weisen d'Marge (% vum Ëmsaz) an den resultéierenden Grondstéckswäert.",
+    "sensitivityPrixConstr": "Verkafspräis vs. Baukaschten",
+    "sensitivityPrixTaux": "Verkafspräis vs. Finanzéierungszëns",
+    "sensitivitySalePrice": "Verkafspräis/m²",
+    "sensitivityConstrCost": "Baukaschten/m²",
+    "sensitivityFinRate": "Finanzéierungszëns",
+    "sensitivityCurrent": "aktuell",
+    "sensitivityGreen": "Marge > 15 %",
+    "sensitivityYellow": "Marge 5–15 %",
+    "sensitivityRed": "Marge < 5 %"
   },
   "marche": {
     "title": "Marchédatebank",
@@ -2257,7 +2336,7 @@
   },
   "pricing": {
     "title": "Tariffer",
-    "subtitle": "All Berechnungstools si gratis an ouni Limitt. Maacht e Kont op fir ze späicheren an z'exportéieren.",
+    "subtitle": "22 Immobilientools + 7 Energiesimulatoren. Sofortresultater, PDF-Export, EVS-2025-Bericht.",
     "contact": "Froen oder Virschléi?",
     "free": {
       "name": "Gratis",
@@ -2265,13 +2344,15 @@
       "priceNote": "Fir ëmmer gratis",
       "description": "All Rechner, Resultater a Richtung",
       "cta": "Ufänken",
-      "f1": "12+ Immobilientools (Schätzung, Käschten, Wäertzouwuess, Loyer, Hëllefen, asw.)",
+      "f1": "22 Immobilientools (Schätzung, Käschten, Wäertzouwuess, Loyer, Hëllefen, EVS-Bewäertung, DCF, Baukäschten, VRD, Flächen, asw.)",
       "f2": "7 Energiesimulatoren (CPE-Impakt, Renovatioun, Gemeinschaft, EPBD, CPE, LENOZ, Portfolio)",
       "f3": "Interaktiv Präiskaart no Gemeng",
       "f4": "Maartdatebank (Wunnen, Büroen, Handel, Logistik)",
-      "f5": "Onlimitéiert Sofortresultater",
-      "f6": "5 Sproochen (FR, EN, DE, PT, LB)",
-      "f7": "Lokal Späicherung (Browser)"
+      "f5": "Baukaschteschätzer (17 STATEC-Gewierk) + Flächenëmrechner (OAI/ILNAS)",
+      "f6": "VRD-Schätzer fir Ingenieurbüroen (9 Loser, detailléiert Leeschtungsverzechnes, beleete Präisser Batiprix/CTG/CSDC-CT)",
+      "f7": "Lëtzebuerger Makrodaten (OAT, Hypothéikenzënsen, Baukonstruktiounsindex, BIP)",
+      "f8": "5 Sproochen (FR, EN, DE, PT, LB)",
+      "f9": "Lokal Späicherung (Browser)"
     },
     "account": {
       "name": "Gratis Kont",
@@ -2281,7 +2362,7 @@
       "cta": "E Kont erstellen",
       "badge": "Recommandéiert",
       "inherited": "Alles vum Gratis Tier, plus:",
-      "f1": "PDF-Export bei allen Tools",
+      "f1": "PDF-Export bei allen 22 Tools + 7 Energiesimulatoren",
       "f2": "Onlimitéiert Cloud-Späicherung (Multi-Apparat)",
       "f3": "Komplett Simulatiounsverlaf",
       "f4": "Personaliséiert Profil op de Berichter (Numm, Logo, Kontaktdaten)",

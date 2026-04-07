@@ -73,7 +73,9 @@ export const BONIFICATION_PAR_ENFANT = 0.005; // 0,50% par enfant
 export const BONIFICATION_PLAFOND = 0.03; // Max 3%
 
 // Rénovation énergie
-export const KLIMABONUS_PCT_MAX = 0.625; // Jusqu'à 62,5% des travaux
+export const KLIMABONUS_PCT_MAX = 0.75; // Jusqu'à 75% des travaux (avec Topup social 2026)
+export const KLIMABONUS_TOPUP_SOCIAL_MULT = 1.5; // 150% du montant de base si revenus ≤ seuil social
+export const KLIMABONUS_TOPUP_SOCIAL_SEUIL = 60_000; // Revenu imposable annuel ≤ 60 000 €
 export const SUBVENTION_CONSEIL_ENERGIE = 1_500; // 1 500 € pour audit
 export const KLIMAPRET_TAUX = 0.015; // 1,5%
 export const KLIMAPRET_MAX = 100_000; // Max 100 000 €
@@ -124,43 +126,3 @@ export const BAREME_IR_CLASSE1 = [
 export const PRIX_MOYEN_M2_APPART_EXISTANT = 7_605; // €/m²
 export const PRIX_MOYEN_M2_APPART_NEUF = 9_200; // €/m² (estimation)
 
-// Données communes Luxembourg (échantillon — top communes)
-export interface CommuneData {
-  nom: string;
-  canton: string;
-  prixMoyenM2: number; // Appartements existants
-  aidesCommunales?: string;
-}
-
-export const COMMUNES_LU: CommuneData[] = [
-  { nom: "Luxembourg-Ville", canton: "Luxembourg", prixMoyenM2: 10_500, aidesCommunales: "Subvention patrimoine secteur protégé 750-20 000€, +10% zone UNESCO" },
-  { nom: "Esch-sur-Alzette", canton: "Esch-sur-Alzette", prixMoyenM2: 6_800 },
-  { nom: "Differdange", canton: "Esch-sur-Alzette", prixMoyenM2: 6_200 },
-  { nom: "Dudelange", canton: "Esch-sur-Alzette", prixMoyenM2: 6_500 },
-  { nom: "Ettelbruck", canton: "Diekirch", prixMoyenM2: 6_000 },
-  { nom: "Diekirch", canton: "Diekirch", prixMoyenM2: 5_800 },
-  { nom: "Strassen", canton: "Luxembourg", prixMoyenM2: 9_800, aidesCommunales: "Réputée généreuse — aides complémentaires significatives" },
-  { nom: "Bertrange", canton: "Luxembourg", prixMoyenM2: 10_200, aidesCommunales: "25% aide État plafonnée à 1 800€/maison" },
-  { nom: "Hesperange", canton: "Luxembourg", prixMoyenM2: 9_500 },
-  { nom: "Sandweiler", canton: "Luxembourg", prixMoyenM2: 9_200 },
-  { nom: "Walferdange", canton: "Luxembourg", prixMoyenM2: 9_000 },
-  { nom: "Mersch", canton: "Mersch", prixMoyenM2: 7_200 },
-  { nom: "Mamer", canton: "Luxembourg", prixMoyenM2: 9_600, aidesCommunales: "Réputée généreuse" },
-  { nom: "Steinfort", canton: "Capellen", prixMoyenM2: 7_000 },
-  { nom: "Pétange", canton: "Esch-sur-Alzette", prixMoyenM2: 5_900 },
-  { nom: "Sanem", canton: "Esch-sur-Alzette", prixMoyenM2: 6_400 },
-  { nom: "Mondercange", canton: "Esch-sur-Alzette", prixMoyenM2: 6_600 },
-  { nom: "Schifflange", canton: "Esch-sur-Alzette", prixMoyenM2: 6_300 },
-  { nom: "Bettembourg", canton: "Esch-sur-Alzette", prixMoyenM2: 6_700 },
-  { nom: "Lintgen", canton: "Mersch", prixMoyenM2: 7_400, aidesCommunales: "50% aide État plafonnée à 1 500€" },
-  { nom: "Wiltz", canton: "Wiltz", prixMoyenM2: 4_800 },
-  { nom: "Clervaux", canton: "Clervaux", prixMoyenM2: 4_500 },
-  { nom: "Vianden", canton: "Vianden", prixMoyenM2: 4_600 },
-  { nom: "Echternach", canton: "Echternach", prixMoyenM2: 5_500 },
-  { nom: "Grevenmacher", canton: "Grevenmacher", prixMoyenM2: 5_800 },
-  { nom: "Remich", canton: "Remich", prixMoyenM2: 6_000 },
-  { nom: "Junglinster", canton: "Grevenmacher", prixMoyenM2: 7_800 },
-  { nom: "Niederanven", canton: "Luxembourg", prixMoyenM2: 9_800 },
-  { nom: "Kopstal", canton: "Luxembourg", prixMoyenM2: 10_000 },
-  { nom: "Leudelange", canton: "Esch-sur-Alzette", prixMoyenM2: 8_500 },
-];

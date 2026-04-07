@@ -9,6 +9,9 @@
     "aides": "Subsidies Simulator",
     "achatLocation": "Buy vs Rent",
     "bilanPromoteur": "Developer Feasibility",
+    "estimateurConstruction": "Construction cost",
+    "calculateurVrd": "VRD estimator",
+    "convertisseurSurfaces": "Surfaces",
     "dcfMulti": "Multi-tenant DCF",
     "bancaire": "Banking Tools",
     "portfolio": "Portfolio",
@@ -100,6 +103,21 @@
         "title": "Developer Feasibility",
         "description": "Residual method: sale price − costs − fees − margin = maximum land cost. Adapted to Luxembourg construction costs.",
         "tag": "Residual method"
+      },
+      "estimateurConstruction": {
+        "title": "Construction cost",
+        "description": "Detailed breakdown by trade (STATEC classification). 17 items, energy class and finish level adjustment.",
+        "tag": "STATEC Oct. 2025"
+      },
+      "calculateurVrd": {
+        "title": "VRD Estimator",
+        "description": "Quantities, bill of quantities and budget estimation for infrastructure projects. 9 lots, sourced prices (Batiprix, CTG, CSDC-CT).",
+        "tag": "Engineering office"
+      },
+      "convertisseurSurfaces": {
+        "title": "Surface converter",
+        "description": "Convert GBA ↔ GFA ↔ usable area ↔ living area. ACT weighting for cellars, balconies, terraces.",
+        "tag": "OAI FC.04 / ILNAS 101"
       },
       "valorisation": {
         "title": "EVS 2025 Valuation",
@@ -219,7 +237,11 @@
       "explainSource1": "Observatoire de l'Habitat du Luxembourg — Sales price analysis by energy class (2023-2025)",
       "explainSource2": "ECB — Climate risk and real estate: emerging evidence on pricing (2024)",
       "explainSource3": "EPBD recast Directive 2024/1275 — Zero-emission building stock by 2050",
-      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)"
+      "explainSource4": "TEGOVA EVS 2025 — ESG & Sustainability in Property Valuation (EVS 5)",
+      "fourchette": "Range",
+      "fourchetteTip": "Variations depend on location, property type and market conditions",
+      "sourceData": "Source",
+      "calibrationNote": "Coefficients calibrated on price differences by energy class observed in Luxembourg (Observatoire de l'Habitat 2025) and European studies (ECB, PriceHubble)."
     },
     "renovation": {
       "title": "Energy Renovation ROI",
@@ -490,7 +512,15 @@
       "linkRenovationSub": "Costs, subsidies & profitability",
       "linkEpbdTitle": "EPBD Timeline",
       "linkEpbdSub": "Regulatory deadlines",
-      "restart": "Restart estimation"
+      "restart": "Restart estimation",
+      "surfaceLabel": "Living area",
+      "surfaceUnit": "m²",
+      "consoEstimee": "Estimated consumption",
+      "consoFourchette": "Range: {min} — {max} kWh/m²/year",
+      "consoTotale": "Total annual consumption",
+      "coutEstime": "Estimated energy cost",
+      "emissionsCO2": "Estimated CO₂ emissions",
+      "prixKwh": "Basis: €0.22/kWh (Luxembourg mix 2026)"
     },
     "lenoz": {
       "title": "Simplified LENOZ Scoring",
@@ -618,7 +648,15 @@
       "colConso": "Cons. kWh/yr",
       "colCO2": "CO₂ kg/yr",
       "colImpact": "Value impact",
-      "downloadPdf": "Download PDF"
+      "downloadPdf": "Download PDF",
+      "csvImport": "Import CSV",
+      "csvExport": "Export CSV",
+      "csvTemplate": "CSV template",
+      "csvSuccess": "{count} property(ies) imported successfully",
+      "csvSkipped": "{count} row(s) skipped",
+      "csvErrorFormat": "Invalid CSV format. Check columns: name, class, area, value, type, year.",
+      "csvErrorRead": "Unable to read file.",
+      "csvOrImport": "or import a CSV file"
     }
   },
   "estimation": {
@@ -709,7 +747,12 @@
     "evaluationSauvegardee": "Valuation saved!",
     "disclaimer": "Indicative estimate based on public data from the Observatoire de l'Habitat and statistical adjustment coefficients. This is not a professional valuation. For an EVS 2025 compliant appraisal, use the",
     "disclaimerLink": "valuation module",
-    "selectCommune": "Select a municipality to get an estimate"
+    "selectCommune": "Select a municipality to get an estimate",
+    "quartierTitle": "Prices by neighbourhood — {commune}",
+    "quartierSource": "Indicative prices by neighbourhood — Source: aggregated listings",
+    "quartierHausse": "rising",
+    "quartierStable": "stable",
+    "quartierBaisse": "falling"
   },
   "fraisAcquisition": {
     "title": "Acquisition Fees Simulator",
@@ -824,7 +867,16 @@
     "infoResidenceText": "Full exemption if effectively and continuously occupied.",
     "sauvegarder": "Save",
     "evaluationSauvegardee": "Valuation saved!",
-    "savePrefix": "Capital gain"
+    "savePrefix": "Capital gain",
+    "modeAchat": "Purchase",
+    "modeSuccession": "Inheritance",
+    "modeDonation": "Donation",
+    "valeurSuccessorale": "Declared inheritance value",
+    "anneeDeces": "Year of death",
+    "valeurDonation": "Value declared in deed",
+    "anneeDonation": "Year of donation",
+    "successionHint": "Value used in the succession declaration",
+    "donationHint": "Value used in the notarial deed of donation"
   },
   "calculLoyer": {
     "title": "Rent Calculator — Invested Capital",
@@ -1055,7 +1107,11 @@
     "communeEschDudelange": "Cumulative municipal energy renovation premiums",
     "contactCommune": "Contact your municipal administration to find out the exact aid you may be entitled to.",
     "cumulTitle": "Combining aid",
-    "cumulText": "State and municipal aid can generally be combined, up to an overall ceiling (as a rule, the total cannot exceed the total cost of the project)."
+    "cumulText": "State and municipal aid can generally be combined, up to an overall ceiling (as a rule, the total cannot exceed the total cost of the project).",
+    "topupSocial": "Social top-up (low income)",
+    "topupSocialHint": "x1.5 increase of Klimabonus grants if taxable income ≤ €60,000/year (new 2026)",
+    "bonusEco": "incl. eco-material bonus",
+    "klimabonusRegime": "Klimabonus Wunnen 2026 schedule"
   },
   "dcfMulti": {
     "title": "Multi-Tenant DCF",
@@ -1255,7 +1311,19 @@
     "dscrAbove1_2": "DSCR ≥ 1.2",
     "dscrAbove1_2Desc": "Minimum threshold required by most LU banks",
     "dscrAbove1_5": "DSCR ≥ 1.5",
-    "dscrAbove1_5Desc": "Solid investor profile — preferential conditions"
+    "dscrAbove1_5Desc": "Solid investor profile — preferential conditions",
+    "tauxMarcheTitle": "Luxembourg market rates",
+    "tauxMarcheSource": "Source: BCL / Switchr.lu — observed average rates",
+    "tauxMarcheDate": "Updated: {date}",
+    "tauxDirecteurBCE": "ECB main refinancing rate",
+    "tauxDepotBCE": "ECB deposit facility rate",
+    "tauxNote": "Indicative rates — consult your bank for a personalised offer",
+    "tauxClickHint": "Click a rate to pre-fill",
+    "fixedLabel10y": "Fixed 10 yr",
+    "fixedLabel15y": "Fixed 15 yr",
+    "fixedLabel20y": "Fixed 20 yr",
+    "fixedLabel25y": "Fixed 25 yr",
+    "variableLabel": "Variable"
   },
   "bilanPromoteur": {
     "title": "Developer Feasibility",
@@ -1363,7 +1431,18 @@
     "vefaRoofed": "Watertight",
     "vefaPartitions": "Partitions completed",
     "vefaFinishing": "Finishing",
-    "vefaDelivery": "Delivery"
+    "vefaDelivery": "Delivery",
+    "sensitivityTitle": "Sensitivity analysis",
+    "sensitivityDesc": "Residual margin variation under different scenarios. Cells show margin (% of revenue) and resulting land value.",
+    "sensitivityPrixConstr": "Sale price vs Construction cost",
+    "sensitivityPrixTaux": "Sale price vs Financing rate",
+    "sensitivitySalePrice": "Sale price/m²",
+    "sensitivityConstrCost": "Construction cost/m²",
+    "sensitivityFinRate": "Financing rate",
+    "sensitivityCurrent": "current",
+    "sensitivityGreen": "Margin > 15%",
+    "sensitivityYellow": "Margin 5–15%",
+    "sensitivityRed": "Margin < 5%"
   },
   "marche": {
     "title": "Market Database",
@@ -2257,7 +2336,7 @@
   },
   "pricing": {
     "title": "Pricing",
-    "subtitle": "All calculation tools are free, with no limits. Create an account to save and export.",
+    "subtitle": "22 real estate tools + 7 energy simulators. Instant results, PDF export, EVS 2025 report.",
     "contact": "Questions or suggestions?",
     "free": {
       "name": "Free",
@@ -2265,13 +2344,15 @@
       "priceNote": "Free forever",
       "description": "All calculators, live results",
       "cta": "Get started",
-      "f1": "12+ real estate tools (estimation, fees, capital gains, rent, subsidies, etc.)",
+      "f1": "22 real estate tools (estimation, fees, capital gains, rent, subsidies, EVS valuation, DCF, construction cost, VRD, surfaces, etc.)",
       "f2": "7 energy simulators (EPC impact, renovation, community, EPBD, EPC, LENOZ, portfolio)",
       "f3": "Interactive price map by municipality",
       "f4": "Market database (residential, offices, retail, logistics)",
-      "f5": "Unlimited instant results",
-      "f6": "5 languages (FR, EN, DE, PT, LB)",
-      "f7": "Local storage (browser)"
+      "f5": "Construction cost estimator (17 STATEC trades) + surface converter (OAI/ILNAS)",
+      "f6": "VRD estimator for engineering offices (9 lots, detailed bill of quantities, sourced prices Batiprix/CTG/CSDC-CT)",
+      "f7": "Luxembourg macro data (OAT, mortgage rates, construction index, GDP)",
+      "f8": "5 languages (FR, EN, DE, PT, LB)",
+      "f9": "Local storage (browser)"
     },
     "account": {
       "name": "Free account",
@@ -2281,7 +2362,7 @@
       "cta": "Create an account",
       "badge": "Recommended",
       "inherited": "Everything in Free, plus:",
-      "f1": "PDF export on all tools",
+      "f1": "PDF export on all 22 tools + 7 energy simulators",
       "f2": "Unlimited cloud storage (multi-device)",
       "f3": "Full simulation history",
       "f4": "Custom profile on reports (name, logo, contact details)",
