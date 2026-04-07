@@ -24,6 +24,7 @@ const LABELS: Record<string, string> = {
   "aml-kyc": "AML / KYC",
   "estimateur-construction": "Coût de construction",
   "calculateur-vrd": "Estimateur VRD",
+  hvac: "Simulateur HVAC",
   "convertisseur-surfaces": "Convertisseur de surfaces",
   comparer: "Comparer deux biens",
   pricing: "Tarifs",

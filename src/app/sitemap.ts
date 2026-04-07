@@ -17,7 +17,7 @@ const PAGES = [
 
 const ENERGY_PAGES = [
   "", "/impact", "/renovation", "/communaute",
-  "/epbd", "/estimateur-cpe", "/lenoz", "/portfolio",
+  "/epbd", "/estimateur-cpe", "/lenoz", "/portfolio", "/hvac",
 ];
 
 function localeUrl(base: string, page: string, locale: string) {
