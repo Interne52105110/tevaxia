@@ -34,19 +34,12 @@ export default function Connexion() {
     );
   }
 
-  // Auto-redirect to energy subdomain after OAuth login, passing session tokens
+  // Auto-redirect to energy subdomain after OAuth login
+  // Session is shared via .tevaxia.lu cookies — no need to pass tokens
   useEffect(() => {
-    if (user && returnTo && supabase && !isEnergy) {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session) {
-          document.cookie = "auth_returnTo=;domain=.tevaxia.lu;path=/;max-age=0";
-          const params = new URLSearchParams({
-            access_token: session.access_token,
-            refresh_token: session.refresh_token,
-          });
-          window.location.href = `${returnTo}/connexion#${params.toString()}`;
-        }
-      });
+    if (user && returnTo && !isEnergy) {
+      document.cookie = "auth_returnTo=;domain=.tevaxia.lu;path=/;max-age=0";
+      window.location.href = returnTo;
     }
   }, [user, returnTo, isEnergy]);
 
