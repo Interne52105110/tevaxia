@@ -1,0 +1,6 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "PropCalc — Calculadora Imobiliária para WordPress",
+  description: "A calculadora de investimento imobiliário multi-país para WordPress. 10 países, 10 módulos, 7 idiomas.",
+};
+export default function Layout({ children }: { children: React.ReactNode }) { return children; }
