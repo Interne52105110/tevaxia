@@ -30,7 +30,8 @@
     "marche": "Base de données marché",
     "terresAgricoles": "Terres agricoles",
     "hvac": "Simulateur HVAC",
-    "planDuSite": "Plan du site"
+    "planDuSite": "Plan du site",
+    "aPropos": "À propos"
   },
   "common": {
     "language": "Langue",
@@ -3315,8 +3316,41 @@
       "mesEvaluations": "Mes évaluations",
       "tarifs": "Tarifs",
       "mentionsLegales": "Mentions légales",
-      "confidentialite": "Politique de confidentialité"
+      "confidentialite": "Politique de confidentialité",
+      "aPropos": "À propos — Erwan Bargain"
     },
     "note": "Ce plan du site répertorie l'ensemble des pages accessibles sur tevaxia.lu et son sous-domaine energy.tevaxia.lu. Un sitemap XML est également disponible pour les moteurs de recherche."
+  },
+  "aPropos": {
+    "title": "À propos",
+    "subtitle": "Qui se cache derrière tevaxia.lu ?",
+    "name": "Erwan Bargain",
+    "tagline": "Expert en évaluation immobilière et analyse financière — basé au Luxembourg",
+    "badgeExpert": "Expert judiciaire (CA Rennes)",
+    "badgeNotexpert": "Réseau Notexpert",
+    "parcoursTitle": "Parcours",
+    "parcours1": "J'évalue des biens immobiliers depuis 2007. D'abord en étude notariale pendant 9 ans (Bretagne), puis comme expert indépendant inscrit près la Cour d'Appel de Rennes. Au total, plus de 1 500 évaluations pour des notaires, avocats, banques, tribunaux et institutionnels.",
+    "parcours2": "En parallèle, je gère un portefeuille immobilier d'une vingtaine de lots en SCI depuis 2009. Cette double casquette — évaluateur et investisseur — m'a donné une vision concrète des enjeux de valorisation, de financement et de gestion d'actifs.",
+    "parcours3": "Installé au Luxembourg depuis fin 2025, j'ai créé tevaxia.lu pour rassembler dans un seul endroit les outils de calcul que je cherchais pour le marché luxembourgeois — et que personne ne proposait.",
+    "statAnnees": "années d'expérience",
+    "statEvaluations": "évaluations réalisées",
+    "statOutils": "outils en ligne",
+    "statLangues": "langues",
+    "formationTitle": "Formation",
+    "formationDU": "DU Notariat Conseil d'Entreprise",
+    "formationESC": "3e cycle Finance de Marché & Gestion de Patrimoine",
+    "formationUBO": "Maîtrise Droit des Affaires (commercial, construction, fiscal, immobilier)",
+    "projetsTitle": "Projets",
+    "projetTevaxia": "Plateforme d'outils immobiliers pour le Luxembourg : estimation, frais d'acquisition, plus-values, loyer, aides étatiques, valorisation EVS 2025, DCF multi-baux, outils bancaires, bilan promoteur, coût construction, VRD, surfaces. Gratuit, sans inscription.",
+    "projetEnergy": "Sous-domaine dédié à la transition énergétique : impact CPE sur la valeur, ROI rénovation (Klimabonus/Klimaprêt), communauté d'énergie, EPBD 2050, estimateur CPE, LENOZ, simulateur HVAC, portfolio.",
+    "projetBE": "Cabinet d'expertise immobilière en France. Évaluations amiables et judiciaires, indemnités d'éviction, expropriations, due diligence. Certifié REV TEGOVA, inscrit comme expert judiciaire.",
+    "decouvrir": "Découvrir",
+    "visiter": "Visiter le site",
+    "approcheTitle": "Approche",
+    "approche": "Je ne me contente pas d'évaluer — je construis les outils pour mieux évaluer. Chaque calculateur de tevaxia.lu est né d'un besoin concret rencontré sur le terrain : un calcul de plus-value trop long à la main, un barème fiscal introuvable en ligne, un bilan promoteur qui nécessitait un tableur dédié. L'idée est simple : structurer la donnée existante et la rendre accessible à tous — particuliers, professionnels et institutionnels.",
+    "citation": "« Without data you're just another person with an opinion. » — W. Edwards Deming",
+    "contactTitle": "Contact",
+    "contactBE": "Expertise immobilière France",
+    "contactTevaxia": "Questions sur la plateforme"
   }
 }

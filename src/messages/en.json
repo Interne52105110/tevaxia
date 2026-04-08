@@ -30,7 +30,8 @@
     "marche": "Market Database",
     "terresAgricoles": "Agricultural Land",
     "hvac": "HVAC Simulator",
-    "planDuSite": "Sitemap"
+    "planDuSite": "Sitemap",
+    "aPropos": "About"
   },
   "common": {
     "language": "Language",
@@ -3315,8 +3316,41 @@
       "mesEvaluations": "My valuations",
       "tarifs": "Pricing",
       "mentionsLegales": "Legal notice",
-      "confidentialite": "Privacy policy"
+      "confidentialite": "Privacy policy",
+      "aPropos": "About — Erwan Bargain"
     },
     "note": "This sitemap lists all pages available on tevaxia.lu and its subdomain energy.tevaxia.lu. An XML sitemap is also available for search engines."
+  },
+  "aPropos": {
+    "title": "About",
+    "subtitle": "Who is behind tevaxia.lu?",
+    "name": "Erwan Bargain",
+    "tagline": "Real estate valuation expert and financial analyst — based in Luxembourg",
+    "badgeExpert": "Judicial expert (Rennes CA)",
+    "badgeNotexpert": "Notexpert network",
+    "parcoursTitle": "Background",
+    "parcours1": "I have been valuing real estate since 2007. First in a notarial practice for 9 years (Brittany, France), then as an independent expert registered with the Rennes Court of Appeal. In total, over 1,500 valuations for notaries, lawyers, banks, courts and institutional clients.",
+    "parcours2": "At the same time, I have managed a real estate portfolio of around twenty units through an SCI since 2009. This dual role — valuator and investor — has given me a practical understanding of valuation, financing and asset management challenges.",
+    "parcours3": "Based in Luxembourg since late 2025, I created tevaxia.lu to bring together in one place the calculation tools I was looking for on the Luxembourg market — and that no one offered.",
+    "statAnnees": "years of experience",
+    "statEvaluations": "valuations completed",
+    "statOutils": "online tools",
+    "statLangues": "languages",
+    "formationTitle": "Education",
+    "formationDU": "University Diploma in Notarial & Corporate Advisory",
+    "formationESC": "Postgraduate in Market Finance & Wealth Management",
+    "formationUBO": "Master's in Business Law (commercial, construction, tax, real estate)",
+    "projetsTitle": "Projects",
+    "projetTevaxia": "Real estate tools platform for Luxembourg: estimation, acquisition fees, capital gains, rent, state subsidies, EVS 2025 valuation, multi-lease DCF, banking tools, developer feasibility, construction cost, VRD, surface areas. Free, no registration required.",
+    "projetEnergy": "Subdomain dedicated to the energy transition: EPC impact on value, renovation ROI (Klimabonus/Klimaprêt), energy community, EPBD 2050, EPC estimator, LENOZ, HVAC simulator, portfolio.",
+    "projetBE": "Real estate valuation firm in France. Amicable and judicial valuations, eviction compensation, expropriations, due diligence. REV TEGOVA certified, registered judicial expert.",
+    "decouvrir": "Discover",
+    "visiter": "Visit the website",
+    "approcheTitle": "Approach",
+    "approche": "I don't just value — I build the tools to value better. Every calculator on tevaxia.lu was born from a real need encountered in the field: a capital gains calculation too tedious by hand, a tax schedule impossible to find online, a developer feasibility study that required a dedicated spreadsheet. The idea is simple: structure existing data and make it accessible to all — individuals, professionals and institutions.",
+    "citation": "\"Without data you're just another person with an opinion.\" — W. Edwards Deming",
+    "contactTitle": "Contact",
+    "contactBE": "Real estate valuation in France",
+    "contactTevaxia": "Questions about the platform"
   }
 }

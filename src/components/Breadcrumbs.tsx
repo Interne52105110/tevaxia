@@ -28,6 +28,7 @@ const LABELS: Record<string, string> = {
   "convertisseur-surfaces": "Convertisseur de surfaces",
   comparer: "Comparer deux biens",
   pricing: "Tarifs",
+  "a-propos": "À propos",
   "plan-du-site": "Plan du site",
   en: "English",
   particuliers: "Particuliers",
