@@ -30,17 +30,18 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // Handle OAuth PKCE callback if ?code= is present
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
     const init = async () => {
-      if (code) {
-        const { error } = await supabase!.auth.exchangeCodeForSession(code);
-        if (!error) {
+      // 1. If OAuth callback with PKCE code, exchange it for a session
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get("code");
+        if (code) {
+          await supabase!.auth.exchangeCodeForSession(code);
           window.history.replaceState({}, "", window.location.pathname);
         }
       }
+
+      // 2. Get current session (either from step 1 or existing cookie)
       const { data: { session } } = await supabase!.auth.getSession();
       setUser(session?.user ?? null);
       setLoading(false);
@@ -48,6 +49,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
     init();
 
+    // 3. Listen for future auth changes (sign out, token refresh, etc.)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
