@@ -32,6 +32,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https://*.tile.openstreetmap.org https://*.supabase.co",
               "connect-src 'self' https://*.supabase.co https://data.public.lu https://statistiques.public.lu https://*.google-analytics.com https://*.analytics.google.com https://*.onrender.com https://energy.tevaxia.lu https://fonts.gstatic.com",
               "font-src 'self' https://fonts.gstatic.com",
+              "frame-src 'self' https://vercel.live",
               "frame-ancestors 'none'",
             ].join("; "),
           },
