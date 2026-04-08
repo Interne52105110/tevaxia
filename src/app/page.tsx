@@ -235,12 +235,12 @@ export default async function Home() {
       {/* Modules grid */}
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex flex-wrap justify-center gap-6">
             {MODULES.map((module) => (
               <Link
                 key={module.href}
                 href={module.href}
-                className="group relative flex flex-col rounded-2xl border border-card-border bg-card p-6 shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5"
+                className="group relative flex w-full flex-col rounded-2xl border border-card-border bg-card p-6 shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
               >
                 <div className={`mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${module.color} text-white shadow-sm`}>
                   {module.icon}
