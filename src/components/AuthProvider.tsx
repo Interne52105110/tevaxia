@@ -30,6 +30,21 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    // Handle OAuth PKCE callback — exchange code for session
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    if (code) {
+      supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
+        if (!error && data.session) {
+          setUser(data.session.user);
+          // Clean up URL
+          window.history.replaceState({}, "", window.location.pathname);
+        }
+        setLoading(false);
+      });
+      return;
+    }
+
     supabase.auth.getUser().then(({ data: { user } }) => {
       setUser(user);
       setLoading(false);
