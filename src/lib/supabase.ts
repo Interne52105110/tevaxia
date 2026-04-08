@@ -50,9 +50,6 @@ export const supabase = supabaseUrl && supabaseKey
         sameSite: "lax" as const,
         secure: true,
       },
-      auth: {
-        detectSessionInUrl: false, // We handle PKCE exchange manually in AuthProvider
-      },
     })
   : null;
 

@@ -30,37 +30,29 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    const init = async () => {
-      // 1. Check for PKCE code in query params (OAuth callback on same domain)
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get("code");
-      if (code) {
-        await supabase!.auth.exchangeCodeForSession(code);
-        window.history.replaceState({}, "", window.location.pathname);
-      }
+    // onAuthStateChange handles EVERYTHING:
+    // - PKCE code exchange (when ?code= is in URL, via detectSessionInUrl)
+    // - Implicit token exchange (when #access_token= is in hash, via detectSessionInUrl)
+    // - Token refresh
+    // - Sign out
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
 
-      // 2. Check for tokens in hash (cross-domain SSO from tevaxia.lu → energy.tevaxia.lu)
-      const hash = window.location.hash.substring(1);
-      if (hash) {
-        const hashParams = new URLSearchParams(hash);
-        const accessToken = hashParams.get("access_token");
-        const refreshToken = hashParams.get("refresh_token");
-        if (accessToken && refreshToken) {
-          await supabase!.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+      // Clean up OAuth params from URL
+      if ((event === "SIGNED_IN" || event === "TOKEN_REFRESHED") && typeof window !== "undefined") {
+        const hasCode = new URLSearchParams(window.location.search).has("code");
+        const hasHash = window.location.hash.includes("access_token");
+        if (hasCode || hasHash) {
           window.history.replaceState({}, "", window.location.pathname);
         }
       }
+    });
 
-      // 3. Get current session
-      const { data: { session } } = await supabase!.auth.getSession();
+    // Check existing session (for users already logged in via cookie)
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       setLoading(false);
-    };
-
-    init();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();
