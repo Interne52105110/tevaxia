@@ -6,6 +6,7 @@ import InputField from "@/components/InputField";
 import SliderField from "@/components/SliderField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR } from "@/lib/calculations";
+import { generateSurfacesPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 /* ------------------------------------------------------------------ */
@@ -411,6 +412,29 @@ export default function ConvertisseurSurfaces() {
                 {t("heroDetail", { shab: fmtM2(result.shab), weighted: fmtM2(result.totalWeighted) })}
               </div>
             </div>
+
+            <PdfButton
+              label="PDF"
+              filename={`convertisseur-surfaces-${new Date().toLocaleDateString("fr-LU")}.pdf`}
+              generateBlob={() => generateSurfacesPdfBlob({
+                surfaceReference,
+                typeSurface,
+                typeBatiment,
+                scb: result.scb,
+                scp: result.scp,
+                su: result.su,
+                shab: result.shab,
+                surfaceVendable: result.surfaceVendable,
+                ratioScpPct: result.scbToScp,
+                ratioSuPct: result.scbToSu,
+                ratioShabPct: result.scbToShab,
+                ratioVendablePct: result.ratioVendableSCB,
+                accessoiresPonderes: result.totalWeighted,
+                prixM2,
+                caVendable: result.caVendable,
+                caHabitable: result.caHabitable,
+              })}
+            />
 
             {/* Surfaces calculées */}
             <ResultPanel

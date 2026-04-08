@@ -7,6 +7,7 @@ import SliderField from "@/components/SliderField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR } from "@/lib/calculations";
+import { generateVrdPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 /* ------------------------------------------------------------------ */
@@ -1712,6 +1713,26 @@ export default function CalculateurVRD() {
                 {t("results.horsHonorairesBE")}
               </div>
             </div>
+
+            <PdfButton
+              label="PDF"
+              filename={`calculateur-vrd-${new Date().toLocaleDateString("fr-LU")}.pdf`}
+              generateBlob={() => generateVrdPdfBlob({
+                nomProjet,
+                commune,
+                lots: result.lots.map(l => ({ num: l.num, nom: l.nom, total: l.total })),
+                totalTravaux: result.totalTravaux,
+                totalEtudes: result.totalEtudes,
+                honorairesBE: result.montantHonorairesBE,
+                fraisAleas: result.montantAleas,
+                totalGeneral: result.totalGeneral,
+                coutM2: result.coutM2,
+                surfaceTotale,
+                bordereau: result.bordereau
+                  .filter((r): r is typeof r & { num: string; designation: string; unite: string; quantite: number; pu: number; total: number } => r.type === "line")
+                  .map(r => ({ num: r.num, designation: r.designation, unite: r.unite, quantite: r.quantite, pu: r.pu, total: r.total })),
+              })}
+            />
 
             {/* Recapitulatif par lot */}
             <ResultPanel

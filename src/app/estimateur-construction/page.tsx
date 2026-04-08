@@ -6,6 +6,7 @@ import InputField from "@/components/InputField";
 import SliderField from "@/components/SliderField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
+import { generateConstructionPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 /* ------------------------------------------------------------------ */
@@ -392,6 +393,29 @@ export default function EstimateurConstruction() {
                 {t("soitParM2Brut", { montant: formatEUR(result.coutM2Total) })}
               </div>
             </div>
+
+            <PdfButton
+              label="PDF"
+              filename={`estimateur-construction-${new Date().toLocaleDateString("fr-LU")}.pdf`}
+              generateBlob={() => generateConstructionPdfBlob({
+                surfaceBrute,
+                typeBatiment,
+                classeEnergetique,
+                niveauFinition,
+                categories: result.totalParCategorie.map(c => ({ nom: t(c.nomKey), total: c.total, pct: c.pct })),
+                totalConstruction: result.totalConstruction,
+                coutM2Construction: result.coutM2Construction,
+                fraisArchitecte: result.fraisArchitecte,
+                fraisBET: result.fraisBET,
+                etudesSol,
+                raccordements,
+                amenagementExt,
+                fraisAleas: result.fraisAleas,
+                totalFraisAnnexes: result.totalFraisAnnexes,
+                totalProjet: result.totalProjet,
+                coutM2Total: result.coutM2Total,
+              })}
+            />
 
             {/* --- Coût de construction --- */}
             <ResultPanel

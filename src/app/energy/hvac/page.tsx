@@ -7,6 +7,7 @@ import SliderField from "@/components/SliderField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR } from "@/lib/calculations";
+import { generateHvacPdfBlob, PdfButton } from "@/components/energy/EnergyPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 /* ------------------------------------------------------------------ */
@@ -1369,6 +1370,47 @@ export default function HVACSimulator() {
                 </div>
               )}
             </div>
+
+            <PdfButton
+              label="PDF"
+              filename={`hvac-${new Date().toLocaleDateString("fr-LU")}.pdf`}
+              generateBlob={() => generateHvacPdfBlob({
+                surface,
+                typeBatiment,
+                classeActuelle,
+                classeCible,
+                depWm2: result.depWm2,
+                puissanceChauffage: result.puissanceKW,
+                puissanceECS: result.puissanceECS,
+                puissanceTotale: result.puissanceTotale,
+                selectedProduct: result.selected ? {
+                  marque: result.selected.marque,
+                  modele: result.selected.modele,
+                  puissanceMin: result.selected.puissanceMin,
+                  puissanceMax: result.selected.puissanceMax,
+                  cop: result.selected.cop,
+                  scop: result.selected.scop,
+                  refrigerant: result.selected.refrigerant,
+                  prixMin: result.selected.prixMin,
+                  prixMax: result.selected.prixMax,
+                  prixInstall: result.selected.prixInstall,
+                } : null,
+                typeEmetteur,
+                typeVMC,
+                lots: result.lots.map(l => ({ num: l.num, nom: l.nom, total: l.total })),
+                totalTravaux: result.totalTravaux,
+                klimabonus: result.klimabonus,
+                enoprimes: result.enoprimes,
+                tva3Economie: result.tva3Economie,
+                retraitCuve: result.coutRetraitCuve,
+                totalAides: result.totalAides,
+                resteACharge: result.resteACharge,
+                economieKwh: result.consoAncienneKWh,
+                economieEur: result.economieAnnuelle,
+                paybackAnnees: result.payback,
+                economieCO2: result.economieCO2,
+              })}
+            />
 
             {/* ResultPanel Dimensionnement */}
             <ResultPanel

@@ -757,6 +757,120 @@ export async function downloadPortfolioPdf(params: PortfolioParams) {
   URL.revokeObjectURL(url);
 }
 
+/* ==================== HVAC SIMULATOR ==================== */
+
+export interface HvacPdfParams {
+  surface: number;
+  typeBatiment: string;
+  classeActuelle: string;
+  classeCible: string;
+  depWm2: number;
+  puissanceChauffage: number;
+  puissanceECS: number;
+  puissanceTotale: number;
+  selectedProduct: { marque: string; modele: string; puissanceMin: number; puissanceMax: number; cop?: number; scop?: number; refrigerant?: string; prixMin: number; prixMax: number; prixInstall: number } | null;
+  typeEmetteur: string;
+  typeVMC: string;
+  lots: { num: number; nom: string; total: number }[];
+  totalTravaux: number;
+  klimabonus: number;
+  enoprimes: number;
+  tva3Economie: number;
+  retraitCuve: number;
+  totalAides: number;
+  resteACharge: number;
+  economieKwh: number;
+  economieEur: number;
+  paybackAnnees: number;
+  economieCO2: number;
+}
+
+function HvacDoc({ p }: { p: HvacPdfParams }) {
+  const ref = generateRef();
+  const prod = p.selectedProduct;
+  return (
+    <Document>
+      <CoverPage
+        title="Simulateur HVAC"
+        subtitle={`${fmtNum(p.surface)} m2 · Classe ${p.classeActuelle} → ${p.classeCible}`}
+        value={fmtEur(p.totalTravaux)}
+        date={today()}
+        reference={ref}
+      />
+      <Page size="A4" style={s.page}>
+        <PageHeader title="Simulateur HVAC" reference={ref} />
+
+        <KpiGrid items={[
+          { label: "Puissance totale", value: `${fmtNum(p.puissanceTotale, 1)} kW`, highlight: true },
+          { label: "Systeme selectionne", value: prod ? `${prod.marque} ${prod.modele}` : "—" },
+          { label: "Klimabonus", value: fmtEur(p.klimabonus) },
+          { label: "Reste a charge", value: fmtEur(p.resteACharge), highlight: true },
+          { label: "Payback", value: `${fmtNum(p.paybackAnnees, 1)} ans` },
+          { label: "CO2 evite", value: `${fmtNum(p.economieCO2)} kg/an` },
+        ]} />
+
+        <Text style={s.section}>Dimensionnement</Text>
+        <Row label="Deperditions" value={`${fmtNum(p.depWm2, 1)} W/m2`} />
+        <Row label="Puissance chauffage" value={`${fmtNum(p.puissanceChauffage, 1)} kW`} />
+        <Row label="Puissance ECS" value={`${fmtNum(p.puissanceECS, 1)} kW`} />
+        <RowHL label="Puissance totale requise" value={`${fmtNum(p.puissanceTotale, 1)} kW`} />
+
+        {prod && (
+          <>
+            <Text style={s.section}>Systeme selectionne</Text>
+            <Row label="Marque / Modele" value={`${prod.marque} ${prod.modele}`} />
+            <Row label="Puissance" value={`${fmtNum(prod.puissanceMin, 1)} – ${fmtNum(prod.puissanceMax, 1)} kW`} />
+            {prod.cop != null && <Row label="COP" value={fmtNum(prod.cop, 1)} />}
+            {prod.scop != null && <Row label="SCOP" value={fmtNum(prod.scop, 1)} />}
+            {prod.refrigerant && <Row label="Refrigerant" value={prod.refrigerant} />}
+            <Row label="Prix equipement" value={`${fmtEur(prod.prixMin)} – ${fmtEur(prod.prixMax)}`} />
+            <Row label="Installation" value={fmtEur(prod.prixInstall)} />
+          </>
+        )}
+
+        <Text style={s.section}>Recapitulatif par lot</Text>
+        {p.lots.map((l) => (
+          <Row key={l.num} label={`${l.num}. ${l.nom}`} value={fmtEur(l.total)} />
+        ))}
+        <RowHL label="Total travaux" value={fmtEur(p.totalTravaux)} />
+
+        <Text style={s.section}>Aides financieres</Text>
+        <Row label="Klimabonus" value={fmtEur(p.klimabonus)} />
+        <Row label="Enoprimes" value={fmtEur(p.enoprimes)} />
+        <Row label="Economie TVA 3%" value={fmtEur(p.tva3Economie)} />
+        <Row label="Prime retrait cuve fioul" value={fmtEur(p.retraitCuve)} />
+        <Row label="Total aides" value={fmtEur(p.totalAides)} />
+        <RowHL label="Reste a charge" value={fmtEur(p.resteACharge)} />
+
+        <Text style={s.section}>Rentabilite</Text>
+        <Row label="Economie annuelle" value={`${fmtNum(p.economieKwh)} kWh`} />
+        <Row label="Economie annuelle" value={fmtEur(p.economieEur)} />
+        <Row label="Retour sur investissement" value={`${fmtNum(p.paybackAnnees, 1)} ans`} />
+        <Row label="CO2 evite" value={`${fmtNum(p.economieCO2)} kg/an`} />
+
+        <Disclaimer />
+        <Footer />
+      </Page>
+      <DisclaimerPage reference={ref} />
+    </Document>
+  );
+}
+
+export async function generateHvacPdfBlob(params: HvacPdfParams): Promise<Blob> {
+  const { pdf } = await import("@react-pdf/renderer");
+  return pdf(<HvacDoc p={params} />).toBlob();
+}
+
+export async function downloadHvacPdf(params: HvacPdfParams) {
+  const blob = await generateHvacPdfBlob(params);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `energy-hvac-${today()}.pdf`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 // ---------- PdfButton component (gated behind auth) ----------
 
 export function PdfButton({ onClick, label, generateBlob, filename }: { onClick?: () => void; label: string; generateBlob?: () => Promise<Blob>; filename?: string }) {

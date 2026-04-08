@@ -854,3 +854,251 @@ export async function downloadCartePdf(params: CartePdfParams) {
   const a = document.createElement("a"); a.href = url; a.download = `carte-prix-${params.commune.toLowerCase()}-${today()}.pdf`; a.click();
   URL.revokeObjectURL(url);
 }
+
+/* ==================== 12. ESTIMATEUR CONSTRUCTION ==================== */
+
+export interface ConstructionPdfParams {
+  surfaceBrute: number;
+  typeBatiment: string;
+  classeEnergetique: string;
+  niveauFinition: string;
+  categories: { nom: string; total: number; pct: number }[];
+  totalConstruction: number;
+  coutM2Construction: number;
+  fraisArchitecte: number;
+  fraisBET: number;
+  etudesSol: number;
+  raccordements: number;
+  amenagementExt: number;
+  fraisAleas: number;
+  totalFraisAnnexes: number;
+  totalProjet: number;
+  coutM2Total: number;
+}
+
+function ConstructionDoc({ p }: { p: ConstructionPdfParams }) {
+  const ref = generateRef();
+  return (
+    <Document>
+      <CoverPage
+        title="Estimateur de cout de construction"
+        subtitle={`${fmtNum(p.surfaceBrute)} m2 · ${p.typeBatiment} · Classe ${p.classeEnergetique}`}
+        value={fmtEur(p.totalProjet)}
+        date={today()}
+        reference={ref}
+      />
+      <Page size="A4" style={s.page}>
+        <PageHeader title="Estimateur de cout de construction" reference={ref} />
+
+        <KpiGrid items={[
+          { label: "Total construction", value: fmtEur(p.totalConstruction), highlight: true },
+          { label: "Cout/m2 construction", value: `${fmtEur(p.coutM2Construction)}/m2` },
+          { label: "Total frais annexes", value: fmtEur(p.totalFraisAnnexes) },
+          { label: "Budget total", value: fmtEur(p.totalProjet), highlight: true },
+        ]} />
+
+        <Text style={s.section}>Couts par categorie</Text>
+        {p.categories.map((c, i) => <Row key={i} label={c.nom} value={`${fmtEur(c.total)} (${fmtPct(c.pct)})`} />)}
+        <RowHL label="Total construction" value={fmtEur(p.totalConstruction)} />
+        <Row label="Cout au m2 construction" value={`${fmtEur(p.coutM2Construction)}/m2`} />
+
+        <Text style={s.section}>Frais annexes</Text>
+        <Row label="Architecte" value={fmtEur(p.fraisArchitecte)} />
+        <Row label="Bureau d'etudes techniques" value={fmtEur(p.fraisBET)} />
+        <Row label="Etudes de sol" value={fmtEur(p.etudesSol)} />
+        <Row label="Raccordements" value={fmtEur(p.raccordements)} />
+        <Row label="Amenagement exterieur" value={fmtEur(p.amenagementExt)} />
+        <Row label="Aleas et imprevus" value={fmtEur(p.fraisAleas)} />
+        <RowHL label="Total frais annexes" value={fmtEur(p.totalFraisAnnexes)} />
+
+        <Text style={s.section}>Budget total</Text>
+        <RowHL label="Budget total projet" value={fmtEur(p.totalProjet)} />
+        <Row label="Cout total au m2" value={`${fmtEur(p.coutM2Total)}/m2`} />
+
+        <Disclaimer />
+        <Footer />
+      </Page>
+      <DisclaimerPage reference={ref} />
+    </Document>
+  );
+}
+
+export async function generateConstructionPdfBlob(params: ConstructionPdfParams): Promise<Blob> {
+  const { pdf } = await import("@react-pdf/renderer");
+  return pdf(<ConstructionDoc p={params} />).toBlob();
+}
+
+export async function downloadConstructionPdf(params: ConstructionPdfParams) {
+  const blob = await generateConstructionPdfBlob(params);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = url; a.download = `construction-${today()}.pdf`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ==================== 13. CALCULATEUR VRD ==================== */
+
+export interface VrdPdfParams {
+  nomProjet: string;
+  commune: string;
+  lots: { num: number; nom: string; total: number }[];
+  totalTravaux: number;
+  totalEtudes: number;
+  honorairesBE: number;
+  fraisAleas: number;
+  totalGeneral: number;
+  coutM2: number;
+  surfaceTotale: number;
+  bordereau: { num: string; designation: string; unite: string; quantite: number; pu: number; total: number }[];
+}
+
+function VrdDoc({ p }: { p: VrdPdfParams }) {
+  const ref = generateRef();
+  return (
+    <Document>
+      <CoverPage
+        title="Estimateur VRD — Bureau d'etudes"
+        subtitle={`${p.nomProjet} · ${p.commune}`}
+        value={fmtEur(p.totalGeneral)}
+        date={today()}
+        reference={ref}
+      />
+      <Page size="A4" style={s.page}>
+        <PageHeader title="Estimateur VRD" reference={ref} />
+
+        <KpiGrid items={[
+          { label: "Total travaux", value: fmtEur(p.totalTravaux), highlight: true },
+          { label: "Honoraires BE", value: fmtEur(p.honorairesBE) },
+          { label: "Aleas", value: fmtEur(p.fraisAleas) },
+          { label: "Total general", value: fmtEur(p.totalGeneral), highlight: true },
+          { label: "Cout/m2", value: `${fmtEur(p.coutM2)}/m2` },
+        ]} />
+
+        <Text style={s.section}>Recapitulatif par lot</Text>
+        {p.lots.map((l, i) => <Row key={i} label={`Lot ${l.num} — ${l.nom}`} value={fmtEur(l.total)} />)}
+        <RowHL label="Total travaux" value={fmtEur(p.totalTravaux)} />
+        <Row label="Etudes et controles" value={fmtEur(p.totalEtudes)} />
+        <Row label="Honoraires bureau d'etudes" value={fmtEur(p.honorairesBE)} />
+        <Row label="Aleas et imprevus" value={fmtEur(p.fraisAleas)} />
+        <RowHL label="Total general" value={fmtEur(p.totalGeneral)} />
+
+        <Disclaimer />
+        <Footer />
+      </Page>
+      <Page size="A4" style={s.page}>
+        <PageHeader title="Bordereau des prix" reference={ref} />
+        <View style={s.tHead}>
+          <Text style={{ ...s.tCellB, flex: 0.5 }}>N°</Text>
+          <Text style={{ ...s.tCellB, flex: 3 }}>Designation</Text>
+          <Text style={{ ...s.tCellB, flex: 0.6 }}>Unite</Text>
+          <Text style={{ ...s.tCellB, flex: 0.7, textAlign: "right" as const }}>Qte</Text>
+          <Text style={{ ...s.tCellB, flex: 1, textAlign: "right" as const }}>PU</Text>
+          <Text style={{ ...s.tCellB, flex: 1, textAlign: "right" as const }}>Total</Text>
+        </View>
+        {p.bordereau.map((r, i) => (
+          <View key={i} style={s.tRow}>
+            <Text style={{ ...s.tCell, flex: 0.5 }}>{r.num}</Text>
+            <Text style={{ ...s.tCell, flex: 3 }}>{r.designation}</Text>
+            <Text style={{ ...s.tCell, flex: 0.6 }}>{r.unite}</Text>
+            <Text style={{ ...s.tCellR, flex: 0.7 }}>{fmtNum(r.quantite, 1)}</Text>
+            <Text style={{ ...s.tCellR, flex: 1 }}>{fmtEur(r.pu)}</Text>
+            <Text style={{ ...s.tCellR, flex: 1 }}>{fmtEur(r.total)}</Text>
+          </View>
+        ))}
+        <Footer />
+      </Page>
+      <DisclaimerPage reference={ref} />
+    </Document>
+  );
+}
+
+export async function generateVrdPdfBlob(params: VrdPdfParams): Promise<Blob> {
+  const { pdf } = await import("@react-pdf/renderer");
+  return pdf(<VrdDoc p={params} />).toBlob();
+}
+
+export async function downloadVrdPdf(params: VrdPdfParams) {
+  const blob = await generateVrdPdfBlob(params);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = url; a.download = `vrd-${params.commune.toLowerCase()}-${today()}.pdf`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ==================== 14. CONVERTISSEUR SURFACES ==================== */
+
+export interface SurfacesPdfParams {
+  surfaceReference: number;
+  typeSurface: string;
+  typeBatiment: string;
+  scb: number;
+  scp: number;
+  su: number;
+  shab: number;
+  surfaceVendable: number;
+  ratioScpPct: number;
+  ratioSuPct: number;
+  ratioShabPct: number;
+  ratioVendablePct: number;
+  accessoiresPonderes: number;
+  prixM2: number;
+  caVendable: number;
+  caHabitable: number;
+}
+
+function SurfacesDoc({ p }: { p: SurfacesPdfParams }) {
+  const ref = generateRef();
+  return (
+    <Document>
+      <CoverPage
+        title="Convertisseur de surfaces"
+        subtitle={`${p.typeBatiment} · ${fmtNum(p.surfaceReference)} m2 ${p.typeSurface}`}
+        value={`${fmtNum(p.surfaceVendable)} m2 vendable`}
+        date={today()}
+        reference={ref}
+      />
+      <Page size="A4" style={s.page}>
+        <PageHeader title="Convertisseur de surfaces" reference={ref} />
+
+        <KpiGrid items={[
+          { label: "SCB", value: `${fmtNum(p.scb)} m2` },
+          { label: "SCP", value: `${fmtNum(p.scp)} m2` },
+          { label: "Surface utile", value: `${fmtNum(p.su)} m2` },
+          { label: "SHAB", value: `${fmtNum(p.shab)} m2` },
+          { label: "Surface vendable", value: `${fmtNum(p.surfaceVendable)} m2`, highlight: true },
+          { label: "Accessoires ponderes", value: `${fmtNum(p.accessoiresPonderes)} m2` },
+        ]} />
+
+        <Text style={s.section}>Surfaces calculees</Text>
+        <Row label="Surface constructible brute (SCB)" value={`${fmtNum(p.scb)} m2`} />
+        <Row label="Surface constructible ponderee (SCP)" value={`${fmtNum(p.scp)} m2 (${fmtPct(p.ratioScpPct)})`} />
+        <Row label="Surface utile (SU)" value={`${fmtNum(p.su)} m2 (${fmtPct(p.ratioSuPct)})`} />
+        <Row label="Surface habitable (SHAB)" value={`${fmtNum(p.shab)} m2 (${fmtPct(p.ratioShabPct)})`} />
+        <RowHL label="Surface vendable" value={`${fmtNum(p.surfaceVendable)} m2 (${fmtPct(p.ratioVendablePct)})`} />
+
+        <Text style={s.section}>Accessoires ponderes ACT</Text>
+        <Row label="Total accessoires ponderes" value={`${fmtNum(p.accessoiresPonderes)} m2`} />
+
+        <Text style={s.section}>Projection financiere</Text>
+        <Row label="Prix au m2" value={`${fmtEur(p.prixM2)}/m2`} />
+        <Row label="CA sur surface vendable" value={fmtEur(p.caVendable)} />
+        <Row label="CA sur surface habitable" value={fmtEur(p.caHabitable)} />
+        <Row label="Ecart vendable / habitable" value={fmtEur(p.caVendable - p.caHabitable)} />
+
+        <Disclaimer />
+        <Footer />
+      </Page>
+      <DisclaimerPage reference={ref} />
+    </Document>
+  );
+}
+
+export async function generateSurfacesPdfBlob(params: SurfacesPdfParams): Promise<Blob> {
+  const { pdf } = await import("@react-pdf/renderer");
+  return pdf(<SurfacesDoc p={params} />).toBlob();
+}
+
+export async function downloadSurfacesPdf(params: SurfacesPdfParams) {
+  const blob = await generateSurfacesPdfBlob(params);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = url; a.download = `surfaces-${today()}.pdf`; a.click();
+  URL.revokeObjectURL(url);
+}
