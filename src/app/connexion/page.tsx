@@ -15,14 +15,8 @@ export default function Connexion() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // Detect energy subdomain + returnTo (from cookie, survives cross-domain OAuth redirect)
+  // Detect energy subdomain
   const isEnergy = typeof window !== "undefined" && window.location.hostname.includes("energy");
-  const returnTo = typeof window !== "undefined"
-    ? (() => {
-        const match = document.cookie.match(/auth_returnTo=([^;]+)/);
-        return match ? decodeURIComponent(match[1]) : null;
-      })()
-    : null;
 
   if (!supabase) {
     return (
@@ -33,15 +27,6 @@ export default function Connexion() {
       </div>
     );
   }
-
-  // Auto-redirect to energy subdomain after OAuth login
-  // Session is shared via .tevaxia.lu cookies — no need to pass tokens
-  useEffect(() => {
-    if (user && returnTo && !isEnergy) {
-      document.cookie = "auth_returnTo=;domain=.tevaxia.lu;path=/;max-age=0";
-      window.location.href = returnTo;
-    }
-  }, [user, returnTo, isEnergy]);
 
   if (user) {
     return (
@@ -55,13 +40,8 @@ export default function Connexion() {
             </div>
             <h2 className="text-lg font-semibold text-navy">Connecté</h2>
             <p className="mt-1 text-sm text-muted">{user.email}</p>
-            {returnTo && <p className="mt-2 text-xs text-muted">Redirection en cours...</p>}
             <div className="mt-6 space-y-3">
-              {returnTo ? (
-                <a href={returnTo} className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
-                  Retour
-                </a>
-              ) : isEnergy ? (
+              {isEnergy ? (
                 <Link href="/" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
                   Retour aux simulateurs énergie
                 </Link>
@@ -132,10 +112,9 @@ export default function Connexion() {
             <button
               onClick={async () => {
                 if (!supabase) return;
-                if (isEnergy) document.cookie = `auth_returnTo=${encodeURIComponent(window.location.origin)};domain=.tevaxia.lu;path=/;max-age=300;secure;samesite=lax`;
                 await supabase.auth.signInWithOAuth({
                   provider: "google",
-                  options: { redirectTo: "https://tevaxia.lu/connexion" },
+                  options: { redirectTo: `${window.location.origin}/connexion` },
                 });
               }}
               className="flex w-full items-center justify-center gap-3 rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm font-medium text-slate hover:bg-background transition-colors"
