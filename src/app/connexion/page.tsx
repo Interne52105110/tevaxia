@@ -29,10 +29,19 @@ export default function Connexion() {
     );
   }
 
-  // Auto-redirect to returnTo origin after OAuth login
+  // Auto-redirect to returnTo origin after OAuth login, passing session
   useEffect(() => {
-    if (user && returnTo) {
-      window.location.href = returnTo;
+    if (user && returnTo && supabase) {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          // Pass tokens to the subdomain so it can establish its own session
+          const params = new URLSearchParams({
+            access_token: session.access_token,
+            refresh_token: session.refresh_token,
+          });
+          window.location.href = `${returnTo}/connexion#${params.toString()}`;
+        }
+      });
     }
   }, [user, returnTo]);
 
