@@ -30,33 +30,50 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // onAuthStateChange handles EVERYTHING:
-    // - PKCE code exchange (when ?code= is in URL, via detectSessionInUrl)
-    // - Implicit token exchange (when #access_token= is in hash, via detectSessionInUrl)
-    // - Token refresh
-    // - Sign out
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const init = async () => {
+      // 1. Cross-domain SSO: tokens passed via hash (from tevaxia.lu → energy.tevaxia.lu)
+      // detectSessionInUrl does NOT handle hash tokens in PKCE mode, so we do it manually
+      if (typeof window !== "undefined" && window.location.hash) {
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = hashParams.get("access_token");
+        const refreshToken = hashParams.get("refresh_token");
+        if (accessToken && refreshToken) {
+          const { data, error } = await supabase!.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+          if (!error && data.session) {
+            setUser(data.session.user);
+            setLoading(false);
+            window.history.replaceState({}, "", window.location.pathname);
+            return; // Session established, done
+          }
+        }
+      }
+
+      // 2. Get existing session (cookie-based, handles returning users)
+      const { data: { session } } = await supabase!.auth.getSession();
       setUser(session?.user ?? null);
       setLoading(false);
+    };
 
-      // Clean up OAuth params from URL
-      if ((event === "SIGNED_IN" || event === "TOKEN_REFRESHED") && typeof window !== "undefined") {
-        const hasCode = new URLSearchParams(window.location.search).has("code");
-        const hasHash = window.location.hash.includes("access_token");
-        if (hasCode || hasHash) {
+    init();
+
+    // Listen for auth state changes (PKCE callback via detectSessionInUrl, sign out, refresh)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      if (loading) setLoading(false);
+      // Clean up PKCE code from URL after sign in
+      if (event === "SIGNED_IN" && typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has("code")) {
           window.history.replaceState({}, "", window.location.pathname);
         }
       }
     });
 
-    // Check existing session (for users already logged in via cookie)
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
     return () => subscription.unsubscribe();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const signOut = async () => {
     if (supabase) await supabase.auth.signOut();
