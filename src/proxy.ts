@@ -16,12 +16,27 @@ function isEnergyHost(host: string): boolean {
   return host === ENERGY_HOST || host === "energy.localhost";
 }
 
+// Pages partagées qui existent à la racine et ne doivent PAS être réécrites vers /energy/
+const SHARED_PAGES = ["/mentions-legales", "/confidentialite", "/plan-du-site", "/pricing", "/connexion", "/profil", "/mes-evaluations"];
+
+function isSharedPage(pathname: string): boolean {
+  return SHARED_PAGES.some((p) => pathname === p || pathname.startsWith(p + "/"));
+}
+
 export function proxy(request: NextRequest) {
   const host = getHost(request);
   const { pathname } = request.nextUrl;
 
   // Sous-domaine energy : réécrire vers /energy/...
   if (isEnergyHost(host)) {
+    // Pages partagées → ne pas réécrire
+    if (isSharedPage(pathname)) {
+      const response = NextResponse.next();
+      response.headers.set("x-url", pathname);
+      response.headers.set("x-energy-subdomain", "1");
+      return response;
+    }
+
     // Déjà sous /energy → on laisse passer
     if (pathname.startsWith("/energy")) {
       const response = NextResponse.next();
@@ -36,8 +51,15 @@ export function proxy(request: NextRequest) {
     );
 
     if (localeMatch) {
-      // e.g. /de/impact → /de/energy/impact
       const rest = pathname.slice(localeMatch.length + 1); // strip /de
+      // Shared pages with locale prefix → don't rewrite
+      if (isSharedPage(rest)) {
+        const response = NextResponse.next();
+        response.headers.set("x-url", pathname);
+        response.headers.set("x-energy-subdomain", "1");
+        return response;
+      }
+      // e.g. /de/impact → /de/energy/impact
       const target = `/${localeMatch}/energy${rest === "/" || rest === "" ? "" : rest}`;
       const url = request.nextUrl.clone();
       url.pathname = target;
