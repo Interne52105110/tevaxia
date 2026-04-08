@@ -27,10 +27,10 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com",
+              "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://vercel.live",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https://*.tile.openstreetmap.org https://*.supabase.co",
-              "connect-src 'self' https://*.supabase.co https://data.public.lu https://statistiques.public.lu https://www.google-analytics.com https://*.onrender.com https://energy.tevaxia.lu https://fonts.gstatic.com",
+              "connect-src 'self' https://*.supabase.co https://data.public.lu https://statistiques.public.lu https://*.google-analytics.com https://*.analytics.google.com https://*.onrender.com https://energy.tevaxia.lu https://fonts.gstatic.com",
               "font-src 'self' https://fonts.gstatic.com",
               "frame-ancestors 'none'",
             ].join("; "),
