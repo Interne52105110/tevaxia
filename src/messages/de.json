@@ -30,8 +30,7 @@
     "marche": "Marktdatenbank",
     "terresAgricoles": "Landwirtschaftliche Flächen",
     "hvac": "HVAC-Simulator",
-    "planDuSite": "Seitenübersicht",
-    "aPropos": "Über uns"
+    "planDuSite": "Seitenübersicht"
   },
   "common": {
     "language": "Sprache",
@@ -2426,6 +2425,11 @@
     "editeur": {
       "title": "1. Herausgeber der Website",
       "name": "tevaxia.lu",
+      "auteur": "Erwan Bargain — Immobiliensachverständiger, REV TEGOVA zertifiziert",
+      "linkedin": "LinkedIn",
+      "linkedinUrl": "linkedin.com/in/erwanbargain",
+      "expertise": "Immobiliengutachterbüro",
+      "expertiseUrl": "bargain-expertise.fr",
       "contact": "Kontakt",
       "langues": "Die Website ist in fünf Sprachen verfügbar: Französisch, Englisch, Deutsch, Portugiesisch und Luxemburgisch."
     },
@@ -3316,41 +3320,8 @@
       "mesEvaluations": "Meine Bewertungen",
       "tarifs": "Preise",
       "mentionsLegales": "Impressum",
-      "confidentialite": "Datenschutzrichtlinie",
-      "aPropos": "Über uns — Erwan Bargain"
+      "confidentialite": "Datenschutzrichtlinie"
     },
     "note": "Diese Seitenübersicht listet alle verfügbaren Seiten auf tevaxia.lu und der Subdomain energy.tevaxia.lu auf. Eine XML-Sitemap ist ebenfalls für Suchmaschinen verfügbar."
-  },
-  "aPropos": {
-    "title": "Über uns",
-    "subtitle": "Wer steht hinter tevaxia.lu?",
-    "name": "Erwan Bargain",
-    "tagline": "Immobilienbewertungsexperte und Finanzanalyst — ansässig in Luxemburg",
-    "badgeExpert": "Gerichtssachverständiger (CA Rennes)",
-    "badgeNotexpert": "Notexpert-Netzwerk",
-    "parcoursTitle": "Werdegang",
-    "parcours1": "Ich bewerte Immobilien seit 2007. Zunächst 9 Jahre in einem Notariat (Bretagne, Frankreich), dann als unabhängiger Sachverständiger, zugelassen am Berufungsgericht Rennes. Insgesamt über 1.500 Bewertungen für Notare, Anwälte, Banken, Gerichte und institutionelle Kunden.",
-    "parcours2": "Parallel dazu verwalte ich seit 2009 ein Immobilienportfolio von rund zwanzig Einheiten über eine SCI. Diese doppelte Rolle — Gutachter und Investor — hat mir ein konkretes Verständnis der Herausforderungen bei Bewertung, Finanzierung und Vermögensverwaltung gegeben.",
-    "parcours3": "Seit Ende 2025 in Luxemburg ansässig, habe ich tevaxia.lu gegründet, um an einem Ort die Berechnungstools zusammenzuführen, die ich für den luxemburgischen Markt suchte — und die niemand anbot.",
-    "statAnnees": "Jahre Erfahrung",
-    "statEvaluations": "durchgeführte Bewertungen",
-    "statOutils": "Online-Tools",
-    "statLangues": "Sprachen",
-    "formationTitle": "Ausbildung",
-    "formationDU": "Universitätsdiplom Notariatswesen & Unternehmensberatung",
-    "formationESC": "Aufbaustudium Kapitalmarktfinanzierung & Vermögensverwaltung",
-    "formationUBO": "Master Wirtschaftsrecht (Handels-, Bau-, Steuer- und Immobilienrecht)",
-    "projetsTitle": "Projekte",
-    "projetTevaxia": "Immobilientools-Plattform für Luxemburg: Schätzung, Erwerbsnebenkosten, Veräußerungsgewinne, Miete, staatliche Förderungen, EVS 2025 Bewertung, Multi-Mieter-DCF, Banktools, Projektentwicklerbilanz, Baukosten, VRD, Flächen. Kostenlos, ohne Registrierung.",
-    "projetEnergy": "Subdomain für die Energiewende: Energieausweis-Auswirkung auf den Wert, Renovierungs-ROI (Klimabonus/Klimaprêt), Energiegemeinschaft, EPBD 2050, Energieklassenschätzer, LENOZ, HVAC-Simulator, Portfolio.",
-    "projetBE": "Immobilienbewertungsbüro in Frankreich. Gutachterliche und gerichtliche Bewertungen, Räumungsentschädigungen, Enteignungen, Due Diligence. REV TEGOVA zertifiziert, zugelassener Gerichtssachverständiger.",
-    "decouvrir": "Entdecken",
-    "visiter": "Website besuchen",
-    "approcheTitle": "Ansatz",
-    "approche": "Ich bewerte nicht nur — ich baue die Werkzeuge, um besser zu bewerten. Jeder Rechner auf tevaxia.lu entstand aus einem konkreten Bedarf in der Praxis: eine Veräußerungsgewinnberechnung, die von Hand zu aufwändig war, ein Steuertarif, der online nicht auffindbar war, eine Projektentwicklerbilanz, die eine eigene Tabelle erforderte. Die Idee ist einfach: vorhandene Daten strukturieren und für alle zugänglich machen — Privatpersonen, Fachleute und Institutionen.",
-    "citation": "\u201EWithout data you're just another person with an opinion.\u201C \u2014 W. Edwards Deming",
-    "contactTitle": "Kontakt",
-    "contactBE": "Immobilienbewertung in Frankreich",
-    "contactTevaxia": "Fragen zur Plattform"
   }
 }

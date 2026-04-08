@@ -30,8 +30,7 @@
     "marche": "Maartdatebank",
     "terresAgricoles": "Landwirtschaftlech Flächen",
     "hvac": "HVAC-Simulator",
-    "planDuSite": "Säiteplang",
-    "aPropos": "Iwwer"
+    "planDuSite": "Säiteplang"
   },
   "common": {
     "language": "Sprooch",
@@ -2426,6 +2425,11 @@
     "editeur": {
       "title": "1. Erausgeber vum Site",
       "name": "tevaxia.lu",
+      "auteur": "Erwan Bargain — Immobilienexpert, REV TEGOVA zertifizéiert",
+      "linkedin": "LinkedIn",
+      "linkedinUrl": "linkedin.com/in/erwanbargain",
+      "expertise": "Immobiliengutachterbüro",
+      "expertiseUrl": "bargain-expertise.fr",
       "contact": "Kontakt",
       "langues": "De Site ass a fënnef Sproochen disponibel: Franséisch, Englesch, Däitsch, Portugisesch a Lëtzebuergesch."
     },
@@ -3316,41 +3320,8 @@
       "mesEvaluations": "Meng Bewäertungen",
       "tarifs": "Tariffer",
       "mentionsLegales": "Impressum",
-      "confidentialite": "Dateschutzrichtlinn",
-      "aPropos": "Iwwer — Erwan Bargain"
+      "confidentialite": "Dateschutzrichtlinn"
     },
     "note": "Dëse Säiteplang lëscht all disponibel Säite vun tevaxia.lu an dem Ënnerdomän energy.tevaxia.lu op. En XML-Sitemap ass och fir Sichmotore verfügbar."
-  },
-  "aPropos": {
-    "title": "Iwwer",
-    "subtitle": "Wien stécht hannert tevaxia.lu?",
-    "name": "Erwan Bargain",
-    "tagline": "Expert fir Immobiliebewäertung a Finanzanalys — baséiert zu Lëtzebuerg",
-    "badgeExpert": "Geriichtsexpert (CA Rennes)",
-    "badgeNotexpert": "Notexpert-Netzwierk",
-    "parcoursTitle": "Weegang",
-    "parcours1": "Ech bewäerten Immobilien zënter 2007. Fir d'éischt 9 Joer an engem Notariat (Bretagne, Frankräich), duerno als onofhängegen Expert, ugemellt beim Beruffungsgeriicht Rennes. Am Ganzen méi wéi 1.500 Bewäertunge fir Notairen, Avocaten, Banken, Geriichter an institutionell Clienten.",
-    "parcours2": "Parallel dozou geréieren ech zënter 2009 en Immobilieportfolio vu ronn zwanzeg Unitéiten iwwer eng SCI. Dës duebel Roll — Bewäerter an Investisseur — huet mir eng konkret Visioun vun de Bewäertungs-, Finanzéierungs- an Aktiveverwaltungserausfuerderunge ginn.",
-    "parcours3": "Zënter Enn 2025 zu Lëtzebuerg, hunn ech tevaxia.lu gegrënnt fir op enger Plaz d'Berechnungstools zesummenzebréngen, déi ech fir de lëtzebuerger Marché gesicht hunn — an déi keen ugebueden huet.",
-    "statAnnees": "Joer Erfarung",
-    "statEvaluations": "duerchgefouert Bewäertungen",
-    "statOutils": "Online-Tools",
-    "statLangues": "Sproochen",
-    "formationTitle": "Ausbildung",
-    "formationDU": "Universitéitsdiplom Notariatswiesentschaft & Entrepriseberodung",
-    "formationESC": "Opbaustudium Kapitalmaartfinanzéierung & Patrimoineverwaltung",
-    "formationUBO": "Master Geschäftsrecht (Handels-, Bau-, Steier- an Immobilierecht)",
-    "projetsTitle": "Projeten",
-    "projetTevaxia": "Immobilien-Tools Plattform fir Lëtzebuerg: Schätzung, Akquisitiounskäschten, Wäertzouwuess, Loyer, staatlech Hëllefen, EVS 2025 Bewäertung, Multi-Locatairen-DCF, Bankinstrumenter, Promoteur-Bilanz, Baukäschten, VRD, Flächen. Gratis, ouni Inscriptioun.",
-    "projetEnergy": "Ënnerdomän fir d'Energietransitioun: Energiepass-Impakt op de Wäert, Renovéierungs-ROI (Klimabonus/Klimaprêt), Energiegemeinschaft, EPBD 2050, Energieklass-Schätzer, LENOZ, HVAC-Simulator, Portfolio.",
-    "projetBE": "Immobiliebewäertungsbüro a Frankräich. Gutachterlich a geriichtlech Bewäertungen, Räumungsentschädegungen, Enteignungen, Due Diligence. REV TEGOVA zertifizéiert, ugemellten Geriichtsexpert.",
-    "decouvrir": "Entdecken",
-    "visiter": "D'Säit besichen",
-    "approcheTitle": "Approche",
-    "approche": "Ech bewäerten net nëmmen — ech bauen d'Tools fir besser ze bewäerten. All Rechner op tevaxia.lu ass aus engem konkreete Besoin op dem Terrain entstanen: eng Wäertzouwuessberechnung, déi vun Hand ze laang gedauert huet, eng Steiertabell déi online net ze fannen war, eng Promoteur-Bilanz déi eng eege Tabell gebraucht huet. D'Iddi ass einfach: bestehend Donnéeën strukturéieren an fir jiddereen zougänglech maachen — Privatpersounen, Fachleit an Institutiounen.",
-    "citation": "\"Without data you're just another person with an opinion.\" — W. Edwards Deming",
-    "contactTitle": "Kontakt",
-    "contactBE": "Immobiliebewäertung a Frankräich",
-    "contactTevaxia": "Froen iwwert d'Plattform"
   }
 }

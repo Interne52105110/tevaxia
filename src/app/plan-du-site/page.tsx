@@ -69,7 +69,6 @@ const SECTIONS = [
     links: [
       { href: "/mentions-legales", key: "mentionsLegales" },
       { href: "/confidentialite", key: "confidentialite" },
-      { href: "/a-propos", key: "aPropos" },
     ],
   },
 ];
