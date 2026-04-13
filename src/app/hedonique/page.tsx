@@ -7,6 +7,7 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2 } from "@/lib/calculations";
 import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR, type AdjustmentSuggestion } from "@/lib/adjustments";
+import SEOContent from "@/components/SEOContent";
 
 // Modèle hédonique simplifié
 // Prix = β0 + β1×Surface + β2×Localisation + β3×Étage + β4×État + β5×Énergie + β6×Parking + β7×Extérieur + β8×Année
@@ -268,6 +269,27 @@ export default function Hedonique() {
           </div>
         </div>
       </div>
+
+      <SEOContent
+        ns="hedonique"
+        sections={[
+          { titleKey: "modeleTitle", contentKey: "modeleContent" },
+          { titleKey: "coefficientsTitle", contentKey: "coefficientsContent" },
+          { titleKey: "sourcesTitle", contentKey: "sourcesContent" },
+          { titleKey: "limitesTitle", contentKey: "limitesContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/valorisation", labelKey: "valorisation" },
+          { href: "/estimation", labelKey: "estimation" },
+          { href: "/carte", labelKey: "carte" },
+        ]}
+      />
     </div>
   );
 }

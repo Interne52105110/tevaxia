@@ -9,6 +9,7 @@ import { calculerDCFLeases, type Lease } from "@/lib/dcf-leases";
 import { generateDcfMultiPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
+import SEOContent from "@/components/SEOContent";
 
 const EMPTY_LEASE: Omit<Lease, "id"> = {
   locataire: "",
@@ -315,6 +316,25 @@ export default function DCFMulti() {
         </div>
       </div>
 
+      <SEOContent
+        ns="dcfMulti"
+        sections={[
+          { titleKey: "analyseTitle", contentKey: "analyseContent" },
+          { titleKey: "bailParBailTitle", contentKey: "bailParBailContent" },
+          { titleKey: "tauxTitle", contentKey: "tauxContent" },
+          { titleKey: "irrTitle", contentKey: "irrContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/valorisation", labelKey: "valorisation" },
+          { href: "/outils-bancaires", labelKey: "bancaire" },
+        ]}
+      />
     </div>
   );
 }

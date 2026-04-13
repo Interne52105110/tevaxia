@@ -10,6 +10,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SEOContent from "@/components/SEOContent";
 import { generateLoyerPdfBlob, PdfButton } from "@/components/ToolsPdf";
 
 export default function CalculateurLoyer() {
@@ -45,6 +46,7 @@ export default function CalculateurLoyer() {
   );
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs />
@@ -297,5 +299,28 @@ export default function CalculateurLoyer() {
       </div>
 
     </div>
+
+    <SEOContent
+      ns="calculLoyer"
+      sections={[
+        { titleKey: "plafonnementTitle", contentKey: "plafonnementContent" },
+        { titleKey: "capitalInvestiTitle", contentKey: "capitalInvestiContent" },
+        { titleKey: "coefficientTitle", contentKey: "coefficientContent" },
+        { titleKey: "vetusteTitle", contentKey: "vetusteContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/estimation", labelKey: "estimation" },
+        { href: "/plus-values", labelKey: "plusValues" },
+        { href: "/frais-acquisition", labelKey: "frais" },
+      ]}
+    />
+    </>
   );
 }

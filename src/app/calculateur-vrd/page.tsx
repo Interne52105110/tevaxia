@@ -9,6 +9,7 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR } from "@/lib/calculations";
 import { generateVrdPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SEOContent from "@/components/SEOContent";
 
 /* ------------------------------------------------------------------ */
 /*  Types & constants                                                  */
@@ -1997,6 +1998,26 @@ export default function CalculateurVRD() {
           </div>
         </div>
       </div>
+
+      <SEOContent
+        ns="calculateurVrd"
+        sections={[
+          { titleKey: "viabilisationTitle", contentKey: "viabilisationContent" },
+          { titleKey: "postesTitle", contentKey: "postesContent" },
+          { titleKey: "coutParLotTitle", contentKey: "coutParLotContent" },
+          { titleKey: "obligationsTitle", contentKey: "obligationsContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/bilan-promoteur", labelKey: "bilanPromoteur" },
+          { href: "/estimateur-construction", labelKey: "estimateurConstruction" },
+        ]}
+      />
     </div>
   );
 }

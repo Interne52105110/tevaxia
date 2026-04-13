@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import ToggleField from "@/components/ToggleField";
+import SEOContent from "@/components/SEOContent";
 
 interface CheckItem {
   id: string;
@@ -291,6 +292,25 @@ export default function AmlKyc() {
           </div>
         </div>
       </div>
+
+      <SEOContent
+        ns="amlKyc"
+        sections={[
+          { titleKey: "obligationsTitle", contentKey: "obligationsContent" },
+          { titleKey: "loi2004Title", contentKey: "loi2004Content" },
+          { titleKey: "identificationTitle", contentKey: "identificationContent" },
+          { titleKey: "declarationTitle", contentKey: "declarationContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/valorisation", labelKey: "valorisation" },
+        ]}
+      />
     </div>
   );
 }

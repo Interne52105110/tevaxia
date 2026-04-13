@@ -18,6 +18,7 @@ import { formatEUR, formatEUR2 } from "@/lib/calculations";
 import { generateAchatLocationPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
+import SEOContent from "@/components/SEOContent";
 
 /**
  * Luxembourg "déduction des intérêts débiteurs" (art. 98bis LIR).
@@ -229,6 +230,7 @@ export default function AchatVsLocation() {
   const coutMensuelNetAchat = coutMensuelTotal - economieFiscaleMensuelleAn1;
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -609,5 +611,28 @@ export default function AchatVsLocation() {
       </div>
 
     </div>
+
+    <SEOContent
+      ns="achatLocation"
+      sections={[
+        { titleKey: "dilemmeTitle", contentKey: "dilemmeContent" },
+        { titleKey: "tcoTitle", contentKey: "tcoContent" },
+        { titleKey: "levierTitle", contentKey: "levierContent" },
+        { titleKey: "seuilTitle", contentKey: "seuilContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/frais-acquisition", labelKey: "frais" },
+        { href: "/simulateur-aides", labelKey: "aides" },
+        { href: "/outils-bancaires", labelKey: "bancaire" },
+      ]}
+    />
+    </>
   );
 }

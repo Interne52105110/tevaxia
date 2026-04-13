@@ -12,6 +12,7 @@ import { generateAidesPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import AuthGate from "@/components/AuthGate";
+import SEOContent from "@/components/SEOContent";
 
 const ALL_COMMUNES = Object.keys(DEMOGRAPHICS).sort();
 
@@ -234,6 +235,7 @@ export default function SimulateurAides() {
   }, [result.aides]);
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -725,5 +727,28 @@ export default function SimulateurAides() {
       </div>
 
     </div>
+
+    <SEOContent
+      ns="simulateurAides"
+      sections={[
+        { titleKey: "panoramaTitle", contentKey: "panoramaContent" },
+        { titleKey: "acquisitionTitle", contentKey: "acquisitionContent" },
+        { titleKey: "renovationTitle", contentKey: "renovationContent" },
+        { titleKey: "conditionsTitle", contentKey: "conditionsContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/frais-acquisition", labelKey: "frais" },
+        { href: "/energy/renovation", labelKey: "energyRenovation" },
+        { href: "/achat-vs-location", labelKey: "achatLocation" },
+      ]}
+    />
+    </>
   );
 }

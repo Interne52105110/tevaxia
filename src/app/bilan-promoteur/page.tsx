@@ -8,6 +8,7 @@ import { formatEUR, formatPct } from "@/lib/calculations";
 import { generateBilanPromoteurPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
+import SEOContent from "@/components/SEOContent";
 
 export default function BilanPromoteur() {
   const t = useTranslations("bilanPromoteur");
@@ -588,6 +589,26 @@ export default function BilanPromoteur() {
         </div>
       </div>
 
+      <SEOContent
+        ns="bilanPromoteur"
+        sections={[
+          { titleKey: "faisabiliteTitle", contentKey: "faisabiliteContent" },
+          { titleKey: "compteAReboursTitle", contentKey: "compteAReboursContent" },
+          { titleKey: "coutsTitle", contentKey: "coutsContent" },
+          { titleKey: "margeTitle", contentKey: "margeContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/estimateur-construction", labelKey: "estimateurConstruction" },
+          { href: "/calculateur-vrd", labelKey: "calculateurVrd" },
+          { href: "/valorisation", labelKey: "valorisation" },
+        ]}
+      />
     </div>
   );
 }

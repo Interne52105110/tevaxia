@@ -8,6 +8,7 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
 import { generateConstructionPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SEOContent from "@/components/SEOContent";
 
 /* ------------------------------------------------------------------ */
 /*  STATEC classification — corps de métier                           */
@@ -542,6 +543,26 @@ export default function EstimateurConstruction() {
           </div>
         </div>
       </div>
+
+      <SEOContent
+        ns="estimateurConstruction"
+        sections={[
+          { titleKey: "estimerTitle", contentKey: "estimerContent" },
+          { titleKey: "prixM2Title", contentKey: "prixM2Content" },
+          { titleKey: "facteursTitle", contentKey: "facteursContent" },
+          { titleKey: "normesTitle", contentKey: "normesContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/bilan-promoteur", labelKey: "bilanPromoteur" },
+          { href: "/calculateur-vrd", labelKey: "calculateurVrd" },
+        ]}
+      />
     </div>
   );
 }

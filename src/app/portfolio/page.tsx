@@ -7,6 +7,7 @@ import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
 import { listerEvaluations, type SavedValuation } from "@/lib/storage";
+import SEOContent from "@/components/SEOContent";
 import {
   XAxis,
   YAxis,
@@ -696,6 +697,27 @@ export default function Portfolio() {
           </div>
         </div>
       </div>
+
+      <SEOContent
+        ns="portfolio"
+        sections={[
+          { titleKey: "gestionTitle", contentKey: "gestionContent" },
+          { titleKey: "indicateursTitle", contentKey: "indicateursContent" },
+          { titleKey: "performanceTitle", contentKey: "performanceContent" },
+          { titleKey: "energieTitle", contentKey: "energieContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/valorisation", labelKey: "valorisation" },
+          { href: "/dcf-multi", labelKey: "dcfMulti" },
+          { href: "/outils-bancaires", labelKey: "bancaire" },
+        ]}
+      />
     </div>
   );
 }

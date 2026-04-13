@@ -92,9 +92,12 @@ export default function ImpactPage() {
   const t = useTranslations("energy.impact");
   const [valeur, setValeur] = useState(750000);
   const [classeActuelle, setClasseActuelle] = useState("D");
-  const [result, setResult] = useState<ImpactResponseLocal>(fallbackLocal(750000, "D"));
+  const [commune, setCommune] = useState<string | null>(null);
+  const [result, setResult] = useState<ImpactResponseLocal>(fallbackLocal(750000, "D", null));
   const [apiOk, setApiOk] = useState<boolean | null>(null);
   const [elapsed, setElapsed] = useState(0);
+
+  const { data: communeData, isCommune } = useMemo(() => getEnergyComparables(commune), [commune]);
 
   useEffect(() => {
     if (apiOk !== null) return;
@@ -102,33 +105,39 @@ export default function ImpactPage() {
     return () => clearInterval(timer);
   }, [apiOk]);
 
-  const compute = useCallback(async (v: number, c: string) => {
+  const compute = useCallback(async (v: number, c: string, com: string | null) => {
+    const { data: comparables } = getEnergyComparables(com);
+    const ranges = buildImpactRange(comparables);
     try {
       const data = await calculerImpact({ valeurBien: v, classeActuelle: c });
-      // Enrich API response with range data
-      const pctActuelle = IMPACT_ENERGIE[c] || 0;
+      // Enrich API response with commune-specific range data
+      const pctActuelle = ranges[c]?.central ?? IMPACT_ENERGIE[c] ?? 0;
       const vBase = v / (1 + pctActuelle / 100);
       const enriched: ImpactResponseLocal = {
         ...data,
         classes: data.classes.map((cl) => {
-          const range = IMPACT_ENERGIE_RANGE[cl.classe] || { min: 0, central: 0, max: 0, source: "" };
+          const range = ranges[cl.classe] || IMPACT_ENERGIE_RANGE[cl.classe] || { min: 0, central: 0, max: 0, source: "" };
           return {
             ...cl,
+            ajustementPct: range.central,
+            valeurAjustee: Math.round(vBase * (1 + range.central / 100)),
+            delta: Math.round(vBase * (1 + range.central / 100)) - v,
             valeurMin: Math.round(vBase * (1 + range.min / 100)),
             valeurMax: Math.round(vBase * (1 + range.max / 100)),
             ajustementMin: range.min, ajustementMax: range.max, source: range.source,
+            confidence: "confidence" in range ? range.confidence : undefined,
           };
         }),
       };
       setResult(enriched);
       setApiOk(true);
     } catch {
-      setResult(fallbackLocal(v, c));
+      setResult(fallbackLocal(v, c, com));
       setApiOk(false);
     }
   }, []);
 
-  useEffect(() => { compute(valeur, classeActuelle); }, [valeur, classeActuelle, compute]);
+  useEffect(() => { compute(valeur, classeActuelle, commune); }, [valeur, classeActuelle, commune, compute]);
 
   return (
     <div className="py-8 sm:py-12">
@@ -179,6 +188,36 @@ export default function ImpactPage() {
               </div>
             </div>
           </div>
+          {/* Commune selector */}
+          <div className="mt-6">
+            <label className="block text-sm font-medium text-foreground mb-1.5">{t("communeLabel")}</label>
+            <select
+              value={commune || ""}
+              onChange={(e) => setCommune(e.target.value || null)}
+              className="w-full rounded-lg border border-input-border bg-input-bg px-4 py-2.5 text-foreground text-sm"
+            >
+              <option value="">{t("communeNational")}</option>
+              {COMMUNES_DISPONIBLES.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
+          {/* Badge commune vs national + sample size */}
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            {isCommune ? (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-energy/10 text-energy border border-energy/20 rounded-lg px-3 py-1">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                {t("communeBadge")}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200 rounded-lg px-3 py-1">
+                {t("nationalBadge")}
+              </span>
+            )}
+            <span className="text-xs text-muted">
+              {t("sampleSize", { count: communeData.sampleSize })}
+            </span>
+          </div>
         </div>
 
         <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
@@ -208,9 +247,14 @@ export default function ImpactPage() {
                       <td className="px-6 py-3">
                         <div className="flex items-center gap-2">
                           <span className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${CLASS_COLORS[c.classe]}`}>{c.classe}</span>
-                          <div className="flex flex-col">
+                          <div className="flex flex-col gap-0.5">
                             {isActive && <span className="text-xs text-energy font-medium">{t("actuelle")}</span>}
                             <span className="text-[10px] text-muted leading-tight" title={`${t("sourceData")}: ${cl.source}`}>{cl.source}</span>
+                            {cl.confidence && (
+                              <span className={`inline-flex self-start text-[9px] font-medium rounded px-1.5 py-0.5 border ${CONFIDENCE_COLORS[cl.confidence]}`}>
+                                {t(`confidence_${cl.confidence}`)}
+                              </span>
+                            )}
                           </div>
                         </div>
                       </td>

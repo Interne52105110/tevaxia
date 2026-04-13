@@ -6,6 +6,7 @@ import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { calculerEmolumentsNotaire, formatEUR, formatPct } from "@/lib/calculations";
+import SEOContent from "@/components/SEOContent";
 
 // ── Luxembourg VEFA milestones ──────────────────────────────
 interface MilestoneDef {
@@ -212,6 +213,7 @@ export default function VefaCalculator() {
 
   // ── Render ──────────────────────────────────────────────────
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -703,5 +705,28 @@ export default function VefaCalculator() {
         </div>
       </div>
     </div>
+
+    <SEOContent
+      ns="vefa"
+      sections={[
+        { titleKey: "guideTitle", contentKey: "guideContent" },
+        { titleKey: "echeancierSeoTitle", contentKey: "echeancierSeoContent" },
+        { titleKey: "tvaSeoTitle", contentKey: "tvaSeoContent" },
+        { titleKey: "intercalairesTitle", contentKey: "intercalairesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/frais-acquisition", labelKey: "frais" },
+        { href: "/outils-bancaires", labelKey: "bancaire" },
+        { href: "/simulateur-aides", labelKey: "aides" },
+      ]}
+    />
+    </>
   );
 }

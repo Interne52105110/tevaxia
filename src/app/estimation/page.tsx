@@ -24,6 +24,7 @@ import { generateEstimationPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import ShareButton from "@/components/ShareButton";
 import AuthGate from "@/components/AuthGate";
 import MarketAlertButton from "@/components/MarketAlertButton";
+import SEOContent from "@/components/SEOContent";
 
 export default function Estimation() {
   const t = useTranslations("estimation");
@@ -137,6 +138,7 @@ export default function Estimation() {
   const confianceBg = result?.confiance === "forte" ? "bg-green-50 border-green-200" : result?.confiance === "moyenne" ? "bg-amber-50 border-amber-200" : "bg-red-50 border-red-200";
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs />
@@ -698,5 +700,28 @@ export default function Estimation() {
       </div>
 
     </div>
+
+    <SEOContent
+      ns="estimation"
+      sections={[
+        { titleKey: "contextTitle", contentKey: "contextContent" },
+        { titleKey: "methodeTitle", contentKey: "methodeContent" },
+        { titleKey: "facteursTitle", contentKey: "facteursContent" },
+        { titleKey: "exempleTitle", contentKey: "exempleContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/carte", labelKey: "carte" },
+        { href: "/hedonique", labelKey: "hedonique" },
+        { href: "/valorisation", labelKey: "valorisation" },
+      ]}
+    />
+    </>
   );
 }

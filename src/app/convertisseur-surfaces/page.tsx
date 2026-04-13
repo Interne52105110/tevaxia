@@ -8,6 +8,7 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR } from "@/lib/calculations";
 import { generateSurfacesPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SEOContent from "@/components/SEOContent";
 
 /* ------------------------------------------------------------------ */
 /*  ACT coefficients for weighted accessories                         */
@@ -570,6 +571,26 @@ export default function ConvertisseurSurfaces() {
           </div>
         </div>
       </div>
+
+      <SEOContent
+        ns="convertisseurSurfaces"
+        sections={[
+          { titleKey: "comprendreTitle", contentKey: "comprendreContent" },
+          { titleKey: "normesTitle", contentKey: "normesContent" },
+          { titleKey: "ponderationTitle", contentKey: "ponderationContent" },
+          { titleKey: "circulaireTitle", contentKey: "circulaireContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+        ]}
+        relatedLinks={[
+          { href: "/estimation", labelKey: "estimation" },
+          { href: "/valorisation", labelKey: "valorisation" },
+        ]}
+      />
     </div>
   );
 }

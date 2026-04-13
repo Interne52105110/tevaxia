@@ -17,6 +17,7 @@ import {
   type Comparable,
 } from "@/lib/valuation";
 import { evaluerESG } from "@/lib/esg";
+import SEOContent from "@/components/SEOContent";
 import {
   rechercherCommune,
   suggestComparables,
@@ -2016,6 +2017,27 @@ export default function Valorisation() {
         )}
       </div>
 
+      <SEOContent
+        ns="valorisation"
+        sections={[
+          { titleKey: "evs2025Title", contentKey: "evs2025Content" },
+          { titleKey: "methodesTitle", contentKey: "methodesContent" },
+          { titleKey: "reconciliationTitle", contentKey: "reconciliationContent" },
+          { titleKey: "rapportTitle", contentKey: "rapportContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1Q", answerKey: "faq1A" },
+          { questionKey: "faq2Q", answerKey: "faq2A" },
+          { questionKey: "faq3Q", answerKey: "faq3A" },
+          { questionKey: "faq4Q", answerKey: "faq4A" },
+          { questionKey: "faq5Q", answerKey: "faq5A" },
+        ]}
+        relatedLinks={[
+          { href: "/hedonique", labelKey: "hedonique" },
+          { href: "/dcf-multi", labelKey: "dcfMulti" },
+          { href: "/estimation", labelKey: "estimation" },
+        ]}
+      />
     </div>
   );
 }

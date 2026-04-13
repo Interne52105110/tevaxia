@@ -11,6 +11,7 @@ import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ConfidenceGauge from "@/components/ConfidenceGauge";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SEOContent from "@/components/SEOContent";
 
 // ============================================================
 // TYPE LABELS — maps SavedValuation.type to a human-readable label
@@ -636,6 +637,7 @@ export default function Comparer() {
   }, [resultA, resultB]);
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs />
@@ -817,5 +819,27 @@ export default function Comparer() {
         </p>
       </div>
     </div>
+
+    <SEOContent
+      ns="comparer"
+      sections={[
+        { titleKey: "methodeTitle", contentKey: "methodeContent" },
+        { titleKey: "criteresTitle", contentKey: "criteresContent" },
+        { titleKey: "ajustementsTitle", contentKey: "ajustementsContent" },
+        { titleKey: "decisionTitle", contentKey: "decisionContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+      ]}
+      relatedLinks={[
+        { href: "/estimation", labelKey: "estimation" },
+        { href: "/hedonique", labelKey: "hedonique" },
+        { href: "/carte", labelKey: "carte" },
+      ]}
+    />
+    </>
   );
 }
