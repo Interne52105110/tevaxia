@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "PropCalc Developers — Widget, API REST, npm, Chrome Extension, Google Sheets",
   description:
-    "Integrez les calculs immobiliers multi-pays dans vos projets. Widget embeddable, API REST, package npm, extension Chrome, add-on Google Sheets. 10 pays, 16 fonctions.",
+    "Intégrez les calculs immobiliers multi-pays dans vos projets. Widget embeddable, API REST, package npm, extension Chrome, add-on Google Sheets. 10 pays, 16 fonctions.",
   openGraph: {
-    title: "PropCalc — Ecosysteme Developpeurs",
+    title: "PropCalc — Écosystème Développeurs",
     description: "Widget embeddable, API REST, npm, Chrome Extension, Google Sheets. 5 canaux d'integration pour les calculs immobiliers multi-pays.",
     url: "https://www.tevaxia.lu/propcalc/developers",
   },
@@ -23,17 +23,17 @@ function Icon({ d, className = "" }: { d: string; className?: string }) {
 const WIDGET_ATTRS = [
   { attr: "data-country", desc: "Code pays ISO 3166-1 alpha-2 (lu, fr, de, gb, be, es, pt, it, nl, us)" },
   { attr: "data-lang", desc: "Langue de l'interface (fr, en, de, es, pt, it, nl, lb)" },
-  { attr: "data-module", desc: "Modules a afficher : fees, borrowing, yield, cashflow, comparator, prequalify, amortization, buyvsrent, scenarios, transfertax" },
-  { attr: "data-theme", desc: "Theme visuel : light (defaut) ou dark" },
+  { attr: "data-module", desc: "Modules à affichér : fees, borrowing, yield, cashflow, comparator, prequalify, amortization, buyvsrent, scenarios, transfertax" },
+  { attr: "data-theme", desc: "Thème visuel : light (défaut) ou dark" },
   { attr: "data-accent-color", desc: "Couleur d'accentuation CSS valide (#1a365d, rgb(...), hsl(...))" },
 ];
 
 const API_ENDPOINTS = [
   { method: "POST", path: "/fees", desc: "Frais d'acquisition (notaire, droits, taxes)" },
-  { method: "POST", path: "/mortgage", desc: "Capacite d'emprunt et mensualites" },
+  { method: "POST", path: "/mortgage", desc: "Capacité d'emprunt et mensualités" },
   { method: "POST", path: "/yield", desc: "Rendement locatif brut, net et net-net" },
   { method: "POST", path: "/cashflow", desc: "Cash-flow investisseur mensuel" },
-  { method: "GET", path: "/countries", desc: "Liste des pays supportes avec metadata" },
+  { method: "GET", path: "/countries", desc: "Liste des pays supportés avec metadata" },
 ];
 
 const CHROME_PORTALS = [
@@ -43,9 +43,9 @@ const CHROME_PORTALS = [
 
 const SHEETS_FUNCTIONS = [
   { fn: "=PROPCALC_FEES(prix; pays; region)", desc: "Frais d'acquisition complets" },
-  { fn: "=PROPCALC_MORTGAGE(revenus; charges; pays)", desc: "Capacite d'emprunt maximale" },
+  { fn: "=PROPCALC_MORTGAGE(revenus; charges; pays)", desc: "Capacité d'emprunt maximale" },
   { fn: "=PROPCALC_YIELD(prix; loyer; charges; pays)", desc: "Rendement locatif net" },
-  { fn: "=PROPCALC_CAPACITY(prix; apport; taux; duree)", desc: "Mensualite et cout total" },
+  { fn: "=PROPCALC_CAPACITY(prix; apport; taux; duree)", desc: "Mensualité et coût total" },
   { fn: "=PROPCALC_TAX_RATE(prix; pays; region)", desc: "Taux effectif de droits de mutation" },
 ];
 
@@ -57,13 +57,13 @@ export default function PropCalcDevelopersPage() {
         <div className="mx-auto max-w-5xl px-4 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-teal/10 border border-teal/20 px-4 py-1.5 text-sm font-medium text-teal mb-6">
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>
-            5 Canaux d&apos;Integration
+            5 Canaux d&apos;Intégration
           </div>
           <h1 className="text-4xl font-bold text-navy sm:text-5xl tracking-tight">
-            PropCalc &mdash; Ecosysteme Developpeurs
+            PropCalc &mdash; Écosystème Développeurs
           </h1>
           <p className="mt-6 text-lg text-muted max-w-2xl mx-auto leading-relaxed">
-            Integrez les calculs immobiliers multi-pays dans vos projets.
+            Intégrez les calculs immobiliers multi-pays dans vos projets.
             Widget embeddable, API REST, package npm, extension Chrome, add-on Google Sheets.
           </p>
           <div className="mt-8 flex gap-4 justify-center flex-wrap">
@@ -88,7 +88,7 @@ export default function PropCalcDevelopersPage() {
             { value: "10", label: "Pays" },
             { value: "16", label: "Fonctions" },
             { value: "1K", label: "Appels/mois gratuits" },
-            { value: "0", label: "Dependances" },
+            { value: "0", label: "Dépendances" },
           ].map((s) => (
             <div key={s.label}>
               <div className="text-3xl font-bold text-navy">{s.value}</div>
@@ -108,7 +108,7 @@ export default function PropCalcDevelopersPage() {
             <h2 className="text-2xl font-bold text-navy">Widget Embeddable</h2>
           </div>
           <p className="text-muted text-center max-w-xl mx-auto mb-12">
-            Trois lignes de code pour ajouter PropCalc a n&apos;importe quel site web. Aucune dependance, aucun framework requis.
+            Trois lignes de code pour ajouter PropCalc a n&apos;importe quel site web. Aucune dépendance, aucun framework requis.
           </p>
 
           <div className="rounded-xl border border-card-border bg-navy p-6 mb-8 overflow-x-auto">
@@ -131,7 +131,7 @@ export default function PropCalcDevelopersPage() {
           </div>
 
           <p className="mt-6 text-center text-xs text-muted">
-            Gratuit &middot; Credit Tevaxia affiche &middot; Aucune dependance
+            Gratuit &middot; Crédit Tevaxia affiché &middot; Aucune dépendance
           </p>
         </div>
       </section>
@@ -157,7 +157,7 @@ export default function PropCalcDevelopersPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-navy text-white/80">
-                  <th className="text-left px-4 py-3 font-semibold">Methode</th>
+                  <th className="text-left px-4 py-3 font-semibold">Méthode</th>
                   <th className="text-left px-4 py-3 font-semibold">Endpoint</th>
                   <th className="text-left px-4 py-3 font-semibold hidden sm:table-cell">Description</th>
                 </tr>
@@ -202,7 +202,7 @@ export default function PropCalcDevelopersPage() {
             <h2 className="text-2xl font-bold text-navy">Package npm</h2>
           </div>
           <p className="text-muted text-center max-w-xl mx-auto mb-12">
-            Toute la logique de calcul dans un seul package. Zero dependance, tree-shakable, TypeScript natif.
+            Toute la logique de calcul dans un seul package. Zéro dépendance, tree-shakable, TypeScript natif.
           </p>
 
           {/* Install */}
@@ -227,7 +227,7 @@ console.log(fees.transferTax);  // 42 000`}</code></pre>
               { value: "16", label: "Fonctions" },
               { value: "10", label: "Pays" },
               { value: "MIT", label: "Licence" },
-              { value: "0", label: "Dependances" },
+              { value: "0", label: "Dépendances" },
             ].map((s) => (
               <div key={s.label} className="p-4 rounded-xl border border-card-border bg-card text-center">
                 <div className="text-xl font-bold text-navy">{s.value}</div>
@@ -248,10 +248,10 @@ console.log(fees.transferTax);  // 42 000`}</code></pre>
             <h2 className="text-2xl font-bold text-navy">Extension Chrome</h2>
           </div>
           <p className="text-muted text-center max-w-xl mx-auto mb-12">
-            Calculs instantanes sur les sites d&apos;annonces immobilieres. Detection automatique du prix, 3 onglets : Frais, Rendement, Credit.
+            Calculs instantanés sur les sites d&apos;annonces immobilières. Détection automatique du prix, 3 onglets : Frais, Rendement, Crédit.
           </p>
 
-          <h3 className="text-sm font-semibold text-navy mb-4 text-center">Portails supportes</h3>
+          <h3 className="text-sm font-semibold text-navy mb-4 text-center">Portails supportés</h3>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-8">
             {CHROME_PORTALS.map((portal) => (
               <div key={portal} className="p-4 rounded-xl border border-card-border bg-background text-center">
@@ -265,7 +265,7 @@ console.log(fees.transferTax);  // 42 000`}</code></pre>
               Installer depuis le Chrome Web Store &rarr;
             </Link>
             <p className="mt-4 text-xs text-muted">
-              Detection automatique du prix &middot; 3 onglets : Frais, Rendement, Credit
+              Détection automatique du prix &middot; 3 onglets : Frais, Rendement, Crédit
             </p>
           </div>
         </div>
@@ -281,7 +281,7 @@ console.log(fees.transferTax);  // 42 000`}</code></pre>
             <h2 className="text-2xl font-bold text-navy">Google Sheets Add-on</h2>
           </div>
           <p className="text-muted text-center max-w-xl mx-auto mb-12">
-            Directement dans vos feuilles de calcul. 10 pays, granularite regionale.
+            Directement dans vos feuilles de calcul. 10 pays, granularite régionale.
           </p>
 
           <div className="grid gap-3">
@@ -294,7 +294,7 @@ console.log(fees.transferTax);  // 42 000`}</code></pre>
           </div>
 
           <p className="mt-8 text-center text-xs text-muted">
-            Directement dans vos feuilles de calcul &middot; 10 pays &middot; Granularite regionale
+            Directement dans vos feuilles de calcul &middot; 10 pays &middot; Granularité régionale
           </p>
         </div>
       </section>
@@ -302,8 +302,8 @@ console.log(fees.transferTax);  // 42 000`}</code></pre>
       {/* Footer CTA */}
       <section className="py-20 bg-card border-y border-card-border">
         <div className="mx-auto max-w-2xl px-4 text-center">
-          <h2 className="text-2xl font-bold text-navy mb-4">Pret a integrer PropCalc ?</h2>
-          <p className="text-muted mb-8">Choisissez le canal qui correspond a votre stack. Widget, API, npm, Chrome ou Sheets &mdash; tous gratuits pour demarrer.</p>
+          <h2 className="text-2xl font-bold text-navy mb-4">Prêt à intégrer PropCalc ?</h2>
+          <p className="text-muted mb-8">Choisissez le canal qui correspond à votre stack. Widget, API, npm, Chrome ou Sheets &mdash; tous gratuits pour démarrer.</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="https://www.tevaxia.lu/propcalc" className="rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white hover:bg-navy-light transition-colors">
               PropCalc &mdash; Page principale &rarr;
