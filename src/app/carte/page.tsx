@@ -195,6 +195,7 @@ export default function Carte() {
             selectedCommune={selectedCommune?.commune}
             priceField={priceField}
             viewMode={viewMode}
+            cadastreLabel={t("geoportailCadastreLayer")}
           />
           <p className="mt-2 text-xs text-muted text-center">{t("mapHint")}</p>
         </div>

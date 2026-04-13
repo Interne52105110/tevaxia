@@ -44,6 +44,7 @@ const MENU_GROUPS: MenuGroup[] = [
       { href: "/calculateur-vrd", key: "calculateurVrd" },
       { href: "/convertisseur-surfaces", key: "convertisseurSurfaces" },
       { href: "/portfolio", key: "portfolio" },
+      { href: "/syndic", key: "syndic" },
       { href: "/aml-kyc", key: "amlKyc" },
     ],
   },

@@ -38,7 +38,8 @@
     "energyCommunaute": "Energiegemeinschaft",
     "energyEpbd": "EPBD 2050",
     "energyCpe": "CPE-Schätzer",
-    "energyLenoz": "LENOZ"
+    "energyLenoz": "LENOZ",
+    "syndic": "Syndic / Copropriétéit"
   },
   "common": {
     "language": "Sprooch",
@@ -1550,6 +1551,8 @@
     "demographicsSource": "Quell: STATEC, Nationalt Personneregëster",
     "neighborhoods": "Quartieren",
     "clickCommune": "Klickt op eng Gemeng fir Präisdetailer an Demographie unzeweisen.",
+    "geoportailCadastreLayer": "Kataster",
+    "geoportailOrthophotoLayer": "Orthofoto",
     "seo": {
       "faqTitle": "FAQ",
       "relatedTitle": "Related tools",
@@ -4115,6 +4118,10 @@
     "resourceGeoportail": "Geoportail.lu — PAG online",
     "resourceLaw": "Gesetz",
     "resourceMinistry": "Wunnengsbauministère",
+    "geoportailPagLayer": "PAG-Schicht",
+    "geoportailCadastreLayer": "Kataster",
+    "geoportailSourceNote": "Quell: Geoportail.lu (ACT) — Digitale Katasterplang, PAG-Schicht. Indikativ Daten.",
+    "geoportailLoading": "PAG-Kaart gëtt gelueden...",
     "seo": {
       "faqTitle": "Dacks gestallt Froen zum PAG an PAP",
       "relatedTitle": "Ergaenzend Tools",

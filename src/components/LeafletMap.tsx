@@ -50,13 +50,44 @@ interface LeafletMapProps {
   selectedCommune?: string;
   priceField?: PriceField;
   viewMode?: ViewMode;
+  /** Allow the parent to control the cadastre overlay externally */
+  showCadastre?: boolean;
+  /** Callback when the cadastre toggle changes */
+  onToggleCadastre?: (show: boolean) => void;
+  /** Translated label for the cadastre toggle */
+  cadastreLabel?: string;
 }
 
-export default function LeafletMap({ communes, onSelectCommune, selectedCommune, priceField = "prixM2Existant", viewMode }: LeafletMapProps) {
+export default function LeafletMap({
+  communes,
+  onSelectCommune,
+  selectedCommune,
+  priceField = "prixM2Existant",
+  viewMode,
+  showCadastre: externalShowCadastre,
+  onToggleCadastre,
+  cadastreLabel = "Cadastre",
+}: LeafletMapProps) {
   const isRendement = viewMode === "rendement";
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
+  const cadastreLayerRef = useRef<L.TileLayer.WMS | null>(null);
   const [ready, setReady] = useState(false);
+  const [internalShowCadastre, setInternalShowCadastre] = useState(false);
+
+  // If parent controls cadastre, use that; otherwise use internal state
+  const showCadastre = externalShowCadastre ?? internalShowCadastre;
+
+  const handleToggleCadastre = useCallback(
+    (val: boolean) => {
+      if (onToggleCadastre) {
+        onToggleCadastre(val);
+      } else {
+        setInternalShowCadastre(val);
+      }
+    },
+    [onToggleCadastre],
+  );
 
   useEffect(() => {
     // Import dynamique Leaflet + CSS
@@ -76,6 +107,7 @@ export default function LeafletMap({ communes, onSelectCommune, selectedCommune,
     if (mapInstanceRef.current) {
       mapInstanceRef.current.remove();
       mapInstanceRef.current = null;
+      cadastreLayerRef.current = null;
     }
 
     const map = L.map(mapRef.current, {
@@ -123,8 +155,30 @@ export default function LeafletMap({ communes, onSelectCommune, selectedCommune,
     return () => {
       map.remove();
       mapInstanceRef.current = null;
+      cadastreLayerRef.current = null;
     };
   }, [ready, communes, onSelectCommune, priceField, isRendement]);
+
+  // Manage cadastre overlay layer independently so toggling doesn't recreate the whole map
+  useEffect(() => {
+    if (!ready || !L || !mapInstanceRef.current) return;
+    const map = mapInstanceRef.current;
+
+    if (showCadastre && !cadastreLayerRef.current) {
+      try {
+        const { url, options } = getGeoportailWMSUrl("cadastre");
+        cadastreLayerRef.current = L.tileLayer.wms(url, {
+          ...options,
+          maxZoom: 20,
+        } as L.WMSOptions).addTo(map);
+      } catch {
+        // Graceful degradation: if layer fails, ignore
+      }
+    } else if (!showCadastre && cadastreLayerRef.current) {
+      map.removeLayer(cadastreLayerRef.current);
+      cadastreLayerRef.current = null;
+    }
+  }, [ready, showCadastre]);
 
   if (!ready) {
     return (
@@ -134,5 +188,21 @@ export default function LeafletMap({ communes, onSelectCommune, selectedCommune,
     );
   }
 
-  return <div ref={mapRef} className="h-[500px] rounded-xl border border-card-border shadow-sm" />;
+  return (
+    <div className="relative">
+      <div ref={mapRef} className="h-[500px] rounded-xl border border-card-border shadow-sm" />
+      {/* Cadastre overlay toggle */}
+      <div className="absolute top-3 right-3 z-[1000]">
+        <label className="flex items-center gap-2 rounded-lg bg-white/90 backdrop-blur-sm border border-card-border px-3 py-1.5 shadow-sm cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={showCadastre}
+            onChange={(e) => handleToggleCadastre(e.target.checked)}
+            className="rounded"
+          />
+          <span className="text-xs font-medium text-slate">{cadastreLabel}</span>
+        </label>
+      </div>
+    </div>
+  );
 }

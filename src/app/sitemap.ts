@@ -12,7 +12,7 @@ const PAGES = [
   "/achat-vs-location", "/bilan-promoteur", "/valorisation",
   "/dcf-multi", "/portfolio", "/pag-pap", "/terres-agricoles",
   "/aml-kyc", "/estimateur-construction", "/calculateur-vrd",
-  "/convertisseur-surfaces", "/pricing", "/connexion",
+  "/convertisseur-surfaces", "/syndic", "/pricing", "/connexion",
   "/mentions-legales", "/confidentialite", "/plan-du-site",
   "/propcalc", "/propcalc/developers",
 ];

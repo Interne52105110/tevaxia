@@ -37,7 +37,8 @@
     "energyCommunaute": "Comunidade de energia",
     "energyEpbd": "EPBD 2050",
     "energyCpe": "Estimador CPE",
-    "energyLenoz": "LENOZ"
+    "energyLenoz": "LENOZ",
+    "syndic": "Sindico / Condominio"
   },
   "common": {
     "language": "Língua",
@@ -1549,6 +1550,8 @@
     "demographicsSource": "Fonte: STATEC, Registo Nacional de Pessoas Singulares",
     "neighborhoods": "Bairros",
     "clickCommune": "Clique num município para apresentar os detalhes dos preços e a demografia.",
+    "geoportailCadastreLayer": "Cadastro",
+    "geoportailOrthophotoLayer": "Ortofoto",
     "seo": {
       "faqTitle": "FAQ",
       "relatedTitle": "Related tools",
@@ -4114,6 +4117,10 @@
     "resourceGeoportail": "Geoportail.lu — PAG online",
     "resourceLaw": "Lei",
     "resourceMinistry": "Ministério da Habitação",
+    "geoportailPagLayer": "Camada PAG",
+    "geoportailCadastreLayer": "Cadastro",
+    "geoportailSourceNote": "Fonte: Geoportail.lu (ACT) — Plano cadastral digital, camada PAG. Dados indicativos.",
+    "geoportailLoading": "A carregar o mapa PAG...",
     "seo": {
       "faqTitle": "Perguntas frequentes sobre PAG e PAP",
       "relatedTitle": "Ferramentas complementares",
