@@ -15,8 +15,8 @@ export default function Connexion() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // Detect energy subdomain
-  const isEnergy = typeof window !== "undefined" && window.location.hostname.includes("energy");
+  // Detect energy section (pathname-based since energy is now on main domain)
+  const isEnergy = typeof window !== "undefined" && window.location.pathname.startsWith("/energy");
 
   if (!supabase) {
     return (
@@ -42,7 +42,7 @@ export default function Connexion() {
             <p className="mt-1 text-sm text-muted">{user.email}</p>
             <div className="mt-6 space-y-3">
               {isEnergy ? (
-                <Link href="/" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
+                <Link href="/energy" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
                   Retour aux simulateurs énergie
                 </Link>
               ) : (

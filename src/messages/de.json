@@ -30,7 +30,14 @@
     "marche": "Marktdatenbank",
     "terresAgricoles": "Landwirtschaftliche Flächen",
     "hvac": "HVAC-Simulator",
-    "planDuSite": "Seitenübersicht"
+    "planDuSite": "Seitenübersicht",
+    "energy": "Energy",
+    "energyImpact": "CPE-Auswirkung",
+    "energyRenovation": "Sanierung ROI",
+    "energyCommunaute": "Energiegemeinschaft",
+    "energyEpbd": "EPBD 2050",
+    "energyCpe": "CPE-Schätzer",
+    "energyLenoz": "LENOZ"
   },
   "common": {
     "language": "Sprache",

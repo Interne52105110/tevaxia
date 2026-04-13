@@ -30,7 +30,14 @@
     "marche": "Market Database",
     "terresAgricoles": "Agricultural Land",
     "hvac": "HVAC Simulator",
-    "planDuSite": "Sitemap"
+    "planDuSite": "Sitemap",
+    "energy": "Energy",
+    "energyImpact": "EPC Impact",
+    "energyRenovation": "Renovation ROI",
+    "energyCommunaute": "Energy community",
+    "energyEpbd": "EPBD 2050",
+    "energyCpe": "EPC Estimator",
+    "energyLenoz": "LENOZ"
   },
   "common": {
     "language": "Language",

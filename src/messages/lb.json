@@ -30,7 +30,14 @@
     "marche": "Maartdatebank",
     "terresAgricoles": "Landwirtschaftlech Flächen",
     "hvac": "HVAC-Simulator",
-    "planDuSite": "Säiteplang"
+    "planDuSite": "Säiteplang",
+    "energy": "Energy",
+    "energyImpact": "CPE-Impakt",
+    "energyRenovation": "Renovatioun ROI",
+    "energyCommunaute": "Energiegemeinschaft",
+    "energyEpbd": "EPBD 2050",
+    "energyCpe": "CPE-Schätzer",
+    "energyLenoz": "LENOZ"
   },
   "common": {
     "language": "Sprooch",

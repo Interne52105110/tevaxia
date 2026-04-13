@@ -30,7 +30,14 @@
     "marche": "Base de dados de mercado",
     "terresAgricoles": "Terrenos agrícolas",
     "hvac": "Simulador HVAC",
-    "planDuSite": "Mapa do site"
+    "planDuSite": "Mapa do site",
+    "energy": "Energy",
+    "energyImpact": "Impacto CPE",
+    "energyRenovation": "ROI Renovação",
+    "energyCommunaute": "Comunidade de energia",
+    "energyEpbd": "EPBD 2050",
+    "energyCpe": "Estimador CPE",
+    "energyLenoz": "LENOZ"
   },
   "common": {
     "language": "Língua",
@@ -3288,7 +3295,7 @@
       "particuliers": "Particulares",
       "professionnels": "Profissionais",
       "donnees": "Dados & Mercado",
-      "energy": "Energy (subdomínio)",
+      "energy": "Energy",
       "compte": "Conta & Tarifas",
       "legal": "Informações legais",
       "wordpress": "WordPress Plugin"
