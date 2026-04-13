@@ -126,6 +126,11 @@
         "description": "Heating/ventilation sizing per EN 12831. Heat pump, HRV and pellet boiler catalogue. 7-lot bill of quantities, Klimabonus 2026.",
         "tag": "Heat pump / HRV / Pellets"
       },
+      "energy": {
+        "title": "Tevaxia Energy",
+        "description": "8 energy simulators: EPC impact on value, renovation ROI, energy community, EPBD 2050, HVAC, LENOZ.",
+        "tag": "EPC / EPBD / Klimabonus"
+      },
       "valorisation": {
         "title": "EVS 2025 Valuation",
         "description": "Comparison, direct capitalisation, DCF, Mortgage Lending Value, reconciliation. Compliant with TEGOVA European Valuation Standards.",
@@ -2439,7 +2444,7 @@
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, United States.",
       "api": "API (energy-api):",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, United States.",
-      "subdomain": "The subdomain tevaxia.lu/energy hosts the platform's energy simulators."
+      "subdomain": "The Energy section hosts the platform energy simulators."
     },
     "propriete": {
       "title": "3. Intellectual Property",
@@ -3061,6 +3066,11 @@
     "subtitle": "Sizing, product selection and budget estimation for heating, ventilation and air conditioning installations in Luxembourg.",
     "steps": {
       "step0": "Building",
+      "energy": {
+        "title": "Tevaxia Energy",
+        "description": "8 energy simulators: EPC impact on value, renovation ROI, energy community, EPBD 2050, HVAC, LENOZ.",
+        "tag": "EPC / EPBD / Klimabonus"
+      },
       "step1": "Heat losses",
       "step2": "Heating",
       "step3": "Emitters",
@@ -3278,7 +3288,7 @@
       "particuliers": "Individuals",
       "professionnels": "Professionals",
       "donnees": "Data & Market",
-      "energy": "Energy (subdomain)",
+      "energy": "Energy",
       "compte": "Account & Pricing",
       "legal": "Legal information",
       "wordpress": "WordPress Plugin"
@@ -3325,6 +3335,6 @@
       "propcalc": "PropCalc — Multi-country real estate calculator (WordPress)",
       "propcalcDev": "PropCalc Developers — API, npm, Widget, Chrome, Sheets"
     },
-    "note": "This sitemap lists all pages available on tevaxia.lu and its subdomain tevaxia.lu/energy. An XML sitemap is also available for search engines."
+    "note": "This sitemap lists all pages available on tevaxia.lu. An XML sitemap is also available for search engines."
   }
 }

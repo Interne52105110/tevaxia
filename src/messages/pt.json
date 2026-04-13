@@ -126,6 +126,11 @@
         "description": "Dimensionamento aquecimento/ventilação EN 12831. Catálogo bombas de calor, VMC e caldeiras pellets. 7 lotes, Klimabonus 2026.",
         "tag": "BC / VMC / Pellets"
       },
+      "energy": {
+        "title": "Tevaxia Energy",
+        "description": "8 energy simulators: EPC impact on value, renovation ROI, energy community, EPBD 2050, HVAC, LENOZ.",
+        "tag": "EPC / EPBD / Klimabonus"
+      },
       "valorisation": {
         "title": "Avaliação EVS 2025",
         "description": "Comparação, capitalização direta, DCF, Mortgage Lending Value, reconciliação. Conforme TEGOVA European Valuation Standards.",
@@ -2439,7 +2444,7 @@
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, Estados Unidos.",
       "api": "API (energy-api):",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, Estados Unidos.",
-      "subdomain": "O subdominio tevaxia.lu/energy aloja os simuladores energeticos da plataforma."
+      "subdomain": "A secao Energy aloja os simuladores energeticos da plataforma."
     },
     "propriete": {
       "title": "3. Propriedade intelectual",
@@ -3061,6 +3066,11 @@
     "subtitle": "Dimensionamento, selecao de produtos e estimativa orcamental para instalacoes de aquecimento, ventilacao e ar condicionado no Luxemburgo.",
     "steps": {
       "step0": "Edificio",
+      "energy": {
+        "title": "Tevaxia Energy",
+        "description": "8 energy simulators: EPC impact on value, renovation ROI, energy community, EPBD 2050, HVAC, LENOZ.",
+        "tag": "EPC / EPBD / Klimabonus"
+      },
       "step1": "Perdas termicas",
       "step2": "Aquecimento",
       "step3": "Emissores",

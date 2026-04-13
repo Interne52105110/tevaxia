@@ -126,6 +126,11 @@
         "description": "Heizlast-/Lüftungsdimensionierung EN 12831. Katalog Wärmepumpen, KWL und Pelletkessel. Leistungsverzeichnis 7 Lose, Klimabonus 2026.",
         "tag": "WP / KWL / Pellets"
       },
+      "energy": {
+        "title": "Tevaxia Energy",
+        "description": "8 energy simulators: EPC impact on value, renovation ROI, energy community, EPBD 2050, HVAC, LENOZ.",
+        "tag": "EPC / EPBD / Klimabonus"
+      },
       "valorisation": {
         "title": "Bewertung EVS 2025",
         "description": "Vergleich, direkte Kapitalisierung, DCF, Beleihungswert, Abstimmung. Konform mit TEGOVA European Valuation Standards.",
@@ -2439,7 +2444,7 @@
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, Vereinigte Staaten.",
       "api": "API (energy-api):",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, Vereinigte Staaten.",
-      "subdomain": "Die Subdomain tevaxia.lu/energy beherbergt die Energiesimulatoren der Plattform."
+      "subdomain": "Der Energy-Bereich beherbergt die Energiesimulatoren der Plattform."
     },
     "propriete": {
       "title": "3. Geistiges Eigentum",
@@ -3061,6 +3066,11 @@
     "subtitle": "Dimensionierung, Produktauswahl und Budgetschatzung fur Heizungs-, Luftungs- und Klimaanlagen in Luxemburg.",
     "steps": {
       "step0": "Gebaude",
+      "energy": {
+        "title": "Tevaxia Energy",
+        "description": "8 energy simulators: EPC impact on value, renovation ROI, energy community, EPBD 2050, HVAC, LENOZ.",
+        "tag": "EPC / EPBD / Klimabonus"
+      },
       "step1": "Warmeverluste",
       "step2": "Heizung",
       "step3": "Warmeabgabe",
@@ -3278,7 +3288,7 @@
       "particuliers": "Privatpersonen",
       "professionnels": "Fachleute",
       "donnees": "Daten & Markt",
-      "energy": "Energy (Subdomain)",
+      "energy": "Energy",
       "compte": "Konto & Preise",
       "legal": "Rechtliche Hinweise",
       "wordpress": "WordPress Plugin"
@@ -3325,6 +3335,6 @@
       "propcalc": "PropCalc — Multi-Länder Immobilienrechner (WordPress)",
       "propcalcDev": "PropCalc Entwickler — API, npm, Widget, Chrome, Sheets"
     },
-    "note": "Diese Seitenübersicht listet alle verfügbaren Seiten auf tevaxia.lu und der Subdomain tevaxia.lu/energy auf. Eine XML-Sitemap ist ebenfalls für Suchmaschinen verfügbar."
+    "note": "Diese Seitenübersicht listet alle verfügbaren Seiten auf tevaxia.lu auf. Eine XML-Sitemap ist ebenfalls für Suchmaschinen verfügbar."
   }
 }

@@ -30,7 +30,14 @@
     "marche": "Base de données marché",
     "terresAgricoles": "Terres agricoles",
     "hvac": "Simulateur HVAC",
-    "planDuSite": "Plan du site"
+    "planDuSite": "Plan du site",
+    "energy": "Energy",
+    "energyImpact": "Impact CPE",
+    "energyRenovation": "ROI Rénovation",
+    "energyCommunaute": "Communauté d'énergie",
+    "energyEpbd": "EPBD 2050",
+    "energyCpe": "Estimateur CPE",
+    "energyLenoz": "LENOZ"
   },
   "common": {
     "language": "Langue",
@@ -125,6 +132,11 @@
         "title": "Simulateur HVAC",
         "description": "Dimensionnement chauffage/ventilation EN 12831. Catalogue PAC, VMC, chaudières pellets. Bordereau 7 lots, Klimabonus 2026.",
         "tag": "PAC / VMC / Pellets"
+      },
+      "energy": {
+        "title": "Tevaxia Energy",
+        "description": "8 simulateurs énergétiques : impact CPE sur la valeur, ROI rénovation, communauté d'énergie, EPBD 2050, HVAC, LENOZ.",
+        "tag": "CPE / EPBD / Klimabonus"
       },
       "valorisation": {
         "title": "Valorisation EVS 2025",
@@ -2439,7 +2451,7 @@
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.",
       "api": "API (energy-api) :",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, États-Unis.",
-      "subdomain": "Le sous-domaine tevaxia.lu/energy héberge les simulateurs énergétiques de la plateforme."
+      "subdomain": "La section Energy regroupe les simulateurs énergétiques de la plateforme."
     },
     "propriete": {
       "title": "3. Propriété intellectuelle",
@@ -3278,7 +3290,7 @@
       "particuliers": "Particuliers",
       "professionnels": "Professionnels",
       "donnees": "Données & Marché",
-      "energy": "Energy (sous-domaine)",
+      "energy": "Energy",
       "compte": "Compte & Tarifs",
       "legal": "Informations légales",
       "wordpress": "WordPress Plugin"
@@ -3325,6 +3337,6 @@
       "propcalc": "PropCalc — Calculateur immobilier multi-pays (WordPress)",
       "propcalcDev": "PropCalc Développeurs — API, npm, Widget, Chrome, Sheets"
     },
-    "note": "Ce plan du site répertorie l'ensemble des pages accessibles sur tevaxia.lu et son sous-domaine tevaxia.lu/energy. Un sitemap XML est également disponible pour les moteurs de recherche."
+    "note": "Ce plan du site répertorie l'ensemble des pages accessibles sur tevaxia.lu. Un sitemap XML est également disponible pour les moteurs de recherche."
   }
 }
