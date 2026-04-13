@@ -494,7 +494,25 @@
         "faq3a": "Mitglieder muessen am selben Verteilnetz sein.",
         "faq4q": "Wie gruende ich eine Energiegemeinschaft?",
         "faq4a": "Myenergy kontaktieren, Gruppe bilden, Verteilungsregeln festlegen, beim ILR melden."
-      }
+      },
+      "orientSud": "Süd (0°)",
+      "orientSudEst": "Süd-Ost (-45°)",
+      "orientSudOuest": "Süd-West (45°)",
+      "orientEst": "Ost (-90°)",
+      "orientOuest": "West (90°)",
+      "orientEstOuest": "Ost-West (bi)",
+      "orientPlat": "Flachdach",
+      "orientNord": "Nord (180°)",
+      "conformiteStatutJuridique": "Wohnungseigentümergemeinschaft, Verein oder Genossenschaft",
+      "conformitePerimetre": "Gleiche Trafostation oder < 1 km",
+      "conformiteContratRepartition": "Verteilungsvertrag zwischen den Teilnehmern erforderlich",
+      "conformiteDeclarationILR": "Meldung beim ILR verpflichtend",
+      "conformiteLoiReference": "Gesetz vom 21. Mai 2021 (Umsetzung RED II)",
+      "conformiteReglementILR": "ILR-Verordnung E23/14",
+      "chartProductionLabel": "PV-Produktion",
+      "chartConsoMoyLabel": "Durchschn. Verbr.",
+      "chartMois": "Monat",
+      "participants": "Teilnehmer"
     },
     "epbd": {
       "title": "EPBD-Richtlinie — Zeitplan und Stranding-Risiko",

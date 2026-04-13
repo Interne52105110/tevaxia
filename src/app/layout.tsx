@@ -85,15 +85,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [messages, locale, headersList] = await Promise.all([
+  const [messages, locale] = await Promise.all([
     getMessages(),
     getLocale(),
-    headers(),
   ]);
-  const url = headersList.get("x-url") || "";
-  const isEnergy = headersList.get("x-energy-subdomain") === "1"
-    || url.startsWith("/energy")
-    || /^\/(en|de|pt|lb)\/energy/.test(url);
 
   return (
     <html
@@ -116,16 +111,12 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <ServiceWorkerRegistration />
         <NextIntlClientProvider messages={messages}>
-          {isEnergy ? (
-            <>{children}</>
-          ) : (
-            <AuthProvider>
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <CookieBanner />
-            </AuthProvider>
-          )}
+          <AuthProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CookieBanner />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

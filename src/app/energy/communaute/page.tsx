@@ -22,14 +22,14 @@ const TARIF_RACHAT_SURPLUS = 0.07;
 const CO2_FACTEUR = 300;
 
 const ORIENTATION_OPTIONS = [
-  { value: "SUD", label: "Sud (0°)" },
-  { value: "SUD_EST", label: "Sud-Est (-45°)" },
-  { value: "SUD_OUEST", label: "Sud-Ouest (45°)" },
-  { value: "EST", label: "Est (-90°)" },
-  { value: "OUEST", label: "Ouest (90°)" },
-  { value: "EST_OUEST", label: "Est-Ouest (bi)" },
-  { value: "PLAT", label: "Toit plat" },
-  { value: "NORD", label: "Nord (180°)" },
+  { value: "SUD", labelKey: "orientSud" },
+  { value: "SUD_EST", labelKey: "orientSudEst" },
+  { value: "SUD_OUEST", labelKey: "orientSudOuest" },
+  { value: "EST", labelKey: "orientEst" },
+  { value: "OUEST", labelKey: "orientOuest" },
+  { value: "EST_OUEST", labelKey: "orientEstOuest" },
+  { value: "PLAT", labelKey: "orientPlat" },
+  { value: "NORD", labelKey: "orientNord" },
 ] as const;
 
 function fallbackLocal(nb: number, pv: number, conso: number, tr: number, tp: number): CommunauteResponse {
@@ -60,7 +60,7 @@ function fallbackLocal(nb: number, pv: number, conso: number, tr: number, tp: nu
     paybackGlobalAnnees: economieTotale > 0 ? Math.round(coutTTC * 10 / economieTotale) / 10 : 99,
     productionMensuelle: mois.map((m, i) => ({ mois: m, kwh: Math.round(productionAnnuelle * repartMensuelle[i]) })),
     parametres: { productionParKwc: PRODUCTION_KWH_PAR_KWC, tauxAutoConsoBase: TAUX_AUTOCONSO_BASE, facteurFoisonnement: FACTEUR_FOISONNEMENT, tarifRachatSurplus: TARIF_RACHAT_SURPLUS, co2Facteur: CO2_FACTEUR },
-    conformite: { statutJuridique: "Copropriété, ASBL ou coopérative", perimetre: "Même poste de transformation ou < 1 km", contratRepartition: "Contrat de répartition entre participants requis", declarationILR: "Déclaration auprès de l'ILR obligatoire", loiReference: "Loi du 21 mai 2021 (transposition RED II)", reglementILR: "Règlement ILR E23/14" },
+    conformite: { statutJuridique: "CONFORMITE_STATUT", perimetre: "CONFORMITE_PERIMETRE", contratRepartition: "CONFORMITE_CONTRAT", declarationILR: "CONFORMITE_ILR", loiReference: "CONFORMITE_LOI", reglementILR: "CONFORMITE_REGLEMENT" },
   };
 }
 
@@ -289,7 +289,7 @@ export default function CommunautePage() {
                   className="w-full rounded-lg border border-input-border bg-input-bg px-4 py-2.5 text-foreground"
                 >
                   {ORIENTATION_OPTIONS.map((opt) => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{t(opt.labelKey)}</option>
                   ))}
                 </select>
               </div>
@@ -409,7 +409,7 @@ export default function CommunautePage() {
                 <div className="rounded-xl border border-card-border p-4 text-center">
                   <div className="text-xs text-muted uppercase tracking-wider">{t("coutParPart")}</div>
                   <div className="mt-1 text-xl font-bold text-foreground">{fmt(result.coutParParticipant)} €</div>
-                  <div className="text-xs text-muted">/ {nbParticipants} participants</div>
+                  <div className="text-xs text-muted">/ {nbParticipants} {t("participants")}</div>
                 </div>
                 <div className="rounded-xl border border-card-border p-4 text-center">
                   <div className="text-xs text-muted uppercase tracking-wider">{t("payback")}</div>
@@ -436,8 +436,8 @@ export default function CommunautePage() {
                     <XAxis dataKey="mois" tick={{ fontSize: 11, fill: "#6B7280" }} />
                     <YAxis tick={{ fontSize: 11, fill: "#6B7280" }} tickFormatter={(v: number) => `${(v / 1000).toFixed(1)}k`} />
                     <Tooltip formatter={(value) => [`${fmt(Number(value))} kWh`]} contentStyle={{ borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="kwh" name="Production PV" fill="#10b981" radius={[4, 4, 0, 0]} />
-                    <ReferenceLine y={Math.round(result.consoTotale / 12)} stroke="#ef4444" strokeDasharray="6 3" strokeWidth={2} label={{ value: `Conso moy. ${fmt(Math.round(result.consoTotale / 12))} kWh/mois`, position: "insideTopRight", fontSize: 10, fill: "#ef4444" }} />
+                    <Bar dataKey="kwh" name={t("chartProductionLabel")} fill="#10b981" radius={[4, 4, 0, 0]} />
+                    <ReferenceLine y={Math.round(result.consoTotale / 12)} stroke="#ef4444" strokeDasharray="6 3" strokeWidth={2} label={{ value: `${t("chartConsoMoyLabel")} ${fmt(Math.round(result.consoTotale / 12))} kWh/${t("chartMois")}`, position: "insideTopRight", fontSize: 10, fill: "#ef4444" }} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -461,12 +461,12 @@ export default function CommunautePage() {
             <div className="p-6">
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
-                  { label: t("confStatut"), value: result.conformite.statutJuridique },
-                  { label: t("confPerimetre"), value: result.conformite.perimetre },
-                  { label: t("confContrat"), value: result.conformite.contratRepartition },
-                  { label: t("confILR"), value: result.conformite.declarationILR },
-                  { label: t("confLoi"), value: result.conformite.loiReference },
-                  { label: t("confReglement"), value: result.conformite.reglementILR },
+                  { label: t("confStatut"), value: t("conformiteStatutJuridique") },
+                  { label: t("confPerimetre"), value: t("conformitePerimetre") },
+                  { label: t("confContrat"), value: t("conformiteContratRepartition") },
+                  { label: t("confILR"), value: t("conformiteDeclarationILR") },
+                  { label: t("confLoi"), value: t("conformiteLoiReference") },
+                  { label: t("confReglement"), value: t("conformiteReglementILR") },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-2 rounded-lg border border-card-border p-3">
                     <svg className="h-5 w-5 text-blue-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

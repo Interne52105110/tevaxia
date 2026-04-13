@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const ENERGY_BASE = "https://tevaxia.lu/energy";
 
@@ -51,11 +49,5 @@ export default function EnergyLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </>
-  );
+  return children;
 }

@@ -494,7 +494,25 @@
         "faq3a": "Les membres doivent etre raccordes au meme reseau de distribution, mais pas necessairement au meme batiment.",
         "faq4q": "Comment creer une communaute d'energie ?",
         "faq4a": "Contactez Myenergy ou un operateur agree, constituez un groupe de participants, definissez les regles de partage, et declarez la CER aupres du regulateur ILR."
-      }
+      },
+      "orientSud": "Sud (0°)",
+      "orientSudEst": "Sud-Est (-45°)",
+      "orientSudOuest": "Sud-Ouest (45°)",
+      "orientEst": "Est (-90°)",
+      "orientOuest": "Ouest (90°)",
+      "orientEstOuest": "Est-Ouest (bi)",
+      "orientPlat": "Toit plat",
+      "orientNord": "Nord (180°)",
+      "conformiteStatutJuridique": "Copropriété, ASBL ou coopérative",
+      "conformitePerimetre": "Même poste de transformation ou < 1 km",
+      "conformiteContratRepartition": "Contrat de répartition entre participants requis",
+      "conformiteDeclarationILR": "Déclaration auprès de l'ILR obligatoire",
+      "conformiteLoiReference": "Loi du 21 mai 2021 (transposition RED II)",
+      "conformiteReglementILR": "Règlement ILR E23/14",
+      "chartProductionLabel": "Production PV",
+      "chartConsoMoyLabel": "Conso moy.",
+      "chartMois": "mois",
+      "participants": "participants"
     },
     "epbd": {
       "title": "Directive EPBD — Chronologie et risque de stranding",

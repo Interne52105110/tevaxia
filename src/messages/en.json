@@ -494,7 +494,25 @@
         "faq3a": "Members must be on the same distribution network, not necessarily the same building.",
         "faq4q": "How do I create an energy community?",
         "faq4a": "Contact Myenergy, form a participant group, define sharing rules, and declare to the ILR regulator."
-      }
+      },
+      "orientSud": "South (0°)",
+      "orientSudEst": "South-East (-45°)",
+      "orientSudOuest": "South-West (45°)",
+      "orientEst": "East (-90°)",
+      "orientOuest": "West (90°)",
+      "orientEstOuest": "East-West (bi)",
+      "orientPlat": "Flat roof",
+      "orientNord": "North (180°)",
+      "conformiteStatutJuridique": "Co-ownership, non-profit association or cooperative",
+      "conformitePerimetre": "Same transformer station or < 1 km",
+      "conformiteContratRepartition": "Distribution agreement between participants required",
+      "conformiteDeclarationILR": "Declaration to the ILR mandatory",
+      "conformiteLoiReference": "Law of 21 May 2021 (RED II transposition)",
+      "conformiteReglementILR": "ILR Regulation E23/14",
+      "chartProductionLabel": "PV Production",
+      "chartConsoMoyLabel": "Avg. cons.",
+      "chartMois": "month",
+      "participants": "participants"
     },
     "epbd": {
       "title": "EPBD Directive — Timeline & Stranding Risk",

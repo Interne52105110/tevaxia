@@ -494,7 +494,25 @@
         "faq3a": "Membere muessen um selwechte Verteilnetz sin.",
         "faq4q": "Wei grennt ech eng Energiegemeinschaft?",
         "faq4a": "Myenergy kontakteieren, Grupp bilden, beim ILR mellen."
-      }
+      },
+      "orientSud": "Süd (0°)",
+      "orientSudEst": "Süd-Ost (-45°)",
+      "orientSudOuest": "Süd-West (45°)",
+      "orientEst": "Ost (-90°)",
+      "orientOuest": "West (90°)",
+      "orientEstOuest": "Ost-West (bi)",
+      "orientPlat": "Flaachdaach",
+      "orientNord": "Nord (180°)",
+      "conformiteStatutJuridique": "Copropriétéit, ASBL oder Kooperativ",
+      "conformitePerimetre": "Selwechten Transformateurposten oder < 1 km",
+      "conformiteContratRepartition": "Verdeelungskontrakt tëschent den Participanten néideg",
+      "conformiteDeclarationILR": "Deklaratioun beim ILR obligatoresch",
+      "conformiteLoiReference": "Gesetz vum 21. Mee 2021 (Ëmsetzung RED II)",
+      "conformiteReglementILR": "ILR-Reglement E23/14",
+      "chartProductionLabel": "PV-Produktioun",
+      "chartConsoMoyLabel": "Duerchschn. Verbr.",
+      "chartMois": "Mount",
+      "participants": "Participanten"
     },
     "epbd": {
       "title": "EPBD Direktiv — Chronologie a Stranding-Risiko",

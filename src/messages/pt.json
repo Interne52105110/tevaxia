@@ -494,7 +494,25 @@
         "faq3a": "Membros devem estar na mesma rede de distribuicao.",
         "faq4q": "Como criar uma comunidade?",
         "faq4a": "Contactar Myenergy, formar grupo, definir regras, declarar ao ILR."
-      }
+      },
+      "orientSud": "Sul (0°)",
+      "orientSudEst": "Sudeste (-45°)",
+      "orientSudOuest": "Sudoeste (45°)",
+      "orientEst": "Leste (-90°)",
+      "orientOuest": "Oeste (90°)",
+      "orientEstOuest": "Leste-Oeste (bi)",
+      "orientPlat": "Telhado plano",
+      "orientNord": "Norte (180°)",
+      "conformiteStatutJuridique": "Condomínio, associação ou cooperativa",
+      "conformitePerimetre": "Mesmo posto de transformação ou < 1 km",
+      "conformiteContratRepartition": "Contrato de repartição entre participantes obrigatório",
+      "conformiteDeclarationILR": "Declaração ao ILR obrigatória",
+      "conformiteLoiReference": "Lei de 21 de maio de 2021 (transposição RED II)",
+      "conformiteReglementILR": "Regulamento ILR E23/14",
+      "chartProductionLabel": "Produção FV",
+      "chartConsoMoyLabel": "Cons. médio",
+      "chartMois": "mês",
+      "participants": "participantes"
     },
     "epbd": {
       "title": "Diretiva EPBD — Cronologia e risco de stranding",
