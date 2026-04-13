@@ -12,6 +12,7 @@ import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/marke
 import dynamic from "next/dynamic";
 import { generateCartePdfBlob, PdfButton } from "@/components/ToolsPdf";
 import MarketAlertButton from "@/components/MarketAlertButton";
+import SEOContent from "@/components/SEOContent";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
 
@@ -105,6 +106,7 @@ export default function Carte() {
   }, [sortedCommunes]);
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -492,5 +494,27 @@ export default function Carte() {
         </div>
       </div>
     </div>
+
+    <SEOContent
+      ns="carte"
+      sections={[
+        { titleKey: "prixTitle", contentKey: "prixContent" },
+        { titleKey: "lireTitle", contentKey: "lireContent" },
+        { titleKey: "evolutionTitle", contentKey: "evolutionContent" },
+        { titleKey: "communesTitle", contentKey: "communesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/estimation", labelKey: "estimation" },
+        { href: "/indices", labelKey: "indices" },
+      ]}
+    />
+    </>
   );
 }

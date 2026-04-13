@@ -275,8 +275,8 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {[
-              { value: "16+", label: t("stats.tools") },
-              { value: "7", label: t("stats.energySimulators") },
+              { value: "18+", label: t("stats.tools") },
+              { value: "8", label: t("stats.energySimulators") },
               { value: "100", label: t("stats.communes") },
               { value: "5", label: t("stats.languages") },
             ].map((stat) => (

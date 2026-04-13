@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type { MarketDataCommune } from "@/lib/market-data";
 import { COMMUNE_COORDS } from "@/lib/communes-coords";
 import { formatEUR } from "@/lib/calculations";
+import { getGeoportailWMSUrl } from "@/lib/geoportail";
 
 // Leaflet est importé dynamiquement côté client uniquement
 let L: typeof import("leaflet") | null = null;

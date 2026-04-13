@@ -167,7 +167,7 @@
       "languages": "Sprachen (FR/EN/DE/PT/LB)"
     },
     "contact": {
-      "tevaxiaTitle": "tevaxia.lu — 12+ Tools",
+      "tevaxiaTitle": "tevaxia.lu — 18+ Tools",
       "tevaxiaLine1": "Bewertung, Preiskarte, Bewertung EVS 2025",
       "tevaxiaLine2": "DCF Mehrmieter, Projektentwicklerbilanz, Banktools",
       "tevaxiaLine3": "Gebühren, Veräußerungsgewinne, Förderungen, VEFA, Kauf vs. Miete",
@@ -1549,7 +1549,29 @@
     "employmentRate": "Beschäftigungsquote",
     "demographicsSource": "Quelle: STATEC, Nationales Personenregister",
     "neighborhoods": "Stadtviertel",
-    "clickCommune": "Klicken Sie auf eine Gemeinde, um Preisdetails und Demographie anzuzeigen."
+    "clickCommune": "Klicken Sie auf eine Gemeinde, um Preisdetails und Demographie anzuzeigen.",
+    "seo": {
+      "faqTitle": "FAQ",
+      "relatedTitle": "Related tools",
+      "prixTitle": "Property prices by municipality in Luxembourg",
+      "prixContent": "<p>The tevaxia price map displays average prices per square metre for each Luxembourg municipality, based on data from the Housing Observatory and STATEC.</p>",
+      "lireTitle": "How to read the price map",
+      "lireContent": "<p>Data comes from two sources: <strong>transaction prices</strong> (notarial deeds) and <strong>listing prices</strong> (property portals, typically 5-15% higher).</p>",
+      "evolutionTitle": "Price trends 2015-2026",
+      "evolutionContent": "<p>The Luxembourg market saw exceptional growth from 2015 to 2021, followed by a correction in 2023. Since mid-2024, prices have been stabilising.</p>",
+      "communesTitle": "Most sought-after municipalities",
+      "communesContent": "<p>The most popular municipalities combine accessibility, quality of life and long-term value appreciation.</p>",
+      "faq1q": "Where does the price data come from?",
+      "faq1a": "Prices come from the Housing Observatory (Ministry of Housing) and aggregated listing prices from major Luxembourg property portals.",
+      "faq2q": "How often are prices updated?",
+      "faq2a": "Transaction data is published quarterly by the Housing Observatory. Listing prices are updated more frequently.",
+      "faq3q": "Why is there a gap between transaction and listing prices?",
+      "faq3a": "Listing prices are asking prices set by sellers, typically 5-15% higher than actual negotiated prices.",
+      "faq4q": "How is the market score calculated?",
+      "faq4a": "The market score (0-100) combines three factors: municipality attractiveness, transaction volume, and recent price trends.",
+      "faq5q": "Do prices include notary fees?",
+      "faq5a": "No, prices shown exclude fees. In Luxembourg, acquisition costs are approximately 7-10% for existing properties."
+    }
   },
   "outilsBancaires": {
     "title": "Bankwerkzeuge",

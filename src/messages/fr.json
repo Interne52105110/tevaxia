@@ -167,7 +167,7 @@
       "languages": "Langues (FR/EN/DE/PT/LB)"
     },
     "contact": {
-      "tevaxiaTitle": "tevaxia.lu — 12+ outils",
+      "tevaxiaTitle": "tevaxia.lu — 18+ outils",
       "tevaxiaLine1": "Estimation, carte des prix, valorisation EVS 2025",
       "tevaxiaLine2": "DCF multi-locataires, bilan promoteur, outils bancaires",
       "tevaxiaLine3": "Frais, plus-values, aides, VEFA, achat vs location",
@@ -1569,7 +1569,29 @@
     "employmentRate": "Taux d'emploi",
     "demographicsSource": "Source : STATEC, Registre national des personnes physiques",
     "neighborhoods": "Quartiers",
-    "clickCommune": "Cliquez sur une commune pour afficher le détail des prix et la démographie."
+    "clickCommune": "Cliquez sur une commune pour afficher le détail des prix et la démographie.",
+    "seo": {
+      "faqTitle": "Questions fréquentes",
+      "relatedTitle": "Outils complémentaires",
+      "prixTitle": "Prix immobiliers par commune au Luxembourg",
+      "prixContent": "<p>La carte des prix tevaxia affiche les prix moyens au mètre carré pour chaque commune du Luxembourg, basés sur les données de l'Observatoire de l'Habitat et du STATEC. Les prix sont différenciés entre <strong>biens existants</strong> (actes notariés) et <strong>biens neufs</strong> (VEFA), avec les loyers moyens par commune.</p><p>Le Luxembourg compte 102 communes avec des écarts de prix significatifs : de plus de 12 000 €/m² dans les communes premium (Strassen, Luxembourg-Ville, Bertrange) à moins de 5 000 €/m² dans le nord du pays (Wincrange, Clervaux, Wiltz).</p>",
+      "lireTitle": "Comment lire la carte des prix",
+      "lireContent": "<p>Les données affichées proviennent de deux sources complémentaires :</p><ul><li><strong>Prix transactions</strong> : prix réels issus des actes notariés enregistrés à l'Administration de l'enregistrement, des domaines et de la TVA (AED). Ce sont les prix les plus fiables.</li><li><strong>Prix annonces</strong> : prix demandés sur les portails immobiliers (atHome.lu, immotop.lu). Généralement 5-15% supérieurs aux prix de transaction.</li></ul><p>Le <strong>score marché</strong> synthétise attractivité, dynamisme des transactions et tendance des prix sur une échelle de 0 à 100.</p>",
+      "evolutionTitle": "Évolution des prix 2015-2026",
+      "evolutionContent": "<p>Le marché luxembourgeois a connu une croissance exceptionnelle de 2015 à 2021 (+13,9% en 2021), suivie d'une correction en 2023 (-7,8%) liée à la hausse des taux d'intérêt. Depuis mi-2024, le marché se stabilise avec une légère reprise estimée à +2,1% en 2025.</p><p>Cette correction a été plus marquée dans les communes périphériques que dans les centres urbains, créant des opportunités pour les acquéreurs avec un apport suffisant.</p>",
+      "communesTitle": "Les communes les plus recherchées",
+      "communesContent": "<p>Les communes les plus prisées combinent accessibilité (transports, commerces, écoles), cadre de vie et valorisation patrimoniale :</p><ul><li><strong>Luxembourg-Ville</strong> : centre économique, prix les plus élevés, forte demande internationale</li><li><strong>Hesperange, Strassen, Bertrange</strong> : résidentiel premium proche de la capitale</li><li><strong>Esch-sur-Alzette</strong> : 2ème ville du pays, en pleine transformation (Belval)</li><li><strong>Mamer, Walferdange, Sandweiler</strong> : communes familiales bien desservies</li></ul>",
+      "faq1q": "D'où viennent les données de prix ?",
+      "faq1a": "Les prix proviennent de l'Observatoire de l'Habitat (Ministère du Logement), qui compile les transactions notariées enregistrées à l'AED, et des prix d'annonces agrégés depuis les principaux portails immobiliers luxembourgeois.",
+      "faq2q": "À quelle fréquence les prix sont-ils mis à jour ?",
+      "faq2a": "Les données de transactions sont publiées trimestriellement par l'Observatoire de l'Habitat. Les prix d'annonces sont mis à jour plus fréquemment. Notre base intègre les dernières données disponibles.",
+      "faq3q": "Pourquoi y a-t-il un écart entre prix de transaction et prix d'annonces ?",
+      "faq3a": "Les prix d'annonces sont les prix demandés par les vendeurs, généralement 5 à 15% supérieurs aux prix réellement négociés. L'écart varie selon les communes et la conjoncture du marché.",
+      "faq4q": "Comment est calculé le score marché ?",
+      "faq4a": "Le score marché (0-100) combine trois facteurs : l'attractivité de la commune (prix, démographie, services), le dynamisme des transactions (volume et liquidité) et la tendance récente des prix.",
+      "faq5q": "Les prix incluent-ils les frais de notaire ?",
+      "faq5a": "Non, les prix affichés sont hors frais. Au Luxembourg, les frais d'acquisition (droits d'enregistrement + transcription + notaire) représentent environ 7-10% du prix pour un bien ancien. Utilisez notre calculateur de frais d'acquisition pour une estimation précise."
+    }
   },
   "outilsBancaires": {
     "title": "Outils bancaires",
