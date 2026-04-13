@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
@@ -124,6 +125,7 @@ function extractSurface(v: SavedValuation): number {
 /* ------------------------------------------------------------------ */
 
 export default function Portfolio() {
+  const t = useTranslations("portfolio");
   const [assets, setAssets] = useState<PortfolioAsset[]>(DEFAULT_ASSETS);
   const [savedValuations, setSavedValuations] = useState<SavedValuation[]>([]);
   const hydrated = useRef(false);
@@ -171,7 +173,7 @@ export default function Portfolio() {
   const unifiedProperties = useMemo<UnifiedProperty[]>(() => {
     const fromManual: UnifiedProperty[] = assets.map((a) => ({
       id: `manual-${a.id}`,
-      nom: a.nom || "Actif sans nom",
+      nom: a.nom || t("unnamedAsset"),
       commune: a.commune,
       valeur: a.valeur,
       surface: a.surface,
@@ -370,8 +372,8 @@ export default function Portfolio() {
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-navy sm:text-3xl">Portfolio immobilier</h1>
-            <p className="mt-2 text-muted">Agregez vos biens et suivez la performance globale</p>
+            <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+            <p className="mt-2 text-muted">{t("subtitle")}</p>
           </div>
           <button
             onClick={handlePdfExport}
@@ -380,7 +382,7 @@ export default function Portfolio() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
-            Exporter PDF
+            {t("exportPdf")}
           </button>
         </div>
 
@@ -390,44 +392,44 @@ export default function Portfolio() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
           {/* Total value */}
           <div className="rounded-2xl bg-gradient-to-br from-navy to-navy-light p-6 text-white">
-            <div className="text-xs text-white/60">Valeur totale</div>
+            <div className="text-xs text-white/60">{t("totalValue")}</div>
             <div className="text-2xl font-bold mt-1">{formatEUR(stats.valeurTotale)}</div>
-            <div className="mt-2 text-xs text-white/50">{stats.nbProperties} bien{stats.nbProperties > 1 ? "s" : ""}</div>
+            <div className="mt-2 text-xs text-white/50">{t("propertiesCount", { count: stats.nbProperties })}</div>
           </div>
 
           {/* Average price / m2 */}
           <div className="rounded-2xl border border-card-border bg-card p-6 shadow-sm">
-            <div className="text-xs text-muted">Prix moyen / m2</div>
+            <div className="text-xs text-muted">{t("avgPriceM2")}</div>
             <div className="text-2xl font-bold text-navy mt-1">
               {stats.avgPrixM2 > 0 ? formatEUR(stats.avgPrixM2) : "--"}
             </div>
-            <div className="mt-2 text-xs text-muted">{stats.surfaceTotale > 0 ? `${Math.round(stats.surfaceTotale)} m2 total` : "Aucune surface"}</div>
+            <div className="mt-2 text-xs text-muted">{stats.surfaceTotale > 0 ? `${Math.round(stats.surfaceTotale)} m2 ${t("total")}` : t("noSurface")}</div>
           </div>
 
           {/* Number of properties */}
           <div className="rounded-2xl border border-card-border bg-card p-6 shadow-sm">
-            <div className="text-xs text-muted">Nombre de biens</div>
+            <div className="text-xs text-muted">{t("numberOfProperties")}</div>
             <div className="text-2xl font-bold text-navy mt-1">{stats.nbProperties}</div>
             <div className="mt-2 text-xs text-muted">
-              {assets.length} manuel{assets.length > 1 ? "s" : ""} + {savedValuations.filter((v) => v.valeurPrincipale && v.valeurPrincipale > 0).length} evaluation{savedValuations.filter((v) => v.valeurPrincipale && v.valeurPrincipale > 0).length > 1 ? "s" : ""}
+              {t("manualCount", { count: assets.length })} + {t("evaluationCount", { count: savedValuations.filter((v) => v.valeurPrincipale && v.valeurPrincipale > 0).length })}
             </div>
           </div>
 
           {/* Average energy score */}
           <div className="rounded-2xl border border-card-border bg-card p-6 shadow-sm">
-            <div className="text-xs text-muted">Score energetique moyen</div>
+            <div className="text-xs text-muted">{t("avgEnergyScore")}</div>
             {stats.avgEnergyClass ? (
               <div className="flex items-center gap-3 mt-1">
                 <span className={`inline-flex items-center justify-center w-10 h-10 rounded-lg text-lg font-bold ${ENERGY_COLORS[stats.avgEnergyClass] || "bg-gray-200 text-gray-700"}`}>
                   {stats.avgEnergyClass}
                 </span>
-                <span className="text-sm text-slate-600">{stats.withEnergyCount} bien{stats.withEnergyCount > 1 ? "s" : ""} avec CPE</span>
+                <span className="text-sm text-slate-600">{t("propertiesWithEPC", { count: stats.withEnergyCount })}</span>
               </div>
             ) : (
               <div className="text-2xl font-bold text-navy mt-1">--</div>
             )}
             <div className="mt-2 text-xs text-muted">
-              {stats.avgEnergyClass ? `Score ${stats.avgEnergyScore.toFixed(1)} / 9` : "Aucune classe CPE"}
+              {stats.avgEnergyClass ? `${t("score")} ${stats.avgEnergyScore.toFixed(1)} / 9` : t("noEPC")}
             </div>
           </div>
         </div>
@@ -437,8 +439,8 @@ export default function Portfolio() {
         {/* ============================================================ */}
         {chartData.length > 1 && (
           <div className="mb-8 rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-sm font-semibold text-navy mb-1">Evolution de la valeur du portfolio</h3>
-            <p className="text-[10px] text-muted mb-4">Valeur cumulee des evaluations sauvegardees, par date d&apos;ajout</p>
+            <h3 className="text-sm font-semibold text-navy mb-1">{t("chartTitle")}</h3>
+            <p className="text-[10px] text-muted mb-4">{t("chartSubtitle")}</p>
             <ResponsiveContainer width="100%" height={240}>
               <AreaChart data={chartData} margin={{ top: 5, right: 10, bottom: 0, left: -10 }}>
                 <defs>
@@ -455,7 +457,7 @@ export default function Portfolio() {
                   tickFormatter={(v: number) => `${(v / 1000000).toFixed(1)}M`}
                 />
                 <Tooltip
-                  formatter={(value) => [formatEUR(Number(value)), "Valeur"]}
+                  formatter={(value) => [formatEUR(Number(value)), t("value")]}
                   contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid #e5e2db" }}
                 />
                 <Area
@@ -474,10 +476,10 @@ export default function Portfolio() {
         {chartData.length <= 1 && savedValuations.length === 0 && (
           <div className="mb-8 rounded-xl border border-dashed border-card-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted">
-              Sauvegardez des evaluations depuis les outils (Estimation, Valorisation, etc.) pour voir l&apos;evolution de votre portfolio dans le temps.
+              {t("emptyChartHint")}
             </p>
             <Link href="/estimation" className="mt-3 inline-block text-sm font-medium text-navy hover:underline">
-              Commencer une estimation &rarr;
+              {t("startEstimation")} &rarr;
             </Link>
           </div>
         )}
@@ -488,7 +490,7 @@ export default function Portfolio() {
         {unifiedProperties.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base font-semibold text-navy">Comparaison des biens</h2>
+              <h2 className="text-base font-semibold text-navy">{t("comparisonTitle")}</h2>
               {/* Tab filter */}
               <div className="flex items-center gap-1 rounded-lg border border-card-border bg-background p-0.5">
                 {(["all", "manual", "saved"] as const).map((tab) => (
@@ -501,7 +503,7 @@ export default function Portfolio() {
                         : "text-muted hover:text-navy"
                     }`}
                   >
-                    {tab === "all" ? "Tous" : tab === "manual" ? "Manuels" : "Evaluations"}
+                    {tab === "all" ? t("tabAll") : tab === "manual" ? t("tabManual") : t("tabEvaluations")}
                   </button>
                 ))}
               </div>
@@ -512,13 +514,13 @@ export default function Portfolio() {
                 <thead>
                   <tr className="border-b border-card-border bg-background">
                     {([
-                      ["nom", "Nom"],
-                      ["commune", "Commune"],
-                      ["valeur", "Valeur"],
-                      ["surface", "Surface"],
-                      ["prixM2", "Prix/m2"],
-                      ["energyClass", "Classe CPE"],
-                      ["date", "Date"],
+                      ["nom", t("headerName")],
+                      ["commune", t("headerCommune")],
+                      ["valeur", t("headerValue")],
+                      ["surface", t("headerSurface")],
+                      ["prixM2", t("headerPriceM2")],
+                      ["energyClass", t("headerEnergy")],
+                      ["date", t("headerDate")],
                     ] as [SortKey, string][]).map(([key, label]) => (
                       <th
                         key={key}
@@ -544,8 +546,8 @@ export default function Portfolio() {
                         <td className="px-3 py-2 font-medium">
                           <div className="flex items-center gap-2">
                             {p.nom}
-                            {isBest && <span className="inline-flex items-center rounded-full bg-green-100 px-1.5 py-0.5 text-[10px] font-semibold text-green-700">Meilleur</span>}
-                            {isWorst && <span className="inline-flex items-center rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-semibold text-red-700">Plus faible</span>}
+                            {isBest && <span className="inline-flex items-center rounded-full bg-green-100 px-1.5 py-0.5 text-[10px] font-semibold text-green-700">{t("best")}</span>}
+                            {isWorst && <span className="inline-flex items-center rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-semibold text-red-700">{t("worst")}</span>}
                           </div>
                         </td>
                         <td className="px-3 py-2">{p.commune || "--"}</td>
@@ -580,30 +582,30 @@ export default function Portfolio() {
           {/* KPIs */}
           <div className="space-y-6">
             <div className="rounded-2xl bg-gradient-to-br from-navy to-navy-light p-6 text-white">
-              <div className="text-xs text-white/60">Valeur totale (biens manuels)</div>
+              <div className="text-xs text-white/60">{t("totalValueManual")}</div>
               <div className="text-3xl font-bold mt-1">{formatEUR(assets.reduce((s, a) => s + a.valeur, 0))}</div>
               <div className="mt-3 grid grid-cols-2 gap-3 text-xs">
-                <div><span className="text-white/50">Equity</span><br/><span className="font-semibold">{formatEUR(stats.equityTotale)}</span></div>
-                <div><span className="text-white/50">Dette</span><br/><span className="font-semibold">{formatEUR(stats.detteTotale)}</span></div>
+                <div><span className="text-white/50">{t("equity")}</span><br/><span className="font-semibold">{formatEUR(stats.equityTotale)}</span></div>
+                <div><span className="text-white/50">{t("debt")}</span><br/><span className="font-semibold">{formatEUR(stats.detteTotale)}</span></div>
               </div>
             </div>
 
             <ResultPanel
-              title="Indicateurs portfolio"
+              title={t("kpiTitle")}
               lines={[
-                { label: "Nombre d'actifs", value: String(stats.nbActifs) },
-                { label: "Surface totale", value: `${assets.reduce((s, a) => s + a.surface, 0)} m2` },
-                { label: "Loyer total annuel", value: formatEUR(stats.loyerTotal) },
-                { label: "Rendement brut", value: formatPct(stats.rendementBrut) },
-                { label: "Rendement net estime (-30% charges)", value: formatPct(stats.rendementNet) },
-                { label: "Rendement sur equity", value: formatPct(stats.rendementEquity), highlight: true },
-                { label: "LTV global", value: formatPct(stats.ltvGlobal), warning: stats.ltvGlobal > 0.75 },
+                { label: t("kpiNbAssets"), value: String(stats.nbActifs) },
+                { label: t("kpiTotalSurface"), value: `${assets.reduce((s, a) => s + a.surface, 0)} m2` },
+                { label: t("kpiAnnualRent"), value: formatEUR(stats.loyerTotal) },
+                { label: t("kpiGrossYield"), value: formatPct(stats.rendementBrut) },
+                { label: t("kpiNetYield"), value: formatPct(stats.rendementNet) },
+                { label: t("kpiEquityYield"), value: formatPct(stats.rendementEquity), highlight: true },
+                { label: t("kpiLTV"), value: formatPct(stats.ltvGlobal), warning: stats.ltvGlobal > 0.75 },
               ]}
             />
 
             {/* Repartition */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="text-sm font-semibold text-navy mb-3">Repartition par type</h3>
+              <h3 className="text-sm font-semibold text-navy mb-3">{t("distributionByType")}</h3>
               <div className="space-y-2">
                 {Object.entries(stats.parType).map(([type, data]) => (
                   <div key={type} className="flex items-center justify-between text-sm">
@@ -621,37 +623,37 @@ export default function Portfolio() {
           {/* Actifs manuels */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-semibold text-navy">Actifs manuels ({assets.length})</h2>
-              <button onClick={addAsset} className="rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-light transition-colors">+ Ajouter</button>
+              <h2 className="text-base font-semibold text-navy">{t("manualAssets", { count: assets.length })}</h2>
+              <button onClick={addAsset} className="rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-light transition-colors">{t("addAsset")}</button>
             </div>
 
             {assets.map((asset, i) => (
               <div key={asset.id} className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-semibold text-navy">{asset.nom || `Actif ${i + 1}`}</span>
+                  <span className="text-sm font-semibold text-navy">{asset.nom || `${t("asset")} ${i + 1}`}</span>
                   <div className="flex items-center gap-3">
-                    <Link href="/estimation" className="text-xs text-navy hover:underline font-medium">Re-estimer</Link>
-                    <button onClick={() => removeAsset(i)} className="text-xs text-error hover:underline">Supprimer</button>
+                    <Link href="/estimation" className="text-xs text-navy hover:underline font-medium">{t("reEstimate")}</Link>
+                    <button onClick={() => removeAsset(i)} className="text-xs text-error hover:underline">{t("delete")}</button>
                   </div>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-4">
-                  <InputField label="Nom" type="text" value={asset.nom} onChange={(v) => updateAsset(i, "nom", v)} />
-                  <InputField label="Type" type="select" value={asset.type} onChange={(v) => updateAsset(i, "type", v)} options={[
-                    { value: "Appartement", label: "Appartement" },
-                    { value: "Maison", label: "Maison" },
-                    { value: "Bureau", label: "Bureau" },
-                    { value: "Commerce", label: "Commerce" },
-                    { value: "Logistique", label: "Logistique" },
-                    { value: "Terrain", label: "Terrain" },
-                    { value: "Autre", label: "Autre" },
+                  <InputField label={t("fieldName")} type="text" value={asset.nom} onChange={(v) => updateAsset(i, "nom", v)} />
+                  <InputField label={t("fieldType")} type="select" value={asset.type} onChange={(v) => updateAsset(i, "type", v)} options={[
+                    { value: "Appartement", label: t("typeAppartement") },
+                    { value: "Maison", label: t("typeMaison") },
+                    { value: "Bureau", label: t("typeBureau") },
+                    { value: "Commerce", label: t("typeCommerce") },
+                    { value: "Logistique", label: t("typeLogistique") },
+                    { value: "Terrain", label: t("typeTerrain") },
+                    { value: "Autre", label: t("typeAutre") },
                   ]} />
-                  <InputField label="Commune" type="text" value={asset.commune} onChange={(v) => updateAsset(i, "commune", v)} />
-                  <InputField label="Surface" value={asset.surface} onChange={(v) => updateAsset(i, "surface", v)} suffix="m2" />
-                  <InputField label="Valeur" value={asset.valeur} onChange={(v) => updateAsset(i, "valeur", v)} suffix="EUR" />
-                  <InputField label="Loyer annuel" value={asset.loyerAnnuel} onChange={(v) => updateAsset(i, "loyerAnnuel", v)} suffix="EUR" />
-                  <InputField label="Dette" value={asset.dette} onChange={(v) => updateAsset(i, "dette", v)} suffix="EUR" />
+                  <InputField label={t("fieldCommune")} type="text" value={asset.commune} onChange={(v) => updateAsset(i, "commune", v)} />
+                  <InputField label={t("fieldSurface")} value={asset.surface} onChange={(v) => updateAsset(i, "surface", v)} suffix="m2" />
+                  <InputField label={t("fieldValue")} value={asset.valeur} onChange={(v) => updateAsset(i, "valeur", v)} suffix="EUR" />
+                  <InputField label={t("fieldAnnualRent")} value={asset.loyerAnnuel} onChange={(v) => updateAsset(i, "loyerAnnuel", v)} suffix="EUR" />
+                  <InputField label={t("fieldDebt")} value={asset.dette} onChange={(v) => updateAsset(i, "dette", v)} suffix="EUR" />
                   <div className="flex items-end text-xs text-muted pb-2">
-                    Rdt: {asset.valeur > 0 ? formatPct(asset.loyerAnnuel / asset.valeur) : "--"}
+                    {t("yield")}: {asset.valeur > 0 ? formatPct(asset.loyerAnnuel / asset.valeur) : "--"}
                   </div>
                 </div>
               </div>
@@ -662,12 +664,12 @@ export default function Portfolio() {
               <table className="w-full text-xs">
                 <thead>
                   <tr className="border-b border-card-border bg-background">
-                    <th className="px-3 py-2 text-left font-semibold text-navy">Actif</th>
-                    <th className="px-3 py-2 text-right font-semibold text-navy">Valeur</th>
-                    <th className="px-3 py-2 text-right font-semibold text-navy">Loyer</th>
-                    <th className="px-3 py-2 text-right font-semibold text-navy">Rdt brut</th>
-                    <th className="px-3 py-2 text-right font-semibold text-navy">LTV</th>
-                    <th className="px-3 py-2 text-right font-semibold text-navy">% portfolio</th>
+                    <th className="px-3 py-2 text-left font-semibold text-navy">{t("headerAsset")}</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">{t("headerValue")}</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">{t("headerRent")}</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">{t("headerGrossYield")}</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">{t("headerLTV")}</th>
+                    <th className="px-3 py-2 text-right font-semibold text-navy">{t("headerPortfolioPct")}</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -2,24 +2,26 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { listerEvaluations, supprimerEvaluation, supprimerTout, listerCorbeille, restaurerEvaluation, supprimerDefinitivement, viderCorbeille, type SavedValuation, type TrashedValuation } from "@/lib/storage";
 import { formatEUR } from "@/lib/calculations";
 
-const TYPE_LABELS: Record<string, { label: string; href: string }> = {
-  estimation: { label: "Estimation", href: "/estimation" },
-  valorisation: { label: "Valorisation EVS", href: "/valorisation" },
-  capitalisation: { label: "Capitalisation", href: "/valorisation" },
-  dcf: { label: "DCF", href: "/valorisation" },
-  "dcf-multi": { label: "DCF Multi-locataires", href: "/dcf-multi" },
-  frais: { label: "Frais d'acquisition", href: "/frais-acquisition" },
-  "plus-values": { label: "Plus-values", href: "/plus-values" },
-  loyer: { label: "Capital investi / Loyer", href: "/calculateur-loyer" },
-  aides: { label: "Simulateur d'aides", href: "/simulateur-aides" },
-  "achat-location": { label: "Achat vs Location", href: "/achat-vs-location" },
-  "bilan-promoteur": { label: "Bilan promoteur", href: "/bilan-promoteur" },
-};
-
 export default function MesEvaluations() {
+  const t = useTranslations("mesEvaluations");
+
+  const TYPE_LABELS: Record<string, { label: string; href: string }> = {
+    estimation: { label: t("typeEstimation"), href: "/estimation" },
+    valorisation: { label: t("typeValorisationEVS"), href: "/valorisation" },
+    capitalisation: { label: t("typeCapitalisation"), href: "/valorisation" },
+    dcf: { label: t("typeDCF"), href: "/valorisation" },
+    "dcf-multi": { label: t("typeDCFMulti"), href: "/dcf-multi" },
+    frais: { label: t("typeFrais"), href: "/frais-acquisition" },
+    "plus-values": { label: t("typePlusValues"), href: "/plus-values" },
+    loyer: { label: t("typeLoyer"), href: "/calculateur-loyer" },
+    aides: { label: t("typeAides"), href: "/simulateur-aides" },
+    "achat-location": { label: t("typeAchatLocation"), href: "/achat-vs-location" },
+    "bilan-promoteur": { label: t("typeBilanPromoteur"), href: "/bilan-promoteur" },
+  };
   const [evaluations, setEvaluations] = useState<SavedValuation[]>([]);
   const [trash, setTrash] = useState<TrashedValuation[]>([]);
   const [showTrash, setShowTrash] = useState(false);
@@ -67,8 +69,8 @@ export default function MesEvaluations() {
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-navy sm:text-3xl">Mes évaluations</h1>
-            <p className="mt-2 text-muted">Sauvegardées localement dans votre navigateur</p>
+            <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+            <p className="mt-2 text-muted">{t("subtitle")}</p>
           </div>
           <div className="flex items-center gap-2">
             {trash.length > 0 && (
@@ -79,7 +81,7 @@ export default function MesEvaluations() {
                 <svg className="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                 </svg>
-                Corbeille
+                {t("trash")}
                 <span className="ml-1 inline-flex items-center justify-center rounded-full bg-amber-500 px-1.5 py-0.5 text-[10px] font-bold text-white">{trash.length}</span>
               </button>
             )}
@@ -88,7 +90,7 @@ export default function MesEvaluations() {
                 onClick={handleDeleteAll}
                 className="rounded-lg border border-error/30 px-3 py-2 text-xs font-medium text-error hover:bg-error/5 transition-colors"
               >
-                Tout supprimer
+                {t("deleteAll")}
               </button>
             )}
           </div>
@@ -96,12 +98,12 @@ export default function MesEvaluations() {
 
         {evaluations.length === 0 ? (
           <div className="rounded-xl border-2 border-dashed border-card-border py-16 text-center">
-            <p className="text-lg text-muted">Aucune évaluation sauvegardée</p>
+            <p className="text-lg text-muted">{t("noEvaluations")}</p>
             <p className="mt-2 text-sm text-muted">
-              Utilisez le bouton "Sauvegarder" dans les calculateurs pour enregistrer vos travaux.
+              {t("hint")}
             </p>
             <Link href="/valorisation" className="mt-4 inline-block rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-light transition-colors">
-              Commencer une évaluation
+              {t("startEvaluation")}
             </Link>
           </div>
         ) : (
@@ -128,10 +130,10 @@ export default function MesEvaluations() {
                   )}
                   <div className="flex gap-2 shrink-0">
                     <Link href={typeInfo.href} className="rounded-lg bg-navy/10 px-3 py-1.5 text-xs font-medium text-navy hover:bg-navy/20 transition-colors">
-                      Ouvrir
+                      {t("open")}
                     </Link>
                     <button onClick={() => handleDelete(ev.id)} className="rounded-lg border border-card-border px-3 py-1.5 text-xs text-muted hover:text-error hover:border-error/30 transition-colors">
-                      Supprimer
+                      {t("delete")}
                     </button>
                   </div>
                 </div>
@@ -148,11 +150,11 @@ export default function MesEvaluations() {
                 <svg className="h-4 w-4 text-amber-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                 </svg>
-                <span className="text-sm font-semibold text-amber-800">Corbeille ({trash.length})</span>
-                <span className="text-xs text-amber-600">Suppression automatique après 7 jours</span>
+                <span className="text-sm font-semibold text-amber-800">{t("trashCount", { count: trash.length })}</span>
+                <span className="text-xs text-amber-600">{t("autoDelete")}</span>
               </div>
               <button onClick={handleEmptyTrash} className="text-xs text-red-600 hover:text-red-800 font-medium">
-                Vider la corbeille
+                {t("emptyTrash")}
               </button>
             </div>
             <div className="divide-y divide-amber-100">
@@ -172,10 +174,10 @@ export default function MesEvaluations() {
                     </div>
                     <div className="flex gap-2 shrink-0">
                       <button onClick={() => handleRestore(item.id)} className="rounded-lg bg-green-50 border border-green-200 px-3 py-1.5 text-xs font-medium text-green-700 hover:bg-green-100 transition-colors">
-                        Restaurer
+                        {t("restore")}
                       </button>
                       <button onClick={() => handleDeletePermanent(item.id)} className="rounded-lg border border-card-border px-3 py-1.5 text-xs text-muted hover:text-error hover:border-error/30 transition-colors">
-                        Supprimer
+                        {t("delete")}
                       </button>
                     </div>
                   </div>
@@ -187,9 +189,7 @@ export default function MesEvaluations() {
 
         <div className="mt-8 rounded-lg bg-amber-50 border border-amber-200 p-3">
           <p className="text-xs text-amber-800 leading-relaxed">
-            <strong>Stockage local :</strong> Vos évaluations sont sauvegardées dans le navigateur (localStorage).
-            Les éléments supprimés sont conservés dans la corbeille pendant 7 jours avant suppression définitive.
-            Maximum 50 évaluations conservées.
+            <strong>{t("storageTitle")}</strong> {t("storageNote")}
           </p>
         </div>
       </div>

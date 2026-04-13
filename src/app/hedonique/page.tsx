@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2 } from "@/lib/calculations";
@@ -13,31 +14,32 @@ import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR, type AdjustmentSuggestion } f
 
 interface HedonicCoefficient {
   variable: string;
-  label: string;
+  labelKey: string;
   coefficient: number; // Impact en % sur le prix
-  source: string;
+  sourceKey: string;
 }
 
 // Coefficients calibrés sur les données luxembourgeoises
 // Source : Observatoire de l'Habitat (modèle hédonique), publications académiques
 const COEFFICIENTS: HedonicCoefficient[] = [
-  { variable: "surface", label: "Surface (par m² supplémentaire au-delà de 80m²)", coefficient: -0.35, source: "Élasticité surface : -0.35%/m² au-delà de 80m²" },
-  { variable: "etage_rdc", label: "Rez-de-chaussée (vs 2e-3e)", coefficient: -7, source: "Observatoire hédonique" },
-  { variable: "etage_1er", label: "1er étage (vs 2e-3e)", coefficient: -3, source: "Observatoire hédonique" },
-  { variable: "etage_haut", label: "4e+ étage (vs 2e-3e)", coefficient: 3, source: "Observatoire hédonique" },
-  { variable: "etage_attique", label: "Attique / dernier étage", coefficient: 8, source: "Observatoire hédonique" },
-  { variable: "etat_neuf", label: "Neuf / rénové récemment", coefficient: 7, source: "Transactions observées" },
-  { variable: "etat_rafraichir", label: "À rafraîchir", coefficient: -5, source: "Transactions observées" },
-  { variable: "etat_renover", label: "À rénover", coefficient: -15, source: "Transactions observées" },
-  { variable: "energie_AB", label: "Classe énergie A-B (vs D)", coefficient: 5, source: "Spuerkeess / Observatoire" },
-  { variable: "energie_FG", label: "Classe énergie F-G (vs D)", coefficient: -8, source: "Spuerkeess / Observatoire" },
-  { variable: "parking_int", label: "Parking intérieur", coefficient: 5, source: "~30-45k€ / emplacement" },
-  { variable: "balcon", label: "Balcon", coefficient: 2, source: "Transactions observées" },
-  { variable: "terrasse", label: "Terrasse > 15m²", coefficient: 6, source: "Transactions observées" },
-  { variable: "jardin", label: "Jardin privatif", coefficient: 8, source: "Transactions observées" },
+  { variable: "surface", labelKey: "coeff_surface", coefficient: -0.35, sourceKey: "coeff_source_surface" },
+  { variable: "etage_rdc", labelKey: "coeff_etage_rdc", coefficient: -7, sourceKey: "coeff_source_observatoire" },
+  { variable: "etage_1er", labelKey: "coeff_etage_1er", coefficient: -3, sourceKey: "coeff_source_observatoire" },
+  { variable: "etage_haut", labelKey: "coeff_etage_haut", coefficient: 3, sourceKey: "coeff_source_observatoire" },
+  { variable: "etage_attique", labelKey: "coeff_etage_attique", coefficient: 8, sourceKey: "coeff_source_observatoire" },
+  { variable: "etat_neuf", labelKey: "coeff_etat_neuf", coefficient: 7, sourceKey: "coeff_source_transactions" },
+  { variable: "etat_rafraichir", labelKey: "coeff_etat_rafraichir", coefficient: -5, sourceKey: "coeff_source_transactions" },
+  { variable: "etat_renover", labelKey: "coeff_etat_renover", coefficient: -15, sourceKey: "coeff_source_transactions" },
+  { variable: "energie_AB", labelKey: "coeff_energie_AB", coefficient: 5, sourceKey: "coeff_source_spuerkeess" },
+  { variable: "energie_FG", labelKey: "coeff_energie_FG", coefficient: -8, sourceKey: "coeff_source_spuerkeess" },
+  { variable: "parking_int", labelKey: "coeff_parking", coefficient: 5, sourceKey: "coeff_source_parking" },
+  { variable: "balcon", labelKey: "coeff_balcon", coefficient: 2, sourceKey: "coeff_source_transactions" },
+  { variable: "terrasse", labelKey: "coeff_terrasse", coefficient: 6, sourceKey: "coeff_source_transactions" },
+  { variable: "jardin", labelKey: "coeff_jardin", coefficient: 8, sourceKey: "coeff_source_transactions" },
 ];
 
 export default function Hedonique() {
+  const t = useTranslations("hedonique");
   const [communeSearch, setCommuneSearch] = useState("");
   const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
   const [surface, setSurface] = useState(80);
@@ -65,38 +67,38 @@ export default function Hedonique() {
     const surfDiff = surface - 80;
     if (surfDiff !== 0) {
       const adj = surfDiff * -0.35;
-      ajustements.push({ label: `Surface ${surface}m² (${surfDiff > 0 ? "+" : ""}${surfDiff}m² vs réf. 80m²)`, pct: Math.round(adj * 10) / 10, source: "Élasticité -0.35%/m²" });
+      ajustements.push({ label: t("adj_surface", { surface, diff: `${surfDiff > 0 ? "+" : ""}${surfDiff}` }), pct: Math.round(adj * 10) / 10, source: t("adj_source_elasticity") });
     }
 
     // Étage
-    if (etage === 0) ajustements.push({ label: "Rez-de-chaussée", pct: -7, source: "Observatoire" });
-    else if (etage === 1) ajustements.push({ label: "1er étage", pct: -3, source: "Observatoire" });
-    else if (etage >= 4 && etage < 10) ajustements.push({ label: `${etage}e étage`, pct: 3, source: "Observatoire" });
-    else if (etage >= 10) ajustements.push({ label: "Dernier étage / attique", pct: 8, source: "Observatoire" });
+    if (etage === 0) ajustements.push({ label: t("adj_ground_floor"), pct: -7, source: t("adj_source_observatoire") });
+    else if (etage === 1) ajustements.push({ label: t("adj_1st_floor"), pct: -3, source: t("adj_source_observatoire") });
+    else if (etage >= 4 && etage < 10) ajustements.push({ label: t("adj_nth_floor", { n: etage }), pct: 3, source: t("adj_source_observatoire") });
+    else if (etage >= 10) ajustements.push({ label: t("adj_top_floor"), pct: 8, source: t("adj_source_observatoire") });
 
     // État
-    if (etat === "neuf") ajustements.push({ label: "Neuf / rénové", pct: 7, source: "Transactions" });
-    else if (etat === "rafraichir") ajustements.push({ label: "À rafraîchir", pct: -5, source: "Transactions" });
-    else if (etat === "renover") ajustements.push({ label: "À rénover", pct: -15, source: "Transactions" });
+    if (etat === "neuf") ajustements.push({ label: t("adj_new_renovated"), pct: 7, source: t("adj_source_transactions") });
+    else if (etat === "rafraichir") ajustements.push({ label: t("adj_needs_refresh"), pct: -5, source: t("adj_source_transactions") });
+    else if (etat === "renover") ajustements.push({ label: t("adj_needs_renovation"), pct: -15, source: t("adj_source_transactions") });
 
     // Énergie
-    if (classeEnergie <= "B") ajustements.push({ label: `Classe énergie ${classeEnergie}`, pct: 5, source: "Spuerkeess" });
-    else if (classeEnergie === "E") ajustements.push({ label: "Classe énergie E", pct: -3, source: "Observatoire" });
-    else if (classeEnergie >= "F") ajustements.push({ label: `Classe énergie ${classeEnergie}`, pct: -8, source: "Observatoire" });
+    if (classeEnergie <= "B") ajustements.push({ label: t("adj_energy_class", { cls: classeEnergie }), pct: 5, source: "Spuerkeess" });
+    else if (classeEnergie === "E") ajustements.push({ label: t("adj_energy_class", { cls: "E" }), pct: -3, source: t("adj_source_observatoire") });
+    else if (classeEnergie >= "F") ajustements.push({ label: t("adj_energy_class", { cls: classeEnergie }), pct: -8, source: t("adj_source_observatoire") });
 
     // Parking
-    if (parking) ajustements.push({ label: "Parking intérieur", pct: 5, source: "~30-45k€" });
+    if (parking) ajustements.push({ label: t("parking"), pct: 5, source: "~30-45k\u20AC" });
 
     // Extérieur
-    if (exterieur === "balcon") ajustements.push({ label: "Balcon", pct: 2, source: "Transactions" });
-    else if (exterieur === "terrasse") ajustements.push({ label: "Terrasse > 15m²", pct: 6, source: "Transactions" });
-    else if (exterieur === "jardin") ajustements.push({ label: "Jardin privatif", pct: 8, source: "Transactions" });
-    else if (exterieur === "aucun") ajustements.push({ label: "Pas d'extérieur", pct: -4, source: "Transactions" });
+    if (exterieur === "balcon") ajustements.push({ label: t("opt_balcony"), pct: 2, source: t("adj_source_transactions") });
+    else if (exterieur === "terrasse") ajustements.push({ label: t("opt_terrace"), pct: 6, source: t("adj_source_transactions") });
+    else if (exterieur === "jardin") ajustements.push({ label: t("opt_garden"), pct: 8, source: t("adj_source_transactions") });
+    else if (exterieur === "aucun") ajustements.push({ label: t("adj_no_outdoor"), pct: -4, source: t("adj_source_transactions") });
 
     // Année
     const age = new Date().getFullYear() - anneeConstruction;
-    if (age < 5) ajustements.push({ label: "Construction récente (< 5 ans)", pct: 3, source: "Prime neuf" });
-    else if (age > 50) ajustements.push({ label: "Construction > 50 ans", pct: -3, source: "Décote vétusté" });
+    if (age < 5) ajustements.push({ label: t("adj_recent_construction"), pct: 3, source: t("adj_source_new_premium") });
+    else if (age > 50) ajustements.push({ label: t("adj_old_construction"), pct: -3, source: t("adj_source_age_discount") });
 
     const totalPct = ajustements.reduce((s, a) => s + a.pct, 0);
     const prixM2Ajuste = basePrix * (1 + totalPct / 100);
@@ -118,15 +120,15 @@ export default function Hedonique() {
       prevision3ans: Math.round(valeur * Math.pow(1.025, 3)),
       prevision5ans: Math.round(valeur * Math.pow(1.025, 5)),
     };
-  }, [selectedResult, surface, etage, etat, classeEnergie, parking, exterieur, anneeConstruction]);
+  }, [selectedResult, surface, etage, etat, classeEnergie, parking, exterieur, anneeConstruction, t]);
 
   return (
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">Valorisation hédonique</h1>
+          <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
           <p className="mt-2 text-muted">
-            Modèle de prix multi-critères inspiré de la méthodologie de l'Observatoire de l'Habitat
+            {t("subtitle")}
           </p>
         </div>
 
@@ -134,13 +136,13 @@ export default function Hedonique() {
           <div className="space-y-6">
             {/* Commune */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Localisation</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("location")}</h2>
               <div className="relative">
                 <input
                   type="text"
                   value={communeSearch}
                   onChange={(e) => { setCommuneSearch(e.target.value); if (!e.target.value) setSelectedResult(null); }}
-                  placeholder="Commune, localité ou quartier..."
+                  placeholder={t("search_placeholder")}
                   className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2.5 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
                 />
                 {communeSearch.length >= 2 && searchResults.length > 0 && !selectedResult && (
@@ -160,32 +162,32 @@ export default function Hedonique() {
 
             {/* Caractéristiques */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Caractéristiques</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("characteristics")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
-                <InputField label="Surface" value={surface} onChange={(v) => setSurface(Number(v))} suffix="m²" />
-                <InputField label="Étage" value={etage} onChange={(v) => setEtage(Number(v))} min={0} max={20} hint="0 = RDC, 10+ = attique" />
-                <InputField label="État" type="select" value={etat} onChange={setEtat} options={[
-                  { value: "neuf", label: "Neuf / rénové" },
-                  { value: "bon", label: "Bon état" },
-                  { value: "rafraichir", label: "À rafraîchir" },
-                  { value: "renover", label: "À rénover" },
+                <InputField label={t("surface")} value={surface} onChange={(v) => setSurface(Number(v))} suffix="m²" />
+                <InputField label={t("floor")} value={etage} onChange={(v) => setEtage(Number(v))} min={0} max={20} hint={t("floor_hint")} />
+                <InputField label={t("condition")} type="select" value={etat} onChange={setEtat} options={[
+                  { value: "neuf", label: t("opt_new") },
+                  { value: "bon", label: t("opt_good") },
+                  { value: "rafraichir", label: t("opt_refresh") },
+                  { value: "renover", label: t("opt_renovate") },
                 ]} />
-                <InputField label="Classe énergie" type="select" value={classeEnergie} onChange={setClasseEnergie} options={[
+                <InputField label={t("energy_class")} type="select" value={classeEnergie} onChange={setClasseEnergie} options={[
                   { value: "A", label: "A" }, { value: "B", label: "B" }, { value: "C", label: "C" },
                   { value: "D", label: "D" }, { value: "E", label: "E" }, { value: "F", label: "F" }, { value: "G", label: "G" },
                 ]} />
-                <InputField label="Extérieur" type="select" value={exterieur} onChange={setExterieur} options={[
-                  { value: "aucun", label: "Aucun" },
-                  { value: "balcon", label: "Balcon" },
-                  { value: "terrasse", label: "Terrasse > 15m²" },
-                  { value: "jardin", label: "Jardin privatif" },
+                <InputField label={t("outdoor")} type="select" value={exterieur} onChange={setExterieur} options={[
+                  { value: "aucun", label: t("opt_none") },
+                  { value: "balcon", label: t("opt_balcony") },
+                  { value: "terrasse", label: t("opt_terrace") },
+                  { value: "jardin", label: t("opt_garden") },
                 ]} />
-                <InputField label="Année construction" value={anneeConstruction} onChange={(v) => setAnneeConstruction(Number(v))} min={1800} max={2026} />
+                <InputField label={t("construction_year")} value={anneeConstruction} onChange={(v) => setAnneeConstruction(Number(v))} min={1800} max={2026} />
               </div>
               <div className="mt-4">
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" checked={parking} onChange={(e) => setParking(e.target.checked)} className="rounded" />
-                  Parking intérieur
+                  {t("parking")}
                 </label>
               </div>
             </div>
@@ -195,58 +197,58 @@ export default function Hedonique() {
             {result ? (
               <>
                 <div className="rounded-2xl bg-gradient-to-br from-navy to-navy-light p-8 text-white text-center shadow-lg">
-                  <div className="text-sm text-white/60">Valeur hédonique estimée</div>
+                  <div className="text-sm text-white/60">{t("estimated_value")}</div>
                   <div className="mt-2 text-5xl font-bold">{formatEUR(result.valeur)}</div>
                   <div className="mt-3 flex items-center justify-center gap-6 text-sm text-white/70">
-                    <div><div className="text-white/40 text-xs">Bas (−12%)</div><div className="font-semibold">{formatEUR(result.intervalleBas)}</div></div>
+                    <div><div className="text-white/40 text-xs">{t("low_range")}</div><div className="font-semibold">{formatEUR(result.intervalleBas)}</div></div>
                     <div className="h-8 w-px bg-white/20" />
-                    <div><div className="text-white/40 text-xs">Haut (+12%)</div><div className="font-semibold">{formatEUR(result.intervalleHaut)}</div></div>
+                    <div><div className="text-white/40 text-xs">{t("high_range")}</div><div className="font-semibold">{formatEUR(result.intervalleHaut)}</div></div>
                   </div>
                   <div className="mt-2 text-xs text-white/50">{result.prixM2Ajuste} €/m²</div>
                 </div>
 
                 <ResultPanel
-                  title="Décomposition hédonique"
+                  title={t("decomposition")}
                   lines={[
-                    { label: `Prix de base /m² (${result.source})`, value: formatEUR(result.basePrix) },
+                    { label: t("base_price_per_m2", { source: result.source }), value: formatEUR(result.basePrix) },
                     ...result.ajustements.map((a) => ({
                       label: a.label,
                       value: `${a.pct > 0 ? "+" : ""}${a.pct}%`,
                       sub: true,
                     })),
-                    { label: "Total ajustements", value: `${result.totalPct > 0 ? "+" : ""}${result.totalPct.toFixed(1)}%`, highlight: true },
-                    { label: "Prix ajusté /m²", value: formatEUR(result.prixM2Ajuste), highlight: true },
+                    { label: t("total_adjustments"), value: `${result.totalPct > 0 ? "+" : ""}${result.totalPct.toFixed(1)}%`, highlight: true },
+                    { label: t("adjusted_price_per_m2"), value: formatEUR(result.prixM2Ajuste), highlight: true },
                   ]}
                 />
 
                 {/* Tableau des coefficients */}
                 <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                  <h3 className="text-sm font-semibold text-navy mb-2">Qualité du modèle</h3>
+                  <h3 className="text-sm font-semibold text-navy mb-2">{t("model_quality")}</h3>
                   <div className="grid grid-cols-2 gap-2 mb-4">
                     <div className="rounded-lg bg-navy/5 p-2 text-center">
-                      <div className="text-[10px] text-muted">Confiance</div>
+                      <div className="text-[10px] text-muted">{t("confidence")}</div>
                       <div className="text-lg font-bold text-navy">{result.confiancePct}%</div>
                     </div>
                     <div className="rounded-lg bg-navy/5 p-2 text-center">
-                      <div className="text-[10px] text-muted">R² estimé</div>
+                      <div className="text-[10px] text-muted">{t("r_squared")}</div>
                       <div className="text-lg font-bold text-navy">~0.75</div>
-                      <div className="text-[9px] text-muted">Explique ~75% de la variation</div>
+                      <div className="text-[9px] text-muted">{t("r_squared_explanation")}</div>
                     </div>
                   </div>
 
-                  <h3 className="text-sm font-semibold text-navy mb-2">Prévision de prix</h3>
+                  <h3 className="text-sm font-semibold text-navy mb-2">{t("price_forecast")}</h3>
                   <div className="space-y-1 mb-4 text-xs">
-                    <div className="flex justify-between"><span className="text-muted">Dans 1 an (+2.5%/an)</span><span className="font-mono font-semibold">{formatEUR(result.prevision1an)}</span></div>
-                    <div className="flex justify-between"><span className="text-muted">Dans 3 ans</span><span className="font-mono font-semibold">{formatEUR(result.prevision3ans)}</span></div>
-                    <div className="flex justify-between"><span className="text-muted">Dans 5 ans</span><span className="font-mono font-semibold">{formatEUR(result.prevision5ans)}</span></div>
+                    <div className="flex justify-between"><span className="text-muted">{t("in_1_year")}</span><span className="font-mono font-semibold">{formatEUR(result.prevision1an)}</span></div>
+                    <div className="flex justify-between"><span className="text-muted">{t("in_3_years")}</span><span className="font-mono font-semibold">{formatEUR(result.prevision3ans)}</span></div>
+                    <div className="flex justify-between"><span className="text-muted">{t("in_5_years")}</span><span className="font-mono font-semibold">{formatEUR(result.prevision5ans)}</span></div>
                   </div>
-                  <p className="text-[10px] text-muted mb-4">Projection linéaire basée sur la tendance récente (+2.5%/an). Les prévisions ne sont pas des garanties.</p>
+                  <p className="text-[10px] text-muted mb-4">{t("forecast_disclaimer")}</p>
 
-                  <h3 className="text-sm font-semibold text-navy mb-3">Coefficients du modèle</h3>
+                  <h3 className="text-sm font-semibold text-navy mb-3">{t("model_coefficients")}</h3>
                   <div className="space-y-1 text-xs">
                     {COEFFICIENTS.map((c) => (
                       <div key={c.variable} className="flex justify-between py-1 border-b border-card-border/30">
-                        <span className="text-muted">{c.label}</span>
+                        <span className="text-muted">{t(c.labelKey)}</span>
                         <span className={`font-mono ${c.coefficient > 0 ? "text-success" : c.coefficient < 0 ? "text-error" : ""}`}>
                           {c.coefficient > 0 ? "+" : ""}{c.coefficient}%
                         </span>
@@ -254,15 +256,13 @@ export default function Hedonique() {
                     ))}
                   </div>
                   <p className="mt-3 text-[10px] text-muted">
-                    Coefficients calibrés sur les données de l'Observatoire de l'Habitat et les publications
-                    Spuerkeess. Il ne s'agit pas du modèle officiel de l'Observatoire (non public) mais d'une
-                    approximation basée sur les résultats publiés.
+                    {t("source_disclaimer")}
                   </p>
                 </div>
               </>
             ) : (
               <div className="rounded-xl border-2 border-dashed border-card-border py-16 text-center">
-                <p className="text-sm text-muted">Sélectionnez une commune pour obtenir l'estimation hédonique</p>
+                <p className="text-sm text-muted">{t("select_commune_prompt")}</p>
               </div>
             )}
           </div>

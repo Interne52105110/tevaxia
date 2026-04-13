@@ -33,9 +33,9 @@ export default function Estimation() {
   const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
   const [surface, setSurface] = useState(80);
   const [nbChambres, setNbChambres] = useState(2);
-  const [etage, setEtage] = useState("2ème–3ème étage (réf.)");
-  const [etat, setEtat] = useState("Bon état (réf.)");
-  const [exterieur, setExterieur] = useState("Balcon standard (réf.)");
+  const [etage, setEtage] = useState("adjEtage2e3eRef");
+  const [etat, setEtat] = useState("adjEtatBonRef");
+  const [exterieur, setExterieur] = useState("adjExtBalconRef");
   const [parking, setParking] = useState(true);
   const [classeEnergie, setClasseEnergie] = useState("D");
   const [estNeuf, setEstNeuf] = useState(false);
@@ -97,7 +97,7 @@ export default function Estimation() {
   const comparables = useMemo(() => {
     if (!selectedResult || !result) return [];
     const basePrix = result.prixM2Ajuste;
-    const types = ["Appartement", "Appartement", "Maison", "Appartement", "Maison"] as const;
+    const types = ["appartement", "appartement", "maison", "appartement", "maison"] as const;
     const trimestres = ["T4 2025", "T3 2025", "T2 2025", "T1 2025", "T4 2024"];
     // Deterministic seed from commune name
     const seed = selectedResult.commune.commune.length;
@@ -463,15 +463,15 @@ export default function Estimation() {
               {/* Transactions comparables */}
               {comparables.length > 0 && (
                 <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                  <h3 className="text-sm font-semibold text-navy mb-1">Transactions comparables</h3>
+                  <h3 className="text-sm font-semibold text-navy mb-1">{t("comparablesTitle")}</h3>
                   <p className="text-[10px] text-muted mb-3">
-                    Estimations basées sur les prix observés à {selectedResult?.commune.commune} — {selectedResult?.commune.periode}
+                    {t("comparablesSubtitle", { commune: selectedResult?.commune.commune ?? "", periode: selectedResult?.commune.periode ?? "" })}
                   </p>
                   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     {comparables.map((c) => (
                       <div key={c.id} className="rounded-lg border border-card-border bg-background p-3">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold text-navy">{c.type}</span>
+                          <span className="text-xs font-semibold text-navy">{c.type === "appartement" ? t("typeBienAppartement") : t("typeBienMaison")}</span>
                           <span className="text-[10px] text-muted">{c.date}</span>
                         </div>
                         <div className="text-lg font-bold text-navy">{formatEUR(c.prixTotal)}</div>
@@ -483,7 +483,7 @@ export default function Estimation() {
                     ))}
                   </div>
                   <p className="mt-3 text-[10px] text-muted">
-                    Comparables synthétiques construits à partir du prix/m² ajusté. Ne constituent pas des transactions réelles.
+                    {t("comparablesDisclaimer")}
                   </p>
                 </div>
               )}
@@ -493,10 +493,10 @@ export default function Estimation() {
                 <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
                   <div className="mb-3">
                     <h3 className="text-sm font-semibold text-navy">
-                      Évolution du prix/m² — {selectedResult?.commune.commune}
+                      {t("chartTitle", { commune: selectedResult?.commune.commune ?? "" })}
                     </h3>
                     <p className="text-[10px] text-muted">
-                      Estimation communale basée sur la tendance nationale — Source : Observatoire de l&apos;Habitat
+                      {t("chartSource")}
                     </p>
                   </div>
                   <ResponsiveContainer width="100%" height={180}>
@@ -516,8 +516,8 @@ export default function Estimation() {
                         domain={["auto", "auto"]}
                       />
                       <Tooltip
-                        formatter={(value) => [formatEUR(Number(value)), "Prix/m²"]}
-                        labelFormatter={(label) => `Année ${label}`}
+                        formatter={(value) => [formatEUR(Number(value)), t("tooltipPrixM2")]}
+                        labelFormatter={(label) => t("tooltipAnnee", { annee: label })}
                         contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid #e5e2db" }}
                       />
                       <Area
@@ -663,7 +663,7 @@ export default function Estimation() {
                   generateBlob={() =>
                     generateEstimationPdfBlob({
                       commune: selectedResult?.commune.commune || communeSearch,
-                      typeBien: "Appartement",
+                      typeBien: t("typeBienAppartement"),
                       surface,
                       chambres: nbChambres,
                       prixBas: result.estimationBasse,

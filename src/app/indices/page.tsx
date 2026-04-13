@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { getAllCommunes, getMarketDataCommune, type MarketDataCommune } from "@/lib/market-data";
 import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
@@ -9,7 +10,7 @@ import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
 
 type SortKey = "prix" | "commune" | "tendance" | "transactions";
 
-function getTendanceBadge(commune: MarketDataCommune): { label: string; color: string } {
+function getTendanceBadge(commune: MarketDataCommune): { labelKey: string; color: string } {
   if (commune.quartiers && commune.quartiers.length > 0) {
     const counts = { hausse: 0, stable: 0, baisse: 0 };
     for (const q of commune.quartiers) {
@@ -17,27 +18,28 @@ function getTendanceBadge(commune: MarketDataCommune): { label: string; color: s
     }
     const dominant = (Object.entries(counts) as [keyof typeof counts, number][])
       .sort((a, b) => b[1] - a[1])[0][0];
-    if (dominant === "hausse") return { label: "Hausse", color: "bg-green-100 text-green-700" };
-    if (dominant === "baisse") return { label: "Baisse", color: "bg-red-100 text-red-700" };
-    return { label: "Stable", color: "bg-gray-100 text-gray-600" };
+    if (dominant === "hausse") return { labelKey: "trend_up", color: "bg-green-100 text-green-700" };
+    if (dominant === "baisse") return { labelKey: "trend_down", color: "bg-red-100 text-red-700" };
+    return { labelKey: "trend_stable", color: "bg-gray-100 text-gray-600" };
   }
   // Without quartier data, infer from existant vs annonces spread
   if (commune.prixM2Existant && commune.prixM2Annonces) {
     const ecart = (commune.prixM2Annonces - commune.prixM2Existant) / commune.prixM2Existant;
-    if (ecart > 0.05) return { label: "Hausse", color: "bg-green-100 text-green-700" };
-    if (ecart < -0.02) return { label: "Baisse", color: "bg-red-100 text-red-700" };
+    if (ecart > 0.05) return { labelKey: "trend_up", color: "bg-green-100 text-green-700" };
+    if (ecart < -0.02) return { labelKey: "trend_down", color: "bg-red-100 text-red-700" };
   }
-  return { label: "Stable", color: "bg-gray-100 text-gray-600" };
+  return { labelKey: "trend_stable", color: "bg-gray-100 text-gray-600" };
 }
 
 function getTendanceSort(commune: MarketDataCommune): number {
   const b = getTendanceBadge(commune);
-  if (b.label === "Hausse") return 2;
-  if (b.label === "Baisse") return 0;
+  if (b.labelKey === "trend_up") return 2;
+  if (b.labelKey === "trend_down") return 0;
   return 1;
 }
 
 export default function IndicesPage() {
+  const t = useTranslations("indices");
   const [sortKey, setSortKey] = useState<SortKey>("prix");
   const [sortAsc, setSortAsc] = useState(false);
 
@@ -119,31 +121,31 @@ export default function IndicesPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="text-xs text-muted mb-4">
-          <Link href="/" className="hover:text-navy">Accueil</Link> &gt;{" "}
-          <span className="text-slate">Indice tevaxia</span>
+          <Link href="/" className="hover:text-navy">{t("breadcrumb_home")}</Link> &gt;{" "}
+          <span className="text-slate">{t("breadcrumb_index")}</span>
         </div>
 
         {/* Title */}
         <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-          Indice tevaxia &mdash; Mars 2026
+          {t("title")}
         </h1>
         <p className="mt-2 text-muted">
-          Indice mensuel des prix immobiliers par commune au Luxembourg
+          {t("subtitle")}
         </p>
 
         {/* National summary card */}
         <div className="mt-6 rounded-xl border border-card-border bg-card p-6 shadow-sm">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="text-center">
-              <div className="text-xs text-muted">Prix moyen Luxembourg</div>
+              <div className="text-xs text-muted">{t("avg_price_lux")}</div>
               <div className="text-2xl font-bold text-navy">{formatEUR(summary.avgPrix)}/m&sup2;</div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-muted">Tendance annuelle</div>
-              <div className="text-2xl font-bold text-success">+2,1%/an</div>
+              <div className="text-xs text-muted">{t("annual_trend")}</div>
+              <div className="text-2xl font-bold text-success">+2,1%/{t("year_abbr")}</div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-muted">Transactions (dernier trimestre)</div>
+              <div className="text-xs text-muted">{t("transactions_last_quarter")}</div>
               <div className="text-2xl font-bold text-navy">{summary.totalTransactions.toLocaleString("fr-LU")}</div>
             </div>
           </div>
@@ -151,21 +153,15 @@ export default function IndicesPage() {
 
         {/* Narrative */}
         <div className="mt-6 rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-navy mb-2">Analyse du mois</h2>
+          <h2 className="text-base font-semibold text-navy mb-2">{t("monthly_analysis")}</h2>
           <div className="text-sm text-muted leading-relaxed space-y-2">
             <p>
-              En mars 2026, le march&eacute; luxembourgeois montre des signes de reprise apr&egrave;s
-              la correction de 2022&ndash;2023. Le prix moyen national s'&eacute;tablit &agrave;{" "}
-              <strong className="text-slate">{formatEUR(summary.avgPrix)}/m&sup2;</strong>,
-              en progression de 2,1% sur un an. Les communes du canton de Luxembourg restent les plus
-              ch&egrave;res, mais les hausses les plus dynamiques s'observent dans des p&ocirc;les
-              secondaires en d&eacute;veloppement.
+              {t.rich("analysis_paragraph_1", {
+                price: () => <strong className="text-slate">{formatEUR(summary.avgPrix)}/m&sup2;</strong>,
+              })}
             </p>
             <p>
-              Le volume de transactions ({summary.totalTransactions.toLocaleString("fr-LU")} sur le
-              dernier trimestre) confirme un retour de la liquidit&eacute;, apr&egrave;s le creux
-              observ&eacute; en 2023. Les taux d'int&eacute;r&ecirc;t, apr&egrave;s avoir atteint leur
-              pic, se stabilisent, ce qui soutient la demande.
+              {t("analysis_paragraph_2", { transactions: summary.totalTransactions.toLocaleString("fr-LU") })}
             </p>
           </div>
         </div>
@@ -182,7 +178,7 @@ export default function IndicesPage() {
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
             <h2 className="text-base font-semibold text-navy mb-3 flex items-center gap-2">
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-700 text-xs">&#x2197;</span>
-              Top 5 hausses
+              {t("top5_up")}
             </h2>
             <div className="space-y-2">
               {topHausses.map((c, i) => {
@@ -211,7 +207,7 @@ export default function IndicesPage() {
           <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
             <h2 className="text-base font-semibold text-navy mb-3 flex items-center gap-2">
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-red-700 text-xs">&#x2198;</span>
-              Top 5 baisses
+              {t("top5_down")}
             </h2>
             <div className="space-y-2">
               {topBaisses.map((c, i) => {
@@ -240,7 +236,7 @@ export default function IndicesPage() {
         {/* Full communes table */}
         <div className="mt-8">
           <h2 className="text-lg font-semibold text-navy mb-4">
-            Toutes les communes ({summary.nbCommunes})
+            {t("all_communes", { count: summary.nbCommunes })}
           </h2>
           <div className="overflow-x-auto rounded-xl border border-card-border bg-card shadow-sm">
             <table className="w-full text-sm">
@@ -250,26 +246,26 @@ export default function IndicesPage() {
                     className="px-4 py-3 font-medium text-muted cursor-pointer hover:text-navy transition-colors"
                     onClick={() => handleSort("commune")}
                   >
-                    Commune{sortIcon("commune")}
+                    {t("th_commune")}{sortIcon("commune")}
                   </th>
-                  <th className="px-4 py-3 font-medium text-muted hidden sm:table-cell">Canton</th>
+                  <th className="px-4 py-3 font-medium text-muted hidden sm:table-cell">{t("th_canton")}</th>
                   <th
                     className="px-4 py-3 font-medium text-muted text-right cursor-pointer hover:text-navy transition-colors"
                     onClick={() => handleSort("prix")}
                   >
-                    Prix/m&sup2;{sortIcon("prix")}
+                    {t("th_price_m2")}{sortIcon("prix")}
                   </th>
                   <th
                     className="px-4 py-3 font-medium text-muted text-center cursor-pointer hover:text-navy transition-colors"
                     onClick={() => handleSort("tendance")}
                   >
-                    Tendance{sortIcon("tendance")}
+                    {t("th_trend")}{sortIcon("tendance")}
                   </th>
                   <th
                     className="px-4 py-3 font-medium text-muted text-right cursor-pointer hover:text-navy transition-colors hidden sm:table-cell"
                     onClick={() => handleSort("transactions")}
                   >
-                    Transactions{sortIcon("transactions")}
+                    {t("th_transactions")}{sortIcon("transactions")}
                   </th>
                   <th className="px-4 py-3 font-medium text-muted text-right hidden md:table-cell">
                     Score
@@ -297,7 +293,7 @@ export default function IndicesPage() {
                       </td>
                       <td className="px-4 py-3 text-center">
                         <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] font-medium ${badge.color}`}>
-                          {badge.label}
+                          {t(badge.labelKey)}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right text-muted hidden sm:table-cell">
@@ -322,20 +318,19 @@ export default function IndicesPage() {
             href="/carte"
             className="rounded-lg bg-navy px-5 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors"
           >
-            Voir la carte interactive
+            {t("view_map")}
           </Link>
           <Link
             href="/estimation"
             className="rounded-lg border border-navy px-5 py-2.5 text-sm font-medium text-navy hover:bg-navy/5 transition-colors"
           >
-            Estimer un bien
+            {t("estimate_property")}
           </Link>
         </div>
 
         {/* Source */}
         <p className="mt-6 text-xs text-muted text-center">
-          Source : Observatoire de l'Habitat (data.public.lu), STATEC. Donn&eacute;es indicatives, mises &agrave; jour trimestriellement.
-          Derni&egrave;re mise &agrave; jour : mars 2026.
+          {t("source")}
         </p>
       </div>
     </div>

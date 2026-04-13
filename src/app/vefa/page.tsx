@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
@@ -8,19 +9,19 @@ import { calculerEmolumentsNotaire, formatEUR, formatPct } from "@/lib/calculati
 
 // ── Luxembourg VEFA milestones ──────────────────────────────
 interface MilestoneDef {
-  label: string;
+  labelKey: string;
   defaultPct: number;       // % of purchase price (default)
   monthsAfterStart: number;
 }
 
 const DEFAULT_MILESTONES: MilestoneDef[] = [
-  { label: "Signature du contrat",          defaultPct: 5,   monthsAfterStart: 0 },
-  { label: "Fondations achevees",           defaultPct: 15,  monthsAfterStart: 4 },
-  { label: "Hors d'eau (murs montes)",      defaultPct: 20,  monthsAfterStart: 10 },
-  { label: "Hors d'air (toiture achevee)",  defaultPct: 20,  monthsAfterStart: 14 },
-  { label: "Cloisons interieures",          defaultPct: 15,  monthsAfterStart: 18 },
-  { label: "Travaux de finition",           defaultPct: 15,  monthsAfterStart: 22 },
-  { label: "Livraison (remise des cles)",   defaultPct: 10,  monthsAfterStart: 26 },
+  { labelKey: "milestoneSignature",    defaultPct: 5,   monthsAfterStart: 0 },
+  { labelKey: "milestoneFondations",   defaultPct: 15,  monthsAfterStart: 4 },
+  { labelKey: "milestoneHorsEau",      defaultPct: 20,  monthsAfterStart: 10 },
+  { labelKey: "milestoneHorsAir",      defaultPct: 20,  monthsAfterStart: 14 },
+  { labelKey: "milestoneCloisons",     defaultPct: 15,  monthsAfterStart: 18 },
+  { labelKey: "milestoneFinition",     defaultPct: 15,  monthsAfterStart: 22 },
+  { labelKey: "milestoneLivraison",    defaultPct: 10,  monthsAfterStart: 26 },
 ];
 
 // ── TVA / duties constants ──────────────────────────────────
@@ -30,12 +31,14 @@ const TVA_FAVEUR_PLAFOND = 50_000;
 const TAUX_DROITS = 0.07; // 6% enregistrement + 1% transcription
 
 // ── Month names for timeline ─────────────────────────────────
-const MONTH_NAMES_SHORT = [
-  "Jan", "Fev", "Mar", "Avr", "Mai", "Jun",
-  "Jul", "Aou", "Sep", "Oct", "Nov", "Dec",
+const MONTH_KEYS = [
+  "monthJan", "monthFeb", "monthMar", "monthApr", "monthMay", "monthJun",
+  "monthJul", "monthAug", "monthSep", "monthOct", "monthNov", "monthDec",
 ];
 
 export default function VefaCalculator() {
+  const t = useTranslations("vefa");
+
   // ── Inputs ──────────────────────────────────────────────────
   const [prixTotal, setPrixTotal] = useState(650000);
   const [partTerrain, setPartTerrain] = useState(195000);
@@ -148,7 +151,7 @@ export default function VefaCalculator() {
       cumulIntercalaire += interetPhase;
 
       return {
-        label: m.label,
+        labelKey: m.labelKey,
         pct,
         montant,
         cumul: cumulVerse,
@@ -192,11 +195,12 @@ export default function VefaCalculator() {
       const absMonth = (startYear * 12 + (startMonth - 1)) + m.monthsAfterStart;
       const year = Math.floor(absMonth / 12);
       const month = (absMonth % 12) + 1;
-      const label = `${MONTH_NAMES_SHORT[month - 1]} ${year}`;
+      const monthKey = MONTH_KEYS[month - 1];
       const position = (m.monthsAfterStart / totalDuration) * 100;
       return {
-        label,
-        milestoneLabel: m.label,
+        monthKey,
+        year,
+        milestoneLabelKey: m.labelKey,
         pct: milestonePcts[i],
         position,
         monthsAfterStart: m.monthsAfterStart,
@@ -212,10 +216,10 @@ export default function VefaCalculator() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            Simulateur VEFA
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            Vente en Etat Futur d'Achevement — appels de fonds, TVA, droits d'enregistrement, garantie d'achevement
+            {t("subtitle")}
           </p>
         </div>
 
@@ -224,31 +228,31 @@ export default function VefaCalculator() {
           <div className="space-y-6">
             {/* Property */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Le bien VEFA</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionBien")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label="Prix de vente total (TTC promoteur)"
+                  label={t("prixTotalLabel")}
                   value={prixTotal}
                   onChange={(v) => setPrixTotal(Number(v))}
                   suffix="EUR"
                   min={0}
-                  hint="Prix contractuel tout compris hors frais d'acquisition"
+                  hint={t("prixTotalHint")}
                 />
                 <div className="grid gap-4 sm:grid-cols-2">
                   <InputField
-                    label="Part terrain"
+                    label={t("partTerrainLabel")}
                     value={partTerrain}
                     onChange={(v) => setPartTerrain(Number(v))}
                     suffix="EUR"
                     min={0}
-                    hint="Soumise aux droits d'enregistrement (7 %)"
+                    hint={t("partTerrainHint")}
                   />
                   <InputField
-                    label="Part construction"
+                    label={t("partConstructionLabel")}
                     value={partConstruction}
                     onChange={() => {}}
                     suffix="EUR"
-                    hint="= Prix - Terrain (soumise a la TVA)"
+                    hint={t("partConstructionHint")}
                   />
                 </div>
               </div>
@@ -256,22 +260,22 @@ export default function VefaCalculator() {
 
             {/* Buyer */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Acquereur</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionAcquereur")}</h2>
               <div className="space-y-4">
                 <ToggleField
-                  label="Residence principale"
+                  label={t("residencePrincipaleLabel")}
                   checked={residencePrincipale}
                   onChange={setResidencePrincipale}
-                  hint="Ouvre droit a la TVA 3 % et au Bellegen Akt"
+                  hint={t("residencePrincipaleHint")}
                 />
                 <InputField
-                  label="Nombre d'acquereurs"
+                  label={t("nbAcquereursLabel")}
                   type="select"
                   value={String(nbAcquereurs)}
                   onChange={(v) => setNbAcquereurs(Number(v) as 1 | 2)}
                   options={[
-                    { value: "1", label: "1 personne (40 000 EUR Bellegen Akt)" },
-                    { value: "2", label: "2 personnes / couple (80 000 EUR Bellegen Akt)" },
+                    { value: "1", label: t("acquereur1") },
+                    { value: "2", label: t("acquereur2") },
                   ]}
                 />
               </div>
@@ -279,60 +283,60 @@ export default function VefaCalculator() {
 
             {/* Financing */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Financement</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionFinancement")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label="Montant du pret hypothecaire"
+                  label={t("montantHypothequeLabel")}
                   value={montantHypotheque}
                   onChange={(v) => setMontantHypotheque(Number(v))}
                   suffix="EUR"
                   min={0}
-                  hint="Pour le calcul des frais d'inscription hypothecaire"
+                  hint={t("montantHypothequeHint")}
                 />
                 <InputField
-                  label="Taux hypothecaire annuel"
+                  label={t("tauxHypothequeLabel")}
                   value={tauxHypotheque}
                   onChange={(v) => setTauxHypotheque(Number(v))}
                   suffix="%"
                   min={0}
                   max={15}
                   step={0.1}
-                  hint="Pour le calcul des interets intercalaires pendant la construction"
+                  hint={t("tauxHypothequeHint")}
                 />
               </div>
             </div>
 
             {/* Timeline */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Calendrier previsionnel</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionCalendrier")}</h2>
               <InputField
-                label="Mois de signature prevu"
+                label={t("moisSignatureLabel")}
                 type="text"
                 value={moisDebut}
                 onChange={setMoisDebut}
-                hint="Format AAAA-MM (ex : 2026-06)"
+                hint={t("moisSignatureHint")}
               />
             </div>
 
             {/* Customizable milestone percentages */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-base font-semibold text-navy">Echeancier contractuel</h2>
+                <h2 className="text-base font-semibold text-navy">{t("sectionEcheancier")}</h2>
                 <button
                   onClick={resetPcts}
                   className="rounded-lg border border-card-border px-3 py-1 text-xs font-medium text-muted transition-colors hover:bg-background hover:text-slate"
                 >
-                  Reinitialiser
+                  {t("reinitialiser")}
                 </button>
               </div>
               <p className="mb-4 text-xs text-muted">
-                Adaptez les pourcentages a votre contrat VEFA. Le total doit etre egal a 100 %.
+                {t("echeancierHint")}
               </p>
               <div className="space-y-3">
                 {DEFAULT_MILESTONES.map((m, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <span className="flex-1 text-sm text-slate truncate" title={m.label}>
-                      {m.label}
+                    <span className="flex-1 text-sm text-slate truncate" title={t(m.labelKey)}>
+                      {t(m.labelKey)}
                     </span>
                     <div className="relative w-24 shrink-0">
                       <input
@@ -351,7 +355,7 @@ export default function VefaCalculator() {
                   </div>
                 ))}
                 <div className="flex items-center justify-between border-t border-card-border pt-3">
-                  <span className="text-sm font-semibold text-slate">Total</span>
+                  <span className="text-sm font-semibold text-slate">{t("total")}</span>
                   <span
                     className={`font-mono text-sm font-bold ${
                       pctValid ? "text-emerald-600" : "text-red-500"
@@ -362,7 +366,7 @@ export default function VefaCalculator() {
                 </div>
                 {!pctValid && (
                   <p className="text-xs font-medium text-red-500">
-                    Le total des pourcentages doit etre egal a 100 %. Difference : {(totalPct - 100).toFixed(1)} %
+                    {t("pctError", { diff: (totalPct - 100).toFixed(1) })}
                   </p>
                 )}
               </div>
@@ -375,7 +379,7 @@ export default function VefaCalculator() {
             {timelineData && (
               <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
                 <h3 className="mb-4 text-base font-semibold text-navy">
-                  Chronologie du chantier
+                  {t("chronologieChantier")}
                 </h3>
                 {/* Timeline — version tableau pour éviter les chevauchements */}
                 <div className="overflow-x-auto">
@@ -384,7 +388,7 @@ export default function VefaCalculator() {
                       <tr>
                         {timelineData.points.map((pt, i) => (
                           <th key={i} className="px-1 pb-2 font-semibold text-navy text-[10px] align-bottom">
-                            {pt.label}
+                            {t(pt.monthKey)} {pt.year}
                           </th>
                         ))}
                       </tr>
@@ -413,7 +417,7 @@ export default function VefaCalculator() {
                       <tr>
                         {timelineData.points.map((pt, i) => (
                           <td key={i} className="px-1 pt-2 align-top">
-                            <div className="text-[9px] text-muted leading-tight">{pt.milestoneLabel}</div>
+                            <div className="text-[9px] text-muted leading-tight">{t(pt.milestoneLabelKey)}</div>
                           </td>
                         ))}
                       </tr>
@@ -429,7 +433,7 @@ export default function VefaCalculator() {
                   </table>
                 </div>
                 <p className="text-xs text-muted">
-                  Duree estimee : {timelineData.totalDuration} mois du contrat a la livraison. Les dates sont indicatives et dependent de l'avancement reel des travaux.
+                  {t("dureeEstimee", { mois: timelineData.totalDuration })}
                 </p>
               </div>
             )}
@@ -437,23 +441,23 @@ export default function VefaCalculator() {
             {/* Milestone schedule */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <h3 className="mb-4 text-base font-semibold text-navy">
-                Echeancier des appels de fonds
+                {t("echeancierAppels")}
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-card-border text-left text-xs font-medium uppercase text-muted">
-                      <th className="pb-2 pr-2">Etape</th>
+                      <th className="pb-2 pr-2">{t("colEtape")}</th>
                       <th className="pb-2 pr-2 text-right">%</th>
-                      <th className="pb-2 pr-2 text-right">Montant</th>
-                      <th className="pb-2 pr-2 text-right">Cumul</th>
-                      <th className="pb-2 text-right">Date est.</th>
+                      <th className="pb-2 pr-2 text-right">{t("colMontant")}</th>
+                      <th className="pb-2 pr-2 text-right">{t("colCumul")}</th>
+                      <th className="pb-2 text-right">{t("colDateEst")}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-card-border/50">
                     {calc.milestones.map((m, i) => (
                       <tr key={i} className={i === calc.milestones.length - 1 ? "font-semibold text-navy" : "text-foreground"}>
-                        <td className="py-2 pr-2">{m.label}</td>
+                        <td className="py-2 pr-2">{t(m.labelKey)}</td>
                         <td className="py-2 pr-2 text-right font-mono">{(m.pct * 100).toFixed(0)} %</td>
                         <td className="py-2 pr-2 text-right font-mono">{formatEUR(m.montant)}</td>
                         <td className="py-2 pr-2 text-right font-mono">{formatEUR(m.cumul)}</td>
@@ -465,31 +469,31 @@ export default function VefaCalculator() {
               </div>
               {!pctValid && (
                 <p className="mt-3 text-xs font-medium text-red-500">
-                  Attention : le total des pourcentages n'est pas egal a 100 %.
+                  {t("pctWarning")}
                 </p>
               )}
               <p className="mt-3 text-xs text-muted">
-                Echeancier indicatif selon l'avancement des travaux. Les appels de fonds sont emis par le promoteur sur constatation de l'achevement de chaque etape par un architecte independant.
+                {t("echeancierNote")}
               </p>
             </div>
 
             {/* Intercalary interest section */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <h3 className="mb-2 text-base font-semibold text-navy">
-                Interets intercalaires
+                {t("interetsIntercalaires")}
               </h3>
               <p className="mb-4 text-xs text-muted">
-                Pendant la construction, la banque debloque le pret progressivement. L'acquereur paie des interets sur le capital deja debourse, sans rembourser le capital. C'est le cout cache n°1 d'un achat en VEFA.
+                {t("interetsIntercalairesDesc")}
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-card-border text-left text-xs font-medium uppercase text-muted">
-                      <th className="pb-2 pr-2">Phase</th>
-                      <th className="pb-2 pr-2 text-right">Capital debourse</th>
-                      <th className="pb-2 pr-2 text-right">Duree</th>
-                      <th className="pb-2 pr-2 text-right">Interets phase</th>
-                      <th className="pb-2 text-right">Cumul interets</th>
+                      <th className="pb-2 pr-2">{t("colPhase")}</th>
+                      <th className="pb-2 pr-2 text-right">{t("colCapitalDebourse")}</th>
+                      <th className="pb-2 pr-2 text-right">{t("colDuree")}</th>
+                      <th className="pb-2 pr-2 text-right">{t("colInteretsPhase")}</th>
+                      <th className="pb-2 text-right">{t("colCumulInterets")}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-card-border/50">
@@ -502,10 +506,10 @@ export default function VefaCalculator() {
                             : "text-foreground"
                         }
                       >
-                        <td className="py-2 pr-2">{m.label}</td>
+                        <td className="py-2 pr-2">{t(m.labelKey)}</td>
                         <td className="py-2 pr-2 text-right font-mono">{formatEUR(m.drawnMortgage)}</td>
                         <td className="py-2 pr-2 text-right font-mono">
-                          {m.monthsToNext > 0 ? `${m.monthsToNext} mois` : "—"}
+                          {m.monthsToNext > 0 ? t("nMois", { n: m.monthsToNext }) : "—"}
                         </td>
                         <td className="py-2 pr-2 text-right font-mono">
                           {m.interetPhase > 0 ? formatEUR(m.interetPhase) : "—"}
@@ -518,7 +522,7 @@ export default function VefaCalculator() {
                   </tbody>
                   <tfoot>
                     <tr className="border-t-2 border-gold font-semibold text-navy">
-                      <td className="pt-3 pr-2" colSpan={3}>Total interets intercalaires</td>
+                      <td className="pt-3 pr-2" colSpan={3}>{t("totalInteretsIntercalaires")}</td>
                       <td className="pt-3 pr-2 text-right font-mono" colSpan={2}>
                         {formatEUR(calc.totalIntercalaire)}
                       </td>
@@ -528,41 +532,44 @@ export default function VefaCalculator() {
               </div>
               <div className="mt-4 rounded-lg bg-amber-50 border border-amber-200 p-3">
                 <p className="text-xs font-medium text-amber-800">
-                  Cout intercalaire estime : <span className="font-bold">{formatEUR(calc.totalIntercalaire)}</span> sur toute la duree de la construction
-                  ({tauxHypotheque.toFixed(1)} % annuel sur un pret de {formatEUR(montantHypotheque)}).
-                  Ce montant s'ajoute au cout total d'acquisition et represente {prixTotal > 0 ? formatPct(calc.totalIntercalaire / prixTotal) : "— %"} du prix du bien.
+                  {t("coutIntercalaireResume", {
+                    montant: formatEUR(calc.totalIntercalaire),
+                    taux: tauxHypotheque.toFixed(1),
+                    pret: formatEUR(montantHypotheque),
+                    pctPrix: prixTotal > 0 ? formatPct(calc.totalIntercalaire / prixTotal) : "— %",
+                  })}
                 </p>
               </div>
             </div>
 
             {/* Droits d'enregistrement */}
             <ResultPanel
-              title="Droits d'enregistrement (terrain)"
+              title={t("droitsEnregistrementTitle")}
               lines={[
-                { label: "Part terrain", value: formatEUR(partTerrain), sub: true },
-                { label: "Droits bruts (7 %)", value: formatEUR(calc.droitsBruts) },
+                { label: t("partTerrainResult"), value: formatEUR(partTerrain), sub: true },
+                { label: t("droitsBruts"), value: formatEUR(calc.droitsBruts) },
                 ...(calc.bellegenAkt > 0
-                  ? [{ label: `Bellegen Akt (${nbAcquereurs} x 40 000 EUR)`, value: `- ${formatEUR(calc.bellegenAkt)}` }]
+                  ? [{ label: t("bellegenAkt", { nb: nbAcquereurs }), value: `- ${formatEUR(calc.bellegenAkt)}` }]
                   : []),
-                { label: "Droits nets a payer", value: formatEUR(calc.droitsNets), highlight: true },
+                { label: t("droitsNets"), value: formatEUR(calc.droitsNets), highlight: true },
               ]}
             />
 
             {/* TVA */}
             <ResultPanel
-              title="TVA (construction)"
+              title={t("tvaTitle")}
               lines={[
-                { label: "Base TVA (construction)", value: formatEUR(calc.partConstruction), sub: true },
+                { label: t("baseTva"), value: formatEUR(calc.partConstruction), sub: true },
                 {
-                  label: "Taux applique",
-                  value: residencePrincipale ? "3 % (reduit)" : "17 % (normal)",
+                  label: t("tauxApplique"),
+                  value: residencePrincipale ? t("tauxReduit") : t("tauxNormal"),
                 },
-                { label: "Montant TVA", value: formatEUR(calc.tvaMontant) },
+                { label: t("montantTva"), value: formatEUR(calc.tvaMontant) },
                 ...(calc.faveurFiscale > 0
                   ? [
-                      { label: "Faveur fiscale TVA 3 %", value: formatEUR(calc.faveurFiscale), sub: true },
+                      { label: t("faveurFiscale"), value: formatEUR(calc.faveurFiscale), sub: true },
                       {
-                        label: "Plafond de faveur",
+                        label: t("plafondFaveur"),
                         value: `${formatEUR(TVA_FAVEUR_PLAFOND)}`,
                         sub: true,
                         warning: calc.faveurFiscale >= TVA_FAVEUR_PLAFOND,
@@ -574,31 +581,31 @@ export default function VefaCalculator() {
 
             {/* Other fees */}
             <ResultPanel
-              title="Autres frais"
+              title={t("autresFraisTitle")}
               lines={[
-                { label: "Emoluments notariaux", value: formatEUR(calc.emolumentsNotaire) },
+                { label: t("emolumentsNotariaux"), value: formatEUR(calc.emolumentsNotaire) },
                 ...(montantHypotheque > 0
-                  ? [{ label: "Frais d'hypotheque", value: formatEUR(calc.fraisHypotheque) }]
+                  ? [{ label: t("fraisHypotheque"), value: formatEUR(calc.fraisHypotheque) }]
                   : []),
               ]}
             />
 
             {/* Grand total */}
             <ResultPanel
-              title="Cout total de l'acquisition VEFA"
+              title={t("coutTotalTitle")}
               className="border-gold/30"
               lines={[
-                { label: "Prix du bien", value: formatEUR(prixTotal) },
-                { label: "Droits d'enregistrement nets", value: formatEUR(calc.droitsNets), sub: true },
-                { label: "TVA", value: formatEUR(calc.tvaMontant), sub: true },
-                { label: "Notaire + hypotheque", value: formatEUR(calc.emolumentsNotaire + calc.fraisHypotheque), sub: true },
-                { label: "Interets intercalaires", value: formatEUR(calc.totalIntercalaire), sub: true },
+                { label: t("prixDuBien"), value: formatEUR(prixTotal) },
+                { label: t("droitsEnregistrementNets"), value: formatEUR(calc.droitsNets), sub: true },
+                { label: t("tvaLabel"), value: formatEUR(calc.tvaMontant), sub: true },
+                { label: t("notaireHypotheque"), value: formatEUR(calc.emolumentsNotaire + calc.fraisHypotheque), sub: true },
+                { label: t("interetsIntercalairesLabel"), value: formatEUR(calc.totalIntercalaire), sub: true },
                 {
-                  label: `Total frais (${formatPct(prixTotal > 0 ? (calc.totalFrais + calc.totalIntercalaire) / prixTotal : 0)})`,
+                  label: `${t("totalFrais")} (${formatPct(prixTotal > 0 ? (calc.totalFrais + calc.totalIntercalaire) / prixTotal : 0)})`,
                   value: formatEUR(calc.totalFrais + calc.totalIntercalaire),
                 },
                 {
-                  label: "Cout total d'acquisition",
+                  label: t("coutTotalAcquisition"),
                   value: formatEUR(calc.coutTotal + calc.totalIntercalaire),
                   highlight: true,
                   large: true,
@@ -608,7 +615,7 @@ export default function VefaCalculator() {
 
             {/* Progress bar visualization */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="mb-4 text-base font-semibold text-navy">Repartition des paiements</h3>
+              <h3 className="mb-4 text-base font-semibold text-navy">{t("repartitionPaiements")}</h3>
               <div className="flex h-8 w-full overflow-hidden rounded-lg">
                 {DEFAULT_MILESTONES.map((m, i) => {
                   const pct = milestonePcts[i] / 100;
@@ -626,7 +633,7 @@ export default function VefaCalculator() {
                       key={i}
                       className={`${colors[i]} flex items-center justify-center text-xs font-semibold text-white`}
                       style={{ width: `${pct * 100}%` }}
-                      title={`${m.label}: ${milestonePcts[i].toFixed(0)} %`}
+                      title={`${t(m.labelKey)}: ${milestonePcts[i].toFixed(0)} %`}
                     >
                       {pct >= 0.10 ? `${milestonePcts[i].toFixed(0)}%` : ""}
                     </div>
@@ -647,7 +654,7 @@ export default function VefaCalculator() {
                   return (
                     <div key={i} className="flex items-center gap-3 text-xs">
                       <span className={`inline-block h-3 w-3 shrink-0 rounded-sm ${colors[i]}`} />
-                      <span className="flex-1 text-slate">{m.label}</span>
+                      <span className="flex-1 text-slate">{t(m.labelKey)}</span>
                       <span className="font-mono font-semibold text-navy">{milestonePcts[i].toFixed(0)} %</span>
                     </div>
                   );
@@ -657,58 +664,38 @@ export default function VefaCalculator() {
 
             {/* Garantie d'achevement */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-navy">Garantie d'achevement</h3>
+              <h3 className="mb-3 text-base font-semibold text-navy">{t("garantieTitle")}</h3>
               <div className="space-y-2 text-sm text-muted leading-relaxed">
                 <p>
-                  <strong className="text-slate">Obligation legale</strong> — Le promoteur doit fournir une
-                  garantie d'achevement (aussi appelee garantie extrinseque) delivree par un etablissement
-                  financier agree au Luxembourg. Cette garantie assure que le bien sera acheve meme en cas de
-                  defaillance du promoteur.
+                  <strong className="text-slate">{t("garantieObligationTitle")}</strong> — {t("garantieObligationText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Protection de l'acquereur</strong> — En VEFA, les fonds verses
-                  par l'acquereur sont proteges. L'acte notarie doit mentionner la garantie et ses conditions.
-                  Les appels de fonds ne peuvent exceder les pourcentages prevus par la loi, lies a
-                  l'avancement reel des travaux.
+                  <strong className="text-slate">{t("garantieProtectionTitle")}</strong> — {t("garantieProtectionText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Reception et reserves</strong> — Lors de la livraison,
-                  l'acquereur peut emettre des reserves sur les defauts constates. Le promoteur dispose d'un
-                  delai pour y remedier. La garantie decennale couvre les vices structurels pendant 10 ans.
+                  <strong className="text-slate">{t("garantieReceptionTitle")}</strong> — {t("garantieReceptionText")}
                 </p>
               </div>
             </div>
 
             {/* Bon a savoir */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-navy">Bon a savoir</h3>
+              <h3 className="mb-3 text-base font-semibold text-navy">{t("bonASavoirTitle")}</h3>
               <div className="space-y-2 text-sm text-muted leading-relaxed">
                 <p>
-                  <strong className="text-slate">TVA 3 % residence principale</strong> — La faveur fiscale est
-                  plafonnee a {formatEUR(TVA_FAVEUR_PLAFOND)}. Au-dela, la TVA restante est facturee a 17 %.
-                  Le benefice est octroye une seule fois dans la vie de l'acquereur et doit etre demande aupres de
-                  l'Administration de l'Enregistrement, des Domaines et de la TVA (AED).
+                  <strong className="text-slate">{t("bonTvaTitle")}</strong> — {t("bonTvaText", { plafond: formatEUR(TVA_FAVEUR_PLAFOND) })}
                 </p>
                 <p>
-                  <strong className="text-slate">Terrain vs construction</strong> — Dans un achat VEFA, la part
-                  terrain est soumise aux droits d'enregistrement (7 %), tandis que la part construction est
-                  soumise a la TVA. La repartition est fixee dans l'acte notarie.
+                  <strong className="text-slate">{t("bonTerrainTitle")}</strong> — {t("bonTerrainText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Bellegen Akt</strong> — Credit d'impot de 40 000 EUR par acquereur
-                  (80 000 EUR pour un couple) sur les droits d'enregistrement. Applicable uniquement pour la
-                  residence principale et lors de la premiere utilisation.
+                  <strong className="text-slate">{t("bonBellegenTitle")}</strong> — {t("bonBellegenText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Interets intercalaires</strong> — Pendant la phase de construction
-                  (24 a 30 mois), la banque debloque le pret au fur et a mesure des appels de fonds. L'acquereur
-                  paie des interets mensuels sur le capital deja debourse, sans amortir le capital. Ce cout,
-                  souvent oublie, represente typiquement 15 000 a 25 000 EUR pour un pret standard.
+                  <strong className="text-slate">{t("bonInteretsTitle")}</strong> — {t("bonInteretsText")}
                 </p>
                 <p>
-                  <strong className="text-slate">Duree de construction</strong> — Comptez en moyenne 24 a 30 mois
-                  entre la signature et la livraison. Le calendrier depend de la taille du projet, de la meteo
-                  et de la disponibilite des entreprises.
+                  <strong className="text-slate">{t("bonDureeTitle")}</strong> — {t("bonDureeText")}
                 </p>
               </div>
             </div>
