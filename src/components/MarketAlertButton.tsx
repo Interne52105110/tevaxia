@@ -98,7 +98,7 @@ export default function MarketAlertButton({ commune, showLabel = false }: Market
 
         if (error) {
           console.error("Error updating alerts:", error);
-          toast.show("Erreur lors de la mise a jour");
+          toast.show("Erreur lors de la mise à jour");
           return;
         }
 
@@ -115,8 +115,8 @@ export default function MarketAlertButton({ commune, showLabel = false }: Market
 
       toast.show(
         subscribed
-          ? `Alerte desactivee pour ${commune}`
-          : `Alerte activee pour ${commune}`
+          ? `Alerte désactivée pour ${commune}`
+          : `Alerte activée pour ${commune}`
       );
     } finally {
       setLoading(false);

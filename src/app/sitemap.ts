@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getAllCommunes } from "@/lib/market-data";
 
 const BASE = "https://tevaxia.lu";
 const ENERGY_BASE = "https://tevaxia.lu/energy";
@@ -63,6 +64,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? (page === "" ? 0.9 : 0.8)
           : (page === "" ? 0.8 : 0.7),
         alternates: alternates(BASE, `/energy${page}`),
+      });
+    }
+  }
+
+  // Commune pages — all 5 locales
+  const communes = getAllCommunes();
+  for (const commune of communes) {
+    const slug = commune.toLowerCase().replace(/\s+/g, "-");
+    const communePage = `/commune/${slug}`;
+    for (const locale of LOCALES) {
+      entries.push({
+        url: localeUrl(BASE, communePage, locale),
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: locale === "fr" ? 0.8 : 0.6,
+        alternates: alternates(BASE, communePage),
       });
     }
   }

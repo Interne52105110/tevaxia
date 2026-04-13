@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import AuthProvider from "@/components/AuthProvider";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,6 +70,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description: "Outils de calcul immobilier pour le Luxembourg.",
       images: ["https://tevaxia.lu/og-image.png"],
     },
+    manifest: "/manifest.json",
+    themeColor: "#0f172a",
+    appleWebApp: {
+      capable: true,
+      title: "Tevaxia",
+      statusBarStyle: "black-translucent",
+    },
   };
 }
 
@@ -106,6 +114,7 @@ export default async function RootLayout({
         gtag('config','G-4033901KHR');
       `}</Script>
       <body className="min-h-full flex flex-col">
+        <ServiceWorkerRegistration />
         <NextIntlClientProvider messages={messages}>
           {isEnergy ? (
             <>{children}</>

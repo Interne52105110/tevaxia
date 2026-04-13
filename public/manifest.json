@@ -1,0 +1,30 @@
+{
+  "name": "Tevaxia — Immobilier Luxembourg",
+  "short_name": "Tevaxia",
+  "description": "Valorisation, simulation énergétique, données de marché et outils de calcul pour l'immobilier au Luxembourg.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/logo-tevaxia-512.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/logo-tevaxia-512.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-tevaxia-512.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "business", "utilities"],
+  "lang": "fr"
+}
