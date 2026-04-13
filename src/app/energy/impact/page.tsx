@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { calculerImpact, type ImpactResponse, type ClasseImpact } from "@/lib/energy-api";
 import { generateImpactPdfBlob, PdfButton } from "@/components/energy/EnergyPdf";
+import { getEnergyComparables, getAvailableCommunes, buildImpactRange } from "@/lib/energy-comparables";
 
 const CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
 
@@ -22,6 +23,13 @@ const IMPACT_ENERGIE_RANGE: Record<string, { min: number; central: number; max: 
 const IMPACT_ENERGIE: Record<string, number> = Object.fromEntries(
   Object.entries(IMPACT_ENERGIE_RANGE).map(([k, v]) => [k, v.central])
 );
+
+const COMMUNES_DISPONIBLES = getAvailableCommunes();
+const CONFIDENCE_COLORS: Record<string, string> = {
+  high: "bg-green-100 text-green-700 border-green-200",
+  medium: "bg-amber-100 text-amber-700 border-amber-200",
+  low: "bg-red-100 text-red-700 border-red-200",
+};
 
 const CONSO_PAR_CLASSE: Record<string, number> = { A: 35, B: 60, C: 93, D: 130, E: 180, F: 255, G: 350, H: 450, I: 550 };
 const CO2_FACTEUR = 300; // g CO₂/kWh mix luxembourgeois
@@ -48,28 +56,35 @@ interface ClasseImpactLocal extends ClasseImpact {
   ajustementMin: number;
   ajustementMax: number;
   source: string;
+  confidence?: "high" | "medium" | "low";
 }
 
 interface ImpactResponseLocal extends ImpactResponse {
   classes: ClasseImpactLocal[];
 }
 
-function fallbackLocal(valeur: number, classeActuelle: string): ImpactResponseLocal {
-  const pctActuelle = IMPACT_ENERGIE[classeActuelle] || 0;
+function fallbackLocal(valeur: number, classeActuelle: string, commune: string | null): ImpactResponseLocal {
+  const { data: comparables, isCommune } = getEnergyComparables(commune);
+  const ranges = buildImpactRange(comparables);
+
+  const pctActuelle = ranges[classeActuelle]?.central ?? IMPACT_ENERGIE[classeActuelle] ?? 0;
   const valeurBase = valeur / (1 + pctActuelle / 100);
   const classes: ClasseImpactLocal[] = CLASSES.map((c) => {
-    const range = IMPACT_ENERGIE_RANGE[c];
+    const range = ranges[c] || IMPACT_ENERGIE_RANGE[c];
     const pct = range.central;
     const valeurAjustee = Math.round(valeurBase * (1 + pct / 100));
     const valeurMin = Math.round(valeurBase * (1 + range.min / 100));
     const valeurMax = Math.round(valeurBase * (1 + range.max / 100));
     return {
       classe: c, ajustementPct: pct, valeurAjustee, delta: valeurAjustee - valeur,
-      valeurMin, valeurMax, ajustementMin: range.min, ajustementMax: range.max, source: range.source,
+      valeurMin, valeurMax, ajustementMin: range.min, ajustementMax: range.max,
+      source: range.source,
+      confidence: "confidence" in range ? range.confidence : undefined,
     };
   });
+  const sourceLabel = isCommune ? `Données communales — ${comparables.commune}` : "Moyennes nationales";
   return { valeurBase: Math.round(valeurBase), classeActuelle, classes,
-    methodologie: "Green premium / brown discount basé sur les écarts de prix observés par classe énergétique au Luxembourg.",
+    methodologie: `Green premium / brown discount basé sur les écarts de prix observés par classe énergétique au Luxembourg. ${sourceLabel}.`,
     sources: ["Observatoire de l'Habitat 2025", "ECB Climate Risk Assessment"] };
 }
 

@@ -1,10 +1,150 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import InputField from "@/components/InputField";
 import { useAuth } from "@/components/AuthProvider";
+import { supabase } from "@/lib/supabase";
 import { useTranslations } from "next-intl";
 import { getProfile, saveProfile, loadAndMergeProfile, uploadLogo, type UserProfile } from "@/lib/profile";
+
+// ============================================================
+// MARKET ALERTS TYPES & SECTION
+// ============================================================
+interface MarketAlert {
+  id: string;
+  commune: string;
+  target_price_m2: number | null;
+  direction: "below" | "above";
+  active: boolean;
+  created_at: string;
+}
+
+function AlertsSection({ user }: { user: { id: string } | null }) {
+  const [alerts, setAlerts] = useState<MarketAlert[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchAlerts = useCallback(async () => {
+    if (!user || !supabase) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("market_alerts")
+      .select("id, commune, target_price_m2, direction, active, created_at")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error loading alerts:", error);
+    } else {
+      setAlerts((data as MarketAlert[]) || []);
+    }
+    setLoading(false);
+  }, [user]);
+
+  useEffect(() => {
+    fetchAlerts();
+  }, [fetchAlerts]);
+
+  const toggleActive = async (alert: MarketAlert) => {
+    if (!supabase) return;
+    const newActive = !alert.active;
+    const { error } = await supabase
+      .from("market_alerts")
+      .update({ active: newActive, updated_at: new Date().toISOString() })
+      .eq("id", alert.id);
+    if (error) {
+      console.error("Error toggling alert:", error);
+      return;
+    }
+    setAlerts((prev) =>
+      prev.map((a) => (a.id === alert.id ? { ...a, active: newActive } : a))
+    );
+  };
+
+  const deleteAlert = async (id: string) => {
+    if (!supabase) return;
+    const { error } = await supabase
+      .from("market_alerts")
+      .delete()
+      .eq("id", id);
+    if (error) {
+      console.error("Error deleting alert:", error);
+      return;
+    }
+    setAlerts((prev) => prev.filter((a) => a.id !== id));
+  };
+
+  if (!user || !supabase) return null;
+
+  return (
+    <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+      <h2 className="mb-4 text-base font-semibold text-navy">Mes alertes marche</h2>
+
+      {loading ? (
+        <p className="text-sm text-muted">Chargement...</p>
+      ) : alerts.length === 0 ? (
+        <p className="text-sm text-muted">
+          Aucune alerte active. Utilisez le bouton cloche sur les pages communes pour en creer.
+        </p>
+      ) : (
+        <div className="space-y-3">
+          {alerts.map((alert) => (
+            <div
+              key={alert.id}
+              className={`flex items-center justify-between gap-3 rounded-lg border p-3 transition-colors ${
+                alert.active
+                  ? "border-card-border bg-white"
+                  : "border-dashed border-card-border bg-background opacity-60"
+              }`}
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-navy truncate">
+                  {alert.commune}
+                </p>
+                <p className="text-xs text-muted">
+                  {alert.target_price_m2
+                    ? `${alert.direction === "below" ? "En dessous de" : "Au-dessus de"} ${alert.target_price_m2.toLocaleString("fr-FR")} EUR/m2`
+                    : "Pas de prix cible"}
+                  {" \u00b7 "}
+                  {new Date(alert.created_at).toLocaleDateString("fr-FR")}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                {/* Toggle active/inactive */}
+                <button
+                  onClick={() => toggleActive(alert)}
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                    alert.active ? "bg-navy" : "bg-gray-300"
+                  }`}
+                  title={alert.active ? "Desactiver" : "Activer"}
+                >
+                  <span
+                    className={`inline-block h-3.5 w-3.5 rounded-full bg-white transition-transform ${
+                      alert.active ? "translate-x-[18px]" : "translate-x-[3px]"
+                    }`}
+                  />
+                </button>
+
+                {/* Delete button */}
+                <button
+                  onClick={() => deleteAlert(alert.id)}
+                  className="rounded-md p-1 text-muted hover:text-red-600 hover:bg-red-50 transition-colors"
+                  title="Supprimer l'alerte"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Profil() {
   const t = useTranslations("profil");
@@ -179,6 +319,9 @@ export default function Profil() {
           >
             {syncing ? t("syncing") : saved ? t("profileSaved") : t("saveProfile")}
           </button>
+
+          {/* Market alerts management section */}
+          <AlertsSection user={user} />
 
           {user && (
             <div className="rounded-xl border border-energy/20 bg-energy/5 p-6">

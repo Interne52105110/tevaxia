@@ -114,3 +114,95 @@ export async function fetchECBRatesClient(): Promise<ECBRates> {
     return FALLBACK;
   }
 }
+
+// ============================================================
+// HISTORIQUE EURIBOR 3M — Tendances des taux hypothécaires
+// ============================================================
+
+export interface EuriborObservation {
+  date: string;   // Format YYYY-MM ou YYYY-MM-DD
+  rate: number;   // Taux en pourcentage (ex: 3.25)
+}
+
+// Cache dédié pour l'historique Euribor
+let euriborCache: {
+  data: EuriborObservation[];
+  months: number;
+  fetchedAt: number;
+} | null = null;
+const EURIBOR_CACHE_TTL = 6 * 60 * 60 * 1000; // 6 heures
+
+/**
+ * Récupère l'historique des N derniers mois du taux Euribor 3 mois
+ * depuis l'ECB Statistical Data Warehouse.
+ *
+ * Le taux Euribor 3M est la référence la plus courante pour les
+ * crédits immobiliers à taux variable au Luxembourg.
+ *
+ * @param months - Nombre de mois d'historique (défaut: 24)
+ * @returns Tableau d'observations { date, rate } triées chronologiquement
+ */
+export async function fetchEuriborHistory(
+  months: number = 24
+): Promise<EuriborObservation[]> {
+  // Vérifier le cache (si on demande moins ou autant de mois que le cache)
+  if (
+    euriborCache &&
+    Date.now() - euriborCache.fetchedAt < EURIBOR_CACHE_TTL &&
+    euriborCache.months >= months
+  ) {
+    // Retourner les N derniers mois du cache
+    return euriborCache.data.slice(-months);
+  }
+
+  try {
+    const url = `https://data-api.ecb.europa.eu/service/data/FM/B.U2.EUR.RT.MM.EURIBOR3MD_.HSTA?lastNObservations=${months}&format=csvdata`;
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(15_000),
+    });
+
+    if (!res.ok) {
+      return euriborCache ? euriborCache.data.slice(-months) : [];
+    }
+
+    const csv = await res.text();
+    const lines = csv.trim().split("\n");
+    if (lines.length < 2) {
+      return euriborCache ? euriborCache.data.slice(-months) : [];
+    }
+
+    const header = lines[0].split(",");
+    const dateIdx = header.indexOf("TIME_PERIOD");
+    const valueIdx = header.indexOf("OBS_VALUE");
+
+    if (dateIdx === -1 || valueIdx === -1) {
+      return euriborCache ? euriborCache.data.slice(-months) : [];
+    }
+
+    const observations: EuriborObservation[] = [];
+
+    for (let i = 1; i < lines.length; i++) {
+      const fields = lines[i].split(",");
+      const date = fields[dateIdx];
+      const rate = parseFloat(fields[valueIdx]);
+      if (date && !isNaN(rate)) {
+        observations.push({ date, rate });
+      }
+    }
+
+    // Trier par date croissante
+    observations.sort((a, b) => a.date.localeCompare(b.date));
+
+    // Mettre en cache
+    euriborCache = {
+      data: observations,
+      months,
+      fetchedAt: Date.now(),
+    };
+
+    return observations;
+  } catch {
+    // Retourner le cache existant si disponible, sinon tableau vide
+    return euriborCache ? euriborCache.data.slice(-months) : [];
+  }
+}
