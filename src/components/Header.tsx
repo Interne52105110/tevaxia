@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -101,14 +102,29 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const t = useTranslations("nav");
   const { user } = useAuth();
+  const pathname = usePathname();
+  const isEnergy = pathname.includes("/energy");
 
   return (
     <header className="sticky top-0 z-50 bg-navy text-white shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold text-navy-dark font-bold text-lg">T</div>
-            <span className="text-xl font-bold tracking-tight">tevaxia<span className="text-gold">.lu</span></span>
+          <Link href={isEnergy ? "/energy" : "/"} className="flex items-center gap-2">
+            {isEnergy ? (
+              <>
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-energy text-white font-bold text-lg">
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                  </svg>
+                </div>
+                <span className="text-xl font-bold tracking-tight">Tevaxia <span className="text-energy-light">Energy</span></span>
+              </>
+            ) : (
+              <>
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold text-navy-dark font-bold text-lg">T</div>
+                <span className="text-xl font-bold tracking-tight">tevaxia<span className="text-gold">.lu</span></span>
+              </>
+            )}
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
