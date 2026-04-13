@@ -9,6 +9,7 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR } from "@/lib/calculations";
 import { generateHvacPdfBlob, PdfButton } from "@/components/energy/EnergyPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SEOContent from "@/components/SEOContent";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -1277,6 +1278,7 @@ export default function HVACSimulator() {
   /* ---------------------------------------------------------------- */
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs />
@@ -1756,5 +1758,28 @@ export default function HVACSimulator() {
         </div>
       </div>
     </div>
+
+    <SEOContent
+      ns="hvac"
+      sections={[
+        { titleKey: "dimensionnementTitle", contentKey: "dimensionnementContent" },
+        { titleKey: "normesTitle", contentKey: "normesContent" },
+        { titleKey: "pacTitle", contentKey: "pacContent" },
+        { titleKey: "vmcTitle", contentKey: "vmcContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/energy/renovation", labelKey: "energyRenovation" },
+        { href: "/energy/estimateur-cpe", labelKey: "energyCpe" },
+        { href: "/energy/lenoz", labelKey: "energyLenoz" },
+      ]}
+    />
+    </>
   );
 }

@@ -227,7 +227,29 @@
       "whyDesc": "In Luxembourg, a property's energy class directly influences its market value. The gap between an A-rated and an I-rated property can reach {pct}. With the EPBD directive and rising energy costs, renovation is no longer optional — it's a measurable value driver.",
       "statEcart": "A vs I gap",
       "statKlimabonus": "Klimabonus max.",
-      "statIsolation": "€/m² facade insulation"
+      "statIsolation": "€/m² facade insulation",
+      "seo": {
+        "faqTitle": "Frequently asked questions about the energy transition",
+        "relatedTitle": "Related simulators",
+        "transitionTitle": "The building energy transition in Luxembourg",
+        "transitionContent": "<p>Luxembourg has committed to an <strong>ambitious energy transition</strong> of its building stock. The building sector represents about <strong>35% of national energy consumption</strong>. More than 60% of homes are rated D or below.</p>",
+        "cpeTitle": "The energy passport: classes A to I",
+        "cpeContent": "<p>The EPC rates buildings from A (very efficient) to I (energy sieve). A class A property sells at 15-30% premium over comparable G-I class.</p>",
+        "epbdTitle": "The EPBD directive and Luxembourg deadlines",
+        "epbdContent": "<p>The EU EPBD recast (2024/1275) requires: class E minimum by 2030, class D by 2033, zero-emission by 2050. Luxembourg must renovate 40,000+ homes.</p>",
+        "aidesTitle": "Energy renovation aids: Klimabonus 2025",
+        "aidesContent": "<p>Klimabonus offers: insulation EUR 30-60/m2, renewable heating EUR 2,500-8,000, PV EUR 200-500/kWp. Cumulative with municipal premiums.</p>",
+        "faq1q": "What is the energy passport (EPC)?",
+        "faq1a": "A mandatory certificate rating buildings from A to I based on primary energy demand, heating needs and CO2 emissions.",
+        "faq2q": "What is the EPC's impact on property prices?",
+        "faq2a": "A class A property sells at 15-30% premium. The green premium is +3-5% per class gained.",
+        "faq3q": "What are the EPBD deadlines for Luxembourg?",
+        "faq3a": "Class E minimum by 2030, class D by 2033, zero-emission by 2050.",
+        "faq4q": "How much does energy renovation cost in Luxembourg?",
+        "faq4a": "A full renovation costs EUR 30,000-80,000 for a house, partly covered by Klimabonus (up to 50%).",
+        "faq5q": "How do I get the Klimabonus?",
+        "faq5a": "Contact Myenergy for free advice, conduct an energy audit, then apply after works to the Ministry of the Environment."
+      }
     },
     "impact": {
       "title": "Energy class impact on property value",
@@ -271,7 +293,27 @@
       "sampleSize": "{count} transactions analysed",
       "confidence_high": "High confidence",
       "confidence_medium": "Medium confidence",
-      "confidence_low": "Low confidence"
+      "confidence_low": "Low confidence",
+      "seo": {
+        "faqTitle": "Frequently asked questions about energy impact on prices",
+        "relatedTitle": "Related simulators",
+        "greenPremiumTitle": "Green premium and brown discount: EPC impact on prices",
+        "greenPremiumContent": "<p>The impact of <strong>energy performance on property prices</strong> is well documented in Luxembourg. The gap between A-B (green premium: +12-18%) and F-I (brown discount: -15-30%) reaches 25-35% total.</p>",
+        "donneesTitle": "Municipal data: discounts and premiums by EPC class",
+        "donneesContent": "<p>Our database aggregates price gaps by EPC class at municipal level based on AED transactions.</p>",
+        "etudesTitle": "Studies and scientific references",
+        "etudesContent": "<p>Housing Observatory (2023): +3-5% per class. BCL Working Paper (2022): accelerating brown discount since 2020.</p>",
+        "strategieTitle": "Strategy: renovate before selling?",
+        "strategieContent": "<p>Should you renovate to capture the green premium or sell as-is? Our simulator calculates the potential ROI.</p>",
+        "faq1q": "What is the green premium?",
+        "faq1a": "The green premium is the added value of energy-efficient properties (class A-B), reaching +12-18% in Luxembourg.",
+        "faq2q": "What is the brown discount?",
+        "faq2a": "The brown discount is the price reduction for energy-inefficient properties (class F-I), reaching -15-30%.",
+        "faq3q": "Is the data reliable?",
+        "faq3a": "Based on actual AED transactions, corroborated by Housing Observatory and BCL studies.",
+        "faq4q": "Will the brown discount worsen?",
+        "faq4a": "Yes, with EPBD deadlines and rising energy costs, the brown discount is expected to increase."
+      }
     },
     "renovation": {
       "title": "Energy Renovation ROI",
@@ -344,7 +386,27 @@
       "comparaisonCout": "Energy cost",
       "comparaisonEcoEnergie": "Energy saved / year",
       "comparaisonEcoCO2": "Emissions avoided / year",
-      "comparaisonEcoFacture": "Energy bill / year"
+      "comparaisonEcoFacture": "Energy bill / year",
+      "seo": {
+        "faqTitle": "Frequently asked questions about energy renovation",
+        "relatedTitle": "Related simulators",
+        "roiTitle": "Energy renovation ROI in Luxembourg",
+        "roiContent": "<p>Average ROI for a full renovation (class G to B) is <strong>6-12 years</strong> excluding property appreciation.</p>",
+        "coutsTitle": "Average renovation costs by component",
+        "coutsContent": "<p>Roof insulation: EUR 120-220/m2, facade: EUR 150-280/m2, triple glazing: EUR 600-1,200/window, heat pump: EUR 12,000-18,000, VMC: EUR 5,000-10,000.</p>",
+        "klimabonusTitle": "Klimabonus 2025: amounts and conditions",
+        "klimabonusContent": "<p>Insulation EUR 30-60/m2, heat pump EUR 2,500-8,000, PV EUR 200-500/kWp, energy audit 50-70% subsidy.</p>",
+        "paybackTitle": "Payback period: worked examples",
+        "paybackContent": "<p>Full renovation (G to B) for 150m2 house: EUR 75,000 cost, EUR 22,000 aids, EUR 6,000/year savings = 8-9 year payback. With green premium, under 5 years.</p>",
+        "faq1q": "How much does a full energy renovation cost?",
+        "faq1a": "EUR 60,000-80,000 before aids for a 150m2 house going from G to B.",
+        "faq2q": "What is the average payback period?",
+        "faq2a": "6-12 years excluding property appreciation. Under 5 years including green premium.",
+        "faq3q": "Do aids cover the full cost?",
+        "faq3a": "No, Klimabonus covers about 25-40%, municipal aids can bring it to 40-50%.",
+        "faq4q": "Should I get an energy audit first?",
+        "faq4a": "Strongly recommended. It identifies priority works and is 50-70% subsidised via Myenergy."
+      }
     },
     "communaute": {
       "title": "Energy Community Simulator",
@@ -410,7 +472,27 @@
       "pvgisFallback": "PVGIS unavailable — using 950 kWh/kWp estimate",
       "estimation": "Estimate",
       "prodMensDescPvgis": "Monthly PVGIS data for {commune} (satellite irradiance, 14% losses)",
-      "paramProductionPvgis": "Real PVGIS PV production: {val} kWh/kWp/yr ({commune}, EU satellite data)"
+      "paramProductionPvgis": "Real PVGIS PV production: {val} kWh/kWp/yr ({commune}, EU satellite data)",
+      "seo": {
+        "faqTitle": "Frequently asked questions about energy communities",
+        "relatedTitle": "Related simulators",
+        "conceptTitle": "Energy communities in Luxembourg",
+        "conceptContent": "<p><strong>Renewable energy communities (REC)</strong> allow citizens, SMEs and local authorities to collectively produce and share renewable electricity, under the <strong>law of 3 February 2021</strong>.</p>",
+        "autoconsommationTitle": "Collective self-consumption and diversification",
+        "autoconsommationContent": "<p>Self-consumption rates rise from 30-40% (individual) to 50-70% (community of 10-20 members) thanks to consumption profile diversification.</p>",
+        "loiTitle": "Legal framework: law of 3 February 2021",
+        "loiContent": "<p>Two forms: Renewable Energy Community (REC) and Citizen Energy Community (CEC). Members must be connected to the same distribution network.</p>",
+        "economiesTitle": "Savings and profitability",
+        "economiesContent": "<p>Savings of EUR 200-600/year per participating household, through self-consumption savings and surplus feed-in revenue.</p>",
+        "faq1q": "What is an energy community?",
+        "faq1a": "A group of citizens, SMEs and/or local authorities who collectively produce and share renewable electricity.",
+        "faq2q": "How much can I save?",
+        "faq2a": "EUR 200-600/year per household depending on community size.",
+        "faq3q": "Do I need to live near the panels?",
+        "faq3a": "Members must be on the same distribution network, not necessarily the same building.",
+        "faq4q": "How do I create an energy community?",
+        "faq4a": "Contact Myenergy, form a participant group, define sharing rules, and declare to the ILR regulator."
+      }
     },
     "epbd": {
       "title": "EPBD Directive — Timeline & Stranding Risk",
@@ -499,6 +581,28 @@
         "target26": "Target -26%",
         "fossilEnd": "End of fossil boilers",
         "zeroEmission": "Zero-emission stock"
+      },
+      "seo": {
+        "faqTitle": "Frequently asked questions about the EPBD directive",
+        "relatedTitle": "Related simulators",
+        "directiveTitle": "The EPBD recast directive: implications for Luxembourg",
+        "directiveContent": "<p>The <strong>EPBD recast (2024/1275)</strong> sets binding renovation targets. Luxembourg must renovate 40,000+ homes rated F-I by 2033.</p>",
+        "echeancesTitle": "Deadlines and obligations for Luxembourg",
+        "echeancesContent": "<p>Key deadlines: class E by 2030, class D by 2033, zero-emission by 2050. Transposition into national law by 2026.</p>",
+        "strandingTitle": "Stranding risk: blocked assets",
+        "strandingContent": "<p>Properties in class F-I face increasing risk of value loss and usage restrictions as EPBD deadlines approach.</p>",
+        "financementTitle": "Financing and support",
+        "financementContent": "<p>Klimabonus (25-40%), green bank loans, municipal funds, and energy performance contracts.</p>",
+        "faq1q": "What is the EPBD directive?",
+        "faq1a": "EU legislation setting minimum energy performance standards for buildings. The 2024 recast imposes binding targets.",
+        "faq2q": "Will my G-rated property be banned from renting?",
+        "faq2a": "EPBD requires class E by 2030 and D by 2033. Exact modalities will be set by Luxembourg's transposition.",
+        "faq3q": "What is stranding risk?",
+        "faq3a": "The risk that a property loses value or becomes non-compliant, making it difficult to sell or rent without renovation.",
+        "faq4q": "How can I finance renovation?",
+        "faq4a": "Via Klimabonus, green loans, municipal aids and energy performance contracts.",
+        "faq5q": "When must Luxembourg transpose the EPBD?",
+        "faq5a": "By 2026."
       }
     },
     "estimateurCpe": {
@@ -562,7 +666,27 @@
       "consoTotale": "Total annual consumption",
       "coutEstime": "Estimated energy cost",
       "emissionsCO2": "Estimated CO₂ emissions",
-      "prixKwh": "Basis: €0.22/kWh (Luxembourg mix 2026)"
+      "prixKwh": "Basis: €0.22/kWh (Luxembourg mix 2026)",
+      "seo": {
+        "faqTitle": "Frequently asked questions about EPC estimation",
+        "relatedTitle": "Related simulators",
+        "estimerTitle": "Estimating your energy class without a formal audit",
+        "estimerContent": "<p>Our estimator provides an indicative EPC class based on building characteristics (construction year, heating type, insulation, ventilation). Useful for anticipating a sale or assessing renovation potential.</p>",
+        "criteresTitle": "Criteria used by the estimator",
+        "criteresContent": "<p>Construction year, building type, heating system, insulation level, glazing type, and ventilation system.</p>",
+        "fiabiliteTitle": "Reliability and limitations",
+        "fiabiliteContent": "<p>Accuracy of ±1 class in about 75% of cases. Does not replace an official EPC by an approved Myenergy expert.</p>",
+        "apresEstimationTitle": "What to do after the estimate",
+        "apresEstimationContent": "<p>Class A-C: leverage the green premium. Class D-E: targeted works can gain 1-2 classes. Class F-I: renovation recommended, contact Myenergy.</p>",
+        "faq1q": "Does this replace an official EPC?",
+        "faq1a": "No, it is indicative only. An official EPC is mandatory for sale or rental.",
+        "faq2q": "How accurate is the estimator?",
+        "faq2a": "About ±1 class in 75% of cases.",
+        "faq3q": "Which criteria matter most?",
+        "faq3a": "Construction year and heating system are the two most decisive factors.",
+        "faq4q": "My property is old but renovated — is this considered?",
+        "faq4a": "Yes, indicate current insulation and heating. Renovations are taken into account."
+      }
     },
     "lenoz": {
       "title": "Simplified LENOZ Scoring",
@@ -638,7 +762,29 @@
       "optDifficile": "Difficult",
       "optAccessible": "Accessible",
       "optDedieExtensible": "Dedicated + expandable",
-      "downloadPdf": "Download PDF"
+      "downloadPdf": "Download PDF",
+      "seo": {
+        "faqTitle": "Frequently asked questions about LENOZ certification",
+        "relatedTitle": "Related simulators",
+        "certificationTitle": "LENOZ certification in Luxembourg",
+        "certificationContent": "<p><strong>LENOZ</strong> is Luxembourg's sustainability label for new residential buildings, evaluating 60 criteria across 6 categories. Mandatory for 3% VAT eligibility since 2017.</p>",
+        "categoriesTitle": "The 6 LENOZ evaluation categories",
+        "categoriesContent": "<p>Building location, society/economy, energy, ecology, materials, and functionality. Total: 60 points.</p>",
+        "notationTitle": "Scoring system and levels",
+        "notationContent": "<p>Platinum (>=48 pts), Gold (>=36), Silver (>=24), Bronze (>=12). LENOZ is mandatory for the 3% super-reduced VAT rate.</p>",
+        "avantagesTitle": "Benefits of LENOZ certification",
+        "avantagesContent": "<p>3% VAT prerequisite, resale value, quality of life, and long-term asset value.</p>",
+        "faq1q": "What is LENOZ certification?",
+        "faq1a": "Luxembourg's sustainability label for new residential buildings, covering 60 criteria in 6 categories.",
+        "faq2q": "Is LENOZ mandatory?",
+        "faq2a": "Yes, for 3% VAT eligibility on new residential buildings.",
+        "faq3q": "How much does certification cost?",
+        "faq3a": "EUR 2,000-5,000 depending on project complexity.",
+        "faq4q": "What is the difference between LENOZ and EPC?",
+        "faq4a": "EPC measures energy only. LENOZ is broader: ecology, materials, functionality and location.",
+        "faq5q": "Does LENOZ apply to renovations?",
+        "faq5a": "No, new construction only. An extension to renovations is under discussion."
+      }
     },
     "portfolio": {
       "title": "Energy Portfolio",
@@ -801,7 +947,29 @@
     "chartTitle": "Price/m² evolution — {commune}",
     "chartSource": "Municipal estimate based on national trend — Source: Observatoire de l'Habitat",
     "tooltipPrixM2": "Price/m²",
-    "tooltipAnnee": "Year {annee}"
+    "tooltipAnnee": "Year {annee}",
+    "seo": {
+      "faqTitle": "Frequently asked questions about property valuation",
+      "relatedTitle": "Related tools",
+      "contextTitle": "The Luxembourg real estate market in 2025-2026",
+      "contextContent": "<p>The Grand Duchy of Luxembourg's real estate market is going through a <strong>post-peak correction</strong> that began in late 2022, after more than a decade of nearly uninterrupted growth. According to the Housing Observatory and STATEC, residential prices fell by around 14% between the Q3-2022 peak and Q4-2024, before stabilising in the first half of 2025.</p><p>This correction is mainly explained by the <strong>ECB monetary tightening</strong> (policy rate rising from 0% to 4.50% in 18 months), which reduced household borrowing capacity. Nevertheless, structural fundamentals remain solid: demographic growth of +1.5%/year, 12,000 additional residents in 2024, a dynamic labour market (unemployment rate ~5.6%) and a structurally deficient supply estimated at 3,000 homes per year by the IDEA Foundation.</p><p>The <strong>Housing Sector Plan (PSL)</strong> and the Pacte Logement 2.0 reform aim to accelerate construction, but effects remain slow. The transaction recovery observed since early 2025 (+18% in volume in Q1-2025 vs Q1-2024) confirms that the floor has probably been reached in many municipalities.</p>",
+      "methodeTitle": "Valuation methods: hedonic, comparables and DCF",
+      "methodeContent": "<p>In Luxembourg, three main families of methods coexist for estimating property value:</p><ul><li><strong>The hedonic method</strong>: used by STATEC and the Housing Observatory, it decomposes the price based on objective characteristics (surface area, location, age, energy performance, floor, parking, etc.) via a regression model. Our tool relies on coefficients published by the Observatory and updated quarterly.</li><li><strong>The comparable method</strong>: a classic in property valuation (EVS/TEGoVA standard), it involves adjusting prices from recent transactions on similar properties. Notarial deeds registered with the Registration and Domains Administration (AED) constitute the reference source.</li><li><strong>The DCF (Discounted Cash Flow) method</strong>: mainly used for investment properties, it discounts future net cash flows. Luxembourg institutional investors (SIF/RAIF funds under CSSF supervision) systematically use it for due diligence.</li></ul><p>Our estimator combines the hedonic method (for the theoretical price) with recent comparable data (for market anchoring), thus providing a reliable value range.</p>",
+      "facteursTitle": "Factors influencing property value in Luxembourg",
+      "facteursContent": "<p>Many factors affect property values in the Grand Duchy, with variable weightings depending on the property type:</p><ul><li><strong>Location and municipality</strong>: this is the primary factor. Luxembourg City (Belair, Limpertsberg, Kirchberg) shows average prices per m² of EUR 10,000-14,000, compared to EUR 5,000-7,000 in the North (Clervaux, Wiltz). Proximity to transport (tram, CFL station), international schools and employment zones (Kirchberg, Cloche d'Or) creates significant premiums.</li><li><strong>Surface area and layout</strong>: net habitable surface (as defined by the Grand-Ducal regulation of 25 February 1979) remains the dominant quantitative criterion. Price per m² decreases with size (decreasing returns effect).</li><li><strong>Energy performance (EPC)</strong>: since the 2010 energy passport reform, the energy class measurably influences prices. A class A property trades at 15-30% more than a class G-I property of comparable surface and location, according to Housing Observatory studies.</li><li><strong>Condition and renovations</strong>: fitted kitchen, modern bathroom, triple glazing, dual-flow VMC and heat pump are valorising elements. Conversely, an asbestos-cement roof or old oil boiler generates discounts.</li><li><strong>Floor and orientation</strong>: for apartments, upper floors with clear views and south/south-west orientation benefit from premiums of 3-8% compared to ground floor.</li></ul>",
+      "exempleTitle": "Concrete example: valuing an apartment in Esch-sur-Alzette",
+      "exempleContent": "<p>Let us take an apartment of <strong>85 m² in Esch-sur-Alzette</strong>, Belvaux district, built in 2012, energy class C, with 1 indoor parking space and 1 cellar:</p><ul><li>Average price per m² in municipality (Q1-2025): ~EUR 6,200 (source: Housing Observatory)</li><li>Class C adjustment (reference D): +5% → EUR 6,510/m²</li><li>Age adjustment (2012 vs median 2005): +3% → EUR 6,705/m²</li><li>Indoor parking: +EUR 25,000 (market flat rate)</li><li>Gross estimate: 85 × 6,705 + 25,000 = <strong>EUR 594,925</strong></li></ul><p>Our tool refines this estimate with complete hedonic coefficients and the latest registered comparables, providing an indicative range that you can compare with an expert opinion approved by the Ministry of Housing.</p><p><strong>Reminder</strong>: an online estimate does not replace a certified valuation (REV/TEGoVA report) required for inheritances, judicial partitions or mortgage guarantees with Luxembourg banks.</p>",
+      "faq1q": "How accurate is an online property valuation?",
+      "faq1a": "Online estimators typically achieve an accuracy of ±10-15% compared to the final sale price. Our tool, calibrated on Housing Observatory data, aims for a range of ±10%. For a certified valuation (inheritance, mortgage), consult an approved expert.",
+      "faq2q": "How does the EPC influence the price in Luxembourg?",
+      "faq2a": "According to Housing Observatory studies (2023), gaining one energy class represents on average +3 to +5% on the sale price. The premium is more pronounced for houses (higher heating costs) than apartments. Classes A-B benefit from a 'green premium' while classes G-I suffer an increasing 'brown discount'.",
+      "faq3q": "What data does the estimation tool use?",
+      "faq3a": "The tool relies on median prices per municipality published by the Housing Observatory (AED source), STATEC hedonic coefficients, and quarterly property price indices. Data is updated each quarter.",
+      "faq4q": "Should I get a valuation before selling in Luxembourg?",
+      "faq4a": "Yes, a prior valuation is recommended to set a realistic listing price. A price that is too high extends the selling time (median 90-120 days in Luxembourg) and can lead to more aggressive negotiations. A correctly positioned property sells in an average of 45-60 days.",
+      "faq5q": "What is the difference between market value and sale price?",
+      "faq5a": "Market value is the theoretical price an informed buyer would pay under normal market conditions (EVS definition). The actual sale price may deviate depending on the seller's urgency, marketing quality and the buyer's financing conditions. In Luxembourg, the average gap is ±5% in a balanced market."
+    }
   },
   "fraisAcquisition": {
     "title": "Acquisition Fees Simulator",
@@ -858,7 +1026,29 @@
     "infoNotaireText": "Calculated according to a regulated degressive scale (4% up to €10,000 then degressive).",
     "sauvegarder": "Save",
     "evaluationSauvegardee": "Valuation saved!",
-    "savePrefix": "Fees"
+    "savePrefix": "Fees",
+    "seo": {
+      "faqTitle": "Frequently asked questions about acquisition costs",
+      "relatedTitle": "Related tools",
+      "comprendreTitle": "Understanding property acquisition costs in Luxembourg",
+      "comprendreContent": "<p>When purchasing property in the Grand Duchy of Luxembourg, the buyer must pay several categories of costs in addition to the purchase price. These <strong>acquisition costs</strong>, often incorrectly called 'notary fees', represent between 7% and 10% of the property price for existing properties, and can drop to 3-4% for new-build VEFA properties.</p><p>The main components are:</p><ul><li><strong>Registration duties</strong>: 6% of the purchase price (existing) or land portion (VEFA), collected by the Registration and Domains Administration (AED).</li><li><strong>Transcription duty</strong>: 1% of the price, for land registry purposes.</li><li><strong>Notary fees</strong>: calculated on a degressive scale set by the Grand-Ducal regulation of 24 September 1987.</li><li><strong>Mortgage registration fees</strong>: 0.05% of the loan amount plus notarial fees on the mortgage deed.</li></ul>",
+      "bellegenAktTitle": "The Bellegen Akt credit: tax reduction up to EUR 40,000",
+      "bellegenAktContent": "<p>The <strong>Bellegen Akt</strong> (reduced-cost deed) is a major tax advantage granted to buyers of a property intended as their <strong>primary residence</strong>. Each buyer receives a credit of <strong>EUR 20,000</strong> on duties. For a couple buying together, the credit doubles to <strong>EUR 40,000</strong>. This credit can be used only once in each person's lifetime.</p><p>Eligibility conditions:</p><ul><li>The property must serve as the buyer's primary residence</li><li>Effective occupation must occur within 2 years of the deed</li><li>The buyer must not have already used the credit</li><li>The property must be located in Luxembourg</li></ul>",
+      "vefaTvaTitle": "VEFA and VAT: the tax regime for new builds",
+      "vefaTvaContent": "<p>Purchasing through <strong>VEFA (off-plan sale)</strong> benefits from a specific tax regime in Luxembourg. The construction portion is subject to <strong>VAT</strong> (not registration duties), while the land portion remains subject to 7% duties.</p><p>Applicable VAT rates:</p><ul><li><strong>3% (super-reduced rate)</strong>: for the buyer's primary residence, subject to conditions, capped at EUR 50,000 in VAT savings.</li><li><strong>17% (standard rate)</strong>: for rental investments or beyond the cap.</li></ul>",
+      "exempleTitle": "Worked example: EUR 750,000 existing property purchase by a couple",
+      "exempleContent": "<p>A typical case: a couple purchases an existing apartment at <strong>EUR 750,000</strong> as their primary residence, with a mortgage of EUR 600,000:</p><ul><li>Registration duties (6%): EUR 45,000</li><li>Transcription duty (1%): EUR 7,500</li><li>Gross duties: EUR 52,500</li><li>Bellegen Akt credit (2 x EUR 20,000): -EUR 40,000</li><li><strong>Net duties: EUR 12,500</strong></li><li>Notary fees: ~EUR 6,800</li><li>Mortgage costs: ~EUR 2,500</li><li><strong>Total acquisition costs: ~EUR 21,800 (2.9% of price)</strong></li></ul>",
+      "faq1q": "How much are notary fees in Luxembourg?",
+      "faq1a": "Notary fees (excluding registration duties) represent about 0.8% to 1.2% of the purchase price for a EUR 750,000 property. Total acquisition costs range from 3% (new-build with Bellegen Akt) to 10% (existing without tax credit).",
+      "faq2q": "Can the Bellegen Akt be combined with reduced VAT rate?",
+      "faq2a": "Yes, in VEFA the Bellegen Akt credit applies to registration duties on the land portion, while the reduced VAT rate (3%) applies to the construction portion. Both advantages are cumulative for owner-occupiers.",
+      "faq3q": "How are registration duties calculated for VEFA?",
+      "faq3a": "In VEFA, registration duties (6% + 1%) apply only to the land portion declared in the deed. The construction portion is subject to VAT (3% or 17%). The land/construction split must appear in the reservation contract and deed of sale.",
+      "faq4q": "Can the Bellegen Akt be recovered if I resell?",
+      "faq4a": "No, the Bellegen Akt credit can only be used once per person. If you resell and repurchase, you cannot benefit from it a second time, except in cases of divorce with judicial partition.",
+      "faq5q": "When are acquisition costs paid?",
+      "faq5a": "The costs are paid when signing the authentic deed at the notary. The notary collects all duties, taxes and fees and transfers them to the relevant authorities. Payment typically occurs 2-3 months after the preliminary sale agreement."
+    }
   },
   "plusValues": {
     "title": "Capital Gains Tax Calculator",
@@ -925,7 +1115,29 @@
     "valeurDonation": "Value declared in deed",
     "anneeDonation": "Year of donation",
     "successionHint": "Value used in the succession declaration",
-    "donationHint": "Value used in the notarial deed of donation"
+    "donationHint": "Value used in the notarial deed of donation",
+    "seo": {
+      "faqTitle": "Frequently asked questions about property capital gains",
+      "relatedTitle": "Related tools",
+      "fiscaliteTitle": "Taxation of property capital gains in Luxembourg",
+      "fiscaliteContent": "<p>In Luxembourg, <strong>property capital gains</strong> realised on sale are subject to income tax. The tax regime differs depending on the holding period, pursuant to the <strong>amended law of 4 December 1967</strong> on income tax (LIR).</p><ul><li><strong>Speculation profit (art. 99bis LIR)</strong>: sale within 2 years — taxed at marginal rate (up to 45.78%)</li><li><strong>Disposal profit (art. 99ter LIR)</strong>: sale after 2 years — taxed at half the global rate</li></ul>",
+      "speculationTitle": "Speculation profit: sale within 2 years",
+      "speculationContent": "<p>When property is sold <strong>within 2 years</strong> of acquisition, the gain constitutes a speculation profit taxed at the full marginal rate (up to 42% + 7% employment fund contribution = 45.78% in 2025). No standard deduction applies.</p>",
+      "cessionTitle": "Disposal profit: sale after 2 years",
+      "cessionContent": "<p>Capital gains realised after <strong>more than 2 years</strong> benefit from a favourable regime:</p><ul><li>Acquisition price is <strong>revalued</strong> using ACD coefficients</li><li><strong>EUR 50,000 allowance</strong> every 10 years (EUR 100,000 for couples)</li><li>Net gain taxed at <strong>half the global rate</strong></li></ul>",
+      "exonerationsTitle": "Exemptions and special cases",
+      "exonerationsContent": "<p>Several situations allow <strong>total or partial exemption</strong>:</p><ul><li><strong>Primary residence</strong>: sale is exempt if the owner resided there continuously since acquisition or for at least 5 years before the sale</li><li><strong>Inheritance/donation</strong>: inheritance uses fair market value at date of death (step-up basis)</li><li><strong>Expropriation</strong>: compensation for public utility is exempt under conditions</li></ul>",
+      "faq1q": "How is property capital gain calculated in Luxembourg?",
+      "faq1a": "Capital gain = Sale price - (Revalued acquisition price + acquisition costs + revalued works). The acquisition price is adjusted by ACD coefficients for inflation. A EUR 50,000 allowance is available every 10 years.",
+      "faq2q": "What is the tax rate on capital gains?",
+      "faq2a": "Speculation (< 2 years): full marginal rate (up to 45.78%). Disposal (> 2 years): half the global rate, approximately 20-23%. Primary residence is exempt under conditions.",
+      "faq3q": "How does the EUR 50,000 allowance work?",
+      "faq3a": "The EUR 50,000 allowance (EUR 100,000 for couples) is granted on disposal profits and renews every 10 years.",
+      "faq4q": "Is the primary residence exempt?",
+      "faq4a": "Yes, sale of the primary residence is exempt if you resided there continuously since acquisition or for at least 5 years before the sale (art. 102bis(2) LIR).",
+      "faq5q": "How do I declare a property capital gain?",
+      "faq5a": "The gain is declared in the annual tax return (model 100/100F), form 700 for disposal profits. The notary notifies the ACD of every property transaction."
+    }
   },
   "calculLoyer": {
     "title": "Rent Calculator — Invested Capital",
@@ -976,7 +1188,29 @@
     "reforme2024Text": "The threshold was lowered from 5% to 3.5% for dwellings whose invested capital exceeds a certain ceiling. Please check the applicable conditions.",
     "savePrefix": "Rent",
     "saveToast": "Evaluation saved!",
-    "saveButton": "Save this evaluation"
+    "saveButton": "Save this evaluation",
+    "seo": {
+      "faqTitle": "Frequently asked questions about rent caps",
+      "relatedTitle": "Related tools",
+      "plafonnementTitle": "Rent capping in Luxembourg: the legal framework",
+      "plafonnementContent": "<p>In Luxembourg, residential rents are regulated by the <strong>amended law of 21 September 2006</strong> on residential leases. Article 3 stipulates that annual rent cannot exceed <strong>5% of the invested capital</strong> in the property. This cap applies to all residential leases, whether unfurnished or furnished.</p><p>The <strong>21 March 2024 reform</strong> (law no. 8257) introduced important changes:</p><ul><li>Reduction of the rate from 5% to <strong>3.5%</strong> for properties below a certain revalued capital threshold</li><li>Strengthened penalties for abusive rents (fines up to EUR 5,000)</li><li>Obligation to attach detailed invested capital calculation to the lease</li></ul>",
+      "capitalInvestiTitle": "How to calculate the revalued invested capital",
+      "capitalInvestiContent": "<p>The <strong>invested capital</strong> consists of the acquisition price of the property, revalued using STATEC revaluation coefficients (construction price index), plus the cost of improvement works also revalued.</p><p>The formula is:</p><p><strong>Invested capital = (Purchase price x Coefficient for purchase year) + (Works x Coefficient for works year)</strong></p>",
+      "coefficientTitle": "STATEC revaluation coefficients",
+      "coefficientContent": "<p>The <strong>revaluation coefficients</strong> are published by STATEC under the residential construction price index. They are used to update acquisition prices and works costs to determine invested capital under the residential lease law.</p><ul><li>Base 1960 = 1.00</li><li>The 2024 coefficient is 8.86 (provisional)</li><li>Coefficients are revised annually, typically published in March for the previous year</li></ul>",
+      "vetusteTitle": "Depreciation: an optional but strategic deduction",
+      "vetusteContent": "<p><strong>Depreciation</strong> is a discount applied to the invested capital to account for wear and obsolescence over time. Luxembourg case law recognises an annual rate of <strong>1% to 2%</strong>, capped at 50% maximum.</p><ul><li>A 30-year-old property with 2%/year depreciation sees its invested capital reduced by 60%, capped at 50%</li><li>Renovation works 'reset the clock' for the renovated portion</li></ul>",
+      "faq1q": "How do you calculate the maximum legal rent in Luxembourg?",
+      "faq1a": "The maximum annual rent is 5% of the revalued invested capital (law of 21 September 2006). Invested capital = acquisition price x STATEC coefficient + revalued works. Our calculator performs this calculation automatically.",
+      "faq2q": "What are the STATEC revaluation coefficients?",
+      "faq2a": "These are indices published annually by STATEC (National Institute of Statistics) reflecting the evolution of construction costs since 1960. They update the acquisition price and works costs to calculate invested capital.",
+      "faq3q": "Has the 5% rate been reduced to 3.5%?",
+      "faq3a": "The law of 21 March 2024 provides for a reduction to 3.5% for certain properties, but implementation details are still under regulatory discussion. The 5% rate remains applicable pending the Grand-Ducal implementing regulation.",
+      "faq4q": "Can I apply a surcharge for a furnished property?",
+      "faq4a": "The law does not provide for a specific surcharge for furnished properties. However, the value of furniture can be included in invested capital if justified by invoices.",
+      "faq5q": "How can I challenge an excessive rent?",
+      "faq5a": "The tenant can apply to the justice of the peace under Article 7 of the law of 21 September 2006. The judge can order a rent reduction if it exceeds the legal cap."
+    }
   },
   "achatLocation": {
     "title": "Buy or Rent in Luxembourg",
@@ -1064,7 +1298,29 @@
     "achat": "Buy +",
     "location": "Rent +",
     "hypothesesTitle": "Assumptions:",
-    "hypothesesText": "Property appreciation: {appreciation}%/yr. Investment return: {rendement}%/yr. Interest deduction ceiling: {plafond}/yr ({nbPersonnes} pers.). Balance insurance: {tauxSRD}% of capital."
+    "hypothesesText": "Property appreciation: {appreciation}%/yr. Investment return: {rendement}%/yr. Interest deduction ceiling: {plafond}/yr ({nbPersonnes} pers.). Balance insurance: {tauxSRD}% of capital.",
+    "seo": {
+      "faqTitle": "Frequently asked questions about buying vs renting",
+      "relatedTitle": "Related tools",
+      "dilemmeTitle": "Buying or renting in Luxembourg: the eternal dilemma",
+      "dilemmeContent": "<p>The question '<strong>should I buy or rent?</strong>' is particularly acute in Luxembourg, where the median apartment price exceeds EUR 600,000 in 2025. The total cost of ownership (TCO) includes not just loan repayments but also acquisition costs (7-10%), maintenance (1-2% of price/year), insurance, property tax and opportunity cost of capital.</p><p>Renting, meanwhile, is regulated by the 5% cap on invested capital (law of 21 September 2006). Our simulator compares both scenarios over a customisable horizon.</p>",
+      "tcoTitle": "Total cost of ownership vs. total cost of renting",
+      "tcoContent": "<p>For an objective comparison, our tool calculates the <strong>cumulative total cost</strong> of both options:</p><ul><li><strong>Purchase</strong>: deposit, acquisition costs, loan payments, insurance, maintenance, property tax, less net capital gain at resale</li><li><strong>Rental</strong>: cumulative rents (indexed to inflation), initial deposit, insurance, plus investment return on savings</li></ul><p>The <strong>crossover point</strong> in Luxembourg typically falls between 7 and 15 years.</p>",
+      "levierTitle": "The mortgage leverage effect",
+      "levierContent": "<p>A major argument for buying is the <strong>leverage effect</strong> of a mortgage. With a 20% deposit on a EUR 600,000 property, the buyer benefits from capital appreciation on 100% of the property value. Banks in Luxembourg typically finance up to 80-100% (LTV ratio).</p>",
+      "seuilTitle": "Break-even point and decision factors",
+      "seuilContent": "<p>The break-even point depends on many factors:</p><ul><li><strong>Expected stay duration</strong>: below 5-7 years, renting is almost always cheaper due to high acquisition costs</li><li><strong>Interest rates</strong>: low rates (< 3%) favour buying; high rates (> 5%) favour renting</li><li><strong>Price evolution</strong>: appreciation > 2%/year significantly shortens the crossover point</li></ul>",
+      "faq1q": "How long must I hold a property for buying to be worthwhile?",
+      "faq1a": "In Luxembourg, the break-even typically falls between 7 and 15 years. With the Bellegen Akt (reducing costs to ~3%), this can drop to 5-7 years.",
+      "faq2q": "Are acquisition costs included in the comparison?",
+      "faq2a": "Yes, our tool includes registration duties, transcription, notary fees and mortgage costs (7-10% of price).",
+      "faq3q": "What alternative return should I use for savings?",
+      "faq3a": "The alternative return represents what you would earn investing your deposit. A 4-6% return is reasonable for a diversified long-term portfolio.",
+      "faq4q": "Is buying always better in Luxembourg?",
+      "faq4a": "Not necessarily. If you plan to stay less than 5 years, rates are high, or you can get a very favourable rent, renting may be more cost-effective.",
+      "faq5q": "How is the mortgage interest tax deduction integrated?",
+      "faq5a": "In Luxembourg, mortgage interest is deductible from taxable income for primary residences (cap of EUR 1,500-3,000 depending on loan duration). Our simulator integrates this in the net purchase cost calculation."
+    }
   },
   "simulateurAides": {
     "title": "Housing Assistance Simulator",
@@ -1160,7 +1416,29 @@
     "topupSocial": "Social top-up (low income)",
     "topupSocialHint": "x1.5 increase of Klimabonus grants if taxable income ≤ €60,000/year (new 2026)",
     "bonusEco": "incl. eco-material bonus",
-    "klimabonusRegime": "Klimabonus Wunnen 2026 schedule"
+    "klimabonusRegime": "Klimabonus Wunnen 2026 schedule",
+    "seo": {
+      "faqTitle": "Frequently asked questions about housing aid",
+      "relatedTitle": "Related tools",
+      "panoramaTitle": "Overview of housing aid in Luxembourg in 2025-2026",
+      "panoramaContent": "<p>The Grand Duchy of Luxembourg offers a comprehensive range of <strong>public housing aid</strong>, primarily managed by the Ministry of Housing. These aids aim to facilitate homeownership, support energy renovation and help modest households find decent housing.</p><ul><li><strong>Acquisition premium (Bellegen Akt)</strong>: tax credit up to EUR 20,000 per buyer on registration duties</li><li><strong>Interest subsidy</strong>: partial coverage of mortgage interest based on household income</li><li><strong>Construction/renovation premium</strong>: lump-sum aid for primary residence</li><li><strong>Rent subsidy</strong>: monthly contribution for low-income tenants</li><li><strong>Klimabonus / PRIMe House</strong>: energy renovation aid</li></ul>",
+      "acquisitionTitle": "Acquisition aid: Bellegen Akt, interest subsidy and state guarantee",
+      "acquisitionContent": "<p>For first-time buyers, Luxembourg offers an attractive package:</p><ul><li><strong>Bellegen Akt</strong>: EUR 20,000 credit per person (max EUR 40,000 per couple)</li><li><strong>Interest subsidy</strong>: the state covers part of mortgage interest for 10 years</li><li><strong>State guarantee</strong>: the state guarantees up to EUR 100,000 for households with insufficient deposit</li></ul>",
+      "renovationTitle": "Energy renovation aid: PRIMe House and Klimabonus",
+      "renovationContent": "<p>The <strong>PRIMe House</strong> programme and <strong>Klimabonus</strong> support energy efficiency works:</p><ul><li>Thermal insulation: EUR 30-60/m²</li><li>Heating replacement: EUR 2,500-8,000 for heat pumps or biomass</li><li>Photovoltaic: EUR 200-500/kWp</li><li>Energy advice: 50-70% subsidy on approved Myenergy advisor fees</li></ul>",
+      "conditionsTitle": "Income conditions and application procedures",
+      "conditionsContent": "<p>Most housing aids are subject to <strong>income conditions</strong> based on household taxable income. Applications are made through the Ministry of Housing (online at guichet.lu) or via Myenergy for energy aids.</p>",
+      "faq1q": "What are the main home purchase aids in Luxembourg?",
+      "faq1a": "The main aids are the Bellegen Akt (up to EUR 40,000 tax credit), interest subsidy (partial mortgage interest coverage), and state guarantee (state surety up to EUR 100,000). All require the property to be the primary residence.",
+      "faq2q": "What is the Klimabonus amount in 2025-2026?",
+      "faq2a": "The enhanced Klimabonus (since December 2024) provides premiums of EUR 30-60/m² for insulation, EUR 2,500-8,000 for renewable heating, and EUR 200-500/kWp for photovoltaics.",
+      "faq3q": "How do I apply for rent subsidy?",
+      "faq3a": "Apply online at guichet.lu or directly to the Ministry of Housing with your lease, salary slips, household composition and tax notice. Processing takes 2-4 months.",
+      "faq4q": "Are the aids cumulative?",
+      "faq4a": "Yes, in most cases. The Bellegen Akt, interest subsidy and state guarantee are cumulative. The Klimabonus is compatible with municipal aids but not with other state aids for the same works.",
+      "faq5q": "Are there specific aids for cross-border workers?",
+      "faq5a": "The Bellegen Akt is reserved for properties in Luxembourg. Cross-border workers residing abroad cannot access it. However, a cross-border worker becoming a resident can benefit when purchasing their primary residence in Luxembourg."
+    }
   },
   "dcfMulti": {
     "title": "Multi-Tenant DCF",
@@ -1591,7 +1869,27 @@
     "offices": "Offices",
     "retail": "Retail",
     "logistics": "Logistics",
-    "other": "Other"
+    "other": "Other",
+    "seo": {
+      "faqTitle": "Frequently asked questions about market data",
+      "relatedTitle": "Related tools",
+      "donneesTitle": "Luxembourg real estate market data",
+      "donneesContent": "<p>Our market database aggregates <strong>multiple public sources</strong> including the Housing Observatory, STATEC, AED and public listings to offer a comprehensive view of the Luxembourg property market.</p>",
+      "prixCommunesTitle": "Prices by municipality: detailed analysis",
+      "prixCommunesContent": "<p>Luxembourg has 102 municipalities with prices varying by a factor of 2-3. Luxembourg City leads at ~EUR 10,500/m2, premium suburbs at EUR 8,000-10,000/m2, and the North at EUR 4,500-5,500/m2.</p>",
+      "comparablesTitle": "Comparables and recent transactions",
+      "comparablesContent": "<p>The transactions section provides <strong>actual sale prices</strong> registered at the AED, anonymised but including key characteristics.</p>",
+      "sourcesTitle": "Public sources and data reliability",
+      "sourcesContent": "<p>All data comes from <strong>official public sources</strong>: Housing Observatory, STATEC, AED and Geoportail. Data is refreshed quarterly.</p>",
+      "faq1q": "Where does the market data come from?",
+      "faq1a": "All data comes from official public sources: Housing Observatory, STATEC, AED and Geoportail.",
+      "faq2q": "Does the data cover the commercial market?",
+      "faq2a": "Yes, our database also covers offices, retail, logistics and building land.",
+      "faq3q": "How often is the data updated?",
+      "faq3a": "Price data is updated quarterly, aligned with Housing Observatory and STATEC publications.",
+      "faq4q": "Can I export the data?",
+      "faq4a": "Yes, data tables are exportable in CSV and PDF formats."
+    }
   },
   "valorisation": {
     "pageTitle": "Property Valuation EVS 2025",
@@ -2704,7 +3002,27 @@
     "colPrixBien": "Property price",
     "colPrixAcquisition": "Acquisition price",
     "colPrixCession": "Sale price",
-    "disclaimer": "Indicative estimate based on public data from the Observatoire de l'Habitat and statistical adjustment coefficients. This is not a professional valuation."
+    "disclaimer": "Indicative estimate based on public data from the Observatoire de l'Habitat and statistical adjustment coefficients. This is not a professional valuation.",
+    "seo": {
+      "faqTitle": "Frequently asked questions about property comparison",
+      "relatedTitle": "Related tools",
+      "methodeTitle": "The comparable method in Luxembourg real estate",
+      "methodeContent": "<p>The <strong>comparable method</strong> (or direct comparison approach) is the most intuitive and widely used valuation technique for residential transactions in Luxembourg. It estimates property value based on <strong>recent transaction prices</strong> of similar properties in the same geographical area.</p><p>Property transactions are recorded by the <strong>Registration and Domains Administration (AED)</strong>, and aggregated data is published by the Housing Observatory. The EVS (European Valuation Standards) recommends a minimum of 3 relevant comparables, ideally 5-10.</p>",
+      "criteresTitle": "Selection criteria for comparables",
+      "criteresContent": "<p>Choosing relevant comparables relies on several similarity criteria:</p><ul><li><strong>Location</strong>: same municipality, ideally same neighbourhood. Price gaps between neighbourhoods can reach 20-30%</li><li><strong>Property type</strong>: apartment vs house, number of bedrooms, habitable surface</li><li><strong>Age</strong>: same age bracket (new, < 10 years, 10-30 years, > 30 years)</li><li><strong>Energy performance</strong>: same or adjacent EPC class</li><li><strong>Transaction date</strong>: ideally less than 12 months old</li></ul>",
+      "ajustementsTitle": "Adjustments and weighting of comparables",
+      "ajustementsContent": "<p>No comparable is perfectly identical. <strong>Adjustments</strong> are needed:</p><ul><li><strong>Surface</strong>: price/m² adjustment with decreasing returns</li><li><strong>Condition</strong>: +5 to +15% for fully renovated, -10 to -20% for properties needing renovation</li><li><strong>Floor and orientation</strong>: +2 to +5% per upper floor for apartments</li><li><strong>Parking</strong>: EUR 25,000-50,000 per indoor space in Luxembourg City</li></ul>",
+      "decisionTitle": "Using comparables for informed decision-making",
+      "decisionContent": "<p>Property comparison is essential for setting sale prices, purchase negotiations, investor due diligence and judicial appraisals. Our tool lets you compare up to 4 properties simultaneously with normalised metrics.</p>",
+      "faq1q": "How many comparables are needed for a reliable valuation?",
+      "faq1a": "EVS/TEGoVA recommends a minimum of 3 relevant comparables, ideally 5-10. In Luxembourg's less liquid markets, 3 high-quality comparables may suffice.",
+      "faq2q": "What is the source of transaction data?",
+      "faq2a": "Data comes from the Registration and Domains Administration (AED), aggregated by the Housing Observatory. These are actual notarised deed prices, not advertised agency prices.",
+      "faq3q": "How do I adjust for energy performance?",
+      "faq3a": "According to the Observatory (2023), gaining one EPC class represents about +3-5% on price. Apply proportional adjustment based on class difference.",
+      "faq4q": "Can I compare properties from different municipalities?",
+      "faq4a": "It's possible but tricky. Price gaps between Luxembourg municipalities are very significant (factor of 2-3). Prefer comparables from the same or similar neighbouring municipalities."
+    }
   },
   "convertisseurSurfaces": {
     "title": "Surface Area Converter",
@@ -3339,6 +3657,28 @@
     "sources": {
       "title": "Sources:",
       "text": "Indicative prices for the Luxembourg market 2025-2026. Manufacturer catalogues: Viessmann, Daikin, Vaillant, Buderus, Mitsubishi, Panasonic, LG, Bosch, Hoval, Wolf, Atlantic, De Dietrich, Froling, Okofen, Windhager, Zehnder, Helios, Brink. LU distributors: Reckinger Alfred, Vanmarcke, General Technic, Sonepar, CRS, TSD. Aids: guichet.public.lu (Klimabonus 2026), klima-agence.lu (Enoprimes). Standards: EN 12831 (heat losses), RGD 9 June 2021 (energy performance). Prices generally include supply and installation. Detailed quotes should be obtained from approved installers."
+    },
+    "seo": {
+      "faqTitle": "Frequently asked questions about HVAC sizing",
+      "relatedTitle": "Related simulators",
+      "dimensionnementTitle": "HVAC sizing for Luxembourg buildings",
+      "dimensionnementContent": "<p>HVAC sizing uses the <strong>EN 12831</strong> standard adapted to Luxembourg's climate (design temperature -12 to -15 degrees C). Heating needs range from 25 kWh/m2/year (class A) to 300+ kWh/m2/year (class I).</p>",
+      "normesTitle": "EN 12831 standard and Luxembourg climate conditions",
+      "normesContent": "<p>Transmission and ventilation losses calculation, design temperature -12 degrees C for Luxembourg City, -15 degrees C for highland areas.</p>",
+      "pacTitle": "Heat pump vs. pellets: comparison for Luxembourg",
+      "pacContent": "<p>Heat pump (COP 3.0-4.0, EUR 15,000-22,000) for well-insulated buildings (A-D). Pellet boiler (85-95% efficiency, EUR 12,000-18,000) for houses with storage space. Hybrid recommended for E-I classes.</p>",
+      "vmcTitle": "Heat recovery ventilation: essential for high-performance buildings",
+      "vmcContent": "<p>Dual-flow HRV recovers 80-95% of exhaust heat. Cost EUR 5,000-12,000, saves 25-40% of heating needs.</p>",
+      "faq1q": "How do I size my heating system?",
+      "faq1a": "Based on EN 12831: transmission and ventilation losses, considering surface area, insulation and Luxembourg design temperatures (-12 to -15 degrees C).",
+      "faq2q": "Heat pump or pellets for Luxembourg?",
+      "faq2a": "Heat pump for well-insulated homes (A-D), pellets for older houses with storage. Hybrid recommended for E-I.",
+      "faq3q": "Is HRV ventilation mandatory?",
+      "faq3a": "Not formally, but practically indispensable for classes A-B.",
+      "faq4q": "What budget for a complete HVAC system?",
+      "faq4a": "For 150m2: heat pump (~EUR 18,000) + HRV (~EUR 8,000) + distribution (~EUR 5,000) = ~EUR 30,000-35,000 before Klimabonus.",
+      "faq5q": "How to optimise system performance?",
+      "faq5a": "Insulate first, then right-size the system. Over-sizing reduces heat pump COP. Heating curve adjustment is essential."
     }
   },
   "planDuSite": {
@@ -3679,7 +4019,29 @@
     "trend_stable": "Stable",
     "view_map": "View interactive map",
     "estimate_property": "Estimate a property",
-    "source": "Source: Observatoire de l'Habitat (data.public.lu), STATEC. Indicative data, updated quarterly. Last update: March 2026."
+    "source": "Source: Observatoire de l'Habitat (data.public.lu), STATEC. Indicative data, updated quarterly. Last update: March 2026.",
+    "seo": {
+      "faqTitle": "Frequently asked questions about price indices",
+      "relatedTitle": "Related tools",
+      "indiceTitle": "Property price indices by municipality in Luxembourg",
+      "indiceContent": "<p>The <strong>property price index</strong> by municipality is the reference tool for tracking the Luxembourg residential market. Published quarterly by the Housing Observatory in partnership with STATEC, it relies on <strong>notarial deeds</strong> registered with the AED.</p><p>In 2025, the overall index shows <strong>stabilisation after the 2022-2024 correction</strong> (-14% on average), with marked disparities between municipalities.</p>",
+      "methodologieTitle": "Methodology and data sources",
+      "methodologieContent": "<p>The methodology relies on:</p><ul><li><strong>Primary source</strong>: notarial deeds registered at the AED</li><li><strong>Hedonic method</strong>: price decomposition by property characteristics</li><li><strong>Seasonal adjustment</strong>: X-13 ARIMA model used by STATEC</li><li><strong>Smoothing</strong>: 4-quarter moving average for low-volume municipalities</li></ul>",
+      "tendancesTitle": "2025-2026 trends: selective recovery by municipality",
+      "tendancesContent": "<p>Municipal analysis reveals contrasting dynamics:</p><ul><li><strong>Luxembourg City</strong>: median apartment ~EUR 10,500/m2, +3% recovery in Q1-2025</li><li><strong>Southern belt</strong> (Esch, Differdange): stabilisation at ~EUR 5,800-6,500/m2</li><li><strong>North</strong> (Clervaux, Wiltz): slower correction, ~EUR 4,500-5,500/m2</li></ul>",
+      "topCommunesTitle": "Top municipalities: prices, yields and attractiveness",
+      "topCommunesContent": "<p>The most sought-after municipalities combine transport accessibility, quality of life and school offering:</p><ul><li><strong>Strassen, Bertrange, Hesperange</strong>: premium suburban, EUR 8,000-10,000/m2</li><li><strong>Esch-sur-Alzette, Belval</strong>: secondary urban hub, ~EUR 6,000/m2</li><li><strong>Mersch, Steinsel</strong>: attractive central municipalities, EUR 6,500-7,500/m2</li></ul>",
+      "faq1q": "Where do the price data per municipality come from?",
+      "faq1a": "Data comes from notarial deeds registered with the AED, aggregated by the Housing Observatory. These are actual transaction prices, not advertised prices.",
+      "faq2q": "How often are the indices updated?",
+      "faq2a": "Official indices are published quarterly with a 2-3 month lag. Our tool integrates the latest available data.",
+      "faq3q": "Why do prices differ between neighbouring municipalities?",
+      "faq3a": "Differences are explained by location (proximity to employment, transport), school offering, municipal taxation, and available property types.",
+      "faq4q": "Do the indices include new-build and existing properties?",
+      "faq4a": "Yes, both segments are covered. The Observatory also publishes separate indices for new (VEFA) and existing apartments.",
+      "faq5q": "How can I use the indices to estimate my property?",
+      "faq5a": "Indices provide a median price per municipality as a starting point. Then adjust for your property's specific characteristics using our estimation and comparison tools."
+    }
   },
   "pagPap": {
     "title": "Urban Planning — PAG / PAP",
@@ -3729,7 +4091,27 @@
     "resourceMap": "Map",
     "resourceGeoportail": "Geoportail.lu — PAG online",
     "resourceLaw": "Law",
-    "resourceMinistry": "Ministry of Housing"
+    "resourceMinistry": "Ministry of Housing",
+    "seo": {
+      "faqTitle": "Frequently asked questions about PAG and PAP",
+      "relatedTitle": "Related tools",
+      "urbanismeTitle": "Urban planning in Luxembourg: PAG and PAP",
+      "urbanismeContent": "<p>Luxembourg's land planning is governed by the <strong>amended law of 19 July 2004</strong>. Each municipality has a General Development Plan (PAG) defining land use, and Particular Development Plans (PAP) detailing rules per zone.</p>",
+      "zonesTitle": "Zones and buildability: understanding the rules",
+      "zonesContent": "<p>Main buildable zones: HAB-1 (low density), HAB-2 (medium density), MIX (mixed use). COS and CUS coefficients define building intensity.</p>",
+      "constructibiliteTitle": "Assessing land buildability",
+      "constructibiliteContent": "<p>Assessment involves: PAG classification check, PAP rules analysis, easement verification, and feasibility study (utilities, road access).</p>",
+      "servitudesTitle": "Easements and special constraints",
+      "servitudesContent": "<p>Main easements: urban planning (setbacks, protected sectors), environmental (Natura 2000, flood zones), heritage (listed buildings), and private (rights of way).</p>",
+      "faq1q": "Where can I view my municipality's PAG?",
+      "faq1a": "The PAG is available online at the Geoportail (geoportail.lu), at the town hall, or through the municipality's planning department.",
+      "faq2q": "What is the difference between PAG and PAP?",
+      "faq2a": "The PAG defines general zone allocations across the entire municipal territory. The PAP details construction rules for each specific zone or sector.",
+      "faq3q": "How do I know if land is buildable?",
+      "faq3a": "Check the PAG classification, applicable PAP rules, easements and utility availability.",
+      "faq4q": "What are COS and CUS?",
+      "faq4a": "COS is the ground coverage ratio, CUS is the total floor area ratio. They determine allowed building intensity."
+    }
   },
   "amlKyc": {
     "title": "AML / KYC Real Estate",
@@ -3847,7 +4229,27 @@
     "zoneCentre": "Centre",
     "zoneEst": "East (Moselle)",
     "zoneNord": "North",
-    "sourceDisclaimer": "Source: estimates based on observed transactions. Indicative data — the Luxembourg agricultural land market has low transparency."
+    "sourceDisclaimer": "Source: estimates based on observed transactions. Indicative data — the Luxembourg agricultural land market has low transparency.",
+    "seo": {
+      "faqTitle": "Frequently asked questions about agricultural land",
+      "relatedTitle": "Related tools",
+      "evaluationTitle": "Agricultural land valuation in Luxembourg",
+      "evaluationContent": "<p>Agricultural land valuation in Luxembourg follows specific rules. Average prices range from <strong>EUR 30,000 to 80,000/ha</strong> in 2025, with peaks above EUR 100,000/ha near developable zones.</p>",
+      "prixZonesTitle": "Prices by geographical zone and soil quality",
+      "prixZonesContent": "<p>Prices vary by zone: Centre-South EUR 50,000-80,000/ha, Centre EUR 40,000-60,000/ha, North EUR 30,000-50,000/ha, East (Moselle) EUR 45,000-70,000/ha.</p>",
+      "facteursTitle": "Factors influencing land value",
+      "facteursContent": "<p>Key factors: reclassification potential, existing rural lease (15-30% discount), existing buildings, accessibility and parcel shape.</p>",
+      "bailRuralTitle": "The Luxembourg rural lease",
+      "bailRuralContent": "<p>The rural lease is governed by the law of 2 July 1969, with strong tenant protections including minimum 6-year duration and pre-emption rights.</p>",
+      "faq1q": "What is the average price per hectare in Luxembourg?",
+      "faq1a": "Between EUR 30,000 and 80,000/ha depending on zone and quality, with peaks above EUR 100,000/ha for reclassification potential.",
+      "faq2q": "How is soil quality assessed?",
+      "faq2a": "According to the Luxembourg pedological classification (classes I to V).",
+      "faq3q": "Does an active rural lease affect the price?",
+      "faq3a": "Yes, a 15-30% discount is typical due to legal tenant protections.",
+      "faq4q": "Can agricultural land be reclassified as buildable?",
+      "faq4a": "Yes, during PAG revision. Reclassification multiplies value by 10-50x but involves lengthy procedures."
+    }
   },
   "vefa": {
     "title": "VEFA Simulator",
@@ -3958,7 +4360,29 @@
     "bonInteretsTitle": "Intercalary interest",
     "bonInteretsText": "During the construction phase (24 to 30 months), the bank releases the loan as payment calls are made. The buyer pays monthly interest on the capital already disbursed, without amortising the principal. This often-forgotten cost typically amounts to EUR 15,000 to 25,000 for a standard loan.",
     "bonDureeTitle": "Construction duration",
-    "bonDureeText": "Expect an average of 24 to 30 months between signing and delivery. The timeline depends on project size, weather and contractor availability."
+    "bonDureeText": "Expect an average of 24 to 30 months between signing and delivery. The timeline depends on project size, weather and contractor availability.",
+    "seo": {
+      "faqTitle": "Frequently asked questions about VEFA in Luxembourg",
+      "relatedTitle": "Related tools",
+      "guideTitle": "Complete guide to off-plan purchases (VEFA) in Luxembourg",
+      "guideContent": "<p><strong>VEFA (Vente en l'Etat Futur d'Achevement)</strong> is the preferred acquisition method for new housing in Luxembourg. Governed by the <strong>law of 18 April 2018</strong>, it provides a protective legal framework for buyers:</p><ul><li><strong>Reservation contract</strong>: preliminary document with maximum 5% deposit</li><li><strong>Notarised sale deed</strong>: progressive ownership transfer with regulated payment calls</li><li><strong>Completion guarantee</strong>: mandatory bank or insurance guarantee</li><li><strong>Decennial guarantee</strong>: 10-year builder liability for hidden defects</li></ul>",
+      "echeancierSeoTitle": "VEFA payment schedule: key stages",
+      "echeancierSeoContent": "<p>Article 1601-11 sets a <strong>maximum payment schedule</strong>:</p><ul><li>Sale deed: max 33%</li><li>Watertight stage: cumulative max 60%</li><li>Completion: cumulative max 95%</li><li>Delivery: 5% balance (retained if defects noted)</li></ul>",
+      "tvaSeoTitle": "VAT and taxation of VEFA in Luxembourg",
+      "tvaSeoContent": "<p>The VEFA tax regime offers significant advantages:</p><ul><li>Land portion: 7% registration duties with Bellegen Akt for primary residence</li><li>Construction portion: 3% VAT (super-reduced) for primary residence, capped at EUR 50,000 in savings</li><li>Beyond cap or for investment: 17% VAT</li></ul>",
+      "intercalairesTitle": "Interim interest: an often underestimated cost",
+      "intercalairesContent": "<p><strong>Interim interest</strong> is paid on funds already released during construction, before capital repayment begins. For a EUR 600,000 VEFA with EUR 500,000 loan at 3.8% over 18 months of construction, interim interest is approximately EUR 12,000-15,000.</p>",
+      "faq1q": "What is VEFA in Luxembourg?",
+      "faq1a": "VEFA is a contract where the developer sells a property not yet built or under construction. The buyer progressively becomes owner with regulated staged payments under the law of 18 April 2018.",
+      "faq2q": "What are the risks of VEFA?",
+      "faq2a": "Main risks are delivery delays (contractual penalties), specification changes (developer cannot change essential elements without agreement), and developer insolvency (covered by mandatory completion guarantee).",
+      "faq3q": "How do I benefit from the 3% reduced VAT rate?",
+      "faq3a": "The 3% rate applies to the construction portion of property intended as primary residence. The application is made to the AED, typically through the notary.",
+      "faq4q": "What if there are defects at delivery?",
+      "faq4a": "At reception, prepare a detailed report listing all defects. The 5% balance is retained until defects are fixed. The developer must correct within a reasonable timeframe.",
+      "faq5q": "Is interim interest tax-deductible?",
+      "faq5a": "Yes, interim interest is deductible from taxable income like mortgage interest, within the caps for primary residence (EUR 1,500-3,000/year)."
+    }
   },
   "propcalc": {
     "badge": "Free WordPress Plugin",
@@ -4046,6 +4470,28 @@
     "ctaTitle": "Ready to add a calculator to your site?",
     "ctaSubtitle": "Free, open-source, GDPR compliant. Install in under a minute.",
     "ctaDownload": "Download PropCalc →",
-    "ctaGithub": "View on GitHub"
+    "ctaGithub": "View on GitHub",
+    "seo": {
+      "faqTitle": "Frequently asked questions about PropCalc",
+      "relatedTitle": "Related tools",
+      "pluginTitle": "PropCalc: multi-country WordPress plugin for real estate investment",
+      "pluginContent": "<p><strong>PropCalc</strong> is an open-source WordPress plugin by Tevaxia enabling professional property calculators on any WordPress site, covering <strong>25+ countries</strong>.</p>",
+      "modulesTitle": "Available modules and features",
+      "modulesContent": "<p>PropCalc offers: acquisition costs, rental yield, mortgage simulator, and capital gains modules, all configurable per country.</p>",
+      "paysTitle": "Geographic coverage: 25+ supported countries",
+      "paysContent": "<p>Europe (Luxembourg, France, Belgium, Germany, etc.), Americas (US by state, Canada), Asia-Pacific (Australia, Singapore, Hong Kong).</p>",
+      "integrationsTitle": "WordPress integration and customisation",
+      "integrationsContent": "<p>Integration via shortcodes, Gutenberg blocks, sidebar widgets and REST API. Available on the official WordPress directory and GitHub.</p>",
+      "faq1q": "Is PropCalc free?",
+      "faq1a": "Yes, PropCalc is fully free and open source (GPL v2 licence), available on GitHub and the WordPress directory.",
+      "faq2q": "Which countries are supported?",
+      "faq2a": "25+ countries with pre-configured local rates and rules.",
+      "faq3q": "How do I integrate PropCalc?",
+      "faq3a": "Install from the WordPress directory, configure country and modules, then insert via shortcodes, Gutenberg blocks or widgets.",
+      "faq4q": "Can I contribute to development?",
+      "faq4a": "Yes, the project is open source on GitHub. Contributions are welcome via pull requests.",
+      "faq5q": "Is PropCalc compatible with page builders?",
+      "faq5a": "Yes, compatible with Elementor, Divi, WPBakery and WooCommerce themes."
+    }
   }
 }

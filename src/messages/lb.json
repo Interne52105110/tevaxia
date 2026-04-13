@@ -228,7 +228,29 @@
       "whyDesc": "Zu Lëtzebuerg beaflosst d'Energieklass vun enger Immobilie direkt hire Maartwäert. D'Ënnerscheed tëschent enger Immobilie vun der Klass A an enger vun der Klass I ka bis {pct} erreechen. Mat der EPBD Direktiv an de steigende Energiekäschten ass d'Renovatioun keng Optioun méi — et ass e miessbare Wäertsteigerungshebel.",
       "statEcart": "Ënnerscheed A vs I",
       "statKlimabonus": "Klimabonus max.",
-      "statIsolation": "€/m² Fassadenisolatioun"
+      "statIsolation": "€/m² Fassadenisolatioun",
+      "seo": {
+        "faqTitle": "Dacks gestallt Froen zur Energiewende am Gebaidebereich",
+        "relatedTitle": "Ergaenzend Simulatoren",
+        "transitionTitle": "D'Gebaideenergiewende zu Letzebuerg",
+        "transitionContent": "<p>Letzebuerg huet sech zu enger <strong>ambitiouser Energiewende</strong> verpflicht. De Gebaidesektor mecht ongefeier 35 % vum Energieverbrauch aus.</p>",
+        "cpeTitle": "Den Energieausweis: Klassen A bis I",
+        "cpeContent": "<p>Den EPB bewert Gebaider vun A bis I. Klass A breangt 15-30 % Praisopschlag.</p>",
+        "epbdTitle": "D'EPBD-Richtlinn an Letzebueger Fristen",
+        "epbdContent": "<p>EPBD: Klass E bis 2030, Klass D bis 2033, Nullemissioun bis 2050.</p>",
+        "aidesTitle": "Energierenoveiierungshallfen: Klimabonus 2025",
+        "aidesContent": "<p>Klimabonus: Daemmung 30-60 EUR/m2, erneierbar Heizung 2.500-8.000 EUR, PV 200-500 EUR/kWp.</p>",
+        "faq1q": "Wat ass den Energieausweis?",
+        "faq1a": "E Pflichtausweis deen Gebaider vun A bis I bewert.",
+        "faq2q": "Welchen Afloss huet den EPB op de Prais?",
+        "faq2a": "Klass A breangt 15-30 % Opprais.",
+        "faq3q": "Weichl EPBD-Frist gellen fir Letzebuerg?",
+        "faq3a": "Klass E bis 2030, Klass D bis 2033.",
+        "faq4q": "Wat kascht eng Energierenoveiierung?",
+        "faq4a": "30.000-80.000 EUR fir en Haus.",
+        "faq5q": "Wei kreen ech de Klimabonus?",
+        "faq5a": "Myenergy kontakteieren, Audit maachen, Primm no den Aarbechte froen."
+      }
     },
     "impact": {
       "title": "Impakt vun der Energieklass op de Wäert",
@@ -272,7 +294,27 @@
       "sampleSize": "{count} analyséiert Transaktiounen",
       "confidence_high": "Héich Zouverlässegkeet",
       "confidence_medium": "Mëttel Zouverlässegkeet",
-      "confidence_low": "Niddreg Zouverlässegkeet"
+      "confidence_low": "Niddreg Zouverlässegkeet",
+      "seo": {
+        "faqTitle": "Dacks gestallt Froen zum Energieafloss op Praiser",
+        "relatedTitle": "Ergaenzend Simulatoren",
+        "greenPremiumTitle": "Green Premium a Brown Discount: EPB-Afloss op Praiser",
+        "greenPremiumContent": "<p>D'Ennerscheed teschent A-B (+12-18%) an F-I (-15-30%) meecht 25-35% am Ganzen aus.</p>",
+        "donneesTitle": "Kommunal Donneeeen: Ofschlaeeg an Opschlaeeg no EPB-Klass",
+        "donneesContent": "<p>Eis Datebank aggregeiert Praisennerscheeder no EPB-Klass op Gemengeniveau.</p>",
+        "etudesTitle": "Studien a wissenschaftlech Referenzen",
+        "etudesContent": "<p>Wunnengsobservatoire (2023): +3-5% pro Klass. BCL (2022): beschlaunegten Brown Discount.</p>",
+        "strategieTitle": "Strategie: virum Verkaf renovaeieren?",
+        "strategieContent": "<p>Renovaeieren fir d'Green Premium oder am Istzoustand verkafen? Eise Simulator berechent den ROI.</p>",
+        "faq1q": "Wat ass d'Green Premium?",
+        "faq1a": "De Mehrwaert vun energieeffiziente Immobilien, +12-18%.",
+        "faq2q": "Wat ass de Brown Discount?",
+        "faq2a": "Den Praisofschlag fir Energieschleideren, -15-30%.",
+        "faq3q": "Sinn d'Donneeeen zouverlaeasseg?",
+        "faq3a": "Baseiert op tatsaechlech AED-Transaktiounen.",
+        "faq4q": "Gett de Brown Discount mei schlam?",
+        "faq4a": "Jo, duerch EPBD-Fristen a steigende Energiekaaschten."
+      }
     },
     "renovation": {
       "title": "ROI Energeetesch Renovatioun",
@@ -345,7 +387,27 @@
       "comparaisonCout": "Energiekäschten",
       "comparaisonEcoEnergie": "Gespuerten Energie / Joer",
       "comparaisonEcoCO2": "Vermidden Emissiounen / Joer",
-      "comparaisonEcoFacture": "Energierechnung / Joer"
+      "comparaisonEcoFacture": "Energierechnung / Joer",
+      "seo": {
+        "faqTitle": "Dacks gestallt Froen zur energeetescher Renoveiierung",
+        "relatedTitle": "Ergaenzend Simulatoren",
+        "roiTitle": "ROI vun der Energierenoveiierung zu Letzebuerg",
+        "roiContent": "<p>Duerchschnettlechen ROI: <strong>6-12 Joer</strong> ouni Weertsteigerung.</p>",
+        "coutsTitle": "Duerchschnettlech Kaschte pro Saneiierungsposten",
+        "coutsContent": "<p>Daach: 120-220 EUR/m2, Fassade: 150-280 EUR/m2, Waermepompel: 12.000-18.000 EUR.</p>",
+        "klimabonusTitle": "Klimabonus 2025: Betraeg a Konditiounen",
+        "klimabonusContent": "<p>Daemmung 30-60 EUR/m2, Waermepompel 2.500-8.000 EUR.</p>",
+        "paybackTitle": "Amortisatiounszait: Rechbeispiller",
+        "paybackContent": "<p>Komplettsaneiierung G→B: 75.000 EUR, 22.000 EUR Hëllef, 6.000 EUR/Joer Erspuernis = 8-9 Joer.</p>",
+        "faq1q": "Wat kascht eng Komplettsaneiierung?",
+        "faq1a": "60.000-80.000 EUR vir Hëllefen.",
+        "faq2q": "Wei laang ass d'Amortisatiounszait?",
+        "faq2a": "6-12 Joer ouni Weertsteigerung.",
+        "faq3q": "Decken d'Hëllefen alles of?",
+        "faq3a": "Nee, Klimabonus deckt ~25-40%.",
+        "faq4q": "Brauch ech en Energieaudit?",
+        "faq4a": "Drengend empfollen, 50-70% subventionneiert."
+      }
     },
     "communaute": {
       "title": "Energiegemeinschaft Simulator",
@@ -411,7 +473,27 @@
       "pvgisFallback": "PVGIS net verfügbar — Schätzung 950 kWh/kWp",
       "estimation": "Schätzung",
       "prodMensDescPvgis": "Monatslech PVGIS Donnéeën fir {commune} (Satellitt Bestraalung, 14% Verloschter)",
-      "paramProductionPvgis": "Richteg PVGIS PV Produktioun: {val} kWh/kWp/Joer ({commune}, EU Satellittendaten)"
+      "paramProductionPvgis": "Richteg PVGIS PV Produktioun: {val} kWh/kWp/Joer ({commune}, EU Satellittendaten)",
+      "seo": {
+        "faqTitle": "Dacks gestallt Froen zu Energiegemeinschaften",
+        "relatedTitle": "Ergaenzend Simulatoren",
+        "conceptTitle": "Energiegemeinschaften zu Letzebuerg",
+        "conceptContent": "<p>Erneierbar-Energie-Gemeinschaften (EEG) ermaeiglechen kollektiv Produktioun an Verdeelung vun erneierbarem Stroum.</p>",
+        "autoconsommationTitle": "Kollektive Eegeverbrauch",
+        "autoconsommationContent": "<p>Eegeverbrauchsrat stait vun 30-40% op 50-70% an enger Gemeinschaft.</p>",
+        "loiTitle": "Rechtsraum: Gesetz vum 3. Februar 2021",
+        "loiContent": "<p>Zwee Formen: EEG a BEG.</p>",
+        "economiesTitle": "Erspuernisser a Rentabilitaeit",
+        "economiesContent": "<p>200-600 EUR/Joer pro Stot.</p>",
+        "faq1q": "Wat ass eng Energiegemeinschaft?",
+        "faq1a": "Eng Grupp dei gemeinsam erneierbaren Stroum produzaiert an deelt.",
+        "faq2q": "Wei vill kann ech spueren?",
+        "faq2a": "200-600 EUR/Joer.",
+        "faq3q": "Muss ech no bei den Panneauen wunnen?",
+        "faq3a": "Membere muessen um selwechte Verteilnetz sin.",
+        "faq4q": "Wei grennt ech eng Energiegemeinschaft?",
+        "faq4a": "Myenergy kontakteieren, Grupp bilden, beim ILR mellen."
+      }
     },
     "epbd": {
       "title": "EPBD Direktiv — Chronologie a Stranding-Risiko",
@@ -500,6 +582,28 @@
         "target26": "Zil -26%",
         "fossilEnd": "Enn fossill Kessel",
         "zeroEmission": "Null-Emissiounspark"
+      },
+      "seo": {
+        "faqTitle": "Dacks gestallt Froen zur EPBD-Richtlinn",
+        "relatedTitle": "Ergaenzend Simulatoren",
+        "directiveTitle": "D'EPBD-Richtlinn: Auswirkungen fir Letzebuerg",
+        "directiveContent": "<p>D'<strong>EPBD Recast</strong> setzt verbindlech Renoveiierungsziler. Letzebuerg muss 40.000+ Wunnengen saneieren.</p>",
+        "echeancesTitle": "Fristen a Pflichten fir Letzebuerg",
+        "echeancesContent": "<p>Klass E bis 2030, Klass D bis 2033, Nullemissioun bis 2050.</p>",
+        "strandingTitle": "Stranding-Risiko: blockaeiert Vermeigensweerter",
+        "strandingContent": "<p>Immobilien an Klass F-I dreeuen zuneehmende Weertverlust.</p>",
+        "financementTitle": "Finanzierung an Ennerstuetzung",
+        "financementContent": "<p>Klimabonus, greng Bankkredditter, kommunal Hëllefen.</p>",
+        "faq1q": "Wat ass d'EPBD-Richtlinn?",
+        "faq1a": "EU-Gesetzgebung fir Mindestenergieleistungsstandarden vun Gebaider.",
+        "faq2q": "Gett meng G-Immobilie net mei vermietbar?",
+        "faq2a": "EPBD verlaangt Klass E bis 2030 an D bis 2033.",
+        "faq3q": "Wat ass Stranding-Risiko?",
+        "faq3a": "D'Risiko datt eng Immobilie un Wert verleiert.",
+        "faq4q": "Wei finanzaeieren ech d'Saneiierung?",
+        "faq4a": "Klimabonus, greng Kreditter, kommunal Hëllefen.",
+        "faq5q": "Wéini muss Letzebuerg d'EPBD eemsetzen?",
+        "faq5a": "Bis 2026."
       }
     },
     "estimateurCpe": {
@@ -563,7 +667,27 @@
       "consoTotale": "Gesamte Joersverbrauch",
       "coutEstime": "Geschate Energiekäschten",
       "emissionsCO2": "Geschate CO₂-Emissiounen",
-      "prixKwh": "Basis: 0,22 €/kWh (Lëtzebuerger Mix 2026)"
+      "prixKwh": "Basis: 0,22 €/kWh (Lëtzebuerger Mix 2026)",
+      "seo": {
+        "faqTitle": "Dacks gestallt Froen zur EPB-Schaetzung",
+        "relatedTitle": "Ergaenzend Simulatoren",
+        "estimerTitle": "Energieklass ouni formalen Audit schaetzen",
+        "estimerContent": "<p>Eise Schaetzer liwwert eng indikativ EPB-Klass baseiert op Gebaideeigenschaften.</p>",
+        "criteresTitle": "Vum Schaetzer benotzte Kritairen",
+        "criteresContent": "<p>Baujoer, Gebaidetyp, Heizsystem, Daemmniveau, Verglasung, Laeftung.</p>",
+        "fiabiliteTitle": "Zouverlaessegkeet a Grenzen",
+        "fiabiliteContent": "<p>Genauegkeet ±1 Klass an ca. 75% vun de Faell.</p>",
+        "apresEstimationTitle": "Wat maachen no der Schaetzung",
+        "apresEstimationContent": "<p>Klass A-C: Green Premium notzen. F-I: Renoveiierung empfollen.</p>",
+        "faq1q": "Ersat daat en offiziellen EPB?",
+        "faq1a": "Nee, nëmmen indikativ.",
+        "faq2q": "Wei genee ass de Schaetzer?",
+        "faq2a": "Ca. ±1 Klass an 75% vun de Faell.",
+        "faq3q": "Weichl Kritairen sinn am wichtegsten?",
+        "faq3a": "Baujoer an Heizsystem.",
+        "faq4q": "Meng Immobilie ass al awer renovaeiert — gett dat berecksichtegt?",
+        "faq4a": "Jo, aktuell Daemmung an Heizung uginn."
+      }
     },
     "lenoz": {
       "title": "LENOZ Scoring vereinfacht",
@@ -639,7 +763,29 @@
       "optDifficile": "Schwiereg",
       "optAccessible": "Zougänglech",
       "optDedieExtensible": "Dedizéiert + erweiderbar",
-      "downloadPdf": "PDF eroflueden"
+      "downloadPdf": "PDF eroflueden",
+      "seo": {
+        "faqTitle": "Dacks gestallt Froen zur LENOZ-Zertifikazioun",
+        "relatedTitle": "Ergaenzend Simulatoren",
+        "certificationTitle": "LENOZ-Zertifikazioun zu Letzebuerg",
+        "certificationContent": "<p><strong>LENOZ</strong> ass Letzebueergs Nohaltegkeetslabel fir nei Wunngebaider, 60 Kritairen an 6 Kategorien.</p>",
+        "categoriesTitle": "Dei 6 LENOZ-Bewertungskategorien",
+        "categoriesContent": "<p>Standuert, Gesellschaft/Wirtschaft, Energie, Ekologie, Materialien, Funktionalitaeit. Max: 60 Punkten.</p>",
+        "notationTitle": "Bewertungssystem a Stufen",
+        "notationContent": "<p>Platin (>=48), Gold (>=36), Selwer (>=24), Bronze (>=12).</p>",
+        "avantagesTitle": "Virdeeler vun der LENOZ-Zertifikazioun",
+        "avantagesContent": "<p>3% TVA-Viraussetzung, Widdervverkafswert, Liewensqualitaeit.</p>",
+        "faq1q": "Wat ass d'LENOZ-Zertifikazioun?",
+        "faq1a": "Letzebueergs Nohaltegkeetslabel fir nei Wunngebaider.",
+        "faq2q": "Ass LENOZ Pflicht?",
+        "faq2a": "Jo, fir 3% TVA op Neibauten.",
+        "faq3q": "Wat kascht d'Zertifikazioun?",
+        "faq3a": "2.000-5.000 EUR.",
+        "faq4q": "Ennerscheed teschent LENOZ an EPB?",
+        "faq4a": "EPB messt nemmen Energie. LENOZ ass meei omfaassend.",
+        "faq5q": "Gilt LENOZ fir Renoveiierungen?",
+        "faq5a": "Nee, nëmmen Neibauten."
+      }
     },
     "portfolio": {
       "title": "Energieportfolio",
@@ -802,7 +948,29 @@
     "chartTitle": "Präis/m²-Entwécklung — {commune}",
     "chartSource": "Gemengeschätzung baséiert um nationale Trend — Quell: Observatoire de l'Habitat",
     "tooltipPrixM2": "Präis/m²",
-    "tooltipAnnee": "Joer {annee}"
+    "tooltipAnnee": "Joer {annee}",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen iwwer d'Immobiliëbewäertung",
+      "relatedTitle": "Ergänzend Tools",
+      "contextTitle": "De Lëtzebuerger Immobiliëmaart 2025-2026",
+      "contextContent": "<p>Den Immobiliëmaart vum Groussherzogtum Lëtzebuerg geet duerch eng Phase vun <strong>Korrektur nom Héichpunkt</strong>, déi Enn 2022 ugefaangen huet, no méi wéi engem Joerzéngt vu bal onënnerbrachenem Wuesstem. Laut dem Wunnengsobservatoire an dem STATEC sinn d'Residenzpräisser tëschent dem Héichstand Q3-2022 an Q4-2024 ëm ongeféier 14 % gefall, ier se sech am éischten Hallefjoer 2025 stabiliséiert hunn.</p><p>Dës Korrektur erkläert sech haaptsächlech duerch d'<strong>geldpolitesch Verschärfung vun der EZB</strong> (Leetzëns vun 0 % op 4,50 % an 18 Méint), déi d'Kreditkapazitéit vun de Stéit reduzéiert huet.</p>",
+      "methodeTitle": "Bewäertungsmethoden: hedonesch, Vergläichswäerter an DCF",
+      "methodeContent": "<p>Zu Lëtzebuerg existéieren dräi grouss Famillje vu Methoden fir den Immobiliëwäert ze schätzen:</p><ul><li><strong>Déi hedonesch Method</strong>: vum STATEC an dem Wunnengsobservatoire benotzt, zerléit si de Präis op Basis vun objektive Kritäre (Fläch, Lag, Alter, Energieeffizienz, Stack, Parking, asw.) iwwer e Regressiounsmodell.</li><li><strong>D'Vergläichswäertmethod</strong>: e Klassiker an der Immobiliëbewäertung (EVS/TEGoVA-Standard).</li><li><strong>D'DCF-Method (Discounted Cash Flow)</strong>: haaptsächlech fir Rendite-Immobilie benotzt.</li></ul>",
+      "facteursTitle": "Faktoren déi den Immobiliëwäert zu Lëtzebuerg beaflossen",
+      "facteursContent": "<p>Vill Faktore beaflossen den Immobiliëwäert am Groussherzogtum:</p><ul><li><strong>Lag a Gemeng</strong>: dat ass dee wichtegste Faktor. D'Stad Lëtzebuerg (Belair, Limpertsberg, Kierchbierg) weist Duerchschnëttpräisser pro m² vun 10.000-14.000 € op, am Géigesaz zu 5.000-7.000 € am Norden (Clierf, Wolz).</li><li><strong>Fläch an Opstellung</strong>: d'Nettowunnfläch (laut groussherzoglecher Verordnung vum 25. Februar 1979) bleift dat dominéierendt quantitativt Kritär.</li><li><strong>Energieeffizienz (CPE)</strong>: zanter der Reform vum Energiepass am 2010 beaflosst d'Energieklass d'Präisser moossbar.</li></ul>",
+      "exempleTitle": "Konkret Beispill: Bewäertung vun enger Wunneng zu Esch-Uelzecht",
+      "exempleContent": "<p>Huelt eng Wunneng vun <strong>85 m² zu Esch-Uelzecht</strong>, Quartier Belvaux, gebaut 2012, Energieklass C, mat 1 Tiefgarageplaz an 1 Keller:</p><ul><li>Duerchschnëttpräis pro m² an der Gemeng (Q1-2025): ~6.200 € (Quell: Wunnengsobservatoire)</li><li>Ajustement Klass C: +5 % → 6.510 €/m²</li><li>Altersajustement: +3 % → 6.705 €/m²</li><li>Tiefgarage: +25.000 €</li><li>Bruttobewäertung: 85 × 6.705 + 25.000 = <strong>594.925 €</strong></li></ul>",
+      "faq1q": "Wéi genee ass eng Online-Immobiliëbewäertung?",
+      "faq1a": "Online-Schätzer erreechen typesch eng Genauegkeet vun ±10-15 % am Vergläich zum endgültege Verkafspräis. Eisen Tool zielt op eng Spann vun ±10 %. Fir eng zertifizéiert Bewäertung (Ierfschaft, Hypothéik) wennt Iech un en zougeloosse Sachverständegen.",
+      "faq2q": "Wéi beaflosst den Energieausweis de Präis zu Lëtzebuerg?",
+      "faq2a": "Laut Studien vum Wunnengsobservatoire (2023) representéiert de Gewënn vun enger Energieklass duerchschnëttlech +3 bis +5 % op de Verkafspräis.",
+      "faq3q": "Wéi eng Donnéeë benotzt d'Bewäertungstool?",
+      "faq3a": "D'Tool baséiert op Medianpräisser pro Gemeng vum Wunnengsobservatoire (AED-Quell), STATEC-Hedonik-Koeffiziente an trimesteriellen Immobiliëpräisindizen.",
+      "faq4q": "Soll een virum Verkaf zu Lëtzebuerg eng Bewäertung maachen?",
+      "faq4a": "Jo, eng Virbewäertung gëtt recommandéiert fir e realisteschen Ubiddungspräis festzeleeën. En ze héije Präis verlängert d'Verkafszeit (Median 90-120 Deeg zu Lëtzebuerg).",
+      "faq5q": "Wat ass den Ënnerscheed tëschent Verkéierswäert a Verkafspräis?",
+      "faq5a": "De Verkéierswäert ass den theoreeteschen Präis deen en informéierten Keefer ënner normale Maartkonditiounen bezuele géif (EVS-Definitioun). Den tatsächleche Verkafspräis kann ofwäichen."
+    }
   },
   "fraisAcquisition": {
     "title": "Erwerbskäschtesimulator",
@@ -859,7 +1027,29 @@
     "infoNotaireText": "Berechent no engem gereegelte degressiven Tarif (4% bis 10 000 € dann degressiv).",
     "sauvegarder": "Späicheren",
     "evaluationSauvegardee": "Bewäertung gespäichert!",
-    "savePrefix": "Käschten"
+    "savePrefix": "Käschten",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zu den Akafskäschten",
+      "relatedTitle": "Ergänzend Tools",
+      "comprendreTitle": "D'Akafsniewekäschte beim Immobiliëkaf zu Lëtzebuerg verstoen",
+      "comprendreContent": "<p>Beim Kaf vun enger Immobilie am Groussherzogtum Lëtzebuerg muss de Keefer nieft dem Kafpräis verschidde Kategorien vu Käschte bezuelen. Dës <strong>Akafskäschten</strong> representéieren tëschent 7 % an 10 % vum Immobiliëpräis fir al Gebidder, a kënne bei VEFA-Neubauten op 3-4 % erofgoen.</p>",
+      "bellegenAktTitle": "De Bëllegen Akt-Kredit: Steierreduktioun bis zu 40.000 €",
+      "bellegenAktContent": "<p>De <strong>Bëllegen Akt</strong> ass e wichtege Steiervirdeel fir Keefer vun engem <strong>Haaptwunnsëtz</strong>. All Keefer kritt e Kredit vun <strong>20.000 €</strong>. Fir e Koppel verdoppelt sech de Kredit op <strong>40.000 €</strong>.</p>",
+      "vefaTvaTitle": "VEFA an TVA: d'Steiersystem fir Neibauten",
+      "vefaTvaContent": "<p>Den Akaf per <strong>VEFA</strong> profitéiert vun engem spezifesche Steiersystem zu Lëtzebuerg. Den Bauteil ënnerläit der <strong>TVA</strong>, während den Terrain-Undeel de 7 %-Gebühren ënnerläit.</p>",
+      "exempleTitle": "Rechbeispill: Kaf vun engem besteeënden Objet fir 750.000 € vun engem Koppel",
+      "exempleContent": "<p>En typeschen Fall: E Koppel keeft eng besteeënd Wunneng fir <strong>750.000 €</strong> als Haaptwunnsëtz:</p><ul><li>Enregistréierungsgebühren (6 %): 45.000 €</li><li>Transkriptioun (1 %): 7.500 €</li><li>Bruttogebühren: 52.500 €</li><li>Bëllegen Akt (2 × 20.000 €): -40.000 €</li><li><strong>Nettogebühren: 12.500 €</strong></li></ul>",
+      "faq1q": "Wéi héich sinn d'Notargebühren zu Lëtzebuerg?",
+      "faq1a": "D'Notargebühren (ouni Enregistréierungsgebühren) betrueden ongeféier 0,8 % bis 1,2 % vum Kafpräis. D'Gesamtakafskäschte variéieren tëschent 3 % (Neibau mat Bëllegen Akt) an 10 %.",
+      "faq2q": "Ass de Bëllegen Akt mat dem reduzéierten TVA-Saz kumuléierbar?",
+      "faq2a": "Jo, bei VEFA gëlt de Bëllegen Akt-Kredit fir d'Enregistréierungsgebühren op den Terrain-Undeel, während den ermässegten TVA-Saz (3 %) op den Bauundeel applizéiert gëtt.",
+      "faq3q": "Wéi ginn d'Enregistréierungsgebühre bei VEFA berechent?",
+      "faq3a": "Bei VEFA gëllen d'Enregistréierungsgebühren nëmmen op den am Akt deklaréierten Terrain-Undeel. Den Bauundeel ënnerläit der TVA.",
+      "faq4q": "Kann de Bëllegen Akt recuperéiert ginn?",
+      "faq4a": "Nee, de Bëllegen Akt-Kredit kann nëmmen eemol pro Persoun genotzt ginn.",
+      "faq5q": "Wéini ginn d'Akafskäschte bezuelt?",
+      "faq5a": "D'Käschte gi bei der Ënnerschrëft vum notarielle Akt bezuelt, normalerweis 2-3 Méint nom Virvertrag."
+    }
   },
   "plusValues": {
     "title": "Wäertzouwuesssteierrechner",
@@ -926,7 +1116,29 @@
     "valeurDonation": "Am Akt erkläerte Wäert",
     "anneeDonation": "Joer vun der Schenkung",
     "successionHint": "Wäert aus der Ierfschaftserklärung",
-    "donationHint": "Wäert aus dem notarielle Schenkungsakt"
+    "donationHint": "Wäert aus dem notarielle Schenkungsakt",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zu Immobiliëmehrwäerter",
+      "relatedTitle": "Ergänzend Tools",
+      "fiscaliteTitle": "Besteierung vun Immobiliëmehrwäerter zu Lëtzebuerg",
+      "fiscaliteContent": "<p>Zu Lëtzebuerg ënnerleie <strong>Immobiliëmehrwäerter</strong> beim Verkaf der Akommesteier. D'Steiersystem ënnerscheet no der Haldungsdauer.</p><ul><li><strong>Spekulatiounsgewënn (Art. 99bis LIR)</strong>: Verkaf bannent 2 Joer — Besteierung zum Grenzsteiersaz</li><li><strong>Veräusserungsgewënn (Art. 99ter LIR)</strong>: Verkaf no 2 Joer — hallef Duerchschnëttssteiersaz</li></ul>",
+      "speculationTitle": "Spekulatiounsgewënn: Verkaf bannent 2 Joer",
+      "speculationContent": "<p>Beim Verkaf <strong>bannent 2 Joer</strong> gëtt de Gewënn zum vollen Grenzsteiersaz besteierd (bis zu 45,78 % am 2025).</p>",
+      "cessionTitle": "Veräusserungsgewënn: Verkaf no 2 Joer",
+      "cessionContent": "<p>Gewënner no <strong>méi wéi 2 Joer</strong> profitéiere vun engem favorabele Regime:</p><ul><li>Akafspräis gëtt mat ACD-Koeffiziente <strong>opgewäert</strong></li><li><strong>Fräibetrag vun 50.000 €</strong> all 10 Joer</li><li>Besteierung zum <strong>hallwe Duerchschnëttssteiersaz</strong></li></ul>",
+      "exonerationsTitle": "Befreiungen a Spezialfäll",
+      "exonerationsContent": "<p>Verschidde Situatiounen erlaben eng <strong>voll oder deelweis Befreiung</strong>:</p><ul><li><strong>Haaptwunnsëtz</strong>: Verkaf ass befreit bei duerchgehender Bewunnung zanter dem Kaf oder mindestens 5 Joer virum Verkaf</li></ul>",
+      "faq1q": "Wéi gëtt den Immobiliëmehrwäert zu Lëtzebuerg berechent?",
+      "faq1a": "Mehrwäert = Verkafspräis - (opgewäerten Akafspräis + Käschten + opgewäert Aarbechten). Fräibetrag vun 50.000 € all 10 Joer méiglech.",
+      "faq2q": "Wéi héich ass de Steiersaz op Mehrwäerter?",
+      "faq2a": "Spekulatioun (< 2 Joer): volle Grenzsteiersaz (bis 45,78 %). Veräusserung (> 2 Joer): hallef Duerchschnëttssteiersaz (~20-23 %).",
+      "faq3q": "Wéi fonctionnéiert de Fräibetrag vun 50.000 €?",
+      "faq3a": "De Fräibetrag vun 50.000 € (100.000 € fir Koppelen) gëtt op de Veräusserungsgewënn accordéiert an erneit sech all 10 Joer.",
+      "faq4q": "Ass den Haaptwunnsëtz befreit?",
+      "faq4a": "Jo, de Verkaf vum Haaptwunnsëtz ass steierfräi bei duerchgehender Bewunnung zanter dem Kaf oder mindestens 5 Joer virum Verkaf.",
+      "faq5q": "Wéi deklaréiert een en Immobiliëmehrwäert?",
+      "faq5a": "De Mehrwäert gëtt an der jährlech Steiererklärung deklaréiert (Modell 100/100F), Formulaire 700."
+    }
   },
   "calculLoyer": {
     "title": "Loyersrechner — Investéiert Kapital",
@@ -977,7 +1189,29 @@
     "reforme2024Text": "De Schwellwäert gouf vun 5 % op 3,5 % erofgesat fir Wunnengen, deren investéiert Kapital eng bestëmmten Obergrenz iwwerschreit.",
     "savePrefix": "Loyer",
     "saveToast": "Bewäertung gespäichert!",
-    "saveButton": "Dës Bewäertung späicheren"
+    "saveButton": "Dës Bewäertung späicheren",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zum Loyer-Plafong",
+      "relatedTitle": "Ergänzend Tools",
+      "plafonnementTitle": "D'Loyersplafonnéierung zu Lëtzebuerg: rechtleche Kader",
+      "plafonnementContent": "<p>Zu Lëtzebuerg ginn d'Wunnengsloyeren duerch d'<strong>geännert Gesetz vum 21. September 2006</strong> reglementéiert. Den Artikel 3 bestëmmt, datt de Joersloyer <strong>5 % vum investéierte Kapital</strong> net iwwerschraide dierf.</p>",
+      "capitalInvestiTitle": "Wéi berechent een d'opgewäert investéiert Kapital",
+      "capitalInvestiContent": "<p>D'<strong>investéiert Kapital</strong> setzt sech zesummen aus dem Akafspräis, opgewäert mat STATEC-Koeffiziente, plus opgewäert Aarbechte.</p>",
+      "coefficientTitle": "STATEC-Opwäertungskoeffiziente",
+      "coefficientContent": "<p>D'<strong>Opwäertungskoeffiziente</strong> ginn vum STATEC publizéiert a déngen der Aktualiséierung vu Kafpräisser an Aarbechtskäschten.</p>",
+      "vetusteTitle": "Verschleiiss: en optionalen awer strategeschen Ofzuch",
+      "vetusteContent": "<p><strong>Verschleiiss</strong> ass en Ofschlag op d'investéiert Kapital fir de Verschleiiss iwwer d'Zäit. D'Jurisprudenz erkennt eng jährlech Rat vun <strong>1 % bis 2 %</strong> un, maximal 50 %.</p>",
+      "faq1q": "Wéi berechent een de maximale legale Loyer zu Lëtzebuerg?",
+      "faq1a": "De maximale Joersloyer ass 5 % vum opgewäerte investéierte Kapital (Gesetz vum 21. September 2006).",
+      "faq2q": "Wat sinn d'STATEC-Opwäertungskoeffiziente?",
+      "faq2a": "Dat sinn Indizen déi all Joer vum STATEC publizéiert ginn an d'Entwécklung vun de Baukäschte zanter 1960 reflektéieren.",
+      "faq3q": "Ass d'Rat vun 5 % op 3,5 % erofgesat ginn?",
+      "faq3a": "D'Gesetz vum 21. Mäerz 2024 gesäit eng Senkung op 3,5 % fir verschidde Wunnengen vir, awer d'Modalitéite ginn nach diskutéiert.",
+      "faq4q": "Kann ech en Zouschlag fir méibléiert Wunnengen erhiewen?",
+      "faq4a": "D'Gesetz gesäit keen spezifesche Zouschlag vir. De Wäert vun de Miwwelen kann awer an d'investéiert Kapital abezu ginn.",
+      "faq5q": "Wéi kann ech en ze héije Loyer kontestéieren?",
+      "faq5a": "De Locataire kann de Friddensgeriicht ufroe gemäiss Artikel 7 vum Gesetz vum 21. September 2006."
+    }
   },
   "achatLocation": {
     "title": "Kafen oder Lounen zu Lëtzebuerg",
@@ -1065,7 +1299,29 @@
     "achat": "Kaf +",
     "location": "Lounen +",
     "hypothesesTitle": "Hypotheesen:",
-    "hypothesesText": "Wäertsteigerung: {appreciation} %/J. Rendement Anlag: {rendement} %/J. Plafond Zënsofzuch: {plafond}/J. ({nbPersonnes} Pers.). Restscholdvers.: {tauxSRD} % vum Kapital."
+    "hypothesesText": "Wäertsteigerung: {appreciation} %/J. Rendement Anlag: {rendement} %/J. Plafond Zënsofzuch: {plafond}/J. ({nbPersonnes} Pers.). Restscholdvers.: {tauxSRD} % vum Kapital.",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen iwwer kafen vs. lounen",
+      "relatedTitle": "Ergänzend Tools",
+      "dilemmeTitle": "Kafen oder lounen zu Lëtzebuerg: den éiwege Dilemma",
+      "dilemmeContent": "<p>D'Fro '<strong>soll ech kafen oder lounen?</strong>' ass zu Lëtzebuerg besonnesch akut, wou de Medianpräis vun enger Wunneng 2025 iwwer 600.000 € läit.</p>",
+      "tcoTitle": "Gesamtkäschte vum Eegentum vs. Gesamtkäschte vun der Locatioun",
+      "tcoContent": "<p>Eisen Simulator berechent d'<strong>kumuléiert Gesamtkäschten</strong> vu béiden Optiounen. De <strong>Kräizungspunkt</strong> läit zu Lëtzebuerg typesch tëschent 7 an 15 Joer.</p>",
+      "levierTitle": "Den Hebeleffekt vum Immobiliëkredit",
+      "levierContent": "<p>En wichtegt Argument fir de Kaf ass den <strong>Hebeleffekt</strong> vum Hypothéikeprêt. Mat engem Eegekapital vun 20 % profitéiert de Keefer vun der Wäertsteigerung op 100 % vum Immobiliëwäert.</p>",
+      "seuilTitle": "Rentabilitéitsschwelle a Faktoren fir d'Decisioun",
+      "seuilContent": "<p>D'Rentabilitéitsschwelle hänkt vu ville Faktore of:</p><ul><li><strong>Geplangt Dauer</strong>: ënner 5-7 Joer ass Lounen bal ëmmer méi virdeelhaft</li><li><strong>Zënsniveau</strong>: niddereg Zënsen favorisieren de Kaf</li></ul>",
+      "faq1q": "Wéi laang muss ech eng Immobilie halen, fir datt sech de Kaf rentéiert?",
+      "faq1a": "Zu Lëtzebuerg läit d'Schwelle typesch tëschent 7 an 15 Joer. Mam Bëllegen Akt kann se op 5-7 Joer erofgoen.",
+      "faq2q": "Ginn d'Akafskäschten an de Vergläich integréiert?",
+      "faq2a": "Jo, eisen Tool integréiert Enregistréierungs-, Transkriptiounsdroits, Notargebühren an Hypothéikekäschten.",
+      "faq3q": "Wéi eng alternativ Rendite fir d'Spueren benotzen?",
+      "faq3a": "D'alternativ Rendite representéiert dat, wat Dir mat Ärem Eegekapital verdénge géift. 4-6 % ass raisonnabel fir en diversifizéiert Portfolio.",
+      "faq4q": "Ass Kafen zu Lëtzebuerg ëmmer besser?",
+      "faq4a": "Net onbedéngt. Bei kuerzer Dauer (< 5 Joer) oder héije Zënsen kann Lounen virdeelhafter sinn.",
+      "faq5q": "Wéi gëtt den Steierofzuch fir Hypothéikenzënsen integréiert?",
+      "faq5a": "Zu Lëtzebuerg sinn Hypothéikenzënsen fir den Haaptwunnsëtz steierlech ofsetzbar (Plafond 1.500-3.000 €)."
+    }
   },
   "simulateurAides": {
     "title": "Simulator vun den Hëllefen",
@@ -1161,7 +1417,29 @@
     "topupSocial": "Sozialen Zouschlag (niddregt Akommes)",
     "topupSocialHint": "x1,5 Erhéijung vun de Klimabonus-Zouschëss wann steierpflichtegt Akommes ≤ 60.000 €/Joer (nei 2026)",
     "bonusEco": "dorënner Öko-Material-Bonus",
-    "klimabonusRegime": "Klimabonus Wunnen 2026 Barème"
+    "klimabonusRegime": "Klimabonus Wunnen 2026 Barème",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zu de Wunnhëllefen",
+      "relatedTitle": "Ergänzend Tools",
+      "panoramaTitle": "Iwwerbléck iwwer d'Wunnhëllefen zu Lëtzebuerg 2025-2026",
+      "panoramaContent": "<p>D'Groussherzogtum Lëtzebuerg bitt eng komplett Palette vu <strong>ëffentleche Wunnhëllefen</strong>:</p><ul><li><strong>Bëllegen Akt</strong>: Steierkredit bis zu 20.000 € pro Keefer</li><li><strong>Zënszouschoss</strong>: deelweis Iwwernahm vun den Hypothéikenzënsen</li><li><strong>Bau-/Renovéierungsprimm</strong>: Pauschalaid</li><li><strong>Loyershëllef</strong>: monatlecht Bäitrag fir akommesschwach Locatairen</li><li><strong>Klimabonus / PRIMe House</strong>: Energierenovéierungshëllef</li></ul>",
+      "acquisitionTitle": "Akafshëllefen: Bëllegen Akt, Zënszouschoss a Staatsgarantie",
+      "acquisitionContent": "<p>Fir Éischtkeefer bitt Lëtzebuerg en attraktive Paquet:</p><ul><li><strong>Bëllegen Akt</strong>: 20.000 € Kredit pro Persoun (max. 40.000 € pro Koppel)</li><li><strong>Zënszouschoss</strong>: de Staat iwwerhëlt deelweis d'Hypothéikenzënsen fir 10 Joer</li><li><strong>Staatsgarantie</strong>: Biergschaft bis zu 100.000 €</li></ul>",
+      "renovationTitle": "Hëllefen fir energeetesch Renovéierung: PRIMe House a Klimabonus",
+      "renovationContent": "<p>De Programm <strong>PRIMe House</strong> an de <strong>Klimabonus</strong> ënnerstëtzen energeetesch Renovéierungsaarbechten:</p><ul><li>Wärmedämmung: 30-60 €/m²</li><li>Heizungsaustausch: 2.500-8.000 €</li><li>Photovoltaik: 200-500 €/kWp</li></ul>",
+      "conditionsTitle": "Akommenskonditiounen a Demandprozeduren",
+      "conditionsContent": "<p>Déi meescht Wunnhëllefen sinn u <strong>Akommenskonditiounen</strong> gebonnen. Demanden ginn beim Wunnengministère gestallt (online iwwer guichet.lu).</p>",
+      "faq1q": "Wéi eng Haapthëllefen ginn et beim Immobiliëkaf zu Lëtzebuerg?",
+      "faq1a": "D'Haapthëllefen sinn de Bëllegen Akt (bis zu 40.000 € Steierkredit), Zënszouschoss a Staatsgarantie (bis zu 100.000 €).",
+      "faq2q": "Wéi héich ass de Klimabonus 2025-2026?",
+      "faq2a": "De verstäerkte Klimabonus gesäit Primme vun 30-60 €/m² fir Dämmung, 2.500-8.000 € fir erneierbar Heizung an 200-500 €/kWp fir Photovoltaik vir.",
+      "faq3q": "Wéi freet een d'Loyershëllef un?",
+      "faq3a": "Online iwwer guichet.lu oder direkt beim Wunnengministère mat Mietvertrag, Gehaltsofrechnung a Steierbescheid.",
+      "faq4q": "Sinn d'Hëllefen kumuléierbar?",
+      "faq4a": "Jo, an deene meeschte Fäll. De Bëllegen Akt, Zënszouschoss a Staatsgarantie sinn kumuléierbar.",
+      "faq5q": "Gëtt et spezifesch Hëllefen fir Grenzgänger?",
+      "faq5a": "De Bëllegen Akt gëllt nëmme fir Immobilien zu Lëtzebuerg. Grenzgänger déi am Ausland wunnen hunn keen Zougang."
+    }
   },
   "dcfMulti": {
     "title": "DCF Multi-Locatairen",
@@ -1592,7 +1870,27 @@
     "offices": "Büro",
     "retail": "Handel",
     "logistics": "Logistik",
-    "other": "Anerer"
+    "other": "Anerer",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zu de Maartdonneeeen",
+      "relatedTitle": "Ergaenzend Tools",
+      "donneesTitle": "Letzebueger Immobiliemaartdonneeeen",
+      "donneesContent": "<p>Eis Maartdatebank aggregeiert <strong>verschidde oeffentlech Quellen</strong> fir en oemfaassenden Iwwerblaeck iwwer de Letzebueger Immobiliemaart.</p>",
+      "prixCommunesTitle": "Praiser no Gemeng: detailleiert Analyse",
+      "prixCommunesContent": "<p>Letzebuerg huet 102 Gemengen mat Praiser, dei em Faktor 2-3 variaeieren.</p>",
+      "comparablesTitle": "Verglaichsweerter an aktuell Transaktiounen",
+      "comparablesContent": "<p>Den Transaktiounsbereich bitt <strong>tatsaechlech Verkafspraiser</strong>.</p>",
+      "sourcesTitle": "Oeffentlech Quellen an Datezouverlaessegkeet",
+      "sourcesContent": "<p>All Donneeeen kommen vun <strong>offiziellen oeffentleche Quellen</strong>.</p>",
+      "faq1q": "Wou kommen d'Maartdonneeeen hier?",
+      "faq1a": "All Donneeeen kommen vun offiziellen oeffentleche Quellen.",
+      "faq2q": "Deckt d'Datebank de Gewerbeimmobiliemaart of?",
+      "faq2a": "Jo, och Bueroen, Retail, Logistik an Bauland.",
+      "faq3q": "Wei dacks ginn d'Donneeeen aktualisaiert?",
+      "faq3a": "Vereteljeerlech.",
+      "faq4q": "Kann ech d'Donneeeen exporteieren?",
+      "faq4a": "Jo, als CSV a PDF."
+    }
   },
   "valorisation": {
     "pageTitle": "Immobiliëbewäertung EVS 2025",
@@ -2705,7 +3003,27 @@
     "colPrixBien": "Immobiliepräis",
     "colPrixAcquisition": "Akquisitiounspräis",
     "colPrixCession": "Verkafspräis",
-    "disclaimer": "Indikativ Schätzung baséiert op ëffentlechen Donnéeën vum Observatoire de l'Habitat an statistesche Upassungskoeffizienten. Dat ass keng professionell Bewertung."
+    "disclaimer": "Indikativ Schätzung baséiert op ëffentlechen Donnéeën vum Observatoire de l'Habitat an statistesche Upassungskoeffizienten. Dat ass keng professionell Bewertung.",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zum Immobiliëvergläich",
+      "relatedTitle": "Ergänzend Tools",
+      "methodeTitle": "D'Vergläichswäertmethod am Lëtzebuerger Immobiliëmaart",
+      "methodeContent": "<p>D'<strong>Vergläichswäertmethod</strong> ass déi intuitivst an am meeschte benotzt Bewäertungstechnik fir Wunntransaktiounen zu Lëtzebuerg. Si baséiert op <strong>aktuellen Transaktiounspräisser</strong> vu vergläichbaren Immobilien.</p>",
+      "criteresTitle": "Auswielkritäre fir Vergläichsobjeten",
+      "criteresContent": "<p>D'Auswiel vu relevante Vergläichsobjete baséiert op:</p><ul><li><strong>Lag</strong>: selwecht Gemeng, idealerweis selwecht Quartier</li><li><strong>Immobilientyp</strong>: Wunneng vs. Haus, Wunnfläch</li><li><strong>Alter</strong>: selwecht Altersstuuf</li></ul>",
+      "ajustementsTitle": "Ajustementer a Gewiichtung vun de Vergläichsobjeten",
+      "ajustementsContent": "<p>Keen Vergläichsobjet ass perfekt identesch. <strong>Ajustementer</strong> sinn néideg fir Fläch, Zoustand a Stack.</p>",
+      "decisionTitle": "Vergläichswäerter fir fundéiert Decisiounen notzen",
+      "decisionContent": "<p>Den Immobiliëvergläich ass essentiel fir Präisfestleeung, Verhandlungen an Due Diligence. Eisen Tool erlaabt de Vergläich vun bis zu 4 Immobilien gläichzäiteg.</p>",
+      "faq1q": "Wéi vill Vergläichsobjete brauch een fir eng zouverlässeg Bewäertung?",
+      "faq1a": "D'EVS-Norm empfiehlt mindestens 3 relevant Vergläichsobjeten, idealerweis 5-10.",
+      "faq2q": "Wou kommen d'Transaktiounsdaten hier?",
+      "faq2a": "D'Donnéeë kommen vun der AED, aggregéiert vum Wunnengsobservatoire.",
+      "faq3q": "Wéi passt een fir d'Energieeffizienz un?",
+      "faq3a": "Laut Observatoire (2023) representéiert de Gewënn vun enger EPB-Klass ongeféier +3-5 % op de Präis.",
+      "faq4q": "Kann een Immobilie vu verschiddene Gemengen vergläichen?",
+      "faq4a": "Méiglech awer heikels. D'Präisënnerscheeder tëschent Lëtzebuerger Gemenge sinn ganz bedeitend (Faktor 2-3)."
+    }
   },
   "convertisseurSurfaces": {
     "title": "Flächen-Ëmrechner",
@@ -3340,6 +3658,28 @@
     "sources": {
       "title": "Quellen:",
       "text": "Richtpräisser fir de Lëtzebuerger Marché 2025-2026. Hiersteller-Katalogen: Viessmann, Daikin, Vaillant, Buderus, Mitsubishi, Panasonic, LG, Bosch, Hoval, Wolf, Atlantic, De Dietrich, Froling, Okofen, Windhager, Zehnder, Helios, Brink. LU-Händler: Reckinger Alfred, Vanmarcke, General Technic, Sonepar, CRS, TSD. Hëllefen: guichet.public.lu (Klimabonus 2026), klima-agence.lu (Enoprimes). Normen: EN 12831 (Heizlaascht), RGD 9. Juni 2021 (Gesamtenergieeffizienz). D'Präisser enthalen normalerweis Liwwerung an Asetzen. Detailléiert Offere si bei zougeloossenen Installateuren unzefroen."
+    },
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zur HVAC-Dimensionneierung",
+      "relatedTitle": "Ergaenzend Simulatoren",
+      "dimensionnementTitle": "HVAC-Dimensionneierung fir Letzebueger Gebaider",
+      "dimensionnementContent": "<p>Baseiert op der Norm <strong>EN 12831</strong>, Ausleegungstemperatur -12 bis -15 Grad C.</p>",
+      "normesTitle": "EN 12831 an Letzebueger Klimakonditiounen",
+      "normesContent": "<p>Transmissioun an Laeftungsverluster, -12 bis -15 Grad C.</p>",
+      "pacTitle": "Waermepompel vs. Pellets: Verglaich fir Letzebuerg",
+      "pacContent": "<p>Waermepompel fir gutt gedaemmt Gebaider (A-D). Pelletkessel fir al Haiser mat Lagerraum.</p>",
+      "vmcTitle": "VMC duebel Flux: wesentlech fir performant Gebaider",
+      "vmcContent": "<p>Recuperatioun vun 80-95% vun der Ofwaerm. Kaschten 5.000-12.000 EUR.</p>",
+      "faq1q": "Wei dimensionneieren ech meng Heizung?",
+      "faq1a": "No EN 12831 mat Letzebueger Ausleegungstemperaturen.",
+      "faq2q": "Waermepompel oder Pellets?",
+      "faq2a": "Waermepompel fir gutt gedaemmt Haiser, Pellets fir al Haiser.",
+      "faq3q": "Ass VMC mat WRG Pflicht?",
+      "faq3a": "Net formell, awer praktesch onerlaaslech fir Klass A-B.",
+      "faq4q": "Weichl Budget fir HVAC?",
+      "faq4a": "Ca. 30.000-35.000 EUR fir 150m2.",
+      "faq5q": "Wei optimaeieren ech d'Systemleistung?",
+      "faq5a": "Eescht daemmen, dann richteg dimensionneieren."
     }
   },
   "planDuSite": {
@@ -3680,7 +4020,29 @@
     "trend_stable": "Stabil",
     "view_map": "Interaktiv Kaart kucken",
     "estimate_property": "Immobilie bewäerten",
-    "source": "Quell: Observatoire de l'Habitat (data.public.lu), STATEC. Indicativ Donnéeën, quartalsweis aktualiséiert. Lescht Aktualiséierung: Mäerz 2026."
+    "source": "Quell: Observatoire de l'Habitat (data.public.lu), STATEC. Indicativ Donnéeën, quartalsweis aktualiséiert. Lescht Aktualiséierung: Mäerz 2026.",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zu de Praisindizen",
+      "relatedTitle": "Ergaenzend Tools",
+      "indiceTitle": "Immobiliepraisindizen no Gemeng zu Letzebuerg",
+      "indiceContent": "<p>Den <strong>Immobiliepraisindex</strong> no Gemeng ass d'Referenzinstrument fir de Letzebueger Wunnengsmaart ze suiveeieren.</p>",
+      "methodologieTitle": "Methodik an Donneeequellen",
+      "methodologieContent": "<p>D'Methodik baselert op AED-Notariatsurkonden, hedonescher Praiszerlegung an saisonaler Bereinegung.</p>",
+      "tendancesTitle": "Tendenze 2025-2026: selektiv Erhuelung no Gemeng",
+      "tendancesContent": "<p>D'Stad Letzebuerg: ~10.500 EUR/m2, Suedguertel: ~5.800-6.500 EUR/m2, Norden: ~4.500-5.500 EUR/m2.</p>",
+      "topCommunesTitle": "Top-Gemengen: Praiser, Renditen an Attraktivitaeit",
+      "topCommunesContent": "<p>Dei begehrteste Gemengen kombinaieren Verkeiersunbindung, Liewensqualitaeit an Schouluffroen.</p>",
+      "faq1q": "Wou kommen d'Praisdonneeeen pro Gemeng hier?",
+      "faq1a": "D'Donneeeen kommen vun bei der AED registreeierte Notariatsurkonden.",
+      "faq2q": "Wei dacks ginn d'Indizen aktualisaiert?",
+      "faq2a": "D'offiziell Indize ginn vereteljeerlech publizaiert.",
+      "faq3q": "Firwat ennerscheede sech d'Praiser teschent Nopeschgemengen?",
+      "faq3a": "D'Ennerscheeder erkleren sech duerch Lag, Schouluffroen a verfuegbar Immobilientypen.",
+      "faq4q": "Erfaassen d'Indizen Neibauten a Bestand?",
+      "faq4a": "Jo, beid Segmenter sinn ofgedeckt.",
+      "faq5q": "Wei kann ech d'Indizen fir meng Schaetzung notzen?",
+      "faq5a": "D'Indize liveren e Medianprais pro Gemeng als Ausgangspunkt."
+    }
   },
   "pagPap": {
     "title": "Urbanismus — PAG / PAP",
@@ -3730,7 +4092,27 @@
     "resourceMap": "Kaart",
     "resourceGeoportail": "Geoportail.lu — PAG online",
     "resourceLaw": "Gesetz",
-    "resourceMinistry": "Wunnengsbauministère"
+    "resourceMinistry": "Wunnengsbauministère",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zum PAG an PAP",
+      "relatedTitle": "Ergaenzend Tools",
+      "urbanismeTitle": "Urbanismus zu Letzebuerg: PAG an PAP",
+      "urbanismeContent": "<p>D'Raumplanung zu Letzebuerg gett duerch d'Gesetz vum 19. Juli 2004 geregelt.</p>",
+      "zonesTitle": "Zonen a Bebaubaarkeet",
+      "zonesContent": "<p>Haaptzone: HAB-1, HAB-2, MIX. COS- a CUS-Koeffiziente bestammen d'Bauintensitaeit.</p>",
+      "constructibiliteTitle": "Bebaubaarkeet vun engem Terrain bewerten",
+      "constructibiliteContent": "<p>PAG-Klassifeierung, PAP-Regelen, Dienstbaarketen an Uschloss pruefen.</p>",
+      "servitudesTitle": "Dienstbaarketen a speziell Oplagen",
+      "servitudesContent": "<p>Staedtebaulech, Emwelt-, Denkmalschutz- a privat Dienstbaarketen.</p>",
+      "faq1q": "Wou kann ech de PAG vu menger Gemeng gesinn?",
+      "faq1a": "Um Geoportail (geoportail.lu) oder bei der Gemeng.",
+      "faq2q": "Wat ass den Ennerscheed teschent PAG an PAP?",
+      "faq2a": "De PAG definaiert d'allgemeng Zonenutzung, den PAP detaillaiert d'Bauregelen pro Zone.",
+      "faq3q": "Wei weess ech ob en Terrain bebaubar ass?",
+      "faq3a": "PAG-Klassifeierung, PAP-Regelen a Dienstbaarketen pruefen.",
+      "faq4q": "Wat sinn COS a CUS?",
+      "faq4a": "COS ass d'Grondflachezuel, CUS d'Geschossflachezuel."
+    }
   },
   "amlKyc": {
     "title": "AML / KYC Immobilien",
@@ -3848,7 +4230,27 @@
     "zoneCentre": "Zentrum",
     "zoneEst": "Osten (Musel)",
     "zoneNord": "Norden",
-    "sourceDisclaimer": "Quell: Schätzungen baséiert op beobachte Transaktiounen. Indicativ Donnéeën — de Lëtzebuerger landwirtschaftleche Flächemaarkt ass wéineg transparent."
+    "sourceDisclaimer": "Quell: Schätzungen baséiert op beobachte Transaktiounen. Indicativ Donnéeën — de Lëtzebuerger landwirtschaftleche Flächemaarkt ass wéineg transparent.",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zu landwirtschaftleche Flaachen",
+      "relatedTitle": "Ergaenzend Tools",
+      "evaluationTitle": "Bewertung vu landwirtschaftleche Flaachen zu Letzebuerg",
+      "evaluationContent": "<p>Duerchschnettspraiser: 30.000-80.000 EUR/ha.</p>",
+      "prixZonesTitle": "Praiser no Zone a Bueddequalitaeit",
+      "prixZonesContent": "<p>Zentrum-Sued: 50.000-80.000, Zentrum: 40.000-60.000, Norden: 30.000-50.000 EUR/ha.</p>",
+      "facteursTitle": "Wertbestemmend Faktoren",
+      "facteursContent": "<p>Emklassifeierungspotenzial, Pachtvertrag, Gebailechkeeten, Erreichbarkeet.</p>",
+      "bailRuralTitle": "De Letzebueger Pachtvertrag",
+      "bailRuralContent": "<p>Geregelt duerch d'Gesetz vum 2. Juli 1969.</p>",
+      "faq1q": "Wat kascht en Hektar am Duerchschnett?",
+      "faq1a": "30.000-80.000 EUR/ha.",
+      "faq2q": "Wei gett d'Bueddequalitaeit bewert?",
+      "faq2a": "No der Letzebueger pedologescher Klassifeierung.",
+      "faq3q": "Beaflosst e lafende Pachtvertrag de Prais?",
+      "faq3a": "Jo, typesch 15-30% Ofschlag.",
+      "faq4q": "Kann Agrarland emklassifizeiert ginn?",
+      "faq4a": "Jo, bei PAG-Revisioun."
+    }
   },
   "vefa": {
     "title": "VEFA-Simulator",
@@ -3959,7 +4361,29 @@
     "bonInteretsTitle": "Zwëschenzënsen",
     "bonInteretsText": "Während der Bauphase (24 bis 30 Méint) bezuelt d'Bank de Prêt progressiv aus. De Keefer bezuelt monatleche Zënsen op dat scho ausgezuelte Kapital. Dëse Käschte gëtt dacks vergiess a representéiert typescherweis 15.000 bis 25.000 EUR fir e Standardprêt.",
     "bonDureeTitle": "Baudauer",
-    "bonDureeText": "Rechent am Duerchschnëtt mat 24 bis 30 Méint tëschent Ënnerschrëft an Iwwergab. Den Zäitplang hänkt vun der Gréisst vum Projet, dem Wieder an der Disponibilitéit vun den Entreprisen of."
+    "bonDureeText": "Rechent am Duerchschnëtt mat 24 bis 30 Méint tëschent Ënnerschrëft an Iwwergab. Den Zäitplang hänkt vun der Gréisst vum Projet, dem Wieder an der Disponibilitéit vun den Entreprisen of.",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zur VEFA zu Lëtzebuerg",
+      "relatedTitle": "Ergänzend Tools",
+      "guideTitle": "Komplett Guide zum Kaf am VEFA zu Lëtzebuerg",
+      "guideContent": "<p>D'<strong>VEFA</strong> ass déi bevorzugt Akafsmethode fir Neibauwunnengen zu Lëtzebuerg, reglementéiert duerch d'<strong>Gesetz vum 18. Abrëll 2018</strong>:</p><ul><li><strong>Reservéierungsvertrag</strong>: maximal 5 % Unzuelung</li><li><strong>Notarielle Kafvertrag</strong>: progressiven Eegentumsiwwergang</li><li><strong>Garantie d'achèvement</strong>: obligatoresch Bank- oder Versécherungsgarantie</li></ul>",
+      "echeancierSeoTitle": "VEFA-Bezuelungsplang: d'wichtegst Etappen",
+      "echeancierSeoContent": "<p>Den Artikel 1601-11 leet en <strong>maximale Bezuelungsplang</strong> fest:</p><ul><li>Kafvertrag: max. 33 %</li><li>Rout dicht: kumuléiert max. 60 %</li><li>Fäerdegstellung: kumuléiert max. 95 %</li><li>Liwwerung: 5 % Restbetrag</li></ul>",
+      "tvaSeoTitle": "TVA an d'Besteierung vun der VEFA zu Lëtzebuerg",
+      "tvaSeoContent": "<p>D'VEFA-Steiersystem bitt bedeitend Virdeeler:</p><ul><li>Terrain-Undeel: 7 % Gebühren mat Bëllegen Akt fir Haaptwunnsëtz</li><li>Bauundeel: 3 % TVA fir Haaptwunnsëtz, max. 50.000 € Erspuernis</li></ul>",
+      "intercalairesTitle": "Tëschenzënsen: en dacks ënnerschätzte Käschtepunkt",
+      "intercalairesContent": "<p><strong>Tëschenzënsen</strong> falen un op scho fräigelooss Mëttelen während der Bauphase. Bei enger VEFA fir 600.000 € mat 500.000 € Prêt zu 3,8 % iwwer 18 Méint Bauzäit betrueden d'Tëschenzënse ca. 12.000-15.000 €.</p>",
+      "faq1q": "Wat ass VEFA zu Lëtzebuerg?",
+      "faq1a": "VEFA ass e Vertrag wou de Promoteur eng nach net gebaut oder am Bau sëtzend Immobilie verkeeft. De Keefer gëtt schrëttweis Proprietaire mat reglementéierten Ratebezuelungen.",
+      "faq2q": "Wéi eng Risiken huet d'VEFA?",
+      "faq2a": "Haaptrisiken sinn Liwwerverzögerungen, Beschreiwungsännerungen an Insolvenz vum Promoteur (gedeckt duerch d'obligatoresch Fäerdegstellungsgarantie).",
+      "faq3q": "Wéi profitéieren ech vum reduzéierten TVA-Saz vun 3 %?",
+      "faq3a": "Den 3 %-Saz gëllt fir de Bauundeel vum Haaptwunnsëtz. D'Demande gëtt bei der AED gestallt, normalerweis iwwer den Notaire.",
+      "faq4q": "Wat maachen bei Mängel bei der Liwwerung?",
+      "faq4a": "Bei der Ofnahm erstellt Dir en detailléiert Protokoll vun alle Mängel. De 5 %-Restbetrag gëtt zeréckgehalen bis d'Mängel behuewe sinn.",
+      "faq5q": "Sinn Tëschenzënsen steierlech ofsetzbar?",
+      "faq5a": "Jo, Tëschenzënse sinn wéi Hypothéikenzënsen vum steierpflichtegen Akommes ofsetzbar."
+    }
   },
   "propcalc": {
     "badge": "Gratis WordPress-Plugin",
@@ -4047,6 +4471,28 @@
     "ctaTitle": "Prett fir e Rechner op Ärer Websäit ze addéieren?",
     "ctaSubtitle": "Gratis, Open-Source, RGPD-konform. Installatioun a manner wéi enger Minutt.",
     "ctaDownload": "PropCalc eroflueden →",
-    "ctaGithub": "Op GitHub kucken"
+    "ctaGithub": "Op GitHub kucken",
+    "seo": {
+      "faqTitle": "Dacks gestallt Froen zu PropCalc",
+      "relatedTitle": "Ergaenzend Tools",
+      "pluginTitle": "PropCalc: Multi-Land WordPress-Plugin fir Immobilieninvestement",
+      "pluginContent": "<p><strong>PropCalc</strong> ass en Open-Source WordPress-Plugin vun Tevaxia fir <strong>25+ Laenner</strong>.</p>",
+      "modulesTitle": "Verfuegbar Modulen a Funktiounen",
+      "modulesContent": "<p>Akafskaaschten, Loyersrendite, Kreditrechner a Mehrwaertsteier.</p>",
+      "paysTitle": "Geografesch Ofdeckung: 25+ Laenner",
+      "paysContent": "<p>Europa, Amerika, Asien-Pazifik.</p>",
+      "integrationsTitle": "WordPress-Integratioun an Upassung",
+      "integrationsContent": "<p>Shortcodes, );Gutenberg-Blocks, Sidebar-Widgets an REST API.</p>",
+      "faq1q": "Ass PropCalc gratis?",
+      "faq1a": "Jo, vollstaenneg gratis an Open Source.",
+      "faq2q": "Weichl Laenner ginn uennerstuetzt?",
+      "faq2a": "25+ Laenner.",
+      "faq3q": "Wei integreieren ech PropCalc?",
+      "faq3a": "Aus dem WordPress-Verzeechnes installeieren.",
+      "faq4q": "Kann ech baidroen?",
+      "faq4a": "Jo, Open Source op GitHub.",
+      "faq5q": "Ass PropCalc kompatibel mat Page Buildern?",
+      "faq5a": "Jo, mat Elementor, Divi an WooCommerce."
+    }
   }
 }

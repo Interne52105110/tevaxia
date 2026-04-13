@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import SEOContent from "@/components/SEOContent";
 
 export const metadata: Metadata = {
   title: "Tevaxia Energy — 8 Simulateurs Énergie & HVAC Immobilier Luxembourg",
@@ -102,6 +103,7 @@ export default async function EnergyHomePage() {
   const t = await getTranslations("energy.home");
 
   return (
+    <>
     <div className="min-h-[80vh]">
       {/* Hero */}
       <section className="bg-gradient-to-br from-navy via-navy-dark to-navy py-16 sm:py-24 text-white">
@@ -168,5 +170,29 @@ export default async function EnergyHomePage() {
         </div>
       </section>
     </div>
+
+    <SEOContent
+      ns="energy.home"
+      sections={[
+        { titleKey: "transitionTitle", contentKey: "transitionContent" },
+        { titleKey: "cpeTitle", contentKey: "cpeContent" },
+        { titleKey: "epbdTitle", contentKey: "epbdContent" },
+        { titleKey: "aidesTitle", contentKey: "aidesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/energy/impact", labelKey: "energyImpact" },
+        { href: "/energy/renovation", labelKey: "energyRenovation" },
+        { href: "/energy/epbd", labelKey: "energyEpbd" },
+        { href: "/energy/estimateur-cpe", labelKey: "energyCpe" },
+      ]}
+    />
+    </>
   );
 }

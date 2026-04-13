@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { generateLenozPdfBlob, PdfButton } from "@/components/energy/EnergyPdf";
+import SEOContent from "@/components/SEOContent";
 
 /* ─── Data ─────────────────────────────────────────────────────────── */
 
@@ -327,6 +328,7 @@ export default function LenozPage() {
   const rating = getRating(totalScore);
 
   return (
+    <>
     <div className="py-8 sm:py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -487,5 +489,28 @@ export default function LenozPage() {
         </div>
       </div>
     </div>
+
+    <SEOContent
+      ns="energy.lenoz"
+      sections={[
+        { titleKey: "certificationTitle", contentKey: "certificationContent" },
+        { titleKey: "categoriesTitle", contentKey: "categoriesContent" },
+        { titleKey: "notationTitle", contentKey: "notationContent" },
+        { titleKey: "avantagesTitle", contentKey: "avantagesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/energy/estimateur-cpe", labelKey: "energyCpe" },
+        { href: "/energy/renovation", labelKey: "energyRenovation" },
+        { href: "/vefa", labelKey: "vefa" },
+      ]}
+    />
+    </>
   );
 }

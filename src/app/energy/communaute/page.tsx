@@ -13,6 +13,7 @@ import {
   type PVGISResult,
 } from "@/lib/pvgis";
 import { COMMUNE_COORDS } from "@/lib/communes-coords";
+import SEOContent from "@/components/SEOContent";
 
 const PRODUCTION_KWH_PAR_KWC = 950;
 const TAUX_AUTOCONSO_BASE = 0.40;
@@ -188,6 +189,7 @@ export default function CommunautePage() {
   const params = result.parametres;
 
   return (
+    <>
     <div className="py-8 sm:py-12">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -500,5 +502,26 @@ export default function CommunautePage() {
         </div>
       </div>
     </div>
+
+    <SEOContent
+      ns="energy.communaute"
+      sections={[
+        { titleKey: "conceptTitle", contentKey: "conceptContent" },
+        { titleKey: "autoconsommationTitle", contentKey: "autoconsommationContent" },
+        { titleKey: "loiTitle", contentKey: "loiContent" },
+        { titleKey: "economiesTitle", contentKey: "economiesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+      ]}
+      relatedLinks={[
+        { href: "/energy/renovation", labelKey: "energyRenovation" },
+        { href: "/energy/epbd", labelKey: "energyEpbd" },
+      ]}
+    />
+    </>
   );
 }

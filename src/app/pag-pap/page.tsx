@@ -9,6 +9,7 @@ import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 import { ZONES_PAG, PAP_TYPES } from "@/lib/pag-pap";
 import dynamic from "next/dynamic";
 import { COMMUNE_COORDS } from "@/lib/communes-coords";
+import SEOContent from "@/components/SEOContent";
 
 const PAGMap = dynamic(() => import("@/components/PAGMap"), { ssr: false });
 
@@ -39,6 +40,7 @@ export default function PagPap() {
   const surfaceBruteMax = surfaceTerrain * parseFloat(cmuMax);
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -256,5 +258,27 @@ export default function PagPap() {
         )}
       </div>
     </div>
+
+    <SEOContent
+      ns="pagPap"
+      sections={[
+        { titleKey: "urbanismeTitle", contentKey: "urbanismeContent" },
+        { titleKey: "zonesTitle", contentKey: "zonesContent" },
+        { titleKey: "constructibiliteTitle", contentKey: "constructibiliteContent" },
+        { titleKey: "servitudesTitle", contentKey: "servitudesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+      ]}
+      relatedLinks={[
+        { href: "/terres-agricoles", labelKey: "terresAgricoles" },
+        { href: "/estimation", labelKey: "estimation" },
+        { href: "/marche", labelKey: "marche" },
+      ]}
+    />
+    </>
   );
 }

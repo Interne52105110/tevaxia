@@ -228,7 +228,29 @@
       "whyDesc": "In Luxemburg beeinflusst die Energieklasse einer Immobilie direkt ihren Marktwert. Der Unterschied zwischen Klasse A und Klasse I kann {pct} erreichen. Mit der EPBD-Richtlinie und steigenden Energiekosten ist die Renovierung keine Option mehr — sie ist ein messbarer Wertsteigerungshebel.",
       "statEcart": "Differenz A vs. I",
       "statKlimabonus": "Klimabonus max.",
-      "statIsolation": "€/m² Fassadendämmung"
+      "statIsolation": "€/m² Fassadendämmung",
+      "seo": {
+        "faqTitle": "Haeufig gestellte Fragen zur Energiewende im Gebaeudebereich",
+        "relatedTitle": "Ergaenzende Simulatoren",
+        "transitionTitle": "Die Gebaeudeenergiewende in Luxemburg",
+        "transitionContent": "<p>Luxemburg hat sich zu einer <strong>ambitionierten Energiewende</strong> seines Gebaeudebestands verpflichtet. Der Gebaeudesektor macht etwa 35 % des Energieverbrauchs aus.</p>",
+        "cpeTitle": "Der Energieausweis: Klassen A bis I",
+        "cpeContent": "<p>Der EPB bewertet Gebaeude von A (sehr effizient) bis I (Energieschleuder). Klasse A bringt 15-30 % Preisaufschlag.</p>",
+        "epbdTitle": "Die EPBD-Richtlinie und Luxemburger Fristen",
+        "epbdContent": "<p>EPBD Recast: Klasse E bis 2030, Klasse D bis 2033, Nullemission bis 2050. Ueber 40.000 Wohnungen muessen saniert werden.</p>",
+        "aidesTitle": "Energierenovierungshilfen: Klimabonus 2025",
+        "aidesContent": "<p>Klimabonus: Daemmung 30-60 EUR/m2, erneuerbare Heizung 2.500-8.000 EUR, PV 200-500 EUR/kWp.</p>",
+        "faq1q": "Was ist der Energieausweis (EPB)?",
+        "faq1a": "Ein Pflichtausweis, der Gebaeude von A bis I bewertet.",
+        "faq2q": "Welchen Einfluss hat der EPB auf den Preis?",
+        "faq2a": "Klasse A bringt 15-30 % Aufpreis. Green Premium: +3-5 % pro Klasse.",
+        "faq3q": "Welche EPBD-Fristen gelten fuer Luxemburg?",
+        "faq3a": "Klasse E bis 2030, Klasse D bis 2033, Nullemission bis 2050.",
+        "faq4q": "Was kostet eine Energierenovierung?",
+        "faq4a": "Komplettrenovierung: 30.000-80.000 EUR fuer ein Haus, teilweise durch Klimabonus gedeckt.",
+        "faq5q": "Wie erhalte ich den Klimabonus?",
+        "faq5a": "Myenergy kontaktieren, Energieaudit durchfuehren, nach Abschluss der Arbeiten Antrag beim Umweltministerium stellen."
+      }
     },
     "impact": {
       "title": "Auswirkung der Energieklasse auf den Wert",
@@ -272,7 +294,27 @@
       "sampleSize": "{count} analysierte Transaktionen",
       "confidence_high": "Hohe Zuverlässigkeit",
       "confidence_medium": "Mittlere Zuverlässigkeit",
-      "confidence_low": "Geringe Zuverlässigkeit"
+      "confidence_low": "Geringe Zuverlässigkeit",
+      "seo": {
+        "faqTitle": "Haeufig gestellte Fragen zum Energieeinfluss auf Preise",
+        "relatedTitle": "Ergaenzende Simulatoren",
+        "greenPremiumTitle": "Green Premium und Brown Discount: EPB-Einfluss auf Preise",
+        "greenPremiumContent": "<p>Der Unterschied zwischen A-B (+12-18%) und F-I (-15-30%) betraegt 25-35% insgesamt.</p>",
+        "donneesTitle": "Kommunale Daten: Abschlaege und Aufschlaege nach EPB-Klasse",
+        "donneesContent": "<p>Unsere Datenbank aggregiert Preisunterschiede nach EPB-Klasse auf Gemeindeebene.</p>",
+        "etudesTitle": "Studien und wissenschaftliche Referenzen",
+        "etudesContent": "<p>Wohnungsobservatorium (2023): +3-5% pro Klasse. BCL (2022): beschleunigter Brown Discount.</p>",
+        "strategieTitle": "Strategie: vor dem Verkauf renovieren?",
+        "strategieContent": "<p>Renovieren fuer das Green Premium oder im Istzustand verkaufen? Unser Simulator berechnet den ROI.</p>",
+        "faq1q": "Was ist das Green Premium?",
+        "faq1a": "Der Mehrwert energieeffizienter Immobilien (Klasse A-B), +12-18% in Luxemburg.",
+        "faq2q": "Was ist der Brown Discount?",
+        "faq2a": "Der Preisabschlag fuer Energieschleudern (Klasse F-I), -15-30%.",
+        "faq3q": "Sind die Daten zuverlaessig?",
+        "faq3a": "Basierend auf tatsaechlichen AED-Transaktionen.",
+        "faq4q": "Wird sich der Brown Discount verschaerfen?",
+        "faq4a": "Ja, durch EPBD-Fristen und steigende Energiekosten."
+      }
     },
     "renovation": {
       "title": "ROI Energetische Renovierung",
@@ -345,7 +387,27 @@
       "comparaisonCout": "Energiekosten",
       "comparaisonEcoEnergie": "Eingesparte Energie / Jahr",
       "comparaisonEcoCO2": "Vermiedene Emissionen / Jahr",
-      "comparaisonEcoFacture": "Energierechnung / Jahr"
+      "comparaisonEcoFacture": "Energierechnung / Jahr",
+      "seo": {
+        "faqTitle": "Haeufig gestellte Fragen zur energetischen Sanierung",
+        "relatedTitle": "Ergaenzende Simulatoren",
+        "roiTitle": "ROI der Energierenovierung in Luxemburg",
+        "roiContent": "<p>Durchschnittlicher ROI: <strong>6-12 Jahre</strong> ohne Wertsteigerung.</p>",
+        "coutsTitle": "Durchschnittliche Kosten nach Sanierungsposten",
+        "coutsContent": "<p>Dach: 120-220 EUR/m2, Fassade: 150-280 EUR/m2, Dreifachverglasung: 600-1.200 EUR/Fenster, Waermepumpe: 12.000-18.000 EUR.</p>",
+        "klimabonusTitle": "Klimabonus 2025: Betraege und Bedingungen",
+        "klimabonusContent": "<p>Daemmung 30-60 EUR/m2, Waermepumpe 2.500-8.000 EUR, PV 200-500 EUR/kWp.</p>",
+        "paybackTitle": "Amortisationszeit: Rechenbeispiele",
+        "paybackContent": "<p>Komplettsanierung G→B, 150m2 Haus: 75.000 EUR, 22.000 EUR Foerderung, 6.000 EUR/Jahr Ersparnis = 8-9 Jahre. Mit Green Premium unter 5 Jahren.</p>",
+        "faq1q": "Was kostet eine Komplettsanierung?",
+        "faq1a": "60.000-80.000 EUR vor Foerderung fuer ein 150m2 Haus (G→B).",
+        "faq2q": "Wie lang ist die Amortisationszeit?",
+        "faq2a": "6-12 Jahre ohne Wertsteigerung, unter 5 Jahren mit Green Premium.",
+        "faq3q": "Decken die Foerderungen alles ab?",
+        "faq3a": "Nein, Klimabonus deckt ca. 25-40%, mit kommunalen Hilfen bis 40-50%.",
+        "faq4q": "Brauche ich ein Energieaudit?",
+        "faq4a": "Dringend empfohlen, 50-70% subventioniert ueber Myenergy."
+      }
     },
     "communaute": {
       "title": "Simulator Energiegemeinschaft",
@@ -411,7 +473,27 @@
       "pvgisFallback": "PVGIS nicht verfügbar — Schätzung 950 kWh/kWp",
       "estimation": "Schätzung",
       "prodMensDescPvgis": "Monatliche PVGIS-Daten für {commune} (Satelliten-Einstrahlung, 14% Verluste)",
-      "paramProductionPvgis": "Reale PVGIS PV-Produktion: {val} kWh/kWp/Jahr ({commune}, EU-Satellitendaten)"
+      "paramProductionPvgis": "Reale PVGIS PV-Produktion: {val} kWh/kWp/Jahr ({commune}, EU-Satellitendaten)",
+      "seo": {
+        "faqTitle": "Haeufig gestellte Fragen zu Energiegemeinschaften",
+        "relatedTitle": "Ergaenzende Simulatoren",
+        "conceptTitle": "Energiegemeinschaften in Luxemburg",
+        "conceptContent": "<p><strong>Erneuerbare-Energie-Gemeinschaften (EEG)</strong> ermoeglichen kollektive Produktion und Verteilung erneuerbaren Stroms, gemaess dem Gesetz vom 3. Februar 2021.</p>",
+        "autoconsommationTitle": "Kollektiver Eigenverbrauch und Diversifikation",
+        "autoconsommationContent": "<p>Eigenverbrauchsrate steigt von 30-40% (individuell) auf 50-70% (Gemeinschaft mit 10-20 Mitgliedern).</p>",
+        "loiTitle": "Rechtsrahmen: Gesetz vom 3. Februar 2021",
+        "loiContent": "<p>Zwei Formen: EEG und Buerger-Energiegemeinschaft (BEG). Mitglieder muessen am selben Verteilnetz angeschlossen sein.</p>",
+        "economiesTitle": "Einsparungen und Rentabilitaet",
+        "economiesContent": "<p>200-600 EUR/Jahr pro teilnehmendem Haushalt.</p>",
+        "faq1q": "Was ist eine Energiegemeinschaft?",
+        "faq1a": "Eine Gruppe die gemeinsam erneuerbaren Strom produziert und teilt.",
+        "faq2q": "Wie viel kann ich sparen?",
+        "faq2a": "200-600 EUR/Jahr pro Haushalt.",
+        "faq3q": "Muss ich in der Naehe der Anlage wohnen?",
+        "faq3a": "Mitglieder muessen am selben Verteilnetz sein.",
+        "faq4q": "Wie gruende ich eine Energiegemeinschaft?",
+        "faq4a": "Myenergy kontaktieren, Gruppe bilden, Verteilungsregeln festlegen, beim ILR melden."
+      }
     },
     "epbd": {
       "title": "EPBD-Richtlinie — Zeitplan und Stranding-Risiko",
@@ -500,6 +582,28 @@
         "target26": "Ziel -26 %",
         "fossilEnd": "Ende fossiler Heizkessel",
         "zeroEmission": "Gebäudebestand emissionsfrei"
+      },
+      "seo": {
+        "faqTitle": "Haeufig gestellte Fragen zur EPBD-Richtlinie",
+        "relatedTitle": "Ergaenzende Simulatoren",
+        "directiveTitle": "Die EPBD-Richtlinie: Auswirkungen fuer Luxemburg",
+        "directiveContent": "<p>Die <strong>EPBD Recast (2024/1275)</strong> setzt verbindliche Renovierungsziele. Luxemburg muss 40.000+ Wohnungen sanieren.</p>",
+        "echeancesTitle": "Fristen und Pflichten fuer Luxemburg",
+        "echeancesContent": "<p>Klasse E bis 2030, Klasse D bis 2033, Nullemission bis 2050. Umsetzung in nationales Recht bis 2026.</p>",
+        "strandingTitle": "Stranding-Risiko: blockierte Vermoegenswerte",
+        "strandingContent": "<p>Immobilien in Klasse F-I droht zunehmender Wertverlust und Nutzungseinschraenkung.</p>",
+        "financementTitle": "Finanzierung und Unterstuetzung",
+        "financementContent": "<p>Klimabonus, gruene Bankkredite, kommunale Foerderungen, Energieleistungsvertraege.</p>",
+        "faq1q": "Was ist die EPBD-Richtlinie?",
+        "faq1a": "EU-Gesetzgebung fuer Mindestenergieleistungsstandards von Gebauden.",
+        "faq2q": "Wird mein G-Objekt nicht mehr vermietbar sein?",
+        "faq2a": "EPBD verlangt Klasse E bis 2030 und D bis 2033.",
+        "faq3q": "Was ist Stranding-Risiko?",
+        "faq3a": "Das Risiko, dass ein Objekt an Wert verliert oder nicht mehr konform ist.",
+        "faq4q": "Wie finanziere ich die Sanierung?",
+        "faq4a": "Klimabonus, gruene Kredite, kommunale Foerderungen.",
+        "faq5q": "Wann muss Luxemburg die EPBD umsetzen?",
+        "faq5a": "Bis 2026."
       }
     },
     "estimateurCpe": {
@@ -563,7 +667,27 @@
       "consoTotale": "Gesamter Jahresverbrauch",
       "coutEstime": "Geschätzte Energiekosten",
       "emissionsCO2": "Geschätzte CO₂-Emissionen",
-      "prixKwh": "Basis: 0,22 €/kWh (Luxemburger Mix 2026)"
+      "prixKwh": "Basis: 0,22 €/kWh (Luxemburger Mix 2026)",
+      "seo": {
+        "faqTitle": "Haeufig gestellte Fragen zur EPB-Schaetzung",
+        "relatedTitle": "Ergaenzende Simulatoren",
+        "estimerTitle": "Energieklasse ohne formales Audit schaetzen",
+        "estimerContent": "<p>Unser Schaetzer liefert eine indikative EPB-Klasse basierend auf Gebaeudeeigenschaften.</p>",
+        "criteresTitle": "Vom Schaetzer verwendete Kriterien",
+        "criteresContent": "<p>Baujahr, Gebaeudetyp, Heizsystem, Daemmniveau, Verglasungstyp, Lueftungssystem.</p>",
+        "fiabiliteTitle": "Zuverlaessigkeit und Grenzen",
+        "fiabiliteContent": "<p>Genauigkeit ±1 Klasse in ca. 75% der Faelle. Ersetzt keinen offiziellen EPB.</p>",
+        "apresEstimationTitle": "Was tun nach der Schaetzung",
+        "apresEstimationContent": "<p>Klasse A-C: Green Premium nutzen. D-E: gezielte Arbeiten. F-I: Sanierung empfohlen.</p>",
+        "faq1q": "Ersetzt dies einen offiziellen EPB?",
+        "faq1a": "Nein, nur indikativ.",
+        "faq2q": "Wie genau ist der Schaetzer?",
+        "faq2a": "Ca. ±1 Klasse in 75% der Faelle.",
+        "faq3q": "Welche Kriterien sind am wichtigsten?",
+        "faq3a": "Baujahr und Heizsystem.",
+        "faq4q": "Mein Altbau ist renoviert — wird das beruecksichtigt?",
+        "faq4a": "Ja, aktuelle Daemmung und Heizung angeben."
+      }
     },
     "lenoz": {
       "title": "Vereinfachtes LENOZ-Scoring",
@@ -639,7 +763,29 @@
       "optDifficile": "Schwierig",
       "optAccessible": "Zugänglich",
       "optDedieExtensible": "Dediziert + erweiterbar",
-      "downloadPdf": "PDF herunterladen"
+      "downloadPdf": "PDF herunterladen",
+      "seo": {
+        "faqTitle": "Haeufig gestellte Fragen zur LENOZ-Zertifizierung",
+        "relatedTitle": "Ergaenzende Simulatoren",
+        "certificationTitle": "LENOZ-Zertifizierung in Luxemburg",
+        "certificationContent": "<p><strong>LENOZ</strong> ist Luxemburgs Nachhaltigkeitslabel fuer neue Wohngebaeude, 60 Kriterien in 6 Kategorien. Pflicht fuer 3% MwSt seit 2017.</p>",
+        "categoriesTitle": "Die 6 LENOZ-Bewertungskategorien",
+        "categoriesContent": "<p>Standort, Gesellschaft/Wirtschaft, Energie, Oekologie, Materialien, Funktionalitaet. Max: 60 Punkte.</p>",
+        "notationTitle": "Bewertungssystem und Stufen",
+        "notationContent": "<p>Platin (>=48), Gold (>=36), Silber (>=24), Bronze (>=12). Pflicht fuer 3% MwSt.</p>",
+        "avantagesTitle": "Vorteile der LENOZ-Zertifizierung",
+        "avantagesContent": "<p>3% MwSt-Voraussetzung, Wiederverkaufswert, Lebensqualitaet.</p>",
+        "faq1q": "Was ist die LENOZ-Zertifizierung?",
+        "faq1a": "Luxemburgs Nachhaltigkeitslabel fuer neue Wohngebaeude.",
+        "faq2q": "Ist LENOZ Pflicht?",
+        "faq2a": "Ja, fuer 3% MwSt auf Neubauten.",
+        "faq3q": "Was kostet die Zertifizierung?",
+        "faq3a": "2.000-5.000 EUR.",
+        "faq4q": "Unterschied zwischen LENOZ und EPB?",
+        "faq4a": "EPB misst nur Energie. LENOZ ist umfassender.",
+        "faq5q": "Gilt LENOZ fuer Renovierungen?",
+        "faq5a": "Nein, nur Neubauten. Erweiterung in Diskussion."
+      }
     },
     "portfolio": {
       "title": "Energieportfolio",
@@ -802,7 +948,29 @@
     "chartTitle": "Preis/m²-Entwicklung — {commune}",
     "chartSource": "Gemeindeschätzung basierend auf nationalem Trend — Quelle: Observatoire de l'Habitat",
     "tooltipPrixM2": "Preis/m²",
-    "tooltipAnnee": "Jahr {annee}"
+    "tooltipAnnee": "Jahr {annee}",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zur Immobilienbewertung",
+      "relatedTitle": "Ergänzende Tools",
+      "contextTitle": "Der Luxemburger Immobilienmarkt 2025-2026",
+      "contextContent": "<p>Der Immobilienmarkt des Großherzogtums Luxemburg durchläuft eine <strong>Korrekturphase nach dem Höhepunkt</strong>, die Ende 2022 begann, nach über einem Jahrzehnt nahezu ununterbrochenen Wachstums. Laut Wohnungsobservatorium und STATEC sind die Wohnimmobilienpreise zwischen dem Höchststand Q3-2022 und Q4-2024 um etwa 14 % gesunken, bevor sie sich im ersten Halbjahr 2025 stabilisierten.</p><p>Diese Korrektur erklärt sich hauptsächlich durch die <strong>geldpolitische Straffung der EZB</strong> (Leitzins von 0 % auf 4,50 % in 18 Monaten), die die Kreditaufnahmekapazität der Haushalte reduzierte. Dennoch bleiben die strukturellen Grundlagen solide: demografisches Wachstum von +1,5 %/Jahr, 12.000 zusätzliche Einwohner 2024, ein dynamischer Arbeitsmarkt (Arbeitslosenquote ~5,6 %) und ein strukturell defizitäres Angebot, das von der IDEA-Stiftung auf 3.000 Wohnungen pro Jahr geschätzt wird.</p><p>Der <strong>Wohnungssektorplan (PSL)</strong> und die Reform des Pacte Logement 2.0 zielen darauf ab, den Bau zu beschleunigen, aber die Auswirkungen bleiben langsam. Die seit Anfang 2025 beobachtete Transaktionserholung (+18 % im Volumen Q1-2025 vs. Q1-2024) bestätigt, dass der Tiefpunkt in vielen Gemeinden wahrscheinlich erreicht ist.</p>",
+      "methodeTitle": "Bewertungsmethoden: hedonisch, Vergleichswerte und DCF",
+      "methodeContent": "<p>In Luxemburg koexistieren drei große Methodenfamilien zur Immobilienbewertung:</p><ul><li><strong>Die hedonische Methode</strong>: Vom STATEC und dem Wohnungsobservatorium verwendet, zerlegt sie den Preis anhand objektiver Merkmale (Fläche, Lage, Alter, Energieeffizienz, Stockwerk, Parkplatz usw.) mittels eines Regressionsmodells. Unser Tool basiert auf den vierteljährlich aktualisierten Koeffizienten des Observatoriums.</li><li><strong>Die Vergleichswertmethode</strong>: Ein Klassiker der Immobilienbewertung (EVS/TEGoVA-Standard), bei der Preise kürzlich getätigter Transaktionen vergleichbarer Objekte angepasst werden. Die bei der Einregistrierungs- und Domänenverwaltung (AED) registrierten Notariatsurkunden bilden die Referenzquelle.</li><li><strong>Die DCF-Methode (Discounted Cash Flow)</strong>: Hauptsächlich für Anlageimmobilien verwendet, diskontiert sie zukünftige Netto-Cashflows. Luxemburgische institutionelle Investoren (SIF/RAIF-Fonds unter CSSF-Aufsicht) setzen sie systematisch für Due Diligence ein.</li></ul><p>Unser Schätzer kombiniert die hedonische Methode (für den theoretischen Preis) mit aktuellen Vergleichsdaten (für die Marktverankerung) und bietet so eine zuverlässige Wertspanne.</p>",
+      "facteursTitle": "Einflussfaktoren auf den Immobilienwert in Luxemburg",
+      "facteursContent": "<p>Zahlreiche Faktoren beeinflussen die Immobilienwerte im Großherzogtum, mit variablen Gewichtungen je nach Immobilientyp:</p><ul><li><strong>Lage und Gemeinde</strong>: Dies ist der wichtigste Faktor. Luxemburg-Stadt (Belair, Limpertsberg, Kirchberg) weist Durchschnittspreise pro m² von 10.000-14.000 € auf, gegenüber 5.000-7.000 € im Norden (Clervaux, Wiltz). Die Nähe zu Verkehrsmitteln (Tram, CFL-Bahnhof), internationalen Schulen und Beschäftigungszonen (Kirchberg, Cloche d'Or) erzeugt erhebliche Aufpreise.</li><li><strong>Fläche und Grundriss</strong>: Die Nettowohnfläche (gemäß großherzoglicher Verordnung vom 25. Februar 1979) bleibt das dominierende quantitative Kriterium.</li><li><strong>Energieeffizienz (EPB)</strong>: Seit der Reform des Energiepasses 2010 beeinflusst die Energieklasse die Preise messbar. Eine Immobilie der Klasse A wird 15-30 % teurer gehandelt als eine der Klasse G-I bei vergleichbarer Fläche und Lage.</li><li><strong>Zustand und Renovierungen</strong>: Einbauküche, modernes Badezimmer, Dreifachverglasung, Lüftungsanlage mit Wärmerückgewinnung und Wärmepumpe sind wertsteigernde Elemente.</li></ul>",
+      "exempleTitle": "Konkretes Beispiel: Bewertung einer Wohnung in Esch-sur-Alzette",
+      "exempleContent": "<p>Nehmen wir eine Wohnung von <strong>85 m² in Esch-sur-Alzette</strong>, Stadtteil Belvaux, Baujahr 2012, Energieklasse C, mit 1 Tiefgaragenstellplatz und 1 Keller:</p><ul><li>Durchschnittspreis pro m² in der Gemeinde (Q1-2025): ~6.200 € (Quelle: Wohnungsobservatorium)</li><li>Anpassung Klasse C (Referenz D): +5 % → 6.510 €/m²</li><li>Altersanpassung (2012 vs. Median 2005): +3 % → 6.705 €/m²</li><li>Tiefgarage: +25.000 € (Marktpauschale)</li><li>Bruttobewertung: 85 × 6.705 + 25.000 = <strong>594.925 €</strong></li></ul><p>Unser Tool verfeinert diese Schätzung mit vollständigen hedonischen Koeffizienten und den neuesten registrierten Vergleichswerten und liefert eine indikative Spanne, die Sie mit einem vom Wohnungsministerium zugelassenen Sachverständigengutachten vergleichen können.</p>",
+      "faq1q": "Wie genau ist eine Online-Immobilienbewertung?",
+      "faq1a": "Online-Schätzer erreichen typischerweise eine Genauigkeit von ±10-15 % im Vergleich zum endgültigen Verkaufspreis. Unser Tool, kalibriert auf Daten des Wohnungsobservatoriums, zielt auf eine Spanne von ±10 %. Für eine zertifizierte Bewertung (Erbschaft, Hypothek) wenden Sie sich an einen zugelassenen Sachverständigen.",
+      "faq2q": "Wie beeinflusst der Energieausweis den Preis in Luxemburg?",
+      "faq2a": "Laut Studien des Wohnungsobservatoriums (2023) repräsentiert der Gewinn einer Energieklasse durchschnittlich +3 bis +5 % auf den Verkaufspreis. Die Prämie ist bei Häusern ausgeprägter als bei Wohnungen. Die Klassen A-B profitieren von einem 'Green Premium', während die Klassen G-I einen zunehmenden 'Brown Discount' erleiden.",
+      "faq3q": "Welche Daten verwendet das Bewertungstool?",
+      "faq3a": "Das Tool basiert auf Medianpreisen pro Gemeinde des Wohnungsobservatoriums (AED-Quelle), STATEC-Hedonik-Koeffizienten und vierteljährlichen Immobilienpreisindizes. Die Daten werden jedes Quartal aktualisiert.",
+      "faq4q": "Sollte man vor dem Verkauf in Luxemburg eine Bewertung durchführen?",
+      "faq4a": "Ja, eine Vorab-Bewertung wird empfohlen, um einen realistischen Angebotspreis festzulegen. Ein zu hoher Preis verlängert die Verkaufszeit (Median 90-120 Tage in Luxemburg) und kann zu aggressiveren Verhandlungen führen.",
+      "faq5q": "Was ist der Unterschied zwischen Verkehrswert und Verkaufspreis?",
+      "faq5a": "Der Verkehrswert ist der theoretische Preis, den ein informierter Käufer unter normalen Marktbedingungen zahlen würde (EVS-Definition). Der tatsächliche Verkaufspreis kann je nach Dringlichkeit des Verkäufers, Vermarktungsqualität und Finanzierungsbedingungen des Käufers abweichen. In Luxemburg beträgt die durchschnittliche Abweichung ±5 % in einem ausgeglichenen Markt."
+    }
   },
   "fraisAcquisition": {
     "title": "Erwerbskostensimulator",
@@ -859,7 +1027,29 @@
     "infoNotaireText": "Berechnet nach einem geregelten degressiven Tarif (4% bis 10 000 € dann degressiv).",
     "sauvegarder": "Speichern",
     "evaluationSauvegardee": "Bewertung gespeichert!",
-    "savePrefix": "Kosten"
+    "savePrefix": "Kosten",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zu den Erwerbskosten",
+      "relatedTitle": "Ergänzende Tools",
+      "comprendreTitle": "Erwerbsnebenkosten beim Immobilienkauf in Luxemburg verstehen",
+      "comprendreContent": "<p>Beim Kauf einer Immobilie im Großherzogtum Luxemburg muss der Käufer neben dem Kaufpreis mehrere Kostenkategorien tragen. Diese <strong>Erwerbsnebenkosten</strong>, oft fälschlicherweise als &laquo;Notargebühren&raquo; bezeichnet, betragen zwischen 7 % und 10 % des Kaufpreises bei Bestandsimmobilien und können bei Neubauten (VEFA) auf 3-4 % sinken.</p><ul><li><strong>Einregistrierungsgebühren</strong>: 6 % des Kaufpreises</li><li><strong>Transkriptionsgebühr</strong>: 1 % des Preises</li><li><strong>Notargebühren</strong>: nach degressivem Tarif berechnet</li><li><strong>Hypothekeneintragsgebühren</strong>: 0,05 % des Darlehensbetrags</li></ul>",
+      "bellegenAktTitle": "Der Bellegen Akt-Kredit: Steuervergünstigung bis zu 40.000 €",
+      "bellegenAktContent": "<p>Der <strong>Bellegen Akt</strong> ist ein bedeutender Steuervorteil für Käufer eines <strong>Hauptwohnsitzes</strong>. Jeder Käufer erhält einen Kredit von <strong>20.000 €</strong> auf die Gebühren. Für ein Paar verdoppelt sich der Kredit auf <strong>40.000 €</strong>. Dieser Kredit kann nur einmal im Leben genutzt werden.</p><p>Voraussetzungen:</p><ul><li>Die Immobilie muss als Hauptwohnsitz dienen</li><li>Die Nutzung muss innerhalb von 2 Jahren erfolgen</li><li>Der Käufer darf den Kredit noch nicht genutzt haben</li><li>Die Immobilie muss in Luxemburg liegen</li></ul>",
+      "vefaTvaTitle": "VEFA und MwSt.: das Steuersystem für Neubauten",
+      "vefaTvaContent": "<p>Der Kauf per <strong>VEFA</strong> profitiert von einem speziellen Steuersystem in Luxemburg. Der Bauteil unterliegt der <strong>MwSt.</strong>, während der Grundstücksanteil den 7 % Gebühren unterliegt.</p><ul><li><strong>3 % (super-ermäßigter Satz)</strong>: für den Hauptwohnsitz des Käufers</li><li><strong>17 % (Normalsatz)</strong>: für Mietinvestitionen oder über dem Plafond</li></ul>",
+      "exempleTitle": "Rechenbeispiel: Kauf einer Bestandsimmobilie für 750.000 € durch ein Paar",
+      "exempleContent": "<p>Ein typischer Fall: Ein Paar kauft eine Bestandswohnung für <strong>750.000 €</strong> als Hauptwohnsitz mit einem Hypothekendarlehen von 600.000 €:</p><ul><li>Einregistrierungsgebühren (6 %): 45.000 €</li><li>Transkription (1 %): 7.500 €</li><li>Bruttogebühren: 52.500 €</li><li>Bellegen Akt (2 × 20.000 €): -40.000 €</li><li><strong>Nettogebühren: 12.500 €</strong></li><li>Notar: ~6.800 €</li><li>Hypothekenkosten: ~2.500 €</li><li><strong>Gesamte Erwerbskosten: ~21.800 € (2,9 %)</strong></li></ul>",
+      "faq1q": "Wie hoch sind die Notargebühren in Luxemburg?",
+      "faq1a": "Die Notargebühren (ohne Einregistrierungsgebühren) betragen etwa 0,8 % bis 1,2 % des Kaufpreises. Die Gesamterwerbskosten variieren zwischen 3 % (Neubau mit Bellegen Akt) und 10 % (Bestand ohne Steuervorteil).",
+      "faq2q": "Ist der Bellegen Akt mit dem ermäßigten MwSt.-Satz kumulierbar?",
+      "faq2a": "Ja, bei VEFA gilt der Bellegen Akt-Kredit für die Einregistrierungsgebühren auf den Grundstücksanteil, während der ermäßigte MwSt.-Satz (3 %) auf den Bauanteil angewendet wird. Beide Vorteile sind kumulierbar.",
+      "faq3q": "Wie werden die Einregistrierungsgebühren bei VEFA berechnet?",
+      "faq3a": "Bei VEFA gelten die Einregistrierungsgebühren (6 % + 1 %) nur auf den im Akt deklarierten Grundstücksanteil. Der Bauanteil unterliegt der MwSt. (3 % oder 17 %).",
+      "faq4q": "Kann der Bellegen Akt zurückgewonnen werden?",
+      "faq4a": "Nein, der Bellegen Akt-Kredit kann nur einmal pro Person genutzt werden. Bei Weiterverkauf und erneutem Kauf gibt es keinen erneuten Anspruch, außer bei Scheidung mit gerichtlicher Teilung.",
+      "faq5q": "Wann werden die Erwerbskosten bezahlt?",
+      "faq5a": "Die Kosten werden bei der Unterzeichnung der notariellen Urkunde bezahlt. Der Notar sammelt alle Gebühren und Steuern ein und leitet sie an die zuständigen Behörden weiter. Die Zahlung erfolgt in der Regel 2-3 Monate nach dem Vorvertrag."
+    }
   },
   "plusValues": {
     "title": "Wertzuwachssteuerrechner",
@@ -926,7 +1116,29 @@
     "valeurDonation": "Im Akt erklärter Wert",
     "anneeDonation": "Jahr der Schenkung",
     "successionHint": "In der Erbschaftserklärung angegebener Wert",
-    "donationHint": "Im notariellen Schenkungsakt angegebener Wert"
+    "donationHint": "Im notariellen Schenkungsakt angegebener Wert",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zu Immobilien-Veräußerungsgewinnen",
+      "relatedTitle": "Ergänzende Tools",
+      "fiscaliteTitle": "Besteuerung von Immobilien-Veräußerungsgewinnen in Luxemburg",
+      "fiscaliteContent": "<p>In Luxemburg unterliegen <strong>Immobilien-Veräußerungsgewinne</strong> der Einkommensteuer. Das Steuersystem unterscheidet nach Haltedauer gemäß dem <strong>geänderten Gesetz vom 4. Dezember 1967</strong> (LIR).</p><ul><li><strong>Spekulationsgewinn (Art. 99bis LIR)</strong>: Verkauf innerhalb von 2 Jahren — Besteuerung zum Grenzsteuersatz</li><li><strong>Veräußerungsgewinn (Art. 99ter LIR)</strong>: Verkauf nach 2 Jahren — Besteuerung zum halben Durchschnittssteuersatz</li></ul>",
+      "speculationTitle": "Spekulationsgewinn: Verkauf innerhalb von 2 Jahren",
+      "speculationContent": "<p>Bei Verkauf <strong>innerhalb von 2 Jahren</strong> wird der Gewinn als Spekulationsgewinn zum vollen Grenzsteuersatz besteuert (bis zu 45,78 % in 2025). Kein Pauschalabzug anwendbar.</p>",
+      "cessionTitle": "Veräußerungsgewinn: Verkauf nach 2 Jahren",
+      "cessionContent": "<p>Gewinne nach <strong>mehr als 2 Jahren</strong> Haltedauer profitieren von einem günstigen Regime:</p><ul><li>Anschaffungspreis wird mit ACD-Koeffizienten <strong>aufgewertet</strong></li><li><strong>Freibetrag von 50.000 €</strong> alle 10 Jahre (100.000 € für Paare)</li><li>Besteuerung zum <strong>halben Durchschnittssteuersatz</strong></li></ul>",
+      "exonerationsTitle": "Befreiungen und Sonderfälle",
+      "exonerationsContent": "<p>Mehrere Situationen ermöglichen eine <strong>vollständige oder teilweise Befreiung</strong>:</p><ul><li><strong>Hauptwohnsitz</strong>: Verkauf ist befreit bei durchgehendem Wohnsitz seit Erwerb oder mindestens 5 Jahren vor Verkauf</li><li><strong>Erbschaft/Schenkung</strong>: bei Erbschaft gilt der Verkehrswert am Todestag</li></ul>",
+      "faq1q": "Wie wird der Immobilien-Veräußerungsgewinn in Luxemburg berechnet?",
+      "faq1a": "Gewinn = Verkaufspreis - (aufgewerteter Anschaffungspreis + Erwerbskosten + aufgewertete Arbeiten). Ein Freibetrag von 50.000 € ist alle 10 Jahre möglich.",
+      "faq2q": "Wie hoch ist der Steuersatz auf Veräußerungsgewinne?",
+      "faq2a": "Spekulation (< 2 Jahre): voller Grenzsteuersatz (bis 45,78 %). Veräußerung (> 2 Jahre): halber Durchschnittssteuersatz (ca. 20-23 %). Hauptwohnsitz ist befreit.",
+      "faq3q": "Wie funktioniert der Freibetrag von 50.000 €?",
+      "faq3a": "Der Freibetrag von 50.000 € (100.000 € für Paare) wird auf den Veräußerungsgewinn gewährt und erneuert sich alle 10 Jahre.",
+      "faq4q": "Ist der Hauptwohnsitz befreit?",
+      "faq4a": "Ja, der Verkauf des Hauptwohnsitzes ist steuerfrei bei durchgehendem Wohnsitz seit Erwerb oder mindestens 5 Jahren vor dem Verkauf.",
+      "faq5q": "Wie deklariere ich einen Immobilien-Veräußerungsgewinn?",
+      "faq5a": "Der Gewinn wird in der jährlichen Steuererklärung (Modell 100/100F), Formular 700 für Veräußerungsgewinne angegeben."
+    }
   },
   "calculLoyer": {
     "title": "Mietrechner — Investiertes Kapital",
@@ -977,7 +1189,29 @@
     "reforme2024Text": "Der Schwellenwert wurde von 5 % auf 3,5 % gesenkt für Wohnungen, deren investiertes Kapital eine bestimmte Obergrenze übersteigt. Prüfen Sie die Anwendungsbedingungen.",
     "savePrefix": "Miete",
     "saveToast": "Bewertung gespeichert!",
-    "saveButton": "Diese Bewertung speichern"
+    "saveButton": "Diese Bewertung speichern",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zur Mietobergrenze",
+      "relatedTitle": "Ergänzende Tools",
+      "plafonnementTitle": "Mietpreisbegrenzung in Luxemburg: der rechtliche Rahmen",
+      "plafonnementContent": "<p>In Luxemburg werden Wohnungsmieten durch das <strong>geänderte Gesetz vom 21. September 2006</strong> über Wohnmietverträge reguliert. Artikel 3 bestimmt, dass die Jahresmiete <strong>5 % des investierten Kapitals</strong> nicht überschreiten darf.</p><p>Die <strong>Reform vom 21. März 2024</strong> brachte wichtige Änderungen:</p><ul><li>Senkung von 5 % auf <strong>3,5 %</strong> für bestimmte Immobilien</li><li>Verschärfte Sanktionen bei missbräuchlichen Mieten</li><li>Pflicht zur Beifügung der detaillierten Berechnung des investierten Kapitals zum Mietvertrag</li></ul>",
+      "capitalInvestiTitle": "Berechnung des aufgewerteten investierten Kapitals",
+      "capitalInvestiContent": "<p>Das <strong>investierte Kapital</strong> setzt sich zusammen aus dem Anschaffungspreis der Immobilie, aufgewertet mit STATEC-Koeffizienten, zuzüglich aufgewerteter Renovierungskosten.</p><p>Formel: <strong>Investiertes Kapital = (Kaufpreis × Koeffizient Kaufjahr) + (Arbeiten × Koeffizient Arbeitsjahr)</strong></p>",
+      "coefficientTitle": "STATEC-Aufwertungskoeffizienten",
+      "coefficientContent": "<p>Die <strong>Aufwertungskoeffizienten</strong> werden vom STATEC veröffentlicht und dienen der Aktualisierung von Kaufpreisen und Renovierungskosten.</p><ul><li>Basis 1960 = 1,00</li><li>Koeffizient 2024: 8,86 (vorläufig)</li><li>Jährliche Revision, in der Regel im März veröffentlicht</li></ul>",
+      "vetusteTitle": "Abnutzung: ein optionaler, aber strategischer Abzug",
+      "vetusteContent": "<p><strong>Abnutzung</strong> ist ein Abschlag auf das investierte Kapital für Verschleiß und Veralterung. Die Rechtsprechung erkennt einen jährlichen Satz von <strong>1 % bis 2 %</strong> an, maximal 50 %.</p>",
+      "faq1q": "Wie berechnet man die maximale gesetzliche Miete in Luxemburg?",
+      "faq1a": "Die maximale Jahresmiete beträgt 5 % des aufgewerteten investierten Kapitals (Gesetz vom 21. September 2006). Investiertes Kapital = Kaufpreis × STATEC-Koeffizient + aufgewertete Arbeiten.",
+      "faq2q": "Was sind die STATEC-Aufwertungskoeffizienten?",
+      "faq2a": "Es sind jährlich vom STATEC veröffentlichte Indizes, die die Entwicklung der Baukosten seit 1960 widerspiegeln.",
+      "faq3q": "Wurde der Satz von 5 % auf 3,5 % gesenkt?",
+      "faq3a": "Das Gesetz vom 21. März 2024 sieht eine Senkung auf 3,5 % für bestimmte Immobilien vor, aber die Umsetzungsmodalitäten werden noch diskutiert.",
+      "faq4q": "Kann ich einen Zuschlag für möblierte Wohnungen erheben?",
+      "faq4a": "Das Gesetz sieht keinen spezifischen Zuschlag vor. Der Wert der Möbel kann jedoch ins investierte Kapital einbezogen werden.",
+      "faq5q": "Wie kann ich eine überhöhte Miete anfechten?",
+      "faq5a": "Der Mieter kann den Friedensrichter gemäß Artikel 7 des Gesetzes vom 21. September 2006 anrufen."
+    }
   },
   "achatLocation": {
     "title": "Kaufen oder Mieten in Luxemburg",
@@ -1065,7 +1299,29 @@
     "achat": "Kauf +",
     "location": "Miete +",
     "hypothesesTitle": "Annahmen:",
-    "hypothesesText": "Wertsteigerung: {appreciation} %/J. Anlagerendite: {rendement} %/J. Zinsabzugsobergrenze: {plafond}/J. ({nbPersonnes} Pers.). Restschuldvers.: {tauxSRD} % des Kapitals."
+    "hypothesesText": "Wertsteigerung: {appreciation} %/J. Anlagerendite: {rendement} %/J. Zinsabzugsobergrenze: {plafond}/J. ({nbPersonnes} Pers.). Restschuldvers.: {tauxSRD} % des Kapitals.",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zu Kaufen vs. Mieten",
+      "relatedTitle": "Ergänzende Tools",
+      "dilemmeTitle": "Kaufen oder mieten in Luxemburg: das ewige Dilemma",
+      "dilemmeContent": "<p>Die Frage '<strong>soll ich kaufen oder mieten?</strong>' ist in Luxemburg besonders akut, wo der Medianpreis einer Wohnung 2025 über 600.000 € liegt. Die Gesamtbetriebskosten (TCO) umfassen nicht nur die Kreditraten sondern auch Erwerbskosten (7-10 %), Instandhaltung, Versicherungen und Opportunitätskosten.</p>",
+      "tcoTitle": "Gesamtkosten des Eigentums vs. Gesamtkosten der Miete",
+      "tcoContent": "<p>Unser Tool berechnet die <strong>kumulierten Gesamtkosten</strong> beider Optionen über einen anpassbaren Zeitraum. Der <strong>Kreuzungspunkt</strong> liegt in Luxemburg typischerweise zwischen 7 und 15 Jahren.</p>",
+      "levierTitle": "Der Hebel-Effekt des Immobilienkredits",
+      "levierContent": "<p>Ein wichtiges Argument für den Kauf ist der <strong>Hebel-Effekt</strong> des Hypothekendarlehens. Mit einer Eigenkapitalquote von 20 % profitiert der Käufer von der Wertsteigerung auf 100 % des Immobilienwerts.</p>",
+      "seuilTitle": "Rentabilitätsschwelle und Entscheidungsfaktoren",
+      "seuilContent": "<p>Die Rentabilitätsschwelle hängt von vielen Faktoren ab:</p><ul><li><strong>Geplante Aufenthaltsdauer</strong>: unter 5-7 Jahren ist Mieten fast immer günstiger</li><li><strong>Zinsniveau</strong>: niedrige Zinsen favorisieren den Kauf</li><li><strong>Preisentwicklung</strong>: Wertsteigerung > 2 %/Jahr verkürzt den Kreuzungspunkt erheblich</li></ul>",
+      "faq1q": "Wie lange muss ich eine Immobilie halten, damit sich der Kauf lohnt?",
+      "faq1a": "In Luxemburg liegt die Schwelle typischerweise zwischen 7 und 15 Jahren. Mit dem Bellegen Akt kann sie auf 5-7 Jahre sinken.",
+      "faq2q": "Werden die Erwerbskosten im Vergleich berücksichtigt?",
+      "faq2a": "Ja, unser Tool berücksichtigt Einregistrierungs-, Transkriptions-, Notar- und Hypothekenkosten (7-10 % des Preises).",
+      "faq3q": "Welche Alternativrendite für die Ersparnisse verwenden?",
+      "faq3a": "Die Alternativrendite repräsentiert das, was Sie mit Ihrer Eigenkapitalanlage verdienen würden. 4-6 % ist angemessen für ein diversifiziertes Langzeitportfolio.",
+      "faq4q": "Ist Kaufen in Luxemburg immer besser?",
+      "faq4a": "Nicht unbedingt. Bei kurzer Aufenthaltsdauer (< 5 Jahre) oder hohen Zinsen kann Mieten vorteilhafter sein.",
+      "faq5q": "Wie wird der Steuerabzug für Hypothekenzinsen berücksichtigt?",
+      "faq5a": "In Luxemburg sind Hypothekenzinsen für den Hauptwohnsitz steuerlich absetzbar (Plafond 1.500-3.000 € je nach Darlehensdauer)."
+    }
   },
   "simulateurAides": {
     "title": "Fördermittel-Simulator",
@@ -1161,7 +1417,29 @@
     "topupSocial": "Sozialer Zuschlag (geringes Einkommen)",
     "topupSocialHint": "x1,5 Erhöhung der Klimabonus-Zuschüsse bei steuerpflichtigem Einkommen ≤ 60.000 €/Jahr (neu 2026)",
     "bonusEco": "davon Öko-Material-Bonus",
-    "klimabonusRegime": "Klimabonus Wunnen 2026 Barème"
+    "klimabonusRegime": "Klimabonus Wunnen 2026 Barème",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zu Wohnbeihilfen",
+      "relatedTitle": "Ergänzende Tools",
+      "panoramaTitle": "Überblick über Wohnbeihilfen in Luxemburg 2025-2026",
+      "panoramaContent": "<p>Das Großherzogtum Luxemburg bietet ein umfassendes Angebot an <strong>öffentlichen Wohnbeihilfen</strong>:</p><ul><li><strong>Bellegen Akt</strong>: Steuerkredit bis zu 20.000 € pro Käufer</li><li><strong>Zinszuschuss</strong>: teilweise Übernahme der Hypothekenzinsen</li><li><strong>Bau-/Renovierungsprämie</strong>: Pauschalbeihilfe</li><li><strong>Mietbeihilfe</strong>: monatlicher Beitrag für einkommensschwache Mieter</li><li><strong>Klimabonus / PRIMe House</strong>: Energierenovierungshilfe</li></ul>",
+      "acquisitionTitle": "Erwerbshilfen: Bellegen Akt, Zinszuschuss und Staatsgarantie",
+      "acquisitionContent": "<p>Für Erstkäufer bietet Luxemburg ein attraktives Paket:</p><ul><li><strong>Bellegen Akt</strong>: 20.000 € Kredit pro Person (max. 40.000 € pro Paar)</li><li><strong>Zinszuschuss</strong>: der Staat übernimmt teilweise die Hypothekenzinsen für 10 Jahre</li><li><strong>Staatsgarantie</strong>: Bürgschaft bis zu 100.000 €</li></ul>",
+      "renovationTitle": "Energierenovierungshilfen: PRIMe House und Klimabonus",
+      "renovationContent": "<p>Das Programm <strong>PRIMe House</strong> und der <strong>Klimabonus</strong> unterstützen energetische Sanierungsmaßnahmen:</p><ul><li>Wärmedämmung: 30-60 €/m²</li><li>Heizungsaustausch: 2.500-8.000 € für Wärmepumpen</li><li>Photovoltaik: 200-500 €/kWp</li></ul>",
+      "conditionsTitle": "Einkommensbedingungen und Antragsverfahren",
+      "conditionsContent": "<p>Die meisten Wohnbeihilfen unterliegen <strong>Einkommensbedingungen</strong>. Anträge werden beim Wohnungsministerium (online über guichet.lu) oder über Myenergy für Energiebeihilfen gestellt.</p>",
+      "faq1q": "Welche Hauptförderungen gibt es beim Immobilienkauf in Luxemburg?",
+      "faq1a": "Die wichtigsten Hilfen sind der Bellegen Akt (bis zu 40.000 € Steuerkredit), Zinszuschuss und Staatsgarantie (bis zu 100.000 €). Alle setzen voraus, dass die Immobilie als Hauptwohnsitz dient.",
+      "faq2q": "Wie hoch ist der Klimabonus 2025-2026?",
+      "faq2a": "Der verstärkte Klimabonus (seit Dezember 2024) sieht Prämien von 30-60 €/m² für Dämmung, 2.500-8.000 € für erneuerbare Heizung und 200-500 €/kWp für Photovoltaik vor.",
+      "faq3q": "Wie beantrage ich die Mietbeihilfe?",
+      "faq3a": "Online über guichet.lu oder direkt beim Wohnungsministerium mit Mietvertrag, Gehaltsabrechnungen und Steuerbescheid. Bearbeitungszeit: 2-4 Monate.",
+      "faq4q": "Sind die Beihilfen kumulierbar?",
+      "faq4a": "Ja, in den meisten Fällen. Bellegen Akt, Zinszuschuss und Staatsgarantie sind kumulierbar. Der Klimabonus ist mit kommunalen Beihilfen kompatibel.",
+      "faq5q": "Gibt es spezifische Hilfen für Grenzgänger?",
+      "faq5a": "Der Bellegen Akt gilt nur für Immobilien in Luxemburg. Grenzgänger mit Wohnsitz im Ausland haben keinen Zugang. Ein Grenzgänger, der Einwohner wird, kann beim Kauf seines Hauptwohnsitzes davon profitieren."
+    }
   },
   "dcfMulti": {
     "title": "DCF Mehrmieter",
@@ -1592,7 +1870,27 @@
     "offices": "Büro",
     "retail": "Einzelhandel",
     "logistics": "Logistik",
-    "other": "Sonstige"
+    "other": "Sonstige",
+    "seo": {
+      "faqTitle": "Haeufig gestellte Fragen zu Marktdaten",
+      "relatedTitle": "Ergaenzende Tools",
+      "donneesTitle": "Luxemburger Immobilienmarktdaten",
+      "donneesContent": "<p>Unsere Marktdatenbank aggregiert <strong>mehrere oeffentliche Quellen</strong> fuer einen umfassenden Ueberblick ueber den luxemburgischen Immobilienmarkt.</p>",
+      "prixCommunesTitle": "Preise nach Gemeinde: detaillierte Analyse",
+      "prixCommunesContent": "<p>Luxemburg hat 102 Gemeinden mit Preisen, die um den Faktor 2-3 variieren.</p>",
+      "comparablesTitle": "Vergleichswerte und aktuelle Transaktionen",
+      "comparablesContent": "<p>Der Transaktionsbereich bietet <strong>tatsaechliche Verkaufspreise</strong>, die bei der AED registriert wurden.</p>",
+      "sourcesTitle": "Oeffentliche Quellen und Datenzuverlaessigkeit",
+      "sourcesContent": "<p>Alle Daten stammen aus <strong>offiziellen oeffentlichen Quellen</strong>: Wohnungsobservatorium, STATEC, AED und Geoportail.</p>",
+      "faq1q": "Woher stammen die Marktdaten?",
+      "faq1a": "Alle Daten stammen aus offiziellen oeffentlichen Quellen.",
+      "faq2q": "Deckt die Datenbank den Gewerbeimmobilienmarkt ab?",
+      "faq2a": "Ja, auch Bueros, Einzelhandel, Logistik und Bauland werden abgedeckt.",
+      "faq3q": "Wie oft werden die Daten aktualisiert?",
+      "faq3a": "Preisdaten werden vierteljaehrlich aktualisiert.",
+      "faq4q": "Kann ich die Daten exportieren?",
+      "faq4a": "Ja, als CSV und PDF."
+    }
   },
   "valorisation": {
     "pageTitle": "Immobilienbewertung EVS 2025",
@@ -2705,7 +3003,27 @@
     "colPrixBien": "Immobilienpreis",
     "colPrixAcquisition": "Erwerbspreis",
     "colPrixCession": "Verkaufspreis",
-    "disclaimer": "Indikative Schätzung basierend auf öffentlichen Daten des Observatoire de l'Habitat und statistischen Anpassungskoeffizienten. Dies ist keine professionelle Bewertung."
+    "disclaimer": "Indikative Schätzung basierend auf öffentlichen Daten des Observatoire de l'Habitat und statistischen Anpassungskoeffizienten. Dies ist keine professionelle Bewertung.",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zum Immobilienvergleich",
+      "relatedTitle": "Ergänzende Tools",
+      "methodeTitle": "Die Vergleichswertmethode im Luxemburger Immobilienmarkt",
+      "methodeContent": "<p>Die <strong>Vergleichswertmethode</strong> ist die intuitivste und am weitesten verbreitete Bewertungstechnik für Wohntransaktionen in Luxemburg. Sie basiert auf <strong>aktuellen Transaktionspreisen</strong> vergleichbarer Immobilien. Die EVS-Norm empfiehlt mindestens 3 Vergleichsobjekte, idealerweise 5-10.</p>",
+      "criteresTitle": "Auswahlkriterien für Vergleichsobjekte",
+      "criteresContent": "<p>Die Auswahl relevanter Vergleichsobjekte basiert auf:</p><ul><li><strong>Lage</strong>: gleiche Gemeinde, idealerweise gleiches Viertel</li><li><strong>Immobilientyp</strong>: Wohnung vs. Haus, Zimmeranzahl, Wohnfläche</li><li><strong>Alter</strong>: gleiche Altersklasse</li><li><strong>Energieeffizienz</strong>: gleiche oder benachbarte EPB-Klasse</li></ul>",
+      "ajustementsTitle": "Anpassungen und Gewichtung der Vergleichsobjekte",
+      "ajustementsContent": "<p>Kein Vergleichsobjekt ist perfekt identisch. <strong>Anpassungen</strong> sind nötig für Fläche, Zustand, Stockwerk und Ausstattung.</p>",
+      "decisionTitle": "Vergleichswerte für fundierte Entscheidungen nutzen",
+      "decisionContent": "<p>Der Immobilienvergleich ist essentiell für Preisfestsetzung, Kaufverhandlungen und Investoren-Due-Diligence. Unser Tool ermöglicht den Vergleich von bis zu 4 Immobilien gleichzeitig.</p>",
+      "faq1q": "Wie viele Vergleichsobjekte braucht man für eine zuverlässige Bewertung?",
+      "faq1a": "Die EVS-Norm empfiehlt mindestens 3 relevante Vergleichsobjekte, idealerweise 5-10.",
+      "faq2q": "Woher stammen die Transaktionsdaten?",
+      "faq2a": "Die Daten stammen von der Einregistrierungs- und Domänenverwaltung (AED), aggregiert vom Wohnungsobservatorium.",
+      "faq3q": "Wie passt man für die Energieeffizienz an?",
+      "faq3a": "Laut Observatorium (2023) repräsentiert der Gewinn einer EPB-Klasse etwa +3-5 % auf den Preis.",
+      "faq4q": "Kann man Immobilien aus verschiedenen Gemeinden vergleichen?",
+      "faq4a": "Möglich, aber heikel. Die Preisunterschiede zwischen Luxemburger Gemeinden sind sehr erheblich (Faktor 2-3)."
+    }
   },
   "convertisseurSurfaces": {
     "title": "Flächenumrechner",
@@ -3340,6 +3658,28 @@
     "sources": {
       "title": "Quellen:",
       "text": "Richtpreise fur den luxemburgischen Markt 2025-2026. Herstellerkataloge: Viessmann, Daikin, Vaillant, Buderus, Mitsubishi, Panasonic, LG, Bosch, Hoval, Wolf, Atlantic, De Dietrich, Froling, Okofen, Windhager, Zehnder, Helios, Brink. LU-Handler: Reckinger Alfred, Vanmarcke, General Technic, Sonepar, CRS, TSD. Forderungen: guichet.public.lu (Klimabonus 2026), klima-agence.lu (Enoprimes). Normen: EN 12831 (Heizlast), RGD 9. Juni 2021 (Gesamtenergieeffizienz). Die Preise beinhalten in der Regel Lieferung und Einbau. Detaillierte Angebote sind bei zugelassenen Installateuren einzuholen."
+    },
+    "seo": {
+      "faqTitle": "Haeufig gestellte Fragen zur HVAC-Dimensionierung",
+      "relatedTitle": "Ergaenzende Simulatoren",
+      "dimensionnementTitle": "HVAC-Dimensionierung fuer Luxemburger Gebaeude",
+      "dimensionnementContent": "<p>Basierend auf <strong>EN 12831</strong>, Auslegungstemperatur -12 bis -15 Grad C fuer Luxemburg.</p>",
+      "normesTitle": "EN 12831 und Luxemburger Klimabedingungen",
+      "normesContent": "<p>Transmissions- und Lueftungsverluste, Auslegungstemperatur -12 bis -15 Grad C.</p>",
+      "pacTitle": "Waermepumpe vs. Pellets: Vergleich fuer Luxemburg",
+      "pacContent": "<p>Waermepumpe (COP 3,0-4,0) fuer gut gedaemmte Gebaeude (A-D). Pelletkessel fuer Haeuser mit Lagerraum. Hybrid fuer E-I.</p>",
+      "vmcTitle": "Lueftung mit Waermerueckgewinnung: wesentlich fuer performante Gebaeude",
+      "vmcContent": "<p>Rueckgewinnung von 80-95% der Abwaerme. Kosten 5.000-12.000 EUR, 25-40% Heizersparnis.</p>",
+      "faq1q": "Wie dimensioniere ich mein Heizsystem?",
+      "faq1a": "Nach EN 12831 mit Luxemburger Auslegungstemperaturen.",
+      "faq2q": "Waermepumpe oder Pellets?",
+      "faq2a": "Waermepumpe fuer gut gedaemmte Haeuser, Pellets fuer Altbauten mit Lagerraum.",
+      "faq3q": "Ist Lueftung mit WRG Pflicht?",
+      "faq3a": "Nicht formell, aber praktisch unverzichtbar fuer Klasse A-B.",
+      "faq4q": "Welches Budget fuer HVAC?",
+      "faq4a": "Ca. 30.000-35.000 EUR fuer 150m2 vor Klimabonus.",
+      "faq5q": "Wie optimiere ich die Systemleistung?",
+      "faq5a": "Zuerst daemmen, dann richtig dimensionieren. Heizkurvenanpassung wesentlich."
     }
   },
   "planDuSite": {
@@ -3680,7 +4020,29 @@
     "trend_stable": "Stabil",
     "view_map": "Interaktive Karte ansehen",
     "estimate_property": "Immobilie bewerten",
-    "source": "Quelle: Observatoire de l'Habitat (data.public.lu), STATEC. Richtwerte, vierteljährlich aktualisiert. Letzte Aktualisierung: März 2026."
+    "source": "Quelle: Observatoire de l'Habitat (data.public.lu), STATEC. Richtwerte, vierteljährlich aktualisiert. Letzte Aktualisierung: März 2026.",
+    "seo": {
+      "faqTitle": "Haeufig gestellte Fragen zu Preisindizes",
+      "relatedTitle": "Ergaenzende Tools",
+      "indiceTitle": "Immobilienpreisindizes nach Gemeinde in Luxemburg",
+      "indiceContent": "<p>Der <strong>Immobilienpreisindex</strong> nach Gemeinde ist das Referenzinstrument zur Verfolgung des luxemburgischen Wohnungsmarktes. Er wird vierteljaehrlich vom Wohnungsobservatorium veroeffentlicht und basiert auf bei der AED registrierten Notariatsurkunden.</p>",
+      "methodologieTitle": "Methodik und Datenquellen",
+      "methodologieContent": "<p>Die Methodik basiert auf AED-Notariatsurkunden, hedonischer Preiszerlegung und saisonaler Bereinigung mittels X-13 ARIMA.</p>",
+      "tendancesTitle": "Trends 2025-2026: selektive Erholung nach Gemeinde",
+      "tendancesContent": "<p>Luxemburg-Stadt: ~10.500 EUR/m2, Suedguertel: ~5.800-6.500 EUR/m2, Norden: ~4.500-5.500 EUR/m2.</p>",
+      "topCommunesTitle": "Top-Gemeinden: Preise, Renditen und Attraktivitaet",
+      "topCommunesContent": "<p>Die begehrtesten Gemeinden kombinieren Verkehrsanbindung, Lebensqualitaet und Schulangebot: Strassen, Bertrange, Hesperange (8.000-10.000 EUR/m2), Esch-Belval (~6.000 EUR/m2).</p>",
+      "faq1q": "Woher stammen die Preisdaten pro Gemeinde?",
+      "faq1a": "Die Daten stammen von bei der AED registrierten Notariatsurkunden, aggregiert vom Wohnungsobservatorium.",
+      "faq2q": "Wie oft werden die Indizes aktualisiert?",
+      "faq2a": "Die offiziellen Indizes werden vierteljaehrlich mit 2-3 Monaten Verzoegerung veroeffentlicht.",
+      "faq3q": "Warum unterscheiden sich die Preise zwischen Nachbargemeinden?",
+      "faq3a": "Die Unterschiede erklaeren sich durch Lage, Schulangebot, kommunale Besteuerung und verfuegbare Immobilientypen.",
+      "faq4q": "Umfassen die Indizes Neubauten und Bestand?",
+      "faq4a": "Ja, beide Segmente sind abgedeckt.",
+      "faq5q": "Wie kann ich die Indizes zur Schaetzung nutzen?",
+      "faq5a": "Die Indizes liefern einen Medianpreis pro Gemeinde als Ausgangspunkt. Passen Sie dann mit unseren Tools an."
+    }
   },
   "pagPap": {
     "title": "Stadtplanung — PAG / PAP",
@@ -3730,7 +4092,27 @@
     "resourceMap": "Karte",
     "resourceGeoportail": "Geoportail.lu — PAG online",
     "resourceLaw": "Gesetz",
-    "resourceMinistry": "Wohnungsbauministerium"
+    "resourceMinistry": "Wohnungsbauministerium",
+    "seo": {
+      "faqTitle": "Haeufig gestellte Fragen zu PAG und PAP",
+      "relatedTitle": "Ergaenzende Tools",
+      "urbanismeTitle": "Stadtplanung in Luxemburg: PAG und PAP",
+      "urbanismeContent": "<p>Die Raumplanung Luxemburgs wird durch das Gesetz vom 19. Juli 2004 geregelt. Jede Gemeinde hat einen PAG und PAP.</p>",
+      "zonesTitle": "Zonen und Bebaubarkeit",
+      "zonesContent": "<p>Hauptzonen: HAB-1, HAB-2, MIX. COS- und CUS-Koeffizienten bestimmen die Bauintensitaet.</p>",
+      "constructibiliteTitle": "Bebaubarkeit eines Grundstuecks bewerten",
+      "constructibiliteContent": "<p>PAG-Klassifizierung, PAP-Regeln, Dienstbarkeiten und Anschluesse pruefen.</p>",
+      "servitudesTitle": "Dienstbarkeiten und besondere Auflagen",
+      "servitudesContent": "<p>Staedtebauliche, umweltbezogene, denkmalschuetzende und private Dienstbarkeiten.</p>",
+      "faq1q": "Wo kann ich den PAG meiner Gemeinde einsehen?",
+      "faq1a": "Auf dem Geoportail (geoportail.lu) oder bei der Gemeindeverwaltung.",
+      "faq2q": "Was ist der Unterschied zwischen PAG und PAP?",
+      "faq2a": "Der PAG definiert die allgemeine Zonennutzung, der PAP detailliert die Bauregeln pro Zone.",
+      "faq3q": "Wie erfahre ich, ob ein Grundstueck bebaubar ist?",
+      "faq3a": "PAG-Klassifizierung, PAP-Regeln und Dienstbarkeiten pruefen.",
+      "faq4q": "Was sind COS und CUS?",
+      "faq4a": "COS ist die Grundflaechenzahl, CUS die Geschossflaechenzahl."
+    }
   },
   "amlKyc": {
     "title": "AML / KYC Immobilien",
@@ -3848,7 +4230,27 @@
     "zoneCentre": "Zentrum",
     "zoneEst": "Osten (Mosel)",
     "zoneNord": "Norden",
-    "sourceDisclaimer": "Quelle: Schätzungen basierend auf beobachteten Transaktionen. Richtwerte — der Luxemburger Agrarflächenmarkt ist wenig transparent."
+    "sourceDisclaimer": "Quelle: Schätzungen basierend auf beobachteten Transaktionen. Richtwerte — der Luxemburger Agrarflächenmarkt ist wenig transparent.",
+    "seo": {
+      "faqTitle": "Haeufig gestellte Fragen zu landwirtschaftlichen Flaachen",
+      "relatedTitle": "Ergaenzende Tools",
+      "evaluationTitle": "Bewertung landwirtschaftlicher Flaachen in Luxemburg",
+      "evaluationContent": "<p>Durchschnittspreise: 30.000-80.000 EUR/ha, Spitzen ueber 100.000 EUR/ha nahe bebaubarer Zonen.</p>",
+      "prixZonesTitle": "Preise nach Zone und Bodenqualitaet",
+      "prixZonesContent": "<p>Zentrum-Sued: 50.000-80.000, Zentrum: 40.000-60.000, Norden: 30.000-50.000, Osten: 45.000-70.000 EUR/ha.</p>",
+      "facteursTitle": "Wertbestimmende Faktoren",
+      "facteursContent": "<p>Umklassifizierungspotenzial, bestehender Pachtvertrag (15-30% Abschlag), Gebaeude, Erreichbarkeit.</p>",
+      "bailRuralTitle": "Der luxemburgische Pachtvertrag",
+      "bailRuralContent": "<p>Geregelt durch das Gesetz vom 2. Juli 1969, mit starkem Paechtersschutz.</p>",
+      "faq1q": "Was kostet ein Hektar im Durchschnitt?",
+      "faq1a": "30.000-80.000 EUR/ha je nach Zone und Qualitaet.",
+      "faq2q": "Wie wird die Bodenqualitaet bewertet?",
+      "faq2a": "Nach der luxemburgischen pedologischen Klassifizierung (Klassen I-V).",
+      "faq3q": "Beeinflusst ein laufender Pachtvertrag den Preis?",
+      "faq3a": "Ja, typischerweise 15-30% Abschlag.",
+      "faq4q": "Kann Agrarland umklassifiziert werden?",
+      "faq4a": "Ja, bei PAG-Revision. Die Umklassifizierung vervielfacht den Wert um das 10-50fache."
+    }
   },
   "vefa": {
     "title": "VEFA-Simulator",
@@ -3959,7 +4361,29 @@
     "bonInteretsTitle": "Zwischenzinsen",
     "bonInteretsText": "Während der Bauphase (24 bis 30 Monate) zahlt die Bank das Darlehen schrittweise gemäß den Zahlungsabrufen aus. Der Käufer zahlt monatliche Zinsen auf das bereits ausgezahlte Kapital, ohne das Kapital zu tilgen. Diese oft vergessenen Kosten betragen typischerweise 15.000 bis 25.000 EUR für ein Standarddarlehen.",
     "bonDureeTitle": "Bauzeit",
-    "bonDureeText": "Rechnen Sie im Durchschnitt mit 24 bis 30 Monaten zwischen Unterzeichnung und Übergabe. Der Zeitplan hängt von der Projektgröße, dem Wetter und der Verfügbarkeit der Unternehmen ab."
+    "bonDureeText": "Rechnen Sie im Durchschnitt mit 24 bis 30 Monaten zwischen Unterzeichnung und Übergabe. Der Zeitplan hängt von der Projektgröße, dem Wetter und der Verfügbarkeit der Unternehmen ab.",
+    "seo": {
+      "faqTitle": "Häufig gestellte Fragen zur VEFA in Luxemburg",
+      "relatedTitle": "Ergänzende Tools",
+      "guideTitle": "Vollständiger Leitfaden zum Kauf vom Plan (VEFA) in Luxemburg",
+      "guideContent": "<p>Die <strong>VEFA</strong> ist die bevorzugte Erwerbsform für Neubauwohnungen in Luxemburg, geregelt durch das <strong>Gesetz vom 18. April 2018</strong>:</p><ul><li><strong>Reservierungsvertrag</strong>: max. 5 % Anzahlung</li><li><strong>Notarieller Kaufvertrag</strong>: progressiver Eigentumsübergang</li><li><strong>Fertigstellungsgarantie</strong>: obligatorische Bank- oder Versicherungsgarantie</li><li><strong>Zehnjährige Gewährleistung</strong>: 10 Jahre Bauherrenhaftung</li></ul>",
+      "echeancierSeoTitle": "VEFA-Zahlungsplan: die wichtigsten Etappen",
+      "echeancierSeoContent": "<p>Artikel 1601-11 legt einen <strong>maximalen Zahlungsplan</strong> fest:</p><ul><li>Kaufvertrag: max. 33 %</li><li>Rohbau regendicht: kumuliert max. 60 %</li><li>Fertigstellung: kumuliert max. 95 %</li><li>Übergabe: 5 % Restbetrag</li></ul>",
+      "tvaSeoTitle": "MwSt. und Besteuerung der VEFA in Luxemburg",
+      "tvaSeoContent": "<p>Das VEFA-Steuersystem bietet erhebliche Vorteile:</p><ul><li>Grundstücksanteil: 7 % Gebühren mit Bellegen Akt für Hauptwohnsitz</li><li>Bauanteil: 3 % MwSt. für Hauptwohnsitz, max. 50.000 € Ersparnis</li><li>Darüber oder für Investition: 17 % MwSt.</li></ul>",
+      "intercalairesTitle": "Zwischenzinsen: ein oft unterschätzter Kostenfaktor",
+      "intercalairesContent": "<p><strong>Zwischenzinsen</strong> fallen auf bereits freigegebene Mittel während der Bauphase an. Bei einer VEFA für 600.000 € mit 500.000 € Darlehen zu 3,8 % über 18 Monate Bauzeit betragen die Zwischenzinsen ca. 12.000-15.000 €.</p>",
+      "faq1q": "Was ist VEFA in Luxemburg?",
+      "faq1a": "VEFA ist ein Vertrag, bei dem der Bauträger eine noch nicht gebaute oder im Bau befindliche Immobilie verkauft. Der Käufer wird schrittweise Eigentümer mit regulierten Ratenzahlungen.",
+      "faq2q": "Welche Risiken birgt VEFA?",
+      "faq2a": "Hauptrisiken sind Lieferverzögerungen, Beschreibungsänderungen und Insolvenz des Bauträgers (gedeckt durch die obligatorische Fertigstellungsgarantie).",
+      "faq3q": "Wie profitiere ich vom ermäßigten MwSt.-Satz von 3 %?",
+      "faq3a": "Der 3 %-Satz gilt für den Bauanteil des Hauptwohnsitzes. Der Antrag wird bei der AED gestellt, in der Regel über den Notar.",
+      "faq4q": "Was tun bei Mängeln bei der Übergabe?",
+      "faq4a": "Bei der Abnahme erstellen Sie ein detailliertes Protokoll aller Mängel. Der 5 %-Restbetrag wird einbehalten, bis die Mängel behoben sind.",
+      "faq5q": "Sind Zwischenzinsen steuerlich absetzbar?",
+      "faq5a": "Ja, Zwischenzinsen sind wie Hypothekenzinsen vom steuerpflichtigen Einkommen absetzbar, innerhalb der Obergrenzen für den Hauptwohnsitz."
+    }
   },
   "propcalc": {
     "badge": "Kostenloses WordPress-Plugin",
@@ -4047,6 +4471,28 @@
     "ctaTitle": "Bereit, einen Rechner zu Ihrer Website hinzuzufügen?",
     "ctaSubtitle": "Kostenlos, Open-Source, DSGVO-konform. Installation in weniger als einer Minute.",
     "ctaDownload": "PropCalc herunterladen →",
-    "ctaGithub": "Auf GitHub ansehen"
+    "ctaGithub": "Auf GitHub ansehen",
+    "seo": {
+      "faqTitle": "Haeufig gestellte Fragen zu PropCalc",
+      "relatedTitle": "Ergaenzende Tools",
+      "pluginTitle": "PropCalc: Multi-Laender WordPress-Plugin fuer Immobilieninvestment",
+      "pluginContent": "<p><strong>PropCalc</strong> ist ein Open-Source WordPress-Plugin von Tevaxia mit Immobilienrechnern fuer <strong>25+ Laender</strong>.</p>",
+      "modulesTitle": "Verfuegbare Module und Funktionen",
+      "modulesContent": "<p>Erwerbskosten, Mietrendite, Kreditrechner und Veraeusserungsgewinn — alle konfigurierbar pro Land.</p>",
+      "paysTitle": "Geografische Abdeckung: 25+ Laender",
+      "paysContent": "<p>Europa, Amerika, Asien-Pazifik.</p>",
+      "integrationsTitle": "WordPress-Integration und Anpassung",
+      "integrationsContent": "<p>Shortcodes, Gutenberg-Bloecke, Sidebar-Widgets und REST API.</p>",
+      "faq1q": "Ist PropCalc kostenlos?",
+      "faq1a": "Ja, vollstaendig kostenlos und Open Source (GPL v2).",
+      "faq2q": "Welche Laender werden unterstuetzt?",
+      "faq2a": "25+ Laender mit vorkonfigurierten lokalen Saetzen.",
+      "faq3q": "Wie integriere ich PropCalc?",
+      "faq3a": "Aus dem WordPress-Verzeichnis installieren, Land konfigurieren, per Shortcode oder Block einfuegen.",
+      "faq4q": "Kann ich zur Entwicklung beitragen?",
+      "faq4a": "Ja, Open Source auf GitHub.",
+      "faq5q": "Ist PropCalc mit Page Buildern kompatibel?",
+      "faq5a": "Ja, mit Elementor, Divi, WPBakery und WooCommerce."
+    }
   }
 }

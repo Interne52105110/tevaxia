@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import SEOContent from "@/components/SEOContent";
 
 function Icon({ d, className = "" }: { d: string; className?: string }) {
   return (
@@ -50,6 +51,7 @@ export default function PropCalcPage() {
   const t = useTranslations("propcalc");
 
   return (
+    <>
     <div className="bg-background">
       {/* Hero */}
       <section className="py-20 sm:py-28">
@@ -195,5 +197,27 @@ export default function PropCalcPage() {
         </div>
       </section>
     </div>
+
+    <SEOContent
+      ns="propcalc"
+      sections={[
+        { titleKey: "pluginTitle", contentKey: "pluginContent" },
+        { titleKey: "modulesTitle", contentKey: "modulesContent" },
+        { titleKey: "paysTitle", contentKey: "paysContent" },
+        { titleKey: "integrationsTitle", contentKey: "integrationsContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/frais-acquisition", labelKey: "frais" },
+        { href: "/estimation", labelKey: "estimation" },
+      ]}
+    />
+    </>
   );
 }

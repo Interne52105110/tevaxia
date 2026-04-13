@@ -7,6 +7,7 @@ import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR } from "@/lib/calculations";
 import { evaluerTerreAgricole } from "@/lib/agricultural";
+import SEOContent from "@/components/SEOContent";
 
 export default function TerresAgricoles() {
   const t = useTranslations("terresAgricoles");
@@ -24,6 +25,7 @@ export default function TerresAgricoles() {
   [surfaceHa, qualiteSol, localisation, batimentsExistants, surfaceBatiments, amiantePresume, exploitationActive, bailRuralEnCours]);
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -137,5 +139,26 @@ export default function TerresAgricoles() {
         </div>
       </div>
     </div>
+
+    <SEOContent
+      ns="terresAgricoles"
+      sections={[
+        { titleKey: "evaluationTitle", contentKey: "evaluationContent" },
+        { titleKey: "prixZonesTitle", contentKey: "prixZonesContent" },
+        { titleKey: "facteursTitle", contentKey: "facteursContent" },
+        { titleKey: "bailRuralTitle", contentKey: "bailRuralContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+      ]}
+      relatedLinks={[
+        { href: "/pag-pap", labelKey: "pagPap" },
+        { href: "/estimation", labelKey: "estimation" },
+      ]}
+    />
+    </>
   );
 }

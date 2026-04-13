@@ -7,6 +7,7 @@ import { getAllCommunes, getMarketDataCommune, type MarketDataCommune } from "@/
 import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
 import { formatEUR } from "@/lib/calculations";
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
+import SEOContent from "@/components/SEOContent";
 
 type SortKey = "prix" | "commune" | "tendance" | "transactions";
 
@@ -117,6 +118,7 @@ export default function IndicesPage() {
   };
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
@@ -334,5 +336,28 @@ export default function IndicesPage() {
         </p>
       </div>
     </div>
+
+    <SEOContent
+      ns="indices"
+      sections={[
+        { titleKey: "indiceTitle", contentKey: "indiceContent" },
+        { titleKey: "methodologieTitle", contentKey: "methodologieContent" },
+        { titleKey: "tendancesTitle", contentKey: "tendancesContent" },
+        { titleKey: "topCommunesTitle", contentKey: "topCommunesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/estimation", labelKey: "estimation" },
+        { href: "/marche", labelKey: "marche" },
+        { href: "/carte", labelKey: "carte" },
+      ]}
+    />
+    </>
   );
 }

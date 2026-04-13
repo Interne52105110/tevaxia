@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { generateEpbdPdfBlob, PdfButton } from "@/components/energy/EnergyPdf";
+import SEOContent from "@/components/SEOContent";
 
 const CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
 type EnergyClass = (typeof CLASSES)[number];
@@ -524,6 +525,7 @@ function ValueProjection({
   const isPositive = data.every((d) => d.decotePct >= 0);
 
   return (
+    <>
     <div className="space-y-3">
       <p className="text-xs text-muted mb-4">
         {isPositive
@@ -576,5 +578,28 @@ function ValueProjection({
         {t("projectionDisclaimer")}
       </p>
     </div>
+
+    <SEOContent
+      ns="energy.epbd"
+      sections={[
+        { titleKey: "directiveTitle", contentKey: "directiveContent" },
+        { titleKey: "echeancesTitle", contentKey: "echeancesContent" },
+        { titleKey: "strandingTitle", contentKey: "strandingContent" },
+        { titleKey: "financementTitle", contentKey: "financementContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+        { questionKey: "faq5q", answerKey: "faq5a" },
+      ]}
+      relatedLinks={[
+        { href: "/energy/impact", labelKey: "energyImpact" },
+        { href: "/energy/renovation", labelKey: "energyRenovation" },
+        { href: "/energy/estimateur-cpe", labelKey: "energyCpe" },
+      ]}
+    />
+    </>
   );
 }

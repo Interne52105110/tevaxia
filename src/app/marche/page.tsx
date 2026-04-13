@@ -14,6 +14,7 @@ import {
 import { formatEUR } from "@/lib/calculations";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { generateMarchePdfBlob, PdfButton } from "@/components/ToolsPdf";
+import SEOContent from "@/components/SEOContent";
 
 // ---------------------------------------------------------------------------
 // CSV export helper
@@ -823,6 +824,7 @@ export default function MarchePage() {
   ];
 
   return (
+    <>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -860,5 +862,27 @@ export default function MarchePage() {
         {activeTab === "macro" && <TabMacro />}
       </div>
     </div>
+
+    <SEOContent
+      ns="marche"
+      sections={[
+        { titleKey: "donneesTitle", contentKey: "donneesContent" },
+        { titleKey: "prixCommunesTitle", contentKey: "prixCommunesContent" },
+        { titleKey: "comparablesTitle", contentKey: "comparablesContent" },
+        { titleKey: "sourcesTitle", contentKey: "sourcesContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+      ]}
+      relatedLinks={[
+        { href: "/indices", labelKey: "indices" },
+        { href: "/estimation", labelKey: "estimation" },
+        { href: "/carte", labelKey: "carte" },
+      ]}
+    />
+    </>
   );
 }

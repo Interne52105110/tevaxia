@@ -227,7 +227,29 @@
       "whyDesc": "No Luxemburgo, a classe energética de um imóvel influencia diretamente o seu valor de mercado. A diferença entre um imóvel classificado A e um classificado I pode atingir {pct}. Com a diretiva EPBD e a subida dos custos energéticos, a renovação já não é uma opção — é uma alavanca de valorização mensurável.",
       "statEcart": "Diferença A vs I",
       "statKlimabonus": "Klimabonus máx.",
-      "statIsolation": "€/m² isolamento fachada"
+      "statIsolation": "€/m² isolamento fachada",
+      "seo": {
+        "faqTitle": "Perguntas frequentes sobre a transicao energetica",
+        "relatedTitle": "Simuladores complementares",
+        "transitionTitle": "A transicao energetica dos edificios no Luxemburgo",
+        "transitionContent": "<p>O Luxemburgo comprometeu-se com uma <strong>transicao energetica ambiciosa</strong>. O setor dos edificios representa cerca de 35 % do consumo energetico.</p>",
+        "cpeTitle": "O passaporte energetico: classes A a I",
+        "cpeContent": "<p>O CPE classifica de A a I. Um imovel classe A vende-se com 15-30 % de premio.</p>",
+        "epbdTitle": "A diretiva EPBD e os prazos luxemburgueses",
+        "epbdContent": "<p>EPBD: classe E ate 2030, classe D ate 2033, zero emissoes ate 2050. Mais de 40.000 habitacoes a renovar.</p>",
+        "aidesTitle": "Apoios a renovacao energetica: Klimabonus 2025",
+        "aidesContent": "<p>Klimabonus: isolamento 30-60 EUR/m2, aquecimento renovavel 2.500-8.000 EUR, PV 200-500 EUR/kWc.</p>",
+        "faq1q": "O que e o passaporte energetico?",
+        "faq1a": "Um certificado obrigatorio que classifica de A a I.",
+        "faq2q": "Qual o impacto do CPE nos precos?",
+        "faq2a": "Classe A vende com 15-30 % de premio.",
+        "faq3q": "Quais os prazos EPBD para o Luxemburgo?",
+        "faq3a": "Classe E ate 2030, classe D ate 2033.",
+        "faq4q": "Quanto custa uma renovacao energetica?",
+        "faq4a": "30.000-80.000 EUR para uma moradia, parcialmente coberto pelo Klimabonus.",
+        "faq5q": "Como obter o Klimabonus?",
+        "faq5a": "Contactar Myenergy, realizar auditoria, pedir premio apos obras."
+      }
     },
     "impact": {
       "title": "Impacto da classe energética no valor",
@@ -271,7 +293,27 @@
       "sampleSize": "{count} transações analisadas",
       "confidence_high": "Fiabilidade alta",
       "confidence_medium": "Fiabilidade média",
-      "confidence_low": "Fiabilidade baixa"
+      "confidence_low": "Fiabilidade baixa",
+      "seo": {
+        "faqTitle": "Perguntas frequentes sobre o impacto energetico nos precos",
+        "relatedTitle": "Simuladores complementares",
+        "greenPremiumTitle": "Green premium e brown discount: impacto do CPE nos precos",
+        "greenPremiumContent": "<p>A diferenca entre A-B (+12-18%) e F-I (-15-30%) atinge 25-35% no total.</p>",
+        "donneesTitle": "Dados municipais: descontos e premios por classe CPE",
+        "donneesContent": "<p>Base de dados com diferencas de preco por classe CPE a nivel municipal.</p>",
+        "etudesTitle": "Estudos e referencias cientificas",
+        "etudesContent": "<p>Observatorio (2023): +3-5% por classe. BCL (2022): brown discount acelerado.</p>",
+        "strategieTitle": "Estrategia: renovar antes de vender?",
+        "strategieContent": "<p>O simulador calcula o ROI potencial de uma renovacao antes da venda.</p>",
+        "faq1q": "O que e o green premium?",
+        "faq1a": "O valor acrescido de imoveis energeticamente eficientes (classe A-B), +12-18%.",
+        "faq2q": "O que e o brown discount?",
+        "faq2a": "A desvalorizacao de passadores termicos (classe F-I), -15-30%.",
+        "faq3q": "Os dados sao fiaveis?",
+        "faq3a": "Baseados em transacoes reais da AED.",
+        "faq4q": "O brown discount vai piorar?",
+        "faq4a": "Sim, com prazos EPBD e custos energeticos crescentes."
+      }
     },
     "renovation": {
       "title": "ROI Renovação energética",
@@ -344,7 +386,27 @@
       "comparaisonCout": "Custo energia",
       "comparaisonEcoEnergie": "Energia poupada / ano",
       "comparaisonEcoCO2": "Emissões evitadas / ano",
-      "comparaisonEcoFacture": "Fatura energia / ano"
+      "comparaisonEcoFacture": "Fatura energia / ano",
+      "seo": {
+        "faqTitle": "Perguntas frequentes sobre renovacao energetica",
+        "relatedTitle": "Simuladores complementares",
+        "roiTitle": "ROI da renovacao energetica no Luxemburgo",
+        "roiContent": "<p>ROI medio: <strong>6-12 anos</strong> sem valorizacao do imovel.</p>",
+        "coutsTitle": "Custos medios de renovacao por componente",
+        "coutsContent": "<p>Telhado: 120-220 EUR/m2, fachada: 150-280 EUR/m2, vidros triplos: 600-1.200 EUR/janela.</p>",
+        "klimabonusTitle": "Klimabonus 2025: montantes e condicoes",
+        "klimabonusContent": "<p>Isolamento 30-60 EUR/m2, bomba de calor 2.500-8.000 EUR, PV 200-500 EUR/kWc.</p>",
+        "paybackTitle": "Tempo de retorno: exemplos praticos",
+        "paybackContent": "<p>Renovacao completa G→B: 75.000 EUR, 22.000 EUR apoios, 6.000 EUR/ano poupanca = 8-9 anos.</p>",
+        "faq1q": "Quanto custa uma renovacao completa?",
+        "faq1a": "60.000-80.000 EUR antes de apoios para uma moradia de 150m2.",
+        "faq2q": "Qual o tempo de retorno medio?",
+        "faq2a": "6-12 anos sem valorizacao, menos de 5 anos com green premium.",
+        "faq3q": "Os apoios cobrem tudo?",
+        "faq3a": "Nao, Klimabonus cobre 25-40%, com apoios municipais ate 40-50%.",
+        "faq4q": "Devo fazer uma auditoria energetica?",
+        "faq4a": "Fortemente recomendado, subsidiada a 50-70% via Myenergy."
+      }
     },
     "communaute": {
       "title": "Simulador Comunidade de energia",
@@ -410,7 +472,27 @@
       "pvgisFallback": "PVGIS indisponível — estimativa 950 kWh/kWp",
       "estimation": "Estimativa",
       "prodMensDescPvgis": "Dados mensais PVGIS para {commune} (irradiância por satélite, perdas 14%)",
-      "paramProductionPvgis": "Produção FV real PVGIS: {val} kWh/kWp/ano ({commune}, dados satélite UE)"
+      "paramProductionPvgis": "Produção FV real PVGIS: {val} kWh/kWp/ano ({commune}, dados satélite UE)",
+      "seo": {
+        "faqTitle": "Perguntas frequentes sobre comunidades de energia",
+        "relatedTitle": "Simuladores complementares",
+        "conceptTitle": "Comunidades de energia no Luxemburgo",
+        "conceptContent": "<p>As <strong>comunidades de energia renovavel</strong> permitem produzir e partilhar eletricidade renovavel coletivamente.</p>",
+        "autoconsommationTitle": "Autoconsumo coletivo e diversificacao",
+        "autoconsommationContent": "<p>Taxa de autoconsumo sobe de 30-40% (individual) para 50-70% (comunidade).</p>",
+        "loiTitle": "Enquadramento legal: lei de 3 de fevereiro de 2021",
+        "loiContent": "<p>Dois tipos: CER e CEC. Membros devem estar na mesma rede de distribuicao.</p>",
+        "economiesTitle": "Poupancas e rentabilidade",
+        "economiesContent": "<p>200-600 EUR/ano por agregado participante.</p>",
+        "faq1q": "O que e uma comunidade de energia?",
+        "faq1a": "Um grupo que produz e partilha coletivamente eletricidade renovavel.",
+        "faq2q": "Quanto posso poupar?",
+        "faq2a": "200-600 EUR/ano por agregado.",
+        "faq3q": "Tenho de viver perto dos paineis?",
+        "faq3a": "Membros devem estar na mesma rede de distribuicao.",
+        "faq4q": "Como criar uma comunidade?",
+        "faq4a": "Contactar Myenergy, formar grupo, definir regras, declarar ao ILR."
+      }
     },
     "epbd": {
       "title": "Diretiva EPBD — Cronologia e risco de stranding",
@@ -499,6 +581,28 @@
         "target26": "Objetivo -26 %",
         "fossilEnd": "Fim caldeiras fósseis",
         "zeroEmission": "Parque zero emissões"
+      },
+      "seo": {
+        "faqTitle": "Perguntas frequentes sobre a diretiva EPBD",
+        "relatedTitle": "Simuladores complementares",
+        "directiveTitle": "A diretiva EPBD: implicacoes para o Luxemburgo",
+        "directiveContent": "<p>A <strong>EPBD recast (2024/1275)</strong> fixa metas vinculativas. O Luxemburgo deve renovar 40.000+ habitacoes.</p>",
+        "echeancesTitle": "Prazos e obrigacoes para o Luxemburgo",
+        "echeancesContent": "<p>Classe E ate 2030, classe D ate 2033, zero emissoes ate 2050.</p>",
+        "strandingTitle": "Risco de stranding: ativos bloqueados",
+        "strandingContent": "<p>Imoveis em classe F-I enfrentam risco crescente de perda de valor.</p>",
+        "financementTitle": "Financiamento e apoio",
+        "financementContent": "<p>Klimabonus, emprestimos verdes, apoios municipais.</p>",
+        "faq1q": "O que e a diretiva EPBD?",
+        "faq1a": "Legislacao europeia que fixa normas minimas de desempenho energetico dos edificios.",
+        "faq2q": "O meu imovel classe G sera proibido de arrendar?",
+        "faq2a": "EPBD exige classe E ate 2030 e D ate 2033.",
+        "faq3q": "O que e risco de stranding?",
+        "faq3a": "O risco de perda de valor ou conformidade de um imovel.",
+        "faq4q": "Como financiar a renovacao?",
+        "faq4a": "Klimabonus, emprestimos verdes, apoios municipais.",
+        "faq5q": "Quando deve o Luxemburgo transpor a EPBD?",
+        "faq5a": "Ate 2026."
       }
     },
     "estimateurCpe": {
@@ -562,7 +666,27 @@
       "consoTotale": "Consumo total anual",
       "coutEstime": "Custo energético estimado",
       "emissionsCO2": "Emissões de CO₂ estimadas",
-      "prixKwh": "Base: 0,22 €/kWh (mix luxemburguês 2026)"
+      "prixKwh": "Base: 0,22 €/kWh (mix luxemburguês 2026)",
+      "seo": {
+        "faqTitle": "Perguntas frequentes sobre a estimativa do CPE",
+        "relatedTitle": "Simuladores complementares",
+        "estimerTitle": "Estimar a classe energetica sem auditoria formal",
+        "estimerContent": "<p>O nosso estimador fornece uma classe CPE indicativa baseada nas caracteristicas do edificio.</p>",
+        "criteresTitle": "Criterios utilizados pelo estimador",
+        "criteresContent": "<p>Ano de construcao, tipo de edificio, sistema de aquecimento, nivel de isolamento, tipo de vidro, ventilacao.</p>",
+        "fiabiliteTitle": "Fiabilidade e limitacoes",
+        "fiabiliteContent": "<p>Precisao de ±1 classe em cerca de 75% dos casos. Nao substitui um CPE oficial.</p>",
+        "apresEstimationTitle": "O que fazer apos a estimativa",
+        "apresEstimationContent": "<p>Classe A-C: valorizar green premium. D-E: obras dirigidas. F-I: renovacao recomendada.</p>",
+        "faq1q": "Isto substitui um CPE oficial?",
+        "faq1a": "Nao, e apenas indicativo.",
+        "faq2q": "Qual a precisao do estimador?",
+        "faq2a": "Cerca de ±1 classe em 75% dos casos.",
+        "faq3q": "Que criterios sao mais importantes?",
+        "faq3a": "Ano de construcao e sistema de aquecimento.",
+        "faq4q": "O meu imovel e antigo mas renovado — e considerado?",
+        "faq4a": "Sim, indique isolamento e aquecimento atuais."
+      }
     },
     "lenoz": {
       "title": "Scoring LENOZ simplificado",
@@ -638,7 +762,29 @@
       "optDifficile": "Difícil",
       "optAccessible": "Acessível",
       "optDedieExtensible": "Dedicado + extensível",
-      "downloadPdf": "Transferir PDF"
+      "downloadPdf": "Transferir PDF",
+      "seo": {
+        "faqTitle": "Perguntas frequentes sobre a certificacao LENOZ",
+        "relatedTitle": "Simuladores complementares",
+        "certificationTitle": "Certificacao LENOZ no Luxemburgo",
+        "certificationContent": "<p><strong>LENOZ</strong> e o selo de sustentabilidade luxemburgues para edificios residenciais novos, 60 criterios em 6 categorias.</p>",
+        "categoriesTitle": "As 6 categorias de avaliacao LENOZ",
+        "categoriesContent": "<p>Localizacao, sociedade/economia, energia, ecologia, materiais, funcionalidade. Total: 60 pontos.</p>",
+        "notationTitle": "Sistema de pontuacao e niveis",
+        "notationContent": "<p>Platina (>=48), Ouro (>=36), Prata (>=24), Bronze (>=12). Obrigatorio para IVA de 3%.</p>",
+        "avantagesTitle": "Vantagens da certificacao LENOZ",
+        "avantagesContent": "<p>Pre-requisito IVA 3%, valor de revenda, qualidade de vida.</p>",
+        "faq1q": "O que e a certificacao LENOZ?",
+        "faq1a": "O selo de sustentabilidade luxemburgues para edificios residenciais novos.",
+        "faq2q": "O LENOZ e obrigatorio?",
+        "faq2a": "Sim, para IVA de 3% em novas construcoes.",
+        "faq3q": "Quanto custa a certificacao?",
+        "faq3a": "2.000-5.000 EUR.",
+        "faq4q": "Diferenca entre LENOZ e CPE?",
+        "faq4a": "CPE mede apenas energia. LENOZ e mais abrangente.",
+        "faq5q": "O LENOZ aplica-se a renovacoes?",
+        "faq5a": "Nao, apenas construcao nova."
+      }
     },
     "portfolio": {
       "title": "Portfólio energético",
@@ -801,7 +947,29 @@
     "chartTitle": "Evolução do preço/m² — {commune}",
     "chartSource": "Estimativa municipal baseada na tendência nacional — Fonte: Observatoire de l'Habitat",
     "tooltipPrixM2": "Preço/m²",
-    "tooltipAnnee": "Ano {annee}"
+    "tooltipAnnee": "Ano {annee}",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre avaliação imobiliária",
+      "relatedTitle": "Ferramentas complementares",
+      "contextTitle": "O mercado imobiliário luxemburguês em 2025-2026",
+      "contextContent": "<p>O mercado imobiliário do Grão-Ducado do Luxemburgo atravessa uma fase de <strong>correção pós-pico</strong> iniciada no final de 2022, após mais de uma década de crescimento quase ininterrupto. Segundo o Observatório da Habitação e o STATEC, os preços residenciais recuaram cerca de 14 % entre o pico do T3-2022 e o T4-2024, antes de se estabilizarem no primeiro semestre de 2025.</p><p>Esta correção explica-se principalmente pelo <strong>aperto monetário do BCE</strong> (taxa diretora de 0 % para 4,50 % em 18 meses), que reduziu a capacidade de endividamento das famílias. No entanto, os fundamentos estruturais permanecem sólidos: crescimento demográfico de +1,5 %/ano, 12.000 residentes adicionais em 2024, um mercado de trabalho dinâmico (taxa de desemprego ~5,6 %) e uma oferta estruturalmente deficitária estimada em 3.000 habitações por ano pela Fundação IDEA.</p>",
+      "methodeTitle": "Métodos de avaliação: hedónico, comparáveis e DCF",
+      "methodeContent": "<p>No Luxemburgo, três grandes famílias de métodos coexistem para estimar o valor de um imóvel:</p><ul><li><strong>O método hedónico</strong>: utilizado pelo STATEC e pelo Observatório da Habitação, decompõe o preço com base em características objetivas (área, localização, idade, desempenho energético, andar, estacionamento, etc.) através de um modelo de regressão.</li><li><strong>O método dos comparáveis</strong>: clássico na avaliação imobiliária (norma EVS/TEGoVA), consiste em ajustar os preços de transações recentes de imóveis semelhantes.</li><li><strong>O método DCF (Discounted Cash Flow)</strong>: utilizado principalmente para imóveis de rendimento, atualiza os fluxos de caixa líquidos futuros.</li></ul>",
+      "facteursTitle": "Fatores que influenciam o valor de um imóvel no Luxemburgo",
+      "facteursContent": "<p>Numerosos fatores afetam o valor imobiliário no Grão-Ducado:</p><ul><li><strong>Localização e município</strong>: é o fator principal. A Cidade do Luxemburgo (Belair, Limpertsberg, Kirchberg) apresenta preços médios por m² de 10.000-14.000 €, contra 5.000-7.000 € no Norte (Clervaux, Wiltz).</li><li><strong>Área e disposição</strong>: a área habitável líquida (segundo o regulamento grão-ducal de 25 de fevereiro de 1979) permanece o critério quantitativo dominante.</li><li><strong>Desempenho energético (CPE)</strong>: desde a reforma do passaporte energético em 2010, a classe energética influencia os preços de forma mensurável. Um imóvel classe A é negociado 15-30 % acima de um classe G-I.</li><li><strong>Estado e renovações</strong>: cozinha equipada, casa de banho moderna, vidros triplos, VMC de duplo fluxo e bomba de calor são elementos valorizadores.</li></ul>",
+      "exempleTitle": "Exemplo concreto: avaliação de um apartamento em Esch-sur-Alzette",
+      "exempleContent": "<p>Tomemos um apartamento de <strong>85 m² em Esch-sur-Alzette</strong>, bairro Belvaux, construído em 2012, classe energética C, com 1 lugar de estacionamento interior e 1 cave:</p><ul><li>Preço médio por m² no município (T1-2025): ~6.200 € (fonte: Observatório da Habitação)</li><li>Ajuste classe C (referência D): +5 % → 6.510 €/m²</li><li>Ajuste idade (2012 vs mediana 2005): +3 % → 6.705 €/m²</li><li>Estacionamento interior: +25.000 € (forfait de mercado)</li><li>Estimativa bruta: 85 × 6.705 + 25.000 = <strong>594.925 €</strong></li></ul>",
+      "faq1q": "Qual é a precisão de uma avaliação imobiliária online?",
+      "faq1a": "Os estimadores online alcançam tipicamente uma precisão de ±10-15 % em relação ao preço de venda final. A nossa ferramenta, calibrada com dados do Observatório da Habitação, visa uma margem de ±10 %.",
+      "faq2q": "Como o CPE influencia o preço no Luxemburgo?",
+      "faq2a": "Segundo estudos do Observatório da Habitação (2023), o ganho de uma classe energética representa em média +3 a +5 % no preço de venda. O prémio é mais pronunciado para moradias do que para apartamentos.",
+      "faq3q": "Que dados utiliza a ferramenta de estimativa?",
+      "faq3a": "A ferramenta baseia-se nos preços medianos por município publicados pelo Observatório da Habitação (fonte AED), coeficientes hedónicos do STATEC e índices de preços imobiliários trimestrais.",
+      "faq4q": "Devo fazer uma avaliação antes de vender no Luxemburgo?",
+      "faq4a": "Sim, uma avaliação prévia é recomendada para definir um preço de venda realista. Um preço demasiado elevado prolonga o tempo de venda (mediana 90-120 dias no Luxemburgo).",
+      "faq5q": "Qual a diferença entre valor de mercado e preço de venda?",
+      "faq5a": "O valor de mercado é o preço teórico que um comprador informado pagaria em condições normais de mercado (definição EVS). O preço de venda real pode divergir consoante a urgência do vendedor e as condições de financiamento do comprador."
+    }
   },
   "fraisAcquisition": {
     "title": "Simulador de Encargos de Aquisição",
@@ -858,7 +1026,29 @@
     "infoNotaireText": "Calculados segundo uma tabela degressiva regulamentada (4% até 10 000 € depois degressiva).",
     "sauvegarder": "Guardar",
     "evaluationSauvegardee": "Avaliação guardada!",
-    "savePrefix": "Encargos"
+    "savePrefix": "Encargos",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre custos de aquisição",
+      "relatedTitle": "Ferramentas complementares",
+      "comprendreTitle": "Compreender os custos de aquisição imobiliária no Luxemburgo",
+      "comprendreContent": "<p>Ao adquirir um imóvel no Grão-Ducado do Luxemburgo, o comprador deve pagar várias categorias de custos além do preço de compra. Estes <strong>custos de aquisição</strong> representam entre 7 % e 10 % do preço para imóveis existentes, podendo descer para 3-4 % em VEFA.</p><ul><li><strong>Direitos de registo</strong>: 6 % do preço de compra</li><li><strong>Direito de transcrição</strong>: 1 % do preço</li><li><strong>Honorários do notário</strong>: segundo tabela degressiva</li><li><strong>Custos de inscrição hipotecária</strong>: 0,05 % do montante do empréstimo</li></ul>",
+      "bellegenAktTitle": "O crédito Bellegen Akt: redução fiscal até 40.000 €",
+      "bellegenAktContent": "<p>O <strong>Bellegen Akt</strong> é uma vantagem fiscal importante concedida aos compradores de um imóvel destinado a <strong>residência principal</strong>. Cada comprador beneficia de um crédito de <strong>20.000 €</strong>. Para um casal, o crédito duplica para <strong>40.000 €</strong>.</p>",
+      "vefaTvaTitle": "VEFA e IVA: o regime fiscal do novo",
+      "vefaTvaContent": "<p>A compra em <strong>VEFA</strong> beneficia de um regime fiscal específico no Luxemburgo. A parte de construção está sujeita ao <strong>IVA</strong>, enquanto a parte do terreno permanece sujeita aos direitos de 7 %.</p><ul><li><strong>3 % (taxa super-reduzida)</strong>: para residência principal</li><li><strong>17 % (taxa normal)</strong>: para investimentos de arrendamento</li></ul>",
+      "exempleTitle": "Exemplo prático: compra de imóvel existente a 750.000 € por um casal",
+      "exempleContent": "<p>Um caso típico: um casal compra um apartamento existente a <strong>750.000 €</strong> como residência principal:</p><ul><li>Direitos de registo (6 %): 45.000 €</li><li>Transcrição (1 %): 7.500 €</li><li>Direitos brutos: 52.500 €</li><li>Bellegen Akt (2 × 20.000 €): -40.000 €</li><li><strong>Direitos líquidos: 12.500 €</strong></li></ul>",
+      "faq1q": "Quanto custam os honorários do notário no Luxemburgo?",
+      "faq1a": "Os honorários do notário representam cerca de 0,8 % a 1,2 % do preço de compra. Os custos totais de aquisição variam de 3 % (novo com Bellegen Akt) a 10 % (existente sem crédito fiscal).",
+      "faq2q": "O Bellegen Akt é cumulável com a taxa reduzida de IVA?",
+      "faq2a": "Sim, em VEFA o crédito Bellegen Akt aplica-se aos direitos de registo sobre a parte do terreno, enquanto a taxa reduzida de IVA (3 %) aplica-se à parte de construção.",
+      "faq3q": "Como são calculados os direitos de registo em VEFA?",
+      "faq3a": "Em VEFA, os direitos de registo aplicam-se apenas à parte do terreno declarada no ato. A parte de construção está sujeita ao IVA (3 % ou 17 %).",
+      "faq4q": "Pode-se recuperar o Bellegen Akt se revender?",
+      "faq4a": "Não, o crédito Bellegen Akt só pode ser utilizado uma vez por pessoa. Se revender e recomprar, não pode beneficiar dele uma segunda vez.",
+      "faq5q": "Quando são pagos os custos de aquisição?",
+      "faq5a": "Os custos são pagos na assinatura da escritura no notário, geralmente 2-3 meses após o contrato-promessa de compra e venda."
+    }
   },
   "plusValues": {
     "title": "Calculador de Mais-Valias Imobiliárias",
@@ -925,7 +1115,29 @@
     "valeurDonation": "Valor declarado no ato",
     "anneeDonation": "Ano da doação",
     "successionHint": "Valor utilizado na declaração de sucessão",
-    "donationHint": "Valor utilizado no ato notarial de doação"
+    "donationHint": "Valor utilizado no ato notarial de doação",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre mais-valias imobiliárias",
+      "relatedTitle": "Ferramentas complementares",
+      "fiscaliteTitle": "Fiscalidade das mais-valias imobiliárias no Luxemburgo",
+      "fiscaliteContent": "<p>No Luxemburgo, as <strong>mais-valias imobiliárias</strong> realizadas na venda estão sujeitas a imposto sobre o rendimento. O regime fiscal difere consoante o período de detenção.</p><ul><li><strong>Lucro de especulação (art. 99bis LIR)</strong>: venda em menos de 2 anos — taxa marginal (até 45,78 %)</li><li><strong>Lucro de cessão (art. 99ter LIR)</strong>: venda após 2 anos — meia taxa global</li></ul>",
+      "speculationTitle": "Lucro de especulação: venda em menos de 2 anos",
+      "speculationContent": "<p>Quando vendido <strong>em menos de 2 anos</strong>, o ganho é tributado à taxa marginal completa (até 45,78 % em 2025).</p>",
+      "cessionTitle": "Lucro de cessão: venda após 2 anos",
+      "cessionContent": "<p>Ganhos após <strong>mais de 2 anos</strong> beneficiam de regime favorável:</p><ul><li>Preço de aquisição <strong>reavaliado</strong> com coeficientes ACD</li><li><strong>Abatimento de 50.000 €</strong> a cada 10 anos</li><li>Tributação à <strong>meia taxa global</strong></li></ul>",
+      "exonerationsTitle": "Isenções e casos especiais",
+      "exonerationsContent": "<p>Várias situações permitem <strong>isenção total ou parcial</strong>:</p><ul><li><strong>Residência principal</strong>: isenta se o proprietário residiu continuamente desde a aquisição ou durante pelo menos 5 anos</li><li><strong>Herança/doação</strong>: na herança aplica-se o valor de mercado à data do óbito</li></ul>",
+      "faq1q": "Como é calculada a mais-valia imobiliária no Luxemburgo?",
+      "faq1a": "Mais-valia = Preço de venda - (Preço de aquisição reavaliado + custos + obras reavaliadas). Abatimento de 50.000 € disponível a cada 10 anos.",
+      "faq2q": "Qual é a taxa de imposto sobre mais-valias?",
+      "faq2a": "Especulação (< 2 anos): taxa marginal completa (até 45,78 %). Cessão (> 2 anos): meia taxa global (~20-23 %). Residência principal isenta.",
+      "faq3q": "Como funciona o abatimento de 50.000 €?",
+      "faq3a": "O abatimento de 50.000 € (100.000 € para casais) é concedido sobre o lucro de cessão e renova-se a cada 10 anos.",
+      "faq4q": "A residência principal está isenta?",
+      "faq4a": "Sim, a venda da residência principal está isenta se o proprietário aí residiu continuamente desde a aquisição ou durante pelo menos 5 anos.",
+      "faq5q": "Como declarar uma mais-valia imobiliária?",
+      "faq5a": "A mais-valia declara-se na declaração anual de impostos (modelo 100/100F), formulário 700."
+    }
   },
   "calculLoyer": {
     "title": "Calculadora de renda — Capital investido",
@@ -976,7 +1188,29 @@
     "reforme2024Text": "O limiar foi reduzido de 5 % para 3,5 % para habitações cujo capital investido excede um determinado teto. Verifique as condições de aplicação.",
     "savePrefix": "Renda",
     "saveToast": "Avaliação guardada!",
-    "saveButton": "Guardar esta avaliação"
+    "saveButton": "Guardar esta avaliação",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre o limite de renda",
+      "relatedTitle": "Ferramentas complementares",
+      "plafonnementTitle": "O limite de rendas no Luxemburgo: enquadramento legal",
+      "plafonnementContent": "<p>No Luxemburgo, as rendas residenciais são reguladas pela <strong>lei modificada de 21 de setembro de 2006</strong>. O artigo 3.o estabelece que a renda anual não pode exceder <strong>5 % do capital investido</strong> no imóvel.</p>",
+      "capitalInvestiTitle": "Como calcular o capital investido reavaliado",
+      "capitalInvestiContent": "<p>O <strong>capital investido</strong> compõe-se do preço de aquisição reavaliado com coeficientes STATEC, acrescido dos custos de obras igualmente reavaliados.</p>",
+      "coefficientTitle": "Coeficientes de reavaliação STATEC",
+      "coefficientContent": "<p>Os <strong>coeficientes de reavaliação</strong> são publicados pelo STATEC e servem para atualizar os preços de aquisição e custos de obras.</p>",
+      "vetusteTitle": "Vetustez: uma dedução facultativa mas estratégica",
+      "vetusteContent": "<p>A <strong>vetustez</strong> é um desconto aplicado ao capital investido para ter em conta o desgaste ao longo do tempo. A jurisprudência reconhece uma taxa anual de <strong>1 % a 2 %</strong>, limitada a 50 %.</p>",
+      "faq1q": "Como calcular a renda máxima legal no Luxemburgo?",
+      "faq1a": "A renda anual máxima é de 5 % do capital investido reavaliado (lei de 21 de setembro de 2006).",
+      "faq2q": "O que são os coeficientes de reavaliação STATEC?",
+      "faq2a": "São índices publicados anualmente pelo STATEC que refletem a evolução dos custos de construção desde 1960.",
+      "faq3q": "A taxa de 5 % foi reduzida para 3,5 %?",
+      "faq3a": "A lei de 21 de março de 2024 prevê uma redução para 3,5 % para certos imóveis, mas as modalidades estão em discussão.",
+      "faq4q": "Posso aplicar um suplemento para imóvel mobilado?",
+      "faq4a": "A lei não prevê um suplemento específico, mas o valor do mobiliário pode ser incluído no capital investido.",
+      "faq5q": "Como contestar uma renda excessiva?",
+      "faq5a": "O inquilino pode recorrer ao juiz de paz ao abrigo do artigo 7.o da lei de 21 de setembro de 2006."
+    }
   },
   "achatLocation": {
     "title": "Comprar ou Arrendar no Luxemburgo",
@@ -1064,7 +1298,29 @@
     "achat": "Compra +",
     "location": "Arrendamento +",
     "hypothesesTitle": "Pressupostos:",
-    "hypothesesText": "Valorização do imóvel: {appreciation} %/ano. Rendimento investimento: {rendement} %/ano. Limite dedução juros: {plafond}/ano ({nbPersonnes} pes.). Seguro saldo devedor: {tauxSRD} % do capital."
+    "hypothesesText": "Valorização do imóvel: {appreciation} %/ano. Rendimento investimento: {rendement} %/ano. Limite dedução juros: {plafond}/ano ({nbPersonnes} pes.). Seguro saldo devedor: {tauxSRD} % do capital.",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre comprar vs. arrendar",
+      "relatedTitle": "Ferramentas complementares",
+      "dilemmeTitle": "Comprar ou arrendar no Luxemburgo: o dilema eterno",
+      "dilemmeContent": "<p>A questão '<strong>devo comprar ou arrendar?</strong>' é particularmente aguda no Luxemburgo, onde o preço mediano de um apartamento ultrapassa 600.000 € em 2025. O custo total de propriedade inclui não apenas as prestações mas também custos de aquisição (7-10 %), manutenção, seguros e custo de oportunidade do capital.</p>",
+      "tcoTitle": "Custo total de propriedade vs. custo total de arrendamento",
+      "tcoContent": "<p>O nosso simulador calcula o <strong>custo total acumulado</strong> de ambas as opções. O <strong>ponto de cruzamento</strong> situa-se tipicamente entre 7 e 15 anos no Luxemburgo.</p>",
+      "levierTitle": "O efeito de alavancagem do crédito imobiliário",
+      "levierContent": "<p>Um argumento importante para comprar é o <strong>efeito de alavancagem</strong> do crédito hipotecário. Com uma entrada de 20 %, o comprador beneficia da valorização sobre 100 % do valor do imóvel.</p>",
+      "seuilTitle": "Limiar de rentabilidade e fatores de decisão",
+      "seuilContent": "<p>O limiar depende de muitos fatores:</p><ul><li><strong>Duração de estadia prevista</strong>: abaixo de 5-7 anos, o arrendamento é quase sempre mais vantajoso</li><li><strong>Taxas de juro</strong>: taxas baixas favorecem a compra</li></ul>",
+      "faq1q": "Quanto tempo devo manter um imóvel para que a compra compense?",
+      "faq1a": "No Luxemburgo, o limiar situa-se tipicamente entre 7 e 15 anos. Com o Bellegen Akt pode descer para 5-7 anos.",
+      "faq2q": "Os custos de aquisição estão incluídos na comparação?",
+      "faq2a": "Sim, a ferramenta inclui direitos de registo, transcrição, honorários notariais e custos hipotecários.",
+      "faq3q": "Que rendimento alternativo usar para a poupança?",
+      "faq3a": "O rendimento alternativo representa o que ganharia investindo a sua entrada. 4-6 % é razoável para uma carteira diversificada a longo prazo.",
+      "faq4q": "Comprar é sempre melhor no Luxemburgo?",
+      "faq4a": "Não necessariamente. Se planeia ficar menos de 5 anos ou as taxas são elevadas, o arrendamento pode ser mais rentável.",
+      "faq5q": "Como é integrada a dedução fiscal dos juros hipotecários?",
+      "faq5a": "No Luxemburgo, os juros hipotecários são dedutíveis do rendimento tributável para a residência principal (limite de 1.500-3.000 €)."
+    }
   },
   "simulateurAides": {
     "title": "Simulador de apoios à aquisição",
@@ -1160,7 +1416,29 @@
     "topupSocial": "Suplemento social (rendimentos baixos)",
     "topupSocialHint": "Aumento de x1,5 dos subsídios Klimabonus se rendimento tributável ≤ 60.000 €/ano (novo 2026)",
     "bonusEco": "incl. bónus materiais ecológicos",
-    "klimabonusRegime": "Barema Klimabonus Wunnen 2026"
+    "klimabonusRegime": "Barema Klimabonus Wunnen 2026",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre apoios à habitação",
+      "relatedTitle": "Ferramentas complementares",
+      "panoramaTitle": "Panorama dos apoios à habitação no Luxemburgo 2025-2026",
+      "panoramaContent": "<p>O Grão-Ducado do Luxemburgo oferece uma gama completa de <strong>apoios públicos à habitação</strong>:</p><ul><li><strong>Bellegen Akt</strong>: crédito fiscal até 20.000 € por comprador</li><li><strong>Subsídio de juros</strong>: cobertura parcial dos juros hipotecários</li><li><strong>Prémio de construção/renovação</strong>: ajuda forfetária</li><li><strong>Subsídio de renda</strong>: contribuição mensal para inquilinos de baixos rendimentos</li><li><strong>Klimabonus / PRIMe House</strong>: apoio à renovação energética</li></ul>",
+      "acquisitionTitle": "Apoios à aquisição: Bellegen Akt, subsídio de juros e garantia estatal",
+      "acquisitionContent": "<p>Para primeiros compradores, o Luxemburgo oferece um pacote atrativo:</p><ul><li><strong>Bellegen Akt</strong>: crédito de 20.000 € por pessoa (máx. 40.000 € por casal)</li><li><strong>Subsídio de juros</strong>: o Estado cobre parte dos juros durante 10 anos</li><li><strong>Garantia estatal</strong>: garantia até 100.000 €</li></ul>",
+      "renovationTitle": "Apoios à renovação energética: PRIMe House e Klimabonus",
+      "renovationContent": "<p>O programa <strong>PRIMe House</strong> e o <strong>Klimabonus</strong> apoiam obras de eficiência energética:</p><ul><li>Isolamento térmico: 30-60 €/m²</li><li>Substituição de aquecimento: 2.500-8.000 €</li><li>Fotovoltaico: 200-500 €/kWc</li></ul>",
+      "conditionsTitle": "Condições de rendimento e modalidades de pedido",
+      "conditionsContent": "<p>A maioria dos apoios está sujeita a <strong>condições de rendimento</strong>. Os pedidos são feitos junto do Ministério da Habitação (online em guichet.lu) ou via Myenergy para apoios energéticos.</p>",
+      "faq1q": "Quais são os principais apoios à compra de imóvel no Luxemburgo?",
+      "faq1a": "Os principais apoios são o Bellegen Akt (até 40.000 € de crédito fiscal), subsídio de juros e garantia estatal (até 100.000 €).",
+      "faq2q": "Qual o montante do Klimabonus em 2025-2026?",
+      "faq2a": "O Klimabonus reforçado prevê prémios de 30-60 €/m² para isolamento, 2.500-8.000 € para aquecimento renovável e 200-500 €/kWc para fotovoltaico.",
+      "faq3q": "Como solicitar o subsídio de renda?",
+      "faq3a": "Online em guichet.lu ou diretamente no Ministério da Habitação com contrato de arrendamento, recibos de vencimento e declaração fiscal.",
+      "faq4q": "Os apoios são cumuláveis?",
+      "faq4a": "Sim, na maioria dos casos. O Bellegen Akt, subsídio de juros e garantia estatal são cumuláveis.",
+      "faq5q": "Existem apoios específicos para trabalhadores fronteiriços?",
+      "faq5a": "O Bellegen Akt é reservado a imóveis no Luxemburgo. Fronteiriços residentes no estrangeiro não têm acesso."
+    }
   },
   "dcfMulti": {
     "title": "DCF Multilocatário",
@@ -1591,7 +1869,27 @@
     "offices": "Escritórios",
     "retail": "Comércio",
     "logistics": "Logística",
-    "other": "Outros"
+    "other": "Outros",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre dados de mercado",
+      "relatedTitle": "Ferramentas complementares",
+      "donneesTitle": "Dados do mercado imobiliario luxemburgues",
+      "donneesContent": "<p>A nossa base de dados agrega <strong>multiplas fontes publicas</strong> para uma visao completa do mercado imobiliario luxemburgues.</p>",
+      "prixCommunesTitle": "Precos por municipio: analise detalhada",
+      "prixCommunesContent": "<p>O Luxemburgo tem 102 municipios com precos variando num fator de 2-3.</p>",
+      "comparablesTitle": "Comparaveis e transacoes recentes",
+      "comparablesContent": "<p>A seccao de transacoes fornece <strong>precos reais de venda</strong> registados na AED.</p>",
+      "sourcesTitle": "Fontes publicas e fiabilidade dos dados",
+      "sourcesContent": "<p>Todos os dados provem de <strong>fontes publicas oficiais</strong>.</p>",
+      "faq1q": "De onde provem os dados de mercado?",
+      "faq1a": "Todos os dados provem de fontes publicas oficiais.",
+      "faq2q": "Os dados cobrem o mercado comercial?",
+      "faq2a": "Sim, incluindo escritorios, comercio, logistica e terrenos.",
+      "faq3q": "Com que frequencia sao atualizados?",
+      "faq3a": "Trimestralmente.",
+      "faq4q": "Posso exportar os dados?",
+      "faq4a": "Sim, em formato CSV e PDF."
+    }
   },
   "valorisation": {
     "pageTitle": "Avaliação Imobiliária EVS 2025",
@@ -2704,7 +3002,27 @@
     "colPrixBien": "Preco do imovel",
     "colPrixAcquisition": "Preco de aquisicao",
     "colPrixCession": "Preco de venda",
-    "disclaimer": "Estimativa indicativa baseada em dados publicos do Observatoire de l'Habitat e coeficientes de ajustamento estatisticos. Nao constitui uma avaliacao profissional."
+    "disclaimer": "Estimativa indicativa baseada em dados publicos do Observatoire de l'Habitat e coeficientes de ajustamento estatisticos. Nao constitui uma avaliacao profissional.",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre comparação de imóveis",
+      "relatedTitle": "Ferramentas complementares",
+      "methodeTitle": "O método dos comparáveis no imobiliário luxemburguês",
+      "methodeContent": "<p>O <strong>método dos comparáveis</strong> é a técnica de avaliação mais intuitiva e utilizada nas transações residenciais no Luxemburgo. Baseia-se em <strong>preços de transações recentes</strong> de imóveis semelhantes. A norma EVS recomenda no mínimo 3 comparáveis, idealmente 5-10.</p>",
+      "criteresTitle": "Critérios de seleção dos comparáveis",
+      "criteresContent": "<p>A escolha de comparáveis relevantes baseia-se em:</p><ul><li><strong>Localização</strong>: mesmo município, idealmente mesmo bairro</li><li><strong>Tipo de imóvel</strong>: apartamento vs. moradia, área habitável</li><li><strong>Antiguidade</strong>: mesma faixa etária</li><li><strong>Desempenho energético</strong>: mesma classe CPE ou adjacente</li></ul>",
+      "ajustementsTitle": "Ajustamentos e ponderação dos comparáveis",
+      "ajustementsContent": "<p>Nenhum comparável é perfeitamente idêntico. São necessários <strong>ajustamentos</strong> para área, estado, andar e equipamentos.</p>",
+      "decisionTitle": "Utilizar comparáveis para decisões informadas",
+      "decisionContent": "<p>A comparação de imóveis é essencial para fixação de preços, negociações e due diligence. A nossa ferramenta permite comparar até 4 imóveis simultaneamente.</p>",
+      "faq1q": "Quantos comparáveis são necessários para uma avaliação fiável?",
+      "faq1a": "A norma EVS recomenda no mínimo 3 comparáveis relevantes, idealmente 5-10.",
+      "faq2q": "Qual é a fonte dos dados de transações?",
+      "faq2a": "Os dados provêm da AED, agregados pelo Observatório da Habitação. São preços de escrituras reais, não preços anunciados.",
+      "faq3q": "Como ajustar para o desempenho energético?",
+      "faq3a": "Segundo o Observatório (2023), o ganho de uma classe CPE representa cerca de +3-5 % no preço.",
+      "faq4q": "Posso comparar imóveis de municípios diferentes?",
+      "faq4a": "É possível mas delicado. As diferenças de preço entre municípios são muito significativas (fator de 2-3)."
+    }
   },
   "convertisseurSurfaces": {
     "title": "Conversor de superficies",
@@ -3339,6 +3657,28 @@
     "sources": {
       "title": "Fontes:",
       "text": "Precos indicativos do mercado luxemburgues 2025-2026. Catalogos de fabricantes: Viessmann, Daikin, Vaillant, Buderus, Mitsubishi, Panasonic, LG, Bosch, Hoval, Wolf, Atlantic, De Dietrich, Froling, Okofen, Windhager, Zehnder, Helios, Brink. Distribuidores LU: Reckinger Alfred, Vanmarcke, General Technic, Sonepar, CRS, TSD. Apoios: guichet.public.lu (Klimabonus 2026), klima-agence.lu (Enoprimes). Normas: EN 12831 (perdas termicas), RGD 9 de junho de 2021 (desempenho energetico). Os precos incluem geralmente fornecimento e instalacao. Orcamentos detalhados a solicitar a instaladores aprovados."
+    },
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre dimensionamento HVAC",
+      "relatedTitle": "Simuladores complementares",
+      "dimensionnementTitle": "Dimensionamento HVAC para edificios luxemburgueses",
+      "dimensionnementContent": "<p>Baseado na norma <strong>EN 12831</strong>, temperatura de dimensionamento -12 a -15 graus C para o Luxemburgo.</p>",
+      "normesTitle": "Norma EN 12831 e condicoes climaticas LU",
+      "normesContent": "<p>Calculo de perdas por transmissao e ventilacao, temperatura de dimensionamento -12 a -15 graus C.</p>",
+      "pacTitle": "Bomba de calor vs. pellets: comparacao para o Luxemburgo",
+      "pacContent": "<p>Bomba de calor para edificios bem isolados (A-D), pellets para moradias com espaco de armazenamento. Hibrido para E-I.</p>",
+      "vmcTitle": "VMC duplo fluxo: essencial para edificios performantes",
+      "vmcContent": "<p>Recupera 80-95% do calor. Custo 5.000-12.000 EUR, poupanca de 25-40% no aquecimento.</p>",
+      "faq1q": "Como dimensionar o meu sistema de aquecimento?",
+      "faq1a": "Baseado na EN 12831 com temperaturas de dimensionamento luxemburguesas.",
+      "faq2q": "Bomba de calor ou pellets?",
+      "faq2a": "Bomba de calor para imoveis bem isolados, pellets para moradias antigas.",
+      "faq3q": "A VMC duplo fluxo e obrigatoria?",
+      "faq3a": "Nao formalmente, mas praticamente indispensavel para classes A-B.",
+      "faq4q": "Que orcamento para um sistema HVAC completo?",
+      "faq4a": "Cerca de 30.000-35.000 EUR para 150m2 antes do Klimabonus.",
+      "faq5q": "Como otimizar o desempenho do sistema?",
+      "faq5a": "Isolar primeiro, depois dimensionar corretamente."
     }
   },
   "planDuSite": {
@@ -3679,7 +4019,29 @@
     "trend_stable": "Estável",
     "view_map": "Ver mapa interativo",
     "estimate_property": "Avaliar um imóvel",
-    "source": "Fonte: Observatoire de l'Habitat (data.public.lu), STATEC. Dados indicativos, atualizados trimestralmente. Última atualização: março 2026."
+    "source": "Fonte: Observatoire de l'Habitat (data.public.lu), STATEC. Dados indicativos, atualizados trimestralmente. Última atualização: março 2026.",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre indices de precos",
+      "relatedTitle": "Ferramentas complementares",
+      "indiceTitle": "Indices de precos imobiliarios por municipio no Luxemburgo",
+      "indiceContent": "<p>O <strong>indice de precos imobiliarios</strong> por municipio e a ferramenta de referencia para acompanhar o mercado residencial luxemburgues. Publicado trimestralmente pelo Observatorio da Habitacao em parceria com o STATEC.</p>",
+      "methodologieTitle": "Metodologia e fontes de dados",
+      "methodologieContent": "<p>A metodologia baseia-se em escrituras notariais registadas na AED, decomposicao hedonica e ajustamento sazonal.</p>",
+      "tendancesTitle": "Tendencias 2025-2026: recuperacao seletiva por municipio",
+      "tendancesContent": "<p>Cidade do Luxemburgo: ~10.500 EUR/m2, cintura sul: ~5.800-6.500 EUR/m2, norte: ~4.500-5.500 EUR/m2.</p>",
+      "topCommunesTitle": "Top municipios: precos, rendimentos e atratividade",
+      "topCommunesContent": "<p>Os municipios mais procurados combinam acessibilidade, qualidade de vida e oferta escolar.</p>",
+      "faq1q": "De onde provem os dados de precos por municipio?",
+      "faq1a": "Os dados provem de escrituras notariais registadas na AED, agregados pelo Observatorio da Habitacao.",
+      "faq2q": "Com que frequencia sao atualizados os indices?",
+      "faq2a": "Os indices oficiais sao publicados trimestralmente com 2-3 meses de desfasamento.",
+      "faq3q": "Porque diferem os precos entre municipios vizinhos?",
+      "faq3a": "As diferencas explicam-se pela localizacao, oferta escolar e tipos de imoveis disponiveis.",
+      "faq4q": "Os indices incluem imoveis novos e existentes?",
+      "faq4a": "Sim, ambos os segmentos sao cobertos.",
+      "faq5q": "Como posso usar os indices para estimar o meu imovel?",
+      "faq5a": "Os indices fornecem um preco mediano por municipio como ponto de partida."
+    }
   },
   "pagPap": {
     "title": "Urbanismo — PAG / PAP",
@@ -3729,7 +4091,27 @@
     "resourceMap": "Mapa",
     "resourceGeoportail": "Geoportail.lu — PAG online",
     "resourceLaw": "Lei",
-    "resourceMinistry": "Ministério da Habitação"
+    "resourceMinistry": "Ministério da Habitação",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre PAG e PAP",
+      "relatedTitle": "Ferramentas complementares",
+      "urbanismeTitle": "Urbanismo no Luxemburgo: PAG e PAP",
+      "urbanismeContent": "<p>O ordenamento do territorio luxemburgues e regido pela lei de 19 de julho de 2004. Cada municipio tem um PAG e PAP.</p>",
+      "zonesTitle": "Zonas e construtibilidade",
+      "zonesContent": "<p>Principais zonas: HAB-1, HAB-2, MIX. Coeficientes COS e CUS definem a intensidade construtiva.</p>",
+      "constructibiliteTitle": "Avaliar a construtibilidade de um terreno",
+      "constructibiliteContent": "<p>Verificar classificacao PAG, regras PAP, servidoes e disponibilidade de infraestruturas.</p>",
+      "servitudesTitle": "Servidoes e restricoes especiais",
+      "servitudesContent": "<p>Servidoes urbanisticas, ambientais, patrimoniais e privadas.</p>",
+      "faq1q": "Onde consultar o PAG do meu municipio?",
+      "faq1a": "No Geoportail (geoportail.lu) ou na camara municipal.",
+      "faq2q": "Qual a diferenca entre PAG e PAP?",
+      "faq2a": "O PAG define a afetacao geral das zonas, o PAP detalha as regras de construcao por zona.",
+      "faq3q": "Como saber se um terreno e construivel?",
+      "faq3a": "Verificar classificacao PAG, regras PAP e servidoes.",
+      "faq4q": "O que sao COS e CUS?",
+      "faq4a": "COS e o coeficiente de ocupacao do solo, CUS e o coeficiente de utilizacao do solo."
+    }
   },
   "amlKyc": {
     "title": "AML / KYC Imobiliário",
@@ -3847,7 +4229,27 @@
     "zoneCentre": "Centro",
     "zoneEst": "Este (Mosela)",
     "zoneNord": "Norte",
-    "sourceDisclaimer": "Fonte: estimativas baseadas em transações observadas. Dados indicativos — o mercado de terrenos agrícolas do Luxemburgo tem pouca transparência."
+    "sourceDisclaimer": "Fonte: estimativas baseadas em transações observadas. Dados indicativos — o mercado de terrenos agrícolas do Luxemburgo tem pouca transparência.",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre terras agricolas",
+      "relatedTitle": "Ferramentas complementares",
+      "evaluationTitle": "Avaliacao de terras agricolas no Luxemburgo",
+      "evaluationContent": "<p>Precos medios: 30.000-80.000 EUR/ha, com picos acima de 100.000 EUR/ha junto a zonas urbanizaveis.</p>",
+      "prixZonesTitle": "Precos por zona e qualidade do solo",
+      "prixZonesContent": "<p>Centro-Sul: 50.000-80.000, Centro: 40.000-60.000, Norte: 30.000-50.000, Este: 45.000-70.000 EUR/ha.</p>",
+      "facteursTitle": "Fatores que influenciam o valor",
+      "facteursContent": "<p>Potencial de reclassificacao, arrendamento rural ativo (desconto 15-30%), edificios existentes.</p>",
+      "bailRuralTitle": "O arrendamento rural luxemburgues",
+      "bailRuralContent": "<p>Regido pela lei de 2 de julho de 1969, com forte protecao do arrendatario.</p>",
+      "faq1q": "Qual o preco medio por hectare no Luxemburgo?",
+      "faq1a": "Entre 30.000 e 80.000 EUR/ha.",
+      "faq2q": "Como e avaliada a qualidade do solo?",
+      "faq2a": "Segundo a classificacao pedologica luxemburguesa (classes I a V).",
+      "faq3q": "Um arrendamento ativo afeta o preco?",
+      "faq3a": "Sim, desconto tipico de 15-30%.",
+      "faq4q": "Pode ser reclassificado como construivel?",
+      "faq4a": "Sim, na revisao do PAG, multiplicando o valor por 10-50x."
+    }
   },
   "vefa": {
     "title": "Simulador VEFA",
@@ -3958,7 +4360,29 @@
     "bonInteretsTitle": "Juros intercalares",
     "bonInteretsText": "Durante a fase de construção (24 a 30 meses), o banco liberta o empréstimo à medida das chamadas de fundos. O adquirente paga juros mensais sobre o capital já desembolsado, sem amortizar o capital. Este custo, frequentemente esquecido, representa tipicamente 15 000 a 25 000 EUR para um empréstimo padrão.",
     "bonDureeTitle": "Duração da construção",
-    "bonDureeText": "Conte em média 24 a 30 meses entre a assinatura e a entrega. O calendário depende da dimensão do projeto, do clima e da disponibilidade das empresas."
+    "bonDureeText": "Conte em média 24 a 30 meses entre a assinatura e a entrega. O calendário depende da dimensão do projeto, do clima e da disponibilidade das empresas.",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre VEFA no Luxemburgo",
+      "relatedTitle": "Ferramentas complementares",
+      "guideTitle": "Guia completo da compra em VEFA no Luxemburgo",
+      "guideContent": "<p>A <strong>VEFA</strong> é o modo de aquisição privilegiado para habitações novas no Luxemburgo, regulada pela <strong>lei de 18 de abril de 2018</strong>:</p><ul><li><strong>Contrato de reserva</strong>: sinal máximo de 5 %</li><li><strong>Escritura notarial</strong>: transferência progressiva de propriedade</li><li><strong>Garantia de conclusão</strong>: garantia bancária ou de seguro obrigatória</li><li><strong>Garantia decenal</strong>: responsabilidade dos construtores durante 10 anos</li></ul>",
+      "echeancierSeoTitle": "Calendário de pagamento VEFA: etapas-chave",
+      "echeancierSeoContent": "<p>O artigo 1601-11 fixa um <strong>calendário máximo de pagamento</strong>:</p><ul><li>Escritura: máx. 33 %</li><li>Estrutura impermeabilizada: acumulado máx. 60 %</li><li>Conclusão: acumulado máx. 95 %</li><li>Entrega: saldo de 5 %</li></ul>",
+      "tvaSeoTitle": "IVA e fiscalidade da VEFA no Luxemburgo",
+      "tvaSeoContent": "<p>O regime fiscal da VEFA oferece vantagens significativas:</p><ul><li>Parte terreno: 7 % de direitos com Bellegen Akt para residência principal</li><li>Parte construção: 3 % IVA para residência principal, limitado a 50.000 € de poupança</li></ul>",
+      "intercalairesTitle": "Juros intercalares: um custo frequentemente subestimado",
+      "intercalairesContent": "<p>Os <strong>juros intercalares</strong> são pagos sobre os fundos já libertados durante a construção. Para uma VEFA de 600.000 € com empréstimo de 500.000 € a 3,8 % durante 18 meses de construção, os juros intercalares são aproximadamente 12.000-15.000 €.</p>",
+      "faq1q": "O que é VEFA no Luxemburgo?",
+      "faq1a": "A VEFA é um contrato em que o promotor vende um imóvel ainda não construído ou em construção. O comprador torna-se progressivamente proprietário com pagamentos faseados regulamentados.",
+      "faq2q": "Quais são os riscos da VEFA?",
+      "faq2a": "Os principais riscos são atrasos na entrega, alterações ao descritivo e insolvência do promotor (coberta pela garantia de conclusão obrigatória).",
+      "faq3q": "Como beneficiar da taxa de IVA reduzida de 3 %?",
+      "faq3a": "A taxa de 3 % aplica-se à parte de construção da residência principal. O pedido é feito à AED, geralmente através do notário.",
+      "faq4q": "O que fazer em caso de defeitos na entrega?",
+      "faq4a": "Na receção, elabore um auto detalhado listando todos os defeitos. O saldo de 5 % é retido até à correção dos defeitos.",
+      "faq5q": "Os juros intercalares são dedutíveis fiscalmente?",
+      "faq5a": "Sim, os juros intercalares são dedutíveis do rendimento tributável como os juros hipotecários, dentro dos limites para residência principal."
+    }
   },
   "propcalc": {
     "badge": "Plugin WordPress Gratuito",
@@ -4046,6 +4470,28 @@
     "ctaTitle": "Pronto para adicionar uma calculadora ao seu site?",
     "ctaSubtitle": "Gratuito, open-source, conforme RGPD. Instalação em menos de um minuto.",
     "ctaDownload": "Transferir PropCalc →",
-    "ctaGithub": "Ver no GitHub"
+    "ctaGithub": "Ver no GitHub",
+    "seo": {
+      "faqTitle": "Perguntas frequentes sobre PropCalc",
+      "relatedTitle": "Ferramentas complementares",
+      "pluginTitle": "PropCalc: plugin WordPress multi-pais para investimento imobiliario",
+      "pluginContent": "<p><strong>PropCalc</strong> e um plugin WordPress open source da Tevaxia com calculadoras imobiliarias para <strong>25+ paises</strong>.</p>",
+      "modulesTitle": "Modulos disponiveis e funcionalidades",
+      "modulesContent": "<p>Custos de aquisicao, rendimento locativo, simulador de credito e mais-valias.</p>",
+      "paysTitle": "Cobertura geografica: 25+ paises",
+      "paysContent": "<p>Europa, Americas, Asia-Pacifico.</p>",
+      "integrationsTitle": "Integracao WordPress e personalizacao",
+      "integrationsContent": "<p>Shortcodes, blocos Gutenberg, widgets e API REST.</p>",
+      "faq1q": "O PropCalc e gratuito?",
+      "faq1a": "Sim, totalmente gratuito e open source (GPL v2).",
+      "faq2q": "Que paises sao suportados?",
+      "faq2a": "25+ paises com taxas locais pre-configuradas.",
+      "faq3q": "Como integrar o PropCalc?",
+      "faq3a": "Instalar do diretorio WordPress, configurar pais e inserir via shortcodes.",
+      "faq4q": "Posso contribuir para o desenvolvimento?",
+      "faq4a": "Sim, open source no GitHub.",
+      "faq5q": "O PropCalc e compativel com page builders?",
+      "faq5a": "Sim, com Elementor, Divi e WooCommerce."
+    }
   }
 }

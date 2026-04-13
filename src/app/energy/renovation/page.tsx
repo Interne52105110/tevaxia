@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { calculerRenovation, type RenovationResponse } from "@/lib/energy-api";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { generateRenovationPdfBlob, PdfButton } from "@/components/energy/EnergyPdf";
+import SEOContent from "@/components/SEOContent";
 
 const CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
 const IMPACT_ENERGIE: Record<string, number> = { A: 8, B: 5, C: 2, D: 0, E: -3, F: -7, G: -12, H: -18, I: -25 };
@@ -85,6 +86,7 @@ export default function RenovationPage() {
     [classeActuelle, classeCible, surface, annee, valeur, prixEnergie, compute]);
 
   return (
+    <>
     <div className="py-8 sm:py-12">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
@@ -442,5 +444,27 @@ export default function RenovationPage() {
         )}
       </div>
     </div>
+
+    <SEOContent
+      ns="energy.renovation"
+      sections={[
+        { titleKey: "roiTitle", contentKey: "roiContent" },
+        { titleKey: "coutsTitle", contentKey: "coutsContent" },
+        { titleKey: "klimabonusTitle", contentKey: "klimabonusContent" },
+        { titleKey: "paybackTitle", contentKey: "paybackContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+      ]}
+      relatedLinks={[
+        { href: "/energy/impact", labelKey: "energyImpact" },
+        { href: "/simulateur-aides", labelKey: "aides" },
+        { href: "/energy/hvac", labelKey: "hvac" },
+      ]}
+    />
+    </>
   );
 }

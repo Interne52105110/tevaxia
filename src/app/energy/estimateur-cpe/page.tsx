@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import SEOContent from "@/components/SEOContent";
 
 /* ── Class colors (same as impact / renovation pages) ── */
 const CLASS_COLORS: Record<string, string> = {
@@ -182,6 +183,7 @@ export default function EstimateurCpePage() {
   const progressPct = isFinished ? 100 : (step / TOTAL_STEPS) * 100;
 
   return (
+    <>
     <div className="py-8 sm:py-12">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -568,5 +570,27 @@ export default function EstimateurCpePage() {
         )}
       </div>
     </div>
+
+    <SEOContent
+      ns="energy.estimateurCpe"
+      sections={[
+        { titleKey: "estimerTitle", contentKey: "estimerContent" },
+        { titleKey: "criteresTitle", contentKey: "criteresContent" },
+        { titleKey: "fiabiliteTitle", contentKey: "fiabiliteContent" },
+        { titleKey: "apresEstimationTitle", contentKey: "apresEstimationContent" },
+      ]}
+      faq={[
+        { questionKey: "faq1q", answerKey: "faq1a" },
+        { questionKey: "faq2q", answerKey: "faq2a" },
+        { questionKey: "faq3q", answerKey: "faq3a" },
+        { questionKey: "faq4q", answerKey: "faq4a" },
+      ]}
+      relatedLinks={[
+        { href: "/energy/impact", labelKey: "energyImpact" },
+        { href: "/energy/renovation", labelKey: "energyRenovation" },
+        { href: "/energy/lenoz", labelKey: "energyLenoz" },
+      ]}
+    />
+    </>
   );
 }

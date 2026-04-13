@@ -228,7 +228,29 @@
       "whyDesc": "Au Luxembourg, la classe énergie d'un bien influence directement sa valeur de marché. L'écart entre un bien classé A et un bien classé I peut atteindre {pct}. Avec la directive EPBD et la hausse des coûts énergétiques, la rénovation n'est plus une option — c'est un levier de valorisation mesurable.",
       "statEcart": "Écart A vs I",
       "statKlimabonus": "Klimabonus max.",
-      "statIsolation": "€/m² isolation façade"
+      "statIsolation": "€/m² isolation façade",
+      "seo": {
+        "faqTitle": "Questions frequentes sur la transition energetique immobiliere",
+        "relatedTitle": "Simulateurs complementaires",
+        "transitionTitle": "La transition energetique immobiliere au Luxembourg",
+        "transitionContent": "<p>Le Luxembourg s'est engage dans une <strong>transition energetique ambitieuse</strong> de son parc immobilier, conformement aux objectifs du Plan National integre en matiere d'Energie et de Climat (PNEC) 2021-2030. Le secteur du batiment represente environ <strong>35 % de la consommation energetique nationale</strong> et constitue un levier majeur de decarbonation.</p><p>Le <strong>passeport energetique</strong> (CPE), obligatoire pour toute vente ou location, classe les batiments de A (tres performant) a I (passoire thermique). La repartition du parc existant montre que plus de 60 % des logements sont en classe D ou inferieure, representant un potentiel de renovation considerable.</p>",
+        "cpeTitle": "Le passeport energetique : classes A a I",
+        "cpeContent": "<p>Le <strong>Certificat de Performance Energetique (CPE)</strong> est regi par le reglement grand-ducal du 9 juin 2021. Il evalue :</p><ul><li><strong>Besoin en energie primaire</strong> (kWh/m2/an) : classe A (&lt; 45) a I (&gt; 450)</li><li><strong>Besoin en chaleur</strong> (kWh/m2/an) : isolation de l'enveloppe</li><li><strong>Emissions CO2</strong> (kg CO2/m2/an)</li></ul><p>Le CPE est valable 10 ans et doit etre realise par un expert agree Myenergy. Son impact sur les prix immobiliers est desormais bien documente : un logement classe A se vend 15-30 % plus cher qu'un comparable en classe G-I.</p>",
+        "epbdTitle": "La directive EPBD et les echeances luxembourgeoises",
+        "epbdContent": "<p>La <strong>directive europeenne EPBD recast (2024/1275)</strong> fixe des objectifs ambitieux pour les batiments existants :</p><ul><li>Classe E minimum pour les batiments residentiels d'ici <strong>2030</strong></li><li>Classe D minimum d'ici <strong>2033</strong></li><li>Parc zero-emission d'ici <strong>2050</strong></li></ul><p>Pour le Luxembourg, cela implique la renovation de plus de <strong>40 000 logements</strong> en classe F-I d'ici 2033, soit un investissement estime a 3-5 milliards d'euros.</p>",
+        "aidesTitle": "Aides a la renovation energetique : Klimabonus 2025",
+        "aidesContent": "<p>Le programme <strong>Klimabonus</strong> (ex-PRIMe House), renforce en decembre 2024, offre des aides substantielles :</p><ul><li><strong>Isolation</strong> : 30-60 EUR/m2 selon composant et performance</li><li><strong>Chauffage renouvelable</strong> : 2 500-8 000 EUR (PAC, biomasse)</li><li><strong>Photovoltaique</strong> : 200-500 EUR/kWc</li><li><strong>Conseil energetique</strong> : 50-70 % des honoraires via Myenergy</li></ul><p>Ces aides sont cumulables avec les primes communales. L'accompagnement Myenergy est gratuit pour les particuliers.</p>",
+        "faq1q": "Qu'est-ce que le passeport energetique (CPE) ?",
+        "faq1a": "Le CPE est un certificat obligatoire classant les batiments de A (tres performant) a I (passoire thermique). Il evalue le besoin en energie primaire, le besoin en chaleur et les emissions CO2.",
+        "faq2q": "Quel est l'impact du CPE sur les prix immobiliers ?",
+        "faq2a": "Un logement classe A se vend 15-30 % plus cher qu'un comparable en classe G-I. Le 'green premium' est de +3 a +5 % par classe gagnee.",
+        "faq3q": "Quelles sont les echeances EPBD pour le Luxembourg ?",
+        "faq3a": "Classe E minimum en 2030, classe D en 2033, parc zero-emission en 2050. Plus de 40 000 logements luxembourgeois doivent etre renoves.",
+        "faq4q": "Combien coute une renovation energetique au Luxembourg ?",
+        "faq4a": "Une renovation complete (isolation + chauffage + ventilation) coute 30 000 a 80 000 EUR pour une maison, partiellement couvert par le Klimabonus (jusqu'a 50 % du cout).",
+        "faq5q": "Comment beneficier du Klimabonus ?",
+        "faq5a": "Contactez Myenergy pour un conseil gratuit, realisez un audit energetique, puis deposez votre demande de prime aupres du Ministere de l'Environnement apres les travaux."
+      }
     },
     "impact": {
       "title": "Impact de la classe énergie sur la valeur",
@@ -272,7 +294,27 @@
       "sampleSize": "{count} transactions analysées",
       "confidence_high": "Fiabilité haute",
       "confidence_medium": "Fiabilité moyenne",
-      "confidence_low": "Fiabilité faible"
+      "confidence_low": "Fiabilité faible",
+      "seo": {
+        "faqTitle": "Questions frequentes sur l'impact energetique sur les prix",
+        "relatedTitle": "Simulateurs complementaires",
+        "greenPremiumTitle": "Green premium et brown discount : l'impact du CPE sur les prix",
+        "greenPremiumContent": "<p>L'impact de la <strong>performance energetique sur les prix immobiliers</strong> est desormais bien documente au Luxembourg. Les etudes de l'Observatoire de l'Habitat (2023) et de la BCL montrent un ecart croissant entre les logements performants et les passoires thermiques.</p><p>Le <strong>green premium</strong> (prime verte) designe la sur-valeur des logements A-B par rapport a la mediane. Le <strong>brown discount</strong> (decote brune) est la sous-valeur des classes F-I. En 2025, l'ecart total atteint 25-35 % entre un logement classe A et un comparable en classe H-I.</p>",
+        "donneesTitle": "Donnees communales : decotes et primes par classe CPE",
+        "donneesContent": "<p>Notre base de donnees agrege les ecarts de prix par classe CPE a l'echelle communale, basee sur les transactions AED :</p><ul><li><strong>Luxembourg-Ville</strong> : green premium A-B : +12 a +18 %, brown discount G-I : -15 a -25 %</li><li><strong>Communes Sud</strong> : ecarts plus marques, brown discount pouvant atteindre -30 %</li><li><strong>Nord / rural</strong> : ecarts moins prononces (parc plus ancien, references limitees)</li></ul>",
+        "etudesTitle": "Etudes et references scientifiques",
+        "etudesContent": "<p>Plusieurs etudes confirment l'impact croissant du CPE :</p><ul><li><strong>Observatoire de l'Habitat (2023)</strong> : +3 a +5 % par classe gagnee en moyenne nationale</li><li><strong>BCL Working Paper (2022)</strong> : le brown discount s'est accelere depuis 2020 avec la hausse des couts energetiques</li><li><strong>Commission europeenne (2024)</strong> : rapport EPBD montrant des ecarts similaires dans toute l'UE</li></ul>",
+        "strategieTitle": "Strategie : renover avant de vendre ?",
+        "strategieContent": "<p>La question strategique pour les proprietaires est : <strong>faut-il renover pour capturer le green premium, ou vendre en l'etat avec le brown discount ?</strong></p><p>La reponse depend du cout de renovation, des aides disponibles (Klimabonus) et de l'ecart de prix dans la commune. Notre simulateur calcule le ROI potentiel d'une renovation energetique avant vente.</p>",
+        "faq1q": "Qu'est-ce que le green premium immobilier ?",
+        "faq1a": "Le green premium est la sur-valeur d'un logement performant energetiquement (classe A-B) par rapport a la mediane du marche. Au Luxembourg, il atteint +12 a +18 % pour les classes A-B.",
+        "faq2q": "Qu'est-ce que le brown discount ?",
+        "faq2a": "Le brown discount est la decote appliquee aux passoires thermiques (classes F-I). Il atteint -15 a -30 % selon la commune et la classe energetique.",
+        "faq3q": "Les donnees sont-elles fiables ?",
+        "faq3a": "Nos donnees sont basees sur les transactions AED reelles, corroborees par les etudes de l'Observatoire de l'Habitat et de la BCL.",
+        "faq4q": "Le brown discount va-t-il s'aggraver ?",
+        "faq4a": "Oui, avec les echeances EPBD (classe E en 2030, D en 2033) et la hausse des couts energetiques, le brown discount devrait s'accentuer progressivement."
+      }
     },
     "renovation": {
       "title": "ROI Rénovation énergétique",
@@ -345,7 +387,27 @@
       "comparaisonCout": "Coût énergie",
       "comparaisonEcoEnergie": "Énergie économisée / an",
       "comparaisonEcoCO2": "Émissions évitées / an",
-      "comparaisonEcoFacture": "Facture énergie / an"
+      "comparaisonEcoFacture": "Facture énergie / an",
+      "seo": {
+        "faqTitle": "Questions frequentes sur la renovation energetique",
+        "relatedTitle": "Simulateurs complementaires",
+        "roiTitle": "ROI de la renovation energetique au Luxembourg",
+        "roiContent": "<p>Le <strong>retour sur investissement (ROI)</strong> d'une renovation energetique depend du cout des travaux, des aides obtenues (Klimabonus), des economies d'energie realisees et de la plus-value generee sur le bien. Au Luxembourg, le ROI moyen d'une renovation complete (passage de classe G a B) se situe entre <strong>6 et 12 ans</strong>, hors plus-value.</p>",
+        "coutsTitle": "Couts moyens de renovation par poste",
+        "coutsContent": "<p>Les couts de renovation au Luxembourg en 2025 :</p><ul><li><strong>Isolation toiture</strong> : 120-220 EUR/m2 (laine minerale, polyurethane projete)</li><li><strong>Isolation facade</strong> : 150-280 EUR/m2 (ETICS, bardage ventile)</li><li><strong>Fenetres triple vitrage</strong> : 600-1 200 EUR par fenetre</li><li><strong>Pompe a chaleur air-eau</strong> : 12 000-18 000 EUR (hors installation)</li><li><strong>VMC double flux</strong> : 5 000-10 000 EUR</li><li><strong>Photovoltaique</strong> : 1 200-1 800 EUR/kWc installe</li></ul>",
+        "klimabonusTitle": "Klimabonus 2025 : montants et conditions",
+        "klimabonusContent": "<p>Le <strong>Klimabonus renforce</strong> (reglement grand-ducal du 18 decembre 2024) offre :</p><ul><li>Isolation : 30-60 EUR/m2 selon performance atteinte</li><li>PAC : 2 500-8 000 EUR selon type et COP</li><li>PV : 200-500 EUR/kWc</li><li>Audit energetique : subvention 50-70 %</li></ul><p>Les aides sont versees apres travaux sur presentation des factures et de l'attestation de conformite.</p>",
+        "paybackTitle": "Temps de retour : exemples chiffres",
+        "paybackContent": "<p>Exemples pour une maison de 150 m2 :</p><ul><li><strong>Isolation toiture + facade</strong> : cout 45 000 EUR, aide Klimabonus ~12 000 EUR, economie annuelle ~3 500 EUR → payback <strong>9-10 ans</strong></li><li><strong>PAC + VMC</strong> : cout 25 000 EUR, aide ~6 000 EUR, economie ~2 500 EUR/an → payback <strong>7-8 ans</strong></li><li><strong>Renovation complete</strong> (G→B) : cout 75 000 EUR, aides ~22 000 EUR, economie ~6 000 EUR/an → payback <strong>8-9 ans</strong></li></ul><p>En integrant la plus-value generee (green premium de +15-20 %), le retour effectif peut descendre sous les 5 ans.</p>",
+        "faq1q": "Combien coute une renovation energetique complete ?",
+        "faq1a": "Pour une maison de 150 m2 passant de classe G a B : environ 60 000-80 000 EUR avant aides, 40 000-55 000 EUR apres Klimabonus et aides communales.",
+        "faq2q": "Quel est le temps de retour moyen ?",
+        "faq2a": "6 a 12 ans hors plus-value immobiliere. En integrant le green premium, le retour effectif peut descendre sous 5 ans.",
+        "faq3q": "Les aides couvrent-elles tout le cout ?",
+        "faq3a": "Non, le Klimabonus couvre environ 25-40 % du cout des travaux. Les aides communales supplementaires peuvent porter le taux a 40-50 %.",
+        "faq4q": "Faut-il faire un audit energetique avant les travaux ?",
+        "faq4a": "Fortement recommande. L'audit identifie les postes prioritaires et optimise le ROI. Il est subventionne a 50-70 % via Myenergy."
+      }
     },
     "communaute": {
       "title": "Simulateur Communauté d'énergie",
@@ -411,7 +473,27 @@
       "pvgisFallback": "PVGIS indisponible — estimation 950 kWh/kWc",
       "estimation": "Estimation",
       "prodMensDescPvgis": "Données mensuelles PVGIS pour {commune} (irradiance satellite, pertes 14%)",
-      "paramProductionPvgis": "Production PV réelle PVGIS : {val} kWh/kWc/an ({commune}, données satellite EU)"
+      "paramProductionPvgis": "Production PV réelle PVGIS : {val} kWh/kWc/an ({commune}, données satellite EU)",
+      "seo": {
+        "faqTitle": "Questions frequentes sur les communautes d'energie",
+        "relatedTitle": "Simulateurs complementaires",
+        "conceptTitle": "Les communautes d'energie au Luxembourg",
+        "conceptContent": "<p>Les <strong>communautes d'energie renouvelable (CER)</strong> permettent a des citoyens, PME et collectivites locales de produire, partager et consommer de l'electricite renouvelable collectivement. Au Luxembourg, ce cadre est defini par la <strong>loi du 3 fevrier 2021</strong> transposant les directives europeennes RED II et IEM.</p><p>Le principe : plusieurs participants installent ou partagent des installations de production (typiquement photovoltaiques) et se repartissent l'electricite produite via le reseau public, selon des cles de repartition definies contractuellement.</p>",
+        "autoconsommationTitle": "Autoconsommation collective et foisonnement",
+        "autoconsommationContent": "<p>L'<strong>autoconsommation collective</strong> repose sur le principe de foisonnement : les profils de consommation diversifies des participants (menages, bureaux, commerces) permettent d'optimiser l'utilisation de la production solaire. Le <strong>taux d'autoconsommation</strong> passe de 30-40 % pour un menage individuel a 50-70 % dans une communaute de 10-20 membres.</p>",
+        "loiTitle": "Cadre legal : loi du 3 fevrier 2021",
+        "loiContent": "<p>La loi luxembourgeoise definit deux formes :</p><ul><li><strong>Communaute d'energie renouvelable (CER)</strong> : ouverte a tous, basee sur la proximite geographique</li><li><strong>Communaute d'energie citoyenne (CEC)</strong> : plus large, peut inclure des activites de fourniture et stockage</li></ul><p>Les conditions : les membres doivent etre raccordes au meme reseau de distribution, la gouvernance doit etre democratique, et l'objectif principal ne peut pas etre le profit financier.</p>",
+        "economiesTitle": "Economies et rentabilite d'une communaute",
+        "economiesContent": "<p>Les economies d'une communaute d'energie :</p><ul><li><strong>Autoconsommation</strong> : economie de 15-25 c/kWh sur l'electricite autoconsommee vs. tarif fourniture</li><li><strong>Surplus injecte</strong> : revenu de 8-12 c/kWh via tarif de rachat</li><li><strong>Economie globale</strong> : 200-600 EUR/an par menage participant</li></ul>",
+        "faq1q": "Qu'est-ce qu'une communaute d'energie ?",
+        "faq1a": "Un groupement de citoyens, PME et/ou collectivites qui produisent et partagent de l'electricite renouvelable collectivement, cadre par la loi du 3 fevrier 2021.",
+        "faq2q": "Combien peut-on economiser ?",
+        "faq2a": "200 a 600 EUR/an par menage, selon la taille de la communaute et la production PV disponible.",
+        "faq3q": "Faut-il habiter pres des panneaux ?",
+        "faq3a": "Les membres doivent etre raccordes au meme reseau de distribution, mais pas necessairement au meme batiment.",
+        "faq4q": "Comment creer une communaute d'energie ?",
+        "faq4a": "Contactez Myenergy ou un operateur agree, constituez un groupe de participants, definissez les regles de partage, et declarez la CER aupres du regulateur ILR."
+      }
     },
     "epbd": {
       "title": "Directive EPBD — Chronologie et risque de stranding",
@@ -500,6 +582,28 @@
         "target26": "Objectif -26 %",
         "fossilEnd": "Fin chaudières fossiles",
         "zeroEmission": "Parc zéro émission"
+      },
+      "seo": {
+        "faqTitle": "Questions frequentes sur la directive EPBD",
+        "relatedTitle": "Simulateurs complementaires",
+        "directiveTitle": "La directive EPBD recast : enjeux pour le Luxembourg",
+        "directiveContent": "<p>La <strong>directive europeenne sur la performance energetique des batiments (EPBD recast - 2024/1275)</strong> adoptee en avril 2024 fixe des objectifs contraignants pour la renovation du parc immobilier europeen. Pour le Luxembourg, elle implique la renovation de plus de <strong>40 000 logements</strong> classes F a I d'ici 2033.</p>",
+        "echeancesTitle": "Echeances et obligations pour le Luxembourg",
+        "echeancesContent": "<p>Les echeances cles :</p><ul><li><strong>2030</strong> : tous les batiments residentiels doivent atteindre au minimum la classe E</li><li><strong>2033</strong> : classe D minimum</li><li><strong>2040</strong> : trajectoire vers la neutralite carbone</li><li><strong>2050</strong> : parc immobilier zero-emission</li></ul><p>Le Luxembourg doit transposer ces obligations en droit national d'ici 2026, en definissant les exceptions, les sanctions et les mecanismes de soutien financier.</p>",
+        "strandingTitle": "Risque de stranding : les actifs bloquas",
+        "strandingContent": "<p>Le <strong>risque de stranding</strong> (actif bloque) concerne les logements qui ne pourront pas etre loues ou vendus sans renovation prealable. Avec les echeances EPBD, les logements en classe F-I representent un risque croissant de perte de valeur (brown discount amplifie) et de restriction d'usage.</p><p>Les proprietaires-bailleurs sont particulierement concernes : un logement ne respectant pas le seuil minimum pourrait ne plus etre legalement louable a partir de 2030-2033.</p>",
+        "financementTitle": "Financement et accompagnement",
+        "financementContent": "<p>Mecanismes de financement disponibles :</p><ul><li><strong>Klimabonus</strong> : aides directes de 25-40 % du cout</li><li><strong>Prets verts</strong> : taux preferentiels aupres des banques luxembourgeoises pour la renovation energetique</li><li><strong>Contrat de performance energetique (CPE)</strong> : le prestataire finance et garantit les economies</li><li><strong>Fonds communaux</strong> : aides supplementaires variables selon la commune</li></ul>",
+        "faq1q": "Qu'est-ce que la directive EPBD ?",
+        "faq1a": "La directive EPBD (Energy Performance of Buildings Directive) est la legislation europeenne fixant les normes minimales de performance energetique des batiments. La version recast de 2024 impose des objectifs contraignants.",
+        "faq2q": "Mon logement classe G sera-t-il interdit a la location ?",
+        "faq2a": "Les echeances EPBD prevoient une classe E minimum en 2030 et D en 2033 pour les batiments residentiels. Les modalites exactes seront definies par la transposition luxembourgeoise.",
+        "faq3q": "Qu'est-ce que le stranding risk ?",
+        "faq3a": "Le risque qu'un bien perde sa valeur ou devienne non conforme aux normes, le rendant difficile a vendre ou louer sans renovation prealable.",
+        "faq4q": "Comment financer la renovation ?",
+        "faq4a": "Via le Klimabonus (25-40%), les prets verts bancaires, les aides communales et eventuellement les contrats de performance energetique.",
+        "faq5q": "Quand le Luxembourg doit-il transposer l'EPBD ?",
+        "faq5a": "La transposition en droit national doit intervenir d'ici 2026, avec definition des exceptions et des mecanismes de soutien."
       }
     },
     "estimateurCpe": {
@@ -563,7 +667,27 @@
       "consoTotale": "Consommation totale annuelle",
       "coutEstime": "Coût énergétique estimé",
       "emissionsCO2": "Émissions CO₂ estimées",
-      "prixKwh": "Base : 0,22 €/kWh (mix luxembourgeois 2026)"
+      "prixKwh": "Base : 0,22 €/kWh (mix luxembourgeois 2026)",
+      "seo": {
+        "faqTitle": "Questions frequentes sur l'estimation du CPE",
+        "relatedTitle": "Simulateurs complementaires",
+        "estimerTitle": "Estimer sa classe energetique sans audit formel",
+        "estimerContent": "<p>Notre <strong>estimateur de classe energetique</strong> permet d'obtenir une estimation indicative de la classe CPE de votre logement sans realiser un audit formel. L'outil s'appuie sur les caracteristiques principales du batiment (annee de construction, type de chauffage, isolation, ventilation) pour approcher la classe probable.</p><p>Cette estimation est utile pour anticiper une vente ou location, evaluer le potentiel de renovation, ou simplement prendre conscience de la performance energetique de son logement.</p>",
+        "criteresTitle": "Criteres pris en compte par l'estimateur",
+        "criteresContent": "<p>L'estimation repose sur les criteres suivants :</p><ul><li><strong>Annee de construction</strong> : determinant majeur (normes thermiques de chaque epoque)</li><li><strong>Type de batiment</strong> : maison individuelle, jumelee, appartement (surface deperditive differente)</li><li><strong>Systeme de chauffage</strong> : fioul, gaz, PAC, pellets (rendement et facteur d'energie primaire)</li><li><strong>Niveau d'isolation</strong> : non isole, partiellement, completement (toiture, murs, sol)</li><li><strong>Type de vitrage</strong> : simple, double, triple (pertes par les menuiseries)</li><li><strong>Ventilation</strong> : naturelle, VMC simple flux, VMC double flux avec recuperation</li></ul>",
+        "fiabiliteTitle": "Fiabilite et limites de l'estimation",
+        "fiabiliteContent": "<p>Notre estimateur atteint une precision de <strong>±1 classe</strong> dans environ 75 % des cas, basee sur une calibration avec des CPE reels. Les limites :</p><ul><li>L'outil ne peut pas detecter les ponts thermiques specifiques</li><li>Les renovations partielles non declarees reduisent la precision</li><li>Les batiments atypiques (lofts, conversions) sont moins bien modelises</li></ul><p><strong>Important</strong> : cette estimation ne remplace pas un CPE officiel realise par un expert agree Myenergy, obligatoire pour toute vente ou mise en location.</p>",
+        "apresEstimationTitle": "Que faire apres l'estimation ?",
+        "apresEstimationContent": "<p>Selon le resultat :</p><ul><li><strong>Classe A-C</strong> : votre logement est performant. Valorisez le green premium lors de la vente ou location</li><li><strong>Classe D-E</strong> : correct mais ameliorable. Des travaux cibles (chauffage, fenetres) peuvent faire gagner 1-2 classes</li><li><strong>Classe F-I</strong> : renovation recommandee, surtout avec les echeances EPBD. Contactez Myenergy pour un audit gratuit et un plan de renovation</li></ul>",
+        "faq1q": "L'estimation remplace-t-elle un CPE officiel ?",
+        "faq1a": "Non, c'est une estimation indicative. Le CPE officiel, realise par un expert agree Myenergy, est obligatoire pour toute vente ou mise en location.",
+        "faq2q": "Quelle est la precision de l'estimateur ?",
+        "faq2a": "Environ ±1 classe dans 75 % des cas. La precision est meilleure pour les batiments standards et reduite pour les biens atypiques.",
+        "faq3q": "Quels criteres influencent le plus la classe ?",
+        "faq3a": "L'annee de construction et le systeme de chauffage sont les deux facteurs les plus determinants, suivis par le niveau d'isolation de l'enveloppe.",
+        "faq4q": "Mon logement est ancien mais je l'ai renove — l'outil en tient-il compte ?",
+        "faq4a": "Oui, indiquez le niveau d'isolation et le type de chauffage actuels. L'annee de construction reste un indicateur mais les renovations sont prises en compte."
+      }
     },
     "lenoz": {
       "title": "Scoring LENOZ simplifié",
@@ -639,7 +763,29 @@
       "optDifficile": "Difficile",
       "optAccessible": "Accessible",
       "optDedieExtensible": "Dédié + extensible",
-      "downloadPdf": "Télécharger PDF"
+      "downloadPdf": "Télécharger PDF",
+      "seo": {
+        "faqTitle": "Questions frequentes sur la certification LENOZ",
+        "relatedTitle": "Simulateurs complementaires",
+        "certificationTitle": "La certification LENOZ au Luxembourg",
+        "certificationContent": "<p>La certification <strong>LENOZ (Letzebuerger Nohaltegkeets-Zertifizeierung fir Wunngebaier)</strong> est le label de durabilite luxembourgeois pour les batiments residentiels neufs. Lancee en 2017 par le reglement grand-ducal du 23 mars 2017, elle evalue la performance globale d'un batiment selon <strong>6 categories</strong> et 60 criteres.</p><p>La certification LENOZ va au-dela de la simple performance energetique : elle integre l'implantation du batiment, la societe et l'economie, l'ecologie, les materiaux et l'aspect fonctionnel.</p>",
+        "categoriesTitle": "Les 6 categories d'evaluation LENOZ",
+        "categoriesContent": "<p>La grille LENOZ s'articule autour de :</p><ul><li><strong>A - Implantation du batiment</strong> : mobilite, accessibilite, environnement immediat (max 12 pts)</li><li><strong>B - Societe et economie</strong> : accessibilite universelle, mixite sociale, cout de cycle de vie (max 12 pts)</li><li><strong>C - Energie</strong> : performance energetique, energies renouvelables, etancheite (max 12 pts)</li><li><strong>D - Ecologie</strong> : gestion de l'eau, biodiversite, permeabilite du sol (max 9 pts)</li><li><strong>E - Materiaux</strong> : durabilite, toxicite, recyclabilite, analyse cycle de vie (max 9 pts)</li><li><strong>F - Fonctionnalite</strong> : confort acoustique, eclairage naturel, qualite de l'air interieur (max 6 pts)</li></ul>",
+        "notationTitle": "Systeme de notation et niveaux",
+        "notationContent": "<p>Le systeme LENOZ attribue un score de 0 a 60 points, traduit en niveaux :</p><ul><li><strong>Platine</strong> : >= 48 points (80 %+) — excellence en durabilite</li><li><strong>Or</strong> : >= 36 points (60 %+) — tres bonne performance</li><li><strong>Argent</strong> : >= 24 points (40 %+) — bonne performance</li><li><strong>Bronze</strong> : >= 12 points (20 %+) — performance correcte</li></ul><p>La certification LENOZ est <strong>obligatoire</strong> pour tout batiment residentiel neuf beneficiant de la TVA a 3 % (taux super-reduit) depuis 2017.</p>",
+        "avantagesTitle": "Avantages de la certification LENOZ",
+        "avantagesContent": "<p>Les avantages d'un batiment certifie LENOZ :</p><ul><li><strong>Prerequis TVA 3 %</strong> : la certification est obligatoire pour beneficier du taux super-reduit</li><li><strong>Valorisation a la revente</strong> : un score LENOZ eleve est un argument de vente aupres des acheteurs sensibles a la durabilite</li><li><strong>Qualite de vie</strong> : les criteres LENOZ garantissent un niveau de confort superieur (acoustique, air, lumiere)</li><li><strong>Valeur patrimoniale</strong> : les batiments durables resistent mieux a l'obsolescence et au brown discount</li></ul>",
+        "faq1q": "Qu'est-ce que la certification LENOZ ?",
+        "faq1a": "Le label de durabilite luxembourgeois pour les batiments residentiels neufs, evaluant 60 criteres dans 6 categories (implantation, societe/economie, energie, ecologie, materiaux, fonctionnalite).",
+        "faq2q": "LENOZ est-il obligatoire ?",
+        "faq2a": "Oui, pour tout batiment residentiel neuf souhaitant beneficier de la TVA a 3 % (taux super-reduit). Sans LENOZ, le taux normal de 17 % s'applique.",
+        "faq3q": "Combien coute la certification ?",
+        "faq3a": "Les honoraires d'un certificateur LENOZ agree varient de 2 000 a 5 000 EUR selon la complexite du projet. Ce cout est generalement integre aux honoraires de l'architecte.",
+        "faq4q": "Quelle est la difference entre LENOZ et le CPE ?",
+        "faq4a": "Le CPE mesure uniquement la performance energetique (besoins en chaleur et energie primaire). LENOZ est plus global : il integre l'ecologie, les materiaux, la fonctionnalite et l'implantation.",
+        "faq5q": "LENOZ s'applique-t-il aux renovations ?",
+        "faq5a": "Non, LENOZ s'applique uniquement aux constructions neuves. Pour les renovations, le CPE reste la reference. Une extension de LENOZ aux renovations est en discussion."
+      }
     },
     "portfolio": {
       "title": "Portfolio énergétique",
@@ -802,7 +948,29 @@
     "chartTitle": "Évolution du prix/m² — {commune}",
     "chartSource": "Estimation communale basée sur la tendance nationale — Source : Observatoire de l'Habitat",
     "tooltipPrixM2": "Prix/m²",
-    "tooltipAnnee": "Année {annee}"
+    "tooltipAnnee": "Année {annee}",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur l'estimation immobilière",
+      "relatedTitle": "Outils complémentaires",
+      "contextTitle": "Le marché immobilier luxembourgeois en 2025-2026",
+      "contextContent": "<p>Le marché immobilier du Grand-Duché de Luxembourg traverse une phase de <strong>correction post-pic</strong> amorcée fin 2022, après plus d'une décennie de hausse quasi ininterrompue. Selon l'Observatoire de l'Habitat et le STATEC, les prix résidentiels ont reculé d'environ 14 % entre le sommet du T3-2022 et le T4-2024, avant de se stabiliser au premier semestre 2025.</p><p>Cette correction s'explique principalement par le <strong>resserrement monétaire de la BCE</strong> (taux directeur passé de 0 % à 4,50 % en 18 mois) qui a réduit la capacité d'emprunt des ménages. Néanmoins, les fondamentaux structurels restent solides : croissance démographique de +1,5 %/an, 12 000 résidents supplémentaires en 2024, un marché de l'emploi dynamique (taux de chômage ~5,6 %) et une offre structurellement déficitaire estimée à 3 000 logements par an par la Fondation IDEA.</p><p>Le <strong>Plan sectoriel Logement (PSL)</strong> et la réforme du Pacte Logement 2.0 visent à accélérer la construction, mais les effets restent lents. La reprise des transactions observée depuis début 2025 (+18 % en volume au T1-2025 vs T1-2024) confirme que le plancher est probablement atteint dans de nombreuses communes.</p>",
+      "methodeTitle": "Méthodes d'estimation : hédonique, comparables et DCF",
+      "methodeContent": "<p>Au Luxembourg, trois grandes familles de méthodes coexistent pour estimer la valeur d'un bien immobilier :</p><ul><li><strong>La méthode hédonique</strong> : utilisée par le STATEC et l'Observatoire de l'Habitat, elle décompose le prix en fonction de caractéristiques objectives (surface, localisation, âge, performance énergétique, étage, parking, etc.) via un modèle de régression. Notre outil s'appuie sur les coefficients publiés par l'Observatoire et actualisés trimestriellement.</li><li><strong>La méthode des comparables</strong> : classique en expertise immobilière (norme EVS/TEGoVA), elle consiste à ajuster les prix de transactions récentes sur des biens similaires. Les actes notariés enregistrés à l'Administration de l'Enregistrement et des Domaines (AED) constituent la source de référence.</li><li><strong>La méthode DCF (Discounted Cash Flow)</strong> : principalement utilisée pour l'immobilier de rapport, elle actualise les flux de trésorerie nets futurs. Les investisseurs institutionnels luxembourgeois (fonds SIF/RAIF sous supervision CSSF) l'emploient systématiquement pour les due diligences.</li></ul><p>Notre estimateur combine la méthode hédonique (pour le prix théorique) avec les données de comparables récentes (pour l'ancrage marché), offrant ainsi une fourchette de valeur fiable.</p>",
+      "facteursTitle": "Facteurs influençant la valeur d'un bien au Luxembourg",
+      "facteursContent": "<p>De nombreux facteurs affectent la valeur immobilière au Grand-Duché, avec des pondérations variables selon le type de bien :</p><ul><li><strong>Localisation et commune</strong> : c'est le premier facteur. Luxembourg-Ville (Belair, Limpertsberg, Kirchberg) affiche des prix moyens au m² de 10 000-14 000 €, contre 5 000-7 000 € dans le Nord (Clervaux, Wiltz). La proximité des transports (tram, gare CFL), des écoles internationales et des zones d'emploi (Kirchberg, Cloche d'Or) crée des primes significatives.</li><li><strong>Surface et agencement</strong> : la surface habitable nette (au sens du règlement grand-ducal du 25 février 1979) reste le critère quantitatif dominant. Le prix au m² diminue avec la taille (effet de dégressivité).</li><li><strong>Performance énergétique (CPE)</strong> : depuis la réforme du passeport énergétique en 2010, la classe énergétique influe de manière mesurable sur les prix. Un logement classe A se négocie 15-30 % plus cher qu'un logement classe G-I à surface et localisation comparables, selon les études de l'Observatoire de l'Habitat.</li><li><strong>État et rénovations</strong> : cuisine équipée, salle de bains récente, triple vitrage, VMC double flux et PAC sont des éléments de valorisation. À l'inverse, une toiture en amiante-ciment ou une chaudière fioul ancienne génèrent des décotes.</li><li><strong>Étage et orientation</strong> : pour les appartements, les étages supérieurs avec vue dégagée et orientation sud/sud-ouest bénéficient de primes de 3 à 8 % par rapport au rez-de-chaussée.</li></ul>",
+      "exempleTitle": "Exemple concret : estimation d'un appartement à Esch-sur-Alzette",
+      "exempleContent": "<p>Prenons un appartement de <strong>85 m² à Esch-sur-Alzette</strong>, quartier Belvaux, construit en 2012, classe énergétique C, avec 1 parking intérieur et 1 cave :</p><ul><li>Prix moyen m² commune (T1-2025) : ~6 200 € (source : Observatoire de l'Habitat)</li><li>Ajustement classe C (référence D) : +5 % → 6 510 €/m²</li><li>Ajustement âge (2012 vs médiane 2005) : +3 % → 6 705 €/m²</li><li>Parking intérieur : +25 000 € (forfait marché)</li><li>Estimation brute : 85 × 6 705 + 25 000 = <strong>594 925 €</strong></li></ul><p>Notre outil affine cette estimation avec les coefficients hédoniques complets et les derniers comparables enregistrés, donnant une fourchette indicative que vous pourrez confronter à un avis d'expert agréé par le Ministère du Logement.</p><p><strong>Rappel</strong> : une estimation en ligne ne remplace pas une expertise certifiée (rapport REV/TEGoVA) requise notamment pour les successions, partages judiciaires ou garanties hypothécaires auprès des banques luxembourgeoises.</p>",
+      "faq1q": "Quelle est la précision d'une estimation immobilière en ligne ?",
+      "faq1a": "Les estimateurs en ligne atteignent typiquement une précision de ±10-15 % par rapport au prix de vente final. Notre outil, calibré sur les données de l'Observatoire de l'Habitat, vise une fourchette de ±10 %. Pour une estimation certifiée (succession, hypothèque), faites appel à un expert agréé.",
+      "faq2q": "Comment le CPE influence-t-il le prix au Luxembourg ?",
+      "faq2a": "Selon les études de l'Observatoire de l'Habitat (2023), un gain d'une classe énergétique représente en moyenne +3 à +5 % sur le prix de vente. La prime est plus marquée pour les maisons (coût de chauffage plus élevé) que pour les appartements. Les classes A-B bénéficient d'un 'green premium' tandis que les classes G-I subissent un 'brown discount' croissant.",
+      "faq3q": "Quelles données utilise l'outil d'estimation ?",
+      "faq3a": "L'outil s'appuie sur les prix médians par commune publiés par l'Observatoire de l'Habitat (source AED), les coefficients hédoniques du STATEC, et les indices de prix immobiliers trimestriels. Les données sont actualisées chaque trimestre.",
+      "faq4q": "Faut-il estimer avant de vendre au Luxembourg ?",
+      "faq4a": "Oui, une estimation préalable est recommandée pour fixer un prix de mise en vente réaliste. Un prix trop élevé allonge le délai de vente (médiane 90-120 jours au Luxembourg) et peut mener à des négociations plus agressives. Un bien correctement positionné se vend en moyenne 45-60 jours.",
+      "faq5q": "Quelle différence entre valeur vénale et prix de vente ?",
+      "faq5a": "La valeur vénale est le prix théorique qu'un acheteur informé paierait dans des conditions normales de marché (définition EVS). Le prix de vente réel peut s'en écarter selon l'urgence du vendeur, la qualité de la commercialisation et les conditions de financement de l'acheteur. Au Luxembourg, l'écart moyen est de ±5 % en marché équilibré."
+    }
   },
   "fraisAcquisition": {
     "title": "Simulateur de Frais d'Acquisition",
@@ -859,7 +1027,29 @@
     "infoNotaireText": "Calculés selon un barème dégressif réglementé (4% jusqu'à 10 000 € puis dégressif).",
     "sauvegarder": "Sauvegarder",
     "evaluationSauvegardee": "Évaluation sauvegardée !",
-    "savePrefix": "Frais"
+    "savePrefix": "Frais",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur les frais d'acquisition",
+      "relatedTitle": "Outils complémentaires",
+      "comprendreTitle": "Comprendre les frais d'acquisition immobilière au Luxembourg",
+      "comprendreContent": "<p>Lors de l'achat d'un bien immobilier au Grand-Duché de Luxembourg, l'acquéreur doit s'acquitter de plusieurs catégories de frais en sus du prix d'achat. Ces <strong>frais d'acquisition</strong>, souvent appelés à tort « frais de notaire », représentent entre 7 % et 10 % du prix du bien pour un logement ancien, et peuvent descendre à 3-4 % pour un logement neuf en VEFA.</p><p>Les principaux postes sont :</p><ul><li><strong>Droits d'enregistrement</strong> : 6 % du prix d'achat (ancien) ou de la part terrain (VEFA), perçus par l'Administration de l'Enregistrement et des Domaines (AED) conformément à la loi modifiée du 22 frimaire an VII.</li><li><strong>Droit de transcription</strong> : 1 % du prix, destiné à la publicité foncière.</li><li><strong>Émoluments du notaire</strong> : calculés selon un barème dégressif fixé par le règlement grand-ducal du 24 septembre 1987, modifié en 2015.</li><li><strong>Frais d'inscription hypothécaire</strong> : 0,05 % du montant du prêt pour l'inscription, plus les émoluments notariaux sur l'acte hypothécaire.</li></ul>",
+      "bellegenAktTitle": "Le crédit Bëllegen Akt : réduction fiscale jusqu'à 40 000 €",
+      "bellegenAktContent": "<p>Le <strong>Bëllegen Akt</strong> (acte à frais réduits) est un avantage fiscal majeur accordé aux acquéreurs d'un logement destiné à la <strong>résidence principale</strong>. Introduit par la loi du 30 juillet 2002 et modifié par la loi du 21 décembre 2012, il permet un abattement sur les droits d'enregistrement et de transcription.</p><p>Concrètement, chaque acquéreur bénéficie d'un crédit de <strong>20 000 €</strong> sur les droits. Pour un couple achetant ensemble, le crédit est doublé à <strong>40 000 €</strong>. Ce crédit est utilisable une seule fois dans la vie de chaque personne (sauf en cas de divorce avec partage judiciaire, selon la jurisprudence administrative).</p><p>Conditions d'éligibilité :</p><ul><li>Le bien doit servir de résidence principale de l'acquéreur</li><li>L'occupation effective doit intervenir dans les 2 ans suivant l'acte</li><li>L'acquéreur ne doit pas avoir déjà bénéficié du crédit (ou avoir remboursé le crédit précédent)</li><li>Le bien doit être situé au Luxembourg</li></ul><p>En pratique, le Bëllegen Akt réduit les droits d'enregistrement de 6 % + 1 % = 7 % à un taux effectif nettement inférieur pour les premiers ~285 000 € d'un achat par un couple (40 000 / 0,07 × 2 acquéreurs).</p>",
+      "vefaTvaTitle": "VEFA et TVA : le régime fiscal du neuf",
+      "vefaTvaContent": "<p>L'achat en <strong>Vente en l'État Futur d'Achèvement (VEFA)</strong> bénéficie d'un régime fiscal spécifique au Luxembourg. La partie construction est soumise à la <strong>TVA</strong> (et non aux droits d'enregistrement), tandis que la partie terrain reste soumise aux droits de 7 %.</p><p>Taux de TVA applicables :</p><ul><li><strong>3 % (taux super-réduit)</strong> : pour la résidence principale de l'acquéreur, sous conditions. Ce taux s'applique à la partie construction dans la limite d'un plafond de 50 000 € de TVA économisée (soit ~294 000 € HT de construction).</li><li><strong>17 % (taux normal)</strong> : pour les investissements locatifs ou au-delà du plafond.</li></ul><p>Le taux de 3 % a été rétabli au 1er janvier 2024 après avoir été temporairement réduit à 0 % en 2023 dans le cadre du plan de relance logement. L'avantage fiscal maximal lié à la TVA est de <strong>50 000 €</strong> par logement (art. 5 bis de la loi TVA).</p>",
+      "exempleTitle": "Exemple chiffré : achat ancien à 750 000 € par un couple",
+      "exempleContent": "<p>Prenons un cas typique : un couple achète un appartement ancien à <strong>750 000 €</strong> pour en faire sa résidence principale, avec un prêt hypothécaire de 600 000 € :</p><ul><li>Droits d'enregistrement (6 %) : 45 000 €</li><li>Droit de transcription (1 %) : 7 500 €</li><li>Total droits bruts : 52 500 €</li><li>Crédit Bëllegen Akt (2 × 20 000 €) : - 40 000 €</li><li><strong>Droits nets : 12 500 €</strong></li><li>Émoluments notaire (barème dégressif) : ~6 800 €</li><li>Frais hypothèque (inscription + acte) : ~2 500 €</li><li><strong>Total frais d'acquisition : ~21 800 € (2,9 % du prix)</strong></li></ul><p>Sans le Bëllegen Akt, les frais totaux auraient atteint ~61 800 € (8,2 % du prix). L'économie réalisée est donc de 40 000 €, soit une réduction de 65 % des frais.</p>",
+      "faq1q": "Combien coûtent les frais de notaire au Luxembourg ?",
+      "faq1a": "Les émoluments du notaire (hors droits d'enregistrement) représentent environ 0,8 % à 1,2 % du prix d'achat pour un bien à 750 000 €. Les frais totaux d'acquisition (droits + notaire + hypothèque) varient de 3 % (neuf avec Bëllegen Akt) à 10 % (ancien sans crédit fiscal).",
+      "faq2q": "Le Bëllegen Akt est-il cumulable avec le taux réduit de TVA ?",
+      "faq2a": "Oui, en VEFA le crédit Bëllegen Akt s'applique aux droits d'enregistrement sur la part terrain, tandis que le taux réduit de TVA (3 %) s'applique à la part construction. Les deux avantages sont cumulables pour l'acquéreur occupant.",
+      "faq3q": "Comment sont calculés les droits d'enregistrement en VEFA ?",
+      "faq3a": "En VEFA, les droits d'enregistrement (6 % + 1 %) s'appliquent uniquement sur la part terrain déclarée dans l'acte. La part construction est soumise à la TVA (3 % ou 17 %). La répartition terrain/construction doit figurer dans le contrat de réservation et l'acte de vente.",
+      "faq4q": "Peut-on récupérer le Bëllegen Akt si on revend ?",
+      "faq4a": "Non, le crédit Bëllegen Akt est utilisable une seule fois par personne. Si vous revendez et rachetez, vous ne pouvez pas en bénéficier une seconde fois, sauf en cas de divorce avec partage judiciaire. Il est donc important de bien choisir son premier achat résidentiel.",
+      "faq5q": "Quand les frais d'acquisition sont-ils payés ?",
+      "faq5a": "Les frais sont payés lors de la signature de l'acte authentique chez le notaire. Celui-ci collecte l'ensemble des droits, taxes et émoluments et les reverse aux administrations concernées. Le paiement intervient en général 2-3 mois après le compromis de vente."
+    }
   },
   "plusValues": {
     "title": "Calculateur de Plus-Values Immobilières",
@@ -926,7 +1116,29 @@
     "valeurDonation": "Valeur déclarée dans l'acte",
     "anneeDonation": "Année de la donation",
     "successionHint": "Valeur retenue dans la déclaration de succession",
-    "donationHint": "Valeur retenue dans l'acte notarié de donation"
+    "donationHint": "Valeur retenue dans l'acte notarié de donation",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur les plus-values immobilières",
+      "relatedTitle": "Outils complémentaires",
+      "fiscaliteTitle": "Fiscalité des plus-values immobilières au Luxembourg",
+      "fiscaliteContent": "<p>Au Luxembourg, la <strong>plus-value immobilière</strong> réalisée lors de la vente d'un bien est soumise à l'impôt sur le revenu. Le régime fiscal diffère selon la durée de détention du bien, conformément à la <strong>loi modifiée du 4 décembre 1967</strong> concernant l'impôt sur le revenu (LIR).</p><p>Deux régimes coexistent :</p><ul><li><strong>Bénéfice de spéculation (art. 99bis LIR)</strong> : vente dans les 2 ans suivant l'acquisition — la plus-value est imposée comme un revenu ordinaire au taux marginal (jusqu'à 42 % + contribution au fonds pour l'emploi de 7-9 %)</li><li><strong>Bénéfice de cession (art. 99ter LIR)</strong> : vente après 2 ans — la plus-value est imposée au demi-taux global (le taux effectif moyen de l'impôt appliqué à la moitié de la plus-value), ce qui réduit significativement la charge fiscale</li></ul><p>Le prix d'acquisition est réévalué à l'aide des coefficients de réévaluation publiés par l'Administration des Contributions Directes (ACD), basés sur l'évolution de l'indice des prix à la consommation.</p>",
+      "speculationTitle": "Le bénéfice de spéculation : vente dans les 2 ans",
+      "speculationContent": "<p>Lorsqu'un bien immobilier est vendu <strong>dans les 2 ans</strong> suivant son acquisition, la plus-value constitue un <strong>bénéfice de spéculation</strong> au sens de l'article 99bis LIR. Ce bénéfice est intégralement ajouté aux autres revenus du contribuable et imposé au taux marginal progressif.</p><p>Pour un contribuable dans la tranche supérieure (classe d'impôt 1, revenu imposable > 200 004 €), le taux marginal est de <strong>42 % + 7 % contribution fonds emploi = 45,78 %</strong> en 2025.</p><p>Aucun abattement forfaitaire ne s'applique au bénéfice de spéculation. Seuls les frais réels d'acquisition (notaire, droits) et de vente (agent immobilier, diagnostics) sont déductibles.</p>",
+      "cessionTitle": "Le bénéfice de cession : vente après 2 ans",
+      "cessionContent": "<p>La plus-value réalisée lors d'une cession <strong>après plus de 2 ans</strong> de détention bénéficie du régime favorable de l'article 99ter LIR :</p><ul><li>Le prix d'acquisition est <strong>réévalué</strong> par les coefficients ACD (art. 102 LIR)</li><li>Un <strong>abattement de 50 000 €</strong> est accordé tous les 10 ans (100 000 € pour un couple imposé collectivement)</li><li>La plus-value nette est imposée au <strong>demi-taux global</strong>, soit environ la moitié du taux marginal effectif</li></ul><p>La réévaluation du prix d'acquisition est importante car elle neutralise la composante inflationniste de la hausse : seule la plus-value « réelle » est imposée.</p>",
+      "exonerationsTitle": "Exonérations et cas particuliers",
+      "exonerationsContent": "<p>Plusieurs situations permettent une <strong>exonération totale ou partielle</strong> de la plus-value :</p><ul><li><strong>Résidence principale</strong> : la vente de la résidence principale est exonérée si le propriétaire y a résidé de manière continue depuis l'acquisition ou pendant au moins 5 ans avant la vente (art. 102bis(2) LIR)</li><li><strong>Succession / donation</strong> : en cas de succession, le prix d'acquisition retenu est la valeur vénale au jour du décès (base step-up). En cas de donation, le prix d'acquisition du donateur est repris</li><li><strong>Expropriation</strong> : l'indemnité d'expropriation pour cause d'utilité publique est exonérée sous conditions</li><li><strong>Échange d'immeubles</strong> : le sursis d'imposition est possible si le remploi intervient dans un délai déterminé</li></ul>",
+      "faq1q": "Comment est calculée la plus-value immobilière au Luxembourg ?",
+      "faq1a": "Plus-value = Prix de vente - (Prix d'acquisition réévalué + frais d'acquisition + travaux réévalués). Le prix d'acquisition est ajusté par les coefficients ACD pour tenir compte de l'inflation. Un abattement de 50 000 € est possible tous les 10 ans pour les cessions (> 2 ans).",
+      "faq2q": "Quel est le taux d'imposition des plus-values ?",
+      "faq2a": "Spéculation (< 2 ans) : taux marginal complet (jusqu'à 45,78 %). Cession (> 2 ans) : demi-taux global, soit environ 20-23 % pour les contribuables dans les tranches supérieures. La résidence principale est exonérée sous conditions.",
+      "faq3q": "Comment fonctionne l'abattement de 50 000 € ?",
+      "faq3a": "L'abattement de 50 000 € (100 000 € pour un couple) est accordé sur le bénéfice de cession et se reconstitue tous les 10 ans. Il se déduit de la plus-value nette après réévaluation et déduction des frais.",
+      "faq4q": "La résidence principale est-elle exonérée ?",
+      "faq4a": "Oui, la vente de la résidence principale est exonérée d'impôt sur la plus-value si vous y avez résidé de manière continue depuis l'acquisition ou pendant au moins 5 ans avant la cession (art. 102bis(2) LIR).",
+      "faq5q": "Comment déclarer une plus-value immobilière ?",
+      "faq5a": "La plus-value se déclare dans la déclaration d'impôt annuelle (modèle 100 ou 100F), formulaire 700 pour les bénéfices de cession. Le notaire notifie l'ACD de toute transaction immobilière, qui peut demander des justificatifs complémentaires."
+    }
   },
   "calculLoyer": {
     "title": "Calculateur de loyer — Capital investi",
@@ -977,7 +1189,29 @@
     "reforme2024Text": "Le seuil a été abaissé de 5 % à 3,5 % pour les logements dont le capital investi dépasse un certain plafond. Vérifiez les conditions d'application.",
     "savePrefix": "Loyer",
     "saveToast": "Évaluation sauvegardée !",
-    "saveButton": "Sauvegarder cette évaluation"
+    "saveButton": "Sauvegarder cette évaluation",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur le plafond de loyer",
+      "relatedTitle": "Outils complémentaires",
+      "plafonnementTitle": "Le plafonnement des loyers au Luxembourg : cadre légal",
+      "plafonnementContent": "<p>Au Luxembourg, les loyers résidentiels sont encadrés par la <strong>loi modifiée du 21 septembre 2006</strong> concernant le bail à usage d'habitation. L'article 3 dispose que le loyer annuel ne peut excéder <strong>5 % du capital investi</strong> dans le logement. Ce plafond s'applique à tous les baux résidentiels, qu'il s'agisse d'un logement vide ou meublé.</p><p>La réforme du <strong>21 mars 2024</strong> (loi n° 8257) a apporté des modifications importantes :</p><ul><li>Abaissement du taux de 5 % à <strong>3,5 %</strong> pour les logements dont le capital investi réévalué est inférieur ou égal à un seuil (en discussion réglementaire)</li><li>Renforcement des sanctions en cas de loyer abusif (amende jusqu'à 5 000 €)</li><li>Obligation de joindre le calcul détaillé du capital investi au contrat de bail</li></ul><p>Le non-respect du plafond expose le bailleur à une action en réduction de loyer devant le juge de paix (loi du 21 septembre 2006, art. 7).</p>",
+      "capitalInvestiTitle": "Comment calculer le capital investi réévalué",
+      "capitalInvestiContent": "<p>Le <strong>capital investi</strong> se compose du prix d'acquisition du logement, réévalué à l'aide des coefficients de réévaluation publiés par le STATEC (indice des prix à la construction), augmenté du coût des travaux d'amélioration également réévalués.</p><p>La formule est :</p><p><strong>Capital investi = (Prix d'achat × Coeff. année d'achat) + (Travaux × Coeff. année travaux)</strong></p><p>Les coefficients STATEC sont publiés annuellement et reflètent l'évolution des coûts de construction depuis l'année de base (1960 = 1,00). Par exemple, le coefficient 2010 est d'environ 5,41, ce qui signifie qu'un bien acheté 300 000 € en 2010 est réévalué à 300 000 × 5,41 / coeff_courant.</p><p>Notre calculateur intègre la table complète des coefficients STATEC de 1960 à 2026 et effectue automatiquement la réévaluation.</p>",
+      "coefficientTitle": "Les coefficients de réévaluation STATEC",
+      "coefficientContent": "<p>Les <strong>coefficients de réévaluation</strong> sont publiés par le STATEC dans le cadre de l'indice des prix de la construction résidentielle. Ils servent à actualiser les prix d'acquisition et les coûts de travaux pour déterminer le capital investi au sens de la loi sur le bail à usage d'habitation.</p><p>Points clés :</p><ul><li>Base 1960 = 1,00 (première année de publication)</li><li>Le coefficient 2024 est de 8,86 (provisoire) — soit une multiplication par 8,86 des coûts de construction depuis 1960</li><li>Les coefficients sont révisés annuellement, généralement publiés en mars pour l'année précédente</li><li>En cas de travaux réalisés sur plusieurs années, chaque tranche est réévaluée avec le coefficient de son année</li></ul><p>L'utilisation correcte des coefficients est essentielle : une erreur d'année entraîne un écart significatif sur le capital investi et donc sur le loyer plafond.</p>",
+      "vetusteTitle": "La vétusté : un abattement facultatif mais stratégique",
+      "vetusteContent": "<p>La <strong>vétusté</strong> est une décote appliquée au capital investi pour tenir compte de l'usure et de l'obsolescence du logement au fil du temps. Bien que la loi de 2006 ne fixe pas de taux de vétusté obligatoire, la jurisprudence luxembourgeoise reconnaît un taux annuel de <strong>1 % à 2 %</strong>, plafonné à 50 % maximum.</p><p>En pratique :</p><ul><li>Un logement de 30 ans avec un taux de vétusté de 2 %/an voit son capital investi réduit de 60 %, plafonné à 50 %</li><li>La vétusté est souvent invoquée par les locataires pour contester un loyer qu'ils jugent excessif</li><li>Les travaux de rénovation « remettent le compteur à zéro » pour la part rénovée</li></ul><p>Notre outil permet de simuler l'impact de la vétusté sur le loyer plafond, ce qui est particulièrement utile pour les bailleurs de logements anciens et les locataires souhaitant vérifier leur loyer.</p>",
+      "faq1q": "Comment calculer le loyer maximum légal au Luxembourg ?",
+      "faq1a": "Le loyer annuel maximum est de 5 % du capital investi réévalué (loi du 21 septembre 2006). Le capital investi = prix d'acquisition × coefficient STATEC + travaux réévalués. Notre calculateur effectue ce calcul automatiquement.",
+      "faq2q": "Que sont les coefficients de réévaluation STATEC ?",
+      "faq2a": "Ce sont des indices publiés annuellement par le STATEC (Institut national de la statistique) qui reflètent l'évolution des coûts de construction depuis 1960. Ils servent à actualiser le prix d'acquisition et les coûts de travaux pour calculer le capital investi.",
+      "faq3q": "Le taux de 5 % est-il passé à 3,5 % ?",
+      "faq3a": "La loi du 21 mars 2024 prévoit un abaissement à 3,5 % pour certains logements, mais les modalités d'application (seuil de capital investi, date d'entrée en vigueur) font encore l'objet de discussions réglementaires. Le taux de 5 % reste applicable en attendant la publication du règlement grand-ducal d'exécution.",
+      "faq4q": "Puis-je appliquer une majoration pour un logement meublé ?",
+      "faq4a": "La loi ne prévoit pas de majoration spécifique pour les logements meublés. Cependant, la valeur du mobilier peut être intégrée au capital investi si elle est justifiée par des factures. En pratique, une majoration de 10 à 15 % du loyer est souvent appliquée pour le mobilier.",
+      "faq5q": "Comment contester un loyer excessif ?",
+      "faq5a": "Le locataire peut saisir le juge de paix en vertu de l'article 7 de la loi du 21 septembre 2006. Le juge peut ordonner une réduction du loyer si celui-ci dépasse le plafond légal. La prescription est de 2 ans pour la récupération du trop-perçu."
+    }
   },
   "achatLocation": {
     "title": "Acheter ou louer au Luxembourg",
@@ -1065,7 +1299,29 @@
     "achat": "Achat +",
     "location": "Location +",
     "hypothesesTitle": "Hypothèses :",
-    "hypothesesText": "Appréciation du bien : {appreciation} %/an. Rendement placement : {rendement} %/an. Plafond déduction intérêts : {plafond}/an ({nbPersonnes} pers.). Assurance SRD : {tauxSRD} % du capital."
+    "hypothesesText": "Appréciation du bien : {appreciation} %/an. Rendement placement : {rendement} %/an. Plafond déduction intérêts : {plafond}/an ({nbPersonnes} pers.). Assurance SRD : {tauxSRD} % du capital.",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur le choix acheter ou louer",
+      "relatedTitle": "Outils complémentaires",
+      "dilemmeTitle": "Acheter ou louer au Luxembourg : le dilemme éternel",
+      "dilemmeContent": "<p>La question « <strong>faut-il acheter ou louer ?</strong> » est particulièrement aiguë au Luxembourg, où le prix médian d'un appartement dépasse 600 000 € en 2025. Le coût total de la propriété (TCO) inclut non seulement le remboursement du prêt mais aussi les frais d'acquisition (7-10 %), l'entretien (1-2 % du prix/an), les assurances, la taxe foncière et le coût d'opportunité du capital immobilisé.</p><p>La location, de son côté, est encadrée par le plafonnement à 5 % du capital investi (loi du 21 septembre 2006). Un loyer mensuel de 2 000 € pour un appartement de 80 m² représente un rendement locatif brut d'environ 4 % à Luxembourg-Ville.</p><p>Notre simulateur compare les deux scénarios sur un horizon personnalisable (5-30 ans) en intégrant l'ensemble des paramètres financiers et fiscaux spécifiques au Luxembourg.</p>",
+      "tcoTitle": "Le coût total de possession vs. le coût total de location",
+      "tcoContent": "<p>Pour comparer objectivement, notre outil calcule le <strong>coût total cumulé</strong> des deux options :</p><ul><li><strong>Achat</strong> : apport, frais d'acquisition, mensualités de crédit (capital + intérêts), assurance solde restant dû, entretien annuel, taxe foncière, charges copropriété, moins la plus-value nette à la revente</li><li><strong>Location</strong> : loyers cumulés (indexés sur l'inflation), caution initiale, assurance habitation, plus le rendement de l'épargne qui aurait été investie (apport + frais d'acquisition placés)</li></ul><p>Le <strong>point de croisement</strong> correspond à la durée de détention à partir de laquelle l'achat devient moins coûteux que la location. Au Luxembourg, ce point se situe typiquement entre 7 et 15 ans, selon les hypothèses de plus-value et de taux d'intérêt.</p>",
+      "levierTitle": "L'effet de levier du crédit immobilier",
+      "levierContent": "<p>L'un des arguments majeurs en faveur de l'achat est l'<strong>effet de levier</strong> du crédit hypothécaire. Avec un apport de 20 % (par exemple 120 000 € sur un bien à 600 000 €), l'acquéreur bénéficie de la plus-value sur 100 % de la valeur du bien.</p><p>Au Luxembourg, les banques financent typiquement jusqu'à 80-100 % du prix d'acquisition (LTV ratio). Les taux hypothécaires, après le pic de 2023-2024, se stabilisent autour de 3,5-4 % pour un taux fixe 20 ans en 2025.</p><p>L'effet de levier est d'autant plus puissant que la plus-value annuelle est élevée. Avec une appréciation de 3 %/an, un apport de 120 000 € génère un rendement sur capitaux propres de 15 %/an (3 % × 600 000 / 120 000).</p>",
+      "seuilTitle": "Seuil de rentabilité et facteurs de décision",
+      "seuilContent": "<p>Le seuil de rentabilité dépend de nombreux facteurs :</p><ul><li><strong>Durée de séjour prévue</strong> : en dessous de 5-7 ans, la location est presque toujours plus avantageuse en raison des frais d'acquisition élevés (7-10 %)</li><li><strong>Taux d'intérêt</strong> : des taux bas (< 3 %) favorisent l'achat ; des taux élevés (> 5 %) favorisent la location</li><li><strong>Évolution des prix</strong> : une appréciation > 2 %/an raccourcit significativement le point de croisement</li><li><strong>Ratio loyer/prix</strong> : à Luxembourg-Ville, le ratio annuel est de ~3,5-4 %, ce qui rend l'achat compétitif à moyen terme</li><li><strong>Situation personnelle</strong> : stabilité professionnelle, projet familial, mobilité internationale</li></ul>",
+      "faq1q": "Combien de temps faut-il garder un bien pour que l'achat soit rentable ?",
+      "faq1a": "Au Luxembourg, le seuil de rentabilité se situe typiquement entre 7 et 15 ans, selon le taux d'intérêt, l'évolution des prix et les frais d'acquisition. Avec le Bëllegen Akt (réduction des frais à ~3 %), ce seuil peut descendre à 5-7 ans.",
+      "faq2q": "Les frais d'acquisition sont-ils pris en compte dans la comparaison ?",
+      "faq2a": "Oui, notre outil intègre les droits d'enregistrement, de transcription, les émoluments notariaux et les frais hypothécaires. Ces frais, qui représentent 7-10 % du prix, constituent le principal frein à la rentabilité de l'achat à court terme.",
+      "faq3q": "Quel rendement alternatif utiliser pour l'épargne ?",
+      "faq3a": "Le rendement alternatif représente ce que vous gagneriez en plaçant votre apport au lieu de l'immobiliser dans un bien. Un rendement de 4-6 % est raisonnable pour un portefeuille diversifié (actions/obligations) sur le long terme.",
+      "faq4q": "L'achat est-il toujours préférable au Luxembourg ?",
+      "faq4a": "Non, pas nécessairement. Si vous prévoyez de rester moins de 5 ans, si les taux sont élevés, ou si vous pouvez obtenir un loyer très avantageux, la location peut être plus rentable. La simulation chiffrée est indispensable.",
+      "faq5q": "Comment intégrer l'avantage fiscal de la déduction des intérêts hypothécaires ?",
+      "faq5a": "Au Luxembourg, les intérêts hypothécaires sont déductibles du revenu imposable pour la résidence principale (plafond de 1 500 à 3 000 € selon la durée du prêt). Notre simulateur intègre cet avantage dans le calcul du coût net de l'achat."
+    }
   },
   "simulateurAides": {
     "title": "Simulateur d'aides à l'acquisition",
@@ -1161,7 +1417,29 @@
     "topupSocial": "Topup social (revenus modestes)",
     "topupSocialHint": "Majoration x1.5 des aides Klimabonus si revenu imposable ≤ 60 000 €/an (nouveau 2026)",
     "bonusEco": "dont bonus matériaux écologiques",
-    "klimabonusRegime": "Barème Klimabonus Wunnen 2026"
+    "klimabonusRegime": "Barème Klimabonus Wunnen 2026",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur les aides au logement",
+      "relatedTitle": "Outils complémentaires",
+      "panoramaTitle": "Panorama des aides au logement au Luxembourg en 2025-2026",
+      "panoramaContent": "<p>Le Grand-Duché de Luxembourg dispose d'un éventail complet d'<strong>aides publiques au logement</strong>, gérées principalement par le Ministère du Logement et de l'Aménagement du territoire. Ces aides visent à faciliter l'accession à la propriété, soutenir la rénovation énergétique et aider les ménages modestes à se loger dignement.</p><p>Les principales aides sont :</p><ul><li><strong>Prime d'acquisition (Bëllegen Akt)</strong> : crédit d'impôt jusqu'à 20 000 € par acquéreur sur les droits d'enregistrement</li><li><strong>Subvention d'intérêt</strong> : prise en charge partielle des intérêts hypothécaires selon les revenus du ménage (art. 14 de la loi modifiée du 25 février 1979)</li><li><strong>Prime de construction / rénovation</strong> : aide forfaitaire pour la construction ou la rénovation lourde du logement principal</li><li><strong>Aide au loyer (subvention de loyer)</strong> : contribution mensuelle pour les locataires à revenus modestes (loi du 9 décembre 2015)</li><li><strong>Klimabonus / PRIMe House</strong> : aides à la rénovation énergétique et au conseil en énergie (règlement grand-ducal du 23 décembre 2016, modifié en 2024)</li></ul>",
+      "acquisitionTitle": "Aides à l'acquisition : Bëllegen Akt, subvention d'intérêt et garantie étatique",
+      "acquisitionContent": "<p>Pour les primo-accédants, le Luxembourg offre un dispositif attractif :</p><ul><li><strong>Bëllegen Akt</strong> : le crédit de 20 000 € par personne (max. 40 000 € par couple) réduit les droits d'enregistrement et de transcription. Condition : résidence principale, occupation dans les 2 ans.</li><li><strong>Subvention d'intérêt</strong> : l'État prend en charge une partie des intérêts du prêt hypothécaire pendant les 10 premières années. Le montant dépend des revenus du ménage, du nombre d'enfants et du taux d'intérêt. Le ménage doit adresser sa demande au Ministère du Logement dans les 6 mois suivant l'acte.</li><li><strong>Garantie étatique</strong> : l'État peut se porter garant auprès de la banque pour les ménages ne disposant pas d'un apport suffisant (max. 10 % du prix d'acquisition, plafonné à 100 000 €).</li></ul>",
+      "renovationTitle": "Aides à la rénovation énergétique : PRIMe House et Klimabonus",
+      "renovationContent": "<p>Le programme <strong>PRIMe House</strong> (Programme de Réduction des Impacts environnementaux de la Maison d'Habitation) et le <strong>Klimabonus</strong> soutiennent les travaux d'amélioration énergétique :</p><ul><li><strong>Isolation thermique</strong> : aide de 30 à 60 €/m² selon le composant (toiture, murs, sol) et le niveau de performance atteint</li><li><strong>Remplacement du système de chauffage</strong> : prime de 2 500 à 8 000 € pour le passage à une pompe à chaleur ou un système biomasse</li><li><strong>Installation photovoltaïque</strong> : aide de 200 à 500 €/kWc selon la taille de l'installation</li><li><strong>Conseil en énergie</strong> : subvention de 50 à 70 % des honoraires du conseiller en énergie agréé Myenergy</li></ul><p>Les montants ont été revalorisés par le règlement grand-ducal du 18 décembre 2024 (Klimabonus renforcé). L'aide est cumulable avec d'autres dispositifs communaux.</p>",
+      "conditionsTitle": "Conditions de revenus et modalités de demande",
+      "conditionsContent": "<p>La plupart des aides au logement sont soumises à des <strong>conditions de revenus</strong> basées sur le revenu imposable du ménage :</p><ul><li><strong>Subvention de loyer</strong> : revenu net < 3 × SSM (Salaire Social Minimum) pour une personne seule, ajusté selon la composition familiale</li><li><strong>Subvention d'intérêt</strong> : barème progressif basé sur le revenu imposable, plafonné à 5 × SSM (environ 13 000 €/mois en 2025)</li><li><strong>Garantie étatique</strong> : revenu < 4,5 × SSM et apport personnel < 10 % du prix</li></ul><p>Les demandes se font auprès du <strong>Ministère du Logement</strong> (formulaires en ligne sur guichet.lu) ou via Myenergy pour les aides énergétiques. Le délai de traitement est de 2 à 6 mois.</p>",
+      "faq1q": "Quelles sont les principales aides à l'achat immobilier au Luxembourg ?",
+      "faq1a": "Les principales aides sont le Bëllegen Akt (jusqu'à 40 000 € de crédit fiscal), la subvention d'intérêt (prise en charge partielle des intérêts hypothécaires), et la garantie étatique (caution de l'État jusqu'à 100 000 €). Toutes nécessitent que le bien serve de résidence principale.",
+      "faq2q": "Quel est le montant du Klimabonus en 2025-2026 ?",
+      "faq2a": "Le Klimabonus renforcé (depuis décembre 2024) prévoit des primes de 30 à 60 €/m² pour l'isolation, 2 500 à 8 000 € pour le chauffage renouvelable, et 200 à 500 €/kWc pour le photovoltaïque. Les montants varient selon le niveau de performance atteint.",
+      "faq3q": "Comment demander la subvention de loyer ?",
+      "faq3a": "La demande se fait en ligne sur guichet.lu ou directement au Ministère du Logement. Il faut fournir le contrat de bail, les fiches de salaire des 3 derniers mois, la composition de ménage et l'avertissement fiscal. Le traitement prend 2 à 4 mois.",
+      "faq4q": "Les aides sont-elles cumulables ?",
+      "faq4a": "Oui, dans la plupart des cas. Le Bëllegen Akt, la subvention d'intérêt et la garantie étatique sont cumulables. Le Klimabonus est cumulable avec les aides communales mais pas avec d'autres aides étatiques pour les mêmes travaux.",
+      "faq5q": "Existe-t-il des aides spécifiques pour les frontaliers ?",
+      "faq5a": "Le Bëllegen Akt est réservé aux biens situés au Luxembourg. Les frontaliers travaillant au Luxembourg mais résidant à l'étranger n'y ont pas accès. En revanche, un frontalier devenant résident peut en bénéficier pour l'achat de sa résidence principale au Luxembourg."
+    }
   },
   "dcfMulti": {
     "title": "DCF multi-locataires",
@@ -1656,7 +1934,27 @@
     "offices": "Bureaux",
     "retail": "Commerces",
     "logistics": "Logistique",
-    "other": "Autre"
+    "other": "Autre",
+    "seo": {
+      "faqTitle": "Questions frequentes sur les donnees de marche",
+      "relatedTitle": "Outils complementaires",
+      "donneesTitle": "Donnees de marche immobilier au Luxembourg",
+      "donneesContent": "<p>Notre base de donnees de marche agrege les informations de <strong>multiples sources publiques</strong> luxembourgeoises pour offrir une vision comprehensive du marche immobilier. Les sources principales incluent l'Observatoire de l'Habitat (prix communaux), le STATEC (indices hedoniques), l'Administration de l'Enregistrement et des Domaines (volumes de transactions), et les annonces publiques (prix affiches).</p><p>La base couvre le marche residentiel (appartements, maisons), le marche de bureaux (Kirchberg, Cloche d'Or, Gare), le marche commercial (retail, logistique) et les terrains a batir, avec des donnees actualisees trimestriellement.</p>",
+      "prixCommunesTitle": "Prix par commune : analyse detaillee",
+      "prixCommunesContent": "<p>Le Luxembourg compte 102 communes avec des prix immobiliers variant d'un facteur 2 a 3 :</p><ul><li><strong>Luxembourg-Ville</strong> : leader inconteste avec un prix median de ~10 500 EUR/m2 pour les appartements, tire par Kirchberg, Belair et Limpertsberg</li><li><strong>Communes premium</strong> (Strassen, Bertrange, Leudelange) : 8 000-10 000 EUR/m2</li><li><strong>Ceinture accessible</strong> (Esch, Dudelange, Differdange) : 5 500-6 500 EUR/m2</li><li><strong>Nord et Est</strong> (Clervaux, Wiltz, Echternach) : 4 500-5 500 EUR/m2</li></ul><p>Les donnees incluent les prix medians, les fourchettes (quartiles), les volumes de transactions et les tendances recentes pour chaque commune.</p>",
+      "comparablesTitle": "Comparables et transactions recentes",
+      "comparablesContent": "<p>La section transactions permet de consulter les <strong>prix reels de vente</strong> enregistres aupres de l'AED. Ces donnees sont anonymisees mais incluent les caracteristiques cles du bien : surface, type, commune, prix et date de transaction.</p><p>L'exploitation de ces comparables est essentielle pour toute evaluation immobiliere, qu'elle soit realisee par un particulier, un professionnel ou un expert agree. Notre outil structure ces donnees et calcule automatiquement les metriques cles (prix/m2, tendance, ecart a la mediane).</p>",
+      "sourcesTitle": "Sources publiques et fiabilite des donnees",
+      "sourcesContent": "<p>Nos donnees proviennent exclusivement de <strong>sources publiques officielles</strong> :</p><ul><li><strong>Observatoire de l'Habitat</strong> (logement.public.lu) : prix medians communaux, indices trimestriels</li><li><strong>STATEC</strong> (statistiques.public.lu) : indice hedonique des prix, donnees demographiques et economiques</li><li><strong>AED</strong> : volumes et montants des transactions enregistrees</li><li><strong>Geoportail</strong> (geoportail.lu) : donnees cadastrales, zonage PAG</li></ul><p>Les donnees sont rafraichies automatiquement a chaque publication trimestrielle et verifiees manuellement pour les coherences statistiques.</p>",
+      "faq1q": "D'ou proviennent les donnees de marche affichees ?",
+      "faq1a": "Toutes les donnees proviennent de sources publiques officielles : Observatoire de l'Habitat, STATEC, AED et Geoportail. Les prix correspondent aux transactions reelles enregistrees par acte notarie.",
+      "faq2q": "Les donnees couvrent-elles le marche commercial ?",
+      "faq2a": "Oui, notre base couvre aussi les bureaux (par sous-marche : Kirchberg, Cloche d'Or, Gare, Peripherie), les commerces, la logistique et les terrains a batir.",
+      "faq3q": "A quelle frequence les donnees sont-elles mises a jour ?",
+      "faq3a": "Les donnees de prix sont mises a jour trimestriellement, alignees sur les publications de l'Observatoire de l'Habitat et du STATEC.",
+      "faq4q": "Peut-on exporter les donnees ?",
+      "faq4a": "Oui, les tableaux de donnees sont exportables en CSV et PDF pour une utilisation dans vos propres analyses ou rapports."
+    }
   },
   "valorisation": {
     "pageTitle": "Valorisation immobilière EVS 2025",
@@ -2791,7 +3089,27 @@
     "colPrixBien": "Prix du bien",
     "colPrixAcquisition": "Prix d'acquisition",
     "colPrixCession": "Prix de cession",
-    "disclaimer": "Estimation indicative basee sur les donnees publiques de l'Observatoire de l'Habitat et les coefficients d'ajustement statistiques. Ne constitue pas une evaluation professionnelle."
+    "disclaimer": "Estimation indicative basee sur les donnees publiques de l'Observatoire de l'Habitat et les coefficients d'ajustement statistiques. Ne constitue pas une evaluation professionnelle.",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur la comparaison de biens",
+      "relatedTitle": "Outils complémentaires",
+      "methodeTitle": "La méthode des comparables en immobilier luxembourgeois",
+      "methodeContent": "<p>La <strong>méthode des comparables</strong> (ou approche par comparaison directe) est la technique d'évaluation la plus intuitive et la plus utilisée dans les transactions résidentielles au Luxembourg. Elle consiste à estimer la valeur d'un bien en s'appuyant sur les prix de <strong>transactions récentes</strong> portant sur des biens similaires situés dans le même secteur géographique.</p><p>Au Luxembourg, les transactions immobilières sont enregistrées par l'<strong>Administration de l'Enregistrement et des Domaines (AED)</strong>, et les données agrégées sont publiées par l'Observatoire de l'Habitat. Notre outil exploite ces données pour permettre une comparaison structurée et objectivée.</p><p>La norme européenne d'évaluation <strong>EVS (European Valuation Standards)</strong> de TEGoVA recommande un minimum de 3 comparables pertinents, idéalement 5 à 10, pour une évaluation fiable.</p>",
+      "criteresTitle": "Critères de sélection des comparables",
+      "criteresContent": "<p>Le choix des comparables pertinents repose sur plusieurs critères de similarité :</p><ul><li><strong>Localisation</strong> : même commune, idéalement même quartier ou secteur. Au Luxembourg, les écarts de prix entre quartiers d'une même commune peuvent atteindre 20-30 % (ex : Kirchberg vs Bonnevoie dans la Ville de Luxembourg)</li><li><strong>Type de bien</strong> : appartement vs maison, nombre de chambres, surface habitable. L'écart acceptable est de ±15 % sur la surface</li><li><strong>Ancienneté</strong> : même tranche d'âge (neuf, < 10 ans, 10-30 ans, > 30 ans). L'âge influence le CPE et l'état général</li><li><strong>Performance énergétique</strong> : même classe CPE ou classes adjacentes. Un écart de 2 classes représente une différence de prix de 6-10 %</li><li><strong>Date de transaction</strong> : idéalement moins de 12 mois, maximum 24 mois avec ajustement conjoncturel</li></ul>",
+      "ajustementsTitle": "Ajustements et pondération des comparables",
+      "ajustementsContent": "<p>Aucun comparable n'est parfaitement identique au bien à évaluer. Des <strong>ajustements</strong> sont nécessaires pour tenir compte des différences :</p><ul><li><strong>Surface</strong> : ajustement au prix/m² avec application de la dégressivité (les grands biens ont un prix/m² inférieur)</li><li><strong>État et rénovations</strong> : +5 à +15 % pour un bien entièrement rénové, -10 à -20 % pour un bien à rénover</li><li><strong>Étage et orientation</strong> : +2 à +5 % par étage supérieur (appartements), -5 % pour rez-de-chaussée</li><li><strong>Parking</strong> : valeur de 25 000-50 000 € par place intérieure au Luxembourg-Ville, 15 000-25 000 € en périphérie</li><li><strong>Extérieur</strong> : balcon +5 000-15 000 €, terrasse +10 000-30 000 €, jardin privatif (maisons) +15-25 % du prix</li></ul>",
+      "decisionTitle": "Utiliser les comparables pour une prise de décision éclairée",
+      "decisionContent": "<p>La comparaison de biens immobiliers est essentielle dans plusieurs contextes :</p><ul><li><strong>Fixation du prix de vente</strong> : positionner correctement son bien par rapport au marché pour optimiser le délai de vente et le prix obtenu</li><li><strong>Négociation à l'achat</strong> : argumenter objectivement sur le prix demandé en s'appuyant sur des transactions comparables</li><li><strong>Due diligence investisseur</strong> : évaluer un immeuble de rapport en comparant les rendements locatifs par commune</li><li><strong>Expertise judiciaire</strong> : les experts agréés utilisent systématiquement la méthode des comparables dans leurs rapports d'expertise</li></ul><p>Notre outil vous permet de structurer cette démarche en comparant jusqu'à 4 biens simultanément avec des métriques normalisées (prix/m², rendement, ratio prix/surface).</p>",
+      "faq1q": "Combien de comparables faut-il pour une évaluation fiable ?",
+      "faq1a": "La norme EVS/TEGoVA recommande un minimum de 3 comparables pertinents, idéalement 5 à 10. Au Luxembourg, pour les marchés peu liquides (grandes maisons, biens atypiques), 3 comparables de bonne qualité peuvent suffire.",
+      "faq2q": "Quelle est la source des données de transactions ?",
+      "faq2a": "Les données proviennent de l'Administration de l'Enregistrement et des Domaines (AED), agrégées et publiées par l'Observatoire de l'Habitat. Ces prix correspondent aux actes notariés réellement enregistrés, pas aux prix affichés en agence.",
+      "faq3q": "Comment ajuster pour la performance énergétique ?",
+      "faq3a": "Selon les études de l'Observatoire (2023), un gain d'une classe CPE représente environ +3 à +5 % sur le prix. Appliquez un ajustement proportionnel : si votre bien est en classe C et le comparable en classe E, ajustez de +6 à +10 %.",
+      "faq4q": "Peut-on comparer des biens de communes différentes ?",
+      "faq4a": "C'est possible mais délicat. Les écarts de prix entre communes luxembourgeoises sont très importants (facteur 2 à 3 entre Luxembourg-Ville et le Nord). Privilégiez les comparables de la même commune ou de communes limitrophes de profil similaire."
+    }
   },
   "convertisseurSurfaces": {
     "title": "Convertisseur de surfaces",
@@ -3481,6 +3799,28 @@
     "sources": {
       "title": "Sources :",
       "text": "Prix indicatifs marché luxembourgeois 2025-2026. Catalogues fabricants : Viessmann, Daikin, Vaillant, Buderus, Mitsubishi, Panasonic, LG, Bosch, Hoval, Wolf, Atlantic, De Dietrich, Fröling, Ökofen, Windhager, Zehnder, Helios, Brink. Distributeurs LU : Reckinger Alfred, Vanmarcke, General Technic, Sonepar, CRS, TSD. Aides : guichet.public.lu (Klimabonus 2026), klima-agence.lu (Enoprimes). Normes : EN 12831 (déperditions), RGD 9 juin 2021 (performance énergétique). Les prix incluent généralement fourniture et mise en œuvre. Devis détaillés à demander aux installateurs agréés."
+    },
+    "seo": {
+      "faqTitle": "Questions frequentes sur le dimensionnement HVAC",
+      "relatedTitle": "Simulateurs complementaires",
+      "dimensionnementTitle": "Dimensionnement HVAC pour l'immobilier luxembourgeois",
+      "dimensionnementContent": "<p>Le <strong>dimensionnement des systemes de chauffage, ventilation et climatisation (HVAC)</strong> est essentiel pour garantir le confort thermique et l'efficacite energetique des batiments au Luxembourg. Notre outil s'appuie sur la norme <strong>EN 12831</strong> (calcul des deperditions thermiques) adaptee aux conditions climatiques luxembourgeoises.</p><p>Le Luxembourg se situe en zone climatique Dfb (continental humide), avec des temperatures de dimensionnement de <strong>-12 a -15 degC</strong> selon l'altitude. Les besoins de chauffage varient considerablement selon la classe energetique du batiment (de 25 kWh/m2/an en classe A a plus de 300 kWh/m2/an en classe I).</p>",
+      "normesTitle": "Norme EN 12831 et conditions climatiques LU",
+      "normesContent": "<p>La norme <strong>EN 12831</strong> definit la methode de calcul des charges thermiques de chauffage :</p><ul><li><strong>Deperditions par transmission</strong> : a travers les parois, toiture, sol et menuiseries (coefficient U)</li><li><strong>Deperditions par ventilation</strong> : renouvellement d'air, infiltrations</li><li><strong>Temperature de dimensionnement</strong> : -12 degC pour Luxembourg-Ville, -15 degC pour les zones d'altitude (Oesling)</li><li><strong>Surchauffe estivale</strong> : prise en compte des apports solaires et internes</li></ul>",
+      "pacTitle": "Pompe a chaleur vs. pellets : comparaison pour le Luxembourg",
+      "pacContent": "<p>Les deux principales alternatives aux chaudieres fossiles au Luxembourg :</p><ul><li><strong>Pompe a chaleur (PAC) air-eau</strong> : COP moyen 3,0-4,0, cout installation 15 000-22 000 EUR, ideal pour logements bien isoles (classe A-D). Le Klimabonus offre 2 500-8 000 EUR de prime</li><li><strong>Chaudiere a pellets</strong> : rendement 85-95 %, cout 12 000-18 000 EUR, adaptee aux maisons avec espace de stockage. Prime Klimabonus similaire</li></ul><p>Pour les batiments en classe E-I, la PAC seule peut etre insuffisante en hiver luxembourgeois. Un systeme hybride (PAC + appoint electrique ou pellets) est souvent recommande.</p>",
+      "vmcTitle": "VMC double flux : essentielle pour les batiments performants",
+      "vmcContent": "<p>La <strong>ventilation mecanique controlee (VMC) double flux</strong> avec recuperation de chaleur est devenue indispensable dans les batiments performants (classe A-B). Elle recupere 80 a 95 % de la chaleur de l'air extrait pour prechauffer l'air neuf entrant.</p><ul><li><strong>Cout installation</strong> : 5 000-12 000 EUR selon complexite</li><li><strong>Economie de chauffage</strong> : 25-40 % des besoins de chauffage</li><li><strong>Qualite d'air</strong> : filtration particules fines, controle humidite</li></ul><p>Le dimensionnement du debit d'air neuf est regi par le reglement grand-ducal du 9 juin 2021 (CPE) : minimum 30 m3/h par personne ou 0,5 vol/h.</p>",
+      "faq1q": "Comment dimensionner mon systeme de chauffage ?",
+      "faq1a": "Le dimensionnement se base sur la norme EN 12831 : calcul des deperditions par transmission et ventilation, en fonction de la surface, de l'isolation et des conditions climatiques luxembourgeoises (-12 a -15 degC).",
+      "faq2q": "PAC ou chaudiere a pellets : quel choix au Luxembourg ?",
+      "faq2a": "PAC air-eau pour les logements bien isoles (A-D), pellets pour les maisons anciennes avec espace de stockage. Systeme hybride recommande pour les classes E-I.",
+      "faq3q": "La VMC double flux est-elle obligatoire ?",
+      "faq3a": "Elle n'est pas formellement obligatoire mais quasiment indispensable pour atteindre les classes A-B. Le reglement CPE impose un debit d'air neuf minimum qui, en pratique, necessite une VMC.",
+      "faq4q": "Quel budget prevoir pour un systeme HVAC complet ?",
+      "faq4a": "Pour une maison de 150 m2 : PAC air-eau (~18 000 EUR) + VMC double flux (~8 000 EUR) + distribution (~5 000 EUR) = environ 30 000-35 000 EUR avant Klimabonus (aides ~8 000-12 000 EUR).",
+      "faq5q": "Comment optimiser la performance du systeme ?",
+      "faq5a": "Isoler d'abord (reduire les besoins), puis dimensionner le systeme au juste besoin. Un surdimensionnement penalise le COP de la PAC et le rendement de la chaudiere. Le reglage de la courbe de chauffe est essentiel."
     }
   },
   "planDuSite": {
@@ -3861,7 +4201,29 @@
     "trend_stable": "Stable",
     "view_map": "Voir la carte interactive",
     "estimate_property": "Estimer un bien",
-    "source": "Source : Observatoire de l'Habitat (data.public.lu), STATEC. Données indicatives, mises à jour trimestriellement. Dernière mise à jour : mars 2026."
+    "source": "Source : Observatoire de l'Habitat (data.public.lu), STATEC. Données indicatives, mises à jour trimestriellement. Dernière mise à jour : mars 2026.",
+    "seo": {
+      "faqTitle": "Questions frequentes sur les indices de prix",
+      "relatedTitle": "Outils complementaires",
+      "indiceTitle": "Indice des prix immobiliers par commune au Luxembourg",
+      "indiceContent": "<p>L'<strong>indice des prix immobiliers</strong> par commune constitue l'outil de reference pour suivre l'evolution du marche residentiel luxembourgeois. Publie trimestriellement par l'Observatoire de l'Habitat en partenariat avec le STATEC, il s'appuie sur les <strong>actes notaries</strong> enregistres aupres de l'Administration de l'Enregistrement et des Domaines (AED).</p><p>Cet indice couvre les transactions d'appartements et de maisons dans les 102 communes du Grand-Duche, avec des prix medians au m2 et des volumes de transactions. Les donnees sont desaisonnalisees et lissees pour eviter les biais lies aux petits echantillons dans les communes rurales.</p><p>En 2025, l'indice global montre une <strong>stabilisation apres la correction de 2022-2024</strong> (-14 % en moyenne), avec des disparites marquees entre communes : Luxembourg-Ville et les communes du Sud affichent une reprise plus rapide que le Nord du pays.</p>",
+      "methodologieTitle": "Methodologie et sources de donnees",
+      "methodologieContent": "<p>La methodologie repose sur plusieurs piliers :</p><ul><li><strong>Source primaire</strong> : actes notaries enregistres a l'AED (exhaustivite des transactions)</li><li><strong>Methode hedonique</strong> : decomposition du prix en fonction des caracteristiques du bien (surface, localisation, age, CPE) pour produire un indice a qualite constante</li><li><strong>Desaisonnalisation</strong> : correction des effets saisonniers via le modele X-13 ARIMA utilise par le STATEC</li><li><strong>Lissage</strong> : moyenne mobile sur 4 trimestres pour les communes a faible volume de transactions</li></ul><p>Notre outil reproduit ces indices et les enrichit avec des donnees complementaires (annonces, estimations hedoniques) pour offrir une vision complete de chaque commune.</p>",
+      "tendancesTitle": "Tendances 2025-2026 : reprise selective par commune",
+      "tendancesContent": "<p>L'analyse communale revele des dynamiques contrastees :</p><ul><li><strong>Luxembourg-Ville</strong> : prix median appartement ~10 500 EUR/m2, reprise de +3 % au T1-2025 apres -15 % depuis le pic. Kirchberg et Belair menent la reprise</li><li><strong>Ceinture Sud</strong> (Esch, Differdange, Dudelange) : stabilisation a ~5 800-6 500 EUR/m2, volumes en hausse de +25 %</li><li><strong>Nord</strong> (Clervaux, Wiltz, Vianden) : correction plus lente, prix ~4 500-5 500 EUR/m2, marche moins liquide</li><li><strong>Est</strong> (Grevenmacher, Echternach) : equilibre, prix ~5 000-6 000 EUR/m2</li></ul><p>La reprise des transactions (+18 % en volume au T1-2025) confirme un retour de la confiance, soutenu par la detente des taux hypothecaires (de 4,5 % a ~3,5 % debut 2025).</p>",
+      "topCommunesTitle": "Top communes : prix, rendements et attractivite",
+      "topCommunesContent": "<p>Les communes les plus recherchees combinent accessibilite en transports, qualite de vie et offre scolaire :</p><ul><li><strong>Strassen, Bertrange, Hesperange</strong> : communes peripheriques premium, prix 8 000-10 000 EUR/m2, excellente accessibilite a la Ville</li><li><strong>Esch-sur-Alzette, Belval</strong> : pole urbain secondaire en pleine mutation, prix plus accessibles (~6 000 EUR/m2) avec le campus universitaire et le tram rapide</li><li><strong>Mersch, Steinsel</strong> : communes du centre attractives, prix 6 500-7 500 EUR/m2, bon compromis prix/qualite de vie</li><li><strong>Echternach, Remich</strong> : attrait touristique et cadre de vie, prix 5 000-6 000 EUR/m2, profils frontaliers allemands</li></ul>",
+      "faq1q": "D'ou proviennent les donnees de prix par commune ?",
+      "faq1a": "Les donnees proviennent des actes notaries enregistres aupres de l'Administration de l'Enregistrement et des Domaines (AED), agreges par l'Observatoire de l'Habitat. Il s'agit des prix reels de transaction, pas des prix affiches.",
+      "faq2q": "A quelle frequence les indices sont-ils mis a jour ?",
+      "faq2a": "Les indices officiels de l'Observatoire de l'Habitat sont publies trimestriellement, avec un decalage de 2-3 mois. Notre outil integre les dernieres donnees disponibles et les enrichit avec les tendances d'annonces.",
+      "faq3q": "Pourquoi les prix different-ils entre communes voisines ?",
+      "faq3a": "Les ecarts s'expliquent par la localisation (proximite emplois, transports), l'offre scolaire, la fiscalite communale, et le type de biens disponibles. Les communes proches de Luxembourg-Ville beneficient d'une prime de localisation significative.",
+      "faq4q": "Les indices incluent-ils les biens neufs et anciens ?",
+      "faq4a": "Oui, les indices couvrent les deux segments. Cependant, l'Observatoire publie egalement des indices separes pour les appartements neufs (VEFA) et anciens, car les dynamiques de prix peuvent diverger significativement.",
+      "faq5q": "Comment utiliser les indices pour estimer mon bien ?",
+      "faq5a": "Les indices fournissent un prix median par commune qui sert de point de depart. Ajustez ensuite en fonction des caracteristiques specifiques de votre bien (surface, CPE, etage, etat) a l'aide de nos outils d'estimation et de comparaison."
+    }
   },
   "pagPap": {
     "title": "Urbanisme — PAG / PAP",
@@ -3911,7 +4273,27 @@
     "resourceMap": "Carte",
     "resourceGeoportail": "Geoportail.lu — PAG en ligne",
     "resourceLaw": "Loi",
-    "resourceMinistry": "Ministère du Logement"
+    "resourceMinistry": "Ministère du Logement",
+    "seo": {
+      "faqTitle": "Questions frequentes sur le PAG et PAP",
+      "relatedTitle": "Outils complementaires",
+      "urbanismeTitle": "L'urbanisme au Luxembourg : PAG et PAP",
+      "urbanismeContent": "<p>L'amenagement du territoire luxembourgeois est regi par la <strong>loi modifiee du 19 juillet 2004</strong> concernant l'amenagement communal et le developpement urbain. Chaque commune dispose d'un <strong>Plan d'Amenagement General (PAG)</strong> qui definit l'affectation des sols sur l'ensemble de son territoire, et de <strong>Plans d'Amenagement Particulier (PAP)</strong> qui detaillent les regles pour chaque zone.</p><p>Le PAG classe le territoire communal en zones : zones d'habitation (HAB-1, HAB-2), zones mixtes (MIX), zones commerciales, zones d'activites economiques, zones vertes, zones agricoles et zones forestieres. Chaque zone est assortie de regles de constructibilite (COS, CUS, hauteur maximale, recul, densite).</p>",
+      "zonesTitle": "Zones et constructibilite : comprendre les regles",
+      "zonesContent": "<p>Les principales zones urbanisables sont :</p><ul><li><strong>HAB-1</strong> : habitation a faible densite (maisons individuelles, jumelees). COS typique : 0,3 a 0,5. Hauteur max : 2 niveaux + combles</li><li><strong>HAB-2</strong> : habitation a moyenne densite. COS : 0,5 a 0,8. Immeubles collectifs autorises</li><li><strong>MIX</strong> : zone mixte, commerce en rez-de-chaussee + logement aux etages. COS : 0,8 a 1,5</li><li><strong>BEP</strong> : batiment et equipement public</li><li><strong>ECO</strong> : zone d'activite economique</li></ul><p>Le <strong>COS (Coefficient d'Occupation du Sol)</strong> definit le rapport entre la surface batie au sol et la surface du terrain. Le <strong>CUS (Coefficient d'Utilisation du Sol)</strong> definit le rapport entre la surface de plancher totale et la surface du terrain.</p>",
+      "constructibiliteTitle": "Evaluer la constructibilite d'un terrain",
+      "constructibiliteContent": "<p>L'evaluation de la constructibilite d'un terrain passe par plusieurs etapes :</p><ul><li><strong>Verification du classement PAG</strong> : consulter le PAG en ligne sur le Geoportail (geoportail.lu) ou en mairie</li><li><strong>Analyse du PAP QE</strong> (quartier existant) : regle de la zone applicable (recul, hauteur, COS/CUS)</li><li><strong>Verification des servitudes</strong> : servitudes de passage, de vue, d'utilite publique, zones de protection (monuments, nature)</li><li><strong>Etude de faisabilite</strong> : verification des raccordements (eau, electricite, assainissement), acces voirie</li></ul>",
+      "servitudesTitle": "Servitudes et contraintes speciales",
+      "servitudesContent": "<p>Les principales servitudes pouvant affecter un bien immobilier au Luxembourg :</p><ul><li><strong>Servitudes d'urbanisme</strong> : alignement de voirie, zones de recul, secteurs proteges</li><li><strong>Servitudes environnementales</strong> : zones Natura 2000, zones de protection des eaux, zones inondables</li><li><strong>Servitudes patrimoniales</strong> : immeubles classes ou inscrits a l'inventaire supplementaire (loi du 18 juillet 1983)</li><li><strong>Servitudes privees</strong> : droits de passage, droits de vue, mitoyennete</li></ul><p>Notre outil permet de verifier rapidement le zonage PAG de toute commune et d'evaluer la constructibilite potentielle d'un terrain.</p>",
+      "faq1q": "Ou consulter le PAG de ma commune ?",
+      "faq1a": "Le PAG est consultable en ligne sur le Geoportail (geoportail.lu), en mairie ou aupres du service urbanisme de la commune. Notre outil integre les zones PAG pour une consultation rapide.",
+      "faq2q": "Quelle difference entre PAG et PAP ?",
+      "faq2a": "Le PAG definit l'affectation generale des zones (habitation, commerce, industrie) sur l'ensemble du territoire communal. Le PAP detaille les regles de construction pour chaque zone ou secteur specifique.",
+      "faq3q": "Comment savoir si un terrain est constructible ?",
+      "faq3a": "Verifiez le classement PAG (zone urbanisable), les regles du PAP applicable (COS, hauteur, recul), les servitudes et la disponibilite des raccordements. Un geometre ou architecte peut realiser une etude de faisabilite.",
+      "faq4q": "Qu'est-ce que le COS et le CUS ?",
+      "faq4a": "Le COS (Coefficient d'Occupation du Sol) est le ratio surface batie au sol / surface terrain. Le CUS (Coefficient d'Utilisation du Sol) est le ratio surface de plancher totale / surface terrain. Ils determinent l'intensite de construction autorisee."
+    }
   },
   "amlKyc": {
     "title": "AML / KYC Immobilier",
@@ -4049,7 +4431,27 @@
     "zoneCentre": "Centre",
     "zoneEst": "Est (Moselle)",
     "zoneNord": "Nord",
-    "sourceDisclaimer": "Source : estimations basées sur transactions observées. Données indicatives — le marché des terres agricoles LU est peu transparent."
+    "sourceDisclaimer": "Source : estimations basées sur transactions observées. Données indicatives — le marché des terres agricoles LU est peu transparent.",
+    "seo": {
+      "faqTitle": "Questions frequentes sur les terres agricoles",
+      "relatedTitle": "Outils complementaires",
+      "evaluationTitle": "Evaluation des terres agricoles au Luxembourg",
+      "evaluationContent": "<p>L'evaluation des <strong>terres agricoles</strong> au Luxembourg obeit a des regles specifiques, distinctes du marche immobilier residentiel. Le prix des terres agricoles varie considerablement selon la zone geographique, la qualite du sol et la presence de batiments d'exploitation.</p><p>Au Luxembourg, le prix moyen d'un hectare de terre agricole se situe entre <strong>30 000 et 80 000 EUR/ha</strong> en 2025, avec des pics a plus de 100 000 EUR/ha pour les terres proches de zones urbanisables (potentiel de reclassement). A titre de comparaison, ce prix est significativement inferieur aux Pays-Bas (~70 000 EUR/ha) mais superieur a la France (~6 000 EUR/ha en moyenne).</p>",
+      "prixZonesTitle": "Prix par zone geographique et qualite de sol",
+      "prixZonesContent": "<p>Les prix varient selon quatre grandes zones :</p><ul><li><strong>Centre-Sud</strong> (Gutland) : 50 000-80 000 EUR/ha — sols riches, demande forte, proximite urbaine</li><li><strong>Centre</strong> : 40 000-60 000 EUR/ha — bonne qualite de sol, accessibilite moyenne</li><li><strong>Nord</strong> (Oesling) : 30 000-50 000 EUR/ha — sols moins fertiles, relief plus accidente</li><li><strong>Est</strong> (Moselle) : 45 000-70 000 EUR/ha — sols viticoles de qualite, AOC Moselle luxembourgeoise</li></ul><p>La qualite du sol est evaluee selon la classification pedologique luxembourgeoise (classes I a V), qui tient compte de la texture, du drainage, de la profondeur et de la pente.</p>",
+      "facteursTitle": "Facteurs influencant la valeur des terres",
+      "facteursContent": "<p>Plusieurs facteurs specifiques influencent la valeur des terres agricoles :</p><ul><li><strong>Potentiel de reclassement</strong> : les terres proches de zones urbanisables beneficient d'une prime speculative significative. Un reclassement en zone constructible multiplie la valeur par 10 a 50</li><li><strong>Bail rural en cours</strong> : une terre louee est decotee de 15 a 30 % en raison des protections du fermier (loi du 2 juillet 1969 sur le bail a ferme)</li><li><strong>Batiments existants</strong> : hangars, granges et etables valorisent le terrain sauf en cas de presence d'amiante (decote)</li><li><strong>Accessibilite et forme</strong> : parcelles regulieres et accessibles par route sont privilegiees</li></ul>",
+      "bailRuralTitle": "Le bail rural luxembourgeois",
+      "bailRuralContent": "<p>Le <strong>bail a ferme</strong> est regi par la <strong>loi modifiee du 2 juillet 1969</strong>. Ses specificites :</p><ul><li>Duree minimale : 6 ans (9 ans si culture speciale)</li><li>Renouvellement automatique sauf conge donne 18 mois avant echeance</li><li>Droit de preemption du fermier en cas de vente</li><li>Fermage encadre par les commissions de fermage cantonales</li></ul><p>Ces protections renforcees du fermier expliquent la decote appliquee aux terres louees : l'acquereur doit attendre l'echeance du bail ou negocier un depart anticipe.</p>",
+      "faq1q": "Quel est le prix moyen d'un hectare de terre agricole au Luxembourg ?",
+      "faq1a": "Entre 30 000 et 80 000 EUR/ha selon la zone et la qualite, avec des pics au-dessus de 100 000 EUR/ha pour les terres a potentiel de reclassement.",
+      "faq2q": "Comment la qualite du sol est-elle evaluee ?",
+      "faq2a": "Selon la classification pedologique luxembourgeoise (classes I a V), tenant compte de la texture, du drainage, de la profondeur et de la pente.",
+      "faq3q": "Un bail rural en cours affecte-t-il le prix ?",
+      "faq3a": "Oui, une decote de 15 a 30 % est typique en raison des protections legales du fermier (loi du 2 juillet 1969).",
+      "faq4q": "Les terres agricoles peuvent-elles etre reclassees en constructible ?",
+      "faq4a": "Oui, lors de la revision du PAG communal. Le reclassement multiplie la valeur par 10 a 50 mais reste soumis a des procedures longues et incertaines."
+    }
   },
   "vefa": {
     "title": "Simulateur VEFA",
@@ -4160,7 +4562,29 @@
     "bonInteretsTitle": "Intérêts intercalaires",
     "bonInteretsText": "Pendant la phase de construction (24 à 30 mois), la banque débloque le prêt au fur et à mesure des appels de fonds. L'acquéreur paie des intérêts mensuels sur le capital déjà déboursé, sans amortir le capital. Ce coût, souvent oublié, représente typiquement 15 000 à 25 000 EUR pour un prêt standard.",
     "bonDureeTitle": "Durée de construction",
-    "bonDureeText": "Comptez en moyenne 24 à 30 mois entre la signature et la livraison. Le calendrier dépend de la taille du projet, de la météo et de la disponibilité des entreprises."
+    "bonDureeText": "Comptez en moyenne 24 à 30 mois entre la signature et la livraison. Le calendrier dépend de la taille du projet, de la météo et de la disponibilité des entreprises.",
+    "seo": {
+      "faqTitle": "Questions fréquentes sur la VEFA au Luxembourg",
+      "relatedTitle": "Outils complémentaires",
+      "guideTitle": "Guide complet de l'achat en VEFA au Luxembourg",
+      "guideContent": "<p>La <strong>Vente en l'État Futur d'Achèvement (VEFA)</strong> est le mode d'acquisition privilégié pour les logements neufs au Luxembourg. Encadrée par la <strong>loi du 18 avril 2018</strong> (entrée en vigueur en 2019), elle offre un cadre juridique protecteur pour l'acquéreur, avec des garanties renforcées par rapport à l'ancien régime.</p><p>Caractéristiques clés de la VEFA luxembourgeoise :</p><ul><li><strong>Contrat de réservation</strong> : document préliminaire fixant le prix, le descriptif technique et le délai de livraison. L'indemnité d'immobilisation ne peut excéder 5 % du prix (art. 1601-10 du Code civil)</li><li><strong>Acte de vente notarié</strong> : transfert de propriété progressif au fur et à mesure de l'avancement des travaux, avec appels de fonds réglementés</li><li><strong>Garantie d'achèvement</strong> : le promoteur doit fournir une garantie bancaire ou d'assurance couvrant l'achèvement de la construction (art. 1601-12)</li><li><strong>Garantie décennale</strong> : responsabilité des constructeurs pendant 10 ans pour les vices cachés affectant la solidité ou rendant le bien impropre à sa destination (art. 1792-2 Code civil)</li></ul>",
+      "echeancierSeoTitle": "L'échéancier de paiement VEFA : les étapes clés",
+      "echeancierSeoContent": "<p>L'article 1601-11 du Code civil luxembourgeois fixe un <strong>échéancier maximum</strong> de paiement en fonction de l'avancement des travaux :</p><ul><li><strong>Acte de vente</strong> : maximum 33 % du prix (terrain + fondations)</li><li><strong>Mise hors d'eau</strong> (gros œuvre et toiture terminés) : cumulé maximum 60 %</li><li><strong>Achèvement des travaux</strong> : cumulé maximum 95 %</li><li><strong>Livraison</strong> : solde de 5 % (retenu en cas de réserves lors de la réception)</li></ul><p>Ces plafonds sont <strong>impératifs</strong> et ne peuvent être dépassés contractuellement. Le promoteur ne peut appeler les fonds qu'au vu de l'attestation d'avancement délivrée par le maître d'œuvre ou l'organisme de contrôle agréé.</p><p>Notre simulateur calcule le montant de chaque appel de fonds, les intérêts intercalaires correspondants et le coût total de la période de construction.</p>",
+      "tvaSeoTitle": "TVA et fiscalité de la VEFA au Luxembourg",
+      "tvaSeoContent": "<p>Le régime fiscal de la VEFA est un avantage majeur pour les acquéreurs occupants :</p><ul><li><strong>Part terrain</strong> : soumise aux droits d'enregistrement de 7 % (6 % + 1 %), avec application du Bëllegen Akt pour la résidence principale</li><li><strong>Part construction</strong> : soumise à la TVA à 3 % (taux super-réduit) pour la résidence principale de l'acquéreur, dans la limite de 50 000 € de TVA économisée</li><li>Au-delà du plafond ou pour un investissement locatif : TVA à 17 %</li></ul><p>La répartition terrain/construction est déterminante et figure dans l'acte de vente. Le terrain représente typiquement 20 à 40 % du prix total selon la localisation (plus élevé à Luxembourg-Ville, plus faible dans le Nord).</p>",
+      "intercalairesTitle": "Les intérêts intercalaires : un coût souvent sous-estimé",
+      "intercalairesContent": "<p>Les <strong>intérêts intercalaires</strong> sont les intérêts payés sur les fonds déjà débloqués pendant la période de construction, avant le début du remboursement du capital. Ils constituent un coût additionnel significatif souvent sous-estimé par les acquéreurs.</p><p>Exemple pour un bien VEFA à 600 000 € avec un prêt de 500 000 € à 3,8 % sur une période de construction de 18 mois :</p><ul><li>Déblocage progressif selon l'échéancier légal</li><li>Intérêts intercalaires estimés : 12 000-15 000 € sur la période</li><li>Ces intérêts sont déductibles fiscalement pour la résidence principale</li></ul><p>Notre outil simule précisément ces intérêts en fonction de l'échéancier de paiement et du taux de votre prêt.</p>",
+      "faq1q": "Qu'est-ce que la VEFA au Luxembourg ?",
+      "faq1a": "La VEFA (Vente en l'État Futur d'Achèvement) est un contrat par lequel le promoteur vend un logement non encore construit ou en cours de construction. L'acquéreur devient progressivement propriétaire au fur et à mesure de l'avancement des travaux, avec un paiement échelonné réglementé par la loi du 18 avril 2018.",
+      "faq2q": "Quels sont les risques de la VEFA ?",
+      "faq2a": "Les principaux risques sont le retard de livraison (pénalités prévues au contrat), les modifications de descriptif (le promoteur ne peut modifier les éléments essentiels sans accord), et la faillite du promoteur (couverte par la garantie d'achèvement obligatoire).",
+      "faq3q": "Comment bénéficier du taux de TVA réduit à 3 % ?",
+      "faq3a": "Le taux de 3 % s'applique à la part construction du logement destiné à servir de résidence principale de l'acquéreur. La demande est faite auprès de l'Administration de l'Enregistrement (AED) avec le formulaire d'agrément, généralement transmis par le notaire.",
+      "faq4q": "Que faire en cas de défauts à la livraison ?",
+      "faq4a": "Lors de la réception, établissez un procès-verbal détaillé listant tous les défauts constatés (réserves). Le solde de 5 % est retenu tant que les réserves ne sont pas levées. Le promoteur a l'obligation de corriger les défauts dans un délai raisonnable. En cas de litige, saisissez le tribunal d'arrondissement.",
+      "faq5q": "Les intérêts intercalaires sont-ils déductibles fiscalement ?",
+      "faq5a": "Oui, les intérêts intercalaires sont déductibles du revenu imposable au même titre que les intérêts hypothécaires, dans la limite des plafonds prévus pour la résidence principale (1 500 à 3 000 €/an selon la durée d'occupation)."
+    }
   },
   "propcalc": {
     "badge": "Plugin WordPress Gratuit",
@@ -4248,6 +4672,28 @@
     "ctaTitle": "Prêt à ajouter un calculateur à votre site ?",
     "ctaSubtitle": "Gratuit, open-source, conforme RGPD. Installation en moins d'une minute.",
     "ctaDownload": "Télécharger PropCalc →",
-    "ctaGithub": "Voir sur GitHub"
+    "ctaGithub": "Voir sur GitHub",
+    "seo": {
+      "faqTitle": "Questions frequentes sur PropCalc",
+      "relatedTitle": "Outils complementaires",
+      "pluginTitle": "PropCalc : plugin WordPress multi-pays pour l'investissement immobilier",
+      "pluginContent": "<p><strong>PropCalc</strong> est un plugin WordPress open source developpe par Tevaxia qui permet d'integrer des calculateurs immobiliers professionnels dans tout site WordPress. Le plugin couvre plus de <strong>25 pays</strong> avec les taux de taxation, frais de notaire et regles fiscales locales pre-configurees.</p><p>Concu pour les agents immobiliers, promoteurs et portails d'annonces, PropCalc offre des simulateurs de frais d'acquisition, de rendement locatif et de credit hypothecaire, adaptes automatiquement a la legislation du pays selectionne.</p>",
+      "modulesTitle": "Modules disponibles et fonctionnalites",
+      "modulesContent": "<p>PropCalc propose plusieurs modules integres :</p><ul><li><strong>Frais d'acquisition</strong> : calcul complet des droits, taxes et frais de notaire par pays</li><li><strong>Rendement locatif</strong> : rendement brut, net et cash-on-cash avec charges locales</li><li><strong>Simulateur de credit</strong> : mensualites, cout total du credit, tableau d'amortissement</li><li><strong>Plus-values</strong> : simulation de la taxation des plus-values selon la legislation locale</li></ul><p>Chaque module est configurable (devises, taux, libelles) et entierement traduit via le systeme i18n de WordPress.</p>",
+      "paysTitle": "Couverture geographique : 25+ pays supportes",
+      "paysContent": "<p>PropCalc couvre :</p><ul><li><strong>Europe</strong> : Luxembourg, France, Belgique, Allemagne, Pays-Bas, Suisse, Espagne, Portugal, Italie, Autriche, et plus</li><li><strong>Ameriques</strong> : Etats-Unis (par Etat), Canada, Mexique</li><li><strong>Asie-Pacifique</strong> : Australie, Singapore, Hong Kong</li></ul><p>Les taux et regles sont maintenus par la communaute et verifies regulierement contre les sources officielles de chaque pays.</p>",
+      "integrationsTitle": "Integration WordPress et personnalisation",
+      "integrationsContent": "<p>L'integration se fait via :</p><ul><li><strong>Shortcodes</strong> : [propcalc country='lu' module='acquisition'] — insertion simple dans n'importe quelle page</li><li><strong>Bloc Gutenberg</strong> : drag-and-drop avec previsualisation en temps reel</li><li><strong>Widget sidebar</strong> : calculateur compact pour les barres laterales</li><li><strong>API REST</strong> : integration headless pour les themes custom et les SPA</li></ul><p>Le plugin est heberge sur le repertoire officiel WordPress et le code source est disponible sur GitHub.</p>",
+      "faq1q": "PropCalc est-il gratuit ?",
+      "faq1a": "Oui, PropCalc est entierement gratuit et open source (licence GPL v2). Le code est disponible sur GitHub et le plugin est telechangeable depuis le repertoire WordPress officiel.",
+      "faq2q": "Quels pays sont supportes ?",
+      "faq2a": "Plus de 25 pays sont supportes avec les taux et regles locales pre-configures, incluant le Luxembourg, la France, la Belgique, l'Allemagne et bien d'autres.",
+      "faq3q": "Comment integrer PropCalc dans mon site ?",
+      "faq3a": "Installez le plugin depuis le repertoire WordPress, configurez le pays et les modules souhaites, puis inserez les calculateurs via shortcodes, blocs Gutenberg ou widgets.",
+      "faq4q": "Puis-je contribuer au developpement ?",
+      "faq4a": "Oui, le projet est open source sur GitHub. Les contributions (code, traductions, donnees pays) sont bienvenues via pull requests.",
+      "faq5q": "PropCalc fonctionne-t-il avec WooCommerce ou Jetstreambuilder ?",
+      "faq5a": "Oui, PropCalc est compatible avec les principaux page builders (Elementor, Divi, WPBakery) et s'integre dans les themes WooCommerce sans conflit."
+    }
   }
 }
