@@ -161,6 +161,11 @@
         "title": "Urbanisme PAG / PAP",
         "description": "Zones d'affectation, constructibilité, COS/CMU, servitudes CTV/CTL, procédures PAP Nouveau Quartier et Quartier Existant.",
         "tag": "Loi 19/07/2004 mod."
+      },
+      "syndic": {
+        "title": "Tableau de bord syndic",
+        "description": "Gestion multi-lots, répartition des charges par tantièmes, classe CPE par lot, planning rénovation avec Klimabonus.",
+        "tag": "Copropriété / AG"
       }
     },
     "stats": {

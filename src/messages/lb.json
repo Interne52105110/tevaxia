@@ -161,6 +161,11 @@
         "title": "Urbanismus PAG / PAP",
         "description": "Notzungszonen, Bebaulechkeet, COS/CMU, CTV/CTL-Servituten, PAP-Prozeduren Neie Quartier an Existéierend Quartier.",
         "tag": "Gesetz 19/07/2004 mod."
+      },
+      "syndic": {
+        "title": "Syndic-Dashboard",
+        "description": "Multi-Lot-Gestioun, Käschtenverdeelung no Ufeeler, CPE pro Lot, Renovatiounsplanung mat Klimabonus.",
+        "tag": "Kopropriétéit / AG"
       }
     },
     "stats": {

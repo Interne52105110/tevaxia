@@ -161,6 +161,11 @@
         "title": "Städtebau PAG / PAP",
         "description": "Nutzungszonen, Bebaubarkeit, COS/CMU, CTV/CTL-Dienstbarkeiten, PAP-Verfahren Neues Quartier und Bestehendes Quartier.",
         "tag": "Gesetz 19/07/2004 mod."
+      },
+      "syndic": {
+        "title": "Syndic-Dashboard",
+        "description": "Mehrfachlot-Verwaltung, Kostenverteilung nach Anteilen, EPA pro Einheit, Sanierungsplanung mit Klimabonus.",
+        "tag": "Wohneigentum / ETV"
       }
     },
     "stats": {

@@ -161,6 +161,11 @@
         "title": "Urbanismo PAG / PAP",
         "description": "Zonas de afetação, construtibilidade, COS/CMU, servidões CTV/CTL, procedimentos PAP Novo Quarteirão e Quarteirão Existente.",
         "tag": "Lei 19/07/2004 mod."
+      },
+      "syndic": {
+        "title": "Painel de Síndico",
+        "description": "Gestão multi-lotes, distribuição de encargos por quotas, CPE por lote, planeamento de renovação com Klimabonus.",
+        "tag": "Condomínio / AG"
       }
     },
     "stats": {

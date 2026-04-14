@@ -161,6 +161,11 @@
         "title": "Zoning PAG / PAP",
         "description": "Zoning areas, buildability, COS/CMU, CTV/CTL easements, PAP New District and Existing District procedures.",
         "tag": "Law 19/07/2004 mod."
+      },
+      "syndic": {
+        "title": "Syndic Dashboard",
+        "description": "Multi-unit management, charge distribution by shares, EPC per unit, renovation planning with Klimabonus.",
+        "tag": "Co-ownership / AGM"
       }
     },
     "stats": {
