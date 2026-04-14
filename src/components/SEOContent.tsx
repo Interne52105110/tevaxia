@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { useTranslations } from "next-intl";
 
 // ============================================================
@@ -116,13 +117,13 @@ export default function SEOContent({ ns, sections, faq, relatedLinks }: SEOConte
             </h2>
             <div className="flex flex-wrap gap-3">
               {relatedLinks.map((link) => (
-                <Link
+                <LocaleLink
                   key={link.href}
                   href={link.href}
                   className="rounded-lg border border-card-border bg-card px-4 py-2.5 text-sm font-medium text-navy hover:bg-navy/5 transition-colors"
                 >
                   {tn(link.labelKey)}
-                </Link>
+                </LocaleLink>
               ))}
             </div>
           </section>

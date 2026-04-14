@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
@@ -85,14 +86,14 @@ function DropdownMenu({ group, t, onClose }: { group: MenuGroup; t: (key: string
   return (
     <div ref={ref} className="absolute top-full left-0 mt-1 w-56 rounded-lg border border-white/10 bg-navy-dark shadow-xl py-1 z-50">
       {group.items.map((item) => (
-        <Link
+        <LocaleLink
           key={item.href}
           href={item.href}
           className="block px-4 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors"
           onClick={onClose}
         >
           {t(item.key)}
-        </Link>
+        </LocaleLink>
       ))}
     </div>
   );
@@ -110,7 +111,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-navy text-white shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href={isEnergy ? "/energy" : "/"} className="flex items-center gap-2">
+          <LocaleLink href={isEnergy ? "/energy" : "/"} className="flex items-center gap-2">
             {isEnergy ? (
               <>
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-energy text-white font-bold text-lg">
@@ -126,7 +127,7 @@ export default function Header() {
                 <span className="text-xl font-bold tracking-tight">tevaxia<span className="text-gold">.lu</span></span>
               </>
             )}
-          </Link>
+          </LocaleLink>
 
           <nav className="hidden lg:flex items-center gap-1">
             {MENU_GROUPS.map((group) => (
@@ -145,25 +146,25 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <Link href="/pricing" className="rounded-lg bg-gold/15 border border-gold/30 px-3 py-2 text-sm font-medium text-gold hover:bg-gold/25 transition-colors">
+            <LocaleLink href="/pricing" className="rounded-lg bg-gold/15 border border-gold/30 px-3 py-2 text-sm font-medium text-gold hover:bg-gold/25 transition-colors">
               {t("tarifs")}
-            </Link>
+            </LocaleLink>
           </nav>
 
           <div className="flex items-center gap-2">
             {user ? (
               <div className="flex items-center gap-1">
-                <Link href="/profil" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                <LocaleLink href="/profil" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
                   {t("profil")}
-                </Link>
-                <Link href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                </LocaleLink>
+                <LocaleLink href="/mes-evaluations" className="rounded-lg px-2 py-1 text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors">
                   {t("mesEval")}
-                </Link>
+                </LocaleLink>
               </div>
             ) : (
-              <Link href="/connexion" className="rounded-lg bg-gold/90 px-3 py-1 text-xs font-medium text-navy-dark hover:bg-gold transition-colors">
+              <LocaleLink href="/connexion" className="rounded-lg bg-gold/90 px-3 py-1 text-xs font-medium text-navy-dark hover:bg-gold transition-colors">
                 {t("connexion")}
-              </Link>
+              </LocaleLink>
             )}
             <LanguageSwitcher />
 
@@ -189,14 +190,14 @@ export default function Header() {
               <div key={group.key}>
                 <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/40">{t(group.key)}</div>
                 {group.items.map((item) => (
-                  <Link
+                  <LocaleLink
                     key={item.href}
                     href={item.href}
                     className="block rounded-lg px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t(item.key)}
-                  </Link>
+                  </LocaleLink>
                 ))}
               </div>
             ))}

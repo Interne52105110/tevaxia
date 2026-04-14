@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import SEOContent from "@/components/SEOContent";
 
 export const metadata: Metadata = {
@@ -100,7 +100,8 @@ const SIMULATORS = [
 ];
 
 export default async function EnergyHomePage() {
-  const t = await getTranslations("energy.home");
+  const [t, locale] = await Promise.all([getTranslations("energy.home"), getLocale()]);
+  const lp = locale === "fr" ? "" : `/${locale}`;
 
   return (
     <>
@@ -126,7 +127,7 @@ export default async function EnergyHomePage() {
             {SIMULATORS.map((sim) => (
               <Link
                 key={sim.href}
-                href={sim.href}
+                href={`${lp}${sim.href}`}
                 className="group relative w-full overflow-hidden rounded-2xl border border-card-border bg-card p-6 shadow-sm transition-all hover:shadow-lg hover:-translate-y-1 sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
               >
                 <div className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-br ${sim.color} p-3 text-white mb-4`}>

@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { SoftwareApplicationJsonLd } from "@/components/JsonLd";
 import OnboardingIntent from "@/components/OnboardingIntent";
 
 export default async function Home() {
-  const t = await getTranslations("home");
+  const [t, locale] = await Promise.all([getTranslations("home"), getLocale()]);
+  const lp = locale === "fr" ? "" : `/${locale}`; // locale prefix
 
   const MODULES = [
     {
@@ -238,7 +239,7 @@ export default async function Home() {
             {MODULES.map((module) => (
               <Link
                 key={module.href}
-                href={module.href}
+                href={`${lp}${module.href}`}
                 className="group relative flex w-full flex-col rounded-2xl border border-card-border bg-card p-6 shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
               >
                 <div className={`mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${module.color} text-white shadow-sm`}>

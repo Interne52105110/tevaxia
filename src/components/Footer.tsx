@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 
@@ -34,15 +35,15 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">{tn("particuliers")}</h3>
             <ul className="space-y-1.5 text-sm">
-              <li><Link href="/estimation" className="hover:text-white transition-colors">{tn("estimation")}</Link></li>
-              <li><Link href="/carte" className="hover:text-white transition-colors">{tn("carte")}</Link></li>
-              <li><Link href="/frais-acquisition" className="hover:text-white transition-colors">{tn("frais")}</Link></li>
-              <li><Link href="/calculateur-loyer" className="hover:text-white transition-colors">{tn("loyer")}</Link></li>
-              <li><Link href="/simulateur-aides" className="hover:text-white transition-colors">{tn("aides")}</Link></li>
-              <li><Link href="/plus-values" className="hover:text-white transition-colors">{tn("plusValues")}</Link></li>
-              <li><Link href="/achat-vs-location" className="hover:text-white transition-colors">{tn("achatLocation")}</Link></li>
-              <li><Link href="/comparer" className="hover:text-white transition-colors">{tn("comparer")}</Link></li>
-              <li><Link href="/vefa" className="hover:text-white transition-colors">{tn("vefa")}</Link></li>
+              <li><LocaleLink href="/estimation" className="hover:text-white transition-colors">{tn("estimation")}</LocaleLink></li>
+              <li><LocaleLink href="/carte" className="hover:text-white transition-colors">{tn("carte")}</LocaleLink></li>
+              <li><LocaleLink href="/frais-acquisition" className="hover:text-white transition-colors">{tn("frais")}</LocaleLink></li>
+              <li><LocaleLink href="/calculateur-loyer" className="hover:text-white transition-colors">{tn("loyer")}</LocaleLink></li>
+              <li><LocaleLink href="/simulateur-aides" className="hover:text-white transition-colors">{tn("aides")}</LocaleLink></li>
+              <li><LocaleLink href="/plus-values" className="hover:text-white transition-colors">{tn("plusValues")}</LocaleLink></li>
+              <li><LocaleLink href="/achat-vs-location" className="hover:text-white transition-colors">{tn("achatLocation")}</LocaleLink></li>
+              <li><LocaleLink href="/comparer" className="hover:text-white transition-colors">{tn("comparer")}</LocaleLink></li>
+              <li><LocaleLink href="/vefa" className="hover:text-white transition-colors">{tn("vefa")}</LocaleLink></li>
             </ul>
           </div>
 
@@ -50,16 +51,16 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">{tn("professionnels")}</h3>
             <ul className="space-y-1.5 text-sm">
-              <li><Link href="/valorisation" className="hover:text-white transition-colors">{tn("valorisation")}</Link></li>
-              <li><Link href="/hedonique" className="hover:text-white transition-colors">{tn("hedonique")}</Link></li>
-              <li><Link href="/dcf-multi" className="hover:text-white transition-colors">{tn("dcfMulti")}</Link></li>
-              <li><Link href="/bilan-promoteur" className="hover:text-white transition-colors">{tn("bilanPromoteur")}</Link></li>
-              <li><Link href="/estimateur-construction" className="hover:text-white transition-colors">{tn("estimateurConstruction")}</Link></li>
-              <li><Link href="/calculateur-vrd" className="hover:text-white transition-colors">{tn("calculateurVrd")}</Link></li>
-              <li><Link href="/convertisseur-surfaces" className="hover:text-white transition-colors">{tn("convertisseurSurfaces")}</Link></li>
-              <li><Link href="/outils-bancaires" className="hover:text-white transition-colors">{tn("bancaire")}</Link></li>
-              <li><Link href="/portfolio" className="hover:text-white transition-colors">{tn("portfolio")}</Link></li>
-              <li><Link href="/aml-kyc" className="hover:text-white transition-colors">{tn("amlKyc")}</Link></li>
+              <li><LocaleLink href="/valorisation" className="hover:text-white transition-colors">{tn("valorisation")}</LocaleLink></li>
+              <li><LocaleLink href="/hedonique" className="hover:text-white transition-colors">{tn("hedonique")}</LocaleLink></li>
+              <li><LocaleLink href="/dcf-multi" className="hover:text-white transition-colors">{tn("dcfMulti")}</LocaleLink></li>
+              <li><LocaleLink href="/bilan-promoteur" className="hover:text-white transition-colors">{tn("bilanPromoteur")}</LocaleLink></li>
+              <li><LocaleLink href="/estimateur-construction" className="hover:text-white transition-colors">{tn("estimateurConstruction")}</LocaleLink></li>
+              <li><LocaleLink href="/calculateur-vrd" className="hover:text-white transition-colors">{tn("calculateurVrd")}</LocaleLink></li>
+              <li><LocaleLink href="/convertisseur-surfaces" className="hover:text-white transition-colors">{tn("convertisseurSurfaces")}</LocaleLink></li>
+              <li><LocaleLink href="/outils-bancaires" className="hover:text-white transition-colors">{tn("bancaire")}</LocaleLink></li>
+              <li><LocaleLink href="/portfolio" className="hover:text-white transition-colors">{tn("portfolio")}</LocaleLink></li>
+              <li><LocaleLink href="/aml-kyc" className="hover:text-white transition-colors">{tn("amlKyc")}</LocaleLink></li>
             </ul>
           </div>
 
@@ -67,18 +68,18 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">{tn("donnees")}</h3>
             <ul className="space-y-1.5 text-sm">
-              <li><Link href="/marche" className="hover:text-white transition-colors">{tn("marche")}</Link></li>
-              <li><Link href="/indices" className="hover:text-white transition-colors">{tn("indices")}</Link></li>
-              <li><Link href="/pag-pap" className="hover:text-white transition-colors">{tn("pagPap")}</Link></li>
-              <li><Link href="/terres-agricoles" className="hover:text-white transition-colors">{tn("terresAgricoles")}</Link></li>
+              <li><LocaleLink href="/marche" className="hover:text-white transition-colors">{tn("marche")}</LocaleLink></li>
+              <li><LocaleLink href="/indices" className="hover:text-white transition-colors">{tn("indices")}</LocaleLink></li>
+              <li><LocaleLink href="/pag-pap" className="hover:text-white transition-colors">{tn("pagPap")}</LocaleLink></li>
+              <li><LocaleLink href="/terres-agricoles" className="hover:text-white transition-colors">{tn("terresAgricoles")}</LocaleLink></li>
             </ul>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3 mt-6">{tc("legal")}</h3>
             <ul className="space-y-1.5 text-sm">
-              <li><Link href="/mentions-legales" className="hover:text-white transition-colors">{tc("legalNotice")}</Link></li>
-              <li><Link href="/confidentialite" className="hover:text-white transition-colors">{tc("privacy")}</Link></li>
-              <li><Link href="/pricing" className="hover:text-white transition-colors">Tarifs</Link></li>
-              <li><Link href="/plan-du-site" className="hover:text-white transition-colors">Plan du site</Link></li>
-              <li><Link href={`${localePath}/propcalc`} className="hover:text-white transition-colors text-teal-light">PropCalc (WordPress)</Link></li>
+              <li><LocaleLink href="/mentions-legales" className="hover:text-white transition-colors">{tc("legalNotice")}</LocaleLink></li>
+              <li><LocaleLink href="/confidentialite" className="hover:text-white transition-colors">{tc("privacy")}</LocaleLink></li>
+              <li><LocaleLink href="/pricing" className="hover:text-white transition-colors">Tarifs</LocaleLink></li>
+              <li><LocaleLink href="/plan-du-site" className="hover:text-white transition-colors">Plan du site</LocaleLink></li>
+              <li><LocaleLink href={`${localePath}/propcalc`} className="hover:text-white transition-colors text-teal-light">PropCalc (WordPress)</LocaleLink></li>
             </ul>
           </div>
 
@@ -91,13 +92,13 @@ export default function Footer() {
               {tn("energy")}
             </h3>
             <ul className="space-y-1.5 text-sm mb-6">
-              <li><Link href="/energy/impact" className="hover:text-energy-light transition-colors">{tn("energyImpact")}</Link></li>
-              <li><Link href="/energy/renovation" className="hover:text-energy-light transition-colors">{tn("energyRenovation")}</Link></li>
-              <li><Link href="/energy/communaute" className="hover:text-energy-light transition-colors">{tn("energyCommunaute")}</Link></li>
-              <li><Link href="/energy/hvac" className="hover:text-energy-light transition-colors">{tn("hvac")}</Link></li>
-              <li><Link href="/energy/epbd" className="hover:text-energy-light transition-colors">{tn("energyEpbd")}</Link></li>
-              <li><Link href="/energy/estimateur-cpe" className="hover:text-energy-light transition-colors">{tn("energyCpe")}</Link></li>
-              <li><Link href="/energy/lenoz" className="hover:text-energy-light transition-colors">{tn("energyLenoz")}</Link></li>
+              <li><LocaleLink href="/energy/impact" className="hover:text-energy-light transition-colors">{tn("energyImpact")}</LocaleLink></li>
+              <li><LocaleLink href="/energy/renovation" className="hover:text-energy-light transition-colors">{tn("energyRenovation")}</LocaleLink></li>
+              <li><LocaleLink href="/energy/communaute" className="hover:text-energy-light transition-colors">{tn("energyCommunaute")}</LocaleLink></li>
+              <li><LocaleLink href="/energy/hvac" className="hover:text-energy-light transition-colors">{tn("hvac")}</LocaleLink></li>
+              <li><LocaleLink href="/energy/epbd" className="hover:text-energy-light transition-colors">{tn("energyEpbd")}</LocaleLink></li>
+              <li><LocaleLink href="/energy/estimateur-cpe" className="hover:text-energy-light transition-colors">{tn("energyCpe")}</LocaleLink></li>
+              <li><LocaleLink href="/energy/lenoz" className="hover:text-energy-light transition-colors">{tn("energyLenoz")}</LocaleLink></li>
             </ul>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3">Contact</h3>
             <a href="mailto:contact@tevaxia.lu" className="inline-flex items-center gap-2 text-sm text-gold hover:text-gold-light transition-colors">
