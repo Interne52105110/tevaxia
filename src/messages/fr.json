@@ -5415,5 +5415,25 @@
       "faqTitle": "Questions fréquentes",
       "relatedTitle": "Aller plus loin"
     }
+  },
+  "bailCommercial": {
+    "seo": {
+      "contextTitle": "Pourquoi un régime spécifique ?",
+      "contextContent": "Le bail commercial luxembourgeois est encadré par la loi du 3 février 2018 et le Code civil. Contrairement au bail d'habitation, le loyer est librement convenu à la signature — la règle des 5 % plafonnant le loyer ne s'applique pas. En revanche, la durée minimale de 9 ans et le droit au renouvellement apportent une protection forte au locataire.",
+      "indexationTitle": "Indexation selon l'IPC STATEC",
+      "indexationContent": "Au Luxembourg, il n'existe pas d'indice spécifique au bail commercial (équivalent ILC/ILAT français). Les parties se réfèrent habituellement à l'Indice des prix à la consommation (IPC) publié par le STATEC. Les clauses limitent souvent l'indexation à 15-25 % du loyer initial pour éviter les dérives en période de forte inflation.",
+      "dureeTitle": "Durée minimale de 9 ans",
+      "dureeContent": "La loi du 3 février 2018 fixe une durée minimale de 9 ans pour le bail commercial. Le locataire peut résilier à chaque période triennale (3, 6 et 9 ans) moyennant un préavis de 6 mois. À défaut de congé 6 mois avant terme, le bail se renouvelle tacitement.",
+      "faq1q": "La règle des 5 % s'applique-t-elle au commerce ?",
+      "faq1a": "Non. La règle des 5 % (plafond légal de loyer calculé sur le capital investi réévalué) est spécifique au bail d'habitation. Pour un bail commercial, le loyer initial est libre — c'est la négociation entre bailleur et locataire qui fait foi.",
+      "faq2q": "Comment est indexé le loyer commercial au LU ?",
+      "faq2a": "Par application de l'Indice des prix à la consommation (IPC) publié par le STATEC, selon la formule négociée dans le bail. Formule usuelle : loyer indexé = loyer initial × (IPC année N / IPC année signature), souvent plafonnée à +15 % ou +20 % du loyer initial pour protéger le locataire en période de forte inflation.",
+      "faq3q": "Quelle est la durée minimale ?",
+      "faq3a": "9 ans (loi du 3 février 2018). Le locataire peut sortir à chaque période triennale avec un préavis de 6 mois. Le bailleur ne peut résilier qu'à l'échéance de 9 ans, et uniquement pour reprise personnelle ou travaux majeurs, sinon une indemnité d'éviction est due.",
+      "faq4q": "Qu'est-ce que le pas-de-porte ?",
+      "faq4a": "C'est une somme versée par le locataire entrant au bailleur, en contrepartie du droit d'occuper les lieux. Le pas-de-porte peut représenter plusieurs mois voire années de loyer. Il n'est pas récupérable à la sortie et il est distinct du dépôt de garantie (3-12 mois usuels).",
+      "faqTitle": "Questions fréquentes",
+      "relatedTitle": "Aller plus loin"
+    }
   }
 }

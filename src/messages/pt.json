@@ -5415,5 +5415,25 @@
       "faqTitle": "Perguntas frequentes",
       "relatedTitle": "Saber mais"
     }
+  },
+  "bailCommercial": {
+    "seo": {
+      "contextTitle": "Porquê um regime específico?",
+      "contextContent": "Os contratos de arrendamento comercial no Luxemburgo são regulados pela lei de 3 de fevereiro de 2018 e pelo Código Civil. Ao contrário do arrendamento habitacional, a renda é livremente acordada na assinatura — a regra dos 5 % não se aplica. A duração mínima de 9 anos e o direito à renovação oferecem forte proteção ao arrendatário.",
+      "indexationTitle": "Indexação pelo IPC STATEC",
+      "indexationContent": "No Luxemburgo não existe um índice específico para arrendamento comercial. As partes referem-se habitualmente ao Índice de Preços no Consumidor (IPC) publicado pelo STATEC. As cláusulas limitam frequentemente a indexação a 15-25 % da renda inicial.",
+      "dureeTitle": "Duração mínima de 9 anos",
+      "dureeContent": "A lei de 03.02.2018 fixa uma duração mínima de 9 anos. O arrendatário pode rescindir em cada período trienal (3, 6, 9 anos) com aviso prévio de 6 meses. Sem aviso 6 meses antes do termo, o contrato renova-se tacitamente.",
+      "faq1q": "A regra dos 5 % aplica-se ao comércio?",
+      "faq1a": "Não. Aplica-se apenas aos arrendamentos habitacionais. No comércio, a renda é livremente negociada entre senhorio e arrendatário.",
+      "faq2q": "Como é indexada a renda comercial no LU?",
+      "faq2a": "Através do IPC publicado pelo STATEC, segundo a fórmula negociada no contrato. Usual: renda indexada = renda inicial × (IPC ano N / IPC ano assinatura), frequentemente limitada a +15-20 % da renda inicial.",
+      "faq3q": "Qual a duração mínima?",
+      "faq3a": "9 anos (lei de 03.02.2018). O arrendatário pode sair em cada período trienal com 6 meses de aviso. O senhorio só pode rescindir no termo dos 9 anos, caso contrário deve uma indemnização de despejo.",
+      "faq4q": "O que é o « pas-de-porte »?",
+      "faq4a": "Uma soma paga pelo arrendatário de entrada ao senhorio em contrapartida do direito de ocupação. Pode equivaler a vários meses ou anos de renda. Não é reembolsável.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
+    }
   }
 }

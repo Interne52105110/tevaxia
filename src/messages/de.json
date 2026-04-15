@@ -5415,5 +5415,25 @@
       "faqTitle": "Häufig gestellte Fragen",
       "relatedTitle": "Weiterführend"
     }
+  },
+  "bailCommercial": {
+    "seo": {
+      "contextTitle": "Warum ein spezifisches Regime?",
+      "contextContent": "Gewerbemietverträge in Luxemburg werden durch das Gesetz vom 3. Februar 2018 und den Code civil geregelt. Im Gegensatz zum Wohnraummietvertrag wird die Miete bei Unterzeichnung frei vereinbart — die 5 %-Regel gilt nicht. Die Mindestdauer von 9 Jahren und das Erneuerungsrecht bieten starken Mieterschutz.",
+      "indexationTitle": "Indexierung nach STATEC-VPI",
+      "indexationContent": "In Luxemburg existiert kein spezifischer Gewerbemieteindex. Die Parteien beziehen sich üblicherweise auf den Verbraucherpreisindex (VPI) des STATEC. Klauseln begrenzen die Indexierung oft auf 15-25 % der Anfangsmiete.",
+      "dureeTitle": "Mindestdauer 9 Jahre",
+      "dureeContent": "Das Gesetz vom 03.02.2018 setzt eine Mindestdauer von 9 Jahren fest. Der Mieter kann zu jeder Dreijahresperiode (3, 6, 9 Jahre) mit 6 Monaten Kündigungsfrist kündigen. Ohne Kündigung 6 Monate vor Ende verlängert sich der Vertrag stillschweigend.",
+      "faq1q": "Gilt die 5 %-Regel für Gewerbe?",
+      "faq1a": "Nein. Sie gilt nur für Wohnraummietverträge. Bei Gewerbe wird die Miete frei zwischen Vermieter und Mieter verhandelt.",
+      "faq2q": "Wie wird die Gewerbemiete in LU indexiert?",
+      "faq2a": "Über den vom STATEC veröffentlichten Verbraucherpreisindex (VPI) gemäß der im Vertrag vereinbarten Formel. Üblich: indexierte Miete = Anfangsmiete × (VPI Jahr N / VPI Unterzeichnungsjahr), oft auf +15-20 % der Anfangsmiete begrenzt.",
+      "faq3q": "Welche Mindestdauer?",
+      "faq3a": "9 Jahre (Gesetz vom 03.02.2018). Mieterausstieg bei jeder Dreijahresperiode mit 6-Monats-Kündigung. Vermieter kann nur zum 9-Jahres-Ablauf kündigen, sonst schuldet er eine Ausziehentschädigung.",
+      "faq4q": "Was ist der « pas-de-porte »?",
+      "faq4a": "Eine Summe, die der einziehende Mieter dem Vermieter als Gegenleistung für das Belegungsrecht zahlt. Kann mehrere Monate oder Jahre Miete betragen. Nicht erstattungsfähig und unterschiedlich von der Kaution (üblich 3-12 Monate).",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
+    }
   }
 }

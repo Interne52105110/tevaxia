@@ -25,6 +25,12 @@ export default function PlusValues() {
   const [estResidencePrincipale, setEstResidencePrincipale] = useState(false);
   const [estCouple, setEstCouple] = useState(false);
 
+  // Diagnostic exonération RP : conditions détaillées
+  const [rpOccupeeAuMomentVente, setRpOccupeeAuMomentVente] = useState(true);
+  const [moisDepuisDepart, setMoisDepuisDepart] = useState(0);
+  const [estNonResident, setEstNonResident] = useState(false);
+  const [anneesOccupation, setAnneesOccupation] = useState(10);
+
   const prixAcquisitionLabel =
     modeAcquisition === "succession"
       ? t("valeurSuccessorale")
@@ -175,6 +181,76 @@ export default function PlusValues() {
                   onChange={setEstResidencePrincipale}
                   hint={t("residencePrincipaleHint")}
                 />
+
+                {estResidencePrincipale && (
+                  <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+                    <div className="text-sm font-semibold text-amber-900 mb-2">
+                      Diagnostic exonération RP (art. 102bis LIR)
+                    </div>
+                    <p className="text-xs text-amber-800 mb-3">
+                      L&apos;exonération n&apos;est pas automatique — vérifiez les 2-3 conditions ci-dessous selon votre situation.
+                    </p>
+                    <div className="space-y-2 text-sm">
+                      <label className="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" checked={rpOccupeeAuMomentVente} onChange={(e) => setRpOccupeeAuMomentVente(e.target.checked)} className="mt-0.5 h-4 w-4" />
+                        <span>
+                          <span className="font-medium text-slate-900">J&apos;occupais ce logement comme résidence principale au moment de la vente.</span>
+                          <span className="block text-xs text-slate-600">Ou vente intervenue dans les 12 mois suivant la libération.</span>
+                        </span>
+                      </label>
+                      {!rpOccupeeAuMomentVente && (
+                        <InputField
+                          label="Nombre de mois depuis que j'ai quitté le logement"
+                          value={moisDepuisDepart}
+                          onChange={(v) => setMoisDepuisDepart(Number(v) || 0)}
+                          min={0}
+                          max={240}
+                          hint="Au-delà de 12 mois, l'exonération tombe."
+                        />
+                      )}
+                      <label className="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" checked={estNonResident} onChange={(e) => setEstNonResident(e.target.checked)} className="mt-0.5 h-4 w-4" />
+                        <span>
+                          <span className="font-medium text-slate-900">Je suis non-résident fiscal luxembourgeois.</span>
+                          <span className="block text-xs text-slate-600">Condition spécifique : avoir occupé le logement au moins 5 années.</span>
+                        </span>
+                      </label>
+                      {estNonResident && (
+                        <InputField
+                          label="Années d'occupation effective"
+                          value={anneesOccupation}
+                          onChange={(v) => setAnneesOccupation(Number(v) || 0)}
+                          min={0}
+                          max={60}
+                          hint="≥ 5 ans requis pour les non-résidents."
+                        />
+                      )}
+                    </div>
+
+                    {(() => {
+                      const departDansDelai = rpOccupeeAuMomentVente || moisDepuisDepart <= 12;
+                      const occupationSuffisante = !estNonResident || anneesOccupation >= 5;
+                      const exonere = departDansDelai && occupationSuffisante;
+                      return (
+                        <div className={`mt-3 rounded-lg border p-3 text-sm ${
+                          exonere ? "border-emerald-300 bg-emerald-50 text-emerald-900" : "border-rose-300 bg-rose-50 text-rose-900"
+                        }`}>
+                          <div className="font-semibold flex items-center gap-1">
+                            {exonere ? "✓ Exonération applicable" : "⚠ Exonération compromise"}
+                          </div>
+                          <p className="mt-1 text-xs">
+                            {exonere
+                              ? "Selon vos réponses, la plus-value de cession est exonérée d'impôt au titre de la résidence principale (art. 102bis LIR)."
+                              : !departDansDelai
+                                ? `Vous avez quitté le logement depuis ${moisDepuisDepart} mois (> 12 mois). L'exonération est perdue ; la plus-value sera taxée en régime ordinaire.`
+                                : "Non-résident avec moins de 5 ans d'occupation effective : l'exonération ne s'applique pas. Décochez « Résidence principale » pour un calcul réaliste."}
+                          </p>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                )}
+
                 <ToggleField
                   label={t("coupleLabel")}
                   checked={estCouple}

@@ -5415,5 +5415,25 @@
       "faqTitle": "Frequently asked questions",
       "relatedTitle": "Go further"
     }
+  },
+  "bailCommercial": {
+    "seo": {
+      "contextTitle": "Why a specific regime?",
+      "contextContent": "Commercial leases in Luxembourg are governed by the law of 3 February 2018 and the Civil Code. Unlike residential leases, the rent is freely agreed at signing — the 5% rule capping rent does not apply. Instead, the 9-year minimum duration and the right to renewal provide strong tenant protection.",
+      "indexationTitle": "Indexation per STATEC CPI",
+      "indexationContent": "Luxembourg has no specific commercial-lease index (no French ILC/ILAT equivalent). Parties usually reference the Consumer Price Index (CPI) published by STATEC. Clauses often cap indexation at 15-25% of the initial rent to limit drifts in high-inflation periods.",
+      "dureeTitle": "9-year minimum duration",
+      "dureeContent": "The 3 February 2018 law sets a 9-year minimum for commercial leases. The tenant may terminate at each triennial period (3, 6, 9 years) with 6-month notice. Absent 6-month notice before term, the lease renews tacitly.",
+      "faq1q": "Does the 5% rule apply to commerce?",
+      "faq1a": "No. The 5% rule (legal rent cap based on reassessed invested capital) is specific to residential leases. For commercial leases, the initial rent is freely negotiated between landlord and tenant.",
+      "faq2q": "How is commercial rent indexed in LU?",
+      "faq2a": "Through the Consumer Price Index (CPI) published by STATEC, per the formula negotiated in the lease. Usual formula: indexed rent = initial rent × (CPI year N / CPI year of signature), often capped at +15% or +20% of the initial rent.",
+      "faq3q": "What is the minimum duration?",
+      "faq3a": "9 years (law of 3 February 2018). Tenant may exit at each triennial period with 6-month notice. Landlord may only terminate at the 9-year term for personal use or major works, otherwise an eviction indemnity is owed.",
+      "faq4q": "What is the « pas-de-porte »?",
+      "faq4a": "A sum paid by the incoming tenant to the landlord in exchange for the right to occupy. May equal several months or years of rent. Not refundable and distinct from the security deposit (usually 3-12 months).",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
+    }
   }
 }

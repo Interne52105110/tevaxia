@@ -5415,5 +5415,25 @@
       "faqTitle": "Heefeg gestallte Froen",
       "relatedTitle": "Méi erausfannen"
     }
+  },
+  "bailCommercial": {
+    "seo": {
+      "contextTitle": "Firwat e spezifescht Reegelwierk?",
+      "contextContent": "Gewerbebail zu Lëtzebuerg gëtt vum Gesetz vum 3. Februar 2018 an dem Code civil reglementéiert. Am Géigesaz zum Wunnbailler gëtt d'Miet bei der Ënnerschreift fräi vereenegt — d'5 %-Regel gëllt net. Déi 9-Joer Minimumsdauer an d'Erneierungsrecht bidden engem Mieter staarke Schutz.",
+      "indexationTitle": "Indexéierung no STATEC-VPI",
+      "indexationContent": "Lëtzebuerg huet keng spezifesch Gewerbeindex. D'Parteie referéieren üblecherweis op de Verbraucherpräisindex (VPI) vum STATEC. D'Indexéierung gëtt dacks op 15-25 % vun der Ufankssmiet begrenzt.",
+      "dureeTitle": "Minimumsdauer 9 Joer",
+      "dureeContent": "D'Gesetz vum 03.02.2018 setzt eng Minimumsdauer vun 9 Joer fest. De Mieter kann zu all Dräi-Joer-Period (3, 6, 9 Joer) mat 6 Méint Préavis kënnegen.",
+      "faq1q": "Gëllt d'5 %-Regel fir Gewerbe?",
+      "faq1a": "Nee. Se gëllt nëmme fir Wunnbailler. Bei Gewerbe gëtt d'Miet fräi tëscht Vermieter a Mieter ausverhandelt.",
+      "faq2q": "Wéi gëtt d'Gewerbemiet zu LU indexéiert?",
+      "faq2a": "Iwwer de vom STATEC verëffentlechte VPI, no der am Kontrakt vereenbarter Formel. Üblech: indexéiert Miet = Ufankssmiet × (VPI Joer N / VPI Ënnerschreifungsjoer), dacks op +15-20 % begrenzt.",
+      "faq3q": "Wéi eng Minimumsdauer?",
+      "faq3a": "9 Joer (Gesetz vum 03.02.2018). Mieter kann zu all Dräi-Joer-Period mat 6 Méint Préavis kënnegen.",
+      "faq4q": "Wat ass de « pas-de-porte » ?",
+      "faq4a": "Eng Zomm, déi de erakommende Mieter dem Vermieter als Géigeleeschtung fir d'Belegungsrecht bezilt. Kann e puer Méint oder Joer Miet betreffen. Net erstattbar.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
+    }
   }
 }
