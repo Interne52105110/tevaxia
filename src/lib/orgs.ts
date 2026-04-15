@@ -1,11 +1,46 @@
 import { supabase, isSupabaseConfigured } from "./supabase";
 
-export type OrgRole = "admin" | "member" | "viewer";
+export type OrgType = "agency" | "syndic" | "hotel_group" | "bank" | "other";
+
+export type OrgRole =
+  | "admin"
+  | "member"
+  | "viewer"
+  // Syndic
+  | "syndic"
+  | "conseil_syndical"
+  | "coproprietaire"
+  | "locataire"
+  | "prestataire"
+  // Hôtellerie
+  | "hotel_owner"
+  | "hotel_director"
+  | "revenue_manager"
+  | "fb_manager"
+  | "reception";
+
+export function rolesForOrgType(orgType: OrgType): OrgRole[] {
+  switch (orgType) {
+    case "agency":
+      return ["admin", "member", "viewer"];
+    case "syndic":
+      return ["admin", "syndic", "conseil_syndical", "coproprietaire", "locataire", "prestataire", "viewer"];
+    case "hotel_group":
+      return ["admin", "hotel_owner", "hotel_director", "revenue_manager", "fb_manager", "reception", "viewer"];
+    case "bank":
+      return ["admin", "member", "viewer"];
+    case "other":
+    default:
+      return ["admin", "member", "viewer"];
+  }
+}
 
 export interface Organization {
   id: string;
   name: string;
   slug: string;
+  org_type: OrgType;
+  vertical_config: Record<string, unknown>;
   logo_url: string | null;
   brand_color: string | null;
   contact_email: string | null;
@@ -55,6 +90,7 @@ function slugify(input: string): string {
 
 export async function createOrganization(input: {
   name: string;
+  org_type?: OrgType;
   contact_email?: string;
   contact_phone?: string;
   vat_number?: string;
@@ -64,7 +100,7 @@ export async function createOrganization(input: {
   const { data: { user } } = await client.auth.getUser();
   if (!user) throw new Error("Utilisateur non authentifié.");
 
-  const baseSlug = slugify(input.name) || "agence";
+  const baseSlug = slugify(input.name) || "org";
   const suffix = Math.random().toString(36).slice(2, 8);
   const slug = `${baseSlug}-${suffix}`;
 
@@ -73,6 +109,7 @@ export async function createOrganization(input: {
     .insert({
       name: input.name,
       slug,
+      org_type: input.org_type ?? "agency",
       created_by: user.id,
       contact_email: input.contact_email ?? user.email ?? null,
       contact_phone: input.contact_phone ?? null,

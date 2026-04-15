@@ -34,6 +34,7 @@ export default function NotificationPreferencesSection() {
 
   useEffect(() => {
     if (!user || !supabase) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
       return;
     }

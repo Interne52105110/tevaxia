@@ -14,16 +14,36 @@ import {
   listMembers,
   listMyOrganizations,
   listPendingInvitations,
+  rolesForOrgType,
   type Organization,
   type OrgInvitation,
   type OrgMember,
   type OrgRole,
+  type OrgType,
 } from "@/lib/orgs";
 
 const ROLE_LABEL: Record<OrgRole, string> = {
   admin: "Admin",
   member: "Négociateur",
   viewer: "Lecture seule",
+  syndic: "Syndic",
+  conseil_syndical: "Conseil syndical",
+  coproprietaire: "Copropriétaire",
+  locataire: "Locataire",
+  prestataire: "Prestataire",
+  hotel_owner: "Propriétaire hôtel",
+  hotel_director: "Directeur d'exploitation",
+  revenue_manager: "Revenue manager",
+  fb_manager: "Responsable F&B",
+  reception: "Réception",
+};
+
+const ORG_TYPE_LABEL: Record<OrgType, { label: string; desc: string; accent: string }> = {
+  agency: { label: "Agence immobilière", desc: "Vente/location, mandats, rapports co-brandés.", accent: "from-rose-500 to-rose-700" },
+  syndic: { label: "Syndic / copropriété", desc: "Gestion copropriétés, règle des 5 %, appels de fonds.", accent: "from-teal-600 to-emerald-700" },
+  hotel_group: { label: "Groupe hôtelier", desc: "Multi-hôtels, RevPAR, EBITDA, owner reports.", accent: "from-purple-600 to-purple-800" },
+  bank: { label: "Banque / institution", desc: "Valorisation MLV, LTV, API d'estimation.", accent: "from-slate-700 to-slate-900" },
+  other: { label: "Autre", desc: "Usage générique, à préciser.", accent: "from-amber-500 to-amber-700" },
 };
 
 export default function OrgPage() {
@@ -40,6 +60,7 @@ export default function OrgPage() {
 
   const [showCreate, setShowCreate] = useState(false);
   const [newOrgName, setNewOrgName] = useState("");
+  const [newOrgType, setNewOrgType] = useState<OrgType>("agency");
   const [newOrgPhone, setNewOrgPhone] = useState("");
   const [newOrgVat, setNewOrgVat] = useState("");
 
@@ -122,10 +143,12 @@ export default function OrgPage() {
     try {
       const created = await createOrganization({
         name: newOrgName.trim(),
+        org_type: newOrgType,
         contact_phone: newOrgPhone.trim() || undefined,
         vat_number: newOrgVat.trim() || undefined,
       });
       setNewOrgName("");
+      setNewOrgType("agency");
       setNewOrgPhone("");
       setNewOrgVat("");
       setShowCreate(false);
@@ -203,16 +226,43 @@ export default function OrgPage() {
             onClick={() => setShowCreate(!showCreate)}
             className="ml-auto rounded-lg bg-navy px-3 py-2 text-sm font-semibold text-white hover:bg-navy-light"
           >
-            + Créer une agence
+            + Créer une organisation
           </button>
         </div>
 
         {showCreate && (
           <div className="mt-4 border-t border-card-border pt-4">
-            <div className="grid gap-3 sm:grid-cols-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted">Type d&apos;organisation</p>
+            <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+              {(Object.keys(ORG_TYPE_LABEL) as OrgType[]).map((key) => {
+                const info = ORG_TYPE_LABEL[key];
+                const selected = newOrgType === key;
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setNewOrgType(key)}
+                    className={`rounded-xl border p-3 text-left transition-colors ${
+                      selected ? "border-navy bg-navy/5" : "border-card-border bg-background hover:bg-slate-50"
+                    }`}
+                  >
+                    <div className={`inline-flex h-6 rounded-full bg-gradient-to-br ${info.accent} px-2 py-0.5 text-[10px] font-semibold text-white items-center`}>
+                      {info.label}
+                    </div>
+                    <p className="mt-1.5 text-xs text-muted leading-snug">{info.desc}</p>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <input
                 type="text"
-                placeholder="Nom de l'agence (ex. Immo Luxembourg SA)"
+                placeholder={
+                  newOrgType === "syndic" ? "Nom du cabinet syndic"
+                    : newOrgType === "hotel_group" ? "Nom du groupe hôtelier"
+                    : newOrgType === "bank" ? "Nom de la banque ou institution"
+                    : "Nom de l'organisation"
+                }
                 value={newOrgName}
                 onChange={(e) => setNewOrgName(e.target.value)}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
@@ -236,7 +286,7 @@ export default function OrgPage() {
                 disabled={loading || !newOrgName.trim()}
                 className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-muted"
               >
-                Créer
+                Créer l&apos;organisation
               </button>
             </div>
           </div>
@@ -288,9 +338,9 @@ export default function OrgPage() {
                   onChange={(e) => setInviteRole(e.target.value as OrgRole)}
                   className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
                 >
-                  <option value="member">Négociateur</option>
-                  <option value="viewer">Lecture seule</option>
-                  <option value="admin">Admin</option>
+                  {rolesForOrgType(activeOrg?.org_type ?? "agency").map((r) => (
+                    <option key={r} value={r}>{ROLE_LABEL[r]}</option>
+                  ))}
                 </select>
                 <button
                   onClick={handleInvite}
