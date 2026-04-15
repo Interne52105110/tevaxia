@@ -5000,7 +5000,9 @@
       "faq3q": "Unterschied zwischen Geschäftswert und Gebäude?",
       "faq3a": "Gebäude (reine Immobilie) = Miete × Kapitalisierungszinssatz. Geschäft (Betrieb) = EBITDA × Multiple. Ein Volleigentümer zahlt die Summe beider. Unsere Tools behandeln den Hotelbetrieb als Ganzes.",
       "faq4q": "Braucht man einen TEGOVA-Experten für eine Bank?",
-      "faq4a": "Für einen abgesicherten Hotelkredit (> 1 Mio. €) verlangen die meisten LU/BE-Banken einen TEGOVA-EVS-2025-Bericht eines qualifizierten Gutachters. Unsere Tools ermöglichen eine Vorqualifizierung vor Beauftragung dieser Expertise."
+      "faq4a": "Für einen abgesicherten Hotelkredit (> 1 Mio. €) verlangen die meisten LU/BE-Banken einen TEGOVA-EVS-2025-Bericht eines qualifizierten Gutachters. Unsere Tools ermöglichen eine Vorqualifizierung vor Beauftragung dieser Expertise.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieToolPages": {
@@ -5068,7 +5070,9 @@
       "faq3q": "Ist der Bericht in 5 Sprachen verfügbar?",
       "faq3a": "Ja. FR / EN / DE / LB / PT. Die Sprache wird bei der Erzeugung je nach Interessent gewählt. Besonders nützlich für internationale Käufer.",
       "faq4q": "Kann der Interessent ein Konto auf tevaxia.lu eröffnen?",
-      "faq4a": "Nein. Der co-branded Bericht leitet nicht auf tevaxia.lu um. Der Interessent sieht nur Ihre Marke — wir agieren als Tool-Anbieter, nie als Zwischenhändler."
+      "faq4a": "Nein. Der co-branded Bericht leitet nicht auf tevaxia.lu um. Der Interessent sieht nur Ihre Marke — wir agieren als Tool-Anbieter, nie als Zwischenhändler.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieCalc": {
@@ -5193,7 +5197,9 @@
       "faq3q": "Wie oft werden Marktdaten aktualisiert?",
       "faq3a": "Preise pro m² werden vierteljährlich über Observatoire-de-l'Habitat-Veröffentlichungen aktualisiert. Steuertabellen (Bëllegen Akt, MwSt., Gebührensätze) innerhalb von 48 Stunden nach Veröffentlichung im Mémorial A.",
       "faq4q": "Kann die API ohne tevaxia.lu-Konto genutzt werden?",
-      "faq4a": "Ja. Die B2B-Integration erfolgt über einen dedizierten API-Schlüssel und eine technische Vereinbarung. Ihr tevaxia.lu-Nutzerkonto bleibt optional und getrennt von der Server-Integration."
+      "faq4a": "Ja. Die B2B-Integration erfolgt über einen dedizierten API-Schlüssel und eine technische Vereinbarung. Ihr tevaxia.lu-Nutzerkonto bleibt optional und getrennt von der Server-Integration.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "wizardParticulier": {
@@ -5213,7 +5219,9 @@
       "faq3q": "Welche Förderungen werden berechnet?",
       "faq3a": "Alle 5 Ebenen: staatliche Erwerbsbeihilfen (Bëllegen Akt, 3 %-MwSt.-Vorteil), energetische Sanierung (Klimabonus), private Beihilfen (Wohnbauprämie), kommunale Beihilfen und Kulturerbe-Beihilfen.",
       "faq4q": "Gilt die 5 %-Regel, wenn ich selbst in der Wohnung wohne?",
-      "faq4a": "Nein. Der gesetzliche Höchstpreis gilt nur für vermietete Objekte. Wenn Sie für sich selbst kaufen, können Sie Schritt 4 überspringen."
+      "faq4a": "Nein. Der gesetzliche Höchstpreis gilt nur für vermietete Objekte. Wenn Sie für sich selbst kaufen, können Sie Schritt 4 überspringen.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "gestionLocative": {
@@ -5233,7 +5241,9 @@
       "faq3q": "Wie werden die Neubewertungskoeffizienten berechnet?",
       "faq3a": "Aus den STATEC-Veröffentlichungen zum Bauindex. Unsere Tabelle deckt jedes Jahr seit 1960 ab.",
       "faq4q": "Ändert Möbliertvermietung die Berechnung?",
-      "faq4a": "Ja. Für möblierte Vermietung wird ein pauschaler Aufschlag von 10 % akzeptiert. Haken Sie die Option an — die Obergrenze wird automatisch angepasst."
+      "faq4a": "Ja. Für möblierte Vermietung wird ein pauschaler Aufschlag von 10 % akzeptiert. Haken Sie die Option an — die Obergrenze wird automatisch angepasst.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieValorisation": {
@@ -5249,7 +5259,9 @@
       "faq2q": "Warum 4 % FF&E-Rückstellung?",
       "faq2a": "Furniture, Fixtures & Equipment: schrittweiser Ersatz von Möbeln und Ausstattung. 4 % ist USALI-11-Standard. Ein Luxushotel kann 5-6 % rechtfertigen, ein Economy-Motel hält 3 %.",
       "faq3q": "DCF oder Preis pro Zimmer verwenden?",
-      "faq3a": "Beides. DCF spiegelt die ökonomische Performance wider. Der Preis pro Zimmer verankert in Marktpreisen. Der arithmetische Mittelwert ergibt die Bandbreite; eine Abweichung > 30 % signalisiert ein atypisches Objekt."
+      "faq3a": "Beides. DCF spiegelt die ökonomische Performance wider. Der Preis pro Zimmer verankert in Marktpreisen. Der arithmetische Mittelwert ergibt die Bandbreite; eine Abweichung > 30 % signalisiert ein atypisches Objekt.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieDscr": {
@@ -5265,7 +5277,9 @@
       "faq2q": "Was tun bei DSCR 1,10-1,25?",
       "faq2a": "Drei Hebel: Eigenkapital erhöhen (niedrigere Rate), Laufzeit verlängern (20 → 25 Jahre), Zins nachverhandeln. Vorsicht: Laufzeitverlängerung erhöht die Gesamtkosten. Zusätzliches Eigenkapital bleibt die sauberste Lösung.",
       "faq3q": "Wie EBITDA schätzen, wenn das Hotel neu ist?",
-      "faq3a": "Nutzen Sie das Exploitation-USALI-Tool, um ein 5-Jahres-P&L mit Ramp-up zu modellieren (geringere Belegung im 1. Jahr, progressiv über 3 Jahre). Jahre 3-5 Mittelwert als stabilisiertes EBITDA für DSCR."
+      "faq3a": "Nutzen Sie das Exploitation-USALI-Tool, um ein 5-Jahres-P&L mit Ramp-up zu modellieren (geringere Belegung im 1. Jahr, progressiv über 3 Jahre). Jahre 3-5 Mittelwert als stabilisiertes EBITDA für DSCR.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieExploitation": {
@@ -5281,7 +5295,9 @@
       "faq2q": "Wie Ramp-up eines neuen Hotels modellieren?",
       "faq2a": "Jahr 1: 50-55 % Belegung. Jahr 2: 60-65 %. Jahr 3-5: 65-75 % (stabilisiert). ADR +2-3 %/Jahr durch Inflation + Repositionierung. Das Tool steuert dies über „ADR-Wachstum“ und „Belegungsfortschritt“.",
       "faq3q": "F&B: profitabler Umsatz oder Kostenblock?",
-      "faq3a": "Stark kategorieabhängig. Budget: F&B oft defizitär (Frühstück inklusive), beiträgt zur Differenzierung. Midscale: ausgeglichen. Upscale/Luxus: F&B kann 15-25 % des Gesamt-GOP ausmachen, wenn das Restaurant attraktiv ist."
+      "faq3a": "Stark kategorieabhängig. Budget: F&B oft defizitär (Frühstück inklusive), beiträgt zur Differenzierung. Midscale: ausgeglichen. Upscale/Luxus: F&B kann 15-25 % des Gesamt-GOP ausmachen, wenn das Restaurant attraktiv ist.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieRenovation": {
@@ -5297,7 +5313,9 @@
       "faq2q": "Welche Maßnahme bietet den besten ROI?",
       "faq2a": "Für ein bestehendes E/F-Hotel bieten Dachdämmung + Wärmepumpenwechsel typisch den schnellsten ROI (6-10 Jahre). LED + GLT ist absolut am profitabelsten, wenn der Stromverbrauch dominiert. Fenster nur rentabel bei stark degradierten Bestandsfenstern.",
       "faq3q": "Erhöht ein Öko-Label den ADR wirklich?",
-      "faq3a": "STR Global + Cornell-Hospitality-Studien: Green Key-zertifizierte Hotels erzielen +2 bis +4 % ADR gegenüber unzertifizierten, mit 1-2 Pp. Belegungsaufschlag. Der Effekt ist bei Corporate und MICE stärker (CSR-Kriterien)."
+      "faq3a": "STR Global + Cornell-Hospitality-Studien: Green Key-zertifizierte Hotels erzielen +2 bis +4 % ADR gegenüber unzertifizierten, mit 1-2 Pp. Belegungsaufschlag. Der Effekt ist bei Corporate und MICE stärker (CSR-Kriterien).",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieRevpar": {
@@ -5313,7 +5331,9 @@
       "faq2q": "Empfohlene Analysefrequenz?",
       "faq2a": "Monatlich für ein stabiles Hotel. Wöchentlich in Hochsaison oder Repositionierungsphase. Revenue Manager nutzen auch tägliches Tracking über 14-Tage-Fenster in kritischen Phasen.",
       "faq3q": "Mein RGI ist gut, aber GOP schlecht — warum?",
-      "faq3a": "RGI misst Top-Line (Umsatz vs. Markt). GOP misst operative Rentabilität. Ein Hotel kann guten RGI und schwachen GOP haben, wenn es überbesetzt, teuer Energie bezieht oder überdimensionierte Fixkosten trägt. Nutzen Sie das Exploitation-USALI-Tool zur Analyse."
+      "faq3a": "RGI misst Top-Line (Umsatz vs. Markt). GOP misst operative Rentabilität. Ein Hotel kann guten RGI und schwachen GOP haben, wenn es überbesetzt, teuer Energie bezieht oder überdimensionierte Fixkosten trägt. Nutzen Sie das Exploitation-USALI-Tool zur Analyse.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   },
   "hotellerieScoreE2": {
@@ -5329,7 +5349,9 @@
       "faq2q": "Dauer und Verlängerung des E-2-Visums?",
       "faq2a": "Initial 2-5 Jahre je Land (5 Jahre für LU/FR/BE). Unbegrenzt verlängerbar, solange die Kriterien erfüllt sind. Jede Verlängerung: 200-400 $ + Anwaltskosten.",
       "faq3q": "Können Kinder und Ehepartner arbeiten oder studieren?",
-      "faq3a": "Ehepartner: kann EAD-Arbeitserlaubnis in den USA ohne Branchenbeschränkung beantragen. Kinder: können in jeder US-Schule lernen. Mit 21 verlieren sie den abgeleiteten Status — Visumwechsel nötig."
+      "faq3a": "Ehepartner: kann EAD-Arbeitserlaubnis in den USA ohne Branchenbeschränkung beantragen. Kinder: können in jeder US-Schule lernen. Mit 21 verlieren sie den abgeleiteten Status — Visumwechsel nötig.",
+      "faqTitle": "Häufig gestellte Fragen",
+      "relatedTitle": "Weiterführend"
     }
   }
 }

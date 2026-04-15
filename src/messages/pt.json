@@ -5000,7 +5000,9 @@
       "faq3q": "Diferença entre fundo de comércio e paredes?",
       "faq3a": "Paredes (imobiliário) = renda × taxa de capitalização. Fundo (exploração) = EBITDA × múltiplo. Um proprietário pleno paga a soma dos dois.",
       "faq4q": "É preciso um perito TEGOVA para um banco?",
-      "faq4a": "Para um empréstimo hoteleiro garantido (> 1 M€), a maioria dos bancos LU/BE exige um relatório TEGOVA EVS 2025 assinado por avaliador qualificado. As nossas ferramentas pré-qualificam o processo."
+      "faq4a": "Para um empréstimo hoteleiro garantido (> 1 M€), a maioria dos bancos LU/BE exige um relatório TEGOVA EVS 2025 assinado por avaliador qualificado. As nossas ferramentas pré-qualificam o processo.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieToolPages": {
@@ -5068,7 +5070,9 @@
       "faq3q": "O relatório está disponível em 5 línguas?",
       "faq3a": "Sim. FR / EN / DE / LB / PT. A língua é escolhida na geração, útil para compradores internacionais.",
       "faq4q": "O prospeto pode abrir conta em tevaxia.lu?",
-      "faq4a": "Não. O relatório co-branded não redireciona. O prospeto só vê a sua marca."
+      "faq4a": "Não. O relatório co-branded não redireciona. O prospeto só vê a sua marca.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieCalc": {
@@ -5193,7 +5197,9 @@
       "faq3q": "Qual a frequência de atualização dos dados de mercado?",
       "faq3a": "Preços por m² atualizados trimestralmente via publicações do Observatoire. Tabelas fiscais em 48 h após publicação no Mémorial A.",
       "faq4q": "A API pode ser usada sem conta tevaxia.lu?",
-      "faq4a": "Sim. Integração B2B via chave API dedicada e convenção técnica."
+      "faq4a": "Sim. Integração B2B via chave API dedicada e convenção técnica.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "wizardParticulier": {
@@ -5213,7 +5219,9 @@
       "faq3q": "Que apoios são calculados?",
       "faq3a": "As 5 camadas: apoios estatais de aquisição (Bëllegen Akt, IVA 3 %), renovação energética (Klimabonus), privados, comunais e património.",
       "faq4q": "A regra dos 5 % aplica-se se eu viver no imóvel?",
-      "faq4a": "Não. O teto legal aplica-se apenas a imóveis arrendados. Se compra para habitação própria, pode saltar a etapa 4."
+      "faq4a": "Não. O teto legal aplica-se apenas a imóveis arrendados. Se compra para habitação própria, pode saltar a etapa 4.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "gestionLocative": {
@@ -5233,7 +5241,9 @@
       "faq3q": "Como são calculados os coeficientes?",
       "faq3a": "A partir das publicações STATEC sobre o índice de preços na construção. A tabela cobre cada ano desde 1960.",
       "faq4q": "O arrendamento mobilado altera o cálculo?",
-      "faq4a": "Sim. Uma majoração forfetária de 10 % é aceite para arrendamento mobilado. Marque a opção no formulário do lote — o teto é ajustado automaticamente."
+      "faq4a": "Sim. Uma majoração forfetária de 10 % é aceite para arrendamento mobilado. Marque a opção no formulário do lote — o teto é ajustado automaticamente.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieValorisation": {
@@ -5249,7 +5259,9 @@
       "faq2q": "Porquê 4 % de reserva FF&E?",
       "faq2a": "Furniture, Fixtures & Equipment. 4 % é o padrão USALI 11. Um hotel de luxo pode justificar 5-6 %.",
       "faq3q": "Usar DCF ou preço por quarto?",
-      "faq3a": "Ambos. DCF reflete a performance económica. Preço por quarto ancora nos preços de mercado."
+      "faq3a": "Ambos. DCF reflete a performance económica. Preço por quarto ancora nos preços de mercado.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieDscr": {
@@ -5265,7 +5277,9 @@
       "faq2q": "Que fazer se DSCR estiver no limite (1,10-1,25)?",
       "faq2a": "Três alavancas: aumentar o capital próprio, alargar a duração, negociar taxa inferior. Capital próprio adicional é a solução mais limpa.",
       "faq3q": "Como estimar EBITDA se o hotel é novo?",
-      "faq3a": "Usar a ferramenta Exploration para construir P&L a 5 anos com ramp-up. Média anos 3-5 = EBITDA estabilizado."
+      "faq3a": "Usar a ferramenta Exploration para construir P&L a 5 anos com ramp-up. Média anos 3-5 = EBITDA estabilizado.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieExploitation": {
@@ -5281,7 +5295,9 @@
       "faq2q": "Como projetar o ramp-up de um hotel novo?",
       "faq2a": "Ano 1: 50-55 % ocupação. Ano 2: 60-65 %. Anos 3-5: 65-75 % (estabilizado). ADR +2-3 %/ano.",
       "faq3q": "F&B: receita rentável ou custo?",
-      "faq3a": "Depende fortemente da categoria. Budget: muitas vezes deficitário. Upscale/Luxury: F&B pode contribuir com 15-25 % do GOP total."
+      "faq3a": "Depende fortemente da categoria. Budget: muitas vezes deficitário. Upscale/Luxury: F&B pode contribuir com 15-25 % do GOP total.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieRenovation": {
@@ -5297,7 +5313,9 @@
       "faq2q": "Que trabalho oferece o melhor ROI?",
       "faq2a": "Para um hotel existente classe E/F, isolamento de cobertura + substituição de bomba de calor oferecem normalmente o ROI mais rápido (6-10 anos).",
       "faq3q": "Um eco-rótulo aumenta realmente o ADR?",
-      "faq3a": "Estudos STR + Cornell: hotéis certificados Green Key obtêm +2 a +4 % ADR vs não certificados."
+      "faq3a": "Estudos STR + Cornell: hotéis certificados Green Key obtêm +2 a +4 % ADR vs não certificados.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieRevpar": {
@@ -5313,7 +5331,9 @@
       "faq2q": "Frequência de análise recomendada?",
       "faq2a": "Mensal em cruzeiro. Semanal na alta estação ou reposicionamento.",
       "faq3q": "O meu RGI é bom mas o GOP é mau — porquê?",
-      "faq3a": "RGI mede top-line. GOP mede rentabilidade operacional. Pode haver sobre-pessoal ou custos fixos desproporcionados."
+      "faq3a": "RGI mede top-line. GOP mede rentabilidade operacional. Pode haver sobre-pessoal ou custos fixos desproporcionados.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   },
   "hotellerieScoreE2": {
@@ -5329,7 +5349,9 @@
       "faq2q": "Duração e renovação do E-2?",
       "faq2a": "Inicial 2-5 anos (5 anos para LU/FR/BE). Renovável indefinidamente enquanto os critérios se mantiverem.",
       "faq3q": "Os filhos e cônjuge podem trabalhar ou estudar?",
-      "faq3a": "Cônjuge: pode pedir autorização de trabalho (EAD) sem restrição de setor. Filhos: podem estudar em qualquer escola US. Aos 21, perdem o estatuto derivado."
+      "faq3a": "Cônjuge: pode pedir autorização de trabalho (EAD) sem restrição de setor. Filhos: podem estudar em qualquer escola US. Aos 21, perdem o estatuto derivado.",
+      "faqTitle": "Perguntas frequentes",
+      "relatedTitle": "Saber mais"
     }
   }
 }

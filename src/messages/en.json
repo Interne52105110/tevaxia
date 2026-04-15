@@ -5000,7 +5000,9 @@
       "faq3q": "What is the difference between business (fonds) and walls?",
       "faq3a": "Walls (real estate only) are valued by rent × capitalisation rate. Business (operation) is valued by EBITDA × multiple. A freehold buyer pays the sum of both. Our tools treat hotel operation as a whole, including productive real estate.",
       "faq4q": "Do I need a TEGOVA expert for a bank?",
-      "faq4a": "For a secured hotel loan (>€1M), most LU/BE banks require a TEGOVA EVS 2025 report signed by a qualified appraiser. Our tools allow pre-qualification of a file before ordering that expert work."
+      "faq4a": "For a secured hotel loan (>€1M), most LU/BE banks require a TEGOVA EVS 2025 report signed by a qualified appraiser. Our tools allow pre-qualification of a file before ordering that expert work.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieToolPages": {
@@ -5068,7 +5070,9 @@
       "faq3q": "Is the report available in 5 languages?",
       "faq3a": "Yes. FR / EN / DE / LB / PT. The language is chosen at generation time based on your prospect's. Particularly useful for international buyers.",
       "faq4q": "Can the prospect open an account on tevaxia.lu?",
-      "faq4a": "No. The co-branded report does not redirect to tevaxia.lu. The prospect only sees your brand — we act as tool provider, never as intermediary."
+      "faq4a": "No. The co-branded report does not redirect to tevaxia.lu. The prospect only sees your brand — we act as tool provider, never as intermediary.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieCalc": {
@@ -5193,7 +5197,9 @@
       "faq3q": "What update frequency for market data?",
       "faq3a": "Prices per m² are updated quarterly via Observatoire de l'Habitat publications (data.public.lu). Tax scales (Bëllegen Akt, VAT, duty rates) are updated within 48 hours after publication in Mémorial A.",
       "faq4q": "Can the API be used without a tevaxia.lu account?",
-      "faq4a": "Yes. B2B integration uses a dedicated API key and a technical agreement. Your tevaxia.lu user account remains optional and separate from your server integration."
+      "faq4a": "Yes. B2B integration uses a dedicated API key and a technical agreement. Your tevaxia.lu user account remains optional and separate from your server integration.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "wizardParticulier": {
@@ -5213,7 +5219,9 @@
       "faq3q": "Which aids are computed?",
       "faq3a": "All 5 layers: state acquisition aids (Bëllegen Akt, 3% VAT relief), energy renovation (Klimabonus, Klimaprêt), private aids (housing savings premium), communal aids (variable by municipality) and heritage aids (listed properties).",
       "faq4q": "Does the 5% rule apply if I live in the property myself?",
-      "faq4a": "No. The legal cap applies only to rented properties. If you buy for yourself, skip step 4 — it is only relevant if you plan to rent the property later."
+      "faq4a": "No. The legal cap applies only to rented properties. If you buy for yourself, skip step 4 — it is only relevant if you plan to rent the property later.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "gestionLocative": {
@@ -5233,7 +5241,9 @@
       "faq3q": "How are reassessment coefficients computed?",
       "faq3a": "Coefficients are taken from STATEC's construction price index publications. Our table covers every year from 1960 to today. The older the purchase year, the higher the coefficient.",
       "faq4q": "Does furnished rental change the calculation?",
-      "faq4a": "Yes. A 10% uplift on the maximum rent is accepted for furnished rentals. Tick the option in the unit form — the legal cap is adjusted automatically."
+      "faq4a": "Yes. A 10% uplift on the maximum rent is accepted for furnished rentals. Tick the option in the unit form — the legal cap is adjusted automatically.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieValorisation": {
@@ -5249,7 +5259,9 @@
       "faq2q": "Why 4% FF&E reserve?",
       "faq2a": "Furniture, Fixtures & Equipment: gradual replacement of furniture and equipment. 4% is the USALI 11th ed. standard. A luxury hotel may justify 5-6%, an economy motel holding at 3%.",
       "faq3q": "Should I use DCF or price-per-key?",
-      "faq3a": "Both. The DCF approach reflects the unique economic performance of the asset. The price-per-key multiple anchors on market prices. The arithmetic mean typically sets the retained range; a gap > 30% signals an atypical asset."
+      "faq3a": "Both. The DCF approach reflects the unique economic performance of the asset. The price-per-key multiple anchors on market prices. The arithmetic mean typically sets the retained range; a gap > 30% signals an atypical asset.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieDscr": {
@@ -5265,7 +5277,9 @@
       "faq2q": "What if DSCR is borderline (1.10-1.25)?",
       "faq2a": "Three levers: increase equity (lower monthly payment), extend duration (20 → 25 years), negotiate lower rate. Caution: extending duration raises total credit cost. Additional equity remains the cleanest solution.",
       "faq3q": "How to estimate EBITDA if the hotel is new?",
-      "faq3a": "Use the Operation USALI tool to build a 5-year P&L forecast with ramp-up (lower year 1 occupancy, progressive over 3 years). Retain the years 3-5 average as stabilised EBITDA for DSCR."
+      "faq3a": "Use the Operation USALI tool to build a 5-year P&L forecast with ramp-up (lower year 1 occupancy, progressive over 3 years). Retain the years 3-5 average as stabilised EBITDA for DSCR.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieExploitation": {
@@ -5281,7 +5295,9 @@
       "faq2q": "How to project ramp-up of a new hotel?",
       "faq2a": "Year 1: 50-55% occupancy. Year 2: 60-65%. Year 3-5: 65-75% (stabilised). ADR grows 2-3%/year via inflation + repositioning. The tool manages this curve via 'ADR growth' and 'occupancy progression' parameters.",
       "faq3q": "F&B: profitable revenue or cost?",
-      "faq3a": "Strongly category-dependent. Budget: F&B often loss-making (breakfast included), contributes via differentiation. Midscale: F&B at break-even. Upscale/Luxury: F&B can contribute 15-25% of total GOP if the restaurant attracts clients beyond hotel guests."
+      "faq3a": "Strongly category-dependent. Budget: F&B often loss-making (breakfast included), contributes via differentiation. Midscale: F&B at break-even. Upscale/Luxury: F&B can contribute 15-25% of total GOP if the restaurant attracts clients beyond hotel guests.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieRenovation": {
@@ -5297,7 +5313,9 @@
       "faq2q": "Which retrofit item offers the best ROI?",
       "faq2a": "For an existing E/F-rated hotel, roof insulation + heat pump replacement typically offers the fastest ROI (6-10 years). LED + BMS is the most profitable in absolute value if electricity consumption dominates. Windows are profitable only if existing ones are severely degraded.",
       "faq3q": "Does an eco-label actually raise ADR?",
-      "faq3a": "STR Global + Cornell Hospitality studies: Green Key or equivalent certified hotels get +2 to +4% ADR vs uncertified competitors, with a 1-2 pt occupancy premium. The effect is stronger on corporate and MICE segments (CSR criteria demanded by corporate clients)."
+      "faq3a": "STR Global + Cornell Hospitality studies: Green Key or equivalent certified hotels get +2 to +4% ADR vs uncertified competitors, with a 1-2 pt occupancy premium. The effect is stronger on corporate and MICE segments (CSR criteria demanded by corporate clients).",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieRevpar": {
@@ -5313,7 +5331,9 @@
       "faq2q": "Recommended analysis frequency?",
       "faq2a": "Monthly for a cruising hotel. Weekly in high season or during repositioning phase. Revenue managers also use daily tracking on 14-day rolling windows during critical periods (trade shows, event weekends).",
       "faq3q": "My RGI is good but GOP is bad — why?",
-      "faq3a": "RGI measures top-line performance (revenue vs market). GOP measures operational profitability. A hotel can have excellent RGI and weak GOP if it over-staffs, overpays for energy or keeps disproportionate fixed charges. Use the Operation USALI tool to identify the problem item."
+      "faq3a": "RGI measures top-line performance (revenue vs market). GOP measures operational profitability. A hotel can have excellent RGI and weak GOP if it over-staffs, overpays for energy or keeps disproportionate fixed charges. Use the Operation USALI tool to identify the problem item.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   },
   "hotellerieScoreE2": {
@@ -5329,7 +5349,9 @@
       "faq2q": "Duration and renewal of E-2 visa?",
       "faq2a": "Initial visa 2-5 years depending on country (5 years for LU/FR/BE). Indefinitely renewable as long as criteria (active business, maintained jobs, committed funds) are met. Each renewal costs $200-400 + legal fees.",
       "faq3q": "Can children and spouse work or study?",
-      "faq3a": "Spouse: can apply for a US work permit (EAD) without sector restriction. Children: can study in any US public or private school (K-12, university). At 21, children lose derived status — they must change visa."
+      "faq3a": "Spouse: can apply for a US work permit (EAD) without sector restriction. Children: can study in any US public or private school (K-12, university). At 21, children lose derived status — they must change visa.",
+      "faqTitle": "Frequently asked questions",
+      "relatedTitle": "Go further"
     }
   }
 }

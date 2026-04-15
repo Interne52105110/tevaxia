@@ -5000,7 +5000,9 @@
       "faq3q": "Ënnerscheed tëscht Geschäftswäert a Gebai?",
       "faq3a": "Gebai = Loyer × Kapitaliséierungssaaz. Geschäft = EBITDA × Multiple. E Vollbesëtzer bezilt d'Zomm vu béiden. Eis Tools behandelen den Hotelbetrib als Ganzes.",
       "faq4q": "Brauch een en TEGOVA-Expert fir eng Bank?",
-      "faq4a": "Fir en gesécherte Hotelkredit (> 1 Mio. €) verlaange meescht LU/BE-Banken en TEGOVA-EVS-2025-Bericht vun engem qualifizéierte Gutachter. Eis Tools erméiglechen eng Virqualifikatioun virum Opdrag."
+      "faq4a": "Fir en gesécherte Hotelkredit (> 1 Mio. €) verlaange meescht LU/BE-Banken en TEGOVA-EVS-2025-Bericht vun engem qualifizéierte Gutachter. Eis Tools erméiglechen eng Virqualifikatioun virum Opdrag.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieToolPages": {
@@ -5068,7 +5070,9 @@
       "faq3q": "Ass de Bericht a 5 Sproochen verfügbar?",
       "faq3a": "Jo. FR / EN / DE / LB / PT. D'Sprooch gëtt bei der Generatioun gewielt.",
       "faq4q": "Kann de Prospekt e Kont op tevaxia.lu opmaachen?",
-      "faq4a": "Nee. De co-branded Bericht leet net op tevaxia.lu ëm. De Prospekt gesäit just Är Mark."
+      "faq4a": "Nee. De co-branded Bericht leet net op tevaxia.lu ëm. De Prospekt gesäit just Är Mark.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieCalc": {
@@ -5193,7 +5197,9 @@
       "faq3q": "Wéi dacks ginn Maartdonnéeën aktualiséiert?",
       "faq3a": "M²-Präisser véierdeljähreg iwwert Observatoire-Verëffentlechungen. Steiertabellen bannen 48 Stonnen no der Publikatioun am Mémorial A.",
       "faq4q": "Kann d'API ouni tevaxia.lu-Kont genotzt ginn?",
-      "faq4a": "Jo. B2B-Integratioun iwwert dedizéierte API-Schlëssel an technesch Vereinbarung."
+      "faq4a": "Jo. B2B-Integratioun iwwert dedizéierte API-Schlëssel an technesch Vereinbarung.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "wizardParticulier": {
@@ -5213,7 +5219,9 @@
       "faq3q": "Wéi eng Hëllefen ginn berechent?",
       "faq3a": "All 5 Schichten: Staat (Bëllegen Akt, 3 %-TVA), energetesch Sanéierung (Klimabonus), privat (Spuer-Prime), kommunal a Patrimoine.",
       "faq4q": "Gëllt d'5 %-Regel wann ech selwer do wunnen?",
-      "faq4a": "Nee. De gesetzleche Plafong gëllt nëmmen fir vermiete Bien. Wann Dir fir Iech selwer kaaft, iwwersprange Etapp 4."
+      "faq4a": "Nee. De gesetzleche Plafong gëllt nëmmen fir vermiete Bien. Wann Dir fir Iech selwer kaaft, iwwersprange Etapp 4.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "gestionLocative": {
@@ -5233,7 +5241,9 @@
       "faq3q": "Wéi ginn d'Koeffizienten berechent?",
       "faq3a": "Aus de STATEC-Verëffentlechunge vum Bauindex. Eis Tabell deckt all Joer zënter 1960 of.",
       "faq4q": "Ännert en meubléiert Logement d'Berechnung?",
-      "faq4a": "Jo. Fir meubléiert Vermietung gëtt en pauschalen Ophuef vun 10 % accepteiert. Häkt d'Optioun un — de Plafong gëtt automatesch ugepasst."
+      "faq4a": "Jo. Fir meubléiert Vermietung gëtt en pauschalen Ophuef vun 10 % accepteiert. Häkt d'Optioun un — de Plafong gëtt automatesch ugepasst.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieValorisation": {
@@ -5249,7 +5259,9 @@
       "faq2q": "Firwat 4 % FF&E-Reserve?",
       "faq2a": "4 % ass USALI-11-Standard. E Luxushotel kann 5-6 % justifizéieren, e Budget-Motel hält bei 3 %.",
       "faq3q": "DCF oder Präis pro Zëmmer?",
-      "faq3a": "Béid. DCF spigelt d'wirtschaftlech Performance. Präis pro Zëmmer ankert an de Maartpräisser."
+      "faq3a": "Béid. DCF spigelt d'wirtschaftlech Performance. Präis pro Zëmmer ankert an de Maartpräisser.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieDscr": {
@@ -5265,7 +5277,9 @@
       "faq2q": "Wat maachen bei DSCR 1,10-1,25?",
       "faq2a": "Dräi Hiewelen: Apport erhéijen, Dauer verlängeren, Zinssaaz nei verhandelen. Zousätzlechen Apport bleift déi prophetst Léisung.",
       "faq3q": "Wéi EBITDA schätzen bei neien Hotel?",
-      "faq3a": "Mam Exploitation-Tool en 5-Joer-P&L modelléieren mat Ramp-up. Duerchschnëtt Joeren 3-5 = stabiliséiert EBITDA."
+      "faq3a": "Mam Exploitation-Tool en 5-Joer-P&L modelléieren mat Ramp-up. Duerchschnëtt Joeren 3-5 = stabiliséiert EBITDA.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieExploitation": {
@@ -5281,7 +5295,9 @@
       "faq2q": "Wéi en Ramp-up vun engem neien Hotel modelléieren?",
       "faq2a": "Joer 1: 50-55 % Belegung. Joer 2: 60-65 %. Joer 3-5: 65-75 %. ADR +2-3 %/Joer.",
       "faq3q": "F&B: profitabelt Ëmsatz oder Käschten?",
-      "faq3a": "Staark kategorieofhängeg. Budget: dacks defizitär. Upscale/Luxus: F&B ka 15-25 % vum GOP bäibréngen."
+      "faq3a": "Staark kategorieofhängeg. Budget: dacks defizitär. Upscale/Luxus: F&B ka 15-25 % vum GOP bäibréngen.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieRenovation": {
@@ -5297,7 +5313,9 @@
       "faq2q": "Wéi eng Moosnam bitt de beschten ROI?",
       "faq2a": "Fir e bestehenden E/F-Hotel bidden Daachisolatioun + Wärmepompel typesch de schnellsten ROI (6-10 Joer).",
       "faq3q": "Erhéicht en Öko-Label den ADR wierklech?",
-      "faq3a": "STR + Cornell-Studien: Green-Key-zertifizéiert Hoteler kréien +2 bis +4 % ADR vs. netzertifizéiert."
+      "faq3a": "STR + Cornell-Studien: Green-Key-zertifizéiert Hoteler kréien +2 bis +4 % ADR vs. netzertifizéiert.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieRevpar": {
@@ -5313,7 +5331,9 @@
       "faq2q": "Empfuelene Analysefrequenz?",
       "faq2a": "Mount bei stabilen Hotel. Woch an der Héichsaison oder Repositionéierungsphase.",
       "faq3q": "RGI gutt mee GOP schlecht — firwat?",
-      "faq3a": "RGI moosst Top-Line. GOP moosst operativ Rentabilitéit. Iwwerbesatt oder iwwerdimensionéiert Fixkäschten?"
+      "faq3a": "RGI moosst Top-Line. GOP moosst operativ Rentabilitéit. Iwwerbesatt oder iwwerdimensionéiert Fixkäschten?",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   },
   "hotellerieScoreE2": {
@@ -5329,7 +5349,9 @@
       "faq2q": "Dauer a Verlängerung?",
       "faq2a": "Initial 2-5 Joer (5 Joer fir LU/FR/BE). Onendlech verlängerbar solange d'Kritäre erfëllt bleiwen.",
       "faq3q": "Kanner a Ehepartner — schaffen oder studéieren?",
-      "faq3a": "Ehepartner: EAD-Aarbechtserlaabnis méiglech. Kanner: kënnen an all US-Schoul léieren. Mat 21 verléieren se den ofgeleeten Status."
+      "faq3a": "Ehepartner: EAD-Aarbechtserlaabnis méiglech. Kanner: kënnen an all US-Schoul léieren. Mat 21 verléieren se den ofgeleeten Status.",
+      "faqTitle": "Heefeg gestallte Froen",
+      "relatedTitle": "Méi erausfannen"
     }
   }
 }
