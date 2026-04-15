@@ -143,12 +143,11 @@ describe("simulerAides", () => {
       typeProjet: "acquisition",
       typeBien: "appartement",
       nbEmprunteurs: 1,
-      revenuImposable: 60000,
+      revenuMenage: 60000,
       nbEnfants: 0,
       epargneReguliere3ans: false,
+      estNeuf: false,
       montantPret: 400000,
-      tauxInteret: 0.035,
-      dureeAnnees: 25,
     });
     expect(result.aides).toHaveLength(0);
     expect(result.totalGeneral).toBe(0);
@@ -161,12 +160,11 @@ describe("simulerAides", () => {
       typeProjet: "acquisition",
       typeBien: "appartement",
       nbEmprunteurs: 2,
-      revenuImposable: 60000,
+      revenuMenage: 60000,
       nbEnfants: 0,
       epargneReguliere3ans: false,
+      estNeuf: false,
       montantPret: 400000,
-      tauxInteret: 0.035,
-      dureeAnnees: 25,
     });
     const bellegen = result.aides.find((a) => a.nom === "Bëllegen Akt");
     expect(bellegen).toBeDefined();
@@ -178,14 +176,13 @@ describe("simulerAides", () => {
       prixBien: 500000,
       residencePrincipale: true,
       typeProjet: "acquisition",
-      typeBien: "maison",
+      typeBien: "maison_rangee",
       nbEmprunteurs: 1,
-      revenuImposable: 60000,
+      revenuMenage: 60000,
       nbEnfants: 0,
       epargneReguliere3ans: true,
+      estNeuf: false,
       montantPret: 400000,
-      tauxInteret: 0.035,
-      dureeAnnees: 25,
     });
     const epargne = result.aides.find((a) => a.nom === "Prime d'épargne");
     expect(epargne).toBeDefined();
@@ -199,12 +196,11 @@ describe("simulerAides", () => {
       typeProjet: "acquisition",
       typeBien: "appartement",
       nbEmprunteurs: 1,
-      revenuImposable: 60000,
+      revenuMenage: 60000,
       nbEnfants: 2,
       epargneReguliere3ans: true,
+      estNeuf: false,
       montantPret: 400000,
-      tauxInteret: 0.035,
-      dureeAnnees: 25,
     });
     expect(result.totalGeneral).toBeGreaterThan(0);
     expect(result.aides.length).toBeGreaterThanOrEqual(2);
