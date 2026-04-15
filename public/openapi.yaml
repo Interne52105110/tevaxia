@@ -1,0 +1,237 @@
+openapi: 3.1.0
+info:
+  title: tevaxia.lu API
+  version: "1.0.0"
+  description: |
+    API publique de tevaxia.lu — estimation immobilière TEGOVA-conforme
+    couvrant 100 communes luxembourgeoises et outils connexes.
+
+    **Authentification** : toutes les requêtes nécessitent une clé API
+    transmise via l'en-tête `X-API-Key` ou `Authorization: Bearer <key>`.
+    Créez et gérez vos clés dans votre profil tevaxia.lu > Tableau de
+    bord API.
+
+    **Rate limiting** : chaque clé est soumise à un quota selon son tier
+    (free, pro, enterprise, sandbox). Les en-têtes de réponse
+    `X-RateLimit-Remaining` et `X-RateLimit-Reset` renseignent l'état.
+  contact:
+    name: Support tevaxia.lu
+    email: contact@tevaxia.lu
+    url: https://www.tevaxia.lu
+  license:
+    name: Proprietary
+servers:
+  - url: https://www.tevaxia.lu
+    description: Production
+  - url: https://preview.tevaxia.lu
+    description: Preview (environnement de pré-production Vercel)
+security:
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Estimation
+    description: Estimation de valeur immobilière (TEGOVA EVS 2025 + hédonique)
+  - name: Agencies
+    description: Endpoints B2B pour agences immobilières
+  - name: PropCalc
+    description: Rendement et cashflow multi-pays
+paths:
+  /api/v1/estimation:
+    options:
+      summary: Pré-vol CORS
+      responses:
+        "204":
+          description: CORS OK
+    post:
+      tags: [Estimation]
+      summary: Estimation d'un bien unique
+      description: |
+        Calcule la valeur estimée d'un bien immobilier luxembourgeois à partir
+        de sa commune (ou quartier), sa surface et plusieurs caractéristiques
+        d'ajustement. Retourne une fourchette basse/centrale/haute et un
+        indice de confiance.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EstimationInput"
+            examples:
+              luxembourg-belair:
+                summary: Appartement Belair 90m²
+                value:
+                  commune: "Luxembourg"
+                  quartier: "Belair"
+                  surface: 90
+                  nbChambres: 2
+                  etage: "entre"
+                  etat: "renove"
+                  exterieur: "balcon"
+                  parking: true
+                  classeEnergie: "B"
+                  typeBien: "appartement"
+                  estNeuf: false
+      responses:
+        "200":
+          description: Estimation calculée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EstimationResponse"
+        "400":
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Non authentifié
+        "404":
+          description: Commune non trouvée
+        "429":
+          description: Quota dépassé
+  /api/v1/estimation/batch:
+    options:
+      summary: Pré-vol CORS
+      responses:
+        "204":
+          description: CORS OK
+    post:
+      tags: [Estimation]
+      summary: Estimation en lot (jusqu'à 1000 biens)
+      description: |
+        Traite un tableau de biens en une seule requête. Chaque item est
+        calculé indépendamment ; les erreurs individuelles n'interrompent
+        pas le traitement global. Idéal pour une réévaluation périodique
+        d'un portefeuille hypothécaire.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [items]
+              properties:
+                items:
+                  type: array
+                  maxItems: 1000
+                  items:
+                    $ref: "#/components/schemas/EstimationInput"
+      responses:
+        "200":
+          description: Lot traité (succès partiels possibles dans results[].error)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  count: { type: integer }
+                  succeeded: { type: integer }
+                  failed: { type: integer }
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index: { type: integer }
+                        success: { type: boolean }
+                        data: { type: object }
+                        error: { type: string }
+        "413":
+          description: Lot trop volumineux (> 1000 items)
+  /api/v1/agences/pdf:
+    post:
+      tags: [Agencies]
+      summary: Rapport d'estimation co-brandé (PDF)
+      description: |
+        Génère un PDF d'estimation à l'image d'une agence, incluant
+        estimation + frais d'acquisition + aides applicables. Auth
+        API key ou session avec org_id admin.
+      responses:
+        "200":
+          description: PDF binaire (application/pdf)
+        "401":
+          description: Non autorisé
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    EstimationInput:
+      type: object
+      required: [commune, surface]
+      properties:
+        commune:
+          type: string
+          description: Nom de la commune luxembourgeoise (ex. "Luxembourg")
+        quartier:
+          type: string
+          description: Quartier optionnel pour affiner (ex. "Belair")
+        surface:
+          type: number
+          minimum: 1
+          maximum: 10000
+          description: Surface habitable en m²
+        nbChambres:
+          type: integer
+          minimum: 0
+          maximum: 20
+        etage:
+          type: string
+          enum: [rdc, entre, dernier, maison]
+        etat:
+          type: string
+          enum: [neuf, renove, bon, rafraichir, renover]
+        exterieur:
+          type: string
+          enum: [aucun, balcon, terrasse, jardin]
+        parking:
+          type: boolean
+        classeEnergie:
+          type: string
+          enum: [A, B, C, D, E, F, G, NC]
+        typeBien:
+          type: string
+          enum: [appartement, maison]
+        estNeuf:
+          type: boolean
+    EstimationResponse:
+      type: object
+      properties:
+        success: { type: boolean }
+        data:
+          type: object
+          properties:
+            estimationBasse: { type: number }
+            estimationCentrale: { type: number }
+            estimationHaute: { type: number }
+            prixM2Ajuste: { type: number }
+            confiance:
+              type: string
+              enum: [forte, moyenne, faible]
+            ajustements:
+              type: array
+              items:
+                type: object
+                properties:
+                  labelKey: { type: string }
+                  pct: { type: number }
+        meta:
+          type: object
+          properties:
+            api_key_name: { type: string }
+            tier:
+              type: string
+              enum: [free, pro, enterprise, sandbox]
+            method: { type: string }
+    ErrorResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: false }
+        error: { type: string }

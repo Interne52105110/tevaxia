@@ -32,19 +32,31 @@ const TIER_LIMITS: Record<ApiKeyRecord["tier"], { perMinute: number; perDay: num
   enterprise: { perMinute: 600, perDay: 100000 },
 };
 
+// Clé sandbox publique pour la documentation API — rate-limitée comme
+// un tier free (10/min, 200/j par IP). En lecture seule sur l'estimation.
+const SANDBOX_KEY: ApiKeyRecord = {
+  id: "sandbox:public",
+  name: "sandbox-public",
+  key: "tvx_sandbox_public_demo_key_read_only",
+  tier: "free",
+  source: "env",
+};
+
 function loadEnvKeys(): ApiKeyRecord[] {
   const raw = process.env.TEVAXIA_API_KEYS;
-  if (!raw) return [];
-  return raw
-    .split(",")
-    .map((entry) => entry.trim())
-    .filter(Boolean)
-    .map((entry) => {
-      const [name, key, tierRaw] = entry.split(":");
-      const tier = (["free", "pro", "enterprise"].includes(tierRaw) ? tierRaw : "free") as ApiKeyRecord["tier"];
-      return { id: `env:${name}`, name, key, tier, source: "env" as const };
-    })
-    .filter((r) => r.name && r.key);
+  const envKeys = raw
+    ? raw
+        .split(",")
+        .map((entry) => entry.trim())
+        .filter(Boolean)
+        .map((entry) => {
+          const [name, key, tierRaw] = entry.split(":");
+          const tier = (["free", "pro", "enterprise"].includes(tierRaw) ? tierRaw : "free") as ApiKeyRecord["tier"];
+          return { id: `env:${name}`, name, key, tier, source: "env" as const };
+        })
+        .filter((r) => r.name && r.key)
+    : [];
+  return [...envKeys, SANDBOX_KEY];
 }
 
 interface BucketState {
