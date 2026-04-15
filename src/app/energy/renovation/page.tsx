@@ -82,8 +82,10 @@ export default function RenovationPage() {
     } catch { setResult(fallbackLocal(ca, cc, s, a, v, px)); setApiOk(false); }
   }, []);
 
-  useEffect(() => { compute(classeActuelle, classeCible, surface, annee, valeur, prixEnergie); },
-    [classeActuelle, classeCible, surface, annee, valeur, prixEnergie, compute]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    compute(classeActuelle, classeCible, surface, annee, valeur, prixEnergie);
+  }, [classeActuelle, classeCible, surface, annee, valeur, prixEnergie, compute]);
 
   return (
     <>

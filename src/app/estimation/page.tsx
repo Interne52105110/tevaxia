@@ -62,6 +62,7 @@ export default function Estimation() {
     const n = params.get("n") ?? (hash?.n as string | undefined);
 
     if (commune) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCommuneSearch(String(commune));
       const results = rechercherCommune(String(commune));
       if (results.length > 0) setSelectedResult(results[0]);
@@ -135,8 +136,6 @@ export default function Estimation() {
       }));
   }, [selectedResult, result]);
 
-  const confianceColor = result?.confiance === "forte" ? "text-success" : result?.confiance === "moyenne" ? "text-warning" : "text-error";
-  const confianceBg = result?.confiance === "forte" ? "bg-green-50 border-green-200" : result?.confiance === "moyenne" ? "bg-amber-50 border-amber-200" : "bg-red-50 border-red-200";
 
   return (
     <>

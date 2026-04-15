@@ -44,6 +44,7 @@ function AlertsSection({ user }: { user: { id: string } | null }) {
   }, [user]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchAlerts();
   }, [fetchAlerts]);
 
@@ -154,6 +155,7 @@ function SharedLinksSection({ user }: { user: { id: string } | null }) {
 
   useEffect(() => {
     if (!user || !supabase) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
       return;
     }
@@ -263,6 +265,7 @@ export default function Profil() {
 
   useEffect(() => {
     // Charge le profil local immédiatement, puis merge avec le cloud
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProfile(getProfile());
     loadAndMergeProfile().then((merged) => setProfile(merged));
   }, []);
@@ -355,6 +358,7 @@ export default function Profil() {
                 {/* Aperçu du logo actuel */}
                 {profile.logoUrl && (
                   <div className="mb-3 flex items-center gap-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={profile.logoUrl}
                       alt="Logo"

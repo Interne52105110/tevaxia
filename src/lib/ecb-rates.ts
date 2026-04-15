@@ -39,7 +39,6 @@ async function fetchSeriesLatest(seriesKey: string): Promise<number | null> {
     // CSV header contains OBS_VALUE column
     const header = lines[0].split(",");
     const valueIdx = header.indexOf("OBS_VALUE");
-    const dateIdx = header.indexOf("TIME_PERIOD");
     if (valueIdx === -1) return null;
 
     const values = lines[1].split(",");

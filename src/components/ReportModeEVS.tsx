@@ -250,7 +250,7 @@ export default function ReportModeEVS({
   const [s5UsagePhysique, setS5UsagePhysique] = useState("");
   const [s5UsageJuridique, setS5UsageJuridique] = useState("");
   const [s5SurfaceTerrain, setS5SurfaceTerrain] = useState(0);
-  const [s5SurfaceBatiment, setS5SurfaceBatiment] = useState(surfaceBien);
+  const [s5SurfaceBatiment] = useState(surfaceBien);
   const [s5SourceMesures, setS5SourceMesures] = useState("");
   const [s5GrosOeuvre, setS5GrosOeuvre] = useState("bon");
   const [s5SecondOeuvre, setS5SecondOeuvre] = useState("bon");
@@ -333,11 +333,6 @@ export default function ReportModeEVS({
 
   // ---- Auto-computed values ----
   const valeurReconciliee = useMemo(() => valeurMarchePourMLV, [valeurMarchePourMLV]);
-
-  const ltvRatio = useMemo(() => {
-    if (valeurReconciliee <= 0) return 0;
-    return valeurReconciliee > 0 ? ((valeurReconciliee * 0.8) / valeurReconciliee) * 100 : 0;
-  }, [valeurReconciliee]);
 
   // ---- Fill status ----
   const isSectionFilled = (num: string): boolean => {

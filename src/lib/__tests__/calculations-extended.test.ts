@@ -6,7 +6,6 @@ import {
   tauxMoyenIR,
   simulerAides,
   genererTableauAmortissement,
-  calculerMensualite,
   formatEUR,
   formatPct,
 } from "../calculations";

@@ -3,10 +3,9 @@
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import Link from "next/link";
-import { getMarketDataCommune, type MarketDataCommune } from "@/lib/market-data";
+import { getMarketDataCommune } from "@/lib/market-data";
 import { getDemographics } from "@/lib/demographics";
 import { formatEUR } from "@/lib/calculations";
-import { INDICES_PRIX_ANNUELS } from "@/lib/adjustments";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
 import MarketAlertButton from "@/components/MarketAlertButton";
@@ -114,7 +113,7 @@ export default function CommunePageClient() {
               <h2 className="text-base font-semibold text-navy mb-3">Marché immobilier à {commune.commune}</h2>
               <div className="text-sm text-muted leading-relaxed space-y-2">
                 <p>
-                  Le prix moyen au m² à {commune.commune} s'établit à{" "}
+                  Le prix moyen au m² à {commune.commune} s&apos;établit à{" "}
                   <strong className="text-slate">{formatEUR(commune.prixM2Existant || 0)}/m²</strong> pour les
                   appartements existants ({commune.periode}).
                   {commune.prixM2VEFA && ` Le neuf (VEFA) se négocie autour de ${formatEUR(commune.prixM2VEFA)}/m².`}
@@ -124,11 +123,11 @@ export default function CommunePageClient() {
                   {commune.nbTransactions > 50 ? " une bonne fiabilité" : " une fiabilité limitée"} aux données.</p>
                 )}
                 {commune.loyerM2Annonces && (
-                  <p>Le loyer moyen s'établit à {commune.loyerM2Annonces.toFixed(1)} €/m²/mois.
+                  <p>Le loyer moyen s&apos;établit à {commune.loyerM2Annonces.toFixed(1)} €/m²/mois.
                   {rendementBrut && ` Le rendement locatif brut est de ${rendementBrut.toFixed(1)}%.`}</p>
                 )}
                 {commune.prixM2Existant && commune.prixM2Annonces && (
-                  <p>L'écart entre les prix de transaction et les prix annoncés est de{" "}
+                  <p>L&apos;écart entre les prix de transaction et les prix annoncés est de{" "}
                   <strong className="text-slate">{((commune.prixM2Annonces - commune.prixM2Existant) / commune.prixM2Existant * 100).toFixed(0)}%</strong>,
                   reflétant la marge de négociation typique.</p>
                 )}
@@ -145,7 +144,7 @@ export default function CommunePageClient() {
                   <div><span className="text-muted">Densité</span><br/><span className="font-semibold">{demo.densiteHabKm2} hab/km²</span></div>
                   <div><span className="text-muted">% étrangers</span><br/><span className="font-semibold">{demo.pctEtrangers}%</span></div>
                   {demo.revenuMedian && <div><span className="text-muted">Revenu médian</span><br/><span className="font-semibold">{formatEUR(demo.revenuMedian)}/an</span></div>}
-                  {demo.tauxEmploi && <div><span className="text-muted">Taux d'emploi</span><br/><span className="font-semibold">{demo.tauxEmploi}%</span></div>}
+                  {demo.tauxEmploi && <div><span className="text-muted">Taux d&apos;emploi</span><br/><span className="font-semibold">{demo.tauxEmploi}%</span></div>}
                 </div>
                 <p className="mt-3 text-[10px] text-muted">Source : STATEC (estimations)</p>
               </div>
@@ -183,7 +182,7 @@ export default function CommunePageClient() {
                   <svg className="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                 </Link>
                 <Link href="/frais-acquisition" className="flex items-center justify-between rounded-lg border border-card-border p-3 hover:bg-background transition-colors">
-                  <div><div className="text-sm font-medium text-navy">Calculer les frais d'acquisition</div><div className="text-xs text-muted">Droits, Bëllegen Akt, notaire</div></div>
+                  <div><div className="text-sm font-medium text-navy">Calculer les frais d&apos;acquisition</div><div className="text-xs text-muted">Droits, Bëllegen Akt, notaire</div></div>
                   <svg className="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                 </Link>
                 <Link href="/simulateur-aides" className="flex items-center justify-between rounded-lg border border-card-border p-3 hover:bg-background transition-colors">
@@ -198,7 +197,7 @@ export default function CommunePageClient() {
             </div>
 
             <p className="text-xs text-muted text-center">
-              Source : Observatoire de l'Habitat (data.public.lu) — actes notariés.
+              Source : Observatoire de l&apos;Habitat (data.public.lu) — actes notariés.
               Les données sont fournies à titre indicatif.
             </p>
           </div>

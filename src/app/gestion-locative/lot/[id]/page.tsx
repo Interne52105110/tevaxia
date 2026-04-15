@@ -57,6 +57,7 @@ export default function LotEditPage() {
       router.replace(`${lp}/gestion-locative/portefeuille`);
       return;
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setExisting(lot);
     setName(lot.name);
     setAddress(lot.address ?? "");

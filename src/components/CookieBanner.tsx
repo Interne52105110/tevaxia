@@ -9,6 +9,17 @@ declare global {
   }
 }
 
+function updateConsent(granted: boolean) {
+  if (typeof window.gtag === "function") {
+    window.gtag("consent", "update", {
+      analytics_storage: granted ? "granted" : "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+    });
+  }
+}
+
 export default function CookieBanner() {
   const t = useTranslations("cookie");
   const [visible, setVisible] = useState(false);
@@ -16,22 +27,12 @@ export default function CookieBanner() {
   useEffect(() => {
     const consent = localStorage.getItem("tevaxia_consent");
     if (!consent) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(true);
     } else if (consent === "granted") {
       updateConsent(true);
     }
   }, []);
-
-  function updateConsent(granted: boolean) {
-    if (typeof window.gtag === "function") {
-      window.gtag("consent", "update", {
-        analytics_storage: granted ? "granted" : "denied",
-        ad_storage: "denied",
-        ad_user_data: "denied",
-        ad_personalization: "denied",
-      });
-    }
-  }
 
   function accept() {
     localStorage.setItem("tevaxia_consent", "granted");

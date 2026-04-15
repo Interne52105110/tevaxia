@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
-import ToggleField from "@/components/ToggleField";
 import SEOContent from "@/components/SEOContent";
 
 interface CheckItem {

@@ -24,6 +24,7 @@ export default function AcceptInvitationPage() {
     if (!user) return;
     if (status !== "idle") return;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStatus("pending");
     acceptInvitationToken(token).then((res) => {
       if (res.success) {

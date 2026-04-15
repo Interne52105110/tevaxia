@@ -138,7 +138,10 @@ export default function ImpactPage() {
     }
   }, []);
 
-  useEffect(() => { compute(valeur, classeActuelle, commune); }, [valeur, classeActuelle, commune, compute]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    compute(valeur, classeActuelle, commune);
+  }, [valeur, classeActuelle, commune, compute]);
 
   return (
     <>

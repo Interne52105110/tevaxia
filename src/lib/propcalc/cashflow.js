@@ -84,7 +84,6 @@ export function calculateInvestorCashFlow(params) {
 
   // Annual interest (first year approximation)
   const annualInterest = loanAmount * annualRate;
-  const annualPrincipal = annualMortgage - annualInterest;
 
   // Depreciation: non-cash deduction that reduces taxable income
   // Building value is typically ~80% of property price (land is not depreciable)

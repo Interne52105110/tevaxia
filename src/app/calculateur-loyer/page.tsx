@@ -6,6 +6,7 @@ import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { calculerCapitalInvesti, formatEUR, formatEUR2 } from "@/lib/calculations";
+import { COEFFICIENTS_REEVALUATION } from "@/lib/constants";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import RelatedTools from "@/components/RelatedTools";
@@ -190,7 +191,7 @@ export default function CalculateurLoyer() {
                 <div className="mt-4 grid grid-cols-3 gap-1 text-xs sm:grid-cols-5">
                   {Array.from({ length: 2026 - 1960 + 1 }, (_, i) => {
                     const a = 1960 + i;
-                    const c = require("@/lib/constants").COEFFICIENTS_REEVALUATION[a];
+                    const c = COEFFICIENTS_REEVALUATION[a];
                     return c ? (
                       <div key={a} className={`flex justify-between rounded px-2 py-1 ${a === anneeAcquisition ? "bg-navy/10 font-semibold text-navy" : ""}`}>
                         <span className="text-muted">{a}</span>

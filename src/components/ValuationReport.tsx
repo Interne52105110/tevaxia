@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
-import { formatEUR, formatPct } from "@/lib/calculations";
+import { formatPct } from "@/lib/calculations";
 import {
   CoverPage,
   KpiGrid,
@@ -63,7 +63,6 @@ const GOLD = "#C8A951";
 const BEIGE = "#F8F7F4";
 const SLATE = "#334155";
 const MUTED = "#6B7280";
-const LIGHT_MUTED = "#9CA3AF";
 const BORDER = "#e5e2db";
 const BORDER_LIGHT = "#f0f0f0";
 

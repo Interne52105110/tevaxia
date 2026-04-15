@@ -88,6 +88,7 @@ export async function POST(request: Request) {
       marginalRate: marginalRate ?? 0.30,
       socialChargesRate,
       countryData,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     return NextResponse.json(

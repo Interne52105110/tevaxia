@@ -4,9 +4,8 @@ import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
-import { formatEUR, formatEUR2 } from "@/lib/calculations";
+import { formatEUR } from "@/lib/calculations";
 import { rechercherCommune, type SearchResult } from "@/lib/market-data";
-import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR, type AdjustmentSuggestion } from "@/lib/adjustments";
 import SEOContent from "@/components/SEOContent";
 
 // Modèle hédonique simplifié
@@ -44,7 +43,6 @@ export default function Hedonique() {
   const [communeSearch, setCommuneSearch] = useState("");
   const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
   const [surface, setSurface] = useState(80);
-  const [nbChambres, setNbChambres] = useState(2);
   const [etage, setEtage] = useState(2);
   const [etat, setEtat] = useState("bon");
   const [classeEnergie, setClasseEnergie] = useState("D");

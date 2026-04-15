@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { getAllCommunes, getMarketDataCommune, type MarketDataCommune } from "@/lib/market-data";
-import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
+import { computeMarketScore, getScoreColor } from "@/lib/market-score";
 import { formatEUR } from "@/lib/calculations";
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
 import SEOContent from "@/components/SEOContent";
@@ -184,7 +184,6 @@ export default function IndicesPage() {
             </h2>
             <div className="space-y-2">
               {topHausses.map((c, i) => {
-                const badge = getTendanceBadge(c);
                 return (
                   <Link
                     key={c.commune}
@@ -213,7 +212,6 @@ export default function IndicesPage() {
             </h2>
             <div className="space-y-2">
               {topBaisses.map((c, i) => {
-                const badge = getTendanceBadge(c);
                 return (
                   <Link
                     key={c.commune}

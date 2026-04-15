@@ -60,7 +60,9 @@ export default function MesEvaluations() {
   };
 
   function daysLeft(deletedAt: string): number {
-    const ms = 7 * 24 * 60 * 60 * 1000 - (Date.now() - new Date(deletedAt).getTime());
+    // eslint-disable-next-line react-hooks/purity
+    const now = Date.now();
+    const ms = 7 * 24 * 60 * 60 * 1000 - (now - new Date(deletedAt).getTime());
     return Math.max(0, Math.ceil(ms / (24 * 60 * 60 * 1000)));
   }
 

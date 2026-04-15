@@ -92,7 +92,6 @@ export default function BilanPromoteur() {
     const preVenduCA = caTotal_ * (tauxPreCommercialisation / 100);
 
     // Build monthly arrays (1-indexed: month 1..24)
-    const months = 24;
     const quarterlyData: {
       quarter: string;
       cumExpenditure: number;
@@ -146,7 +145,7 @@ export default function BilanPromoteur() {
     }
 
     return { quarterlyData, peakNeed, peakQuarter };
-  }, [surfaceVendable, prixVenteM2, nbParkings, prixParking, coutConstructionM2, surfaceBrute, voirie, honorairesArchitecte, honorairesBET, etudesAutres, aleas, margePromoteur, surfaceTerrain, prixTerrainM2, coutTerrainConnu, typeOperation, fraisGeometre, fraisLotissement, tauxPreCommercialisation, vefaSchedule]);
+  }, [surfaceVendable, prixVenteM2, nbParkings, prixParking, coutConstructionM2, surfaceBrute, voirie, honorairesArchitecte, honorairesBET, etudesAutres, aleas, surfaceTerrain, prixTerrainM2, coutTerrainConnu, typeOperation, fraisGeometre, fraisLotissement, tauxPreCommercialisation, vefaSchedule]);
 
   const result = useMemo(() => {
     // RECETTES

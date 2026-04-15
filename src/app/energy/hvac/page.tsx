@@ -627,12 +627,11 @@ export default function HVACSimulator() {
   }, [
     t,
     typeBatiment, surface, anneeConstruction, niveauIsolation, typeVitrage, region,
-    nbPieces, hauteurSousPlafond,
+    nbPieces,
     typeSysteme, selectedProduct,
     typeEmetteur, surfacePlancher, nbRadiateurs, ballonTampon, ballonECS, circulateur, vannesMelangeuses,
     typeVMC, selectedVMC,
     remplaceFossile, retraitCuve,
-    classeActuelle, classeCible,
   ]);
 
   /* ---------------------------------------------------------------- */

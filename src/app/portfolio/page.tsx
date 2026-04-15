@@ -203,7 +203,7 @@ export default function Portfolio() {
       });
 
     return [...fromManual, ...fromSaved];
-  }, [assets, savedValuations]);
+  }, [assets, savedValuations, t]);
 
   /* ---------------------------------------------------------------- */
   /*  Filtered properties based on active tab                          */
@@ -238,7 +238,6 @@ export default function Portfolio() {
     const detteTotale = manualAssets.reduce((s, a) => s + a.dette, 0);
     const loyerTotal = manualAssets.reduce((s, a) => s + a.loyerAnnuel, 0);
     const valeurManuelle = manualAssets.reduce((s, a) => s + a.valeur, 0);
-    const surfaceManuelle = manualAssets.reduce((s, a) => s + a.surface, 0);
     const equityTotale = valeurManuelle - detteTotale;
     const ltvGlobal = valeurManuelle > 0 ? detteTotale / valeurManuelle : 0;
     const rendementBrut = valeurManuelle > 0 ? loyerTotal / valeurManuelle : 0;

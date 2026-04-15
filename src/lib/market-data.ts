@@ -719,5 +719,6 @@ export function suggestComparables(communeName: string, nbMax: number = 5): {
   return suggestions
     .sort((a, b) => b.score - a.score)
     .slice(0, nbMax)
-    .map(({ score, ...rest }) => rest);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(({ score: _s, ...rest }) => rest);
 }

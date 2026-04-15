@@ -4,8 +4,9 @@ import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
-import { formatEUR, formatEUR2, formatPct } from "@/lib/calculations";
+import { formatEUR, formatEUR2 } from "@/lib/calculations";
 import { calculerDCFLeases, type Lease } from "@/lib/dcf-leases";
+import { calculerIRR } from "@/lib/valuation";
 import { generateDcfMultiPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import { sauvegarderEvaluation } from "@/lib/storage";
@@ -225,7 +226,6 @@ export default function DCFMulti() {
                       const serviceDetteAnnuel = montantDette * (tauxDette / 100);
                       const equityFlows = [-equity, ...result.cashFlows.map((cf) => cf.noi - serviceDetteAnnuel - capexAnnuel)];
                       equityFlows[equityFlows.length - 1] += result.valeurTerminaleNette - montantDette;
-                      const { calculerIRR } = require("@/lib/valuation");
                       const equityIrr = calculerIRR(equityFlows);
                       return `${(equityIrr * 100).toFixed(2)} %`;
                     })(),

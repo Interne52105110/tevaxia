@@ -94,6 +94,7 @@ export default function CommunautePage() {
   // Fetch PVGIS data when commune/orientation/tilt/power changes
   useEffect(() => {
     if (!commune) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setPvgisData(null);
       setUsePvgis(false);
       return;
@@ -183,8 +184,10 @@ export default function CommunautePage() {
     }
   }, []);
 
-  useEffect(() => { compute(nbParticipants, puissancePV, consoMoyenne, tarifReseau, tarifPartage, pvgisData, usePvgis); },
-    [nbParticipants, puissancePV, consoMoyenne, tarifReseau, tarifPartage, pvgisData, usePvgis, compute]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    compute(nbParticipants, puissancePV, consoMoyenne, tarifReseau, tarifPartage, pvgisData, usePvgis);
+  }, [nbParticipants, puissancePV, consoMoyenne, tarifReseau, tarifPartage, pvgisData, usePvgis, compute]);
 
   const params = result.parametres;
 

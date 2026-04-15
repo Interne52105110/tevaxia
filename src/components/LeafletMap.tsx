@@ -61,7 +61,6 @@ interface LeafletMapProps {
 export default function LeafletMap({
   communes,
   onSelectCommune,
-  selectedCommune,
   priceField = "prixM2Existant",
   viewMode,
   showCadastre: externalShowCadastre,

@@ -101,7 +101,7 @@ export default function PlusValues() {
                     className={`flex-1 py-2 text-sm font-medium transition-colors ${
                       modeAcquisition === mode ? "bg-navy text-white" : "bg-card text-muted hover:bg-navy/5"
                     }`}>
-                    {t(`mode${mode.charAt(0).toUpperCase() + mode.slice(1)}` as any)}
+                    {t(`mode${mode.charAt(0).toUpperCase() + mode.slice(1)}` as Parameters<typeof t>[0])}
                   </button>
                 ))}
               </div>

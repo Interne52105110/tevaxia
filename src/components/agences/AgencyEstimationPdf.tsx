@@ -142,6 +142,7 @@ export function AgencyEstimationPdf({ payload }: { payload: AgencyPdfPayload }) 
         {/* Header */}
         <View style={s.headerBar}>
           <View style={s.headerLeft}>
+            {/* eslint-disable-next-line jsx-a11y/alt-text */}
             {payload.branding.logo_url && <Image src={payload.branding.logo_url} style={s.logo} />}
             <View>
               <Text style={s.brandName}>{payload.branding.name}</Text>

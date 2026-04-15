@@ -128,7 +128,7 @@ export default function VefaCalculator() {
       // After this payment, the bank has disbursed cumulVerse + montant of the mortgage.
       // But the disbursed amount from the mortgage is capped at the mortgage amount.
       // Between this milestone and the next, the buyer pays interest on the drawn-down amount.
-      const prevCumulVerse = cumulVerse;
+      // eslint-disable-next-line react-hooks/immutability
       cumulVerse += montant;
 
       // The amount drawn from the mortgage at this point:

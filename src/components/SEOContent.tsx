@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import LocaleLink from "./LocaleLink";
 import { useTranslations } from "next-intl";
 

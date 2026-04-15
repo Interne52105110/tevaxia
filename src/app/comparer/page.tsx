@@ -243,6 +243,7 @@ function SavedComparator({ t }: { t: ReturnType<typeof useTranslations> }) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEvaluations(listerEvaluations());
   }, []);
 
@@ -581,7 +582,6 @@ function SavedComparator({ t }: { t: ReturnType<typeof useTranslations> }) {
 
 export default function Comparer() {
   const t = useTranslations("comparer");
-  const tv = useTranslations("valorisation");
   const [tab, setTab] = useState<"live" | "saved">("live");
 
   const [bienA, setBienA] = useState<BienState>({ ...DEFAULT_BIEN });

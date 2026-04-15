@@ -2,8 +2,6 @@
 // VALORISATION IMMOBILIÈRE — TEGOVA EVS 2025 + CRR
 // ============================================================
 
-import { formatEUR } from "./calculations";
-
 // ============================================================
 // 1. MÉTHODE PAR COMPARAISON (EVS1 — Market Value)
 // ============================================================

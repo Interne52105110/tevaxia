@@ -4,10 +4,9 @@ import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
-import SliderField from "@/components/SliderField";
 import ResultPanel from "@/components/ResultPanel";
 import SEOContent from "@/components/SEOContent";
-import { formatEUR, formatPct } from "@/lib/calculations";
+import { formatEUR } from "@/lib/calculations";
 import { estimerCoutsRenovation, type RenovationEstimate } from "@/lib/renovation-costs";
 import { getEnergyComparables, getAvailableCommunes, buildImpactRange } from "@/lib/energy-comparables";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
@@ -20,7 +20,6 @@ import { evaluerESG } from "@/lib/esg";
 import SEOContent from "@/components/SEOContent";
 import {
   rechercherCommune,
-  suggestComparables,
   DATA_SOURCES,
   type MarketDataCommune,
   type SearchResult,
@@ -34,7 +33,6 @@ import {
 } from "@/lib/asset-types";
 import AdjustmentGuidePanel from "@/components/AdjustmentGuide";
 import MarketDataPanel from "@/components/MarketDataPanel";
-import { calculerAjustDate } from "@/lib/adjustments";
 import { generateReportBlob } from "@/components/ValuationReport";
 import { PdfButton } from "@/components/energy/EnergyPdf";
 import { downloadDocxReport } from "@/components/ValuationDocx";
@@ -499,7 +497,7 @@ function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
     });
     onValeur(r.valeur);
     return r;
-  }, [loyerBrut, chargesNonRecup, tauxVacance, provisionEntretien, assurancePNO, fraisGestion, taxeFonciere, tauxCap, onValeur]);
+  }, [loyerBrut, chargesNonRecup, tauxVacance, provisionEntretien, assurancePNO, fraisGestion, taxeFonciere, tauxCap, ervAnnuel, onValeur]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">

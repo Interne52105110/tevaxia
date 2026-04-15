@@ -26,12 +26,10 @@ import { calculateMonthlyPayment } from './mortgage';
 export function compareCountries(params) {
   const {
     budget,
-    monthlyIncome = 4000,
     monthlyRent = 0,
     annualRate = 0,
     durationYears = 25,
     ltvRatio = 0.80,
-    residencyStatus = 'resident',
     marginalTaxRate = 0.30,
     countriesData,
     countryCodes,

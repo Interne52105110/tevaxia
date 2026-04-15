@@ -27,20 +27,9 @@ interface DocxReportData {
 }
 
 export async function downloadDocxReport(data: DocxReportData) {
-  const { Document, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType, AlignmentType, BorderStyle, Packer } = await import("docx");
+  const { Document, Paragraph, TextRun, HeadingLevel, Packer } = await import("docx");
   const { saveAs } = await import("file-saver");
   const profile = getProfile();
-
-  const noBorder = { top: { style: BorderStyle.NONE, size: 0 }, bottom: { style: BorderStyle.NONE, size: 0 }, left: { style: BorderStyle.NONE, size: 0 }, right: { style: BorderStyle.NONE, size: 0 } };
-
-  function makeRow(label: string, value: string, bold = false) {
-    return new TableRow({
-      children: [
-        new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: label, size: 20, color: "334155" })] })], width: { size: 60, type: WidthType.PERCENTAGE }, borders: noBorder }),
-        new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: value, size: 20, bold, color: "1B2A4A" })], alignment: AlignmentType.RIGHT })], width: { size: 40, type: WidthType.PERCENTAGE }, borders: noBorder }),
-      ],
-    });
-  }
 
   const sections: InstanceType<typeof Paragraph>[] = [];
 
@@ -62,13 +51,8 @@ export async function downloadDocxReport(data: DocxReportData) {
 
   // 1. Périmètre
   sections.push(new Paragraph({ text: "1. Périmètre", heading: HeadingLevel.HEADING_2, spacing: { before: 300, after: 100 } }));
-  const perimetreRows = [
-    makeRow("Objet", `Estimation de la ${data.evsType}`),
-    makeRow("Référentiel", "European Valuation Standards 2025 (TEGOVA, 10e éd.)"),
-    makeRow("Nature", "Rapport indicatif — ne constitue pas une expertise"),
-  ];
+  // Tables in docx library are complex; we render as paragraphs below via makeRow.
   sections.push(new Paragraph({ children: [] })); // spacer
-  // We'll add as individual paragraphs since tables in docx library are complex
 
   // 2. Identification
   sections.push(new Paragraph({ text: "2. Identification du bien", heading: HeadingLevel.HEADING_2, spacing: { before: 300, after: 100 } }));

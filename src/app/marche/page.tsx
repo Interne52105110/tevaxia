@@ -330,7 +330,7 @@ function TabBureaux() {
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
-    let list = q ? OFFICE_SUBMARKETS.filter((o) => o.nom.toLowerCase().includes(q)) : [...OFFICE_SUBMARKETS];
+    const list = q ? OFFICE_SUBMARKETS.filter((o) => o.nom.toLowerCase().includes(q)) : [...OFFICE_SUBMARKETS];
 
     list.sort((a, b) => {
       const getValue = (item: typeof a) => {
@@ -439,7 +439,7 @@ function TabCommerces() {
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
-    let list = q ? RETAIL_LOCATIONS.filter((r) => r.nom.toLowerCase().includes(q) || r.type.toLowerCase().includes(q)) : [...RETAIL_LOCATIONS];
+    const list = q ? RETAIL_LOCATIONS.filter((r) => r.nom.toLowerCase().includes(q) || r.type.toLowerCase().includes(q)) : [...RETAIL_LOCATIONS];
 
     list.sort((a, b) => {
       const getValue = (item: typeof a) => {
@@ -534,7 +534,7 @@ function TabLogistique() {
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
-    let list = q ? LOGISTICS_ZONES.filter((z) => z.nom.toLowerCase().includes(q)) : [...LOGISTICS_ZONES];
+    const list = q ? LOGISTICS_ZONES.filter((z) => z.nom.toLowerCase().includes(q)) : [...LOGISTICS_ZONES];
 
     list.sort((a, b) => {
       const getValue = (item: typeof a) => {

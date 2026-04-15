@@ -196,7 +196,7 @@ export default function ConvertisseurSurfaces() {
     epaisseurMursExt, epaisseurMursPorteurs, partiesCommunes,
     surfaceBalcons, surfaceTerrasses, surfaceTerrassesVerdure,
     surfaceCaves, surfaceGarages, surfaceLoggias,
-    typeBatiment, hauteurMinCounting, pctSousHauteur,
+    typeBatiment, pctSousHauteur,
     prixM2,
   ]);
 

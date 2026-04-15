@@ -121,7 +121,8 @@ export function restaurerEvaluation(id: string) {
     // Retirer de la corbeille
     saveTrash(trash.filter((t) => t.id !== id));
     // Remettre dans les évaluations
-    const { deletedAt: _, ...valuation } = item;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { deletedAt: _deletedAt, ...valuation } = item;
     const all = getAll();
     all.unshift(valuation);
     if (all.length > 50) all.length = 50;

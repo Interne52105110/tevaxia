@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { formatEUR } from "@/lib/calculations";
-import { rechercherCommune, type MarketDataCommune, type SearchResult } from "@/lib/market-data";
+import { rechercherCommune, type MarketDataCommune } from "@/lib/market-data";
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
 import { getDemographics } from "@/lib/demographics";
 import { getMarketCycle } from "@/lib/market-cycle";

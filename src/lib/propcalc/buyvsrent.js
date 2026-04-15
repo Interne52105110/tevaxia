@@ -77,13 +77,11 @@ export function compareBuyVsRent(params) {
     const annualMortgage = year <= loanDurationYears ? monthlyPayment * 12 : 0;
 
     // Pay down principal
-    let principalPaid = 0;
     if (year <= loanDurationYears && remainingLoan > 0) {
       for (let m = 0; m < 12; m++) {
         if (remainingLoan <= 0) break;
         const monthlyInterest = remainingLoan * (annualRate / 12);
         const monthlyPrincipal = Math.min(monthlyPayment - monthlyInterest, remainingLoan);
-        principalPaid += monthlyPrincipal;
         remainingLoan -= monthlyPrincipal;
       }
     }

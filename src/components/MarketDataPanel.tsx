@@ -92,7 +92,7 @@ function RetailPanel() {
           <div className="text-lg font-bold text-gold-dark">{RETAIL_MARKET_SUMMARY.yieldPrime}%</div>
         </div>
         <div className="rounded-lg bg-gold/10 p-2 text-center">
-          <div className="text-[10px] text-muted">Poids du loyer / chiffre d'affaires</div>
+          <div className="text-[10px] text-muted">Poids du loyer / chiffre d&apos;affaires</div>
           <div className="text-lg font-bold text-gold-dark">{RETAIL_MARKET_SUMMARY.tauxEffortMoyen}</div>
           <div className="text-[9px] text-muted">Loyer / CA locataire</div>
         </div>
@@ -179,7 +179,7 @@ function HotelPanel() {
           <div className="text-lg font-bold text-purple-700">{(HOTEL_MARKET.nuiteesAnnuelles / 1_000_000).toFixed(1)}M</div>
         </div>
         <div className="rounded-lg bg-purple-50 p-2 text-center">
-          <div className="text-[10px] text-muted">Taux d'occupation (est.)</div>
+          <div className="text-[10px] text-muted">Taux d&apos;occupation (est.)</div>
           <div className="text-lg font-bold text-purple-700">{HOTEL_MARKET.occupancyEstimee}</div>
         </div>
         <div className="rounded-lg bg-purple-50 p-2 text-center">

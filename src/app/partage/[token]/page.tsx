@@ -539,6 +539,7 @@ export default function SharedPage() {
 
   useEffect(() => {
     if (!token || !isSupabaseConfigured) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
       return;
     }

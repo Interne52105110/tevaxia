@@ -13,8 +13,6 @@
 // - Observatoire de l'Habitat (terrains, rendements locatifs)
 // - WarehouseRentInfo.lu / OfficeRentInfo.lu
 
-import { formatEUR } from "./calculations";
-
 // ============================================================
 // BUREAUX — Par sous-marché
 // ============================================================

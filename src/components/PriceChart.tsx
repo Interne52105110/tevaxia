@@ -1,6 +1,6 @@
 "use client";
 
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Area, AreaChart } from "recharts";
+import { XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Area, AreaChart } from "recharts";
 import { INDICES_PRIX_ANNUELS } from "@/lib/adjustments";
 
 const data = Object.entries(INDICES_PRIX_ANNUELS).map(([annee, variation]) => ({
@@ -21,7 +21,7 @@ export function PriceEvolutionChart({ compact = false }: { compact?: boolean }) 
       {!compact && (
         <div className="mb-3">
           <h3 className="text-sm font-semibold text-navy">Évolution des prix résidentiels au Luxembourg</h3>
-          <p className="text-[10px] text-muted">Variation annuelle en % — Source : STATEC / Observatoire de l'Habitat</p>
+          <p className="text-[10px] text-muted">Variation annuelle en % — Source : STATEC / Observatoire de l&apos;Habitat</p>
         </div>
       )}
       <ResponsiveContainer width="100%" height={compact ? 120 : 200}>
