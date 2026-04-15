@@ -1,7 +1,7 @@
 // ============================================================
 // GESTION LOCATIVE LU — lots, baux, règle des 5 %, Klimabonus
 // ============================================================
-// Spécificités LU qui manquent aux leaders (Rentila, Smovin) :
+// Spécificités luxembourgeoises prises en compte :
 // - plafond légal de loyer basé sur 5 % du capital investi réévalué
 // - impact classe énergétique (Klimabonus en rénovation)
 // - aides communales / Habitat Abordable

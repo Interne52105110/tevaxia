@@ -42,17 +42,16 @@ export async function ToolStub({ title, subtitle, description, methodology, inpu
                 </svg>
               </div>
               <div>
-                <h2 className="text-base font-semibold text-amber-900">Outil en cours de développement</h2>
+                <h2 className="text-base font-semibold text-amber-900">Outil en cours de finalisation</h2>
                 <p className="mt-1 text-sm text-amber-800 leading-relaxed">
-                  Cet outil n&apos;est pas encore disponible publiquement. Si vous suivez une
-                  transaction concrète, contactez-nous : nous pouvons traiter votre dossier en
-                  beta-test gratuit.
+                  La version publique arrive prochainement. Si vous suivez une transaction concrète et
+                  souhaitez un accompagnement ponctuel, contactez-nous — nous pouvons examiner votre dossier.
                 </p>
                 <a
-                  href={`mailto:contact@tevaxia.lu?subject=${encodeURIComponent(title)} - beta`}
+                  href={`mailto:contact@tevaxia.lu?subject=${encodeURIComponent(title)}`}
                   className="mt-3 inline-flex items-center gap-2 rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700 transition-colors"
                 >
-                  Demander un beta-test
+                  Nous contacter
                 </a>
               </div>
             </div>

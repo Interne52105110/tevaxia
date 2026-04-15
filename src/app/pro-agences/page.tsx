@@ -70,49 +70,27 @@ export default async function ProAgences() {
       <section className="border-t border-card-border bg-card py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-2xl font-bold text-navy sm:text-3xl">{t("comparisonTitle")}</h2>
-          <div className="mt-10 overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-card-border">
-                  <th className="px-4 py-3 text-left font-semibold text-navy">{t("colCriteria")}</th>
-                  <th className="px-4 py-3 text-center font-semibold text-navy">tevaxia agences</th>
-                  <th className="px-4 py-3 text-center font-semibold text-muted">Apimo (FR)</th>
-                  <th className="px-4 py-3 text-center font-semibold text-muted">Netty (FR)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-card-border">
-                <tr>
-                  <td className="px-4 py-3 text-navy">{t("row1")}</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                  <td className="px-4 py-3 text-center text-rose-500">✗</td>
-                  <td className="px-4 py-3 text-center text-rose-500">✗</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-navy">{t("row2")}</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                  <td className="px-4 py-3 text-center text-rose-500">✗</td>
-                  <td className="px-4 py-3 text-center text-rose-500">✗</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-navy">{t("row3")}</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                  <td className="px-4 py-3 text-center text-rose-500">✗</td>
-                  <td className="px-4 py-3 text-center text-rose-500">✗</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-navy">{t("row4")}</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                  <td className="px-4 py-3 text-center text-amber-500">{t("row4Apimo")}</td>
-                  <td className="px-4 py-3 text-center text-amber-500">{t("row4Apimo")}</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-navy">{t("row5")}</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                  <td className="px-4 py-3 text-center text-amber-500">{t("row5Apimo")}</td>
-                  <td className="px-4 py-3 text-center text-amber-500">{t("row5Netty")}</td>
-                </tr>
-              </tbody>
-            </table>
+          <p className="mt-2 text-center text-sm text-muted max-w-2xl mx-auto">{t("comparisonSubtitle")}</p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { labelKey: "row1", descKey: "row1Desc" },
+              { labelKey: "row2", descKey: "row2Desc" },
+              { labelKey: "row3", descKey: "row3Desc" },
+              { labelKey: "row4", descKey: "row4Desc" },
+              { labelKey: "row5", descKey: "row5Desc" },
+            ].map((row) => (
+              <div key={row.labelKey} className="rounded-xl border border-card-border bg-background p-4">
+                <div className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <div>
+                    <div className="text-sm font-semibold text-navy">{t(row.labelKey)}</div>
+                    <div className="mt-0.5 text-xs text-muted">{t(row.descKey)}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import InputField from "@/components/InputField";
+import SEOContent from "@/components/SEOContent";
 import { estimer, type EstimationResult } from "@/lib/estimation";
 import {
   calculerFraisAcquisition,
@@ -556,6 +557,27 @@ export default function WizardParticulier() {
           )}
         </div>
       </div>
+
+      <SEOContent
+        ns="wizardParticulier"
+        sections={[
+          { titleKey: "contextTitle", contentKey: "contextContent" },
+          { titleKey: "etapesTitle", contentKey: "etapesContent" },
+          { titleKey: "avantagesTitle", contentKey: "avantagesContent" },
+          { titleKey: "limitesTitle", contentKey: "limitesContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+          { questionKey: "faq4q", answerKey: "faq4a" },
+        ]}
+        relatedLinks={[
+          { href: "/estimation", labelKey: "estimation" },
+          { href: "/frais-acquisition", labelKey: "frais" },
+          { href: "/simulateur-aides", labelKey: "aides" },
+        ]}
+      />
     </div>
   );
 }

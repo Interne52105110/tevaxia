@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLocale } from "next-intl";
+import SEOContent from "@/components/SEOContent";
 
 export default function GestionLocativeLanding() {
   const locale = useLocale();
@@ -11,15 +12,12 @@ export default function GestionLocativeLanding() {
     <div className="bg-background">
       <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-700 py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-            Nouveau · Niche LU
-          </div>
-          <h1 className="mt-4 text-3xl font-bold text-white sm:text-5xl">
+          <h1 className="text-3xl font-bold text-white sm:text-5xl">
             Gestion locative au Luxembourg
           </h1>
           <p className="mt-3 max-w-2xl text-lg text-white/80">
-            Suivez votre portefeuille avec les spécificités luxembourgeoises que les outils FR/BE ignorent : règle des 5 %,
-            impact Klimabonus et alertes sur les loyers hors plafond.
+            Suivez votre portefeuille avec les spécificités luxembourgeoises : règle des 5 %, impact énergétique
+            (Klimabonus) et alertes sur les loyers hors plafond.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
@@ -39,10 +37,11 @@ export default function GestionLocativeLanding() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold text-navy">Ce que les autres outils ne font pas</h2>
+        <h2 className="text-2xl font-bold text-navy">Pensé pour le droit locatif luxembourgeois</h2>
         <p className="mt-2 text-sm text-muted">
-          Rentila, Smovin, AppFolio : tous pensés pour des marchés où le loyer n&apos;est pas plafonné de la même manière.
-          Le droit locatif luxembourgeois impose des règles que seul un outil local peut vérifier automatiquement.
+          Le droit locatif luxembourgeois impose des règles qui ne s&apos;appliquent pas ailleurs : plafond légal
+          indexé sur le capital investi réévalué, décote de vétusté, impact énergétique du Klimabonus.
+          Autant de contraintes à vérifier automatiquement pour chaque lot.
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -113,6 +112,27 @@ export default function GestionLocativeLanding() {
           </Link>
         </div>
       </section>
+
+      <SEOContent
+        ns="gestionLocative"
+        sections={[
+          { titleKey: "regle5Title", contentKey: "regle5Content" },
+          { titleKey: "klimabonusTitle", contentKey: "klimabonusContent" },
+          { titleKey: "rendementTitle", contentKey: "rendementContent" },
+          { titleKey: "syndicTitle", contentKey: "syndicContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+          { questionKey: "faq4q", answerKey: "faq4a" },
+        ]}
+        relatedLinks={[
+          { href: "/calculateur-loyer", labelKey: "loyer" },
+          { href: "/energy/renovation", labelKey: "energyRenovation" },
+          { href: "/syndic", labelKey: "syndic" },
+        ]}
+      />
     </div>
   );
 }

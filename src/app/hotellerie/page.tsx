@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 export const metadata: Metadata = {
   title: "Outils pré-acquisition hôtelière | tevaxia.lu",
   description:
-    "6 outils gratuits pour acheteurs et investisseurs hôteliers : valorisation RevPAR/EBITDA, DSCR, bilan d'exploitation, rénovation énergétique, score E-2. Alternative accessible à ARGUS.",
+    "6 outils pour acheteurs et investisseurs hôteliers : valorisation RevPAR/EBITDA, DSCR, bilan d'exploitation, rénovation énergétique, score E-2.",
 };
 
 interface HotelTool {
