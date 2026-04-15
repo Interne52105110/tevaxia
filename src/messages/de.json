@@ -2882,7 +2882,7 @@
     }
   },
   "cookie": {
-    "message": "Diese Website verwendet Cookies zur Besuchermessung (Google Analytics), um Ihre Erfahrung zu verbessern. Über die Rechner werden keine personenbezogenen Daten erfasst.",
+    "message": "Diese Website verwendet technische Cookies (Sitzung, Einstellungen) und, mit Ihrer Zustimmung, Google-Analytics-Cookies zur Reichweitenmessung. Wenn Sie angemeldet sind, werden Ihre gespeicherten Berechnungen mit Ihrem Konto synchronisiert (Supabase EU, 180 Tage, max. 500 Einträge).",
     "privacyLink": "Datenschutzrichtlinie",
     "refuse": "Ablehnen",
     "accept": "Akzeptieren"

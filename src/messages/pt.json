@@ -2882,7 +2882,7 @@
     }
   },
   "cookie": {
-    "message": "Este site utiliza cookies de medição de audiência (Google Analytics) para melhorar a sua experiência. Nenhum dado pessoal é recolhido através das calculadoras.",
+    "message": "Este site utiliza cookies técnicos (sessão, preferências) e, com o seu consentimento, cookies de análise de audiência Google Analytics. Se estiver ligado, os seus cálculos guardados são sincronizados na sua conta (Supabase UE, 180 dias, 500 itens máx).",
     "privacyLink": "Política de privacidade",
     "refuse": "Recusar",
     "accept": "Aceitar"

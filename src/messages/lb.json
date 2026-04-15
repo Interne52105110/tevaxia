@@ -2882,7 +2882,7 @@
     }
   },
   "cookie": {
-    "message": "Dëse Site benotzt Cookies fir d'Besuchermessung (Google Analytics) fir Är Erfahrung ze verbesseren. Keng perséinlech Donnéeë ginn iwwer d'Rechner gesammelt.",
+    "message": "Dëse Site benotzt technesch Cookien (Sessioun, Preferenzen) an, mat Ärem Accord, Google-Analytics-Cookien fir d'Audiometrung. Wann Dir ageloggt sidd, ginn Är gespäichert Berechnunge mat Ärem Kont synchroniséiert (Supabase EU, 180 Deeg, max 500 Elementer).",
     "privacyLink": "Dateschutz",
     "refuse": "Refuséieren",
     "accept": "Akzeptéieren"

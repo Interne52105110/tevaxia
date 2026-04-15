@@ -2882,7 +2882,7 @@
     }
   },
   "cookie": {
-    "message": "This site uses audience measurement cookies (Google Analytics) to improve your experience. No personal data is collected through the calculators.",
+    "message": "This site uses technical cookies (session, preferences) and, with your consent, Google Analytics audience measurement cookies. If you are signed in, your saved calculations are synced to your account (Supabase EU, 180 days, 500 items max).",
     "privacyLink": "Privacy Policy",
     "refuse": "Decline",
     "accept": "Accept"

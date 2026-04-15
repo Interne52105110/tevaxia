@@ -2882,7 +2882,7 @@
     }
   },
   "cookie": {
-    "message": "Ce site utilise des cookies de mesure d'audience (Google Analytics) pour améliorer votre expérience. Aucune donnée personnelle n'est collectée via les calculateurs.",
+    "message": "Ce site utilise des cookies techniques (session, préférences) et, avec votre accord, des cookies de mesure d'audience Google Analytics. Si vous êtes connecté, vos calculs sauvegardés sont synchronisés sur votre compte (Supabase UE, 180 jours, 500 items max).",
     "privacyLink": "Politique de confidentialité",
     "refuse": "Refuser",
     "accept": "Accepter"
