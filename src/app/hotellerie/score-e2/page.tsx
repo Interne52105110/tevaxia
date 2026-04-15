@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
+import SEOContent from "@/components/SEOContent";
 import { computeE2Score } from "@/lib/hotellerie/e2-score";
 
 function formatEUR(n: number): string {
@@ -240,6 +241,24 @@ export default function ScoreE2Page() {
           <strong>{tc("warning")} :</strong> {tce("warningText")}
         </div>
       </div>
+
+      <SEOContent
+        ns="hotellerieScoreE2"
+        sections={[
+          { titleKey: "visaTitle", contentKey: "visaContent" },
+          { titleKey: "criteresTitle", contentKey: "criteresContent" },
+          { titleKey: "limitTitle", contentKey: "limitContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+        ]}
+        relatedLinks={[
+          { href: "/hotellerie/valorisation", labelKey: "hotelValorisation" },
+          { href: "/hotellerie/dscr", labelKey: "hotelDscr" },
+        ]}
+      />
     </div>
   );
 }

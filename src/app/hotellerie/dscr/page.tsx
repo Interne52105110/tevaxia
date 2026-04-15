@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import ShareLinkButton from "@/components/ShareLinkButton";
+import SEOContent from "@/components/SEOContent";
 import { computeHotelDscr } from "@/lib/hotellerie/dscr";
 
 function formatEUR(n: number): string {
@@ -257,6 +258,24 @@ export default function DscrHotelPage() {
           </Link>
         </div>
       </div>
+
+      <SEOContent
+        ns="hotellerieDscr"
+        sections={[
+          { titleKey: "definitionTitle", contentKey: "definitionContent" },
+          { titleKey: "stressTitle", contentKey: "stressContent" },
+          { titleKey: "ltvTitle", contentKey: "ltvContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+        ]}
+        relatedLinks={[
+          { href: "/hotellerie/valorisation", labelKey: "hotelValorisation" },
+          { href: "/outils-bancaires", labelKey: "bancaire" },
+        ]}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
+import SEOContent from "@/components/SEOContent";
 
 export const metadata: Metadata = {
   title: "Offre agences immobilières — rapports co-brandés | tevaxia.lu",
@@ -117,6 +118,25 @@ export default async function ProAgences() {
           </div>
         </div>
       </section>
+
+      <SEOContent
+        ns="proAgences"
+        sections={[
+          { titleKey: "usageTitle", contentKey: "usageContent" },
+          { titleKey: "brandingTitle", contentKey: "brandingContent" },
+          { titleKey: "conformiteTitle", contentKey: "conformiteContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+          { questionKey: "faq4q", answerKey: "faq4a" },
+        ]}
+        relatedLinks={[
+          { href: "/estimation", labelKey: "estimation" },
+          { href: "/api-banques", labelKey: "apiBanques" },
+        ]}
+      />
     </div>
   );
 }

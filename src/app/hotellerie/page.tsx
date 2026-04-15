@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
+import SEOContent from "@/components/SEOContent";
 
 export const metadata: Metadata = {
   title: "Outils pré-acquisition hôtelière | tevaxia.lu",
@@ -205,6 +206,25 @@ export default async function HotellerieHub() {
           </div>
         </div>
       </section>
+
+      <SEOContent
+        ns="hotellerieHub"
+        sections={[
+          { titleKey: "contextTitle", contentKey: "contextContent" },
+          { titleKey: "methodTitle", contentKey: "methodContent" },
+          { titleKey: "usaliTitle", contentKey: "usaliContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+          { questionKey: "faq4q", answerKey: "faq4a" },
+        ]}
+        relatedLinks={[
+          { href: "/valorisation", labelKey: "valorisation" },
+          { href: "/dcf-multi", labelKey: "dcfMulti" },
+        ]}
+      />
     </div>
   );
 }

@@ -113,6 +113,20 @@ export default async function Pricing() {
         {/* FAQ */}
         <div className="mt-20 max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-navy text-center mb-8">{t("faq.title")}</h2>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: (["1", "2", "3", "4", "5"] as const).map((n) => ({
+                  "@type": "Question",
+                  name: t(`faq.q${n}`),
+                  acceptedAnswer: { "@type": "Answer", text: t(`faq.a${n}`) },
+                })),
+              }),
+            }}
+          />
           <dl className="space-y-4">
             {(["1","2","3","4","5"] as const).map((n) => (
               <div key={n} className="rounded-xl border border-card-border bg-card p-6">

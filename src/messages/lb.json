@@ -4985,7 +4985,23 @@
     "diffTitle": "Globalen Differenzéierer",
     "diffDesc": "Institutionell Tools visen grouss Fongen a Hotelketten. Eist Zil: dës Methoden fir Keefer mat Budgeten ënner 5 Mio. € zougänglech maachen.",
     "standardsTitle": "Benotzte Standarden",
-    "standardsDesc": "USALI 11. Editioun (Uniform System of Accounts for the Lodging Industry), Ertragsmethod (DCF), Transaktiounsvergleicher."
+    "standardsDesc": "USALI 11. Editioun (Uniform System of Accounts for the Lodging Industry), Ertragsmethod (DCF), Transaktiounsvergleicher.",
+    "seo": {
+      "contextTitle": "Hotel-Virakaf: wéi eng Analysen virum Ënnerschreiwen?",
+      "contextContent": "De Kaf vun engem Hotel ënnerscheet sech fundamental vun der Wunnimmobilie: de Wäert hänkt vum Exploitatioun of (RevPAR, GOP, EBITDA), net just vun der Fläch. Eng informéiert Entscheedung brauch sechs Analysenachsen: Ertragsbewäertung, Schoulenofdeckung, Exploitatiounsprognose, energetesch Konformitéit, Wettbewerbspositionéierung, an fir international Keefer d'E-2-Visa-Eligibilitéit.",
+      "methodTitle": "Method: Ertrags- a Vergleichsmethod kombinéieren",
+      "methodContent": "Déi professionell Hotelbewäertung verbënnt zwou Methoden. D'Ertragsmethod aktualiséiert dat stabiliséiert EBITDA mat engem Kapitaliséierungssaaz (5-9 % je no Kategorie). De Vergleichsansatz applizéiert e Präis pro Zëmmer aus rezente Transaktiounen (40k-350k € je Segment). De Finalwäert ass typesch e gewiichten Duerchschnëtt.",
+      "usaliTitle": "USALI: déi gemeinsam Sprooch vun der Hotel-GuV",
+      "usaliContent": "D'Uniform System of Accounts for the Lodging Industry (11. Éd., 2014) standardiséiert d'Hotel-GuV weltwäit: Rooms / F&B / Other, duerno Fixkäschten, FF&E-Reserve (4 %) bis zum EBITDA. E Keefer, dee mat USALI denkt, kommunizéiert standardiséiert mat Banken, Gutachter a Betreiber.",
+      "faq1q": "Ënnerscheed tëscht GOP, EBITDA an Nettoresultat?",
+      "faq1a": "GOP = Gesamtumsätz − Exploitatiounskäschten; Betreiber-Indikator. EBITDA = GOP − FF&E (4 %); Bank-Indikator. Nettoresultat = EBITDA − Zënsen − Ofschreiwung − Steieren.",
+      "faq2q": "Kann en Hotel a Frankräich oder Belsch bewäert ginn?",
+      "faq2a": "Jo. RevPAR, EBITDA, DSCR an USALI si international Standards. Just d'Klimabonus-Tool ass LU-spezifesch. Fir grenziwwerschreidend Projeten déi 5 aner Tools notzen.",
+      "faq3q": "Ënnerscheed tëscht Geschäftswäert a Gebai?",
+      "faq3a": "Gebai = Loyer × Kapitaliséierungssaaz. Geschäft = EBITDA × Multiple. E Vollbesëtzer bezilt d'Zomm vu béiden. Eis Tools behandelen den Hotelbetrib als Ganzes.",
+      "faq4q": "Brauch een en TEGOVA-Expert fir eng Bank?",
+      "faq4a": "Fir en gesécherte Hotelkredit (> 1 Mio. €) verlaange meescht LU/BE-Banken en TEGOVA-EVS-2025-Bericht vun engem qualifizéierte Gutachter. Eis Tools erméiglechen eng Virqualifikatioun virum Opdrag."
+    }
   },
   "hotellerieToolPages": {
     "backToHub": "Hotellerie-Hub",
@@ -5037,7 +5053,23 @@
     "altPrefix": "Oder probéiert fir d'éischt",
     "altLink": "déi ëffentlech Schätzung",
     "altSuffix": "gratis.",
-    "ctaSubject": "Agence-Offer%20-%20Ufro"
+    "ctaSubject": "Agence-Offer%20-%20Ufro",
+    "seo": {
+      "usageTitle": "Wann e co-branded Schätzungsbericht alles verännert",
+      "usageContent": "En Akquisitiounsrendez-vous gëtt dacks an de 15 éischte Minutten gewonnen. Mat engem Schätzungsbericht am Branding vun Ärer Agence — inkl. Akafskäschten a Hëllefen — gëtt d'Gespréich faktebaséiert. De Mandat gëtt natierlech gewonnen.",
+      "brandingTitle": "Co-Branding: Är Identitéit, eis Berechnungen",
+      "brandingContent": "De PDF dréit Äert Logo, Är Kontaktdonnéeën an Är personaliséiert Rechtsmentioun. D'Berechnungen bleiwen duerch eis aktuell Engine gespeist: Observatoire-Präisser, Bëllegen-Akt-Tariffer, Klimabonus-Plafonen, 5 %-Regel.",
+      "conformiteTitle": "Konformitéit an Aktualiséierungen",
+      "conformiteContent": "Eis Steier- a Reglementsbasis gëtt bei all offizieller Verëffentlechung aktualiséiert (Mémorial A, CSSF, ACD). Är Berichter reflektéieren automatesch déi lescht Ännerungen.",
+      "faq1q": "Wéi vill Berater-Konten pro Agence?",
+      "faq1a": "Bis zu 30 Benotzer pro Agence-Account, mat gedeelter Quota, ënnerschiddlecher Gestaltung an enger Admin-Konsol.",
+      "faq2q": "Kann ech d'Rechtsmentioun pro Bericht personaliséieren?",
+      "faq2a": "Jo. All Agence definéiert hir eenzegaarteg Rechtsmentioun, déi um Fous vun all PDF erschéngt.",
+      "faq3q": "Ass de Bericht a 5 Sproochen verfügbar?",
+      "faq3a": "Jo. FR / EN / DE / LB / PT. D'Sprooch gëtt bei der Generatioun gewielt.",
+      "faq4q": "Kann de Prospekt e Kont op tevaxia.lu opmaachen?",
+      "faq4a": "Nee. De co-branded Bericht leet net op tevaxia.lu ëm. De Prospekt gesäit just Är Mark."
+    }
   },
   "hotellerieCalc": {
     "checkInputs": "Wat-weg préift d'agéin Wäerter.",
@@ -5146,7 +5178,23 @@
     "contactTitle": "Éischt Kontakt",
     "contactPrefix": "De ëffentleche Rechner ënner",
     "contactLink": "tevaxia.lu/estimation",
-    "contactSuffix": "benotzt déi nämmlecht Berechnungsbasis wéi d'API. Test e fir d'Resultatsqualitéit ze validéieren ier Dir d'Integratioun diskutéiert."
+    "contactSuffix": "benotzt déi nämmlecht Berechnungsbasis wéi d'API. Test e fir d'Resultatsqualitéit ze validéieren ier Dir d'Integratioun diskutéiert.",
+    "seo": {
+      "usageTitle": "Typesch Notzung duerch lëtzebuergesch Banken",
+      "usageContent": "Dräi Haapt-Usage-Fäll: (1) Kredit-Virqualifikatioun — integréiert eng Sofort-Schätzung an den Online-Antrag, (2) automatesch Bewäertung vu bestehenden Hypothéikportefeuilen fir prudentiell LTV nom CRR, (3) automatesch Bewäertung vun enger Garantie fir en net-hypothéikesche Kredit.",
+      "tegovaTitle": "TEGOVA-EVS-2025-Konformitéit",
+      "tegovaContent": "D'API liwwert eng Marktwäert-Schätzung am Sënn vun EVS 1 (European Valuation Standards 2025). D'kombinéiert Methoden — Vergläich, Kapitaliséierung, hedonesch — sinn am TEGOVA-Kader unerkannt.",
+      "mlvTitle": "MLV a prudentiellt CRR-Ratio",
+      "mlvContent": "Fir CRR-reguléiert Hypothéikportefeuile liwwert d'API och e Mortgage Lending Value nom EBA-Guidelines. Prudentiellen Ofschlag vum Maartwäert mat Respekt vum Prinzip vun nohaltege Wäert.",
+      "faq1q": "Ass d'API kohärent mat engem TEGOVA-Gutachten?",
+      "faq1a": "D'API liwwert eng TEGOVA-konform indikativ Schätzung. Fir e verbindleche Bericht bleift en vu qualifizéierten Gutachter ënnerschriwwene Bericht néideg. D'Ofwäichung läit typesch ënner 8 %.",
+      "faq2q": "Ginn d'Donnéeë gespäichert?",
+      "faq2a": "Keng Clientdonnéeë ginn op tevaxia-Säit gespäichert, ausser am Kontrakt gefrot. Nëmme technesch Logs gi 90 Deeg opbewahrt.",
+      "faq3q": "Wéi dacks ginn Maartdonnéeën aktualiséiert?",
+      "faq3a": "M²-Präisser véierdeljähreg iwwert Observatoire-Verëffentlechungen. Steiertabellen bannen 48 Stonnen no der Publikatioun am Mémorial A.",
+      "faq4q": "Kann d'API ouni tevaxia.lu-Kont genotzt ginn?",
+      "faq4a": "Jo. B2B-Integratioun iwwert dedizéierte API-Schlëssel an technesch Vereinbarung."
+    }
   },
   "wizardParticulier": {
     "seo": {
@@ -5186,6 +5234,102 @@
       "faq3a": "Aus de STATEC-Verëffentlechunge vum Bauindex. Eis Tabell deckt all Joer zënter 1960 of.",
       "faq4q": "Ännert en meubléiert Logement d'Berechnung?",
       "faq4a": "Jo. Fir meubléiert Vermietung gëtt en pauschalen Ophuef vun 10 % accepteiert. Häkt d'Optioun un — de Plafong gëtt automatesch ugepasst."
+    }
+  },
+  "hotellerieValorisation": {
+    "seo": {
+      "methodTitle": "Ertragsbewäertung: RevPAR → EBITDA → Wäert",
+      "methodContent": "RevPAR = ADR × Belegungsrate. Mal 365 × Zëmmerzuel = Joresëmsatz Zëmmer. Plus F&B = Gesamtëmsatz. Minus Exploitatiounskäschten = GOP, minus FF&E (4 %) = stabiliséiert EBITDA. DCF-Wäert = EBITDA / Kapitaliséierungssaaz.",
+      "ratiosTitle": "Referenz-USALI-Quoten je Kategorie",
+      "ratiosContent": "Budget: Personal 28-32 %, GOP 30-40 %. Midscale: Personal 30-34 %, GOP 28-35 %. Upscale: Personal 32-36 %, GOP 25-32 %. Luxus: Personal 35-40 %, GOP 20-28 %. Quell: PKF, STR Global — europäesche Maart.",
+      "capRateTitle": "Kapitaliséierungssaaz: déi sensibelst Gréisst",
+      "capRateContent": "En Cap Rate vun 7 % statt 8 % erhéicht de Wäert mechanesch ëm 14 %. Europa 2025: Luxus 4,5-6 %, Upscale 6-7,5 %, Midscale 7-9 %, Budget 8-11 %. Fir en sekundäre LU/BE-Hotel: 7,5-9 %.",
+      "faq1q": "Wat bedeit 'stabiliséiert EBITDA'?",
+      "faq1a": "EBITDA am Kräizjoer no Ramp-up, 3-5 Joer no Akaf oder Repositionéierung.",
+      "faq2q": "Firwat 4 % FF&E-Reserve?",
+      "faq2a": "4 % ass USALI-11-Standard. E Luxushotel kann 5-6 % justifizéieren, e Budget-Motel hält bei 3 %.",
+      "faq3q": "DCF oder Präis pro Zëmmer?",
+      "faq3a": "Béid. DCF spigelt d'wirtschaftlech Performance. Präis pro Zëmmer ankert an de Maartpräisser."
+    }
+  },
+  "hotellerieDscr": {
+    "seo": {
+      "definitionTitle": "DSCR: déi éischt Zifferkennzeechen vun der Bank",
+      "definitionContent": "DSCR = EBITDA / (Tilgung + Jorëszënsen). Eng Geschäftsbank verlaangt typesch DSCR ≥ 1,30 op engem Hotelkredit. Ënner 1,00 deckt den Hotel seng Raten net.",
+      "stressTitle": "Stresstester: déi reell Robustheet",
+      "stressContent": "Dräi Tester: Belegung −10 Pp., ADR −10 %, kombinéierten Double Choc. Fällt d'DSCR ënner 1,00 am Double Choc, ass d'Dossier riskant.",
+      "ltvTitle": "Hotel-LTV: typesch 65-75 %",
+      "ltvContent": "LTV = Schold / Wäert. LU/BE-Hotellerie: 65-75 % (vs. 80 % Wunnbau). D'25-35 % Apport kann duerch Mezzanine (8-12 %), Verkeefercredit oder regional Fong ergänzt ginn.",
+      "faq1q": "Firwat méi streng DSCR an der Hotellerie?",
+      "faq1a": "Méi héich Ertragsvolatilitéit. D'Hotel hänkt vun Belegung an ADR of, béid konjunktursensitiv.",
+      "faq2q": "Wat maachen bei DSCR 1,10-1,25?",
+      "faq2a": "Dräi Hiewelen: Apport erhéijen, Dauer verlängeren, Zinssaaz nei verhandelen. Zousätzlechen Apport bleift déi prophetst Léisung.",
+      "faq3q": "Wéi EBITDA schätzen bei neien Hotel?",
+      "faq3a": "Mam Exploitation-Tool en 5-Joer-P&L modelléieren mat Ramp-up. Duerchschnëtt Joeren 3-5 = stabiliséiert EBITDA."
+    }
+  },
+  "hotellerieExploitation": {
+    "seo": {
+      "usaliTitle": "USALI: unerkannt Hotel-Rechnungsstandarden",
+      "usaliContent": "D'Uniform System of Accounts standardiséiert d'Hotel-GuV global zënter 1926. Struktur: Ëmsatz pro Beräich (Rooms, F&B, Other), Käschten pro Beräich, net verdeelte Käschten, GOP, Fixkäschten, EBITDA.",
+      "gopTitle": "GOP a Marge: Benchmark-Vergläich",
+      "gopContent": "Typesch GOP-Margen: Budget 30-40 %, Midscale 28-35 %, Upscale 25-32 %, Luxus 20-28 %. E GOP ënnert der Spann signaliséiert operativ Ineffizienz.",
+      "ffeTitle": "FF&E-Reserve: 4 % fir Bankbewäertung zwingend",
+      "ffeContent": "4 % vum Gesamtëmsatz ass Standard bei Banken an USALI. En Hotel, dat EBITDA = GOP ouni FF&E präsentéiert, iwwerbewäertert säi Resultat ëm 15-25 %.",
+      "faq1q": "Ass d'Prognose konservativ oder optimistesch?",
+      "faq1a": "D'Tool benotzt duerchschnëttlech USALI-Quoten. Fir eng vorsichteg Bank-Prognose: Personal +2-3 Pp., ADR −5 %.",
+      "faq2q": "Wéi en Ramp-up vun engem neien Hotel modelléieren?",
+      "faq2a": "Joer 1: 50-55 % Belegung. Joer 2: 60-65 %. Joer 3-5: 65-75 %. ADR +2-3 %/Joer.",
+      "faq3q": "F&B: profitabelt Ëmsatz oder Käschten?",
+      "faq3a": "Staark kategorieofhängeg. Budget: dacks defizitär. Upscale/Luxus: F&B ka 15-25 % vum GOP bäibréngen."
+    }
+  },
+  "hotellerieRenovation": {
+    "seo": {
+      "klimabonusTitle": "Klimabonus fir den Hotel-Tertiärberäich",
+      "klimabonusContent": "De Klimabonus (Gesetz vum 23.12.2022) deckt energetesch Sanéierungen am Tertiärberäich. Förderfäeg: Isolatioun, HLK, LED + GLT, 3-fach-Fënsteren, Wärmepompelen. Subventiounsquoten 25-62,5 %, plus CO₂-Bonus.",
+      "tertiaireTitle": "Differenzen Tertiär vs. Wunnbau",
+      "tertiaireContent": "Fir den Tertiärberäich lafen d'Ufroen iwwert de PME-Guichet an d'Wirtschaftsministère. Minimum-Verbesserungsschwellen bedingen d'Förderfäegkeet. Käschtedeckel sinn méi héich, en Energieaudit ass zwingend.",
+      "roiTitle": "ROI: Energieasparungen + RevPAR-Gewënn duerch Label",
+      "roiContent": "Zwee Effekter: (1) direkt Energieasparungen (20-40 % vun der Joresrechnung). (2) RevPAR-Gewënn via Öko-Label (Green Key, EU Ecolabel) — +1 bis +3 % ADR laut STR.",
+      "faq1q": "Klimabonus mat aneren Hëllefe kombinéierbar?",
+      "faq1a": "Jo, mat Klimaprêt, regional/kommunalen Hëllefen an Energieversuergerprimen. Kombinatioune sinn op 80-100 % gedeckelt.",
+      "faq2q": "Wéi eng Moosnam bitt de beschten ROI?",
+      "faq2a": "Fir e bestehenden E/F-Hotel bidden Daachisolatioun + Wärmepompel typesch de schnellsten ROI (6-10 Joer).",
+      "faq3q": "Erhéicht en Öko-Label den ADR wierklech?",
+      "faq3a": "STR + Cornell-Studien: Green-Key-zertifizéiert Hoteler kréien +2 bis +4 % ADR vs. netzertifizéiert."
+    }
+  },
+  "hotellerieRevpar": {
+    "seo": {
+      "indicesTitle": "MPI, ARI, RGI: déi dräi Fair-Share-Indizen",
+      "indicesContent": "MPI = Hotelbelegung / Compset × 100. ARI = Hotel-ADR / Compset × 100. RGI = MPI × ARI / 100 ≈ RevPAR-Verhältnis. Referenzindex fir d'Gesamtpositionéierung.",
+      "compsetTitle": "E relevante Compset opbauen",
+      "compsetContent": "Typesch 4-7 Hoteler vum selweschte Segment a Kategorie. Donnéeën: STR-Abo oder direkten Austausch tëscht Hoteliere (iwwert Hotrec LU).",
+      "fairShareTitle": "Interpretatioun: Fair Share, Präis-, Verméierungsproblem",
+      "fairShareContent": "RGI ≈ 100: Fair Share. RGI < 95 mat nidderegem MPI a gudden ARI: Vertribspräisproblem. RGI > 105: Iwwerperformance — op de Maartplafong opmierksam sinn.",
+      "faq1q": "Wou Compset-Donnéeë ouni STR-Abo fannen?",
+      "faq1a": "STR kascht 5-20k €/Joer. Gratis: Hotrec-LU-Sharing, OTA-Dashboards, bilateral Vereinbarungen.",
+      "faq2q": "Empfuelene Analysefrequenz?",
+      "faq2a": "Mount bei stabilen Hotel. Woch an der Héichsaison oder Repositionéierungsphase.",
+      "faq3q": "RGI gutt mee GOP schlecht — firwat?",
+      "faq3a": "RGI moosst Top-Line. GOP moosst operativ Rentabilitéit. Iwwerbesatt oder iwwerdimensionéiert Fixkäschten?"
+    }
+  },
+  "hotellerieScoreE2": {
+    "seo": {
+      "visaTitle": "D'E-2-Visa: Immigratioun per Investitioun",
+      "visaContent": "D'E-2-Visa erlaabt Bierger vun Traitéitsstaaten (inkl. LU, FR, BE) e verlängerbart Aarbechtsvisa duerch substanziell Investitioun an en aktiven US-Entreprise. Hotelkaf ass e bevorzugte Wee.",
+      "criteresTitle": "5 USCIS-Kritären automatesch bewäert",
+      "criteresContent": "1. Substantiality: Kapital vs. Käschten. 2. At-risk: Moyene wierklech engagéiert. 3. Marginality: Akommes iwwer US-Familljeminimum. 4. Real & operating: aktiven Hotel. 5. Job creation: US-Aarbechtsplazen.",
+      "limitTitle": "Limitatioune vum Tool",
+      "limitContent": "Dëst Tool berechent en indikativt Score. Et ersetzt keng Berodung vun engem spezialiséierte US-Immigratioun-Affekot. Subjektiv Elementer (Businessplang, professionell Geschicht, Due Diligence) bleiwen entscheedend.",
+      "faq1q": "Minimumskapital fir en Hotel-E-2-Visa?",
+      "faq1a": "Keng offiziell USCIS-Schwell. An der Praxis: 100-200 k$ als Ënnergrenz. Fir en Hotel/Motel typesch 300-800 k$.",
+      "faq2q": "Dauer a Verlängerung?",
+      "faq2a": "Initial 2-5 Joer (5 Joer fir LU/FR/BE). Onendlech verlängerbar solange d'Kritäre erfëllt bleiwen.",
+      "faq3q": "Kanner a Ehepartner — schaffen oder studéieren?",
+      "faq3a": "Ehepartner: EAD-Aarbechtserlaabnis méiglech. Kanner: kënnen an all US-Schoul léieren. Mat 21 verléieren se den ofgeleeten Status."
     }
   }
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
+import SEOContent from "@/components/SEOContent";
 
 export const metadata: Metadata = {
   title: "API d'estimation immobilière LU pour banques | tevaxia.lu",
@@ -143,6 +144,25 @@ Content-Type: application/json
           </a>
         </div>
       </section>
+
+      <SEOContent
+        ns="apiBanques"
+        sections={[
+          { titleKey: "usageTitle", contentKey: "usageContent" },
+          { titleKey: "tegovaTitle", contentKey: "tegovaContent" },
+          { titleKey: "mlvTitle", contentKey: "mlvContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+          { questionKey: "faq4q", answerKey: "faq4a" },
+        ]}
+        relatedLinks={[
+          { href: "/estimation", labelKey: "estimation" },
+          { href: "/valorisation", labelKey: "valorisation" },
+        ]}
+      />
     </div>
   );
 }

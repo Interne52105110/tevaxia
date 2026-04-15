@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import ShareLinkButton from "@/components/ShareLinkButton";
+import SEOContent from "@/components/SEOContent";
 import { computeHotelValuation, getDefaultsForCategory } from "@/lib/hotellerie/valuation";
 import type { HotelCategory } from "@/lib/hotellerie/types";
 
@@ -304,6 +305,24 @@ export default function ValorisationHotelPage() {
           </Link>
         </div>
       </div>
+
+      <SEOContent
+        ns="hotellerieValorisation"
+        sections={[
+          { titleKey: "methodTitle", contentKey: "methodContent" },
+          { titleKey: "ratiosTitle", contentKey: "ratiosContent" },
+          { titleKey: "capRateTitle", contentKey: "capRateContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+        ]}
+        relatedLinks={[
+          { href: "/hotellerie", labelKey: "hotellerie" },
+          { href: "/hotellerie/dscr", labelKey: "hotelDscr" },
+        ]}
+      />
     </div>
   );
 }

@@ -4985,7 +4985,23 @@
     "diffTitle": "Diferenciador mundial",
     "diffDesc": "As ferramentas institucionais dirigem-se a grandes fundos e cadeias hoteleiras. O nosso objetivo: tornar estes métodos acessíveis a orçamentos inferiores a 5 M€.",
     "standardsTitle": "Standards utilizados",
-    "standardsDesc": "USALI 11.ª ed. (Uniform System of Accounts for the Lodging Industry), método do rendimento (DCF), comparáveis transacionais."
+    "standardsDesc": "USALI 11.ª ed. (Uniform System of Accounts for the Lodging Industry), método do rendimento (DCF), comparáveis transacionais.",
+    "seo": {
+      "contextTitle": "Pré-aquisição hoteleira: que análises antes de assinar?",
+      "contextContent": "A aquisição de um hotel difere fundamentalmente do imobiliário residencial: o valor depende da exploração (RevPAR, GOP, EBITDA) e não apenas da área. Uma decisão informada requer seis ângulos: avaliação pelo rendimento, cobertura da dívida, previsional de exploração, conformidade energética, posicionamento competitivo e, para compradores internacionais, elegibilidade ao visto E-2.",
+      "methodTitle": "Método: combinar rendimento e comparáveis",
+      "methodContent": "A avaliação hoteleira profissional cruza dois métodos. A abordagem pelo rendimento desconta o EBITDA estabilizado a uma taxa de capitalização (5-9 % por categoria). A abordagem comparáveis aplica um preço por quarto observado em transações recentes (40k-350k € por segmento). O valor retido é tipicamente uma média ponderada.",
+      "usaliTitle": "USALI: a linguagem comum do P&L hoteleiro",
+      "usaliContent": "O Uniform System of Accounts for the Lodging Industry (11.ª ed., 2014) normaliza o P&L hoteleiro mundialmente: Rooms / F&B / Other, depois custos fixos, reserva FF&E (4 % padrão) até ao EBITDA. Um comprador que pensa em USALI comunica de forma padronizada com bancos, avaliadores e operadores.",
+      "faq1q": "Diferença entre GOP, EBITDA e resultado líquido?",
+      "faq1a": "GOP = receitas totais − despesas operacionais; indicador do operador. EBITDA = GOP − reserva FF&E (4 %); indicador usado pelos bancos. Resultado líquido = EBITDA − juros − depreciação − impostos.",
+      "faq2q": "Um hotel em França ou Bélgica pode ser avaliado?",
+      "faq2a": "Sim. RevPAR, EBITDA, DSCR e USALI são padrões internacionais. Apenas o Klimabonus é específico do Luxemburgo. Para projeto transfronteiriço, use as 5 outras ferramentas.",
+      "faq3q": "Diferença entre fundo de comércio e paredes?",
+      "faq3a": "Paredes (imobiliário) = renda × taxa de capitalização. Fundo (exploração) = EBITDA × múltiplo. Um proprietário pleno paga a soma dos dois.",
+      "faq4q": "É preciso um perito TEGOVA para um banco?",
+      "faq4a": "Para um empréstimo hoteleiro garantido (> 1 M€), a maioria dos bancos LU/BE exige um relatório TEGOVA EVS 2025 assinado por avaliador qualificado. As nossas ferramentas pré-qualificam o processo."
+    }
   },
   "hotellerieToolPages": {
     "backToHub": "Hub hotelaria",
@@ -5037,7 +5053,23 @@
     "altPrefix": "Ou experimente primeiro",
     "altLink": "a estimativa pública",
     "altSuffix": "gratuitamente.",
-    "ctaSubject": "Oferta%20agencias%20-%20pedido%20info"
+    "ctaSubject": "Oferta%20agencias%20-%20pedido%20info",
+    "seo": {
+      "usageTitle": "Quando um relatório de avaliação co-branded muda o jogo",
+      "usageContent": "Uma reunião de prospeção ganha-se muitas vezes nos primeiros 15 minutos. Chegar com um dossier de avaliação com o seu logótipo — incluindo custos de aquisição e apoios aplicáveis ao perfil do prospeto — transforma a conversa. O mandato torna-se natural.",
+      "brandingTitle": "Co-branding: a sua identidade, os nossos cálculos",
+      "brandingContent": "O PDF ostenta o seu logótipo, os contactos do agente e a menção legal personalizável. Os cálculos são alimentados pelos nossos motores atualizados: preços do Observatoire, taxas do Bëllegen Akt, plafonds Klimabonus, regra dos 5 %.",
+      "conformiteTitle": "Conformidade e atualizações",
+      "conformiteContent": "A nossa base fiscal e regulamentar é atualizada assim que as publicações oficiais saem (Mémorial A, CSSF, ACD). Os seus relatórios refletem automaticamente as últimas evoluções.",
+      "faq1q": "Quantas contas de agente por agência?",
+      "faq1a": "Até 30 utilizadores por conta de agência, com quota partilhada, identidade visual única e consola de admin para acompanhar a atividade.",
+      "faq2q": "Posso personalizar a menção legal em cada relatório?",
+      "faq2a": "Sim. Cada agência define a sua menção legal única, que aparece no rodapé de cada PDF.",
+      "faq3q": "O relatório está disponível em 5 línguas?",
+      "faq3a": "Sim. FR / EN / DE / LB / PT. A língua é escolhida na geração, útil para compradores internacionais.",
+      "faq4q": "O prospeto pode abrir conta em tevaxia.lu?",
+      "faq4a": "Não. O relatório co-branded não redireciona. O prospeto só vê a sua marca."
+    }
   },
   "hotellerieCalc": {
     "checkInputs": "Verifique os valores introduzidos.",
@@ -5146,7 +5178,23 @@
     "contactTitle": "Primeiro contacto",
     "contactPrefix": "O calculador público em",
     "contactLink": "tevaxia.lu/estimation",
-    "contactSuffix": "utiliza a mesma base de cálculo da API. Teste-o para validar a qualidade do resultado antes de discutir a integração."
+    "contactSuffix": "utiliza a mesma base de cálculo da API. Teste-o para validar a qualidade do resultado antes de discutir a integração.",
+    "seo": {
+      "usageTitle": "Utilizações típicas por bancos luxemburgueses",
+      "usageContent": "Três casos principais: (1) pré-qualificação de crédito — integrar estimativa instantânea no pedido online, (2) avaliação automática de carteiras hipotecárias para LTV prudencial CRR, (3) avaliação automática de garantia para empréstimo não hipotecário.",
+      "tegovaTitle": "Conformidade TEGOVA EVS 2025",
+      "tegovaContent": "A API devolve uma estimativa de Valor de Mercado no sentido da EVS 1 (European Valuation Standards 2025). Métodos combinados — comparação, capitalização, hedónico — reconhecidos pelo referencial TEGOVA.",
+      "mlvTitle": "MLV e rácio prudencial CRR",
+      "mlvContent": "Para carteiras hipotecárias sujeitas ao CRR, a API fornece também um Mortgage Lending Value calculado segundo as orientações EBA. Desconto prudencial ao Valor de Mercado sobre a duração do empréstimo.",
+      "faq1q": "A API é coerente com uma avaliação TEGOVA de perito?",
+      "faq1a": "A API fornece uma estimativa indicativa TEGOVA-conforme. Para um relatório vinculativo, um relatório assinado por avaliador qualificado continua necessário. O desvio é tipicamente inferior a 8 %.",
+      "faq2q": "Os dados são armazenados?",
+      "faq2a": "Nenhum dado de cliente é armazenado no lado tevaxia, salvo pedido explícito no contrato. Apenas logs técnicos são mantidos 90 dias.",
+      "faq3q": "Qual a frequência de atualização dos dados de mercado?",
+      "faq3a": "Preços por m² atualizados trimestralmente via publicações do Observatoire. Tabelas fiscais em 48 h após publicação no Mémorial A.",
+      "faq4q": "A API pode ser usada sem conta tevaxia.lu?",
+      "faq4a": "Sim. Integração B2B via chave API dedicada e convenção técnica."
+    }
   },
   "wizardParticulier": {
     "seo": {
@@ -5186,6 +5234,102 @@
       "faq3a": "A partir das publicações STATEC sobre o índice de preços na construção. A tabela cobre cada ano desde 1960.",
       "faq4q": "O arrendamento mobilado altera o cálculo?",
       "faq4a": "Sim. Uma majoração forfetária de 10 % é aceite para arrendamento mobilado. Marque a opção no formulário do lote — o teto é ajustado automaticamente."
+    }
+  },
+  "hotellerieValorisation": {
+    "seo": {
+      "methodTitle": "Avaliação pelo rendimento: RevPAR → EBITDA → valor",
+      "methodContent": "RevPAR = ADR × taxa de ocupação. Multiplicado por 365 × n.º de quartos = receita anual de quartos. Adicione F&B = receita total. Menos custos = GOP, menos reserva FF&E (4 %) = EBITDA estabilizado. Valor DCF = EBITDA / taxa de capitalização.",
+      "ratiosTitle": "Rácios USALI de referência por categoria",
+      "ratiosContent": "Budget: staff 28-32 %, GOP 30-40 %. Midscale: staff 30-34 %, GOP 28-35 %. Upscale: staff 32-36 %, GOP 25-32 %. Luxury: staff 35-40 %, GOP 20-28 %. Fonte: PKF, STR Global — mercado europeu.",
+      "capRateTitle": "Taxa de capitalização: a variável mais sensível",
+      "capRateContent": "Uma cap rate de 7 % em vez de 8 % aumenta mecanicamente o valor DCF em 14 %. Europa 2025: luxo 4,5-6 %, upscale 6-7,5 %, midscale 7-9 %, budget 8-11 %. Para um hotel secundário LU/BE: 7,5-9 %.",
+      "faq1q": "O que é 'EBITDA estabilizado'?",
+      "faq1a": "EBITDA em cruzeiro após ramp-up, 3-5 anos após aquisição ou reposicionamento.",
+      "faq2q": "Porquê 4 % de reserva FF&E?",
+      "faq2a": "Furniture, Fixtures & Equipment. 4 % é o padrão USALI 11. Um hotel de luxo pode justificar 5-6 %.",
+      "faq3q": "Usar DCF ou preço por quarto?",
+      "faq3a": "Ambos. DCF reflete a performance económica. Preço por quarto ancora nos preços de mercado."
+    }
+  },
+  "hotellerieDscr": {
+    "seo": {
+      "definitionTitle": "DSCR: o rácio que o banco olha primeiro",
+      "definitionContent": "DSCR = EBITDA / (amortização + juros anuais). Um banco comercial exige tipicamente DSCR ≥ 1,30. Abaixo de 1,00, o hotel não cobre as prestações.",
+      "stressTitle": "Stress tests: a verdadeira robustez",
+      "stressContent": "Três testes: ocupação −10 pts, ADR −10 %, duplo choque (−25 % RevPAR). Se o DSCR cair abaixo de 1,00 no duplo choque, o processo é arriscado.",
+      "ltvTitle": "LTV hoteleiro: 65-75 % típico",
+      "ltvContent": "LTV = dívida / valor. Na hotelaria LU/BE, os bancos financiam 65-75 % (vs 80 % residencial). Os 25-35 % de entrada podem ser complementados por mezanino, crédito vendedor ou fundos comerciais regionais.",
+      "faq1q": "Porquê DSCR mais estrito na hotelaria?",
+      "faq1a": "Maior volatilidade de receitas. O hotel depende de ocupação e ADR, ambos sensíveis ao ciclo económico.",
+      "faq2q": "Que fazer se DSCR estiver no limite (1,10-1,25)?",
+      "faq2a": "Três alavancas: aumentar o capital próprio, alargar a duração, negociar taxa inferior. Capital próprio adicional é a solução mais limpa.",
+      "faq3q": "Como estimar EBITDA se o hotel é novo?",
+      "faq3a": "Usar a ferramenta Exploration para construir P&L a 5 anos com ramp-up. Média anos 3-5 = EBITDA estabilizado."
+    }
+  },
+  "hotellerieExploitation": {
+    "seo": {
+      "usaliTitle": "USALI: normas contabilísticas hoteleiras reconhecidas",
+      "usaliContent": "O Uniform System of Accounts for the Lodging Industry normaliza o P&L hoteleiro globalmente desde 1926. Estrutura: receita por departamento, custos por departamento, custos não distribuídos, GOP, custos fixos, EBITDA.",
+      "gopTitle": "GOP e margem: comparação com benchmarks",
+      "gopContent": "Margens GOP típicas: budget 30-40 %, midscale 28-35 %, upscale 25-32 %, luxo 20-28 %. Um GOP abaixo da faixa sinaliza ineficiência operacional.",
+      "ffeTitle": "Reserva FF&E: 4 % obrigatório em avaliação bancária",
+      "ffeContent": "4 % das receitas totais é o padrão exigido por bancos e USALI. Um hotel que apresenta EBITDA = GOP sem FF&E sobrevaloriza o resultado em 15-25 %.",
+      "faq1q": "O previsional é conservador ou otimista?",
+      "faq1a": "A ferramenta aplica rácios USALI médios. Para previsional bancário prudente: staff +2-3 pts, ADR −5 %.",
+      "faq2q": "Como projetar o ramp-up de um hotel novo?",
+      "faq2a": "Ano 1: 50-55 % ocupação. Ano 2: 60-65 %. Anos 3-5: 65-75 % (estabilizado). ADR +2-3 %/ano.",
+      "faq3q": "F&B: receita rentável ou custo?",
+      "faq3a": "Depende fortemente da categoria. Budget: muitas vezes deficitário. Upscale/Luxury: F&B pode contribuir com 15-25 % do GOP total."
+    }
+  },
+  "hotellerieRenovation": {
+    "seo": {
+      "klimabonusTitle": "Klimabonus para o terciário hoteleiro",
+      "klimabonusContent": "O regime Klimabonus (lei de 23.12.2022) cobre renovações energéticas no terciário luxemburguês. Elegíveis: isolamento, AVAC, LED + GTB, janelas triplo vidro, bombas de calor. Taxas de subsídio 25-62,5 % com bónus CO₂.",
+      "tertiaireTitle": "Diferenças terciário vs residencial",
+      "tertiaireContent": "Para o terciário, pedidos passam pelo Balcão Único PME e pelo Ministério da Economia. Limiares mínimos de melhoria energética condicionam a elegibilidade. Tetos de custo mais elevados, auditoria energética sistematicamente exigida.",
+      "roiTitle": "ROI: poupanças de energia + ganho RevPAR via rótulo",
+      "roiContent": "A rentabilidade combina dois efeitos. Primeiro: poupanças de energia diretas (20-40 % da fatura anual). Segundo: ganho RevPAR via eco-rótulo (Green Key, EU Ecolabel) — +1 a +3 % ADR segundo STR e HOTREC.",
+      "faq1q": "Klimabonus pode ser combinado com outros apoios?",
+      "faq1a": "Sim, com Klimaprêt (empréstimo 0 %), apoios regionais/comunais e prémios de fornecedores de energia. Limites cumulativos entre 80-100 % das despesas elegíveis.",
+      "faq2q": "Que trabalho oferece o melhor ROI?",
+      "faq2a": "Para um hotel existente classe E/F, isolamento de cobertura + substituição de bomba de calor oferecem normalmente o ROI mais rápido (6-10 anos).",
+      "faq3q": "Um eco-rótulo aumenta realmente o ADR?",
+      "faq3a": "Estudos STR + Cornell: hotéis certificados Green Key obtêm +2 a +4 % ADR vs não certificados."
+    }
+  },
+  "hotellerieRevpar": {
+    "seo": {
+      "indicesTitle": "MPI, ARI, RGI: os três índices de fair share",
+      "indicesContent": "MPI = ocupação hotel / ocupação compset × 100. ARI = ADR hotel / ADR compset × 100. RGI = MPI × ARI / 100 ≈ rácio RevPAR. Índice de referência para posicionamento global.",
+      "compsetTitle": "Construir um compset relevante",
+      "compsetContent": "Tipicamente 4-7 hotéis do mesmo segmento geográfico e categoria. Dados via STR ou trocas diretas entre hoteleiros (através de Hotrec LU).",
+      "fairShareTitle": "Interpretação: fair share, problema de preço, comercial",
+      "fairShareContent": "RGI ≈ 100: fair share atingido. RGI < 95 com MPI baixo e ARI bom: problema comercial. RGI > 105: sobreperformance — atenção ao teto de mercado.",
+      "faq1q": "Onde encontrar dados compset sem subscrição STR?",
+      "faq1a": "STR custa 5-20k €/ano. Alternativas gratuitas: Hotrec LU trimestral, dashboards OTA, acordos bilaterais entre hoteleiros.",
+      "faq2q": "Frequência de análise recomendada?",
+      "faq2a": "Mensal em cruzeiro. Semanal na alta estação ou reposicionamento.",
+      "faq3q": "O meu RGI é bom mas o GOP é mau — porquê?",
+      "faq3a": "RGI mede top-line. GOP mede rentabilidade operacional. Pode haver sobre-pessoal ou custos fixos desproporcionados."
+    }
+  },
+  "hotellerieScoreE2": {
+    "seo": {
+      "visaTitle": "O visto E-2: imigração via investimento",
+      "visaContent": "O visto E-2 (Treaty Investor) permite cidadãos de países com tratado com os EUA (incluindo LU, FR, BE) obter visto de trabalho renovável via investimento substancial num negócio americano ativo. A aquisição de hotel é uma via preferida.",
+      "criteresTitle": "5 critérios USCIS avaliados automaticamente",
+      "criteresContent": "1. Substantiality: capital vs custo do projeto. 2. At-risk: fundos realmente comprometidos. 3. Marginality: rendimento acima do mínimo vital familiar US. 4. Real & operating: hotel ativo, não holding passiva. 5. Job creation: empregos US criados.",
+      "limitTitle": "Limitações da ferramenta",
+      "limitContent": "Esta ferramenta calcula um score indicativo. Não substitui consulta com advogado de imigração US especializado em E-2. Elementos subjetivos (qualidade do business plan, histórico profissional, due diligence) continuam decisivos.",
+      "faq1q": "Capital mínimo para um visto E-2 hoteleiro?",
+      "faq1a": "Sem limiar oficial USCIS. Na prática: 100-200 k$ como patamar. Para hotel/motel típico 300-800 k$ de capital próprio.",
+      "faq2q": "Duração e renovação do E-2?",
+      "faq2a": "Inicial 2-5 anos (5 anos para LU/FR/BE). Renovável indefinidamente enquanto os critérios se mantiverem.",
+      "faq3q": "Os filhos e cônjuge podem trabalhar ou estudar?",
+      "faq3a": "Cônjuge: pode pedir autorização de trabalho (EAD) sem restrição de setor. Filhos: podem estudar em qualquer escola US. Aos 21, perdem o estatuto derivado."
     }
   }
 }

@@ -4985,7 +4985,23 @@
     "diffTitle": "Global differentiator",
     "diffDesc": "Institutional tools target large funds and hotel chains. Our goal is to make these methods accessible to buyers with budgets below €5M.",
     "standardsTitle": "Standards used",
-    "standardsDesc": "USALI 11th ed. (Uniform System of Accounts for the Lodging Industry), income approach (DCF), transactional comparables."
+    "standardsDesc": "USALI 11th ed. (Uniform System of Accounts for the Lodging Industry), income approach (DCF), transactional comparables.",
+    "seo": {
+      "contextTitle": "Hotel pre-acquisition: which analyses before signing?",
+      "contextContent": "Acquiring a hotel or motel differs fundamentally from residential real estate: value depends on the operation (RevPAR, GOP, EBITDA), not only on surface area. An informed decision requires six analytical angles: income-based valuation, debt coverage, operating forecast, energy compliance, competitive positioning, and — for international buyers — E-2 visa eligibility.",
+      "methodTitle": "Method: combining income and comparables approaches",
+      "methodContent": "Professional hotel valuation blends two methods. The income approach discounts stabilised EBITDA at a capitalisation rate reflecting operational risk (5-9% depending on category). The comparables approach applies a price per key observed on recent transactions (€40k-€350k by segment). The retained value is typically a weighted average.",
+      "usaliTitle": "USALI: the common language of hotel P&L",
+      "usaliContent": "The Uniform System of Accounts for the Lodging Industry (11th ed., 2014) standardises hotel P&L presentation worldwide: Rooms / Food & Beverage / Other Operating Departments, then fixed charges, FF&E reserve (4% standard) down to EBITDA. A buyer reasoning in USALI communicates in a standardised way with banks, appraisers and operators.",
+      "faq1q": "What is the difference between GOP, EBITDA and net income?",
+      "faq1a": "GOP (Gross Operating Profit) = total revenues − operating charges; the operator's performance indicator. EBITDA = GOP − FF&E reserve (4%); the debt-service capacity indicator used by banks. Net income = EBITDA − interest − depreciation − taxes; the accounting result.",
+      "faq2q": "Can a hotel in France or Belgium be valued with these tools?",
+      "faq2a": "Yes. RevPAR, EBITDA, DSCR and USALI methods are international standards. Only the Klimabonus tool is specific to Luxembourg. For a cross-border project, use the 5 other tools and adapt renovation aids to the local scheme.",
+      "faq3q": "What is the difference between business (fonds) and walls?",
+      "faq3a": "Walls (real estate only) are valued by rent × capitalisation rate. Business (operation) is valued by EBITDA × multiple. A freehold buyer pays the sum of both. Our tools treat hotel operation as a whole, including productive real estate.",
+      "faq4q": "Do I need a TEGOVA expert for a bank?",
+      "faq4a": "For a secured hotel loan (>€1M), most LU/BE banks require a TEGOVA EVS 2025 report signed by a qualified appraiser. Our tools allow pre-qualification of a file before ordering that expert work."
+    }
   },
   "hotellerieToolPages": {
     "backToHub": "Hospitality hub",
@@ -5037,7 +5053,23 @@
     "altPrefix": "Or first try",
     "altLink": "the public estimation",
     "altSuffix": "for free.",
-    "ctaSubject": "Agency%20offer%20-%20info%20request"
+    "ctaSubject": "Agency%20offer%20-%20info%20request",
+    "seo": {
+      "usageTitle": "When a co-branded estimation report changes the game",
+      "usageContent": "A prospecting meeting is often won in the first 15 minutes. Arriving with an estimation file in your agency's brand — including acquisition fees and applicable aids for the prospect's profile — transforms the conversation: you talk precise figures, Luxembourg legal framework, realistic financial path. Winning the mandate becomes natural.",
+      "brandingTitle": "Co-branding: your identity, our calculations",
+      "brandingContent": "The PDF carries your logo, your agent's contact details and your customisable legal mention. Calculations remain powered by our up-to-date engines: Observatoire de l'Habitat prices, Bëllegen Akt rates, Klimabonus caps, 5% rule. You build on our technical expertise while keeping the client relationship.",
+      "conformiteTitle": "Compliance and updates",
+      "conformiteContent": "Our tax and regulatory base is updated as soon as official publications are released (Mémorial A, CSSF communications, ACD circulars). Your reports automatically reflect the latest evolutions — the 3.5% temporary rate revision, annual Klimabonus scales, income thresholds for state aids.",
+      "faq1q": "How many agent accounts per agency?",
+      "faq1a": "Up to 30 users per agency account, sharing a single estimation quota, a single brand chart and an admin console to track activity per user.",
+      "faq2q": "Can I customise the legal mention on each report?",
+      "faq2a": "Yes. Each agency defines its unique legal mention (RCS, accreditation, professional card…) that appears at the bottom of every PDF generated by its agents.",
+      "faq3q": "Is the report available in 5 languages?",
+      "faq3a": "Yes. FR / EN / DE / LB / PT. The language is chosen at generation time based on your prospect's. Particularly useful for international buyers.",
+      "faq4q": "Can the prospect open an account on tevaxia.lu?",
+      "faq4a": "No. The co-branded report does not redirect to tevaxia.lu. The prospect only sees your brand — we act as tool provider, never as intermediary."
+    }
   },
   "hotellerieCalc": {
     "checkInputs": "Please check the input values.",
@@ -5146,7 +5178,23 @@
     "contactTitle": "First contact",
     "contactPrefix": "The public calculator at",
     "contactLink": "tevaxia.lu/estimation",
-    "contactSuffix": "uses the same calculation engine as the API. Test it to validate result quality before discussing integration."
+    "contactSuffix": "uses the same calculation engine as the API. Test it to validate result quality before discussing integration.",
+    "seo": {
+      "usageTitle": "Typical uses by Luxembourg banks",
+      "usageContent": "Three main use cases: (1) credit pre-qualification — embed an instant estimation into the online application flow, (2) automated valuation of existing mortgage portfolios for prudential CRR LTV, (3) automated scoring of a collateral submission for a non-mortgage loan backed by real estate.",
+      "tegovaTitle": "TEGOVA EVS 2025 compliance",
+      "tegovaContent": "The API returns a Market Value estimate in the EVS 1 sense (European Valuation Standards 2025 / Charter 5th ed.). Combined methods — comparison, capitalisation, hedonic — are those recognised by the TEGOVA framework. Exportable reports detail the methodology to trace each credit decision.",
+      "mlvTitle": "MLV and prudential CRR ratio",
+      "mlvContent": "For mortgage portfolios subject to CRR (Capital Requirements Regulation), the API also provides a Mortgage Lending Value computed according to EBA guidelines. Prudential discount applied to Market Value, respecting the sustainable value principle over the loan duration.",
+      "faq1q": "Is the API consistent with a TEGOVA expert valuation?",
+      "faq1a": "The API provides a TEGOVA-compliant indicative estimate based on public data. For a binding report (secured loan, litigation), a report signed by a qualified appraiser remains necessary — but the observed gap between the two is typically below 8% on the 100 municipalities covered.",
+      "faq2q": "Is data stored?",
+      "faq2a": "No client data (precise address, prospect identity) is stored on tevaxia's side unless explicitly requested in your contract. Only technical logs (anonymised requests, return codes) are kept 90 days for billing and audit.",
+      "faq3q": "What update frequency for market data?",
+      "faq3a": "Prices per m² are updated quarterly via Observatoire de l'Habitat publications (data.public.lu). Tax scales (Bëllegen Akt, VAT, duty rates) are updated within 48 hours after publication in Mémorial A.",
+      "faq4q": "Can the API be used without a tevaxia.lu account?",
+      "faq4a": "Yes. B2B integration uses a dedicated API key and a technical agreement. Your tevaxia.lu user account remains optional and separate from your server integration."
+    }
   },
   "wizardParticulier": {
     "seo": {
@@ -5186,6 +5234,102 @@
       "faq3a": "Coefficients are taken from STATEC's construction price index publications. Our table covers every year from 1960 to today. The older the purchase year, the higher the coefficient.",
       "faq4q": "Does furnished rental change the calculation?",
       "faq4a": "Yes. A 10% uplift on the maximum rent is accepted for furnished rentals. Tick the option in the unit form — the legal cap is adjusted automatically."
+    }
+  },
+  "hotellerieValorisation": {
+    "seo": {
+      "methodTitle": "Income-based valuation: RevPAR → EBITDA → value",
+      "methodContent": "RevPAR (Revenue per Available Room) = ADR × occupancy rate. Multiplied by 365 × number of rooms, it gives annual room revenue. Add F&B and other department revenue to get total revenue. Subtract operating charges (staff, energy, other opex) for GOP, then FF&E reserve (4%) for stabilised EBITDA. DCF value = EBITDA / capitalisation rate.",
+      "ratiosTitle": "Reference USALI ratios by category",
+      "ratiosContent": "Budget (1-2★): staff 28-32%, energy 7-9%, other opex 22-26%, GOP 30-40%. Midscale (3★): staff 30-34%, GOP 28-35%. Upscale (4★): staff 32-36%, GOP 25-32%. Luxury (5★): staff 35-40%, GOP 20-28%. Ranges sourced from PKF Hotel Experts and STR Global, calibrated on the European market.",
+      "capRateTitle": "Capitalisation rate: the most sensitive variable",
+      "capRateContent": "A cap rate of 7% instead of 8% mechanically raises DCF value by 14%. Observed rates in Europe 2025: luxury 4.5-6% (Paris, Milan, Zurich), upscale 6-7.5%, midscale 7-9%, budget 8-11%. For a secondary LU/BE hotel, 7.5-9% is the prudent compromise.",
+      "faq1q": "What does 'stabilised EBITDA' mean?",
+      "faq1a": "EBITDA in cruising year post-ramp-up, after 3-5 years of operation from acquisition or repositioning. Not the EBITDA of year N-1 if abnormal (covid, works, major local event).",
+      "faq2q": "Why 4% FF&E reserve?",
+      "faq2a": "Furniture, Fixtures & Equipment: gradual replacement of furniture and equipment. 4% is the USALI 11th ed. standard. A luxury hotel may justify 5-6%, an economy motel holding at 3%.",
+      "faq3q": "Should I use DCF or price-per-key?",
+      "faq3a": "Both. The DCF approach reflects the unique economic performance of the asset. The price-per-key multiple anchors on market prices. The arithmetic mean typically sets the retained range; a gap > 30% signals an atypical asset."
+    }
+  },
+  "hotellerieDscr": {
+    "seo": {
+      "definitionTitle": "DSCR: the ratio the bank looks at first",
+      "definitionContent": "DSCR (Debt Service Coverage Ratio) = EBITDA / (principal + annual interest). A commercial bank typically requires DSCR ≥ 1.30 on a hotel loan. SBA 7(a) US: 1.25. LBO/mezzanine: 1.50. Below 1.00, the hotel does not cover its payments — the file is rejected.",
+      "stressTitle": "Stress tests: real robustness of the file",
+      "stressContent": "A central DSCR at 1.40 may hide fragility. Three stress tests to verify: occupancy −10 pts (covid effect), ADR −10% (competitive or recession pressure), combined double shock (−25% RevPAR). If DSCR falls below 1.00 under double shock, the file is risky for the bank.",
+      "ltvTitle": "Hotel LTV: 65-75% typical",
+      "ltvContent": "Loan-to-Value = debt / asset value. In LU/BE hospitality, banks finance 65-75% (vs 80% in residential). The 25-35% equity can be complemented by a mezzanine loan (cost 8-12%), seller credit (negotiated with the seller) or a regional commercial fund.",
+      "faq1q": "Why stricter DSCR in hospitality?",
+      "faq1a": "Higher revenue volatility than in residential rental. A hotel depends on occupancy and ADR, both sensitive to the economic cycle. A DSCR of 1.30 provides a 23% safety margin before default — about one bad quarter.",
+      "faq2q": "What if DSCR is borderline (1.10-1.25)?",
+      "faq2a": "Three levers: increase equity (lower monthly payment), extend duration (20 → 25 years), negotiate lower rate. Caution: extending duration raises total credit cost. Additional equity remains the cleanest solution.",
+      "faq3q": "How to estimate EBITDA if the hotel is new?",
+      "faq3a": "Use the Operation USALI tool to build a 5-year P&L forecast with ramp-up (lower year 1 occupancy, progressive over 3 years). Retain the years 3-5 average as stabilised EBITDA for DSCR."
+    }
+  },
+  "hotellerieExploitation": {
+    "seo": {
+      "usaliTitle": "USALI: recognised hotel accounting standards",
+      "usaliContent": "The Uniform System of Accounts for the Lodging Industry, published by AHLA, has standardised hotel operating accounts globally since 1926. The 11th edition (2014) remains the worldwide reference. Structure: revenue by department (Rooms, F&B, Other), charges by department, undistributed charges (A&G, marketing, maintenance, energy), GOP, fixed charges, EBITDA.",
+      "gopTitle": "GOP and margin: benchmark comparison",
+      "gopContent": "GOP (Gross Operating Profit) is the key operator performance line. Typical GOP margins: budget 30-40%, midscale 28-35%, upscale 25-32%, luxury 20-28%. A GOP below range signals operational inefficiency (over-staffing, uncontrolled energy, high food cost). The tool automatically compares your projection to the chosen category.",
+      "ffeTitle": "FF&E reserve: 4% required in bank valuation",
+      "ffeContent": "Furniture, Fixtures & Equipment: reserve for replacing furniture, linen, TV, IT, small equipment. 4% of total revenue is the standard required by banks and USALI for any valuation. A hotel claiming EBITDA = GOP without FF&E deduction overstates its result by about 15-25%.",
+      "faq1q": "Is the forecast conservative or optimistic?",
+      "faq1a": "The tool applies average USALI ratios for the chosen category. For a prudent forecast required by a bank, increase staff by 2-3 points and lower ADR by 5%. For an aggressive investor business plan, the reverse.",
+      "faq2q": "How to project ramp-up of a new hotel?",
+      "faq2a": "Year 1: 50-55% occupancy. Year 2: 60-65%. Year 3-5: 65-75% (stabilised). ADR grows 2-3%/year via inflation + repositioning. The tool manages this curve via 'ADR growth' and 'occupancy progression' parameters.",
+      "faq3q": "F&B: profitable revenue or cost?",
+      "faq3a": "Strongly category-dependent. Budget: F&B often loss-making (breakfast included), contributes via differentiation. Midscale: F&B at break-even. Upscale/Luxury: F&B can contribute 15-25% of total GOP if the restaurant attracts clients beyond hotel guests."
+    }
+  },
+  "hotellerieRenovation": {
+    "seo": {
+      "klimabonusTitle": "Klimabonus for hotel tertiary",
+      "klimabonusContent": "The Klimabonus scheme (law of 23 December 2022) covers energy retrofits in Luxembourg tertiary buildings. For a hotel, eligible items include insulation, HVAC, LED lighting + BMS, triple-glazed windows, heat pumps and solar thermal. Subsidy rates reach 25-62.5% depending on retrofit scope and performance target, with a CO₂ bonus tied to actual savings.",
+      "tertiaireTitle": "Tertiary vs residential differences",
+      "tertiaireContent": "For tertiary, applications go through the SME Single Window and the Ministry of Economy (not Klima-Agence for individuals). Minimum improvement thresholds (e.g. 30% primary energy gain) condition eligibility. Cost caps are higher (€250-450/m² per item) and an energy audit is systematically required.",
+      "roiTitle": "ROI: energy savings + RevPAR gain via label",
+      "roiContent": "Hotel retrofit profitability combines two effects. First: direct energy savings (20-40% of annual bill after deep retrofit). Second: observed RevPAR gain via eco-label (Green Key, EU Ecolabel, Biosphere) — +1 to +3% ADR per STR and HOTREC studies. The second effect is often the real ROI lever.",
+      "faq1q": "Can Klimabonus be combined with other aids?",
+      "faq1a": "Yes, with Klimaprêt (0% subsidised loan), regional/communal aids and energy supplier premiums. Combinations are capped at 80-100% of eligible expenses depending on schemes.",
+      "faq2q": "Which retrofit item offers the best ROI?",
+      "faq2a": "For an existing E/F-rated hotel, roof insulation + heat pump replacement typically offers the fastest ROI (6-10 years). LED + BMS is the most profitable in absolute value if electricity consumption dominates. Windows are profitable only if existing ones are severely degraded.",
+      "faq3q": "Does an eco-label actually raise ADR?",
+      "faq3a": "STR Global + Cornell Hospitality studies: Green Key or equivalent certified hotels get +2 to +4% ADR vs uncertified competitors, with a 1-2 pt occupancy premium. The effect is stronger on corporate and MICE segments (CSR criteria demanded by corporate clients)."
+    }
+  },
+  "hotellerieRevpar": {
+    "seo": {
+      "indicesTitle": "MPI, ARI, RGI: the three fair-share indices",
+      "indicesContent": "MPI (Market Penetration Index) = hotel occupancy / compset occupancy × 100. Measures your volume performance. ARI (Average Rate Index) = hotel ADR / compset ADR × 100. Measures your pricing. RGI (Revenue Generation Index) = MPI × ARI / 100 ≈ hotel RevPAR / compset RevPAR × 100. The reference index for overall positioning.",
+      "compsetTitle": "Building a relevant compset",
+      "compsetContent": "A compset (competitive set) typically groups 4-7 hotels of the same geographic segment and category. Criteria: same area (city, tourist district), same star category, same positioning (business vs leisure), comparable size. Data come from STR subscriptions or direct exchange between hoteliers (common in Luxembourg via Hotrec LU).",
+      "fairShareTitle": "Interpretation: fair share, price problem, commercial problem",
+      "fairShareContent": "RGI ≈ 100: fair share reached, market-level performance. RGI < 95 with low MPI and good ARI: distribution/commercial problem (visibility, channels, reputation). RGI < 95 with good MPI and low ARI: pricing problem (under-pricing to fill). RGI > 105: over-performance — watch the market ceiling, lever for rate increase.",
+      "faq1q": "Where to find compset data without STR subscription?",
+      "faq1a": "STR Global costs €5-20k/year depending on market. Free alternatives: Hotrec LU quarterly sharing, OTA dashboards (Booking, Expedia), bilateral agreements between local hoteliers. Chambers of commerce sometimes provide aggregated data by canton.",
+      "faq2q": "Recommended analysis frequency?",
+      "faq2a": "Monthly for a cruising hotel. Weekly in high season or during repositioning phase. Revenue managers also use daily tracking on 14-day rolling windows during critical periods (trade shows, event weekends).",
+      "faq3q": "My RGI is good but GOP is bad — why?",
+      "faq3a": "RGI measures top-line performance (revenue vs market). GOP measures operational profitability. A hotel can have excellent RGI and weak GOP if it over-staffs, overpays for energy or keeps disproportionate fixed charges. Use the Operation USALI tool to identify the problem item."
+    }
+  },
+  "hotellerieScoreE2": {
+    "seo": {
+      "visaTitle": "The E-2 visa: an immigration tool via investment",
+      "visaContent": "The E-2 (Treaty Investor) visa allows citizens of treaty countries with the United States (incl. Luxembourg, France, Belgium) to obtain an indefinitely renewable work visa via substantial investment in an active American business. Acquiring a hotel or motel is a preferred route: tangible asset, job creation, active not passive operation.",
+      "criteresTitle": "5 USCIS criteria evaluated automatically",
+      "criteresContent": "1. Substantiality: invested capital vs total project cost (typically 50-100% if project < $500k, decreasing for larger projects). 2. At-risk: funds actually committed (escrow, signed contracts). 3. Marginality: income above US family minimum vital. 4. Real & operating: active hotel, not passive holding. 5. Job creation: US jobs created or maintained (excluding investor and family).",
+      "limitTitle": "Tool limitations and recommended support",
+      "limitContent": "This tool computes an indicative score on the 5 key criteria. It does not replace consulting an E-2-specialised US immigration lawyer. Subjective elements (quality of business plan, investor professional history, tax compliance, target hotel due diligence) are not considered and remain decisive for actual visa grant.",
+      "faq1q": "What minimum capital for a hotel E-2 visa?",
+      "faq1a": "No official USCIS threshold. In practice, $100-200k is considered a floor. For a hotel/motel, typical range is $300-800k equity for an $800k-$2M project, with creation of 4-10 US jobs.",
+      "faq2q": "Duration and renewal of E-2 visa?",
+      "faq2a": "Initial visa 2-5 years depending on country (5 years for LU/FR/BE). Indefinitely renewable as long as criteria (active business, maintained jobs, committed funds) are met. Each renewal costs $200-400 + legal fees.",
+      "faq3q": "Can children and spouse work or study?",
+      "faq3a": "Spouse: can apply for a US work permit (EAD) without sector restriction. Children: can study in any US public or private school (K-12, university). At 21, children lose derived status — they must change visa."
     }
   }
 }

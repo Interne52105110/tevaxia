@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
+import SEOContent from "@/components/SEOContent";
 import { computeRevparCompset } from "@/lib/hotellerie/revpar-comparison";
 
 function formatEUR(n: number): string {
@@ -125,6 +126,24 @@ export default function RevparComparisonPage() {
           {tcv("methodNote")}
         </div>
       </div>
+
+      <SEOContent
+        ns="hotellerieRevpar"
+        sections={[
+          { titleKey: "indicesTitle", contentKey: "indicesContent" },
+          { titleKey: "compsetTitle", contentKey: "compsetContent" },
+          { titleKey: "fairShareTitle", contentKey: "fairShareContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+        ]}
+        relatedLinks={[
+          { href: "/hotellerie/valorisation", labelKey: "hotelValorisation" },
+          { href: "/hotellerie/exploitation", labelKey: "hotelExploitation" },
+        ]}
+      />
     </div>
   );
 }

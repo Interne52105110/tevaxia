@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
+import SEOContent from "@/components/SEOContent";
 import { computeRenovationHotel } from "@/lib/hotellerie/renovation";
 
 function formatEUR(n: number): string {
@@ -180,6 +181,24 @@ export default function RenovationHotelPage() {
           {tcr("methodNote")}
         </div>
       </div>
+
+      <SEOContent
+        ns="hotellerieRenovation"
+        sections={[
+          { titleKey: "klimabonusTitle", contentKey: "klimabonusContent" },
+          { titleKey: "tertiaireTitle", contentKey: "tertiaireContent" },
+          { titleKey: "roiTitle", contentKey: "roiContent" },
+        ]}
+        faq={[
+          { questionKey: "faq1q", answerKey: "faq1a" },
+          { questionKey: "faq2q", answerKey: "faq2a" },
+          { questionKey: "faq3q", answerKey: "faq3a" },
+        ]}
+        relatedLinks={[
+          { href: "/hotellerie/valorisation", labelKey: "hotelValorisation" },
+          { href: "/energy/renovation", labelKey: "energyRenovation" },
+        ]}
+      />
     </div>
   );
 }
