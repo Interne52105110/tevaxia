@@ -4067,6 +4067,30 @@
       "cancel": "Abbrechen",
       "deleting": "Wird gelöscht…",
       "typeWrong": "Eingabe stimmt nicht überein."
+    },
+    "preferences": {
+      "title": "Benachrichtigungen & Einwilligungen",
+      "desc": "Wählen Sie die E-Mail-Benachrichtigungen, die Sie erhalten möchten, und verwalten Sie Ihre granularen DSGVO-Einwilligungen.",
+      "loading": "Lädt…",
+      "notifGroup": "E-Mail-Benachrichtigungen",
+      "consentGroup": "DSGVO-Einwilligungen",
+      "consentIntro": "Sie können diese Einwilligungen jederzeit widerrufen (DSGVO Art. 7).",
+      "save": "Speichern",
+      "saved": "Gespeichert ✓",
+      "marketAlerts": "Marktalarme",
+      "marketAlertsHint": "E-Mail-Benachrichtigung, wenn ein Preis Ihr Ziel in einer überwachten Gemeinde erreicht.",
+      "monthlyDigest": "Monatszusammenfassung",
+      "monthlyDigestHint": "Eine E-Mail pro Monat mit der Preisentwicklung in Ihren Gemeinden.",
+      "security": "Kontosicherheit",
+      "securityHint": "Anmeldungen von neuen Geräten, kritische Änderungen. Empfohlen.",
+      "productNews": "Produktneuigkeiten",
+      "productNewsHint": "Neue Tools, wichtige Verbesserungen. Maximal 1 E-Mail/Monat.",
+      "consentAnalytics": "Anonymisierte Analyse",
+      "consentAnalyticsHint": "Google Analytics zur Messung der Website-Reichweite. Aggregierte Daten, nie personenbezogen.",
+      "consentMarketing": "Marketing",
+      "consentMarketingHint": "Nutzung Ihrer E-Mail-Adresse für kommerzielle Kommunikation von tevaxia erlauben.",
+      "consentThirdParty": "Teilen mit Partnern",
+      "consentThirdPartyHint": "Gelegentliches Teilen anonymisierter Daten mit institutionellen Partnern (Observatoire de l'Habitat, STATEC) erlauben."
     }
   },
   "mesEvaluations": {

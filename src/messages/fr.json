@@ -4067,6 +4067,30 @@
       "cancel": "Annuler",
       "deleting": "Suppression…",
       "typeWrong": "Le texte saisi ne correspond pas."
+    },
+    "preferences": {
+      "title": "Notifications & consentements",
+      "desc": "Choisissez les notifications que vous souhaitez recevoir par email et gérez vos consentements RGPD granulaires.",
+      "loading": "Chargement…",
+      "notifGroup": "Notifications email",
+      "consentGroup": "Consentements RGPD",
+      "consentIntro": "Vous pouvez à tout moment retirer ces consentements (Art. 7 RGPD).",
+      "save": "Enregistrer",
+      "saved": "Enregistré ✓",
+      "marketAlerts": "Alertes de marché",
+      "marketAlertsHint": "Notification email lorsqu'un prix atteint votre cible sur une commune surveillée.",
+      "monthlyDigest": "Récapitulatif mensuel",
+      "monthlyDigestHint": "Un email par mois avec l'évolution des prix des communes qui vous intéressent.",
+      "security": "Sécurité du compte",
+      "securityHint": "Connexions depuis un nouvel appareil, changements critiques. Recommandé.",
+      "productNews": "Nouveautés produit",
+      "productNewsHint": "Nouveaux outils, améliorations majeures. Maximum 1 email/mois.",
+      "consentAnalytics": "Analytics anonymisées",
+      "consentAnalyticsHint": "Google Analytics pour mesurer l'audience du site. Données agrégées, jamais personnelles.",
+      "consentMarketing": "Marketing",
+      "consentMarketingHint": "Autoriser l'utilisation de votre adresse email à des fins de communication commerciale tevaxia.",
+      "consentThirdParty": "Partage avec partenaires",
+      "consentThirdPartyHint": "Autoriser le partage ponctuel de données anonymisées avec des partenaires institutionnels (Observatoire de l'Habitat, STATEC)."
     }
   },
   "mesEvaluations": {

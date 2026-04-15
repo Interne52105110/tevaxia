@@ -4067,6 +4067,30 @@
       "cancel": "Cancel",
       "deleting": "Deleting…",
       "typeWrong": "The typed text does not match."
+    },
+    "preferences": {
+      "title": "Notifications & consents",
+      "desc": "Choose the notifications you wish to receive by email and manage your granular GDPR consents.",
+      "loading": "Loading…",
+      "notifGroup": "Email notifications",
+      "consentGroup": "GDPR consents",
+      "consentIntro": "You may withdraw these consents at any time (GDPR Art. 7).",
+      "save": "Save",
+      "saved": "Saved ✓",
+      "marketAlerts": "Market alerts",
+      "marketAlertsHint": "Email notification when a price reaches your target on a watched municipality.",
+      "monthlyDigest": "Monthly digest",
+      "monthlyDigestHint": "One email per month with price evolution in municipalities you care about.",
+      "security": "Account security",
+      "securityHint": "Login from new device, critical changes. Recommended.",
+      "productNews": "Product news",
+      "productNewsHint": "New tools, major improvements. Maximum 1 email/month.",
+      "consentAnalytics": "Anonymized analytics",
+      "consentAnalyticsHint": "Google Analytics to measure site audience. Aggregated data, never personal.",
+      "consentMarketing": "Marketing",
+      "consentMarketingHint": "Allow use of your email address for tevaxia commercial communication.",
+      "consentThirdParty": "Sharing with partners",
+      "consentThirdPartyHint": "Allow occasional sharing of anonymized data with institutional partners (Observatoire de l'Habitat, STATEC)."
     }
   },
   "mesEvaluations": {

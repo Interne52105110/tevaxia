@@ -4067,6 +4067,30 @@
       "cancel": "Ofbriechen",
       "deleting": "Gëtt geläscht…",
       "typeWrong": "Text stëmmt net iwwerenee."
+    },
+    "preferences": {
+      "title": "Notifikatiounen & Akkorder",
+      "desc": "Wielt déi Notifikatiounen aus, déi Dir per E-Mail kréie wëllt, a gitt Är granular DSGVO-Akkorder.",
+      "loading": "Lued…",
+      "notifGroup": "E-Mail-Notifikatiounen",
+      "consentGroup": "DSGVO-Akkorder",
+      "consentIntro": "Dir kënnt dës Akkorder zu all Moment zréckzéien (DSGVO Art. 7).",
+      "save": "Späicheren",
+      "saved": "Gespäichert ✓",
+      "marketAlerts": "Maartalarmer",
+      "marketAlertsHint": "E-Mail-Notifikatioun wann e Präis Äert Zil an enger iwwerwaachter Gemeng erreecht.",
+      "monthlyDigest": "Monatlech Zesummefaassung",
+      "monthlyDigestHint": "Eng E-Mail pro Mount mat der Präisentwécklung an Äre Gemengen.",
+      "security": "Kontosécherheet",
+      "securityHint": "Login vun neien Apparater, kritesch Ännerungen. Recommandéiert.",
+      "productNews": "Produktnoutizen",
+      "productNewsHint": "Nei Tools, wichteg Verbesserungen. Maximum 1 E-Mail/Mount.",
+      "consentAnalytics": "Anonymiséiert Analyse",
+      "consentAnalyticsHint": "Google Analytics fir d'Audiomessung. Aggregéiert Donnéeën, ni perséinlech.",
+      "consentMarketing": "Marketing",
+      "consentMarketingHint": "Benotzung vun Ärer E-Mail-Adress fir tevaxia Kommunikatioun.",
+      "consentThirdParty": "Deelen mat Partner",
+      "consentThirdPartyHint": "Punktuellt Deelen vun anonymiséierten Donnéeë mat institutionelle Partner (Observatoire de l'Habitat, STATEC)."
     }
   },
   "mesEvaluations": {

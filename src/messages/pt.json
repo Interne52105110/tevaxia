@@ -4067,6 +4067,30 @@
       "cancel": "Cancelar",
       "deleting": "A eliminar…",
       "typeWrong": "O texto introduzido não corresponde."
+    },
+    "preferences": {
+      "title": "Notificações & consentimentos",
+      "desc": "Escolha as notificações que deseja receber por email e faça gestão dos seus consentimentos RGPD granulares.",
+      "loading": "A carregar…",
+      "notifGroup": "Notificações por email",
+      "consentGroup": "Consentimentos RGPD",
+      "consentIntro": "Pode retirar estes consentimentos a qualquer momento (RGPD Art. 7).",
+      "save": "Guardar",
+      "saved": "Guardado ✓",
+      "marketAlerts": "Alertas de mercado",
+      "marketAlertsHint": "Notificação por email quando um preço atinge o seu alvo num município vigiado.",
+      "monthlyDigest": "Resumo mensal",
+      "monthlyDigestHint": "Um email por mês com a evolução dos preços nos municípios que lhe interessam.",
+      "security": "Segurança da conta",
+      "securityHint": "Sessões a partir de novo dispositivo, alterações críticas. Recomendado.",
+      "productNews": "Novidades do produto",
+      "productNewsHint": "Novas ferramentas, melhorias importantes. Máximo 1 email/mês.",
+      "consentAnalytics": "Análise anonimizada",
+      "consentAnalyticsHint": "Google Analytics para medir a audiência do site. Dados agregados, nunca pessoais.",
+      "consentMarketing": "Marketing",
+      "consentMarketingHint": "Autorizar o uso do seu email para comunicação comercial tevaxia.",
+      "consentThirdParty": "Partilha com parceiros",
+      "consentThirdPartyHint": "Autorizar partilha pontual de dados anonimizados com parceiros institucionais (Observatoire de l'Habitat, STATEC)."
     }
   },
   "mesEvaluations": {

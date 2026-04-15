@@ -9,6 +9,7 @@ import { getProfile, saveProfile, loadAndMergeProfile, uploadLogo, type UserProf
 import { listMySharedLinks, deleteSharedLink, buildSharedLinkUrl, type SharedLink } from "@/lib/shared-links";
 import { buildDataExport, downloadAsJsonFile } from "@/lib/data-export";
 import DeleteAccountSection from "@/components/DeleteAccountSection";
+import NotificationPreferencesSection from "@/components/NotificationPreferencesSection";
 
 // ============================================================
 // MARKET ALERTS TYPES & SECTION
@@ -549,6 +550,9 @@ export default function Profil() {
           >
             {syncing ? t("syncing") : saved ? t("profileSaved") : t("saveProfile")}
           </button>
+
+          {/* Préférences notifications + consentements */}
+          <NotificationPreferencesSection />
 
           {/* Tier affichage + export RGPD */}
           <TierAndExportSection user={user} />
