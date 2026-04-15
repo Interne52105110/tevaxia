@@ -21,6 +21,7 @@ import SaveButton from "@/components/SaveButton";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { generateEstimationPdfBlob, PdfButton } from "@/components/ToolsPdf";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import ShareButton from "@/components/ShareButton";
 import AuthGate from "@/components/AuthGate";
 import MarketAlertButton from "@/components/MarketAlertButton";
@@ -678,6 +679,28 @@ export default function Estimation() {
                       })),
                     })
                   }
+                />
+                <ShareLinkButton
+                  toolType="estimation"
+                  defaultTitle={`Estimation ${selectedResult?.commune.commune || communeSearch} — ${surface} m²`}
+                  payload={{
+                    inputs: {
+                      commune: selectedResult?.commune.commune || communeSearch,
+                      quartier: selectedResult?.quartier?.nom,
+                      surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf,
+                    },
+                    results: {
+                      estimationBasse: result.estimationBasse,
+                      estimationCentrale: result.estimationCentrale,
+                      estimationHaute: result.estimationHaute,
+                      prixM2Ajuste: result.prixM2Ajuste,
+                      confiance: result.confiance,
+                      ajustements: result.ajustements.map((a) => ({
+                        label: a.labelParams ? tv(a.labelKey, a.labelParams) : tv(a.labelKey),
+                        pct: a.pct,
+                      })),
+                    },
+                  }}
                 />
               </div>
 

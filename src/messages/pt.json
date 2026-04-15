@@ -2819,6 +2819,7 @@
     "particulier": {
       "title": "Particular",
       "description": "Comprar, vender ou arrendar",
+      "linkWizard": "★ Percurso guiado completo (4 etapas)",
       "link1": "Estimativa de preço",
       "link2": "Custos de aquisição",
       "link3": "Simulador de apoios",
@@ -2829,6 +2830,7 @@
     "investisseur": {
       "title": "Investidor",
       "description": "Rentabilidade, DCF, portfólio, cashflow",
+      "linkGestion": "★ Gestão locativa LU (regra 5%, Klimabonus)",
       "link1": "Avaliação EVS",
       "link2": "DCF multi-inquilinos",
       "link3": "Portfólio",

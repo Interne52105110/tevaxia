@@ -2819,6 +2819,7 @@
     "particulier": {
       "title": "Particulier",
       "description": "Acheter, vendre, louer son bien",
+      "linkWizard": "★ Parcours guidé complet (4 étapes)",
       "link1": "Estimation de prix",
       "link2": "Frais d'acquisition",
       "link3": "Simulateur d'aides",
@@ -2829,6 +2830,7 @@
     "investisseur": {
       "title": "Investisseur",
       "description": "Rentabilité, DCF, portefeuille, cashflow",
+      "linkGestion": "★ Gestion locative LU (règle 5%, Klimabonus)",
       "link1": "Valorisation EVS",
       "link2": "DCF multi-locataires",
       "link3": "Portefeuille",

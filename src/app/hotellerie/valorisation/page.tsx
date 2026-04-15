@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import { computeHotelValuation, getDefaultsForCategory } from "@/lib/hotellerie/valuation";
 import type { HotelCategory } from "@/lib/hotellerie/types";
 
@@ -267,6 +268,15 @@ export default function ValorisationHotelPage() {
                     { label: "Valeur DCF (EBITDA / cap rate)", value: formatEUR(result.valeurDCF), sub: true },
                     { label: "Valeur multiple (chambres × prix/clé)", value: formatEUR(result.valeurMultipleParChambre), sub: true },
                   ]}
+                />
+
+                <ShareLinkButton
+                  toolType="hotel-valorisation"
+                  defaultTitle={`Valorisation hôtel — ${nbChambres} chambres ${category}`}
+                  payload={{
+                    inputs: { nbChambres, adr, occupancy, category, overrideRatios, staffRatio, energyRatio, otherOpexRatio, capRate, pricePerKey },
+                    results: result,
+                  }}
                 />
               </>
             ) : (

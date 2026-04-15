@@ -47,6 +47,7 @@ import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import ReportModeEVS from "@/components/ReportModeEVS";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
@@ -1891,6 +1892,25 @@ export default function Valorisation() {
               >
                 DOCX
               </button>
+              <ShareLinkButton
+                toolType="valorisation"
+                defaultTitle={`Valorisation ${selectedCommune?.commune ?? ""} — ${surfaceBien} m²`}
+                payload={{
+                  inputs: {
+                    commune: selectedCommune?.commune,
+                    assetType: t(assetConfig.labelKey),
+                    evsType: t(evsInfo.labelKey),
+                    surface: surfaceBien,
+                    prixM2Commune: selectedCommune?.prixM2Existant,
+                  },
+                  results: {
+                    valeurComparaison: valeurComparaison || undefined,
+                    valeurCapitalisation: valeurCapitalisation || undefined,
+                    valeurDCF: valeurDCF || undefined,
+                    valeurRetenue: valeurComparaison || valeurCapitalisation || valeurDCF || undefined,
+                  },
+                }}
+              />
             </>)}
             {(selectedCommune || comparables.length > 0 || valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
               <button

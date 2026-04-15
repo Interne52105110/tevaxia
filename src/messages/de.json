@@ -2819,6 +2819,7 @@
     "particulier": {
       "title": "Privatperson",
       "description": "Kaufen, verkaufen oder vermieten",
+      "linkWizard": "★ Vollständiger Leitfaden (4 Schritte)",
       "link1": "Preisschätzung",
       "link2": "Erwerbsnebenkosten",
       "link3": "Fördermittelrechner",
@@ -2829,6 +2830,7 @@
     "investisseur": {
       "title": "Investor",
       "description": "Rendite, DCF, Portfolio, Cashflow",
+      "linkGestion": "★ LU-Vermietungsverwaltung (5%-Regel, Klimabonus)",
       "link1": "EVS-Bewertung",
       "link2": "DCF Mehrmieter",
       "link3": "Portfolio",

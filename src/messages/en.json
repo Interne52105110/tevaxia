@@ -2819,6 +2819,7 @@
     "particulier": {
       "title": "Individual",
       "description": "Buy, sell or rent your home",
+      "linkWizard": "★ Full guided journey (4 steps)",
       "link1": "Price estimation",
       "link2": "Acquisition fees",
       "link3": "Subsidies simulator",
@@ -2829,6 +2830,7 @@
     "investisseur": {
       "title": "Investor",
       "description": "Yield, DCF, portfolio, cash flow",
+      "linkGestion": "★ LU rental management (5% rule, Klimabonus)",
       "link1": "EVS Valuation",
       "link2": "Multi-tenant DCF",
       "link3": "Portfolio",

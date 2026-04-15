@@ -31,6 +31,7 @@ export default function OnboardingIntent() {
         </svg>
       ),
       links: [
+        { href: "/wizard-particulier", label: t("particulier.linkWizard") },
         { href: "/estimation", label: t("particulier.link1") },
         { href: "/frais-acquisition", label: t("particulier.link2") },
         { href: "/simulateur-aides", label: t("particulier.link3") },
@@ -50,6 +51,7 @@ export default function OnboardingIntent() {
         </svg>
       ),
       links: [
+        { href: "/gestion-locative", label: t("investisseur.linkGestion") },
         { href: "/valorisation", label: t("investisseur.link1") },
         { href: "/dcf-multi", label: t("investisseur.link2") },
         { href: "/portfolio", label: t("investisseur.link3") },

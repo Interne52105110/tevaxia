@@ -2819,6 +2819,7 @@
     "particulier": {
       "title": "Privatperson",
       "description": "Kafen, verkafen oder lounen",
+      "linkWizard": "★ Komplette Guidéeierung (4 Schrëtt)",
       "link1": "Präisschätzung",
       "link2": "Akquisitiounskäschten",
       "link3": "Hëllefen-Simulator",
@@ -2829,6 +2830,7 @@
     "investisseur": {
       "title": "Investisseur",
       "description": "Rendement, DCF, Portfolio, Cashflow",
+      "linkGestion": "★ LU Lounungsverwaltung (5%-Regel, Klimabonus)",
       "link1": "EVS Bewäertung",
       "link2": "DCF Multi-Locatairen",
       "link3": "Portfolio",

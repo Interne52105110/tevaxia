@@ -7,6 +7,7 @@ import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2, formatPct } from "@/lib/calculations";
 import { calculerDCFLeases, type Lease } from "@/lib/dcf-leases";
 import { generateDcfMultiPdfBlob, PdfButton } from "@/components/ToolsPdf";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import SEOContent from "@/components/SEOContent";
@@ -247,7 +248,31 @@ export default function DCFMulti() {
                   </div>
                 ))}
               </div>
-              <div className="mt-4 flex justify-end gap-2">
+              <div className="mt-4 flex flex-wrap justify-end gap-2">
+                <ShareLinkButton
+                  toolType="dcf-multi"
+                  defaultTitle={`DCF — ${leases.length} baux — ${formatEUR(result.valeurDCF)}`}
+                  payload={{
+                    inputs: { periodeAnalyse, tauxActu, tauxCapSortie, fraisCession, chargesProprio, vacanceERV, dateValeur, leases, montantDette, tauxDette, capexAnnuel },
+                    results: {
+                      valeurDCF: result.valeurDCF,
+                      irr: result.irr,
+                      wault: result.wault,
+                      loyerTotalAnnuel: result.loyerTotalAnnuel,
+                      surfaceTotale: result.surfaceTotale,
+                      loyerMoyenM2: result.loyerMoyenM2,
+                      ervMoyenM2: result.ervMoyenM2,
+                      tauxOccupation: result.tauxOccupation,
+                      potentielReversion: result.potentielReversion,
+                      totalNOIActualise: result.totalNOIActualise,
+                      noiStabilise: result.noiStabilise,
+                      valeurTerminaleBrute: result.valeurTerminaleBrute,
+                      valeurTerminaleActualisee: result.valeurTerminaleActualisee,
+                      fraisCession: result.fraisCession,
+                      leaseDetails: result.leaseDetails,
+                    },
+                  }}
+                />
                 <SaveButton
                   onClick={() => {
                     sauvegarderEvaluation({

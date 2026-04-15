@@ -6,6 +6,7 @@ import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
 import { generateBilanPromoteurPdfBlob, PdfButton } from "@/components/ToolsPdf";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import SEOContent from "@/components/SEOContent";
@@ -430,6 +431,15 @@ export default function BilanPromoteur() {
                 }
               />
             </div>
+            <ShareLinkButton
+              toolType="bilan-promoteur"
+              defaultTitle={`Bilan promoteur ${typeOperation} — ${surfaceVendable} m²`}
+              payload={{
+                inputs: { typeOperation, surfaceVendable, prixVenteM2, nbParkings, prixParking, surfaceTerrain, prixTerrainM2, coutTerrainConnu, coutConstructionM2, surfaceBrute, voirie, honorairesArchitecte, honorairesBET, etudesAutres, fraisGeometre, fraisLotissement, nbLots, tauxPreCommercialisation, fraisCommerciaux, fraisFinanciers, assurances, fraisGestion, aleas, margePromoteur },
+                results: result,
+              }}
+              className="mt-3"
+            />
 
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
               <p className="text-xs text-amber-800 leading-relaxed">

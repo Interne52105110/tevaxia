@@ -6,6 +6,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { supabase } from "@/lib/supabase";
 import { useTranslations } from "next-intl";
 import { getProfile, saveProfile, loadAndMergeProfile, uploadLogo, type UserProfile } from "@/lib/profile";
+import { listMySharedLinks, deleteSharedLink, buildSharedLinkUrl, type SharedLink } from "@/lib/shared-links";
 
 // ============================================================
 // MARKET ALERTS TYPES & SECTION
@@ -140,6 +141,111 @@ function AlertsSection({ user }: { user: { id: string } | null }) {
               </div>
             </div>
           ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SharedLinksSection({ user }: { user: { id: string } | null }) {
+  const [links, setLinks] = useState<SharedLink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user || !supabase) {
+      setLoading(false);
+      return;
+    }
+    listMySharedLinks()
+      .then((data) => setLinks(data))
+      .catch((e) => console.error("Error loading shared links:", e))
+      .finally(() => setLoading(false));
+  }, [user]);
+
+  const handleRevoke = async (id: string) => {
+    if (!confirm("Révoquer ce lien ? Le bénéficiaire n'y aura plus accès.")) return;
+    try {
+      await deleteSharedLink(id);
+      setLinks((prev) => prev.filter((l) => l.id !== id));
+    } catch (e) {
+      console.error("Error revoking link:", e);
+    }
+  };
+
+  const copyUrl = async (token: string, id: string) => {
+    await navigator.clipboard.writeText(buildSharedLinkUrl(token));
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const toolLabel = (t: string) => ({
+    "bilan-promoteur": "Bilan promoteur",
+    "estimation": "Estimation",
+    "valorisation": "Valorisation",
+    "dcf-multi": "DCF multi-périodes",
+    "hotel-valorisation": "Valorisation hôtel",
+    "hotel-dscr": "DSCR hôtel",
+  })[t] ?? t;
+
+  if (!user || !supabase) return null;
+
+  return (
+    <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-base font-semibold text-navy">Liens publics partagés</h2>
+          <p className="text-xs text-muted mt-0.5">Vues read-only que vous avez générées pour vos interlocuteurs.</p>
+        </div>
+      </div>
+
+      {loading ? (
+        <p className="text-sm text-muted">Chargement…</p>
+      ) : links.length === 0 ? (
+        <p className="text-sm text-muted">Aucun lien partagé pour le moment. Utilisez le bouton « Partager un lien public » depuis un calculateur (ex. Bilan promoteur).</p>
+      ) : (
+        <div className="space-y-2">
+          {links.map((link) => {
+            const expired = new Date(link.expires_at) < new Date();
+            const limitReached = link.max_views != null && link.view_count >= link.max_views;
+            return (
+              <div key={link.id} className="rounded-lg border border-card-border bg-background p-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2 text-sm">
+                      <span className="font-semibold text-navy truncate">{link.title || "Sans titre"}</span>
+                      <span className="rounded-full bg-amber-100 text-amber-800 px-2 py-0.5 text-[10px] font-medium">{toolLabel(link.tool_type)}</span>
+                      {expired && <span className="rounded-full bg-rose-100 text-rose-800 px-2 py-0.5 text-[10px] font-medium">Expiré</span>}
+                      {limitReached && <span className="rounded-full bg-rose-100 text-rose-800 px-2 py-0.5 text-[10px] font-medium">Limite atteinte</span>}
+                    </div>
+                    <div className="mt-1 text-xs text-muted">
+                      {link.view_count} vue{link.view_count > 1 ? "s" : ""}
+                      {link.max_views != null && ` / ${link.max_views}`}
+                      {" · expire le "}
+                      {new Date(link.expires_at).toLocaleDateString("fr-FR")}
+                    </div>
+                  </div>
+                  <div className="flex shrink-0 gap-1">
+                    <button
+                      onClick={() => copyUrl(link.token, link.id)}
+                      className="rounded-md border border-card-border bg-white px-2 py-1 text-xs font-medium text-navy hover:bg-slate-50"
+                    >
+                      {copiedId === link.id ? "Copié ✓" : "Copier"}
+                    </button>
+                    <button
+                      onClick={() => handleRevoke(link.id)}
+                      className="rounded-md p-1 text-muted hover:text-red-600 hover:bg-red-50 transition-colors"
+                      title="Révoquer le lien"
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
@@ -342,6 +448,9 @@ export default function Profil() {
 
           {/* Market alerts management section */}
           <AlertsSection user={user} />
+
+          {/* Shared public links management */}
+          <SharedLinksSection user={user} />
 
           {user && (
             <div className="rounded-xl border border-energy/20 bg-energy/5 p-6">

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import { computeHotelDscr } from "@/lib/hotellerie/dscr";
 
 function formatEUR(n: number): string {
@@ -192,6 +193,15 @@ export default function DscrHotelPage() {
                     { label: "Total intérêts payés", value: formatEUR(result.totalInterets), sub: true },
                     { label: "Coût total crédit", value: formatEUR(result.coutTotalCredit), highlight: true },
                   ]}
+                />
+
+                <ShareLinkButton
+                  toolType="hotel-dscr"
+                  defaultTitle={`DSCR hôtel — ${formatEUR(prixAcquisition + travaux)} projet`}
+                  payload={{
+                    inputs: { ebitdaStabilise, prixAcquisition, travaux, apport, tauxInteret, dureeAns, dscrCible },
+                    results: result,
+                  }}
                 />
 
                 {result.amortissement.length > 0 && (
