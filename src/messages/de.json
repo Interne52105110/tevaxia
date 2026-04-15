@@ -40,7 +40,17 @@
     "energyCpe": "CPE-Schätzer",
     "energyLenoz": "LENOZ",
     "syndic": "Hausverwaltung",
-    "propcalc": "PropCalc"
+    "propcalc": "PropCalc",
+    "hotellerie": "Hotellerie",
+    "hotelHub": "Hotellerie-Hub",
+    "hotelValorisation": "Hotelbewertung",
+    "hotelDscr": "DSCR & Hotelfinanzierung",
+    "hotelExploitation": "Betriebs-GuV",
+    "hotelRenovation": "Energetische Hotelsanierung",
+    "hotelRevpar": "RevPAR vs Markt",
+    "hotelE2": "E-2-Visa-Score",
+    "proAgences": "B2B-Maklerangebot",
+    "apiBanques": "Banken-API"
   },
   "common": {
     "language": "Sprache",
@@ -2804,38 +2814,69 @@
     }
   },
   "onboarding": {
-    "heading": "Was möchten Sie tun?",
-    "subheading": "Klicken Sie, um die passenden Tools für Ihr Projekt zu entdecken",
-    "acheter": {
-      "title": "Kaufen",
-      "description": "Schätzen, Gebühren simulieren und verfügbare Förderungen entdecken",
+    "heading": "Was ist Ihr Profil?",
+    "subheading": "7 Eingangstüren — Privatpersonen, Profis, Banken, Hotellerie. Wählen Sie Ihres.",
+    "particulier": {
+      "title": "Privatperson",
+      "description": "Kaufen, verkaufen oder vermieten",
       "link1": "Preisschätzung",
       "link2": "Erwerbsnebenkosten",
       "link3": "Fördermittelrechner",
-      "link4": "Kaufen oder mieten?"
+      "link4": "Gesetzlicher Mietrechner",
+      "link5": "Kaufen oder mieten?",
+      "link6": "Veräußerungsgewinne"
     },
-    "vendre": {
-      "title": "Verkaufen",
-      "description": "Bewerten Sie Ihre Immobilie und antizipieren Sie die Besteuerung",
-      "link1": "Preisschätzung",
-      "link2": "Veräußerungsgewinne",
-      "link3": "Professionelle Bewertung",
-      "link4": "Marktpreise nach Gemeinde"
-    },
-    "investir": {
-      "title": "Investieren",
-      "description": "Analysieren Sie die Rentabilität und verwalten Sie Ihr Portfolio",
+    "investisseur": {
+      "title": "Investor",
+      "description": "Rendite, DCF, Portfolio, Cashflow",
       "link1": "EVS-Bewertung",
       "link2": "DCF Mehrmieter",
       "link3": "Portfolio",
-      "link4": "Banktools"
+      "link4": "Cashflow-Rechner (FR/BE/LU)",
+      "link5": "Zwei Objekte vergleichen"
     },
-    "construire": {
-      "title": "Bauen",
-      "description": "Strukturieren Sie Ihr Projekt und prüfen Sie das Baurecht",
+    "promoteur": {
+      "title": "Projektentwickler",
+      "description": "Bilanz, VEFA, Bau, Städtebau",
       "link1": "Projektentwicklerbilanz",
       "link2": "VEFA",
-      "link3": "PAG / PAP Städtebau"
+      "link3": "Baukostenschätzer",
+      "link4": "Erschließungskostenrechner",
+      "link5": "PAG / PAP Städtebau",
+      "link6": "Flächenkonverter"
+    },
+    "agent": {
+      "title": "Immobilienmakler",
+      "description": "Co-branded Berichte, Kundenschätzung",
+      "link1": "B2B-Angebot Maklerbüros",
+      "link2": "Schnellschätzung",
+      "link3": "Hedonische Methode",
+      "link4": "Preiskarte"
+    },
+    "syndic": {
+      "title": "Hausverwalter",
+      "description": "Nebenkosten, 5-%-Regel, Energie-Portfolio",
+      "link1": "Hausverwalter-Modul",
+      "link2": "Gesetzlicher Mietzins (5 %)",
+      "link3": "Immobilien-Portfolio",
+      "link4": "Energie-Portfolio"
+    },
+    "banque": {
+      "title": "Bank / Finanzwesen",
+      "description": "LU-Schätzungs-API, MLV, AML/KYC",
+      "link1": "Schätzungs-API (Banken)",
+      "link2": "Banktools",
+      "link3": "AML / KYC",
+      "link4": "EVS / MLV-Bewertung"
+    },
+    "hotellerie": {
+      "title": "Hotellerie",
+      "description": "Hotel-Vorerwerb: RevPAR, DSCR, E-2",
+      "link1": "Hotellerie-Hub",
+      "link2": "Hotelbewertung (RevPAR/EBITDA)",
+      "link3": "DSCR & Hotelfinanzierung",
+      "link4": "Betriebs-GuV",
+      "link5": "E-2 / Investor-Score"
     }
   },
   "cookie": {

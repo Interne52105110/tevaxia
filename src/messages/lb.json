@@ -40,7 +40,17 @@
     "energyCpe": "CPE-Schätzer",
     "energyLenoz": "LENOZ",
     "syndic": "Syndic / Copropriétéit",
-    "propcalc": "PropCalc"
+    "propcalc": "PropCalc",
+    "hotellerie": "Hotellerie",
+    "hotelHub": "Hotellerie-Hub",
+    "hotelValorisation": "Hotelbewäertung",
+    "hotelDscr": "DSCR & Hotelfinanzéierung",
+    "hotelExploitation": "Exploitatiounsbilanz",
+    "hotelRenovation": "Energetesch Hotelrenovéierung",
+    "hotelRevpar": "RevPAR vs Maart",
+    "hotelE2": "E-2 Visa-Score",
+    "proAgences": "B2B Offer Agencen",
+    "apiBanques": "Banken-API"
   },
   "common": {
     "language": "Sprooch",
@@ -2804,38 +2814,69 @@
     }
   },
   "onboarding": {
-    "heading": "Wat wëllt Dir maachen?",
-    "subheading": "Klickt fir d'Tools ze entdecken déi zu Ärem Projet passen",
-    "acheter": {
-      "title": "Kafen",
-      "description": "Schätzt, simuléiert d'Käschten an entdeckt déi disponibel Hëllefen",
+    "heading": "Wat ass Äert Profil?",
+    "subheading": "7 Entréesdieren — Privatleit, Profien, Banken, Hotellerie. Wielt Äert.",
+    "particulier": {
+      "title": "Privatperson",
+      "description": "Kafen, verkafen oder lounen",
       "link1": "Präisschätzung",
       "link2": "Akquisitiounskäschten",
       "link3": "Hëllefen-Simulator",
-      "link4": "Kafen oder lounen?"
+      "link4": "Gesetzleche Loyer-Rechner",
+      "link5": "Kafen oder lounen?",
+      "link6": "Immobilie-Wäertzouwuess"
     },
-    "vendre": {
-      "title": "Verkafen",
-      "description": "Bewäert Är Immobilie an antizipéiert d'Besteierung",
-      "link1": "Präisschätzung",
-      "link2": "Immobilie-Wäertzouwuess",
-      "link3": "Professionell Bewäertung",
-      "link4": "Maartpräisser pro Gemeng"
-    },
-    "investir": {
-      "title": "Investéieren",
-      "description": "Analyséiert d'Rentabilitéit a geréiert Äre Portfolio",
+    "investisseur": {
+      "title": "Investisseur",
+      "description": "Rendement, DCF, Portfolio, Cashflow",
       "link1": "EVS Bewäertung",
       "link2": "DCF Multi-Locatairen",
       "link3": "Portfolio",
-      "link4": "Bankinstrumenter"
+      "link4": "Cashflow-Rechner (FR/BE/LU)",
+      "link5": "Zwou Immobilien vergläichen"
     },
-    "construire": {
-      "title": "Bauen",
-      "description": "Strukturéiert Äre Projet a préift den Urbanismus",
+    "promoteur": {
+      "title": "Promoteur",
+      "description": "Bilanz, VEFA, Bau, Urbanismus",
       "link1": "Promoteur-Bilanz",
       "link2": "VEFA",
-      "link3": "PAG / PAP Urbanismus"
+      "link3": "Baukäschten-Schätzer",
+      "link4": "VRD-Rechner",
+      "link5": "PAG / PAP Urbanismus",
+      "link6": "Flächen-Konverter"
+    },
+    "agent": {
+      "title": "Immobiliesagent",
+      "description": "Co-branded Berichter, Clientsschätzung",
+      "link1": "B2B Offer Agencen",
+      "link2": "Séier Schätzung",
+      "link3": "Hedonesch Method",
+      "link4": "Präiskaart"
+    },
+    "syndic": {
+      "title": "Syndic / Gestionnaire",
+      "description": "Käschten, 5-%-Reegel, Energie-Portfolio",
+      "link1": "Syndic-Modul",
+      "link2": "Gesetzleche Loyer (5 %)",
+      "link3": "Immobilien-Portfolio",
+      "link4": "Energie-Portfolio"
+    },
+    "banque": {
+      "title": "Bank / Finanzwiesen",
+      "description": "LU-Schätzungs-API, MLV, AML/KYC",
+      "link1": "Schätzungs-API (Banken)",
+      "link2": "Bankinstrumenter",
+      "link3": "AML / KYC",
+      "link4": "EVS / MLV Bewäertung"
+    },
+    "hotellerie": {
+      "title": "Hotellerie",
+      "description": "Hotel-Virakaf: RevPAR, DSCR, E-2",
+      "link1": "Hotellerie-Hub",
+      "link2": "Hotelbewäertung (RevPAR/EBITDA)",
+      "link3": "DSCR & Hotelfinanzéierung",
+      "link4": "Exploitatiounsbilanz",
+      "link5": "E-2 / Investisseur-Score"
     }
   },
   "cookie": {

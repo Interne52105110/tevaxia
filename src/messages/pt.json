@@ -40,7 +40,17 @@
     "energyLenoz": "LENOZ",
     "profil": "Perfil",
     "syndic": "Sindico / Condominio",
-    "propcalc": "PropCalc"
+    "propcalc": "PropCalc",
+    "hotellerie": "Hotelaria",
+    "hotelHub": "Hub hotelaria",
+    "hotelValorisation": "Avaliação hoteleira",
+    "hotelDscr": "DSCR & financiamento hotel",
+    "hotelExploitation": "Balanço de exploração",
+    "hotelRenovation": "Renovação energética hotel",
+    "hotelRevpar": "RevPAR vs mercado",
+    "hotelE2": "Score visto E-2",
+    "proAgences": "Oferta agências B2B",
+    "apiBanques": "API bancos"
   },
   "common": {
     "language": "Língua",
@@ -2804,38 +2814,69 @@
     }
   },
   "onboarding": {
-    "heading": "O que pretende fazer?",
-    "subheading": "Clique para descobrir as ferramentas adequadas ao seu projeto",
-    "acheter": {
-      "title": "Comprar",
-      "description": "Estime, simule os custos e descubra os apoios disponíveis",
+    "heading": "Qual é o seu perfil?",
+    "subheading": "7 portas de entrada — particulares, profissionais, bancos, hotelaria. Escolha a sua.",
+    "particulier": {
+      "title": "Particular",
+      "description": "Comprar, vender ou arrendar",
       "link1": "Estimativa de preço",
       "link2": "Custos de aquisição",
       "link3": "Simulador de apoios",
-      "link4": "Comprar ou arrendar?"
+      "link4": "Calculador de renda legal",
+      "link5": "Comprar ou arrendar?",
+      "link6": "Mais-valias imobiliárias"
     },
-    "vendre": {
-      "title": "Vender",
-      "description": "Avalie o seu imóvel e antecipe a fiscalidade",
-      "link1": "Estimativa de preço",
-      "link2": "Mais-valias imobiliárias",
-      "link3": "Avaliação profissional",
-      "link4": "Preços de mercado por município"
-    },
-    "investir": {
-      "title": "Investir",
-      "description": "Analise a rentabilidade e gira o seu portfólio",
+    "investisseur": {
+      "title": "Investidor",
+      "description": "Rentabilidade, DCF, portfólio, cashflow",
       "link1": "Avaliação EVS",
       "link2": "DCF multi-inquilinos",
       "link3": "Portfólio",
-      "link4": "Ferramentas bancárias"
+      "link4": "Calculador cashflow (FR/BE/LU)",
+      "link5": "Comparar dois imóveis"
     },
-    "construire": {
-      "title": "Construir",
-      "description": "Estruture a sua operação e verifique o urbanismo",
+    "promoteur": {
+      "title": "Promotor",
+      "description": "Balanço, VEFA, construção, urbanismo",
       "link1": "Balanço promotor",
       "link2": "VEFA",
-      "link3": "PAG / PAP urbanismo"
+      "link3": "Estimador custo construção",
+      "link4": "Calculador VRD",
+      "link5": "PAG / PAP urbanismo",
+      "link6": "Conversor de superfícies"
+    },
+    "agent": {
+      "title": "Agente imobiliário",
+      "description": "Relatórios co-branded, estimativa cliente",
+      "link1": "Oferta agências B2B",
+      "link2": "Estimativa rápida",
+      "link3": "Método hedónico",
+      "link4": "Mapa de preços"
+    },
+    "syndic": {
+      "title": "Síndico / Gestor",
+      "description": "Encargos, regra dos 5 %, portfólio energia",
+      "link1": "Módulo síndico",
+      "link2": "Renda legal (regra 5 %)",
+      "link3": "Portfólio imobiliário",
+      "link4": "Portfólio energético"
+    },
+    "banque": {
+      "title": "Banco / Finanças",
+      "description": "API estimativa LU, MLV, AML/KYC",
+      "link1": "API estimativa (bancos)",
+      "link2": "Ferramentas bancárias",
+      "link3": "AML / KYC",
+      "link4": "Avaliação EVS / MLV"
+    },
+    "hotellerie": {
+      "title": "Hotelaria",
+      "description": "Pré-aquisição hotel: RevPAR, DSCR, E-2",
+      "link1": "Hub hotelaria",
+      "link2": "Avaliação hoteleira (RevPAR/EBITDA)",
+      "link3": "DSCR & financiamento hotel",
+      "link4": "Balanço de exploração",
+      "link5": "Score E-2 / investidor"
     }
   },
   "cookie": {

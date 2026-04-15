@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface IntentCard {
   id: string;
@@ -15,13 +15,15 @@ interface IntentCard {
 
 export default function OnboardingIntent() {
   const t = useTranslations("onboarding");
+  const locale = useLocale();
+  const lp = locale === "fr" ? "" : `/${locale}`;
   const [expanded, setExpanded] = useState<string | null>(null);
 
   const INTENTS: IntentCard[] = [
     {
-      id: "acheter",
-      title: t("acheter.title"),
-      description: t("acheter.description"),
+      id: "particulier",
+      title: t("particulier.title"),
+      description: t("particulier.description"),
       color: "from-blue-600 to-blue-500",
       icon: (
         <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -29,33 +31,18 @@ export default function OnboardingIntent() {
         </svg>
       ),
       links: [
-        { href: "/estimation", label: t("acheter.link1") },
-        { href: "/frais-acquisition", label: t("acheter.link2") },
-        { href: "/simulateur-aides", label: t("acheter.link3") },
-        { href: "/achat-vs-location", label: t("acheter.link4") },
+        { href: "/estimation", label: t("particulier.link1") },
+        { href: "/frais-acquisition", label: t("particulier.link2") },
+        { href: "/simulateur-aides", label: t("particulier.link3") },
+        { href: "/calculateur-loyer", label: t("particulier.link4") },
+        { href: "/achat-vs-location", label: t("particulier.link5") },
+        { href: "/plus-values", label: t("particulier.link6") },
       ],
     },
     {
-      id: "vendre",
-      title: t("vendre.title"),
-      description: t("vendre.description"),
-      color: "from-emerald-600 to-emerald-500",
-      icon: (
-        <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-        </svg>
-      ),
-      links: [
-        { href: "/estimation", label: t("vendre.link1") },
-        { href: "/plus-values", label: t("vendre.link2") },
-        { href: "/valorisation", label: t("vendre.link3") },
-        { href: "/carte", label: t("vendre.link4") },
-      ],
-    },
-    {
-      id: "investir",
-      title: t("investir.title"),
-      description: t("investir.description"),
+      id: "investisseur",
+      title: t("investisseur.title"),
+      description: t("investisseur.description"),
       color: "from-gold-dark to-gold",
       icon: (
         <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -63,26 +50,99 @@ export default function OnboardingIntent() {
         </svg>
       ),
       links: [
-        { href: "/valorisation", label: t("investir.link1") },
-        { href: "/dcf-multi", label: t("investir.link2") },
-        { href: "/portfolio", label: t("investir.link3") },
-        { href: "/outils-bancaires", label: t("investir.link4") },
+        { href: "/valorisation", label: t("investisseur.link1") },
+        { href: "/dcf-multi", label: t("investisseur.link2") },
+        { href: "/portfolio", label: t("investisseur.link3") },
+        { href: "/propcalc", label: t("investisseur.link4") },
+        { href: "/comparer", label: t("investisseur.link5") },
       ],
     },
     {
-      id: "construire",
-      title: t("construire.title"),
-      description: t("construire.description"),
-      color: "from-purple-700 to-purple-500",
+      id: "promoteur",
+      title: t("promoteur.title"),
+      description: t("promoteur.description"),
+      color: "from-amber-600 to-amber-500",
       icon: (
         <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.25 3.03a.75.75 0 01-1.08-.82l1.42-5.87L1.72 7.3a.75.75 0 01.46-1.28l6.06-.46L11.02.82a.75.75 0 011.36 0l2.78 4.74 6.06.46a.75.75 0 01.46 1.28l-4.79 4.21 1.42 5.87a.75.75 0 01-1.08.82l-5.25-3.03z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
         </svg>
       ),
       links: [
-        { href: "/bilan-promoteur", label: t("construire.link1") },
-        { href: "/vefa", label: t("construire.link2") },
-        { href: "/pag-pap", label: t("construire.link3") },
+        { href: "/bilan-promoteur", label: t("promoteur.link1") },
+        { href: "/vefa", label: t("promoteur.link2") },
+        { href: "/estimateur-construction", label: t("promoteur.link3") },
+        { href: "/calculateur-vrd", label: t("promoteur.link4") },
+        { href: "/pag-pap", label: t("promoteur.link5") },
+        { href: "/convertisseur-surfaces", label: t("promoteur.link6") },
+      ],
+    },
+    {
+      id: "agent",
+      title: t("agent.title"),
+      description: t("agent.description"),
+      color: "from-rose-600 to-pink-500",
+      icon: (
+        <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      ),
+      links: [
+        { href: "/pro-agences", label: t("agent.link1") },
+        { href: "/estimation", label: t("agent.link2") },
+        { href: "/hedonique", label: t("agent.link3") },
+        { href: "/carte", label: t("agent.link4") },
+      ],
+    },
+    {
+      id: "syndic",
+      title: t("syndic.title"),
+      description: t("syndic.description"),
+      color: "from-orange-600 to-amber-500",
+      icon: (
+        <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+        </svg>
+      ),
+      links: [
+        { href: "/syndic", label: t("syndic.link1") },
+        { href: "/calculateur-loyer", label: t("syndic.link2") },
+        { href: "/portfolio", label: t("syndic.link3") },
+        { href: "/energy/portfolio", label: t("syndic.link4") },
+      ],
+    },
+    {
+      id: "banque",
+      title: t("banque.title"),
+      description: t("banque.description"),
+      color: "from-slate to-slate",
+      icon: (
+        <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+        </svg>
+      ),
+      links: [
+        { href: "/api-banques", label: t("banque.link1") },
+        { href: "/outils-bancaires", label: t("banque.link2") },
+        { href: "/aml-kyc", label: t("banque.link3") },
+        { href: "/valorisation", label: t("banque.link4") },
+      ],
+    },
+    {
+      id: "hotellerie",
+      title: t("hotellerie.title"),
+      description: t("hotellerie.description"),
+      color: "from-purple-700 to-purple-500",
+      icon: (
+        <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m18-18v18M6 8.25h2.25M6 12h2.25m-2.25 3.75h2.25M9.75 8.25h.008v.008H9.75V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008zm5.625-7.5h.008v.008h-.008V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008z" />
+        </svg>
+      ),
+      links: [
+        { href: "/hotellerie", label: t("hotellerie.link1") },
+        { href: "/hotellerie/valorisation", label: t("hotellerie.link2") },
+        { href: "/hotellerie/dscr", label: t("hotellerie.link3") },
+        { href: "/hotellerie/exploitation", label: t("hotellerie.link4") },
+        { href: "/hotellerie/score-e2", label: t("hotellerie.link5") },
       ],
     },
   ];
@@ -100,28 +160,28 @@ export default function OnboardingIntent() {
         <p className="mt-2 text-center text-sm text-muted">
           {t("subheading")}
         </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
           {INTENTS.map((intent) => {
             const isOpen = expanded === intent.id;
             return (
               <div key={intent.id} className="flex flex-col">
                 <button
                   onClick={() => toggle(intent.id)}
-                  className={`group flex flex-col items-center rounded-2xl border p-6 text-center transition-all hover:shadow-lg hover:-translate-y-0.5 ${
+                  className={`group flex flex-col items-center rounded-2xl border p-4 text-center transition-all hover:shadow-lg hover:-translate-y-0.5 ${
                     isOpen
                       ? "border-navy ring-2 ring-navy/20 bg-card shadow-lg"
                       : "border-card-border bg-card"
                   }`}
                 >
                   <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${intent.color} text-white shadow-sm`}
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${intent.color} text-white shadow-sm`}
                   >
                     {intent.icon}
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-navy">{intent.title}</h3>
+                  <h3 className="mt-3 text-sm font-semibold text-navy">{intent.title}</h3>
                   <p className="mt-1 text-xs text-muted leading-relaxed">{intent.description}</p>
                   <svg
-                    className={`mt-3 h-5 w-5 text-muted transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    className={`mt-2 h-4 w-4 text-muted transition-transform ${isOpen ? "rotate-180" : ""}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
@@ -136,7 +196,7 @@ export default function OnboardingIntent() {
                       {intent.links.map((link) => (
                         <Link
                           key={link.href}
-                          href={link.href}
+                          href={`${lp}${link.href}`}
                           className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-navy hover:bg-background transition-colors"
                         >
                           {link.label}

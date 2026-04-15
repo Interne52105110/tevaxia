@@ -1049,6 +1049,44 @@ export default function SyndicPage() {
         </div>
       </section>
 
+      {/* Syndic toolkit cross-link */}
+      <section className="border-b border-card-border bg-orange-50">
+        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-orange-200 text-orange-900">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
+                </svg>
+              </div>
+              <div>
+                <div className="text-sm font-semibold text-navy">Pack syndic complet</div>
+                <p className="text-xs text-muted leading-relaxed">
+                  Tous les outils utiles aux syndics et gestionnaires de copropriété — règle des 5 %, portefeuille, énergie, conformité.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/calculateur-loyer" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
+                Loyer légal (règle 5 %)
+              </Link>
+              <Link href="/portfolio" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
+                Portefeuille
+              </Link>
+              <Link href="/energy/portfolio" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
+                Portfolio énergie
+              </Link>
+              <Link href="/energy/epbd" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
+                Échéances EPBD
+              </Link>
+              <Link href="/aml-kyc" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
+                AML / KYC
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tabs */}
       <div className="sticky top-16 z-30 border-b border-card-border bg-background/95 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

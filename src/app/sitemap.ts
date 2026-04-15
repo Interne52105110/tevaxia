@@ -15,6 +15,7 @@ const MEDIUM_PRIORITY = [
   "/hedonique", "/outils-bancaires", "/comparer", "/vefa",
   "/bilan-promoteur", "/dcf-multi", "/indices", "/marche",
   "/syndic", "/portfolio",
+  "/hotellerie", "/pro-agences", "/api-banques",
 ];
 
 const LOW_PRIORITY = [
@@ -22,6 +23,9 @@ const LOW_PRIORITY = [
   "/convertisseur-surfaces", "/pag-pap", "/terres-agricoles",
   "/aml-kyc", "/propcalc", "/propcalc/developers",
   "/pricing", "/plan-du-site", "/mentions-legales", "/confidentialite",
+  "/hotellerie/valorisation", "/hotellerie/dscr",
+  "/hotellerie/exploitation", "/hotellerie/renovation",
+  "/hotellerie/revpar-comparison", "/hotellerie/score-e2",
 ];
 
 const ENERGY_PAGES = [

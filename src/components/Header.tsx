@@ -47,6 +47,20 @@ const MENU_GROUPS: MenuGroup[] = [
       { href: "/portfolio", key: "portfolio" },
       { href: "/syndic", key: "syndic" },
       { href: "/aml-kyc", key: "amlKyc" },
+      { href: "/pro-agences", key: "proAgences" },
+      { href: "/api-banques", key: "apiBanques" },
+    ],
+  },
+  {
+    key: "hotellerie",
+    items: [
+      { href: "/hotellerie", key: "hotelHub" },
+      { href: "/hotellerie/valorisation", key: "hotelValorisation" },
+      { href: "/hotellerie/dscr", key: "hotelDscr" },
+      { href: "/hotellerie/exploitation", key: "hotelExploitation" },
+      { href: "/hotellerie/renovation", key: "hotelRenovation" },
+      { href: "/hotellerie/revpar-comparison", key: "hotelRevpar" },
+      { href: "/hotellerie/score-e2", key: "hotelE2" },
     ],
   },
   {
