@@ -86,13 +86,13 @@ function AlertsSection({ user }: { user: { id: string } | null }) {
 
   return (
     <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-      <h2 className="mb-4 text-base font-semibold text-navy">Mes alertes marche</h2>
+      <h2 className="mb-4 text-base font-semibold text-navy">Mes alertes marché</h2>
 
       {loading ? (
-        <p className="text-sm text-muted">Chargement...</p>
+        <p className="text-sm text-muted">Chargement…</p>
       ) : alerts.length === 0 ? (
         <p className="text-sm text-muted">
-          Aucune alerte active. Utilisez le bouton cloche sur les pages communes pour en creer.
+          Aucune alerte active. Utilisez le bouton cloche sur les pages communes pour en créer.
         </p>
       ) : (
         <div className="space-y-3">
