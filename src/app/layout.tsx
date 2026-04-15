@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import AuthProvider from "@/components/AuthProvider";
+import PostHogProvider from "@/components/PostHogProvider";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 
@@ -119,10 +120,12 @@ export default async function RootLayout({
         <ServiceWorkerRegistration />
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <CookieBanner />
+            <PostHogProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <CookieBanner />
+            </PostHogProvider>
           </AuthProvider>
         </NextIntlClientProvider>
       </body>
