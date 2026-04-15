@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { useTranslations } from "next-intl";
 import { getProfile, saveProfile, loadAndMergeProfile, uploadLogo, type UserProfile } from "@/lib/profile";
 import { listMySharedLinks, deleteSharedLink, buildSharedLinkUrl, type SharedLink } from "@/lib/shared-links";
+import { buildDataExport, downloadAsJsonFile } from "@/lib/data-export";
 
 // ============================================================
 // MARKET ALERTS TYPES & SECTION
@@ -254,6 +255,102 @@ function SharedLinksSection({ user }: { user: { id: string } | null }) {
   );
 }
 
+function TierAndExportSection({ user }: { user: { id: string } | null }) {
+  const [tier, setTier] = useState<{ tier: string; items_cap: number } | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [exported, setExported] = useState(false);
+
+  useEffect(() => {
+    if (!user || !supabase) return;
+    supabase
+      .from("user_tiers")
+      .select("tier, items_cap")
+      .eq("user_id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        setTier(data ?? { tier: "free", items_cap: 500 });
+      });
+  }, [user]);
+
+  const handleExport = async () => {
+    setLoading(true);
+    try {
+      const data = await buildDataExport();
+      downloadAsJsonFile(data);
+      setExported(true);
+      setTimeout(() => setExported(false), 3000);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const tierLabel: Record<string, string> = {
+    free: "Gratuit",
+    pro: "Pro",
+    enterprise: "Enterprise",
+  };
+
+  const tierColor: Record<string, string> = {
+    free: "bg-slate-100 text-slate-800",
+    pro: "bg-emerald-100 text-emerald-800",
+    enterprise: "bg-amber-100 text-amber-800",
+  };
+
+  return (
+    <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-base font-semibold text-navy">Données &amp; plan</h2>
+          <p className="mt-0.5 text-xs text-muted">
+            Consultation de votre plan actuel et export RGPD de toutes vos données.
+          </p>
+        </div>
+        {tier && (
+          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${tierColor[tier.tier] ?? tierColor.free}`}>
+            Plan {tierLabel[tier.tier] ?? tier.tier}
+          </span>
+        )}
+      </div>
+
+      {tier && (
+        <div className="mt-4 rounded-lg border border-card-border bg-background p-4 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-muted">Plafond de stockage cloud</span>
+            <span className="font-semibold text-navy">{tier.items_cap.toLocaleString("fr-LU")} items</span>
+          </div>
+          <div className="mt-1 flex items-center justify-between">
+            <span className="text-muted">Rétention automatique</span>
+            <span className="font-semibold text-navy">180 jours après dernière modification</span>
+          </div>
+          {tier.tier === "free" && (
+            <p className="mt-3 text-xs text-muted">
+              Besoin d&apos;un plafond plus élevé (jusqu&apos;à 10 000 items) ? Contactez-nous à{" "}
+              <a href="mailto:contact@tevaxia.lu?subject=Plan%20Pro" className="text-navy underline hover:no-underline">contact@tevaxia.lu</a>.
+            </p>
+          )}
+        </div>
+      )}
+
+      <div className="mt-4">
+        <button
+          onClick={handleExport}
+          disabled={loading}
+          className="inline-flex items-center gap-2 rounded-lg border border-card-border bg-background px-4 py-2 text-sm font-medium text-navy hover:bg-slate-50 disabled:opacity-50"
+        >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          {loading ? "Préparation…" : exported ? "Téléchargé ✓" : "Exporter toutes mes données (JSON)"}
+        </button>
+        <p className="mt-2 text-xs text-muted">
+          Export RGPD complet : profil, évaluations, lots locatifs, alertes, liens partagés, liste des clés API
+          (sans les secrets). Format JSON lisible et portable.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Profil() {
   const t = useTranslations("profil");
   const { user } = useAuth();
@@ -449,6 +546,9 @@ export default function Profil() {
           >
             {syncing ? t("syncing") : saved ? t("profileSaved") : t("saveProfile")}
           </button>
+
+          {/* Tier affichage + export RGPD */}
+          <TierAndExportSection user={user} />
 
           {/* Market alerts management section */}
           <AlertsSection user={user} />
