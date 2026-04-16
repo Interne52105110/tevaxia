@@ -858,7 +858,7 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | 9 mois | **Connecteur PMS (Mews, Cloudbeds) ingestion quotidienne** | Différenciateur hôtel |
 | ~~9 mois~~ | ~~**AG virtuelle copropriété (convocation + vote + PV)**~~ ✅ `72df70b` | Feature killer syndic |
 | 12 mois | Module bail commercial complet + tableaux ILC LU | Niche experts |
-| 12 mois | **Forecast ML 90 jours hôtel (ARIMA/Prophet)** | Intelligence revenue mgmt |
+| ~~12 mois~~ | ~~**Forecast ML 90 jours hôtel (ARIMA/Prophet)**~~ ✅ `cb93396` | Intelligence revenue mgmt |
 | ~~12 mois~~ | ~~**Comptabilité copropriété LU (plan comptable + clôture)**~~ ✅ `a1fd35e` | Pro syndic complet |
 
 ---
