@@ -6756,5 +6756,86 @@
     "reanalyze": "Analyse nei starten",
     "remaining": "{count, plural, =0 {Kontingent opgebraucht — setzt Ären API-Schlëssel an Ärem Profil derbäi} one {# Analyse haut iwwreg} other {# Analysen haut iwwreg}}",
     "disclaimer": "Analyse generéiert duerch KI (Llama 3.3 iwwer Cerebras/Groq oder Äert eegent Modell). Nëmme fir Informatiounszwecker — ersetzt keen zertifizéiert Sachverständegegutachten."
+  },
+  "dashboardHero": {
+    "welcome": "Wëllkomm",
+    "defaultUser": "Benotzer",
+    "plan": "Plang",
+    "byokActive": "BYOK aktiv",
+    "kpiValuations": "Bewäertungen",
+    "kpiAiAnalyses": "KI-Analysen",
+    "kpiActiveAlerts": "Aktiv Alarmer",
+    "kpiSharedLinks": "Gedeelte Linken",
+    "valuationsCap": "vu {cap} max",
+    "aiUnlimited": "Onbegrenzt (BYOK)",
+    "aiToday": "haut",
+    "alertsNone": "Keng Gemeng verfollegt",
+    "alertsCommunesFollowed": "Gemengen verfollegt",
+    "sharedApiKeys": "{count, plural, =0 {0 API-Schlësselen} one {# API-Schlëssel} other {# API-Schlësselen}}"
+  },
+  "workspaces": {
+    "sectionTitle": "Meng Beräicher",
+    "open": "Opmaachen",
+    "filteredOn": "Gefiltert op {count} Profil(er)",
+    "emptyState": "Kee Beräich entsprécht Ären ausgewielte Profiler. Passt Är Auswiel uewen un.",
+    "evaluationsTitle": "Meng Bewäertungen",
+    "evaluationsDesc": "Historique, PDF-Rapporten an TEGOVA EVS 2025 Tracking",
+    "portfolioTitle": "Mäi Portefeuille",
+    "portfolioDesc": "Wäert-, Rendement- a Gesamtperformance-Iwwerwaachung",
+    "esgTitle": "Energie & ESG",
+    "esgDesc": "Energiepass, CRREM, Renovatiounen an ESG-Konformitéit",
+    "syndicTitle": "Matproprietéit",
+    "syndicDesc": "Versammlungen, Aarbechtsfong, Matproprietäre-Portaler, Messagerie",
+    "hotelsTitle": "Hotellerie",
+    "hotelsDesc": "Grupp, Compset, Yield, MICE, ESG Green Key",
+    "agencyTitle": "Organisatioun",
+    "agencyDesc": "Equipe, Rechter, Logo an Agence-Astellungen",
+    "apiKeysTitle": "API-Schlësselen",
+    "apiKeysDesc": "Perséinlech Tokens, Webhooks an Integratiounen",
+    "apiDocsTitle": "API-Dokumentatioun",
+    "apiDocsDesc": "OpenAPI-Referenz, Beispiller a Quoten"
+  },
+  "profileTypes": {
+    "title": "Meng Profiler",
+    "description": "Wielt een oder méi Profiler aus, fir Äert Dashboard ze personaliséieren. Eidel loossen fir alles ze weisen.",
+    "loading": "Lued…",
+    "saved": "Gespäichert",
+    "selectedCount": "{count, plural, one {# Profil ausgewielt} other {# Profiler ausgewielt}}",
+    "particulier": {
+      "label": "Privatpersoun",
+      "description": "Proprietär oder privat Locateur"
+    },
+    "expert": {
+      "label": "Expert / Evaluateur",
+      "description": "TEGOVA-zertifizéierte Evaluateur, Notaire, Steierberoder"
+    },
+    "syndic": {
+      "label": "Syndic",
+      "description": "Professionelle oder benevole Syndic vun enger Matproprietéit"
+    },
+    "hotelier": {
+      "label": "Hotelier",
+      "description": "Exploitant vun Hotel, Motel oder Touristen-Residence"
+    },
+    "investisseur": {
+      "label": "Investisseur",
+      "description": "Privat oder institutionnellen Investisseur"
+    },
+    "agence": {
+      "label": "Agence / Gestioun",
+      "description": "Immobilie-Agence oder Administrateur vu Bien"
+    },
+    "promoteur": {
+      "label": "Promoteur",
+      "description": "Promoteur, Bauhär oder Immobilies-Händler"
+    },
+    "api": {
+      "label": "API-Integrateur",
+      "description": "PropTech, Bank, Fintech, programmatesche Zougrëff"
+    },
+    "str_operator": {
+      "label": "Kuerzzäitlocatioun",
+      "description": "Airbnb, Booking, STR-Betreiber ënner EU-Reglement 2024/1028"
+    }
   }
 }

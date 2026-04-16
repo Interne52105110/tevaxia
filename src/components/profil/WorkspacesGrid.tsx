@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { isWorkspaceVisible, type ProfileType } from "@/lib/profile-types";
 
 interface WorkspacesGridProps {
@@ -12,8 +13,8 @@ interface WorkspacesGridProps {
 interface Workspace {
   slug: string;
   href: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
   icon: React.ReactNode;
   color: string;
   badge?: string;
@@ -21,13 +22,14 @@ interface Workspace {
 
 export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesGridProps) {
   const lp = locale === "fr" ? "" : `/${locale}`;
+  const t = useTranslations("workspaces");
 
   const all: Workspace[] = [
     {
       slug: "mes-evaluations",
       href: `${lp}/mes-evaluations`,
-      title: "Mes évaluations",
-      description: "Historique de vos simulations et rapports sauvegardés",
+      titleKey: "evaluationsTitle",
+      descKey: "evaluationsDesc",
       color: "from-blue-600 to-indigo-600",
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -38,8 +40,8 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
     {
       slug: "portfolio",
       href: `${lp}/portfolio`,
-      title: "Mon portefeuille",
-      description: "Dashboard multi-biens pour investisseur / family office",
+      titleKey: "portfolioTitle",
+      descKey: "portfolioDesc",
       color: "from-emerald-600 to-teal-600",
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -50,8 +52,8 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
     {
       slug: "energy/portfolio",
       href: `${lp}/energy/portfolio`,
-      title: "Portfolio ESG / Énergie",
-      description: "Stranding risk CRREM, alignement EPBD IV / SFDR",
+      titleKey: "esgTitle",
+      descKey: "esgDesc",
       color: "from-green-600 to-lime-600",
       badge: "ESG",
       icon: (
@@ -63,8 +65,8 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
     {
       slug: "syndic/coproprietes",
       href: `${lp}/syndic/coproprietes`,
-      title: "Mes copropriétés",
-      description: "Gestion syndic : AG, appels de fonds, comptabilité",
+      titleKey: "syndicTitle",
+      descKey: "syndicDesc",
       color: "from-purple-600 to-pink-600",
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -75,8 +77,8 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
     {
       slug: "hotellerie/groupe",
       href: `${lp}/hotellerie/groupe`,
-      title: "Mes hôtels",
-      description: "Catalogue d'établissements, P&L USALI, groupe hôtelier",
+      titleKey: "hotelsTitle",
+      descKey: "hotelsDesc",
       color: "from-rose-600 to-orange-600",
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -87,8 +89,8 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
     {
       slug: "profil/organisation",
       href: `${lp}/profil/organisation`,
-      title: "Mon agence",
-      description: "Créer une organisation, inviter des collaborateurs",
+      titleKey: "agencyTitle",
+      descKey: "agencyDesc",
       color: "from-sky-600 to-cyan-600",
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -99,8 +101,8 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
     {
       slug: "profil/api",
       href: `${lp}/profil/api`,
-      title: "Mes clés API",
-      description: "Gestion des clés, quotas, suivi d'usage 30 jours",
+      titleKey: "apiKeysTitle",
+      descKey: "apiKeysDesc",
       color: "from-slate-700 to-slate-600",
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -111,8 +113,8 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
     {
       slug: "api-docs",
       href: `${lp}/api-docs`,
-      title: "Documentation API",
-      description: "OpenAPI 3.1, endpoints /estimation, /ai/analyze, /ai/chat, /ai/extract",
+      titleKey: "apiDocsTitle",
+      descKey: "apiDocsDesc",
       color: "from-indigo-600 to-violet-600",
       badge: "Docs",
       icon: (
@@ -128,16 +130,16 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
   return (
     <div>
       <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Mes espaces</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">{t("sectionTitle")}</h2>
         {selectedProfiles && selectedProfiles.length > 0 && (
           <span className="text-[10px] text-muted">
-            Filtré sur {selectedProfiles.length} profil{selectedProfiles.length > 1 ? "s" : ""}
+            {t("filteredOn", { count: selectedProfiles.length })}
           </span>
         )}
       </div>
       {workspaces.length === 0 ? (
         <div className="rounded-xl border border-dashed border-card-border bg-card p-6 text-center text-sm text-muted">
-          Aucun espace correspondant à votre profil. Modifiez votre profil professionnel ci-dessous pour afficher les outils pertinents.
+          {t("emptyState")}
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -156,11 +158,11 @@ export default function WorkspacesGrid({ locale, selectedProfiles }: WorkspacesG
                 {ws.icon}
               </div>
               <h3 className="text-sm font-semibold text-navy group-hover:text-navy-light transition-colors">
-                {ws.title}
+                {t(ws.titleKey)}
               </h3>
-              <p className="mt-1 text-xs text-muted leading-snug line-clamp-2">{ws.description}</p>
+              <p className="mt-1 text-xs text-muted leading-snug line-clamp-2">{t(ws.descKey)}</p>
               <div className="mt-3 flex items-center gap-1 text-[11px] font-medium text-navy/60 group-hover:text-navy">
-                <span>Ouvrir</span>
+                <span>{t("open")}</span>
                 <svg className="h-3 w-3 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>

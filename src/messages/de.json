@@ -6756,5 +6756,86 @@
     "reanalyze": "Analyse neu starten",
     "remaining": "{count, plural, =0 {Kontingent erschöpft — fügen Sie Ihren API-Schlüssel in Ihrem Profil hinzu} one {# Analyse heute übrig} other {# Analysen heute übrig}}",
     "disclaimer": "Analyse generiert durch KI (Llama 3.3 über Cerebras/Groq oder Ihr eigenes Modell). Nur zu Informationszwecken — ersetzt kein zertifiziertes Sachverständigengutachten."
+  },
+  "dashboardHero": {
+    "welcome": "Willkommen",
+    "defaultUser": "Nutzer",
+    "plan": "Tarif",
+    "byokActive": "BYOK aktiv",
+    "kpiValuations": "Bewertungen",
+    "kpiAiAnalyses": "KI-Analysen",
+    "kpiActiveAlerts": "Aktive Alerts",
+    "kpiSharedLinks": "Geteilte Links",
+    "valuationsCap": "von {cap} max.",
+    "aiUnlimited": "Unbegrenzt (BYOK)",
+    "aiToday": "heute",
+    "alertsNone": "Keine Gemeinde verfolgt",
+    "alertsCommunesFollowed": "Gemeinden verfolgt",
+    "sharedApiKeys": "{count, plural, =0 {0 API-Schlüssel} one {# API-Schlüssel} other {# API-Schlüssel}}"
+  },
+  "workspaces": {
+    "sectionTitle": "Meine Bereiche",
+    "open": "Öffnen",
+    "filteredOn": "Gefiltert auf {count} Profil(e)",
+    "emptyState": "Kein Bereich entspricht Ihren ausgewählten Profilen. Passen Sie Ihre Auswahl oben an.",
+    "evaluationsTitle": "Meine Bewertungen",
+    "evaluationsDesc": "Verlauf, PDF-Berichte und TEGOVA EVS 2025 Tracking",
+    "portfolioTitle": "Mein Portfolio",
+    "portfolioDesc": "Wert-, Rendite- und Gesamtperformance-Überwachung",
+    "esgTitle": "Energie & ESG",
+    "esgDesc": "Energieausweis, CRREM, Sanierungen und ESG-Konformität",
+    "syndicTitle": "Wohneigentum (WEG)",
+    "syndicDesc": "Versammlungen, Instandhaltungsrücklage, Eigentümer-Portale, Messaging",
+    "hotelsTitle": "Hotellerie",
+    "hotelsDesc": "Gruppe, Compset, Yield, MICE, ESG Green Key",
+    "agencyTitle": "Organisation",
+    "agencyDesc": "Team, Berechtigungen, Logo und Agentur-Einstellungen",
+    "apiKeysTitle": "API-Schlüssel",
+    "apiKeysDesc": "Persönliche Token, Webhooks und Integrationen",
+    "apiDocsTitle": "API-Dokumentation",
+    "apiDocsDesc": "OpenAPI-Referenz, Beispiele und Kontingente"
+  },
+  "profileTypes": {
+    "title": "Meine Profile",
+    "description": "Wählen Sie ein oder mehrere Profile, um Ihr Dashboard zu personalisieren. Leer lassen, um alles anzuzeigen.",
+    "loading": "Lädt…",
+    "saved": "Gespeichert",
+    "selectedCount": "{count, plural, one {# Profil ausgewählt} other {# Profile ausgewählt}}",
+    "particulier": {
+      "label": "Privatperson",
+      "description": "Selbstnutzer oder privater Vermieter"
+    },
+    "expert": {
+      "label": "Sachverständiger",
+      "description": "TEGOVA-zertifizierter Sachverständiger, Notar, Steuerberater"
+    },
+    "syndic": {
+      "label": "Verwalter (WEG)",
+      "description": "Professioneller oder ehrenamtlicher WEG-Verwalter"
+    },
+    "hotelier": {
+      "label": "Hotelier",
+      "description": "Hotel-, Motel- oder Aparthotel-Betreiber"
+    },
+    "investisseur": {
+      "label": "Investor",
+      "description": "Privater oder institutioneller Investor"
+    },
+    "agence": {
+      "label": "Makler / Verwalter",
+      "description": "Immobilienmakler oder Hausverwaltung"
+    },
+    "promoteur": {
+      "label": "Projektentwickler",
+      "description": "Bauträger, Projektentwickler oder Immobilienhändler"
+    },
+    "api": {
+      "label": "API-Integrator",
+      "description": "PropTech, Bank, Fintech, programmatischer Zugriff"
+    },
+    "str_operator": {
+      "label": "Kurzzeitvermietung",
+      "description": "Airbnb, Booking, STR-Betreiber nach EU 2024/1028"
+    }
   }
 }

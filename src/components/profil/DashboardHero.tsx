@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { supabase } from "@/lib/supabase";
 import type { UserProfile } from "@/lib/profile";
 import type { User } from "@supabase/supabase-js";
@@ -29,6 +30,7 @@ const TIER_STYLE: Record<string, { badge: string; label: string }> = {
 };
 
 export default function DashboardHero({ user, profile }: DashboardHeroProps) {
+  const t = useTranslations("dashboardHero");
   const [stats, setStats] = useState<Stats | null>(null);
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export default function DashboardHero({ user, profile }: DashboardHeroProps) {
   }, [user]);
 
   const tierStyle = TIER_STYLE[stats?.tier ?? "free"] ?? TIER_STYLE.free;
-  const displayName = profile.nomComplet || user?.email?.split("@")[0] || "Utilisateur";
+  const displayName = profile.nomComplet || user?.email?.split("@")[0] || t("defaultUser");
 
   return (
     <div className="rounded-2xl border border-card-border bg-gradient-to-br from-navy to-navy-light p-6 sm:p-8 shadow-lg text-white">
@@ -78,7 +80,7 @@ export default function DashboardHero({ user, profile }: DashboardHeroProps) {
             </div>
           )}
           <div className="min-w-0">
-            <div className="text-xs uppercase tracking-wider text-white/60">Bienvenue</div>
+            <div className="text-xs uppercase tracking-wider text-white/60">{t("welcome")}</div>
             <div className="text-xl sm:text-2xl font-bold truncate">{displayName}</div>
             {profile.societe && <div className="text-sm text-white/70 truncate">{profile.societe}</div>}
             {profile.qualifications && <div className="text-xs text-white/50 truncate mt-0.5">{profile.qualifications}</div>}
@@ -86,25 +88,25 @@ export default function DashboardHero({ user, profile }: DashboardHeroProps) {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${tierStyle.badge}`}>
-            Plan {tierStyle.label}
+            {t("plan")} {tierStyle.label}
           </span>
           {stats?.hasByok && (
             <span className="rounded-full border border-purple-300 bg-purple-100 text-purple-800 px-3 py-1 text-xs font-semibold">
-              BYOK actif
+              {t("byokActive")}
             </span>
           )}
         </div>
       </div>
 
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <Kpi label="Évaluations" value={stats?.valuationsCount ?? "—"} hint={stats ? `/ ${stats.itemsCap.toLocaleString("fr-LU")} max` : undefined} />
+        <Kpi label={t("kpiValuations")} value={stats?.valuationsCount ?? "—"} hint={stats ? t("valuationsCap", { cap: stats.itemsCap.toLocaleString("fr-LU") }) : undefined} />
         <Kpi
-          label="Analyses IA"
+          label={t("kpiAiAnalyses")}
           value={stats ? (stats.hasByok ? "∞" : `${stats.aiUsageToday}/${stats.aiQuotaFree}`) : "—"}
-          hint={stats ? (stats.hasByok ? "Illimité (BYOK)" : "aujourd'hui") : undefined}
+          hint={stats ? (stats.hasByok ? t("aiUnlimited") : t("aiToday")) : undefined}
         />
-        <Kpi label="Alertes actives" value={stats?.alertsActive ?? "—"} hint={stats?.alertsActive === 0 ? "Aucune" : "communes suivies"} />
-        <Kpi label="Liens partagés" value={stats?.sharedLinksActive ?? "—"} hint={stats ? `${stats.apiKeysCount} clés API` : undefined} />
+        <Kpi label={t("kpiActiveAlerts")} value={stats?.alertsActive ?? "—"} hint={stats?.alertsActive === 0 ? t("alertsNone") : t("alertsCommunesFollowed")} />
+        <Kpi label={t("kpiSharedLinks")} value={stats?.sharedLinksActive ?? "—"} hint={stats ? t("sharedApiKeys", { count: stats.apiKeysCount }) : undefined} />
       </div>
     </div>
   );

@@ -6756,5 +6756,86 @@
     "reanalyze": "Relançar análise",
     "remaining": "{count, plural, =0 {Quota esgotada — adicione a sua chave API no seu perfil} one {# análise restante hoje} other {# análises restantes hoje}}",
     "disclaimer": "Análise gerada por IA (Llama 3.3 via Cerebras/Groq ou o seu próprio modelo). Apenas para fins informativos — não substitui um parecer de perito certificado."
+  },
+  "dashboardHero": {
+    "welcome": "Bem-vindo",
+    "defaultUser": "Utilizador",
+    "plan": "Plano",
+    "byokActive": "BYOK ativo",
+    "kpiValuations": "Avaliações",
+    "kpiAiAnalyses": "Análises IA",
+    "kpiActiveAlerts": "Alertas ativos",
+    "kpiSharedLinks": "Links partilhados",
+    "valuationsCap": "de {cap} máx",
+    "aiUnlimited": "Ilimitado (BYOK)",
+    "aiToday": "hoje",
+    "alertsNone": "Nenhum município seguido",
+    "alertsCommunesFollowed": "municípios seguidos",
+    "sharedApiKeys": "{count, plural, =0 {0 chaves API} one {# chave API} other {# chaves API}}"
+  },
+  "workspaces": {
+    "sectionTitle": "Os meus espaços",
+    "open": "Abrir",
+    "filteredOn": "Filtrado em {count} perfil(s)",
+    "emptyState": "Nenhum espaço corresponde aos perfis selecionados. Ajuste a sua seleção acima.",
+    "evaluationsTitle": "As minhas avaliações",
+    "evaluationsDesc": "Histórico, relatórios PDF e acompanhamento TEGOVA EVS 2025",
+    "portfolioTitle": "O meu portefólio",
+    "portfolioDesc": "Acompanhamento de valor, rendimento e performance global",
+    "esgTitle": "Energia & ESG",
+    "esgDesc": "Certificado energético, CRREM, renovações e conformidade ESG",
+    "syndicTitle": "Condomínios",
+    "syndicDesc": "Assembleias, fundo de obras, portais de condóminos, mensagens",
+    "hotelsTitle": "Hotelaria",
+    "hotelsDesc": "Grupo, compset, yield, MICE, ESG Green Key",
+    "agencyTitle": "Organização",
+    "agencyDesc": "Equipa, permissões, logótipo e parâmetros da agência",
+    "apiKeysTitle": "Chaves API",
+    "apiKeysDesc": "Tokens pessoais, webhooks e integrações",
+    "apiDocsTitle": "Documentação API",
+    "apiDocsDesc": "Referência OpenAPI, exemplos e quotas"
+  },
+  "profileTypes": {
+    "title": "Os meus perfis",
+    "description": "Selecione um ou mais perfis para personalizar o painel. Deixe em branco para mostrar tudo.",
+    "loading": "A carregar…",
+    "saved": "Guardado",
+    "selectedCount": "{count, plural, one {# perfil selecionado} other {# perfis selecionados}}",
+    "particulier": {
+      "label": "Particular",
+      "description": "Proprietário ocupante ou senhorio individual"
+    },
+    "expert": {
+      "label": "Perito / Avaliador",
+      "description": "Avaliador certificado TEGOVA, notário, fiscalista"
+    },
+    "syndic": {
+      "label": "Administrador",
+      "description": "Administrador profissional ou voluntário de condomínio"
+    },
+    "hotelier": {
+      "label": "Hoteleiro",
+      "description": "Operador de hotel, motel ou residência turística"
+    },
+    "investisseur": {
+      "label": "Investidor",
+      "description": "Investidor particular ou institucional"
+    },
+    "agence": {
+      "label": "Agência / Gestão",
+      "description": "Agência imobiliária ou administrador de bens"
+    },
+    "promoteur": {
+      "label": "Promotor",
+      "description": "Promotor, construtor ou comerciante de imóveis"
+    },
+    "api": {
+      "label": "Integrador API",
+      "description": "PropTech, banco, fintech, acesso programático"
+    },
+    "str_operator": {
+      "label": "Alojamento local",
+      "description": "Airbnb, Booking, operador STR sob regulamento UE 2024/1028"
+    }
   }
 }
