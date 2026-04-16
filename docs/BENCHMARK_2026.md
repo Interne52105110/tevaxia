@@ -855,7 +855,7 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ~~6 mois~~ | ~~**Appels de fonds copropriété + suivi paiements**~~ ✅ `2ff2385` | Cœur SaaS syndic |
 | ~~9 mois~~ | ~~Inspection mobile PWA TEGOVA~~ ✅ `31339f5` | Produit |
 | 9 mois | Certification RICS AVM Executive | B2B banques |
-| 9 mois | **Connecteur PMS (Mews, Cloudbeds) ingestion quotidienne** | Différenciateur hôtel |
+| ~~9 mois~~ | ~~**Connecteur PMS (Mews, Cloudbeds) ingestion quotidienne**~~ ✅ `cc17ca4` | Différenciateur hôtel |
 | ~~9 mois~~ | ~~**AG virtuelle copropriété (convocation + vote + PV)**~~ ✅ `72df70b` | Feature killer syndic |
 | ~~12 mois~~ | ~~Module bail commercial complet + tableaux ILC LU~~ ✅ `8b573b0` | Niche experts |
 | ~~12 mois~~ | ~~**Forecast ML 90 jours hôtel (ARIMA/Prophet)**~~ ✅ `cb93396` | Intelligence revenue mgmt |
