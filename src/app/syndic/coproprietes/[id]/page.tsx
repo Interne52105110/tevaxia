@@ -247,6 +247,13 @@ export default function CoownershipDetailPage() {
             </svg>
             {t("accountingButton")}
           </Link>
+          <Link href={`${lp}/syndic/coproprietes/${coown.id}/fonds-travaux`}
+            className="inline-flex items-center gap-2 rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700">
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75M21 6v9.75c0 .621-.504 1.125-1.125 1.125H21M3 21h18M12 12.75a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-9-1.5h.375c.621 0 1.125-.504 1.125-1.125v-6.75c0-.621-.504-1.125-1.125-1.125H3m18 0h.375c.621 0 1.125.504 1.125 1.125v6.75c0 .621-.504 1.125-1.125 1.125H21M9 12h.008v.008H9V12Zm0 0c.414 0 .75-.336.75-.75V11.25A.75.75 0 0 0 9 10.5h-.008A.75.75 0 0 0 8.25 11.25v.008c0 .414.336.75.75.75h.008Z" />
+            </svg>
+            Fonds de travaux
+          </Link>
         </div>
 
         {/* Units list */}
@@ -348,6 +355,21 @@ export default function CoownershipDetailPage() {
                     <button onClick={() => { setEditingUnitId(u.id); setUnitDraft(u); setShowAddUnit(false); }}
                       className="rounded-md border border-card-border bg-white px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50 mr-1">
                       {t("editButton")}
+                    </button>
+                    <button onClick={async () => {
+                      const { createPortalToken, buildPortalUrl } = await import("@/lib/coownership-portal");
+                      try {
+                        const tok = await createPortalToken({ coownership_id: coown.id, unit_id: u.id, email: u.owner_email, expires_in_days: 365 });
+                        const url = buildPortalUrl(tok.token);
+                        await navigator.clipboard.writeText(url);
+                        alert(`Lien portail copié ✓\n\n${url}\n\nÀ transmettre au copropriétaire par email.`);
+                      } catch (err) {
+                        alert("Erreur : " + (err instanceof Error ? err.message : "inconnue"));
+                      }
+                    }}
+                      className="rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-2 py-1 text-[11px] font-semibold text-white hover:from-purple-700 hover:to-indigo-700 mr-1"
+                      title="Générer un lien d'accès portail pour ce copropriétaire">
+                      🔗 Portail
                     </button>
                     <button onClick={() => handleDeleteUnit(u.id)}
                       className="rounded-md p-1 text-muted hover:text-rose-600 hover:bg-rose-50" title={t("deleteTitle")}>

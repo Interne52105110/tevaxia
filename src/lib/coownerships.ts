@@ -27,9 +27,52 @@ export interface Coownership {
   last_ag_date: string | null;
   next_ag_date: string | null;
   vertical_config: Record<string, unknown>;
+  works_fund_target_pct: number | null;
+  works_fund_annual_contribution: number | null;
+  works_fund_balance: number | null;
   created_by: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface WorksFundMovement {
+  id: string;
+  coownership_id: string;
+  movement_date: string;
+  movement_type: "contribution" | "withdrawal" | "adjustment" | "interest";
+  amount: number;
+  description: string | null;
+  related_works_project: string | null;
+  created_by: string | null;
+  created_at: string;
+}
+
+export async function listWorksFundMovements(coownershipId: string): Promise<WorksFundMovement[]> {
+  const client = ensureClient();
+  const { data, error } = await client
+    .from("works_fund_movements")
+    .select("*")
+    .eq("coownership_id", coownershipId)
+    .order("movement_date", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as WorksFundMovement[];
+}
+
+export async function addWorksFundMovement(input: Omit<WorksFundMovement, "id" | "created_at" | "created_by">): Promise<WorksFundMovement> {
+  const client = ensureClient();
+  const { data, error } = await client
+    .from("works_fund_movements")
+    .insert(input)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as WorksFundMovement;
+}
+
+export async function deleteWorksFundMovement(id: string): Promise<void> {
+  const client = ensureClient();
+  const { error } = await client.from("works_fund_movements").delete().eq("id", id);
+  if (error) throw error;
 }
 
 export interface CoownershipUnit {
