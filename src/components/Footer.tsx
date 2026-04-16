@@ -72,6 +72,10 @@ export default function Footer() {
               <li><LocaleLink href="/pag-pap" className="hover:text-white transition-colors">{tn("pagPap")}</LocaleLink></li>
               <li><LocaleLink href="/terres-agricoles" className="hover:text-white transition-colors">{tn("terresAgricoles")}</LocaleLink></li>
             </ul>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3 mt-6">{tn("guide")}</h3>
+            <ul className="space-y-1.5 text-sm mb-6">
+              <li><LocaleLink href="/guide" className="hover:text-white transition-colors">{tn("guide")}</LocaleLink></li>
+            </ul>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-3 mt-6">{tc("legal")}</h3>
             <ul className="space-y-1.5 text-sm">
               <li><LocaleLink href="/mentions-legales" className="hover:text-white transition-colors">{tc("legalNotice")}</LocaleLink></li>
