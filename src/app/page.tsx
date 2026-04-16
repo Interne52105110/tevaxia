@@ -1,7 +1,11 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { getTranslations, getLocale } from "next-intl/server";
 import { SoftwareApplicationJsonLd } from "@/components/JsonLd";
-import OnboardingIntent from "@/components/OnboardingIntent";
+
+const OnboardingIntent = dynamic(() => import("@/components/OnboardingIntent"), {
+  loading: () => <div className="py-16 text-center text-muted text-sm">Chargement…</div>,
+});
 
 export default async function Home() {
   const [t, locale] = await Promise.all([getTranslations("home"), getLocale()]);
