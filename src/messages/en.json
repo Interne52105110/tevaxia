@@ -5180,7 +5180,9 @@
     "alertsTitle": "Yield alerts agentic",
     "alertsDesc": "Alertes automatiques pickup, ADR, occupation, GOP vs benchmark.",
     "ddTitle": "Due diligence 50 points",
-    "ddDesc": "Checklist exhaustive pré-acquisition (technique/commercial/juridique/fiscal/ESG/RH). Inspiré HVS."
+    "ddDesc": "Checklist exhaustive pré-acquisition (technique/commercial/juridique/fiscal/ESG/RH). Inspiré HVS.",
+    "miceTitle": "Segmentation MICE",
+    "miceDesc": "Revenu groupes corporate : RFP, conversion, F&B capture, location salle."
   },
   "hotellerieToolPages": {
     "backToHub": "Hospitality hub",
