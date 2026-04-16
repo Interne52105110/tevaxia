@@ -6478,7 +6478,12 @@
     "bailCommercialTitle": "Gewerbemietvertrag in Luxemburg",
     "bailCommercialDesc": "Dauer, Verlängerung, Räumungsentschädigung, Ablöse und wesentliche Klauseln des Gewerbemietvertrags.",
     "investirHotelTitle": "In ein Hotel in Luxemburg investieren",
-    "investirHotelDesc": "Hotelrendite, Besteuerung, Finanzierung, RevPAR und Besonderheiten des luxemburgischen Marktes."
+    "investirHotelDesc": "Hotelrendite, Besteuerung, Finanzierung, RevPAR und Besonderheiten des luxemburgischen Marktes.",
+    "introP1": "Luxemburger Immobilienrecht weist spezifische Regeln auf, die sich von den Nachbarländern unterscheiden: die 5 %-Mietobergrenze, der Bëllegen Akt, 7 % Registrierungsgebühren, der 3 %-Superermäßigte-MwSt.-Satz und der Klimabonus für energetische Sanierung. Diese 12 Leitfäden fassen das Wesentliche zusammen mit Verweisen auf die geltende Gesetzgebung.",
+    "introP2": "Jeder Leitfaden verlinkt auf ein tevaxia-Berechnungstool zur praktischen Anwendung der beschriebenen Regel. Verfügbar in 5 Sprachen für Ansässige, Grenzgänger und internationale Investoren.",
+    "aboutTitle": "Über diesen Leitfaden",
+    "aboutP1": "Dieser Leitfaden wurde von Erwan Bargain, TEGOVA-zertifizierter Immobilienbewerter (REV), verfasst und wird mit Daten des Observatoire de l'Habitat, STATEC und der aktuellen luxemburgischen Gesetzgebung aktualisiert.",
+    "aboutP2": "Letzte Aktualisierung: April 2026. Quellen: Gesetz vom 21.09.2006 (Wohnungsmietvertrag), Gesetz vom 16.05.1975 (Miteigentum), Gesetz vom 03.02.2018 (Gewerbemietvertrag), LIR, STATEC."
   },
   "guide": {
     "fraisNotaire": {

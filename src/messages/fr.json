@@ -6478,7 +6478,12 @@
     "bailCommercialTitle": "Bail commercial au Luxembourg",
     "bailCommercialDesc": "Durée, renouvellement, indemnité d'éviction, pas-de-porte et clauses essentielles du bail commercial.",
     "investirHotelTitle": "Investir dans un hôtel au Luxembourg",
-    "investirHotelDesc": "Rendement hôtelier, fiscalité, financement, RevPAR et spécificités du marché luxembourgeois."
+    "investirHotelDesc": "Rendement hôtelier, fiscalité, financement, RevPAR et spécificités du marché luxembourgeois.",
+    "introP1": "L'immobilier au Luxembourg obéit à des règles spécifiques qui diffèrent souvent des pays voisins : la règle des 5 % pour les loyers, le Bëllegen Akt, les droits d'enregistrement à 7 %, la TVA super-réduite à 3 % sur le logement, ou encore le Klimabonus pour la rénovation énergétique. Ces 12 guides résument l'essentiel en citant les textes de loi applicables (loi du 21.09.2006, loi du 16.05.1975, loi du 03.02.2018, art. 99bis/99ter/102bis LIR).",
+    "introP2": "Chaque guide renvoie vers un outil de calcul tevaxia qui permet d'appliquer concrètement la règle décrite — estimation, simulation de frais, calcul de loyer plafond, comparaison de scénarios. Les guides sont disponibles en 5 langues pour les résidents, frontaliers et investisseurs internationaux.",
+    "aboutTitle": "À propos de ce guide",
+    "aboutP1": "Ce guide est rédigé par Erwan Bargain, évaluateur immobilier certifié TEGOVA (REV), et maintenu à jour avec les données de l'Observatoire de l'Habitat, du STATEC et de la législation luxembourgeoise en vigueur. Il ne constitue pas un avis juridique — consultez un notaire ou un avocat pour toute situation individuelle.",
+    "aboutP2": "Dernière mise à jour : avril 2026. Sources : loi modifiée du 21 septembre 2006 (bail à loyer), loi du 16 mai 1975 (copropriété), loi du 3 février 2018 (bail commercial), Code des impôts sur le revenu (LIR), règlements grand-ducaux STATEC, publications Observatoire de l'Habitat / data.public.lu."
   },
   "guide": {
     "fraisNotaire": {

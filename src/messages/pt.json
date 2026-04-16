@@ -6478,7 +6478,12 @@
     "bailCommercialTitle": "Arrendamento comercial no Luxemburgo",
     "bailCommercialDesc": "Duração, renovação, indemnização de despejo, luvas e cláusulas essenciais do arrendamento comercial.",
     "investirHotelTitle": "Investir num hotel no Luxemburgo",
-    "investirHotelDesc": "Rendimento hoteleiro, fiscalidade, financiamento, RevPAR e especificidades do mercado luxemburguês."
+    "investirHotelDesc": "Rendimento hoteleiro, fiscalidade, financiamento, RevPAR e especificidades do mercado luxemburguês.",
+    "introP1": "O imobiliário no Luxemburgo segue regras específicas diferentes dos países vizinhos: a regra dos 5 % para rendas, o Bëllegen Akt, taxas de registo de 7 %, o IVA super-reduzido de 3 % e o Klimabonus para renovação energética. Estes 12 guias resumem o essencial com referências à legislação aplicável.",
+    "introP2": "Cada guia liga a uma ferramenta de cálculo tevaxia para aplicar na prática a regra descrita. Disponível em 5 línguas para residentes, fronteiriços e investidores internacionais.",
+    "aboutTitle": "Sobre este guia",
+    "aboutP1": "Este guia foi escrito por Erwan Bargain, avaliador imobiliário certificado TEGOVA (REV), e é atualizado com dados do Observatoire de l'Habitat, STATEC e legislação luxemburguesa em vigor.",
+    "aboutP2": "Última atualização: abril 2026. Fontes: lei de 21.09.2006 (arrendamento), lei de 16.05.1975 (condomínio), lei de 03.02.2018 (arrendamento comercial), LIR, STATEC."
   },
   "guide": {
     "fraisNotaire": {

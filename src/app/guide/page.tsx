@@ -35,12 +35,33 @@ export default async function GuideHub() {
   return (
     <div className="bg-background min-h-screen py-8 sm:py-12">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              name: t("title"),
+              description: t("metaDescription"),
+              numberOfItems: GUIDES.length,
+              itemListElement: GUIDES.map((g, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                name: t(g.titleKey),
+                url: `https://tevaxia.lu/guide/${g.slug}`,
+              })),
+            }),
+          }}
+        />
+
         <h1 className="text-2xl font-bold text-navy sm:text-3xl">
           {t("title")}
         </h1>
-        <p className="mt-3 text-base text-slate-600 leading-relaxed">
-          {t("description")}
-        </p>
+
+        <div className="mt-4 space-y-3 text-sm text-slate-700 leading-relaxed">
+          <p>{t("introP1")}</p>
+          <p>{t("introP2")}</p>
+        </div>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {GUIDES.map((g) => (
@@ -57,6 +78,14 @@ export default async function GuideHub() {
               </p>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-12 rounded-xl border border-card-border bg-card p-6">
+          <h2 className="text-lg font-semibold text-navy">{t("aboutTitle")}</h2>
+          <div className="mt-3 space-y-3 text-sm text-slate-600 leading-relaxed">
+            <p>{t("aboutP1")}</p>
+            <p>{t("aboutP2")}</p>
+          </div>
         </div>
       </div>
     </div>
