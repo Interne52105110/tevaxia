@@ -37,6 +37,7 @@ export default function ValorisationHotelPage() {
   const tc = useTranslations("hotellerieCalc");
   const tcv = useTranslations("hotellerieCalc.valorisation");
   const tl = useTranslations("hotellerieCalc.valorisation.labels");
+  const tr = useTranslations("hotellerieCalc.valorisation.results");
   const lp = locale === "fr" ? "" : `/${locale}`;
 
   const [nbChambres, setNbChambres] = useState(45);
@@ -128,8 +129,8 @@ export default function ValorisationHotelPage() {
                   label={tl("adr")}
                   value={adr}
                   onChange={(v) => setAdr(Number(v) || 0)}
-                  suffix="€/nuit"
-                  hint="Average Daily Rate — prix moyen vendu par nuitée"
+                  suffix={tr("suffixNuit")}
+                  hint={tr("hintAdr")}
                   min={10}
                   max={2000}
                 />
@@ -138,7 +139,7 @@ export default function ValorisationHotelPage() {
                   value={Math.round(occupancy * 100)}
                   onChange={(v) => setOccupancy(Math.max(1, Math.min(95, Number(v) || 0)) / 100)}
                   suffix="%"
-                  hint="Nuitées vendues / nuitées disponibles"
+                  hint={tr("hintOccupancy")}
                   min={1}
                   max={95}
                 />
@@ -174,21 +175,21 @@ export default function ValorisationHotelPage() {
                   label={tl("staffRatio")}
                   value={(staffRatio * 100).toFixed(1)}
                   onChange={(v) => setStaffRatio(Math.max(0, Math.min(60, Number(v) || 0)) / 100)}
-                  suffix="% revenu"
+                  suffix={tr("suffixPctRevenu")}
                   className={!overrideRatios ? "opacity-60" : ""}
                 />
                 <InputField
                   label={tl("opexRatio")}
                   value={(energyRatio * 100).toFixed(1)}
                   onChange={(v) => setEnergyRatio(Math.max(0, Math.min(20, Number(v) || 0)) / 100)}
-                  suffix="% revenu"
+                  suffix={tr("suffixPctRevenu")}
                   className={!overrideRatios ? "opacity-60" : ""}
                 />
                 <InputField
                   label={tl("opexRatio")}
                   value={(otherOpexRatio * 100).toFixed(1)}
                   onChange={(v) => setOtherOpexRatio(Math.max(0, Math.min(40, Number(v) || 0)) / 100)}
-                  suffix="% revenu"
+                  suffix={tr("suffixPctRevenu")}
                   className={!overrideRatios ? "opacity-60" : ""}
                 />
                 <InputField
@@ -202,7 +203,7 @@ export default function ValorisationHotelPage() {
                   label={tl("nbChambres")}
                   value={pricePerKey}
                   onChange={(v) => setPricePerKey(Math.max(10000, Number(v) || 0))}
-                  suffix="€/chambre"
+                  suffix={tr("suffixChambre")}
                   className={!overrideRatios ? "opacity-60" : ""}
                 />
               </div>
@@ -226,10 +227,10 @@ export default function ValorisationHotelPage() {
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800">
-                      DCF : {formatEUR(result.valeurDCF)}
+                      {tr("badgeDcf", { amount: formatEUR(result.valeurDCF) })}
                     </span>
                     <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
-                      Multiple : {formatEUR(result.valeurMultipleParChambre)}
+                      {tr("badgeMultiple", { amount: formatEUR(result.valeurMultipleParChambre) })}
                     </span>
                     <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">
                       x{result.multipleEbitda.toFixed(1)} EBITDA
@@ -240,41 +241,41 @@ export default function ValorisationHotelPage() {
                 <ResultPanel
                   title={tcv("commercialPerf")}
                   lines={[
-                    { label: "RevPAR", value: `${result.revPAR.toFixed(0)} €/nuit/chambre`, highlight: true },
-                    { label: "Revenu chambres annuel", value: formatEUR(result.revenuRoomsAnnuel) },
-                    { label: "Revenu F&B annuel", value: formatEUR(result.breakdown.fb) },
-                    { label: "Revenu autres (MICE, spa…)", value: formatEUR(result.breakdown.autres) },
-                    { label: "Revenu total annuel", value: formatEUR(result.revenuTotalAnnuel), highlight: true, large: true },
+                    { label: tr("revpar"), value: `${result.revPAR.toFixed(0)} ${tr("suffixRevpar")}`, highlight: true },
+                    { label: tr("revenuChambresAnnuel"), value: formatEUR(result.revenuRoomsAnnuel) },
+                    { label: tr("revenuFbAnnuel"), value: formatEUR(result.breakdown.fb) },
+                    { label: tr("revenuAutresMice"), value: formatEUR(result.breakdown.autres) },
+                    { label: tr("revenuTotalAnnuel"), value: formatEUR(result.revenuTotalAnnuel), highlight: true, large: true },
                   ]}
                 />
 
                 <ResultPanel
                   title={tcv("operatingPL")}
                   lines={[
-                    { label: "Charges personnel", value: formatEUR(result.charges.staff) },
-                    { label: "Charges énergie", value: formatEUR(result.charges.energy) },
-                    { label: "Autres opex", value: formatEUR(result.charges.other) },
-                    { label: "Total charges opérationnelles", value: formatEUR(result.charges.total), sub: true },
-                    { label: "GOP (Gross Operating Profit)", value: `${formatEUR(result.gop)} (${formatPct(result.gopMargin)})`, highlight: true },
-                    { label: "Réserve FF&E (4 %)", value: formatEUR(result.ffe), sub: true },
-                    { label: "EBITDA stabilisé", value: `${formatEUR(result.ebitda)} (${formatPct(result.ebitdaMargin)})`, highlight: true, large: true, warning: result.ebitda < 0 },
+                    { label: tr("chargesPersonnel"), value: formatEUR(result.charges.staff) },
+                    { label: tr("chargesEnergie"), value: formatEUR(result.charges.energy) },
+                    { label: tr("autresOpex"), value: formatEUR(result.charges.other) },
+                    { label: tr("totalChargesOp"), value: formatEUR(result.charges.total), sub: true },
+                    { label: tr("gop"), value: `${formatEUR(result.gop)} (${formatPct(result.gopMargin)})`, highlight: true },
+                    { label: tr("reserveFfe"), value: formatEUR(result.ffe), sub: true },
+                    { label: tr("ebitdaStabilise"), value: `${formatEUR(result.ebitda)} (${formatPct(result.ebitdaMargin)})`, highlight: true, large: true, warning: result.ebitda < 0 },
                   ]}
                 />
 
                 <ResultPanel
                   title={tcv("methodology")}
                   lines={[
-                    { label: "Catégorie", value: CATEGORIES.find((c) => c.value === category)?.label ?? category },
-                    { label: "Cap rate appliqué", value: formatPct(result.capRateUsed, 2) },
-                    { label: "Prix/chambre comparables", value: formatEUR(result.pricePerKeyUsed) },
-                    { label: "Valeur DCF (EBITDA / cap rate)", value: formatEUR(result.valeurDCF), sub: true },
-                    { label: "Valeur multiple (chambres × prix/clé)", value: formatEUR(result.valeurMultipleParChambre), sub: true },
+                    { label: tr("categorie"), value: CATEGORIES.find((c) => c.value === category)?.label ?? category },
+                    { label: tr("capRateApplique"), value: formatPct(result.capRateUsed, 2) },
+                    { label: tr("prixChambreComp"), value: formatEUR(result.pricePerKeyUsed) },
+                    { label: tr("valeurDcf"), value: formatEUR(result.valeurDCF), sub: true },
+                    { label: tr("valeurMultiple"), value: formatEUR(result.valeurMultipleParChambre), sub: true },
                   ]}
                 />
 
                 <ShareLinkButton
                   toolType="hotel-valorisation"
-                  defaultTitle={`Valorisation hôtel — ${nbChambres} chambres ${category}`}
+                  defaultTitle={tr("shareTitle", { nbChambres: String(nbChambres), category })}
                   payload={{
                     inputs: { nbChambres, adr, occupancy, category, overrideRatios, staffRatio, energyRatio, otherOpexRatio, capRate, pricePerKey },
                     results: result,

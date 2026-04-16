@@ -29,6 +29,7 @@ export default function ScoreE2Page() {
   const t = useTranslations("hotellerieToolPages");
   const tc = useTranslations("hotellerieCalc");
   const tce = useTranslations("hotellerieCalc.scoreE2");
+  const tr = useTranslations("hotellerieCalc.scoreE2.results");
   const lp = locale === "fr" ? "" : `/${locale}`;
 
   const [capitalInvesti, setCapitalInvesti] = useState(750000);
@@ -81,19 +82,19 @@ export default function ScoreE2Page() {
               <h2 className="text-base font-semibold text-navy">{tce("investment")}</h2>
               <div className="mt-4 grid gap-4">
                 <InputField
-                  label="Capital personnel investi"
+                  label={tr("labelCapital")}
                   value={capitalInvesti}
                   onChange={(v) => setCapitalInvesti(Number(v) || 0)}
                   suffix="€"
-                  hint="Equity réellement engagé (hors prêt bancaire)"
+                  hint={tr("hintCapital")}
                   min={0}
                 />
                 <InputField
-                  label="Coût total du projet"
+                  label={tr("labelCoutProjet")}
                   value={coutTotalProjet}
                   onChange={(v) => setCoutTotalProjet(Number(v) || 0)}
                   suffix="€"
-                  hint="Acquisition + travaux + working capital"
+                  hint={tr("hintCoutProjet")}
                   min={1}
                 />
                 <label className="flex items-start gap-3 cursor-pointer rounded-lg border border-input-border bg-input-bg p-3">
@@ -104,10 +105,9 @@ export default function ScoreE2Page() {
                     className="mt-1 h-4 w-4 rounded border-input-border"
                   />
                   <div>
-                    <div className="text-sm font-medium text-navy">Fonds réellement engagés (at-risk test)</div>
+                    <div className="text-sm font-medium text-navy">{tr("fondsEngagesLabel")}</div>
                     <p className="text-xs text-muted">
-                      Escrow signé, compromis avec acompte, contrat travaux signés. Une simple intention
-                      de virement ne suffit pas pour USCIS.
+                      {tr("fondsEngagesDesc")}
                     </p>
                   </div>
                 </label>
@@ -118,26 +118,26 @@ export default function ScoreE2Page() {
               <h2 className="text-base font-semibold text-navy">{tce("performanceJobs")}</h2>
               <div className="mt-4 grid gap-4">
                 <InputField
-                  label="Revenu prévisionnel annuel (net pour la famille)"
+                  label={tr("labelRevenu")}
                   value={revenuPrevisionnelAnnuel}
                   onChange={(v) => setRevenuPrevisionnelAnnuel(Number(v) || 0)}
                   suffix="€"
-                  hint="Salaire/distribution net après imposition US"
+                  hint={tr("hintRevenu")}
                   min={0}
                 />
                 <InputField
-                  label="Minimum vital annuel famille (US)"
+                  label={tr("labelMinVital")}
                   value={minimumVitalAnnuel}
                   onChange={(v) => setMinimumVitalAnnuel(Number(v) || 0)}
                   suffix="€"
-                  hint="Référence US poverty guidelines × 1,5 selon état + composition foyer"
+                  hint={tr("hintMinVital")}
                   min={1}
                 />
                 <InputField
-                  label="Emplois US créés ou maintenus (FTE)"
+                  label={tr("labelEmplois")}
                   value={emploisCreesOuMaintenus}
                   onChange={(v) => setEmploisCreesOuMaintenus(Math.max(0, Number(v) || 0))}
-                  hint="Hors investisseur et famille — équivalents temps plein US"
+                  hint={tr("hintEmplois")}
                   min={0}
                 />
                 <label className="flex items-start gap-3 cursor-pointer rounded-lg border border-input-border bg-input-bg p-3">
@@ -148,10 +148,9 @@ export default function ScoreE2Page() {
                     className="mt-1 h-4 w-4 rounded border-input-border"
                   />
                   <div>
-                    <div className="text-sm font-medium text-navy">Hôtel en exploitation active (real &amp; operating)</div>
+                    <div className="text-sm font-medium text-navy">{tr("hotelActifLabel")}</div>
                     <p className="text-xs text-muted">
-                      Doit être un vrai business actif, pas une simple holding ou un investissement
-                      passif (à décocher uniquement si projet de transformation purement passive).
+                      {tr("hotelActifDesc")}
                     </p>
                   </div>
                 </label>
@@ -179,12 +178,12 @@ export default function ScoreE2Page() {
                 <ResultPanel
                   title={tce("subTestsTitle")}
                   lines={[
-                    { label: "Substantiality (capital substantiel)", value: `${result.scoreSubstantiality} / 30 — ratio ${(result.ratioCapital * 100).toFixed(0)} %`, highlight: true },
-                    { label: "At-risk (fonds engagés)", value: `${result.scoreAtRisk} / 15`, warning: result.scoreAtRisk === 0 },
-                    { label: "Marginality (revenu > minimum vital)", value: `${result.scoreMarginality} / 25 — ratio ${result.ratioRevenu.toFixed(2)}x`, warning: result.scoreMarginality < 10 },
-                    { label: "Real & operating (business actif)", value: `${result.scoreRealOperating} / 10`, warning: result.scoreRealOperating === 0 },
-                    { label: "Job creation (emplois créés)", value: `${result.scoreJobCreation} / 20`, warning: result.scoreJobCreation === 0 },
-                    { label: "Total", value: `${result.scoreTotal} / 100`, highlight: true, large: true },
+                    { label: tr("substantiality"), value: `${result.scoreSubstantiality} / 30 — ratio ${(result.ratioCapital * 100).toFixed(0)} %`, highlight: true },
+                    { label: tr("atRisk"), value: `${result.scoreAtRisk} / 15`, warning: result.scoreAtRisk === 0 },
+                    { label: tr("marginality"), value: `${result.scoreMarginality} / 25 — ratio ${result.ratioRevenu.toFixed(2)}x`, warning: result.scoreMarginality < 10 },
+                    { label: tr("realOperating"), value: `${result.scoreRealOperating} / 10`, warning: result.scoreRealOperating === 0 },
+                    { label: tr("jobCreation"), value: `${result.scoreJobCreation} / 20`, warning: result.scoreJobCreation === 0 },
+                    { label: tr("total"), value: `${result.scoreTotal} / 100`, highlight: true, large: true },
                   ]}
                 />
 
@@ -211,19 +210,19 @@ export default function ScoreE2Page() {
                   <h3 className="text-sm font-semibold text-navy">{tce("summaryNumbers")}</h3>
                   <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
                     <div className="flex justify-between border-b border-card-border/50 py-1">
-                      <dt className="text-muted">Capital investi</dt>
+                      <dt className="text-muted">{tr("capitalInvesti")}</dt>
                       <dd className="font-medium text-navy">{formatEUR(capitalInvesti)}</dd>
                     </div>
                     <div className="flex justify-between border-b border-card-border/50 py-1">
-                      <dt className="text-muted">Coût total projet</dt>
+                      <dt className="text-muted">{tr("coutTotalProjet")}</dt>
                       <dd className="font-medium text-navy">{formatEUR(coutTotalProjet)}</dd>
                     </div>
                     <div className="flex justify-between border-b border-card-border/50 py-1">
-                      <dt className="text-muted">Ratio capital</dt>
+                      <dt className="text-muted">{tr("ratioCapital")}</dt>
                       <dd className="font-medium text-navy">{(result.ratioCapital * 100).toFixed(0)} %</dd>
                     </div>
                     <div className="flex justify-between border-b border-card-border/50 py-1">
-                      <dt className="text-muted">Ratio revenu / minimum vital</dt>
+                      <dt className="text-muted">{tr("ratioRevenu")}</dt>
                       <dd className="font-medium text-navy">{result.ratioRevenu.toFixed(2)}x</dd>
                     </div>
                   </dl>

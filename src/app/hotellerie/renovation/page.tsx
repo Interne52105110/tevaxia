@@ -13,18 +13,19 @@ function formatEUR(n: number): string {
   return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 }
 
-function formatYears(n: number): string {
-  if (!isFinite(n) || n > 999) return "—";
-  return `${n.toFixed(1)} ans`;
-}
-
 export default function RenovationHotelPage() {
   const locale = useLocale();
   const t = useTranslations("hotellerieToolPages");
   const tc = useTranslations("hotellerieCalc");
   const tcr = useTranslations("hotellerieCalc.renovation");
   const tl = useTranslations("hotellerieCalc.renovation.labels");
+  const tr = useTranslations("hotellerieCalc.renovation.results");
   const lp = locale === "fr" ? "" : `/${locale}`;
+
+  function formatYears(n: number): string {
+    if (!isFinite(n) || n > 999) return "—";
+    return tr("unitYears", { n: n.toFixed(1) });
+  }
 
   const [surfaceChauffeeM2, setSurfaceChauffeeM2] = useState(2500);
   const [nbChambres, setNbChambres] = useState(40);
@@ -114,35 +115,35 @@ export default function RenovationHotelPage() {
                   <div className="text-sm uppercase tracking-wider text-green-700 font-semibold">{tcr("investmentNet")}</div>
                   <div className="mt-2 text-3xl font-bold text-navy">{formatEUR(result.coutNetTotal)}</div>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-800">Brut : {formatEUR(result.coutBrutTotal)}</span>
-                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">- Klimabonus : {formatEUR(result.aideKlimabonusTotal)}</span>
+                    <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-800">{tr("brutBadge", { amount: formatEUR(result.coutBrutTotal) })}</span>
+                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">{tr("klimabonusBadge", { amount: formatEUR(result.aideKlimabonusTotal) })}</span>
                   </div>
                 </div>
 
                 <ResultPanel
                   title={tcr("annualBenefits")}
                   lines={[
-                    { label: "Économies factures énergie", value: formatEUR(result.economiesAnnuelles), highlight: true },
-                    { label: "Gain RevPAR via label", value: formatEUR(result.gainRevparAnnuel), highlight: true },
-                    { label: "Total annuel", value: formatEUR(result.economiesAnnuelles + result.gainRevparAnnuel), highlight: true, large: true },
+                    { label: tr("economiesEnergie"), value: formatEUR(result.economiesAnnuelles), highlight: true },
+                    { label: tr("gainRevparLabel"), value: formatEUR(result.gainRevparAnnuel), highlight: true },
+                    { label: tr("totalAnnuel"), value: formatEUR(result.economiesAnnuelles + result.gainRevparAnnuel), highlight: true, large: true },
                   ]}
                 />
 
                 <ResultPanel
                   title={tcr("paybackVAN")}
                   lines={[
-                    { label: "Payback (factures seules)", value: formatYears(result.paybackSansLabel) },
-                    { label: "Payback (factures + label)", value: formatYears(result.paybackAvecLabel), highlight: true },
-                    { label: "VAN cumulée 10 ans", value: formatEUR(result.vanDixAns), highlight: true, warning: result.vanDixAns < 0 },
+                    { label: tr("paybackSansLabel"), value: formatYears(result.paybackSansLabel) },
+                    { label: tr("paybackAvecLabel"), value: formatYears(result.paybackAvecLabel), highlight: true },
+                    { label: tr("vanDixAns"), value: formatEUR(result.vanDixAns), highlight: true, warning: result.vanDixAns < 0 },
                   ]}
                 />
 
                 <ResultPanel
                   title={tcr("energyImpact")}
                   lines={[
-                    { label: "Conso avant travaux", value: `${(result.consoAvantKwh / 1000).toFixed(0)} MWh/an` },
-                    { label: "Conso après travaux", value: `${(result.consoApresKwh / 1000).toFixed(0)} MWh/an` },
-                    { label: "Réduction", value: `${(result.reductionKwh / 1000).toFixed(0)} MWh/an (${result.consoAvantKwh > 0 ? ((result.reductionKwh / result.consoAvantKwh) * 100).toFixed(0) : 0} %)`, highlight: true },
+                    { label: tr("consoAvant"), value: tr("unitMwhAn", { n: (result.consoAvantKwh / 1000).toFixed(0) }) },
+                    { label: tr("consoApres"), value: tr("unitMwhAn", { n: (result.consoApresKwh / 1000).toFixed(0) }) },
+                    { label: tr("reduction"), value: `${tr("unitMwhAn", { n: (result.reductionKwh / 1000).toFixed(0) })} (${result.consoAvantKwh > 0 ? ((result.reductionKwh / result.consoAvantKwh) * 100).toFixed(0) : 0} %)`, highlight: true },
                   ]}
                 />
 
@@ -152,10 +153,10 @@ export default function RenovationHotelPage() {
                     <table className="w-full text-xs">
                       <thead>
                         <tr className="border-b border-card-border text-muted">
-                          <th className="px-2 py-2 text-left font-medium">Poste</th>
-                          <th className="px-2 py-2 text-right font-medium">Brut</th>
-                          <th className="px-2 py-2 text-right font-medium">Aide</th>
-                          <th className="px-2 py-2 text-right font-medium">Net</th>
+                          <th className="px-2 py-2 text-left font-medium">{tr("thPoste")}</th>
+                          <th className="px-2 py-2 text-right font-medium">{tr("thBrut")}</th>
+                          <th className="px-2 py-2 text-right font-medium">{tr("thAide")}</th>
+                          <th className="px-2 py-2 text-right font-medium">{tr("thNet")}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-card-border/50">

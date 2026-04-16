@@ -31,6 +31,7 @@ export default function DscrHotelPage() {
   const tc = useTranslations("hotellerieCalc");
   const tcd = useTranslations("hotellerieCalc.dscr");
   const tl = useTranslations("hotellerieCalc.dscr.labels");
+  const tr = useTranslations("hotellerieCalc.dscr.results");
   const lp = locale === "fr" ? "" : `/${locale}`;
 
   const [ebitdaStabilise, setEbitdaStabilise] = useState(450000);
@@ -83,30 +84,30 @@ export default function DscrHotelPage() {
               <h2 className="text-base font-semibold text-navy">{tcd("financialData")}</h2>
               <div className="mt-4 grid gap-4">
                 <InputField
-                  label="EBITDA stabilisé annuel"
+                  label={tr("labelEbitda")}
                   value={ebitdaStabilise}
                   onChange={(v) => setEbitdaStabilise(Number(v) || 0)}
                   suffix="€"
-                  hint="Issu de l'outil Valorisation ou de votre P&L prévisionnel"
+                  hint={tr("hintEbitda")}
                   min={0}
                 />
                 <InputField
-                  label="Prix d'acquisition"
+                  label={tr("labelPrixAcquisition")}
                   value={prixAcquisition}
                   onChange={(v) => setPrixAcquisition(Number(v) || 0)}
                   suffix="€"
                   min={0}
                 />
                 <InputField
-                  label="Travaux / CAPEX initial"
+                  label={tr("labelTravaux")}
                   value={travaux}
                   onChange={(v) => setTravaux(Number(v) || 0)}
                   suffix="€"
-                  hint="Mise aux normes, rénovation, repositionnement"
+                  hint={tr("hintTravaux")}
                   min={0}
                 />
                 <InputField
-                  label="Apport personnel (equity)"
+                  label={tr("labelApport")}
                   value={apport}
                   onChange={(v) => setApport(Number(v) || 0)}
                   suffix="€"
@@ -119,23 +120,23 @@ export default function DscrHotelPage() {
               <h2 className="text-base font-semibold text-navy">{tcd("loanConditions")}</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <InputField
-                  label="Taux d'intérêt annuel"
+                  label={tr("labelTauxInteret")}
                   value={(tauxInteret * 100).toFixed(2)}
                   onChange={(v) => setTauxInteret(Math.max(0, Math.min(20, Number(v) || 0)) / 100)}
                   suffix="%"
-                  hint="Taux nominal annuel"
+                  hint={tr("hintTaux")}
                 />
                 <InputField
                   label={tl("dureePret")}
                   value={dureeAns}
                   onChange={(v) => setDureeAns(Math.max(1, Math.min(40, Number(v) || 0)))}
-                  suffix="ans"
+                  suffix={tr("suffixAns")}
                 />
                 <InputField
-                  label="DSCR cible (banque)"
+                  label={tr("labelDscrCible")}
                   value={dscrCible.toFixed(2)}
                   onChange={(v) => setDscrCible(Math.max(1, Math.min(3, Number(v) || 0)))}
-                  hint="1,30 banque commerciale, 1,40 SBA, 1,50 LBO"
+                  hint={tr("hintDscrCible")}
                   className="sm:col-span-2"
                 />
               </div>
@@ -157,31 +158,31 @@ export default function DscrHotelPage() {
                 <ResultPanel
                   title={tcd("stressTest")}
                   lines={[
-                    { label: "Central", value: `DSCR ${result.dscrCentral.toFixed(2)}`, highlight: true },
-                    { label: "Occupation -10 pts", value: `DSCR ${result.dscrStressOccupation.toFixed(2)}`, warning: result.dscrStressOccupation < 1 },
-                    { label: "ADR -10 %", value: `DSCR ${result.dscrStressADR.toFixed(2)}`, warning: result.dscrStressADR < 1 },
-                    { label: "Double choc (-10 pts occ. ET -10 % ADR ≈ -25 %)", value: `DSCR ${result.dscrStressDouble.toFixed(2)}`, warning: result.dscrStressDouble < 1 },
+                    { label: tr("central"), value: `DSCR ${result.dscrCentral.toFixed(2)}`, highlight: true },
+                    { label: tr("stressOcc"), value: `DSCR ${result.dscrStressOccupation.toFixed(2)}`, warning: result.dscrStressOccupation < 1 },
+                    { label: tr("stressAdr"), value: `DSCR ${result.dscrStressADR.toFixed(2)}`, warning: result.dscrStressADR < 1 },
+                    { label: tr("stressDouble"), value: `DSCR ${result.dscrStressDouble.toFixed(2)}`, warning: result.dscrStressDouble < 1 },
                   ]}
                 />
 
                 <ResultPanel
                   title={tcd("financingStructure")}
                   lines={[
-                    { label: "Total projet (acquisition + travaux)", value: formatEUR(prixAcquisition + travaux) },
-                    { label: "Apport personnel", value: formatEUR(apport), sub: true },
-                    { label: "Montant à emprunter", value: formatEUR(result.montantDette), highlight: true },
-                    { label: "LTV (Loan-to-Value)", value: `${(result.ltv * 100).toFixed(1)} %`, warning: result.ltv > 0.75 },
-                    { label: "Mensualité", value: formatEUR(result.mensualite) },
-                    { label: "Service de la dette annuel", value: formatEUR(result.serviceDetteAnnuel), sub: true },
+                    { label: tr("totalProjet"), value: formatEUR(prixAcquisition + travaux) },
+                    { label: tr("apportPersonnel"), value: formatEUR(apport), sub: true },
+                    { label: tr("montantEmprunter"), value: formatEUR(result.montantDette), highlight: true },
+                    { label: tr("ltv"), value: `${(result.ltv * 100).toFixed(1)} %`, warning: result.ltv > 0.75 },
+                    { label: tr("mensualite"), value: formatEUR(result.mensualite) },
+                    { label: tr("serviceDette"), value: formatEUR(result.serviceDetteAnnuel), sub: true },
                   ]}
                 />
 
                 <ResultPanel
                   title={tcd("borrowingCapacity")}
                   lines={[
-                    { label: `Montant max pour DSCR ${dscrCible.toFixed(2)}`, value: formatEUR(result.maxEmpruntable), highlight: true, large: true },
+                    { label: tr("maxEmpruntDscr", { dscr: dscrCible.toFixed(2) }), value: formatEUR(result.maxEmpruntable), highlight: true, large: true },
                     {
-                      label: "Vs montant emprunté actuel",
+                      label: tr("vsEmpruntActuel"),
                       value: result.maxEmpruntable >= result.montantDette ? tcd("okMargin") : `${tcd("overborrow")} ${formatEUR(result.montantDette - result.maxEmpruntable)}`,
                       warning: result.maxEmpruntable < result.montantDette,
                     },
@@ -191,15 +192,15 @@ export default function DscrHotelPage() {
                 <ResultPanel
                   title={tcd("creditCost")}
                   lines={[
-                    { label: "Capital emprunté", value: formatEUR(result.montantDette) },
-                    { label: "Total intérêts payés", value: formatEUR(result.totalInterets), sub: true },
-                    { label: "Coût total crédit", value: formatEUR(result.coutTotalCredit), highlight: true },
+                    { label: tr("capitalEmprunte"), value: formatEUR(result.montantDette) },
+                    { label: tr("totalInterets"), value: formatEUR(result.totalInterets), sub: true },
+                    { label: tr("coutTotalCredit"), value: formatEUR(result.coutTotalCredit), highlight: true },
                   ]}
                 />
 
                 <ShareLinkButton
                   toolType="hotel-dscr"
-                  defaultTitle={`DSCR hôtel — ${formatEUR(prixAcquisition + travaux)} projet`}
+                  defaultTitle={tr("shareTitle", { amount: formatEUR(prixAcquisition + travaux) })}
                   payload={{
                     inputs: { ebitdaStabilise, prixAcquisition, travaux, apport, tauxInteret, dureeAns, dscrCible },
                     results: result,
@@ -213,10 +214,10 @@ export default function DscrHotelPage() {
                       <table className="w-full text-xs">
                         <thead>
                           <tr className="border-b border-card-border text-muted">
-                            <th className="px-2 py-2 text-left font-medium">Année</th>
-                            <th className="px-2 py-2 text-right font-medium">Capital remboursé</th>
-                            <th className="px-2 py-2 text-right font-medium">Intérêts</th>
-                            <th className="px-2 py-2 text-right font-medium">Capital restant</th>
+                            <th className="px-2 py-2 text-left font-medium">{tr("thAnnee")}</th>
+                            <th className="px-2 py-2 text-right font-medium">{tr("thCapitalRembourse")}</th>
+                            <th className="px-2 py-2 text-right font-medium">{tr("thInterets")}</th>
+                            <th className="px-2 py-2 text-right font-medium">{tr("thCapitalRestant")}</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-card-border/50">

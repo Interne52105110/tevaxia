@@ -26,6 +26,7 @@ export default function RevparComparisonPage() {
   const tc = useTranslations("hotellerieCalc");
   const tcv = useTranslations("hotellerieCalc.revparCompset");
   const tl = useTranslations("hotellerieCalc.revparCompset.labels");
+  const tr = useTranslations("hotellerieCalc.revparCompset.results");
   const lp = locale === "fr" ? "" : `/${locale}`;
 
   const [hotelOccupancy, setHotelOccupancy] = useState(0.62);
@@ -61,8 +62,8 @@ export default function RevparComparisonPage() {
             <div className="rounded-xl border-2 border-orange-200 bg-orange-50 p-6">
               <h2 className="text-base font-semibold text-orange-900">{tcv("yourHotel")}</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <InputField label="Occupation moyenne" value={Math.round(hotelOccupancy * 100)} onChange={(v) => setHotelOccupancy(Math.max(5, Math.min(95, Number(v) || 0)) / 100)} suffix="%" />
-                <InputField label="ADR moyen" value={hotelADR} onChange={(v) => setHotelADR(Number(v) || 0)} suffix="€" />
+                <InputField label={tr("labelOccMoyenne")} value={Math.round(hotelOccupancy * 100)} onChange={(v) => setHotelOccupancy(Math.max(5, Math.min(95, Number(v) || 0)) / 100)} suffix="%" />
+                <InputField label={tr("labelAdrMoyen")} value={hotelADR} onChange={(v) => setHotelADR(Number(v) || 0)} suffix="€" />
                 <InputField label={tl("nbChambres")} value={nbChambres} onChange={(v) => setNbChambres(Number(v) || 0)} className="sm:col-span-2" />
               </div>
             </div>
@@ -71,8 +72,8 @@ export default function RevparComparisonPage() {
               <h2 className="text-base font-semibold text-navy">{tcv("compset")}</h2>
               <p className="mt-1 text-xs text-muted">{tcv("compsetHint")}</p>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <InputField label="Occupation moyenne compset" value={Math.round(compsetOccupancy * 100)} onChange={(v) => setCompsetOccupancy(Math.max(5, Math.min(95, Number(v) || 0)) / 100)} suffix="%" />
-                <InputField label="ADR moyen compset" value={compsetADR} onChange={(v) => setCompsetADR(Number(v) || 0)} suffix="€" />
+                <InputField label={tr("labelOccCompset")} value={Math.round(compsetOccupancy * 100)} onChange={(v) => setCompsetOccupancy(Math.max(5, Math.min(95, Number(v) || 0)) / 100)} suffix="%" />
+                <InputField label={tr("labelAdrCompset")} value={compsetADR} onChange={(v) => setCompsetADR(Number(v) || 0)} suffix="€" />
               </div>
             </div>
           </div>
@@ -89,9 +90,9 @@ export default function RevparComparisonPage() {
                 <ResultPanel
                   title={tcv("fairShare")}
                   lines={[
-                    { label: "MPI (Market Penetration Index)", value: `${result.mpi.toFixed(1)} — occupation vs marché`, highlight: true, warning: result.mpi < 95 },
-                    { label: "ARI (Average Rate Index)", value: `${result.ari.toFixed(1)} — prix vs marché`, highlight: true, warning: result.ari < 95 },
-                    { label: "RGI (Revenue Generation Index)", value: `${result.rgi.toFixed(1)} — RevPAR vs marché`, highlight: true, large: true, warning: result.rgi < 95 },
+                    { label: tr("mpiLabel"), value: `${result.mpi.toFixed(1)}${tr("mpiSuffix")}`, highlight: true, warning: result.mpi < 95 },
+                    { label: tr("ariLabel"), value: `${result.ari.toFixed(1)}${tr("ariSuffix")}`, highlight: true, warning: result.ari < 95 },
+                    { label: tr("rgiLabel"), value: `${result.rgi.toFixed(1)}${tr("rgiSuffix")}`, highlight: true, large: true, warning: result.rgi < 95 },
                   ]}
                 />
 
@@ -103,17 +104,17 @@ export default function RevparComparisonPage() {
                 <ResultPanel
                   title={tcv("revparCompared")}
                   lines={[
-                    { label: "Votre RevPAR", value: `${result.hotelRevPAR.toFixed(0)} €/nuit/chambre`, highlight: true },
-                    { label: "RevPAR compset", value: `${result.compsetRevPAR.toFixed(0)} €/nuit/chambre`, sub: true },
-                    { label: "Écart", value: `${(result.hotelRevPAR - result.compsetRevPAR).toFixed(0)} €/nuit/chambre`, warning: result.hotelRevPAR < result.compsetRevPAR },
+                    { label: tr("votreRevpar"), value: `${result.hotelRevPAR.toFixed(0)} ${tr("suffixNuitChambre")}`, highlight: true },
+                    { label: tr("revparCompset"), value: `${result.compsetRevPAR.toFixed(0)} ${tr("suffixNuitChambre")}`, sub: true },
+                    { label: tr("ecart"), value: `${(result.hotelRevPAR - result.compsetRevPAR).toFixed(0)} ${tr("suffixNuitChambre")}`, warning: result.hotelRevPAR < result.compsetRevPAR },
                   ]}
                 />
 
                 <ResultPanel
                   title={tcv("missedRevenue")}
                   lines={[
-                    { label: `Si vous atteignez le RevPAR du compset (${result.compsetRevPAR.toFixed(0)} €)`, value: formatEUR(result.manqueAGagnerAnnuel), highlight: true, large: true },
-                    { label: "= revenu chambres supplémentaire potentiel", value: result.manqueAGagnerAnnuel > 0 ? "Levier identifié" : "Vous êtes au fair share", sub: true },
+                    { label: tr("siVousAtteindez", { revpar: result.compsetRevPAR.toFixed(0) }), value: formatEUR(result.manqueAGagnerAnnuel), highlight: true, large: true },
+                    { label: tr("sousTitrePotentiel"), value: result.manqueAGagnerAnnuel > 0 ? tr("levierIdentifie") : tr("auFairShare"), sub: true },
                   ]}
                 />
               </>
