@@ -5035,6 +5035,8 @@
     "revparComparisonDesc": "RevPAR/ADR-Benchmark vs lokale Konkurrenz (STR-ähnlich). Identifikation des Fair Share (MPI, ARI, RGI).",
     "scoreE2Title": "E-2 / Investor-Score",
     "scoreE2Desc": "Eignungsbewertung für das US E-2-Investorenvisum: substantielles Kapital, Arbeitsplatzschaffung, Risk/Return-Verhältnis.",
+    "forecastTitle": "90-Tage-Prognose",
+    "forecastDesc": "Holt-Winters-Modell mit wöchentlicher Saisonalität: Projektion von Auslastung, ADR, RevPAR und 95 %-Konfidenzintervall.",
     "audienceTitle": "Für wen?",
     "audience1Title": "Käufer von Motels & Budget-Hotels",
     "audience1Desc": "Sie schauen sich eine Transaktion unter 5 Mio. € an und haben keinen Zugang zu institutionellen Tools. Geben Sie ein fundiertes Angebot in wenigen Stunden ab.",

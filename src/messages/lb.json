@@ -5035,6 +5035,8 @@
     "revparComparisonDesc": "RevPAR/ADR-Benchmark vs lokal Konkurrenz (STR-änlech). Identifikatioun vum Fair Share (MPI, ARI, RGI).",
     "scoreE2Title": "E-2 / Investisseur-Score",
     "scoreE2Desc": "Eligibilitéitscheck fir d'US E-2 Investisseursvisa: substantiellt Kapital, Aarbechtsplazschafung, Risk/Return-Verhältnis.",
+    "forecastTitle": "90-Deeg Prognose",
+    "forecastDesc": "Holt-Winters Modell mat wöchentlecher Saisonalitéit: Projektioun vun Auslaaschtung, ADR, RevPAR an 95 % Konfidenzintervall.",
     "audienceTitle": "Fir wien?",
     "audience1Title": "Akeefer vu Motels & Budget-Hoteler",
     "audience1Desc": "Dir kuckt Iech eng Transaktioun ënner 5 Mio. € un an hutt keen Zougang zu institutionellen Tools. Maacht en informéiert Offer an e puer Stonnen.",
