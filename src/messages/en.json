@@ -5174,7 +5174,11 @@
       "relatedTitle": "Go further"
     },
     "compsetTitle": "Compset Luxembourg + Greater Region",
-    "compsetDesc": "ADR, occupancy and RevPAR benchmarks by zone and category. Luxembourg Centre, Kirchberg, Findel, Esch, Greater Region."
+    "compsetDesc": "ADR, occupancy and RevPAR benchmarks by zone and category. Luxembourg Centre, Kirchberg, Findel, Esch, Greater Region.",
+    "motelTitle": "Aparthotel / Motel / Résidence",
+    "motelDesc": "Valorisation dédiée aux séjours prolongés et hôtellerie budget.",
+    "alertsTitle": "Yield alerts agentic",
+    "alertsDesc": "Alertes automatiques pickup, ADR, occupation, GOP vs benchmark."
   },
   "hotellerieToolPages": {
     "backToHub": "Hospitality hub",

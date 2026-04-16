@@ -115,6 +115,30 @@ const TOOLS: HotelTool[] = [
       </svg>
     ),
   },
+  {
+    href: "/hotellerie/motel",
+    titleKey: "motelTitle",
+    descKey: "motelDesc",
+    status: "ready",
+    color: "from-amber-700 to-orange-600",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m14.25-18v18M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h15M14.25 3v18M21 21v-5.625c0-.621-.504-1.125-1.125-1.125h-2.625" />
+      </svg>
+    ),
+  },
+  {
+    href: "/hotellerie/alerts",
+    titleKey: "alertsTitle",
+    descKey: "alertsDesc",
+    status: "ready",
+    color: "from-red-700 to-rose-600",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+      </svg>
+    ),
+  },
 ];
 
 export default async function HotellerieHub() {

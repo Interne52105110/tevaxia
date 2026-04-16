@@ -5174,7 +5174,11 @@
       "relatedTitle": "Saber mais"
     },
     "compsetTitle": "Compset Luxemburgo + Grande Região",
-    "compsetDesc": "Benchmarks ADR, ocupação e RevPAR por zona e categoria."
+    "compsetDesc": "Benchmarks ADR, ocupação e RevPAR por zona e categoria.",
+    "motelTitle": "Aparthotel / Motel / Résidence",
+    "motelDesc": "Valorisation dédiée aux séjours prolongés et hôtellerie budget.",
+    "alertsTitle": "Yield alerts agentic",
+    "alertsDesc": "Alertes automatiques pickup, ADR, occupation, GOP vs benchmark."
   },
   "hotellerieToolPages": {
     "backToHub": "Hub hotelaria",
