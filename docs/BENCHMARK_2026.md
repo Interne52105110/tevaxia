@@ -842,7 +842,7 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | 2 | ~~**Persistance hôtels (table `hotels`) + rôles hôteliers**~~ ✅ `bb80471` | Récurrence usage vertical hôtellerie |
 | 3 | ~~API batch + OpenAPI docs + sandbox~~ ✅ `2544cf9` | Différenciation B2B banques |
 | 3 | ~~Module bail commercial + exonération RP plus-value~~ ✅ `85897ef` | Complétude fiscale LU |
-| 3 | **Table `coownerships` + CRUD copropriétés syndic** | Premier MVP vertical syndic |
+| 3 | ~~**Table `coownerships` + CRUD copropriétés syndic**~~ ✅ (commit ci-dessous) | Premier MVP vertical syndic |
 
 ## Priorisation 6-12 mois
 

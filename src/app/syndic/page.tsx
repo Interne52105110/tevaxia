@@ -1066,6 +1066,9 @@ export default function SyndicPage() {
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
+              <Link href="/syndic/coproprietes" className="rounded-full bg-navy px-3 py-1 text-xs font-semibold text-white hover:bg-navy-light transition-colors">
+                ★ Mes copropriétés
+              </Link>
               <Link href="/calculateur-loyer" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
                 Loyer légal (règle 5 %)
               </Link>
