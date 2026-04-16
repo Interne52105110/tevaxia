@@ -176,16 +176,77 @@
         "title": "Syndic Dashboard",
         "description": "Multi-unit management, charge distribution by shares, EPC per unit, renovation planning with Klimabonus.",
         "tag": "Co-ownership / AGM"
+      },
+      "hotellerie": {
+        "title": "Hospitality Hub",
+        "description": "6 hotel calculators: RevPAR/EBITDA valuation, DSCR, operating P&L, E-2 score, forecast and RevPAR comparison.",
+        "tag": "Hotel pre-acquisition"
+      },
+      "gestionLocative": {
+        "title": "LU Rental Management",
+        "description": "5% rule, rental Klimabonus, net yield, monthly cashflow and dashboard for Luxembourg landlords.",
+        "tag": "Landlord tools"
+      },
+      "bailCommercial": {
+        "title": "Commercial Lease LU",
+        "description": "CPI indexation, legal duration, triennial clauses and additional costs of Luxembourg commercial leases.",
+        "tag": "Law 03/02/2018"
+      },
+      "dcfMulti": {
+        "title": "Multi-tenant DCF",
+        "description": "Full DCF analysis with break options, step rents, CAPEX, IRR equity and cap rate sensitivity.",
+        "tag": "Yield / IRR"
+      },
+      "portfolio": {
+        "title": "Property Portfolio",
+        "description": "Multi-property analysis, allocation by asset type, weighted global yield and performance tracking.",
+        "tag": "Multi-asset"
+      },
+      "propcalc": {
+        "title": "Cashflow Calculator",
+        "description": "Monthly net cashflow, gross/net yield, IRR and 10-year projection. Adapted for FR/BE/LU.",
+        "tag": "FR / BE / LU"
+      },
+      "hedonique": {
+        "title": "Hedonic Method",
+        "description": "Hedonic regression estimation on property characteristics. Value decomposition by attribute.",
+        "tag": "Regression"
+      },
+      "amlKyc": {
+        "title": "AML / KYC",
+        "description": "Anti-money laundering scoring and identity verification for real estate transactions. CSSF / 4th directive compliance.",
+        "tag": "CSSF / 4th directive"
+      },
+      "inspection": {
+        "title": "TEGOVA Inspection",
+        "description": "120-point field inspection grid compliant with EVS 2025. Scoring by section, photos, PDF export.",
+        "tag": "EVS 2025 field"
+      },
+      "terresAgricoles": {
+        "title": "Agricultural Land",
+        "description": "Agricultural land valuation in Luxembourg. Price per hectare, zoning, pre-emption rights.",
+        "tag": "Farm lease"
+      },
+      "transparence": {
+        "title": "Tax Transparency",
+        "description": "Tax transparency simulation for Luxembourg SCI/SCP. Corporate vs personal tax comparison.",
+        "tag": "SCI / SCP LU"
+      },
+      "vefa": {
+        "title": "VEFA (Off-plan)",
+        "description": "Off-plan purchase simulation: VAT 3% vs 17%, fund call scheduling, comparison with existing properties.",
+        "tag": "VAT 3% / 17%"
       }
     },
     "stats": {
       "tools": "Real estate tools",
       "energySimulators": "Energy simulators",
       "communes": "Municipalities covered",
-      "languages": "Languages (FR/EN/DE/PT/LB)"
+      "languages": "Languages (FR/EN/DE/PT/LB)",
+      "tests": "Automated tests"
     },
     "contact": {
-      "tevaxiaTitle": "tevaxia.lu — 18+ tools",
+      "tevaxiaTitle": "tevaxia.lu — 30+ tools",
       "tevaxiaLine1": "Estimation, price map, EVS 2025 valuation",
       "tevaxiaLine2": "Multi-tenant DCF, developer feasibility, banking tools",
       "tevaxiaLine3": "Fees, capital gains, subsidies, VEFA, buy vs rent",
@@ -200,6 +261,19 @@
       "sourcesLine3": "Geoportail.lu — Cadastre and PAG",
       "sourcesLine4": "Office, retail & logistics market reports",
       "sourcesLine5": "Mortgage rates and construction indices"
+    },
+    "heroCta1": "Estimate my property",
+    "heroCta2": "See all 30+ tools",
+    "trust": {
+      "heading": "Solid foundations",
+      "tegova": "TEGOVA EVS 2025",
+      "tegovaDesc": "Compliant methodology",
+      "data": "LU public data",
+      "dataDesc": "data.public.lu, STATEC",
+      "rgpd": "GDPR compliant",
+      "rgpdDesc": "Export, deletion, consents",
+      "tests": "172 automated tests",
+      "testsDesc": "Verified code quality"
     }
   },
   "footer": {
@@ -2835,7 +2909,9 @@
       "link2": "Multi-tenant DCF",
       "link3": "Portfolio",
       "link4": "Cashflow calculator (FR/BE/LU)",
-      "link5": "Compare two assets"
+      "link5": "Compare two assets",
+      "linkInspection": "TEGOVA Inspection",
+      "linkTransparence": "Tax transparency"
     },
     "promoteur": {
       "title": "Developer",
@@ -2861,7 +2937,10 @@
       "link1": "Property manager module",
       "link2": "Legal rent (5 % rule)",
       "link3": "Property portfolio",
-      "link4": "Energy portfolio"
+      "link4": "Energy portfolio",
+      "linkCopros": "Co-ownership management",
+      "linkGestion": "LU rental management",
+      "linkBailCo": "Commercial lease"
     },
     "banque": {
       "title": "Bank / Finance",
@@ -2878,7 +2957,11 @@
       "link2": "Hotel valuation (RevPAR/EBITDA)",
       "link3": "DSCR & hotel financing",
       "link4": "Operating P&L",
-      "link5": "E-2 / investor score"
+      "link5": "E-2 / investor score",
+      "linkGroupe": "Group portfolio",
+      "linkForecast": "RevPAR Forecast",
+      "linkRevpar": "RevPAR Comparison",
+      "linkReno": "Hotel renovation"
     }
   },
   "cookie": {

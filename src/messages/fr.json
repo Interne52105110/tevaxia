@@ -176,16 +176,77 @@
         "title": "Tableau de bord syndic",
         "description": "Gestion multi-lots, répartition des charges par tantièmes, classe CPE par lot, planning rénovation avec Klimabonus.",
         "tag": "Copropriété / AG"
+      },
+      "hotellerie": {
+        "title": "Hub Hôtellerie",
+        "description": "6 calculateurs hôteliers : valorisation RevPAR/EBITDA, DSCR, exploitation, score E-2, forecast et comparaison RevPAR.",
+        "tag": "Pré-acquisition hôtel"
+      },
+      "gestionLocative": {
+        "title": "Gestion Locative LU",
+        "description": "Règle des 5 %, Klimabonus locatif, rendement net, cashflow mensuel et tableau de bord pour propriétaires-bailleurs luxembourgeois.",
+        "tag": "Propriétaire-bailleur"
+      },
+      "bailCommercial": {
+        "title": "Bail Commercial LU",
+        "description": "Indexation IPC, durée légale, clauses triennales et coûts complémentaires du bail commercial luxembourgeois.",
+        "tag": "Loi 03/02/2018"
+      },
+      "dcfMulti": {
+        "title": "DCF Multi-locataires",
+        "description": "Analyse DCF complète avec break options, step rents, CAPEX, IRR equity et sensibilité sur taux de capitalisation.",
+        "tag": "Rendement / IRR"
+      },
+      "portfolio": {
+        "title": "Portefeuille Immobilier",
+        "description": "Analyse multi-biens, allocation par type d'actif, rendement global pondéré et suivi de performance.",
+        "tag": "Multi-biens"
+      },
+      "propcalc": {
+        "title": "Calculateur Cashflow",
+        "description": "Cashflow net mensuel, rendement brut/net, TRI et projection sur 10 ans. Adapté FR/BE/LU.",
+        "tag": "FR / BE / LU"
+      },
+      "hedonique": {
+        "title": "Méthode Hédonique",
+        "description": "Estimation par régression hédonique sur les caractéristiques du bien. Décomposition de la valeur par attribut.",
+        "tag": "Régression"
+      },
+      "amlKyc": {
+        "title": "AML / KYC",
+        "description": "Scoring anti-blanchiment et vérification d'identité pour transactions immobilières. Conformité CSSF / 4e directive.",
+        "tag": "CSSF / 4e directive"
+      },
+      "inspection": {
+        "title": "Inspection TEGOVA",
+        "description": "Grille d'inspection terrain 120 points conforme EVS 2025. Scoring par section, photos, export PDF.",
+        "tag": "EVS 2025 terrain"
+      },
+      "terresAgricoles": {
+        "title": "Terres Agricoles",
+        "description": "Estimation de la valeur des terres agricoles au Luxembourg. Prix par hectare, zonage, droits de préemption.",
+        "tag": "Bail à ferme"
+      },
+      "transparence": {
+        "title": "Transparence Fiscale",
+        "description": "Simulation de la transparence fiscale pour SCI/SCP luxembourgeoises. Impôt société vs impôt personnel.",
+        "tag": "SCI / SCP LU"
+      },
+      "vefa": {
+        "title": "VEFA",
+        "description": "Simulation d'achat en VEFA : TVA 3% vs 17%, échelonnement des appels de fonds, comparaison avec l'ancien.",
+        "tag": "TVA 3% / 17%"
       }
     },
     "stats": {
       "tools": "Outils immobiliers",
       "energySimulators": "Simulateurs énergie",
       "communes": "Communes couvertes",
-      "languages": "Langues (FR/EN/DE/PT/LB)"
+      "languages": "Langues (FR/EN/DE/PT/LB)",
+      "tests": "Tests automatisés"
     },
     "contact": {
-      "tevaxiaTitle": "tevaxia.lu — 18+ outils",
+      "tevaxiaTitle": "tevaxia.lu — 30+ outils",
       "tevaxiaLine1": "Estimation, carte des prix, valorisation EVS 2025",
       "tevaxiaLine2": "DCF multi-locataires, bilan promoteur, outils bancaires",
       "tevaxiaLine3": "Frais, plus-values, aides, VEFA, achat vs location",
@@ -200,6 +261,19 @@
       "sourcesLine3": "Geoportail.lu — Cadastre et PAG",
       "sourcesLine4": "Rapports de marché bureaux, commerces, logistique",
       "sourcesLine5": "Taux hypothécaires et indices de construction"
+    },
+    "heroCta1": "Estimer mon bien",
+    "heroCta2": "Voir les 30+ outils",
+    "trust": {
+      "heading": "Fondations solides",
+      "tegova": "TEGOVA EVS 2025",
+      "tegovaDesc": "Méthodologie conforme",
+      "data": "Données publiques LU",
+      "dataDesc": "data.public.lu, STATEC",
+      "rgpd": "RGPD conforme",
+      "rgpdDesc": "Export, suppression, consentements",
+      "tests": "172 tests automatisés",
+      "testsDesc": "Qualité de code vérifiée"
     }
   },
   "footer": {
@@ -2835,7 +2909,9 @@
       "link2": "DCF multi-locataires",
       "link3": "Portefeuille",
       "link4": "Calculateur cashflow (FR/BE/LU)",
-      "link5": "Comparer 2 biens"
+      "link5": "Comparer 2 biens",
+      "linkInspection": "Inspection TEGOVA",
+      "linkTransparence": "Transparence fiscale"
     },
     "promoteur": {
       "title": "Promoteur",
@@ -2861,7 +2937,10 @@
       "link1": "Module syndic",
       "link2": "Loyer légal (règle 5 %)",
       "link3": "Portefeuille immobilier",
-      "link4": "Portfolio énergétique"
+      "link4": "Portfolio énergétique",
+      "linkCopros": "Gestion copropriétés",
+      "linkGestion": "Gestion locative LU",
+      "linkBailCo": "Bail commercial"
     },
     "banque": {
       "title": "Banque / Finance",
@@ -2878,7 +2957,11 @@
       "link2": "Valorisation hôtelière (RevPAR/EBITDA)",
       "link3": "DSCR & financement hôtel",
       "link4": "Bilan d'exploitation",
-      "link5": "Score E-2 / investisseur"
+      "link5": "Score E-2 / investisseur",
+      "linkGroupe": "Portefeuille groupe",
+      "linkForecast": "Forecast RevPAR",
+      "linkRevpar": "Comparaison RevPAR",
+      "linkReno": "Rénovation hôtelière"
     }
   },
   "cookie": {

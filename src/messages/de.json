@@ -176,16 +176,77 @@
         "title": "Syndic-Dashboard",
         "description": "Mehrfachlot-Verwaltung, Kostenverteilung nach Anteilen, EPA pro Einheit, Sanierungsplanung mit Klimabonus.",
         "tag": "Wohneigentum / ETV"
+      },
+      "hotellerie": {
+        "title": "Hotellerie-Hub",
+        "description": "6 Hotel-Rechner: RevPAR/EBITDA-Bewertung, DSCR, Betriebs-GuV, E-2-Score, Forecast und RevPAR-Vergleich.",
+        "tag": "Hotel-Vorerwerb"
+      },
+      "gestionLocative": {
+        "title": "LU Vermietungsverwaltung",
+        "description": "5%-Regel, Miet-Klimabonus, Nettorendite, monatlicher Cashflow und Dashboard für Luxemburger Vermieter.",
+        "tag": "Vermieter-Tools"
+      },
+      "bailCommercial": {
+        "title": "Gewerbemietvertrag LU",
+        "description": "VPI-Indexierung, gesetzliche Dauer, Dreijahresklauseln und Zusatzkosten luxemburgischer Gewerbemietverträge.",
+        "tag": "Gesetz 03/02/2018"
+      },
+      "dcfMulti": {
+        "title": "DCF Mehrmieter",
+        "description": "Vollständige DCF-Analyse mit Break Options, Staffelmieten, CAPEX, IRR Eigenkapital und Renditesensitivität.",
+        "tag": "Rendite / IRR"
+      },
+      "portfolio": {
+        "title": "Immobilien-Portfolio",
+        "description": "Multi-Objekt-Analyse, Allokation nach Assettyp, gewichtete Gesamtrendite und Performance-Tracking.",
+        "tag": "Multi-Objekt"
+      },
+      "propcalc": {
+        "title": "Cashflow-Rechner",
+        "description": "Monatlicher Netto-Cashflow, Brutto-/Nettorendite, IRR und 10-Jahres-Projektion. Angepasst für FR/BE/LU.",
+        "tag": "FR / BE / LU"
+      },
+      "hedonique": {
+        "title": "Hedonische Methode",
+        "description": "Hedonische Regressionsschätzung anhand der Immobilienmerkmale. Wertzerlegung nach Attribut.",
+        "tag": "Regression"
+      },
+      "amlKyc": {
+        "title": "AML / KYC",
+        "description": "Geldwäscheprävention-Scoring und Identitätsprüfung für Immobilientransaktionen. CSSF- / 4. Richtlinie-Konformität.",
+        "tag": "CSSF / 4. Richtlinie"
+      },
+      "inspection": {
+        "title": "TEGOVA-Inspektion",
+        "description": "120-Punkte Vor-Ort-Inspektionsraster gemäß EVS 2025. Bewertung nach Abschnitt, Fotos, PDF-Export.",
+        "tag": "EVS 2025 Vor-Ort"
+      },
+      "terresAgricoles": {
+        "title": "Landwirtschaftliche Flächen",
+        "description": "Bewertung landwirtschaftlicher Flächen in Luxemburg. Preis pro Hektar, Zonierung, Vorkaufsrechte.",
+        "tag": "Pachtvertrag"
+      },
+      "transparence": {
+        "title": "Steuerliche Transparenz",
+        "description": "Simulation der steuerlichen Transparenz für luxemburgische SCI/SCP. Körperschaftsteuer vs Einkommensteuer.",
+        "tag": "SCI / SCP LU"
+      },
+      "vefa": {
+        "title": "VEFA (Neubau)",
+        "description": "VEFA-Kaufsimulation: MwSt. 3% vs 17%, Ratenzahlungsplan, Vergleich mit Bestandsimmobilien.",
+        "tag": "MwSt. 3% / 17%"
       }
     },
     "stats": {
       "tools": "Immobilientools",
       "energySimulators": "Energiesimulatoren",
       "communes": "Gemeinden abgedeckt",
-      "languages": "Sprachen (FR/EN/DE/PT/LB)"
+      "languages": "Sprachen (FR/EN/DE/PT/LB)",
+      "tests": "Automatisierte Tests"
     },
     "contact": {
-      "tevaxiaTitle": "tevaxia.lu — 18+ Tools",
+      "tevaxiaTitle": "tevaxia.lu — 30+ Tools",
       "tevaxiaLine1": "Bewertung, Preiskarte, Bewertung EVS 2025",
       "tevaxiaLine2": "DCF Mehrmieter, Projektentwicklerbilanz, Banktools",
       "tevaxiaLine3": "Gebühren, Veräußerungsgewinne, Förderungen, VEFA, Kauf vs. Miete",
@@ -200,6 +261,19 @@
       "sourcesLine3": "Geoportail.lu — Kataster und PAG",
       "sourcesLine4": "Marktberichte Büros, Einzelhandel, Logistik",
       "sourcesLine5": "Hypothekenzinsen und Baukostenindizes"
+    },
+    "heroCta1": "Meine Immobilie bewerten",
+    "heroCta2": "Alle 30+ Tools ansehen",
+    "trust": {
+      "heading": "Solide Grundlagen",
+      "tegova": "TEGOVA EVS 2025",
+      "tegovaDesc": "Konforme Methodik",
+      "data": "Öffentliche Daten LU",
+      "dataDesc": "data.public.lu, STATEC",
+      "rgpd": "DSGVO-konform",
+      "rgpdDesc": "Export, Löschung, Einwilligungen",
+      "tests": "172 automatisierte Tests",
+      "testsDesc": "Verifizierte Codequalität"
     }
   },
   "footer": {
@@ -2835,7 +2909,9 @@
       "link2": "DCF Mehrmieter",
       "link3": "Portfolio",
       "link4": "Cashflow-Rechner (FR/BE/LU)",
-      "link5": "Zwei Objekte vergleichen"
+      "link5": "Zwei Objekte vergleichen",
+      "linkInspection": "TEGOVA-Inspektion",
+      "linkTransparence": "Steuerliche Transparenz"
     },
     "promoteur": {
       "title": "Projektentwickler",
@@ -2861,7 +2937,10 @@
       "link1": "Hausverwalter-Modul",
       "link2": "Gesetzlicher Mietzins (5 %)",
       "link3": "Immobilien-Portfolio",
-      "link4": "Energie-Portfolio"
+      "link4": "Energie-Portfolio",
+      "linkCopros": "Wohneigentumsverwaltung",
+      "linkGestion": "LU Vermietungsverwaltung",
+      "linkBailCo": "Gewerbemietvertrag"
     },
     "banque": {
       "title": "Bank / Finanzwesen",
@@ -2878,7 +2957,11 @@
       "link2": "Hotelbewertung (RevPAR/EBITDA)",
       "link3": "DSCR & Hotelfinanzierung",
       "link4": "Betriebs-GuV",
-      "link5": "E-2 / Investor-Score"
+      "link5": "E-2 / Investor-Score",
+      "linkGroupe": "Gruppen-Portfolio",
+      "linkForecast": "RevPAR-Forecast",
+      "linkRevpar": "RevPAR-Vergleich",
+      "linkReno": "Hotelrenovierung"
     }
   },
   "cookie": {

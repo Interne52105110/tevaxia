@@ -176,16 +176,77 @@
         "title": "Painel de Síndico",
         "description": "Gestão multi-lotes, distribuição de encargos por quotas, CPE por lote, planeamento de renovação com Klimabonus.",
         "tag": "Condomínio / AG"
+      },
+      "hotellerie": {
+        "title": "Hub Hotelaria",
+        "description": "6 calculadores hoteleiros: avaliação RevPAR/EBITDA, DSCR, exploração, score E-2, previsão e comparação RevPAR.",
+        "tag": "Pré-aquisição hotel"
+      },
+      "gestionLocative": {
+        "title": "Gestão Locativa LU",
+        "description": "Regra dos 5%, Klimabonus locativo, rendimento líquido, cashflow mensal e painel para proprietários luxemburgueses.",
+        "tag": "Proprietário-arrendador"
+      },
+      "bailCommercial": {
+        "title": "Arrendamento Comercial LU",
+        "description": "Indexação IPC, duração legal, cláusulas trienais e custos complementares do arrendamento comercial luxemburguês.",
+        "tag": "Lei 03/02/2018"
+      },
+      "dcfMulti": {
+        "title": "DCF Multi-inquilinos",
+        "description": "Análise DCF completa com break options, step rents, CAPEX, IRR equity e sensibilidade na taxa de capitalização.",
+        "tag": "Rendimento / IRR"
+      },
+      "portfolio": {
+        "title": "Portfólio Imobiliário",
+        "description": "Análise multi-imóveis, alocação por tipo de ativo, rendimento global ponderado e acompanhamento de desempenho.",
+        "tag": "Multi-imóveis"
+      },
+      "propcalc": {
+        "title": "Calculador de Cashflow",
+        "description": "Cashflow líquido mensal, rendimento bruto/líquido, TIR e projeção a 10 anos. Adaptado FR/BE/LU.",
+        "tag": "FR / BE / LU"
+      },
+      "hedonique": {
+        "title": "Método Hedónico",
+        "description": "Estimativa por regressão hedónica nas características do imóvel. Decomposição do valor por atributo.",
+        "tag": "Regressão"
+      },
+      "amlKyc": {
+        "title": "AML / KYC",
+        "description": "Scoring anti-lavagem e verificação de identidade para transações imobiliárias. Conformidade CSSF / 4.ª diretiva.",
+        "tag": "CSSF / 4.ª diretiva"
+      },
+      "inspection": {
+        "title": "Inspeção TEGOVA",
+        "description": "Grelha de inspeção no terreno de 120 pontos conforme EVS 2025. Scoring por secção, fotos, exportação PDF.",
+        "tag": "EVS 2025 terreno"
+      },
+      "terresAgricoles": {
+        "title": "Terrenos Agrícolas",
+        "description": "Avaliação de terrenos agrícolas no Luxemburgo. Preço por hectare, zonamento, direitos de preferência.",
+        "tag": "Arrendamento rural"
+      },
+      "transparence": {
+        "title": "Transparência Fiscal",
+        "description": "Simulação da transparência fiscal para SCI/SCP luxemburguesas. Imposto societário vs imposto pessoal.",
+        "tag": "SCI / SCP LU"
+      },
+      "vefa": {
+        "title": "VEFA (Planta)",
+        "description": "Simulação de compra em VEFA: IVA 3% vs 17%, escalonamento de chamadas de fundos, comparação com o existente.",
+        "tag": "IVA 3% / 17%"
       }
     },
     "stats": {
       "tools": "Ferramentas imobiliárias",
       "energySimulators": "Simuladores de energia",
       "communes": "Municípios cobertos",
-      "languages": "Línguas (FR/EN/DE/PT/LB)"
+      "languages": "Línguas (FR/EN/DE/PT/LB)",
+      "tests": "Testes automatizados"
     },
     "contact": {
-      "tevaxiaTitle": "tevaxia.lu — 18+ ferramentas",
+      "tevaxiaTitle": "tevaxia.lu — 30+ ferramentas",
       "tevaxiaLine1": "Estimativa, mapa de preços, avaliação EVS 2025",
       "tevaxiaLine2": "DCF multi-inquilinos, balanço promotor, ferramentas bancárias",
       "tevaxiaLine3": "Custos, mais-valias, apoios, VEFA, compra vs arrendamento",
@@ -200,6 +261,19 @@
       "sourcesLine3": "Geoportail.lu — Cadastro e PAG",
       "sourcesLine4": "Relatórios de mercado escritórios, comércio, logística",
       "sourcesLine5": "Taxas hipotecárias e índices de construção"
+    },
+    "heroCta1": "Estimar o meu imóvel",
+    "heroCta2": "Ver as 30+ ferramentas",
+    "trust": {
+      "heading": "Fundações sólidas",
+      "tegova": "TEGOVA EVS 2025",
+      "tegovaDesc": "Metodologia conforme",
+      "data": "Dados públicos LU",
+      "dataDesc": "data.public.lu, STATEC",
+      "rgpd": "RGPD conforme",
+      "rgpdDesc": "Exportação, supressão, consentimentos",
+      "tests": "172 testes automatizados",
+      "testsDesc": "Qualidade de código verificada"
     }
   },
   "footer": {
@@ -2835,7 +2909,9 @@
       "link2": "DCF multi-inquilinos",
       "link3": "Portfólio",
       "link4": "Calculador cashflow (FR/BE/LU)",
-      "link5": "Comparar dois imóveis"
+      "link5": "Comparar dois imóveis",
+      "linkInspection": "Inspeção TEGOVA",
+      "linkTransparence": "Transparência fiscal"
     },
     "promoteur": {
       "title": "Promotor",
@@ -2861,7 +2937,10 @@
       "link1": "Módulo síndico",
       "link2": "Renda legal (regra 5 %)",
       "link3": "Portfólio imobiliário",
-      "link4": "Portfólio energético"
+      "link4": "Portfólio energético",
+      "linkCopros": "Gestão de condomínios",
+      "linkGestion": "Gestão locativa LU",
+      "linkBailCo": "Arrendamento comercial"
     },
     "banque": {
       "title": "Banco / Finanças",
@@ -2878,7 +2957,11 @@
       "link2": "Avaliação hoteleira (RevPAR/EBITDA)",
       "link3": "DSCR & financiamento hotel",
       "link4": "Balanço de exploração",
-      "link5": "Score E-2 / investidor"
+      "link5": "Score E-2 / investidor",
+      "linkGroupe": "Portfólio de grupo",
+      "linkForecast": "Previsão RevPAR",
+      "linkRevpar": "Comparação RevPAR",
+      "linkReno": "Renovação hoteleira"
     }
   },
   "cookie": {

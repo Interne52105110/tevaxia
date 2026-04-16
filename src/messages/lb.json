@@ -176,16 +176,77 @@
         "title": "Syndic-Dashboard",
         "description": "Multi-Lot-Gestioun, Käschtenverdeelung no Ufeeler, CPE pro Lot, Renovatiounsplanung mat Klimabonus.",
         "tag": "Kopropriétéit / AG"
+      },
+      "hotellerie": {
+        "title": "Hotellerie-Hub",
+        "description": "6 Hotel-Rechner: RevPAR/EBITDA-Bewäertung, DSCR, Exploitatiounsbilanz, E-2-Score, Forecast an RevPAR-Vergläich.",
+        "tag": "Hotel-Virakaf"
+      },
+      "gestionLocative": {
+        "title": "LU Lounungsverwaltung",
+        "description": "5%-Regel, Loyer-Klimabonus, Nettorendement, monatleche Cashflow an Dashboard fir Lëtzebuerger Proprietären.",
+        "tag": "Proprietär-Tools"
+      },
+      "bailCommercial": {
+        "title": "Gewierflech Bail LU",
+        "description": "VPI-Indexéierung, gesetzlech Dauer, Dräijoerklauselen an Zousätzlech Käschte vu Lëtzebuerger Gewierflech Bailen.",
+        "tag": "Gesetz 03/02/2018"
+      },
+      "dcfMulti": {
+        "title": "DCF Multi-Locatairen",
+        "description": "Komplett DCF-Analyse mat Break Options, Staffelmieten, CAPEX, IRR Egenkapital an Renditesensitivitéit.",
+        "tag": "Rendement / IRR"
+      },
+      "portfolio": {
+        "title": "Immobilien-Portfolio",
+        "description": "Multi-Immobilien-Analyse, Allokatioun no Assettyp, gewiicht Gesamtrendement a Performance-Tracking.",
+        "tag": "Multi-Immobilie"
+      },
+      "propcalc": {
+        "title": "Cashflow-Rechner",
+        "description": "Monatleche Netto-Cashflow, Brutto-/Nettorendement, IRR an 10-Joer-Projektioun. Ugepasst fir FR/BE/LU.",
+        "tag": "FR / BE / LU"
+      },
+      "hedonique": {
+        "title": "Hedonesch Method",
+        "description": "Hedonesch Regressiounsschätzung op Basis vun den Immobiliecharakteristiken. Wäertzerleeung no Attribut.",
+        "tag": "Regressioun"
+      },
+      "amlKyc": {
+        "title": "AML / KYC",
+        "description": "Geldwäschepräventioun-Scoring an Identitéitsprüfung fir Immobilietransaktiounen. CSSF- / 4. Richtlin-Konformitéit.",
+        "tag": "CSSF / 4. Richtlin"
+      },
+      "inspection": {
+        "title": "TEGOVA-Inspektioun",
+        "description": "120-Punkten Terrain-Inspektiounsraster konform EVS 2025. Bewäertung pro Sektioun, Fotoen, PDF-Export.",
+        "tag": "EVS 2025 Terrain"
+      },
+      "terresAgricoles": {
+        "title": "Landwirtschaftlech Flächen",
+        "description": "Bewäertung vu landwirtschaftleche Flächen zu Lëtzebuerg. Präis pro Hektar, Zonéierung, Virkaafsrechter.",
+        "tag": "Pachtvertrag"
+      },
+      "transparence": {
+        "title": "Steierlich Transparenz",
+        "description": "Simulatioun vun der steierlecher Transparenz fir Lëtzebuerger SCI/SCP. Kierperschaftssteier vs Akommesteier.",
+        "tag": "SCI / SCP LU"
+      },
+      "vefa": {
+        "title": "VEFA (Neibau)",
+        "description": "VEFA-Kafsimulatioun: TVA 3% vs 17%, Ratenplang, Vergläich mat bestoenden Immobilien.",
+        "tag": "TVA 3% / 17%"
       }
     },
     "stats": {
       "tools": "Immobilientools",
       "energySimulators": "Energiesimulatoren",
       "communes": "Gemengen ofgedeckt",
-      "languages": "Sproochen (FR/EN/DE/PT/LB)"
+      "languages": "Sproochen (FR/EN/DE/PT/LB)",
+      "tests": "Automatiséiert Tester"
     },
     "contact": {
-      "tevaxiaTitle": "tevaxia.lu — 18+ Tools",
+      "tevaxiaTitle": "tevaxia.lu — 30+ Tools",
       "tevaxiaLine1": "Schätzung, Präiskaart, Bewäertung EVS 2025",
       "tevaxiaLine2": "DCF Multi-Locatairen, Promoteur-Bilanz, Bankinstrumenter",
       "tevaxiaLine3": "Käschten, Wäertzouwuess, Hëllefen, VEFA, Kaf vs Loyer",
@@ -200,6 +261,19 @@
       "sourcesLine3": "Geoportail.lu — Kataster a PAG",
       "sourcesLine4": "Maartberichter Büroën, Handel, Logistik",
       "sourcesLine5": "Hypothéikenzinsen a Baukostenindexen"
+    },
+    "heroCta1": "Meng Immobilie bewäerten",
+    "heroCta2": "All 30+ Tools gesinn",
+    "trust": {
+      "heading": "Solid Grondlagen",
+      "tegova": "TEGOVA EVS 2025",
+      "tegovaDesc": "Konform Methodik",
+      "data": "Ëffentlech Donnéeën LU",
+      "dataDesc": "data.public.lu, STATEC",
+      "rgpd": "DSGVO-konform",
+      "rgpdDesc": "Export, Läschung, Zoustëmmungen",
+      "tests": "172 automatiséiert Tester",
+      "testsDesc": "Verifizéiert Codequalitéit"
     }
   },
   "footer": {
@@ -2835,7 +2909,9 @@
       "link2": "DCF Multi-Locatairen",
       "link3": "Portfolio",
       "link4": "Cashflow-Rechner (FR/BE/LU)",
-      "link5": "Zwou Immobilien vergläichen"
+      "link5": "Zwou Immobilien vergläichen",
+      "linkInspection": "TEGOVA-Inspektioun",
+      "linkTransparence": "Steierlich Transparenz"
     },
     "promoteur": {
       "title": "Promoteur",
@@ -2861,7 +2937,10 @@
       "link1": "Syndic-Modul",
       "link2": "Gesetzleche Loyer (5 %)",
       "link3": "Immobilien-Portfolio",
-      "link4": "Energie-Portfolio"
+      "link4": "Energie-Portfolio",
+      "linkCopros": "Kopropriétéitsverwaltung",
+      "linkGestion": "LU Lounungsverwaltung",
+      "linkBailCo": "Gewierflech Bail"
     },
     "banque": {
       "title": "Bank / Finanzwiesen",
@@ -2878,7 +2957,11 @@
       "link2": "Hotelbewäertung (RevPAR/EBITDA)",
       "link3": "DSCR & Hotelfinanzéierung",
       "link4": "Exploitatiounsbilanz",
-      "link5": "E-2 / Investisseur-Score"
+      "link5": "E-2 / Investisseur-Score",
+      "linkGroupe": "Gruppen-Portfolio",
+      "linkForecast": "RevPAR-Forecast",
+      "linkRevpar": "RevPAR-Vergläich",
+      "linkReno": "Hotelrenovéierung"
     }
   },
   "cookie": {

@@ -57,6 +57,8 @@ export default function OnboardingIntent() {
         { href: "/portfolio", label: t("investisseur.link3") },
         { href: "/propcalc", label: t("investisseur.link4") },
         { href: "/comparer", label: t("investisseur.link5") },
+        { href: "/inspection", label: t("investisseur.linkInspection") },
+        { href: "/transparence", label: t("investisseur.linkTransparence") },
       ],
     },
     {
@@ -107,6 +109,9 @@ export default function OnboardingIntent() {
       ),
       links: [
         { href: "/syndic", label: t("syndic.link1") },
+        { href: "/syndic/coproprietes", label: t("syndic.linkCopros") },
+        { href: "/gestion-locative", label: t("syndic.linkGestion") },
+        { href: "/bail-commercial", label: t("syndic.linkBailCo") },
         { href: "/calculateur-loyer", label: t("syndic.link2") },
         { href: "/portfolio", label: t("syndic.link3") },
         { href: "/energy/portfolio", label: t("syndic.link4") },
@@ -141,9 +146,13 @@ export default function OnboardingIntent() {
       ),
       links: [
         { href: "/hotellerie", label: t("hotellerie.link1") },
+        { href: "/hotellerie/groupe", label: t("hotellerie.linkGroupe") },
+        { href: "/hotellerie/forecast", label: t("hotellerie.linkForecast") },
         { href: "/hotellerie/valorisation", label: t("hotellerie.link2") },
-        { href: "/hotellerie/dscr", label: t("hotellerie.link3") },
         { href: "/hotellerie/exploitation", label: t("hotellerie.link4") },
+        { href: "/hotellerie/dscr", label: t("hotellerie.link3") },
+        { href: "/hotellerie/revpar-comparison", label: t("hotellerie.linkRevpar") },
+        { href: "/hotellerie/renovation", label: t("hotellerie.linkReno") },
         { href: "/hotellerie/score-e2", label: t("hotellerie.link5") },
       ],
     },
