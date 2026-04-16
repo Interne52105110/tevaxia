@@ -848,7 +848,7 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 
 | Horizon | Chantier | Type |
 |---|---|---|
-| 6 mois | Module gestion paiements locatifs + quittances auto | Produit |
+| ~~6 mois~~ | ~~Module gestion paiements locatifs + quittances auto~~ ✅ (commit ci-dessous) | Produit |
 | 6 mois | Panel Hotrec LU pour RevPAR live | Partenariat |
 | 6 mois | Modèle hédonique re-calibré + rapport MAPE public | Crédibilité |
 | 6 mois | **Owner report mensuel hôtelier PDF auto** | Rétention hôtels |
