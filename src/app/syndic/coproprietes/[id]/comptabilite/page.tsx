@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { getCoownership, type Coownership } from "@/lib/coownerships";
 import {
@@ -21,6 +21,7 @@ type DraftLine = { account_id: string; debit: number; credit: number; line_label
 export default function AccountingPage() {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
+  const t = useTranslations("syndicComptabilite");
   const { user } = useAuth();
   const params = useParams();
   const id = String(params?.id ?? "");
@@ -59,7 +60,7 @@ export default function AccountingPage() {
       const [c, y, a] = await Promise.all([getCoownership(id), listYears(id), listAccounts(id)]);
       setCoown(c); setYears(y); setAccounts(a);
       if (!activeYearId && y.length > 0) setActiveYearId(y[0].id);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const loadYearDetails = async (yearId: string, year: number) => {
@@ -85,29 +86,29 @@ export default function AccountingPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeYear]);
 
-  if (!coown) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">Chargement…</div>;
+  if (!coown) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
 
   const needsSeed = accounts.length === 0;
 
   const handleSeedChart = async () => {
     try { await seedChart(id); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleOpenYear = async (year: number) => {
     try { const y = await openYear(id, year); setActiveYearId(y.id); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleCloseYear = async () => {
     if (!activeYear) return;
-    if (!confirm(`Clôturer l'exercice ${activeYear.year} ? Les écritures seront verrouillées (non modifiables).`)) return;
+    if (!confirm(t("confirmCloseYear", { year: activeYear.year }))) return;
     try {
       const result = await closeYear(activeYear.id);
-      alert(`Exercice ${activeYear.year} clôturé. Résultat : ${formatEUR(result)}`);
+      alert(`${t("yearClosed", { year: activeYear.year })} ${formatEUR(result)}`);
       await refresh();
       if (activeYear) await loadYearDetails(activeYear.id, activeYear.year);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const addLine = () => setNewEntry((p) => ({
@@ -146,14 +147,14 @@ export default function AccountingPage() {
         ],
       });
       await loadYearDetails(activeYear.id, activeYear.year);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleDeleteEntry = async (entryId: string) => {
     if (!activeYear) return;
-    if (!confirm("Supprimer cette écriture ?")) return;
+    if (!confirm(t("confirmDeleteEntry"))) return;
     try { await deleteEntry(entryId); await loadYearDetails(activeYear.id, activeYear.year); }
-    catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const resultInfo = computeResult(balance);
@@ -162,22 +163,22 @@ export default function AccountingPage() {
   return (
     <div className="bg-background min-h-screen py-8 sm:py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Link href={`${lp}/syndic/coproprietes/${id}`} className="text-xs text-muted hover:text-navy">← {coown.name}</Link>
-        <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">Comptabilité copropriété</h1>
+        <Link href={`${lp}/syndic/coproprietes/${id}`} className="text-xs text-muted hover:text-navy">&larr; {coown.name}</Link>
+        <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
         <p className="mt-1 text-sm text-muted">
-          Plan comptable standardisé LU · double-entrée · journal, balance et clôture annuelle avec calcul du résultat.
+          {t("subtitle")}
         </p>
 
         {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
 
         {needsSeed && (
           <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5">
-            <h2 className="text-sm font-semibold text-amber-900">Plan comptable non initialisé</h2>
+            <h2 className="text-sm font-semibold text-amber-900">{t("chartNotInitialized")}</h2>
             <p className="mt-1 text-xs text-amber-800">
-              Créez le plan comptable standardisé (classes 1 à 7, 22 comptes système) avant toute saisie.
+              {t("chartSeedDesc")}
             </p>
             <button onClick={handleSeedChart} className="mt-3 rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-              Initialiser le plan comptable
+              {t("seedButton")}
             </button>
           </div>
         )}
@@ -192,11 +193,11 @@ export default function AccountingPage() {
                     className={`rounded-lg border px-3 py-2 text-xs ${
                       y.id === activeYearId ? "border-navy bg-navy text-white" : "border-card-border bg-card text-navy hover:bg-slate-50"
                     }`}>
-                    Exercice {y.year}
+                    {t("exercice")} {y.year}
                     <span className={`ml-1 rounded-full px-1.5 py-0.5 text-[9px] font-medium ${
                       y.status === "closed" ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
                     }`}>
-                      {y.status === "closed" ? "Clôturé" : "Ouvert"}
+                      {y.status === "closed" ? t("statusClosed") : t("statusOpen")}
                     </span>
                   </button>
                 ))}
@@ -205,13 +206,13 @@ export default function AccountingPage() {
                 {!years.find((y) => y.year === thisYear) && (
                   <button onClick={() => handleOpenYear(thisYear)}
                     className="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700">
-                    + Ouvrir exercice {thisYear}
+                    {t("openYear")} {thisYear}
                   </button>
                 )}
                 {activeYear && activeYear.status === "open" && (
                   <button onClick={handleCloseYear}
                     className="rounded-lg bg-rose-600 px-3 py-2 text-xs font-semibold text-white hover:bg-rose-700">
-                    Clôturer {activeYear.year}
+                    {t("closeYear")} {activeYear.year}
                   </button>
                 )}
               </div>
@@ -222,19 +223,19 @@ export default function AccountingPage() {
                 {/* KPIs */}
                 <div className="mt-4 grid gap-3 sm:grid-cols-4">
                   <div className="rounded-xl border border-card-border bg-card p-4">
-                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">Écritures</div>
+                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("kpiEntries")}</div>
                     <div className="mt-1 text-2xl font-bold text-navy">{entries.length}</div>
                   </div>
                   <div className="rounded-xl border border-card-border bg-card p-4">
-                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">Produits (cl. 7)</div>
+                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("kpiIncome")}</div>
                     <div className="mt-1 text-2xl font-bold text-emerald-700">{formatEUR(resultInfo.income)}</div>
                   </div>
                   <div className="rounded-xl border border-card-border bg-card p-4">
-                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">Charges (cl. 6)</div>
+                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("kpiExpenses")}</div>
                     <div className="mt-1 text-2xl font-bold text-rose-700">{formatEUR(resultInfo.expense)}</div>
                   </div>
                   <div className="rounded-xl border border-card-border bg-card p-4">
-                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">Résultat</div>
+                    <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("kpiResult")}</div>
                     <div className={`mt-1 text-2xl font-bold ${resultInfo.result >= 0 ? "text-emerald-700" : "text-rose-700"}`}>
                       {formatEUR(resultInfo.result)}
                     </div>
@@ -246,17 +247,17 @@ export default function AccountingPage() {
                   <div className="inline-flex rounded-lg border border-card-border bg-card">
                     <button onClick={() => setView("journal")}
                       className={`px-3 py-1.5 text-xs ${view === "journal" ? "bg-navy text-white rounded-l-lg" : "text-navy"}`}>
-                      Journal
+                      {t("viewJournal")}
                     </button>
                     <button onClick={() => setView("balance")}
                       className={`px-3 py-1.5 text-xs ${view === "balance" ? "bg-navy text-white rounded-r-lg" : "text-navy"}`}>
-                      Balance
+                      {t("viewBalance")}
                     </button>
                   </div>
                   {!lockedYear && (
                     <button onClick={() => setShowNewEntry(!showNewEntry)}
                       className="rounded-lg bg-navy px-3 py-1.5 text-xs font-semibold text-white hover:bg-navy-light">
-                      {showNewEntry ? "Annuler" : "+ Nouvelle écriture"}
+                      {showNewEntry ? t("cancel") : t("newEntry")}
                     </button>
                   )}
                 </div>
@@ -268,7 +269,7 @@ export default function AccountingPage() {
                       <input type="date" value={newEntry.entry_date}
                         onChange={(e) => setNewEntry({ ...newEntry, entry_date: e.target.value })}
                         className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-                      <input type="text" placeholder="Référence pièce"
+                      <input type="text" placeholder={t("placeholderRef")}
                         value={newEntry.reference}
                         onChange={(e) => setNewEntry({ ...newEntry, reference: e.target.value })}
                         className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
@@ -279,7 +280,7 @@ export default function AccountingPage() {
                           <option key={k} value={k}>{k} — {JOURNAL_LABEL[k]}</option>
                         ))}
                       </select>
-                      <input type="text" placeholder="Libellé de l'écriture"
+                      <input type="text" placeholder={t("placeholderEntryLabel")}
                         value={newEntry.label}
                         onChange={(e) => setNewEntry({ ...newEntry, label: e.target.value })}
                         className="sm:col-span-1 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
@@ -288,10 +289,10 @@ export default function AccountingPage() {
                     <table className="mt-3 w-full text-xs">
                       <thead className="bg-background text-[10px] uppercase tracking-wider text-muted">
                         <tr>
-                          <th className="px-2 py-1.5 text-left">Compte</th>
-                          <th className="px-2 py-1.5 text-left">Libellé ligne</th>
-                          <th className="px-2 py-1.5 text-right w-32">Débit</th>
-                          <th className="px-2 py-1.5 text-right w-32">Crédit</th>
+                          <th className="px-2 py-1.5 text-left">{t("thAccount")}</th>
+                          <th className="px-2 py-1.5 text-left">{t("thLineLabel")}</th>
+                          <th className="px-2 py-1.5 text-right w-32">{t("thDebit")}</th>
+                          <th className="px-2 py-1.5 text-right w-32">{t("thCredit")}</th>
                           <th className="px-2 py-1.5 w-10"></th>
                         </tr>
                       </thead>
@@ -302,7 +303,7 @@ export default function AccountingPage() {
                               <select value={l.account_id}
                                 onChange={(e) => updateLine(i, { account_id: e.target.value })}
                                 className="w-full rounded border border-input-border bg-input-bg px-2 py-1 text-xs">
-                                <option value="">— Sélectionner —</option>
+                                <option value="">{t("selectAccount")}</option>
                                 {accounts.map((a) => (
                                   <option key={a.id} value={a.id}>{a.code} · {a.label}</option>
                                 ))}
@@ -325,7 +326,7 @@ export default function AccountingPage() {
                             </td>
                             <td className="px-2 py-1 text-right">
                               {newEntry.lines.length > 2 && (
-                                <button onClick={() => removeLine(i)} className="text-muted hover:text-rose-600" title="Supprimer ligne">×</button>
+                                <button onClick={() => removeLine(i)} className="text-muted hover:text-rose-600" title={t("deleteLineTitle")}>&times;</button>
                               )}
                             </td>
                           </tr>
@@ -333,7 +334,7 @@ export default function AccountingPage() {
                       </tbody>
                       <tfoot>
                         <tr className="border-t border-card-border font-semibold">
-                          <td colSpan={2} className="px-2 py-2 text-right">Totaux</td>
+                          <td colSpan={2} className="px-2 py-2 text-right">{t("totals")}</td>
                           <td className="px-2 py-2 text-right">{formatEUR(totalDebit)}</td>
                           <td className="px-2 py-2 text-right">{formatEUR(totalCredit)}</td>
                           <td></td>
@@ -342,15 +343,15 @@ export default function AccountingPage() {
                     </table>
 
                     <div className="mt-3 flex items-center justify-between">
-                      <button onClick={addLine} className="text-xs text-navy hover:underline">+ Ajouter une ligne</button>
+                      <button onClick={addLine} className="text-xs text-navy hover:underline">{t("addLine")}</button>
                       <div className="flex items-center gap-3">
                         <span className={`text-xs font-medium ${isBalanced ? "text-emerald-700" : "text-amber-700"}`}>
-                          {isBalanced ? "✓ Écriture équilibrée" : `Écart : ${formatEUR(totalDebit - totalCredit)}`}
+                          {isBalanced ? t("balanced") : `${t("gap")} ${formatEUR(totalDebit - totalCredit)}`}
                         </span>
                         <button onClick={handleSaveEntry}
                           disabled={!isBalanced || !newEntry.label.trim()}
                           className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-40">
-                          Enregistrer
+                          {t("save")}
                         </button>
                       </div>
                     </div>
@@ -363,19 +364,19 @@ export default function AccountingPage() {
                     <table className="w-full text-xs">
                       <thead>
                         <tr className="border-b border-card-border bg-background text-left uppercase tracking-wider text-muted text-[10px]">
-                          <th className="px-3 py-2">Date</th>
-                          <th className="px-3 py-2">Journal</th>
-                          <th className="px-3 py-2">Réf.</th>
-                          <th className="px-3 py-2">Libellé</th>
-                          <th className="px-3 py-2">Lignes</th>
-                          <th className="px-3 py-2 text-right">Débit</th>
-                          <th className="px-3 py-2 text-right">Crédit</th>
+                          <th className="px-3 py-2">{t("thDate")}</th>
+                          <th className="px-3 py-2">{t("thJournal")}</th>
+                          <th className="px-3 py-2">{t("thRef")}</th>
+                          <th className="px-3 py-2">{t("thLabel")}</th>
+                          <th className="px-3 py-2">{t("thLines")}</th>
+                          <th className="px-3 py-2 text-right">{t("thDebit")}</th>
+                          <th className="px-3 py-2 text-right">{t("thCredit")}</th>
                           <th className="px-3 py-2"></th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-card-border/50">
                         {entries.length === 0 && (
-                          <tr><td colSpan={8} className="px-3 py-6 text-center text-muted">Aucune écriture saisie.</td></tr>
+                          <tr><td colSpan={8} className="px-3 py-6 text-center text-muted">{t("noEntries")}</td></tr>
                         )}
                         {entries.map((e) => {
                           const lines = linesByEntry[e.id] ?? [];
@@ -385,7 +386,7 @@ export default function AccountingPage() {
                             <tr key={e.id} className={e.is_locked ? "bg-slate-50/40" : ""}>
                               <td className="px-3 py-1.5">{new Date(e.entry_date).toLocaleDateString("fr-LU")}</td>
                               <td className="px-3 py-1.5"><span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-700">{e.journal_code}</span></td>
-                              <td className="px-3 py-1.5 text-muted">{e.reference ?? "—"}</td>
+                              <td className="px-3 py-1.5 text-muted">{e.reference ?? "\u2014"}</td>
                               <td className="px-3 py-1.5 font-medium text-navy">{e.label}</td>
                               <td className="px-3 py-1.5 text-muted">
                                 {lines.map((l) => {
@@ -403,7 +404,7 @@ export default function AccountingPage() {
                               <td className="px-3 py-1.5 text-right">
                                 {!e.is_locked && (
                                   <button onClick={() => handleDeleteEntry(e.id)}
-                                    className="rounded p-1 text-muted hover:text-rose-600 hover:bg-rose-50" title="Supprimer">
+                                    className="rounded p-1 text-muted hover:text-rose-600 hover:bg-rose-50" title={t("deleteTitle")}>
                                     <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                       <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9" />
                                     </svg>
@@ -424,12 +425,12 @@ export default function AccountingPage() {
                     <table className="w-full text-xs">
                       <thead>
                         <tr className="border-b border-card-border bg-background text-left uppercase tracking-wider text-muted text-[10px]">
-                          <th className="px-3 py-2">Code</th>
-                          <th className="px-3 py-2">Libellé</th>
-                          <th className="px-3 py-2">Classe</th>
-                          <th className="px-3 py-2 text-right">Débit cumul.</th>
-                          <th className="px-3 py-2 text-right">Crédit cumul.</th>
-                          <th className="px-3 py-2 text-right">Solde</th>
+                          <th className="px-3 py-2">{t("thCode")}</th>
+                          <th className="px-3 py-2">{t("thLabel")}</th>
+                          <th className="px-3 py-2">{t("thClasse")}</th>
+                          <th className="px-3 py-2 text-right">{t("thDebitCumul")}</th>
+                          <th className="px-3 py-2 text-right">{t("thCreditCumul")}</th>
+                          <th className="px-3 py-2 text-right">{t("thSolde")}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-card-border/50">
@@ -455,10 +456,7 @@ export default function AccountingPage() {
         )}
 
         <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
-          <strong>Plan comptable LU :</strong> ce module propose un plan simplifié adapté aux syndics (classes 1, 4, 5, 6, 7).
-          Les écritures respectent le principe de la partie double. La clôture fige les écritures et calcule automatiquement
-          le résultat (produits cl. 7 – charges cl. 6). Pour les copropriétés soumises à contrôle comptable, un expert-comptable
-          peut récupérer la balance et le journal au format standard.
+          <strong>{t("legalNote")}</strong>
         </div>
       </div>
     </div>

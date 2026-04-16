@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { pdf } from "@react-pdf/renderer";
 import { useAuth } from "@/components/AuthProvider";
 import ConvocationPdf from "@/components/ConvocationPdf";
@@ -31,6 +31,7 @@ const STATUS_COLOR: Record<AssemblyStatus, string> = {
 export default function AssembliesPage() {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
+  const t = useTranslations("syndicAssemblees");
   const { user } = useAuth();
   const params = useParams();
   const id = String(params?.id ?? "");
@@ -68,7 +69,7 @@ export default function AssembliesPage() {
       const nextActive = activeAssemblyId && a.find((x) => x.id === activeAssemblyId) ? activeAssemblyId : (a[0]?.id ?? null);
       setActiveAssemblyId(nextActive);
       if (nextActive) await loadAssemblyDetails(nextActive);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const loadAssemblyDetails = async (assemblyId: string) => {
@@ -90,7 +91,7 @@ export default function AssembliesPage() {
     if (activeAssemblyId) void loadAssemblyDetails(activeAssemblyId);
   }, [activeAssemblyId]);
 
-  if (!coown) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">Chargement…</div>;
+  if (!coown) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
 
   const activeAssembly = assemblies.find((a) => a.id === activeAssemblyId) ?? null;
   const activeResolutions = resolutions;
@@ -111,16 +112,16 @@ export default function AssembliesPage() {
       setShowCreateAssembly(false);
       setActiveAssemblyId(a.id);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleDeleteAssembly = async (aid: string) => {
-    if (!confirm("Supprimer cette assemblée ? Les résolutions et votes associés seront également supprimés.")) return;
+    if (!confirm(t("confirmDeleteAssembly"))) return;
     try {
       await deleteAssembly(aid);
       if (activeAssemblyId === aid) setActiveAssemblyId(null);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleAddResolution = async () => {
@@ -135,36 +136,36 @@ export default function AssembliesPage() {
       setResDraft({ title: "", description: "", majority_type: "simple" });
       setShowAddResolution(false);
       await loadAssemblyDetails(activeAssemblyId);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleVote = async (voteId: string, value: VoteValue) => {
     try {
       await setVote(voteId, value);
       if (activeAssemblyId) await loadAssemblyDetails(activeAssemblyId);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleSendConvocation = async () => {
     if (!activeAssemblyId) return;
-    if (!confirm("Marquer l'assemblée comme convoquée ? Vous pourrez ensuite télécharger les convocations PDF à envoyer.")) return;
+    if (!confirm(t("confirmConvene"))) return;
     try {
       await sendConvocation(activeAssemblyId);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleOpen = async () => {
     if (!activeAssemblyId) return;
     try { await openAssembly(activeAssemblyId); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleClose = async () => {
     if (!activeAssemblyId) return;
-    if (!confirm("Clôturer l'assemblée ? Les votes seront figés et le PV pourra être téléchargé.")) return;
+    if (!confirm(t("confirmClose"))) return;
     try { await closeAssembly(activeAssemblyId); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const downloadConvocation = async (unit?: CoownershipUnit) => {
@@ -228,10 +229,10 @@ export default function AssembliesPage() {
   return (
     <div className="bg-background min-h-screen py-8 sm:py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Link href={`${lp}/syndic/coproprietes/${id}`} className="text-xs text-muted hover:text-navy">← {coown.name}</Link>
-        <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">Assemblées générales</h1>
+        <Link href={`${lp}/syndic/coproprietes/${id}`} className="text-xs text-muted hover:text-navy">&larr; {coown.name}</Link>
+        <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
         <p className="mt-1 text-sm text-muted">
-          Convocations, ordre du jour, vote électronique pondéré par tantièmes et procès-verbal automatique — loi du 16 mai 1975.
+          {t("subtitle")}
         </p>
 
         {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
@@ -260,7 +261,7 @@ export default function AssembliesPage() {
             onClick={() => setShowCreateAssembly(!showCreateAssembly)}
             className="rounded-lg bg-navy px-3 py-2 text-sm font-semibold text-white hover:bg-navy-light"
           >
-            {showCreateAssembly ? "Annuler" : "+ Nouvelle AG"}
+            {showCreateAssembly ? t("cancel") : t("newAg")}
           </button>
         </div>
 
@@ -269,7 +270,7 @@ export default function AssembliesPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               <input
                 type="text"
-                placeholder="Titre de l'assemblée"
+                placeholder={t("placeholderTitle")}
                 value={newAssembly.title}
                 onChange={(e) => setNewAssembly({ ...newAssembly, title: e.target.value })}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
@@ -279,8 +280,8 @@ export default function AssembliesPage() {
                 onChange={(e) => setNewAssembly({ ...newAssembly, assembly_type: e.target.value as "ordinary" })}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
               >
-                <option value="ordinary">Assemblée ordinaire</option>
-                <option value="extraordinary">Assemblée extraordinaire</option>
+                <option value="ordinary">{t("typeOrdinary")}</option>
+                <option value="extraordinary">{t("typeExtraordinary")}</option>
               </select>
               <input
                 type="datetime-local"
@@ -290,27 +291,27 @@ export default function AssembliesPage() {
               />
               <input
                 type="number"
-                placeholder="Quorum requis (% des tantièmes)"
+                placeholder={t("placeholderQuorum")}
                 value={newAssembly.quorum_pct}
                 onChange={(e) => setNewAssembly({ ...newAssembly, quorum_pct: Number(e.target.value) || 50 })}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
               />
               <input
                 type="text"
-                placeholder="Lieu (adresse ou salle)"
+                placeholder={t("placeholderLocation")}
                 value={newAssembly.location}
                 onChange={(e) => setNewAssembly({ ...newAssembly, location: e.target.value })}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
               />
               <input
                 type="url"
-                placeholder="URL visioconférence (optionnel)"
+                placeholder={t("placeholderVirtual")}
                 value={newAssembly.virtual_url}
                 onChange={(e) => setNewAssembly({ ...newAssembly, virtual_url: e.target.value })}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
               />
               <textarea
-                placeholder="Notes complémentaires (optionnel)"
+                placeholder={t("placeholderNotes")}
                 value={newAssembly.notes}
                 onChange={(e) => setNewAssembly({ ...newAssembly, notes: e.target.value })}
                 className="sm:col-span-2 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
@@ -323,7 +324,7 @@ export default function AssembliesPage() {
                 disabled={!newAssembly.title.trim() || !newAssembly.scheduled_at}
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-40"
               >
-                Créer l&apos;assemblée
+                {t("createAssembly")}
               </button>
             </div>
           </div>
@@ -344,8 +345,8 @@ export default function AssembliesPage() {
                     {activeAssembly.location ? ` · ${activeAssembly.location}` : ""}
                   </p>
                   <p className="mt-0.5 text-xs text-muted">
-                    Quorum requis : <strong>{activeAssembly.quorum_pct} %</strong> ·
-                    Atteint : <strong className={quorumOk ? "text-emerald-700" : "text-rose-700"}>
+                    {t("quorumRequired")} <strong>{activeAssembly.quorum_pct} %</strong> ·
+                    {t("quorumReached")} <strong className={quorumOk ? "text-emerald-700" : "text-rose-700"}>
                       {attendancePct.toFixed(1)} %
                     </strong>
                   </p>
@@ -354,33 +355,33 @@ export default function AssembliesPage() {
                   {activeAssembly.status === "draft" && (
                     <button onClick={handleSendConvocation}
                       className="rounded-md bg-blue-600 px-2 py-1 text-[11px] font-medium text-white hover:bg-blue-700">
-                      Convoquer
+                      {t("convene")}
                     </button>
                   )}
                   {activeAssembly.status === "convened" && (
                     <button onClick={handleOpen}
                       className="rounded-md bg-amber-600 px-2 py-1 text-[11px] font-medium text-white hover:bg-amber-700">
-                      Ouvrir le vote
+                      {t("openVote")}
                     </button>
                   )}
                   {activeAssembly.status === "in_progress" && (
                     <button onClick={handleClose}
                       className="rounded-md bg-emerald-600 px-2 py-1 text-[11px] font-medium text-white hover:bg-emerald-700">
-                      Clôturer
+                      {t("closeVote")}
                     </button>
                   )}
                   <button onClick={() => downloadConvocation()}
                     className="rounded-md border border-card-border bg-white px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                    Convocation PDF
+                    {t("convocationPdf")}
                   </button>
                   {(activeAssembly.status === "closed" || activeAssembly.status === "in_progress") && (
                     <button onClick={downloadMinutes}
                       className="rounded-md bg-blue-50 border border-blue-200 px-2 py-1 text-[11px] font-medium text-blue-800 hover:bg-blue-100">
-                      PV PDF
+                      {t("minutesPdf")}
                     </button>
                   )}
                   <button onClick={() => handleDeleteAssembly(activeAssembly.id)}
-                    className="rounded-md p-1 text-muted hover:text-rose-600 hover:bg-rose-50" title="Supprimer">
+                    className="rounded-md p-1 text-muted hover:text-rose-600 hover:bg-rose-50" title={t("deleteTitle")}>
                     <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9" />
                     </svg>
@@ -392,13 +393,13 @@ export default function AssembliesPage() {
               {activeAssembly.status !== "draft" && units.length > 0 && (
                 <details className="mt-4">
                   <summary className="cursor-pointer text-xs font-medium text-navy hover:underline">
-                    Télécharger convocations individuelles ({units.length} lots)
+                    {t("downloadConvocations")} ({units.length} {t("lotsCount")})
                   </summary>
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {units.map((u) => (
                       <button key={u.id} onClick={() => downloadConvocation(u)}
                         className="rounded-md border border-card-border bg-background px-2 py-1 text-[10px] font-medium text-navy hover:bg-slate-50">
-                        Lot {u.lot_number} — {u.owner_name ?? "—"}
+                        Lot {u.lot_number} — {u.owner_name ?? "\u2014"}
                       </button>
                     ))}
                   </div>
@@ -408,13 +409,13 @@ export default function AssembliesPage() {
 
             {/* Resolutions */}
             <div className="mt-6 flex items-center justify-between">
-              <h3 className="text-base font-semibold text-navy">Ordre du jour &amp; résolutions</h3>
+              <h3 className="text-base font-semibold text-navy">{t("resolutionsTitle")}</h3>
               {activeAssembly.status !== "closed" && (
                 <button
                   onClick={() => setShowAddResolution(!showAddResolution)}
                   className="rounded-lg bg-navy px-3 py-1.5 text-xs font-semibold text-white hover:bg-navy-light"
                 >
-                  {showAddResolution ? "Annuler" : "+ Résolution"}
+                  {showAddResolution ? t("cancel") : t("addResolution")}
                 </button>
               )}
             </div>
@@ -423,13 +424,13 @@ export default function AssembliesPage() {
               <div className="mt-3 rounded-xl border border-card-border bg-card p-4">
                 <input
                   type="text"
-                  placeholder="Intitulé de la résolution"
+                  placeholder={t("placeholderResTitle")}
                   value={resDraft.title}
                   onChange={(e) => setResDraft({ ...resDraft, title: e.target.value })}
                   className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
                 />
                 <textarea
-                  placeholder="Description détaillée (optionnel)"
+                  placeholder={t("placeholderResDesc")}
                   value={resDraft.description}
                   onChange={(e) => setResDraft({ ...resDraft, description: e.target.value })}
                   className="mt-2 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
@@ -450,7 +451,7 @@ export default function AssembliesPage() {
                     disabled={!resDraft.title.trim()}
                     className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-40"
                   >
-                    Ajouter
+                    {t("addButton")}
                   </button>
                 </div>
               </div>
@@ -459,12 +460,12 @@ export default function AssembliesPage() {
             <div className="mt-3 space-y-3">
               {activeResolutions.length === 0 && (
                 <div className="rounded-xl border border-dashed border-card-border bg-card p-6 text-center text-sm text-muted">
-                  Aucune résolution à l&apos;ordre du jour. Ajoutez-en avant de convoquer l&apos;AG.
+                  {t("noResolutions")}
                 </div>
               )}
               {activeResolutions.map((r) => {
                 const expressed = r.votes_yes_tantiemes + r.votes_no_tantiemes + r.votes_abstain_tantiemes;
-                const fmtPct = (n: number) => expressed > 0 ? `${((n / expressed) * 100).toFixed(1)} %` : "—";
+                const fmtPct = (n: number) => expressed > 0 ? `${((n / expressed) * 100).toFixed(1)} %` : "\u2014";
                 const votes = votesMap[r.id] ?? [];
                 const votingAllowed = activeAssembly.status === "in_progress";
 
@@ -472,7 +473,7 @@ export default function AssembliesPage() {
                   <div key={r.id} className="rounded-xl border border-card-border bg-card p-5">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs font-semibold text-blue-700">Résolution n° {r.number}</div>
+                        <div className="text-xs font-semibold text-blue-700">{t("resolutionNumber")} {r.number}</div>
                         <h4 className="mt-1 text-sm font-semibold text-navy">{r.title}</h4>
                         {r.description && <p className="mt-1 text-xs text-muted">{r.description}</p>}
                         <p className="mt-2 text-[10px] uppercase tracking-wider text-muted font-medium">
@@ -485,14 +486,14 @@ export default function AssembliesPage() {
                           : r.result === "rejected" ? "bg-rose-100 text-rose-800"
                           : "bg-amber-100 text-amber-800"
                         }`}>
-                          {r.result === "approved" ? "Adoptée" : r.result === "rejected" ? "Rejetée" : "En attente"}
+                          {r.result === "approved" ? t("resultApproved") : r.result === "rejected" ? t("resultRejected") : t("resultPending")}
                         </span>
                         {activeAssembly.status !== "closed" && (
                           <button onClick={async () => {
-                            if (!confirm("Supprimer cette résolution ?")) return;
+                            if (!confirm(t("confirmDeleteResolution"))) return;
                             await deleteResolution(r.id);
                             await loadAssemblyDetails(activeAssembly.id);
-                          }} className="rounded-md p-1 text-muted hover:text-rose-600 hover:bg-rose-50" title="Supprimer">
+                          }} className="rounded-md p-1 text-muted hover:text-rose-600 hover:bg-rose-50" title={t("deleteTitle")}>
                             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9" />
                             </svg>
@@ -503,24 +504,24 @@ export default function AssembliesPage() {
 
                     <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 text-xs">
                       <div className="rounded-lg bg-emerald-50 p-2">
-                        <div className="text-[10px] uppercase text-emerald-800">Pour</div>
+                        <div className="text-[10px] uppercase text-emerald-800">{t("voteFor")}</div>
                         <div className="font-bold text-emerald-900">{r.votes_yes_tantiemes}</div>
                         <div className="text-[10px] text-emerald-700">{fmtPct(r.votes_yes_tantiemes)}</div>
                       </div>
                       <div className="rounded-lg bg-rose-50 p-2">
-                        <div className="text-[10px] uppercase text-rose-800">Contre</div>
+                        <div className="text-[10px] uppercase text-rose-800">{t("voteAgainst")}</div>
                         <div className="font-bold text-rose-900">{r.votes_no_tantiemes}</div>
                         <div className="text-[10px] text-rose-700">{fmtPct(r.votes_no_tantiemes)}</div>
                       </div>
                       <div className="rounded-lg bg-amber-50 p-2">
-                        <div className="text-[10px] uppercase text-amber-800">Abstention</div>
+                        <div className="text-[10px] uppercase text-amber-800">{t("voteAbstain")}</div>
                         <div className="font-bold text-amber-900">{r.votes_abstain_tantiemes}</div>
                         <div className="text-[10px] text-amber-700">{fmtPct(r.votes_abstain_tantiemes)}</div>
                       </div>
                       <div className="rounded-lg bg-slate-100 p-2">
-                        <div className="text-[10px] uppercase text-slate-700">Absents</div>
+                        <div className="text-[10px] uppercase text-slate-700">{t("voteAbsent")}</div>
                         <div className="font-bold text-slate-900">{r.votes_absent_tantiemes}</div>
-                        <div className="text-[10px] text-slate-600">tantièmes</div>
+                        <div className="text-[10px] text-slate-600">{t("tantièmes")}</div>
                       </div>
                     </div>
 
@@ -528,17 +529,17 @@ export default function AssembliesPage() {
                     {votes.length > 0 && (
                       <details className="mt-3">
                         <summary className="cursor-pointer text-xs font-medium text-navy hover:underline">
-                          Détail des votes ({votes.length} lots)
+                          {t("votesDetail")} ({votes.length} {t("lotsCount")})
                         </summary>
                         <div className="mt-2 overflow-x-auto rounded-lg border border-card-border">
                           <table className="w-full text-xs">
                             <thead className="bg-background text-[10px] uppercase tracking-wider text-muted">
                               <tr>
-                                <th className="px-3 py-1.5 text-left">Lot</th>
-                                <th className="px-3 py-1.5 text-left">Copropriétaire</th>
-                                <th className="px-3 py-1.5 text-right">Tantièmes</th>
-                                <th className="px-3 py-1.5 text-center">Vote</th>
-                                {votingAllowed && <th className="px-3 py-1.5 text-right">Modifier</th>}
+                                <th className="px-3 py-1.5 text-left">{t("thLot")}</th>
+                                <th className="px-3 py-1.5 text-left">{t("thOwner")}</th>
+                                <th className="px-3 py-1.5 text-right">{t("thTantiemes")}</th>
+                                <th className="px-3 py-1.5 text-center">{t("thVote")}</th>
+                                {votingAllowed && <th className="px-3 py-1.5 text-right">{t("thModify")}</th>}
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-card-border/50">
@@ -546,8 +547,8 @@ export default function AssembliesPage() {
                                 const unit = units.find((u) => u.id === v.unit_id);
                                 return (
                                   <tr key={v.id}>
-                                    <td className="px-3 py-1.5 font-medium">{unit?.lot_number ?? "—"}</td>
-                                    <td className="px-3 py-1.5">{v.voter_name ?? "—"}</td>
+                                    <td className="px-3 py-1.5 font-medium">{unit?.lot_number ?? "\u2014"}</td>
+                                    <td className="px-3 py-1.5">{v.voter_name ?? "\u2014"}</td>
                                     <td className="px-3 py-1.5 text-right">{v.tantiemes_at_vote}</td>
                                     <td className="px-3 py-1.5 text-center">
                                       <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
@@ -566,7 +567,7 @@ export default function AssembliesPage() {
                                             className={`rounded px-1.5 py-0.5 text-[10px] ${
                                               v.vote === val ? "bg-navy text-white" : "border border-card-border hover:bg-slate-50"
                                             }`}>
-                                            {val === "yes" ? "P" : val === "no" ? "C" : val === "abstain" ? "A" : "—"}
+                                            {val === "yes" ? "P" : val === "no" ? "C" : val === "abstain" ? "A" : "\u2014"}
                                           </button>
                                         ))}
                                       </td>
@@ -589,17 +590,15 @@ export default function AssembliesPage() {
         {assemblies.length === 0 && !showCreateAssembly && (
           <div className="mt-6 rounded-xl border border-dashed border-card-border bg-card p-10 text-center">
             <div className="text-4xl">🗳️</div>
-            <h2 className="mt-3 text-lg font-semibold text-navy">Aucune assemblée programmée</h2>
+            <h2 className="mt-3 text-lg font-semibold text-navy">{t("noAssemblies")}</h2>
             <p className="mt-1 text-sm text-muted">
-              Créez une assemblée générale pour gérer convocation, ordre du jour, vote et PV en ligne.
+              {t("noAssembliesDesc")}
             </p>
           </div>
         )}
 
         <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
-          <strong>Rappel légal :</strong> la convocation doit parvenir à chaque copropriétaire au moins 15 jours avant la date
-          de l&apos;assemblée (loi du 16 mai 1975). Le vote électronique nécessite mention explicite dans le règlement ou
-          consentement préalable. Les majorités requises varient selon la nature de la résolution (travaux, syndic, modif. RC).
+          <strong>{t("legalNote")}</strong>
         </div>
       </div>
     </div>
