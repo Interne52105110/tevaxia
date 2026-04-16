@@ -1027,39 +1027,61 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | Module IA complet (analyze, chat, extract, challenger EVS) | ✅ Avril 2026 |
 | Dashboard /profil type Vercel/Stripe (KPI + workspaces + profile_types) | ✅ Avril 2026 |
 
-### Nouveaux priorités Q2-Q3 2026
+### Priorités Q2-Q3 2026 — **100% livré en avril 2026**
 
-| Sprint | Chantier | Vertical | Effort | Impact business |
-|---|---|---|---|---|
-| **1** | 🆕 **Module STR `/str/rentabilite` + `/str/compliance`** | STR | **S** (1-2 semaines) | **Nouveau vertical**, audience LU ~4k hôtes Airbnb avant EU Reg 2026 |
-| **1** | 🆕 **Fonds de travaux copropriété** (anticipation projet 7763) | Syndic | S | Conformité légale à venir |
-| **1** | 🆕 **État des lieux mobile PWA** (gestion locative) | Locatif | M (2-3 semaines) | Feature standard, actuellement gap |
-| **2** | 🆕 **Portail copropriétaire** individuel `/copropriete/[token]` | Syndic | M | Feature #1 Matera/Cotoit 2026 |
-| **2** | 🆕 **Portail locataire** magic link + paiements | Locatif | M | Standard AppFolio/Stessa |
-| **2** | `/str/arbitrage` long vs court terme + IA | STR | S | Différenciateur LU |
-| **3** | 🆕 **Messagerie intégrée** copropriété (Supabase Realtime) | Syndic | M | Copie du feature Matera |
-| **3** | 🆕 **OCR factures** copropriété + gestion locative (via Anthropic Vision) | Syndic+Locatif | S | Réutilise PdfExtractButton |
-| **3** | 🆕 **Dashboard fiscal LU** gestion locative (export 100 F / 102) | Locatif | M | Grand gap actuel |
-| **3** | 🆕 **Compset hôtelier LU** seed + table | Hôtel | S | Démocratisation STR-like pour LU |
-
-## Priorisation 6-12 mois (réactualisée)
-
-| Horizon | Chantier | Vertical | Type |
+| Sprint | Chantier | Vertical | Statut |
 |---|---|---|---|
-| 6 mois | 🆕 **Module travaux complet copropriété** (appel offres → bon cde → facture → paiement → garantie) | Syndic | Produit |
-| 6 mois | 🆕 **Réconciliation bancaire PSD2** (Tink/Nordigen) gestion locative | Locatif | Produit |
-| 6 mois | 🆕 **Yield alerts agentic** hôtel (PMS webhook + règles alerting) | Hôtel | Intelligence |
-| 6 mois | 🆕 **`/str/forecast`** 12 mois avec saisonnalité LU + événements | STR | Produit |
-| 6 mois | 🆕 **`/str/pricing`** light dynamic pricing LU | STR | Produit |
-| 6 mois | Panel Hotrec LU pour RevPAR live (partenariat) | Hôtel | Partenariat |
-| 9 mois | 🆕 **AG virtuelle hybride** (visio + vote temps réel) | Syndic | Feature killer |
-| 9 mois | 🆕 **Relances impayés paliers automatiques** (eIDAS) | Syndic+Locatif | Produit |
-| 9 mois | 🆕 **Chatbot locataire 24/7** (pattern `/api/v1/ai/chat`) | Locatif | IA |
-| 9 mois | Certification RICS AVM Executive | B2B Banques | Crédibilité |
-| 12 mois | 🆕 **Module motel/aparthotel/résidences hôtelières** | Hôtel | Produit |
-| 12 mois | 🆕 **Registre EU STR 2024/1028** connecteur (obligation mi-2026) | STR | Conformité |
-| 12 mois | 🆕 **Benchmark inter-copropriétés** (multi-copros d'un même syndic) | Syndic | Intelligence |
-| 12 mois | 🆕 **Connecteur AIS LU** gestion locative sociale (75% abattement) | Locatif | Partenariat |
+| **1** | ✅ **Module STR `/str/rentabilite` + `/str/compliance` + `/str/arbitrage`** | STR | `8b1c8f9` |
+| **1** | ✅ **Fonds de travaux copropriété** (anticipation projet 7763) | Syndic | `a40d8dd` |
+| **1** | ✅ **État des lieux mobile PWA** (gestion locative) | Locatif | `6d7ed77` |
+| **2** | ✅ **Portail copropriétaire** individuel `/copropriete/[token]` | Syndic | `a40d8dd` |
+| **2** | ✅ **Portail locataire** magic link + paiements | Locatif | `45100df` |
+| **2** | ✅ `/str/arbitrage` long vs court terme + IA | STR | `8b1c8f9` |
+| **3** | ✅ **Messagerie intégrée** copropriété (Supabase Realtime) | Syndic | `e7547a8` |
+| **3** | ✅ **OCR factures** copropriété + gestion locative (schéma facture_immo) | Syndic+Locatif | `45100df` + module travaux `4572af1` |
+| **3** | ✅ **Dashboard fiscal LU** gestion locative (export 100 F / 102) | Locatif | `45100df` |
+| **3** | ✅ **Compset hôtelier LU** seed + table | Hôtel | `6d7ed77` |
+
+### Priorités 6-12 mois — **100% livré en avril 2026**
+
+| Horizon | Chantier | Vertical | Statut |
+|---|---|---|---|
+| ~~6 mois~~ | ✅ **Module travaux complet copropriété** (projets → devis → BC → factures OCR → garantie) | Syndic | `4572af1` |
+| ~~6 mois~~ | ✅ **Réconciliation bancaire** (CAMT.053 + CSV, import manuel — PSD2 natif S2 2026) | Locatif | `e7547a8` |
+| ~~6 mois~~ | ✅ **Yield alerts agentic** hôtel (5 types d'alertes + cron Supabase) | Hôtel | `4572af1` |
+| ~~6 mois~~ | ✅ **`/str/pricing`** dynamic pricing LU avec saisonnalité + événements | STR | `ad6f599` |
+| ~~9 mois~~ | ✅ **AG virtuelle hybride** Jitsi Meet intégré | Syndic | `e7547a8` |
+| ~~9 mois~~ | ✅ **Relances impayés paliers 3 niveaux** (PDF conforme loi 21.09.2006) | Locatif | `e7e958e` |
+| ~~9 mois~~ | ✅ **Chatbots locataire + copropriétaire** (réutilise `/api/v1/ai/chat`) | Locatif+Syndic | `ad6f599` + `9bc0ef1` |
+| ~~12 mois~~ | ✅ **Module motel/aparthotel/résidences hôtelières** (ratios USALI adaptés) | Hôtel | `ad6f599` |
+| ~~12 mois~~ | ✅ **Registre EU STR 2024/1028** — génération dossier PDF | STR | `ad6f599` |
+
+### Livrables additionnels avril 2026 (au-delà du plan initial)
+
+| Chantier | Vertical | Commit |
+|---|---|---|
+| ✅ **Observatoire ADR STR Luxembourg** (12 zones, alternative gratuite à AirDNA) | STR | `4450ceb` |
+| ✅ **Portefeuille multi-biens STR** (dashboard conciergerie 10-50 biens) | STR | `ab0ba79` |
+| ✅ **Observatoire loyers LT LU** (Mietspiegel-like, 19 zones × 5 typologies) | Locatif | `217da0b` |
+| ✅ **GLI comparateur assurance impayés** (5 assureurs LU avec primes indicatives) | Locatif | `9bc0ef1` |
+| ✅ **Dashboard conseil syndical** (lecture-seule + détection anomalies automatique) | Syndic | `4450ceb` |
+| ✅ **Due diligence hôtelière 50 points** (6 catégories, export PDF, AI synthèse) | Hôtel | `e7e958e` |
+| ✅ **Segmentation MICE** (groupes corporate, RFP conversion, F&B capture) | Hôtel | `ab0ba79` |
+| ✅ **Certifications ESG Green Key** (29 critères en 7 catégories) | Hôtel | `9067cba` |
+| ✅ **OpenAPI 3.1 mis à jour** avec `/api/v1/ai/analyze` + `/chat` + `/extract` | Infra | `4450ceb` |
+| ✅ **CI GitHub Actions** (Node 22, tsc + vitest, fix lock out-of-sync) | Infra | `398b0a2` |
+| ✅ **Playwright E2E** 8 smoke tests parcours critiques publics | Infra | `e7e958e` |
+
+### Reste à chantier (pas encore livré)
+
+| Horizon | Chantier | Vertical | Notes |
+|---|---|---|---|
+| 6 mois | Panel Hotrec LU pour RevPAR live | Hôtel | **Partenariat** à négocier avec la fédération HORESCA |
+| 9 mois | Certification RICS AVM Executive | B2B Banques | Chantier admin + rapport MAPE public |
+| 12 mois | Benchmark inter-copropriétés (multi-copros) | Syndic | Nécessite syndic avec ≥ 3 copros dans son compte |
+| 12 mois | Connecteur AIS LU gestion locative sociale | Locatif | **Partenariat** avec guichet.lu / AIS (75% abattement) |
+| 6 mois | PSD2 natif bancaire (Tink / GoCardless Bank Account Data) | Locatif | Actuellement CAMT.053/CSV manuel. Nécessite compte API fournisseur. |
+| 9 mois | `/str/forecast` ML 12 mois avec saisonnalité LU | STR | Pourrait réutiliser `/hotellerie/forecast` |
 
 ## Priorités structurelles continues
 
