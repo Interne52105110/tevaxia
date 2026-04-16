@@ -91,23 +91,26 @@ BEGIN
     LIMIT 5
   ) a;
 
-  -- Recent fund calls for this unit
+  -- Recent fund calls for this unit (schéma réel : coownership_unit_charges
+  -- joint sur coownership_calls, cf. migration 015)
   IF v_token.unit_id IS NOT NULL THEN
     SELECT jsonb_agg(
       jsonb_build_object(
-        'id', fcu.id, 'period', fc.period_label,
-        'amount', fcu.amount, 'paid', fcu.paid_at IS NOT NULL,
-        'due_date', fc.due_date
-      ) ORDER BY fc.due_date DESC
+        'id', uc.id, 'period', uc.label,
+        'amount_due', uc.amount_due, 'amount_paid', uc.amount_paid,
+        'paid', uc.paid_at IS NOT NULL,
+        'due_date', uc.due_date
+      ) ORDER BY uc.due_date DESC
     ) INTO v_recent_calls
     FROM (
-      SELECT fcu.id, fcu.amount, fcu.paid_at, fc.period_label, fc.due_date
-      FROM coownership_fund_call_units fcu
-      JOIN coownership_fund_calls fc ON fc.id = fcu.fund_call_id
-      WHERE fcu.unit_id = v_token.unit_id
-      ORDER BY fc.due_date DESC
+      SELECT uc.id, uc.amount_due, uc.amount_paid, uc.paid_at,
+             cc.label, cc.due_date
+      FROM coownership_unit_charges uc
+      JOIN coownership_calls cc ON cc.id = uc.call_id
+      WHERE uc.unit_id = v_token.unit_id
+      ORDER BY cc.due_date DESC
       LIMIT 6
-    ) fcu_list;
+    ) uc;
   END IF;
 
   RETURN jsonb_build_object(
