@@ -275,6 +275,23 @@
       "rgpdDesc": "Export, suppression, consentements",
       "tests": "172 tests automatisés",
       "testsDesc": "Qualité de code vérifiée"
+    },
+    "guideSection": {
+      "title": "Questions fréquentes sur l'immobilier au Luxembourg",
+      "subtitle": "12 guides pratiques avec références légales. Chaque réponse est liée à un outil de calcul.",
+      "q1": "Combien coûtent les frais de notaire au Luxembourg ?",
+      "q2": "Comment fonctionne la règle des 5 % pour les loyers ?",
+      "q3": "Qu'est-ce que le Bëllegen Akt ?",
+      "q4": "Comment est imposée la plus-value immobilière ?",
+      "q5": "Quelles sont les règles du bail d'habitation ?",
+      "q6": "Comment fonctionne la copropriété au Luxembourg ?",
+      "q7": "Quelles sont les aides Klimabonus ?",
+      "q8": "Comment estimer la valeur d'un bien immobilier ?",
+      "q9": "Un non-résident peut-il acheter au Luxembourg ?",
+      "q10": "Comment bénéficier de la TVA à 3 % ?",
+      "q11": "Quelles sont les règles du bail commercial ?",
+      "q12": "Comment investir dans un hôtel au Luxembourg ?",
+      "seeAll": "Voir tous les guides →"
     }
   },
   "footer": {

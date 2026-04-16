@@ -275,6 +275,23 @@
       "rgpdDesc": "Export, Löschung, Einwilligungen",
       "tests": "172 automatisierte Tests",
       "testsDesc": "Verifizierte Codequalität"
+    },
+    "guideSection": {
+      "title": "Häufige Fragen zur Immobilie in Luxemburg",
+      "subtitle": "12 praktische Leitfäden mit Gesetzesverweisen. Jede Antwort verlinkt auf ein Berechnungstool.",
+      "q1": "Wie hoch sind die Notarkosten in Luxemburg?",
+      "q2": "Wie funktioniert die 5 %-Mietobergrenze?",
+      "q3": "Was ist der Bëllegen Akt?",
+      "q4": "Wie wird der Immobiliengewinn besteuert?",
+      "q5": "Welche Regeln gelten für den Wohnungsmietvertrag?",
+      "q6": "Wie funktioniert die Miteigentümergemeinschaft in Luxemburg?",
+      "q7": "Welche Klimabonus-Förderungen gibt es?",
+      "q8": "Wie schätzt man den Wert einer Immobilie?",
+      "q9": "Kann ein Nicht-Ansässiger in Luxemburg kaufen?",
+      "q10": "Wie profitiert man vom 3 %-Mehrwertsteuersatz?",
+      "q11": "Welche Regeln gelten für den Gewerbemietvertrag?",
+      "q12": "Wie investiert man in ein Hotel in Luxemburg?",
+      "seeAll": "Alle Leitfäden anzeigen →"
     }
   },
   "footer": {

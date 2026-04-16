@@ -275,6 +275,23 @@
       "rgpdDesc": "Export, Läschung, Zoustëmmungen",
       "tests": "172 automatiséiert Tester",
       "testsDesc": "Verifizéiert Codequalitéit"
+    },
+    "guideSection": {
+      "title": "Heefeg Froen iwwer Immobilien zu Lëtzebuerg",
+      "subtitle": "12 praktesch Guiden mat Gesetzesverwäiser. All Äntwert verlinkt op en Berechnungstool.",
+      "q1": "Wéi vill kaschten d'Notarskäschten zu Lëtzebuerg?",
+      "q2": "Wéi funktionéiert d'5 %-Loyer-Regel?",
+      "q3": "Wat ass de Bëllegen Akt?",
+      "q4": "Wéi gëtt de Méiwäertsteier op Immobilien besteiert?",
+      "q5": "Wat sinn d'Regelen fir de Wunnbail?",
+      "q6": "Wéi funktionéiert d'Miteigentümergemeinschaft?",
+      "q7": "Wat sinn d'Klimabonus-Hëllefen?",
+      "q8": "Wéi schätzt een de Wäert vun enger Immobilie?",
+      "q9": "Kann en Net-Resident zu Lëtzebuerg kafen?",
+      "q10": "Wéi profitéiert een vum 3 %-TVA-Saz?",
+      "q11": "Wat sinn d'Regelen fir de kommerziellen Bail?",
+      "q12": "Wéi investéiert een an en Hotel zu Lëtzebuerg?",
+      "seeAll": "All Guiden gesinn →"
     }
   },
   "footer": {

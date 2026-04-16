@@ -449,6 +449,51 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Guide immobilier LU — GEO */}
+      <section className="py-16 sm:py-20 border-t border-card-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold text-navy sm:text-3xl">{t("guideSection.title")}</h2>
+            <p className="mt-3 text-sm text-muted max-w-2xl mx-auto">{t("guideSection.subtitle")}</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { slug: "frais-notaire-luxembourg", q: t("guideSection.q1") },
+              { slug: "regle-5-pourcent-loyer", q: t("guideSection.q2") },
+              { slug: "bellegen-akt", q: t("guideSection.q3") },
+              { slug: "plus-value-immobiliere", q: t("guideSection.q4") },
+              { slug: "bail-habitation-luxembourg", q: t("guideSection.q5") },
+              { slug: "copropriete-luxembourg", q: t("guideSection.q6") },
+              { slug: "klimabonus", q: t("guideSection.q7") },
+              { slug: "estimation-bien-immobilier", q: t("guideSection.q8") },
+              { slug: "achat-immobilier-non-resident", q: t("guideSection.q9") },
+              { slug: "tva-3-pourcent-logement", q: t("guideSection.q10") },
+              { slug: "bail-commercial-luxembourg", q: t("guideSection.q11") },
+              { slug: "investir-hotel-luxembourg", q: t("guideSection.q12") },
+            ].map((g) => (
+              <Link
+                key={g.slug}
+                href={`${lp}/guide/${g.slug}`}
+                className="group flex items-start gap-3 rounded-xl border border-card-border bg-card p-4 transition-all hover:shadow-md hover:-translate-y-0.5"
+              >
+                <svg className="mt-0.5 h-5 w-5 shrink-0 text-gold" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                </svg>
+                <span className="text-sm font-medium text-navy group-hover:text-navy-light transition-colors">{g.q}</span>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Link href={`${lp}/guide`} className="inline-flex items-center gap-2 text-sm font-semibold text-navy hover:text-navy-light transition-colors">
+              {t("guideSection.seeAll")}
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Key figures */}
       <section className="border-t border-card-border bg-card py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

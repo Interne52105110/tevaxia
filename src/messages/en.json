@@ -275,6 +275,23 @@
       "rgpdDesc": "Export, deletion, consents",
       "tests": "172 automated tests",
       "testsDesc": "Verified code quality"
+    },
+    "guideSection": {
+      "title": "Frequently asked questions about Luxembourg real estate",
+      "subtitle": "12 practical guides with legal references. Each answer links to a calculation tool.",
+      "q1": "How much are notary fees in Luxembourg?",
+      "q2": "How does the 5% rent cap rule work?",
+      "q3": "What is the Bëllegen Akt?",
+      "q4": "How is real estate capital gains tax calculated?",
+      "q5": "What are the rules for residential leases?",
+      "q6": "How does co-ownership work in Luxembourg?",
+      "q7": "What are the Klimabonus subsidies?",
+      "q8": "How to estimate a property value in Luxembourg?",
+      "q9": "Can a non-resident buy property in Luxembourg?",
+      "q10": "How to benefit from the 3% VAT rate?",
+      "q11": "What are the rules for commercial leases?",
+      "q12": "How to invest in a hotel in Luxembourg?",
+      "seeAll": "View all guides →"
     }
   },
   "footer": {

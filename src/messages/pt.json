@@ -275,6 +275,23 @@
       "rgpdDesc": "Exportação, supressão, consentimentos",
       "tests": "172 testes automatizados",
       "testsDesc": "Qualidade de código verificada"
+    },
+    "guideSection": {
+      "title": "Perguntas frequentes sobre imobiliário no Luxemburgo",
+      "subtitle": "12 guias práticos com referências legais. Cada resposta liga a uma ferramenta de cálculo.",
+      "q1": "Quanto custam as taxas notariais no Luxemburgo?",
+      "q2": "Como funciona a regra dos 5 % para rendas?",
+      "q3": "O que é o Bëllegen Akt?",
+      "q4": "Como é tributada a mais-valia imobiliária?",
+      "q5": "Quais são as regras do contrato de arrendamento?",
+      "q6": "Como funciona o condomínio no Luxemburgo?",
+      "q7": "Quais são os apoios Klimabonus?",
+      "q8": "Como estimar o valor de um imóvel?",
+      "q9": "Um não-residente pode comprar no Luxemburgo?",
+      "q10": "Como beneficiar do IVA a 3 %?",
+      "q11": "Quais são as regras do arrendamento comercial?",
+      "q12": "Como investir num hotel no Luxemburgo?",
+      "seeAll": "Ver todos os guias →"
     }
   },
   "footer": {
