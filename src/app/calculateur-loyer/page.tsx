@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
@@ -295,6 +296,17 @@ export default function CalculateurLoyer() {
             </div>
 
             <RelatedTools keys={["estimation", "carte", "achatLocation"]} />
+
+            <div className="mt-4 rounded-xl border border-navy/20 bg-navy/5 p-4 text-center">
+              <h3 className="text-sm font-semibold text-navy">Observer le marché</h3>
+              <p className="mt-1 text-xs text-muted">
+                Comparez votre plafond légal aux loyers réellement observés au Luxembourg par commune et typologie.
+              </p>
+              <Link href="/calculateur-loyer/observatoire"
+                className="mt-3 inline-block rounded-lg bg-navy px-4 py-2 text-xs font-semibold text-white hover:bg-navy-light">
+                Observatoire des loyers LU →
+              </Link>
+            </div>
           </div>
         </div>
       </div>
