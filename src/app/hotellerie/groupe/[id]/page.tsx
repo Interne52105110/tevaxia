@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { pdf } from "@react-pdf/renderer";
 import { useAuth } from "@/components/AuthProvider";
 import HotelOwnerReportPdf from "@/components/HotelOwnerReportPdf";
@@ -21,6 +21,7 @@ const QUARTER_PRESETS = [
 export default function HotelDetailPage() {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
+  const t = useTranslations("hotelDetail");
   const { user } = useAuth();
   const params = useParams();
   const id = String(params?.id ?? "");
@@ -58,7 +59,7 @@ export default function HotelDetailPage() {
         const orgs = await listMyOrganizations();
         setOrg(orgs.find((o) => o.id === h.org_id) ?? null);
       }
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
     finally { setLoading(false); }
   };
 
@@ -124,7 +125,7 @@ export default function HotelDetailPage() {
       setEditingId(null);
       setDraft(emptyDraft);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const downloadReport = async (period: HotelPeriod) => {
@@ -145,11 +146,11 @@ export default function HotelDetailPage() {
     URL.revokeObjectURL(url);
   };
 
-  if (loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">Chargement…</div>;
+  if (loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
   if (!hotel) return (
     <div className="mx-auto max-w-5xl px-4 py-16 text-center">
-      <p className="text-sm text-muted">Hôtel introuvable.</p>
-      <Link href={`${lp}/hotellerie/groupe`} className="mt-4 inline-flex text-sm text-navy underline">← Retour au groupe</Link>
+      <p className="text-sm text-muted">{t("notFound")}</p>
+      <Link href={`${lp}/hotellerie/groupe`} className="mt-4 inline-flex text-sm text-navy underline">{t("backToGroup")}</Link>
     </div>
   );
 
@@ -162,19 +163,19 @@ export default function HotelDetailPage() {
           <div>
             <h1 className="text-2xl font-bold text-navy sm:text-3xl">{hotel.name}</h1>
             <p className="mt-1 text-sm text-muted">
-              {hotel.category} · {hotel.nb_chambres} chambres
+              {hotel.category} · {hotel.nb_chambres} {t("rooms")}
               {hotel.commune ? ` · ${hotel.commune}` : ""}
             </p>
           </div>
           <button onClick={() => { setShowForm(!showForm); setEditingId(null); setDraft(emptyDraft); }}
             className="rounded-lg bg-purple-700 px-3 py-2 text-sm font-semibold text-white hover:bg-purple-800">
-            {showForm ? "Annuler" : "+ Ajouter une période"}
+            {showForm ? t("cancelBtn") : t("addPeriod")}
           </button>
         </div>
 
         {showForm && (
           <div className="mt-4 rounded-xl border border-card-border bg-card p-5">
-            <h2 className="text-base font-semibold text-navy">{editingId ? "Modifier la période" : "Nouvelle période"}</h2>
+            <h2 className="text-base font-semibold text-navy">{editingId ? t("editPeriodTitle") : t("newPeriodTitle")}</h2>
 
             <div className="mt-2 flex flex-wrap gap-2">
               {QUARTER_PRESETS.map((q) => (
@@ -192,29 +193,29 @@ export default function HotelDetailPage() {
             </div>
 
             <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              <input type="text" placeholder="Libellé (ex. Q1 2026)" value={draft.period_label ?? ""}
+              <input type="text" placeholder={t("periodLabelPlaceholder")} value={draft.period_label ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, period_label: e.target.value }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm sm:col-span-3" />
-              <div><label className="block text-xs text-muted mb-1">Début</label>
+              <div><label className="block text-xs text-muted mb-1">{t("startDate")}</label>
                 <input type="date" value={draft.period_start ?? ""} onChange={(e) => setDraft((p) => ({ ...p, period_start: e.target.value }))}
                   className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
-              <div><label className="block text-xs text-muted mb-1">Fin</label>
+              <div><label className="block text-xs text-muted mb-1">{t("endDate")}</label>
                 <input type="date" value={draft.period_end ?? ""} onChange={(e) => setDraft((p) => ({ ...p, period_end: e.target.value }))}
                   className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
               <div></div>
 
-              <div><label className="block text-xs text-muted mb-1">Taux occupation</label>
+              <div><label className="block text-xs text-muted mb-1">{t("occupancyRate")}</label>
                 <input type="number" step="0.01" value={draft.occupancy ?? ""}
                   onChange={(e) => setDraft((p) => ({ ...p, occupancy: Number(e.target.value) || null }))}
                   placeholder="0.65"
                   className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
-              <div><label className="block text-xs text-muted mb-1">ADR (€)</label>
+              <div><label className="block text-xs text-muted mb-1">{t("adrLabel")}</label>
                 <input type="number" value={draft.adr ?? ""}
                   onChange={(e) => setDraft((p) => ({ ...p, adr: Number(e.target.value) || null }))}
                   placeholder="120"
                   className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
               <div>
-                <label className="block text-xs text-muted mb-1">RevPAR (auto)</label>
+                <label className="block text-xs text-muted mb-1">{t("revparAuto")}</label>
                 <div className="rounded-lg border border-input-border bg-slate-50 px-3 py-2 text-sm text-muted">
                   {draft.adr != null && draft.occupancy != null
                     ? formatEUR(draft.adr * draft.occupancy)
@@ -222,37 +223,37 @@ export default function HotelDetailPage() {
                 </div>
               </div>
 
-              <input type="number" placeholder="Revenu Rooms" value={draft.revenue_rooms ?? ""}
+              <input type="number" placeholder={t("revenueRooms")} value={draft.revenue_rooms ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, revenue_rooms: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder="Revenu F&amp;B" value={draft.revenue_fb ?? ""}
+              <input type="number" placeholder={t("revenueFb")} value={draft.revenue_fb ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, revenue_fb: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder="Revenu MICE" value={draft.revenue_mice ?? ""}
+              <input type="number" placeholder={t("revenueMice")} value={draft.revenue_mice ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, revenue_mice: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
 
-              <input type="number" placeholder="Coût personnel" value={draft.staff_cost ?? ""}
+              <input type="number" placeholder={t("staffCost")} value={draft.staff_cost ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, staff_cost: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder="Coût énergie" value={draft.energy_cost ?? ""}
+              <input type="number" placeholder={t("energyCost")} value={draft.energy_cost ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, energy_cost: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder="Autres opex" value={draft.other_opex ?? ""}
+              <input type="number" placeholder={t("otherOpex")} value={draft.other_opex ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, other_opex: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
 
-              <input type="number" placeholder="MPI (compset)" value={draft.mpi ?? ""}
+              <input type="number" placeholder={t("mpiCompset")} value={draft.mpi ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, mpi: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder="ARI (compset)" value={draft.ari ?? ""}
+              <input type="number" placeholder={t("ariCompset")} value={draft.ari ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, ari: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder="RGI (compset)" value={draft.rgi ?? ""}
+              <input type="number" placeholder={t("rgiCompset")} value={draft.rgi ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, rgi: Number(e.target.value) || null }))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
 
-              <textarea placeholder="Commentaires direction (optionnel)" value={draft.notes ?? ""}
+              <textarea placeholder={t("notesPlaceholder")} value={draft.notes ?? ""}
                 onChange={(e) => setDraft((p) => ({ ...p, notes: e.target.value }))}
                 rows={2}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm sm:col-span-3" />
@@ -260,7 +261,7 @@ export default function HotelDetailPage() {
             <div className="mt-3 flex justify-end">
               <button onClick={handleSave}
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
-                {editingId ? "Enregistrer" : "Ajouter la période"}
+                {editingId ? t("saveBtn") : t("addPeriodBtn")}
               </button>
             </div>
           </div>
@@ -269,10 +270,10 @@ export default function HotelDetailPage() {
         {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
 
         <div className="mt-6">
-          <h2 className="text-lg font-semibold text-navy">Historique des périodes</h2>
+          <h2 className="text-lg font-semibold text-navy">{t("periodsTitle")}</h2>
           {periods.length === 0 && (
             <div className="mt-2 rounded-xl border border-dashed border-card-border bg-card p-8 text-center text-sm text-muted">
-              Aucune période enregistrée. Ajoutez-en une pour commencer l&apos;historique et générer des owner reports.
+              {t("noPeriods")}
             </div>
           )}
 
@@ -284,7 +285,7 @@ export default function HotelDetailPage() {
                     <div className="text-sm font-semibold text-navy">{p.period_label || `${p.period_start} → ${p.period_end}`}</div>
                     <div className="mt-0.5 text-xs text-muted">
                       RevPAR {p.revpar != null ? formatEUR(p.revpar) : "—"}
-                      {p.occupancy != null ? ` · Occ ${(p.occupancy * 100).toFixed(0)}%` : ""}
+                      {p.occupancy != null ? ` · ${t("occShort")} ${(p.occupancy * 100).toFixed(0)}%` : ""}
                       {p.adr != null ? ` · ADR ${formatEUR(p.adr)}` : ""}
                       {p.gop_margin != null ? ` · GOP ${formatPct(p.gop_margin)}` : ""}
                     </div>
@@ -292,19 +293,19 @@ export default function HotelDetailPage() {
                   <div className="flex shrink-0 gap-1">
                     <button onClick={() => downloadReport(p)}
                       className="rounded-md bg-purple-50 border border-purple-200 px-3 py-1 text-xs font-medium text-purple-800 hover:bg-purple-100">
-                      Owner report PDF
+                      {t("ownerReportPdf")}
                     </button>
                     <button onClick={() => { setEditingId(p.id); setDraft(p as Draft); setShowForm(true); }}
                       className="rounded-md border border-card-border bg-white px-3 py-1 text-xs font-medium text-navy hover:bg-slate-50">
-                      Éditer
+                      {t("editBtn")}
                     </button>
                   </div>
                 </div>
                 {(p.revenue_total != null || p.ebitda != null) && (
                   <div className="mt-3 grid grid-cols-3 gap-3 border-t border-card-border/50 pt-2 text-xs">
-                    {p.revenue_total != null && <div><span className="text-muted">Revenu total</span><div className="font-semibold text-navy">{formatEUR(p.revenue_total)}</div></div>}
-                    {p.gop != null && <div><span className="text-muted">GOP</span><div className="font-semibold text-emerald-700">{formatEUR(p.gop)}</div></div>}
-                    {p.ebitda != null && <div><span className="text-muted">EBITDA</span><div className="font-semibold text-purple-700">{formatEUR(p.ebitda)}</div></div>}
+                    {p.revenue_total != null && <div><span className="text-muted">{t("revenuTotal")}</span><div className="font-semibold text-navy">{formatEUR(p.revenue_total)}</div></div>}
+                    {p.gop != null && <div><span className="text-muted">{t("gopLabel")}</span><div className="font-semibold text-emerald-700">{formatEUR(p.gop)}</div></div>}
+                    {p.ebitda != null && <div><span className="text-muted">{t("ebitdaLabel")}</span><div className="font-semibold text-purple-700">{formatEUR(p.ebitda)}</div></div>}
                   </div>
                 )}
               </div>
@@ -313,9 +314,7 @@ export default function HotelDetailPage() {
         </div>
 
         <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
-          <strong>Pour vos propriétaires :</strong> l&apos;owner report PDF agrège tous les KPIs de la période
-          (RevPAR, P&amp;L USALI, compset MPI/ARI/RGI) avec comparaison automatique vs la période précédente.
-          Génération en un clic, envoyable directement par email.
+          {t("ownerReportInfo")}
         </div>
       </div>
     </div>

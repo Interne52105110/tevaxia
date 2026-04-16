@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { listHotels, type Hotel } from "@/lib/hotels";
 import { listMyOrganizations } from "@/lib/orgs";
@@ -14,10 +14,10 @@ import {
 import { formatEUR } from "@/lib/calculations";
 
 type MetricKey = "occupancy" | "adr" | "revpar";
-const METRIC_LABEL: Record<MetricKey, string> = {
-  occupancy: "Taux d'occupation",
-  adr: "ADR (€)",
-  revpar: "RevPAR (€)",
+const METRIC_I18N_KEY: Record<MetricKey, string> = {
+  occupancy: "metricOccupancy",
+  adr: "metricAdr",
+  revpar: "metricRevpar",
 };
 const METRIC_COLOR: Record<MetricKey, string> = {
   occupancy: "#2563EB",
@@ -28,6 +28,7 @@ const METRIC_COLOR: Record<MetricKey, string> = {
 export default function HotelForecastPage() {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
+  const t = useTranslations("hotelForecast");
   const { user } = useAuth();
 
   const [hotels, setHotels] = useState<Hotel[]>([]);
@@ -61,7 +62,7 @@ export default function HotelForecastPage() {
         }
         setHotels(allHotels);
         if (allHotels.length > 0) setActiveHotelId(allHotels[0].id);
-      } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+      } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
     })();
   }, [user]);
 
@@ -72,7 +73,7 @@ export default function HotelForecastPage() {
       from.setUTCDate(from.getUTCDate() - 365);
       const ms = await listMetrics(hotelId, from.toISOString().slice(0, 10));
       setMetrics(ms);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   useEffect(() => {
@@ -89,21 +90,21 @@ export default function HotelForecastPage() {
     if (!activeHotelId || !csvText.trim()) return;
     try {
       const rows = parseCsvMetrics(csvText);
-      if (rows.length === 0) { setError("Aucune ligne valide détectée dans le CSV."); return; }
+      if (rows.length === 0) { setError(t("noCsvRows")); return; }
       await upsertMetrics(activeHotelId, rows.map((r) => ({ ...r, source: "csv_import" as const })));
       setCsvText(""); setShowCsvImport(false);
       await refreshMetrics(activeHotelId);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleSeed = async () => {
     if (!activeHotelId) return;
-    if (!confirm("Générer 120 jours de données synthétiques pour tester la prévision ? (marquées 'forecast_seed', supprimables)")) return;
+    if (!confirm(t("seedConfirm"))) return;
     try {
       const rows = generateSeedData(0.72, 130, 120);
       await upsertMetrics(activeHotelId, rows.map((r) => ({ ...r, source: "forecast_seed" as const })));
       await refreshMetrics(activeHotelId);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleManualSave = async () => {
@@ -117,19 +118,19 @@ export default function HotelForecastPage() {
       }]);
       setShowManual(false);
       await refreshMetrics(activeHotelId);
-    } catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   const handleDeleteMetric = async (id: string) => {
     try { await deleteMetric(id); if (activeHotelId) await refreshMetrics(activeHotelId); }
-    catch (e) { setError(e instanceof Error ? e.message : "Erreur"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
   };
 
   if (!user) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <p className="text-sm text-muted">Connectez-vous pour accéder au module de prévision.</p>
-        <Link href={`${lp}/connexion`} className="mt-4 inline-flex rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white">Se connecter</Link>
+        <p className="text-sm text-muted">{t("loginPrompt")}</p>
+        <Link href={`${lp}/connexion`} className="mt-4 inline-flex rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white">{t("loginBtn")}</Link>
       </div>
     );
   }
@@ -137,11 +138,10 @@ export default function HotelForecastPage() {
   return (
     <div className="bg-background min-h-screen py-8 sm:py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Link href={`${lp}/hotellerie`} className="text-xs text-muted hover:text-navy">← Hub hôtellerie</Link>
-        <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">Prévision à 90 jours — revenue management</h1>
+        <Link href={`${lp}/hotellerie`} className="text-xs text-muted hover:text-navy">{t("hubLink")}</Link>
+        <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
         <p className="mt-1 text-sm text-muted">
-          Lissage exponentiel triple (Holt-Winters additif) avec saisonnalité hebdomadaire.
-          Horizon paramétrable jusqu&apos;à 180 jours. Intervalle de confiance à 95 % basé sur l&apos;écart-type des résidus.
+          {t("subtitle")}
         </p>
 
         {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
@@ -149,9 +149,9 @@ export default function HotelForecastPage() {
         {hotels.length === 0 && (
           <div className="mt-8 rounded-xl border border-dashed border-card-border bg-card p-10 text-center">
             <p className="text-sm text-muted">
-              Aucun hôtel persisté.{" "}
-              <Link href={`${lp}/hotellerie/groupe`} className="text-navy underline">Créez d&apos;abord un hôtel</Link>
-              {" "}depuis votre dashboard groupe hôtelier.
+              {t("noHotel")}{" "}
+              <Link href={`${lp}/hotellerie/groupe`} className="text-navy underline">{t("noHotelLink")}</Link>
+              {" "}{t("noHotelSuffix")}
             </p>
           </div>
         )}
@@ -159,7 +159,7 @@ export default function HotelForecastPage() {
         {hotels.length > 0 && (
           <>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <label className="text-xs text-muted">Hôtel :</label>
+              <label className="text-xs text-muted">{t("hotelLabel")}</label>
               <select value={activeHotelId ?? ""} onChange={(e) => setActiveHotelId(e.target.value)}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-1.5 text-sm">
                 {hotels.map((h) => <option key={h.id} value={h.id}>{h.name}</option>)}
@@ -168,16 +168,16 @@ export default function HotelForecastPage() {
               <div className="ml-auto flex flex-wrap gap-2">
                 <button onClick={() => setShowManual(!showManual)}
                   className="rounded-lg border border-card-border bg-card px-3 py-1.5 text-xs font-medium text-navy hover:bg-slate-50">
-                  + Saisie manuelle
+                  {t("manualEntry")}
                 </button>
                 <button onClick={() => setShowCsvImport(!showCsvImport)}
                   className="rounded-lg border border-card-border bg-card px-3 py-1.5 text-xs font-medium text-navy hover:bg-slate-50">
-                  Import CSV
+                  {t("importCsv")}
                 </button>
                 {metrics.length === 0 && (
                   <button onClick={handleSeed}
                     className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-amber-600">
-                    Générer données de démo
+                    {t("generateDemo")}
                   </button>
                 )}
               </div>
@@ -187,19 +187,19 @@ export default function HotelForecastPage() {
               <div className="mt-4 rounded-xl border border-card-border bg-card p-4">
                 <div className="grid gap-3 sm:grid-cols-4">
                   <div>
-                    <label className="text-xs text-muted">Date</label>
+                    <label className="text-xs text-muted">{t("dateLabel")}</label>
                     <input type="date" value={manualEntry.metric_date}
                       onChange={(e) => setManualEntry({ ...manualEntry, metric_date: e.target.value })}
                       className="mt-1 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
                   </div>
                   <div>
-                    <label className="text-xs text-muted">Taux d&apos;occupation (0-1)</label>
+                    <label className="text-xs text-muted">{t("occupancyLabel")}</label>
                     <input type="number" min="0" max="1" step="0.01" value={manualEntry.occupancy}
                       onChange={(e) => setManualEntry({ ...manualEntry, occupancy: Number(e.target.value) || 0 })}
                       className="mt-1 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
                   </div>
                   <div>
-                    <label className="text-xs text-muted">ADR (€)</label>
+                    <label className="text-xs text-muted">{t("adrLabel")}</label>
                     <input type="number" min="0" step="1" value={manualEntry.adr}
                       onChange={(e) => setManualEntry({ ...manualEntry, adr: Number(e.target.value) || 0 })}
                       className="mt-1 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
@@ -207,7 +207,7 @@ export default function HotelForecastPage() {
                   <div className="flex items-end">
                     <button onClick={handleManualSave}
                       className="w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
-                      Enregistrer
+                      {t("save")}
                     </button>
                   </div>
                 </div>
@@ -217,7 +217,7 @@ export default function HotelForecastPage() {
             {showCsvImport && (
               <div className="mt-4 rounded-xl border border-card-border bg-card p-4">
                 <label className="text-xs text-muted">
-                  Format : <code>YYYY-MM-DD,occupancy,adr</code> · une ligne par jour · occupation décimale (0.82) ou pourcentage (82 %)
+                  {t("csvFormat")}
                 </label>
                 <textarea value={csvText} onChange={(e) => setCsvText(e.target.value)}
                   placeholder="date,occupancy,adr&#10;2026-01-01,0.75,120&#10;2026-01-02,0.82,125"
@@ -226,7 +226,7 @@ export default function HotelForecastPage() {
                 <div className="mt-2 flex justify-end">
                   <button onClick={handleImportCsv} disabled={!csvText.trim()}
                     className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light disabled:opacity-40">
-                    Importer
+                    {t("importBtn")}
                   </button>
                 </div>
               </div>
@@ -238,18 +238,18 @@ export default function HotelForecastPage() {
                 {(["occupancy", "adr", "revpar"] as MetricKey[]).map((m) => (
                   <button key={m} onClick={() => setActiveMetric(m)}
                     className={`px-3 py-1.5 text-xs ${activeMetric === m ? "bg-navy text-white" : "text-navy"} ${m === "occupancy" ? "rounded-l-lg" : m === "revpar" ? "rounded-r-lg" : ""}`}>
-                    {METRIC_LABEL[m]}
+                    {t(METRIC_I18N_KEY[m])}
                   </button>
                 ))}
               </div>
-              <label className="text-xs text-muted">Horizon :</label>
+              <label className="text-xs text-muted">{t("horizonLabel")}</label>
               <select value={horizon} onChange={(e) => setHorizon(Number(e.target.value))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-1.5 text-sm">
-                <option value={30}>30 jours</option>
-                <option value={60}>60 jours</option>
-                <option value={90}>90 jours</option>
-                <option value={120}>120 jours</option>
-                <option value={180}>180 jours</option>
+                <option value={30}>{t("days30")}</option>
+                <option value={60}>{t("days60")}</option>
+                <option value={90}>{t("days90")}</option>
+                <option value={120}>{t("days120")}</option>
+                <option value={180}>{t("days180")}</option>
               </select>
             </div>
 
@@ -257,35 +257,36 @@ export default function HotelForecastPage() {
             {forecast ? (
               <>
                 <div className="mt-4 grid gap-3 sm:grid-cols-4">
-                  <KpiCard label={`${METRIC_LABEL[activeMetric]} moyen (historique)`}
+                  <KpiCard label={t("kpiAvgHistorical", { metric: t(METRIC_I18N_KEY[activeMetric]) })}
                     value={activeMetric === "occupancy"
                       ? `${(avg(forecast.historical.map((p) => p.value)) * 100).toFixed(1)} %`
                       : formatEUR(avg(forecast.historical.map((p) => p.value)))} />
-                  <KpiCard label={`${METRIC_LABEL[activeMetric]} moyen (prévu)`}
+                  <KpiCard label={t("kpiAvgForecast", { metric: t(METRIC_I18N_KEY[activeMetric]) })}
                     value={activeMetric === "occupancy"
                       ? `${(avg(forecast.forecast.map((p) => p.value)) * 100).toFixed(1)} %`
                       : formatEUR(avg(forecast.forecast.map((p) => p.value)))} />
-                  <KpiCard label="MAPE backtest (30 j)" value={`${forecast.mape.toFixed(1)} %`} />
-                  <KpiCard label="Points d'historique" value={String(forecast.historical.length)} />
+                  <KpiCard label={t("kpiMape")} value={`${forecast.mape.toFixed(1)} %`} />
+                  <KpiCard label={t("kpiHistoryPoints")} value={String(forecast.historical.length)} />
                 </div>
 
                 <div className="mt-4 rounded-xl border border-card-border bg-card p-4">
-                  <ForecastChart forecast={forecast} color={METRIC_COLOR[activeMetric]} metric={activeMetric} />
+                  <ForecastChart forecast={forecast} color={METRIC_COLOR[activeMetric]} metric={activeMetric}
+                    labels={{ today: t("chartToday"), historical: t("legendHistorical"), forecast: t("legendForecast"), ci: t("legendCi") }} />
                 </div>
 
                 {/* Forecast table */}
                 <details className="mt-4">
                   <summary className="cursor-pointer text-sm font-medium text-navy hover:underline">
-                    Afficher les valeurs prévisionnelles ({forecast.forecast.length} jours)
+                    {t("showForecastValues", { count: forecast.forecast.length })}
                   </summary>
                   <div className="mt-2 overflow-x-auto rounded-xl border border-card-border bg-card">
                     <table className="w-full text-xs">
                       <thead className="bg-background text-left text-[10px] uppercase tracking-wider text-muted">
                         <tr>
-                          <th className="px-3 py-2">Date</th>
-                          <th className="px-3 py-2 text-right">Prévision</th>
-                          <th className="px-3 py-2 text-right">IC 95 % bas</th>
-                          <th className="px-3 py-2 text-right">IC 95 % haut</th>
+                          <th className="px-3 py-2">{t("thDate")}</th>
+                          <th className="px-3 py-2 text-right">{t("thForecast")}</th>
+                          <th className="px-3 py-2 text-right">{t("thCiLow")}</th>
+                          <th className="px-3 py-2 text-right">{t("thCiHigh")}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-card-border/50">
@@ -310,8 +311,7 @@ export default function HotelForecastPage() {
               </>
             ) : (
               <div className="mt-6 rounded-xl border border-dashed border-card-border bg-card p-8 text-center text-sm text-muted">
-                Il faut au moins <strong>14 jours</strong> de données journalières pour lancer une prévision.
-                Importez un CSV, saisissez manuellement ou utilisez le bouton « Générer données de démo ».
+                {t("minDataWarning")}
               </div>
             )}
 
@@ -319,17 +319,17 @@ export default function HotelForecastPage() {
             {metrics.length > 0 && (
               <details className="mt-4">
                 <summary className="cursor-pointer text-sm font-medium text-navy hover:underline">
-                  Historique saisi ({metrics.length} jours)
+                  {t("showHistory", { count: metrics.length })}
                 </summary>
                 <div className="mt-2 overflow-x-auto rounded-xl border border-card-border bg-card max-h-96">
                   <table className="w-full text-xs">
                     <thead className="bg-background text-left text-[10px] uppercase tracking-wider text-muted sticky top-0">
                       <tr>
-                        <th className="px-3 py-2">Date</th>
-                        <th className="px-3 py-2 text-right">Occupation</th>
-                        <th className="px-3 py-2 text-right">ADR</th>
-                        <th className="px-3 py-2 text-right">RevPAR</th>
-                        <th className="px-3 py-2">Source</th>
+                        <th className="px-3 py-2">{t("thDate")}</th>
+                        <th className="px-3 py-2 text-right">{t("thOccupation")}</th>
+                        <th className="px-3 py-2 text-right">{t("thAdr")}</th>
+                        <th className="px-3 py-2 text-right">{t("thRevpar")}</th>
+                        <th className="px-3 py-2">{t("thSource")}</th>
                         <th className="px-3 py-2"></th>
                       </tr>
                     </thead>
@@ -343,7 +343,7 @@ export default function HotelForecastPage() {
                           <td className="px-3 py-1.5 text-muted text-[10px]">{m.source}</td>
                           <td className="px-3 py-1.5 text-right">
                             <button onClick={() => handleDeleteMetric(m.id)}
-                              className="rounded p-1 text-muted hover:text-rose-600" title="Supprimer">×</button>
+                              className="rounded p-1 text-muted hover:text-rose-600" title={t("deleteTitle")}>×</button>
                           </td>
                         </tr>
                       ))}
@@ -356,10 +356,7 @@ export default function HotelForecastPage() {
         )}
 
         <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
-          <strong>Méthodologie :</strong> modèle Holt-Winters additif (m=7) avec α=0.3, β=0.1, γ=0.3.
-          Qualité mesurée par MAPE (erreur moyenne en pourcentage) sur les 30 derniers points.
-          Une MAPE &lt; 10 % est excellente pour un forecast hôtelier, 10-20 % acceptable, &gt; 20 % signale une forte volatilité.
-          Le MAPE n&apos;inclut pas les chocs exogènes (grèves, événements majeurs, saisonnalités atypiques).
+          {t("methodology")}
         </div>
       </div>
     </div>
@@ -381,10 +378,11 @@ function KpiCard({ label, value }: { label: string; value: string }) {
 
 // ---------- SVG chart ----------
 
-function ForecastChart({ forecast, color, metric }: {
+function ForecastChart({ forecast, color, metric, labels }: {
   forecast: { historical: { date: string; value: number }[]; forecast: { date: string; value: number; lower: number; upper: number }[] };
   color: string;
   metric: MetricKey;
+  labels: { today: string; historical: string; forecast: string; ci: string };
 }) {
   const W = 900, H = 260, pad = 32;
   const all = [...forecast.historical, ...forecast.forecast];
@@ -446,7 +444,7 @@ function ForecastChart({ forecast, color, metric }: {
         <text x={pad} y={H - pad + 14} fontSize={9} fill="#6B7280">{display[0]?.date.slice(5)}</text>
         {fcast.length > 0 && (
           <text x={x(hist.length - 0.5)} y={H - pad + 14} fontSize={9} fill="#6B7280" textAnchor="middle">
-            Aujourd&apos;hui
+            {labels.today}
           </text>
         )}
         <text x={W - pad} y={H - pad + 14} fontSize={9} fill="#6B7280" textAnchor="end">
@@ -455,13 +453,13 @@ function ForecastChart({ forecast, color, metric }: {
       </svg>
       <div className="mt-2 flex flex-wrap items-center gap-4 text-[10px] text-muted">
         <span className="inline-flex items-center gap-1">
-          <span className="inline-block w-4 h-0.5" style={{ backgroundColor: color }}></span> Historique
+          <span className="inline-block w-4 h-0.5" style={{ backgroundColor: color }}></span> {labels.historical}
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="inline-block w-4 h-0.5 border-b border-dashed" style={{ borderColor: color }}></span> Prévision
+          <span className="inline-block w-4 h-0.5 border-b border-dashed" style={{ borderColor: color }}></span> {labels.forecast}
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="inline-block w-3 h-3 rounded" style={{ backgroundColor: color, opacity: 0.12 }}></span> IC 95 %
+          <span className="inline-block w-3 h-3 rounded" style={{ backgroundColor: color, opacity: 0.12 }}></span> {labels.ci}
         </span>
       </div>
     </div>

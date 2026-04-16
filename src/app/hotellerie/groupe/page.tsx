@@ -49,7 +49,7 @@ export default function HotelGroupDashboard() {
         setOrgs(hotelOrgs);
         if (hotelOrgs.length > 0 && !activeOrgId) setActiveOrgId(hotelOrgs[0].id);
       })
-      .catch((e) => setError(e instanceof Error ? e.message : "Erreur"));
+      .catch((e) => setError(e instanceof Error ? e.message : tg("error")));
   }, [user, activeOrgId]);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function HotelGroupDashboard() {
     setLoading(true);
     listHotels(activeOrgId)
       .then(setHotels)
-      .catch((e) => setError(e instanceof Error ? e.message : "Erreur"))
+      .catch((e) => setError(e instanceof Error ? e.message : tg("error")))
       .finally(() => setLoading(false));
   }, [activeOrgId]);
 
@@ -77,18 +77,18 @@ export default function HotelGroupDashboard() {
       const list = await listHotels(activeOrgId);
       setHotels(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur création");
+      setError(e instanceof Error ? e.message : tg("errorCreation"));
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Supprimer cet hôtel ? Les périodes de performance associées seront également supprimées.")) return;
+    if (!confirm(tg("deleteConfirm"))) return;
     try {
       await deleteHotel(id);
       const list = await listHotels(activeOrgId!);
       setHotels(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur suppression");
+      setError(e instanceof Error ? e.message : tg("errorDeletion"));
     }
   };
 
@@ -99,9 +99,9 @@ export default function HotelGroupDashboard() {
   if (!user) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <p className="text-sm text-muted">Connectez-vous pour accéder à votre dashboard hôtelier.</p>
+        <p className="text-sm text-muted">{tg("login")}</p>
         <Link href={`${lp}/connexion`} className="mt-4 inline-flex rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white">
-          Se connecter
+          {tg("loginBtn")}
         </Link>
       </div>
     );
@@ -130,14 +130,14 @@ export default function HotelGroupDashboard() {
             <div className="text-4xl">🏨</div>
             <h2 className="mt-3 text-lg font-semibold text-navy">{tg("noGroup")}</h2>
             <p className="mt-1 text-sm text-muted">
-              Créez une organisation de type « Groupe hôtelier » depuis votre profil pour commencer à ajouter vos établissements.
+              {tg("noGroupDesc")}
             </p>
           </div>
         )}
 
         {orgs.length > 1 && (
           <div className="mt-6 flex items-center gap-2">
-            <label className="text-xs text-muted">Groupe :</label>
+            <label className="text-xs text-muted">{tg("groupLabel")}</label>
             <select
               value={activeOrgId ?? ""}
               onChange={(e) => setActiveOrgId(e.target.value)}
@@ -224,7 +224,7 @@ export default function HotelGroupDashboard() {
                     disabled={!newName.trim()}
                     className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-40"
                   >
-                    Créer l&apos;hôtel
+                    {tg("createHotel")}
                   </button>
                 </div>
               </div>
@@ -234,7 +234,7 @@ export default function HotelGroupDashboard() {
 
             {!loading && hotels.length === 0 && !showCreate && (
               <div className="mt-4 rounded-xl border border-dashed border-card-border bg-card p-8 text-center text-sm text-muted">
-                Aucun hôtel dans ce groupe. Cliquez sur « {tg("addHotel")} » pour commencer.
+                {tg("noHotelDesc")}
               </div>
             )}
 
@@ -251,14 +251,14 @@ export default function HotelGroupDashboard() {
                       </div>
                       <div className="mt-1 text-xs text-muted">
                         {h.commune ? `${h.commune} · ` : ""}
-                        {h.nb_chambres > 0 ? `${h.nb_chambres} chambres` : "Chambres non renseignées"}
+                        {h.nb_chambres > 0 ? `${h.nb_chambres} ${tg("roomsCount")}` : tg("roomsNotSet")}
                         {h.operator_type !== "independent" ? ` · ${h.operator_type}` : ""}
                       </div>
                     </div>
                     <button
                       onClick={() => handleDelete(h.id)}
                       className="rounded-md p-1 text-muted hover:text-rose-600 hover:bg-rose-50"
-                      title="Supprimer"
+                      title={tg("deleteBtn")}
                     >
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79" />
@@ -270,19 +270,19 @@ export default function HotelGroupDashboard() {
                     <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
                       {h.classe_energie && (
                         <div className="flex justify-between border-t border-card-border/50 pt-1.5">
-                          <span className="text-muted">Classe énergie</span>
+                          <span className="text-muted">{tg("energyClass")}</span>
                           <span className="font-medium text-navy">{h.classe_energie}</span>
                         </div>
                       )}
                       {h.year_built && (
                         <div className="flex justify-between border-t border-card-border/50 pt-1.5">
-                          <span className="text-muted">Année constr.</span>
+                          <span className="text-muted">{tg("yearBuilt")}</span>
                           <span className="font-medium text-navy">{h.year_built}</span>
                         </div>
                       )}
                       {h.prix_acquisition && (
                         <div className="flex justify-between col-span-2 border-t border-card-border/50 pt-1.5">
-                          <span className="text-muted">Prix d&apos;acquisition</span>
+                          <span className="text-muted">{tg("acquisitionPrice")}</span>
                           <span className="font-medium text-navy">{formatEUR(h.prix_acquisition)}</span>
                         </div>
                       )}
@@ -291,19 +291,19 @@ export default function HotelGroupDashboard() {
 
                   <div className="mt-4 flex flex-wrap gap-1.5 border-t border-card-border pt-3">
                     <Link href={`${lp}/hotellerie/valorisation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      Valorisation
+                      {tg("valorisation")}
                     </Link>
                     <Link href={`${lp}/hotellerie/dscr?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      DSCR
+                      {tg("dscr")}
                     </Link>
                     <Link href={`${lp}/hotellerie/exploitation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      Exploitation
+                      {tg("exploitation")}
                     </Link>
                     <Link href={`${lp}/hotellerie/revpar-comparison?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      RevPAR
+                      {tg("revpar")}
                     </Link>
                     <Link href={`${lp}/hotellerie/renovation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      Rénovation
+                      {tg("renovation")}
                     </Link>
                   </div>
                 </div>
