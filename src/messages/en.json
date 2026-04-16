@@ -6486,7 +6486,9 @@
     "introP2": "Each guide links to a tevaxia calculator that lets you apply the described rule in practice — estimation, fee simulation, rent cap calculation, scenario comparison. Guides are available in 5 languages for residents, cross-border workers and international investors.",
     "aboutTitle": "About this guide",
     "aboutP1": "This guide is written by Erwan Bargain, TEGOVA-certified property valuer (REV), and kept up to date with data from the Observatoire de l'Habitat, STATEC and current Luxembourg legislation. It does not constitute legal advice — consult a notary or lawyer for any individual situation.",
-    "aboutP2": "Last updated: April 2026. Sources: amended law of 21 September 2006 (residential lease), law of 16 May 1975 (co-ownership), law of 3 February 2018 (commercial lease), Income Tax Code (LIR), STATEC grand-ducal regulations, Observatoire de l'Habitat / data.public.lu publications."
+    "aboutP2": "Last updated: April 2026. Sources: amended law of 21 September 2006 (residential lease), law of 16 May 1975 (co-ownership), law of 3 February 2018 (commercial lease), Income Tax Code (LIR), STATEC grand-ducal regulations, Observatoire de l'Habitat / data.public.lu publications.",
+    "iaTevaxiaTitle": "AI on tevaxia",
+    "iaTevaxiaDesc": "AI analysis of calculations, EVS report drafting, PDF extraction and conversational assistant specialized in Luxembourg real estate."
   },
   "guide": {
     "fraisNotaire": {
@@ -6692,6 +6694,26 @@
       "faq1A": "Average RevPAR in Luxembourg ranges from EUR 60 for budget/economy hotels to EUR 150 for upscale/luxury hotels. Luxembourg City shows the highest RevPAR, driven by business tourism and European institutions. Tourist regions (Ardennes, Moselle) have more seasonal RevPAR patterns.",
       "faq2Q": "What DSCR do banks require for a hotel loan in Luxembourg?",
       "faq2A": "Luxembourg banks generally require a DSCR (Debt Service Coverage Ratio) between 1.25x and 1.40x for hotel financing. This means available cash flow after operating expenses must cover at least 1.25 to 1.40 times the annual debt service (principal + interest). A DSCR below 1.25x will make financing difficult to obtain."
+    },
+    "iaTevaxia": {
+      "title": "How to use AI on tevaxia.lu",
+      "metaDescription": "tevaxia.lu AI assistant: results analysis, EVS drafting, PDF extraction, Luxembourg real estate chat. Free 5/day, unlimited with your key (BYOK).",
+      "intro": "tevaxia.lu embeds an AI engine specialized in Luxembourg real estate — LIR tax law, TEGOVA EVS 2025, VEFA, condominium, USALI hotel P&L, AML/KYC. Every signed-in user gets 5 free analyses per day via Cerebras (Llama 3.3 70B). For unlimited use or access to GPT-4o / Claude, you can add your own API key (BYOK) in your profile. Here's how to make the most of each feature.",
+      "section1Title": "Automatic analysis of results",
+      "section1Content": "On about ten tools (estimation, EVS valuation, promoter P&L, multi-lease DCF, USALI hotel, E-2 visa score, VEFA, capital gains, property comparison, buy-vs-rent), an \"Analyze with AI\" button appears after each calculation. The AI receives the full context (inputs + results) and writes a professional commentary: price-level diagnostic, risk identification, ratio consistency vs Luxembourg market standards, arbitrage recommendations. Prompts are domain-specific — a promoter P&L analysis cites typical land-cost ratios (10-20% of revenue), a USALI P&L analysis compares to the expected GOP margin by category.",
+      "section2Title": "EVS 2025 report drafting",
+      "section2Content": "The EVS Report mode on the /valorisation page embeds 8 \"Draft with AI\" buttons next to the narrative fields (location, environment, access, method justification, tax regime, ESG impact, reservations, uncertainty). Each button generates a formal paragraph injected directly into the field, compliant with TEGOVA standards and the Charter 5th edition, with legal references (art. 102bis LIR, IVS 103, CRREM pathway). The EVS Challenger mode on the Reconciliation tab acts as a critical auditor: it flags missing data, inconsistencies, abnormal ratios and compliance risks before signing — prefixed [BLOCKING], [MAJOR] or [MINOR].",
+      "section3Title": "PDF extraction (BYOK required)",
+      "section3Content": "To pre-fill a form from an existing document (promoter budget, capital-gain deed, EPC certificate), a \"Pre-fill from PDF\" button triggers a vision extraction via your BYOK Anthropic (for PDFs) or OpenAI (for images) key. The model returns structured JSON that feeds the fields directly. This feature requires a BYOK API key because the free Cerebras/Groq models don't handle vision. 8 MB file limit. Currently available on /bilan-promoteur and /plus-values; other schemas (EPC) are supported by the API.",
+      "section4Title": "Conversational assistant + public API",
+      "section4Content": "A floating chat widget at the bottom right opens a free conversation with the Luxembourg real estate assistant. You can ask cross-cutting questions that don't fit a specific tool: \"what VAT applies to mixed-use building renovation?\", \"what majority is needed to vote a roof refurbishment in a condominium?\", \"how is the Bëllegen Akt computed for a non-resident couple?\". The assistant keeps multi-turn context. For B2B integrators, the 3 endpoints (`/api/v1/ai/analyze`, `/api/v1/ai/chat`, `/api/v1/ai/extract`) are accessible with a tevaxia API key (X-API-Key header) at the standard tier rate limit — full documentation at /api-docs.",
+      "relatedToolLabel": "Configure your AI key (BYOK)",
+      "faq1Q": "Is the AI really free?",
+      "faq1A": "Yes, 5 analyses per day per signed-in user, at no cost. Beyond that, you can add your own Cerebras, Groq, OpenAI or Anthropic key in your profile for unlimited use. The tevaxia server uses Cerebras (Llama 3.3 70B) for the free tier, with automatic fallback to Groq if configured.",
+      "faq2Q": "Is my data sent to a third party?",
+      "faq2A": "Yes, requests transit through the configured AI provider (Cerebras by default, or your BYOK key). The contexts sent contain only the current calculation's inputs and results — never personal data beyond that scope. Cerebras and Groq don't store prompts for training. If you're bound by confidentiality (e.g. sensitive AML/KYC), prefer an Anthropic or OpenAI key with the enterprise terms of your choice.",
+      "faq3Q": "Does the AI replace a certified expert?",
+      "faq3A": "No. The AI provides drafting and analysis assistance, not a binding expert opinion. For an EVS report intended for a bank or court, the TEGOVA-certified expert remains responsible for the retained value and must review, correct and sign the report. The AI accelerates production (narrative draft, inconsistency detection) but doesn't replace human expertise or the on-site visit."
     }
   },
   "aiSettings": {

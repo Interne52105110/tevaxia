@@ -254,7 +254,39 @@ export default function BilanPromoteur() {
           <p className="mt-2 text-muted">
             {t("subtitle")}
           </p>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setTypeOperation("immeuble");
+                setSurfaceVendable(2400);
+                setPrixVenteM2(9200);
+                setNbParkings(32);
+                setPrixParking(38000);
+                setSurfaceTerrain(3200);
+                setPrixTerrainM2(0);
+                setCoutTerrainConnu(false);
+                setCoutConstructionM2(3100);
+                setSurfaceBrute(3000);
+                setVoirie(220000);
+                setHonorairesArchitecte(8);
+                setHonorairesBET(4.5);
+                setEtudesAutres(65000);
+                setFraisCommerciaux(3);
+                setFraisFinanciers(3.5);
+                setAssurances(1.5);
+                setFraisGestion(2);
+                setAleas(5);
+                setMargePromoteur(15);
+                setTauxPreCommercialisation(55);
+              }}
+              className="inline-flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-900 hover:bg-amber-100"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Charger exemple démo
+            </button>
             <PdfExtractButton
               schema="bilan_promoteur"
               onExtracted={(d) => {

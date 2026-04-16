@@ -15,6 +15,7 @@ const GUIDES = [
   { slug: "tva-3-pourcent-logement", titleKey: "tva3PourcentTitle", descKey: "tva3PourcentDesc" },
   { slug: "bail-commercial-luxembourg", titleKey: "bailCommercialTitle", descKey: "bailCommercialDesc" },
   { slug: "investir-hotel-luxembourg", titleKey: "investirHotelTitle", descKey: "investirHotelDesc" },
+  { slug: "ia-tevaxia", titleKey: "iaTevaxiaTitle", descKey: "iaTevaxiaDesc" },
 ] as const;
 
 export async function generateMetadata(): Promise<Metadata> {
