@@ -27,6 +27,12 @@ export default function GestionLocativeLanding() {
               Accéder au portefeuille →
             </Link>
             <Link
+              href={`${lp}/gestion-locative/fiscal`}
+              className="rounded-lg bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600"
+            >
+              📊 Dashboard fiscal LU
+            </Link>
+            <Link
               href={`${lp}/calculateur-loyer`}
               className="rounded-lg border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/20 backdrop-blur-sm"
             >

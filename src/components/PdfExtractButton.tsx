@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
 
 interface PdfExtractButtonProps {
-  schema: "bilan_promoteur" | "plus_values" | "dpe";
+  schema: "bilan_promoteur" | "plus_values" | "dpe" | "facture_immo";
   onExtracted: (data: Record<string, unknown>) => void;
   label?: string;
   accept?: string;

@@ -73,6 +73,26 @@ const EXTRACTION_SCHEMAS: Record<string, { instructions: string; schema: string 
   "typeChauffage": string
 }`,
   },
+  facture_immo: {
+    instructions:
+      "Extrait les données d'une facture fournisseur liée à l'immobilier (syndic copropriété ou gestion locative) au Luxembourg. Catégorie comptable selon plan LU (classe 6 : charges).",
+    schema: `{
+  "fournisseur": string (raison sociale),
+  "siret_or_tva": string (numéro TVA ou RCSL),
+  "numeroFacture": string,
+  "dateFacture": string (AAAA-MM-JJ),
+  "dateEcheance": string (AAAA-MM-JJ si mentionnée),
+  "montantHT": number,
+  "montantTVA": number,
+  "tauxTVA": number (en %, ex. 17 / 14 / 8 / 3),
+  "montantTTC": number,
+  "devise": string (EUR par défaut),
+  "categorie": "entretien" | "maintenance" | "energie" | "eau" | "assurance" | "honoraires_syndic" | "travaux" | "fournitures" | "services_administratifs" | "autres",
+  "description": string (objet/libellé),
+  "iban": string (si RIB présent),
+  "isInterventionUrgente": boolean
+}`,
+  },
 };
 
 function getServiceClient() {

@@ -170,6 +170,20 @@ export default function PaymentsPage() {
             className="rounded-lg bg-navy px-3 py-2 text-sm font-semibold text-white hover:bg-navy-light">
             {t("generateYear")} {selectedYear}
           </button>
+          <button onClick={async () => {
+            const { createTenantToken, buildTenantPortalUrl } = await import("@/lib/tenant-portal");
+            try {
+              const tok = await createTenantToken({ lot_id: id, tenant_name: null, tenant_email: null, expires_in_days: 365 });
+              const url = buildTenantPortalUrl(tok.token);
+              await navigator.clipboard.writeText(url);
+              alert(`Lien portail locataire copié ✓\n\n${url}\n\nÀ transmettre au locataire par email.`);
+            } catch (err) {
+              alert("Erreur : " + (err instanceof Error ? err.message : "inconnue"));
+            }
+          }}
+            className="rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 px-3 py-2 text-sm font-semibold text-white hover:from-teal-700 hover:to-cyan-700">
+            🔗 Générer lien portail locataire
+          </button>
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
