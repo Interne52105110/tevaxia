@@ -12,6 +12,7 @@ import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SEOContent from "@/components/SEOContent";
 import { generatePlusValuesPdfBlob, PdfButton } from "@/components/ToolsPdf";
+import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 export default function PlusValues() {
   const t = useTranslations("plusValues");
@@ -397,6 +398,29 @@ export default function PlusValues() {
                 />
               </>
             )}
+
+            <AiAnalysisCard
+              context={[
+                `Mode acquisition: ${modeAcquisition}`,
+                `Prix/valeur acquisition: ${formatEUR(prixAcquisition)} en ${anneeAcquisition}`,
+                `Prix cession: ${formatEUR(prixCession)} en ${anneeCession}`,
+                `Durée détention: ${result.dureeDetention} ans`,
+                `Frais acquisition déductibles: ${fraisAcquisition > 0 ? formatEUR(fraisAcquisition) : "forfait 25%"}`,
+                `Travaux déductibles: ${formatEUR(travauxDeductibles)}`,
+                `Résidence principale: ${estResidencePrincipale ? "oui" : "non"}`,
+                `Couple: ${estCouple ? "oui" : "non"}`,
+                `Type fiscal: ${result.typeGain} (${typeLabel})`,
+                `Coefficient réévaluation appliqué: ${result.coefficient.toFixed(2)}`,
+                `Prix acquisition revalorisé: ${formatEUR(result.prixAcquisitionRevalorise)}`,
+                `Plus-value brute: ${formatEUR(result.gainBrut)}`,
+                `Abattement décennal: ${formatEUR(result.abattement)}`,
+                `Plus-value imposable: ${formatEUR(result.gainImposable)}`,
+                `Taux effectif: ${(result.tauxEffectif * 100).toFixed(1)}%`,
+                `Impôt estimé: ${formatEUR(result.estimationImpot)}`,
+                `Net après impôt: ${formatEUR(result.netApresImpot)}`,
+              ].join("\n")}
+              prompt="Explique de manière claire et personnalisée la situation fiscale de cette plus-value immobilière luxembourgeoise. Précise : (1) le régime fiscal applicable (spéculation à taux global si <2 ans, cession à demi-taux global au-delà, exonération résidence principale art. 102bis LIR), (2) comment le coefficient de réévaluation et l'abattement décennal ont été appliqués, (3) les exonérations manquées ou possibles dans cette situation, (4) les conseils pratiques pour optimiser (délai, travaux déductibles, option couple)."
+            />
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <h3 className="mb-3 text-base font-semibold text-navy">{t("explicationTitle")}</h3>

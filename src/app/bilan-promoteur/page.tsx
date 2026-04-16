@@ -10,6 +10,7 @@ import ShareLinkButton from "@/components/ShareLinkButton";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import SEOContent from "@/components/SEOContent";
+import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 export default function BilanPromoteur() {
   const t = useTranslations("bilanPromoteur");
@@ -438,6 +439,27 @@ export default function BilanPromoteur() {
                 results: result,
               }}
               className="mt-3"
+            />
+
+            <AiAnalysisCard
+              context={[
+                `Type opération: ${typeOperation}`,
+                `Surface vendable: ${surfaceVendable} m²`,
+                `Prix vente: ${prixVenteM2} €/m²`,
+                `Parkings: ${nbParkings} × ${prixParking} €`,
+                `CA total projeté: ${formatEUR(result.caTotal)}`,
+                `Terrain: ${coutTerrainConnu ? `${formatEUR(result.coutTerrain)} (${prixTerrainM2} €/m² × ${surfaceTerrain} m²)` : "en compte à rebours"}`,
+                `Surface brute: ${surfaceBrute} m² × ${coutConstructionM2} €/m² = ${formatEUR(result.coutsConstruction)}`,
+                `Total coûts construction: ${formatEUR(result.totalConstruction)} (${formatPct(result.ratioConstructionCA)} du CA)`,
+                `Frais promoteur: ${formatEUR(result.totalFrais)} (${formatPct(result.ratioFraisCA)} du CA)`,
+                `Aléas: ${aleas}% de construction`,
+                `Pré-commercialisation: ${tauxPreCommercialisation}%`,
+                `Marge promoteur visée: ${margePromoteur}% = ${formatEUR(result.margeMontant)}`,
+                `Charge foncière résiduelle: ${formatEUR(result.chargeFonciere)} (${formatPct(result.ratioFoncierCA)} du CA)`,
+                `Rentabilité fonds propres estimée: ${formatPct(result.rentaFP)}`,
+                `Besoin max trésorerie: ${treasuryPlan.peakNeed < 0 ? `${formatEUR(Math.abs(treasuryPlan.peakNeed))} en ${treasuryPlan.peakQuarter}` : "aucun (auto-financé VEFA)"}`,
+              ].join("\n")}
+              prompt="Analyse ce bilan promoteur luxembourgeois en mode pré-acquisition. Donne un diagnostic professionnel : (1) viabilité du montage et cohérence des ratios, (2) risques identifiés (marché, coûts, financement, pré-commercialisation), (3) points faibles à négocier ou sécuriser, (4) recommandations d'ajustement. Réfère-toi aux standards du marché LU (ratio charge foncière 10-20% du CA, marge promoteur 10-18%)."
             />
 
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">

@@ -47,6 +47,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import ReportModeEVS from "@/components/ReportModeEVS";
+import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
 
@@ -1418,6 +1419,26 @@ function TabReconciliation({
               { label: t("recEcartType"), value: formatEUR(resultBase.ecartType), sub: true },
               ...(resultBase.ecartMaxPct > 20 ? [{ label: t("recAlerte"), value: t("recAlerteEcart"), warning: true }] : []),
             ]}
+          />
+
+          <AiAnalysisCard
+            context={[
+              `Rapport EVS 2025 — ${assetType} (${evsInfo.label})`,
+              `Commune: ${selectedCommune?.commune ?? "non spécifiée"}${selectedCommune?.canton ? ` (${selectedCommune.canton})` : ""}`,
+              `Surface: ${surfaceBien} m²`,
+              "",
+              `Méthode Comparaison: ${valeurComparaison ? formatEUR(valeurComparaison) : "non retenue"} — poids ${poidsComp}%`,
+              `Méthode Capitalisation: ${valeurCapitalisation ? formatEUR(valeurCapitalisation) : "non retenue"} — poids ${poidsCap}%`,
+              `Méthode DCF: ${valeurDCF ? formatEUR(valeurDCF) : "non retenue"} — poids ${poidsDCF}%`,
+              "",
+              `Valeur réconciliée (scénario central): ${formatEUR(resultBase.valeurReconciliee)}`,
+              `Écart max entre méthodes: ${resultBase.ecartMaxPct.toFixed(1)}%`,
+              `Écart-type: ${formatEUR(resultBase.ecartType)}`,
+              "",
+              `Scénario bas (−${scenarioBasPct}%): ${formatEUR(resultBas.valeurReconciliee)}`,
+              `Scénario haut (+${scenarioHautPct}%): ${formatEUR(resultHaut.valeurReconciliee)}`,
+            ].join("\n")}
+            prompt="Rédige le commentaire de réconciliation pour un rapport EVS 2025 (TEGOVA) au Luxembourg. Structure attendue : (1) justification professionnelle des pondérations choisies entre méthodes (approche comparative, capitalisation, DCF), en cohérence avec le type d'actif et la disponibilité des données marché ; (2) analyse de l'écart entre méthodes et interprétation (convergence = fiabilité, divergence > 15% = signal d'attention) ; (3) commentaire sur la fourchette haut-bas et la sensibilité ; (4) conclusion motivée sur la valeur de marché retenue. Ton neutre, professionnel, référencé EVS 2025 / Charte TEGOVA 5e édition."
           />
         </div>
       </div>

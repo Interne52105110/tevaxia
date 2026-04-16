@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { pdf } from "@react-pdf/renderer";
 import { useAuth } from "@/components/AuthProvider";
+import { useAI } from "@/lib/useAI";
 import ConvocationPdf from "@/components/ConvocationPdf";
 import AssemblyMinutesPdf from "@/components/AssemblyMinutesPdf";
 import { getProfile } from "@/lib/profile";
@@ -61,6 +62,28 @@ export default function AssembliesPage() {
     description: "",
     majority_type: "simple",
   });
+
+  const { analyze: aiAnalyze, loading: aiLoading, error: aiError } = useAI();
+
+  const handleAiDraftResolution = async () => {
+    if (!resDraft.title.trim()) return;
+    try {
+      const context = [
+        `Copropriété: ${coown?.name ?? "—"}`,
+        `Adresse: ${coown?.address ?? "—"}${coown?.commune ? `, ${coown.commune}` : ""}`,
+        `Type AG: ${activeAssembly?.assembly_type === "extraordinary" ? "extraordinaire" : "ordinaire"}`,
+        `Date AG: ${activeAssembly ? new Date(activeAssembly.scheduled_at).toLocaleDateString("fr-LU") : "—"}`,
+        `Titre de la résolution: ${resDraft.title}`,
+        `Type de majorité visée: ${MAJORITY_LABEL[resDraft.majority_type]}`,
+      ].join("\n");
+      const prompt =
+        "Rédige le texte d'une résolution d'assemblée générale de copropriété au Luxembourg, conforme à la loi modifiée du 16 mai 1975 portant statut de la copropriété des immeubles bâtis. Structure : (1) exposé succinct (contexte, nécessité, coûts estimés si pertinent), (2) formulation juridique de la résolution (« L'assemblée générale… décide de… »), (3) mention de la majorité requise (simple, double, unanimité) et du quorum. Style formel, précis, directement copiable dans un ordre du jour. Pas de mise en forme markdown.";
+      const text = await aiAnalyze(context, prompt);
+      setResDraft((prev) => ({ ...prev, description: text.trim() }));
+    } catch {
+      // error captured in aiError
+    }
+  };
 
   const refresh = async () => {
     try {
@@ -434,8 +457,29 @@ export default function AssembliesPage() {
                   value={resDraft.description}
                   onChange={(e) => setResDraft({ ...resDraft, description: e.target.value })}
                   className="mt-2 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
-                  rows={2}
+                  rows={aiLoading || resDraft.description.length > 200 ? 6 : 2}
                 />
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={handleAiDraftResolution}
+                    disabled={!resDraft.title.trim() || aiLoading}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:from-purple-700 hover:to-indigo-700 disabled:opacity-40"
+                  >
+                    <svg className={`h-3.5 w-3.5 ${aiLoading ? "animate-spin" : ""}`} viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
+                      {aiLoading ? (
+                        <>
+                          <circle className="opacity-25" cx="12" cy="12" r="10" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                        </>
+                      ) : (
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+                      )}
+                    </svg>
+                    {aiLoading ? "Rédaction..." : "Rédiger avec l'IA"}
+                  </button>
+                  {aiError && <span className="text-[10px] text-rose-700">{aiError}</span>}
+                </div>
                 <select
                   value={resDraft.majority_type}
                   onChange={(e) => setResDraft({ ...resDraft, majority_type: e.target.value as MajorityType })}
