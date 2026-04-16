@@ -54,7 +54,7 @@ export default function SEOContent({ ns, sections, faq, relatedLinks }: SEOConte
   };
 
   return (
-    <section className="border-t border-card-border bg-background">
+    <section className="mt-8 sm:mt-12 border-t border-card-border bg-background">
       {/* FAQ JSON-LD */}
       <script
         type="application/ld+json"
