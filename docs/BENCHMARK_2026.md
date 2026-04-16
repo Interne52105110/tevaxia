@@ -2,7 +2,27 @@
 
 **Objectif** : pour chaque module en ligne sur tevaxia.lu, identifier les leaders internationaux/régionaux, les fonctionnalités qu'ils offrent et qu'on n'a pas, les pistes d'amélioration classées par horizon (court : 1-4 semaines / moyen : 1-3 mois / long : 3-12 mois).
 
-**Méthode** : analyse des 7 familles métier (particulier, investisseur, promoteur, agent, banque, syndic, hôtellerie) + modules transverses (énergie, données, compte utilisateur). Sources benchmarks : sites officiels, études sectorielles publiques, revues professionnelles (Urban Land Institute, RICS, TEGOVA, STR Global, HOTREC, IREBS).
+**Méthode** : analyse des 7 familles métier (particulier, investisseur, promoteur, agent, banque, syndic, hôtellerie) + modules transverses (énergie, données, compte utilisateur, STR/Airbnb). Sources benchmarks : sites officiels, études sectorielles publiques, revues professionnelles (Urban Land Institute, RICS, TEGOVA, STR Global / CoStar, HOTREC, HVS, STR Benchmark, hoteltechreport.com, StaySTRA, Hotel Tech Report).
+
+---
+
+## 🆕 Résumé exécutif de l'actualisation avril 2026
+
+**Focus de cette révision** : gestion copropriété/syndic, gestion locative, hôtellerie + nouveau vertical **Short-Term Rentals (Airbnb/motels/saisonnier)** absent de la version précédente.
+
+**Grandes tendances 2026 à intégrer** :
+
+1. **IA « Agentic »** dans revenue management hôtel : les RMS (Duetto, IDeaS) ne recommandent plus, ils **agissent** sur pricing + distribution + housekeeping (+7-20% RevPAR rapporté). Implication : notre Challenger EVS / forecast ML doivent évoluer vers des recommandations exécutables.
+2. **Réforme copropriété LU en cours** : projet de loi 7763 (fonds de travaux obligatoire + modernisation 1975) devait aboutir fin 2025 / début 2026. Impact direct sur `/syndic/coproprietes` : ajouter le fonds de travaux et sa capitalisation minimale légale.
+3. **Règlement EU Short-Term Rentals** (entrée vigueur mi-2026) : registre unique européen pour Airbnb/Booking, transmission obligatoire aux communes, seuil 3 mois/an LU pour licence d'hébergement. Marché blanc pour un outil conformité STR Luxembourg.
+4. **Dynamic pricing consolidation** : PriceLabs (150+ PMS intégrés, $19.99/listing/mois), Wheelhouse (+40% revenu rapporté), Beyond Pricing (1-1.25% CA). Hospitable bundle dynamic pricing free dans tous les plans payants — le pricing IA devient commodité PMS.
+5. **Syndic LU toujours marché vierge** face aux leaders FR : Matera (170€/lot/an, 40k copros FR, 4.3/5), Cotoit (pro en ligne avec suivi travaux), Manda (149-240€/lot), Homeland (195€/lot mais 2.2/5 = opportunité de mieux faire).
+
+**Priorités nouvelles identifiées** (détail dans sections ci-dessous) :
+- 🔴 Créer un **module STR/Airbnb complet** (`/str/*`) : rentabilité, compliance 3 mois LU, arbitrage long vs court terme
+- 🟠 Enrichir `/syndic` avec **fonds de travaux** (projet 7763), **portail copropriétaire** restreint, **module travaux** complet
+- 🟠 Enrichir `/gestion-locative` avec **état des lieux mobile PWA**, **portail locataire**, **reconciliation bancaire**, **gestion locative sociale** (AIS LU, 75% abattement)
+- 🟡 Ajouter à `/hotellerie` : **channel manager lite**, **guest journey mobile**, **yield alerts agentic**
 
 ---
 
@@ -369,27 +389,47 @@
 
 ---
 
-## 17. Gestion locative LU (`/gestion-locative`)
+## 17. Gestion locative LU (`/gestion-locative`) — **mis à jour 2026-04**
 
 **Usage** : propriétaire 1-10 lots + syndics 10-100 lots, focus règle 5 % + Klimabonus.
 
-**Benchmarks** :
-- Rentila (FR, leader solo), Smovin (BE), AppFolio/Buildium (US, pros), Rentler, Hemlane
-- Aucun n'intègre la règle des 5 % luxembourgeoise
+**Benchmarks 2026** :
+- **Solo/small** : Rentila (FR, leader solo €9-29/mois), Smovin (BE, freemium jusqu'à 3 biens), Landlord Studio (UK/IE, mobile-first), Stessa (US, **gratuit** avec upsell reporting)
+- **Pro** : AppFolio (**#1 2026** selon Hotel Tech Report, min. 50 lots + onboarding fee), Buildium (mid-market), Yardi Breeze, MRI
+- **Luxembourg** : aucun SaaS dédié. Acteurs actuels = agences gestion (RIS, Unicorn, GSI, Ab-lux) en service humain pur → opportunité SaaS **vierge**
+- Cas particulier LU : **Agences Immobilières Sociales** (AIS, via guichet.lu) gèrent les biens en échange de 50% d'abattement fiscal sur revenus (passant à 75% selon accord tripartite mars 2023)
 
-**Ce qu'on a** : CRUD lots, analyse règle 5 %, détection Klimabonus (E/F/G), summary portefeuille (yield, alertes), sync cloud 500 items/180j.
+**Ce qu'on a** : CRUD lots, analyse règle 5 %, détection Klimabonus (E/F/G), summary portefeuille (yield, alertes), sync cloud 500 items/180j, `rental_payments` + quittances PDF (art. 25 loi 21.09.2006), bail numérique eIDAS.
 
-**Gaps identifiés** :
+**Gaps identifiés (actualisé 2026)** :
 - ~~Pas de **suivi paiements**~~ → ✅ `rental_payments` + CRUD complet (`7cce27b`)
 - ~~Pas d'**appel de loyer**~~ → ✅ Quittances PDF mensuelles conformes art. 25 loi 21.09.2006 (`7cce27b`)
 - ~~Pas de **bail numérique**~~ → ✅ Template bail + signature électronique eIDAS simple (`6d10f3f`)
-- Pas d'**état des lieux** mobile (photos, checklist)
-- Pas de **multi-occupants** par lot (colocation)
+- 🔴 Pas d'**état des lieux mobile PWA** (photos geotag, signatures tactiles, export PDF contradictoire) — standard AppFolio/Rentila/Stessa
+- 🔴 Pas de **portail locataire** (espace restreint : docs bail, quittances, demandes intervention, chat) — tous les leaders en ont un depuis 2023
+- 🟠 Pas de **réconciliation bancaire** (import CSV/CAMT.053 relevé compte → auto-match paiements). Standard AppFolio/Stessa/Buildium
+- 🟠 Pas de **OCR factures** (entretien, travaux → auto-catégorisation comptable). Standard Smovin/Matera
+- 🟠 Pas de **gestion colocation** (un bail, N colocataires, quote-part caution/loyer)
+- 🟠 Pas de **dashboard fiscal LU** (export prérempli formulaire 100 F ou 102, ventilation revenus/charges déductibles)
+- 🟡 Pas d'**intégration assurance loyers impayés** (partenariat Baloise LU / Bâloise Protection Juridique, ou Imalis FR)
+- 🟡 Pas de **mode gestion locative sociale** (orientation vers AIS partenaire avec calcul abattement 50/75%)
+- 🟡 Pas de **chatbot locataire 24/7** (IA qualifie la demande, déclenche intervention, génère ticket)
+- 🟡 Pas de **Mietspiegel-like** : observatoire des loyers réels par commune/typologie (gros gap LU, Athome pro a commencé à publier)
 
-**Pistes d'amélioration** :
-- **Court** : sous-collection `rental_payments` (locataire, date, montant, statut) avec sync cloud.
-- **Moyen** : génération automatique quittance PDF mensuelle, envoi email programmé.
-- **Long** : bail numérique intégré (template conforme loi LU du 21.09.2006, signature Yousign/LuxTrust), état des lieux PWA.
+**Pistes d'amélioration 2026** :
+- **Court (1-4 semaines)** :
+  - État des lieux PWA (mobile) : checklist pièce par pièce + photo + geotag + signature tactile → PDF contradictoire signé des deux parties. Stockage Supabase Storage.
+  - Dashboard fiscal : page `/gestion-locative/fiscal` regroupant revenus + charges déductibles (intérêts emprunt, assurance PNO, charges copro, travaux, amortissement) → tableau prêt à copier dans 100 F / 102.
+  - Bouton « Analyser ce portefeuille » (IA, pattern déjà existant) : commentaire sur écart entre loyer réel et règle 5%, détection sous-performance, optimisations fiscales.
+- **Moyen (1-3 mois)** :
+  - Portail locataire `/locataire/[token]` en read-only chiffré (magic link auth sans compte) : voit bail, quittances téléchargeables, historique paiements, bouton « Signaler un incident » → ticket côté propriétaire.
+  - OCR factures via Anthropic/OpenAI Vision (pattern `PdfExtractButton` déjà développé) : schéma `facture_immo` avec fournisseur/montant/TVA/catégorie.
+  - Gestion colocation : schéma `rental_units.occupants[]` avec quote-part caution/loyer, génération quittances nominatives.
+- **Long (3-12 mois)** :
+  - Réconciliation bancaire via PSD2 (ouverture à Tink ou Nordigen / GoCardless Bank Account Data) : import quotidien, match automatique des virements aux échéances.
+  - Partenariat AIS (Agence Immobilière Sociale) : redirection pour les bailleurs voulant le régime fiscal abattement 75%.
+  - Chatbot locataire avec `/api/v1/ai/chat` réutilisé, persona « gardien d'immeuble » (signaler fuite, demander intervention, questions bail).
+  - Intégration assurance loyers impayés (contact Baloise LU pour API de souscription instantanée).
 
 ---
 
@@ -537,28 +577,143 @@
 
 ---
 
-## 25. Hôtellerie (6 outils) — `/hotellerie/*`
+## 25. Hôtellerie (6 outils) — `/hotellerie/*` — **mis à jour 2026-04**
 
-**Sous-outils** : Valorisation, DSCR, Exploitation USALI, Rénovation, RevPAR comparison, Score E-2.
+**Sous-outils** : Valorisation, DSCR, Exploitation USALI, Rénovation, RevPAR comparison, Score E-2, Forecast ML.
 
-**Benchmarks** :
-- STR Global / CoStar (compset, prix €5-20k/an)
-- Outils institutionnels : Cushman & Wakefield, JLL Hotels, HVS, PKF Consulting
-- Accessibles : HVS Anarock, OHG (Onsite Hospitality Group), Aduro (US)
+**Benchmarks 2026** :
+- **PMS leaders** : Oracle Opera Cloud (enterprise/chaînes, €5-50k/an/hôtel), **Mews** (design-conscious EU, mobile check-in, marketplace intégrations), **Cloudbeds** (500+ intégrations, scale multi-sites), Stayntouch (cloud-native), Apaleo (API-first)
+- **Accessibles indépendants** : Hotelogix, RoomRaccoon, Little Hotelier, WebHotelier, innRoad
+- **Revenue management (RMS)** : **Duetto** (Open Pricing, +7.6% TRevPOR en 6 mois rapporté), **IDeaS** (leader historique, LVP AI), Atomize, **OTA Insight** (data intel, compset), RateGain
+- **Benchmarking** : **STR Global / CoStar** (compset, €5-20k/an — référence mondiale), Kalibri Labs (US revenue intel), Fornova, Lighthouse
+- **Valorisation** : HVS, Cushman & Wakefield Hospitality, JLL Hotels, PKF Consulting
+- **Multi-property** : Oracle OHIP, SiteMinder, D-EDGE
 
-**Ce qu'on a** : 6 outils complets avec ratios USALI par catégorie, stress tests DSCR, compset MPI/ARI/RGI, Klimabonus tertiaire, score visa E-2.
+**Ce qu'on a** : 7 outils complets avec ratios USALI par catégorie, stress tests DSCR, compset MPI/ARI/RGI, Klimabonus tertiaire, score visa E-2, forecast ML 90 jours, PMS webhook ingestion, owner report PDF automatique, dashboard groupe multi-hôtels, IA analyse intégrée sur chaque outil.
 
-**Gaps identifiés** :
-- Pas d'**ingestion données marché live** (RevPAR moyens par ville LU/région)
-- Pas d'**agrégation STR-like** (panel d'hôteliers partageant leurs données anonymisées)
-- Pas d'**échantillon comparables** transactionnels (historique des ventes d'hôtels LU/BE/DE)
-- Pas de **due diligence checklist** (audit complet avant acquisition)
+**Gaps identifiés (actualisé 2026)** :
 - ~~Pas d'**intégration avec OTA/PMS**~~ → ✅ Webhook PMS Mews/Cloudbeds/Opera (`cc17ca4`)
+- ~~Pas de **Owner report auto**~~ → ✅ PDF mensuel HOTREC (`ac35c84`)
+- ~~Pas de **Forecast ML**~~ → ✅ ARIMA/Prophet 90 jours (`cb93396`)
+- 🔴 Pas de **channel manager lite** (distribution Booking.com/Expedia/Airbnb depuis un back-office unique). Feature clé Cloudbeds/SiteMinder.
+- 🔴 Pas d'**ingestion compset STR live** (prix €5-20k/an STR + notre engagement chez Hotrec LU à négocier). Actuellement les benchmarks sont saisis manuellement.
+- 🟠 Pas de **yield alerts « agentic »** : notif temps réel quand un hôtel du compset modifie son ADR ou quand la pickup diverge du forecast (**grand trend RMS 2026 : l'IA ne recommande plus, elle agit**). Implémentable sur base de notre PMS webhook existant.
+- 🟠 Pas de **guest journey mobile** (check-in pré-arrivée, clé digitale, facturation mobile) — différenciateur Mews core. **Hors scope tevaxia** (nous ne sommes pas un PMS) mais positionnement possible en « couche analytics + AI sur top d'un PMS ».
+- 🟠 Pas de **housekeeping scheduling** adaptatif (occupation forecast → staffing ménage)
+- 🟠 Pas d'**échantillon comparables transactionnels** (historique ventes d'hôtels LU/BE/DE). Difficile à constituer sans partenariat broker.
+- 🟠 Pas de **due diligence checklist** exhaustive (technique / commercial / juridique / fiscal / ESG). Standard HVS / Cushman.
+- 🟡 Pas de **segmentation MICE** dédiée (groupes corporate, séminaires)
 
-**Pistes d'amélioration** :
-- **Court** : publier une table de benchmarks RevPAR par ville et catégorie (Luxembourg, Metz, Saarbrücken, Trèves, Liège) basée sur données publiques STR / Horwath.
-- **Moyen** : due diligence PDF checklist 50 points (technique/commercial/juridique/fiscal).
-- **Long** : panel Hotrec LU (accord avec la fédération) pour un MPI/ARI/RGI live sur adhésion réciproque.
+**Pistes d'amélioration 2026** :
+- **Court (1-4 semaines)** :
+  - Enrichir la base compset live : créer `hotel_compset` avec seed de 30-50 hôtels LU/Grande Région catégorisés (budget/midscale/upscale/luxury) avec ADR/occupation benchmarks publics (STR EMEA Performance Report Q4 2025, Horwath HTL European Hotel Valuation Index 2025, Deloitte European Hotel Industry Performance). Met à jour trimestriel.
+  - Due diligence PDF générée par IA : bouton sur `/hotellerie/valorisation` qui produit une checklist 50 points pré-remplie selon le contexte (catégorie, taille, année) — réutilise le pattern `AiAnalysisCard`.
+  - Page `/hotellerie/compset` dédiée qui affiche le compset par ville (LU-Ville Centre, Gare, Kirchberg, Esch, Luxembourg Findel, Mersch, Diekirch, Ettelbruck + frontières).
+- **Moyen (1-3 mois)** :
+  - Yield alerts via PMS webhook : si un hôtel connecté a un écart pickup forecast > 20% ou si l'ADR du compset bouge de +/-10% sur 7 jours → email/push notification à l'utilisateur. Trigger Supabase cron.
+  - Segmentation MICE : nouveau calculateur `/hotellerie/mice` (revenu groupes, taux conversion RFP, force groupe vs transient).
+  - Import CSV PMS historique : format Opera/Mews/Cloudbeds standard pour bootstrap du forecast ML avec 2-3 ans de data.
+- **Long (3-12 mois)** :
+  - Partenariat **Hotrec Luxembourg** (Fédération HORESCA) : panel mutualisé. Adhésion réciproque. Vraie alternative LU à STR à 1/10e du prix.
+  - Module **revenue optimization « agentic »** : au lieu de suggérer une ADR, proposer un bouton « Appliquer cette tarification sur le PMS » qui modifie via API PMS (Mews/Cloudbeds). Saut qualitatif majeur vs simple forecast.
+  - Certification CRREM + Taxonomie UE pour valorisation hôtelière ESG — différenciateur fonds institutionnels.
+  - Module **motel / aparthotel / résidences hôtelières** (catégorie non couverte aujourd'hui) : ratios USALI adaptés (kitchenette, séjour long durée 7-28 nuits, mixte leisure+business travelers).
+
+---
+
+## 25bis. 🆕 Short-Term Rentals / Airbnb / Saisonnier — **à créer (0% couvert)**
+
+**Usage cible** : propriétaire LU qui loue son bien en courte durée (Airbnb, Booking Stays, Vrbo) ; investisseur arbitrant entre location long terme (règle 5%) et court terme ; gestionnaire STR pro (conciergerie, multi-biens).
+
+**Contexte réglementaire LU (important)** :
+- **Seuil 3 mois/an** : au-delà de 3 mois de location courte durée cumulés par an, l'opérateur doit demander une **licence d'hébergement** (équivalent licence hôtellerie). Art. 6 loi du 17 juillet 2020 + règlements communaux.
+- **Fiscalité** : revenu > 600 €/an → déclaration IR obligatoire, taux marginal jusqu'à 45,78% (IR 42% × 1,09 contribution emploi). Charges déductibles : intérêts emprunt, assurance, frais OTA (Airbnb ~15% commission), ménage, électricité.
+- **Taxe foncière communale** : applicable indépendamment de l'usage.
+- **Règlement UE STR 2024/1028** : entrée en vigueur **mi-2026**, registre unique européen, transmission obligatoire des nuitées aux autorités nationales et communales. Gros impact compliance à venir pour tous les opérateurs LU.
+
+**Benchmarks 2026** :
+- **Property Management Systems (PMS) STR** :
+  - **Guesty** (leader enterprise, 50+ units, rule engines avancés)
+  - **Hostaway** (all-in-one AI-powered, growing portfolios, meilleur rapport qualité/prix support)
+  - **OwnerRez** (highest user satisfaction, zéro booking fee, expérimentés)
+  - **Lodgify** (small hosts, website builder + PMS basique)
+  - **Hostfully**, **Smoobu**, **Hospitable** (bundle dynamic pricing free)
+  - **Lodgify** (small hosts direct booking)
+- **Dynamic pricing** :
+  - **PriceLabs** ($19.99/listing/mois, 150+ intégrations PMS, granular control)
+  - **Wheelhouse** ($19.99/listing/mois, +40% revenu rapporté, market intelligence dashboard)
+  - **Beyond Pricing** (1-1.25% du CA, hands-off, market leader historique)
+  - **DPGO** (low-cost alternative)
+  - **AirDNA** (data-only intelligence, pas pricing direct)
+- **Channel management** : SiteMinder (multi-OTA), Rentals United, AirGMS, Kigo
+- **Intelligence données** : **AirDNA** (données marché STR — ADR, occupation, RevPAR par ville/quartier, référence mondiale), Transparent, Key Data
+- **Niche LU** : **aucun SaaS dédié**. Services de conciergerie traditionnels (My Lux Stay, Quintessential Lux) en humain uniquement → opportunité SaaS.
+
+**État actuel sur tevaxia : 0% de couverture** (seule l'hôtellerie « classique » est couverte).
+
+**Ce qu'on devrait construire** :
+
+### 25bis.A — `/str/rentabilite` — Calculateur rentabilité STR LU
+Simuler le revenu annuel net d'un bien loué en Airbnb/Booking au Luxembourg.
+- **Inputs** : commune, type bien, surface, capacité (voyageurs), ADR cible, taux d'occupation attendu, saisonnalité (haute/basse saison LU = été + fêtes), coûts cachés (ménage 30-60 €/séjour, linge 15-25 €, OTA commission 15-18% Airbnb, 15-18% Booking, internet/TV, consommables, assurance PNO majorée)
+- **Outputs** : revenu brut, commissions OTA, charges opérationnelles, revenu net avant impôt, impôt estimé (barème IR LU), revenu net après impôt, yield brut %, yield net %
+- **Comparaison side-by-side** avec location long terme (règle 5%) : le STR est-il plus rentable compte tenu du taux d'occupation réaliste ?
+- **IA intégrée** : commentaire sur la viabilité, saisonnalité LU spécifique (pic été, Schueberfouer fin août, marchés de Noël, salons Luxexpo), risque réglementaire (passage > 3 mois sans licence), articulation avec règle 5% si bail mixte.
+
+### 25bis.B — `/str/compliance` — Checklist conformité LU + UE 2026
+- Calculateur de seuil 3 mois : si on dépasse, licence hôtellerie obligatoire → lien vers démarche guichet.lu
+- Vérification règlement communal (certaines communes limitent ou interdisent la STR, notamment Luxembourg-Ville après 2024)
+- Calendrier EU STR Regulation 2024/1028 : obligations d'enregistrement + transmission de données, entrée en vigueur mi-2026
+- Fiscalité : calculateur IR sur revenus STR + charges déductibles admissibles (ventilation par catégorie conforme Légilux)
+- Assurance : checklist couvertures obligatoires (PNO courte durée, RC locative, dommages voyageurs)
+- Export PDF « dossier compliance STR » pour présenter à la commune / administration fiscale
+
+### 25bis.C — `/str/forecast` — Prévisionnel 12 mois LU
+- Saisonnalité mensuelle LU/Grande Région (données publiques STATEC tourisme + AirDNA ville par ville)
+- Impact événements (Expo, salons, concerts, Bad Bunny/BTS 2026 cités par STR forecast EU) sur l'ADR
+- Pickup curve Luxembourg (réservations J-30 / J-60 / J-90)
+- Forecast ML (réutilise l'infra `/hotellerie/forecast`)
+
+### 25bis.D — `/str/arbitrage` — Long terme vs Court terme vs Mix
+Arbitrage décisionnel sur un bien donné :
+- Scénario A : long terme avec règle 5% (plafond légal)
+- Scénario B : court terme Airbnb pur (avec contrainte < 3 mois/an sans licence ou > 3 mois avec licence)
+- Scénario C : **mixte** (occupation propriétaire 2-3 mois d'été + long terme le reste) — très luxembourgeois pour les frontaliers qui ont une résidence secondaire
+- Calcul rentabilité nette après impôt des 3 scénarios + risques relatifs
+- Recommandation IA basée sur profil (résident vs non-résident, fiscalité, horizon)
+
+### 25bis.E — `/str/pricing` (future) — Dynamic pricing LU
+- Alternative light à PriceLabs/Wheelhouse pour opérateurs LU petits (1-10 biens)
+- Ingestion AirDNA API (données compset) si budget le permet, sinon scraping léger des annonces Airbnb/Booking LU
+- Recommandation ADR jour par jour avec règles saisonnalité LU
+
+**Benchmarks prix et viabilité business** :
+- Guesty ~2-5% du CA en enterprise → cher pour le petit hôte
+- Hostaway flat ~€30-100/mois selon nombre de biens
+- PriceLabs $19.99/listing/mois
+- Tevaxia positionnement cible : **freemium** sur calculateur rentabilité/compliance, **€5-15/mois/bien** pour le pricing + forecast + multi-biens
+
+**Pistes d'amélioration 2026** :
+- **Court (1-4 semaines)** :
+  - Créer `/str/rentabilite` (1 page, réutilise le pattern des autres calculateurs + `AiAnalysisCard`)
+  - Créer `/str/compliance` (checklist + disclaimer)
+  - Ajouter une tuile « Location courte durée / Airbnb » dans `WorkspacesGrid` avec profil `investisseur` + `particulier` + un nouveau `str_operator`
+  - Ajouter guide SEO `/guide/airbnb-luxembourg-reglementation-2026` et `/guide/rentabilite-location-courte-duree-luxembourg`
+- **Moyen (1-3 mois)** :
+  - `/str/arbitrage` — calculateur 3 scénarios avec IA
+  - `/str/forecast` — adaptation du forecast hôtel sur les paramètres STR (ADR, occupation, saisonnalité résidentiel vs hôtelier)
+  - Extension `profile_types` avec `str_operator` (migration 023)
+  - Intégration dans `/gestion-locative` d'une option « mode STR » (bascule règle 5% → calcul STR)
+- **Long (3-12 mois)** :
+  - `/str/pricing` dynamic pricing LU-natif
+  - Ingestion AirDNA API (si budget) ou scraping légal des annonces publiques pour un observatoire gratuit des ADR LU
+  - Portail multi-biens STR (dashboard conciergerie 10-50 biens)
+  - Partenariat **Ville de Luxembourg** pour l'accès au registre STR obligatoire (EU Regulation 2024/1028)
+
+**Impact business estimé** :
+- ~4 000 listings Airbnb actifs au Luxembourg en 2024 (source : AirDNA public), croissance annuelle ~8-12%
+- Si 10% des hôtes utilisent un outil payant à €10/mois = TAM annuel ~€48k (petit). Mais positionnement **freemium SEO** capte du trafic massif (guides Airbnb LU très peu couverts par la concurrence actuellement).
+- Compliance UE 2026 force tous les hôtes à se former → fenêtre d'audience idéale 2026-2027.
 
 ---
 
@@ -663,62 +818,86 @@
 
 **État actuel** : la table `organizations` + `org_members` (rôles `admin`, `member`, `viewer`) est **mono-pattern, pensée pour les agences immo**. Elle ne couvre ni les spécificités syndic/copropriété ni la gestion multi-hôtels. Aucun rôle métier spécifique n'existe pour ces deux verticaux.
 
-### 29bis.A — SYNDIC & COPROPRIÉTÉ
+### 29bis.A — SYNDIC & COPROPRIÉTÉ — **mis à jour 2026-04**
+
+**Contexte réglementaire LU (important — refonte en cours)** :
+- Loi du 16 mai 1975 modifiée (consolidée au 01/03/2024) reste le cadre principal
+- **Projet de loi 7763** en cours : introduction d'un **fonds de travaux obligatoire** (équivalent réforme ALUR FR 2014) + modernisation — devait aboutir fin 2025/début 2026
+- Impact direct attendu : chaque copropriété LU devra constituer un fonds de travaux minimal % du budget annuel, capitalisation inscrite en compta, traçabilité exigée
+- Le syndic LU pro pour les copropriétés > 5 lots est **obligatoire** (règl. gr.-d. 13 juin 1975)
 
 **Acteurs métier à modéliser** :
 
 | Rôle | Description LU | Équivalent dans l'outil actuel |
 |---|---|---|
-| Syndic (gestionnaire) | Mandaté par l'AG, exécute budget et travaux | ❌ absent |
-| Président du conseil syndical | Copropriétaire représentant, contre-pouvoir | ❌ absent |
-| Membre du conseil syndical | Élu, consulté | ❌ absent |
-| Copropriétaire (simple) | Détient un ou plusieurs lots, vote en AG | ❌ absent |
-| Locataire du copropriétaire | Accès restreint (charges, règlement) | ❌ absent |
-| Prestataire (entreprise travaux) | Reçoit bons de commande, factures | ❌ absent |
+| Syndic (gestionnaire) | Mandaté par l'AG, exécute budget et travaux | ✅ rôle `syndic` OK |
+| Président du conseil syndical | Copropriétaire représentant, contre-pouvoir | ✅ rôle `conseil_syndical` |
+| Membre du conseil syndical | Élu, consulté | ✅ rôle `conseil_syndical` |
+| Copropriétaire (simple) | Détient un ou plusieurs lots, vote en AG | ✅ rôle `coproprietaire` |
+| Locataire du copropriétaire | Accès restreint (charges, règlement) | ⚠️ rôle défini mais pas de portail |
+| Prestataire (entreprise travaux) | Reçoit bons de commande, factures | ⚠️ rôle défini mais pas de module travaux complet |
 
-**Benchmarks** :
-- **France** : Cotoit (SaaS syndic, 50k+ lots gérés), Matera (syndic bénévole, 40k copropriétés), Qlower, Homeland (syndic pro-am), Syndic One
-- **Belgique** : Syndics.be, Smovin (focus gestion locative mais embarque quelques modules copropriété)
-- **Suisse** : Swissacc, IAZI
-- **Allemagne** : Facilis (WEG Verwaltung), ETG24, Casavi
-- **Luxembourg** : aucun acteur dominant — **marché vierge côté SaaS**
+**Benchmarks 2026 (prix & positionnement actualisés)** :
+- **France** — marché hyper-concurrentiel :
+  - **Matera** : syndic bénévole/auto-gestion, **170 €/lot/an**, 40k+ copropriétés France+Belgique, **4,3/5** (255 avis Google), levée de fonds significative 2024. Positionnement : accompagnement comptable + plateforme tout-en-un (messagerie, AG en ligne, budget temps réel).
+  - **Cotoit** : syndic pro en ligne, avec humain + outils digitaux. Fort sur suivi travaux détaillé (devis → intervention → réception). Intègre gestion locative pour copropriétaires bailleurs.
+  - **Manda (ex-Hello Syndic)** : 3 offres (Connect 149 €/lot, Zen 180 €, Promotion 240 €), 1 489 avis Google à 3,8/5.
+  - **Homeland** : 195 €/lot (20+ lots) mais 2,2/5 (**opportunité : mieux faire facilement**)
+  - Qlower, Syndic One, Léa Syndic (challengers)
+- **Belgique** : Syndics.be, Smovin (couvre copropriété léger)
+- **Suisse** : Swissacc, IAZI, Casasoft
+- **Allemagne** : Facilis (WEG Verwaltung), ETG24, Casavi, Immoware24
+- **Luxembourg** : **toujours aucun acteur SaaS dominant 2026** — marché vierge, acteurs historiques (ris.lu, agences syndic traditionnelles) en humain uniquement. TAM estimé : ~500 syndics pros + ~2000 copros auto-gérées. À ~€50-150/lot/an ça fait **€2-5M ARR accessible**.
 
-**Fonctionnalités différenciantes observées chez les leaders** :
-- **AG virtuelle** : convocation en ligne, ordre du jour, vote électronique conforme loi, compte-rendu généré automatiquement
+**Fonctionnalités différenciantes observées chez les leaders 2026** :
+- **Messagerie intégrée** (feature #1 de Matera) : thread par immeuble/par lot/privé syndic<>copropriétaire
+- **AG virtuelle** : convocation en ligne, ordre du jour éditable, vote électronique conforme, compte-rendu auto
 - **Appels de fonds** : génération mensuelle par quote-part (millièmes), relances automatiques, suivi paiement
-- **Espace copropriétaire** : accès propre (charges, règlement, PV d'AG, documents contractuels)
-- **Gestion travaux** : appels d'offres, bons de commande, factures, paiement entreprises
-- **Comptabilité copropriété** : plan comptable spécifique (CCAC LU), clôture annuelle, rapport syndic
-- **Module conseil syndical** : vérification comptes, alertes anomalies
-- **Archivage 10 ans** : conformité légale LU (loi du 16 mai 1975 + réforme 2020)
+- **Espace copropriétaire individuel** : chacun voit ses charges, règlement, PV d'AG, docs, historique
+- **Gestion travaux complète** : appels d'offres (3 devis), bons de commande, factures, paiement, garanties
+- **Comptabilité copropriété** : plan comptable spécifique LU (CCAC), clôture annuelle, rapport syndic, export expert-comptable
+- **Module conseil syndical** : vérification comptes en lecture, alertes anomalies, validation trimestrielle
+- **Archivage 10 ans** : conformité légale LU
+- 🆕 **Fonds de travaux** : suivi capitalisation + trésorerie dédiée + règles de déblocage (projet 7763 à venir)
+- 🆕 **OCR factures** : photo d'une facture → catégorisation automatique + ventilation par clé de répartition
+- 🆕 **Interventions urgentes** : portail urgence + géolocalisation prestataires partenaires
 
-**Gaps critiques — état actuel** :
+**Gaps critiques — état actuel (actualisé 2026)** :
 - ~~Pas de concept de **copropriété**~~ → ✅ Table `coownerships` + `coownership_units` avec tantièmes (`3ce993e`)
 - ~~Pas de **quotes-parts / tantièmes**~~ → ✅ Tantièmes par lot + validation somme (`3ce993e`)
 - ~~Pas de **plan comptable copropriété**~~ → ✅ 22 comptes système LU + journal double-entrée + clôture (`a1fd35e`)
 - ~~Pas d'**appels de fonds**~~ → ✅ Génération + suivi paiements + PDF par lot (`2ff2385`)
-- Pas d'**espace copropriétaire** (portail restreint)
-- ~~Pas de **gestion d'AG**~~ → ✅ Convocation + vote électronique pondéré + PV auto (`72df70b`)
+- ~~Pas de **gestion d'AG**~~ → ✅ Convocation + vote électronique pondéré + PV auto (`72df70b`) + IA draft résolutions et notes de séance (`d028b69`)
 - ~~Pas de **multi-copropriétés par syndic**~~ → ✅ CRUD multi-copropriétés par org syndic (`3ce993e`)
+- 🔴 Pas d'**espace copropriétaire individuel** (portail restreint avec ses charges, docs, PV, votes passés) — c'est **la feature #1 demandée en 2026** par les copropriétaires Matera/Cotoit
+- 🔴 Pas de **fonds de travaux** (à préparer en anticipation du projet de loi 7763)
+- 🟠 Pas de **messagerie intégrée** (thread par immeuble, par lot) — Matera en fait son produit d'appel
+- 🟠 Pas de **module travaux complet** (appel d'offres 3 devis → bon commande → facture → paiement → garantie décennale suivie)
+- 🟠 Pas d'**OCR factures** (pattern `PdfExtractButton` existe — schéma `facture_copropriete` à créer)
+- 🟠 Pas de **dashboard conseil syndical** (vue lecture auditeur, alertes anomalies compta, validations)
+- 🟡 Pas d'**archivage 10 ans chiffré** conforme
+- 🟡 Pas de **relances automatiques impayés** (lettres recommandées AR électroniques via eIDAS)
 
-**Pistes d'amélioration — compte & rôles syndic** :
+**Pistes d'amélioration — syndic/copropriété 2026** :
 
 **Court (1-4 semaines)** :
-- Étendre `org_role` avec `syndic`, `conseil_syndical`, `coproprietaire`, `locataire`, `prestataire`
-- Ajouter un champ `org_type` sur `organizations` ('agency' | 'syndic' | 'hotel_group' | 'bank' | 'other') pour basculer UI selon métier
-- Ajouter un bandeau adapté dans `/profil` selon le type d'organisation
+- ✅ Étendre `org_role` avec `syndic`, `conseil_syndical`, `coproprietaire`, `locataire`, `prestataire` — **déjà fait**
+- ✅ Ajouter `org_type` sur `organizations` — **déjà fait**
+- 🔴 Ajouter **fonds de travaux** dans le plan comptable : compte dédié (ex. 10221 « Fonds de travaux »), page `/syndic/coproprietes/[id]/fonds-travaux` avec suivi capitalisation minimum annuelle (paramétrable, défaut 5% budget).
+- 🔴 Analyse IA globale copropriété : bouton sur `/syndic/coproprietes/[id]` qui produit un diagnostic santé (trésorerie, taux d'impayés, écart budget/réel, dette fournisseurs) — réutilise `AiAnalysisCard`.
 
 **Moyen (1-3 mois)** :
-- Nouvelle table `coownerships` (immeubles sous gestion d'un syndic) avec quotes-parts par lot
-- Table `coowners` (copropriétaires) avec rôle et lots rattachés
-- Espace `/syndic/coproprietes` listant les copropriétés gérées + CRUD
-- Espace copropriétaire restreint `/syndic/copro/[slug]` accessible via invitation email
+- 🔴 **Portail copropriétaire** `/copropriete/[token]` : magic link par email, lecture seule (charges individuelles, PV d'AG passés, docs, règlement, appels de fonds historiques, paiement en ligne Stripe ou virement SEPA).
+- 🟠 **Messagerie intégrée** : thread par copropriété (annonces syndic → tous) + thread privé (syndic ↔ copropriétaire). Supabase Realtime.
+- 🟠 **Module travaux** V1 : créer un « projet de travaux » avec 3 devis joints, vote AG lié, bon de commande généré, suivi paiement.
+- 🟠 OCR factures (schéma `facture_copropriete`) : fournisseur, date, montant HT/TTC, TVA, catégorie comptable, clé de répartition. Auto-catégorisation via IA.
 
 **Long (3-12 mois)** :
-- Module appels de fonds + suivi paiements (génération PDF mensuel conforme LU)
-- Plan comptable copropriété LU avec clôture annuelle exportable pour l'expert-comptable
-- Module AG virtuelle (convocation + vote électronique loi LU + PV auto)
-- Module travaux : appels d'offres, bons de commande, suivi facturation
+- 🟠 **AG virtuelle hybride** : visio + vote en temps réel (présent/absent/mandataire/votant), émargement automatique, PV généré en fin de séance.
+- 🟠 **Relances impayés** automatiques par paliers : J+15 rappel email → J+30 lettre amiable PDF → J+60 mise en demeure eIDAS signée → export dossier judiciaire.
+- 🟡 **Benchmark inter-copropriétés** : un syndic qui gère 20 copros peut comparer les ratios (charges/m², taux impayés, écart budget/réel) pour identifier les outliers.
+- 🟡 **Dashboard prestataires** : chaque prestataire partenaire voit ses bons de commande en cours, peut envoyer sa facture via portail (signée eIDAS).
+- 🟡 **Certification module** via un organisme LU (Chambre des Métiers ? CGFP ?) pour rassurer les syndics pros conservateurs.
 
 ---
 
@@ -829,36 +1008,65 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 
 ---
 
-## Priorisation conseillée (roadmap 3 mois)
+## Priorisation conseillée (roadmap 3 mois — réactualisée avril 2026)
 
-| Sprint | Chantier | Impact business |
-|---|---|---|
-| 1 | ~~Supprimer compte~~ ✅ `8eae0ca` + ~~préférences notifications~~ ✅ `faa9e4b` + ~~2FA TOTP~~ ✅ `c24eb61` | Conformité RGPD, sécurité |
-| 1 | ~~**Extension org_type (agency/syndic/hotel_group/bank)**~~ ✅ `dd95467` | Débloque verticaux syndic/hôtellerie |
-| 1 | ~~Stripe Checkout upgrade Pro self-service~~ ✅ `d323bd8` — *reste à créer produit/price/webhook côté Stripe Dashboard + env vars Vercel* | Monétisation |
-| 2 | ~~Sentry + PostHog + page /status~~ ✅ `30a9425` — *reste à créer projet Sentry + project PostHog + env vars Vercel* | Observabilité |
-| 2 | ~~Sauvegarde wizard + gestion-locative : bail numérique template~~ ✅ `6d10f3f` | Différenciation produit |
-| 2 | ~~**Persistance hôtels (table `hotels`) + rôles hôteliers**~~ ✅ `bb80471` | Récurrence usage vertical hôtellerie |
-| 3 | ~~API batch + OpenAPI docs + sandbox~~ ✅ `2544cf9` | Différenciation B2B banques |
-| 3 | ~~Module bail commercial + exonération RP plus-value~~ ✅ `85897ef` | Complétude fiscale LU |
-| 3 | ~~**Table `coownerships` + CRUD copropriétés syndic**~~ ✅ `3ce993e` | Premier MVP vertical syndic |
+### Items déjà livrés (archive)
+| Chantier | Statut |
+|---|---|
+| Supprimer compte, préférences notifications, 2FA TOTP | ✅ `8eae0ca`/`faa9e4b`/`c24eb61` |
+| Extension org_type (agency/syndic/hotel_group/bank) | ✅ `dd95467` |
+| Stripe Checkout upgrade Pro | ✅ `d323bd8` (reste config Stripe/Vercel) |
+| Sentry + PostHog + /status | ✅ `30a9425` |
+| Bail numérique + signature eIDAS | ✅ `6d10f3f` |
+| Persistance hôtels + rôles | ✅ `bb80471` |
+| API batch + OpenAPI + sandbox | ✅ `2544cf9` |
+| Module bail commercial + exonération RP | ✅ `85897ef` |
+| Coownerships + appels de fonds + compta + AG | ✅ `3ce993e`/`2ff2385`/`a1fd35e`/`72df70b` |
+| Owner report hôtel + forecast ML + PMS webhook | ✅ `ac35c84`/`cb93396`/`cc17ca4` |
+| Inspection mobile PWA TEGOVA | ✅ `31339f5` |
+| Module IA complet (analyze, chat, extract, challenger EVS) | ✅ Avril 2026 |
+| Dashboard /profil type Vercel/Stripe (KPI + workspaces + profile_types) | ✅ Avril 2026 |
 
-## Priorisation 6-12 mois
+### Nouveaux priorités Q2-Q3 2026
 
-| Horizon | Chantier | Type |
-|---|---|---|
-| ~~6 mois~~ | ~~Module gestion paiements locatifs + quittances auto~~ ✅ (commit ci-dessous) | Produit |
-| 6 mois | Panel Hotrec LU pour RevPAR live | Partenariat |
-| ~~6 mois~~ | ~~Modèle hédonique re-calibré + rapport MAPE public~~ ✅ `8e07b59` | Crédibilité |
-| ~~6 mois~~ | ~~**Owner report mensuel hôtelier PDF auto**~~ ✅ `ac35c84` | Rétention hôtels |
-| ~~6 mois~~ | ~~**Appels de fonds copropriété + suivi paiements**~~ ✅ `2ff2385` | Cœur SaaS syndic |
-| ~~9 mois~~ | ~~Inspection mobile PWA TEGOVA~~ ✅ `31339f5` | Produit |
-| 9 mois | Certification RICS AVM Executive | B2B banques |
-| ~~9 mois~~ | ~~**Connecteur PMS (Mews, Cloudbeds) ingestion quotidienne**~~ ✅ `cc17ca4` | Différenciateur hôtel |
-| ~~9 mois~~ | ~~**AG virtuelle copropriété (convocation + vote + PV)**~~ ✅ `72df70b` | Feature killer syndic |
-| ~~12 mois~~ | ~~Module bail commercial complet + tableaux ILC LU~~ ✅ `8b573b0` | Niche experts |
-| ~~12 mois~~ | ~~**Forecast ML 90 jours hôtel (ARIMA/Prophet)**~~ ✅ `cb93396` | Intelligence revenue mgmt |
-| ~~12 mois~~ | ~~**Comptabilité copropriété LU (plan comptable + clôture)**~~ ✅ `a1fd35e` | Pro syndic complet |
+| Sprint | Chantier | Vertical | Effort | Impact business |
+|---|---|---|---|---|
+| **1** | 🆕 **Module STR `/str/rentabilite` + `/str/compliance`** | STR | **S** (1-2 semaines) | **Nouveau vertical**, audience LU ~4k hôtes Airbnb avant EU Reg 2026 |
+| **1** | 🆕 **Fonds de travaux copropriété** (anticipation projet 7763) | Syndic | S | Conformité légale à venir |
+| **1** | 🆕 **État des lieux mobile PWA** (gestion locative) | Locatif | M (2-3 semaines) | Feature standard, actuellement gap |
+| **2** | 🆕 **Portail copropriétaire** individuel `/copropriete/[token]` | Syndic | M | Feature #1 Matera/Cotoit 2026 |
+| **2** | 🆕 **Portail locataire** magic link + paiements | Locatif | M | Standard AppFolio/Stessa |
+| **2** | `/str/arbitrage` long vs court terme + IA | STR | S | Différenciateur LU |
+| **3** | 🆕 **Messagerie intégrée** copropriété (Supabase Realtime) | Syndic | M | Copie du feature Matera |
+| **3** | 🆕 **OCR factures** copropriété + gestion locative (via Anthropic Vision) | Syndic+Locatif | S | Réutilise PdfExtractButton |
+| **3** | 🆕 **Dashboard fiscal LU** gestion locative (export 100 F / 102) | Locatif | M | Grand gap actuel |
+| **3** | 🆕 **Compset hôtelier LU** seed + table | Hôtel | S | Démocratisation STR-like pour LU |
+
+## Priorisation 6-12 mois (réactualisée)
+
+| Horizon | Chantier | Vertical | Type |
+|---|---|---|---|
+| 6 mois | 🆕 **Module travaux complet copropriété** (appel offres → bon cde → facture → paiement → garantie) | Syndic | Produit |
+| 6 mois | 🆕 **Réconciliation bancaire PSD2** (Tink/Nordigen) gestion locative | Locatif | Produit |
+| 6 mois | 🆕 **Yield alerts agentic** hôtel (PMS webhook + règles alerting) | Hôtel | Intelligence |
+| 6 mois | 🆕 **`/str/forecast`** 12 mois avec saisonnalité LU + événements | STR | Produit |
+| 6 mois | 🆕 **`/str/pricing`** light dynamic pricing LU | STR | Produit |
+| 6 mois | Panel Hotrec LU pour RevPAR live (partenariat) | Hôtel | Partenariat |
+| 9 mois | 🆕 **AG virtuelle hybride** (visio + vote temps réel) | Syndic | Feature killer |
+| 9 mois | 🆕 **Relances impayés paliers automatiques** (eIDAS) | Syndic+Locatif | Produit |
+| 9 mois | 🆕 **Chatbot locataire 24/7** (pattern `/api/v1/ai/chat`) | Locatif | IA |
+| 9 mois | Certification RICS AVM Executive | B2B Banques | Crédibilité |
+| 12 mois | 🆕 **Module motel/aparthotel/résidences hôtelières** | Hôtel | Produit |
+| 12 mois | 🆕 **Registre EU STR 2024/1028** connecteur (obligation mi-2026) | STR | Conformité |
+| 12 mois | 🆕 **Benchmark inter-copropriétés** (multi-copros d'un même syndic) | Syndic | Intelligence |
+| 12 mois | 🆕 **Connecteur AIS LU** gestion locative sociale (75% abattement) | Locatif | Partenariat |
+
+## Priorités structurelles continues
+
+- 🟢 **Modèle hédonique re-calibré + MAPE public** ✅ `8e07b59`
+- 🟠 Certification RICS AVM Executive (chantier lourd — partenariat tiers nécessaire)
+- 🟠 Playwright E2E sur 10 parcours clés (différé — 172 tests unitaires Vitest + 22 tests routes IA en place)
+- 🟠 CI GitHub Actions (tsc + eslint + vitest) avant deploy Vercel
 
 ---
 
@@ -866,11 +1074,15 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 
 Ce benchmark s'appuie sur :
 - Analyse publique des sites concurrents listés (pages produit, documentation, screenshots publics, billets de blog)
-- Études sectorielles publiques : Urban Land Institute « Emerging Trends in Real Estate » 2024/2025, RICS Europe Valuation Report, Observatoire de l'Habitat LU rapports trimestriels
-- Revues hôtellerie : Horwath HTL « European Hotel Valuation Index » 2025, STR Global « EMEA Performance Report »
-- Guides réglementaires : TEGOVA EVS 2025 Charter 5e éd., EBA Guidelines on Loan Origination LTV, CSSF Circulaires
+- Études sectorielles publiques : Urban Land Institute « Emerging Trends in Real Estate » 2024/2025/2026, RICS Europe Valuation Report, Observatoire de l'Habitat LU rapports trimestriels
+- Revues hôtellerie 2026 : Horwath HTL « European Hotel Valuation Index » 2025, STR Global / CoStar « EMEA Performance Report » Q4 2025 + forecast 2026, HotelTechReport.com top rankings 2026, PwC Hospitality Outlook 2026
+- Revues STR/Airbnb 2026 : StaySTRA pricing tools comparison, AirDNA market intelligence, Hotel Tech Report « Best Airbnb pricing tools 2026 », EU Regulation 2024/1028 short-term rentals
+- Revues syndic 2026 : Matera blog + Cotoit blog (comparatifs syndic en ligne France/Belgique 2026), ImmoCompare, CasaCalida
+- Guides réglementaires LU : Loi 16.05.1975 (consolidée 01/03/2024), projet de loi 7763 (fonds de travaux), loi 21.09.2006 (bail habitation), loi 03.02.2018 (bail commercial), art. 102bis LIR
+- Guides réglementaires EU : TEGOVA EVS 2025 Charter 5e éd., EBA Guidelines on Loan Origination LTV, CSSF Circulaires, EPBD IV refonte 2024, EU STR Regulation 2024/1028
+- Sources fiscales LU STR : Airbnb Tax Guide Luxembourg 2026 (PwC), guichet.lu, Delano.lu articles 2024-2025 sur régulation Airbnb LU
 - Retours utilisateurs early adopters (conversations avec 3 agences LU, 1 banque régionale, 2 évaluateurs TEGOVA)
 
-**Dernière mise à jour** : 2026-04-16.
+**Dernière mise à jour** : 2026-04-16 (refonte focus syndic/locatif/hôtellerie/STR).
 
-**Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4).
+**Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4) ou plus tôt si entrée en vigueur EU STR Regulation / projet loi 7763.
