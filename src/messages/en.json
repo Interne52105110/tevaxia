@@ -5178,7 +5178,9 @@
     "motelTitle": "Aparthotel / Motel / Résidence",
     "motelDesc": "Valorisation dédiée aux séjours prolongés et hôtellerie budget.",
     "alertsTitle": "Yield alerts agentic",
-    "alertsDesc": "Alertes automatiques pickup, ADR, occupation, GOP vs benchmark."
+    "alertsDesc": "Alertes automatiques pickup, ADR, occupation, GOP vs benchmark.",
+    "ddTitle": "Due diligence 50 points",
+    "ddDesc": "Checklist exhaustive pré-acquisition (technique/commercial/juridique/fiscal/ESG/RH). Inspiré HVS."
   },
   "hotellerieToolPages": {
     "backToHub": "Hospitality hub",
