@@ -1101,7 +1101,12 @@
       "faq4a": "Jo, eng Virbewäertung gëtt recommandéiert fir e realisteschen Ubiddungspräis festzeleeën. En ze héije Präis verlängert d'Verkafszeit (Median 90-120 Deeg zu Lëtzebuerg).",
       "faq5q": "Wat ass den Ënnerscheed tëschent Verkéierswäert a Verkafspräis?",
       "faq5a": "De Verkéierswäert ass den theoreeteschen Präis deen en informéierten Keefer ënner normale Maartkonditiounen bezuele géif (EVS-Definitioun). Den tatsächleche Verkafspräis kann ofwäichen."
-    }
+    },
+    "addToHistory": "Zu mengem Historique derbäi",
+    "historyTitle": "Historique fir dës Gemeng",
+    "historyClear": "Alles läschen",
+    "historyVsPrev": "vs virescht Estim.",
+    "historyNote": "Nëmmen an Ärem Browser gespäichert. Déi 50 lescht Schätzungen."
   },
   "fraisAcquisition": {
     "title": "Erwerbskäschtesimulator",

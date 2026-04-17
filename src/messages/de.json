@@ -1101,7 +1101,12 @@
       "faq4a": "Ja, eine Vorab-Bewertung wird empfohlen, um einen realistischen Angebotspreis festzulegen. Ein zu hoher Preis verlängert die Verkaufszeit (Median 90-120 Tage in Luxemburg) und kann zu aggressiveren Verhandlungen führen.",
       "faq5q": "Was ist der Unterschied zwischen Verkehrswert und Verkaufspreis?",
       "faq5a": "Der Verkehrswert ist der theoretische Preis, den ein informierter Käufer unter normalen Marktbedingungen zahlen würde (EVS-Definition). Der tatsächliche Verkaufspreis kann je nach Dringlichkeit des Verkäufers, Vermarktungsqualität und Finanzierungsbedingungen des Käufers abweichen. In Luxemburg beträgt die durchschnittliche Abweichung ±5 % in einem ausgeglichenen Markt."
-    }
+    },
+    "addToHistory": "Zu meiner Historie hinzufügen",
+    "historyTitle": "Historie für diese Gemeinde",
+    "historyClear": "Alles löschen",
+    "historyVsPrev": "vs vorh. Sch.",
+    "historyNote": "Nur in Ihrem Browser gespeichert. Letzte 50 Schätzungen."
   },
   "fraisAcquisition": {
     "title": "Erwerbskostensimulator",

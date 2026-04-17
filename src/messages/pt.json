@@ -1101,7 +1101,12 @@
       "faq4a": "Sim, uma avaliação prévia é recomendada para definir um preço de venda realista. Um preço demasiado elevado prolonga o tempo de venda (mediana 90-120 dias no Luxemburgo).",
       "faq5q": "Qual a diferença entre valor de mercado e preço de venda?",
       "faq5a": "O valor de mercado é o preço teórico que um comprador informado pagaria em condições normais de mercado (definição EVS). O preço de venda real pode divergir consoante a urgência do vendedor e as condições de financiamento do comprador."
-    }
+    },
+    "addToHistory": "Adicionar ao meu histórico",
+    "historyTitle": "Histórico para este município",
+    "historyClear": "Limpar tudo",
+    "historyVsPrev": "vs estim. anterior",
+    "historyNote": "Armazenado apenas no seu navegador. Últimas 50 estimativas."
   },
   "fraisAcquisition": {
     "title": "Simulador de Encargos de Aquisição",

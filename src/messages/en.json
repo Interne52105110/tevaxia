@@ -1101,7 +1101,12 @@
       "faq4a": "Yes, a prior valuation is recommended to set a realistic listing price. A price that is too high extends the selling time (median 90-120 days in Luxembourg) and can lead to more aggressive negotiations. A correctly positioned property sells in an average of 45-60 days.",
       "faq5q": "What is the difference between market value and sale price?",
       "faq5a": "Market value is the theoretical price an informed buyer would pay under normal market conditions (EVS definition). The actual sale price may deviate depending on the seller's urgency, marketing quality and the buyer's financing conditions. In Luxembourg, the average gap is ±5% in a balanced market."
-    }
+    },
+    "addToHistory": "Add to my history",
+    "historyTitle": "History for this commune",
+    "historyClear": "Clear all",
+    "historyVsPrev": "vs prev. estim.",
+    "historyNote": "Stored only in your browser (localStorage). Nothing sent to the server. Last 50 estimates kept."
   },
   "fraisAcquisition": {
     "title": "Acquisition Fees Simulator",

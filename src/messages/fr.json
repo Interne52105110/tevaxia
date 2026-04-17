@@ -1101,7 +1101,12 @@
       "faq4a": "Oui, une estimation préalable est recommandée pour fixer un prix de mise en vente réaliste. Un prix trop élevé allonge le délai de vente (médiane 90-120 jours au Luxembourg) et peut mener à des négociations plus agressives. Un bien correctement positionné se vend en moyenne 45-60 jours.",
       "faq5q": "Quelle différence entre valeur vénale et prix de vente ?",
       "faq5a": "La valeur vénale est le prix théorique qu'un acheteur informé paierait dans des conditions normales de marché (définition EVS). Le prix de vente réel peut s'en écarter selon l'urgence du vendeur, la qualité de la commercialisation et les conditions de financement de l'acheteur. Au Luxembourg, l'écart moyen est de ±5 % en marché équilibré."
-    }
+    },
+    "addToHistory": "Ajouter à mon historique",
+    "historyTitle": "Historique pour cette commune",
+    "historyClear": "Effacer tout",
+    "historyVsPrev": "vs estim. précédente",
+    "historyNote": "Stocké uniquement sur votre navigateur (localStorage). Aucun envoi au serveur. Vos 50 dernières estimations sont conservées."
   },
   "fraisAcquisition": {
     "title": "Simulateur de Frais d'Acquisition",

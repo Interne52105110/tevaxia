@@ -46,6 +46,66 @@ export default function Estimation() {
   const [dureeRestanteEmph, setDureeRestanteEmph] = useState(85);
   const [canonAnnuel, setCanonAnnuel] = useState(1200);
 
+  // Historique local des estimations (par adresse / commune)
+  interface HistoryEntry {
+    id: string;
+    date: string;
+    commune: string;
+    quartier?: string;
+    surface: number;
+    estimationCentrale: number;
+    prixM2Ajuste: number;
+    classeEnergie: string;
+  }
+  const HISTORY_KEY = "tevaxia_estimation_history";
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+
+  // Charger historique au mount
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(HISTORY_KEY);
+      if (raw) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setHistory(JSON.parse(raw) as HistoryEntry[]);
+      }
+    } catch { /* ignore */ }
+  }, []);
+
+  const saveToHistory = () => {
+    if (!selectedResult || !result) return;
+    const entry: HistoryEntry = {
+      id: `est-${Date.now()}`,
+      date: new Date().toISOString(),
+      commune: selectedResult.commune.commune,
+      quartier: selectedResult.quartier?.nom,
+      surface,
+      estimationCentrale: result.estimationCentrale,
+      prixM2Ajuste: result.prixM2Ajuste,
+      classeEnergie,
+    };
+    const next = [entry, ...history].slice(0, 50); // keep 50 most recent
+    setHistory(next);
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+    } catch { /* quota full, ignore */ }
+  };
+
+  const removeFromHistory = (id: string) => {
+    const next = history.filter((h) => h.id !== id);
+    setHistory(next);
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+    } catch { /* ignore */ }
+  };
+
+  const clearHistory = () => {
+    if (!confirm("Effacer tout l'historique ?")) return;
+    setHistory([]);
+    try {
+      localStorage.removeItem(HISTORY_KEY);
+    } catch { /* ignore */ }
+  };
+
   // ── Pre-remplissage depuis URL search params OU hash (lien partagé) ──
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -280,7 +340,65 @@ export default function Estimation() {
                 <div className="mt-3 text-xs text-white/50">
                   {t("prixM2Detail", { prixM2: result.prixM2Ajuste, surface })}
                 </div>
+                <button
+                  onClick={saveToHistory}
+                  className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-white/10 hover:bg-white/20 px-3 py-1.5 text-xs font-semibold text-white border border-white/20"
+                >
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                  {t("addToHistory")}
+                </button>
               </div>
+
+              {/* Historique des estimations pour cette adresse */}
+              {history.filter((h) => h.commune === selectedResult?.commune.commune).length > 0 && (
+                <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-sm font-semibold text-navy">{t("historyTitle")}</h3>
+                    <button onClick={clearHistory} className="text-[11px] text-rose-600 hover:text-rose-700 hover:underline">
+                      {t("historyClear")}
+                    </button>
+                  </div>
+                  <div className="space-y-2">
+                    {history.filter((h) => h.commune === selectedResult?.commune.commune).slice(0, 5).map((h, idx, arr) => {
+                      const prev = arr[idx + 1];
+                      const deltaPct = prev ? ((h.estimationCentrale - prev.estimationCentrale) / prev.estimationCentrale) * 100 : null;
+                      return (
+                        <div key={h.id} className="flex items-center justify-between gap-3 rounded-lg border border-card-border/50 bg-background p-2.5 text-xs">
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium text-navy">
+                              {new Date(h.date).toLocaleDateString("fr-LU", { year: "numeric", month: "short", day: "numeric" })}
+                              {h.quartier && <span className="ml-1 text-muted">· {h.quartier}</span>}
+                            </div>
+                            <div className="text-[10px] text-muted">
+                              {h.surface} m² · {h.classeEnergie} · {Math.round(h.prixM2Ajuste).toLocaleString("fr-LU")} €/m²
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-mono font-semibold text-navy">{formatEUR(h.estimationCentrale)}</div>
+                            {deltaPct !== null && (
+                              <div className={`text-[10px] font-mono ${deltaPct >= 0 ? "text-emerald-700" : "text-rose-700"}`}>
+                                {deltaPct > 0 ? "+" : ""}{deltaPct.toFixed(1)}% {t("historyVsPrev")}
+                              </div>
+                            )}
+                          </div>
+                          <button
+                            onClick={() => removeFromHistory(h.id)}
+                            className="text-muted hover:text-rose-600"
+                            aria-label="Supprimer"
+                          >
+                            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <p className="mt-3 text-[10px] text-muted">{t("historyNote")}</p>
+                </div>
+              )}
 
               <AuthGate>
               {/* Double modèle : transactions vs annonces */}
