@@ -53,4 +53,21 @@ test.describe("Smoke tests — parcours critiques publics", () => {
     await page.goto("/status");
     await expect(page.locator("body")).toBeVisible();
   });
+
+  test("/str/forecast page charge (client-side calculator)", async ({ page }) => {
+    await page.goto("/str/forecast");
+    const body = page.locator("body");
+    await expect(body).toContainText(/forecast|prévisionnel|prognose/i);
+    // Bouton "Données démo" doit être présent pour onboarding sans historique
+    const demoBtn = page.getByRole("button", { name: /démo|demo|seed/i });
+    await expect(demoBtn.first()).toBeVisible();
+  });
+
+  test("/syndic/benchmark page nécessite auth mais s'affiche", async ({ page }) => {
+    await page.goto("/syndic/benchmark");
+    await expect(page.locator("body")).toBeVisible();
+    // Sans auth, message login attendu ; avec auth, titre benchmark
+    const body = page.locator("body");
+    await expect(body).toContainText(/benchmark|connect|sign in/i);
+  });
 });

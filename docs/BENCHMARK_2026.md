@@ -1072,16 +1072,22 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ✅ **CI GitHub Actions** (Node 22, tsc + vitest, fix lock out-of-sync) | Infra | `398b0a2` |
 | ✅ **Playwright E2E** 8 smoke tests parcours critiques publics | Infra | `e7e958e` |
 
-### Reste à chantier (pas encore livré)
+### Livrables supplémentaires 2026-04-17 (nocturne autonome)
 
-| Horizon | Chantier | Vertical | Notes |
+| Chantier | Vertical | Commit |
+|---|---|---|
+| ✅ **Benchmark inter-copropriétés** `/syndic/benchmark` — 6 KPIs + percentiles + score composite 0-100 | Syndic | `dd49a07` |
+| ✅ **`/str/forecast`** Holt-Winters mensuel (m=12) — import CSV PMS + export, MAPE backtest | STR | `4228ad6` |
+| ✅ **Sweep refs temporelles 2025→2026** (FR/EN/DE/PT/LB) — Klimabonus, Marché, Tendances, taux bancaires | i18n | `bf8e707` |
+
+### Reste à chantier (nécessite un input externe)
+
+| Horizon | Chantier | Vertical | Pourquoi bloqué |
 |---|---|---|---|
 | 6 mois | Panel Hotrec LU pour RevPAR live | Hôtel | **Partenariat** à négocier avec la fédération HORESCA |
 | 9 mois | Certification RICS AVM Executive | B2B Banques | Chantier admin + rapport MAPE public |
-| 12 mois | Benchmark inter-copropriétés (multi-copros) | Syndic | Nécessite syndic avec ≥ 3 copros dans son compte |
-| 12 mois | Connecteur AIS LU gestion locative sociale | Locatif | **Partenariat** avec guichet.lu / AIS (75% abattement) |
+| 12 mois | Connecteur AIS LU gestion locative sociale | Locatif | **Partenariat** avec guichet.lu / AIS (75 % abattement) |
 | 6 mois | PSD2 natif bancaire (Tink / GoCardless Bank Account Data) | Locatif | Actuellement CAMT.053/CSV manuel. Nécessite compte API fournisseur. |
-| 9 mois | `/str/forecast` ML 12 mois avec saisonnalité LU | STR | Pourrait réutiliser `/hotellerie/forecast` |
 
 ## Priorités structurelles continues
 
@@ -1105,6 +1111,6 @@ Ce benchmark s'appuie sur :
 - Sources fiscales LU STR : Airbnb Tax Guide Luxembourg 2026 (PwC), guichet.lu, Delano.lu articles 2024-2025 sur régulation Airbnb LU
 - Retours utilisateurs early adopters (conversations avec 3 agences LU, 1 banque régionale, 2 évaluateurs TEGOVA)
 
-**Dernière mise à jour** : 2026-04-16 (refonte focus syndic/locatif/hôtellerie/STR).
+**Dernière mise à jour** : 2026-04-17 (nocturne autonome : benchmark copros + STR forecast + sweep temporel).
 
 **Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4) ou plus tôt si entrée en vigueur EU STR Regulation / projet loi 7763.
