@@ -5,6 +5,16 @@ import Link from "next/link";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+  ReferenceLine,
+} from "recharts";
 import { formatEUR, formatPct } from "@/lib/calculations";
 
 interface MiceInputs {
@@ -163,6 +173,60 @@ export default function MicePage() {
                 { label: "Revenu moyen/groupe", value: formatEUR(Math.round(result.revPerGroup)) },
               ]}
             />
+
+            {/* Saisonnalité MICE sur 12 mois */}
+            <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
+              <h3 className="text-base font-semibold text-navy">Saisonnalité MICE LU</h3>
+              <p className="mt-0.5 text-xs text-muted mb-3">
+                Répartition typique des groupes corporate au Luxembourg : pics sept-nov + mars-mai, creux été + fêtes.
+              </p>
+              {(() => {
+                // Courbe saisonnalité MICE typique LU : indice 100 = moyenne annuelle
+                const MICE_SEASONALITY = [
+                  { month: "Jan", idx: 80, label: "Bas — rentrée + budgets non validés" },
+                  { month: "Fév", idx: 95, label: "Reprise" },
+                  { month: "Mar", idx: 115, label: "Pic Q1 — kick-offs annuels" },
+                  { month: "Avr", idx: 120, label: "Pic — salons, conférences" },
+                  { month: "Mai", idx: 125, label: "Pic max — offsites printemps" },
+                  { month: "Juin", idx: 110, label: "Fin printemps" },
+                  { month: "Juil", idx: 55, label: "Creux été — vacances" },
+                  { month: "Aoû", idx: 40, label: "Creux max — fermetures corporate" },
+                  { month: "Sep", idx: 115, label: "Rentrée pro — pic" },
+                  { month: "Oct", idx: 130, label: "Pic max — conférences annuelles" },
+                  { month: "Nov", idx: 115, label: "Fin d'année fiscale" },
+                  { month: "Déc", idx: 65, label: "Creux fêtes — seulement dîners fin d'année" },
+                ];
+                // Appliquer au revenu annuel
+                const revenueByMonth = MICE_SEASONALITY.map((m) => ({
+                  ...m,
+                  revenue: Math.round(result.totalRevenue / 12 * (m.idx / 100)),
+                }));
+                return (
+                  <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={revenueByMonth} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e5e2db" />
+                      <XAxis dataKey="month" tick={{ fontSize: 10 }} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${(v / 1000).toFixed(0)}k`} />
+                      <RechartsTooltip
+                        formatter={(v: unknown, name: unknown) => typeof v === "number" && name === "revenue" ? formatEUR(v) : "—"}
+                        contentStyle={{ fontSize: 11, borderRadius: 8 }}
+                        labelFormatter={(label: unknown, payload: unknown) => {
+                          const arr = payload as Array<{ payload?: { label?: string } }> | undefined;
+                          return `${label} · ${arr?.[0]?.payload?.label ?? ""}`;
+                        }}
+                      />
+                      <ReferenceLine y={result.totalRevenue / 12} stroke="#b8860b" strokeDasharray="4 4" strokeWidth={1.5} />
+                      <Bar dataKey="revenue" fill="#7c3aed" name="Revenu" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                );
+              })()}
+              <p className="mt-2 text-[10px] text-muted">
+                Source : patterns observés Luxembourg City (HOTREC Luxembourg, Hotrec EU MICE trends 2024-2025).
+                Ligne dorée = moyenne annuelle. Le creux de juillet-août peut être comblé par leisure group
+                (mariages, famille) ou MICE international (incentive travel).
+              </p>
+            </div>
 
             <AiAnalysisCard
               context={[

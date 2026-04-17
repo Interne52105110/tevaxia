@@ -46,6 +46,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import ShareLinkButton from "@/components/ShareLinkButton";
+import SignReportButton from "@/components/SignReportButton";
 import ReportModeEVS from "@/components/ReportModeEVS";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
 
@@ -1976,6 +1977,19 @@ export default function Valorisation() {
                     valeurDCF: valeurDCF || undefined,
                     valeurRetenue: valeurComparaison || valeurCapitalisation || valeurDCF || undefined,
                   },
+                }}
+              />
+              <SignReportButton
+                reportTitle={`Valorisation ${selectedCommune?.commune ?? ""} — ${surfaceBien} m²`}
+                payload={{
+                  commune: selectedCommune?.commune,
+                  assetType: assetConfig.id,
+                  evsType: evsInfo.id,
+                  surface: surfaceBien,
+                  prixM2Commune: selectedCommune?.prixM2Existant,
+                  valeurComparaison: valeurComparaison || 0,
+                  valeurCapitalisation: valeurCapitalisation || 0,
+                  valeurDCF: valeurDCF || 0,
                 }}
               />
             </>)}
