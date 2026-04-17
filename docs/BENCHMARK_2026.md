@@ -1087,6 +1087,19 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ✅ **202 nouveaux tests Vitest** (str-forecast 16, str-calc 23, estimation 13, esg 10, evs-checklist 9, energy-comparables 10, macro-data 14, demographics 9, market-data 13, gestion-locative 12, asset-types 10, str-observatoire 13, loyer-observatoire 7, propcalc-mortgage 13, propcalc-amortization 11, propcalc-rental 11, propcalc-buyvsrent 8) | Infra | 17 commits |
 | ✅ **2 smoke tests Playwright** (/str/forecast, /syndic/benchmark) | Infra | `a18dde0` |
 
+### Livrables 8e session 2026-04-17 (factures Stripe + heatmap + PSD2)
+
+| Chantier | Module | Commit |
+|---|---|---|
+| ✅ **Section factures Stripe dans /profil** — liste via `/api/stripe/invoices`, redirect PDF hébergé via `/api/stripe/invoice/[id]` + i18n x5 locales | Profil | `c69309d` |
+| ✅ **Fallback local @react-pdf/renderer** (`StripeInvoicePdf.tsx`) conformité LU (art. 61-63 loi TVA 12/02/1979, RGD 24/03/2023) | Profil | `c69309d` |
+| ✅ **Heatmap cantons LU** (`/carte`) — SVG choroplèthe 4×3, 12 cantons, gradient vert→rouge par prix m² moyen | Carte | `c69309d` |
+| ✅ **GoCardless BAD PSD2** wrapper (`src/lib/gocardless-bad.ts`) — token cache, institutions/requisition/transactions | Locatif | `98502eb` |
+| ✅ **Endpoints `/api/psd2/*`** (institutions, requisition POST/GET, transactions) — renvoient 501 si secrets absents | Locatif | `98502eb` |
+| ✅ **Page `/gestion-locative/reconciliation/psd2`** — flow guidé : sélection banque → auth SCA → liste comptes → import transactions | Locatif | `98502eb` |
+
+Activation PSD2 : ajouter `GOCARDLESS_BAD_SECRET_ID` + `_KEY` côté Vercel env (free tier 100 requisitions/jour).
+
 ### Livrables 7e session 2026-04-17 (polish + tests + macro pays + DCF/geo)
 
 | Chantier | Module | Commit |
