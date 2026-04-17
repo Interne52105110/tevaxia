@@ -1087,6 +1087,18 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ✅ **202 nouveaux tests Vitest** (str-forecast 16, str-calc 23, estimation 13, esg 10, evs-checklist 9, energy-comparables 10, macro-data 14, demographics 9, market-data 13, gestion-locative 12, asset-types 10, str-observatoire 13, loyer-observatoire 7, propcalc-mortgage 13, propcalc-amortization 11, propcalc-rental 11, propcalc-buyvsrent 8) | Infra | 17 commits |
 | ✅ **2 smoke tests Playwright** (/str/forecast, /syndic/benchmark) | Infra | `a18dde0` |
 
+### Livrables 3e session 2026-04-17 (ex-partenariats + items restants)
+
+| Chantier | Module | Commit |
+|---|---|---|
+| ✅ **Observatoire hôtelier LU public** `/hotellerie/observatoire-lu` — STATEC + Eurostat + STR EMEA (ex-Hotrec partenariat) | Hôtel | `45d99bb` |
+| ✅ **Page AIS orientation + calculateur 75 %** `/gestion-locative/ais` — partenaires publics, pas de démarchage (ex-AIS partenariat) | Locatif | `45d99bb` |
+| ✅ **/outils-bancaires historique 8 ans** BCE/OAT/hypothèque LU/inflation (données publiques) | Bancaire | `dcfce4b` |
+| ✅ **/calculateur-loyer simulation post-travaux** — bouton 'Et si je fais des travaux' + gain mensuel/annuel | Loyer | `dcfce4b` |
+| ✅ **/vefa GFA** — extrinsèque (banque/assureur, prime 0.3-2 %) vs intrinsèque (fonds propres) | VEFA | `dcfce4b` |
+| ✅ **/aml-kyc 8 liens sanctions officielles** UE/OFAC/UN/CSSF/ICIJ/OpenSanctions/World-Check | AML | `d620ba0` |
+| ✅ **/estimation historique localStorage** par commune avec delta % vs précédente | Estimation | `3ab3058` |
+
 ### Livrables supplémentaires 2026-04-17 (après-midi — gaps BENCHMARK_2026)
 
 | Chantier | Module | Commit |
@@ -1154,6 +1166,6 @@ Ce benchmark s'appuie sur :
 - Sources fiscales LU STR : Airbnb Tax Guide Luxembourg 2026 (PwC), guichet.lu, Delano.lu articles 2024-2025 sur régulation Airbnb LU
 - Retours utilisateurs early adopters (conversations avec 3 agences LU, 1 banque régionale, 2 évaluateurs TEGOVA)
 
-**Dernière mise à jour** : 2026-04-17 (nocturne autonome + après-midi : 17 gaps + 2 ex-partenariats convertis en autonome).
+**Dernière mise à jour** : 2026-04-17 (3 sessions : 24 gaps + 2 ex-partenariats convertis en autonome).
 
 **Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4) ou plus tôt si entrée en vigueur EU STR Regulation / projet loi 7763.
