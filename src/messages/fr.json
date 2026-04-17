@@ -1574,7 +1574,8 @@
       "faq4a": "Oui, dans la plupart des cas. Le Bëllegen Akt, la subvention d'intérêt et la garantie étatique sont cumulables. Le Klimabonus est cumulable avec les aides communales mais pas avec d'autres aides étatiques pour les mêmes travaux.",
       "faq5q": "Existe-t-il des aides spécifiques pour les frontaliers ?",
       "faq5a": "Le Bëllegen Akt est réservé aux biens situés au Luxembourg. Les frontaliers travaillant au Luxembourg mais résidant à l'étranger n'y ont pas accès. En revanche, un frontalier devenant résident peut en bénéficier pour l'achat de sa résidence principale au Luxembourg."
-    }
+    },
+    "lastVerif": "Barèmes vérifiés le {date} (Bëllegen Akt, Klimabonus, primes guichet.lu)"
   },
   "dcfMulti": {
     "title": "DCF multi-locataires",
@@ -1671,7 +1672,14 @@
     "sensitivitySubtitle": "Valeur DCF selon le taux d'actualisation et le cap rate de sortie (±2 pp autour des hypothèses actuelles).",
     "capRate": "Cap sortie",
     "discountRate": "Taux actu.",
-    "sensitivityNote": "Vert = valeur supérieure / rouge = valeur inférieure à l'hypothèse centrale (bleu marine). Standard Argus Enterprise / Forbury pour évaluer la robustesse de la valorisation."
+    "sensitivityNote": "Vert = valeur supérieure / rouge = valeur inférieure à l'hypothèse centrale (bleu marine). Standard Argus Enterprise / Forbury pour évaluer la robustesse de la valorisation.",
+    "stressTitle": "Stress tests pré-configurés",
+    "stressSubtitle": "Valeur DCF sous scénarios adverses. Vert = résilient (< 5 % de baisse), ambre = vigilance, rouge = vulnérable.",
+    "stressOcc20": "Loyers -20 % (occupation)",
+    "stressLoyer10": "Loyer & ERV -10 %",
+    "stressTaux200": "Actu +200bp / Cap +100bp",
+    "stressCombo": "Combiné (-15 %, taux +100bp, vacance +3pp)",
+    "stressNote": "Standard Argus Enterprise / Forbury pour due diligence investisseur. Un actif qui reste en vert sur les 4 stress est considéré défensif ; en rouge sur ≥ 2 = exiger remise de prix ou clauses suspensives."
   },
   "carte": {
     "title": "Carte des prix immobiliers",

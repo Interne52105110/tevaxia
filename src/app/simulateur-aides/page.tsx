@@ -250,6 +250,12 @@ export default function SimulateurAides() {
           <p className="mt-2 text-muted">
             {t("subtitle")}
           </p>
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[11px] text-emerald-800">
+            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+            {t("lastVerif", { date: "17/04/2026" })}
+          </div>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-5">

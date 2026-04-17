@@ -1574,7 +1574,8 @@
       "faq4a": "Sim, na maioria dos casos. O Bellegen Akt, subsídio de juros e garantia estatal são cumuláveis.",
       "faq5q": "Existem apoios específicos para trabalhadores fronteiriços?",
       "faq5a": "O Bellegen Akt é reservado a imóveis no Luxemburgo. Fronteiriços residentes no estrangeiro não têm acesso."
-    }
+    },
+    "lastVerif": "Tabelas verificadas em {date} (Bëllegen Akt, Klimabonus, prémios guichet.lu)"
   },
   "dcfMulti": {
     "title": "DCF Multilocatário",
@@ -1671,7 +1672,14 @@
     "sensitivitySubtitle": "Valor DCF consoante taxa de desconto e cap rate de saída (±2 pp das hipóteses actuais).",
     "capRate": "Cap saída",
     "discountRate": "Taxa actual.",
-    "sensitivityNote": "Verde = valor superior / vermelho = inferior à hipótese central (azul marinho). Padrão Argus Enterprise / Forbury para robustez."
+    "sensitivityNote": "Verde = valor superior / vermelho = inferior à hipótese central (azul marinho). Padrão Argus Enterprise / Forbury para robustez.",
+    "stressTitle": "Stress tests pré-configurados",
+    "stressSubtitle": "Valor DCF em cenários adversos. Verde = resiliente (< 5 % queda), âmbar = atenção, vermelho = vulnerável.",
+    "stressOcc20": "Rendas -20 % (ocupação)",
+    "stressLoyer10": "Renda & ERV -10 %",
+    "stressTaux200": "Desc +200bp / Cap +100bp",
+    "stressCombo": "Combinado (-15 %, taxas +100bp, vacância +3pp)",
+    "stressNote": "Padrão Argus Enterprise / Forbury para due diligence investidor. Ativo verde em todos = defensivo; vermelho em ≥ 2 = pedir desconto ou condições suspensivas."
   },
   "carte": {
     "title": "Mapa de preços imobiliários",

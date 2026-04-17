@@ -334,6 +334,91 @@ export default function DCFMulti() {
               prompt="Analyse ce DCF multi-baux pour un investisseur immobilier au Luxembourg. Livre : (1) qualité du cash-flow actuel (WAULT, risque locatif, vacance, reversion potentielle), (2) sensibilité de la valeur DCF aux hypothèses clés (taux actualisation, cap sortie, probabilités de renouvellement), (3) positionnement IRR vs attentes marché investisseurs institutionnels LU (commercial ~5-7%, bureau prime ~4-5%), (4) recommandation d'acquisition (prix max, conditions suspensives, clauses à négocier). Reste chiffré et actionnable."
             />
 
+            {/* Stress tests pré-configurés */}
+            <div className="rounded-xl border border-card-border bg-card shadow-sm p-5">
+              <h3 className="text-base font-semibold text-navy">{t("stressTitle")}</h3>
+              <p className="mt-0.5 text-xs text-muted mb-4">{t("stressSubtitle")}</p>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  {
+                    key: "occ20",
+                    label: t("stressOcc20"),
+                    run: () => calculerDCFLeases({
+                      leases: leases.map((l) => ({ ...l, loyerAnnuel: l.loyerAnnuel * 0.8 })),
+                      periodeAnalyse,
+                      tauxActualisation: tauxActu,
+                      tauxCapSortie,
+                      fraisCessionPct: fraisCession,
+                      chargesProprietaireFixe: chargesProprio,
+                      vacanceERV,
+                      dateValeur,
+                    }),
+                  },
+                  {
+                    key: "loy10",
+                    label: t("stressLoyer10"),
+                    run: () => calculerDCFLeases({
+                      leases: leases.map((l) => ({ ...l, loyerAnnuel: l.loyerAnnuel * 0.9, ervM2: l.ervM2 * 0.9 })),
+                      periodeAnalyse,
+                      tauxActualisation: tauxActu,
+                      tauxCapSortie,
+                      fraisCessionPct: fraisCession,
+                      chargesProprietaireFixe: chargesProprio,
+                      vacanceERV,
+                      dateValeur,
+                    }),
+                  },
+                  {
+                    key: "taux200",
+                    label: t("stressTaux200"),
+                    run: () => calculerDCFLeases({
+                      leases,
+                      periodeAnalyse,
+                      tauxActualisation: tauxActu + 2,
+                      tauxCapSortie: tauxCapSortie + 1,
+                      fraisCessionPct: fraisCession,
+                      chargesProprietaireFixe: chargesProprio,
+                      vacanceERV,
+                      dateValeur,
+                    }),
+                  },
+                  {
+                    key: "combo",
+                    label: t("stressCombo"),
+                    run: () => calculerDCFLeases({
+                      leases: leases.map((l) => ({ ...l, loyerAnnuel: l.loyerAnnuel * 0.85, ervM2: l.ervM2 * 0.9 })),
+                      periodeAnalyse,
+                      tauxActualisation: tauxActu + 1,
+                      tauxCapSortie: tauxCapSortie + 1,
+                      fraisCessionPct: fraisCession,
+                      chargesProprietaireFixe: chargesProprio,
+                      vacanceERV: vacanceERV + 3,
+                      dateValeur,
+                    }),
+                  },
+                ].map((stress) => {
+                  const r = stress.run();
+                  const delta = r.valeurDCF - result.valeurDCF;
+                  const pct = result.valeurDCF > 0 ? (delta / result.valeurDCF) * 100 : 0;
+                  const bg = pct >= -5 ? "bg-emerald-50 border-emerald-200" : pct >= -15 ? "bg-amber-50 border-amber-200" : "bg-rose-50 border-rose-200";
+                  const textPct = pct >= -5 ? "text-emerald-800" : pct >= -15 ? "text-amber-800" : "text-rose-800";
+                  return (
+                    <div key={stress.key} className={`rounded-lg border p-3 ${bg}`}>
+                      <div className="text-[10px] font-semibold uppercase tracking-wider text-navy/70">{stress.label}</div>
+                      <div className="mt-1 text-sm font-mono font-bold text-navy tabular-nums">{formatEUR(r.valeurDCF)}</div>
+                      <div className={`text-xs font-mono tabular-nums ${textPct}`}>
+                        {pct > 0 ? "+" : ""}{pct.toFixed(1)} % / {formatEUR(delta)}
+                      </div>
+                      <div className="mt-1 text-[9px] text-muted">
+                        IRR {(r.irr * 100).toFixed(1)} %
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="mt-3 text-[10px] text-muted">{t("stressNote")}</p>
+            </div>
+
             {/* Sensibilité cap rate × taux actualisation */}
             <div className="rounded-xl border border-card-border bg-card shadow-sm p-5">
               <div className="flex items-start justify-between gap-3 mb-3">

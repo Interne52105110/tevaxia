@@ -1574,7 +1574,8 @@
       "faq4a": "Jo, an deene meeschte Fäll. De Bëllegen Akt, Zënszouschoss a Staatsgarantie sinn kumuléierbar.",
       "faq5q": "Gëtt et spezifesch Hëllefen fir Grenzgänger?",
       "faq5a": "De Bëllegen Akt gëllt nëmme fir Immobilien zu Lëtzebuerg. Grenzgänger déi am Ausland wunnen hunn keen Zougang."
-    }
+    },
+    "lastVerif": "Barèmen iwwerpréift den {date} (Bëllegen Akt, Klimabonus, guichet.lu Primen)"
   },
   "dcfMulti": {
     "title": "DCF Multi-Locatairen",
@@ -1671,7 +1672,14 @@
     "sensitivitySubtitle": "DCF-Wäert no Diskontzaten an Exit-Cap-Rate (±2 pp ronderëm déi aktuell Hypothesen).",
     "capRate": "Exit-Cap",
     "discountRate": "Aktualiséirungstaux",
-    "sensitivityNote": "Gréng = méi héich / rout = méi niddereg wéi d'zentral Hypothes (marineblo). Standard Argus Enterprise / Forbury fir d'Robustheet."
+    "sensitivityNote": "Gréng = méi héich / rout = méi niddereg wéi d'zentral Hypothes (marineblo). Standard Argus Enterprise / Forbury fir d'Robustheet.",
+    "stressTitle": "Virgeconfiguréiert Stresstester",
+    "stressSubtitle": "DCF-Wäert ënner ongënschtege Szenarien. Gréng = robust (< 5 % Récklaf), gielw = opgepasst, rout = vulnerabel.",
+    "stressOcc20": "Mutten -20 % (Occupatioun)",
+    "stressLoyer10": "Mutt & ERV -10 %",
+    "stressTaux200": "Disk +200bp / Cap +100bp",
+    "stressCombo": "Kombinéiert (-15 %, Zënsen +100bp, Liidlech +3pp)",
+    "stressNote": "Standard Argus Enterprise / Forbury fir Investor Due Diligence. Aktiv gréng op all 4 = defensiv; rout op ≥ 2 = Räbatt oder Konditiounen suspensiv froen."
   },
   "carte": {
     "title": "Immobiliëpräiskart",

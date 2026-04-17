@@ -1574,7 +1574,8 @@
       "faq4a": "Ja, in den meisten Fällen. Bellegen Akt, Zinszuschuss und Staatsgarantie sind kumulierbar. Der Klimabonus ist mit kommunalen Beihilfen kompatibel.",
       "faq5q": "Gibt es spezifische Hilfen für Grenzgänger?",
       "faq5a": "Der Bellegen Akt gilt nur für Immobilien in Luxemburg. Grenzgänger mit Wohnsitz im Ausland haben keinen Zugang. Ein Grenzgänger, der Einwohner wird, kann beim Kauf seines Hauptwohnsitzes davon profitieren."
-    }
+    },
+    "lastVerif": "Sätze überprüft am {date} (Bëllegen Akt, Klimabonus, guichet.lu Prämien)"
   },
   "dcfMulti": {
     "title": "DCF Mehrmieter",
@@ -1671,7 +1672,14 @@
     "sensitivitySubtitle": "DCF-Wert je nach Diskontsatz und Exit-Cap-Rate (±2 pp um aktuelle Annahmen).",
     "capRate": "Exit-Cap",
     "discountRate": "Diskontsatz",
-    "sensitivityNote": "Grün = höherer Wert / rot = niedriger als zentrale Annahme (marineblau). Argus Enterprise / Forbury Standard für Robustheitsbewertung."
+    "sensitivityNote": "Grün = höherer Wert / rot = niedriger als zentrale Annahme (marineblau). Argus Enterprise / Forbury Standard für Robustheitsbewertung.",
+    "stressTitle": "Vorkonfigurierte Stresstests",
+    "stressSubtitle": "DCF-Wert unter ungünstigen Szenarien. Grün = widerstandsfähig (< 5 % Rückgang), gelb = Aufmerksamkeit, rot = verwundbar.",
+    "stressOcc20": "Mieten -20 % (Belegung)",
+    "stressLoyer10": "Miete & ERV -10 %",
+    "stressTaux200": "Disk +200bp / Cap +100bp",
+    "stressCombo": "Kombiniert (-15 %, Zinsen +100bp, Leerstand +3pp)",
+    "stressNote": "Argus Enterprise / Forbury Standard für Investor Due Diligence. Aktiv grün bei allen 4 = defensiv; rot bei ≥ 2 = Preisnachlass oder Bedingungen verlangen."
   },
   "carte": {
     "title": "Immobilienpreiskarte",
