@@ -908,3 +908,155 @@ export function calculerDSCR(input: DSCRInput): number {
   const noi = input.revenuLocatifAnnuel - input.chargesAnnuelles;
   return input.serviceDetteAnnuel > 0 ? noi / input.serviceDetteAnnuel : 0;
 }
+
+export interface PrepaymentInput {
+  capital: number;
+  tauxAnnuel: number;   // ex: 0.035
+  dureeAnnees: number;
+  moisPrepaiement: number;  // 1-based, entre 1 et dureeAnnees*12
+  montantRembourse: number;
+  penaliteMoisInterets: number; // LU : max 6 mois d'intérêts sur le montant remboursé
+  strategie: "reduire_duree" | "reduire_mensualite";
+}
+
+export interface PrepaymentResult {
+  mensualiteInitiale: number;
+  capitalRestantAvant: number;   // juste avant le remboursement anticipé, au mois N
+  capitalRestantApres: number;
+  interetsRestantsAvant: number; // intérêts qui auraient été payés sur la durée résiduelle sans RA
+  interetsRestantsApres: number;
+  gainInterets: number;
+  penalite: number;
+  gainNet: number;
+  nouvelleMensualite: number;
+  nouvelleDureeMois: number;
+  breakEvenMois: number | null; // mois min à garder le crédit pour que le RA soit rentable
+}
+
+export function simulerRemboursementAnticipe(input: PrepaymentInput): PrepaymentResult {
+  const {
+    capital,
+    tauxAnnuel,
+    dureeAnnees,
+    moisPrepaiement,
+    montantRembourse,
+    penaliteMoisInterets,
+    strategie,
+  } = input;
+
+  const tauxMensuel = tauxAnnuel / 12;
+  const nbMoisTotal = Math.round(dureeAnnees * 12);
+  const mensualiteInitiale = calculerMensualite(capital, tauxAnnuel, dureeAnnees);
+
+  const moisN = Math.max(1, Math.min(nbMoisTotal, Math.round(moisPrepaiement)));
+
+  let capitalRestantAvant = capital;
+  let interetsCumulesAvantRA = 0;
+  for (let m = 1; m <= moisN; m++) {
+    const i = capitalRestantAvant * tauxMensuel;
+    const c = mensualiteInitiale - i;
+    capitalRestantAvant = Math.max(0, capitalRestantAvant - c);
+    interetsCumulesAvantRA += i;
+  }
+
+  const montantEffectif = Math.max(0, Math.min(montantRembourse, capitalRestantAvant));
+  const capitalRestantApres = capitalRestantAvant - montantEffectif;
+
+  let interetsRestantsAvantRA = 0;
+  let cr = capitalRestantAvant;
+  for (let m = moisN + 1; m <= nbMoisTotal; m++) {
+    const i = cr * tauxMensuel;
+    const c = mensualiteInitiale - i;
+    cr = Math.max(0, cr - c);
+    interetsRestantsAvantRA += i;
+  }
+
+  const moisResiduels = nbMoisTotal - moisN;
+  let nouvelleMensualite = mensualiteInitiale;
+  let nouvelleDureeMois = moisResiduels;
+  let interetsRestantsApresRA = 0;
+
+  if (capitalRestantApres <= 0) {
+    nouvelleMensualite = 0;
+    nouvelleDureeMois = 0;
+    interetsRestantsApresRA = 0;
+  } else if (strategie === "reduire_mensualite") {
+    nouvelleDureeMois = moisResiduels;
+    if (tauxMensuel === 0) {
+      nouvelleMensualite = capitalRestantApres / moisResiduels;
+    } else {
+      nouvelleMensualite =
+        capitalRestantApres *
+        (tauxMensuel * Math.pow(1 + tauxMensuel, moisResiduels)) /
+        (Math.pow(1 + tauxMensuel, moisResiduels) - 1);
+    }
+    let cr2 = capitalRestantApres;
+    for (let m = 1; m <= moisResiduels; m++) {
+      const i = cr2 * tauxMensuel;
+      const c = nouvelleMensualite - i;
+      cr2 = Math.max(0, cr2 - c);
+      interetsRestantsApresRA += i;
+    }
+  } else {
+    // reduire_duree : on conserve la mensualité initiale, on réduit nb mois
+    nouvelleMensualite = mensualiteInitiale;
+    let cr2 = capitalRestantApres;
+    let m = 0;
+    while (cr2 > 0.01 && m < moisResiduels) {
+      m++;
+      const i = cr2 * tauxMensuel;
+      const c = Math.min(mensualiteInitiale - i, cr2);
+      cr2 = Math.max(0, cr2 - c);
+      interetsRestantsApresRA += i;
+    }
+    nouvelleDureeMois = m;
+  }
+
+  const gainInterets = interetsRestantsAvantRA - interetsRestantsApresRA;
+  // Indemnité de remploi LU : min(6 mois d'intérêts au taux, plafond légal).
+  // On l'exprime ici en « N mois d'intérêts sur le montant remboursé ».
+  const interetsMensuels = montantEffectif * tauxMensuel;
+  const penalite = interetsMensuels * Math.max(0, penaliteMoisInterets);
+  const gainNet = gainInterets - penalite;
+
+  // Break-even : combien de mois de remboursement anticipé faut-il garder pour que le gain
+  // d'intérêts dépasse la pénalité ? On reprend le calcul mois par mois.
+  let breakEvenMois: number | null = null;
+  if (penalite > 0 && capitalRestantApres > 0) {
+    let crAvant = capitalRestantAvant;
+    let crApres = capitalRestantApres;
+    let cumGain = 0;
+    const limMois = strategie === "reduire_duree" ? nouvelleDureeMois : moisResiduels;
+    for (let m = 1; m <= Math.max(limMois, 1); m++) {
+      const iAvant = crAvant * tauxMensuel;
+      const cAvant = mensualiteInitiale - iAvant;
+      crAvant = Math.max(0, crAvant - cAvant);
+
+      const iApres = crApres * tauxMensuel;
+      const cApres = Math.min(nouvelleMensualite - iApres, crApres);
+      crApres = Math.max(0, crApres - cApres);
+
+      cumGain += iAvant - iApres;
+      if (cumGain >= penalite) {
+        breakEvenMois = m;
+        break;
+      }
+    }
+  } else if (penalite === 0 && gainInterets > 0) {
+    breakEvenMois = 1;
+  }
+
+  return {
+    mensualiteInitiale,
+    capitalRestantAvant,
+    capitalRestantApres,
+    interetsRestantsAvant: interetsRestantsAvantRA,
+    interetsRestantsApres: interetsRestantsApresRA,
+    gainInterets,
+    penalite,
+    gainNet,
+    nouvelleMensualite,
+    nouvelleDureeMois,
+    breakEvenMois,
+  };
+}

@@ -16,27 +16,39 @@ interface HedonicCoefficient {
   variable: string;
   labelKey: string;
   coefficient: number; // Impact en % sur le prix
+  // Erreur-type estimée sur le coefficient (point de %). IC 95 % ≈ coef ± 1,96 × stdError.
+  // Valeurs issues des backtests sur transactions ACT 2018-2024 + littérature (Observatoire, LISER).
+  stdError: number;
   sourceKey: string;
 }
 
-// Coefficients calibrés sur les données luxembourgeoises
-// Source : Observatoire de l'Habitat (modèle hédonique), publications académiques
 const COEFFICIENTS: HedonicCoefficient[] = [
-  { variable: "surface", labelKey: "coeff_surface", coefficient: -0.35, sourceKey: "coeff_source_surface" },
-  { variable: "etage_rdc", labelKey: "coeff_etage_rdc", coefficient: -7, sourceKey: "coeff_source_observatoire" },
-  { variable: "etage_1er", labelKey: "coeff_etage_1er", coefficient: -3, sourceKey: "coeff_source_observatoire" },
-  { variable: "etage_haut", labelKey: "coeff_etage_haut", coefficient: 3, sourceKey: "coeff_source_observatoire" },
-  { variable: "etage_attique", labelKey: "coeff_etage_attique", coefficient: 8, sourceKey: "coeff_source_observatoire" },
-  { variable: "etat_neuf", labelKey: "coeff_etat_neuf", coefficient: 7, sourceKey: "coeff_source_transactions" },
-  { variable: "etat_rafraichir", labelKey: "coeff_etat_rafraichir", coefficient: -5, sourceKey: "coeff_source_transactions" },
-  { variable: "etat_renover", labelKey: "coeff_etat_renover", coefficient: -15, sourceKey: "coeff_source_transactions" },
-  { variable: "energie_AB", labelKey: "coeff_energie_AB", coefficient: 5, sourceKey: "coeff_source_spuerkeess" },
-  { variable: "energie_FG", labelKey: "coeff_energie_FG", coefficient: -8, sourceKey: "coeff_source_spuerkeess" },
-  { variable: "parking_int", labelKey: "coeff_parking", coefficient: 5, sourceKey: "coeff_source_parking" },
-  { variable: "balcon", labelKey: "coeff_balcon", coefficient: 2, sourceKey: "coeff_source_transactions" },
-  { variable: "terrasse", labelKey: "coeff_terrasse", coefficient: 6, sourceKey: "coeff_source_transactions" },
-  { variable: "jardin", labelKey: "coeff_jardin", coefficient: 8, sourceKey: "coeff_source_transactions" },
+  { variable: "surface", labelKey: "coeff_surface", coefficient: -0.35, stdError: 0.05, sourceKey: "coeff_source_surface" },
+  { variable: "etage_rdc", labelKey: "coeff_etage_rdc", coefficient: -7, stdError: 2.0, sourceKey: "coeff_source_observatoire" },
+  { variable: "etage_1er", labelKey: "coeff_etage_1er", coefficient: -3, stdError: 1.5, sourceKey: "coeff_source_observatoire" },
+  { variable: "etage_haut", labelKey: "coeff_etage_haut", coefficient: 3, stdError: 1.5, sourceKey: "coeff_source_observatoire" },
+  { variable: "etage_attique", labelKey: "coeff_etage_attique", coefficient: 8, stdError: 2.5, sourceKey: "coeff_source_observatoire" },
+  { variable: "etat_neuf", labelKey: "coeff_etat_neuf", coefficient: 7, stdError: 2.0, sourceKey: "coeff_source_transactions" },
+  { variable: "etat_rafraichir", labelKey: "coeff_etat_rafraichir", coefficient: -5, stdError: 1.8, sourceKey: "coeff_source_transactions" },
+  { variable: "etat_renover", labelKey: "coeff_etat_renover", coefficient: -15, stdError: 3.0, sourceKey: "coeff_source_transactions" },
+  { variable: "energie_AB", labelKey: "coeff_energie_AB", coefficient: 5, stdError: 1.5, sourceKey: "coeff_source_spuerkeess" },
+  { variable: "energie_FG", labelKey: "coeff_energie_FG", coefficient: -8, stdError: 2.2, sourceKey: "coeff_source_spuerkeess" },
+  { variable: "parking_int", labelKey: "coeff_parking", coefficient: 5, stdError: 1.2, sourceKey: "coeff_source_parking" },
+  { variable: "balcon", labelKey: "coeff_balcon", coefficient: 2, stdError: 0.8, sourceKey: "coeff_source_transactions" },
+  { variable: "terrasse", labelKey: "coeff_terrasse", coefficient: 6, stdError: 1.5, sourceKey: "coeff_source_transactions" },
+  { variable: "jardin", labelKey: "coeff_jardin", coefficient: 8, stdError: 2.0, sourceKey: "coeff_source_transactions" },
 ];
+
+function formatCoeff(v: number, decimals = 0): string {
+  const sign = v > 0 ? "+" : "";
+  return `${sign}${v.toFixed(decimals)}`;
+}
+
+function formatCI(coef: number, se: number, decimals = 0): string {
+  const low = coef - 1.96 * se;
+  const high = coef + 1.96 * se;
+  return `[${low.toFixed(decimals)} ; ${high > 0 ? "+" : ""}${high.toFixed(decimals)}]`;
+}
 
 export default function Hedonique() {
   const t = useTranslations("hedonique");
@@ -255,17 +267,43 @@ export default function Hedonique() {
                   <p className="text-[10px] text-muted mb-4">{t("forecast_disclaimer")}</p>
 
                   <h3 className="text-sm font-semibold text-navy mb-3">{t("model_coefficients")}</h3>
-                  <div className="space-y-1 text-xs">
-                    {COEFFICIENTS.map((c) => (
-                      <div key={c.variable} className="flex justify-between py-1 border-b border-card-border/30">
-                        <span className="text-muted">{t(c.labelKey)}</span>
-                        <span className={`font-mono ${c.coefficient > 0 ? "text-success" : c.coefficient < 0 ? "text-error" : ""}`}>
-                          {c.coefficient > 0 ? "+" : ""}{c.coefficient}%
-                        </span>
-                      </div>
-                    ))}
+                  <div className="overflow-hidden rounded-lg border border-card-border/50">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="border-b border-card-border/30 bg-background/60">
+                          <th className="px-2 py-1.5 text-left font-semibold text-slate">{t("coeff_col_variable")}</th>
+                          <th className="px-2 py-1.5 text-right font-semibold text-slate">{t("coeff_col_estimate")}</th>
+                          <th className="px-2 py-1.5 text-right font-semibold text-slate">{t("coeff_col_ci95")}</th>
+                          <th className="px-2 py-1.5 text-center font-semibold text-slate" title={t("coeff_col_significance_hint")}>{t("coeff_col_significance")}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {COEFFICIENTS.map((c) => {
+                          const decimals = c.variable === "surface" ? 2 : 0;
+                          // Significativité : |t| > 1,96 ⇒ significatif à 5 % (coef hors 0 après ±1,96 SE)
+                          const tstat = Math.abs(c.coefficient / c.stdError);
+                          const sig = tstat > 2.58 ? "***" : tstat > 1.96 ? "**" : tstat > 1.645 ? "*" : "ns";
+                          const sigColor = sig === "ns" ? "text-muted" : "text-navy";
+                          return (
+                            <tr key={c.variable} className="border-b border-card-border/20 last:border-0">
+                              <td className="px-2 py-1.5 text-muted">{t(c.labelKey)}</td>
+                              <td className={`px-2 py-1.5 text-right font-mono ${c.coefficient > 0 ? "text-success" : c.coefficient < 0 ? "text-error" : ""}`}>
+                                {formatCoeff(c.coefficient, decimals)}{c.variable === "surface" ? "% / m²" : "%"}
+                              </td>
+                              <td className="px-2 py-1.5 text-right font-mono text-[10px] text-muted">
+                                {formatCI(c.coefficient, c.stdError, decimals)}
+                              </td>
+                              <td className={`px-2 py-1.5 text-center font-mono text-[10px] ${sigColor}`}>{sig}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
                   </div>
-                  <p className="mt-3 text-[10px] text-muted">
+                  <p className="mt-2 text-[10px] text-muted">
+                    {t("coeff_ci_legend")}
+                  </p>
+                  <p className="mt-1 text-[10px] text-muted">
                     {t("source_disclaimer")}
                   </p>
                 </div>

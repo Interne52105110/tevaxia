@@ -40,6 +40,7 @@ type Region =
 
 type TypeSysteme =
   | "pac_air_eau"
+  | "pac_eau_eau"
   | "pac_geothermique"
   | "chaudiere_pellets"
   | "chaudiere_gaz_condensation"
@@ -151,6 +152,16 @@ const PRODUITS_PAC_AIR_EAU: Produit[] = [
   { marque: "De Dietrich", modele: "Alezio S R32", puissanceMin: 4, puissanceMax: 11, cop: 5.1, scop: 4.8, refrigerant: "R32", bruit: 52, prixMin: 5500, prixMax: 11000, prixInstall: 5500, source: "vanmarcke.com/fr-lu", eligible_klimabonus: true },
 ];
 
+// PAC eau/eau (aquathermie) — capte chaleur nappe phréatique ou eau de surface.
+// COP 5.0-5.8, SCOP 5.0+ — plus stable que l'air/eau, moins cher à installer que
+// le sol/eau mais nécessite un forage sur nappe et une autorisation administration
+// des eaux (AEV, loi modifiée du 19/12/2008 sur l'eau).
+const PRODUITS_PAC_EAU_EAU: Produit[] = [
+  { marque: "Viessmann", modele: "Vitocal 350-G Pro", puissanceMin: 21, puissanceMax: 84.6, cop: 5.8, scop: 5.5, prixMin: 14000, prixMax: 22000, prixInstall: 15000, source: "viessmann.lu", eligible_klimabonus: true },
+  { marque: "Waterkotte", modele: "EcoTouch Ai1", puissanceMin: 4, puissanceMax: 16, cop: 5.4, scop: 5.1, prixMin: 11000, prixMax: 18000, prixInstall: 14000, source: "waterkotte.de", eligible_klimabonus: true },
+  { marque: "Stiebel Eltron", modele: "WPF 5-16", puissanceMin: 5, puissanceMax: 16, cop: 5.2, scop: 5.0, prixMin: 10000, prixMax: 17000, prixInstall: 13000, source: "stiebel-eltron.com", eligible_klimabonus: true },
+];
+
 const PRODUITS_PAC_GEO: Produit[] = [
   { marque: "Viessmann", modele: "Vitocal 222-G", puissanceMin: 5, puissanceMax: 17, cop: 5.0, scop: 4.8, prixMin: 12000, prixMax: 18000, prixInstall: 18000, source: "viessmann.lu", eligible_klimabonus: true },
   { marque: "Buderus", modele: "Logatherm WSW186i", puissanceMin: 6, puissanceMax: 16, cop: 4.8, scop: 4.5, prixMin: 10000, prixMax: 16000, prixInstall: 20000, source: "buderus.lu", eligible_klimabonus: true },
@@ -174,6 +185,8 @@ function getProductsForSystem(typeSysteme: TypeSysteme): Produit[] {
     case "pac_air_eau":
     case "hybride_pac_gaz":
       return PRODUITS_PAC_AIR_EAU;
+    case "pac_eau_eau":
+      return PRODUITS_PAC_EAU_EAU;
     case "pac_geothermique":
       return PRODUITS_PAC_GEO;
     case "chaudiere_pellets":
@@ -217,7 +230,7 @@ function calculerKlimabonus(
     if (remplaceFossile) return typeBatiment === "immeuble_collectif" ? 8000 : 10000;
     return typeBatiment === "immeuble_collectif" ? 5000 : 6000;
   }
-  if (typeSysteme === "pac_geothermique") {
+  if (typeSysteme === "pac_geothermique" || typeSysteme === "pac_eau_eau") {
     if (remplaceFossile) return typeBatiment === "immeuble_collectif" ? 10000 : 12000;
     return typeBatiment === "immeuble_collectif" ? 5000 : 8000;
   }
@@ -399,7 +412,7 @@ export default function HVACSimulator() {
 
     /* --- Aides financieres --- */
     const klimabonus = calculerKlimabonus(typeSysteme, typeBatiment, remplaceFossile);
-    const enoprimes = (typeSysteme === "pac_air_eau" || typeSysteme === "pac_geothermique" || typeSysteme === "hybride_pac_gaz") ? 1500 : typeSysteme === "chaudiere_pellets" ? 1000 : 0;
+    const enoprimes = (typeSysteme === "pac_air_eau" || typeSysteme === "pac_eau_eau" || typeSysteme === "pac_geothermique" || typeSysteme === "hybride_pac_gaz") ? 1500 : typeSysteme === "chaudiere_pellets" ? 1000 : 0;
     const coutRetraitCuve = retraitCuve ? 1500 : 0;
     const batimentAncien = anneeConstruction <= 2016;
     const tva3Economie = batimentAncien ? Math.round(totalTravaux * 0.14) : 0; // 17% - 3% = 14% saving
@@ -859,6 +872,7 @@ export default function HVACSimulator() {
             onChange={(v) => { setTypeSysteme(v as TypeSysteme); setSelectedProduct(null); }}
             options={[
               { value: "pac_air_eau", label: t("labels.pacAirEau") },
+              { value: "pac_eau_eau", label: t("labels.pacEauEau") },
               { value: "pac_geothermique", label: t("labels.pacGeothermique") },
               { value: "chaudiere_pellets", label: t("labels.chaudierePellets") },
               { value: "chaudiere_gaz_condensation", label: t("labels.chaudiereGaz") },
@@ -884,7 +898,7 @@ export default function HVACSimulator() {
                   <th className="px-2 py-2 text-left font-semibold text-slate">{t("table.marque")}</th>
                   <th className="px-2 py-2 text-left font-semibold text-slate">{t("table.modele")}</th>
                   <th className="px-2 py-2 text-center font-semibold text-slate">{t("table.puissance")}</th>
-                  {(typeSysteme === "pac_air_eau" || typeSysteme === "pac_geothermique" || typeSysteme === "hybride_pac_gaz") && (
+                  {(typeSysteme === "pac_air_eau" || typeSysteme === "pac_eau_eau" || typeSysteme === "pac_geothermique" || typeSysteme === "hybride_pac_gaz") && (
                     <>
                       <th className="px-2 py-2 text-center font-semibold text-slate">COP</th>
                       <th className="px-2 py-2 text-center font-semibold text-slate">SCOP</th>
@@ -927,7 +941,7 @@ export default function HVACSimulator() {
                       </td>
                       <td className={`px-2 py-2 ${covers ? "font-bold" : ""}`}>{p.modele}</td>
                       <td className="px-2 py-2 text-center font-mono">{p.puissanceMin}-{p.puissanceMax} kW</td>
-                      {(typeSysteme === "pac_air_eau" || typeSysteme === "pac_geothermique" || typeSysteme === "hybride_pac_gaz") && (
+                      {(typeSysteme === "pac_air_eau" || typeSysteme === "pac_eau_eau" || typeSysteme === "pac_geothermique" || typeSysteme === "hybride_pac_gaz") && (
                         <>
                           <td className="px-2 py-2 text-center font-mono">{p.cop ?? "-"}</td>
                           <td className="px-2 py-2 text-center font-mono">{p.scop ?? "-"}</td>

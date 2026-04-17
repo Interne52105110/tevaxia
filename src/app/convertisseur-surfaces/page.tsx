@@ -9,6 +9,7 @@ import { formatEUR } from "@/lib/calculations";
 import { generateSurfacesPdfBlob, PdfButton } from "@/components/ToolsPdf";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SEOContent from "@/components/SEOContent";
+import { ZONES_PAG } from "@/lib/pag-pap";
 
 /* ------------------------------------------------------------------ */
 /*  ACT coefficients for weighted accessories                         */
@@ -44,6 +45,230 @@ function fmtM2(v: number): string {
 
 function fmtPct(v: number): string {
   return `${(v * 100).toLocaleString("fr-LU", { maximumFractionDigits: 1 })} %`;
+}
+
+/* ------------------------------------------------------------------ */
+/*  COS/CMU parsing for PAG zones                                     */
+/* ------------------------------------------------------------------ */
+function parseCoeffRange(raw: string): { min: number; max: number } | null {
+  if (!raw) return null;
+  const match = raw.match(/(\d+[.,]?\d*)\s*[-–]\s*(\d+[.,]?\d*)/);
+  if (match) {
+    return {
+      min: parseFloat(match[1].replace(",", ".")),
+      max: parseFloat(match[2].replace(",", ".")),
+    };
+  }
+  const single = raw.match(/(\d+[.,]?\d*)/);
+  if (single) {
+    const v = parseFloat(single[1].replace(",", "."));
+    return { min: v, max: v };
+  }
+  return null;
+}
+
+interface TerrainResult {
+  surfaceNette: number;
+  empriseMin: number;
+  empriseMax: number;
+  plancherMin: number;
+  plancherMax: number;
+  logementsMin: number;
+  logementsMax: number;
+  cos: { min: number; max: number } | null;
+  cmu: { min: number; max: number } | null;
+}
+
+function computeTerrain(params: {
+  surfaceCadastrale: number;
+  retraitVoirie: number;
+  espaceVertPct: number;
+  zoneCode: string;
+  surfaceMoyenneLogement: number;
+}): TerrainResult {
+  const { surfaceCadastrale, retraitVoirie, espaceVertPct, zoneCode, surfaceMoyenneLogement } = params;
+  const zone = ZONES_PAG.find((z) => z.code === zoneCode);
+  const cos = zone ? parseCoeffRange(zone.cosTypique) : null;
+  const cmu = zone ? parseCoeffRange(zone.cmuTypique) : null;
+
+  const surfaceNette = Math.max(0, surfaceCadastrale - retraitVoirie) * (1 - espaceVertPct / 100);
+
+  const empriseMin = cos ? surfaceNette * cos.min : 0;
+  const empriseMax = cos ? surfaceNette * cos.max : 0;
+  const plancherMin = cmu ? surfaceNette * cmu.min : 0;
+  const plancherMax = cmu ? surfaceNette * cmu.max : 0;
+  const logementsMin = surfaceMoyenneLogement > 0 ? Math.floor(plancherMin / surfaceMoyenneLogement) : 0;
+  const logementsMax = surfaceMoyenneLogement > 0 ? Math.floor(plancherMax / surfaceMoyenneLogement) : 0;
+
+  return {
+    surfaceNette,
+    empriseMin,
+    empriseMax,
+    plancherMin,
+    plancherMax,
+    logementsMin,
+    logementsMax,
+    cos,
+    cmu,
+  };
+}
+
+function TerrainSection() {
+  const t = useTranslations("convertisseurSurfaces");
+  const [surfaceCadastrale, setSurfaceCadastrale] = useState(800);
+  const [retraitVoirie, setRetraitVoirie] = useState(0);
+  const [espaceVertPct, setEspaceVertPct] = useState(0);
+  const [zoneCode, setZoneCode] = useState("HAB-2");
+  const [surfaceMoyenneLogement, setSurfaceMoyenneLogement] = useState(90);
+
+  const zonesConstructibles = ZONES_PAG.filter((z) => z.constructible);
+  const zoneSelected = ZONES_PAG.find((z) => z.code === zoneCode);
+
+  const result = useMemo(
+    () => computeTerrain({ surfaceCadastrale, retraitVoirie, espaceVertPct, zoneCode, surfaceMoyenneLogement }),
+    [surfaceCadastrale, retraitVoirie, espaceVertPct, zoneCode, surfaceMoyenneLogement]
+  );
+
+  return (
+    <div className="mt-10 grid gap-8 lg:grid-cols-2">
+      <div className="space-y-6">
+        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+          <h2 className="mb-4 text-base font-semibold text-navy">{t("terrainSectionTitle")}</h2>
+          <p className="mb-4 text-xs text-muted">{t("terrainSectionSubtitle")}</p>
+          <div className="space-y-4">
+            <InputField
+              label={t("terrainSurfaceCadastrale")}
+              value={surfaceCadastrale}
+              onChange={(v) => setSurfaceCadastrale(Number(v))}
+              suffix="m²"
+              min={0}
+              hint={t("terrainSurfaceCadastraleHint")}
+            />
+            <InputField
+              label={t("terrainZonePag")}
+              value={zoneCode}
+              onChange={(v) => setZoneCode(String(v))}
+              type="select"
+              options={zonesConstructibles.map((z) => ({
+                value: z.code,
+                label: `${z.code} — ${z.nom}`,
+              }))}
+              hint={t("terrainZonePagHint")}
+            />
+            <InputField
+              label={t("terrainRetraitVoirie")}
+              value={retraitVoirie}
+              onChange={(v) => setRetraitVoirie(Number(v))}
+              suffix="m²"
+              min={0}
+              hint={t("terrainRetraitVoirieHint")}
+            />
+            <SliderField
+              label={t("terrainEspaceVert")}
+              value={espaceVertPct}
+              onChange={setEspaceVertPct}
+              min={0}
+              max={40}
+              step={1}
+              suffix="%"
+              hint={t("terrainEspaceVertHint")}
+            />
+            <InputField
+              label={t("terrainSurfaceLogement")}
+              value={surfaceMoyenneLogement}
+              onChange={(v) => setSurfaceMoyenneLogement(Number(v))}
+              suffix="m²"
+              min={30}
+              max={300}
+              hint={t("terrainSurfaceLogementHint")}
+            />
+          </div>
+        </div>
+
+        {zoneSelected && (
+          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+            <h3 className="mb-3 text-sm font-semibold text-navy">
+              {zoneSelected.code} — {zoneSelected.nom}
+            </h3>
+            <p className="mb-3 text-xs text-muted">{zoneSelected.description}</p>
+            <dl className="space-y-1.5 text-xs">
+              <div className="flex justify-between">
+                <dt className="text-muted">{t("terrainCos")}</dt>
+                <dd className="font-mono text-navy">{zoneSelected.cosTypique}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-muted">{t("terrainCmu")}</dt>
+                <dd className="font-mono text-navy">{zoneSelected.cmuTypique}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-muted">{t("terrainHauteur")}</dt>
+                <dd className="font-mono text-navy">{zoneSelected.hauteurMax}</dd>
+              </div>
+            </dl>
+            <p className="mt-3 text-[11px] text-muted italic">{zoneSelected.observations}</p>
+          </div>
+        )}
+      </div>
+
+      <div className="space-y-6">
+        <div className="rounded-2xl bg-gradient-to-br from-navy to-navy-light p-8 text-center text-white shadow-lg">
+          <div className="text-sm text-white/60">{t("terrainHeroLabel")}</div>
+          <div className="mt-2 text-4xl font-bold">
+            {result.plancherMin === result.plancherMax
+              ? fmtM2(result.plancherMax)
+              : `${fmtM2(result.plancherMin)} – ${fmtM2(result.plancherMax)}`}
+          </div>
+          <div className="mt-2 text-xs text-white/60">
+            {t("terrainHeroDetail", {
+              min: result.logementsMin,
+              max: result.logementsMax,
+            })}
+          </div>
+        </div>
+
+        <ResultPanel
+          title={t("terrainResultSurfaces")}
+          lines={[
+            { label: t("terrainSurfaceNette"), value: fmtM2(result.surfaceNette), highlight: true },
+            {
+              label: t("terrainEmprise"),
+              value: result.cos
+                ? `${fmtM2(result.empriseMin)} – ${fmtM2(result.empriseMax)}`
+                : "N/A",
+            },
+            {
+              label: t("terrainPlancher"),
+              value: result.cmu
+                ? `${fmtM2(result.plancherMin)} – ${fmtM2(result.plancherMax)}`
+                : "N/A",
+              highlight: true,
+            },
+            {
+              label: t("terrainLogements"),
+              value: result.logementsMin === result.logementsMax
+                ? `${result.logementsMax}`
+                : `${result.logementsMin} – ${result.logementsMax}`,
+              sub: true,
+            },
+          ]}
+        />
+
+        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+          <h3 className="mb-2 text-sm font-semibold text-navy">{t("terrainMethodTitle")}</h3>
+          <ul className="space-y-1.5 text-xs text-muted">
+            <li>{t("terrainMethod1")}</li>
+            <li>{t("terrainMethod2")}</li>
+            <li>{t("terrainMethod3")}</li>
+            <li>{t("terrainMethod4")}</li>
+          </ul>
+        </div>
+
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+          <p className="text-xs text-amber-900">{t("terrainDisclaimer")}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -570,6 +795,9 @@ export default function ConvertisseurSurfaces() {
             </div>
           </div>
         </div>
+
+        {/* Onglet terrain / constructibilité PAG */}
+        <TerrainSection />
       </div>
 
       <SEOContent
