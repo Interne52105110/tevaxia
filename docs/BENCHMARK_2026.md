@@ -1109,6 +1109,17 @@ En attendant la société, voies opérationnelles :
 
 ---
 
+### Livrables 12e session 2026-04-17 (gaps résiduels — 4 items)
+
+| Chantier | Module | Commit |
+|---|---|---|
+| ✅ **/propcalc impact change EUR** — UK (GBP) + US (USD) ajoutés, slider FX, affichage monnaie locale + équivalent EUR, warning FX risk | PropCalc | `32b72c6` |
+| ✅ **/simulateur-aides date vérification par aide** — champ `lastVerified` + badge ✓/⚠ (à vérifier si > 6 mois) | Aides | `32b72c6` |
+| ✅ **/pag-pap recherche par adresse** — geocoder geoportail.lu public + ouverture carte PAG centrée sur l'adresse | PAG | `32b72c6` |
+| ✅ **/gestion-locative/fiscal OCR factures** — bouton par lot, routage automatique du montant extrait vers le bon poste déductible selon catégorie IA | Locatif | `32b72c6` |
+
+Total session 12 : **+4 gaps BENCHMARK livrés** (FR/EN/DE/PT/LB), 561 tests passent, type-check clean.
+
 ### Livrables 11e session 2026-04-17 (gaps résiduels — 6 items)
 
 | Chantier | Module | Commit |
