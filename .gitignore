@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+/psd2-keys/
 
 # debug
 npm-debug.log*
