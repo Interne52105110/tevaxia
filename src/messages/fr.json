@@ -1184,7 +1184,16 @@
     "nonResident": "Je suis non-résident fiscal luxembourgeois",
     "nonResidentHint": "Frontalier FR/BE/DE ou résident d'un autre pays.",
     "nonResidentDisclaimerTitle": "Régime non-résident",
-    "nonResidentDisclaimerText": "Pas de Bëllegen Akt ni TVA 3 % (réservés à la résidence principale au LU). Les plus-values éventuelles à la revente relèvent des conventions fiscales entre le LU et votre pays de résidence (double imposition évitée). Consultez un fiscaliste pour votre situation précise (impôt sur la fortune, retenue à la source, convention)."
+    "nonResidentDisclaimerText": "Pas de Bëllegen Akt ni TVA 3 % (réservés à la résidence principale au LU). Les plus-values éventuelles à la revente relèvent des conventions fiscales entre le LU et votre pays de résidence (double imposition évitée). Consultez un fiscaliste pour votre situation précise (impôt sur la fortune, retenue à la source, convention).",
+    "achatSociete": "Achat via une société (SCI / SARL-S / SARL)",
+    "achatSocieteHint": "Acquisition au nom d'une société immobilière patrimoniale",
+    "achatSocieteInfoTitle": "Spécificités fiscales — achat via société au Luxembourg",
+    "achatSocieteItem1": "Droits d'enregistrement : 7 % identiques, pas de Bëllegen Akt (réservé aux personnes physiques pour RP) ni TVA 3 %",
+    "achatSocieteItem2": "Revenus locatifs : taxés au niveau de la société (IRC 18 % + ICC ~6,75 % = ~24,94 % à LU-Ville) puis dividende imposé au niveau des associés",
+    "achatSocieteItem3": "Plus-values de cession : taxées à l'IRC sans abattement décennal (50 000 €) ; pas de régime demi-taux",
+    "achatSocieteItem4": "Amortissement : dotation annuelle déductible (1,5-3 %) — avantage vs personne physique",
+    "achatSocieteItem5": "Transmission : cession de parts sociales plutôt que du bien = droits d'enregistrement réduits, mais retenue source dividende (15 %)",
+    "achatSocieteExpert": "Étant donné la complexité, faites impérativement valider la structure par un expert-comptable ou fiscaliste LU. Une SCI patrimoniale n'est pas forcément optimale selon votre horizon et composition familiale."
   },
   "plusValues": {
     "title": "Calculateur de Plus-Values Immobilières",

@@ -1184,7 +1184,16 @@
     "nonResident": "Ich bin nicht luxemburgischer Steueransässiger",
     "nonResidentHint": "Grenzgänger FR/BE/DE oder Ansässiger eines anderen Landes.",
     "nonResidentDisclaimerTitle": "Nicht-Ansässigen-Regelung",
-    "nonResidentDisclaimerText": "Kein Bëllegen Akt und keine 3 % MwSt (nur für Hauptwohnsitz in LU). Künftige Veräußerungsgewinne unterliegen dem Steuerabkommen zwischen LU und Ihrem Wohnsitzland (Vermeidung Doppelbesteuerung). Steuerberater konsultieren (Vermögensteuer, Quellensteuer, Abkommen)."
+    "nonResidentDisclaimerText": "Kein Bëllegen Akt und keine 3 % MwSt (nur für Hauptwohnsitz in LU). Künftige Veräußerungsgewinne unterliegen dem Steuerabkommen zwischen LU und Ihrem Wohnsitzland (Vermeidung Doppelbesteuerung). Steuerberater konsultieren (Vermögensteuer, Quellensteuer, Abkommen).",
+    "achatSociete": "Kauf über eine Gesellschaft (SCI / SARL-S / SARL)",
+    "achatSocieteHint": "Erwerb im Namen einer Immobilien-Vermögensgesellschaft",
+    "achatSocieteInfoTitle": "Steuerliche Besonderheiten — Kauf über Gesellschaft in Luxemburg",
+    "achatSocieteItem1": "Registrierungsgebühren: 7 % unverändert, kein Bëllegen Akt (nur natürliche Personen für Hauptwohnsitz) und keine 3 % MwSt",
+    "achatSocieteItem2": "Mieteinnahmen: auf Gesellschaftsebene besteuert (IRC 18 % + ICC ~6,75 %) dann Dividende beim Gesellschafter",
+    "achatSocieteItem3": "Veräußerungsgewinne: IRC ohne 50.000 € Zehnjahresfreibetrag; kein Halbsatz-Regime",
+    "achatSocieteItem4": "Abschreibung: jährlich abzugsfähig (1,5-3 %) — Vorteil vs Privatpersonen",
+    "achatSocieteItem5": "Übertragung: Anteilsübertragung statt Immobilie = reduzierte Gebühren, aber 15 % Dividenden-Quellensteuer",
+    "achatSocieteExpert": "Angesichts der Komplexität: Struktur unbedingt von LU-Steuerberater oder Wirtschaftsprüfer validieren lassen."
   },
   "plusValues": {
     "title": "Wertzuwachssteuerrechner",

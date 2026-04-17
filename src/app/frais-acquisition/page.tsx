@@ -21,6 +21,7 @@ export default function FraisAcquisition() {
   const [partTerrain, setPartTerrain] = useState(250000);
   const [residencePrincipale, setResidencePrincipale] = useState(true);
   const [nonResident, setNonResident] = useState(false);
+  const [achatSociete, setAchatSociete] = useState(false);
   const [nbAcquereurs, setNbAcquereurs] = useState<1 | 2>(2);
   const [montantHypotheque, setMontantHypotheque] = useState(600000);
 
@@ -120,6 +121,25 @@ export default function FraisAcquisition() {
                   <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
                     <strong className="block mb-1">{t("nonResidentDisclaimerTitle")}</strong>
                     {t("nonResidentDisclaimerText")}
+                  </div>
+                )}
+                <ToggleField
+                  label={t("achatSociete")}
+                  checked={achatSociete}
+                  onChange={setAchatSociete}
+                  hint={t("achatSocieteHint")}
+                />
+                {achatSociete && (
+                  <div className="rounded-lg border border-violet-200 bg-violet-50 p-3 text-xs text-violet-900 space-y-2">
+                    <strong className="block">{t("achatSocieteInfoTitle")}</strong>
+                    <ul className="ml-4 list-disc space-y-1">
+                      <li>{t("achatSocieteItem1")}</li>
+                      <li>{t("achatSocieteItem2")}</li>
+                      <li>{t("achatSocieteItem3")}</li>
+                      <li>{t("achatSocieteItem4")}</li>
+                      <li>{t("achatSocieteItem5")}</li>
+                    </ul>
+                    <p className="mt-2 italic text-[11px]">{t("achatSocieteExpert")}</p>
                   </div>
                 )}
                 <InputField

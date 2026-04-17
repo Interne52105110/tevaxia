@@ -1184,7 +1184,16 @@
     "nonResident": "Ech sinn net Lëtzebuerger steiersässeg",
     "nonResidentHint": "Frontalier FR/BE/DE oder Resident an engem aneren Land.",
     "nonResidentDisclaimerTitle": "Reglement fir Net-Residenten",
-    "nonResidentDisclaimerText": "Kee Bëllegen Akt a keng 3 % TVA (nëmmen fir Haaptwunnsëtz zu LU). Zukünftele Plus-Value beim Verkaf ënner steierkonventioun tëscht LU an Ärem Wunnsëtzland (gëtt Duebel-Besteierung vermeit). Frot e Steierberoder fir Är spezifesch Situatioun."
+    "nonResidentDisclaimerText": "Kee Bëllegen Akt a keng 3 % TVA (nëmmen fir Haaptwunnsëtz zu LU). Zukünftele Plus-Value beim Verkaf ënner steierkonventioun tëscht LU an Ärem Wunnsëtzland (gëtt Duebel-Besteierung vermeit). Frot e Steierberoder fir Är spezifesch Situatioun.",
+    "achatSociete": "Kaf via Gesellschaft (SCI / SARL-S / SARL)",
+    "achatSocieteHint": "Akaaf am Numm vun enger Immobilien-Patrimoine-Gesellschaft",
+    "achatSocieteInfoTitle": "Steierlech Besonderheeten — Kaf via Gesellschaft zu Lëtzebuerg",
+    "achatSocieteItem1": "Registréierungsrechter: 7 % onverännert, kee Bëllegen Akt, keng 3 % TVA",
+    "achatSocieteItem2": "Locatiounsakommes: op Gesellschaftsniveau besteiert (IRC 18 % + ICC ~6,75 %) dann Dividende beim Associé",
+    "achatSocieteItem3": "Plus-Value: IRC ouni 50.000 € Zéngjärlegen Abattement; kee Hallef-Taux-Régime",
+    "achatSocieteItem4": "Ofschreiwung: joerlech ofzéibar (1,5-3 %) — Virdeel versus natierlech Persoun",
+    "achatSocieteItem5": "Iwwerdroung: Partsübergab amplaz Immobilie = manner Rechter, awer 15 % Dividenden-Retenue",
+    "achatSocieteExpert": "Weeder der Komplexitéit no: Struktur onbedingt vun engem LU-Steierberoder oder Comptable validéiere loossen."
   },
   "plusValues": {
     "title": "Wäertzouwuesssteierrechner",

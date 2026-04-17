@@ -1184,7 +1184,16 @@
     "nonResident": "Não sou residente fiscal luxemburguês",
     "nonResidentHint": "Trabalhador transfronteiriço FR/BE/DE ou residente noutro país.",
     "nonResidentDisclaimerTitle": "Regime não-residente",
-    "nonResidentDisclaimerText": "Sem Bëllegen Akt nem IVA 3 % (reservados à residência principal LU). Mais-valias futuras na revenda são regidas pela convenção fiscal entre LU e o seu país de residência (anti-dupla tributação). Consulte um fiscalista para a sua situação (imposto património, retenção, convenção)."
+    "nonResidentDisclaimerText": "Sem Bëllegen Akt nem IVA 3 % (reservados à residência principal LU). Mais-valias futuras na revenda são regidas pela convenção fiscal entre LU e o seu país de residência (anti-dupla tributação). Consulte um fiscalista para a sua situação (imposto património, retenção, convenção).",
+    "achatSociete": "Compra via sociedade (SCI / SARL-S / SARL)",
+    "achatSocieteHint": "Aquisição em nome de uma sociedade imobiliária patrimonial",
+    "achatSocieteInfoTitle": "Especificidades fiscais — compra via sociedade no Luxemburgo",
+    "achatSocieteItem1": "Direitos de registro: 7 % inalterados, sem Bëllegen Akt (reservado a pessoas singulares para residência principal) nem IVA 3 %",
+    "achatSocieteItem2": "Rendas: tributadas ao nível da sociedade (IRC 18 % + ICC ~6,75 %) depois dividendo ao nível dos sócios",
+    "achatSocieteItem3": "Mais-valias: IRC sem abatimento decenal 50.000 €; sem regime meio-taxa",
+    "achatSocieteItem4": "Amortização: dotação anual dedutível (1,5-3 %) — vantagem vs pessoas singulares",
+    "achatSocieteItem5": "Transmissão: cessão de quotas em vez do bem = direitos reduzidos, mas retenção dividendo 15 %",
+    "achatSocieteExpert": "Dada a complexidade, valide a estrutura com um contabilista ou fiscalista LU."
   },
   "plusValues": {
     "title": "Calculador de Mais-Valias Imobiliárias",

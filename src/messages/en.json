@@ -1184,7 +1184,16 @@
     "nonResident": "I am not a Luxembourg tax resident",
     "nonResidentHint": "Cross-border worker FR/BE/DE or resident of another country.",
     "nonResidentDisclaimerTitle": "Non-resident regime",
-    "nonResidentDisclaimerText": "No Bëllegen Akt or 3 % VAT (both reserved to primary residence in LU). Any future capital gain on resale will be governed by the tax treaty between LU and your country of residence (double-taxation relief). Consult a tax adviser for your specific situation (wealth tax, withholding, treaty)."
+    "nonResidentDisclaimerText": "No Bëllegen Akt or 3 % VAT (both reserved to primary residence in LU). Any future capital gain on resale will be governed by the tax treaty between LU and your country of residence (double-taxation relief). Consult a tax adviser for your specific situation (wealth tax, withholding, treaty).",
+    "achatSociete": "Purchase via a company (SCI / SARL-S / SARL)",
+    "achatSocieteHint": "Acquisition under the name of a patrimonial real estate company",
+    "achatSocieteInfoTitle": "Tax specifics — purchase via company in Luxembourg",
+    "achatSocieteItem1": "Registration duties: 7 % unchanged, no Bëllegen Akt (reserved to individuals for primary residence) nor 3 % VAT",
+    "achatSocieteItem2": "Rental income: taxed at company level (IRC 18 % + ICC ~6.75 % = ~24.94 % in LU City) then dividend taxed at shareholder level",
+    "achatSocieteItem3": "Capital gains: taxed at IRC without the €50,000 decennial allowance; no half-rate regime",
+    "achatSocieteItem4": "Depreciation: annual allowance deductible (1.5-3 %) — advantage vs individuals",
+    "achatSocieteItem5": "Transfer: share transfer rather than asset transfer = reduced registration duties, but 15 % dividend withholding",
+    "achatSocieteExpert": "Given the complexity, have the structure validated by an LU accountant or tax adviser. A patrimonial SCI is not always optimal depending on your horizon and family composition."
   },
   "plusValues": {
     "title": "Capital Gains Tax Calculator",
