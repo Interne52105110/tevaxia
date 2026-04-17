@@ -129,6 +129,17 @@ export default function Hedonique() {
           <p className="mt-2 text-muted">
             {t("subtitle")}
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[11px] text-emerald-800">
+              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              </svg>
+              {t("calibrationBadge")}
+            </span>
+            <a href="/transparence" className="inline-flex items-center gap-1.5 rounded-full bg-navy/5 border border-navy/20 px-3 py-1 text-[11px] text-navy hover:bg-navy/10">
+              {t("methodologyLink")}
+            </a>
+          </div>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">

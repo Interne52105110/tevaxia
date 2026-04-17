@@ -4476,7 +4476,9 @@
       "faq3A": "O nosso modelo está calibrado principalmente para o mercado residencial. Para imobiliário comercial, os métodos baseados no rendimento (capitalização, DCF) são mais apropriados.",
       "faq4Q": "Qual a precisão do modelo por município?",
       "faq4A": "A precisão varia: ±10% na Cidade do Luxemburgo ou Esch-sur-Alzette, até ±18% em municípios rurais do norte."
-    }
+    },
+    "calibrationBadge": "Modelo recalibrado Q1 2026 — MAPE 14,7 %",
+    "methodologyLink": "Metodologia pública →"
   },
   "indices": {
     "breadcrumb_home": "Início",

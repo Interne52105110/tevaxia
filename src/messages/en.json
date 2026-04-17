@@ -4476,7 +4476,9 @@
       "faq3A": "Our hedonic model is calibrated primarily on the Luxembourg residential market (apartments and houses). For commercial real estate (offices, retail, logistics), income-based valuation methods (capitalisation, DCF) are more appropriate as the price depends essentially on rental yield. We offer a dedicated multi-tenant DCF tool for investment property.",
       "faq4Q": "How accurate is the model by municipality?",
       "faq4A": "Accuracy varies by transaction density. In Luxembourg City, Esch-sur-Alzette or Differdange, where volumes are high, the confidence interval is ±10%. In northern rural municipalities (Winseler, Kiischpelt) with fewer than 10 transactions per year, the interval can reach ±18%. The model systematically displays a confidence index adapted to each municipality."
-    }
+    },
+    "calibrationBadge": "Model recalibrated Q1 2026 — MAPE 14.7 %",
+    "methodologyLink": "Public methodology →"
   },
   "indices": {
     "breadcrumb_home": "Home",

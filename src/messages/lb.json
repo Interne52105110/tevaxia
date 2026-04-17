@@ -4476,7 +4476,9 @@
       "faq3A": "Eise Modell ass haaptsächlech op de lëtzebuergsche Wunnungsmaart kalibréiert. Fir Gewerbeimmobilie sinn Ertragswäertmethoden (DCF) geeeegenter.",
       "faq4Q": "Wéi genee ass d'Modell pro Gemeng?",
       "faq4A": "±10 % an der Stad Lëtzebuerg oder Esch-Uelzecht, bis ±18 % a ländleche Gemengen."
-    }
+    },
+    "calibrationBadge": "Modell nei kalibréiert Q1 2026 — MAPE 14,7 %",
+    "methodologyLink": "Ëffentlech Methodik →"
   },
   "indices": {
     "breadcrumb_home": "Haaptsäit",

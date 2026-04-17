@@ -4476,7 +4476,9 @@
       "faq3A": "Notre modèle hédonique est calibré principalement sur le marché résidentiel luxembourgeois (appartements et maisons). Pour l'immobilier commercial (bureaux, commerces, logistique), les méthodes d'évaluation par les revenus (capitalisation, DCF) sont plus appropriées car le prix dépend essentiellement du rendement locatif. Nous proposons un outil DCF multi-locataires dédié à l'immobilier de rapport.",
       "faq4Q": "Quelle est la précision du modèle par commune ?",
       "faq4A": "La précision varie selon la densité de transactions. À Luxembourg-Ville, Esch-sur-Alzette ou Differdange, où les volumes sont élevés, l'intervalle de confiance est de &plusmn;10 %. Dans les communes rurales du nord (Winseler, Kiischpelt) avec moins de 10 transactions par an, l'intervalle peut atteindre &plusmn;18 %. Le modèle affiche systématiquement un indice de confiance adapté à chaque commune."
-    }
+    },
+    "calibrationBadge": "Modèle recalibré Q1 2026 — MAPE 14,7 %",
+    "methodologyLink": "Méthodologie publique →"
   },
   "indices": {
     "breadcrumb_home": "Accueil",

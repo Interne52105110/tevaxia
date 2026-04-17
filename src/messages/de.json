@@ -4476,7 +4476,9 @@
       "faq3A": "Unser Modell ist hauptsächlich auf den luxemburgischen Wohnungsmarkt kalibriert. Für Gewerbeimmobilien sind Ertragswertverfahren (Kapitalisierung, DCF) geeigneter.",
       "faq4Q": "Wie genau ist das Modell pro Gemeinde?",
       "faq4A": "Die Genauigkeit variiert: ±10 % in Luxemburg-Stadt oder Esch-sur-Alzette, bis ±18 % in ländlichen Gemeinden mit wenigen Transaktionen."
-    }
+    },
+    "calibrationBadge": "Modell neukalibriert Q1 2026 — MAPE 14,7 %",
+    "methodologyLink": "Öffentliche Methodik →"
   },
   "indices": {
     "breadcrumb_home": "Startseite",
