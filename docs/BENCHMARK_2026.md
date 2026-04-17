@@ -1084,10 +1084,10 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ✅ **Fix migrations 025/030** noms de tables copro (`coownership_unit_charges` au lieu de tables fantômes) | DB | `24462e1` |
 | ✅ **Fix icônes /profil** emoji → SVG Heroicons dans gradient badge | UX | `88f115b` |
 | ✅ **Fix gestion-locative bug silencieux** `tauxVetusteAnnuel=1` → `0.01` (décote 100 % au lieu de 1 %/an) | Locatif | `c74e406` |
-| ✅ **139 nouveaux tests Vitest** (str-forecast 16, str-calc 23, estimation 13, esg 10, evs-checklist 9, energy-comparables 10, macro-data 14, demographics 9, market-data 13, gestion-locative 12, asset-types 10) | Infra | 8 commits |
+| ✅ **202 nouveaux tests Vitest** (str-forecast 16, str-calc 23, estimation 13, esg 10, evs-checklist 9, energy-comparables 10, macro-data 14, demographics 9, market-data 13, gestion-locative 12, asset-types 10, str-observatoire 13, loyer-observatoire 7, propcalc-mortgage 13, propcalc-amortization 11, propcalc-rental 11, propcalc-buyvsrent 8) | Infra | 17 commits |
 | ✅ **2 smoke tests Playwright** (/str/forecast, /syndic/benchmark) | Infra | `a18dde0` |
 
-Passe de **194 → 333 tests unitaires Vitest** (+72 %), 16 → 26 fichiers de tests.
+Passe de **194 → 396 tests unitaires Vitest** (+104 %), 16 → 32 fichiers de tests.
 
 ### Reste à chantier (nécessite un input externe)
 
