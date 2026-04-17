@@ -4757,7 +4757,18 @@
       "faq3a": "Sim, desconto tipico de 15-30%.",
       "faq4q": "Pode ser reclassificado como construivel?",
       "faq4a": "Sim, na revisao do PAG, multiplicando o valor por 10-50x."
-    }
+    },
+    "vitiTitle": "Viticultura AOP Mosela luxemburguesa",
+    "vitiIntro": "Referência específica para vinhedos LU do Mosela (Schengen → Stadtbredimus). O valor depende fortemente da casta, exposição e direitos de plantação.",
+    "vitiThCepage": "Casta / regime",
+    "vitiThZone": "Zona de referência",
+    "vitiThPrixHa": "Preço €/ha",
+    "vitiZoneRiesling": "Grand 1er Cru (encostas sul)",
+    "vitiZoneClassique": "AOP Mosela clássica",
+    "vitiZoneBase": "Bases AOP",
+    "vitiZoneCremant": "Certificado Crémant",
+    "vitiCremant": "Crémant de Luxembourg",
+    "vitiSources": "Fontes: Institut Viti-Vinicole (IVV) Remich, Comissão de Promoção de Vinhos e Crémants, transações privadas 2023-2025. Prémios IVV: apoio plantação, reestruturação, agricultura biológica. Direitos de plantação AOP estritamente limitados."
   },
   "vefa": {
     "title": "Simulador VEFA",

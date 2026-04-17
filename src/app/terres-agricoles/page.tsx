@@ -135,6 +135,45 @@ export default function TerresAgricoles() {
               </div>
               <p className="mt-2 text-[10px] text-muted">{t("sourceDisclaimer")}</p>
             </div>
+
+            {/* Viticulture AOP Moselle — référentiel dédié LU */}
+            <div className="rounded-xl border border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 to-purple-50 p-5 shadow-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <svg className="h-5 w-5 text-fuchsia-700" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+                </svg>
+                <h3 className="text-sm font-semibold text-fuchsia-900">{t("vitiTitle")}</h3>
+              </div>
+              <p className="text-[11px] text-fuchsia-800 mb-3">{t("vitiIntro")}</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-fuchsia-200">
+                      <th className="px-2 py-1.5 text-left text-fuchsia-900">{t("vitiThCepage")}</th>
+                      <th className="px-2 py-1.5 text-right text-fuchsia-900">{t("vitiThZone")}</th>
+                      <th className="px-2 py-1.5 text-right text-fuchsia-900">{t("vitiThPrixHa")}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { cepage: "Riesling, Pinot Gris", zone: t("vitiZoneRiesling"), price: "350 000 – 500 000 €" },
+                      { cepage: "Pinot Blanc, Auxerrois", zone: t("vitiZoneClassique"), price: "200 000 – 320 000 €" },
+                      { cepage: "Rivaner, Elbling", zone: t("vitiZoneBase"), price: "120 000 – 200 000 €" },
+                      { cepage: t("vitiCremant"), zone: t("vitiZoneCremant"), price: "+ 15 % (primes) " },
+                    ].map((r) => (
+                      <tr key={r.cepage} className="border-b border-fuchsia-100">
+                        <td className="px-2 py-1.5 font-medium text-fuchsia-900">{r.cepage}</td>
+                        <td className="px-2 py-1.5 text-right text-fuchsia-700 text-[10px]">{r.zone}</td>
+                        <td className="px-2 py-1.5 text-right font-mono text-fuchsia-900">{r.price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-3 text-[10px] text-fuchsia-800 leading-relaxed">
+                <strong>{t("vitiSources")}</strong>
+              </p>
+            </div>
           </div>
         </div>
       </div>

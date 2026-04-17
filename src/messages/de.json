@@ -4757,7 +4757,18 @@
       "faq3a": "Ja, typischerweise 15-30% Abschlag.",
       "faq4q": "Kann Agrarland umklassifiziert werden?",
       "faq4a": "Ja, bei PAG-Revision. Die Umklassifizierung vervielfacht den Wert um das 10-50fache."
-    }
+    },
+    "vitiTitle": "AOP-Weinbau luxemburgische Mosel",
+    "vitiIntro": "Spezifische Referenz für LU-Mosel-Weinberge (Schengen → Stadtbredimus). Der Wert hängt stark von Rebsorte, Lage und Pflanzrechten ab.",
+    "vitiThCepage": "Rebsorte / Regime",
+    "vitiThZone": "Referenzzone",
+    "vitiThPrixHa": "Preis €/ha",
+    "vitiZoneRiesling": "Grand 1er Cru (Südhänge)",
+    "vitiZoneClassique": "Klassisch AOP Moselle",
+    "vitiZoneBase": "AOP Basis",
+    "vitiZoneCremant": "Crémant-zertifiziert",
+    "vitiCremant": "Crémant de Luxembourg",
+    "vitiSources": "Quellen: Institut Viti-Vinicole (IVV) Remich, Kommission zur Förderung von Weinen und Crémants, private Transaktionen 2023-2025. IVV-Prämien möglich: Pflanzhilfe, Umstrukturierung, Bio-Förderung. AOP-Pflanzrechte sind strikt limitiert."
   },
   "vefa": {
     "title": "VEFA-Simulator",

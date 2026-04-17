@@ -1080,12 +1080,36 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ✅ **`/str/forecast`** Holt-Winters mensuel (m=12) — import CSV PMS + export, MAPE backtest | STR | `4228ad6` |
 | ✅ **Sweep refs temporelles 2025→2026** (FR/EN/DE/PT/LB) — Klimabonus, Marché, Tendances, taux bancaires | i18n | `bf8e707` |
 | ✅ **AiChatWidget i18n complet** (welcome, placeholder, erreurs, quota) 5 langues | i18n | `cdb40a1` |
-| ✅ **Fix modèle Cerebras** `llama-3.3-70b` → `gpt-oss-120b` (Llama 3.3 retiré par Cerebras) | AI | `47a89ff` |
+| ✅ **Fix modèle Cerebras** `llama-3.3-70b` → `llama3.1-8b` (allowlist gpt-oss) | AI | `47a89ff` / `c2e5515` |
 | ✅ **Fix migrations 025/030** noms de tables copro (`coownership_unit_charges` au lieu de tables fantômes) | DB | `24462e1` |
 | ✅ **Fix icônes /profil** emoji → SVG Heroicons dans gradient badge | UX | `88f115b` |
 | ✅ **Fix gestion-locative bug silencieux** `tauxVetusteAnnuel=1` → `0.01` (décote 100 % au lieu de 1 %/an) | Locatif | `c74e406` |
 | ✅ **202 nouveaux tests Vitest** (str-forecast 16, str-calc 23, estimation 13, esg 10, evs-checklist 9, energy-comparables 10, macro-data 14, demographics 9, market-data 13, gestion-locative 12, asset-types 10, str-observatoire 13, loyer-observatoire 7, propcalc-mortgage 13, propcalc-amortization 11, propcalc-rental 11, propcalc-buyvsrent 8) | Infra | 17 commits |
 | ✅ **2 smoke tests Playwright** (/str/forecast, /syndic/benchmark) | Infra | `a18dde0` |
+
+### Livrables supplémentaires 2026-04-17 (après-midi — gaps BENCHMARK_2026)
+
+| Chantier | Module | Commit |
+|---|---|---|
+| ✅ **/dcf-multi matrice sensibilité 5×5** cap rate × discount rate (±2pp), Argus-style | DCF | `ffc3809` |
+| ✅ **/dcf-multi 4 stress tests pré-configurés** (occupation -20 %, loyer -10 %, taux +200bp, combiné) | DCF | `be040ef` |
+| ✅ **/frais-acquisition cas non-résident** (checkbox + disclaimer convention fiscale LU-FR/BE/DE) | Frais | `ffc3809` |
+| ✅ **/bilan-promoteur tornado chart** ±10 % sur 8 variables, triées par amplitude | Promoteur | `ffc3809` |
+| ✅ **/vefa retard chantier** (slider 0-24 mois) + surcoût intérêts intercalaires | VEFA | `acde524` |
+| ✅ **/partage/[token] bouton Imprimer/PDF** (print CSS, `print:hidden` contrôles) | Partage | `acde524` |
+| ✅ **/portfolio cash flow 12 mois glissants** — barres empilées + ligne nette, saisonnalité LU | Portfolio | `dc14078` |
+| ✅ **/simulateur-aides badge Barèmes vérifiés** (date dernière vérification visible) | Aides | `be040ef` |
+| ✅ **/terres-agricoles viticulture AOP Moselle** — table cépages/zones (Grand 1er Cru → bases) | Agricole | (ce commit) |
+
+### Déjà couvert (vérifications réalisées)
+
+| Gap listé | Statut | Commentaire |
+|---|---|---|
+| Plus-values exonération RP auto | ✅ Déjà en place | `estResidencePrincipale` + `rpOccupeeAuMomentVente` + `moisDepuisDepart` |
+| Achat vs location coût opportunité | ✅ Déjà en place | `rendementPlacement` + `indexationLoyer` + `appreciationAn` |
+| Wizard particulier sauvegarde état | ✅ Déjà en place | localStorage `tevaxia_wizard_particulier_draft` |
+| PAG-PAP calculateur CMU/COS | ✅ Déjà en place | `ZONES_PAG` + calcul constructibilité |
+| Estimateur construction ventilation par lot | ✅ Déjà en place | `totalParCategorie` + barre horizontale empilée + tableau détaillé |
 
 Passe de **194 → 396 tests unitaires Vitest** (+104 %), 16 → 32 fichiers de tests.
 
@@ -1120,6 +1144,6 @@ Ce benchmark s'appuie sur :
 - Sources fiscales LU STR : Airbnb Tax Guide Luxembourg 2026 (PwC), guichet.lu, Delano.lu articles 2024-2025 sur régulation Airbnb LU
 - Retours utilisateurs early adopters (conversations avec 3 agences LU, 1 banque régionale, 2 évaluateurs TEGOVA)
 
-**Dernière mise à jour** : 2026-04-17 (nocturne autonome : benchmark copros + STR forecast + sweep temporel).
+**Dernière mise à jour** : 2026-04-17 (nocturne autonome + après-midi : 9 gaps BENCHMARK_2026 additionnels livrés).
 
 **Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4) ou plus tôt si entrée en vigueur EU STR Regulation / projet loi 7763.

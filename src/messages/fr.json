@@ -4757,7 +4757,18 @@
       "faq3a": "Oui, une decote de 15 a 30 % est typique en raison des protections legales du fermier (loi du 2 juillet 1969).",
       "faq4q": "Les terres agricoles peuvent-elles etre reclassees en constructible ?",
       "faq4a": "Oui, lors de la revision du PAG communal. Le reclassement multiplie la valeur par 10 a 50 mais reste soumis a des procedures longues et incertaines."
-    }
+    },
+    "vitiTitle": "Viticulture AOP Moselle luxembourgeoise",
+    "vitiIntro": "Référentiel spécifique pour les terres viticoles Moselle LU (Schengen → Stadtbredimus). Valeur dépend fortement du cépage, exposition, et droits de plantation.",
+    "vitiThCepage": "Cépage / régime",
+    "vitiThZone": "Zone de référence",
+    "vitiThPrixHa": "Prix €/ha",
+    "vitiZoneRiesling": "Grand 1er Cru (côtes Sud)",
+    "vitiZoneClassique": "AOP Moselle classique",
+    "vitiZoneBase": "AOP bases",
+    "vitiZoneCremant": "Certifié Crémant",
+    "vitiCremant": "Crémant de Luxembourg",
+    "vitiSources": "Sources : Institut Viti-Vinicole (IVV) Remich, Commission de Promotion des Vins et Crémants, transactions privées 2023-2025. Primes IVV possibles : aide plantation, aide à la restructuration, soutien biologique. Les droits de plantation AOP sont strictement limités."
   },
   "vefa": {
     "title": "Simulateur VEFA",

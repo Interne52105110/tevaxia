@@ -4757,7 +4757,18 @@
       "faq3a": "Jo, typesch 15-30% Ofschlag.",
       "faq4q": "Kann Agrarland emklassifizeiert ginn?",
       "faq4a": "Jo, bei PAG-Revisioun."
-    }
+    },
+    "vitiTitle": "AOP Wäibau lëtzebuergesch Musel",
+    "vitiIntro": "Spezifesch Referenz fir LU-Musel-Wäibierger (Schengen → Stadtbredimus). De Wäert hänkt staark vun der Rebsort, Laag a Planzrechter of.",
+    "vitiThCepage": "Rebsort / Regime",
+    "vitiThZone": "Referenzzon",
+    "vitiThPrixHa": "Präis €/ha",
+    "vitiZoneRiesling": "Grand 1er Cru (Südhäng)",
+    "vitiZoneClassique": "Klassesch AOP Musel",
+    "vitiZoneBase": "AOP Basis",
+    "vitiZoneCremant": "Crémant zertifizéiert",
+    "vitiCremant": "Crémant de Luxembourg",
+    "vitiSources": "Quellen: Institut Viti-Vinicole (IVV) Remich, Wäin- a Crémant-Förderkommissioun, privat Transaktiounen 2023-2025. IVV-Primen méiglech: Planzhëllef, Reestrukturéierung, Bio-Förderung. AOP-Planzrechter si strikt limitéiert."
   },
   "vefa": {
     "title": "VEFA-Simulator",

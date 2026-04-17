@@ -4757,7 +4757,18 @@
       "faq3a": "Yes, a 15-30% discount is typical due to legal tenant protections.",
       "faq4q": "Can agricultural land be reclassified as buildable?",
       "faq4a": "Yes, during PAG revision. Reclassification multiplies value by 10-50x but involves lengthy procedures."
-    }
+    },
+    "vitiTitle": "AOP Moselle Luxembourg viticulture",
+    "vitiIntro": "Specific reference for LU Moselle vineyards (Schengen → Stadtbredimus). Value depends heavily on varietal, exposure, and planting rights.",
+    "vitiThCepage": "Varietal / regime",
+    "vitiThZone": "Reference zone",
+    "vitiThPrixHa": "Price €/ha",
+    "vitiZoneRiesling": "Grand 1er Cru (South slopes)",
+    "vitiZoneClassique": "Classic AOP Moselle",
+    "vitiZoneBase": "Base AOP",
+    "vitiZoneCremant": "Crémant-certified",
+    "vitiCremant": "Crémant de Luxembourg",
+    "vitiSources": "Sources: Institut Viti-Vinicole (IVV) Remich, Wine & Crémant Promotion Commission, private transactions 2023-2025. Potential IVV subsidies: planting aid, restructuring, organic support. AOP planting rights are strictly capped."
   },
   "vefa": {
     "title": "VEFA Simulator",
