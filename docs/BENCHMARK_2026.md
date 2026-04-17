@@ -1087,6 +1087,15 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ✅ **202 nouveaux tests Vitest** (str-forecast 16, str-calc 23, estimation 13, esg 10, evs-checklist 9, energy-comparables 10, macro-data 14, demographics 9, market-data 13, gestion-locative 12, asset-types 10, str-observatoire 13, loyer-observatoire 7, propcalc-mortgage 13, propcalc-amortization 11, propcalc-rental 11, propcalc-buyvsrent 8) | Infra | 17 commits |
 | ✅ **2 smoke tests Playwright** (/str/forecast, /syndic/benchmark) | Infra | `a18dde0` |
 
+### Livrables 4e session 2026-04-17 (wrap-up items complexes)
+
+| Chantier | Module | Commit |
+|---|---|---|
+| ✅ **/bilan-promoteur scénarios multiples côte-à-côte** (duplicate + localStorage + comparaison delta %) | Promoteur | `9a3e5d2` |
+| ✅ **/wizard-particulier récap mailto** (body pré-rempli, sans API externe) + bouton Imprimer/PDF | Wizard | `9a3e5d2` |
+| ✅ **/estimateur-construction badges STATEC** (indice ICV oct 2025 + Batiprix 2026) | Construction | `9a3e5d2` |
+| ✅ **/energy/audit** — **audit guidé 20 questions** en 5 catégories → score 0-100 + classe A-G + plan rénovation hiérarchisé 8 types recos + totaux Klimabonus/reste à charge | Énergie | `2488797` |
+
 ### Livrables 3e session 2026-04-17 (ex-partenariats + items restants)
 
 | Chantier | Module | Commit |
@@ -1166,6 +1175,6 @@ Ce benchmark s'appuie sur :
 - Sources fiscales LU STR : Airbnb Tax Guide Luxembourg 2026 (PwC), guichet.lu, Delano.lu articles 2024-2025 sur régulation Airbnb LU
 - Retours utilisateurs early adopters (conversations avec 3 agences LU, 1 banque régionale, 2 évaluateurs TEGOVA)
 
-**Dernière mise à jour** : 2026-04-17 (3 sessions : 24 gaps + 2 ex-partenariats convertis en autonome).
+**Dernière mise à jour** : 2026-04-17 (4 sessions : 28 gaps + 2 ex-partenariats convertis en autonome).
 
 **Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4) ou plus tôt si entrée en vigueur EU STR Regulation / projet loi 7763.
