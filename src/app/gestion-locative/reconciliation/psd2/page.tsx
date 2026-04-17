@@ -141,7 +141,7 @@ export default function Psd2Page() {
 
         {configured === true && (
           <>
-            <div className="mb-4 flex items-center gap-3">
+            <div className="mb-4 flex items-center gap-3 flex-wrap">
               <label className="text-sm text-muted">Pays :</label>
               <select value={country} onChange={(e) => setCountry(e.target.value)}
                 className="rounded-lg border border-card-border bg-card px-3 py-1.5 text-sm">
@@ -150,7 +150,9 @@ export default function Psd2Page() {
                 <option value="FR">France</option>
                 <option value="DE">Allemagne</option>
                 <option value="NL">Pays-Bas</option>
+                <option value="FI">Finlande (sandbox)</option>
               </select>
+              <span className="text-[11px] text-muted">En mode sandbox Enable Banking, seule la Finlande (FI) retourne des ASPSPs de test. Pour LU, il faut passer l&apos;app en production.</span>
             </div>
 
             {loading && <p className="text-sm text-muted">Chargement…</p>}
