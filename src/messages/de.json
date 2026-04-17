@@ -1701,7 +1701,9 @@
       "faq5q": "Gibt es spezifische Hilfen für Grenzgänger?",
       "faq5a": "Der Bellegen Akt gilt nur für Immobilien in Luxemburg. Grenzgänger mit Wohnsitz im Ausland haben keinen Zugang. Ein Grenzgänger, der Einwohner wird, kann beim Kauf seines Hauptwohnsitzes davon profitieren."
     },
-    "lastVerif": "Sätze überprüft am {date} (Bëllegen Akt, Klimabonus, guichet.lu Prämien)"
+    "lastVerif": "Sätze überprüft am {date} (Bëllegen Akt, Klimabonus, guichet.lu Prämien)",
+    "aideVerifie": "Überprüft am {date}",
+    "aideAVerifier": "zu überprüfen"
   },
   "dcfMulti": {
     "title": "DCF Mehrmieter",
@@ -4863,6 +4865,13 @@
     "tabPap": "PAP (NQ / QE)",
     "tabServitudes": "Auflagen & Fristen",
     "searchCommune": "Gemeinde suchen",
+    "searchAddress": "Nach Adresse suchen",
+    "searchAddressHint": "Geben Sie eine Adresse (Straße + Hausnummer + Ortschaft) ein, um die exakte PAG-Zone auf Geoportail zu sehen.",
+    "searchAddressPlaceholder": "2, rue de la Gare, Luxembourg",
+    "searchAction": "Suchen",
+    "viewAddressOnPag": "PAG-Zonung auf Geoportail ansehen",
+    "searchAddressNote": "Geoportail öffnet die offizielle PAG-Karte zentriert auf der Adresse. Klicken Sie auf eine Parzelle, um die anwendbare Zone zu sehen.",
+    "searchAddressNoResult": "Keine Adresse gefunden. Versuchen Sie eine vollständigere Angabe (Hausnummer + Straße + Ortschaft).",
     "searchPlaceholder": "Gemeinde oder Ortschaft...",
     "canton": "Kanton {name}",
     "averagePrice": "Durchschnittspreis: {price}/m²",
@@ -5349,6 +5358,9 @@
     "demoNetYield": "Nettorendite",
     "demoCoC": "Cash-on-Cash",
     "demoDisclaimer": "Indikative Simulation mit Erwerbsnebenkosten, 5 % Leerstand, 0,5 %/J. Instandhaltung, 35 % Grenzsteuersatz. Im WordPress-Plugin voll konfigurierbar.",
+    "demoFxTitle": "Wechselkurs {cur} / EUR",
+    "demoFxHint": "Indikativer Kurs Mitte 2026 — anpassen zur Sensitivitätsprüfung.",
+    "demoFxWarn": "Werte in Lokalwährung ({cur}). Ein EUR-Investor trägt zusätzlich das Wechselkursrisiko.",
     "ctaTitle": "Bereit, einen Rechner zu Ihrer Website hinzuzufügen?",
     "ctaSubtitle": "Kostenlos, Open-Source, DSGVO-konform. Installation in weniger als einer Minute.",
     "ctaDownload": "PropCalc herunterladen →",

@@ -1701,7 +1701,9 @@
       "faq5q": "Are there specific aids for cross-border workers?",
       "faq5a": "The Bellegen Akt is reserved for properties in Luxembourg. Cross-border workers residing abroad cannot access it. However, a cross-border worker becoming a resident can benefit when purchasing their primary residence in Luxembourg."
     },
-    "lastVerif": "Rates verified on {date} (Bëllegen Akt, Klimabonus, guichet.lu premiums)"
+    "lastVerif": "Rates verified on {date} (Bëllegen Akt, Klimabonus, guichet.lu premiums)",
+    "aideVerifie": "Verified on {date}",
+    "aideAVerifier": "to verify"
   },
   "dcfMulti": {
     "title": "Multi-Tenant DCF",
@@ -4863,6 +4865,13 @@
     "tabPap": "PAP (NQ / QE)",
     "tabServitudes": "Easements & Deadlines",
     "searchCommune": "Search a municipality",
+    "searchAddress": "Search by address",
+    "searchAddressHint": "Enter an address (street + number + locality) to see the exact PAG zone on Geoportail.",
+    "searchAddressPlaceholder": "2, rue de la Gare, Luxembourg",
+    "searchAction": "Search",
+    "viewAddressOnPag": "View PAG zoning on Geoportail",
+    "searchAddressNote": "Geoportail opens the official PAG map centred on the address. Click on a parcel to see the applicable zone.",
+    "searchAddressNoResult": "No address found. Try a more complete label (number + street + locality).",
     "searchPlaceholder": "Municipality or locality...",
     "canton": "Canton of {name}",
     "averagePrice": "Average price: {price}/m²",
@@ -5349,6 +5358,9 @@
     "demoNetYield": "Net yield",
     "demoCoC": "Cash-on-cash",
     "demoDisclaimer": "Indicative simulation with acquisition fees, 5% vacancy, 0.5%/y maintenance, 35% marginal rate. Fully configurable in the WordPress plugin.",
+    "demoFxTitle": "{cur} / EUR exchange rate",
+    "demoFxHint": "Indicative mid-2026 rate — adjust to stress-test FX risk.",
+    "demoFxWarn": "Values are in local currency ({cur}). An EUR-based investor also bears FX risk.",
     "ctaTitle": "Ready to add a calculator to your site?",
     "ctaSubtitle": "Free, open-source, GDPR compliant. Install in under a minute.",
     "ctaDownload": "Download PropCalc →",

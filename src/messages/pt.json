@@ -1701,7 +1701,9 @@
       "faq5q": "Existem apoios específicos para trabalhadores fronteiriços?",
       "faq5a": "O Bellegen Akt é reservado a imóveis no Luxemburgo. Fronteiriços residentes no estrangeiro não têm acesso."
     },
-    "lastVerif": "Tabelas verificadas em {date} (Bëllegen Akt, Klimabonus, prémios guichet.lu)"
+    "lastVerif": "Tabelas verificadas em {date} (Bëllegen Akt, Klimabonus, prémios guichet.lu)",
+    "aideVerifie": "Verificado em {date}",
+    "aideAVerifier": "a verificar"
   },
   "dcfMulti": {
     "title": "DCF Multilocatário",
@@ -4863,6 +4865,13 @@
     "tabPap": "PAP (NQ / QE)",
     "tabServitudes": "Servidões & Prazos",
     "searchCommune": "Pesquisar um concelho",
+    "searchAddress": "Pesquisar por morada",
+    "searchAddressHint": "Introduza uma morada (rua + número + localidade) para ver a zona PAG exata no Geoportail.",
+    "searchAddressPlaceholder": "2, rue de la Gare, Luxembourg",
+    "searchAction": "Pesquisar",
+    "viewAddressOnPag": "Ver zonamento PAG no Geoportail",
+    "searchAddressNote": "O Geoportail abre o mapa PAG oficial centrado na morada. Clique numa parcela para ver a zona aplicável.",
+    "searchAddressNoResult": "Morada não encontrada. Tente com uma indicação mais completa (número + rua + localidade).",
     "searchPlaceholder": "Concelho ou localidade...",
     "canton": "Cantão de {name}",
     "averagePrice": "Preço médio: {price}/m²",
@@ -5349,6 +5358,9 @@
     "demoNetYield": "Rendimento líquido",
     "demoCoC": "Cash-on-cash",
     "demoDisclaimer": "Simulação indicativa com despesas de aquisição, 5 % de vacância, 0,5 %/ano de manutenção, 35 % de taxa marginal. Totalmente configurável no plugin WordPress.",
+    "demoFxTitle": "Taxa de câmbio {cur} / EUR",
+    "demoFxHint": "Taxa indicativa meados 2026 — ajuste para testar o risco cambial.",
+    "demoFxWarn": "Valores em moeda local ({cur}). Um investidor na zona EUR suporta ainda o risco cambial.",
     "ctaTitle": "Pronto para adicionar uma calculadora ao seu site?",
     "ctaSubtitle": "Gratuito, open-source, conforme RGPD. Instalação em menos de um minuto.",
     "ctaDownload": "Transferir PropCalc →",

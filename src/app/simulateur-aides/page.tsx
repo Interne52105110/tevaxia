@@ -57,7 +57,7 @@ function CommuneAutocomplete({ label, value, onChange, hint }: { label: string; 
   );
 }
 
-function AideCard({ aide, t }: { aide: AideDetail; t: (key: string) => string }) {
+function AideCard({ aide, t }: { aide: AideDetail; t: (key: string, values?: Record<string, string | number>) => string }) {
   const CATEGORIE_LABELS: Record<string, { color: string; bg: string }> = {
     etatique_acquisition: { color: "text-navy", bg: "bg-navy/5 border-navy/20" },
     etatique_energie: { color: "text-teal", bg: "bg-teal/5 border-teal/20" },
@@ -91,6 +91,16 @@ function AideCard({ aide, t }: { aide: AideDetail; t: (key: string) => string })
           {aide.source && (
             <p className="mt-1 text-[10px] text-muted/50">Source : {aide.source}</p>
           )}
+          {aide.lastVerified && (() => {
+            const ageMonths = (Date.now() - new Date(aide.lastVerified).getTime()) / (1000 * 60 * 60 * 24 * 30);
+            const stale = ageMonths > 6;
+            return (
+              <p className={`mt-1 text-[10px] ${stale ? "text-amber-700 font-semibold" : "text-emerald-700/70"}`}>
+                {stale ? "⚠" : "✓"} {t("aideVerifie", { date: new Date(aide.lastVerified).toLocaleDateString("fr-LU") })}
+                {stale && <span className="ml-1">— {t("aideAVerifier")}</span>}
+              </p>
+            );
+          })()}
         </div>
         <span className="shrink-0 font-mono text-lg font-bold text-foreground">
           {formatEUR(aide.montant)}

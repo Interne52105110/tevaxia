@@ -9,7 +9,7 @@ import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 import { ZONES_PAG, PAP_TYPES } from "@/lib/pag-pap";
 import dynamic from "next/dynamic";
 import { COMMUNE_COORDS } from "@/lib/communes-coords";
-import { buildGeoportailViewerUrl } from "@/lib/geoportail";
+import { buildGeoportailViewerUrl, geocodeAddress, type GeocodingResult } from "@/lib/geoportail";
 import SEOContent from "@/components/SEOContent";
 
 const PAGMap = dynamic(() => import("@/components/PAGMap"), { ssr: false });
@@ -21,6 +21,23 @@ export default function PagPap() {
   const [selectedZoneCode, setSelectedZoneCode] = useState("HAB-2");
   const [surfaceTerrain, setSurfaceTerrain] = useState(500);
   const [activeTab, setActiveTab] = useState<"recherche" | "zones" | "pap" | "servitudes">("recherche");
+
+  // Recherche par adresse (geoportail.lu geocoder)
+  const [addressQuery, setAddressQuery] = useState("");
+  const [addressResults, setAddressResults] = useState<GeocodingResult[]>([]);
+  const [addressSelected, setAddressSelected] = useState<GeocodingResult | null>(null);
+  const [addressLoading, setAddressLoading] = useState(false);
+
+  async function onAddressSearch() {
+    if (addressQuery.trim().length < 3) {
+      setAddressResults([]);
+      return;
+    }
+    setAddressLoading(true);
+    const res = await geocodeAddress(addressQuery);
+    setAddressResults(res.slice(0, 8));
+    setAddressLoading(false);
+  }
 
   const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
   const selectedZone = ZONES_PAG.find((z) => z.code === selectedZoneCode);
@@ -61,6 +78,63 @@ export default function PagPap() {
         {activeTab === "recherche" && (
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="space-y-6">
+              {/* Recherche par adresse (geoportail) */}
+              <div className="rounded-xl border border-navy/20 bg-navy/5 p-6 shadow-sm">
+                <h2 className="mb-2 text-base font-semibold text-navy">{t("searchAddress")}</h2>
+                <p className="mb-3 text-xs text-muted">{t("searchAddressHint")}</p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={addressQuery}
+                    onChange={(e) => setAddressQuery(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") onAddressSearch(); }}
+                    placeholder={t("searchAddressPlaceholder")}
+                    className="flex-1 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
+                  />
+                  <button
+                    type="button"
+                    onClick={onAddressSearch}
+                    disabled={addressLoading || addressQuery.trim().length < 3}
+                    className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light disabled:opacity-50"
+                  >
+                    {addressLoading ? "…" : t("searchAction")}
+                  </button>
+                </div>
+                {addressResults.length > 0 && (
+                  <div className="mt-3 space-y-1 max-h-60 overflow-y-auto">
+                    {addressResults.map((r, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setAddressSelected(r)}
+                        className={`w-full rounded-lg border px-3 py-2 text-left text-xs hover:border-navy ${addressSelected === r ? "border-navy bg-navy/10" : "border-card-border bg-card"}`}
+                      >
+                        <div className="font-medium text-navy">{r.label}</div>
+                        <div className="text-[10px] text-muted font-mono">{r.lat.toFixed(5)}, {r.lon.toFixed(5)}</div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {addressSelected && (
+                  <div className="mt-3 space-y-2">
+                    <a
+                      href={buildGeoportailViewerUrl("", { lat: addressSelected.lat, lon: addressSelected.lon, zoom: 18 })}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light"
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+                      </svg>
+                      {t("viewAddressOnPag")}
+                    </a>
+                    <p className="text-[11px] text-muted">{t("searchAddressNote")}</p>
+                  </div>
+                )}
+                {addressQuery.trim().length >= 3 && !addressLoading && addressResults.length === 0 && (
+                  <p className="mt-3 text-xs text-muted italic">{t("searchAddressNoResult")}</p>
+                )}
+              </div>
+
               {/* Recherche commune */}
               <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
                 <h2 className="mb-4 text-base font-semibold text-navy">{t("searchCommune")}</h2>

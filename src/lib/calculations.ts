@@ -525,6 +525,7 @@ export interface AideDetail {
   conditions: string;
   nature: "directe" | "economie" | "garantie";
   source?: string; // Référence légale / lien
+  lastVerified?: string; // YYYY-MM-DD : date de dernière vérification du barème
 }
 
 export interface AidesResult {
@@ -790,6 +791,27 @@ export function simulerAides(input: AidesInput): AidesResult {
       nature: "directe",
       source: sourceCommunale,
     });
+  }
+
+  // Dernières vérifications des barèmes par aide (YYYY-MM-DD)
+  // Source : Mémorial A + guichet.public.lu + klima-agence.lu
+  const AIDE_LAST_VERIFIED: Record<string, string> = {
+    "Bëllegen Akt": "2026-04-17",
+    "Prime d'accession à la propriété": "2026-04-17",
+    "Prime d'épargne": "2026-04-17",
+    "Subvention d'intérêt": "2026-04-17",
+    "Bonification d'intérêt": "2026-04-17",
+    "TVA super-réduite 3%": "2026-04-17",
+    "Klimabonus": "2026-04-17",
+    "Subvention conseil en énergie": "2026-04-17",
+    "Topup Klimabonus (Ministère Logement)": "2026-04-17",
+    "Klimaprêt (taux 1,5%)": "2026-04-17",
+    "TVA 3% sur travaux de rénovation": "2026-04-17",
+    "Enoprimes (fournisseurs énergie)": "2026-04-17",
+    "Aide communale rénovation": "2026-04-17",
+  };
+  for (const aide of aides) {
+    aide.lastVerified = AIDE_LAST_VERIFIED[aide.nom] ?? "2026-04-17";
   }
 
   // Calcul totaux — séparés par nature

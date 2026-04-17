@@ -1701,7 +1701,9 @@
       "faq5q": "Gëtt et spezifesch Hëllefen fir Grenzgänger?",
       "faq5a": "De Bëllegen Akt gëllt nëmme fir Immobilien zu Lëtzebuerg. Grenzgänger déi am Ausland wunnen hunn keen Zougang."
     },
-    "lastVerif": "Barèmen iwwerpréift den {date} (Bëllegen Akt, Klimabonus, guichet.lu Primen)"
+    "lastVerif": "Barèmen iwwerpréift den {date} (Bëllegen Akt, Klimabonus, guichet.lu Primen)",
+    "aideVerifie": "Iwwerpréift den {date}",
+    "aideAVerifier": "z'iwwerpréifen"
   },
   "dcfMulti": {
     "title": "DCF Multi-Locatairen",
@@ -4863,6 +4865,13 @@
     "tabPap": "PAP (NQ / QE)",
     "tabServitudes": "Oplagen & Fristen",
     "searchCommune": "Eng Gemeng sichen",
+    "searchAddress": "No Adress sichen",
+    "searchAddressHint": "Gitt eng Adress (Strooss + Nummer + Lokalitéit) an, fir déi exakt PAG-Zon op Geoportail ze gesinn.",
+    "searchAddressPlaceholder": "2, rue de la Gare, Luxembourg",
+    "searchAction": "Sichen",
+    "viewAddressOnPag": "PAG-Zonung op Geoportail kucken",
+    "searchAddressNote": "De Geoportail mécht déi offiziell PAG-Kaart zentréiert op der Adress op. Klickt op eng Parzell fir déi applikabel Zon ze gesinn.",
+    "searchAddressNoResult": "Adress net fonnt. Probéiert mat enger méi komplette Uginn (Nummer + Strooss + Lokalitéit).",
     "searchPlaceholder": "Gemeng oder Uertschaft...",
     "canton": "Kanton {name}",
     "averagePrice": "Duerchschnëttspräis: {price}/m²",
@@ -5349,6 +5358,9 @@
     "demoNetYield": "Netto-Rendement",
     "demoCoC": "Cash-on-Cash",
     "demoDisclaimer": "Indikativ Simulatioun mat Acquisitiounskäschten, 5 % Leerstand, 0,5 %/J. Entretiens, 35 % Marginaltaux. Komplett konfiguréierbar am WordPress-Plugin.",
+    "demoFxTitle": "Wiessel {cur} / EUR",
+    "demoFxHint": "Indikativen Taux Mëtt 2026 — upassen fir de Wiesselrisiko ze testen.",
+    "demoFxWarn": "Wäerter a lokaler Währung ({cur}). En EUR-Investisseur dréit zousätzlech de Wiesselrisiko.",
     "ctaTitle": "Prett fir e Rechner op Ärer Websäit ze addéieren?",
     "ctaSubtitle": "Gratis, Open-Source, RGPD-konform. Installatioun a manner wéi enger Minutt.",
     "ctaDownload": "PropCalc eroflueden →",

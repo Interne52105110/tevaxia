@@ -1701,7 +1701,9 @@
       "faq5q": "Existe-t-il des aides spécifiques pour les frontaliers ?",
       "faq5a": "Le Bëllegen Akt est réservé aux biens situés au Luxembourg. Les frontaliers travaillant au Luxembourg mais résidant à l'étranger n'y ont pas accès. En revanche, un frontalier devenant résident peut en bénéficier pour l'achat de sa résidence principale au Luxembourg."
     },
-    "lastVerif": "Barèmes vérifiés le {date} (Bëllegen Akt, Klimabonus, primes guichet.lu)"
+    "lastVerif": "Barèmes vérifiés le {date} (Bëllegen Akt, Klimabonus, primes guichet.lu)",
+    "aideVerifie": "Vérifié le {date}",
+    "aideAVerifier": "à vérifier"
   },
   "dcfMulti": {
     "title": "DCF multi-locataires",
@@ -4863,6 +4865,13 @@
     "tabPap": "PAP (NQ / QE)",
     "tabServitudes": "Servitudes & Délais",
     "searchCommune": "Rechercher une commune",
+    "searchAddress": "Rechercher par adresse",
+    "searchAddressHint": "Entrez une adresse (rue + numéro + localité) pour voir la zone PAG exacte sur Geoportail.",
+    "searchAddressPlaceholder": "2, rue de la Gare, Luxembourg",
+    "searchAction": "Rechercher",
+    "viewAddressOnPag": "Voir zonage PAG sur Geoportail",
+    "searchAddressNote": "Le Geoportail ouvre la carte PAG officielle centrée sur l'adresse. La zone applicable s'affiche au clic.",
+    "searchAddressNoResult": "Aucune adresse trouvée. Essayez avec un libellé plus complet (numéro + rue + localité).",
     "searchPlaceholder": "Commune ou localité...",
     "canton": "Canton de {name}",
     "averagePrice": "Prix moyen : {price}/m²",
@@ -5349,6 +5358,9 @@
     "demoNetYield": "Rendement net",
     "demoCoC": "Cash-on-cash",
     "demoDisclaimer": "Simulation indicative avec frais d'acquisition, vacance 5 %, entretien 0,5 %/an, taux marginal 35 %. Configurable en profondeur dans le plugin WordPress.",
+    "demoFxTitle": "Taux de change {cur} / EUR",
+    "demoFxHint": "Taux indicatif mi-2026 — ajustez pour sensibiliser au change.",
+    "demoFxWarn": "Les valeurs sont en monnaie locale ({cur}). Un investisseur résident EUR supportera en plus le risque de change.",
     "ctaTitle": "Prêt à ajouter un calculateur à votre site ?",
     "ctaSubtitle": "Gratuit, open-source, conforme RGPD. Installation en moins d'une minute.",
     "ctaDownload": "Télécharger PropCalc →",

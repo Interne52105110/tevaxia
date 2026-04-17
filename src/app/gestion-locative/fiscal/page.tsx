@@ -6,6 +6,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { supabase } from "@/lib/supabase";
 import { formatEUR } from "@/lib/calculations";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
+import PdfExtractButton from "@/components/PdfExtractButton";
 
 interface LotRow {
   id: string;
@@ -71,6 +72,33 @@ export default function DashboardFiscal() {
       ...prev,
       [lotId]: { ...(prev[lotId] ?? { interets: 0, assurance: 450, entretien: 0, charges_copro: 0, taxe_fonciere: 0, amortissement: 0 }), [field]: value },
     }));
+  };
+
+  // OCR facture : route le montant extrait vers le bon poste selon la catégorie
+  // détectée par l'IA (champ 'categorie' du schéma facture_immo)
+  const CATEGORIE_TO_FIELD: Record<string, "interets" | "assurance" | "entretien" | "charges_copro" | "taxe_fonciere" | "amortissement"> = {
+    entretien: "entretien",
+    travaux: "entretien",
+    reparation: "entretien",
+    assurance: "assurance",
+    copropriete: "charges_copro",
+    syndic: "charges_copro",
+    "taxe fonciere": "taxe_fonciere",
+    interets: "interets",
+  };
+  const handleOcrInvoice = (lotId: string) => (data: Record<string, unknown>) => {
+    const raw = data as { montantTTC?: number; montant_ttc?: number; montant?: number; categorie?: string; fournisseur?: string };
+    const montant = Number(raw.montantTTC ?? raw.montant_ttc ?? raw.montant ?? 0);
+    if (!montant || !Number.isFinite(montant) || montant <= 0) {
+      alert("Aucun montant détecté sur la facture. Saisissez manuellement.");
+      return;
+    }
+    const catRaw = (raw.categorie ?? "").toString().toLowerCase();
+    const field = (Object.entries(CATEGORIE_TO_FIELD).find(([k]) => catRaw.includes(k))?.[1]) ?? "entretien";
+    const current = deductibles[lotId] ?? { interets: 0, assurance: 450, entretien: 0, charges_copro: 0, taxe_fonciere: 0, amortissement: 0 };
+    setLotDeductible(lotId, field, (current[field] ?? 0) + montant);
+    const fournisseurText = raw.fournisseur ? ` (${raw.fournisseur})` : "";
+    alert(`Facture importée${fournisseurText} : ${montant.toFixed(2)} € ajoutés à « ${field === "entretien" ? "Entretien & réparation" : field === "charges_copro" ? "Charges copropriété" : field} ».`);
   };
 
   const summary = useMemo(() => {
@@ -161,7 +189,15 @@ export default function DashboardFiscal() {
                       <div className="flex justify-between"><span className="text-muted">Charges perçues</span><span className="font-mono">{formatEUR(r.chargesRecues)}</span></div>
                     </div>
                     <div className="rounded-lg bg-rose-50 border border-rose-200 p-3 text-xs">
-                      <div className="font-semibold text-rose-900 mb-1">Charges déductibles (à saisir)</div>
+                      <div className="mb-2 flex items-center justify-between gap-2">
+                        <div className="font-semibold text-rose-900">Charges déductibles</div>
+                        <PdfExtractButton
+                          schema="facture_immo"
+                          onExtracted={handleOcrInvoice(r.lot.id)}
+                          label="📄 OCR facture"
+                          className="text-[10px]"
+                        />
+                      </div>
                       <div className="space-y-1">
                         {([
                           ["interets", "Intérêts d'emprunt"],
