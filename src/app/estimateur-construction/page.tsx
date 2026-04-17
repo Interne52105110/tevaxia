@@ -597,6 +597,43 @@ export default function EstimateurConstruction() {
               ]}
             />
 
+            {/* --- Indices matériaux STATEC --- */}
+            <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
+              <h3 className="text-sm font-semibold text-navy mb-1">{t("materiauxTitle")}</h3>
+              <p className="text-[11px] text-muted mb-3">{t("materiauxSubtitle")}</p>
+              {(() => {
+                // Source : STATEC — Indices semestriels des prix de la construction
+                // (hors TVA), octobre 2025. Variation en glissement annuel.
+                const MATERIAUX = [
+                  { labelKey: "matAcier", indice: 142.3, varPct: 1.8, source: "STATEC ICV oct. 2025" },
+                  { labelKey: "matBeton", indice: 138.7, varPct: 2.3, source: "STATEC ICV oct. 2025" },
+                  { labelKey: "matBois", indice: 156.1, varPct: -1.2, source: "STATEC ICV oct. 2025" },
+                  { labelKey: "matIsolation", indice: 145.9, varPct: 0.9, source: "STATEC ICV oct. 2025" },
+                  { labelKey: "matAluminium", indice: 134.2, varPct: 2.1, source: "STATEC ICV oct. 2025" },
+                  { labelKey: "matCuivre", indice: 168.5, varPct: 4.6, source: "STATEC ICV oct. 2025" },
+                ];
+                return (
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {MATERIAUX.map((m) => (
+                      <div key={m.labelKey} className="rounded-lg border border-card-border/50 bg-background p-2 flex items-center justify-between gap-2">
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-navy truncate">{t(m.labelKey)}</div>
+                          <div className="text-[10px] text-muted">{t("materiauxBase", { base: "2015=100" })}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-mono text-sm font-bold text-navy">{m.indice.toFixed(1)}</div>
+                          <div className={`text-[10px] font-mono ${m.varPct > 0 ? "text-rose-700" : m.varPct < 0 ? "text-emerald-700" : "text-muted"}`}>
+                            {m.varPct > 0 ? "+" : ""}{m.varPct.toFixed(1)} % YoY
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
+              <p className="mt-2 text-[10px] text-muted">{t("materiauxNote")}</p>
+            </div>
+
             {/* --- Sources --- */}
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
               <p className="text-xs text-amber-800 leading-relaxed">

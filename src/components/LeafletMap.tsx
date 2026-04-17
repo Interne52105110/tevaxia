@@ -202,6 +202,45 @@ export default function LeafletMap({
           <span className="text-xs font-medium text-slate">{cadastreLabel}</span>
         </label>
       </div>
+
+      {/* Légende gradient (heatmap 0-15k €/m²) */}
+      {!isRendement && (
+        <div className="absolute bottom-3 left-3 z-[1000] rounded-lg bg-white/95 backdrop-blur-sm border border-card-border px-3 py-2 shadow-sm">
+          <div className="text-[10px] font-semibold text-navy mb-1">€/m² existant</div>
+          <div className="flex items-center gap-1">
+            <div
+              className="h-3 w-36 rounded"
+              style={{
+                background: "linear-gradient(90deg, #059669 0%, #16A34A 20%, #65A30D 35%, #CA8A04 55%, #D97706 70%, #EA580C 85%, #DC2626 100%)",
+              }}
+            />
+          </div>
+          <div className="mt-1 flex justify-between text-[9px] text-muted font-mono">
+            <span>&lt; 5k</span>
+            <span>7k</span>
+            <span>9k</span>
+            <span>11k</span>
+            <span>&gt; 13k</span>
+          </div>
+          <div className="mt-1 text-[9px] text-muted italic">Taille = nb. transactions</div>
+        </div>
+      )}
+      {isRendement && (
+        <div className="absolute bottom-3 left-3 z-[1000] rounded-lg bg-white/95 backdrop-blur-sm border border-card-border px-3 py-2 shadow-sm">
+          <div className="text-[10px] font-semibold text-navy mb-1">Rendement brut</div>
+          <div className="flex items-center gap-3 text-[10px]">
+            <span className="flex items-center gap-1">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#DC2626" }} /> &lt; 3 %
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#D97706" }} /> 3-4 %
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#16A34A" }} /> &gt; 4 %
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

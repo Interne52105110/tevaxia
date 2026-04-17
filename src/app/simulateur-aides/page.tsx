@@ -13,6 +13,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import AuthGate from "@/components/AuthGate";
 import SEOContent from "@/components/SEOContent";
+import { MEMORIAL_WATCH, MEMORIAL_LAST_UPDATED } from "@/lib/memorial-a-watch";
 
 const ALL_COMMUNES = Object.keys(DEMOGRAPHICS).sort();
 
@@ -812,6 +813,69 @@ export default function SimulateurAides() {
 
             <RelatedTools keys={["frais", "estimation", "vefa"]} />
           </div>
+        </div>
+
+        {/* Veille Mémorial A — législation logement LU récente */}
+        <div className="mt-8 rounded-xl border border-card-border bg-card p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-3 flex-wrap mb-4">
+            <div>
+              <h2 className="text-base font-semibold text-navy">{t("memorialTitle")}</h2>
+              <p className="mt-0.5 text-xs text-muted">{t("memorialSubtitle")}</p>
+            </div>
+            <span className="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[10px] text-emerald-800 font-semibold">
+              {t("memorialLastUpdate", { date: new Date(MEMORIAL_LAST_UPDATED).toLocaleDateString("fr-LU") })}
+            </span>
+          </div>
+          <div className="space-y-2">
+            {MEMORIAL_WATCH.slice(0, 6).map((entry, i) => {
+              const impactColor =
+                entry.impact === "nouveau"
+                  ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                  : entry.impact === "abrogation"
+                    ? "bg-rose-100 text-rose-800 border-rose-200"
+                    : "bg-amber-100 text-amber-800 border-amber-200";
+              const categoryColor =
+                entry.category === "klimabonus" || entry.category === "aides"
+                  ? "text-teal"
+                  : entry.category === "copropriete"
+                    ? "text-purple-700"
+                    : entry.category === "bail"
+                      ? "text-emerald-700"
+                      : entry.category === "fiscal"
+                        ? "text-gold-dark"
+                        : "text-navy";
+              return (
+                <div key={i} className="rounded-lg border border-card-border/60 bg-background p-3">
+                  <div className="flex items-start justify-between gap-3 flex-wrap">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-mono text-[10px] text-muted">
+                          {new Date(entry.date).toLocaleDateString("fr-LU", { day: "2-digit", month: "short", year: "numeric" })}
+                        </span>
+                        <span className={`text-[10px] font-semibold uppercase tracking-wider ${categoryColor}`}>
+                          {t(`memorialCat_${entry.category}`)}
+                        </span>
+                        <span className={`rounded-full border px-2 py-0.5 text-[9px] font-semibold ${impactColor}`}>
+                          {t(`memorialImpact_${entry.impact}`)}
+                        </span>
+                      </div>
+                      <h4 className="mt-1 text-sm font-semibold text-slate">{entry.title}</h4>
+                      <p className="mt-0.5 text-xs text-muted">{entry.summary}</p>
+                    </div>
+                    <a
+                      href={entry.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 text-xs text-navy hover:underline"
+                    >
+                      {t("memorialLink")} →
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <p className="mt-4 text-[10px] text-muted italic">{t("memorialNote")}</p>
         </div>
       </div>
 
