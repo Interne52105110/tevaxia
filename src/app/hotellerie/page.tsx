@@ -116,6 +116,18 @@ const TOOLS: HotelTool[] = [
     ),
   },
   {
+    href: "/hotellerie/observatoire-lu",
+    titleKey: "observatoireTitle",
+    descKey: "observatoireDesc",
+    status: "ready",
+    color: "from-sky-700 to-blue-500",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.307a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+      </svg>
+    ),
+  },
+  {
     href: "/hotellerie/certifications-esg",
     titleKey: "esgTitle",
     descKey: "esgDesc",
