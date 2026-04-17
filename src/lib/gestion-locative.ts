@@ -266,7 +266,7 @@ export function analyzeLot(lot: RentalLot): LotAnalysis {
     anneeBail: currentYear,
     surfaceHabitable: lot.surface,
     appliquerVetuste: true,
-    tauxVetusteAnnuel: 1,
+    tauxVetusteAnnuel: 0.01,
     estMeuble: lot.estMeuble,
   });
 
