@@ -4337,7 +4337,15 @@
       "codeLabel": "Code à 6 chiffres",
       "verify": "Vérifier et activer"
     },
-    "settingsTitle": "Paramètres du compte"
+    "settingsTitle": "Paramètres du compte",
+    "security": {
+      "title": "Sécurité du compte",
+      "description": "En cas de suspicion de compromission (mot de passe divulgué, appareil perdu, connexion suspecte), révoquez toutes vos sessions actives. Vous devrez vous reconnecter sur tous vos appareils.",
+      "revokeAllCta": "🚨 Déconnecter toutes mes sessions",
+      "confirmRevokeAll": "Confirmer : déconnecter toutes vos sessions sur tous les appareils ? Vous devrez vous reconnecter.",
+      "revokedOk": "✓ Toutes les sessions ont été révoquées. Redirection en cours...",
+      "loading": "Révocation..."
+    }
   },
   "mesEvaluations": {
     "title": "Mes évaluations",

@@ -615,8 +615,63 @@ export default function Profil() {
             </p>
           </div>
 
+          {/* Sécurité : révoquer sessions */}
+          <SecuritySection />
+
           {/* Danger zone : suppression compte */}
           <DeleteAccountSection />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SecuritySection() {
+  const t = useTranslations("profil.security");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleGlobalSignOut = async () => {
+    if (!supabase) return;
+    if (!confirm(t("confirmRevokeAll"))) return;
+    setLoading(true);
+    setError(null);
+    setMessage(null);
+    try {
+      // scope: 'global' révoque TOUS les refresh tokens de l'utilisateur
+      // sur tous les appareils + ce navigateur
+      const { error } = await supabase.auth.signOut({ scope: "global" });
+      if (error) throw error;
+      setMessage(t("revokedOk"));
+      // Redirection après 1,5s pour que le user voie le message
+      setTimeout(() => {
+        window.location.href = "/connexion?revoked=1";
+      }, 1500);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Erreur");
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-5 shadow-sm">
+      <div className="flex items-start gap-3">
+        <svg className="h-5 w-5 text-amber-700 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.745 3.745 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+        </svg>
+        <div className="flex-1">
+          <h3 className="text-sm font-semibold text-amber-900">{t("title")}</h3>
+          <p className="mt-1 text-xs text-amber-800">{t("description")}</p>
+          {message && <p className="mt-2 text-xs text-emerald-700 font-medium">{message}</p>}
+          {error && <p className="mt-2 text-xs text-rose-700 font-medium">{error}</p>}
+          <button
+            onClick={handleGlobalSignOut}
+            disabled={loading}
+            className="mt-3 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-900 hover:bg-amber-100 disabled:opacity-50"
+          >
+            {loading ? t("loading") : t("revokeAllCta")}
+          </button>
         </div>
       </div>
     </div>

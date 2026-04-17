@@ -4337,7 +4337,15 @@
       "codeLabel": "Código de 6 dígitos",
       "verify": "Verificar e ativar"
     },
-    "settingsTitle": "Definições da conta"
+    "settingsTitle": "Definições da conta",
+    "security": {
+      "title": "Segurança da conta",
+      "description": "Em caso de suspeita de compromisso, revogar todas as sessões ativas. Terá de iniciar sessão novamente em todos os dispositivos.",
+      "revokeAllCta": "🚨 Terminar todas as sessões",
+      "confirmRevokeAll": "Confirmar: terminar todas as sessões em todos os dispositivos?",
+      "revokedOk": "✓ Todas as sessões revogadas. A redirecionar...",
+      "loading": "A revogar..."
+    }
   },
   "mesEvaluations": {
     "title": "As minhas avaliações",

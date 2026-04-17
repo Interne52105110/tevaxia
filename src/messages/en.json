@@ -4337,7 +4337,15 @@
       "codeLabel": "6-digit code",
       "verify": "Verify and enable"
     },
-    "settingsTitle": "Account settings"
+    "settingsTitle": "Account settings",
+    "security": {
+      "title": "Account security",
+      "description": "If you suspect a compromise (leaked password, lost device, suspicious login), revoke all active sessions. You will need to sign in again on all devices.",
+      "revokeAllCta": "🚨 Sign out of all sessions",
+      "confirmRevokeAll": "Confirm: sign out of all sessions on all devices? You will need to sign in again.",
+      "revokedOk": "✓ All sessions revoked. Redirecting...",
+      "loading": "Revoking..."
+    }
   },
   "mesEvaluations": {
     "title": "My valuations",

@@ -4337,7 +4337,15 @@
       "codeLabel": "6-stelliger Code",
       "verify": "Prüfen und aktivieren"
     },
-    "settingsTitle": "Kontoeinstellungen"
+    "settingsTitle": "Kontoeinstellungen",
+    "security": {
+      "title": "Kontosicherheit",
+      "description": "Bei Verdacht auf Kompromittierung alle aktiven Sitzungen widerrufen. Sie müssen sich auf allen Geräten neu anmelden.",
+      "revokeAllCta": "🚨 Alle Sitzungen abmelden",
+      "confirmRevokeAll": "Alle Sitzungen auf allen Geräten abmelden?",
+      "revokedOk": "✓ Alle Sitzungen widerrufen. Weiterleitung...",
+      "loading": "Widerrufen..."
+    }
   },
   "mesEvaluations": {
     "title": "Meine Bewertungen",

@@ -4337,7 +4337,15 @@
       "codeLabel": "6-zifferegen Code",
       "verify": "Préiwen an aktivéieren"
     },
-    "settingsTitle": "Kontoastellungen"
+    "settingsTitle": "Kontoastellungen",
+    "security": {
+      "title": "Sécurité vum Kont",
+      "description": "Bei Verdacht op Kompromëtt all aktiv Sessiounen ofmellen. Dir musst Iech op all Apparat nei umellen.",
+      "revokeAllCta": "🚨 All Sessiounen ofmellen",
+      "confirmRevokeAll": "Confirméieren: all Sessiounen op all Apparater ofmellen?",
+      "revokedOk": "✓ All Sessiounen ofgemellt. Weiderleedung...",
+      "loading": "Ofmellen..."
+    }
   },
   "mesEvaluations": {
     "title": "Meng Bewäertungen",
