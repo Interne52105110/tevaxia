@@ -1,0 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Prévisionnel 12 mois STR Luxembourg — Holt-Winters occupation + ADR | tevaxia.lu",
+  description:
+    "Modèle Holt-Winters avec saisonnalité annuelle appliqué à vos données mensuelles Airbnb/Booking. Prévision 6-24 mois d'occupation, ADR, revenu avec intervalles de confiance 95 %. Import CSV PMS, export complet.",
+  openGraph: {
+    title: "Prévisionnel STR Luxembourg 12 mois — Holt-Winters",
+    description:
+      "Projection 6-24 mois occupation/ADR/revenu avec IC 95 %. Import CSV PMS.",
+    type: "website",
+  },
+  alternates: { canonical: "/str/forecast" },
+};
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return children;
+}
