@@ -1364,7 +1364,15 @@
       "faq4a": "A lei não prevê um suplemento específico, mas o valor do mobiliário pode ser incluído no capital investido.",
       "faq5q": "Como contestar uma renda excessiva?",
       "faq5a": "O inquilino pode recorrer ao juiz de paz ao abrigo do artigo 7.o da lei de 21 de setembro de 2006."
-    }
+    },
+    "postTravauxToggle": "E se eu fizer obras adicionais?",
+    "postTravauxIntro": "Simule o impacto de um projecto de renovação no limite legal da renda.",
+    "postTravauxMontant": "Montante obras previstas",
+    "postTravauxAnnee": "Ano previsto",
+    "postTravauxLoyerAvant": "Renda máx atual",
+    "postTravauxLoyerApres": "Renda máx pós-obras",
+    "postTravauxGain": "Ganho mensal",
+    "postTravauxNote": "Limite pós-obras apenas válido se obras forem benfeitorias (renovação energética Klimabonus, ampliação). Manutenções correntes não contam."
   },
   "achatLocation": {
     "title": "Comprar ou Arrendar no Luxemburgo",
@@ -1916,7 +1924,15 @@
       "faq4A": "Após as recomendações da CSSF sobre riscos climáticos, os bancos luxemburgueses estão a integrar progressivamente o desempenho energético nos seus critérios de concessão. Um imóvel classificado A-B pode beneficiar de condições preferenciais (redução de taxa de 10 a 30 bps). Inversamente, os imóveis classificados F-G (peneiras energéticas) são objeto de análise reforçada, por vezes com desconto na avaliação e provisionamento dos custos de renovação energética.",
       "faq5Q": "É possível refinanciar um crédito imobiliário no Luxemburgo?",
       "faq5A": "Sim, o refinanciamento é possível e pode ser vantajoso se as taxas baixaram desde a contratação. Custos a prever: indemnização de reembolso antecipado (limitada a 6 meses de juros ou 1% do capital reembolsado), custos de cancelamento de hipoteca (cerca de 500 a 1.000 EUR) e custos de nova inscrição hipotecária. O cálculo de rentabilidade depende do diferencial de taxas, do capital em dívida e da duração residual."
-    }
+    },
+    "ratesHistoryTitle": "Histórico taxas (8 anos)",
+    "ratesHistorySubtitle": "BCE directora, OAT 10A, hipoteca média LU, inflação IHPC — evolução anual",
+    "ratesHistoryPublicData": "Dados públicos BCE / STATEC",
+    "rateBCE": "BCE directora",
+    "rateOAT": "OAT 10A (benchmark)",
+    "rateHypo": "Hipoteca média LU",
+    "rateInflation": "Inflação IHPC",
+    "ratesHistoryNote": "Fontes: BCE, Bloomberg, BCL, STATEC. Médias anuais."
   },
   "bilanPromoteur": {
     "title": "Balanço do promotor",
@@ -4940,7 +4956,16 @@
     "retardChantierHint": "Se a entrega for adiada, o banco já libertou a totalidade do empréstimo: os juros intercalares continuam a correr sobre o capital pleno até à entrega e início da amortização.",
     "retardSurcout": "Juros extra",
     "retardTotalIntercalaires": "Total intercalares (com atraso)",
-    "retardParMois": "Custo por mês atraso"
+    "retardParMois": "Custo por mês atraso",
+    "gfaTitle": "Garantia Financeira de Conclusão (GFA)",
+    "gfaSubtitle": "Obrigatória para promoções VEFA. Protege adquirentes contra falência do promotor.",
+    "gfaType": "Tipo de garantia",
+    "gfaExtrinseque": "GFA extrínseca (banco/segurador)",
+    "gfaIntrinseque": "GFA intrínseca (capitais próprios)",
+    "gfaPrime": "Taxa prémio GFA (% preço total)",
+    "gfaPrimeEstimee": "Prémio GFA estimado",
+    "gfaExtrinsequeNote": "Prémio pago ao promotor pelo adquirente via preço venda.",
+    "gfaIntrinsequeNote": "Sem prémio externo — promotor prova solidez."
   },
   "propcalc": {
     "badge": "Plugin WordPress Gratuito",

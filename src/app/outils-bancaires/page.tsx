@@ -3,6 +3,11 @@
 import { useState, useMemo, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { fetchECBRatesClient, type ECBRates } from "@/lib/ecb-rates";
+import { OAT_10Y, TAUX_HYPOTHECAIRE, TAUX_DIRECTEUR_BCE, INFLATION } from "@/lib/macro-data";
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
+  Legend, ResponsiveContainer,
+} from "recharts";
 import SEOContent from "@/components/SEOContent";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
@@ -561,6 +566,52 @@ function TabCPE() {
   );
 }
 
+function RatesHistoryChart() {
+  const t = useTranslations("outilsBancaires");
+  // On garde les 8 dernières années pour garder le graphique lisible
+  const currentYear = new Date().getFullYear();
+  const minYear = currentYear - 7;
+  const data: { year: number; bce: number | null; oat: number | null; hypo: number | null; inflation: number | null }[] = [];
+  for (let y = minYear; y <= currentYear; y++) {
+    const bce = TAUX_DIRECTEUR_BCE.find((d) => d.year === y)?.value ?? null;
+    const oat = OAT_10Y.find((d) => d.year === y)?.value ?? null;
+    const hypo = TAUX_HYPOTHECAIRE.find((d) => d.year === y)?.value ?? null;
+    const inflation = INFLATION.find((d) => d.year === y)?.value ?? null;
+    data.push({ year: y, bce, oat, hypo, inflation });
+  }
+
+  return (
+    <div className="mt-8 rounded-xl border border-card-border bg-card p-6 shadow-sm">
+      <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
+        <div>
+          <h3 className="text-base font-semibold text-navy">{t("ratesHistoryTitle")}</h3>
+          <p className="mt-0.5 text-[11px] text-muted">{t("ratesHistorySubtitle")}</p>
+        </div>
+        <span className="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[10px] text-emerald-800 font-semibold">
+          {t("ratesHistoryPublicData")}
+        </span>
+      </div>
+      <ResponsiveContainer width="100%" height={280}>
+        <LineChart data={data} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e2db" />
+          <XAxis dataKey="year" tick={{ fontSize: 10 }} />
+          <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${v.toFixed(1)} %`} />
+          <RechartsTooltip
+            formatter={(v: unknown) => typeof v === "number" ? `${v.toFixed(2)} %` : "—"}
+            contentStyle={{ fontSize: 12, borderRadius: 8 }}
+          />
+          <Legend wrapperStyle={{ fontSize: 11 }} />
+          <Line type="monotone" dataKey="bce" stroke="#1e3a5f" strokeWidth={2} dot={{ r: 2 }} name={t("rateBCE")} />
+          <Line type="monotone" dataKey="oat" stroke="#b8860b" strokeWidth={2} dot={{ r: 2 }} name={t("rateOAT")} />
+          <Line type="monotone" dataKey="hypo" stroke="#dc2626" strokeWidth={2.5} dot={{ r: 3 }} name={t("rateHypo")} />
+          <Line type="monotone" dataKey="inflation" stroke="#059669" strokeWidth={1.5} strokeDasharray="4 2" dot={{ r: 2 }} name={t("rateInflation")} />
+        </LineChart>
+      </ResponsiveContainer>
+      <p className="mt-3 text-[10px] text-muted">{t("ratesHistoryNote")}</p>
+    </div>
+  );
+}
+
 export default function OutilsBancaires() {
   const t = useTranslations("outilsBancaires");
   const [activeTab, setActiveTab] = useState<ActiveTab>("ltv");
@@ -608,6 +659,9 @@ export default function OutilsBancaires() {
         {activeTab === "amortissement" && <TabAmortissement />}
         {activeTab === "dscr" && <TabDSCR />}
         {activeTab === "cpe" && <TabCPE />}
+
+        {/* Historique taux BCE / OAT / hypothécaire */}
+        <RatesHistoryChart />
       </div>
 
       <SEOContent

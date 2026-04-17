@@ -1364,7 +1364,15 @@
       "faq4a": "La loi ne prévoit pas de majoration spécifique pour les logements meublés. Cependant, la valeur du mobilier peut être intégrée au capital investi si elle est justifiée par des factures. En pratique, une majoration de 10 à 15 % du loyer est souvent appliquée pour le mobilier.",
       "faq5q": "Comment contester un loyer excessif ?",
       "faq5a": "Le locataire peut saisir le juge de paix en vertu de l'article 7 de la loi du 21 septembre 2006. Le juge peut ordonner une réduction du loyer si celui-ci dépasse le plafond légal. La prescription est de 2 ans pour la récupération du trop-perçu."
-    }
+    },
+    "postTravauxToggle": "Et si je fais des travaux supplémentaires ?",
+    "postTravauxIntro": "Simulez l'impact d'un projet de rénovation sur le plafond légal de loyer. Le coefficient de réévaluation de l'année prévue est appliqué.",
+    "postTravauxMontant": "Montant travaux projetés",
+    "postTravauxAnnee": "Année prévue",
+    "postTravauxLoyerAvant": "Loyer max actuel",
+    "postTravauxLoyerApres": "Loyer max post-travaux",
+    "postTravauxGain": "Gain mensuel",
+    "postTravauxNote": "Plafond post-travaux valide uniquement si les travaux représentent des améliorations (rénovation énergétique Klimabonus, extension, modernisation). Les entretiens courants ne comptent pas. Conservez factures + autorisations."
   },
   "achatLocation": {
     "title": "Acheter ou louer au Luxembourg",
@@ -1916,7 +1924,15 @@
       "faq4A": "Depuis les recommandations de la CSSF sur les risques climatiques, les banques luxembourgeoises intègrent progressivement la performance énergétique dans leurs critères d'octroi. Un bien classé A-B peut bénéficier de conditions préférentielles (réduction de taux de 10 à 30 bps). Inversement, les biens classés F-G (passoires énergétiques) font l'objet d'une analyse renforcée, avec parfois une décote sur la valeur d'expertise et un provisionnement du coût des travaux de rénovation énergétique.",
       "faq5Q": "Peut-on refinancer un crédit immobilier au Luxembourg ?",
       "faq5A": "Oui, le refinancement est possible et peut être avantageux si les taux ont baissé depuis la souscription. Les frais à prévoir sont : l'indemnité de remboursement anticipé (IRA, plafonnée à 6 mois d'intérêts ou 1 % du capital remboursé selon le Code de la consommation), les frais de mainlevée d'hypothèque (environ 500 à 1 000 EUR), et les frais de nouvelle inscription hypothécaire. Le calcul de rentabilité dépend de l'écart de taux, du capital restant dû et de la durée résiduelle."
-    }
+    },
+    "ratesHistoryTitle": "Historique taux (8 ans)",
+    "ratesHistorySubtitle": "BCE directeur, OAT 10Y, taux hypothécaire moyen LU, inflation IPCN — évolution annuelle",
+    "ratesHistoryPublicData": "Données publiques BCE / STATEC",
+    "rateBCE": "BCE directeur",
+    "rateOAT": "OAT 10Y (benchmark)",
+    "rateHypo": "Hypothèque LU moyen",
+    "rateInflation": "Inflation IPCN",
+    "ratesHistoryNote": "Sources : BCE (taux directeur), Bloomberg (OAT FR), BCL (taux hypothécaire moyen LU), STATEC (inflation). Les taux affichés sont des moyennes annuelles."
   },
   "bilanPromoteur": {
     "title": "Bilan promoteur",
@@ -4940,7 +4956,16 @@
     "retardChantierHint": "Si la livraison est décalée, la banque a déjà décaissé la totalité du prêt : les intérêts intercalaires continuent de courir sur le capital plein jusqu'à la levée de la garantie d'achèvement et le passage en amortissement.",
     "retardSurcout": "Surcoût intérêts",
     "retardTotalIntercalaires": "Total intercalaires (retard inclus)",
-    "retardParMois": "Coût / mois de retard"
+    "retardParMois": "Coût / mois de retard",
+    "gfaTitle": "Garantie Financière d'Achèvement (GFA)",
+    "gfaSubtitle": "Obligatoire pour les promotions VEFA. Protège l'acquéreur contre la défaillance du promoteur.",
+    "gfaType": "Type de garantie",
+    "gfaExtrinseque": "GFA extrinsèque (banque/assureur)",
+    "gfaIntrinseque": "GFA intrinsèque (fonds propres promoteur)",
+    "gfaPrime": "Taux prime GFA (% du prix total)",
+    "gfaPrimeEstimee": "Prime GFA estimée",
+    "gfaExtrinsequeNote": "Prime payée au promoteur par l'acquéreur via le prix de vente. Fourniture d'une caution bancaire ou d'une assurance couvrant le coût d'achèvement. Standard LU.",
+    "gfaIntrinsequeNote": "Pas de prime externe — le promoteur prouve sa solidité (fonds propres ≥ 75 % du coût de construction, pas d'emprunt bancaire). Plus rare, utilisée pour les petits projets."
   },
   "propcalc": {
     "badge": "Plugin WordPress Gratuit",

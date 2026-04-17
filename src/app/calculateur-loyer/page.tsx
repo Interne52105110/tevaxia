@@ -30,6 +30,11 @@ export default function CalculateurLoyer() {
   const [estMeuble, setEstMeuble] = useState(false);
   const [showCoefficients, setShowCoefficients] = useState(false);
 
+  // Simulation post-travaux (projet de rénovation non encore réalisé)
+  const [showPostTravaux, setShowPostTravaux] = useState(false);
+  const [postTravauxMontant, setPostTravauxMontant] = useState(30000);
+  const [postTravauxAnnee, setPostTravauxAnnee] = useState(new Date().getFullYear());
+
   const result = useMemo(
     () =>
       calculerCapitalInvesti({
@@ -46,6 +51,24 @@ export default function CalculateurLoyer() {
       }),
     [prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble]
   );
+
+  // Scénario post-travaux : inclut les travaux projetés comme tranche supplémentaire
+  const resultPostTravaux = useMemo(() => {
+    if (!showPostTravaux || postTravauxMontant <= 0) return null;
+    return calculerCapitalInvesti({
+      prixAcquisition,
+      anneeAcquisition,
+      travauxMontant,
+      travauxAnnee,
+      tranchesSupplementaires: [{ montant: postTravauxMontant, annee: postTravauxAnnee }],
+      anneeBail,
+      surfaceHabitable,
+      nbColocataires: avecColocation ? nbColocataires : undefined,
+      appliquerVetuste,
+      tauxVetusteAnnuel: tauxVetuste / 100,
+      estMeuble,
+    });
+  }, [showPostTravaux, postTravauxMontant, postTravauxAnnee, prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble]);
 
   return (
     <>
@@ -105,6 +128,59 @@ export default function CalculateurLoyer() {
                   min={1960}
                   max={2026}
                 />
+              </div>
+
+              <div className="mt-5 border-t border-card-border pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowPostTravaux(!showPostTravaux)}
+                  className="text-sm font-semibold text-navy hover:text-navy-light"
+                >
+                  {showPostTravaux ? "▼ " : "▶ "}{t("postTravauxToggle")}
+                </button>
+                {showPostTravaux && (
+                  <div className="mt-3 rounded-lg border border-sky-200 bg-sky-50 p-4 space-y-3">
+                    <p className="text-[11px] text-sky-900">{t("postTravauxIntro")}</p>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <InputField
+                        label={t("postTravauxMontant")}
+                        value={postTravauxMontant}
+                        onChange={(v) => setPostTravauxMontant(Number(v))}
+                        suffix="€"
+                        min={0}
+                      />
+                      <InputField
+                        label={t("postTravauxAnnee")}
+                        value={postTravauxAnnee}
+                        onChange={(v) => setPostTravauxAnnee(Number(v))}
+                        min={new Date().getFullYear()}
+                        max={new Date().getFullYear() + 10}
+                      />
+                    </div>
+                    {resultPostTravaux && (
+                      <div className="mt-2 grid gap-2 sm:grid-cols-3 text-xs">
+                        <div className="rounded bg-white p-2 border border-sky-200">
+                          <div className="text-[10px] uppercase text-muted">{t("postTravauxLoyerAvant")}</div>
+                          <div className="font-mono font-bold text-slate">{Math.round(result.loyerMensuelMax).toLocaleString("fr-LU")} €/mois</div>
+                        </div>
+                        <div className="rounded bg-white p-2 border border-emerald-200">
+                          <div className="text-[10px] uppercase text-emerald-700">{t("postTravauxLoyerApres")}</div>
+                          <div className="font-mono font-bold text-emerald-900">{Math.round(resultPostTravaux.loyerMensuelMax).toLocaleString("fr-LU")} €/mois</div>
+                        </div>
+                        <div className="rounded bg-navy p-2 border border-navy">
+                          <div className="text-[10px] uppercase text-white/70">{t("postTravauxGain")}</div>
+                          <div className="font-mono font-bold text-white">
+                            + {Math.round(resultPostTravaux.loyerMensuelMax - result.loyerMensuelMax).toLocaleString("fr-LU")} €/mois
+                          </div>
+                          <div className="text-[10px] text-white/80">
+                            ({Math.round((resultPostTravaux.loyerMensuelMax - result.loyerMensuelMax) * 12).toLocaleString("fr-LU")} €/an)
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <p className="text-[10px] text-sky-800 italic">{t("postTravauxNote")}</p>
+                  </div>
+                )}
               </div>
             </div>
 

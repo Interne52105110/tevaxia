@@ -1364,7 +1364,15 @@
       "faq4a": "Das Gesetz sieht keinen spezifischen Zuschlag vor. Der Wert der Möbel kann jedoch ins investierte Kapital einbezogen werden.",
       "faq5q": "Wie kann ich eine überhöhte Miete anfechten?",
       "faq5a": "Der Mieter kann den Friedensrichter gemäß Artikel 7 des Gesetzes vom 21. September 2006 anrufen."
-    }
+    },
+    "postTravauxToggle": "Was wäre, wenn ich zusätzliche Renovierungen mache?",
+    "postTravauxIntro": "Simulieren Sie die Auswirkungen eines geplanten Renovierungsprojekts auf die gesetzliche Mietobergrenze.",
+    "postTravauxMontant": "Geplantes Renovierungsbudget",
+    "postTravauxAnnee": "Geplantes Jahr",
+    "postTravauxLoyerAvant": "Aktuelle Höchstmiete",
+    "postTravauxLoyerApres": "Höchstmiete nach Renovierung",
+    "postTravauxGain": "Monatlicher Gewinn",
+    "postTravauxNote": "Post-Renovierungs-Obergrenze nur gültig wenn Renovierungen Verbesserungen sind. Rechnungen + Genehmigungen aufbewahren."
   },
   "achatLocation": {
     "title": "Kaufen oder Mieten in Luxemburg",
@@ -1916,7 +1924,15 @@
       "faq4A": "Nach den CSSF-Empfehlungen zu Klimarisiken integrieren luxemburgische Banken schrittweise die Energieeffizienz in ihre Vergabekriterien. Eine Immobilie mit Klasse A-B kann von Vorzugskonditionen profitieren (Zinsreduktion von 10 bis 30 Bps). Umgekehrt werden Immobilien der Klassen F-G (Energieschleudern) verstärkt geprüft, teilweise mit Abschlag auf den Schätzwert und Rückstellung für energetische Sanierungskosten.",
       "faq5Q": "Kann man einen Immobilienkredit in Luxemburg umschulden?",
       "faq5A": "Ja, eine Umschuldung ist möglich und kann vorteilhaft sein, wenn die Zinsen seit Vertragsabschluss gesunken sind. Zu erwartende Kosten: Vorfälligkeitsentschädigung (begrenzt auf 6 Monatszinsen oder 1 % des zurückgezahlten Kapitals), Kosten für die Löschung der Hypothek (ca. 500 bis 1.000 EUR) und Kosten für die neue Hypothekeneintragung. Die Rentabilität hängt von der Zinsdifferenz, der Restschuld und der Restlaufzeit ab."
-    }
+    },
+    "ratesHistoryTitle": "Zinshistorie (8 Jahre)",
+    "ratesHistorySubtitle": "EZB-Leitzins, OAT 10J, LU Hypotheken-Durchschnitt, HVPI-Inflation — Jahresentwicklung",
+    "ratesHistoryPublicData": "Öffentliche Daten EZB / STATEC",
+    "rateBCE": "EZB-Leitzins",
+    "rateOAT": "OAT 10J (Benchmark)",
+    "rateHypo": "LU Hypothek Ø",
+    "rateInflation": "HVPI-Inflation",
+    "ratesHistoryNote": "Quellen: EZB, Bloomberg, BCL, STATEC. Jahresdurchschnitte."
   },
   "bilanPromoteur": {
     "title": "Bauträger-Bilanz",
@@ -4940,7 +4956,16 @@
     "retardChantierHint": "Bei Verzögerung der Übergabe hat die Bank den Kredit bereits vollständig ausgezahlt: Zwischenzinsen laufen auf dem vollen Kapital weiter bis zur Übergabe und Beginn der Tilgung.",
     "retardSurcout": "Zusatzzinsen",
     "retardTotalIntercalaires": "Total Zwischenzinsen (inkl. Verzögerung)",
-    "retardParMois": "Kosten pro Verzögerungsmonat"
+    "retardParMois": "Kosten pro Verzögerungsmonat",
+    "gfaTitle": "Fertigstellungsgarantie (GFA)",
+    "gfaSubtitle": "Obligatorisch für VEFA-Entwicklungen. Schützt Käufer vor Bauträger-Insolvenz.",
+    "gfaType": "Garantietyp",
+    "gfaExtrinseque": "Externe GFA (Bank/Versicherer)",
+    "gfaIntrinseque": "Intrinsische GFA (Eigenkapital Bauträger)",
+    "gfaPrime": "GFA-Prämiensatz (% Gesamtpreis)",
+    "gfaPrimeEstimee": "Geschätzte GFA-Prämie",
+    "gfaExtrinsequeNote": "Prämie vom Käufer über den Kaufpreis an den Bauträger. Bankgarantie oder Versicherung.",
+    "gfaIntrinsequeNote": "Keine externe Prämie — Bauträger weist Bonität nach (Eigenkapital ≥ 75 %)."
   },
   "propcalc": {
     "badge": "Kostenloses WordPress-Plugin",

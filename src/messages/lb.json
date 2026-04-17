@@ -1364,7 +1364,15 @@
       "faq4a": "D'Gesetz gesäit keen spezifesche Zouschlag vir. De Wäert vun de Miwwelen kann awer an d'investéiert Kapital abezu ginn.",
       "faq5q": "Wéi kann ech en ze héije Loyer kontestéieren?",
       "faq5a": "De Locataire kann de Friddensgeriicht ufroe gemäiss Artikel 7 vum Gesetz vum 21. September 2006."
-    }
+    },
+    "postTravauxToggle": "Wat wann ech zousätzlech Aarbechte maachen?",
+    "postTravauxIntro": "Simuléiert den Impakt vun engem Renovatiounsprojet op d'legal Mutt-Obergrenz.",
+    "postTravauxMontant": "Prévu Aarbechtskäschten",
+    "postTravauxAnnee": "Prévu Joer",
+    "postTravauxLoyerAvant": "Aktuell maximal Mutt",
+    "postTravauxLoyerApres": "Maximal Mutt nom Aarbechten",
+    "postTravauxGain": "Monatleche Gewënn",
+    "postTravauxNote": "Post-Aarbechten-Obergrenz nëmme gülteg wann d'Aarbechten Verbesserungen sinn."
   },
   "achatLocation": {
     "title": "Kafen oder Lounen zu Lëtzebuerg",
@@ -1916,7 +1924,15 @@
       "faq4A": "No den CSSF-Empfehlungen zu Klimarisiken intégréieren lëtzebuergsch Banke schrëttweis d'Energieeffizienz an hir Vergabekritären. Eng Immobilie mat Klass A-B kann vu Virdeel skonditiounen profitéieren. Ëmgekéiert ginn Immobilien vun de Klassen F-G verstäerkt gepréift.",
       "faq5Q": "Kann een en Immobiliekredit zu Lëtzebuerg ëmschulden?",
       "faq5A": "Jo, eng Ëmschuldung ass méiglech a kann virdeel haft sinn wann d'Zënse gefall sinn. Käschten: Virfällegkeetsent schädegung (begrenzt op 6 Monatszënsen oder 1 % vum zréckbezueltem Kapital), Käschte fir d'Läschung vun der Hypo théik an Käschte fir d'nei Hypothéikeregistréierung."
-    }
+    },
+    "ratesHistoryTitle": "Zëns-Historique (8 Joer)",
+    "ratesHistorySubtitle": "BCE Leitzëns, OAT 10J, LU Hypothéik Duerchschnëtt, HVPI-Inflatioun — Joeresentwécklung",
+    "ratesHistoryPublicData": "Ëffentlech Donnéeë BCE / STATEC",
+    "rateBCE": "BCE Leitzëns",
+    "rateOAT": "OAT 10J (Benchmark)",
+    "rateHypo": "LU Hypothéik Ø",
+    "rateInflation": "HVPI-Inflatioun",
+    "ratesHistoryNote": "Quellen: BCE, Bloomberg, BCL, STATEC. Joeresdurchschnëtter."
   },
   "bilanPromoteur": {
     "title": "Bauträger-Bilanz",
@@ -4940,7 +4956,16 @@
     "retardChantierHint": "Bei Verzögerung vun der Iwwergab huet d'Bank de Kredit schonn komplett ausbezuelt: Zwëschenzënsen lafen op de volle Capital weider bis zur Iwwergab an zum Ufank vun der Tilgung.",
     "retardSurcout": "Extra Zënsen",
     "retardTotalIntercalaires": "Total Zwëschenzënsen (mat Verzögerung)",
-    "retardParMois": "Käschten pro Verzögerungsmount"
+    "retardParMois": "Käschten pro Verzögerungsmount",
+    "gfaTitle": "Finanziell Fäerdegstellungsgarantie (GFA)",
+    "gfaSubtitle": "Obligatoresch fir VEFA-Promotiounen. Schützt d'Kafieder géint Promoteur-Defailance.",
+    "gfaType": "Typ vun der Garantie",
+    "gfaExtrinseque": "Extern GFA (Bank/Assureur)",
+    "gfaIntrinseque": "Intrinsesch GFA (Eegemëttelen)",
+    "gfaPrime": "GFA-Prime (% Gesamtpräis)",
+    "gfaPrimeEstimee": "Geschätzten GFA-Prime",
+    "gfaExtrinsequeNote": "Prime vum Kafieder via Verkafspräis un de Promoteur.",
+    "gfaIntrinsequeNote": "Keng extern Prime — Promoteur beweist Bonitéit."
   },
   "propcalc": {
     "badge": "Gratis WordPress-Plugin",

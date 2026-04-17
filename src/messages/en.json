@@ -1364,7 +1364,15 @@
       "faq4a": "The law does not provide for a specific surcharge for furnished properties. However, the value of furniture can be included in invested capital if justified by invoices.",
       "faq5q": "How can I challenge an excessive rent?",
       "faq5a": "The tenant can apply to the justice of the peace under Article 7 of the law of 21 September 2006. The judge can order a rent reduction if it exceeds the legal cap."
-    }
+    },
+    "postTravauxToggle": "What if I do additional renovations?",
+    "postTravauxIntro": "Simulate the impact of a planned renovation on the legal rent cap. The revaluation coefficient of the planned year is applied.",
+    "postTravauxMontant": "Planned renovation amount",
+    "postTravauxAnnee": "Planned year",
+    "postTravauxLoyerAvant": "Current max rent",
+    "postTravauxLoyerApres": "Post-renovation max rent",
+    "postTravauxGain": "Monthly gain",
+    "postTravauxNote": "Post-renovation cap only valid if renovations are improvements (energy retrofit Klimabonus, extension, modernization). Routine maintenance does not count. Keep invoices + authorizations."
   },
   "achatLocation": {
     "title": "Buy or Rent in Luxembourg",
@@ -1916,7 +1924,15 @@
       "faq4A": "Following CSSF recommendations on climate risks, Luxembourg banks are progressively integrating energy performance into their lending criteria. A property rated A-B may benefit from preferential conditions (rate reduction of 10 to 30 bps). Conversely, properties rated F-G (energy sieves) undergo enhanced analysis, sometimes with an appraisal discount and provisioning for energy renovation costs.",
       "faq5Q": "Can I refinance a mortgage in Luxembourg?",
       "faq5A": "Yes, refinancing is possible and can be advantageous if rates have fallen since origination. Costs to anticipate include: the early repayment indemnity (IRA, capped at 6 months' interest or 1% of repaid capital under the Consumer Code), mortgage release fees (approximately EUR 500 to 1,000), and new mortgage registration fees. The profitability calculation depends on the rate differential, outstanding capital and residual duration."
-    }
+    },
+    "ratesHistoryTitle": "Rates history (8 years)",
+    "ratesHistorySubtitle": "ECB main refi, OAT 10Y, LU average mortgage rate, HICP inflation — annual evolution",
+    "ratesHistoryPublicData": "Public data ECB / STATEC",
+    "rateBCE": "ECB main refi",
+    "rateOAT": "OAT 10Y (benchmark)",
+    "rateHypo": "LU average mortgage",
+    "rateInflation": "HICP inflation",
+    "ratesHistoryNote": "Sources: ECB (main refi), Bloomberg (OAT FR), BCL (LU avg mortgage), STATEC (inflation). Rates shown are annual averages."
   },
   "bilanPromoteur": {
     "title": "Developer Feasibility",
@@ -4940,7 +4956,16 @@
     "retardChantierHint": "If delivery is delayed, the bank has already released the full loan: intercalary interest keeps accruing on the full capital until the completion guarantee is released and amortization begins.",
     "retardSurcout": "Extra interest",
     "retardTotalIntercalaires": "Total intercalary (with delay)",
-    "retardParMois": "Cost per delay month"
+    "retardParMois": "Cost per delay month",
+    "gfaTitle": "Completion Guarantee (GFA)",
+    "gfaSubtitle": "Mandatory for VEFA developments. Protects buyers against developer default.",
+    "gfaType": "Guarantee type",
+    "gfaExtrinseque": "External GFA (bank/insurer)",
+    "gfaIntrinseque": "Intrinsic GFA (developer own funds)",
+    "gfaPrime": "GFA premium rate (% of total price)",
+    "gfaPrimeEstimee": "Estimated GFA premium",
+    "gfaExtrinsequeNote": "Premium paid to developer by buyer via sale price. Bank guarantee or insurance covering completion cost. LU standard.",
+    "gfaIntrinsequeNote": "No external premium — developer proves strength (own funds ≥ 75 % of construction cost, no bank loan). Rarer, used for small projects."
   },
   "propcalc": {
     "badge": "Free WordPress Plugin",

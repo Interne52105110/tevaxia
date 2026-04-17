@@ -53,6 +53,10 @@ export default function VefaCalculator() {
   const [tauxHypotheque, setTauxHypotheque] = useState(3.5); // annual rate in %
   const [retardMois, setRetardMois] = useState(0); // retard chantier en mois
 
+  // GFA (Garantie Financière d'Achèvement)
+  const [gfaType, setGfaType] = useState<"extrinseque" | "intrinseque">("extrinseque");
+  const [gfaTauxPrime, setGfaTauxPrime] = useState(0.8); // % du prix, varie 0.5-2 %
+
   // ── Customizable milestone percentages ──────────────────────
   const [milestonePcts, setMilestonePcts] = useState<number[]>(
     DEFAULT_MILESTONES.map((m) => m.defaultPct)
@@ -550,6 +554,63 @@ export default function VefaCalculator() {
                     pctPrix: prixTotal > 0 ? formatPct(calc.totalIntercalaire / prixTotal) : "— %",
                   })}
                 </p>
+              </div>
+
+              {/* Garantie Financière d'Achèvement (GFA) */}
+              <div className="mt-4 rounded-lg border border-indigo-200 bg-indigo-50 p-4">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <div>
+                    <div className="text-xs font-semibold text-indigo-900">{t("gfaTitle")}</div>
+                    <p className="text-[11px] text-indigo-800">{t("gfaSubtitle")}</p>
+                  </div>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 mb-3">
+                  <label className="text-xs">
+                    <div className="mb-1 font-medium text-indigo-900">{t("gfaType")}</div>
+                    <select
+                      value={gfaType}
+                      onChange={(e) => setGfaType(e.target.value as "extrinseque" | "intrinseque")}
+                      className="w-full rounded-md border border-indigo-200 bg-white px-2 py-1"
+                    >
+                      <option value="extrinseque">{t("gfaExtrinseque")}</option>
+                      <option value="intrinseque">{t("gfaIntrinseque")}</option>
+                    </select>
+                  </label>
+                  {gfaType === "extrinseque" && (
+                    <label className="text-xs">
+                      <div className="mb-1 font-medium text-indigo-900">{t("gfaPrime")}</div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="range"
+                          min={0.3}
+                          max={2.0}
+                          step={0.1}
+                          value={gfaTauxPrime}
+                          onChange={(e) => setGfaTauxPrime(Number(e.target.value))}
+                          className="flex-1"
+                        />
+                        <span className="font-mono font-bold text-indigo-900">{gfaTauxPrime.toFixed(1)} %</span>
+                      </div>
+                    </label>
+                  )}
+                </div>
+                {gfaType === "extrinseque" ? (
+                  <div className="rounded bg-white p-2 border border-indigo-200 text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted">{t("gfaPrimeEstimee")}</span>
+                      <span className="font-mono font-bold text-indigo-900">{formatEUR(prixTotal * (gfaTauxPrime / 100))}</span>
+                    </div>
+                    <p className="mt-1.5 text-[11px] text-muted">{t("gfaExtrinsequeNote")}</p>
+                  </div>
+                ) : (
+                  <div className="rounded bg-white p-2 border border-indigo-200 text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted">{t("gfaPrimeEstimee")}</span>
+                      <span className="font-mono font-bold text-emerald-700">0 €</span>
+                    </div>
+                    <p className="mt-1.5 text-[11px] text-muted">{t("gfaIntrinsequeNote")}</p>
+                  </div>
+                )}
               </div>
 
               {/* Simulateur retard chantier */}
