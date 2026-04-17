@@ -1103,6 +1103,7 @@
       "faq5a": "O valor de mercado é o preço teórico que um comprador informado pagaria em condições normais de mercado (definição EVS). O preço de venda real pode divergir consoante a urgência do vendedor e as condições de financiamento do comprador."
     },
     "addToHistory": "Adicionar ao meu histórico",
+    "addressPlaceholder": "Morada (opcional) — para acompanhar este imóvel ao longo do tempo",
     "historyTitle": "Histórico para este município",
     "historyClear": "Limpar tudo",
     "historyVsPrev": "vs estim. anterior",
@@ -1908,7 +1909,9 @@
     "confirmDelete": "Eliminar esta ligação partilhada? Os destinatários deixarão de poder aceder a ela.",
     "expired": "expirada",
     "empty": "Ainda sem ligações partilhadas. Use o botão «Partilhar» a partir de uma ferramenta para criar uma ligação pública.",
-    "note": "Cada consulta da ligação pública (/partage/[token]) é registada com o seu carimbo temporal. Analytics armazenada apenas ao nível do dia, conforme a minimização de dados do RGPD."
+    "note": "Cada consulta da ligação pública (/partage/[token]) é registada com o seu carimbo temporal. Analytics armazenada apenas ao nível do dia, conforme a minimização de dados do RGPD.",
+    "commentsCount": "comentário(s)",
+    "anonymous": "Visitante anónimo"
   },
   "outilsBancaires": {
     "title": "Ferramentas Bancárias",

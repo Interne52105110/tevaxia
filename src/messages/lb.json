@@ -1103,6 +1103,7 @@
       "faq5a": "De Verkéierswäert ass den theoreeteschen Präis deen en informéierten Keefer ënner normale Maartkonditiounen bezuele géif (EVS-Definitioun). Den tatsächleche Verkafspräis kann ofwäichen."
     },
     "addToHistory": "Zu mengem Historique derbäi",
+    "addressPlaceholder": "Adress (optional) — fir dës Immobilie iwwer d'Zäit ze verfollegen",
     "historyTitle": "Historique fir dës Gemeng",
     "historyClear": "Alles läschen",
     "historyVsPrev": "vs virescht Estim.",
@@ -1908,7 +1909,9 @@
     "confirmDelete": "Dëse gedeelten Link läschen? Déi Empfänger kënnen deem net méi zougräifen.",
     "expired": "ofgelaaf",
     "empty": "Nach keng gedeelt Linken. Benotzt de Knäppchen „Deelen“ vun engem Tool fir en ëffentleche Link ze erstellen.",
-    "note": "All Consultatioun vum ëffentleche Link (/partage/[token]) gëtt mat Zäitstempel protokolléiert. D'Analytics gëtt nëmmen op Deeg-Niveau gespäichert, no der DSGVO-Datereduktioun."
+    "note": "All Consultatioun vum ëffentleche Link (/partage/[token]) gëtt mat Zäitstempel protokolléiert. D'Analytics gëtt nëmmen op Deeg-Niveau gespäichert, no der DSGVO-Datereduktioun.",
+    "commentsCount": "Kommentar(en)",
+    "anonymous": "Anonyme Besucher"
   },
   "outilsBancaires": {
     "title": "Bankinstrumenter",

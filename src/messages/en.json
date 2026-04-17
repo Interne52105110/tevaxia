@@ -1103,6 +1103,7 @@
       "faq5a": "Market value is the theoretical price an informed buyer would pay under normal market conditions (EVS definition). The actual sale price may deviate depending on the seller's urgency, marketing quality and the buyer's financing conditions. In Luxembourg, the average gap is ±5% in a balanced market."
     },
     "addToHistory": "Add to my history",
+    "addressPlaceholder": "Address (optional) — to track this property over time",
     "historyTitle": "History for this commune",
     "historyClear": "Clear all",
     "historyVsPrev": "vs prev. estim.",
@@ -1908,7 +1909,9 @@
     "confirmDelete": "Delete this shared link? Recipients will no longer be able to access it.",
     "expired": "expired",
     "empty": "No shared links yet. Use the 'Share' button from a tool to create a public link.",
-    "note": "Each consultation of the public link (/partage/[token]) is logged with its timestamp. Analytics stored at day granularity only, per GDPR data minimisation."
+    "note": "Each consultation of the public link (/partage/[token]) is logged with its timestamp. Analytics stored at day granularity only, per GDPR data minimisation.",
+    "commentsCount": "comment(s)",
+    "anonymous": "Anonymous visitor"
   },
   "outilsBancaires": {
     "title": "Banking Tools",

@@ -4,8 +4,90 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLocale } from "next-intl";
-import { fetchSharedLinkByToken, type SharedLinkPublic } from "@/lib/shared-links";
+import { fetchSharedLinkByToken, postSharedLinkComment, type SharedLinkPublic } from "@/lib/shared-links";
 import { isSupabaseConfigured } from "@/lib/supabase";
+
+function CommentForm({ token }: { token: string }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errKey, setErrKey] = useState<string>("");
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!message.trim()) return;
+    setStatus("sending");
+    const res = await postSharedLinkComment({
+      token,
+      message: message.trim(),
+      visitorName: name.trim() || undefined,
+      visitorEmail: email.trim() || undefined,
+    });
+    if (res.success) {
+      setStatus("sent");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } else {
+      setStatus("error");
+      setErrKey(res.error ?? "unknown");
+    }
+  }
+
+  return (
+    <div className="mt-8 rounded-xl border border-card-border bg-card p-5 shadow-sm print:hidden">
+      <h3 className="text-sm font-semibold text-navy">Une question, un commentaire ?</h3>
+      <p className="mt-0.5 text-xs text-muted">
+        Laissez un message à l&apos;auteur de ce partage. Sans inscription. Le nom et l&apos;email sont optionnels.
+      </p>
+      <form onSubmit={onSubmit} className="mt-3 space-y-2">
+        <div className="grid gap-2 sm:grid-cols-2">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Votre nom (optionnel)"
+            maxLength={100}
+            className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
+          />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Votre email (optionnel)"
+            maxLength={200}
+            className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
+          />
+        </div>
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Votre question ou commentaire"
+          rows={3}
+          maxLength={4000}
+          required
+          className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
+        />
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[10px] text-muted">
+            {status === "sent" && <span className="text-emerald-700 font-medium">✓ Envoyé. Merci !</span>}
+            {status === "error" && errKey === "rate_limited" && <span className="text-amber-700">Merci d&apos;attendre 1 minute entre 2 commentaires.</span>}
+            {status === "error" && errKey !== "rate_limited" && <span className="text-rose-700">Erreur lors de l&apos;envoi.</span>}
+            {status === "idle" && `${message.length} / 4000 caractères`}
+          </p>
+          <button
+            type="submit"
+            disabled={status === "sending" || !message.trim()}
+            className="rounded-lg bg-navy px-4 py-2 text-xs font-semibold text-white hover:bg-navy-light disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {status === "sending" ? "Envoi…" : "Envoyer"}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
 
 function formatEUR(n: number | undefined | null): string {
   if (n == null || !isFinite(n)) return "—";
@@ -622,6 +704,8 @@ export default function SharedPage() {
           Pour vérifier ou refaire ce calcul,{" "}
           <Link href={`${lp}/bilan-promoteur`} className="underline hover:no-underline">accédez au calculateur</Link>.
         </div>
+
+        <CommentForm token={token} />
       </div>
     </div>
   );

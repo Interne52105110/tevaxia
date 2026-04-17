@@ -112,3 +112,40 @@ export async function fetchSharedLinkTimeline(
   if (!payload?.success) return [];
   return payload.timeline ?? [];
 }
+
+export interface SharedLinkComment {
+  id: string;
+  visitor_name: string | null;
+  visitor_email: string | null;
+  message: string;
+  created_at: string;
+}
+
+export type PostCommentError = "empty_message" | "message_too_long" | "not_found" | "expired" | "rate_limited";
+
+export async function postSharedLinkComment(input: {
+  token: string;
+  message: string;
+  visitorName?: string;
+  visitorEmail?: string;
+}): Promise<{ success: boolean; error?: PostCommentError }> {
+  const client = ensureClient();
+  const { data, error } = await client.rpc("post_shared_link_comment", {
+    p_token: input.token,
+    p_message: input.message,
+    p_visitor_name: input.visitorName ?? null,
+    p_visitor_email: input.visitorEmail ?? null,
+  });
+  if (error) return { success: false, error: "not_found" };
+  const payload = data as { success?: boolean; error?: PostCommentError };
+  return { success: !!payload?.success, error: payload?.error };
+}
+
+export async function listSharedLinkComments(linkId: string): Promise<SharedLinkComment[]> {
+  const client = ensureClient();
+  const { data, error } = await client.rpc("list_shared_link_comments", { p_link_id: linkId });
+  if (error) return [];
+  const payload = data as { success?: boolean; comments?: SharedLinkComment[] };
+  if (!payload?.success) return [];
+  return payload.comments ?? [];
+}

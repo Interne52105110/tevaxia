@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
@@ -9,9 +9,11 @@ import {
   listMySharedLinks,
   deleteSharedLink,
   fetchSharedLinkTimeline,
+  listSharedLinkComments,
   buildSharedLinkUrl,
   type SharedLink,
   type SharedLinkTimelineDay,
+  type SharedLinkComment,
 } from "@/lib/shared-links";
 
 function fmtDate(s: string): string {
@@ -51,6 +53,8 @@ export default function LiensPartagesPage() {
   const { user, loading: authLoading } = useAuth();
   const [links, setLinks] = useState<SharedLink[]>([]);
   const [timelines, setTimelines] = useState<Record<string, SharedLinkTimelineDay[]>>({});
+  const [commentsByLink, setCommentsByLink] = useState<Record<string, SharedLinkComment[]>>({});
+  const [expandedLink, setExpandedLink] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -65,19 +69,32 @@ export default function LiensPartagesPage() {
         const data = await listMySharedLinks();
         if (cancel) return;
         setLinks(data);
-        // Fetch timelines in parallel
-        const entries = await Promise.all(
-          data.map(async (l) => {
-            try {
-              const tl = await fetchSharedLinkTimeline(l.id, 30);
-              return [l.id, tl] as const;
-            } catch {
-              return [l.id, [] as SharedLinkTimelineDay[]] as const;
-            }
-          }),
-        );
+        // Fetch timelines + comments in parallel
+        const [tlEntries, cmEntries] = await Promise.all([
+          Promise.all(
+            data.map(async (l) => {
+              try {
+                const tl = await fetchSharedLinkTimeline(l.id, 30);
+                return [l.id, tl] as const;
+              } catch {
+                return [l.id, [] as SharedLinkTimelineDay[]] as const;
+              }
+            }),
+          ),
+          Promise.all(
+            data.map(async (l) => {
+              try {
+                const c = await listSharedLinkComments(l.id);
+                return [l.id, c] as const;
+              } catch {
+                return [l.id, [] as SharedLinkComment[]] as const;
+              }
+            }),
+          ),
+        ]);
         if (cancel) return;
-        setTimelines(Object.fromEntries(entries));
+        setTimelines(Object.fromEntries(tlEntries));
+        setCommentsByLink(Object.fromEntries(cmEntries));
       } catch (e) {
         if (!cancel) setError(e instanceof Error ? e.message : String(e));
       } finally {
@@ -182,39 +199,86 @@ export default function LiensPartagesPage() {
               {links.map((l) => {
                 const expired = new Date(l.expires_at) < new Date();
                 const url = buildSharedLinkUrl(l.token);
+                const comments = commentsByLink[l.id] ?? [];
+                const isExpanded = expandedLink === l.id;
                 return (
-                  <tr key={l.id} className="border-b border-card-border/50 hover:bg-background/40">
-                    <td className="px-4 py-3">
-                      <span className="inline-flex rounded-full bg-navy/10 px-2 py-0.5 text-[11px] font-mono text-navy">
-                        {l.tool_type}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <a href={url} target="_blank" rel="noopener noreferrer" className="text-navy hover:underline">
-                        {l.title || t("untitled")}
-                      </a>
-                      <div className="text-[10px] text-muted font-mono">{l.token.slice(0, 12)}…</div>
-                    </td>
-                    <td className="px-4 py-3 text-right font-mono font-semibold text-navy">
-                      {l.view_count}
-                      {l.max_views && <span className="text-muted"> / {l.max_views}</span>}
-                    </td>
-                    <td className="px-4 py-3">
-                      <Sparkline data={timelines[l.id] ?? []} />
-                    </td>
-                    <td className={`px-4 py-3 text-xs ${expired ? "text-rose-700 font-semibold" : "text-muted"}`}>
-                      {fmtDate(l.expires_at)}
-                      {expired && <span className="ml-1">({t("expired")})</span>}
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <button
-                        onClick={() => onDelete(l.id)}
-                        className="text-xs text-rose-700 hover:underline"
-                      >
-                        {t("delete")}
-                      </button>
-                    </td>
-                  </tr>
+                  <Fragment key={l.id}>
+                    <tr className="border-b border-card-border/50 hover:bg-background/40">
+                      <td className="px-4 py-3">
+                        <span className="inline-flex rounded-full bg-navy/10 px-2 py-0.5 text-[11px] font-mono text-navy">
+                          {l.tool_type}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <a href={url} target="_blank" rel="noopener noreferrer" className="text-navy hover:underline">
+                          {l.title || t("untitled")}
+                        </a>
+                        <div className="text-[10px] text-muted font-mono">{l.token.slice(0, 12)}…</div>
+                        {comments.length > 0 && (
+                          <button
+                            onClick={() => setExpandedLink(isExpanded ? null : l.id)}
+                            className="mt-1 inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] text-emerald-800 hover:bg-emerald-100"
+                          >
+                            💬 {comments.length} {t("commentsCount")}
+                            <span className="ml-0.5">{isExpanded ? "▲" : "▼"}</span>
+                          </button>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-right font-mono font-semibold text-navy">
+                        {l.view_count}
+                        {l.max_views && <span className="text-muted"> / {l.max_views}</span>}
+                      </td>
+                      <td className="px-4 py-3">
+                        <Sparkline data={timelines[l.id] ?? []} />
+                      </td>
+                      <td className={`px-4 py-3 text-xs ${expired ? "text-rose-700 font-semibold" : "text-muted"}`}>
+                        {fmtDate(l.expires_at)}
+                        {expired && <span className="ml-1">({t("expired")})</span>}
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          onClick={() => onDelete(l.id)}
+                          className="text-xs text-rose-700 hover:underline"
+                        >
+                          {t("delete")}
+                        </button>
+                      </td>
+                    </tr>
+                    {isExpanded && comments.length > 0 && (
+                      <tr className="border-b border-card-border/50 bg-emerald-50/30">
+                        <td colSpan={6} className="px-4 py-3">
+                          <div className="space-y-2">
+                            {comments.map((c) => (
+                              <div key={c.id} className="rounded-lg border border-emerald-200 bg-white p-2.5">
+                                <div className="flex items-start justify-between gap-2 text-[11px]">
+                                  <div>
+                                    <span className="font-semibold text-navy">
+                                      {c.visitor_name || t("anonymous")}
+                                    </span>
+                                    {c.visitor_email && (
+                                      <a
+                                        href={`mailto:${c.visitor_email}?subject=${encodeURIComponent(l.title || "votre question")}`}
+                                        className="ml-2 text-navy hover:underline"
+                                      >
+                                        {c.visitor_email}
+                                      </a>
+                                    )}
+                                  </div>
+                                  <span className="text-muted font-mono">
+                                    {new Date(c.created_at).toLocaleString("fr-LU", {
+                                      dateStyle: "short",
+                                      timeStyle: "short",
+                                    })}
+                                  </span>
+                                </div>
+                                <p className="mt-1.5 whitespace-pre-wrap text-xs text-slate">{c.message}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
                 );
               })}
             </tbody>

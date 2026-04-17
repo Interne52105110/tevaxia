@@ -1103,6 +1103,7 @@
       "faq5a": "La valeur vénale est le prix théorique qu'un acheteur informé paierait dans des conditions normales de marché (définition EVS). Le prix de vente réel peut s'en écarter selon l'urgence du vendeur, la qualité de la commercialisation et les conditions de financement de l'acheteur. Au Luxembourg, l'écart moyen est de ±5 % en marché équilibré."
     },
     "addToHistory": "Ajouter à mon historique",
+    "addressPlaceholder": "Adresse (optionnel) — pour tracker ce bien dans le temps",
     "historyTitle": "Historique pour cette commune",
     "historyClear": "Effacer tout",
     "historyVsPrev": "vs estim. précédente",
@@ -1908,7 +1909,9 @@
     "confirmDelete": "Supprimer ce lien partagé ? Les bénéficiaires ne pourront plus y accéder.",
     "expired": "expiré",
     "empty": "Aucun lien partagé pour l'instant. Utilisez le bouton « Partager » depuis un outil pour créer un lien public.",
-    "note": "Chaque consultation du lien public (/partage/[token]) est loggée avec son horodatage. Analytics stockée uniquement au niveau jour, conformément au RGPD (minimisation des données)."
+    "note": "Chaque consultation du lien public (/partage/[token]) est loggée avec son horodatage. Analytics stockée uniquement au niveau jour, conformément au RGPD (minimisation des données).",
+    "commentsCount": "commentaire(s)",
+    "anonymous": "Visiteur anonyme"
   },
   "outilsBancaires": {
     "title": "Outils bancaires",

@@ -52,11 +52,13 @@ export default function Estimation() {
     date: string;
     commune: string;
     quartier?: string;
+    adresse?: string;
     surface: number;
     estimationCentrale: number;
     prixM2Ajuste: number;
     classeEnergie: string;
   }
+  const [adresseInput, setAdresseInput] = useState("");
   const HISTORY_KEY = "tevaxia_estimation_history";
   const [history, setHistory] = useState<HistoryEntry[]>([]);
 
@@ -73,11 +75,13 @@ export default function Estimation() {
 
   const saveToHistory = () => {
     if (!selectedResult || !result) return;
+    const adresse = adresseInput.trim() || undefined;
     const entry: HistoryEntry = {
       id: `est-${Date.now()}`,
       date: new Date().toISOString(),
       commune: selectedResult.commune.commune,
       quartier: selectedResult.quartier?.nom,
+      adresse,
       surface,
       estimationCentrale: result.estimationCentrale,
       prixM2Ajuste: result.prixM2Ajuste,
@@ -340,19 +344,31 @@ export default function Estimation() {
                 <div className="mt-3 text-xs text-white/50">
                   {t("prixM2Detail", { prixM2: result.prixM2Ajuste, surface })}
                 </div>
-                <button
-                  onClick={saveToHistory}
-                  className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-white/10 hover:bg-white/20 px-3 py-1.5 text-xs font-semibold text-white border border-white/20"
-                >
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                  </svg>
-                  {t("addToHistory")}
-                </button>
+                <div className="mt-4 flex flex-col sm:flex-row gap-2 items-stretch">
+                  <input
+                    type="text"
+                    value={adresseInput}
+                    onChange={(e) => setAdresseInput(e.target.value)}
+                    placeholder={t("addressPlaceholder")}
+                    className="flex-1 rounded-lg bg-white/10 px-3 py-1.5 text-xs text-white placeholder-white/50 border border-white/20 focus:outline-none focus:ring-1 focus:ring-white/40"
+                  />
+                  <button
+                    onClick={saveToHistory}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 hover:bg-white/20 px-3 py-1.5 text-xs font-semibold text-white border border-white/20 whitespace-nowrap"
+                  >
+                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    {t("addToHistory")}
+                  </button>
+                </div>
               </div>
 
               {/* Historique des estimations pour cette adresse */}
-              {history.filter((h) => h.commune === selectedResult?.commune.commune).length > 0 && (
+              {history.filter((h) => adresseInput.trim()
+                ? (h.adresse?.toLowerCase() === adresseInput.trim().toLowerCase())
+                : h.commune === selectedResult?.commune.commune
+              ).length > 0 && (
                 <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-sm font-semibold text-navy">{t("historyTitle")}</h3>
@@ -361,7 +377,10 @@ export default function Estimation() {
                     </button>
                   </div>
                   <div className="space-y-2">
-                    {history.filter((h) => h.commune === selectedResult?.commune.commune).slice(0, 5).map((h, idx, arr) => {
+                    {history.filter((h) => adresseInput.trim()
+                      ? (h.adresse?.toLowerCase() === adresseInput.trim().toLowerCase())
+                      : h.commune === selectedResult?.commune.commune
+                    ).slice(0, 5).map((h, idx, arr) => {
                       const prev = arr[idx + 1];
                       const deltaPct = prev ? ((h.estimationCentrale - prev.estimationCentrale) / prev.estimationCentrale) * 100 : null;
                       return (
@@ -369,7 +388,8 @@ export default function Estimation() {
                           <div className="flex-1 min-w-0">
                             <div className="font-medium text-navy">
                               {new Date(h.date).toLocaleDateString("fr-LU", { year: "numeric", month: "short", day: "numeric" })}
-                              {h.quartier && <span className="ml-1 text-muted">· {h.quartier}</span>}
+                              {h.adresse && <span className="ml-1 text-muted">· {h.adresse}</span>}
+                              {!h.adresse && h.quartier && <span className="ml-1 text-muted">· {h.quartier}</span>}
                             </div>
                             <div className="text-[10px] text-muted">
                               {h.surface} m² · {h.classeEnergie} · {Math.round(h.prixM2Ajuste).toLocaleString("fr-LU")} €/m²

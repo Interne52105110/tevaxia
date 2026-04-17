@@ -1103,6 +1103,7 @@
       "faq5a": "Der Verkehrswert ist der theoretische Preis, den ein informierter Käufer unter normalen Marktbedingungen zahlen würde (EVS-Definition). Der tatsächliche Verkaufspreis kann je nach Dringlichkeit des Verkäufers, Vermarktungsqualität und Finanzierungsbedingungen des Käufers abweichen. In Luxemburg beträgt die durchschnittliche Abweichung ±5 % in einem ausgeglichenen Markt."
     },
     "addToHistory": "Zu meiner Historie hinzufügen",
+    "addressPlaceholder": "Adresse (optional) — um diese Immobilie über die Zeit zu verfolgen",
     "historyTitle": "Historie für diese Gemeinde",
     "historyClear": "Alles löschen",
     "historyVsPrev": "vs vorh. Sch.",
@@ -1908,7 +1909,9 @@
     "confirmDelete": "Diesen geteilten Link löschen? Empfänger können dann nicht mehr darauf zugreifen.",
     "expired": "abgelaufen",
     "empty": "Noch keine geteilten Links. Nutzen Sie die Schaltfläche „Teilen“ aus einem Tool, um einen öffentlichen Link zu erstellen.",
-    "note": "Jeder Aufruf des öffentlichen Links (/partage/[token]) wird mit Zeitstempel protokolliert. Analytics werden nur auf Tagesebene gespeichert, gemäß DSGVO-Datenminimierung."
+    "note": "Jeder Aufruf des öffentlichen Links (/partage/[token]) wird mit Zeitstempel protokolliert. Analytics werden nur auf Tagesebene gespeichert, gemäß DSGVO-Datenminimierung.",
+    "commentsCount": "Kommentar(e)",
+    "anonymous": "Anonymer Besucher"
   },
   "outilsBancaires": {
     "title": "Bankwerkzeuge",
