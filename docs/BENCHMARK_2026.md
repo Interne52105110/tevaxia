@@ -1093,13 +1093,19 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 |---|---|---|
 | ✅ **/dcf-multi matrice sensibilité 5×5** cap rate × discount rate (±2pp), Argus-style | DCF | `ffc3809` |
 | ✅ **/dcf-multi 4 stress tests pré-configurés** (occupation -20 %, loyer -10 %, taux +200bp, combiné) | DCF | `be040ef` |
+| ✅ **/dcf-multi import CSV portefeuille baux** + template téléchargeable | DCF | `9917246` |
 | ✅ **/frais-acquisition cas non-résident** (checkbox + disclaimer convention fiscale LU-FR/BE/DE) | Frais | `ffc3809` |
+| ✅ **/frais-acquisition achat via société** (SCI/SARL-S) — 5 spécificités fiscales IRC/ICC/amortissement/retenue | Frais | `f92dc1a` |
 | ✅ **/bilan-promoteur tornado chart** ±10 % sur 8 variables, triées par amplitude | Promoteur | `ffc3809` |
 | ✅ **/vefa retard chantier** (slider 0-24 mois) + surcoût intérêts intercalaires | VEFA | `acde524` |
 | ✅ **/partage/[token] bouton Imprimer/PDF** (print CSS, `print:hidden` contrôles) | Partage | `acde524` |
 | ✅ **/portfolio cash flow 12 mois glissants** — barres empilées + ligne nette, saisonnalité LU | Portfolio | `dc14078` |
 | ✅ **/simulateur-aides badge Barèmes vérifiés** (date dernière vérification visible) | Aides | `be040ef` |
-| ✅ **/terres-agricoles viticulture AOP Moselle** — table cépages/zones (Grand 1er Cru → bases) | Agricole | (ce commit) |
+| ✅ **/terres-agricoles viticulture AOP Moselle** — table cépages/zones (Grand 1er Cru → bases) | Agricole | `43fbf63` |
+| ✅ **/hedonique badge calibration Q1 2026** + lien méthodologie publique | Hédonique | `cbf0d38` |
+| ✅ **/valorisation EVS 3 templates rapport** — standard / bancaire MLV / judiciaire / succession + commissionnaire | EVS | `98f9eff` |
+| ✅ **/estimateur-construction bordereau CSV/Excel** — export par corps de métier prêt à envoyer aux entreprises | Construction | `9917246` |
+| ✅ **/plus-values report d'imposition** (art. 102 LIR) — toggle + 4 conditions + impact trésorerie | PV | `5916d2d` |
 
 ### Déjà couvert (vérifications réalisées)
 
@@ -1144,6 +1150,6 @@ Ce benchmark s'appuie sur :
 - Sources fiscales LU STR : Airbnb Tax Guide Luxembourg 2026 (PwC), guichet.lu, Delano.lu articles 2024-2025 sur régulation Airbnb LU
 - Retours utilisateurs early adopters (conversations avec 3 agences LU, 1 banque régionale, 2 évaluateurs TEGOVA)
 
-**Dernière mise à jour** : 2026-04-17 (nocturne autonome + après-midi : 9 gaps BENCHMARK_2026 additionnels livrés).
+**Dernière mise à jour** : 2026-04-17 (nocturne autonome + après-midi : 15 gaps BENCHMARK_2026 additionnels livrés).
 
 **Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4) ou plus tôt si entrée en vigueur EU STR Regulation / projet loi 7763.
