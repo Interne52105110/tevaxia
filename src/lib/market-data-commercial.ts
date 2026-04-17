@@ -212,8 +212,8 @@ export const HOUSES_MARKET = {
 // ============================================================
 
 export const MACRO_DATA = {
-  tauxHypothecaire: { taux: 3.15, date: "Déc 2025", source: "BCL" },
-  indiceCoutConstruction: { evolution: "+1.3% semestriel", date: "Avril 2025", source: "STATEC" },
+  tauxHypothecaire: { taux: 3.05, date: "Mars 2026", source: "BCL" },
+  indiceCoutConstruction: { evolution: "+1.2% semestriel", date: "Oct 2025", source: "STATEC" },
   rendementLocatifResidentiel: { brut: "3.1-3.5%", source: "Observatoire Rapport #13" },
   investissementCRE2025: { total: 839_000_000, bureaux: 0.40, retail: 0.22, logistique: 0.15, autre: 0.23 },
   sources: [

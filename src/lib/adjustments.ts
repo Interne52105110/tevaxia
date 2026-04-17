@@ -108,7 +108,7 @@ export const INDICES_PRIX_ANNUELS: Record<number, number> = {
 
 // Calcul de l'ajustement date : ramener le comparable à la date de valeur
 // Si le comparable a été vendu il y a 2 ans et les prix ont monté de 5%, ajust = +5%
-export function calculerAjustDate(dateVenteComparable: string, dateValeur: string = "2025-06"): {
+export function calculerAjustDate(dateVenteComparable: string, dateValeur: string = "2026-04"): {
   ajustement: number;
   detail: string;
 } {
