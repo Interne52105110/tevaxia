@@ -119,6 +119,9 @@ export default function StripeInvoicesSection() {
       <p className="mt-3 text-[10px] text-muted">
         {t("legalNote")}
       </p>
+      <p className="mt-1 text-[10px] text-amber-700">
+        Mode démo : factures de test, pas de TVA ni de numérotation fiscale. Activation prod = enregistrement société.
+      </p>
     </div>
   );
 }

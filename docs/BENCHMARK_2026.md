@@ -1087,6 +1087,28 @@ Ces deux verticaux justifient une roadmap « compte & rôles » dédiée, sépar
 | ✅ **202 nouveaux tests Vitest** (str-forecast 16, str-calc 23, estimation 13, esg 10, evs-checklist 9, energy-comparables 10, macro-data 14, demographics 9, market-data 13, gestion-locative 12, asset-types 10, str-observatoire 13, loyer-observatoire 7, propcalc-mortgage 13, propcalc-amortization 11, propcalc-rental 11, propcalc-buyvsrent 8) | Infra | 17 commits |
 | ✅ **2 smoke tests Playwright** (/str/forecast, /syndic/benchmark) | Infra | `a18dde0` |
 
+## ⏸️ Prérequis enregistrement société (SARL-S LU prévu)
+
+Fonctionnalités fonctionnelles en code + sandbox/demo, activation prod dès incorporation :
+
+| Feature | Statut code | Bloqueur prod |
+|---|---|---|
+| **Stripe paiements** (abonnement Pro) | ✅ intégration complète, test mode actif | Stripe Prod key + compte business + KYB Stripe |
+| **Stripe factures PDF** (/profil) | ✅ endpoints + UI + fallback @react-pdf/renderer | Idem Stripe prod + numéro TVA LU |
+| **Enable Banking PSD2** (réconciliation auto) | ✅ wrapper JWT RS256 + 3 endpoints + page flow | Société enregistrée (Enable Banking exige entité légale pour prod) |
+
+Checklist post-incorporation :
+1. Créer Stripe account business LU, récupérer prod keys → remplacer `STRIPE_SECRET_KEY` côté Vercel
+2. Request production Enable Banking Control Panel → cocher ASPSPs LU (Spuerkeess/BGL/BIL/ING/Raiffeisen/Post)
+3. Mettre à jour mentions légales, CGU, DPA
+4. Retirer les bannières "Mode démo" dans /profil, /gestion-locative/reconciliation/psd2, StripeInvoicesSection
+
+En attendant la société, voies opérationnelles :
+- **Paiements** : reste en démo / pas d&apos;encaissement réel
+- **Réconciliation bancaire** : import manuel CAMT.053 XML ou CSV (déjà fonctionnel sur `/gestion-locative/reconciliation`)
+
+---
+
 ### Livrables 8e session 2026-04-17 (factures Stripe + heatmap + PSD2)
 
 | Chantier | Module | Commit |

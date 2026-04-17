@@ -234,7 +234,13 @@ export default function Psd2Page() {
           </>
         )}
 
-        <div className="mt-8 rounded-xl border border-card-border bg-card p-4 text-xs text-muted">
+        <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-900">
+          <strong>Mode sandbox.</strong> L&apos;intégration technique est prête et fonctionne sur les ASPSPs de test Finlande.
+          Le passage en production (ASPSPs LU réels : Spuerkeess, BGL, BIL, ING…) nécessite l&apos;enregistrement d&apos;une société
+          (SARL-S LU prévue) — Enable Banking demande une entité légale identifiable pour activer le mode prod.
+          En attendant, la <Link href="/gestion-locative/reconciliation" className="underline">réconciliation par import CAMT.053/CSV</Link> est la voie recommandée.
+        </div>
+        <div className="mt-4 rounded-xl border border-card-border bg-card p-4 text-xs text-muted">
           <strong>Cadre légal :</strong> PSD2 Directive UE 2015/2366, DORA, SCA obligatoire. Données bancaires traitées
           par Enable Banking (agrément AISP EU). Tevaxia n&apos;enregistre jamais vos identifiants bancaires.
           Chaque connexion est révocable côté banque.

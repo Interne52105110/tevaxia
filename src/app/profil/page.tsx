@@ -340,6 +340,9 @@ function TierAndExportSection({ user }: { user: { id: string } | null }) {
                 Besoin d&apos;un plafond plus élevé (jusqu&apos;à 10 000 items) ou d&apos;un devis Enterprise ? Contactez-nous à{" "}
                 <a href="mailto:contact@tevaxia.lu?subject=Plan%20Pro" className="text-navy underline hover:no-underline">contact@tevaxia.lu</a>.
               </p>
+              <p className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] text-amber-900">
+                <strong>Mode démo.</strong> Paiements Stripe en test mode, aucun débit réel. Activation prod dès enregistrement société (SARL-S LU prévu).
+              </p>
             </div>
           )}
         </div>
