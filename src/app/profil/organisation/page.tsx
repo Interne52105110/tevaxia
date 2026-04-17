@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import OrgAgencyStats from "@/components/OrgAgencyStats";
 import {
   acceptInvitationToken,
   buildInvitationLink,
@@ -304,6 +305,10 @@ export default function OrgPage() {
               <div className="mt-1 text-xs text-muted">Contact : {activeOrg.contact_email}</div>
             )}
           </div>
+
+          {activeOrg.org_type === "agency" && myRole === "admin" && (
+            <OrgAgencyStats orgId={activeOrg.id} />
+          )}
 
           {/* Members */}
           <div className="rounded-xl border border-card-border bg-card p-5">

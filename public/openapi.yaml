@@ -35,6 +35,14 @@ tags:
     description: Endpoints B2B pour agences immobilières
   - name: PropCalc
     description: Rendement et cashflow multi-pays
+  - name: Evaluation
+    description: MLV, DCF, capitalisation directe (méthodes EVS 2025)
+  - name: Costs
+    description: Frais d'acquisition et taxes
+  - name: Fiscal
+    description: Plus-values, impôts sur revenus locatifs
+  - name: Data
+    description: Données de marché (STATEC, BCL, ICV, Euribor)
 paths:
   /api/v1/estimation:
     options:
@@ -267,6 +275,96 @@ paths:
         "400": { description: Schéma inconnu ou mismatch provider/media }
         "402": { description: "Clé BYOK vision requise" }
         "413": { description: "Fichier > 8 MB" }
+  /api/v1/mlv:
+    post:
+      summary: Valeur de prêt hypothécaire (MLV / CRR)
+      description: "Calcul Mortgage Lending Value selon EN 17503 + CSSF. Abattement prudentiel sur la Market Value."
+      tags: [Evaluation]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [marketValue, assetType]
+              properties:
+                marketValue: { type: number, example: 650000 }
+                assetType: { type: string, enum: [residential, office, retail, industrial, hotel] }
+                abattement: { type: number, description: "Abattement prudentiel ex 0.10 = 10%", example: 0.1 }
+      responses:
+        "200": { description: MLV calculée }
+  /api/v1/dcf:
+    post:
+      summary: DCF multi-locataires (10 ans)
+      description: Discounted cash-flow avec reversion, vacance, index ICL, OpEx. Retourne VAN, TRI, valeur terminale.
+      tags: [Evaluation]
+      responses:
+        "200": { description: "Flux + VAN + TRI" }
+  /api/v1/capitalisation:
+    post:
+      summary: Capitalisation directe
+      description: "VM = NOI / taux de cap. Taux par asset-type LU."
+      tags: [Evaluation]
+      responses:
+        "200": { description: Valeur capitalisée }
+  /api/v1/capital-investi:
+    post:
+      summary: Capital investi total
+      tags: [PropCalc]
+      responses:
+        "200": { description: Total capital (apport + frais + travaux) }
+  /api/v1/frais-acquisition:
+    post:
+      summary: Frais d'acquisition LU
+      description: "Droits d'enregistrement (6/7/10%), frais notaire, TVA logement, Bëllegen Akt."
+      tags: [Costs]
+      responses:
+        "200": { description: Frais détaillés par poste }
+  /api/v1/plus-values:
+    post:
+      summary: Plus-value immobilière LU
+      description: "Art. 99ter LIR, demi-taux, abattement Bëllegen Akt, exonération résidence principale."
+      tags: [Fiscal]
+      responses:
+        "200": { description: Plus-value imposable + impôt }
+  /api/v1/market-data:
+    get:
+      summary: Données marché (STATEC + Euribor + OAT + ICV)
+      description: "Source STATEC, BCL, INSEE. Rafraîchi quotidiennement."
+      tags: [Data]
+      responses:
+        "200": { description: Indicateurs macro LU }
+  /api/v1/propcalc/countries:
+    get:
+      summary: Liste pays supportés PropCalc
+      description: "LU/FR/DE/BE/NL/IT/ES/PT/UK/US avec macro HICP + property growth."
+      tags: [PropCalc]
+      responses:
+        "200": { description: Liste pays + méta }
+  /api/v1/propcalc/cashflow:
+    post:
+      summary: Cashflow locatif multi-pays
+      tags: [PropCalc]
+      responses:
+        "200": { description: Cashflow annuel + cumul 10 ans }
+  /api/v1/propcalc/mortgage:
+    post:
+      summary: Amortissement hypothèque (multi-pays)
+      tags: [PropCalc]
+      responses:
+        "200": { description: Échéancier mensuel/annuel }
+  /api/v1/propcalc/yield:
+    post:
+      summary: Rendement brut + net
+      tags: [PropCalc]
+      responses:
+        "200": { description: Yield calculé }
+  /api/v1/propcalc/fees:
+    post:
+      summary: Frais d'acquisition multi-pays
+      tags: [PropCalc]
+      responses:
+        "200": { description: Frais détaillés par pays }
 components:
   securitySchemes:
     ApiKeyHeader:

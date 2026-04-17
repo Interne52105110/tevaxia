@@ -1109,6 +1109,17 @@ En attendant la société, voies opérationnelles :
 
 ---
 
+### Livrables 9e session 2026-04-17 (OpenAPI + stats agences + tests)
+
+| Chantier | Module | Commit |
+|---|---|---|
+| ✅ **OpenAPI 3.1 étendue** — `public/openapi.yaml` complété avec MLV/DCF/capitalisation/frais/plus-values/market-data/propcalc (×5) | API | pending |
+| ✅ **RPC `org_agency_stats`** (migration 032) — agrège membres + clés + appels/erreurs + top 5 membres + daily bars, security definer admin-only | B2B | pending |
+| ✅ **Composant `OrgAgencyStats`** + intégration `/profil/organisation` (visible uniquement org_type=agency + role admin) | B2B | pending |
+| ✅ **Enable Banking → cert X.509 self-signed** (fix "Wrong signature" du mode sandbox) + script `generate_psd2_keys.mjs` refait via node-forge | Locatif | pending |
+| ✅ **11 tests Vitest enable-banking** (isConfigured, buildJwt header/payload, signature RSA round-trip, Vercel `\n` literal handling, token cache) | Infra | pending |
+| ✅ **Endpoint `/api/psd2/debug`** — retourne JWT décodé + méta config (sans private key) pour diagnostic signature | Locatif | pending |
+
 ### Livrables 8e session 2026-04-17 (factures Stripe + heatmap + PSD2)
 
 | Chantier | Module | Commit |
