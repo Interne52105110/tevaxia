@@ -1091,7 +1091,41 @@ function ReportDocument({ data }: { data: ReportData }) {
 // Exports (same signature as before)
 // ============================================================
 
+// Exposé pour que l'API route SSR puisse réutiliser le même template.
+export { ReportDocument };
+
+/**
+ * Essaie d'abord de générer le PDF côté serveur via /api/valorisation/pdf
+ * (plus rapide sur mobile, bundle client allégé, signature SHA-256 posée
+ * server-side). Tombe sur @react-pdf/renderer client-side si l'API n'est
+ * pas dispo (utilisateur non connecté, réseau HS, erreur 5xx).
+ */
 export async function generateReportBlob(data: ReportData): Promise<Blob> {
+  // Tentative SSR d'abord
+  if (typeof window !== "undefined") {
+    try {
+      const { supabase } = await import("@/lib/supabase");
+      const { data: session } = supabase ? await supabase.auth.getSession() : { data: { session: null } };
+      const token = session?.session?.access_token;
+      if (token) {
+        const resp = await fetch("/api/valorisation/pdf", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+          signal: AbortSignal.timeout(20_000),
+        });
+        if (resp.ok) {
+          return await resp.blob();
+        }
+      }
+    } catch {
+      // fallthrough → client-side
+    }
+  }
+  // Fallback client-side
   const { pdf } = await import("@react-pdf/renderer");
   return pdf(<ReportDocument data={data} />).toBlob();
 }
