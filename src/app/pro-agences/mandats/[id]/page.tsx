@@ -250,6 +250,10 @@ export default function MandateDetailPage() {
             className="rounded-lg border border-indigo-300 bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-900 hover:bg-indigo-100">
             ✍️ Signatures
           </Link>
+          <Link href={`/pro-agences/mandats/${mandate.id}/bon-de-visite`}
+            className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-900 hover:bg-amber-100">
+            📝 Bon de visite
+          </Link>
           <button onClick={exportCsv}
             className="rounded-lg border border-card-border bg-white px-3 py-2 text-xs font-semibold text-slate hover:bg-background">
             ↓ CSV
