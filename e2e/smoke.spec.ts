@@ -131,6 +131,12 @@ test.describe("Smoke tests — parcours critiques publics", () => {
     await expect(body).toContainText(/openimmo|csv|portail|athome|connect|sign in/i);
   });
 
+  test("/pro-agences/crm/contacts matching disponible", async ({ page }) => {
+    await page.goto("/pro-agences/crm/contacts");
+    const body = page.locator("body");
+    await expect(body).toContainText(/contact|prospect|lead|connect|sign in/i);
+  });
+
   test("/aml-kyc/archives archivage 5 ans", async ({ page }) => {
     await page.goto("/aml-kyc/archives");
     const body = page.locator("body");

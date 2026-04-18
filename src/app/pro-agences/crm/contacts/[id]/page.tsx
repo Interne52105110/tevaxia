@@ -149,6 +149,12 @@ export default function ContactDetailPage(props: { params: Promise<{ id: string 
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {["prospect", "lead", "acquereur"].includes(contact.kind) && (
+            <Link href={`/pro-agences/crm/contacts/${contact.id}/matches`}
+              className="rounded-md border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-900 hover:bg-emerald-100">
+              🎯 Biens matchés
+            </Link>
+          )}
           <button
             type="button"
             onClick={() => setEditing(!editing)}

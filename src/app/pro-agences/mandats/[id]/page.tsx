@@ -242,6 +242,10 @@ export default function MandateDetailPage() {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
+          <Link href={`/pro-agences/mandats/${mandate.id}/matching`}
+            className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-900 hover:bg-emerald-100">
+            🎯 Matching acquéreurs
+          </Link>
           <button onClick={exportCsv}
             className="rounded-lg border border-card-border bg-white px-3 py-2 text-xs font-semibold text-slate hover:bg-background">
             ↓ CSV
