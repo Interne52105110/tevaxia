@@ -7,6 +7,7 @@ import { getProperty } from "@/lib/pms/properties";
 import { listRoomTypes } from "@/lib/pms/rooms";
 import { listRatePlans, listSeasonalRates, createSeasonalRate, deleteSeasonalRate } from "@/lib/pms/rates";
 import type { PmsProperty, PmsRoomType, PmsRatePlan, PmsSeasonalRate } from "@/lib/pms/types";
+import { errMsg } from "@/lib/pms/errors";
 import { formatEUR } from "@/lib/calculations";
 
 export default function SeasonalRatesPage(props: { params: Promise<{ propertyId: string }> }) {
@@ -58,7 +59,7 @@ export default function SeasonalRatesPage(props: { params: Promise<{ propertyId:
       await createSeasonalRate({ property_id: propertyId, ...form });
       setForm({ ...form, start_date: "", end_date: "", price: 0 });
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   if (authLoading || loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">Chargement…</div>;

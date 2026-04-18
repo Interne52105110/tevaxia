@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { createProperty } from "@/lib/pms/properties";
+import { errMsg } from "@/lib/pms/errors";
 import type { PmsPropertyType } from "@/lib/pms/types";
 
 const TYPE_OPTIONS: { value: PmsPropertyType; label: string }[] = [
@@ -94,7 +95,7 @@ export default function NewPropertyPage() {
       });
       router.push(`/pms/${p.id}`);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errMsg(e));
       setSaving(false);
     }
   };

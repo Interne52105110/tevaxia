@@ -61,11 +61,7 @@ export default function Footer() {
               <li><LocaleLink href="/portfolio" className="hover:text-white transition-colors">{tn("portfolio")}</LocaleLink></li>
               <li><LocaleLink href="/aml-kyc" className="hover:text-white transition-colors">{tn("amlKyc")}</LocaleLink></li>
               <li><LocaleLink href="/hotellerie" className="hover:text-white transition-colors">{tn("hotelHub")}</LocaleLink></li>
-              <li>
-                <LocaleLink href="/pms" className="text-gold hover:text-gold-light transition-colors font-medium">
-                  {tn("pms")} <span className="ml-1 rounded-full bg-gold/20 px-1.5 py-0.5 text-[9px] uppercase">nouveau</span>
-                </LocaleLink>
-              </li>
+              <li><LocaleLink href="/pms" className="hover:text-white transition-colors">{tn("pms")}</LocaleLink></li>
             </ul>
           </div>
 

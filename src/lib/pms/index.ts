@@ -1,4 +1,5 @@
 export * from "./types";
+export * from "./errors";
 export * from "./properties";
 export * from "./rooms";
 export * from "./rates";

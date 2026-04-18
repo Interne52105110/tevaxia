@@ -9,6 +9,7 @@ import { listRoomTypes } from "@/lib/pms/rooms";
 import { listRatePlans, listSeasonalRates, computeStayTotal } from "@/lib/pms/rates";
 import { createReservation } from "@/lib/pms/reservations";
 import { createGuest, listGuests } from "@/lib/pms/guests";
+import { errMsg } from "@/lib/pms/errors";
 import type {
   PmsProperty, PmsRoomType, PmsRatePlan, PmsSeasonalRate, PmsGuest, PmsReservationSource,
 } from "@/lib/pms/types";
@@ -151,7 +152,7 @@ export default function NewReservationPage(props: { params: Promise<{ propertyId
       );
       router.push(`/pms/${propertyId}/reservations/${res.id}`);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errMsg(e));
       setSaving(false);
     }
   };

@@ -14,6 +14,7 @@ import {
 import type {
   PmsProperty, PmsRoom, PmsRoomStatus, PmsRoomType, PmsRatePlan,
 } from "@/lib/pms/types";
+import { errMsg } from "@/lib/pms/errors";
 import { formatEUR } from "@/lib/calculations";
 
 const STATUSES: PmsRoomStatus[] = [
@@ -60,7 +61,7 @@ export default function RoomsPage(props: { params: Promise<{ propertyId: string 
       await createRoomType({ property_id: propertyId, ...rtForm, code: rtForm.code.toUpperCase() });
       setRtForm({ code: "", name: "", capacity_adults: 2, capacity_children: 0, base_rate: 120, size_m2: 20 });
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const addRoom = async () => {
@@ -69,7 +70,7 @@ export default function RoomsPage(props: { params: Promise<{ propertyId: string 
       await createRoom({ property_id: propertyId, ...roomForm });
       setRoomForm({ room_type_id: roomForm.room_type_id, number: "", floor: 0 });
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const addRatePlan = async () => {
@@ -78,7 +79,7 @@ export default function RoomsPage(props: { params: Promise<{ propertyId: string 
       await createRatePlan({ property_id: propertyId, ...rpForm, code: rpForm.code.toUpperCase() });
       setRpForm({ code: "", name: "", refundable: true, breakfast_included: false, discount_pct: 0, min_los: 1 });
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   if (authLoading || loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">Chargement…</div>;

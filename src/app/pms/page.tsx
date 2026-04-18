@@ -61,12 +61,7 @@ export default function PmsHomePage() {
     <div className="mx-auto max-w-7xl px-4 py-10">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-            tevaxia PMS
-            <span className="ml-3 inline-block rounded-full bg-navy/10 px-2 py-0.5 text-xs font-medium text-navy">
-              nouveau
-            </span>
-          </h1>
+          <h1 className="text-2xl font-bold text-navy sm:text-3xl">tevaxia PMS</h1>
           <p className="mt-1 text-sm text-muted">
             Gestion réservations, chambres, tarifs, facturation. Conforme fiscalité LU (TVA 3 %, taxe séjour).
           </p>

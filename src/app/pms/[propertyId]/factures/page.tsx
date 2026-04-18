@@ -8,6 +8,7 @@ import { listInvoices, getInvoice, issueInvoice, markInvoicePaid } from "@/lib/p
 import type { PmsProperty, PmsInvoice } from "@/lib/pms/types";
 import { formatEUR } from "@/lib/calculations";
 import { generatePmsInvoiceBlob } from "@/components/PmsInvoicePdf";
+import { errMsg } from "@/lib/pms/errors";
 
 export default function InvoicesPage(props: { params: Promise<{ propertyId: string }> }) {
   const { propertyId } = use(props.params);
@@ -39,7 +40,7 @@ export default function InvoicesPage(props: { params: Promise<{ propertyId: stri
       a.download = `${inv.invoice_number}.pdf`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 5000);
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const handleIssue = async (inv: PmsInvoice) => {
@@ -47,14 +48,14 @@ export default function InvoicesPage(props: { params: Promise<{ propertyId: stri
     try {
       await issueInvoice(inv.id);
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const handleMarkPaid = async (inv: PmsInvoice) => {
     try {
       await markInvoicePaid(inv.id);
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   if (authLoading || loading) return <div className="mx-auto max-w-6xl px-4 py-16 text-center text-muted">Chargement…</div>;

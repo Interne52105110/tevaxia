@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { getProperty } from "@/lib/pms/properties";
 import { listGuests, createGuest, updateGuest, deleteGuest } from "@/lib/pms/guests";
+import { errMsg } from "@/lib/pms/errors";
 import type { PmsProperty, PmsGuest } from "@/lib/pms/types";
 import { formatEUR } from "@/lib/calculations";
 
@@ -56,7 +57,7 @@ export default function GuestsPage(props: { params: Promise<{ propertyId: string
       });
       setForm({ first_name: "", last_name: "", email: "", phone: "", document_type: "id_card", document_number: "", nationality: "LU", language: "fr", marketing_opt_in: false });
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const toggleMarketing = async (g: PmsGuest) => {
@@ -66,7 +67,7 @@ export default function GuestsPage(props: { params: Promise<{ propertyId: string
         marketing_opt_in_at: !g.marketing_opt_in ? new Date().toISOString() : null,
       });
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const handleDelete = async (g: PmsGuest) => {
@@ -74,7 +75,7 @@ export default function GuestsPage(props: { params: Promise<{ propertyId: string
     try {
       await deleteGuest(g.id);
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   if (authLoading || loading) return <div className="mx-auto max-w-6xl px-4 py-16 text-center text-muted">Chargement…</div>;

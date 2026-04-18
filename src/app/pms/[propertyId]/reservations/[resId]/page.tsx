@@ -11,6 +11,7 @@ import {
 } from "@/lib/pms/reservations";
 import { getGuest } from "@/lib/pms/guests";
 import { createInvoice } from "@/lib/pms/invoices";
+import { errMsg } from "@/lib/pms/errors";
 import type {
   PmsProperty, PmsRoomType, PmsRoom, PmsReservation, PmsReservationRoom,
   PmsPayment, PmsPaymentMethod, PmsGuest,
@@ -87,14 +88,14 @@ export default function ReservationDetailPage(props: { params: Promise<{ propert
     try {
       await checkInReservation(reservation.id, assignmentsList);
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const handleCheckOut = async () => {
     try {
       await checkOutReservation(reservation.id);
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const handleCancel = async () => {
@@ -103,7 +104,7 @@ export default function ReservationDetailPage(props: { params: Promise<{ propert
     try {
       await cancelReservation(reservation.id, reason);
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const handleRecordPayment = async () => {
@@ -118,7 +119,7 @@ export default function ReservationDetailPage(props: { params: Promise<{ propert
       setPayAmount(0);
       setPayRef("");
       await reload();
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   const handleGenerateInvoice = async () => {
@@ -152,7 +153,7 @@ export default function ReservationDetailPage(props: { params: Promise<{ propert
         legal_footer: property.legal_footer,
       });
       router.push(`/pms/${propertyId}/factures?highlight=${inv.id}`);
-    } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { setError(errMsg(e)); }
   };
 
   return (
