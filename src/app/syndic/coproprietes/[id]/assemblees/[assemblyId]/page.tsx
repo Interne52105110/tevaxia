@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLocale } from "next-intl";
+import { pdf } from "@react-pdf/renderer";
 import { useAuth } from "@/components/AuthProvider";
 import { getCoownership, type Coownership } from "@/lib/coownerships";
 import {
@@ -13,6 +14,8 @@ import {
   STATUS_LABEL, MAJORITY_LABEL, VOTE_LABEL,
   type Assembly, type Resolution, type AssemblyVote, type MajorityType, type VoteValue,
 } from "@/lib/coownership-assemblies";
+import AssemblyMinutesPdf from "@/components/AssemblyMinutesPdf";
+import { getProfile } from "@/lib/profile";
 import { errMsg } from "@/lib/errors";
 
 const STATUS_COLORS: Record<Assembly["status"], string> = {
@@ -128,6 +131,34 @@ export default function AssemblyDetailPage() {
     setAssembly(result);
   };
 
+  const downloadMinutesPdf = async () => {
+    if (!assembly || !coown) return;
+    // Charge tous les votes de toutes les résolutions
+    const votesMap: Record<string, AssemblyVote[]> = {};
+    await Promise.all(resolutions.map(async (r) => {
+      votesMap[r.id] = await listVotes(r.id);
+    }));
+    const profile = getProfile();
+    const blob = await pdf(
+      <AssemblyMinutesPdf
+        coownership={{ name: coown.name, address: coown.address, total_tantiemes: coown.total_tantiemes }}
+        syndic={{
+          name: profile.nomComplet || profile.societe || "Syndic",
+          email: profile.email,
+        }}
+        assembly={assembly}
+        resolutions={resolutions}
+        votesByResolution={votesMap}
+      />
+    ).toBlob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `PV-AG-${assembly.title.replace(/\s+/g, "-").toLowerCase()}-${new Date(assembly.scheduled_at).toISOString().slice(0, 10)}.pdf`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   if (loading || !coown || !assembly) {
     return <div className="mx-auto max-w-6xl px-4 py-16 text-center text-muted">Chargement…</div>;
   }
@@ -180,6 +211,12 @@ export default function AssemblyDetailPage() {
             <button onClick={() => advanceStatus("close")}
               className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
               Clôturer
+            </button>
+          )}
+          {(assembly.status === "in_progress" || assembly.status === "closed") && resolutions.length > 0 && (
+            <button onClick={downloadMinutesPdf}
+              className="rounded-lg border border-navy bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-navy/5">
+              ↓ PV PDF
             </button>
           )}
           {assembly.virtual_url && (
