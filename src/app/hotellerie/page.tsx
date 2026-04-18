@@ -220,8 +220,42 @@ export default async function HotellerieHub() {
         </div>
       </section>
 
+      {/* Featured : workflow pré-acquisition */}
+      <section className="pt-12 pb-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Link href={`${lp}/hotellerie/pre-acquisition`}
+            className="group relative block overflow-hidden rounded-2xl border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-emerald-50 p-8 shadow-sm transition-all hover:shadow-xl hover:border-emerald-400">
+            <div className="absolute top-4 right-4 rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold text-white">
+              NOUVEAU · Workflow unifié
+            </div>
+            <div className="grid gap-6 sm:grid-cols-[auto_1fr] items-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-400 text-white shadow-lg">
+                <svg className="h-9 w-9" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-navy">Workflow pré-acquisition hôtelière</h2>
+                <p className="text-sm text-slate mt-1.5 leading-relaxed">
+                  Triangulation de valorisation 3 méthodes (multiple EBITDA, prix/clé LU, DCF),
+                  DSCR + LTV, business plan 10 ans, exit value, <strong>TRI equity</strong>,
+                  score <strong>go/no-go 0-100</strong>. Alternative au logiciel ARGUS pour acquisitions hôtelières LU.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+                  <span className="rounded-full bg-white border border-emerald-200 px-2.5 py-1 font-semibold text-emerald-900">Valorisation 3 méthodes</span>
+                  <span className="rounded-full bg-white border border-emerald-200 px-2.5 py-1 font-semibold text-emerald-900">DSCR / LTV banque LU</span>
+                  <span className="rounded-full bg-white border border-emerald-200 px-2.5 py-1 font-semibold text-emerald-900">Business plan 10 ans</span>
+                  <span className="rounded-full bg-white border border-emerald-200 px-2.5 py-1 font-semibold text-emerald-900">TRI equity + exit</span>
+                  <span className="rounded-full bg-white border border-emerald-200 px-2.5 py-1 font-semibold text-emerald-900">Score go/no-go</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Tools grid */}
-      <section className="py-16 sm:py-20">
+      <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {TOOLS.map((tool) => (
