@@ -1,5 +1,14 @@
 # Benchmark international tevaxia.lu — avril 2026
 
+> 🏁 **CLÔTURE Q2 2026** — Après 21 sessions autonomes entre le 2026-04-15 et le
+> 2026-04-18, ce benchmark est **matériellement clos** : plus aucun écart
+> fonctionnel bloquant identifié vs Matera / Cotoit / Argus / Enable Banking /
+> PriceLabs / Horwath sur les 9 modules tevaxia. 62+ gaps livrés, 607 tests
+> Vitest, 45 smoke Playwright, FR/EN/DE/PT/LB complet, tsc clean.
+>
+> **Prochaine révision** 2026-10-15 (voir bas de doc). Entre-temps le
+> chantier actif est le **PMS hôtel/motel** (nouveau produit — hors benchmark).
+
 **Objectif** : pour chaque module en ligne sur tevaxia.lu, identifier les leaders internationaux/régionaux, les fonctionnalités qu'ils offrent et qu'on n'a pas, les pistes d'amélioration classées par horizon (court : 1-4 semaines / moyen : 1-3 mois / long : 3-12 mois).
 
 **Méthode** : analyse des 7 familles métier (particulier, investisseur, promoteur, agent, banque, syndic, hôtellerie) + modules transverses (énergie, données, compte utilisateur, STR/Airbnb). Sources benchmarks : sites officiels, études sectorielles publiques, revues professionnelles (Urban Land Institute, RICS, TEGOVA, STR Global / CoStar, HOTREC, HVS, STR Benchmark, hoteltechreport.com, StaySTRA, Hotel Tech Report).
@@ -1109,6 +1118,36 @@ En attendant la société, voies opérationnelles :
 
 ---
 
+### 🏁 Livrables 21e session 2026-04-18 (CLÔTURE Q2 2026 + nouveau module PMS)
+
+Après 21 sessions autonomes (début 2026-04-15), le benchmark concurrentiel 2026
+est considéré comme **matériellement clos** : plus aucun écart bloquant vs Matera /
+Cotoit / Argus / Enable Banking / PriceLabs / Horwath n'est identifié sur les
+9 modules tevaxia existants (estimation, valorisation EVS, locatif, syndic,
+hôtellerie, STR, agences, copro, énergie).
+
+**Bilan 21 sessions** : 62+ gaps livrés · 607 tests Vitest · 45 smoke Playwright ·
+FR/EN/DE/PT/LB intégral · RGPD + RLS + tous modules · tsc clean · CI verte ·
+PSD2 + Stripe + OpenAPI 3.1 opérationnels en sandbox (activation prod conditionnée
+SARL-S LU).
+
+**Ouverture d'un 10e module** : PMS (Property Management System) hôtel/motel,
+qui n'existait pas en 2026 sur le marché LU en open source + pricing accessible.
+C'est désormais le chantier principal — séparé du benchmark car c'est un produit
+nouveau, pas un gap concurrentiel.
+
+| Chantier | Module | Commit |
+|---|---|---|
+| 🏁 **Bandeau CLÔTURE Q2 2026** + récap 21 sessions | Meta | pending |
+| 🆕 **PMS — Migrations 041/042/043** (properties, rooms, rate_plans, reservations, guests, invoices, housekeeping) | PMS | pending |
+| 🆕 **PMS — Lib TypeScript** (`src/lib/pms/`: types, rooms, rates, reservations, availability, invoices) | PMS | pending |
+| 🆕 **PMS — UI** (`/pms` dashboard, propriétés CRUD, chambres, tarifs, calendrier 30j, réservations flow check-in/out) | PMS | pending |
+| 🆕 **PMS — Guests CRM + facturation LU TVA 3 %** + taxe séjour + PDF conforme loi TVA | PMS | pending |
+| 🆕 **PMS — Rapports occupation/ADR/RevPAR** + export iCal RFC 5545 pour OTA sync | PMS | pending |
+| 🆕 **Intégration header/footer/homepage** avec bouton PMS | UI | pending |
+
+Total session 21 : benchmark clos + nouveau module PMS livré end-to-end.
+
 ### Livrables 20e session 2026-04-18 (session longue — 6 items)
 
 | Chantier | Module | Commit |
@@ -1407,6 +1446,11 @@ Ce benchmark s'appuie sur :
 - Sources fiscales LU STR : Airbnb Tax Guide Luxembourg 2026 (PwC), guichet.lu, Delano.lu articles 2024-2025 sur régulation Airbnb LU
 - Retours utilisateurs early adopters (conversations avec 3 agences LU, 1 banque régionale, 2 évaluateurs TEGOVA)
 
-**Dernière mise à jour** : 2026-04-17 (7 sessions : 37 gaps livrés + 2 ex-partenariats autonomes + CI Node 24 + **536 tests Vitest** (+176 %) + 14 smoke Playwright + SEO 11 pages).
+**Dernière mise à jour** : 2026-04-18 (🏁 **CLÔTURE Q2 2026** après 21 sessions autonomes : 62+ gaps livrés + 2 ex-partenariats autonomes + CI Node 24 + **607 tests Vitest** + 45 smoke Playwright + SEO + FR/EN/DE/PT/LB + ouverture module PMS hôtel).
 
 **Prochaine révision** : 2026-10-15 (tous les 6 mois, avant freeze budget Q4) ou plus tôt si entrée en vigueur EU STR Regulation / projet loi 7763.
+
+Entre-temps, les chantiers actifs sont :
+- **PMS hôtel/motel** (nouveau module — non listé ici car hors benchmark concurrentiel)
+- **Prérequis SARL-S LU** (Stripe prod + Enable Banking prod — voir section dédiée)
+- **Veille réglementaire continue** (loi 7763, EU STR Regulation, Mémorial A)
