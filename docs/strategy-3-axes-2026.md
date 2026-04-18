@@ -207,3 +207,10 @@ Session ultra-marathon — 21 commits au total dont 7 supplémentaires après la
 - **Portail AG link** (4f6d27d) — bouton direct vote AG dans portail copropriétaire.
 
 **Stats finales session** : ~23 commits · ~20 000 lignes · 11 migrations · +190 tests.
+
+### Extras round 3 (continuation)
+
+- **PMS Front desk opérationnel** (c8f3804) — page print-friendly réception (arrivées/départs/in-house du jour).
+- **Syndic Portefeuille consolidé** (4980251) — vue multi-copros triée par impayés pour syndic pro.
+
+**Total session unique cumulé** : **~25 commits** · ~21 000 lignes · 11 migrations · +190 tests.
