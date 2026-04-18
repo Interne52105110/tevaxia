@@ -204,4 +204,22 @@ test.describe("Smoke tests — parcours critiques publics", () => {
     const body = page.locator("body");
     await expect(body).toContainText(/pms|property management|hôtel|hotel|motel|réservation|booking|connect|sign in/i);
   });
+
+  test("/pro-agences/crm dashboard accessible", async ({ page }) => {
+    await page.goto("/pro-agences/crm");
+    const body = page.locator("body");
+    await expect(body).toContainText(/crm|pipeline|prospect|mandat|connect|sign in/i);
+  });
+
+  test("/pro-agences/crm/contacts liste CRM", async ({ page }) => {
+    await page.goto("/pro-agences/crm/contacts");
+    const body = page.locator("body");
+    await expect(body).toContainText(/contact|lead|prospect|acquéreur|connect|sign in/i);
+  });
+
+  test("/pro-agences/crm/tasks page tâches", async ({ page }) => {
+    await page.goto("/pro-agences/crm/tasks");
+    const body = page.locator("body");
+    await expect(body).toContainText(/tâche|priority|connect|sign in/i);
+  });
 });
