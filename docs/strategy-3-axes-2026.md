@@ -245,6 +245,26 @@ Feedback utilisateur : outils syndic/PMS/CRM éparpillés, accès pas clair. Ben
 
 **Total FINAL session** : **~53 commits** · ~29 500 lignes · **12 migrations** (045–054) · +220 tests · **854 tests** passent · **3 layouts nav unifiés** conformes best practices mondiales.
 
+### Round 6 — Post-application migrations (2026-04-19)
+
+Utilisateur a appliqué les 10 migrations Supabase en prod. Session reprend sur les items T5-T6 pending.
+
+- **PMS groupes & allotements** (d8d6540) — migration 055 + page `/pms/[id]/groupes` pour mariages/séminaires/MICE avec tarif négocié, cutoff alerts, billing 3 modes.
+- **Onboarding wizard 3 personas** (10ceee3) — `/onboarding` guidé syndic/agence/hôtelier en 3 étapes (org + 1re entité) + roadmap personnalisée après.
+- **CRM nurturing sequences** (2e8fb00) — 5 séquences drip campaign pré-définies (prospect silent 30j, post-visite, acquéreur actif, post-vente, mandat vendeur) créent N tâches rappel auto.
+- **Syndic rapprochement bancaire CSV** (45d10ea) — upload relevé LU (BCEE/BIL/Spuerkeess/ING) + auto-matching transactions ↔ appels impayés via référence + montant + nom.
+- **PMS POS restaurant/bar** (e399e94) — page kiosk tablette avec 19 items pré-configurés pour saisie rapide F&B/spa/parking sur folio client in-house.
+- **Syndic SEPA pain.001 XML** (a4e7e4a) — génération fichier ISO 20022 pour virements bulk fournisseurs importable dans web banking LU + validation IBAN mod 97.
+- **PMS événements LU calendar** (223c5b0 + 84ce0ab) — 14 événements récurrents (Schueberfouer, Alfi Conf, Foire Automne, Winterlights, etc.) intégrés au forecast avec multiplicateur impact.
+
+**Total session cumulé (run 1 + run 2)** : **~60 commits** · ~33 000 lignes · **13 migrations** (045–055) · +295 tests · **916 tests** passent.
+
+### Checklist migrations Supabase supplémentaires
+
+Nouvelle migration ajoutée dans cette run (à appliquer) :
+
+- [ ] `supabase/migrations/055_pms_groups.sql` — table pms_groups + trigger sync rooms_booked + colonne group_id sur pms_reservations
+
 ---
 
 ## État des blockers business (pas encore attaqués)
