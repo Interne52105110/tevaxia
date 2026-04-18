@@ -35,6 +35,7 @@ const SECTIONS: NavSection[] = [
     items: [
       { href: "/reservations", label: "Toutes réservations", icon: "📋", description: "Liste filtrable" },
       { href: "/reservations/nouveau", label: "Nouvelle réservation", icon: "➕", description: "Wizard booking" },
+      { href: "/groupes", label: "Groupes & allotements", icon: "👰", description: "Mariages, séminaires, MICE" },
       { href: "/guests", label: "Clients (guests)", icon: "👥", description: "CRM hôtel" },
     ],
   },
