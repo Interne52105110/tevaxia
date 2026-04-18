@@ -5706,6 +5706,8 @@
     "tag4": "E-2 visa",
     "tag5": "Hotel energy aid",
     "soonBadge": "Soon",
+    "pmsTitle": "PMS — Bookings & invoicing",
+    "pmsDesc": "Full management software: properties, rooms, seasonal rates, calendar, check-in/out, 3% VAT invoices + tourist tax, iCal feed for Booking/Airbnb.",
     "valorisationTitle": "Hotel valuation",
     "valorisationDesc": "RevPAR, ADR, occupancy, EBITDA, transaction multiple. Income approach (DCF) + comparables.",
     "dscrTitle": "DSCR & financing",

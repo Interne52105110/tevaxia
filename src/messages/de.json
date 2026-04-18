@@ -5706,6 +5706,8 @@
     "tag4": "E-2-Visum",
     "tag5": "Klimabonus Tertiär",
     "soonBadge": "Bald",
+    "pmsTitle": "PMS — Buchungen & Rechnungen",
+    "pmsDesc": "Komplette Verwaltungssoftware: Immobilien, Zimmer, Saisontarife, Kalender, Check-in/out, Rechnungen MwSt 3 % + Kurtaxe, iCal-Feed für Booking/Airbnb.",
     "valorisationTitle": "Hotelbewertung",
     "valorisationDesc": "RevPAR, ADR, Auslastung, EBITDA, Transaktionsmultiple. Ertragswertverfahren (DCF) + Vergleichswerte.",
     "dscrTitle": "DSCR & Finanzierung",

@@ -5706,6 +5706,8 @@
     "tag4": "Visa E-2",
     "tag5": "Klimabonus tertiaire",
     "soonBadge": "Bientôt",
+    "pmsTitle": "PMS — Réservations & facturation",
+    "pmsDesc": "Logiciel complet de gestion : propriétés, chambres, tarifs saisonniers, calendrier, check-in/out, factures TVA 3 % + taxe séjour, export iCal Booking/Airbnb.",
     "valorisationTitle": "Valorisation hôtelière",
     "valorisationDesc": "RevPAR, ADR, taux d'occupation, EBITDA, multiple de transaction. Approche par le revenu (DCF) + comparables.",
     "dscrTitle": "DSCR & financement",
