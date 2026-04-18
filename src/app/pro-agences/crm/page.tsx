@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import {
-  listMyMandates, type AgencyMandate, type MandateStatus,
+  listMyMandates, updateMandate, type AgencyMandate, type MandateStatus,
 } from "@/lib/agency-mandates";
 import { listContacts, type CrmContact, contactDisplayName, type CrmTask } from "@/lib/crm";
 import { listTasks, completeTask, isOverdue } from "@/lib/crm/tasks";
@@ -120,42 +120,29 @@ export default function CrmDashboardPage() {
         </div>
       )}
 
-      {/* Kanban */}
+      {/* Kanban avec drag-drop natif */}
       <section className="mt-6">
-        <h2 className="text-sm font-semibold text-navy mb-3">Pipeline mandats</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-semibold text-navy">Pipeline mandats</h2>
+          <span className="text-[10px] text-muted">
+            Glisser-déposer une carte pour changer son statut
+          </span>
+        </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {STATUS_ORDER.map((s) => (
-            <div key={s} className="rounded-xl border border-card-border bg-card/50 p-3 min-h-[160px]">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-[11px] font-semibold uppercase tracking-wider text-muted">{STATUS_LABEL[s]}</h3>
-                <span className="text-[11px] font-mono text-muted">{byStatus[s].length}</span>
-              </div>
-              <div className="space-y-2">
-                {byStatus[s].length === 0 && (
-                  <div className="text-[11px] text-muted italic text-center py-3">—</div>
-                )}
-                {byStatus[s].slice(0, 5).map((m) => (
-                  <Link
-                    key={m.id}
-                    href={`/pro-agences/mandats/${m.id}`}
-                    className="block rounded-md border border-card-border bg-card p-2 text-xs hover:border-navy transition-colors"
-                  >
-                    <div className="font-semibold text-navy truncate">{m.property_address}</div>
-                    <div className="mt-0.5 text-[10px] text-muted truncate">
-                      {m.client_name ?? "—"}
-                    </div>
-                    {m.prix_demande != null && (
-                      <div className="mt-1 text-[10px] font-mono text-navy">{formatEUR(Number(m.prix_demande))}</div>
-                    )}
-                  </Link>
-                ))}
-                {byStatus[s].length > 5 && (
-                  <Link href="/pro-agences/mandats" className="block text-center text-[10px] text-navy hover:underline">
-                    +{byStatus[s].length - 5} autres →
-                  </Link>
-                )}
-              </div>
-            </div>
+            <KanbanColumn key={s} status={s} label={STATUS_LABEL[s]}
+              mandates={byStatus[s]}
+              onDrop={async (mandateId, newStatus) => {
+                try {
+                  const patch: Partial<AgencyMandate> = { status: newStatus };
+                  if (newStatus === "vendu") patch.sold_at = new Date().toISOString();
+                  if (newStatus === "mandat_signe") patch.signed_at = new Date().toISOString();
+                  await updateMandate(mandateId, patch);
+                  await reload();
+                } catch (e) {
+                  setError(errMsg(e));
+                }
+              }} />
           ))}
         </div>
       </section>
@@ -233,6 +220,79 @@ export default function CrmDashboardPage() {
           )}
         </div>
       </section>
+    </div>
+  );
+}
+
+function KanbanColumn({ status, label, mandates, onDrop }: {
+  status: MandateStatus;
+  label: string;
+  mandates: AgencyMandate[];
+  onDrop: (mandateId: string, newStatus: MandateStatus) => Promise<void>;
+}) {
+  const [over, setOver] = useState(false);
+
+  return (
+    <div
+      className={`rounded-xl border p-3 min-h-[160px] transition-colors ${
+        over ? "border-navy bg-navy/5 ring-2 ring-navy/30" : "border-card-border bg-card/50"
+      }`}
+      onDragOver={(e) => { e.preventDefault(); setOver(true); }}
+      onDragLeave={() => setOver(false)}
+      onDrop={async (e) => {
+        e.preventDefault();
+        setOver(false);
+        const mandateId = e.dataTransfer.getData("text/mandate-id");
+        const fromStatus = e.dataTransfer.getData("text/mandate-status");
+        if (mandateId && fromStatus !== status) {
+          await onDrop(mandateId, status);
+        }
+      }}>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-[11px] font-semibold uppercase tracking-wider text-muted">{label}</h3>
+        <span className="text-[11px] font-mono text-muted">{mandates.length}</span>
+      </div>
+      <div className="space-y-2">
+        {mandates.length === 0 && (
+          <div className="text-[11px] text-muted italic text-center py-3">
+            {over ? "Déposer ici" : "—"}
+          </div>
+        )}
+        {mandates.slice(0, 5).map((m) => (
+          <div
+            key={m.id}
+            draggable
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/mandate-id", m.id);
+              e.dataTransfer.setData("text/mandate-status", m.status);
+              e.dataTransfer.effectAllowed = "move";
+            }}
+            className="group cursor-move rounded-md border border-card-border bg-card p-2 text-xs hover:border-navy transition-colors"
+          >
+            <Link
+              href={`/pro-agences/mandats/${m.id}`}
+              className="block"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="font-semibold text-navy truncate">{m.property_address}</div>
+              <div className="mt-0.5 text-[10px] text-muted truncate">
+                {m.client_name ?? "—"}
+              </div>
+              {m.prix_demande != null && (
+                <div className="mt-1 text-[10px] font-mono text-navy">{formatEUR(Number(m.prix_demande))}</div>
+              )}
+            </Link>
+            <div className="mt-1 text-[9px] text-muted opacity-0 group-hover:opacity-100 transition-opacity">
+              ⋮⋮ glisser pour changer statut
+            </div>
+          </div>
+        ))}
+        {mandates.length > 5 && (
+          <Link href="/pro-agences/mandats" className="block text-center text-[10px] text-navy hover:underline">
+            +{mandates.length - 5} autres →
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
