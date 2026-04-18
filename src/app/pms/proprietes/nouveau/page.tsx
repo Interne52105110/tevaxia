@@ -3,33 +3,28 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { createProperty } from "@/lib/pms/properties";
 import { errMsg } from "@/lib/pms/errors";
 import type { PmsPropertyType } from "@/lib/pms/types";
 
-const TYPE_OPTIONS: { value: PmsPropertyType; label: string }[] = [
-  { value: "hotel", label: "Hôtel" },
-  { value: "motel", label: "Motel" },
-  { value: "chambres_hotes", label: "Chambres d'hôtes / B&B" },
-  { value: "residence", label: "Résidence / Aparthotel" },
-  { value: "auberge", label: "Auberge" },
-  { value: "camping", label: "Camping" },
-];
-
 // Présets taxe séjour LU (€ / nuit / adulte) — source : règlements communaux 2025-2026
-const TAXE_SEJOUR_PRESETS: { commune: string; value: number }[] = [
-  { commune: "Luxembourg-Ville", value: 3.0 },
-  { commune: "Esch-sur-Alzette", value: 2.0 },
-  { commune: "Differdange", value: 1.5 },
-  { commune: "Dudelange", value: 1.5 },
-  { commune: "Ettelbruck", value: 1.5 },
-  { commune: "Remich", value: 1.5 },
-  { commune: "Autre / aucune", value: 0 },
+const TAXE_SEJOUR_PRESETS: { key: string; commune: string; value: number }[] = [
+  { key: "taxePresetCity", commune: "Luxembourg-Ville", value: 3.0 },
+  { key: "taxePresetEsch", commune: "Esch-sur-Alzette", value: 2.0 },
+  { key: "taxePresetDiff", commune: "Differdange", value: 1.5 },
+  { key: "taxePresetDud", commune: "Dudelange", value: 1.5 },
+  { key: "taxePresetEtt", commune: "Ettelbruck", value: 1.5 },
+  { key: "taxePresetRem", commune: "Remich", value: 1.5 },
+  { key: "taxePreset0", commune: "—", value: 0 },
 ];
 
 export default function NewPropertyPage() {
   const router = useRouter();
+  const tc = useTranslations("pms.common");
+  const tt = useTranslations("pms.types");
+  const t = useTranslations("pms.newProperty");
   const { user, loading: authLoading } = useAuth();
   const [form, setForm] = useState({
     name: "",
@@ -54,12 +49,12 @@ export default function NewPropertyPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  if (authLoading) return <div className="mx-auto max-w-3xl px-4 py-16 text-center text-muted">Chargement…</div>;
+  if (authLoading) return <div className="mx-auto max-w-3xl px-4 py-16 text-center text-muted">{tc("loading")}</div>;
   if (!user) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-12 text-center">
         <p className="text-sm text-muted">
-          <Link href="/connexion" className="text-navy underline">Connectez-vous</Link> pour créer une propriété.
+          <Link href="/connexion" className="text-navy underline">{tc("signInLink")}</Link> — {tc("loginRequired")}
         </p>
       </div>
     );
@@ -67,7 +62,7 @@ export default function NewPropertyPage() {
 
   const handleSave = async () => {
     if (!form.name.trim()) {
-      setError("Nom requis.");
+      setError(t("nameRequired"));
       return;
     }
     setSaving(true);
@@ -100,38 +95,40 @@ export default function NewPropertyPage() {
     }
   };
 
+  const TYPE_OPTIONS: PmsPropertyType[] = ["hotel", "motel", "chambres_hotes", "residence", "auberge", "camping"];
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
-      <Link href="/pms" className="text-xs text-navy hover:underline">← Retour PMS</Link>
-      <h1 className="mt-2 text-2xl font-bold text-navy">Nouvelle propriété</h1>
-      <p className="mt-1 text-sm text-muted">Créez votre hôtel/motel/B&amp;B pour commencer à gérer réservations et facturation.</p>
+      <Link href="/pms" className="text-xs text-navy hover:underline">← {t("backToHub")}</Link>
+      <h1 className="mt-2 text-2xl font-bold text-navy">{t("title")}</h1>
+      <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
 
       <div className="mt-6 space-y-6 rounded-xl border border-card-border bg-card p-6">
         {/* Identité */}
         <section>
-          <h2 className="text-sm font-semibold text-navy mb-3">Identité</h2>
+          <h2 className="text-sm font-semibold text-navy mb-3">{t("identity")}</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             <label className="text-xs">
-              <span className="text-muted">Nom commercial *</span>
+              <span className="text-muted">{t("name")}</span>
               <input
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="mt-1 w-full rounded-md border border-card-border bg-background px-2 py-1.5 text-sm"
-                placeholder="Hôtel Central"
+                placeholder={t("namePlaceholder")}
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Type</span>
+              <span className="text-muted">{t("type")}</span>
               <select
                 value={form.property_type}
                 onChange={(e) => setForm({ ...form, property_type: e.target.value as PmsPropertyType })}
                 className="mt-1 w-full rounded-md border border-card-border bg-background px-2 py-1.5 text-sm"
               >
-                {TYPE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                {TYPE_OPTIONS.map((o) => <option key={o} value={o}>{tt(o)}</option>)}
               </select>
             </label>
             <label className="text-xs sm:col-span-2">
-              <span className="text-muted">Adresse</span>
+              <span className="text-muted">{t("address")}</span>
               <input
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
@@ -139,7 +136,7 @@ export default function NewPropertyPage() {
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Commune</span>
+              <span className="text-muted">{t("commune")}</span>
               <input
                 value={form.commune}
                 onChange={(e) => {
@@ -151,11 +148,11 @@ export default function NewPropertyPage() {
                 list="commune-list"
               />
               <datalist id="commune-list">
-                {TAXE_SEJOUR_PRESETS.map((p) => <option key={p.commune} value={p.commune} />)}
+                {TAXE_SEJOUR_PRESETS.filter((p) => p.commune !== "—").map((p) => <option key={p.commune} value={p.commune} />)}
               </datalist>
             </label>
             <label className="text-xs">
-              <span className="text-muted">Code postal</span>
+              <span className="text-muted">{t("postalCode")}</span>
               <input
                 value={form.postal_code}
                 onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
@@ -167,10 +164,10 @@ export default function NewPropertyPage() {
 
         {/* Contact */}
         <section>
-          <h2 className="text-sm font-semibold text-navy mb-3">Contact</h2>
+          <h2 className="text-sm font-semibold text-navy mb-3">{t("contact")}</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             <label className="text-xs">
-              <span className="text-muted">Téléphone</span>
+              <span className="text-muted">{t("phone")}</span>
               <input
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -178,7 +175,7 @@ export default function NewPropertyPage() {
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Email</span>
+              <span className="text-muted">{t("email")}</span>
               <input
                 type="email"
                 value={form.email}
@@ -187,7 +184,7 @@ export default function NewPropertyPage() {
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Site web</span>
+              <span className="text-muted">{t("website")}</span>
               <input
                 value={form.website}
                 onChange={(e) => setForm({ ...form, website: e.target.value })}
@@ -199,10 +196,10 @@ export default function NewPropertyPage() {
 
         {/* Fiscalité LU */}
         <section>
-          <h2 className="text-sm font-semibold text-navy mb-3">Fiscalité Luxembourg</h2>
+          <h2 className="text-sm font-semibold text-navy mb-3">{t("fiscal")}</h2>
           <div className="grid gap-3 sm:grid-cols-4">
             <label className="text-xs">
-              <span className="text-muted">TVA hébergement %</span>
+              <span className="text-muted">{t("tvaHotel")}</span>
               <input
                 type="number" step="0.5"
                 value={form.tva_rate}
@@ -211,7 +208,7 @@ export default function NewPropertyPage() {
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">TVA F&amp;B %</span>
+              <span className="text-muted">{t("tvaFb")}</span>
               <input
                 type="number" step="0.5"
                 value={form.tva_rate_fb}
@@ -220,7 +217,7 @@ export default function NewPropertyPage() {
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Taxe séjour €/nuit/adulte</span>
+              <span className="text-muted">{t("taxeSejour")}</span>
               <input
                 type="number" step="0.1"
                 value={form.taxe_sejour_eur}
@@ -229,7 +226,7 @@ export default function NewPropertyPage() {
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Devise</span>
+              <span className="text-muted">{t("currency")}</span>
               <select
                 value={form.currency}
                 onChange={(e) => setForm({ ...form, currency: e.target.value })}
@@ -242,25 +239,25 @@ export default function NewPropertyPage() {
               </select>
             </label>
             <label className="text-xs">
-              <span className="text-muted">N° RCS LU</span>
+              <span className="text-muted">{t("rcs")}</span>
               <input
-                placeholder="B xxxxxx"
+                placeholder={t("rcsPlaceholder")}
                 value={form.registration_number}
                 onChange={(e) => setForm({ ...form, registration_number: e.target.value })}
                 className="mt-1 w-full rounded-md border border-card-border bg-background px-2 py-1.5 text-sm"
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">N° TVA</span>
+              <span className="text-muted">{t("vat")}</span>
               <input
-                placeholder="LU12345678"
+                placeholder={t("vatPlaceholder")}
                 value={form.vat_number}
                 onChange={(e) => setForm({ ...form, vat_number: e.target.value })}
                 className="mt-1 w-full rounded-md border border-card-border bg-background px-2 py-1.5 text-sm"
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Préfixe facture</span>
+              <span className="text-muted">{t("invoicePrefix")}</span>
               <input
                 value={form.invoice_prefix}
                 onChange={(e) => setForm({ ...form, invoice_prefix: e.target.value })}
@@ -272,10 +269,10 @@ export default function NewPropertyPage() {
 
         {/* Horaires */}
         <section>
-          <h2 className="text-sm font-semibold text-navy mb-3">Horaires</h2>
+          <h2 className="text-sm font-semibold text-navy mb-3">{t("hours")}</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             <label className="text-xs">
-              <span className="text-muted">Check-in à partir de</span>
+              <span className="text-muted">{t("checkInTime")}</span>
               <input
                 type="time"
                 value={form.check_in_time}
@@ -284,7 +281,7 @@ export default function NewPropertyPage() {
               />
             </label>
             <label className="text-xs">
-              <span className="text-muted">Check-out avant</span>
+              <span className="text-muted">{t("checkOutTime")}</span>
               <input
                 type="time"
                 value={form.check_out_time}
@@ -297,12 +294,12 @@ export default function NewPropertyPage() {
 
         {/* Bas de facture */}
         <section>
-          <h2 className="text-sm font-semibold text-navy mb-3">Mentions légales facture</h2>
+          <h2 className="text-sm font-semibold text-navy mb-3">{t("legal")}</h2>
           <textarea
             value={form.legal_footer}
             onChange={(e) => setForm({ ...form, legal_footer: e.target.value })}
             rows={3}
-            placeholder="IBAN : LUxx xxxx xxxx xxxx xxxx · Paiement à 30 jours · Taux de pénalité BCE +8 pp (art. L.441-10 C. commerce — loi 18.04.2004 LU)"
+            placeholder={t("legalPlaceholder")}
             className="w-full rounded-md border border-card-border bg-background px-2 py-2 text-xs"
           />
         </section>
@@ -314,7 +311,7 @@ export default function NewPropertyPage() {
             href="/pms"
             className="rounded-md border border-card-border px-4 py-1.5 text-sm text-slate hover:border-navy"
           >
-            Annuler
+            {tc("cancel")}
           </Link>
           <button
             type="button"
@@ -322,7 +319,7 @@ export default function NewPropertyPage() {
             onClick={handleSave}
             className="rounded-md bg-navy px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-navy-light disabled:opacity-50"
           >
-            {saving ? "Création…" : "Créer la propriété"}
+            {saving ? t("saving") : t("submit")}
           </button>
         </div>
       </div>

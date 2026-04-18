@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { getProperty } from "@/lib/pms/properties";
 import { listRooms, listRoomTypes } from "@/lib/pms/rooms";
@@ -19,6 +20,9 @@ function plusDaysISO(days: number): string {
 
 export default function PropertyOverviewPage(props: { params: Promise<{ propertyId: string }> }) {
   const { propertyId } = use(props.params);
+  const tc = useTranslations("pms.common");
+  const ts = useTranslations("pms.reservationStatus");
+  const t = useTranslations("pms.property");
   const { user, loading: authLoading } = useAuth();
   const [property, setProperty] = useState<PmsProperty | null>(null);
   const [roomTypes, setRoomTypes] = useState<PmsRoomType[]>([]);
@@ -47,7 +51,6 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
       setReservations(res);
       setAvailability(avail);
 
-      // Charge 30 derniers night audits pour KPIs
       if (isSupabaseConfigured && supabase) {
         const { data } = await supabase
           .from("pms_night_audits")
@@ -61,9 +64,9 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
     })();
   }, [propertyId, user, authLoading]);
 
-  if (authLoading || loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">Chargement…</div>;
-  if (!user) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted"><Link href="/connexion" className="text-navy underline">Connectez-vous</Link></div>;
-  if (!property) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted">Propriété introuvable.</div>;
+  if (authLoading || loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{tc("loading")}</div>;
+  if (!user) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted"><Link href="/connexion" className="text-navy underline">{tc("signInLink")}</Link></div>;
+  if (!property) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted">{tc("propertyNotFound")}</div>;
 
   const totalRooms = rooms.length;
   const roomsByStatus = rooms.reduce<Record<string, number>>((acc, r) => {
@@ -82,15 +85,15 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
     <div className="mx-auto max-w-7xl px-4 py-10">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <Link href="/pms" className="text-xs text-navy hover:underline">← Toutes mes propriétés</Link>
+          <Link href="/pms" className="text-xs text-navy hover:underline">← {t("backAllProps")}</Link>
           <h1 className="mt-1 text-2xl font-bold text-navy sm:text-3xl">{property.name}</h1>
           <p className="mt-1 text-xs text-muted">
-            {property.commune ?? "—"} · TVA {property.tva_rate}% · Taxe séjour {property.taxe_sejour_eur ?? 0} €
+            {property.commune ?? "—"} · TVA {property.tva_rate}% · {property.taxe_sejour_eur ?? 0} €
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Link href={`/pms/${propertyId}/reservations/nouveau`} className="rounded-md bg-navy px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-navy-light">
-            + Réservation
+            {t("newReservation")}
           </Link>
         </div>
       </div>
@@ -100,20 +103,17 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
         <div className="mt-5 rounded-xl border border-gold bg-gradient-to-r from-gold/15 via-amber-50 to-gold/15 p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-sm font-semibold text-navy">⚙️ Configuration initiale à finaliser</h2>
-              <p className="mt-1 text-xs text-muted max-w-2xl">
-                Pour accepter des réservations, il faut au moins un type de chambre, une chambre physique et un rate plan.
-                L&apos;assistant vous guide en 2 minutes avec des valeurs types pré-remplies.
-              </p>
+              <h2 className="text-sm font-semibold text-navy">⚙️ {t("configBanner")}</h2>
+              <p className="mt-1 text-xs text-muted max-w-2xl">{t("configBannerDesc")}</p>
               <ul className="mt-2 flex flex-wrap gap-3 text-[11px]">
                 <li className={roomTypes.length > 0 ? "text-emerald-700" : "text-muted"}>
-                  {roomTypes.length > 0 ? "✅" : "◯"} Types de chambres ({roomTypes.length})
+                  {roomTypes.length > 0 ? "✅" : "◯"} {t("configCheckTypes")} ({roomTypes.length})
                 </li>
                 <li className={rooms.length > 0 ? "text-emerald-700" : "text-muted"}>
-                  {rooms.length > 0 ? "✅" : "◯"} Chambres physiques ({rooms.length})
+                  {rooms.length > 0 ? "✅" : "◯"} {t("configCheckRooms")} ({rooms.length})
                 </li>
                 <li className={ratePlans.length > 0 ? "text-emerald-700" : "text-muted"}>
-                  {ratePlans.length > 0 ? "✅" : "◯"} Rate plans ({ratePlans.length})
+                  {ratePlans.length > 0 ? "✅" : "◯"} {t("configCheckPlans")} ({ratePlans.length})
                 </li>
               </ul>
             </div>
@@ -121,7 +121,7 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
               href={`/pms/${propertyId}/setup`}
               className="rounded-md bg-navy px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-navy-light whitespace-nowrap"
             >
-              Lancer l&apos;assistant →
+              {t("configBannerCta")}
             </Link>
           </div>
         </div>
@@ -130,13 +130,13 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
       {/* Navigation sous-module */}
       <nav className="mt-6 flex flex-wrap gap-2 border-b border-card-border pb-3">
         {[
-          { href: `/pms/${propertyId}`, label: "Tableau de bord", active: true },
-          { href: `/pms/${propertyId}/chambres`, label: "Chambres & tarifs" },
-          { href: `/pms/${propertyId}/calendrier`, label: "Calendrier" },
-          { href: `/pms/${propertyId}/reservations`, label: "Réservations" },
-          { href: `/pms/${propertyId}/guests`, label: "Invités (CRM)" },
-          { href: `/pms/${propertyId}/factures`, label: "Factures" },
-          { href: `/pms/${propertyId}/rapports`, label: "Rapports" },
+          { href: `/pms/${propertyId}`, label: t("navDashboard"), active: true },
+          { href: `/pms/${propertyId}/chambres`, label: t("navRooms") },
+          { href: `/pms/${propertyId}/calendrier`, label: t("navCalendar") },
+          { href: `/pms/${propertyId}/reservations`, label: t("navReservations") },
+          { href: `/pms/${propertyId}/guests`, label: t("navGuests") },
+          { href: `/pms/${propertyId}/factures`, label: t("navInvoices") },
+          { href: `/pms/${propertyId}/rapports`, label: t("navReports") },
         ].map((l) => (
           <Link
             key={l.href}
@@ -154,35 +154,35 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
 
       {/* KPIs opérationnels */}
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <KpiCard label="Chambres" value={totalRooms.toString()} sub={`${Object.keys(roomsByStatus).length} statuts`} />
-        <KpiCard label="In-house" value={inHouse.toString()} sub="clients présents" />
-        <KpiCard label="Arrivées aujourd'hui" value={arrivalsToday.toString()} />
-        <KpiCard label="Départs aujourd'hui" value={departuresToday.toString()} />
+        <KpiCard label={t("kpiRooms")} value={totalRooms.toString()} sub={t("kpiRoomsSub", { n: Object.keys(roomsByStatus).length })} />
+        <KpiCard label={t("kpiInHouse")} value={inHouse.toString()} sub={t("kpiInHouseSub")} />
+        <KpiCard label={t("kpiArrivals")} value={arrivalsToday.toString()} />
+        <KpiCard label={t("kpiDepartures")} value={departuresToday.toString()} />
       </div>
 
       {/* KPIs revenus 30 derniers jours */}
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-4">
         <KpiCard
-          label="Occupation 30j"
+          label={t("kpiOccupancy")}
           value={kpis.occupancyPct.toFixed(1) + " %"}
           tone="emerald"
         />
-        <KpiCard label="ADR 30j" value={formatEUR(kpis.adr)} tone="navy" />
-        <KpiCard label="RevPAR 30j" value={formatEUR(kpis.revpar)} tone="navy" />
+        <KpiCard label={t("kpiAdr")} value={formatEUR(kpis.adr)} tone="navy" />
+        <KpiCard label={t("kpiRevpar")} value={formatEUR(kpis.revpar)} tone="navy" />
         <KpiCard
-          label="Pickup 30j"
+          label={t("kpiPickup")}
           value={pickup.reservationsLast30.toString()}
-          sub={`${pickup.roomNightsLast30} nuits · ${formatEUR(pickup.avgRevenuePerReservation)} / rés.`}
+          sub={t("kpiPickupSub", { nights: pickup.roomNightsLast30, avg: formatEUR(pickup.avgRevenuePerReservation) })}
         />
       </div>
 
       {/* Statuts chambres */}
       <section className="mt-6 rounded-xl border border-card-border bg-card p-5">
-        <h2 className="text-sm font-semibold text-navy mb-3">Statut des chambres</h2>
+        <h2 className="text-sm font-semibold text-navy mb-3">{t("statusTitle")}</h2>
         {totalRooms === 0 ? (
           <p className="text-xs text-muted italic">
-            Aucune chambre configurée.{" "}
-            <Link href={`/pms/${propertyId}/chambres`} className="text-navy underline">Ajouter des types &amp; chambres</Link>
+            {t("statusEmpty")}{" "}
+            <Link href={`/pms/${propertyId}/chambres`} className="text-navy underline">{t("statusEmptyLink")}</Link>
           </p>
         ) : (
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7 text-xs">
@@ -199,17 +199,17 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
       {/* Dispo 14 jours */}
       <section className="mt-6 rounded-xl border border-card-border bg-card p-5">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold text-navy">Disponibilité (14 prochains jours)</h2>
-          <Link href={`/pms/${propertyId}/calendrier`} className="text-xs text-navy hover:underline">Calendrier complet →</Link>
+          <h2 className="text-sm font-semibold text-navy">{t("availTitle")}</h2>
+          <Link href={`/pms/${propertyId}/calendrier`} className="text-xs text-navy hover:underline">{t("availFullCalendar")}</Link>
         </div>
         {availability.length === 0 ? (
-          <p className="text-xs text-muted italic">Pas encore de types de chambres configurés.</p>
+          <p className="text-xs text-muted italic">{t("availNoTypes")}</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full text-xs">
               <thead>
                 <tr className="border-b border-card-border">
-                  <th className="py-1 pr-2 text-left font-medium text-muted">Jour</th>
+                  <th className="py-1 pr-2 text-left font-medium text-muted">{t("availDayColumn")}</th>
                   {roomTypes.map((rt) => (
                     <th key={rt.id} className="py-1 px-2 text-center font-medium text-muted">{rt.code}</th>
                   ))}
@@ -219,7 +219,7 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
                 {Array.from(new Set(availability.map((a) => a.day))).sort().slice(0, 14).map((day) => (
                   <tr key={day} className="border-b border-card-border/40">
                     <td className="py-1 pr-2 font-mono text-muted">
-                      {new Date(day).toLocaleDateString("fr-LU", { weekday: "short", day: "2-digit", month: "short" })}
+                      {new Date(day).toLocaleDateString(undefined, { weekday: "short", day: "2-digit", month: "short" })}
                     </td>
                     {roomTypes.map((rt) => {
                       const cell = availability.find((a) => a.day === day && a.room_type_id === rt.id);
@@ -244,11 +244,11 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
       {/* Réservations récentes */}
       <section className="mt-6 rounded-xl border border-card-border bg-card p-5">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold text-navy">Réservations (60 prochains jours)</h2>
-          <Link href={`/pms/${propertyId}/reservations`} className="text-xs text-navy hover:underline">Toutes →</Link>
+          <h2 className="text-sm font-semibold text-navy">{t("recentResTitle")}</h2>
+          <Link href={`/pms/${propertyId}/reservations`} className="text-xs text-navy hover:underline">{t("recentResAll")}</Link>
         </div>
         {reservations.length === 0 ? (
-          <p className="text-xs text-muted italic">Aucune réservation pour le moment.</p>
+          <p className="text-xs text-muted italic">{t("recentResEmpty")}</p>
         ) : (
           <ul className="divide-y divide-card-border/40 text-xs">
             {reservations.slice(0, 10).map((r) => (
@@ -262,14 +262,14 @@ export default function PropertyOverviewPage(props: { params: Promise<{ property
                   </span>
                 </div>
                 <div className="font-mono text-navy">{formatEUR(Number(r.total_amount || 0))}</div>
-                <span className={`ml-3 rounded-full px-2 py-0.5 text-[10px] ${statusClass(r.status)}`}>{r.status}</span>
+                <span className={`ml-3 rounded-full px-2 py-0.5 text-[10px] ${statusClass(r.status)}`}>{ts(r.status)}</span>
               </li>
             ))}
           </ul>
         )}
         {pendingQuotes > 0 && (
           <div className="mt-3 text-xs text-amber-900">
-            ⚠ {pendingQuotes} devis en attente de confirmation.
+            ⚠ {t("pendingQuotes", { count: pendingQuotes })}
           </div>
         )}
       </section>
