@@ -135,6 +135,12 @@ export default function ContactsPage() {
             ↓ Export CSV
           </button>
           <Link
+            href="/pro-agences/crm/contacts/import"
+            className="rounded-md border border-card-border bg-background px-3 py-1.5 text-xs font-semibold text-slate hover:border-navy"
+          >
+            ↑ Import CSV
+          </Link>
+          <Link
             href="/pro-agences/crm/templates"
             className="rounded-md border border-card-border bg-background px-3 py-1.5 text-xs font-semibold text-slate hover:border-navy"
           >
