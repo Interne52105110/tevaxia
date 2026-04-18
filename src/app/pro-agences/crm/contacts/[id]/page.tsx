@@ -9,6 +9,10 @@ import { listTasks, createTask, completeTask, isOverdue } from "@/lib/crm/tasks"
 import { errMsg } from "@/lib/errors";
 import { formatEUR } from "@/lib/calculations";
 import { useRouter } from "next/navigation";
+import {
+  NURTURE_SEQUENCES, enrollContact, estimateSequenceDuration,
+  type NurtureSequence,
+} from "@/lib/crm/nurture-sequences";
 
 const KIND_LABEL: Record<CrmContactKind, string> = {
   prospect: "Prospect", lead: "Lead", acquereur: "Acquéreur", vendeur: "Vendeur",
@@ -148,13 +152,14 @@ export default function ContactDetailPage(props: { params: Promise<{ id: string 
             {contact.is_company && <span className="rounded-full bg-navy/10 text-navy px-2 py-0.5 text-[10px]">Société</span>}
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {["prospect", "lead", "acquereur"].includes(contact.kind) && (
             <Link href={`/pro-agences/crm/contacts/${contact.id}/matches`}
               className="rounded-md border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-900 hover:bg-emerald-100">
               🎯 Biens matchés
             </Link>
           )}
+          <NurtureDropdown contactId={contact.id} onEnrolled={() => { /* pourrait reload les tasks */ }} />
           <button
             type="button"
             onClick={() => setEditing(!editing)}
@@ -378,6 +383,61 @@ export default function ContactDetailPage(props: { params: Promise<{ id: string 
           </section>
         </div>
       </div>
+    </div>
+  );
+}
+
+function NurtureDropdown({ contactId, onEnrolled }: { contactId: string; onEnrolled: () => void }) {
+  const [open, setOpen] = useState(false);
+  const [flash, setFlash] = useState<string | null>(null);
+
+  const enroll = async (seq: NurtureSequence) => {
+    if (!confirm(`Démarrer la séquence "${seq.name}" ? ${seq.steps.length} tâches seront créées sur ${estimateSequenceDuration(seq)} jours.`)) {
+      return;
+    }
+    const r = await enrollContact(contactId, seq.id);
+    if (r.ok) {
+      setFlash(`✓ ${r.tasks_created} tâches planifiées`);
+      setOpen(false);
+      setTimeout(() => setFlash(null), 3500);
+      onEnrolled();
+    } else {
+      setFlash(`Erreur : ${r.error}`);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <button onClick={() => setOpen(!open)}
+        className="rounded-md border border-indigo-300 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-900 hover:bg-indigo-100">
+        📬 Séquence ▾
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 top-full z-50 mt-1 w-80 rounded-lg border border-card-border bg-white shadow-lg">
+            <div className="p-3 border-b border-card-border">
+              <div className="text-sm font-bold text-navy">Séquences nurturing</div>
+              <div className="text-xs text-muted">Planifie N tâches rappel au fil du temps</div>
+            </div>
+            {NURTURE_SEQUENCES.map((seq) => (
+              <button key={seq.id} onClick={() => enroll(seq)}
+                className="w-full text-left p-3 border-b border-card-border/50 hover:bg-background">
+                <div className="text-sm font-semibold text-navy">{seq.name}</div>
+                <div className="text-xs text-muted mt-0.5">{seq.description}</div>
+                <div className="mt-1 text-[10px] text-muted">
+                  {seq.steps.length} tâches · durée {estimateSequenceDuration(seq)} jours
+                </div>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+      {flash && (
+        <div className="absolute right-0 top-full mt-1 rounded-lg bg-emerald-600 text-white px-3 py-2 text-xs font-semibold whitespace-nowrap shadow-lg z-50">
+          {flash}
+        </div>
+      )}
     </div>
   );
 }
