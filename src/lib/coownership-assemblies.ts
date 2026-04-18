@@ -268,3 +268,85 @@ export function quorumReached(resolutions: Resolution[], totalTantiemes: number,
   const expressed = r.votes_yes_tantiemes + r.votes_no_tantiemes + r.votes_abstain_tantiemes;
   return totalTantiemes > 0 && (expressed / totalTantiemes) * 100 >= quorumPct;
 }
+
+/**
+ * Verdict d'une résolution en fonction de sa majorité — utile pour
+ * afficher un badge lisible côté UI avant le recompute DB.
+ */
+export function resolutionVerdict(r: Resolution, totalTantiemes: number): {
+  outcome: ResolutionResult;
+  pctExpressed: number;
+  pctYes: number;
+  reachedThreshold: number;
+} {
+  const expressed = r.votes_yes_tantiemes + r.votes_no_tantiemes + r.votes_abstain_tantiemes;
+  const pctExpressed = totalTantiemes > 0 ? (expressed / totalTantiemes) * 100 : 0;
+  const pctYes = expressed > 0 ? (r.votes_yes_tantiemes / expressed) * 100 : 0;
+  let threshold = 50; // simple majority
+  if (r.majority_type === "absolute") threshold = 50; // absolue sur total
+  else if (r.majority_type === "double") threshold = 66.67;
+  else if (r.majority_type === "unanimity") threshold = 100;
+  return { outcome: r.result, pctExpressed, pctYes, reachedThreshold: threshold };
+}
+
+/**
+ * Compte de votants exprimés (yes+no+abstain) par résolution.
+ */
+export function expressedCount(r: Resolution): number {
+  return r.votes_yes_tantiemes + r.votes_no_tantiemes + r.votes_abstain_tantiemes;
+}
+
+// ============================================================
+// Portal voting (copropriétaires, accès par token)
+// ============================================================
+
+export interface PortalAssemblyData {
+  assembly?: {
+    id: string;
+    title: string;
+    assembly_type: AssemblyType;
+    scheduled_at: string;
+    location: string | null;
+    virtual_url: string | null;
+    status: AssemblyStatus;
+    quorum_pct: number;
+  };
+  resolutions?: Array<{
+    id: string;
+    number: number;
+    title: string;
+    description: string | null;
+    majority_type: MajorityType;
+    result: ResolutionResult;
+    votes_yes_tantiemes: number;
+    votes_no_tantiemes: number;
+    votes_abstain_tantiemes: number;
+    votes_absent_tantiemes: number;
+    my_vote: VoteValue | null;
+    my_voted_at: string | null;
+  }>;
+  unit_id?: string;
+  error?: string;
+}
+
+export async function portalListAssemblyResolutions(
+  token: string, assemblyId: string,
+): Promise<PortalAssemblyData> {
+  const client = ensureClient();
+  const { data, error } = await client.rpc("portal_list_assembly_resolutions", {
+    p_token: token, p_assembly_id: assemblyId,
+  });
+  if (error) throw error;
+  return (data ?? {}) as PortalAssemblyData;
+}
+
+export async function portalCastVote(
+  token: string, resolutionId: string, vote: VoteValue,
+): Promise<{ ok?: boolean; vote_id?: string; vote?: string; error?: string }> {
+  const client = ensureClient();
+  const { data, error } = await client.rpc("portal_cast_vote", {
+    p_token: token, p_resolution_id: resolutionId, p_vote: vote,
+  });
+  if (error) throw error;
+  return data as { ok?: boolean; vote_id?: string; vote?: string; error?: string };
+}
