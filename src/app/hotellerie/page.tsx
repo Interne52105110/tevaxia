@@ -259,17 +259,29 @@ export default async function HotellerieHub() {
           <h2 className="text-center text-2xl font-bold text-navy sm:text-3xl">{t("audienceTitle")}</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             <div className="rounded-xl border border-card-border bg-background p-6">
-              <div className="text-3xl">🏨</div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-700 to-purple-500 text-white shadow-sm">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m18-18v18M6 8.25h2.25M6 12h2.25m-2.25 3.75h2.25M9.75 8.25h.008v.008H9.75V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008zm5.625-7.5h.008v.008h-.008V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008z" />
+                </svg>
+              </div>
               <h3 className="mt-3 text-base font-semibold text-navy">{t("audience1Title")}</h3>
               <p className="mt-2 text-sm text-muted leading-relaxed">{t("audience1Desc")}</p>
             </div>
             <div className="rounded-xl border border-card-border bg-background p-6">
-              <div className="text-3xl">🇺🇸</div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-rose-700 to-rose-500 text-white shadow-sm">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3.75A1.75 1.75 0 014.75 2h14.5A1.75 1.75 0 0121 3.75v1.5A1.75 1.75 0 0119.25 7H4.75A1.75 1.75 0 013 5.25v-1.5zM3 14.25A1.75 1.75 0 014.75 12.5h14.5A1.75 1.75 0 0121 14.25v1.5A1.75 1.75 0 0119.25 17.5H4.75A1.75 1.75 0 013 15.75v-1.5zM3 9a1 1 0 011-1h16a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V9zM3 19a1 1 0 011-1h16a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-1z" />
+                </svg>
+              </div>
               <h3 className="mt-3 text-base font-semibold text-navy">{t("audience2Title")}</h3>
               <p className="mt-2 text-sm text-muted leading-relaxed">{t("audience2Desc")}</p>
             </div>
             <div className="rounded-xl border border-card-border bg-background p-6">
-              <div className="text-3xl">🔄</div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-700 to-emerald-500 text-white shadow-sm">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+              </div>
               <h3 className="mt-3 text-base font-semibold text-navy">{t("audience3Title")}</h3>
               <p className="mt-2 text-sm text-muted leading-relaxed">{t("audience3Desc")}</p>
             </div>

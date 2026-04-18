@@ -128,7 +128,11 @@ export default function HotelGroupDashboard() {
 
         {orgs.length === 0 && (
           <div className="mt-8 rounded-xl border border-dashed border-card-border bg-card p-10 text-center">
-            <div className="text-4xl">🏨</div>
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-purple-700 to-purple-500 text-white shadow-sm">
+              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m18-18v18M6 8.25h2.25M6 12h2.25m-2.25 3.75h2.25M9.75 8.25h.008v.008H9.75V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008zm5.625-7.5h.008v.008h-.008V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008z" />
+              </svg>
+            </div>
             <h2 className="mt-3 text-lg font-semibold text-navy">{tg("noGroup")}</h2>
             <p className="mt-1 text-sm text-muted">
               {tg("noGroupDesc")}
