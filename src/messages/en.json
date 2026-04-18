@@ -3516,6 +3516,65 @@
       "p1": "This site is governed by Luxembourg law. Any dispute relating to the use of the site shall fall under the exclusive jurisdiction of the courts of the Grand Duchy of Luxembourg."
     }
   },
+  "cgu": {
+    "title": "Terms of Service",
+    "lastUpdate": "Last updated: April 2026",
+    "intro": "These Terms of Service (TOS) govern the use of the tevaxia.lu platform and its services. By accessing the site or creating an account, the user accepts these TOS without reservation.",
+    "article1": {
+      "title": "1. Purpose",
+      "p1": "tevaxia.lu is a Luxembourg platform offering: (a) free public tools (calculators, simulators, hedonic estimator, price map), (b) a professional property valuation module compliant with TEGOVA EVS 2025 standard, and (c) professional software for real estate agencies (CRM), condominium managers (syndic) and hoteliers (PMS).",
+      "p2": "Professional services are available on subscription, after creating an account and an organisation."
+    },
+    "article2": {
+      "title": "2. Access to the service",
+      "p1": "Free tools are accessible without registration. Professional modules require the creation of an account (email + password or OAuth provider) and acceptance of these TOS.",
+      "p2": "The user undertakes to provide accurate information upon registration and to keep credentials confidential. Any activity carried out from the account is presumed to be that of its holder.",
+      "p3": "The publisher reserves the right to suspend an account in the event of fraudulent, abusive use or use contrary to these TOS."
+    },
+    "article3": {
+      "title": "3. Pricing and payment",
+      "p1": "Plans and current prices are presented on the Pricing page. Subscriptions are billed monthly or annually, payable in advance via Stripe.",
+      "p2": "A free trial period may be offered. In the absence of cancellation before the end of the trial, the subscription continues at the displayed tariffs.",
+      "p3": "In the event of non-payment, access to the service may be suspended after reminder. Data remains recoverable for 30 days after suspension."
+    },
+    "article4": {
+      "title": "4. User undertakings",
+      "p1": "The user undertakes to use the platform in accordance with Luxembourg and European laws in force, in particular:",
+      "li1": "not to divert the tools for illegal purposes or purposes contrary to public order;",
+      "li2": "to respect the intellectual property of displayed content;",
+      "li3": "not to attempt to circumvent technical limitations, massive scraping or attacks on the infrastructure;",
+      "li4": "to comply with GDPR when processing personal data of third parties (co-owners, customers, tenants…) entered into the platform."
+    },
+    "article5": {
+      "title": "5. Limitation of liability",
+      "p1": "The platform is provided \"as is\". The calculation, simulation and valuation tools provide estimates based on scales and regulations in force at the date of update. They do not constitute personalised legal, tax, financial or accounting advice.",
+      "p2": "The publisher cannot be held responsible for decisions made by the user on the basis of the results obtained. For important acts (acquisition, disposal, judicial expertise…), it is imperative to call on a qualified professional (notary, lawyer, accountant, certified REV/TRV valuer).",
+      "p3": "The publisher strives to ensure the availability of the platform 24/7 but does not guarantee any contractual SLA outside specific clause of the subscription plan. Interruptions for maintenance, bug or external cause are possible."
+    },
+    "article6": {
+      "title": "6. Intellectual property",
+      "p1": "All content, code, interfaces, databases and trademarks displayed on tevaxia.lu are the exclusive property of the publisher or its partners. Any unauthorised reproduction, adaptation, distribution or exploitation is prohibited.",
+      "p2": "The user retains ownership of the data they enter. They grant the publisher a non-exclusive license for hosting and processing limited to the execution of the service."
+    },
+    "article7": {
+      "title": "7. Personal data",
+      "p1": "The processing of personal data is described in the Privacy Policy. The publisher acts as controller for the data of account-holding users, and as processor for third-party data entered by professional users into the platform."
+    },
+    "article8": {
+      "title": "8. Duration and termination",
+      "p1": "Free accounts are concluded for an indefinite period. The user can delete their account at any time from their personal space.",
+      "p2": "Paid subscriptions can be cancelled at any time with effect at the end of the period already paid, without pro rata refund unless otherwise provided.",
+      "p3": "In the event of serious breach (fraud, persistent non-payment, attack on the platform), the publisher may terminate the account immediately with notification to the user."
+    },
+    "article9": {
+      "title": "9. Modification of the TOS",
+      "p1": "The publisher reserves the right to modify these TOS. Any substantial modification will be notified to the user by email at least 30 days before it comes into force. Continued use beyond this period constitutes acceptance."
+    },
+    "article10": {
+      "title": "10. Applicable law and jurisdiction",
+      "p1": "These TOS are governed by Luxembourg law. Any dispute relating to their interpretation or execution shall fall under the exclusive jurisdiction of the courts of the Grand Duchy of Luxembourg, after prior attempt at amicable resolution."
+    }
+  },
   "confidentialite": {
     "title": "Privacy Policy",
     "lastUpdate": "Last updated: April 2026",

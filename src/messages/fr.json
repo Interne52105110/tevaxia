@@ -3516,6 +3516,65 @@
       "p1": "Le présent site est soumis au droit luxembourgeois. Tout litige relatif à l'utilisation du site sera de la compétence exclusive des tribunaux du Grand-Duché de Luxembourg."
     }
   },
+  "cgu": {
+    "title": "Conditions Générales d'Utilisation",
+    "lastUpdate": "Dernière mise à jour : avril 2026",
+    "intro": "Les présentes Conditions Générales d'Utilisation (CGU) régissent l'utilisation de la plateforme tevaxia.lu et de ses services. En accédant au site ou en créant un compte, l'utilisateur accepte sans réserve les présentes CGU.",
+    "article1": {
+      "title": "1. Objet",
+      "p1": "tevaxia.lu est une plateforme luxembourgeoise réunissant : (a) des outils gratuits publics (calculateurs, simulateurs, estimateur hédonique, carte des prix), (b) un module de valorisation immobilière professionnelle conforme au standard EVS TEGOVA 2025, et (c) des logiciels métiers pour agences immobilières (CRM), syndics de copropriété et hôteliers (PMS).",
+      "p2": "Les services professionnels sont accessibles sur abonnement, après création d'un compte et d'une organisation."
+    },
+    "article2": {
+      "title": "2. Accès au service",
+      "p1": "Les outils gratuits sont accessibles sans inscription. Les modules professionnels nécessitent la création d'un compte (email + mot de passe ou fournisseur OAuth) et l'acceptation des présentes CGU.",
+      "p2": "L'utilisateur s'engage à fournir des informations exactes lors de l'inscription et à maintenir la confidentialité de ses identifiants. Toute activité réalisée depuis le compte est présumée être le fait de son titulaire.",
+      "p3": "L'éditeur se réserve le droit de suspendre un compte en cas d'usage frauduleux, abusif ou contraire aux présentes CGU."
+    },
+    "article3": {
+      "title": "3. Tarification et paiement",
+      "p1": "Les plans et tarifs en vigueur sont présentés sur la page Tarifs. Les abonnements sont facturés mensuellement ou annuellement, payables d'avance via Stripe.",
+      "p2": "Une période d'essai gratuite peut être proposée. En l'absence de résiliation avant la fin de l'essai, l'abonnement se poursuit aux conditions tarifaires affichées.",
+      "p3": "En cas d'impayé, l'accès au service peut être suspendu après relance. Les données restent récupérables 30 jours après suspension."
+    },
+    "article4": {
+      "title": "4. Engagements de l'utilisateur",
+      "p1": "L'utilisateur s'engage à utiliser la plateforme conformément aux lois luxembourgeoises et européennes en vigueur, notamment :",
+      "li1": "ne pas détourner les outils à des fins illicites ou contraires à l'ordre public ;",
+      "li2": "respecter la propriété intellectuelle des contenus affichés ;",
+      "li3": "ne pas tenter de contourner les limitations techniques, scraping massif ou attaques sur l'infrastructure ;",
+      "li4": "respecter le RGPD lors du traitement de données personnelles de tiers (copropriétaires, clients, locataires…) saisies dans la plateforme."
+    },
+    "article5": {
+      "title": "5. Limitation de responsabilité",
+      "p1": "La plateforme est fournie « en l'état ». Les outils de calcul, simulation et valorisation fournissent des estimations fondées sur les barèmes et réglementations en vigueur à la date de mise à jour. Ils ne constituent pas un conseil juridique, fiscal, financier ou comptable personnalisé.",
+      "p2": "L'éditeur ne peut être tenu responsable des décisions prises par l'utilisateur sur la base des résultats obtenus. Pour les actes importants (acquisition, cession, expertise judiciaire…), il est impératif de faire appel à un professionnel qualifié (notaire, avocat, expert-comptable, évaluateur REV/TRV certifié).",
+      "p3": "L'éditeur s'efforce d'assurer la disponibilité de la plateforme 24/7 mais ne garantit aucun SLA contractuel hors clause spécifique du plan d'abonnement. Des interruptions pour maintenance, bug ou cause externe sont possibles."
+    },
+    "article6": {
+      "title": "6. Propriété intellectuelle",
+      "p1": "L'ensemble des contenus, codes, interfaces, bases de données et marques affichés sur tevaxia.lu sont la propriété exclusive de l'éditeur ou de ses partenaires. Toute reproduction, adaptation, diffusion ou exploitation non autorisée est interdite.",
+      "p2": "L'utilisateur conserve la propriété des données qu'il saisit. Il concède à l'éditeur une licence non exclusive d'hébergement et de traitement limitée à l'exécution du service."
+    },
+    "article7": {
+      "title": "7. Données personnelles",
+      "p1": "Le traitement des données personnelles est décrit dans la Politique de confidentialité. L'éditeur agit comme responsable de traitement pour les données des utilisateurs titulaires de compte, et comme sous-traitant pour les données de tiers saisies par les utilisateurs professionnels dans la plateforme."
+    },
+    "article8": {
+      "title": "8. Durée et résiliation",
+      "p1": "Les comptes gratuits sont conclus pour une durée indéterminée. L'utilisateur peut supprimer son compte à tout moment depuis son espace personnel.",
+      "p2": "Les abonnements payants peuvent être résiliés à tout moment avec effet à la fin de la période déjà payée, sans remboursement prorata sauf disposition contraire.",
+      "p3": "En cas de manquement grave (fraude, non-paiement persistant, atteinte à la plateforme), l'éditeur peut résilier le compte immédiatement avec notification à l'utilisateur."
+    },
+    "article9": {
+      "title": "9. Modification des CGU",
+      "p1": "L'éditeur se réserve le droit de modifier les présentes CGU. Toute modification substantielle sera notifiée à l'utilisateur par email au moins 30 jours avant son entrée en vigueur. La poursuite de l'utilisation au-delà de ce délai vaut acceptation."
+    },
+    "article10": {
+      "title": "10. Droit applicable et juridiction",
+      "p1": "Les présentes CGU sont régies par le droit luxembourgeois. Tout litige relatif à leur interprétation ou exécution relèvera de la compétence exclusive des tribunaux du Grand-Duché de Luxembourg, après tentative préalable de résolution amiable."
+    }
+  },
   "confidentialite": {
     "title": "Politique de confidentialité",
     "lastUpdate": "Dernière mise à jour : avril 2026",

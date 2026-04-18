@@ -3516,6 +3516,65 @@
       "p1": "O presente site esta sujeito ao direito luxemburgues. Qualquer litigio relativo a utilizacao do site sera da competencia exclusiva dos tribunais do Grao-Ducado do Luxemburgo."
     }
   },
+  "cgu": {
+    "title": "Termos e Condicoes de Utilizacao",
+    "lastUpdate": "Ultima atualizacao: abril de 2026",
+    "intro": "Os presentes Termos e Condicoes de Utilizacao (TCU) regem a utilizacao da plataforma tevaxia.lu e dos seus servicos. Ao aceder ao site ou criar uma conta, o utilizador aceita sem reservas os presentes TCU.",
+    "article1": {
+      "title": "1. Objeto",
+      "p1": "tevaxia.lu e uma plataforma luxemburguesa que reune: (a) ferramentas gratuitas publicas (calculadoras, simuladores, estimador hedonico, mapa de precos), (b) um modulo de avaliacao imobiliaria profissional conforme o padrao TEGOVA EVS 2025, e (c) software profissional para agencias imobiliarias (CRM), administradores de condominios e hoteleiros (PMS).",
+      "p2": "Os servicos profissionais estao disponiveis por subscricao, apos criacao de conta e organizacao."
+    },
+    "article2": {
+      "title": "2. Acesso ao servico",
+      "p1": "As ferramentas gratuitas sao acessiveis sem registo. Os modulos profissionais exigem a criacao de uma conta (email + palavra-passe ou OAuth) e a aceitacao destes TCU.",
+      "p2": "O utilizador compromete-se a fornecer informacoes exatas aquando do registo e a manter a confidencialidade das suas credenciais. Qualquer atividade realizada a partir da conta presume-se ser do seu titular.",
+      "p3": "O editor reserva-se o direito de suspender uma conta em caso de utilizacao fraudulenta, abusiva ou contraria aos presentes TCU."
+    },
+    "article3": {
+      "title": "3. Precos e pagamento",
+      "p1": "Os planos e precos em vigor estao na pagina de Precos. As subscricoes sao faturadas mensal ou anualmente, pagaveis antecipadamente via Stripe.",
+      "p2": "Pode ser oferecido um periodo de experiencia gratuito. Sem cancelamento antes do fim da experiencia, a subscricao prossegue nas condicoes exibidas.",
+      "p3": "Em caso de falta de pagamento, o acesso pode ser suspenso apos aviso. Os dados permanecem recuperaveis 30 dias apos suspensao."
+    },
+    "article4": {
+      "title": "4. Compromissos do utilizador",
+      "p1": "O utilizador compromete-se a utilizar a plataforma conforme as leis luxemburguesas e europeias em vigor, nomeadamente:",
+      "li1": "nao desviar as ferramentas para fins ilicitos ou contrarios a ordem publica;",
+      "li2": "respeitar a propriedade intelectual dos conteudos;",
+      "li3": "nao contornar limitacoes tecnicas, scraping massivo ou ataques a infraestrutura;",
+      "li4": "respeitar o RGPD no tratamento de dados pessoais de terceiros (condominos, clientes, inquilinos …) introduzidos na plataforma."
+    },
+    "article5": {
+      "title": "5. Limitacao de responsabilidade",
+      "p1": "A plataforma e fornecida \"como esta\". As ferramentas de calculo, simulacao e avaliacao fornecem estimativas baseadas nas regulamentacoes em vigor na data de atualizacao. Nao constituem aconselhamento juridico, fiscal, financeiro ou contabilistico personalizado.",
+      "p2": "O editor nao se responsabiliza por decisoes tomadas pelo utilizador com base nos resultados obtidos. Para atos importantes (aquisicao, alienacao, pericia judicial …), e imperativo recorrer a um profissional qualificado (notario, advogado, contabilista, avaliador certificado REV/TRV).",
+      "p3": "O editor esforca-se por garantir a disponibilidade 24/7 mas nao garante SLA contratual fora de clausula especifica do plano. Sao possiveis interrupcoes por manutencao, erro ou causa externa."
+    },
+    "article6": {
+      "title": "6. Propriedade intelectual",
+      "p1": "Todo o conteudo, codigo, interfaces, bases de dados e marcas exibidos em tevaxia.lu sao propriedade exclusiva do editor ou parceiros. Qualquer utilizacao nao autorizada e proibida.",
+      "p2": "O utilizador conserva a propriedade dos dados que introduz. Concede ao editor uma licenca nao exclusiva de alojamento e tratamento limitada a execucao do servico."
+    },
+    "article7": {
+      "title": "7. Dados pessoais",
+      "p1": "O tratamento de dados pessoais e descrito na Politica de privacidade. O editor atua como responsavel de tratamento para os dados dos titulares de conta, e como subcontratante para os dados de terceiros introduzidos pelos utilizadores profissionais."
+    },
+    "article8": {
+      "title": "8. Duracao e rescisao",
+      "p1": "As contas gratuitas sao por tempo indeterminado. O utilizador pode apagar a conta a qualquer momento.",
+      "p2": "As subscricoes pagas podem ser canceladas a qualquer momento com efeito no fim do periodo ja pago, sem reembolso proporcional salvo disposicao contraria.",
+      "p3": "Em caso de falta grave (fraude, falta de pagamento persistente, ataque), o editor pode rescindir imediatamente com notificacao."
+    },
+    "article9": {
+      "title": "9. Modificacao dos TCU",
+      "p1": "O editor reserva-se o direito de modificar os presentes TCU. Qualquer modificacao substancial sera notificada por email pelo menos 30 dias antes da entrada em vigor. A utilizacao continuada vale aceitacao."
+    },
+    "article10": {
+      "title": "10. Direito aplicavel",
+      "p1": "Os presentes TCU sao regidos pelo direito luxemburgues. Qualquer litigio relativo a sua interpretacao ou execucao sera da competencia exclusiva dos tribunais do Grao-Ducado do Luxemburgo, apos tentativa de resolucao amigavel."
+    }
+  },
   "confidentialite": {
     "title": "Politica de privacidade",
     "lastUpdate": "Ultima atualizacao: abril de 2026",

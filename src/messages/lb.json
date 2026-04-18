@@ -3516,6 +3516,65 @@
       "p1": "Dëse Site ënnerläit dem lëtzebuerger Recht. All Sträit am Zesummenhang mat der Notzung vum Site fällt an déi exklusiv Kompetenz vun de Geriichter vum Groussherzogtum Lëtzebuerg."
     }
   },
+  "cgu": {
+    "title": "Allgemeng Notzungsbedingungen",
+    "lastUpdate": "Lescht Aktualiséierung: Abrëll 2026",
+    "intro": "Dës Allgemeng Notzungsbedingungen (AGB) reegelen d'Notzung vun der Plattform tevaxia.lu a hiren Déngschter. Andeems de Benotzer de Site opruft oder e Kont erstellt, akzeptéiert hien dës AGB ouni Virbehalt.",
+    "article1": {
+      "title": "1. Géigestand",
+      "p1": "tevaxia.lu ass eng lëtzebuerger Plattform, déi ubitt: (a) gratis ëffentlech Tools (Rechner, Simulatoren, hedoneschen Estimator, Präiskaart), (b) e Modul fir professionell Immobiliebewertung konform mam Standard TEGOVA EVS 2025, an (c) Profi-Software fir Immobilienagencen (CRM), Syndicsgestionnairen an Hôteliers (PMS).",
+      "p2": "Déi professionell Déngschter si verfügbar mat engem Abonnement, no der Erstellung vun engem Kont an enger Organisatioun."
+    },
+    "article2": {
+      "title": "2. Zougang zum Déngscht",
+      "p1": "Déi gratis Tools si verfügbar ouni Aschreiwung. Déi professionell Moduler erfuerderen d'Erstellung vun engem Kont (E-Mail + Passwuert oder OAuth) an d'Akzeptanz vun dësen AGB.",
+      "p2": "De Benotzer engagéiert sech, korrekt Informatiounen bei der Aschreiwung unzeginn an seng Zougangsdonnéeë vertraulech ze halen. All Aktivitéit vum Kont aus gëtt dem Inhaber zougeschriwwen.",
+      "p3": "De Betreiber kann e Kont bei bedrüglecher, mëssbräichlecher oder AGB-widderspriechlecher Notzung suspendéieren."
+    },
+    "article3": {
+      "title": "3. Präisser a Bezuelung",
+      "p1": "Déi aktuell Pläng a Präisser si verfügbar op der Präisser-Säit. Abonnementer ginn monatlech oder jäerlech am Viraus iwwer Stripe fakturéiert.",
+      "p2": "Eng gratis Testperiod kann ugebuede ginn. Ouni Ofbriechung virum Enn vum Test, geet den Abonnement zu de gewisene Konditiounen weider.",
+      "p3": "Bei Netzuelung kann den Zougang zum Déngscht no Mahnung suspendéiert ginn. D'Donnéeë bleiwe 30 Deeg verfügbar."
+    },
+    "article4": {
+      "title": "4. Engagementer vum Benotzer",
+      "p1": "De Benotzer engagéiert sech, d'Plattform konform mat de gëltege lëtzebuergeschen an europäesche Gesetzer ze notzen, besonnesch:",
+      "li1": "d'Tools net fir illegal Zwecker oder am Widdersproch mat der ëffentlecher Uerdnung ze notzen;",
+      "li2": "d'intellektuell Proprietéit vun den ugewisenen Inhalter ze respektéieren;",
+      "li3": "net probéieren technesch Limitatiounen, Massescraping oder Attacken op d'Infrastruktur ze iwwerkommen;",
+      "li4": "d'DSGVO ze respektéiere bei der Verschaffung vun perséinlechen Donnéeë vun Drëtten (Co-Proprietären, Clienten, Locatairen …)."
+    },
+    "article5": {
+      "title": "5. Haftungsbegrenzung",
+      "p1": "D'Plattform gëtt „wéi gesinn\" geliwwert. D'Tools liwweren Schätzungen op Basis vun de geltende Richtlinnen. Si sti keng perséinlech juristesch, steierlech, finanziell oder Comptabilitéitsberodung duer.",
+      "p2": "De Betreiber haft net fir Decisiounen vum Benotzer op Basis vun den Resultater. Fir wichteg Akten (Acquisitioun, Cessioun, Gerichtsexpertis …) muss een e qualifizéierte Professionell (Notaire, Affekot, Expertcomptable, REV/TRV-Evaluateur) consultéieren.",
+      "p3": "De Betreiber bemüht sech ëm eng 24/7 Verfügbarkeet, garantéiert awer keen contractuellen SLA ausserhalb spezifescher Ofkommenskloen. Ënnerbriechungen fir Maintenance oder extern Ursaachen si méiglech."
+    },
+    "article6": {
+      "title": "6. Intellektuell Proprietéit",
+      "p1": "All Inhalter, Coden, Interfacen, Datenbanken a Marken op tevaxia.lu sinn exklusiv Proprietéit vum Betreiber oder senge Partner. All onberechtegt Notzung ass verbueden.",
+      "p2": "De Benotzer behält d'Proprietéit un de Donnéeën, déi hien agitt. Hien accordéiert dem Betreiber eng net-exklusiv Lizenz fir d'Hosting an d'Traitement limitéiert op den Déngscht."
+    },
+    "article7": {
+      "title": "7. Perséinlech Donnéeën",
+      "p1": "D'Traitement vun perséinlechen Donnéeën ass an der Dateschutzrichtlinn beschriwwen. De Betreiber ass Verantwortlechen fir d'Donnéeë vun de Kontenhalter an Sous-Traitant fir Drëtt-Donnéeë vu Profi-Benotzer."
+    },
+    "article8": {
+      "title": "8. Dauer a Kënnegung",
+      "p1": "Gratis Konten sinn op onbestëmmten Dauer ofgeschloss. De Benotzer kann säi Kont zu all Moment läschen.",
+      "p2": "Bezuelt Abonnementer kënnen zu all Moment zum Enn vun der bezuelter Period gekënnegt ginn, ouni anteileg Rembours.",
+      "p3": "Bei eeschter Verletzung (Bedruch, Netzuelung, Attack) kann de Betreiber de Kont direkt kënnegen."
+    },
+    "article9": {
+      "title": "9. Ännerung vun den AGB",
+      "p1": "Wesentlech Ännerunge ginn dem Benotzer mindestens 30 Deeg am Viraus per E-Mail matgedeelt. Weider Notzung gëllt als Akzeptanz."
+    },
+    "article10": {
+      "title": "10. Applizéierbar Recht",
+      "p1": "Dës AGB ënnerleien dem lëtzebuerger Recht. Streiter falen no probéierter gütleger Unerkennung an déi exklusiv Kompetenz vun de Geriichter vum Groussherzogtum Lëtzebuerg."
+    }
+  },
   "confidentialite": {
     "title": "Dateschutzrichtlinn",
     "lastUpdate": "Lescht Aktualiséierung: Abrëll 2026",

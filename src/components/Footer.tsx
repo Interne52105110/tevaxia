@@ -82,6 +82,7 @@ export default function Footer() {
             <ul className="space-y-1.5 text-sm">
               <li><LocaleLink href="/mentions-legales" className="hover:text-white transition-colors">{tc("legalNotice")}</LocaleLink></li>
               <li><LocaleLink href="/confidentialite" className="hover:text-white transition-colors">{tc("privacy")}</LocaleLink></li>
+              <li><LocaleLink href="/cgu" className="hover:text-white transition-colors">CGU</LocaleLink></li>
               <li><LocaleLink href="/pricing" className="hover:text-white transition-colors">Tarifs</LocaleLink></li>
               <li><LocaleLink href="/plan-du-site" className="hover:text-white transition-colors">Plan du site</LocaleLink></li>
               <li><LocaleLink href={`${localePath}/propcalc`} className="hover:text-white transition-colors text-teal-light">PropCalc (WordPress)</LocaleLink></li>

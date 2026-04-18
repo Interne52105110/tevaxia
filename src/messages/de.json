@@ -3516,6 +3516,65 @@
       "p1": "Diese Website unterliegt luxemburgischem Recht. Alle Streitigkeiten im Zusammenhang mit der Nutzung der Website fallen in die ausschließliche Zuständigkeit der Gerichte des Großherzogtums Luxemburg."
     }
   },
+  "cgu": {
+    "title": "Allgemeine Nutzungsbedingungen",
+    "lastUpdate": "Letzte Aktualisierung: April 2026",
+    "intro": "Diese Allgemeinen Nutzungsbedingungen (AGB) regeln die Nutzung der Plattform tevaxia.lu und ihrer Dienste. Durch den Zugriff auf die Website oder die Erstellung eines Kontos akzeptiert der Nutzer diese AGB vorbehaltlos.",
+    "article1": {
+      "title": "1. Gegenstand",
+      "p1": "tevaxia.lu ist eine luxemburgische Plattform mit: (a) kostenlosen öffentlichen Tools (Rechner, Simulatoren, hedonischer Schätzer, Preiskarte), (b) einem Modul zur professionellen Immobilienbewertung gemäß TEGOVA EVS 2025 und (c) Profi-Software für Immobilienagenturen (CRM), Syndikusverwalter und Hoteliers (PMS).",
+      "p2": "Professionelle Dienste sind im Abonnement nach Erstellung eines Kontos und einer Organisation verfügbar."
+    },
+    "article2": {
+      "title": "2. Zugang zum Dienst",
+      "p1": "Kostenlose Tools sind ohne Registrierung zugänglich. Professionelle Module erfordern die Erstellung eines Kontos (E-Mail + Passwort oder OAuth) und die Annahme dieser AGB.",
+      "p2": "Der Nutzer verpflichtet sich zu korrekten Angaben bei der Registrierung und zur Vertraulichkeit seiner Zugangsdaten. Jede Aktivität vom Konto aus wird dem Inhaber zugerechnet.",
+      "p3": "Der Betreiber darf ein Konto bei betrügerischer, missbräuchlicher oder AGB-widriger Nutzung sperren."
+    },
+    "article3": {
+      "title": "3. Preise und Zahlung",
+      "p1": "Aktuelle Pläne und Preise finden sich auf der Preisseite. Abonnements werden monatlich oder jährlich im Voraus über Stripe abgerechnet.",
+      "p2": "Eine kostenlose Testphase kann angeboten werden. Ohne Kündigung vor Ablauf läuft das Abo zu angezeigten Konditionen weiter.",
+      "p3": "Bei Zahlungsverzug kann der Zugang nach Mahnung gesperrt werden. Daten bleiben 30 Tage abrufbar."
+    },
+    "article4": {
+      "title": "4. Nutzerpflichten",
+      "p1": "Der Nutzer verpflichtet sich, die Plattform gemäß geltenden luxemburgischen und europäischen Gesetzen zu nutzen, insbesondere:",
+      "li1": "die Tools nicht für illegale Zwecke zu missbrauchen;",
+      "li2": "das geistige Eigentum der Inhalte zu respektieren;",
+      "li3": "technische Einschränkungen nicht zu umgehen, kein Massen-Scraping oder Angriffe;",
+      "li4": "die DSGVO bei der Verarbeitung personenbezogener Daten Dritter (Miteigentümer, Kunden, Mieter …) einzuhalten."
+    },
+    "article5": {
+      "title": "5. Haftungsbeschränkung",
+      "p1": "Die Plattform wird „wie besehen\" bereitgestellt. Berechnungs-, Simulations- und Bewertungstools liefern Schätzungen auf Grundlage der zum Aktualisierungsdatum geltenden Vorschriften. Sie stellen keine personalisierte Rechts-, Steuer-, Finanz- oder Buchhaltungsberatung dar.",
+      "p2": "Der Betreiber haftet nicht für Entscheidungen des Nutzers aufgrund der Ergebnisse. Für wichtige Handlungen (Erwerb, Veräußerung, Gerichtsgutachten) ist ein qualifizierter Fachmann (Notar, Anwalt, Wirtschaftsprüfer, zertifizierter REV/TRV-Gutachter) zwingend.",
+      "p3": "Der Betreiber strebt 24/7-Verfügbarkeit an, garantiert jedoch kein vertragliches SLA außerhalb spezifischer Abo-Klauseln. Unterbrechungen für Wartung oder externe Ursachen sind möglich."
+    },
+    "article6": {
+      "title": "6. Geistiges Eigentum",
+      "p1": "Alle Inhalte, Codes, Oberflächen, Datenbanken und Marken auf tevaxia.lu sind ausschließliches Eigentum des Betreibers oder seiner Partner. Jede unbefugte Nutzung ist untersagt.",
+      "p2": "Der Nutzer bleibt Eigentümer seiner Daten. Er gewährt dem Betreiber eine nicht-ausschließliche Lizenz zum Hosting und zur Verarbeitung, beschränkt auf die Dienstleistung."
+    },
+    "article7": {
+      "title": "7. Personenbezogene Daten",
+      "p1": "Die Verarbeitung ist in der Datenschutzerklärung beschrieben. Der Betreiber ist Verantwortlicher für Kontoinhaber-Daten und Auftragsverarbeiter für Drittdaten professioneller Nutzer."
+    },
+    "article8": {
+      "title": "8. Laufzeit und Kündigung",
+      "p1": "Kostenlose Konten sind auf unbestimmte Zeit geschlossen. Der Nutzer kann sein Konto jederzeit löschen.",
+      "p2": "Kostenpflichtige Abos sind jederzeit zum Ende der bezahlten Periode kündbar, ohne anteilige Rückerstattung.",
+      "p3": "Bei schwerer Pflichtverletzung kann der Betreiber das Konto sofort kündigen."
+    },
+    "article9": {
+      "title": "9. Änderung der AGB",
+      "p1": "Wesentliche Änderungen werden mindestens 30 Tage im Voraus per E-Mail mitgeteilt. Weitere Nutzung gilt als Zustimmung."
+    },
+    "article10": {
+      "title": "10. Anwendbares Recht",
+      "p1": "Diese AGB unterliegen luxemburgischem Recht. Streitigkeiten fallen nach gütlicher Einigungsversuch in die ausschließliche Zuständigkeit der Gerichte des Großherzogtums Luxemburg."
+    }
+  },
   "confidentialite": {
     "title": "Datenschutzerklärung",
     "lastUpdate": "Letzte Aktualisierung: April 2026",
