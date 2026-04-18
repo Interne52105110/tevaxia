@@ -15,6 +15,7 @@ import {
   type Assembly, type Resolution, type AssemblyVote, type MajorityType, type VoteValue,
 } from "@/lib/coownership-assemblies";
 import AssemblyMinutesPdf from "@/components/AssemblyMinutesPdf";
+import ConvocationPdf from "@/components/ConvocationPdf";
 import { getProfile } from "@/lib/profile";
 import { errMsg } from "@/lib/errors";
 
@@ -131,6 +132,28 @@ export default function AssemblyDetailPage() {
     setAssembly(result);
   };
 
+  const downloadConvocationPdf = async () => {
+    if (!assembly || !coown) return;
+    const profile = getProfile();
+    const blob = await pdf(
+      <ConvocationPdf
+        coownership={{ name: coown.name, address: coown.address, commune: coown.commune }}
+        syndic={{
+          name: profile.nomComplet || profile.societe || "Syndic",
+          address: profile.adresse, email: profile.email, phone: profile.telephone,
+        }}
+        assembly={assembly}
+        resolutions={resolutions}
+      />
+    ).toBlob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `convocation-${assembly.title.replace(/\s+/g, "-").toLowerCase()}-${new Date(assembly.scheduled_at).toISOString().slice(0, 10)}.pdf`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const downloadMinutesPdf = async () => {
     if (!assembly || !coown) return;
     // Charge tous les votes de toutes les résolutions
@@ -211,6 +234,12 @@ export default function AssemblyDetailPage() {
             <button onClick={() => advanceStatus("close")}
               className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
               Clôturer
+            </button>
+          )}
+          {resolutions.length > 0 && (assembly.status === "draft" || assembly.status === "convened") && (
+            <button onClick={downloadConvocationPdf}
+              className="rounded-lg border border-blue-400 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900 hover:bg-blue-100">
+              ↓ Convocation PDF
             </button>
           )}
           {(assembly.status === "in_progress" || assembly.status === "closed") && resolutions.length > 0 && (
