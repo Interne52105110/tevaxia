@@ -2,9 +2,10 @@
 
 import { useEffect, useState, use, useMemo } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { getProperty } from "@/lib/pms/properties";
-import { listRooms, listRoomTypes, statusLabel } from "@/lib/pms/rooms";
+import { listRooms, listRoomTypes } from "@/lib/pms/rooms";
 import { listReservations, listReservationLines } from "@/lib/pms/reservations";
 import type {
   PmsProperty, PmsRoom, PmsRoomType, PmsReservation, PmsReservationRoom,
@@ -24,6 +25,10 @@ function buildDayRange(start: Date, count: number): Date[] {
 
 export default function CalendarPage(props: { params: Promise<{ propertyId: string }> }) {
   const { propertyId } = use(props.params);
+  const tc = useTranslations("pms.common");
+  const tRs = useTranslations("pms.roomStatus");
+  const tR = useTranslations("pms.rooms");
+  const t = useTranslations("pms.calendar");
   const { user, loading: authLoading } = useAuth();
   const [property, setProperty] = useState<PmsProperty | null>(null);
   const [rooms, setRooms] = useState<PmsRoom[]>([]);
@@ -62,8 +67,8 @@ export default function CalendarPage(props: { params: Promise<{ propertyId: stri
     })();
   }, [propertyId, user, authLoading, startDate, endDate]);
 
-  if (authLoading || loading) return <div className="mx-auto max-w-6xl px-4 py-16 text-center text-muted">Chargement…</div>;
-  if (!user || !property) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted"><Link href="/connexion" className="text-navy underline">Connectez-vous</Link></div>;
+  if (authLoading || loading) return <div className="mx-auto max-w-6xl px-4 py-16 text-center text-muted">{tc("loading")}</div>;
+  if (!user || !property) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted"><Link href="/connexion" className="text-navy underline">{tc("signInLink")}</Link></div>;
 
   // Mapping room_id → cellule (réservation + line)
   const reservationForRoomDay = (roomId: string, dayISO: string): { res: PmsReservation; line: PmsReservationRoom } | null => {
@@ -91,12 +96,12 @@ export default function CalendarPage(props: { params: Promise<{ propertyId: stri
     <div className="mx-auto max-w-full px-4 py-10">
       <div className="max-w-7xl mx-auto">
         <Link href={`/pms/${propertyId}`} className="text-xs text-navy hover:underline">← {property.name}</Link>
-        <h1 className="mt-1 text-2xl font-bold text-navy sm:text-3xl">Calendrier</h1>
-        <p className="mt-1 text-sm text-muted">Grille chambre × jour avec chevauchement réservations.</p>
+        <h1 className="mt-1 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+        <p className="mt-1 text-sm text-muted">{t("intro")}</p>
 
         <div className="mt-4 flex flex-wrap items-end gap-3">
           <label className="text-xs">
-            <span className="text-muted">Début</span>
+            <span className="text-muted">{t("start")}</span>
             <input
               type="date"
               value={startDate}
@@ -105,7 +110,7 @@ export default function CalendarPage(props: { params: Promise<{ propertyId: stri
             />
           </label>
           <label className="text-xs">
-            <span className="text-muted">Nb jours</span>
+            <span className="text-muted">{t("nbDays")}</span>
             <select
               value={daysCount}
               onChange={(e) => setDaysCount(Number(e.target.value))}
@@ -118,18 +123,18 @@ export default function CalendarPage(props: { params: Promise<{ propertyId: stri
             </select>
           </label>
           <div className="flex items-center gap-3 ml-auto text-[11px] text-muted">
-            <LegendDot color="bg-emerald-400" label="Check-in" />
-            <LegendDot color="bg-blue-300" label="Confirmée" />
-            <LegendDot color="bg-amber-200" label="Devis" />
-            <LegendDot color="bg-slate-300" label="Terminée" />
+            <LegendDot color="bg-emerald-400" label={t("legendCheckIn")} />
+            <LegendDot color="bg-blue-300" label={t("legendConfirmed")} />
+            <LegendDot color="bg-amber-200" label={t("legendQuote")} />
+            <LegendDot color="bg-slate-300" label={t("legendDone")} />
           </div>
         </div>
       </div>
 
       {rooms.length === 0 ? (
         <div className="mt-6 max-w-4xl mx-auto rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
-          Ajoutez d&apos;abord des chambres dans{" "}
-          <Link href={`/pms/${propertyId}/chambres`} className="underline">Chambres &amp; tarifs</Link>.
+          {t("needRooms")}{" "}
+          <Link href={`/pms/${propertyId}/chambres`} className="underline">{tR("title")}</Link>.
         </div>
       ) : (
         <div className="mt-6 overflow-x-auto">
@@ -137,7 +142,7 @@ export default function CalendarPage(props: { params: Promise<{ propertyId: stri
             <thead>
               <tr className="sticky top-0 bg-card">
                 <th className="border border-card-border px-1 py-1 text-left text-[10px] font-medium text-muted whitespace-nowrap" style={{ minWidth: 100 }}>
-                  Chambre
+                  {t("colRoom")}
                 </th>
                 {days.map((d) => (
                   <th
@@ -147,7 +152,7 @@ export default function CalendarPage(props: { params: Promise<{ propertyId: stri
                     }`}
                     style={{ minWidth: 32 }}
                   >
-                    <div className="text-muted">{d.toLocaleDateString("fr-LU", { weekday: "narrow" })}</div>
+                    <div className="text-muted">{d.toLocaleDateString(undefined, { weekday: "narrow" })}</div>
                     <div className="font-mono text-navy">{d.getDate()}</div>
                   </th>
                 ))}
@@ -168,7 +173,7 @@ export default function CalendarPage(props: { params: Promise<{ propertyId: stri
                       <tr key={r.id}>
                         <td className="border border-card-border px-1 py-1 font-mono whitespace-nowrap">
                           <span className="text-navy font-semibold">{r.number}</span>
-                          <span className="ml-1 text-[9px] text-muted">{statusLabel(r.status)}</span>
+                          <span className="ml-1 text-[9px] text-muted">{tRs(r.status)}</span>
                         </td>
                         {days.map((d) => {
                           const iso = isoDay(d);

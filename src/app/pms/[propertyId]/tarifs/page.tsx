@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use, useCallback } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { getProperty } from "@/lib/pms/properties";
 import { listRoomTypes } from "@/lib/pms/rooms";
@@ -12,6 +13,9 @@ import { formatEUR } from "@/lib/calculations";
 
 export default function SeasonalRatesPage(props: { params: Promise<{ propertyId: string }> }) {
   const { propertyId } = use(props.params);
+  const tc = useTranslations("pms.common");
+  const t = useTranslations("pms.seasonalRates");
+  const tR = useTranslations("pms.rooms");
   const { user, loading: authLoading } = useAuth();
   const [property, setProperty] = useState<PmsProperty | null>(null);
   const [roomTypes, setRoomTypes] = useState<PmsRoomType[]>([]);
@@ -53,7 +57,7 @@ export default function SeasonalRatesPage(props: { params: Promise<{ propertyId:
 
   const addRate = async () => {
     if (!form.rate_plan_id || !form.room_type_id || !form.start_date || !form.end_date || form.price <= 0) {
-      setError("Tous les champs requis."); return;
+      setError(t("errRequired")); return;
     }
     try {
       await createSeasonalRate({ property_id: propertyId, ...form });
@@ -62,36 +66,33 @@ export default function SeasonalRatesPage(props: { params: Promise<{ propertyId:
     } catch (e) { setError(errMsg(e)); }
   };
 
-  if (authLoading || loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">Chargement…</div>;
-  if (!user || !property) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted"><Link href="/connexion" className="text-navy underline">Connectez-vous</Link></div>;
+  if (authLoading || loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{tc("loading")}</div>;
+  if (!user || !property) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted"><Link href="/connexion" className="text-navy underline">{tc("signInLink")}</Link></div>;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <Link href={`/pms/${propertyId}`} className="text-xs text-navy hover:underline">← {property.name}</Link>
-      <h1 className="mt-1 text-2xl font-bold text-navy sm:text-3xl">Tarifs saisonniers</h1>
-      <p className="mt-1 text-sm text-muted">
-        Ajoutez des tarifs par période (haute saison, week-ends, événements…) par rate plan × type de chambre.
-        Sans tarif saisonnier, le tarif de base (×  discount du rate plan) s&apos;applique.
-      </p>
+      <h1 className="mt-1 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+      <p className="mt-1 text-sm text-muted">{t("intro")}</p>
 
       {error && <div className="mt-3 rounded-md bg-rose-50 border border-rose-200 p-3 text-xs text-rose-900">{error}</div>}
 
       {roomTypes.length === 0 || ratePlans.length === 0 ? (
         <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
-          Vous devez d&apos;abord configurer au moins un type de chambre et un rate plan dans{" "}
-          <Link href={`/pms/${propertyId}/chambres`} className="underline">Chambres &amp; tarifs</Link>.
+          {t("needPrereq")}{" "}
+          <Link href={`/pms/${propertyId}/chambres`} className="underline">{tR("title")}</Link>.
         </div>
       ) : (
         <>
           <section className="mt-6 rounded-xl border border-card-border bg-card p-5">
-            <h2 className="text-sm font-semibold text-navy mb-3">Ajouter un tarif saisonnier</h2>
+            <h2 className="text-sm font-semibold text-navy mb-3">{t("addTitle")}</h2>
             <div className="grid gap-2 sm:grid-cols-8 text-xs">
               <select
                 value={form.rate_plan_id}
                 onChange={(e) => setForm({ ...form, rate_plan_id: e.target.value })}
                 className="rounded-md border border-card-border bg-background px-2 py-1.5"
               >
-                <option value="">Rate plan…</option>
+                <option value="">{t("ratePlanPlaceholder")}</option>
                 {ratePlans.map((rp) => <option key={rp.id} value={rp.id}>{rp.code}</option>)}
               </select>
               <select
@@ -99,7 +100,7 @@ export default function SeasonalRatesPage(props: { params: Promise<{ propertyId:
                 onChange={(e) => setForm({ ...form, room_type_id: e.target.value })}
                 className="rounded-md border border-card-border bg-background px-2 py-1.5"
               >
-                <option value="">Type…</option>
+                <option value="">{t("roomTypePlaceholder")}</option>
                 {roomTypes.map((rt) => <option key={rt.id} value={rt.id}>{rt.code}</option>)}
               </select>
               <input
@@ -115,47 +116,47 @@ export default function SeasonalRatesPage(props: { params: Promise<{ propertyId:
                 className="rounded-md border border-card-border bg-background px-2 py-1.5"
               />
               <input
-                type="number" placeholder="Prix €"
+                type="number" placeholder={t("pricePlaceholder")}
                 value={form.price || ""}
                 onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
                 className="rounded-md border border-card-border bg-background px-2 py-1.5"
               />
               <input
-                type="number" placeholder="Min LOS"
+                type="number" placeholder={t("minLosPlaceholder")}
                 value={form.min_los}
                 onChange={(e) => setForm({ ...form, min_los: Number(e.target.value) })}
                 className="rounded-md border border-card-border bg-background px-2 py-1.5"
               />
               <label className="flex items-center gap-1">
                 <input type="checkbox" checked={form.stop_sell} onChange={(e) => setForm({ ...form, stop_sell: e.target.checked })} />
-                Stop sell
+                {t("stopSell")}
               </label>
               <button
                 type="button"
                 onClick={addRate}
                 className="rounded-md bg-navy px-3 py-1.5 text-xs font-semibold text-white hover:bg-navy-light"
               >
-                + Ajouter
+                {t("add")}
               </button>
             </div>
           </section>
 
           <section className="mt-6 rounded-xl border border-card-border bg-card p-5">
-            <h2 className="text-sm font-semibold text-navy mb-3">Tarifs enregistrés ({seasonalRates.length})</h2>
+            <h2 className="text-sm font-semibold text-navy mb-3">{t("listTitle", { n: seasonalRates.length })}</h2>
             {seasonalRates.length === 0 ? (
-              <p className="text-xs text-muted italic">Aucun tarif saisonnier pour l&apos;instant.</p>
+              <p className="text-xs text-muted italic">{t("empty")}</p>
             ) : (
               <table className="min-w-full text-xs">
                 <thead>
                   <tr className="border-b border-card-border">
-                    <th className="py-1 pr-2 text-left font-medium text-muted">Rate plan</th>
-                    <th className="py-1 pr-2 text-left font-medium text-muted">Type chambre</th>
-                    <th className="py-1 px-2 text-left font-medium text-muted">Début</th>
-                    <th className="py-1 px-2 text-left font-medium text-muted">Fin</th>
-                    <th className="py-1 px-2 text-right font-medium text-muted">Prix</th>
-                    <th className="py-1 px-2 text-right font-medium text-muted">Min LOS</th>
-                    <th className="py-1 px-2 text-center font-medium text-muted">Stop sell</th>
-                    <th className="py-1 pl-2 text-right font-medium text-muted">Actions</th>
+                    <th className="py-1 pr-2 text-left font-medium text-muted">{t("colRatePlan")}</th>
+                    <th className="py-1 pr-2 text-left font-medium text-muted">{t("colRoomType")}</th>
+                    <th className="py-1 px-2 text-left font-medium text-muted">{t("colStart")}</th>
+                    <th className="py-1 px-2 text-left font-medium text-muted">{t("colEnd")}</th>
+                    <th className="py-1 px-2 text-right font-medium text-muted">{t("colPrice")}</th>
+                    <th className="py-1 px-2 text-right font-medium text-muted">{t("minLosPlaceholder")}</th>
+                    <th className="py-1 px-2 text-center font-medium text-muted">{t("colStopSell")}</th>
+                    <th className="py-1 pl-2 text-right font-medium text-muted">{tc("actions")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -172,14 +173,14 @@ export default function SeasonalRatesPage(props: { params: Promise<{ propertyId:
                         <button
                           type="button"
                           onClick={async () => {
-                            if (confirm("Supprimer ce tarif ?")) {
+                            if (confirm(t("confirmDelete"))) {
                               await deleteSeasonalRate(sr.id);
                               await reload();
                             }
                           }}
                           className="text-rose-700 hover:underline"
                         >
-                          Supprimer
+                          {tc("delete")}
                         </button>
                       </td>
                     </tr>
