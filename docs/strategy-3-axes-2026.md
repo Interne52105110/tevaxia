@@ -214,3 +214,22 @@ Session ultra-marathon — 21 commits au total dont 7 supplémentaires après la
 - **Syndic Portefeuille consolidé** (4980251) — vue multi-copros triée par impayés pour syndic pro.
 
 **Total session unique cumulé** : **~25 commits** · ~21 000 lignes · 11 migrations · +190 tests.
+
+### Round 4 (continuation profite erreur RLS)
+
+- **Recherche globale** (650c00c) — `/recherche` cross-entités avec API.
+- **CRM email templates** (38f74ef) — 10 modèles email pré-rédigés.
+- **Bon de visite PDF** (b7edefd) — document légal loi 1988 + log CRM.
+- **Cron API quotidien** (045b7d4) — maintenance auto (no-shows, overdue, expired).
+- **Vercel cron config** (b00813e) — schedule 02:00 UTC.
+- **🐛 Fix RLS 42501 création org** (6926c87) — migration 054 RPC SECURITY DEFINER.
+- **Syndic lettres types** (f677e89) — 10 modèles courrier opérations syndic.
+- **CRM export CSV RGPD** (e499755) — bouton portability.
+- **Syndic convocation PDF** (8028c78) — avant ouverture AG.
+- **Syndic OwnerStatementPdf** (bf3a063 + f401dc6) — relevé compte copropriétaire avec export depuis portail.
+- **CRM import CSV** (e074722) — mapping auto 17 alias + preview + validation RGPD.
+- **PMS bulk rate editor** (079f85b + d987598) — 5 opérations sur périodes (+%, +€, set, stop sell, reopen).
+
+**Total FINAL session** : **~49 commits** · ~28 000 lignes · **12 migrations** (045–054) · +220 tests · **854 tests** passent.
+
+**Migration 054 à appliquer manuellement dans Supabase Dashboard SQL Editor** pour résoudre erreur RLS création organisation.
