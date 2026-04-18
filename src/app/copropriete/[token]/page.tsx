@@ -75,6 +75,16 @@ export default function CoproprieteurPortal() {
             <span className="rounded-full bg-white/10 px-3 py-1">{coown.total_tantiemes} tantièmes</span>
             {coown.year_built && <span className="rounded-full bg-white/10 px-3 py-1">Construit en {coown.year_built}</span>}
           </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a href={`/copropriete/${token}/mon-compte`}
+              className="rounded-lg bg-white/20 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur hover:bg-white/30">
+              💰 Mon compte & solde
+            </a>
+            <a href={`/copropriete/${token}/assistant`}
+              className="rounded-lg bg-white/20 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur hover:bg-white/30">
+              🤖 Assistant IA
+            </a>
+          </div>
         </div>
 
         {/* Mon lot */}

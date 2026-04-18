@@ -119,3 +119,54 @@ export function buildPortalUrl(token: string, baseUrl?: string): string {
   const base = baseUrl ?? (typeof window !== "undefined" ? window.location.origin : "https://tevaxia.lu");
   return `${base}/copropriete/${token}`;
 }
+
+// ============================================================
+// Portal account (solde, impayés, relances, exercices)
+// ============================================================
+
+export interface PortalAccountData {
+  coownership_name?: string;
+  lot_number?: string;
+  owner_name?: string | null;
+  tantiemes?: number;
+  total_tantiemes?: number;
+  balance?: {
+    total_due: number;
+    total_paid: number;
+    outstanding: number;
+    nb_unpaid: number;
+  };
+  unpaid?: Array<{
+    charge_id: string;
+    call_label: string;
+    due_date: string;
+    amount_due: number;
+    amount_paid: number;
+    outstanding: number;
+    days_late: number;
+    payment_reference: string | null;
+  }>;
+  reminders?: Array<{
+    palier: number;
+    sent_at: string;
+    channel: string;
+    amount_outstanding: number;
+    late_interest: number;
+    penalty: number;
+    total_claimed: number;
+  }>;
+  years?: Array<{
+    year_id: string;
+    year: number;
+    status: "open" | "closed";
+    closed_at: string | null;
+  }>;
+  error?: string;
+}
+
+export async function getPortalAccount(token: string): Promise<PortalAccountData> {
+  const client = ensureClient();
+  const { data, error } = await client.rpc("get_portal_account", { p_token: token });
+  if (error) throw error;
+  return (data ?? {}) as PortalAccountData;
+}
