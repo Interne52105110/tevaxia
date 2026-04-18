@@ -29,7 +29,7 @@ import {
   type MortgageEnergyResult,
 } from "@/lib/energy-banking";
 
-type ActiveTab = "ltv" | "capacite" | "amortissement" | "dscr" | "cpe" | "remboursement";
+type ActiveTab = "ltv" | "capacite" | "amortissement" | "dscr" | "cpe" | "remboursement" | "comparateur";
 
 /* ── Taux du marché luxembourgeois ─────────────────────────────── */
 const TAUX_MARCHE_LU = {
@@ -567,6 +567,167 @@ function TabCPE() {
   );
 }
 
+interface OffreBancaire {
+  nom: string;
+  taux: number;
+  duree: number;
+  assuranceSRD: number; // % capital
+  fraisDossier: number; // € forfait
+}
+
+function TabComparateur() {
+  const t = useTranslations("outilsBancaires");
+  const [capital, setCapital] = useState(600000);
+  const [offres, setOffres] = useState<OffreBancaire[]>([
+    { nom: "Spuerkeess", taux: 3.10, duree: 25, assuranceSRD: 0.30, fraisDossier: 1500 },
+    { nom: "BIL", taux: 3.25, duree: 25, assuranceSRD: 0.28, fraisDossier: 1200 },
+    { nom: "BGL BNP", taux: 3.20, duree: 25, assuranceSRD: 0.32, fraisDossier: 1800 },
+  ]);
+
+  const updateOffre = (index: number, field: keyof OffreBancaire, value: string | number) => {
+    setOffres((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], [field]: typeof next[index][field] === "number" ? Number(value) : value };
+      return next;
+    });
+  };
+
+  const resultats = useMemo(() => {
+    return offres.map((o) => {
+      const mensualite = calculerMensualite(capital, o.taux / 100, o.duree);
+      const assuranceMensuelle = capital * (o.assuranceSRD / 100) / 12;
+      const mensualiteTotal = mensualite + assuranceMensuelle;
+      const totalInterets = mensualite * o.duree * 12 - capital;
+      const totalAssurance = assuranceMensuelle * o.duree * 12;
+      const coutTotal = capital + totalInterets + totalAssurance + o.fraisDossier;
+      const tauxEffectifGlobal = totalInterets / capital * 100 / o.duree;
+      return { ...o, mensualite, assuranceMensuelle, mensualiteTotal, totalInterets, totalAssurance, coutTotal, tauxEffectifGlobal };
+    });
+  }, [offres, capital]);
+
+  // Find best offer (lowest total cost)
+  const bestIdx = resultats.reduce((bestI, r, i, arr) => (r.coutTotal < arr[bestI].coutTotal ? i : bestI), 0);
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
+        <h2 className="mb-4 text-base font-semibold text-navy">Capital à emprunter</h2>
+        <InputField label="Montant du prêt" value={capital} onChange={(v) => setCapital(Number(v))} suffix="€" />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {offres.map((o, i) => (
+          <div key={i} className={`rounded-xl border p-5 ${i === bestIdx ? "border-emerald-400 bg-emerald-50" : "border-card-border bg-card"}`}>
+            <div className="flex items-center justify-between mb-3">
+              <input
+                type="text"
+                value={o.nom}
+                onChange={(e) => updateOffre(i, "nom", e.target.value)}
+                className="flex-1 rounded-lg border border-input-border bg-input-bg px-2 py-1 text-sm font-semibold text-navy"
+              />
+              {i === bestIdx && (
+                <span className="ml-2 shrink-0 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold text-white">
+                  MEILLEURE
+                </span>
+              )}
+            </div>
+            <div className="space-y-2">
+              <InputField label="Taux annuel" value={o.taux} onChange={(v) => updateOffre(i, "taux", v)} suffix="%" step={0.05} />
+              <InputField label="Durée" value={o.duree} onChange={(v) => updateOffre(i, "duree", v)} suffix="ans" min={5} max={35} />
+              <InputField label="Assurance SRD" value={o.assuranceSRD} onChange={(v) => updateOffre(i, "assuranceSRD", v)} suffix="% capital" step={0.05} />
+              <InputField label="Frais de dossier" value={o.fraisDossier} onChange={(v) => updateOffre(i, "fraisDossier", v)} suffix="€" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Comparison table */}
+      <div className="rounded-xl border border-card-border bg-card overflow-hidden">
+        <div className="p-5 pb-3">
+          <h3 className="text-base font-semibold text-navy">Comparaison détaillée</h3>
+          <p className="mt-0.5 text-xs text-muted">Offre la moins chère mise en évidence. Basé sur coût total toutes charges comprises.</p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-card-border bg-background">
+                <th className="px-3 py-2 text-left font-semibold text-navy">Indicateur</th>
+                {resultats.map((r, i) => (
+                  <th key={i} className={`px-3 py-2 text-right font-semibold ${i === bestIdx ? "text-emerald-800" : "text-navy"}`}>
+                    {r.nom}
+                    {i === bestIdx && <span className="ml-1 text-[9px]">✓</span>}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-card-border/40">
+                <td className="px-3 py-2 text-muted">Mensualité crédit</td>
+                {resultats.map((r, i) => (
+                  <td key={i} className="px-3 py-2 text-right font-mono">{formatEUR2(r.mensualite)}</td>
+                ))}
+              </tr>
+              <tr className="border-b border-card-border/40">
+                <td className="px-3 py-2 text-muted">Assurance SRD</td>
+                {resultats.map((r, i) => (
+                  <td key={i} className="px-3 py-2 text-right font-mono">{formatEUR2(r.assuranceMensuelle)}</td>
+                ))}
+              </tr>
+              <tr className="border-b border-card-border/40 bg-background/50">
+                <td className="px-3 py-2 font-semibold">Mensualité TOTALE</td>
+                {resultats.map((r, i) => (
+                  <td key={i} className={`px-3 py-2 text-right font-mono font-semibold ${i === bestIdx ? "text-emerald-700" : "text-navy"}`}>
+                    {formatEUR2(r.mensualiteTotal)}
+                  </td>
+                ))}
+              </tr>
+              <tr className="border-b border-card-border/40">
+                <td className="px-3 py-2 text-muted">Total intérêts</td>
+                {resultats.map((r, i) => (
+                  <td key={i} className="px-3 py-2 text-right font-mono text-muted">{formatEUR(r.totalInterets)}</td>
+                ))}
+              </tr>
+              <tr className="border-b border-card-border/40">
+                <td className="px-3 py-2 text-muted">Total assurance</td>
+                {resultats.map((r, i) => (
+                  <td key={i} className="px-3 py-2 text-right font-mono text-muted">{formatEUR(r.totalAssurance)}</td>
+                ))}
+              </tr>
+              <tr className="border-b border-card-border/40">
+                <td className="px-3 py-2 text-muted">Frais de dossier</td>
+                {resultats.map((r, i) => (
+                  <td key={i} className="px-3 py-2 text-right font-mono text-muted">{formatEUR(r.fraisDossier)}</td>
+                ))}
+              </tr>
+              <tr className="border-t-2 border-navy bg-navy/5">
+                <td className="px-3 py-3 font-semibold text-navy">COÛT TOTAL CRÉDIT</td>
+                {resultats.map((r, i) => {
+                  const diff = r.coutTotal - resultats[bestIdx].coutTotal;
+                  return (
+                    <td key={i} className={`px-3 py-3 text-right font-mono font-bold ${i === bestIdx ? "text-emerald-800" : "text-navy"}`}>
+                      {formatEUR(r.coutTotal)}
+                      {i !== bestIdx && diff > 0 && (
+                        <div className="text-[9px] font-normal text-rose-700">+{formatEUR(diff)}</div>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
+        <strong>Méthodologie :</strong> le coût total inclut le capital remboursé, les intérêts, l&apos;assurance
+        solde restant dû et les frais de dossier. Au Luxembourg, l&apos;assurance SRD est obligatoire. Les taux
+        indicatifs sont ceux du marché LU T1 2026 (Spuerkeess/BIL/BGL). Négociez votre taux personnel selon
+        votre profil (revenus, LTV, apport, relation bancaire).
+      </div>
+    </div>
+  );
+}
+
 function TabRemboursement() {
   const t = useTranslations("outilsBancaires");
   const [capital, setCapital] = useState(600000);
@@ -802,6 +963,7 @@ export default function OutilsBancaires() {
     { id: "dscr", label: t("tabDscr") },
     { id: "cpe", label: t("tabCpe") },
     { id: "remboursement", label: t("tabRemboursement") },
+    { id: "comparateur", label: t("tabComparateur") },
   ];
 
   return (
@@ -840,6 +1002,7 @@ export default function OutilsBancaires() {
         {activeTab === "dscr" && <TabDSCR />}
         {activeTab === "cpe" && <TabCPE />}
         {activeTab === "remboursement" && <TabRemboursement />}
+        {activeTab === "comparateur" && <TabComparateur />}
 
         {/* Historique taux BCE / OAT / hypothécaire */}
         <RatesHistoryChart />

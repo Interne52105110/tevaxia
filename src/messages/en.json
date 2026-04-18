@@ -2130,6 +2130,7 @@
     "cpeColRationale": "Rationale",
     "cpeDisclaimer": "Adjustments based on ECB/EBA guidelines (2024), CSSF recommendations and observed Luxembourg banking practices. Actual conditions vary by banking institution.",
     "tabRemboursement": "Early repayment",
+    "tabComparateur": "Compare 3 offers",
     "remboursLoanParams": "Existing loan",
     "remboursPrepayParams": "Early repayment",
     "remboursMonth": "Repayment month",

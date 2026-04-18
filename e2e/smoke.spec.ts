@@ -156,4 +156,46 @@ test.describe("Smoke tests — parcours critiques publics", () => {
     const body = page.locator("body");
     await expect(body).toContainText(/construct|statec|matériaux|material|béton|steel/i);
   });
+
+  test("/hotellerie/transactions comparables LU", async ({ page }) => {
+    await page.goto("/hotellerie/transactions");
+    const body = page.locator("body");
+    await expect(body).toContainText(/transaction|comparable|cap rate|HVS|Horwath/i);
+  });
+
+  test("/hotellerie/impayes relances B2B", async ({ page }) => {
+    await page.goto("/hotellerie/impayes");
+    const body = page.locator("body");
+    await expect(body).toContainText(/impay|relance|palier|intérêt|mise en demeure/i);
+  });
+
+  test("/hotellerie/benchmark auth wall", async ({ page }) => {
+    await page.goto("/hotellerie/benchmark");
+    const body = page.locator("body");
+    await expect(body).toContainText(/benchmark|hôtel|connect|sign in/i);
+  });
+
+  test("/hotellerie/capex plan 10 ans", async ({ page }) => {
+    await page.goto("/hotellerie/capex");
+    const body = page.locator("body");
+    await expect(body).toContainText(/capex|reserve|refresh|renovation|FF&E/i);
+  });
+
+  test("/verify hash verification page", async ({ page }) => {
+    await page.goto("/verify");
+    const body = page.locator("body");
+    await expect(body).toContainText(/verif|hash|signature|SHA/i);
+  });
+
+  test("/pro-agences/fiche-bien PDF generator", async ({ page }) => {
+    await page.goto("/pro-agences/fiche-bien");
+    const body = page.locator("body");
+    await expect(body).toContainText(/fiche|bien|prix|agence|PDF/i);
+  });
+
+  test("/syndic/procuration AG generator", async ({ page }) => {
+    await page.goto("/syndic/procuration");
+    const body = page.locator("body");
+    await expect(body).toContainText(/procuration|assemblée|mandataire|copropriété/i);
+  });
 });
