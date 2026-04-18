@@ -80,6 +80,12 @@ export default function CoproprieteurPortal() {
               className="rounded-lg bg-white/20 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur hover:bg-white/30">
               💰 Mon compte & solde
             </a>
+            {assemblies.filter((a) => ["convened", "in_progress"].includes(a.status)).length > 0 && (
+              <a href={`/copropriete/${token}/ag/${assemblies.find((a) => ["convened", "in_progress"].includes(a.status))?.id}`}
+                className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur hover:bg-amber-600">
+                🗳️ Voter à l&apos;AG
+              </a>
+            )}
             <a href={`/copropriete/${token}/assistant`}
               className="rounded-lg bg-white/20 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur hover:bg-white/30">
               🤖 Assistant IA
