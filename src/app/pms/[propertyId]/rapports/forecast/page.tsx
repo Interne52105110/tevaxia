@@ -210,6 +210,54 @@ export default function ForecastPage(props: { params: Promise<{ propertyId: stri
             </div>
           </section>
 
+          {/* Événements LU impactants sur la période */}
+          {(() => {
+            const events = getEventsInRange(report.period_start, report.period_end);
+            if (events.length === 0) return null;
+            return (
+              <section className="mt-6 rounded-xl border border-card-border bg-card p-5">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-navy mb-3">
+                  Événements LU impactants ({events.length})
+                </h2>
+                <div className="space-y-2">
+                  {events.map((ev) => (
+                    <div key={ev.id} className="rounded-lg border border-card-border/50 bg-background p-3">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold text-navy">{ev.name}</span>
+                            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${IMPACT_COLORS[ev.impact]}`}>
+                              {IMPACT_LABELS[ev.impact]}
+                            </span>
+                          </div>
+                          <div className="text-xs text-muted">{ev.description}</div>
+                        </div>
+                        <div className="text-right text-xs">
+                          <div className="font-mono">
+                            {new Date(ev.start_date).toLocaleDateString("fr-LU", { day: "2-digit", month: "short" })}
+                            {" → "}
+                            {new Date(ev.end_date).toLocaleDateString("fr-LU", { day: "2-digit", month: "short" })}
+                          </div>
+                          <div className="text-muted text-[10px]">
+                            Multiplier pickup ×{impactMultiplier(ev.impact).toFixed(1)}
+                          </div>
+                        </div>
+                      </div>
+                      {ev.notes && (
+                        <div className="mt-1 text-[11px] text-amber-800 italic">💡 {ev.notes}</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3 text-[10px] text-muted">
+                  💡 Les événements à impact <strong>high</strong> ou <strong>extreme</strong> justifient
+                  typiquement +20% à +40% sur vos tarifs. Activez stop-sell ou MinLOS 2 nuits
+                  pour maximiser le RevPAR.
+                </div>
+              </section>
+            );
+          })()}
+
           <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
             <strong>Méthodologie :</strong> {report.methodology}. Le pickup est pondéré à 40%
             pour prudence (approche conservatrice Revenue Management). Pour une projection plus
