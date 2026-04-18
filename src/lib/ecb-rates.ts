@@ -29,14 +29,16 @@ const CACHE_TTL = 60 * 60 * 1000; // 1h
 async function fetchSeriesLatest(seriesKey: string): Promise<number | null> {
   try {
     const url = `https://data-api.ecb.europa.eu/service/data/FM/${seriesKey}?lastNObservations=1&format=csvdata`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(4000),
+    });
     if (!res.ok) return null;
 
     const csv = await res.text();
     const lines = csv.trim().split("\n");
     if (lines.length < 2) return null;
 
-    // CSV header contains OBS_VALUE column
     const header = lines[0].split(",");
     const valueIdx = header.indexOf("OBS_VALUE");
     if (valueIdx === -1) return null;
@@ -52,7 +54,10 @@ async function fetchSeriesLatest(seriesKey: string): Promise<number | null> {
 async function fetchDateLatest(seriesKey: string): Promise<string | null> {
   try {
     const url = `https://data-api.ecb.europa.eu/service/data/FM/${seriesKey}?lastNObservations=1&format=csvdata`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(4000),
+    });
     if (!res.ok) return null;
 
     const csv = await res.text();
