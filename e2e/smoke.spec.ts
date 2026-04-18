@@ -217,6 +217,12 @@ test.describe("Smoke tests — parcours critiques publics", () => {
     await expect(body).toContainText(/pms|property management|hôtel|hotel|motel|réservation|booking|connect|sign in/i);
   });
 
+  test("/pms/proprietes/nouveau wizard création hôtel", async ({ page }) => {
+    await page.goto("/pms/proprietes/nouveau");
+    const body = page.locator("body");
+    await expect(body).toContainText(/hôtel|hotel|propri|nouvelle|connect|sign in/i);
+  });
+
   test("/pro-agences/crm dashboard accessible", async ({ page }) => {
     await page.goto("/pro-agences/crm");
     const body = page.locator("body");

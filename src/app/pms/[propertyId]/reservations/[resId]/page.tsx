@@ -208,6 +208,12 @@ export default function ReservationDetailPage(props: { params: Promise<{ propert
         >
           {t("actionGenerateInvoice")}
         </button>
+        <Link
+          href={`/pms/${propertyId}/reservations/${resId}/folio`}
+          className="rounded-md border border-blue-300 bg-blue-50 px-3 py-1.5 font-semibold text-blue-900 hover:bg-blue-100"
+        >
+          Folio / consommations
+        </Link>
       </div>
 
       {/* Client */}

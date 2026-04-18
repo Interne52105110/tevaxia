@@ -304,3 +304,57 @@ export interface PmsAvailabilityRow {
   occupied_rooms: number;
   available_rooms: number;
 }
+
+// ============================================================
+// FOLIOS
+// ============================================================
+
+export type PmsFolioStatus = "open" | "pending_settlement" | "settled" | "cancelled";
+
+export type PmsChargeCategory =
+  | "room" | "taxe_sejour" | "extra_bed"
+  | "breakfast" | "lunch" | "dinner" | "bar" | "minibar" | "room_service"
+  | "meeting_room" | "parking" | "laundry" | "spa" | "phone" | "internet"
+  | "transport" | "cancellation_fee" | "damage" | "other";
+
+export interface PmsFolio {
+  id: string;
+  property_id: string;
+  reservation_id: string;
+  status: PmsFolioStatus;
+  currency: string;
+  subtotal_ht: number;
+  total_tva: number;
+  total_ttc: number;
+  balance_due: number;
+  opened_at: string;
+  closed_at: string | null;
+  settled_at: string | null;
+  invoice_id: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PmsFolioCharge {
+  id: string;
+  folio_id: string;
+  category: PmsChargeCategory;
+  description: string;
+  quantity: number;
+  unit_price_ht: number;
+  tva_rate: number;
+  line_ht: number;
+  line_tva: number;
+  line_ttc: number;
+  posted_at: string;
+  posted_by: string | null;
+  voided: boolean;
+  voided_at: string | null;
+  voided_by: string | null;
+  void_reason: string | null;
+  source: string | null;
+  external_ref: string | null;
+  notes: string | null;
+  created_at: string;
+}
