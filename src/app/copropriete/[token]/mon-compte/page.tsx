@@ -2,7 +2,9 @@
 
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
+import { pdf } from "@react-pdf/renderer";
 import { getPortalAccount, type PortalAccountData } from "@/lib/coownership-portal";
+import OwnerStatementPdf from "@/components/OwnerStatementPdf";
 import { formatEUR } from "@/lib/calculations";
 
 const PALIER_LABELS: Record<number, string> = {
@@ -42,10 +44,86 @@ export default function MyAccountPage(props: { params: Promise<{ token: string }
 
   const hasOutstanding = (data.balance?.outstanding ?? 0) > 0;
 
+  const downloadStatementPdf = async () => {
+    if (!data.unpaid && !data.reminders) return;
+    // Construit les items pour le PDF depuis unpaid + reminders
+    const items: Array<{
+      date: string; type: "call" | "payment" | "interest" | "penalty" | "adjustment";
+      label: string; debit: number; credit: number;
+    }> = [];
+    for (const u of data.unpaid ?? []) {
+      items.push({
+        date: u.due_date, type: "call",
+        label: u.call_label,
+        debit: u.amount_due, credit: u.amount_paid,
+      });
+    }
+    for (const r of data.reminders ?? []) {
+      if (r.late_interest > 0) {
+        items.push({
+          date: r.sent_at.slice(0, 10),
+          type: "interest",
+          label: `Intérêts de retard — palier ${r.palier}`,
+          debit: r.late_interest, credit: 0,
+        });
+      }
+      if (r.penalty > 0) {
+        items.push({
+          date: r.sent_at.slice(0, 10),
+          type: "penalty",
+          label: `Frais recouvrement — palier ${r.palier}`,
+          debit: r.penalty, credit: 0,
+        });
+      }
+    }
+    items.sort((a, b) => a.date.localeCompare(b.date));
+
+    const now = new Date();
+    const periodFrom = items.length > 0 ? items[0].date : now.toISOString().slice(0, 10);
+    const periodTo = now.toISOString().slice(0, 10);
+    const totalDebit = items.reduce((s, i) => s + i.debit, 0);
+    const totalCredit = items.reduce((s, i) => s + i.credit, 0);
+    const balance = totalDebit - totalCredit;
+
+    const blob = await pdf(
+      <OwnerStatementPdf
+        coownership={{ name: data.coownership_name ?? "Copropriété" }}
+        syndic={{ name: "Syndic" }}
+        owner={{
+          lot_number: data.lot_number ?? "?",
+          owner_name: data.owner_name ?? null,
+          tantiemes: data.tantiemes ?? 0,
+        }}
+        period={{ from: periodFrom, to: periodTo }}
+        items={items}
+        summary={{
+          total_debit: totalDebit,
+          total_credit: totalCredit,
+          balance,
+          nb_unpaid: data.balance?.nb_unpaid ?? 0,
+          oldest_unpaid_date: data.unpaid?.sort((a, b) => a.due_date.localeCompare(b.due_date))[0]?.due_date ?? null,
+        }}
+      />
+    ).toBlob();
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `releve-lot-${data.lot_number}-${periodTo}.pdf`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="bg-background min-h-screen py-8">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <Link href={`/copropriete/${token}`} className="text-xs text-muted hover:text-navy">← Mon espace</Link>
+        <div className="flex items-center justify-between gap-2">
+          <Link href={`/copropriete/${token}`} className="text-xs text-muted hover:text-navy">← Mon espace</Link>
+          <button onClick={downloadStatementPdf}
+            className="rounded-lg border border-navy bg-white px-3 py-1.5 text-xs font-semibold text-navy hover:bg-navy/5">
+            ↓ Relevé PDF
+          </button>
+        </div>
 
         <div className={`mt-3 rounded-2xl p-6 ${hasOutstanding ? "bg-rose-50 border border-rose-200" : "bg-gradient-to-br from-emerald-500 to-emerald-700 text-white"}`}>
           <div className={`text-xs uppercase tracking-wider ${hasOutstanding ? "text-rose-700" : "text-white/70"}`}>
