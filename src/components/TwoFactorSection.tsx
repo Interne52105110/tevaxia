@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
+import { errMsg } from "@/lib/errors";
 
 // Utilise le MFA natif de Supabase Auth :
 // https://supabase.com/docs/guides/auth/auth-mfa
@@ -64,7 +65,7 @@ export default function TwoFactorSection() {
       setQrUrl(data.totp.qr_code);
       setSecret(data.totp.secret);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Enroll failed");
+      setError(errMsg(e, "Enroll failed"));
       setEnrolling(false);
     }
   };
@@ -89,7 +90,7 @@ export default function TwoFactorSection() {
       setFriendlyName("");
       await refreshFactors();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Verification failed");
+      setError(errMsg(e, "Verification failed"));
     }
   };
 
@@ -101,7 +102,7 @@ export default function TwoFactorSection() {
       if (error) throw error;
       await refreshFactors();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Unenroll failed");
+      setError(errMsg(e, "Unenroll failed"));
     }
   };
 

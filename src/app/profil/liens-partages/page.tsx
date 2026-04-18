@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 import {
   listMySharedLinks,
   deleteSharedLink,
@@ -96,7 +97,7 @@ export default function LiensPartagesPage() {
         setTimelines(Object.fromEntries(tlEntries));
         setCommentsByLink(Object.fromEntries(cmEntries));
       } catch (e) {
-        if (!cancel) setError(e instanceof Error ? e.message : String(e));
+        if (!cancel) setError(errMsg(e, String(e)));
       } finally {
         if (!cancel) setLoading(false);
       }
@@ -112,7 +113,7 @@ export default function LiensPartagesPage() {
       await deleteSharedLink(id);
       setLinks((prev) => prev.filter((l) => l.id !== id));
     } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
+      alert(errMsg(e, String(e)));
     }
   }
 

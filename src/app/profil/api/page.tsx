@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 import {
   createApiKey,
   deleteApiKey,
@@ -104,7 +105,7 @@ export default function ApiDashboardPage() {
       setKeys(list);
       if (!activeKeyId && list.length > 0) setActiveKeyId(list[0].id);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de chargement.");
+      setError(errMsg(e, "Erreur de chargement."));
     } finally {
       setLoading(false);
     }
@@ -157,7 +158,7 @@ export default function ApiDashboardPage() {
       setNewKeyTier("free");
       await reloadKeys();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de création.");
+      setError(errMsg(e, "Erreur de création."));
     } finally {
       setLoading(false);
     }
@@ -168,7 +169,7 @@ export default function ApiDashboardPage() {
       await revokeApiKey(id);
       await reloadKeys();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur révocation.");
+      setError(errMsg(e, "Erreur révocation."));
     }
   };
 
@@ -179,7 +180,7 @@ export default function ApiDashboardPage() {
       if (activeKeyId === id) setActiveKeyId(null);
       await reloadKeys();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur suppression.");
+      setError(errMsg(e, "Erreur suppression."));
     }
   };
 
@@ -336,7 +337,7 @@ function WebhooksSection() {
       const list = await listMyWebhooks();
       setWebhooks(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur");
+      setError(errMsg(e, "Erreur"));
     } finally {
       setLoading(false);
     }
@@ -356,7 +357,7 @@ function WebhooksSection() {
       setError(null);
       await reload();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de création.");
+      setError(errMsg(e, "Erreur de création."));
     }
   };
 

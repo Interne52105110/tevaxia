@@ -17,6 +17,7 @@ import {
 } from "@/lib/cotenants";
 import { formatEUR } from "@/lib/calculations";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 
 const STATUS_COLOR: Record<CotenantStatus, string> = {
   active: "bg-emerald-100 text-emerald-800",
@@ -60,7 +61,7 @@ export default function CotenantsPage() {
         setCotenants(list);
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur");
+      setError(errMsg(e, "Erreur"));
     } finally {
       setLoading(false);
     }
@@ -92,7 +93,7 @@ export default function CotenantsPage() {
       setError(null);
       await refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur création.");
+      setError(errMsg(e, "Erreur création."));
     }
   };
 

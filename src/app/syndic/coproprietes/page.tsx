@@ -7,6 +7,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { listMyOrganizations, type Organization } from "@/lib/orgs";
 import { listCoownerships, createCoownership, deleteCoownership, type Coownership } from "@/lib/coownerships";
+import { errMsg } from "@/lib/errors";
 
 export default function SyndicCopropsPage() {
   const locale = useLocale();
@@ -34,7 +35,7 @@ export default function SyndicCopropsPage() {
         setOrgs(syndicOrgs);
         if (syndicOrgs.length > 0 && !activeOrgId) setActiveOrgId(syndicOrgs[0].id);
       })
-      .catch((e) => setError(e instanceof Error ? e.message : t("error")));
+      .catch((e) => setError(errMsg(e, t("error"))));
   }, [user, activeOrgId, t]);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function SyndicCopropsPage() {
     setLoading(true);
     listCoownerships(activeOrgId)
       .then(setCoowns)
-      .catch((e) => setError(e instanceof Error ? e.message : t("error")))
+      .catch((e) => setError(errMsg(e, t("error"))))
       .finally(() => setLoading(false));
   }, [activeOrgId, t]);
 
@@ -61,7 +62,7 @@ export default function SyndicCopropsPage() {
       setShowCreate(false);
       setCoowns(await listCoownerships(activeOrgId));
     } catch (e) {
-      setError(e instanceof Error ? e.message : t("errorCreation"));
+      setError(errMsg(e, t("errorCreation")));
     }
   };
 
@@ -71,7 +72,7 @@ export default function SyndicCopropsPage() {
       await deleteCoownership(id);
       setCoowns(await listCoownerships(activeOrgId!));
     } catch (e) {
-      setError(e instanceof Error ? e.message : t("errorDeletion"));
+      setError(errMsg(e, t("errorDeletion")));
     }
   };
 

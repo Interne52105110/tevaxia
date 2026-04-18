@@ -10,6 +10,7 @@ import {
   type AgencyMandate, type MandateStatus, type MandateType,
 } from "@/lib/agency-mandates";
 import { formatEUR } from "@/lib/calculations";
+import { errMsg } from "@/lib/errors";
 
 const STATUS_LABELS: Record<MandateStatus, string> = {
   prospect: "Prospect",
@@ -89,7 +90,7 @@ export default function MandatesPage() {
       setError(null);
       await reload();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur");
+      setError(errMsg(e, "Erreur"));
     }
   };
 

@@ -15,6 +15,7 @@ import {
   type CoownershipCall, type UnitCharge, type CallStatus,
 } from "@/lib/coownership-finance";
 import { formatEUR } from "@/lib/calculations";
+import { errMsg } from "@/lib/errors";
 
 const STATUS_COLOR: Record<CallStatus, string> = {
   draft: "bg-slate-100 text-slate-800",
@@ -73,7 +74,7 @@ export default function FundsCallsPage() {
         setActiveCallId(cs[0].id);
         setCharges(await listCharges(cs[0].id));
       }
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   useEffect(() => {
@@ -107,7 +108,7 @@ export default function FundsCallsPage() {
       setShowNewCall(false);
       setActiveCallId(created.id);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleGenerate = async (callId: string) => {
@@ -115,7 +116,7 @@ export default function FundsCallsPage() {
       const n = await generateChargesForCall(callId);
       setCharges(await listCharges(callId));
       alert(`${n} ${t("chargesGenerated")}`);
-    } catch (e) { setError(e instanceof Error ? e.message : t("errorGeneration")); }
+    } catch (e) { setError(errMsg(e, t("errorGeneration"))); }
   };
 
   const handleIssue = async (callId: string) => {
@@ -123,7 +124,7 @@ export default function FundsCallsPage() {
     try {
       await updateCall(callId, { status: "issued" });
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleDeleteCall = async (callId: string) => {
@@ -132,21 +133,21 @@ export default function FundsCallsPage() {
       await deleteCall(callId);
       if (activeCallId === callId) setActiveCallId(null);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleMarkPaid = async (chargeId: string, amount: number) => {
     try {
       await markChargePaid(chargeId, amount, "virement");
       if (activeCallId) setCharges(await listCharges(activeCallId));
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleReset = async (chargeId: string) => {
     try {
       await resetCharge(chargeId);
       if (activeCallId) setCharges(await listCharges(activeCallId));
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const downloadCallPdf = async (call: CoownershipCall, unit: CoownershipUnit, charge: UnitCharge) => {

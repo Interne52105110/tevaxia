@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { listMyOrganizations, type Organization } from "@/lib/orgs";
+import { errMsg } from "@/lib/errors";
 import type {
   AgencyPdfEstimation,
   AgencyPdfFees,
@@ -62,7 +63,7 @@ export default function AgencyPdfButton({ estimation, fees, aides, prospect, cla
       a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de génération PDF.");
+      setError(errMsg(e, "Erreur de génération PDF."));
     } finally {
       setLoading(false);
     }

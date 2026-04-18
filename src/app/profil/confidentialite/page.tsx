@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { listMyActivity, type ActivityEntry } from "@/lib/activity-log";
+import { errMsg } from "@/lib/errors";
 import {
   listMyConsents,
   setConsent,
@@ -72,7 +73,7 @@ export default function ConfidentialitePage() {
       const h = await listMyConsentHistory(30);
       setHistory(h);
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Erreur");
+      alert(errMsg(e, "Erreur"));
     } finally {
       setSaving(null);
     }

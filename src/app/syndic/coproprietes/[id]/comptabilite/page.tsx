@@ -15,6 +15,7 @@ import {
   type AccountingYear, type Account, type Entry, type EntryLine, type BalanceRow, type JournalCode,
 } from "@/lib/coownership-accounting";
 import { formatEUR } from "@/lib/calculations";
+import { errMsg } from "@/lib/errors";
 
 type DraftLine = { account_id: string; debit: number; credit: number; line_label: string };
 
@@ -60,7 +61,7 @@ export default function AccountingPage() {
       const [c, y, a] = await Promise.all([getCoownership(id), listYears(id), listAccounts(id)]);
       setCoown(c); setYears(y); setAccounts(a);
       if (!activeYearId && y.length > 0) setActiveYearId(y[0].id);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const loadYearDetails = async (yearId: string, year: number) => {
@@ -92,12 +93,12 @@ export default function AccountingPage() {
 
   const handleSeedChart = async () => {
     try { await seedChart(id); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleOpenYear = async (year: number) => {
     try { const y = await openYear(id, year); setActiveYearId(y.id); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleCloseYear = async () => {
@@ -108,7 +109,7 @@ export default function AccountingPage() {
       alert(`${t("yearClosed", { year: activeYear.year })} ${formatEUR(result)}`);
       await refresh();
       if (activeYear) await loadYearDetails(activeYear.id, activeYear.year);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const addLine = () => setNewEntry((p) => ({
@@ -147,14 +148,14 @@ export default function AccountingPage() {
         ],
       });
       await loadYearDetails(activeYear.id, activeYear.year);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleDeleteEntry = async (entryId: string) => {
     if (!activeYear) return;
     if (!confirm(t("confirmDeleteEntry"))) return;
     try { await deleteEntry(entryId); await loadYearDetails(activeYear.id, activeYear.year); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const resultInfo = computeResult(balance);

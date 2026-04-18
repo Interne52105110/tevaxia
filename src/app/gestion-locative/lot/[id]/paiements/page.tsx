@@ -14,6 +14,7 @@ import {
   type RentalPayment,
 } from "@/lib/rental-payments";
 import { formatEUR } from "@/lib/calculations";
+import { errMsg } from "@/lib/errors";
 
 const STATUS_COLOR: Record<string, string> = {
   due: "bg-amber-100 text-amber-800",
@@ -60,7 +61,7 @@ export default function PaymentsPage() {
       setLot(l);
       const ps = await listPaymentsForLot(id);
       setPayments(ps);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   useEffect(() => {
@@ -84,7 +85,7 @@ export default function PaymentsPage() {
     try {
       await seedYear(id, selectedYear, lot.loyerMensuelActuel, lot.chargesMensuelles);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleCreateMonth = async (month: number) => {
@@ -97,18 +98,18 @@ export default function PaymentsPage() {
         amount_charges: lot.chargesMensuelles,
       });
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleMarkPaid = async (paymentId: string) => {
     try { await markPaid(paymentId); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleDelete = async (paymentId: string) => {
     if (!confirm(t("confirmDelete"))) return;
     try { await deletePayment(paymentId); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleSaveEdit = async (payment: RentalPayment) => {
@@ -123,7 +124,7 @@ export default function PaymentsPage() {
       });
       setEditingId(null);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const downloadReceipt = async (payment: RentalPayment) => {

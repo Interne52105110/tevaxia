@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
+import { errMsg } from "@/lib/errors";
 
 const TRASH_LOCAL_KEYS = [
   "tevaxia_valuations",
@@ -46,7 +47,7 @@ export default function DeleteAccountSection() {
       await signOut();
       router.push(`${lp}/?account_deleted=1`);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Deletion failed");
+      setError(errMsg(e, "Deletion failed"));
       setLoading(false);
     }
   };

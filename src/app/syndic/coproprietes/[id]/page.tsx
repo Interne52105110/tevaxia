@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
+import { errMsg } from "@/lib/errors";
 import {
   getCoownership, updateCoownership,
   listUnits, createUnit, updateUnit, deleteUnit,
@@ -67,7 +68,7 @@ export default function CoownershipDetailPage() {
       setCoown(c);
       setUnits(u);
     } catch (e) {
-      setError(e instanceof Error ? e.message : t("error"));
+      setError(errMsg(e, t("error")));
     } finally {
       setLoading(false);
     }
@@ -85,7 +86,7 @@ export default function CoownershipDetailPage() {
       setCoown(updated);
       setEditGeneral(false);
       setGeneralDraft({});
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleAddUnit = async () => {
@@ -111,7 +112,7 @@ export default function CoownershipDetailPage() {
       setUnitDraft(emptyUnit);
       setShowAddUnit(false);
       void refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleUpdateUnit = async () => {
@@ -121,13 +122,13 @@ export default function CoownershipDetailPage() {
       setEditingUnitId(null);
       setUnitDraft(emptyUnit);
       void refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleDeleteUnit = async (unitId: string) => {
     if (!confirm(t("confirmDeleteUnit"))) return;
     try { await deleteUnit(unitId); void refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   if (!user) return null;

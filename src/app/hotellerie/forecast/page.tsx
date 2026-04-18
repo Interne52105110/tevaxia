@@ -12,6 +12,7 @@ import {
   type DailyMetric, type ForecastResult,
 } from "@/lib/hotel-forecast";
 import { formatEUR } from "@/lib/calculations";
+import { errMsg } from "@/lib/errors";
 
 type MetricKey = "occupancy" | "adr" | "revpar";
 const METRIC_I18N_KEY: Record<MetricKey, string> = {
@@ -62,7 +63,7 @@ export default function HotelForecastPage() {
         }
         setHotels(allHotels);
         if (allHotels.length > 0) setActiveHotelId(allHotels[0].id);
-      } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+      } catch (e) { setError(errMsg(e, t("error"))); }
     })();
   }, [user]);
 
@@ -73,7 +74,7 @@ export default function HotelForecastPage() {
       from.setUTCDate(from.getUTCDate() - 365);
       const ms = await listMetrics(hotelId, from.toISOString().slice(0, 10));
       setMetrics(ms);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   useEffect(() => {
@@ -94,7 +95,7 @@ export default function HotelForecastPage() {
       await upsertMetrics(activeHotelId, rows.map((r) => ({ ...r, source: "csv_import" as const })));
       setCsvText(""); setShowCsvImport(false);
       await refreshMetrics(activeHotelId);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleSeed = async () => {
@@ -104,7 +105,7 @@ export default function HotelForecastPage() {
       const rows = generateSeedData(0.72, 130, 120);
       await upsertMetrics(activeHotelId, rows.map((r) => ({ ...r, source: "forecast_seed" as const })));
       await refreshMetrics(activeHotelId);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleManualSave = async () => {
@@ -118,12 +119,12 @@ export default function HotelForecastPage() {
       }]);
       setShowManual(false);
       await refreshMetrics(activeHotelId);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleDeleteMetric = async (id: string) => {
     try { await deleteMetric(id); if (activeHotelId) await refreshMetrics(activeHotelId); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   if (!user) {

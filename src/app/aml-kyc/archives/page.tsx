@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 import {
   listMyKycCases, createKycCase, closeKycCase,
   listArchivesForCase, uploadKycArchive, getKycSignedUrl,
@@ -102,7 +103,7 @@ export default function KycArchivesPage() {
       setSelectedCase(c);
       await reloadCases();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur");
+      setError(errMsg(e, "Erreur"));
     }
   };
 
@@ -139,7 +140,7 @@ export default function KycArchivesPage() {
       const list = await listArchivesForCase(selectedCase.id);
       setArchives(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur");
+      setError(errMsg(e, "Erreur"));
     } finally {
       setUploading(false);
     }
@@ -338,7 +339,7 @@ export default function KycArchivesPage() {
                                   const url = await getKycSignedUrl(a.storage_path);
                                   window.open(url, "_blank");
                                 } catch (e) {
-                                  alert(e instanceof Error ? e.message : "Erreur");
+                                  alert(errMsg(e, "Erreur"));
                                 }
                               }}
                               className="text-xs text-navy hover:underline">

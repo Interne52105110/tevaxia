@@ -19,6 +19,7 @@ import DashboardHero from "@/components/profil/DashboardHero";
 import WorkspacesGrid from "@/components/profil/WorkspacesGrid";
 import ProfileTypeSelector from "@/components/profil/ProfileTypeSelector";
 import type { ProfileType } from "@/lib/profile-types";
+import { errMsg } from "@/lib/errors";
 
 // ============================================================
 // MARKET ALERTS TYPES & SECTION
@@ -662,7 +663,7 @@ function SecuritySection() {
         window.location.href = "/connexion?revoked=1";
       }, 1500);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur");
+      setError(errMsg(e, "Erreur"));
       setLoading(false);
     }
   };

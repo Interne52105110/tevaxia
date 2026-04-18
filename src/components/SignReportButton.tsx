@@ -8,6 +8,7 @@ import {
   buildVerificationUrl,
 } from "@/lib/valuation-signatures";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 
 interface Props {
   reportTitle: string;
@@ -57,7 +58,7 @@ export default function SignReportButton({
       setStatus("signed");
       onSigned?.(h, buildVerificationUrl(h), new Date().toISOString());
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de signature");
+      setError(errMsg(e, "Erreur de signature"));
       setStatus("error");
     }
   }

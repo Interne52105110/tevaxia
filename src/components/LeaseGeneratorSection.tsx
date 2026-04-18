@@ -6,6 +6,7 @@ import LeasePdf from "@/components/LeasePdf";
 import SignatureCanvas from "@/components/SignatureCanvas";
 import type { RentalLot } from "@/lib/gestion-locative";
 import { getProfile } from "@/lib/profile";
+import { errMsg } from "@/lib/errors";
 
 interface Props {
   lot: RentalLot;
@@ -111,7 +112,7 @@ export default function LeaseGeneratorSection({ lot }: Props) {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de génération");
+      setError(errMsg(e, "Erreur de génération"));
     } finally {
       setLoading(false);
     }

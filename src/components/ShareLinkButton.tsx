@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { buildSharedLinkUrl, createSharedLink, type SharedToolType } from "@/lib/shared-links";
+import { errMsg } from "@/lib/errors";
 
 interface Props {
   toolType: SharedToolType;
@@ -39,7 +40,7 @@ export default function ShareLinkButton({ toolType, payload, defaultTitle, class
       });
       setCreatedUrl(buildSharedLinkUrl(link.token));
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur lors de la création du lien.");
+      setError(errMsg(e, "Erreur lors de la création du lien."));
     } finally {
       setLoading(false);
     }

@@ -22,6 +22,7 @@ import {
   type OrgRole,
   type OrgType,
 } from "@/lib/orgs";
+import { errMsg } from "@/lib/errors";
 
 const ROLE_LABEL: Record<OrgRole, string> = {
   admin: "Admin",
@@ -156,7 +157,7 @@ export default function OrgPage() {
       setActiveOrgId(created.id);
       await reloadOrgs();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de création.");
+      setError(errMsg(e, "Erreur de création."));
     } finally {
       setLoading(false);
     }

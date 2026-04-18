@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 import {
   listArchives,
   uploadArchive,
@@ -69,7 +70,7 @@ export default function ArchivesPage() {
       const list = await listArchives(coownershipId);
       setArchives(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur");
+      setError(errMsg(e, "Erreur"));
     } finally {
       setLoading(false);
     }
@@ -107,7 +108,7 @@ export default function ArchivesPage() {
       setError(null);
       await reload();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur upload");
+      setError(errMsg(e, "Erreur upload"));
     } finally {
       setUploading(false);
     }
@@ -118,7 +119,7 @@ export default function ArchivesPage() {
       const url = await getSignedUrl(archive.storage_path);
       window.open(url, "_blank");
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Erreur téléchargement");
+      alert(errMsg(e, "Erreur téléchargement"));
     }
   };
 

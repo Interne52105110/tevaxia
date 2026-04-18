@@ -10,6 +10,7 @@ import {
   type StrMonthlyMetric,
   type StrForecastResult,
 } from "@/lib/str-forecast";
+import { errMsg } from "@/lib/errors";
 
 const MONTH_FR = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sept", "Oct", "Nov", "Déc"];
 
@@ -41,7 +42,7 @@ export default function StrForecastPage() {
       setShowCsv(false);
       setError(null);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errMsg(e, String(e)));
     }
   };
 

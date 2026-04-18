@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 
 interface OrgStats {
   members_count: number;
@@ -30,7 +31,7 @@ export default function OrgAgencyStats({ orgId }: { orgId: string }) {
         if (error) throw error;
         setStats(data as OrgStats);
       } catch (e) {
-        setError(e instanceof Error ? e.message : String(e));
+        setError(errMsg(e, String(e)));
       } finally {
         setLoading(false);
       }

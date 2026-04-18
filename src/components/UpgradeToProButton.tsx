@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 
 export default function UpgradeToProButton() {
   const [loading, setLoading] = useState(false);
@@ -32,7 +33,7 @@ export default function UpgradeToProButton() {
       if (!url) throw new Error("URL de paiement manquante.");
       window.location.href = url;
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur inconnue");
+      setError(errMsg(e, "Erreur inconnue"));
       setLoading(false);
     }
   };

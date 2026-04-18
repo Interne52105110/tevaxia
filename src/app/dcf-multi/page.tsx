@@ -13,6 +13,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import SEOContent from "@/components/SEOContent";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
+import { errMsg } from "@/lib/errors";
 import {
   ComposedChart,
   Bar,
@@ -130,7 +131,7 @@ export default function DCFMulti() {
         }
         setLeases(imported);
       } catch (e) {
-        setCsvError(e instanceof Error ? e.message : String(e));
+        setCsvError(errMsg(e, String(e)));
       }
     };
     reader.onerror = () => setCsvError(t("csvReadError"));

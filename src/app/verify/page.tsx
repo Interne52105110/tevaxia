@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { verifySignature, type VerificationResult } from "@/lib/valuation-signatures";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { errMsg } from "@/lib/errors";
 
 export default function VerifyPage() {
   return (
@@ -42,7 +43,7 @@ function VerifyContent() {
       const r = await verifySignature(h);
       setResult(r);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur de vérification");
+      setError(errMsg(e, "Erreur de vérification"));
     } finally {
       setLoading(false);
     }

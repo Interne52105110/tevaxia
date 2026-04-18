@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
+import { errMsg } from "@/lib/errors";
 
 interface Institution { id: string; name: string; country: string; logo: string; bic: string }
 interface AccountData { uid: string; account_id?: { iban?: string }; name?: string; currency?: string }
@@ -49,7 +50,7 @@ export default function Psd2Page() {
           setStep("done");
           window.history.replaceState({}, "", window.location.pathname);
         } catch (e) {
-          setError(e instanceof Error ? e.message : String(e));
+          setError(errMsg(e, String(e)));
           setStep("select-bank");
         }
       })();
@@ -71,7 +72,7 @@ export default function Psd2Page() {
         setStep("select-bank");
       } catch (e) {
         setConfigured(true);
-        setError(e instanceof Error ? e.message : String(e));
+        setError(errMsg(e, String(e)));
         setStep("select-bank");
       } finally { setLoading(false); }
     })();
@@ -92,7 +93,7 @@ export default function Psd2Page() {
       if (!res.ok) throw new Error(data.error ?? "Erreur");
       window.location.href = data.link;
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errMsg(e, String(e)));
       setLoading(false);
     }
   };
@@ -105,7 +106,7 @@ export default function Psd2Page() {
       if (!res.ok) throw new Error(data.error ?? "Erreur");
       setMovements(data.movements ?? []);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errMsg(e, String(e)));
     } finally { setLoading(false); }
   };
 

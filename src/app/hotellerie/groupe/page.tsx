@@ -8,6 +8,7 @@ import { isSupabaseConfigured } from "@/lib/supabase";
 import { listMyOrganizations, type Organization } from "@/lib/orgs";
 import { listHotels, createHotel, deleteHotel, type Hotel, type HotelCategory } from "@/lib/hotels";
 import { formatEUR, formatPct } from "@/lib/calculations";
+import { errMsg } from "@/lib/errors";
 
 const CATEGORY_LABEL: Record<HotelCategory, string> = {
   budget: "Budget (1-2★)",
@@ -49,7 +50,7 @@ export default function HotelGroupDashboard() {
         setOrgs(hotelOrgs);
         if (hotelOrgs.length > 0 && !activeOrgId) setActiveOrgId(hotelOrgs[0].id);
       })
-      .catch((e) => setError(e instanceof Error ? e.message : tg("error")));
+      .catch((e) => setError(errMsg(e, tg("error"))));
   }, [user, activeOrgId]);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function HotelGroupDashboard() {
     setLoading(true);
     listHotels(activeOrgId)
       .then(setHotels)
-      .catch((e) => setError(e instanceof Error ? e.message : tg("error")))
+      .catch((e) => setError(errMsg(e, tg("error"))))
       .finally(() => setLoading(false));
   }, [activeOrgId]);
 
@@ -77,7 +78,7 @@ export default function HotelGroupDashboard() {
       const list = await listHotels(activeOrgId);
       setHotels(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : tg("errorCreation"));
+      setError(errMsg(e, tg("errorCreation")));
     }
   };
 
@@ -88,7 +89,7 @@ export default function HotelGroupDashboard() {
       const list = await listHotels(activeOrgId!);
       setHotels(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : tg("errorDeletion"));
+      setError(errMsg(e, tg("errorDeletion")));
     }
   };
 

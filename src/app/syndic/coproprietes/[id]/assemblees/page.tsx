@@ -12,6 +12,7 @@ import ConvocationPdf from "@/components/ConvocationPdf";
 import AssemblyMinutesPdf from "@/components/AssemblyMinutesPdf";
 import { getProfile } from "@/lib/profile";
 import { getCoownership, listUnits, type Coownership, type CoownershipUnit } from "@/lib/coownerships";
+import { errMsg } from "@/lib/errors";
 import {
   listAssemblies, createAssembly, deleteAssembly, updateAssembly,
   sendConvocation, openAssembly, closeAssembly,
@@ -126,7 +127,7 @@ export default function AssembliesPage() {
       const nextActive = activeAssemblyId && a.find((x) => x.id === activeAssemblyId) ? activeAssemblyId : (a[0]?.id ?? null);
       setActiveAssemblyId(nextActive);
       if (nextActive) await loadAssemblyDetails(nextActive);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const loadAssemblyDetails = async (assemblyId: string) => {
@@ -169,7 +170,7 @@ export default function AssembliesPage() {
       setShowCreateAssembly(false);
       setActiveAssemblyId(a.id);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleDeleteAssembly = async (aid: string) => {
@@ -178,7 +179,7 @@ export default function AssembliesPage() {
       await deleteAssembly(aid);
       if (activeAssemblyId === aid) setActiveAssemblyId(null);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleAddResolution = async () => {
@@ -193,14 +194,14 @@ export default function AssembliesPage() {
       setResDraft({ title: "", description: "", majority_type: "simple" });
       setShowAddResolution(false);
       await loadAssemblyDetails(activeAssemblyId);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleVote = async (voteId: string, value: VoteValue) => {
     try {
       await setVote(voteId, value);
       if (activeAssemblyId) await loadAssemblyDetails(activeAssemblyId);
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleSendConvocation = async () => {
@@ -209,20 +210,20 @@ export default function AssembliesPage() {
     try {
       await sendConvocation(activeAssemblyId);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleOpen = async () => {
     if (!activeAssemblyId) return;
     try { await openAssembly(activeAssemblyId); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const handleClose = async () => {
     if (!activeAssemblyId) return;
     if (!confirm(t("confirmClose"))) return;
     try { await closeAssembly(activeAssemblyId); await refresh(); }
-    catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const downloadConvocation = async (unit?: CoownershipUnit) => {

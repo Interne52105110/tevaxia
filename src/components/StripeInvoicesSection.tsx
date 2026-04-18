@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
+import { errMsg } from "@/lib/errors";
 
 interface StripeInvoice {
   id: string;
@@ -43,7 +44,7 @@ export default function StripeInvoicesSection() {
         const data = await res.json();
         setInvoices(data.invoices ?? []);
       } catch (e) {
-        setError(e instanceof Error ? e.message : String(e));
+        setError(errMsg(e, String(e)));
       } finally {
         setLoading(false);
       }

@@ -7,6 +7,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { listMyOrganizations, type Organization } from "@/lib/orgs";
 import { listCoownerships, type Coownership } from "@/lib/coownerships";
+import { errMsg } from "@/lib/errors";
 
 interface BenchmarkRow {
   copro: Coownership;
@@ -144,7 +145,7 @@ export default function SyndicBenchmarkPage() {
         setOrgs(syndicOrgs);
         if (syndicOrgs.length > 0 && !activeOrgId) setActiveOrgId(syndicOrgs[0].id);
       })
-      .catch((e) => setError(e instanceof Error ? e.message : String(e)));
+      .catch((e) => setError(errMsg(e, String(e))));
   }, [user, activeOrgId]);
 
   useEffect(() => {
@@ -160,7 +161,7 @@ export default function SyndicBenchmarkPage() {
         if (cancelled) return;
         setRows(bench);
       } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : String(e));
+        if (!cancelled) setError(errMsg(e, String(e)));
       } finally {
         if (!cancelled) setLoading(false);
       }

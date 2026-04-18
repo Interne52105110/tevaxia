@@ -10,6 +10,7 @@ import HotelOwnerReportPdf from "@/components/HotelOwnerReportPdf";
 import { getHotel, listPeriods, savePeriod, type Hotel, type HotelPeriod } from "@/lib/hotels";
 import { listMyOrganizations, type Organization } from "@/lib/orgs";
 import { formatEUR, formatPct } from "@/lib/calculations";
+import { errMsg } from "@/lib/errors";
 
 const QUARTER_PRESETS = [
   { label: "Q1", startM: 0, endM: 2 },
@@ -59,7 +60,7 @@ export default function HotelDetailPage() {
         const orgs = await listMyOrganizations();
         setOrg(orgs.find((o) => o.id === h.org_id) ?? null);
       }
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
     finally { setLoading(false); }
   };
 
@@ -125,7 +126,7 @@ export default function HotelDetailPage() {
       setEditingId(null);
       setDraft(emptyDraft);
       await refresh();
-    } catch (e) { setError(e instanceof Error ? e.message : t("error")); }
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const downloadReport = async (period: HotelPeriod) => {
