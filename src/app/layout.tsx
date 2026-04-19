@@ -13,7 +13,7 @@ import PostHogProvider from "@/components/PostHogProvider";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import { OrganizationJsonLd, WebSiteJsonLd, PersonJsonLd } from "@/components/JsonLd";
 import AiChatWidget from "@/components/AiChatWidget";
-import SyndicContextBar from "@/components/syndic/SyndicContextBar";
+import ModuleContextBar from "@/components/ModuleContextBar";
 import { Suspense } from "react";
 
 const geistSans = Geist({
@@ -128,7 +128,12 @@ export default async function RootLayout({
           <AuthProvider>
             <PostHogProvider>
               <Header />
-              <Suspense fallback={null}><SyndicContextBar /></Suspense>
+              <Suspense fallback={null}>
+                <ModuleContextBar moduleKey="syndic" />
+                <ModuleContextBar moduleKey="pms" />
+                <ModuleContextBar moduleKey="crm" />
+                <ModuleContextBar moduleKey="hotellerie" />
+              </Suspense>
               <main className="flex-1">{children}</main>
               <Footer />
               <CookieBanner />
