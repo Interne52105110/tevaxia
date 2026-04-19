@@ -5753,6 +5753,33 @@
   "syndic": {
     "title": "Painel Sindico & Condominio",
     "subtitle": "Gestao de encargos, fracoes e renovacao energetica para gestores profissionais no Luxemburgo",
+    "primaryCta": {
+      "label": "Acesso principal",
+      "title": "Os meus condominios geridos",
+      "desc": "Crie e faca a gestao dos seus condominios: contabilidade, AGs, chamadas de fundos, lembretes, portal do condomino.",
+      "button": "Abrir os meus condominios"
+    },
+    "toolkit": {
+      "title": "Ferramentas complementares",
+      "subtitle": "Calculadoras e modulos que se integram na gestao diaria do condominio.",
+      "catCalc": "Calculadora",
+      "catAsset": "Patrimonio",
+      "catEnergy": "Energia",
+      "catCompliance": "Conformidade",
+      "catAnalysis": "Analise",
+      "loyerTitle": "Renda legal — regra 5 %",
+      "loyerDesc": "Tecto de renda LU com base na regra 5 % capital investido + obras indexadas.",
+      "portfolioTitle": "Portfolio patrimonial",
+      "portfolioDesc": "Consolida bens geridos: valor, rendimento, exposicao geografica.",
+      "energyPortfolioTitle": "Portfolio energetico",
+      "energyPortfolioDesc": "Vista CPE / CO₂ / risco stranding CRREM em todo o patrimonio.",
+      "epbdTitle": "Prazos EPBD IV",
+      "epbdDesc": "Calendario 2030 / 2050 dos limites energeticos obrigatorios por edificio.",
+      "amlTitle": "AML / KYC",
+      "amlDesc": "Verificacao das partes e limites CSSF para entradas de condominos ou cessoes.",
+      "benchmarkTitle": "Benchmark inter-condominios",
+      "benchmarkDesc": "Compare os seus condominios (encargos, dividas, fundo de obras) vs mediana do portfolio."
+    },
     "tabConfig": "Configuracao",
     "tabLots": "Fracoes",
     "tabCharges": "Encargos",
@@ -9205,5 +9232,17 @@
       "hintTitle": "Conservacao:",
       "hintBody": "O historico guarda os metadados das suas Factur-X durante 12 meses. Os documentos podem ser regerados a qualquer momento de forma identica (assinatura XML/PDF estritamente reproduzivel). Para conservacao legal 10 anos (Art. L102 B LPF FR ou Art. 65 §1 IVA LU), arquive os seus PDF em suporte proprio."
     }
+  },
+  "syndicContextBar": {
+    "backToSyndic": "Voltar ao modulo Syndic",
+    "otherTools": "Outras ferramentas:",
+    "coproprietes": "Os meus condominios",
+    "loyerLegal": "Renda legal",
+    "portefeuille": "Portfolio",
+    "portfolioEnergie": "Portfolio energetico",
+    "epbd": "Prazos EPBD",
+    "amlKyc": "AML / KYC",
+    "benchmark": "Benchmark",
+    "lettresTypes": "Modelos de carta"
   }
 }

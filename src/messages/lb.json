@@ -5753,6 +5753,33 @@
   "syndic": {
     "title": "Syndic & Coproprieteits-Dashboard",
     "subtitle": "Gestioun vun den Chargen, Loter an energetescher Renovatioun fir professionell Haausverwaltungen zu Letzebuerg",
+    "primaryCta": {
+      "label": "Haaptzougang",
+      "title": "Meng verwalt Coproprietéiten",
+      "desc": "Erstellt a verwalt Är Coproprietéiten: Comptabilitéit, AGs, Aruffer, Erënnerungen, Co-Proprietär-Portal.",
+      "button": "Meng Coproprietéiten opmaachen"
+    },
+    "toolkit": {
+      "title": "Komplementär Tools",
+      "subtitle": "Rechner a Moduler, déi sech an d'alldeeglech Syndic-Gestioun integréieren.",
+      "catCalc": "Rechner",
+      "catAsset": "Verméigen",
+      "catEnergy": "Energie",
+      "catCompliance": "Conformitéit",
+      "catAnalysis": "Analyse",
+      "loyerTitle": "Legale Loyer — 5%-Regel",
+      "loyerDesc": "LU Loyer-Limite no 5%-Regel op investéiert Kapital + indexéiert Aarbechten.",
+      "portfolioTitle": "Verméigensportfolio",
+      "portfolioDesc": "Konsolidéiert d'verwalt Gidder: Wäert, Rendement, geografesch Verdeelung.",
+      "energyPortfolioTitle": "Energieportfolio",
+      "energyPortfolioDesc": "CPE / CO₂ / CRREM Stranding-Risiko-Vue iwwert de ganze Portfolio.",
+      "epbdTitle": "EPBD IV Eekonferenzen",
+      "epbdDesc": "Kalenner 2030 / 2050 vun den obligatoreschen Energiefellen pro Gebai.",
+      "amlTitle": "AML / KYC",
+      "amlDesc": "Parteiverifikatioun a CSSF-Schwellen fir Co-Proprietär-Entrée oder Cessiounen.",
+      "benchmarkTitle": "Inter-Copros Benchmark",
+      "benchmarkDesc": "Vergläicht Är Copros (Chargen, Retarden, Aarbechtsfong) vs Portfolio-Medianen."
+    },
     "tabConfig": "Konfiguratioun",
     "tabLots": "Loter",
     "tabCharges": "Chargen",
@@ -9205,5 +9232,17 @@
       "hintTitle": "Opbewahrung:",
       "hintBody": "Den Historique späichert d'Metadaten vun Äre Factur-X 12 Méint laang. Dokumenter kënnen zu all Moment identesch nei generéiert ginn (XML/PDF-Ënnerschrëft strikt reproduzéierbar). Fir 10-Joer Opbewahrung (Art. L102 B LPF FR oder Art. 65 §1 TVA LU) archivéiert Är PDFen op Ärem eegene Support."
     }
+  },
+  "syndicContextBar": {
+    "backToSyndic": "Zréck zum Syndic-Modul",
+    "otherTools": "Aner Tools:",
+    "coproprietes": "Meng Coproprietéiten",
+    "loyerLegal": "Legale Loyer",
+    "portefeuille": "Portfolio",
+    "portfolioEnergie": "Energieportfolio",
+    "epbd": "EPBD Eekonferenzen",
+    "amlKyc": "AML / KYC",
+    "benchmark": "Benchmark",
+    "lettresTypes": "Musterbréiwer"
   }
 }

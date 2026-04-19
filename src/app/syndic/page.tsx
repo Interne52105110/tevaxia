@@ -1048,43 +1048,81 @@ export default function SyndicPage() {
         </div>
       </section>
 
-      {/* Syndic toolkit cross-link */}
-      <section className="border-b border-card-border bg-orange-50">
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+      {/* Syndic primary CTA */}
+      <section className="border-b border-card-border bg-gradient-to-br from-navy to-navy/90 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-3">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-orange-200 text-orange-900">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-navy">Outils complémentaires</div>
-                <p className="text-xs text-muted leading-relaxed">
-                  Calculateurs et modules utilisés en complément de la gestion syndic — loyer légal, portefeuille, énergie, AML/KYC.
-                </p>
-              </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-wider font-bold text-gold">{t("primaryCta.label")}</div>
+              <div className="mt-1 text-lg font-bold">{t("primaryCta.title")}</div>
+              <p className="text-sm text-white/70 mt-0.5">{t("primaryCta.desc")}</p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Link href="/syndic/coproprietes" className="rounded-full bg-navy px-3 py-1 text-xs font-semibold text-white hover:bg-navy-light transition-colors">
-                ★ Mes copropriétés
-              </Link>
-              <Link href="/calculateur-loyer" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
-                Loyer légal (règle 5 %)
-              </Link>
-              <Link href="/portfolio" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
-                Portefeuille
-              </Link>
-              <Link href="/energy/portfolio" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
-                Portfolio énergie
-              </Link>
-              <Link href="/energy/epbd" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
-                Échéances EPBD
-              </Link>
-              <Link href="/aml-kyc" className="rounded-full border border-orange-300 bg-white px-3 py-1 text-xs font-medium text-orange-900 hover:bg-orange-100 transition-colors">
-                AML / KYC
-              </Link>
+            <Link href="/syndic/coproprietes"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-bold text-navy-dark hover:bg-gold-light transition-colors">
+              ★ {t("primaryCta.button")} →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Outils complémentaires — grille de cartes */}
+      <section className="border-b border-card-border bg-background">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mb-4 flex items-end justify-between">
+            <div>
+              <h2 className="text-sm font-bold uppercase tracking-wider text-navy">{t("toolkit.title")}</h2>
+              <p className="mt-1 text-xs text-muted">{t("toolkit.subtitle")}</p>
             </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <ToolkitCard
+              href="/calculateur-loyer?from=syndic"
+              title={t("toolkit.loyerTitle")}
+              desc={t("toolkit.loyerDesc")}
+              category={t("toolkit.catCalc")}
+              iconColor="bg-emerald-100 text-emerald-900"
+              icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 7.5V6a2.25 2.25 0 012.25-2.25h1.5A2.25 2.25 0 0115 6v1.5m-6 0h6m-6 0H6.75A2.25 2.25 0 004.5 9.75v8.25a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V9.75a2.25 2.25 0 00-2.25-2.25H15M9 15h.008v.008H9V15zm3 0h.008v.008H12V15zm3 0h.008v.008H15V15zm-3-3h.008v.008H12V12zm-3 0h.008v.008H9V12zm6 0h.008v.008H15V12z" /></svg>}
+            />
+            <ToolkitCard
+              href="/portfolio?from=syndic"
+              title={t("toolkit.portfolioTitle")}
+              desc={t("toolkit.portfolioDesc")}
+              category={t("toolkit.catAsset")}
+              iconColor="bg-indigo-100 text-indigo-900"
+              icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" /></svg>}
+            />
+            <ToolkitCard
+              href="/energy/portfolio?from=syndic"
+              title={t("toolkit.energyPortfolioTitle")}
+              desc={t("toolkit.energyPortfolioDesc")}
+              category={t("toolkit.catEnergy")}
+              iconColor="bg-amber-100 text-amber-900"
+              icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>}
+            />
+            <ToolkitCard
+              href="/energy/epbd?from=syndic"
+              title={t("toolkit.epbdTitle")}
+              desc={t("toolkit.epbdDesc")}
+              category={t("toolkit.catEnergy")}
+              iconColor="bg-lime-100 text-lime-900"
+              icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
+            />
+            <ToolkitCard
+              href="/aml-kyc?from=syndic"
+              title={t("toolkit.amlTitle")}
+              desc={t("toolkit.amlDesc")}
+              category={t("toolkit.catCompliance")}
+              iconColor="bg-slate-200 text-slate-900"
+              icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.333 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>}
+            />
+            <ToolkitCard
+              href="/syndic/benchmark?from=syndic"
+              title={t("toolkit.benchmarkTitle")}
+              desc={t("toolkit.benchmarkDesc")}
+              category={t("toolkit.catAnalysis")}
+              iconColor="bg-fuchsia-100 text-fuchsia-900"
+              icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>}
+            />
           </div>
         </div>
       </section>
@@ -1139,5 +1177,29 @@ export default function SyndicPage() {
         ]}
       />
     </main>
+  );
+}
+
+function ToolkitCard({ href, title, desc, category, icon, iconColor }: {
+  href: string; title: string; desc: string; category: string;
+  icon: React.ReactNode; iconColor: string;
+}) {
+  return (
+    <Link href={href}
+      className="group relative rounded-xl border border-card-border bg-card p-4 hover:border-navy hover:shadow-md transition-all">
+      <div className="flex items-start gap-3">
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${iconColor}`}>
+          {icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] uppercase tracking-wider font-semibold text-muted">{category}</div>
+          <h3 className="mt-0.5 text-sm font-bold text-navy group-hover:text-navy-light">{title}</h3>
+          <p className="mt-1 text-xs text-muted leading-relaxed">{desc}</p>
+        </div>
+        <svg className="h-4 w-4 text-muted group-hover:text-navy group-hover:translate-x-0.5 transition-all shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </div>
+    </Link>
   );
 }

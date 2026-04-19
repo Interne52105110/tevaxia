@@ -5753,6 +5753,33 @@
   "syndic": {
     "title": "Syndic & Co-ownership Dashboard",
     "subtitle": "Charges management, lots and energy renovation planning for professional property managers in Luxembourg",
+    "primaryCta": {
+      "label": "Main access",
+      "title": "My managed condominiums",
+      "desc": "Create and manage your condos: accounting, general meetings, fund calls, reminders, co-owner portal.",
+      "button": "Open my condos"
+    },
+    "toolkit": {
+      "title": "Complementary tools",
+      "subtitle": "Calculators and modules that integrate with day-to-day syndic management.",
+      "catCalc": "Calculator",
+      "catAsset": "Assets",
+      "catEnergy": "Energy",
+      "catCompliance": "Compliance",
+      "catAnalysis": "Analysis",
+      "loyerTitle": "Legal rent — 5% rule",
+      "loyerDesc": "LU rent cap based on 5% of invested capital + indexed works.",
+      "portfolioTitle": "Asset portfolio",
+      "portfolioDesc": "Consolidates managed properties: value, yield, geographic exposure.",
+      "energyPortfolioTitle": "Energy portfolio",
+      "energyPortfolioDesc": "CPE / CO₂ / CRREM stranding risk view across the portfolio.",
+      "epbdTitle": "EPBD IV deadlines",
+      "epbdDesc": "2030 / 2050 mandatory energy threshold calendar per building.",
+      "amlTitle": "AML / KYC",
+      "amlDesc": "Party verification and CSSF thresholds for co-owner entries or transfers.",
+      "benchmarkTitle": "Inter-condo benchmark",
+      "benchmarkDesc": "Compare your condos (charges, arrears, works fund) vs portfolio median."
+    },
     "tabConfig": "Configuration",
     "tabLots": "Lots",
     "tabCharges": "Charges",
@@ -9205,5 +9232,17 @@
       "hintTitle": "Retention:",
       "hintBody": "History keeps your Factur-X metadata for 12 months. Documents can be regenerated identically at any time (XML/PDF signature strictly reproducible). For 10-year legal retention (Art. L102 B LPF FR or Art. 65 §1 VAT LU), archive your PDFs on your own storage."
     }
+  },
+  "syndicContextBar": {
+    "backToSyndic": "Back to Syndic module",
+    "otherTools": "Other tools:",
+    "coproprietes": "My condos",
+    "loyerLegal": "Legal rent",
+    "portefeuille": "Portfolio",
+    "portfolioEnergie": "Energy portfolio",
+    "epbd": "EPBD deadlines",
+    "amlKyc": "AML / KYC",
+    "benchmark": "Benchmark",
+    "lettresTypes": "Template letters"
   }
 }

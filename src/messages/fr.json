@@ -5753,6 +5753,33 @@
   "syndic": {
     "title": "Dashboard Syndic & Copropriété",
     "subtitle": "Gestion des charges, lots et rénovation énergétique pour syndics professionnels au Luxembourg",
+    "primaryCta": {
+      "label": "Accès principal",
+      "title": "Mes copropriétés en gestion",
+      "desc": "Crée et pilote tes copropriétés : compta, AG, appels de fonds, relances, portail copropriétaire.",
+      "button": "Ouvrir mes copropriétés"
+    },
+    "toolkit": {
+      "title": "Outils complémentaires",
+      "subtitle": "Calculateurs et modules qui s'articulent avec la gestion syndic courante.",
+      "catCalc": "Calculateur",
+      "catAsset": "Patrimoine",
+      "catEnergy": "Énergie",
+      "catCompliance": "Conformité",
+      "catAnalysis": "Analyse",
+      "loyerTitle": "Loyer légal — règle 5 %",
+      "loyerDesc": "Plafond loyer LU selon règle 5 % capital investi + travaux indexés.",
+      "portfolioTitle": "Portefeuille patrimonial",
+      "portfolioDesc": "Consolide biens gérés : valeur, rendement, exposition géographique.",
+      "energyPortfolioTitle": "Portfolio énergétique",
+      "energyPortfolioDesc": "Vue CPE / CO₂ / stranding risk CRREM sur tout le patrimoine.",
+      "epbdTitle": "Échéances EPBD IV",
+      "epbdDesc": "Calendrier 2030 / 2050 des seuils énergétiques obligatoires par bâtiment.",
+      "amlTitle": "AML / KYC",
+      "amlDesc": "Vérification parties et seuils CSSF pour entrées copropriétaires ou cessions.",
+      "benchmarkTitle": "Benchmark inter-copros",
+      "benchmarkDesc": "Compare tes copros (charges, impayés, fonds travaux) vs médiane portefeuille."
+    },
     "tabConfig": "Configuration",
     "tabLots": "Lots",
     "tabCharges": "Charges",
@@ -9205,5 +9232,17 @@
       "hintTitle": "Conservation :",
       "hintBody": "L'historique garde les métadonnées de tes Factur-X pendant 12 mois. Les documents peuvent être régénérés à tout moment identiquement (signature XML/PDF strictement reproductible). Pour conservation légale 10 ans (Art. L102 B LPF FR ou Art. 65 §1 TVA LU), archive tes PDF sur ton propre support."
     }
+  },
+  "syndicContextBar": {
+    "backToSyndic": "Retour module Syndic",
+    "otherTools": "Autres outils :",
+    "coproprietes": "Mes copropriétés",
+    "loyerLegal": "Loyer légal",
+    "portefeuille": "Portefeuille",
+    "portfolioEnergie": "Portfolio énergie",
+    "epbd": "Échéances EPBD",
+    "amlKyc": "AML / KYC",
+    "benchmark": "Benchmark",
+    "lettresTypes": "Lettres types"
   }
 }

@@ -5753,6 +5753,33 @@
   "syndic": {
     "title": "Hausverwaltung & Wohnungseigentum",
     "subtitle": "Nebenkostenverwaltung, Einheiten und energetische Sanierungsplanung fuer professionelle Hausverwalter in Luxemburg",
+    "primaryCta": {
+      "label": "Hauptzugang",
+      "title": "Meine verwalteten WEGs",
+      "desc": "Erstellen und verwalten Sie Ihre WEGs: Buchhaltung, Hauptversammlungen, Umlagen, Mahnungen, Miteigentümerportal.",
+      "button": "Meine WEGs öffnen"
+    },
+    "toolkit": {
+      "title": "Ergänzende Tools",
+      "subtitle": "Rechner und Module, die sich in die tägliche WEG-Verwaltung integrieren.",
+      "catCalc": "Rechner",
+      "catAsset": "Vermögen",
+      "catEnergy": "Energie",
+      "catCompliance": "Compliance",
+      "catAnalysis": "Analyse",
+      "loyerTitle": "Legale Miete — 5%-Regel",
+      "loyerDesc": "LU-Mietobergrenze nach 5%-Regel auf investiertes Kapital + indexierte Bauarbeiten.",
+      "portfolioTitle": "Vermögensportfolio",
+      "portfolioDesc": "Konsolidiert verwaltete Objekte: Wert, Rendite, geografische Verteilung.",
+      "energyPortfolioTitle": "Energieportfolio",
+      "energyPortfolioDesc": "CPE / CO₂ / CRREM Stranding-Risiko-Ansicht über das gesamte Portfolio.",
+      "epbdTitle": "EPBD IV Fristen",
+      "epbdDesc": "Kalender 2030 / 2050 der verpflichtenden Energieschwellen je Gebäude.",
+      "amlTitle": "AML / KYC",
+      "amlDesc": "Parteienprüfung und CSSF-Schwellen für Miteigentümer-Zugänge oder Übertragungen.",
+      "benchmarkTitle": "Inter-WEG Benchmark",
+      "benchmarkDesc": "Vergleiche Ihre WEGs (Kosten, Rückstände, Rücklagen) vs Portfolio-Median."
+    },
     "tabConfig": "Konfiguration",
     "tabLots": "Einheiten",
     "tabCharges": "Nebenkosten",
@@ -9205,5 +9232,17 @@
       "hintTitle": "Aufbewahrung:",
       "hintBody": "Der Verlauf speichert die Metadaten Ihrer Factur-X 12 Monate lang. Dokumente können jederzeit identisch neu erzeugt werden (XML/PDF-Signatur strikt reproduzierbar). Für 10-Jahres-Aufbewahrung (Art. L102 B LPF FR oder Art. 65 §1 MwSt-Gesetz LU) archivieren Sie Ihre PDFs auf eigenem Speicher."
     }
+  },
+  "syndicContextBar": {
+    "backToSyndic": "Zurück zum Syndic-Modul",
+    "otherTools": "Andere Tools:",
+    "coproprietes": "Meine WEGs",
+    "loyerLegal": "Legale Miete",
+    "portefeuille": "Portfolio",
+    "portfolioEnergie": "Energieportfolio",
+    "epbd": "EPBD Fristen",
+    "amlKyc": "AML / KYC",
+    "benchmark": "Benchmark",
+    "lettresTypes": "Musterbriefe"
   }
 }
