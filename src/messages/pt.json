@@ -9105,6 +9105,78 @@
         "q": "Os meus dados sao armazenados na UE?",
         "a": "As suas faturas sao geradas no seu navegador e descarregadas diretamente. Se estiver ligado e usar o historico 12 meses (plano Essencial+), os dados sao armazenados no Supabase (AWS eu-central-1, Frankfurt). Ver Politica de privacidade."
       }
+    },
+    "emission": {
+      "backLanding": "Voltar",
+      "title": "Preparar uma Factur-X",
+      "subtitle": "Preencha os campos abaixo, valide, descarregue o PDF/A-3 com XML EN 16931 incorporado + XML standalone.",
+      "reset": "Reiniciar",
+      "resetConfirm": "Reiniciar a fatura?",
+      "generate": "Gerar PDF + XML",
+      "generating": "A gerar…",
+      "successMsg": "Fatura gerada. PDF e XML descarregados.",
+      "hint": "O PDF contem o XML EN 16931 em anexo (Factur-X). O XML standalone e fornecido separadamente para importacao direta na sua PA.",
+      "template": {
+        "label": "Template por atividade",
+        "generic": "Generico",
+        "landlord": "Senhorio / SCI",
+        "syndic": "Syndic condominio",
+        "hotel": "Hotel LU",
+        "lease": "Arrendamento comercial",
+        "valuer": "Avaliador / perito"
+      },
+      "sections": {
+        "invoice": "Informacoes da fatura",
+        "seller": "Vendedor (voce)",
+        "buyer": "Cliente",
+        "lines": "Linhas da fatura",
+        "payment": "Pagamento",
+        "notes": "Mencoes livres"
+      },
+      "fields": {
+        "invoiceNumber": "Numero da fatura",
+        "issueDate": "Data de emissao",
+        "dueDate": "Data de vencimento",
+        "buyerReference": "Referencia cliente",
+        "contractReference": "Referencia contrato",
+        "currency": "Moeda",
+        "name": "Nome / razao social",
+        "legalId": "SIREN / RCS",
+        "vatId": "IVA intra-UE",
+        "country": "Pais",
+        "address": "Endereco",
+        "postcode": "CP",
+        "city": "Cidade",
+        "line": "Linha",
+        "lineName": "Designacao",
+        "lineDescription": "Descricao detalhada",
+        "descriptionOpt": "(opcional)",
+        "quantity": "Qtd",
+        "unitPrice": "Preco unit.",
+        "vatRate": "Taxa IVA",
+        "vatCategory": "Cat. IVA",
+        "paymentReference": "Referencia pagamento",
+        "paymentTerms": "Condicoes pagamento",
+        "notesPlaceholder": "Uma mencao por linha (CGV, mandato SEPA, penalizacoes…)"
+      },
+      "vat": {
+        "S": "Padrao",
+        "E": "Isento",
+        "Z": "Taxa zero",
+        "AE": "Reverse charge",
+        "K": "Entrega intra-UE"
+      },
+      "addLine": "Adicionar linha",
+      "removeLine": "Remover",
+      "totals": {
+        "title": "Totais",
+        "ht": "Total liquido",
+        "vat": "IVA",
+        "ttc": "Total bruto"
+      },
+      "validation": {
+        "title": "Corrigir antes de gerar:"
+      }
     }
   }
 }

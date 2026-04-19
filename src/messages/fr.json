@@ -9105,6 +9105,78 @@
         "q": "Mes données sont-elles stockées en UE ?",
         "a": "Tes factures sont générées dans ton navigateur et téléchargées directement. Si tu es connecté et utilises l'historique 12 mois (plan Essentiel+), les données sont stockées sur Supabase (AWS eu-central-1, Francfort). Voir Politique de confidentialité."
       }
+    },
+    "emission": {
+      "backLanding": "Retour",
+      "title": "Préparer une Factur-X",
+      "subtitle": "Remplis les champs ci-dessous, valide, télécharge le PDF/A-3 avec XML EN 16931 embarqué + le XML standalone.",
+      "reset": "Réinitialiser",
+      "resetConfirm": "Réinitialiser la facture ?",
+      "generate": "Générer PDF + XML",
+      "generating": "Génération…",
+      "successMsg": "Facture générée. PDF et XML téléchargés.",
+      "hint": "Le PDF contient le XML EN 16931 en pièce jointe (Factur-X). Le XML standalone est fourni séparément pour import direct dans ta PA si besoin.",
+      "template": {
+        "label": "Template métier",
+        "generic": "Générique",
+        "landlord": "Bailleur / SCI",
+        "syndic": "Syndic copro",
+        "hotel": "Hôtelier LU",
+        "lease": "Bail commercial",
+        "valuer": "Expert / évaluation"
+      },
+      "sections": {
+        "invoice": "Informations facture",
+        "seller": "Vendeur (toi)",
+        "buyer": "Client",
+        "lines": "Lignes de prestation",
+        "payment": "Paiement",
+        "notes": "Mentions libres"
+      },
+      "fields": {
+        "invoiceNumber": "Numéro facture",
+        "issueDate": "Date d'émission",
+        "dueDate": "Date d'échéance",
+        "buyerReference": "Référence client",
+        "contractReference": "Référence contrat",
+        "currency": "Devise",
+        "name": "Nom / raison sociale",
+        "legalId": "SIREN / RCS",
+        "vatId": "TVA intracom",
+        "country": "Pays",
+        "address": "Adresse",
+        "postcode": "CP",
+        "city": "Ville",
+        "line": "Ligne",
+        "lineName": "Désignation",
+        "lineDescription": "Description détaillée",
+        "descriptionOpt": "(optionnel)",
+        "quantity": "Qté",
+        "unitPrice": "P.U. HT",
+        "vatRate": "Taux TVA",
+        "vatCategory": "Cat. TVA",
+        "paymentReference": "Référence paiement",
+        "paymentTerms": "Conditions de paiement",
+        "notesPlaceholder": "Une mention par ligne (CGV, mandat SEPA, pénalités de retard…)"
+      },
+      "vat": {
+        "S": "Standard",
+        "E": "Exempt",
+        "Z": "Taux zéro",
+        "AE": "Autoliquidation",
+        "K": "Livraison intra-UE"
+      },
+      "addLine": "Ajouter une ligne",
+      "removeLine": "Supprimer",
+      "totals": {
+        "title": "Totaux",
+        "ht": "Total HT",
+        "vat": "TVA",
+        "ttc": "Total TTC"
+      },
+      "validation": {
+        "title": "À corriger avant génération :"
+      }
     }
   }
 }

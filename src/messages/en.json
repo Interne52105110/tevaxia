@@ -9105,6 +9105,78 @@
         "q": "Is my data stored in the EU?",
         "a": "Your invoices are generated in your browser and downloaded directly. If you are signed in and use the 12-month history (Essential+ plan), data is stored on Supabase (AWS eu-central-1, Frankfurt). See Privacy Policy."
       }
+    },
+    "emission": {
+      "backLanding": "Back",
+      "title": "Prepare a Factur-X",
+      "subtitle": "Fill the fields below, validate, download the PDF/A-3 with embedded EN 16931 XML + standalone XML.",
+      "reset": "Reset",
+      "resetConfirm": "Reset invoice?",
+      "generate": "Generate PDF + XML",
+      "generating": "Generating…",
+      "successMsg": "Invoice generated. PDF and XML downloaded.",
+      "hint": "The PDF includes the EN 16931 XML as an attachment (Factur-X). The standalone XML is provided separately for direct import into your PA if needed.",
+      "template": {
+        "label": "Industry template",
+        "generic": "Generic",
+        "landlord": "Landlord / SCI",
+        "syndic": "Condo syndic",
+        "hotel": "LU hotel",
+        "lease": "Commercial lease",
+        "valuer": "Valuer / expert"
+      },
+      "sections": {
+        "invoice": "Invoice information",
+        "seller": "Seller (you)",
+        "buyer": "Customer",
+        "lines": "Invoice lines",
+        "payment": "Payment",
+        "notes": "Free text mentions"
+      },
+      "fields": {
+        "invoiceNumber": "Invoice number",
+        "issueDate": "Issue date",
+        "dueDate": "Due date",
+        "buyerReference": "Customer reference",
+        "contractReference": "Contract reference",
+        "currency": "Currency",
+        "name": "Name / legal name",
+        "legalId": "SIREN / RCS",
+        "vatId": "Intra-EU VAT",
+        "country": "Country",
+        "address": "Address",
+        "postcode": "Zip",
+        "city": "City",
+        "line": "Line",
+        "lineName": "Label",
+        "lineDescription": "Detailed description",
+        "descriptionOpt": "(optional)",
+        "quantity": "Qty",
+        "unitPrice": "Unit price",
+        "vatRate": "VAT rate",
+        "vatCategory": "VAT cat.",
+        "paymentReference": "Payment reference",
+        "paymentTerms": "Payment terms",
+        "notesPlaceholder": "One mention per line (T&C, SEPA mandate, late penalties…)"
+      },
+      "vat": {
+        "S": "Standard",
+        "E": "Exempt",
+        "Z": "Zero rate",
+        "AE": "Reverse charge",
+        "K": "Intra-EU supply"
+      },
+      "addLine": "Add line",
+      "removeLine": "Remove",
+      "totals": {
+        "title": "Totals",
+        "ht": "Net total",
+        "vat": "VAT",
+        "ttc": "Gross total"
+      },
+      "validation": {
+        "title": "Fix before generation:"
+      }
     }
   }
 }

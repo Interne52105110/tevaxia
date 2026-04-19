@@ -9105,6 +9105,78 @@
         "q": "Werden meine Daten in der EU gespeichert?",
         "a": "Ihre Rechnungen werden in Ihrem Browser erzeugt und direkt heruntergeladen. Wenn Sie angemeldet sind und die 12-Monats-Historie nutzen (Essential+ Plan), werden die Daten auf Supabase (AWS eu-central-1, Frankfurt) gespeichert. Siehe Datenschutzerklärung."
       }
+    },
+    "emission": {
+      "backLanding": "Zurück",
+      "title": "Factur-X vorbereiten",
+      "subtitle": "Füllen Sie die Felder aus, validieren Sie, laden Sie das PDF/A-3 mit eingebettetem EN 16931 XML + Standalone-XML herunter.",
+      "reset": "Zurücksetzen",
+      "resetConfirm": "Rechnung zurücksetzen?",
+      "generate": "PDF + XML erzeugen",
+      "generating": "Wird erzeugt…",
+      "successMsg": "Rechnung erzeugt. PDF und XML heruntergeladen.",
+      "hint": "Das PDF enthält das EN 16931 XML als Anhang (Factur-X). Das Standalone-XML wird separat für direkten Import in Ihre PA bereitgestellt.",
+      "template": {
+        "label": "Branchen-Vorlage",
+        "generic": "Generisch",
+        "landlord": "Vermieter / SCI",
+        "syndic": "WEG-Verwaltung",
+        "hotel": "LU Hotel",
+        "lease": "Gewerbemiete",
+        "valuer": "Gutachter / Experte"
+      },
+      "sections": {
+        "invoice": "Rechnungsinformationen",
+        "seller": "Verkäufer (Sie)",
+        "buyer": "Kunde",
+        "lines": "Rechnungspositionen",
+        "payment": "Zahlung",
+        "notes": "Freitexte"
+      },
+      "fields": {
+        "invoiceNumber": "Rechnungsnummer",
+        "issueDate": "Ausstellungsdatum",
+        "dueDate": "Fälligkeitsdatum",
+        "buyerReference": "Kundenreferenz",
+        "contractReference": "Vertragsreferenz",
+        "currency": "Währung",
+        "name": "Name / Firmenname",
+        "legalId": "SIREN / RCS",
+        "vatId": "Innergemeinschaftliche MwSt",
+        "country": "Land",
+        "address": "Adresse",
+        "postcode": "PLZ",
+        "city": "Stadt",
+        "line": "Position",
+        "lineName": "Bezeichnung",
+        "lineDescription": "Detaillierte Beschreibung",
+        "descriptionOpt": "(optional)",
+        "quantity": "Menge",
+        "unitPrice": "Einzelpreis",
+        "vatRate": "MwSt-Satz",
+        "vatCategory": "MwSt-Kat.",
+        "paymentReference": "Zahlungsreferenz",
+        "paymentTerms": "Zahlungsbedingungen",
+        "notesPlaceholder": "Eine Erwähnung pro Zeile (AGB, SEPA-Mandat, Verzugsstrafen…)"
+      },
+      "vat": {
+        "S": "Standard",
+        "E": "Steuerbefreit",
+        "Z": "Null-Satz",
+        "AE": "Reverse Charge",
+        "K": "Innergemeinschaftliche Lieferung"
+      },
+      "addLine": "Position hinzufügen",
+      "removeLine": "Entfernen",
+      "totals": {
+        "title": "Summen",
+        "ht": "Nettosumme",
+        "vat": "MwSt",
+        "ttc": "Bruttosumme"
+      },
+      "validation": {
+        "title": "Vor Erzeugung korrigieren:"
+      }
     }
   }
 }

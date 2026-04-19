@@ -9105,6 +9105,78 @@
         "q": "Ginn meng Donnéeën an der EU gespäichert?",
         "a": "Är Rechnunge gi an Ärem Browser generéiert an direkt erofgelueden. Wann Dir ageloggt sidd an den 12-Méint Historique notzt (Essential+ Plang), ginn d'Donnéeën op Supabase (AWS eu-central-1, Frankfurt) gespäichert. Kuckt d'Dateschutzrichtlinn."
       }
+    },
+    "emission": {
+      "backLanding": "Zréck",
+      "title": "Factur-X virbereeden",
+      "subtitle": "Fëllt d'Felder aus, validéiert, luet d'PDF/A-3 mat agebettent EN 16931 XML + Standalone-XML erof.",
+      "reset": "Zrécksetzen",
+      "resetConfirm": "Rechnung zrécksetzen?",
+      "generate": "PDF + XML generéieren",
+      "generating": "Gëtt generéiert…",
+      "successMsg": "Rechnung generéiert. PDF an XML erofgelueden.",
+      "hint": "D'PDF enthält d'EN 16931 XML als Attachment (Factur-X). D'Standalone-XML gëtt separat geliwwert fir direkten Import an Är PA.",
+      "template": {
+        "label": "Branchen-Schablon",
+        "generic": "Generesch",
+        "landlord": "Locateur / SCI",
+        "syndic": "Syndic Mattbesëtz",
+        "hotel": "LU Hotel",
+        "lease": "Gewerbemiete",
+        "valuer": "Evaluateur / Expert"
+      },
+      "sections": {
+        "invoice": "Rechnungs-Informatiounen",
+        "seller": "Verkeefer (Dir)",
+        "buyer": "Client",
+        "lines": "Rechnungszeilen",
+        "payment": "Bezuelung",
+        "notes": "Fräi Mentiounen"
+      },
+      "fields": {
+        "invoiceNumber": "Rechnungsnummer",
+        "issueDate": "Ausstellungsdatum",
+        "dueDate": "Fälligkeetsdatum",
+        "buyerReference": "Clientsreferenz",
+        "contractReference": "Kontraktsreferenz",
+        "currency": "Währung",
+        "name": "Numm / Firmennumm",
+        "legalId": "SIREN / RCS",
+        "vatId": "Intra-EU TVA",
+        "country": "Land",
+        "address": "Adress",
+        "postcode": "CP",
+        "city": "Stad",
+        "line": "Zeile",
+        "lineName": "Bezeechnung",
+        "lineDescription": "Detailléiert Beschreiwung",
+        "descriptionOpt": "(fakultativ)",
+        "quantity": "Quantitéit",
+        "unitPrice": "Eenheetspräis",
+        "vatRate": "TVA-Saz",
+        "vatCategory": "TVA-Kat.",
+        "paymentReference": "Bezuelungsreferenz",
+        "paymentTerms": "Bezuelungskonditiounen",
+        "notesPlaceholder": "Eng Mentioun pro Zeile (CGV, SEPA-Mandat, Verspéidungspenalitéiten…)"
+      },
+      "vat": {
+        "S": "Standard",
+        "E": "Befreit",
+        "Z": "Null-Saz",
+        "AE": "Autoliquidatioun",
+        "K": "Intra-EU Liwwerung"
+      },
+      "addLine": "Zeile bäifügen",
+      "removeLine": "Erofhuelen",
+      "totals": {
+        "title": "Zommen",
+        "ht": "Nettosumm",
+        "vat": "TVA",
+        "ttc": "Bruttosumm"
+      },
+      "validation": {
+        "title": "Virun Generéierung ze korrigéieren:"
+      }
     }
   }
 }
