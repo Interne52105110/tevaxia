@@ -8989,15 +8989,15 @@
   },
   "facturation": {
     "meta": {
-      "title": "Elektronesch Rechnungsstellung FR + LU — tevaxia.lu",
-      "description": "Factur-X (EN 16931) Modul fir elektronesch Rechnungsstellung, spezialiséiert op Immobilien FR + LU, verbonne mat Locatiounsgestioun, Syndic, PMS a Gewerbemiete."
+      "title": "Factur-X Virbereedung FR + LU — tevaxia.lu",
+      "description": "Factur-X (EN 16931) Virbereedungstool fir Immobilien FR + LU. Generéiert konform PDF/A-3 + XML-Dateien — Dir behaalt d'Wiel vun Ärer Empfangsplattform."
     },
     "hero": {
       "badge": "FR E-Rechnungsreform · obligatoresch 01.09.2026",
-      "title": "Elektronesch Rechnungsstellung, integréiert an Är Immobilien-Tools",
-      "subtitle": "Factur-X-Generéierung (PDF/A-3 + XML EN 16931), 5 Immobilien-Schablounen (Locateur, Syndic, Hôtelier, Gewerbemiete, Evaluateur), FR + LU TVA, 10-Joer-Beweisaarchivéierung.",
-      "note": "Status: Dematerialisatiouns-Operateur — PPF-Transit iwwer Partner-PDP. Eegent PDP-Akkreditatioun an Aarbecht.",
-      "ctaEmit": "Factur-X-Rechnung erstellen",
+      "title": "Bereet Är konform Factur-X vir, ouni an eng Plattform agespaart ze sinn",
+      "subtitle": "PDF/A-3 + XML EN 16931-Generéierung, 5 Immobilien-Schablounen (Locateur, Syndic, Hôtelier, Gewerbemiete, Evaluateur), FR + LU TVA. Dir luet d'Datei erof an importéiert se an d'PA vun Ärer Wiel.",
+      "note": "Nëmme Virbereedungstool. tevaxia ass keng DGFiP-akkreditéiert PDP — Empfang a PPF-Transit bleiwen Är Verantwortung iwwer d'Plattform vun Ärer Wiel (offiziell Lëscht op impots.gouv.fr).",
+      "ctaEmit": "Factur-X virbereeden",
       "ctaPricing": "Präisser kucken"
     },
     "diff": {
@@ -9030,8 +9030,8 @@
     },
     "compliance": {
       "title": "Rechtskonformitéit",
-      "statusTitle": "Akkreditatioun-Status:",
-      "statusBody": "tevaxia agéiert aktuell als Dematerialisatiouns-Operateur (OD). De Rechnungstransit zum Public Invoicing Portal (PPF) geschitt iwwer eng akkreditéiert Drëtt-Partei Partner-PDP. D'eegen PDP-Akkreditatiounsaarbechten lafen. D'Factur-X-Ausstellung fournisseur-säit an den Empfang/Archivéierung empfänger-säit sinn voll operatiounell.",
+      "statusTitle": "Eis Roll:",
+      "statusBody": "tevaxia ass e Factur-X Virbereedungstool. Mir generéieren PDF/A-3 + XML-Dateien konform mat EN 16931; Dir importéiert se an eng akkreditéiert Dematerialisatiounsplattform (PDP) oder direkt an de Public Invoicing Portal (PPF). Mir empfänken a transportéieren keng Rechnungen. Dës Trennung léisst Iech komplett fräi an der Wiel vun Ärer PA — Dir kënnt zu all Moment wiesselen, Dir sidd net un tevaxia gebonnen.",
       "fr": {
         "title": "Frankräich",
         "i1": "Factur-X v1.0.07 — PDF/A-3 + CII D22B EN 16931",
@@ -9053,29 +9053,29 @@
       "free": {
         "name": "Free",
         "period": "gratis",
-        "f1": "5 ausgestallte Rechnungen / Mount",
-        "f2": "Onbeschränkten Empfang",
-        "f3": "Factur-X + 10-Joer-Archivéierung",
-        "f4": "1 Schablon (generesch)",
-        "f5": "Fakultativ Stripe-Bezuelung"
+        "f1": "5 Factur-X virbereet / Mount",
+        "f2": "PDF/A-3 + XML Download",
+        "f3": "1 Schablon (generesch)",
+        "f4": "EN 16931-Validéierung integréiert",
+        "f5": "Keng Aschreiwung néideg"
       },
       "essentiel": {
         "name": "Essentiel",
         "period": "Mount",
         "badge": "Populär",
-        "f1": "50 ausgestallte Rechnungen / Mount",
-        "f2": "Onbeschränkten Empfang",
-        "f3": "5 Immobilien-Schablounen",
-        "f4": "Auto-Relances + IPC/ILAT-Indexéierung",
-        "f5": "FEC-Export (Comptabel)"
+        "f1": "50 Factur-X virbereet / Mount",
+        "f2": "5 Immobilien-Schablounen",
+        "f3": "IRL / ILAT / IPC-Indexéierung",
+        "f4": "12-Méint Browser-Historique + JSON-Export",
+        "f5": "Sequentiell Nummeréierung CGI"
       },
       "pro": {
         "name": "Pro",
         "period": "Mount",
-        "f1": "Onbeschränkten Ausstellung",
+        "f1": "Onbeschränkt Factur-X",
         "f2": "Multi-Struktur (5 SIREN/RCS)",
-        "f3": "Ëffentlech API",
-        "f4": "Voll Personnaliséierung",
+        "f3": "Ëffentlech Generéierungs-API",
+        "f4": "Voll Personnaliséierung (Logo, CGV, IBAN)",
         "f5": "Prioritéitsupport"
       }
     },
@@ -9083,23 +9083,27 @@
       "title": "FAQ",
       "q1": {
         "q": "Ass tevaxia eng DGFiP-akkreditéiert PDP?",
-        "a": "Nach net. Akkreditatiounsaarbechten lafen (AFNOR, Kapital, ISO 27001). An der Tëschenzäit agéiert tevaxia als Dematerialisatiouns-Operateur (OD) an de PPF-Transit geet iwwer eng akkreditéiert Drëtt-Partei PDP. Dës Architektur ass komplett legal a gëtt vun de meeschten SaaS-Editeuren benotzt."
+        "a": "Nee. tevaxia ass e Factur-X Virbereedungstool. Fir Empfang an Transit zum PPF musst Dir duerch eng akkreditéiert PDP goen (offiziell Lëscht op impots.gouv.fr) oder direkt duerch de PPF. Dës Trennung ass gewollt: Dir sidd net Geisel vun eise zukünftegen Entscheedungen, Dir kënnt zu all Moment d'PDP wiesselen."
       },
       "q2": {
-        "q": "Kann ech tevaxia elo benotzen fir bis den 01.09.2026 konform ze sinn?",
-        "a": "Jo. Vun haut un kënnt Dir EN 16931-konform Factur-X ausstellen a per E-Mail schécken. D'PPF-Verbindung iwwer Partner-PDP gëtt virum 1. September 2026 fir bezuelend Abonnée aktivéiert."
+        "q": "Wéi benotze ech tevaxia mat menger PA?",
+        "a": "Dir erstellt Är Rechnung an tevaxia (Formulaire + Immobilien-Schablon), luet d'Factur-X-Datei erof (PDF/A-3 + agebettent XML) an importéiert se an Är Plattform: Pennylane, Sellsy, Dougs, Qonto, Tiime, Docaposte, asw. All akzeptéieren de Standard Factur-X-Format."
       },
       "q3": {
-        "q": "D'Lëscht op impots.gouv.fr seet datt tevaxia net derbäi ass?",
-        "a": "Richteg — tevaxia.lu ass nach net am DGFiP PDP-Registère. Wann Dir elo eng akkreditéiert PDP fir den Empfang braucht, wielt eng Drëtt-Partei PDP (offiziell Lëscht op impots.gouv.fr). tevaxia stellt aus an archivéiert, d'Drëtt-Partei PDP iwwerhëlt den Empfang."
+        "q": "Kann ech tevaxia benotzen fir bis den 01.09.2026 konform ze sinn?",
+        "a": "tevaxia erlaabt Iech, EN 16931-konform Factur-X ze generéieren. Fir komplett Konformitéit mat der FR-Reform braucht Dir och eng Empfangsléisung (PDP oder PPF). Eis Tool deckt d'Ausstellung; den obligatoreschen Empfang ab dem 01.09.2026 ass separat ze regelen."
       },
       "q4": {
         "q": "Ass LU vun der FR-Reform betraff?",
         "a": "Nee, d'FR-Reform vum 01.09.2026 gëllt nëmmen fir franséisch TVA-Assujettis. LU huet säin eegene E-Rechnungszäitplang iwwer Peppol BIS Billing 3.0 (B2G obligatoresch, B2B an Aarbecht). tevaxia ënnerstëtzt béid Normen."
       },
       "q5": {
-        "q": "Ginn meng Donnéeën a Frankräich / EU gespäichert?",
-        "a": "Jo. Rechnungen ginn op Supabase (AWS eu-central-1, Frankfurt) gespäichert. Keng Donnéeë ginn duerch en externen IA-Déngscht fir OCR (lokal Browser-Verschaffung). Kuckt d'Dateschutzrichtlinn."
+        "q": "Firwat net direkt d'PA-APIen (Pennylane, Qonto…) integréieren?",
+        "a": "Well all API sech all 6 Méint ännert an all Partenariat deier z'ënnerhalen ass. Amplaz vun 3 oder 4 Drëtt-Partei APIen ofhängeg ze sinn, gi mir Iech d'konform Datei an Dir wielt Är PA. Dir gewannt Autonomie, mir bleiwen einfach a gratis um Wesentlechen."
+      },
+      "q6": {
+        "q": "Ginn meng Donnéeën an der EU gespäichert?",
+        "a": "Är Rechnunge gi an Ärem Browser generéiert an direkt erofgelueden. Wann Dir ageloggt sidd an den 12-Méint Historique notzt (Essential+ Plang), ginn d'Donnéeën op Supabase (AWS eu-central-1, Frankfurt) gespäichert. Kuckt d'Dateschutzrichtlinn."
       }
     }
   }

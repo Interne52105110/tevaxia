@@ -134,6 +134,7 @@ export default async function FacturationLanding() {
             <FaqItem q={t("faq.q3.q")} a={t("faq.q3.a")} />
             <FaqItem q={t("faq.q4.q")} a={t("faq.q4.a")} />
             <FaqItem q={t("faq.q5.q")} a={t("faq.q5.a")} />
+            <FaqItem q={t("faq.q6.q")} a={t("faq.q6.a")} />
           </div>
         </div>
       </section>
