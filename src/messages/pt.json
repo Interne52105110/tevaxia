@@ -3484,12 +3484,18 @@
       "langues": "O site esta disponivel em cinco linguas: frances, ingles, alemao, portugues e luxemburgues."
     },
     "hebergement": {
-      "title": "2. Alojamento",
+      "title": "2. Alojamento e prestadores tecnicos",
       "frontend": "Frontend (tevaxia.lu):",
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, Estados Unidos.",
       "api": "API (energy-api):",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, Estados Unidos.",
-      "subdomain": "A secao Energy aloja os simuladores energeticos da plataforma."
+      "db": "Base de dados e autenticacao:",
+      "supabase": "Supabase Inc., servidores AWS eu-central-1 (Frankfurt, Alemanha).",
+      "payments": "Pagamentos:",
+      "stripe": "Stripe Payments Europe Limited, 1 Grand Canal Street Lower, Dublin 2, Irlanda.",
+      "psd2": "Ligacao bancaria PSD2 (AIS):",
+      "enableBanking": "Enable Banking Oy, Malmin kauppatie 18, 00700 Helsinki, Finlandia.",
+      "subdomain": "A secao Energy aloja os simuladores energeticos da plataforma. Os detalhes dos papeis e bases legais encontram-se na Politica de privacidade."
     },
     "propriete": {
       "title": "3. Propriedade intelectual",
@@ -3604,6 +3610,22 @@
       "profil": {
         "label": "Perfil de avaliador:",
         "text": "Nome, empresa, dados de contacto profissional — armazenados no localStorage do seu navegador ou no Supabase se estiver conectado. Estes dados servem para personalizar os relatorios de avaliacao."
+      },
+      "metier": {
+        "label": "Dados profissionais B2B (operacionais):",
+        "text": "Os utilizadores profissionais (administradores de condominios, agencias imobiliarias, hoteleiros) introduzem nos modulos Syndic/CRM/PMS dados sobre terceiros: condominos (nome, lote, IBAN, saldo), clientes de hotel (nome, datas de estadia, endereco, numero de cartao tokenizado), contactos CRM (nome, email, telefone, criterios de compra), mandatos imobiliarios. Para estes dados, a tevaxia atua como subcontratante nos termos do RGPD art. 28: o utilizador profissional e o responsavel pelo tratamento e deve dispor de uma base legal adequada (execucao de um contrato de administracao, de alojamento, de mandato imobiliario)."
+      },
+      "bancaire": {
+        "label": "Dados bancarios PSD2 (ligacao Enable Banking):",
+        "text": "Se ligar uma conta bancaria via o servico PSD2 Enable Banking (AIS — Account Information Service) para reconciliacao automatica, as transacoes obtidas (descricao, montante, data, referencia) sao tratadas em memoria durante a reconciliacao e nao armazenadas nos nossos servidores para alem da sessao. A ligacao PSD2 tem duracao maxima de 90 dias imposta pelo regulamento UE 2015/2366, renovavel pelo seu banco via SCA. A chave privada JWT usada para assinar os pedidos permanece no servidor tevaxia, nunca exposta ao navegador."
+      },
+      "ocr": {
+        "label": "OCR faturas & documentos — tratamento local:",
+        "text": "Os PDF e imagens carregados no modulo OCR faturas sao tratados exclusivamente no seu navegador (PDF.js para extracao de texto, Tesseract.js para OCR de imagens digitalizadas). Nenhum ficheiro, imagem ou texto extraido e enviado a um servico de IA terceiro (OpenAI, Anthropic, Google, Mistral) nem aos nossos servidores. Apenas os dados estruturados extraidos (fornecedor, montante, IBAN, IVA…) que validar explicitamente sao depois guardados no Supabase."
+      },
+      "paiement": {
+        "label": "Dados de pagamento (Stripe):",
+        "text": "Se subscrever um plano pago, o processamento do pagamento (cartao, SEPA) e inteiramente gerido pela Stripe Payments Europe Limited (Irlanda). A tevaxia nunca recebe nem armazena o numero completo do seu cartao: apenas um identificador de cliente Stripe, os 4 ultimos digitos do cartao e a data de validade sao conservados na nossa base para lhe permitir gerir a sua subscricao."
       }
     },
     "finalites": {
@@ -3643,14 +3665,21 @@
       "google": "Analytics, autenticacao OAuth",
       "googleLoc": "Estados Unidos (EU-US Data Privacy Framework)",
       "linkedin": "Autenticacao OAuth",
-      "linkedinLoc": "Estados Unidos (clausulas contratuais tipo)"
+      "linkedinLoc": "Estados Unidos (clausulas contratuais tipo)",
+      "stripe": "Pagamento de subscricoes (planos pagos)",
+      "stripeLoc": "Stripe Payments Europe Ltd — Irlanda (UE)",
+      "enableBanking": "Ligacao bancaria PSD2 (AIS) para reconciliacao",
+      "enableBankingLoc": "Enable Banking Oy — Finlandia (UE)"
     },
     "duree": {
       "title": "6. Duracao de conservacao",
       "compte": "Dados de conta: conservados até à eliminação da conta pelo utilizador.",
       "simulations": "Dados de simulação (avaliações guardadas, lotes locativos): 180 dias desde a última modificação, teto de 500 itens por conta gratuita (10 000 no plano Pro). Purga automática diária às 03:00 UTC das linhas acima destes limites. Os dados locais (localStorage) permanecem disponíveis enquanto o navegador não for limpo.",
       "cookies": "Cookies: duração máxima de 13 meses.",
-      "liensPartages": "Links públicos de partilha: 90 dias por defeito, duração configurável (1 a 365 dias) na criação, com limite de visualizações opcional."
+      "liensPartages": "Links públicos de partilha: 90 dias por defeito, duração configurável (1 a 365 dias) na criação, com limite de visualizações opcional.",
+      "metier": "Dados operacionais B2B (condominos, clientes de hotel, contactos CRM): conservados durante a vigencia do contrato de servico com o utilizador profissional. Obrigacoes legais de conservacao especificas LU aplicam-se (contabilidade e faturas 10 anos art. L.16-2 Codigo Comercial, atas de AG 10 anos, dados AML/KYC 5 anos).",
+      "bancaire": "Dados PSD2 Enable Banking: transacoes bancarias consultadas em memoria, nao persistidas alem da sessao. Ligacao PSD2: 90 dias no maximo (renovavel via SCA).",
+      "ocrFichiers": "OCR faturas: PDF/imagens carregados nunca sao armazenados nos nossos servidores — tratamento 100% navegador. Apenas os dados estruturados validados pelo utilizador sao guardados."
     },
     "droits": {
       "title": "7. Os seus direitos",
@@ -3688,7 +3717,9 @@
       "https": "Encriptacao das comunicacoes via HTTPS (TLS)",
       "csp": "Politica de seguranca de conteudo (Content Security Policy — CSP)",
       "rls": "Row Level Security (RLS) no Supabase: cada utilizador so acede aos seus proprios dados",
-      "hash": "Palavras-passe com hash (nunca armazenadas em texto simples)"
+      "hash": "Palavras-passe com hash (nunca armazenadas em texto simples)",
+      "clientSide": "Tratamento local no navegador para OCR faturas (PDF.js + Tesseract.js): nenhum documento enviado a servico de IA externo",
+      "psd2": "Chaves PSD2 armazenadas em variaveis de ambiente do servidor, assinatura JWT RS256 para cada pedido bancario"
     },
     "dpo": {
       "title": "11. Encarregado da protecao de dados / Contacto",

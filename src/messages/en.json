@@ -3484,12 +3484,18 @@
       "langues": "The site is available in five languages: French, English, German, Portuguese and Luxembourgish."
     },
     "hebergement": {
-      "title": "2. Hosting",
+      "title": "2. Hosting and technical providers",
       "frontend": "Frontend (tevaxia.lu):",
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, United States.",
       "api": "API (energy-api):",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, United States.",
-      "subdomain": "The Energy section hosts the platform energy simulators."
+      "db": "Database and authentication:",
+      "supabase": "Supabase Inc., AWS eu-central-1 servers (Frankfurt, Germany).",
+      "payments": "Payments:",
+      "stripe": "Stripe Payments Europe Limited, 1 Grand Canal Street Lower, Dublin 2, Ireland.",
+      "psd2": "PSD2 banking connection (AIS):",
+      "enableBanking": "Enable Banking Oy, Malmin kauppatie 18, 00700 Helsinki, Finland.",
+      "subdomain": "The Energy section hosts the platform energy simulators. Details of roles and legal bases are set out in the Privacy Policy."
     },
     "propriete": {
       "title": "3. Intellectual Property",
@@ -3604,6 +3610,22 @@
       "profil": {
         "label": "Valuer profile:",
         "text": "Name, company, professional contact details — stored in your browser's localStorage or in Supabase if you are logged in. This data is used to personalise valuation reports."
+      },
+      "metier": {
+        "label": "Professional B2B operational data:",
+        "text": "Professional users (syndics, real estate agencies, hoteliers) enter into the Syndic/CRM/PMS modules data concerning third parties: co-owners (name, lot, IBAN, balance), hotel guests (name, stay dates, address, tokenised card number), CRM contacts (name, email, phone, purchase criteria), real estate mandates. For this data, tevaxia acts as processor under GDPR art. 28: the professional user is the controller and must have an appropriate legal basis (performance of a syndic contract, accommodation contract, real estate mandate)."
+      },
+      "bancaire": {
+        "label": "PSD2 banking data (Enable Banking connection):",
+        "text": "If you connect a bank account via the Enable Banking PSD2 service (AIS — Account Information Service) for automatic reconciliation, retrieved transactions (label, amount, date, reference) are processed in memory during reconciliation and not stored on our servers beyond the session. The PSD2 link has a maximum duration of 90 days imposed by EU regulation 2015/2366, renewable by your bank via SCA. The JWT private key used to sign requests remains on the tevaxia server, never exposed to the browser."
+      },
+      "ocr": {
+        "label": "Invoice OCR & documents — local processing:",
+        "text": "PDFs and images uploaded in the invoice OCR module are processed exclusively in your browser (PDF.js for text extraction, Tesseract.js for scan OCR). No file, no image, no extracted text is sent to any third-party AI service (OpenAI, Anthropic, Google, Mistral) nor to our servers. Only the structured data extracted (supplier, amount, IBAN, VAT…) that you explicitly validate is then saved to Supabase."
+      },
+      "paiement": {
+        "label": "Payment data (Stripe):",
+        "text": "If you subscribe to a paid plan, payment processing (credit card, SEPA) is entirely handled by Stripe Payments Europe Limited (Ireland). tevaxia never receives or stores your full card number: only a Stripe customer ID, the last 4 digits of your card and its expiration date are kept in our database to allow you to manage your subscription."
       }
     },
     "finalites": {
@@ -3643,14 +3665,21 @@
       "google": "Analytics, OAuth authentication",
       "googleLoc": "United States (EU-US Data Privacy Framework)",
       "linkedin": "OAuth authentication",
-      "linkedinLoc": "United States (standard contractual clauses)"
+      "linkedinLoc": "United States (standard contractual clauses)",
+      "stripe": "Subscription payment processing (paid plans)",
+      "stripeLoc": "Stripe Payments Europe Ltd — Ireland (EU)",
+      "enableBanking": "PSD2 bank connection (AIS) for reconciliation",
+      "enableBankingLoc": "Enable Banking Oy — Finland (EU)"
     },
     "duree": {
       "title": "6. Data Retention",
       "compte": "Account data: kept until the user deletes their account.",
       "simulations": "Simulation data (saved valuations, rental lots): 180 days from last modification, 500-item cap per free account (10,000 for a Pro plan). Automatic daily purge at 03:00 UTC for rows exceeding these thresholds. Local data (localStorage) remain available as long as the browser is not cleared.",
       "cookies": "Cookies: maximum 13 months.",
-      "liensPartages": "Public share links: 90 days by default, duration configurable by the user (1 to 365 days) at creation, with optional view cap."
+      "liensPartages": "Public share links: 90 days by default, duration configurable by the user (1 to 365 days) at creation, with optional view cap.",
+      "metier": "B2B operational data (co-owners, hotel guests, CRM contacts): retained for the duration of the service contract with the professional user. Specific LU legal retention obligations apply (accounting and invoices 10 years under art. L.16-2 Commercial Code, general meeting minutes 10 years, AML/KYC data 5 years).",
+      "bancaire": "PSD2 Enable Banking data: bank transactions accessed in memory, not persisted beyond the session. PSD2 link: 90 days maximum (renewable via SCA).",
+      "ocrFichiers": "Invoice OCR: PDFs/images uploaded are never stored on our servers — 100% browser processing. Only structured data validated by the user is saved."
     },
     "droits": {
       "title": "7. Your Rights",
@@ -3688,7 +3717,9 @@
       "https": "Encryption of communications via HTTPS (TLS)",
       "csp": "Content Security Policy (CSP)",
       "rls": "Row Level Security (RLS) on Supabase: each user can only access their own data",
-      "hash": "Hashed passwords (never stored in plain text)"
+      "hash": "Hashed passwords (never stored in plain text)",
+      "clientSide": "Local browser processing for invoice OCR (PDF.js + Tesseract.js): no document sent to any external AI service",
+      "psd2": "PSD2 keys stored in server environment variables, JWT RS256 signature for every bank request"
     },
     "dpo": {
       "title": "11. Data Protection Officer / Contact",

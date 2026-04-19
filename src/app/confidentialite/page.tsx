@@ -43,6 +43,22 @@ export default async function Confidentialite() {
               <strong>{t("donnees.profil.label")}</strong><br />
               {t("donnees.profil.text")}
             </p>
+            <p>
+              <strong>{t("donnees.metier.label")}</strong><br />
+              {t("donnees.metier.text")}
+            </p>
+            <p>
+              <strong>{t("donnees.bancaire.label")}</strong><br />
+              {t("donnees.bancaire.text")}
+            </p>
+            <p>
+              <strong>{t("donnees.ocr.label")}</strong><br />
+              {t("donnees.ocr.text")}
+            </p>
+            <p>
+              <strong>{t("donnees.paiement.label")}</strong><br />
+              {t("donnees.paiement.text")}
+            </p>
           </section>
 
           {/* 3. Finalités */}
@@ -105,6 +121,16 @@ export default async function Confidentialite() {
                     <td className="py-2 pr-4">{t("soustraitants.linkedin")}</td>
                     <td className="py-2">{t("soustraitants.linkedinLoc")}</td>
                   </tr>
+                  <tr>
+                    <td className="py-2 pr-4">Stripe Payments Europe Ltd</td>
+                    <td className="py-2 pr-4">{t("soustraitants.stripe")}</td>
+                    <td className="py-2">{t("soustraitants.stripeLoc")}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">Enable Banking Oy</td>
+                    <td className="py-2 pr-4">{t("soustraitants.enableBanking")}</td>
+                    <td className="py-2">{t("soustraitants.enableBankingLoc")}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -118,6 +144,9 @@ export default async function Confidentialite() {
               <li>{t("duree.simulations")}</li>
               <li>{t("duree.liensPartages")}</li>
               <li>{t("duree.cookies")}</li>
+              <li>{t("duree.metier")}</li>
+              <li>{t("duree.bancaire")}</li>
+              <li>{t("duree.ocrFichiers")}</li>
             </ul>
           </section>
 
@@ -164,6 +193,8 @@ export default async function Confidentialite() {
               <li>{t("securite.csp")}</li>
               <li>{t("securite.rls")}</li>
               <li>{t("securite.hash")}</li>
+              <li>{t("securite.clientSide")}</li>
+              <li>{t("securite.psd2")}</li>
             </ul>
           </section>
 

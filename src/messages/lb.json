@@ -3484,12 +3484,18 @@
       "langues": "De Site ass a fënnef Sproochen disponibel: Franséisch, Englesch, Däitsch, Portugisesch a Lëtzebuergesch."
     },
     "hebergement": {
-      "title": "2. Hosting",
+      "title": "2. Hosting an technesch Prestataren",
       "frontend": "Frontend (tevaxia.lu):",
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, Vereenegt Staaten.",
       "api": "API (energy-api):",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, Vereenegt Staaten.",
-      "subdomain": "Den Energy-Beräich beherbergt d'Energiesimulatoren vun der Plattform."
+      "db": "Datebank an Authentifikatioun:",
+      "supabase": "Supabase Inc., AWS-Server eu-central-1 (Frankfurt, Däitschland).",
+      "payments": "Bezuelungen:",
+      "stripe": "Stripe Payments Europe Limited, 1 Grand Canal Street Lower, Dublin 2, Irland.",
+      "psd2": "PSD2-Bankverbindung (AIS):",
+      "enableBanking": "Enable Banking Oy, Malmin kauppatie 18, 00700 Helsinki, Finnland.",
+      "subdomain": "Den Energy-Beräich beherbergt d'Energiesimulatoren vun der Plattform. Detailer zu de Rollen a Rechtsgrondlage fënnt Dir an der Dateschutzrichtlinn."
     },
     "propriete": {
       "title": "3. Geeschtegt Eegentum",
@@ -3604,6 +3610,22 @@
       "profil": {
         "label": "Gutachterprofil:",
         "text": "Numm, Firma, berufflech Kontaktdonnéeën — gespäichert am localStorage vun Ärem Browser oder am Supabase wann Dir ageloggt sidd. Dës Donnéeë ginn benotzt fir Bewäertungsberichter ze personaliséieren."
+      },
+      "metier": {
+        "label": "Berufflech B2B-Betriebsdonnéeën:",
+        "text": "Berufflech Benotzer (Syndics, Immobilienagencen, Hôteliers) ginn an de Moduler Syndic/CRM/PMS Donnéeën iwwer Drëtter an: Co-Proprietären (Numm, Los, IBAN, Solde), Hotelsclienten (Numm, Séjourdatumen, Adress, tokeniséiert Kartennummer), CRM-Kontakter (Numm, E-Mail, Telefon, Akafskritären), Immobilienmandater. Fir dës Donnéeën handelt tevaxia als Sous-traitant am Sënn vum RGPD Art. 28: De berufflech Benotzer ass Responsabele fir d'Verschaffung a muss eng adequat Rechtsgrondlag hunn (Ausféierung vun engem Syndic-Kontrakt, Hébergementskontrakt, Immobiliemandat)."
+      },
+      "bancaire": {
+        "label": "PSD2-Bankdonnéeën (Enable Banking Verbindung):",
+        "text": "Wann Dir e Bankskont iwwer de PSD2-Déngscht Enable Banking (AIS — Account Information Service) fir automatesche Rapprochement verbënnt, ginn déi recuperéiert Transaktiounen (Bezeechnung, Betrag, Datum, Referenz) am Speicher behandelt während dem Rapprochement, an net iwwer d'Sessioun eraus op eise Servere gespäichert. De PSD2-Link huet eng maximal Dauer vun 90 Deeg, virgeschriwwe vum EU-Réglement 2015/2366, erneierbar iwwer Är Bank duerch SCA. De JWT-Privatschlëssel, fir d'Ufroe z'ënnerschreiwen, bleift um tevaxia-Server, ni dem Browser ausgesat."
+      },
+      "ocr": {
+        "label": "Rechnungs-OCR & Dokumenter — lokal Verschaffung:",
+        "text": "PDFs a Biller, déi am Rechnungs-OCR-Modul eropgeluede ginn, gi ausschliisslech an Ärem Browser verschafft (PDF.js fir Textextraktioun, Tesseract.js fir Scan-OCR). Keng Datei, kee Bild, kee extrahéierten Text gëtt un en Drëtt-Partei IA-Déngscht (OpenAI, Anthropic, Google, Mistral) oder un eis Serveren geschéckt. Nëmmen déi strukturéiert Donnéeën (Fournisseur, Betrag, IBAN, TVA…), déi Dir explizit validéiert, ginn duerno am Supabase gespäichert."
+      },
+      "paiement": {
+        "label": "Bezuelungsdonnéeën (Stripe):",
+        "text": "Wann Dir e bezuelende Plang abonnéiert, gëtt d'Bezuelung (Kreditkaart, SEPA) komplett vun Stripe Payments Europe Limited (Irland) verwalt. tevaxia kritt a späichert ni Är voll Kartennummer: nëmmen eng Stripe-Client-ID, déi 4 lescht Zifferen vun Ärer Kaart a säi Verfallsdatum ginn an eiser Datebank behalen, fir datt Dir Äert Abonnement verwalte kënnt."
       }
     },
     "finalites": {
@@ -3643,14 +3665,21 @@
       "google": "Analytics, OAuth-Authentifikatioun",
       "googleLoc": "Vereenegt Staaten (EU-US Data Privacy Framework)",
       "linkedin": "OAuth-Authentifikatioun",
-      "linkedinLoc": "Vereenegt Staaten (Standardvertragsklauselen)"
+      "linkedinLoc": "Vereenegt Staaten (Standardvertragsklauselen)",
+      "stripe": "Bezuelung vun bezuelenden Abonnementer",
+      "stripeLoc": "Stripe Payments Europe Ltd — Irland (EU)",
+      "enableBanking": "PSD2-Bankverbindung (AIS) fir Rapprochement",
+      "enableBankingLoc": "Enable Banking Oy — Finnland (EU)"
     },
     "duree": {
       "title": "6. Dauer vun der Opbewahrung",
       "compte": "Kontodonnéeën: opbehalen bis zum Läschen vum Kont duerch de Benotzer.",
       "simulations": "Simulatiounsdonnéeën (gespäichert Bewäertungen, Vermietungslotss): 180 Deeg vun der leschter Ännerung, Plafong 500 Elementer pro gratis Kont (10 000 fir e Pro-Plang). Automatesch deeglech Bereinigung ëm 03:00 UTC doriwwer eraus. Lokal Donnéeën (localStorage) bleiwen disponibel, soulaang de Browser net geläscht gëtt.",
       "cookies": "Cookien: maximal 13 Méint.",
-      "liensPartages": "Ëffentlech Deelungs-Linken: 90 Deeg par défaut, Dauer konfiguréierbar (1 bis 365 Deeg) bei der Erstellung, mat optionalem Viewcap."
+      "liensPartages": "Ëffentlech Deelungs-Linken: 90 Deeg par défaut, Dauer konfiguréierbar (1 bis 365 Deeg) bei der Erstellung, mat optionalem Viewcap.",
+      "metier": "B2B-Betriebsdonnéeën (Co-Proprietären, Hotelsclienten, CRM-Kontakter): opbehalen fir d'Dauer vum Déngschtkontrakt mam berufflechen Benotzer. Spezifesch LU-Opbewahrungsflichten gëllen (Comptabilitéit a Rechnungen 10 Joer Art. L.16-2 Commerce-Code, AG-Protokoller 10 Joer, AML/KYC-Donnéeën 5 Joer).",
+      "bancaire": "PSD2 Enable Banking-Donnéeën: Banktransaktiounen am Speicher ofgefrot, iwwer d'Sessioun eraus net persistéiert. PSD2-Link: maximal 90 Deeg (erneierbar via SCA).",
+      "ocrFichiers": "Rechnungs-OCR: Eropgelueden PDFs/Biller ginn ni op eise Servere gespäichert — 100% Browser-Verschaffung. Nëmme vum Benotzer validéiert strukturéiert Donnéeë ginn gespäichert."
     },
     "droits": {
       "title": "7. Är Rechter",
@@ -3688,7 +3717,9 @@
       "https": "Verschlësselung vun de Kommunikatiounen iwwer HTTPS (TLS)",
       "csp": "Content Security Policy (CSP)",
       "rls": "Row Level Security (RLS) op Supabase: All Benotzer kann nëmmen op seng eegen Donnéeë zougräifen",
-      "hash": "Gehashte Passwierder (ginn ni am Kloertext gespäichert)"
+      "hash": "Gehashte Passwierder (ginn ni am Kloertext gespäichert)",
+      "clientSide": "Lokal Browser-Verschaffung fir Rechnungs-OCR (PDF.js + Tesseract.js): keen Dokument un externen IA-Déngscht geschéckt",
+      "psd2": "PSD2-Schlësselen an Server-Ëmweltvariablen gespäichert, JWT RS256-Ënnerschrëft fir all Bankufro"
     },
     "dpo": {
       "title": "11. Dateschutzbeoptragten / Kontakt",

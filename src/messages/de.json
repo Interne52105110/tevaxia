@@ -3484,12 +3484,18 @@
       "langues": "Die Website ist in fünf Sprachen verfügbar: Französisch, Englisch, Deutsch, Portugiesisch und Luxemburgisch."
     },
     "hebergement": {
-      "title": "2. Hosting",
+      "title": "2. Hosting und technische Dienstleister",
       "frontend": "Frontend (tevaxia.lu):",
       "vercel": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, Vereinigte Staaten.",
       "api": "API (energy-api):",
       "render": "Render.com, 525 Brannan St, Suite 300, San Francisco, CA 94107, Vereinigte Staaten.",
-      "subdomain": "Der Energy-Bereich beherbergt die Energiesimulatoren der Plattform."
+      "db": "Datenbank und Authentifizierung:",
+      "supabase": "Supabase Inc., AWS-Server eu-central-1 (Frankfurt, Deutschland).",
+      "payments": "Zahlungen:",
+      "stripe": "Stripe Payments Europe Limited, 1 Grand Canal Street Lower, Dublin 2, Irland.",
+      "psd2": "PSD2-Bankverbindung (AIS):",
+      "enableBanking": "Enable Banking Oy, Malmin kauppatie 18, 00700 Helsinki, Finnland.",
+      "subdomain": "Der Energy-Bereich beherbergt die Energiesimulatoren der Plattform. Details zu Rollen und Rechtsgrundlagen finden sich in der Datenschutzerklärung."
     },
     "propriete": {
       "title": "3. Geistiges Eigentum",
@@ -3604,6 +3610,22 @@
       "profil": {
         "label": "Gutachterprofil:",
         "text": "Name, Unternehmen, berufliche Kontaktdaten — gespeichert im localStorage Ihres Browsers oder in Supabase, wenn Sie angemeldet sind. Diese Daten dienen der Personalisierung von Bewertungsberichten."
+      },
+      "metier": {
+        "label": "Professionelle B2B-Betriebsdaten:",
+        "text": "Professionelle Nutzer (Syndics, Immobilienagenturen, Hoteliers) geben in die Module Syndic/CRM/PMS Daten über Dritte ein: Miteigentümer (Name, Los, IBAN, Saldo), Hotelgäste (Name, Aufenthaltsdaten, Adresse, tokenisierte Kartennummer), CRM-Kontakte (Name, E-Mail, Telefon, Kaufkriterien), Immobilienmandate. Für diese Daten agiert tevaxia als Auftragsverarbeiter gemäß DSGVO Art. 28: Der professionelle Nutzer ist Verantwortlicher und muss über eine angemessene Rechtsgrundlage verfügen (Erfüllung eines Syndic-Vertrags, Beherbergungsvertrags, Immobilienmandats)."
+      },
+      "bancaire": {
+        "label": "PSD2-Bankdaten (Enable Banking-Verbindung):",
+        "text": "Wenn Sie ein Bankkonto über den PSD2-Dienst Enable Banking (AIS — Account Information Service) für den automatischen Abgleich verbinden, werden die abgerufenen Transaktionen (Bezeichnung, Betrag, Datum, Referenz) während des Abgleichs im Arbeitsspeicher verarbeitet und nicht über die Sitzung hinaus auf unseren Servern gespeichert. Die PSD2-Verbindung hat eine maximale Dauer von 90 Tagen, vorgeschrieben durch die EU-Verordnung 2015/2366, erneuerbar durch Ihre Bank via SCA. Der JWT-Privatschlüssel zum Signieren der Anfragen bleibt auf dem tevaxia-Server, nie dem Browser ausgesetzt."
+      },
+      "ocr": {
+        "label": "Rechnungs-OCR & Dokumente — lokale Verarbeitung:",
+        "text": "PDFs und Bilder, die im Rechnungs-OCR-Modul hochgeladen werden, werden ausschließlich in Ihrem Browser verarbeitet (PDF.js für Textextraktion, Tesseract.js für Scan-OCR). Keine Datei, kein Bild, kein extrahierter Text wird an einen KI-Drittanbieter-Dienst (OpenAI, Anthropic, Google, Mistral) oder an unsere Server gesendet. Nur die von Ihnen ausdrücklich validierten strukturierten Daten (Lieferant, Betrag, IBAN, MwSt.…) werden anschließend in Supabase gespeichert."
+      },
+      "paiement": {
+        "label": "Zahlungsdaten (Stripe):",
+        "text": "Wenn Sie einen kostenpflichtigen Plan abonnieren, wird die Zahlungsabwicklung (Kreditkarte, SEPA) vollständig von Stripe Payments Europe Limited (Irland) durchgeführt. tevaxia erhält und speichert niemals Ihre vollständige Kartennummer: Nur eine Stripe-Kunden-ID, die letzten 4 Ziffern Ihrer Karte und ihr Ablaufdatum werden in unserer Datenbank aufbewahrt, damit Sie Ihr Abonnement verwalten können."
       }
     },
     "finalites": {
@@ -3643,14 +3665,21 @@
       "google": "Analytics, OAuth-Authentifizierung",
       "googleLoc": "Vereinigte Staaten (EU-US Data Privacy Framework)",
       "linkedin": "OAuth-Authentifizierung",
-      "linkedinLoc": "Vereinigte Staaten (Standardvertragsklauseln)"
+      "linkedinLoc": "Vereinigte Staaten (Standardvertragsklauseln)",
+      "stripe": "Abrechnung kostenpflichtiger Pläne",
+      "stripeLoc": "Stripe Payments Europe Ltd — Irland (EU)",
+      "enableBanking": "PSD2-Bankverbindung (AIS) für Abgleich",
+      "enableBankingLoc": "Enable Banking Oy — Finnland (EU)"
     },
     "duree": {
       "title": "6. Aufbewahrungsdauer",
       "compte": "Kontodaten: bis zur Kontolöschung durch den Nutzer aufbewahrt.",
       "simulations": "Simulationsdaten (gespeicherte Bewertungen, Mietobjekte): 180 Tage ab letzter Änderung, Obergrenze 500 Einträge pro kostenlosem Konto (10 000 für Pro-Plan). Automatische tägliche Bereinigung um 03:00 UTC darüber hinaus. Lokale Daten (localStorage) bleiben verfügbar, solange der Browser nicht geleert wird.",
       "cookies": "Cookies: maximal 13 Monate.",
-      "liensPartages": "Öffentliche Freigabelinks: standardmäßig 90 Tage, Dauer vom Nutzer konfigurierbar (1-365 Tage) bei der Erstellung, mit optionaler Ansichtenbegrenzung."
+      "liensPartages": "Öffentliche Freigabelinks: standardmäßig 90 Tage, Dauer vom Nutzer konfigurierbar (1-365 Tage) bei der Erstellung, mit optionaler Ansichtenbegrenzung.",
+      "metier": "B2B-Betriebsdaten (Miteigentümer, Hotelgäste, CRM-Kontakte): aufbewahrt für die Dauer des Dienstleistungsvertrags mit dem professionellen Nutzer. Spezifische LU-Aufbewahrungspflichten gelten (Buchhaltung und Rechnungen 10 Jahre Art. L.16-2 Handelsgesetzbuch, Hauptversammlungsprotokolle 10 Jahre, AML/KYC-Daten 5 Jahre).",
+      "bancaire": "PSD2 Enable Banking-Daten: Banktransaktionen im Arbeitsspeicher abgerufen, über die Sitzung hinaus nicht persistiert. PSD2-Verbindung: maximal 90 Tage (erneuerbar via SCA).",
+      "ocrFichiers": "Rechnungs-OCR: Hochgeladene PDFs/Bilder werden niemals auf unseren Servern gespeichert — 100% Browser-Verarbeitung. Nur vom Nutzer validierte strukturierte Daten werden gespeichert."
     },
     "droits": {
       "title": "7. Ihre Rechte",
@@ -3688,7 +3717,9 @@
       "https": "Verschlüsselung der Kommunikation über HTTPS (TLS)",
       "csp": "Content Security Policy (CSP)",
       "rls": "Row Level Security (RLS) auf Supabase: Jeder Nutzer kann nur auf seine eigenen Daten zugreifen",
-      "hash": "Gehashte Passwörter (werden niemals im Klartext gespeichert)"
+      "hash": "Gehashte Passwörter (werden niemals im Klartext gespeichert)",
+      "clientSide": "Lokale Browser-Verarbeitung für Rechnungs-OCR (PDF.js + Tesseract.js): kein Dokument an externen KI-Dienst gesendet",
+      "psd2": "PSD2-Schlüssel in Server-Umgebungsvariablen gespeichert, JWT RS256-Signatur für jede Bankanfrage"
     },
     "dpo": {
       "title": "11. Datenschutzbeauftragter / Kontakt",

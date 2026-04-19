@@ -40,6 +40,9 @@ export default async function MentionsLegales() {
             <ul className="list-disc pl-5 space-y-1">
               <li><strong>{t("hebergement.frontend")}</strong> {t("hebergement.vercel")}</li>
               <li><strong>{t("hebergement.api")}</strong> {t("hebergement.render")}</li>
+              <li><strong>{t("hebergement.db")}</strong> {t("hebergement.supabase")}</li>
+              <li><strong>{t("hebergement.payments")}</strong> {t("hebergement.stripe")}</li>
+              <li><strong>{t("hebergement.psd2")}</strong> {t("hebergement.enableBanking")}</li>
             </ul>
             <p className="mt-2">{t("hebergement.subdomain")}</p>
           </section>
