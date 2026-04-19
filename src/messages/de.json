@@ -9731,5 +9731,63 @@
       "warn": "Warnung: über 90 STR-Tage/Jahr ist eine Beherbergungslizenz in LU verpflichtend. Siehe",
       "complianceLink": "das Compliance-Tool"
     }
+  },
+  "strArbitrage": {
+    "back": "Kurzzeitvermietung",
+    "title": "Langzeit- vs Kurzzeitvermietung-Arbitrage",
+    "subtitle": "Vergleichen Sie 3 quantifizierte Szenarien: Langzeitvermietung (5%-Regel), reines STR (Airbnb/Booking), oder gemischt (saisonales STR + LT Rest). Netto-Berechnung nach Steuer basierend auf Ihrem LU-Steuerprofil.",
+    "tax": { "max": "LU max (~45,78%)" },
+    "scenarios": {
+      "lt": "Langzeit (5%-Regel)",
+      "str": "Reines STR (Airbnb/Booking)",
+      "mixed": "Gemischt (STR + LT)"
+    },
+    "property": {
+      "title": "Die Immobilie",
+      "commune": "Gemeinde",
+      "acqPrice": "Anschaffungspreis",
+      "marginalRate": "Grenzsteuersatz"
+    },
+    "strPure": {
+      "title": "Reines STR-Szenario (Airbnb/Booking)",
+      "adr": "ADR (€/Nacht)",
+      "occupancy": "Jährliche Auslastung",
+      "cleaning": "Reinigung / Aufenthalt",
+      "fixedCosts": "Fixe STR-Kosten / Jahr",
+      "fixedCostsHint": "PNO + Internet + Utilities + Möbelabschreibung",
+      "note": "OTA-Provision 15% Airbnb vorab angewendet. Bei > 90 Nächten/Jahr, Beherbergungslizenz verpflichtend."
+    },
+    "lt": {
+      "title": "Langzeit-Szenario (5%-Regel)",
+      "monthlyRent": "LT Monatsmiete",
+      "monthlyRentHint": "LU gesetzliche Obergrenze = 5%/12 × neubewertetes investiertes Kapital",
+      "deductible": "Abzugsfähige Kosten / Jahr",
+      "deductibleHint": "Darlehenszinsen + WEG-Gebühren + Instandhaltung + PNO"
+    },
+    "mixed": {
+      "title": "Gemischtes Szenario (Teil-STR + Teil-LT)",
+      "strDays": "STR-Tage / Jahr",
+      "strDaysHint": "Max 90 Tage um Lizenz zu vermeiden",
+      "ltMonths": "LT-Monate / Jahr",
+      "ltMonthsHint": "Typisch: 3 Sommermonate Airbnb + 9 Monate LT",
+      "daysSuffix": "Tage",
+      "monthsSuffix": "Monate",
+      "note": "Klassischer LU-Modus: Saisonmietvertrag (Sommer/Kongressbesucher) + Wohnmietvertrag für den Rest."
+    },
+    "result": {
+      "bestLabel": "Rentabelstes Szenario",
+      "delta": "Differenz best vs worst",
+      "comparison": "3-Szenarien-Vergleich (netto nach Steuer)"
+    },
+    "detail": {
+      "lt": "LT-Detail (5%-Regel)",
+      "mixed": "Gemischt-Detail (STR + LT)",
+      "annualGross": "Jährliche Bruttomiete",
+      "taxEstimated": "Geschätzte IR",
+      "annualNet": "Jährlich netto",
+      "strDays": "STR ({n} Tage)",
+      "ltMonths": "LT ({n} Monate)",
+      "totalMixed": "Gesamt gemischt"
+    }
   }
 }

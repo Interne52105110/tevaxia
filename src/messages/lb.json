@@ -9731,5 +9731,63 @@
       "warn": "Warnung: iwwer 90 STR-Deeg/Joer ass eng Hébergement-Lizenz zu LU obligatoresch. Kuckt",
       "complianceLink": "dat Conformitéits-Tool"
     }
+  },
+  "strArbitrage": {
+    "back": "Kuerzzäitvermietung",
+    "title": "Arbitrage Laangzäit vs Kuerzzäit",
+    "subtitle": "Vergläicht 3 quantifizéiert Szenarioen: Laangzäitvermietung (5%-Regel), pure STR (Airbnb/Booking), oder gemëscht (saisonal STR + LT Rescht). Netto-Berechnung no Steier op Basis vun Ärem LU-Steierprofil.",
+    "tax": { "max": "LU max (~45,78%)" },
+    "scenarios": {
+      "lt": "Laangzäit (5%-Regel)",
+      "str": "Pure STR (Airbnb/Booking)",
+      "mixed": "Gemëscht (STR + LT)"
+    },
+    "property": {
+      "title": "D'Immobilie",
+      "commune": "Gemeng",
+      "acqPrice": "Akafspräis",
+      "marginalRate": "Marginalen IR-Saz"
+    },
+    "strPure": {
+      "title": "Pure STR-Szenario (Airbnb/Booking)",
+      "adr": "ADR (€/Nuecht)",
+      "occupancy": "Jäerlech Belegung",
+      "cleaning": "Botzung / Séjour",
+      "fixedCosts": "Fix STR-Käschten / Joer",
+      "fixedCostsHint": "PNO + Internet + Utilities + Miwwel-Amortisatioun",
+      "note": "OTA-Provisioun 15% Airbnb virun applizéiert. Bei > 90 Nuechten/Joer, Hébergement-Lizenz obligatoresch."
+    },
+    "lt": {
+      "title": "Laangzäit-Szenario (5%-Regel)",
+      "monthlyRent": "LT Mountsloyer",
+      "monthlyRentHint": "LU legal Plafong = 5%/12 × nei evaluéiert investéiert Kapital",
+      "deductible": "Offsetzbar Käschten / Joer",
+      "deductibleHint": "Prêt-Zënsen + Coprop-Käschten + Ënnerhalt + PNO"
+    },
+    "mixed": {
+      "title": "Gemëscht Szenario (Deel-STR + Deel-LT)",
+      "strDays": "STR-Deeg / Joer",
+      "strDaysHint": "Max 90 Deeg fir Lizenz ze vermeiden",
+      "ltMonths": "LT-Méint / Joer",
+      "ltMonthsHint": "Typesch: 3 Summermëntercher Airbnb + 9 Méint LT",
+      "daysSuffix": "Deeg",
+      "monthsSuffix": "Méint",
+      "note": "Klassesche LU-Modus: Saisonbail (Summer/Kongressbesucher) + Habitatiounsbail fir de Rescht."
+    },
+    "result": {
+      "bestLabel": "Rentabelst Szenario",
+      "delta": "Ënnerscheed best vs worst",
+      "comparison": "3-Szenarioen-Verglach (netto no Steier)"
+    },
+    "detail": {
+      "lt": "LT-Detail (5%-Regel)",
+      "mixed": "Gemëscht-Detail (STR + LT)",
+      "annualGross": "Jäerleche Bruttoloyer",
+      "taxEstimated": "Geschätzt IR",
+      "annualNet": "Jäerlech netto",
+      "strDays": "STR ({n} Deeg)",
+      "ltMonths": "LT ({n} Méint)",
+      "totalMixed": "Total gemëscht"
+    }
   }
 }

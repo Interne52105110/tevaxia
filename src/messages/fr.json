@@ -9731,5 +9731,63 @@
       "warn": "Attention : au-delà de 90 jours de STR/an, licence d'hébergement obligatoire au LU. Voir",
       "complianceLink": "l'outil conformité"
     }
+  },
+  "strArbitrage": {
+    "back": "Location courte durée",
+    "title": "Arbitrage long terme vs court terme",
+    "subtitle": "Comparez 3 scénarios chiffrés : location longue durée (règle 5%), STR pur (Airbnb/Booking), ou mixte (STR saisonnier + LT le reste). Calcul net après impôt selon votre profil fiscal Luxembourg.",
+    "tax": { "max": "Max LU (~45,78%)" },
+    "scenarios": {
+      "lt": "Long terme (règle 5%)",
+      "str": "STR pur (Airbnb/Booking)",
+      "mixed": "Mixte (STR + LT)"
+    },
+    "property": {
+      "title": "Le bien",
+      "commune": "Commune",
+      "acqPrice": "Prix d'acquisition",
+      "marginalRate": "Taux marginal IR"
+    },
+    "strPure": {
+      "title": "Scénario STR (Airbnb/Booking pur)",
+      "adr": "ADR (€/nuit)",
+      "occupancy": "Occupation annuelle",
+      "cleaning": "Ménage / séjour",
+      "fixedCosts": "Charges fixes STR / an",
+      "fixedCostsHint": "PNO + internet + utilities + amort mobilier",
+      "note": "Commission OTA 15% Airbnb pré-appliquée. Si > 90 nuits/an, licence hébergement obligatoire."
+    },
+    "lt": {
+      "title": "Scénario long terme (règle 5%)",
+      "monthlyRent": "Loyer mensuel LT",
+      "monthlyRentHint": "Plafond légal LU = 5%/12 × capital investi réévalué",
+      "deductible": "Charges déductibles / an",
+      "deductibleHint": "Intérêts emprunt + charges copro + entretien + PNO"
+    },
+    "mixed": {
+      "title": "Scénario mixte (STR partiel + LT partiel)",
+      "strDays": "Jours STR / an",
+      "strDaysHint": "Max 90 jours pour éviter licence",
+      "ltMonths": "Mois LT / an",
+      "ltMonthsHint": "Typique : 3 mois été Airbnb + 9 mois LT",
+      "daysSuffix": "jours",
+      "monthsSuffix": "mois",
+      "note": "Mode LU classique : bail saisonnier (été/chasseurs de congrès) + bail habitation le reste."
+    },
+    "result": {
+      "bestLabel": "Scénario le plus rentable",
+      "delta": "Écart best vs worst",
+      "comparison": "Comparaison des 3 scénarios (net après impôt)"
+    },
+    "detail": {
+      "lt": "Détail LT (règle 5%)",
+      "mixed": "Détail mixte (STR + LT)",
+      "annualGross": "Loyer annuel brut",
+      "taxEstimated": "IR estimé",
+      "annualNet": "Net annuel",
+      "strDays": "STR ({n} jours)",
+      "ltMonths": "LT ({n} mois)",
+      "totalMixed": "Total mixte"
+    }
   }
 }

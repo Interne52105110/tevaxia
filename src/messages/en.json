@@ -9731,5 +9731,63 @@
       "warn": "Warning: beyond 90 STR days/year, accommodation license mandatory in LU. See",
       "complianceLink": "the compliance tool"
     }
+  },
+  "strArbitrage": {
+    "back": "Short-term rentals",
+    "title": "Long-term vs short-term arbitrage",
+    "subtitle": "Compare 3 quantified scenarios: long-term rental (5% rule), pure STR (Airbnb/Booking), or mixed (seasonal STR + LT rest). Net-after-tax calculation based on your Luxembourg tax profile.",
+    "tax": { "max": "LU max (~45.78%)" },
+    "scenarios": {
+      "lt": "Long-term (5% rule)",
+      "str": "Pure STR (Airbnb/Booking)",
+      "mixed": "Mixed (STR + LT)"
+    },
+    "property": {
+      "title": "The property",
+      "commune": "Municipality",
+      "acqPrice": "Acquisition price",
+      "marginalRate": "Marginal IR rate"
+    },
+    "strPure": {
+      "title": "Pure STR scenario (Airbnb/Booking)",
+      "adr": "ADR (€/night)",
+      "occupancy": "Annual occupancy",
+      "cleaning": "Cleaning / stay",
+      "fixedCosts": "Fixed STR costs / year",
+      "fixedCostsHint": "PNO + internet + utilities + furniture amort.",
+      "note": "OTA commission 15% Airbnb pre-applied. If > 90 nights/year, accommodation license mandatory."
+    },
+    "lt": {
+      "title": "Long-term scenario (5% rule)",
+      "monthlyRent": "LT monthly rent",
+      "monthlyRentHint": "LU legal cap = 5%/12 × revalued invested capital",
+      "deductible": "Deductible charges / year",
+      "deductibleHint": "Loan interest + condo fees + maintenance + PNO"
+    },
+    "mixed": {
+      "title": "Mixed scenario (partial STR + partial LT)",
+      "strDays": "STR days / year",
+      "strDaysHint": "Max 90 days to avoid license",
+      "ltMonths": "LT months / year",
+      "ltMonthsHint": "Typical: 3 summer months Airbnb + 9 months LT",
+      "daysSuffix": "days",
+      "monthsSuffix": "months",
+      "note": "Classic LU mode: seasonal lease (summer/conference hunters) + residential lease for the rest."
+    },
+    "result": {
+      "bestLabel": "Most profitable scenario",
+      "delta": "Delta best vs worst",
+      "comparison": "3-scenario comparison (net after tax)"
+    },
+    "detail": {
+      "lt": "LT detail (5% rule)",
+      "mixed": "Mixed detail (STR + LT)",
+      "annualGross": "Annual gross rent",
+      "taxEstimated": "Estimated IR",
+      "annualNet": "Annual net",
+      "strDays": "STR ({n} days)",
+      "ltMonths": "LT ({n} months)",
+      "totalMixed": "Total mixed"
+    }
   }
 }

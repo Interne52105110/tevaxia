@@ -9731,5 +9731,63 @@
       "warn": "Atencao: alem de 90 dias STR/ano, licenca alojamento obrigatoria em LU. Ver",
       "complianceLink": "a ferramenta conformidade"
     }
+  },
+  "strArbitrage": {
+    "back": "Alojamento curto",
+    "title": "Arbitragem longa vs curta duracao",
+    "subtitle": "Compare 3 cenarios quantificados: arrendamento longa duracao (regra 5%), STR puro (Airbnb/Booking), ou misto (STR sazonal + LT resto). Calculo liquido apos imposto segundo o seu perfil fiscal Luxemburgo.",
+    "tax": { "max": "Max LU (~45,78%)" },
+    "scenarios": {
+      "lt": "Longa duracao (regra 5%)",
+      "str": "STR puro (Airbnb/Booking)",
+      "mixed": "Misto (STR + LT)"
+    },
+    "property": {
+      "title": "O imovel",
+      "commune": "Municipio",
+      "acqPrice": "Preco aquisicao",
+      "marginalRate": "Taxa marginal IRS"
+    },
+    "strPure": {
+      "title": "Cenario STR (Airbnb/Booking puro)",
+      "adr": "ADR (€/noite)",
+      "occupancy": "Ocupacao anual",
+      "cleaning": "Limpeza / estadia",
+      "fixedCosts": "Custos fixos STR / ano",
+      "fixedCostsHint": "PNO + internet + utilities + amortizacao mobiliario",
+      "note": "Comissao OTA 15% Airbnb pre-aplicada. Se > 90 noites/ano, licenca alojamento obrigatoria."
+    },
+    "lt": {
+      "title": "Cenario longa duracao (regra 5%)",
+      "monthlyRent": "Renda mensal LT",
+      "monthlyRentHint": "Tecto legal LU = 5%/12 × capital investido reavaliado",
+      "deductible": "Custos dedutiveis / ano",
+      "deductibleHint": "Juros emprestimo + encargos condominio + manutencao + PNO"
+    },
+    "mixed": {
+      "title": "Cenario misto (STR parcial + LT parcial)",
+      "strDays": "Dias STR / ano",
+      "strDaysHint": "Max 90 dias para evitar licenca",
+      "ltMonths": "Meses LT / ano",
+      "ltMonthsHint": "Tipico: 3 meses verao Airbnb + 9 meses LT",
+      "daysSuffix": "dias",
+      "monthsSuffix": "meses",
+      "note": "Modo LU classico: contrato sazonal (verao/cacadores congresso) + contrato habitacao para o resto."
+    },
+    "result": {
+      "bestLabel": "Cenario mais rentavel",
+      "delta": "Desvio best vs worst",
+      "comparison": "Comparacao 3 cenarios (liquido apos imposto)"
+    },
+    "detail": {
+      "lt": "Detalhe LT (regra 5%)",
+      "mixed": "Detalhe misto (STR + LT)",
+      "annualGross": "Renda anual bruta",
+      "taxEstimated": "IRS estimado",
+      "annualNet": "Liquido anual",
+      "strDays": "STR ({n} dias)",
+      "ltMonths": "LT ({n} meses)",
+      "totalMixed": "Total misto"
+    }
   }
 }
