@@ -2,18 +2,17 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
 import { formatEUR } from "@/lib/calculations";
 import { checkSTRCompliance, STR_LICENSE_THRESHOLD_DAYS, STR_TAX_THRESHOLD_EUR } from "@/lib/str-calc";
 
-const OWNER_TYPES = [
-  { value: "particulier", label: "Particulier" },
-  { value: "societe", label: "Société (SCI, SARL-S, SPF)" },
-  { value: "non_resident", label: "Non-résident fiscal LU" },
-];
-
 export default function StrCompliance() {
+  const t = useTranslations("strCompliance");
+  const locale = useLocale();
+  const lp = locale === "fr" ? "" : `/${locale}`;
+
   const [nightsPlanned, setNightsPlanned] = useState(60);
   const [commune, setCommune] = useState("Luxembourg");
   const [isPrimaryResidence, setIsPrimaryResidence] = useState(false);
@@ -32,46 +31,51 @@ export default function StrCompliance() {
     : result.communeRegulationRisk === "medium" ? "bg-amber-100 text-amber-800 border-amber-200"
     : "bg-emerald-100 text-emerald-800 border-emerald-200";
 
+  const riskLabel = result.communeRegulationRisk === "high" ? t("risk.high")
+    : result.communeRegulationRisk === "medium" ? t("risk.medium")
+    : t("risk.low");
+
   return (
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <Link href="/str" className="text-xs text-muted hover:text-navy">&larr; Location courte durée</Link>
+        <Link href={`${lp}/str`} className="text-xs text-muted hover:text-navy">&larr; {t("back")}</Link>
         <div className="mt-2 mb-8">
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">Conformité STR au Luxembourg</h1>
-          <p className="mt-2 text-muted">
-            Vérifiez vos obligations légales avant de lancer une location courte durée au Luxembourg.
-            Seuil 3 mois, licence d&apos;hébergement, règlements communaux, fiscalité IR, Règlement UE 2024/1028.
-          </p>
+          <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+          <p className="mt-2 text-muted">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-6">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-navy">Votre projet STR</h2>
+              <h2 className="mb-4 text-base font-semibold text-navy">{t("form.title")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label="Nuitées prévues sur 12 mois"
+                  label={t("form.nights")}
                   value={nightsPlanned}
                   onChange={(v) => setNightsPlanned(Number(v))}
-                  suffix="nuits"
+                  suffix={t("form.nightsSuffix")}
                   min={0}
                   max={365}
-                  hint={`Seuil légal : ${STR_LICENSE_THRESHOLD_DAYS} nuits/an (au-delà, licence obligatoire)`}
+                  hint={t("form.nightsHint", { threshold: STR_LICENSE_THRESHOLD_DAYS })}
                 />
-                <InputField label="Commune" type="text" value={commune} onChange={(v) => setCommune(String(v))} />
+                <InputField label={t("form.commune")} type="text" value={commune} onChange={(v) => setCommune(String(v))} />
                 <InputField
-                  label="Type de propriétaire"
+                  label={t("form.ownerType")}
                   type="select"
                   value={ownerType}
                   onChange={(v) => setOwnerType(v as "particulier" | "societe" | "non_resident")}
-                  options={OWNER_TYPES}
+                  options={[
+                    { value: "particulier", label: t("ownerTypes.particulier") },
+                    { value: "societe", label: t("ownerTypes.societe") },
+                    { value: "non_resident", label: t("ownerTypes.nonResident") },
+                  ]}
                 />
                 <InputField
-                  label="Revenu STR annuel estimé"
+                  label={t("form.revenue")}
                   value={annualRevenue}
                   onChange={(v) => setAnnualRevenue(Number(v))}
                   suffix="€"
-                  hint={`Seuil déclaration IR : ${formatEUR(STR_TAX_THRESHOLD_EUR)}/an`}
+                  hint={t("form.revenueHint", { threshold: formatEUR(STR_TAX_THRESHOLD_EUR) })}
                 />
                 <label className="flex items-center gap-2 text-sm text-slate">
                   <input
@@ -80,7 +84,7 @@ export default function StrCompliance() {
                     onChange={(e) => setIsPrimaryResidence(e.target.checked)}
                     className="h-4 w-4 rounded"
                   />
-                  Le bien est ma résidence principale (location occasionnelle pendant mes déplacements)
+                  {t("form.primaryResidence")}
                 </label>
               </div>
             </div>
@@ -88,67 +92,62 @@ export default function StrCompliance() {
 
           <div className="space-y-6">
             <div className="rounded-2xl bg-gradient-to-br from-amber-600 to-orange-600 p-8 text-white shadow-lg">
-              <div className="text-xs uppercase tracking-wider text-white/70">Statut réglementaire</div>
+              <div className="text-xs uppercase tracking-wider text-white/70">{t("status.label")}</div>
               <div className="mt-2 text-2xl font-bold">
-                {result.requiresLicense ? "Licence d'hébergement requise" : "Aucune licence requise"}
+                {result.requiresLicense ? t("status.licenseRequired") : t("status.noLicense")}
               </div>
               <div className="mt-2 text-sm text-white/80">
                 {result.requiresLicense
-                  ? `Vous dépassez le seuil de ${STR_LICENSE_THRESHOLD_DAYS} nuits/an de ${Math.abs(result.licenseThresholdMargin)} nuits. Demande à déposer avant toute mise en location.`
-                  : `Il vous reste ${result.licenseThresholdMargin} nuits avant d'atteindre le seuil de licence.`}
+                  ? t("status.exceeded", { threshold: STR_LICENSE_THRESHOLD_DAYS, over: Math.abs(result.licenseThresholdMargin) })
+                  : t("status.remaining", { nights: result.licenseThresholdMargin })}
               </div>
             </div>
 
             <div className={`rounded-xl border-2 p-5 ${riskColor}`}>
-              <h3 className="text-sm font-semibold">Risque réglementaire communal</h3>
+              <h3 className="text-sm font-semibold">{t("risk.title")}</h3>
               <p className="mt-2 text-sm">
-                Commune « {commune} » : risque <strong>{result.communeRegulationRisk === "high" ? "élevé" : result.communeRegulationRisk === "medium" ? "moyen" : "faible"}</strong>.
+                {t("risk.body", { commune, level: riskLabel })}
               </p>
               {result.communeRegulationRisk === "high" && (
-                <p className="mt-2 text-xs">
-                  Luxembourg-Ville notamment impose des restrictions strictes depuis 2024 : vérifiez le règlement communal en vigueur.
-                </p>
+                <p className="mt-2 text-xs">{t("risk.highNote")}</p>
               )}
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-navy">Fiscalité IR Luxembourg</h3>
+              <h3 className="text-sm font-semibold text-navy">{t("tax.title")}</h3>
               <div className="mt-3 text-sm space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-muted">Seuil déclaration IR</span>
+                  <span className="text-muted">{t("tax.threshold")}</span>
                   <span className="font-mono font-semibold">{formatEUR(STR_TAX_THRESHOLD_EUR)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted">Votre revenu estimé</span>
+                  <span className="text-muted">{t("tax.yourRevenue")}</span>
                   <span className="font-mono font-semibold">{formatEUR(annualRevenue)}</span>
                 </div>
                 <div className="flex justify-between border-t border-card-border pt-2">
-                  <span className="font-semibold">Déclaration obligatoire ?</span>
+                  <span className="font-semibold">{t("tax.required")}</span>
                   <span className={`font-semibold ${result.requiresTaxDeclaration ? "text-rose-700" : "text-emerald-700"}`}>
-                    {result.requiresTaxDeclaration ? "OUI (formulaire 100)" : "Non"}
+                    {result.requiresTaxDeclaration ? t("tax.yes") : t("tax.no")}
                   </span>
                 </div>
               </div>
-              <p className="mt-3 text-xs text-muted">
-                Taux marginal max LU : <strong>45,78 %</strong> (IR 42 % × contribution emploi 1,09).
-                Charges déductibles : intérêts emprunt, PNO, ménage, amortissement mobilier, commissions OTA (15-18 %).
-              </p>
+              <p className="mt-3 text-xs text-muted">{t("tax.note")}</p>
             </div>
 
             <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-blue-900">Règlement UE 2024/1028 sur les STR</h3>
+              <h3 className="text-sm font-semibold text-blue-900">{t("eu.title")}</h3>
               <p className="mt-2 text-sm text-blue-800">
-                <strong>Entrée en vigueur mi-2026.</strong> Obligations :
+                <strong>{t("eu.inForce")}</strong> {t("eu.obligations")}
               </p>
               <ul className="mt-2 text-xs text-blue-800 space-y-1 list-disc list-inside">
-                <li>Enregistrement dans le <strong>registre unique européen</strong> des locations courte durée</li>
-                <li>Transmission des nuitées aux communes (plateformes Airbnb/Booking s&apos;occupent du reporting)</li>
-                <li>Numéro d&apos;identification à afficher obligatoirement sur les annonces</li>
+                <li>{t("eu.item1")}</li>
+                <li>{t("eu.item2")}</li>
+                <li>{t("eu.item3")}</li>
               </ul>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-navy">Actions à entreprendre</h3>
+              <h3 className="text-sm font-semibold text-navy">{t("actions.title")}</h3>
               <ul className="mt-3 space-y-2 text-sm">
                 {result.actions.map((action, i) => (
                   <li key={i} className="flex items-start gap-2">
@@ -169,20 +168,19 @@ export default function StrCompliance() {
                 `Type propriétaire: ${ownerType}`,
                 `Résidence principale: ${isPrimaryResidence ? "oui" : "non"}`,
                 `Revenu estimé: ${formatEUR(annualRevenue)}/an`,
-                "",
+                ``,
                 `Licence d'hébergement requise: ${result.requiresLicense ? "OUI" : "non"}`,
                 `Déclaration IR requise: ${result.requiresTaxDeclaration ? "OUI" : "non"}`,
                 `Risque réglementaire communal: ${result.communeRegulationRisk}`,
                 `EU Regulation 2024/1028 applicable: ${result.euRegulationCompliance.registrationRequired ? "OUI (mi-2026)" : "non"}`,
               ].join("\n")}
-              prompt="Analyse ce dossier conformité STR Luxembourg. Livre : (1) synthèse du niveau de risque légal (vert/orange/rouge) avec justification, (2) liste hiérarchisée des démarches à effectuer (obtenir licence si nécessaire, déclaration guichet.lu, déclaration IR, enregistrement registre EU, assurance PNO courte durée), (3) pièges communaux spécifiques (Luxembourg-Ville règlement 2024 restrictif, copropriété avec clause anti-STR), (4) optimisations légales : rester sous 90 jours pour éviter licence, régime meublé touristique vs bail habitation, société vs particulier, (5) timeline concrète (démarches ordre chronologique). Ton clair pour un propriétaire non-juriste. Réfère art. 6 loi 17.07.2020 + art. 98 LIR + EU Reg 2024/1028."
+              prompt="Analyse ce dossier conformité STR Luxembourg. Livre synthèse risque, démarches hiérarchisées, pièges communaux, optimisations légales, timeline. Ton clair pour un propriétaire non-juriste. Réfère art. 6 loi 17.07.2020 + art. 98 LIR + EU Reg 2024/1028."
             />
           </div>
         </div>
 
         <div className="mt-10 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
-          <strong>Avertissement :</strong> cette analyse est indicative. La réglementation STR LU évolue rapidement (refonte EU 2024/1028, règlements communaux).
-          Validez toujours avec un avocat spécialisé ou un expert-comptable LU avant toute mise en location. Les valeurs sont celles en vigueur en avril 2026.
+          <strong>{t("disclaimer.label")}</strong> {t("disclaimer.body")}
         </div>
       </div>
     </div>

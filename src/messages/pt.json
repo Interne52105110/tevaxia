@@ -9560,5 +9560,65 @@
       "weekend": "Fim-semana",
       "event": "Evento"
     }
+  },
+  "strCompliance": {
+    "back": "Alojamento curto",
+    "title": "Conformidade STR no Luxemburgo",
+    "subtitle": "Verifique as suas obrigacoes legais antes de lancar um alojamento curto no Luxemburgo. Limite 3 meses, licenca alojamento, regulamentos municipais, IRS, Regulamento UE 2024/1028.",
+    "form": {
+      "title": "O seu projeto STR",
+      "nights": "Noites previstas em 12 meses",
+      "nightsSuffix": "noites",
+      "nightsHint": "Limite legal: {threshold} noites/ano (acima, licenca obrigatoria)",
+      "commune": "Municipio",
+      "ownerType": "Tipo de proprietario",
+      "revenue": "Receita STR anual estimada",
+      "revenueHint": "Limite declaracao IRS: {threshold}/ano",
+      "primaryResidence": "O imovel e a minha residencia principal (locacao ocasional durante deslocacoes)"
+    },
+    "ownerTypes": {
+      "particulier": "Particular",
+      "societe": "Sociedade (SCI, SARL-S, SPF)",
+      "nonResident": "Nao residente fiscal LU"
+    },
+    "status": {
+      "label": "Estatuto regulatorio",
+      "licenseRequired": "Licenca alojamento exigida",
+      "noLicense": "Sem licenca exigida",
+      "exceeded": "Voce ultrapassa o limite de {threshold} noites/ano em {over} noites. Pedido a submeter antes de qualquer locacao.",
+      "remaining": "Restam-lhe {nights} noites antes de atingir o limite de licenca."
+    },
+    "risk": {
+      "title": "Risco regulatorio municipal",
+      "high": "elevado",
+      "medium": "medio",
+      "low": "baixo",
+      "body": "Municipio « {commune} »: risco {level}.",
+      "highNote": "Luxemburgo-Cidade nomeadamente impoe restricoes estritas desde 2024: verifique o regulamento municipal em vigor."
+    },
+    "tax": {
+      "title": "IRS Luxemburgo",
+      "threshold": "Limite declaracao IRS",
+      "yourRevenue": "Sua receita estimada",
+      "required": "Declaracao obrigatoria?",
+      "yes": "SIM (formulario 100)",
+      "no": "Nao",
+      "note": "Taxa marginal max LU: 45,78% (IR 42% × contribuicao emprego 1,09). Dedutiveis: juros emprestimo, PNO, limpeza, amortizacao mobiliario, comissoes OTA (15-18%)."
+    },
+    "eu": {
+      "title": "Regulamento UE 2024/1028 sobre STR",
+      "inForce": "Entrada em vigor meados 2026.",
+      "obligations": "Obrigacoes:",
+      "item1": "Registo no registo unico europeu de alojamentos curto prazo",
+      "item2": "Transmissao das noites aos municipios (plataformas Airbnb/Booking tratam do reporting)",
+      "item3": "Numero identificacao a exibir obrigatoriamente nas listagens"
+    },
+    "actions": {
+      "title": "Acoes a realizar"
+    },
+    "disclaimer": {
+      "label": "Aviso:",
+      "body": "esta analise e indicativa. A regulamentacao STR LU evolui rapidamente (revisao UE 2024/1028, regulamentos municipais). Valide sempre com advogado especializado ou contabilista LU antes de qualquer locacao. Valores em vigor em abril 2026."
+    }
   }
 }

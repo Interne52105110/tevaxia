@@ -9560,5 +9560,65 @@
       "weekend": "Weekend",
       "event": "Event"
     }
+  },
+  "strCompliance": {
+    "back": "Kuerzzäitvermietung",
+    "title": "STR Lëtzebuerg Conformitéit",
+    "subtitle": "Iwwerpréift Är legal Verflichtungen virum Lancement vun enger Kuerzzäitvermietung zu Lëtzebuerg. 3-Méint-Schwell, Hébergement-Lizenz, Gemengereglementer, Akommessteier, EU Regulation 2024/1028.",
+    "form": {
+      "title": "Äert STR-Projet",
+      "nights": "Geplange Nuechten iwwer 12 Méint",
+      "nightsSuffix": "Nuechten",
+      "nightsHint": "Legal Schwell: {threshold} Nuechten/Joer (driwwer, Lizenz obligatoresch)",
+      "commune": "Gemeng",
+      "ownerType": "Proprietär-Typ",
+      "revenue": "Geschätzt jäerlecht STR-Akommes",
+      "revenueHint": "IR-Erklärungsschwell: {threshold}/Joer",
+      "primaryResidence": "D'Immobilie ass meng Haaptwunneng (geleeëntlech Vermietung wärend Reesen)"
+    },
+    "ownerTypes": {
+      "particulier": "Privatpersoun",
+      "societe": "Gesellschaft (SCI, SARL-S, SPF)",
+      "nonResident": "Net-steierlech residenzéiert zu LU"
+    },
+    "status": {
+      "label": "Regulatoresche Status",
+      "licenseRequired": "Hébergement-Lizenz erfuerderlech",
+      "noLicense": "Keng Lizenz erfuerderlech",
+      "exceeded": "Dir iwwerschreit d'Schwell vun {threshold} Nuechten/Joer vun {over} Nuechten. Ufro muss virun all Vermietung agereecht ginn.",
+      "remaining": "Iech bleiwen {nights} Nuechte bis zum Erreeche vun der Lizenzschwell."
+    },
+    "risk": {
+      "title": "Kommunaalt regulatorescht Risiko",
+      "high": "héich",
+      "medium": "mëttel",
+      "low": "niddereg",
+      "body": "Gemeng « {commune} »: Risiko {level}.",
+      "highNote": "Lëtzebuerg-Stad virun allem leet streng Restriktiounen op säit 2024: Prüft dat aktuellt Gemengereglement."
+    },
+    "tax": {
+      "title": "LU-Akommessteier",
+      "threshold": "IR-Erklärungsschwell",
+      "yourRevenue": "Äert geschätzt Akommes",
+      "required": "Obligatoresch Erklärung?",
+      "yes": "JO (Formulaire 100)",
+      "no": "Nee",
+      "note": "Max marginaler Saz LU: 45,78% (IR 42% × Beschäftegungsbäitrag 1,09). Offsetzbar: Prêt-Zënsen, PNO, Botzung, Miwwelen-Depreciatioun, OTA-Provisiounen (15-18%)."
+    },
+    "eu": {
+      "title": "EU Regulation 2024/1028 iwwer STR",
+      "inForce": "Inkrafttriede Mëtt 2026.",
+      "obligations": "Verflichtungen:",
+      "item1": "Registréierung am eenzegen europäesche Registre vu Kuerzzäitvermietungen",
+      "item2": "Iwwermëttlung vun den Nuechten un d'Gemengen (Airbnb/Booking-Plattforme këmmere sech ëm d'Reporting)",
+      "item3": "Identifikatiounsnummer obligatoresch op Listings ze weisen"
+    },
+    "actions": {
+      "title": "Ze ergräifend Aktiounen"
+    },
+    "disclaimer": {
+      "label": "Warnung:",
+      "body": "dës Analyse ass indikativ. D'LU-STR-Reguléierung evoluéiert séier (EU 2024/1028-Iwwerschaffung, Gemengereglementer). Validéiert ëmmer mat engem spezialiséierten Affekot oder LU-Steierberoder virun all Vermietung. Wäerter entspriechen dem Stand Abrëll 2026."
+    }
   }
 }

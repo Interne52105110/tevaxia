@@ -9560,5 +9560,65 @@
       "weekend": "Wochenende",
       "event": "Event"
     }
+  },
+  "strCompliance": {
+    "back": "Kurzzeitvermietung",
+    "title": "STR Luxemburg Compliance",
+    "subtitle": "Prüfen Sie Ihre rechtlichen Verpflichtungen vor dem Start einer Kurzzeitvermietung in Luxemburg. 3-Monats-Schwelle, Beherbergungslizenz, Gemeindeverordnungen, Einkommensteuer, EU Regulation 2024/1028.",
+    "form": {
+      "title": "Ihr STR-Projekt",
+      "nights": "Geplante Übernachtungen über 12 Monate",
+      "nightsSuffix": "Nächte",
+      "nightsHint": "Gesetzliche Schwelle: {threshold} Nächte/Jahr (darüber, Lizenz verpflichtend)",
+      "commune": "Gemeinde",
+      "ownerType": "Eigentümertyp",
+      "revenue": "Geschätzter jährlicher STR-Umsatz",
+      "revenueHint": "IR-Erklärungsschwelle: {threshold}/Jahr",
+      "primaryResidence": "Die Immobilie ist mein Hauptwohnsitz (gelegentliche Vermietung während Reisen)"
+    },
+    "ownerTypes": {
+      "particulier": "Privatperson",
+      "societe": "Gesellschaft (SCI, SARL-S, SPF)",
+      "nonResident": "Nicht-steuerlich ansässig in LU"
+    },
+    "status": {
+      "label": "Regulatorischer Status",
+      "licenseRequired": "Beherbergungslizenz erforderlich",
+      "noLicense": "Keine Lizenz erforderlich",
+      "exceeded": "Sie überschreiten die Schwelle von {threshold} Nächten/Jahr um {over} Nächte. Antrag muss vor jeder Vermietung eingereicht werden.",
+      "remaining": "Es bleiben {nights} Nächte bis zum Erreichen der Lizenzschwelle."
+    },
+    "risk": {
+      "title": "Kommunales regulatorisches Risiko",
+      "high": "hoch",
+      "medium": "mittel",
+      "low": "niedrig",
+      "body": "Gemeinde « {commune} »: Risiko {level}.",
+      "highNote": "Luxemburg-Stadt insbesondere setzt strenge Beschränkungen seit 2024: Prüfen Sie die aktuelle Gemeindeverordnung."
+    },
+    "tax": {
+      "title": "LU-Einkommensteuer",
+      "threshold": "IR-Erklärungsschwelle",
+      "yourRevenue": "Ihr geschätzter Umsatz",
+      "required": "Pflichterklärung?",
+      "yes": "JA (Formular 100)",
+      "no": "Nein",
+      "note": "Max. Grenzsteuersatz LU: 45,78% (IR 42% × Beschäftigungsbeitrag 1,09). Abzugsfähig: Darlehenszinsen, PNO, Reinigung, Möbelabschreibung, OTA-Provisionen (15-18%)."
+    },
+    "eu": {
+      "title": "EU Regulation 2024/1028 zu STR",
+      "inForce": "Inkrafttreten Mitte 2026.",
+      "obligations": "Verpflichtungen:",
+      "item1": "Registrierung im einheitlichen europäischen Register der Kurzzeitvermietungen",
+      "item2": "Übermittlung der Übernachtungen an Gemeinden (Airbnb/Booking-Plattformen übernehmen das Reporting)",
+      "item3": "Identifikationsnummer obligatorisch auf Listings anzuzeigen"
+    },
+    "actions": {
+      "title": "Zu ergreifende Maßnahmen"
+    },
+    "disclaimer": {
+      "label": "Warnung:",
+      "body": "Diese Analyse ist indikativ. Die LU-STR-Regulierung entwickelt sich schnell (EU 2024/1028-Überarbeitung, Gemeindeverordnungen). Validieren Sie immer mit einem spezialisierten Anwalt oder LU-Steuerberater vor jeder Vermietung. Werte entsprechen Stand April 2026."
+    }
   }
 }

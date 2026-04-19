@@ -9560,5 +9560,65 @@
       "weekend": "Weekend",
       "event": "Event"
     }
+  },
+  "strCompliance": {
+    "back": "Short-term rentals",
+    "title": "STR Luxembourg compliance",
+    "subtitle": "Check your legal obligations before launching a short-term rental in Luxembourg. 3-month threshold, accommodation license, municipal rules, income tax, EU Regulation 2024/1028.",
+    "form": {
+      "title": "Your STR project",
+      "nights": "Nights planned over 12 months",
+      "nightsSuffix": "nights",
+      "nightsHint": "Legal threshold: {threshold} nights/year (above, license mandatory)",
+      "commune": "Municipality",
+      "ownerType": "Owner type",
+      "revenue": "Estimated annual STR revenue",
+      "revenueHint": "Tax declaration threshold: {threshold}/year",
+      "primaryResidence": "The property is my primary residence (occasional rental during my travels)"
+    },
+    "ownerTypes": {
+      "particulier": "Individual",
+      "societe": "Company (SCI, SARL-S, SPF)",
+      "nonResident": "LU non-resident for tax"
+    },
+    "status": {
+      "label": "Regulatory status",
+      "licenseRequired": "Accommodation license required",
+      "noLicense": "No license required",
+      "exceeded": "You exceed the {threshold} nights/year threshold by {over} nights. Request must be filed before any rental.",
+      "remaining": "You have {nights} nights left before reaching the license threshold."
+    },
+    "risk": {
+      "title": "Municipal regulatory risk",
+      "high": "high",
+      "medium": "medium",
+      "low": "low",
+      "body": "Municipality « {commune} »: risk {level}.",
+      "highNote": "Luxembourg-City notably imposes strict restrictions since 2024: check the current municipal regulation."
+    },
+    "tax": {
+      "title": "LU income tax",
+      "threshold": "Tax declaration threshold",
+      "yourRevenue": "Your estimated revenue",
+      "required": "Mandatory declaration?",
+      "yes": "YES (form 100)",
+      "no": "No",
+      "note": "Max marginal rate LU: 45.78% (IR 42% × employment contribution 1.09). Deductibles: loan interest, PNO, cleaning, furniture depreciation, OTA commissions (15-18%)."
+    },
+    "eu": {
+      "title": "EU Regulation 2024/1028 on STR",
+      "inForce": "Entry into force mid-2026.",
+      "obligations": "Obligations:",
+      "item1": "Registration in the single European register of short-term rentals",
+      "item2": "Transmission of nights to municipalities (Airbnb/Booking platforms handle reporting)",
+      "item3": "Identification number to be displayed mandatorily on listings"
+    },
+    "actions": {
+      "title": "Actions to take"
+    },
+    "disclaimer": {
+      "label": "Warning:",
+      "body": "this analysis is indicative. LU STR regulation evolves rapidly (EU 2024/1028 overhaul, municipal rules). Always validate with a specialized lawyer or LU accountant before any rental. Values are those in force as of April 2026."
+    }
   }
 }

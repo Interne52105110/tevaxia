@@ -9560,5 +9560,65 @@
       "weekend": "Weekend",
       "event": "Événement"
     }
+  },
+  "strCompliance": {
+    "back": "Location courte durée",
+    "title": "Conformité STR au Luxembourg",
+    "subtitle": "Vérifiez vos obligations légales avant de lancer une location courte durée au Luxembourg. Seuil 3 mois, licence d'hébergement, règlements communaux, fiscalité IR, Règlement UE 2024/1028.",
+    "form": {
+      "title": "Votre projet STR",
+      "nights": "Nuitées prévues sur 12 mois",
+      "nightsSuffix": "nuits",
+      "nightsHint": "Seuil légal : {threshold} nuits/an (au-delà, licence obligatoire)",
+      "commune": "Commune",
+      "ownerType": "Type de propriétaire",
+      "revenue": "Revenu STR annuel estimé",
+      "revenueHint": "Seuil déclaration IR : {threshold}/an",
+      "primaryResidence": "Le bien est ma résidence principale (location occasionnelle pendant mes déplacements)"
+    },
+    "ownerTypes": {
+      "particulier": "Particulier",
+      "societe": "Société (SCI, SARL-S, SPF)",
+      "nonResident": "Non-résident fiscal LU"
+    },
+    "status": {
+      "label": "Statut réglementaire",
+      "licenseRequired": "Licence d'hébergement requise",
+      "noLicense": "Aucune licence requise",
+      "exceeded": "Vous dépassez le seuil de {threshold} nuits/an de {over} nuits. Demande à déposer avant toute mise en location.",
+      "remaining": "Il vous reste {nights} nuits avant d'atteindre le seuil de licence."
+    },
+    "risk": {
+      "title": "Risque réglementaire communal",
+      "high": "élevé",
+      "medium": "moyen",
+      "low": "faible",
+      "body": "Commune « {commune} » : risque {level}.",
+      "highNote": "Luxembourg-Ville notamment impose des restrictions strictes depuis 2024 : vérifiez le règlement communal en vigueur."
+    },
+    "tax": {
+      "title": "Fiscalité IR Luxembourg",
+      "threshold": "Seuil déclaration IR",
+      "yourRevenue": "Votre revenu estimé",
+      "required": "Déclaration obligatoire ?",
+      "yes": "OUI (formulaire 100)",
+      "no": "Non",
+      "note": "Taux marginal max LU : 45,78 % (IR 42 % × contribution emploi 1,09). Charges déductibles : intérêts emprunt, PNO, ménage, amortissement mobilier, commissions OTA (15-18 %)."
+    },
+    "eu": {
+      "title": "Règlement UE 2024/1028 sur les STR",
+      "inForce": "Entrée en vigueur mi-2026.",
+      "obligations": "Obligations :",
+      "item1": "Enregistrement dans le registre unique européen des locations courte durée",
+      "item2": "Transmission des nuitées aux communes (plateformes Airbnb/Booking s'occupent du reporting)",
+      "item3": "Numéro d'identification à afficher obligatoirement sur les annonces"
+    },
+    "actions": {
+      "title": "Actions à entreprendre"
+    },
+    "disclaimer": {
+      "label": "Avertissement :",
+      "body": "cette analyse est indicative. La réglementation STR LU évolue rapidement (refonte EU 2024/1028, règlements communaux). Validez toujours avec un avocat spécialisé ou un expert-comptable LU avant toute mise en location. Les valeurs sont celles en vigueur en avril 2026."
+    }
   }
 }
