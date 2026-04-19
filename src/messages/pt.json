@@ -9504,5 +9504,61 @@
       "sourcesLabel": "Fontes:",
       "sources": "Amostra AirDNA LU, Airbnb Market Reports, painel tevaxia. Para acesso API completo, licenca AirDNA paga (~$200-500/mes conforme uso)."
     }
+  },
+  "strPricing": {
+    "back": "Alojamento curto",
+    "title": "Dynamic pricing STR Luxemburgo",
+    "subtitle": "Recomendacao de precos ADR mes a mes segundo sazonalidade LU especifica (tempo, eventos, feiras), com regras fim-de-semana e last-minute. Alternativa local gratuita ao PriceLabs / Wheelhouse / Beyond Pricing.",
+    "params": "Parametros de precos",
+    "months": {
+      "jan": "Jan", "feb": "Fev", "mar": "Mar", "apr": "Abr",
+      "may": "Mai", "jun": "Jun", "jul": "Jul", "aug": "Ago",
+      "sep": "Set", "oct": "Out", "nov": "Nov", "dec": "Dez"
+    },
+    "zones": {
+      "luxembourg_ville": "Luxemburgo-Cidade Centro",
+      "kirchberg": "Kirchberg / Plateau",
+      "esch": "Esch-sur-Alzette / Sul",
+      "nord_tourisme": "Norte (Mullerthal, Ardenas)",
+      "mondorf": "Mondorf / Mosela (bem-estar/vinho)"
+    },
+    "events": {
+      "marathon": "ING Night Marathon",
+      "artbasel": "ArtBasel (abril-maio)",
+      "feteNationale": "Festa nacional 23 junho",
+      "schueberfouer": "Schueberfouer",
+      "marcheNoel": "Mercado de Natal",
+      "nouvelAn": "Reveillon"
+    },
+    "fields": {
+      "zone": "Zona geografica",
+      "baseAdr": "ADR base (€/noite)",
+      "minAdr": "ADR minimo",
+      "maxAdr": "ADR maximo",
+      "weekendBoost": "Majoracao fim-de-semana (%)",
+      "lastMinuteDays": "Janela last-minute",
+      "daysSuffix": "dias",
+      "lastMinuteDiscount": "Desconto last-minute"
+    },
+    "hints": {
+      "baseAdr": "A sua tarifa neutra dia util",
+      "minAdr": "Floor price (nunca abaixo)",
+      "maxAdr": "Ceiling price",
+      "weekendBoost": "Sex-Sab-Dom: +15% tipico",
+      "lastMinuteDiscount": "Tipico 10-20% se disponivel"
+    },
+    "recommended": {
+      "label": "ADR medio anual recomendado",
+      "weekends": "Fim-de-semanas",
+      "lastMinute": "Last-minute"
+    },
+    "table": {
+      "title": "Precos mensais",
+      "month": "Mes",
+      "coef": "Coef.",
+      "week": "Semana",
+      "weekend": "Fim-semana",
+      "event": "Evento"
+    }
   }
 }

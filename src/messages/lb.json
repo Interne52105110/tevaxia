@@ -9504,5 +9504,61 @@
       "sourcesLabel": "Quellen:",
       "sources": "AirDNA LU-Sample, Airbnb Market Reports, tevaxia-Panel. Fir komplett API-Zougang, AirDNA bezuelent Lizenz (~$200-500/Mount no Notzung)."
     }
+  },
+  "strPricing": {
+    "back": "Kuerzzäitvermietung",
+    "title": "STR Lëtzebuerg Dynamic Pricing",
+    "subtitle": "Méintlech ADR-Präisempfehlung no LU-spezifescher Saisonalitéit (Wieder, Eventer, Salonen), mat Weekend- a Last-Minute-Regelen. Gratis lokal Alternativ zu PriceLabs / Wheelhouse / Beyond Pricing.",
+    "params": "Präisparameter",
+    "months": {
+      "jan": "Jan", "feb": "Feb", "mar": "Mäe", "apr": "Abr",
+      "may": "Mee", "jun": "Jun", "jul": "Jul", "aug": "Aug",
+      "sep": "Sep", "oct": "Okt", "nov": "Nov", "dec": "Dez"
+    },
+    "zones": {
+      "luxembourg_ville": "Lëtzebuerg-Stad Zentrum",
+      "kirchberg": "Kirchberg / Plateau",
+      "esch": "Esch-Uelzecht / Süden",
+      "nord_tourisme": "Norden (Mullerthal, Ardennen)",
+      "mondorf": "Mondorf / Musel (Wellness/Wäin)"
+    },
+    "events": {
+      "marathon": "ING Night Marathon",
+      "artbasel": "ArtBasel (Abrëll-Mee)",
+      "feteNationale": "Nationalfeierdag 23. Juni",
+      "schueberfouer": "Schueberfouer",
+      "marcheNoel": "Chrëschtmaart",
+      "nouvelAn": "Silvester"
+    },
+    "fields": {
+      "zone": "Geografesch Zone",
+      "baseAdr": "Basis-ADR (€/Nuecht)",
+      "minAdr": "Minimum-ADR",
+      "maxAdr": "Maximum-ADR",
+      "weekendBoost": "Weekend-Opschlag (%)",
+      "lastMinuteDays": "Last-Minute-Fenster",
+      "daysSuffix": "Deeg",
+      "lastMinuteDiscount": "Last-Minute-Rabatt"
+    },
+    "hints": {
+      "baseAdr": "Är neutral Wochentagsrate",
+      "minAdr": "Floor Price (ni drënner)",
+      "maxAdr": "Ceiling Price",
+      "weekendBoost": "Fr-Sa-So: +15% typesch",
+      "lastMinuteDiscount": "Typesch 10-20% wann disponibel"
+    },
+    "recommended": {
+      "label": "Empfohle Joresduerchschnëtts-ADR",
+      "weekends": "Weekenden",
+      "lastMinute": "Last-Minute"
+    },
+    "table": {
+      "title": "Méintlech Präisgestaltung",
+      "month": "Mount",
+      "coef": "Koef.",
+      "week": "Wochendag",
+      "weekend": "Weekend",
+      "event": "Event"
+    }
   }
 }

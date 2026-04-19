@@ -9504,5 +9504,61 @@
       "sourcesLabel": "Quellen:",
       "sources": "AirDNA LU-Sample, Airbnb Market Reports, tevaxia-Panel. Für vollständigen API-Zugang, AirDNA kostenpflichtige Lizenz (~$200-500/Monat je nach Nutzung)."
     }
+  },
+  "strPricing": {
+    "back": "Kurzzeitvermietung",
+    "title": "STR Luxemburg Dynamic Pricing",
+    "subtitle": "Monatliche ADR-Preisempfehlung nach LU-spezifischer Saisonalität (Wetter, Events, Messen), mit Wochenend- und Last-Minute-Regeln. Kostenlose lokale Alternative zu PriceLabs / Wheelhouse / Beyond Pricing.",
+    "params": "Preisparameter",
+    "months": {
+      "jan": "Jan", "feb": "Feb", "mar": "Mär", "apr": "Apr",
+      "may": "Mai", "jun": "Jun", "jul": "Jul", "aug": "Aug",
+      "sep": "Sep", "oct": "Okt", "nov": "Nov", "dec": "Dez"
+    },
+    "zones": {
+      "luxembourg_ville": "Luxemburg-Stadt Zentrum",
+      "kirchberg": "Kirchberg / Plateau",
+      "esch": "Esch-sur-Alzette / Süden",
+      "nord_tourisme": "Norden (Mullerthal, Ardennen)",
+      "mondorf": "Mondorf / Mosel (Wellness/Wein)"
+    },
+    "events": {
+      "marathon": "ING Night Marathon",
+      "artbasel": "ArtBasel (April-Mai)",
+      "feteNationale": "Nationalfeiertag 23. Juni",
+      "schueberfouer": "Schueberfouer",
+      "marcheNoel": "Weihnachtsmarkt",
+      "nouvelAn": "Silvester"
+    },
+    "fields": {
+      "zone": "Geografische Zone",
+      "baseAdr": "Basis-ADR (€/Nacht)",
+      "minAdr": "Mindest-ADR",
+      "maxAdr": "Maximal-ADR",
+      "weekendBoost": "Wochenendaufschlag (%)",
+      "lastMinuteDays": "Last-Minute-Fenster",
+      "daysSuffix": "Tage",
+      "lastMinuteDiscount": "Last-Minute-Rabatt"
+    },
+    "hints": {
+      "baseAdr": "Ihre neutrale Wochentagsrate",
+      "minAdr": "Floor Price (nie darunter)",
+      "maxAdr": "Ceiling Price",
+      "weekendBoost": "Fr-Sa-So: +15% typisch",
+      "lastMinuteDiscount": "Typisch 10-20% wenn verfügbar"
+    },
+    "recommended": {
+      "label": "Empfohlener Jahresdurchschnitts-ADR",
+      "weekends": "Wochenenden",
+      "lastMinute": "Last-Minute"
+    },
+    "table": {
+      "title": "Monatliche Preisgestaltung",
+      "month": "Monat",
+      "coef": "Koef.",
+      "week": "Werktag",
+      "weekend": "Wochenende",
+      "event": "Event"
+    }
   }
 }
