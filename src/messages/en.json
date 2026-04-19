@@ -9620,5 +9620,29 @@
       "label": "Warning:",
       "body": "this analysis is indicative. LU STR regulation evolves rapidly (EU 2024/1028 overhaul, municipal rules). Always validate with a specialized lawyer or LU accountant before any rental. Values are those in force as of April 2026."
     }
+  },
+  "wizardParticulierPage": {
+    "backHome": "← tevaxia.lu",
+    "title": "Individual Wizard — your project in 4 steps",
+    "subtitle": "Estimation → purchase fees → state aids → legal rent rule. All in one guided journey.",
+    "steps": {
+      "estimation": "Estimation",
+      "frais": "Purchase fees",
+      "aides": "Aids",
+      "loyer": "Legal rent",
+      "recap": "Summary"
+    },
+    "bienTypes": {
+      "appartement": "Apartment",
+      "maisonRangee": "Terraced house",
+      "maisonJumelee": "Semi-detached house",
+      "maisonIsolee": "Detached house"
+    },
+    "draftRestored": "Draft restored automatically (saved in your browser).",
+    "resetDraft": "Start over",
+    "confirmReset": "Delete this draft and start from scratch?",
+    "prev": "Previous",
+    "next": "Next",
+    "backToHome": "Back to home"
   }
 }

@@ -9620,5 +9620,29 @@
       "label": "Avertissement :",
       "body": "cette analyse est indicative. La réglementation STR LU évolue rapidement (refonte EU 2024/1028, règlements communaux). Validez toujours avec un avocat spécialisé ou un expert-comptable LU avant toute mise en location. Les valeurs sont celles en vigueur en avril 2026."
     }
+  },
+  "wizardParticulierPage": {
+    "backHome": "← tevaxia.lu",
+    "title": "Wizard Particulier — votre projet en 4 étapes",
+    "subtitle": "Estimation → frais d'achat → aides de l'État → règle du loyer légal. Tout en un seul parcours guidé.",
+    "steps": {
+      "estimation": "Estimation",
+      "frais": "Frais d'achat",
+      "aides": "Aides",
+      "loyer": "Loyer légal",
+      "recap": "Récap"
+    },
+    "bienTypes": {
+      "appartement": "Appartement",
+      "maisonRangee": "Maison rangée",
+      "maisonJumelee": "Maison jumelée",
+      "maisonIsolee": "Maison isolée"
+    },
+    "draftRestored": "Brouillon restauré automatiquement (sauvegardé dans votre navigateur).",
+    "resetDraft": "Recommencer de zéro",
+    "confirmReset": "Effacer ce brouillon et recommencer depuis le début ?",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "backToHome": "Retour à l'accueil"
   }
 }

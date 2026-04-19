@@ -9620,5 +9620,29 @@
       "label": "Aviso:",
       "body": "esta analise e indicativa. A regulamentacao STR LU evolui rapidamente (revisao UE 2024/1028, regulamentos municipais). Valide sempre com advogado especializado ou contabilista LU antes de qualquer locacao. Valores em vigor em abril 2026."
     }
+  },
+  "wizardParticulierPage": {
+    "backHome": "← tevaxia.lu",
+    "title": "Wizard Particular — o seu projeto em 4 etapas",
+    "subtitle": "Estimacao → despesas aquisicao → ajudas do Estado → regra renda legal. Tudo num percurso guiado.",
+    "steps": {
+      "estimation": "Estimacao",
+      "frais": "Despesas aquisicao",
+      "aides": "Ajudas",
+      "loyer": "Renda legal",
+      "recap": "Resumo"
+    },
+    "bienTypes": {
+      "appartement": "Apartamento",
+      "maisonRangee": "Casa em banda",
+      "maisonJumelee": "Casa geminada",
+      "maisonIsolee": "Casa isolada"
+    },
+    "draftRestored": "Rascunho restaurado automaticamente (guardado no seu navegador).",
+    "resetDraft": "Recomecar do zero",
+    "confirmReset": "Apagar este rascunho e recomecar do zero?",
+    "prev": "Anterior",
+    "next": "Seguinte",
+    "backToHome": "Voltar ao inicio"
   }
 }

@@ -9620,5 +9620,29 @@
       "label": "Warnung:",
       "body": "Diese Analyse ist indikativ. Die LU-STR-Regulierung entwickelt sich schnell (EU 2024/1028-Überarbeitung, Gemeindeverordnungen). Validieren Sie immer mit einem spezialisierten Anwalt oder LU-Steuerberater vor jeder Vermietung. Werte entsprechen Stand April 2026."
     }
+  },
+  "wizardParticulierPage": {
+    "backHome": "← tevaxia.lu",
+    "title": "Privatpersonen-Wizard — Ihr Projekt in 4 Schritten",
+    "subtitle": "Schätzung → Kaufgebühren → staatliche Beihilfen → legale Mietregel. Alles in einem geführten Pfad.",
+    "steps": {
+      "estimation": "Schätzung",
+      "frais": "Kaufgebühren",
+      "aides": "Beihilfen",
+      "loyer": "Legale Miete",
+      "recap": "Zusammenfassung"
+    },
+    "bienTypes": {
+      "appartement": "Wohnung",
+      "maisonRangee": "Reihenhaus",
+      "maisonJumelee": "Doppelhaushälfte",
+      "maisonIsolee": "Einzelhaus"
+    },
+    "draftRestored": "Entwurf automatisch wiederhergestellt (in Ihrem Browser gespeichert).",
+    "resetDraft": "Von vorne beginnen",
+    "confirmReset": "Diesen Entwurf löschen und von vorne beginnen?",
+    "prev": "Zurück",
+    "next": "Weiter",
+    "backToHome": "Zur Startseite"
   }
 }

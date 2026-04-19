@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import SEOContent from "@/components/SEOContent";
 import { estimer, type EstimationResult } from "@/lib/estimation";
@@ -20,24 +20,26 @@ import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 
 type Step = 0 | 1 | 2 | 3 | 4;
 
-const STEPS = [
-  { n: 1, label: "Estimation", icon: "📍" },
-  { n: 2, label: "Frais d'achat", icon: "💶" },
-  { n: 3, label: "Aides", icon: "🎯" },
-  { n: 4, label: "Loyer légal", icon: "🔑" },
-  { n: 5, label: "Récap", icon: "✅" },
-];
-
-const AIDES_TYPE_BIEN: Array<{ value: "appartement" | "maison_rangee" | "maison_jumelee" | "maison_isolee"; label: string }> = [
-  { value: "appartement", label: "Appartement" },
-  { value: "maison_rangee", label: "Maison rangée" },
-  { value: "maison_jumelee", label: "Maison jumelée" },
-  { value: "maison_isolee", label: "Maison isolée" },
-];
+const STEP_KEYS = [
+  { n: 1, key: "estimation", icon: "📍" },
+  { n: 2, key: "frais", icon: "💶" },
+  { n: 3, key: "aides", icon: "🎯" },
+  { n: 4, key: "loyer", icon: "🔑" },
+  { n: 5, key: "recap", icon: "✅" },
+] as const;
 
 export default function WizardParticulier() {
+  const t = useTranslations("wizardParticulierPage");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
+
+  const STEPS = STEP_KEYS.map((s) => ({ n: s.n, label: t(`steps.${s.key}`), icon: s.icon }));
+  const AIDES_TYPE_BIEN: Array<{ value: "appartement" | "maison_rangee" | "maison_jumelee" | "maison_isolee"; label: string }> = [
+    { value: "appartement", label: t("bienTypes.appartement") },
+    { value: "maison_rangee", label: t("bienTypes.maisonRangee") },
+    { value: "maison_jumelee", label: t("bienTypes.maisonJumelee") },
+    { value: "maison_isolee", label: t("bienTypes.maisonIsolee") },
+  ];
 
   const [step, setStep] = useState<Step>(0);
 
@@ -267,7 +269,7 @@ export default function WizardParticulier() {
   }, [step, communeSearch, selectedResult, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf, prixNegocie, residencePrincipale, nbAcquereurs, montantHypotheque, revenuMenage, nbEnfants, typeBienAides, envisageLocatif, anneeAcquisition, travauxMontant, travauxAnnee]);
 
   const resetDraft = () => {
-    if (!confirm("Effacer ce brouillon et recommencer depuis le début ?")) return;
+    if (!confirm(t("confirmReset"))) return;
     try { localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
     window.location.reload();
   };
@@ -293,11 +295,9 @@ export default function WizardParticulier() {
     <div className="bg-background py-8 sm:py-12 min-h-screen">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <Link href={`${lp}/`} className="text-xs text-muted hover:text-navy">← tevaxia.lu</Link>
-          <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">Wizard Particulier — votre projet en 4 étapes</h1>
-          <p className="mt-2 text-sm text-muted">
-            Estimation → frais d&apos;achat → aides de l&apos;État → règle du loyer légal. Tout en un seul parcours guidé.
-          </p>
+          <Link href={`${lp}/`} className="text-xs text-muted hover:text-navy">{t("backHome")}</Link>
+          <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+          <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
         </div>
 
         {restored && (
@@ -306,10 +306,10 @@ export default function WizardParticulier() {
               <svg className="inline h-4 w-4 mr-1 -mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Brouillon restauré automatiquement (sauvegardé dans votre navigateur).
+              {t("draftRestored")}
             </span>
             <button onClick={resetDraft} className="text-xs font-medium text-emerald-800 underline hover:no-underline">
-              Recommencer de zéro
+              {t("resetDraft")}
             </button>
           </div>
         )}
@@ -749,7 +749,7 @@ export default function WizardParticulier() {
             disabled={step === 0}
             className="rounded-lg border border-card-border bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            ← Précédent
+            ← {t("prev")}
           </button>
           {step < 4 ? (
             <button
@@ -757,14 +757,14 @@ export default function WizardParticulier() {
               disabled={!canNext}
               className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Suivant →
+              {t("next")} →
             </button>
           ) : (
             <Link
               href={`${lp}/`}
               className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
             >
-              Retour à l&apos;accueil
+              {t("backToHome")}
             </Link>
           )}
         </div>

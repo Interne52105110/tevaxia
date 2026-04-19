@@ -9620,5 +9620,29 @@
       "label": "Warnung:",
       "body": "dës Analyse ass indikativ. D'LU-STR-Reguléierung evoluéiert séier (EU 2024/1028-Iwwerschaffung, Gemengereglementer). Validéiert ëmmer mat engem spezialiséierten Affekot oder LU-Steierberoder virun all Vermietung. Wäerter entspriechen dem Stand Abrëll 2026."
     }
+  },
+  "wizardParticulierPage": {
+    "backHome": "← tevaxia.lu",
+    "title": "Privatperson-Wizard — Äre Projet a 4 Schrëtt",
+    "subtitle": "Schätzung → Akafsgebühren → staatlech Hëllefen → legal Loyer-Regel. Alles an engem guidéierten Wee.",
+    "steps": {
+      "estimation": "Schätzung",
+      "frais": "Akafsgebühren",
+      "aides": "Hëllefen",
+      "loyer": "Legale Loyer",
+      "recap": "Récap"
+    },
+    "bienTypes": {
+      "appartement": "Appartement",
+      "maisonRangee": "Reienhaus",
+      "maisonJumelee": "Doppelhaus",
+      "maisonIsolee": "Fräistoend Haus"
+    },
+    "draftRestored": "Entworf automatesch hiergestallt (an Ärem Browser gespäichert).",
+    "resetDraft": "Vu Null ufänken",
+    "confirmReset": "Dësen Entworf läschen a vu Null ufänken?",
+    "prev": "Zréck",
+    "next": "Weider",
+    "backToHome": "Op den Home zréck"
   }
 }
