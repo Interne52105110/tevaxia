@@ -9405,5 +9405,69 @@
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
     }
+  },
+  "strHub": {
+    "meta": {
+      "title": "Alojamento curto Luxemburgo — Airbnb, Booking, Vrbo | tevaxia.lu",
+      "description": "7 calculadoras STR para anfitrioes Airbnb/Booking no Luxemburgo: rentabilidade liquida apos imposto, conformidade (limite 3 meses, licenca, Reg UE 2026), arbitragem longo vs curto prazo, pricing dinamico."
+    },
+    "hero": {
+      "badge": "Novo vertical — abril 2026",
+      "title": "Alojamento curto no Luxemburgo",
+      "subtitle": "7 ferramentas gratuitas para anfitrioes Airbnb, Booking, Vrbo e sazonais no Luxemburgo. Rentabilidade realista, conformidade legal 2026, arbitragem entre longa e curta duracao.",
+      "tag1": "Limite 3 meses / ano",
+      "tag2": "IRS LU",
+      "tag3": "Regulamento UE 2024/1028",
+      "tag4": "Airbnb / Booking / Vrbo"
+    },
+    "tools": {
+      "rentabilite": {
+        "title": "Rentabilidade STR",
+        "desc": "Calcule o rendimento liquido anual de um imovel em Airbnb/Booking no Luxemburgo, custos e impostos incluidos."
+      },
+      "compliance": {
+        "title": "Conformidade STR Luxemburgo",
+        "desc": "Checklist legal: limite 3 meses, licenca alojamento, regulamentos municipais, Regulamento UE 2024/1028."
+      },
+      "arbitrage": {
+        "title": "Arbitragem LT vs CT vs Mix",
+        "desc": "Compare arrendamento longa duracao (regra 5%), Airbnb puro e cenario misto — encontre a opcao mais rentavel para o seu perfil fiscal."
+      },
+      "pricing": {
+        "title": "Dynamic pricing LU",
+        "desc": "Precos mes a mes segundo a sazonalidade LU (Schueberfouer, Maratona, mercados de Natal). Alternativa local ao PriceLabs/Wheelhouse."
+      },
+      "observatoire": {
+        "title": "Observatorio ADR LU",
+        "desc": "ADR mediano, percentis, ocupacao e RevPAR por zona. 4 200 listagens LU Q4 2025. Alternativa local gratuita ao AirDNA."
+      },
+      "complianceEu": {
+        "title": "Registo UE STR 2024/1028",
+        "desc": "Registo obrigatorio no registo europeu das locacoes curto prazo (meados 2026). Geracao do dossier + numero identificacao."
+      },
+      "forecast": {
+        "title": "Previsao 12 meses",
+        "desc": "Modelo Holt-Winters mensal (sazonalidade anual) para projetar ocupacao, ADR e rendimento a 6-24 meses. Importacao CSV PMS + exportacao."
+      }
+    },
+    "why": {
+      "title": "Porque um vertical STR dedicado ao Luxemburgo?",
+      "rules": {
+        "title": "Regras LU especificas",
+        "body": "Para alem de 90 dias cumulativos por ano, o senhorio tem de obter uma licenca de alojamento (art. 6 lei 17.07.2020). Luxemburgo-Cidade impoe restricoes municipais adicionais."
+      },
+      "eu": {
+        "title": "Regulamento UE 2024/1028",
+        "body": "Entrada em vigor meados 2026: registo unico europeu, transmissao obrigatoria das noites aos municipios. Todos os anfitrioes Airbnb/Booking afetados."
+      },
+      "tax": {
+        "title": "IRS 2026",
+        "body": "Rendimentos > 600 €/ano → declaracao IRS obrigatoria. Taxa marginal ate 45,78 % (IR 42 % × contribuicao emprego 1,09). Dedutiveis: juros, PNO, limpeza, OTA 15-18 %."
+      },
+      "arbitrage": {
+        "title": "Arbitragem LT vs CT",
+        "body": "A regra dos 5 % limita as rendas longa duracao LU — mas o STR e mais rentavel apos custos, comissoes OTA e impostos? As nossas ferramentas dao-lhe a resposta em numeros."
+      }
+    }
   }
 }

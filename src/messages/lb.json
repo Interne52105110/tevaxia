@@ -9405,5 +9405,69 @@
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
     }
+  },
+  "strHub": {
+    "meta": {
+      "title": "Kuerzzäitvermietung Lëtzebuerg — Airbnb, Booking, Vrbo | tevaxia.lu",
+      "description": "7 STR-Rechner fir Airbnb/Booking-Hosten zu Lëtzebuerg: Nettorendement no Steier, Conformitéit (3-Méint-Schwell, Lizenz, EU Reg 2026), Laang- vs Kuerzzäit-Arbitrage, dynamescht Pricing."
+    },
+    "hero": {
+      "badge": "Nei Vertikal — Abrëll 2026",
+      "title": "Kuerzzäitvermietung zu Lëtzebuerg",
+      "subtitle": "7 gratis Tools fir Airbnb-, Booking-, Vrbo- a Saisonhosten zu Lëtzebuerg. Realistesch Rendement, legal Conformitéit 2026, Arbitrage zwëschen Laang- a Kuerzzäitvermietung.",
+      "tag1": "3-Méint-Schwell / Joer",
+      "tag2": "LU-Akommessteier",
+      "tag3": "EU Regulation 2024/1028",
+      "tag4": "Airbnb / Booking / Vrbo"
+    },
+    "tools": {
+      "rentabilite": {
+        "title": "STR-Rendement",
+        "desc": "Berechent d'jäerlecht Nettoakommes vun enger Airbnb/Booking-Immobilie zu Lëtzebuerg, Käschten a Steier abegraff."
+      },
+      "compliance": {
+        "title": "STR Lëtzebuerg Conformitéit",
+        "desc": "Legal Checklist: 3-Méint-Schwell, Hébergement-Lizenz, Gemengereglementer, EU Regulation 2024/1028."
+      },
+      "arbitrage": {
+        "title": "LT vs ST vs Mix Arbitrage",
+        "desc": "Vergläicht Laangzäitvermietung (5%-Regel), pure Airbnb a Mix-Szenario — fannt déi rentabelst Optioun fir Äert Steierprofil."
+      },
+      "pricing": {
+        "title": "Dynamic Pricing LU",
+        "desc": "Méintlech Präisgestaltung no LU-Saisonalitéit (Schueberfouer, Marathon, Chrëschtmäert). Lokal Alternativ zu PriceLabs/Wheelhouse."
+      },
+      "observatoire": {
+        "title": "LU ADR Observatoire",
+        "desc": "Median ADR, Percentilen, Belegung a RevPAR pro Zone. 4.200 LU-Listings Q4 2025. Gratis lokal Alternativ zu AirDNA."
+      },
+      "complianceEu": {
+        "title": "EU STR Registre 2024/1028",
+        "desc": "Verpflicht Enregistrement um europäesche Kuerzzäitvermietungs-Registre (Mëtt 2026). Dossier-Generéierung + Identifikatiounsnummer."
+      },
+      "forecast": {
+        "title": "12-Méint Prognose",
+        "desc": "Méintlecht Holt-Winters-Modell (jäerlech Saisonalitéit) fir Belegung, ADR an Ëmsaz iwwer 6-24 Méint ze projetéieren. CSV PMS Import + Export."
+      }
+    },
+    "why": {
+      "title": "Firwat eng dediziéiert Lëtzebuerg-STR-Vertikal?",
+      "rules": {
+        "title": "LU-spezifesch Regelen",
+        "body": "Iwwer 90 kumuléiert Deeg pro Joer muss de Bailleur eng Hébergement-Lizenz kréien (Art. 6 Gesetz 17.07.2020). Lëtzebuerg-Stad leet zousätzlech kommunal Restriktiounen op."
+      },
+      "eu": {
+        "title": "EU Regulation 2024/1028",
+        "body": "Inkraafttriede Mëtt 2026: eenzegen europäesche Registre, verpflicht Iwwermëttlung vun den Nuechten un d'Gemengen. All Airbnb/Booking-Hosten betraff."
+      },
+      "tax": {
+        "title": "Akommessteier 2026",
+        "body": "Akommes > 600 €/Joer → obligatoresch IR-Erklärung. Marginaler Saz bis 45,78 % (IR 42 % × Beschäftegungsbäitrag 1,09). Offsetzbar: Zënsen, PNO, Botzung, OTA 15-18 %."
+      },
+      "arbitrage": {
+        "title": "LT vs ST Arbitrage",
+        "body": "D'5%-Regel plaffonéiert LU-Laangzäit-Lounen — mee ass STR no Käschten, OTA-Provisiounen a Steiere rentabler? Eis Tools gi Iech d'Zuelenäntwert."
+      }
+    }
   }
 }

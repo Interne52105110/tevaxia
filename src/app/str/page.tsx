@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Location courte durée Luxembourg — Airbnb, Booking, Vrbo | tevaxia.lu",
-  description:
-    "3 calculateurs STR pour hôtes Airbnb/Booking au Luxembourg : rentabilité nette après impôt, conformité (seuil 3 mois, licence, EU Reg 2026), arbitrage long vs court terme.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("strHub.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 const TOOLS = [
   {
     href: "/str/rentabilite",
-    title: "Rentabilité STR",
-    description: "Calculez le revenu net annuel d'un bien en Airbnb/Booking au Luxembourg, charges et impôt inclus.",
+    key: "rentabilite",
     color: "from-rose-600 to-orange-600",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -22,8 +23,7 @@ const TOOLS = [
   },
   {
     href: "/str/compliance",
-    title: "Conformité STR Luxembourg",
-    description: "Checklist légale : seuil 3 mois, licence hébergement, règlements communaux, EU Regulation 2024/1028.",
+    key: "compliance",
     color: "from-amber-600 to-yellow-600",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -33,8 +33,7 @@ const TOOLS = [
   },
   {
     href: "/str/arbitrage",
-    title: "Arbitrage LT vs CT vs Mix",
-    description: "Comparez location longue durée (règle 5%), Airbnb pur et scénario mixte — trouvez l'option la plus rentable selon votre profil fiscal.",
+    key: "arbitrage",
     color: "from-indigo-600 to-violet-600",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -44,8 +43,7 @@ const TOOLS = [
   },
   {
     href: "/str/pricing",
-    title: "Dynamic pricing LU",
-    description: "Tarification mois par mois selon la saisonnalité LU (Schueberfouer, Marathon, marchés de Noël). Alternative locale à PriceLabs/Wheelhouse.",
+    key: "pricing",
     color: "from-pink-600 to-fuchsia-600",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -55,8 +53,7 @@ const TOOLS = [
   },
   {
     href: "/str/observatoire",
-    title: "Observatoire ADR LU",
-    description: "ADR médian, percentiles, occupation et RevPAR par zone. 4 200 listings LU Q4 2025. Alternative locale gratuite à AirDNA.",
+    key: "observatoire",
     color: "from-teal-600 to-emerald-600",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -66,8 +63,7 @@ const TOOLS = [
   },
   {
     href: "/str/compliance-eu",
-    title: "Registre EU STR 2024/1028",
-    description: "Enregistrement obligatoire au registre européen des locations courte durée (mi-2026). Génération du dossier + numéro d'identification.",
+    key: "complianceEu",
     color: "from-blue-600 to-sky-600",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -78,8 +74,7 @@ const TOOLS = [
   },
   {
     href: "/str/forecast",
-    title: "Prévisionnel 12 mois",
-    description: "Modèle Holt-Winters mensuel (saisonnalité annuelle) pour projeter occupation, ADR et revenu sur 6-24 mois. Import CSV PMS + export.",
+    key: "forecast",
     color: "from-purple-600 to-indigo-600",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -90,7 +85,7 @@ const TOOLS = [
 ];
 
 export default async function StrHub() {
-  const locale = await getLocale();
+  const [locale, t] = await Promise.all([getLocale(), getTranslations("strHub")]);
   const lp = locale === "fr" ? "" : `/${locale}`;
 
   return (
@@ -99,20 +94,19 @@ export default async function StrHub() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
             <span className="h-2 w-2 animate-pulse rounded-full bg-orange-400"></span>
-            Nouveau vertical — avril 2026
+            {t("hero.badge")}
           </div>
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Location courte durée au Luxembourg
+            {t("hero.title")}
           </h1>
           <p className="mt-6 max-w-3xl mx-auto text-lg leading-8 text-white/80">
-            3 outils gratuits pour les hôtes Airbnb, Booking, Vrbo et saisonnier au Luxembourg. Rentabilité réaliste,
-            conformité légale 2026, arbitrage entre location longue et courte durée.
+            {t("hero.subtitle")}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-white/60">
-            <span className="rounded-full border border-white/20 px-3 py-1">Seuil 3 mois / an</span>
-            <span className="rounded-full border border-white/20 px-3 py-1">Fiscalité IR LU</span>
-            <span className="rounded-full border border-white/20 px-3 py-1">EU Regulation 2024/1028</span>
-            <span className="rounded-full border border-white/20 px-3 py-1">Airbnb / Booking / Vrbo</span>
+            <span className="rounded-full border border-white/20 px-3 py-1">{t("hero.tag1")}</span>
+            <span className="rounded-full border border-white/20 px-3 py-1">{t("hero.tag2")}</span>
+            <span className="rounded-full border border-white/20 px-3 py-1">{t("hero.tag3")}</span>
+            <span className="rounded-full border border-white/20 px-3 py-1">{t("hero.tag4")}</span>
           </div>
         </div>
       </section>
@@ -130,9 +124,9 @@ export default async function StrHub() {
                   {tool.icon}
                 </div>
                 <h3 className="text-lg font-semibold text-navy group-hover:text-navy-light transition-colors">
-                  {tool.title}
+                  {t(`tools.${tool.key}.title`)}
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{tool.description}</p>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{t(`tools.${tool.key}.desc`)}</p>
                 <div className="mt-4 flex items-center justify-end">
                   <svg className="h-5 w-5 text-muted transition-transform group-hover:translate-x-1 group-hover:text-navy" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -146,39 +140,27 @@ export default async function StrHub() {
 
       <section className="border-t border-card-border bg-card py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-navy sm:text-3xl text-center">Pourquoi un vertical STR dédié au Luxembourg ?</h2>
+          <h2 className="text-2xl font-bold text-navy sm:text-3xl text-center">{t("why.title")}</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             <div className="rounded-xl border border-card-border bg-background p-6">
               <div className="text-3xl">📐</div>
-              <h3 className="mt-3 text-base font-semibold text-navy">Règles LU spécifiques</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                Au-delà de <strong>90 jours cumulés par an</strong>, le loueur doit obtenir une licence d&apos;hébergement
-                (art. 6 loi 17.07.2020). Luxembourg-Ville impose des restrictions communales supplémentaires.
-              </p>
+              <h3 className="mt-3 text-base font-semibold text-navy">{t("why.rules.title")}</h3>
+              <p className="mt-2 text-sm text-muted leading-relaxed">{t("why.rules.body")}</p>
             </div>
             <div className="rounded-xl border border-card-border bg-background p-6">
               <div className="text-3xl">🇪🇺</div>
-              <h3 className="mt-3 text-base font-semibold text-navy">EU Regulation 2024/1028</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                Entrée en vigueur <strong>mi-2026</strong> : registre unique européen, transmission obligatoire des nuitées
-                aux communes. Tous les hôtes Airbnb/Booking concernés.
-              </p>
+              <h3 className="mt-3 text-base font-semibold text-navy">{t("why.eu.title")}</h3>
+              <p className="mt-2 text-sm text-muted leading-relaxed">{t("why.eu.body")}</p>
             </div>
             <div className="rounded-xl border border-card-border bg-background p-6">
               <div className="text-3xl">💶</div>
-              <h3 className="mt-3 text-base font-semibold text-navy">Fiscalité IR 2026</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                Revenus &gt; 600 €/an → déclaration IR obligatoire. Taux marginal jusqu&apos;à
-                <strong> 45,78 %</strong> (IR 42 % × contribution emploi 1,09). Charges déductibles : intérêts, PNO, ménage, OTA 15-18 %.
-              </p>
+              <h3 className="mt-3 text-base font-semibold text-navy">{t("why.tax.title")}</h3>
+              <p className="mt-2 text-sm text-muted leading-relaxed">{t("why.tax.body")}</p>
             </div>
             <div className="rounded-xl border border-card-border bg-background p-6">
               <div className="text-3xl">📊</div>
-              <h3 className="mt-3 text-base font-semibold text-navy">Arbitrage LT vs CT</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                La règle des 5 % plafonne les loyers long terme LU — mais le STR est-il plus rentable après charges,
-                commissions OTA et impôts ? Nos outils vous donnent la réponse chiffrée.
-              </p>
+              <h3 className="mt-3 text-base font-semibold text-navy">{t("why.arbitrage.title")}</h3>
+              <p className="mt-2 text-sm text-muted leading-relaxed">{t("why.arbitrage.body")}</p>
             </div>
           </div>
         </div>

@@ -9405,5 +9405,69 @@
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
     }
+  },
+  "strHub": {
+    "meta": {
+      "title": "Kurzzeitvermietung Luxemburg — Airbnb, Booking, Vrbo | tevaxia.lu",
+      "description": "7 STR-Rechner für Airbnb/Booking-Gastgeber in Luxemburg: Nettorendite nach Steuer, Compliance (3-Monats-Schwelle, Lizenz, EU Reg 2026), Lang- vs Kurzzeit-Arbitrage, dynamisches Pricing."
+    },
+    "hero": {
+      "badge": "Neue Vertikale — April 2026",
+      "title": "Kurzzeitvermietung in Luxemburg",
+      "subtitle": "7 kostenlose Tools für Airbnb-, Booking-, Vrbo- und Saisongastgeber in Luxemburg. Realistische Rendite, gesetzliche Compliance 2026, Arbitrage zwischen Lang- und Kurzzeitvermietung.",
+      "tag1": "3-Monats-Schwelle / Jahr",
+      "tag2": "LU-Einkommensteuer",
+      "tag3": "EU Regulation 2024/1028",
+      "tag4": "Airbnb / Booking / Vrbo"
+    },
+    "tools": {
+      "rentabilite": {
+        "title": "STR-Rendite",
+        "desc": "Berechnen Sie das jährliche Nettoeinkommen einer Airbnb/Booking-Immobilie in Luxemburg, Kosten und Steuern inkl."
+      },
+      "compliance": {
+        "title": "STR Luxemburg Compliance",
+        "desc": "Rechtliche Checkliste: 3-Monats-Schwelle, Beherbergungslizenz, Gemeindeverordnungen, EU Regulation 2024/1028."
+      },
+      "arbitrage": {
+        "title": "LT vs ST vs Mix Arbitrage",
+        "desc": "Vergleichen Sie Langzeitvermietung (5%-Regel), reines Airbnb und Mix-Szenario — finden Sie die rentabelste Option für Ihr Steuerprofil."
+      },
+      "pricing": {
+        "title": "Dynamic Pricing LU",
+        "desc": "Monatliche Preisgestaltung nach LU-Saisonalität (Schueberfouer, Marathon, Weihnachtsmärkte). Lokale Alternative zu PriceLabs/Wheelhouse."
+      },
+      "observatoire": {
+        "title": "LU ADR Observatorium",
+        "desc": "Median ADR, Perzentile, Auslastung und RevPAR pro Zone. 4.200 LU-Listings Q4 2025. Kostenlose lokale Alternative zu AirDNA."
+      },
+      "complianceEu": {
+        "title": "EU STR-Register 2024/1028",
+        "desc": "Pflichtregistrierung im europäischen Kurzzeitvermietungs-Register (Mitte 2026). Dossier-Generierung + Identifikationsnummer."
+      },
+      "forecast": {
+        "title": "12-Monats-Prognose",
+        "desc": "Monatliches Holt-Winters-Modell (jährliche Saisonalität) zur Projektion von Auslastung, ADR und Umsatz über 6-24 Monate. CSV PMS Import + Export."
+      }
+    },
+    "why": {
+      "title": "Warum eine eigene Luxemburg-STR-Vertikale?",
+      "rules": {
+        "title": "LU-spezifische Regeln",
+        "body": "Über 90 kumulierte Tage pro Jahr muss der Vermieter eine Beherbergungslizenz erhalten (Art. 6 Gesetz 17.07.2020). Luxemburg-Stadt setzt zusätzliche kommunale Beschränkungen durch."
+      },
+      "eu": {
+        "title": "EU Regulation 2024/1028",
+        "body": "Inkrafttreten Mitte 2026: einheitliches europäisches Register, verpflichtende Übermittlung der Übernachtungen an Gemeinden. Alle Airbnb/Booking-Gastgeber betroffen."
+      },
+      "tax": {
+        "title": "Einkommensteuer 2026",
+        "body": "Einkommen > 600 €/Jahr → verpflichtende IR-Erklärung. Grenzsteuersatz bis zu 45,78 % (IR 42 % × Beschäftigungsbeitrag 1,09). Abzugsfähig: Zinsen, PNO, Reinigung, OTA 15-18 %."
+      },
+      "arbitrage": {
+        "title": "LT vs ST Arbitrage",
+        "body": "Die 5%-Regel begrenzt LU-Langzeitmieten — aber ist STR nach Kosten, OTA-Provisionen und Steuern rentabler? Unsere Tools geben Ihnen die Zahlenantwort."
+      }
+    }
   }
 }
