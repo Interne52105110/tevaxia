@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { computeTotals, validateInvoice, formatInvoiceNumber, VAT_RATES_FR, VAT_RATES_LU, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
 import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
 import { saveToHistory } from "@/lib/facturation/history";
-import { track } from "@/lib/analytics";
+import { track, captureError } from "@/lib/analytics";
 
 type TemplateId = "generic" | "landlord" | "syndic" | "hotel" | "lease" | "valuer";
 
@@ -203,6 +203,7 @@ export default function EmissionPage() {
       });
       setSuccess(t("successMsg"));
     } catch (e) {
+      captureError(e, { module: "facturation", action: "generate", template, profile: inv.profile });
       setErrors([(e as Error).message]);
     }
     setGenerating(false);

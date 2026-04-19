@@ -10,6 +10,7 @@ import { listMyMandates, type AgencyMandate } from "@/lib/agency-mandates";
 import { listMyActivity, type ActivityEntry } from "@/lib/activity-log";
 import { listerEvaluations, type SavedValuation } from "@/lib/storage";
 import { formatEUR } from "@/lib/calculations";
+import { SkeletonStat, SkeletonText } from "@/components/Skeleton";
 
 export default function DashboardPage() {
   const t = useTranslations("dashboardPage");
@@ -68,7 +69,19 @@ export default function DashboardPage() {
   const patrimoineCalcule = evals.reduce((s, e) => s + (e.valeurPrincipale ?? 0), 0);
 
   if (authLoading || loading) {
-    return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-10">
+        <div className="h-7 w-72 animate-pulse rounded bg-card-border/50" />
+        <SkeletonText lines={1} className="mt-2 max-w-xl" />
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {Array.from({ length: 4 }, (_, i) => <SkeletonStat key={i} />)}
+        </div>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {Array.from({ length: 3 }, (_, i) => <SkeletonStat key={i} />)}
+        </div>
+        <div className="sr-only">{t("loading")}</div>
+      </div>
+    );
   }
 
   if (!user) {

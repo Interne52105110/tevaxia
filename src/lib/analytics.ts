@@ -38,3 +38,26 @@ export function reset(): void {
     ph.reset();
   }).catch(() => { /* silence */ });
 }
+
+/**
+ * Capture une exception vers Sentry + log analytics simple.
+ * Silent fail si Sentry pas configuré (DSN env var absent).
+ *
+ * Usage : captureError(err, { module: "facturation", action: "generate", ... })
+ */
+export function captureError(err: unknown, context?: Record<string, unknown>): void {
+  // Toujours log en console — utile dev et fallback prod sans Sentry
+  // eslint-disable-next-line no-console
+  console.error("[tevaxia error]", err, context);
+
+  if (typeof window === "undefined") return;
+  // Track en analytics aussi pour stats funnel
+  track("client_error", {
+    message: err instanceof Error ? err.message : String(err),
+    ...(context ?? {}),
+  });
+  // Sentry capture si dispo
+  import("@sentry/nextjs").then((Sentry) => {
+    Sentry.captureException(err, { extra: context });
+  }).catch(() => { /* sentry non chargé / non configuré */ });
+}
