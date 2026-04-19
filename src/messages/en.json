@@ -9177,6 +9177,33 @@
       "validation": {
         "title": "Fix before generation:"
       }
+    },
+    "historique": {
+      "back": "Back",
+      "title": "My Factur-X",
+      "subtitle": "History of the last 12 months. Older invoices are automatically purged (GDPR).",
+      "loading": "Loading history…",
+      "signIn": "Sign in to view history",
+      "newInvoice": "New Factur-X",
+      "searchPlaceholder": "Search by number, customer, seller…",
+      "noResults": "No results for this search.",
+      "empty": "No Factur-X generated yet. Create your first invoice to see it here.",
+      "deleteConfirm": "Delete invoice {num} from history?",
+      "col": {
+        "number": "Number",
+        "date": "Date",
+        "buyer": "Customer",
+        "ttc": "Gross",
+        "template": "Template",
+        "actions": "Actions"
+      },
+      "actions": {
+        "download": "Download",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "hintTitle": "Retention:",
+      "hintBody": "History keeps your Factur-X metadata for 12 months. Documents can be regenerated identically at any time (XML/PDF signature strictly reproducible). For 10-year legal retention (Art. L102 B LPF FR or Art. 65 §1 VAT LU), archive your PDFs on your own storage."
     }
   }
 }

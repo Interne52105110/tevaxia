@@ -9177,6 +9177,33 @@
       "validation": {
         "title": "Vor Erzeugung korrigieren:"
       }
+    },
+    "historique": {
+      "back": "Zurück",
+      "title": "Meine Factur-X",
+      "subtitle": "Verlauf der letzten 12 Monate. Ältere Rechnungen werden automatisch gelöscht (DSGVO).",
+      "loading": "Verlauf wird geladen…",
+      "signIn": "Anmelden, um den Verlauf anzusehen",
+      "newInvoice": "Neue Factur-X",
+      "searchPlaceholder": "Suche nach Nummer, Kunde, Verkäufer…",
+      "noResults": "Keine Ergebnisse für diese Suche.",
+      "empty": "Noch keine Factur-X erzeugt. Erstellen Sie Ihre erste Rechnung, um sie hier zu sehen.",
+      "deleteConfirm": "Rechnung {num} aus dem Verlauf löschen?",
+      "col": {
+        "number": "Nummer",
+        "date": "Datum",
+        "buyer": "Kunde",
+        "ttc": "Brutto",
+        "template": "Vorlage",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "download": "Download",
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "hintTitle": "Aufbewahrung:",
+      "hintBody": "Der Verlauf speichert die Metadaten Ihrer Factur-X 12 Monate lang. Dokumente können jederzeit identisch neu erzeugt werden (XML/PDF-Signatur strikt reproduzierbar). Für 10-Jahres-Aufbewahrung (Art. L102 B LPF FR oder Art. 65 §1 MwSt-Gesetz LU) archivieren Sie Ihre PDFs auf eigenem Speicher."
     }
   }
 }

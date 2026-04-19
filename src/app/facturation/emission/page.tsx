@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { computeTotals, validateInvoice, formatInvoiceNumber, VAT_RATES_FR, VAT_RATES_LU, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
 import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
+import { saveToHistory } from "@/lib/facturation/history";
 
 type TemplateId = "generic" | "landlord" | "syndic" | "hotel" | "lease" | "valuer";
 
@@ -111,6 +112,7 @@ function defaultInvoice(): FacturXInvoice {
 
 export default function EmissionPage() {
   const t = useTranslations("facturation.emission");
+  const tHist = useTranslations("facturation.historique");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
 
@@ -188,6 +190,8 @@ export default function EmissionPage() {
       a2.href = xmlUrl; a2.download = artifacts.xmlFilename;
       document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
       URL.revokeObjectURL(xmlUrl);
+      // Sauvegarde historique (silencieux si non-auth)
+      void saveToHistory(inv, template);
       setSuccess(t("successMsg"));
     } catch (e) {
       setErrors([(e as Error).message]);
@@ -207,10 +211,16 @@ export default function EmissionPage() {
           <h1 className="text-2xl font-bold text-navy mt-1">{t("title")}</h1>
           <p className="text-sm text-muted mt-1">{t("subtitle")}</p>
         </div>
-        <button onClick={resetAll}
-          className="rounded-lg border border-card-border bg-white px-3 py-2 text-xs font-semibold text-slate hover:bg-background">
-          {t("reset")}
-        </button>
+        <div className="flex items-center gap-2">
+          <Link href={`${lp}/facturation/historique`}
+            className="rounded-lg border border-card-border bg-white px-3 py-2 text-xs font-semibold text-slate hover:bg-background">
+            📋 {tHist("title")}
+          </Link>
+          <button onClick={resetAll}
+            className="rounded-lg border border-card-border bg-white px-3 py-2 text-xs font-semibold text-slate hover:bg-background">
+            {t("reset")}
+          </button>
+        </div>
       </div>
 
       {/* Template selector */}

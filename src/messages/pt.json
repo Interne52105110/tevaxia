@@ -9177,6 +9177,33 @@
       "validation": {
         "title": "Corrigir antes de gerar:"
       }
+    },
+    "historique": {
+      "back": "Voltar",
+      "title": "As minhas Factur-X",
+      "subtitle": "Historico dos ultimos 12 meses. Faturas mais antigas sao purgadas automaticamente (RGPD).",
+      "loading": "A carregar historico…",
+      "signIn": "Entrar para ver o historico",
+      "newInvoice": "Nova Factur-X",
+      "searchPlaceholder": "Pesquisar por numero, cliente, vendedor…",
+      "noResults": "Sem resultados para esta pesquisa.",
+      "empty": "Ainda nao gerou nenhuma Factur-X. Gere a primeira fatura para a ver aqui.",
+      "deleteConfirm": "Eliminar a fatura {num} do historico?",
+      "col": {
+        "number": "Numero",
+        "date": "Data",
+        "buyer": "Cliente",
+        "ttc": "TTC",
+        "template": "Template",
+        "actions": "Acoes"
+      },
+      "actions": {
+        "download": "Descarregar",
+        "edit": "Editar",
+        "delete": "Eliminar"
+      },
+      "hintTitle": "Conservacao:",
+      "hintBody": "O historico guarda os metadados das suas Factur-X durante 12 meses. Os documentos podem ser regerados a qualquer momento de forma identica (assinatura XML/PDF estritamente reproduzivel). Para conservacao legal 10 anos (Art. L102 B LPF FR ou Art. 65 §1 IVA LU), arquive os seus PDF em suporte proprio."
     }
   }
 }

@@ -9177,6 +9177,33 @@
       "validation": {
         "title": "À corriger avant génération :"
       }
+    },
+    "historique": {
+      "back": "Retour",
+      "title": "Mes Factur-X",
+      "subtitle": "Historique des 12 derniers mois. Les factures plus anciennes sont purgées automatiquement (cf. RGPD).",
+      "loading": "Chargement de l'historique…",
+      "signIn": "Se connecter pour consulter l'historique",
+      "newInvoice": "Nouvelle Factur-X",
+      "searchPlaceholder": "Rechercher par numéro, client, vendeur…",
+      "noResults": "Aucun résultat pour cette recherche.",
+      "empty": "Aucune Factur-X générée pour le moment. Génère ta première facture pour la retrouver ici.",
+      "deleteConfirm": "Supprimer la facture {num} de l'historique ?",
+      "col": {
+        "number": "Numéro",
+        "date": "Date",
+        "buyer": "Client",
+        "ttc": "TTC",
+        "template": "Template",
+        "actions": "Actions"
+      },
+      "actions": {
+        "download": "Télécharger",
+        "edit": "Éditer",
+        "delete": "Supprimer"
+      },
+      "hintTitle": "Conservation :",
+      "hintBody": "L'historique garde les métadonnées de tes Factur-X pendant 12 mois. Les documents peuvent être régénérés à tout moment identiquement (signature XML/PDF strictement reproductible). Pour conservation légale 10 ans (Art. L102 B LPF FR ou Art. 65 §1 TVA LU), archive tes PDF sur ton propre support."
     }
   }
 }

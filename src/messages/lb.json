@@ -9177,6 +9177,33 @@
       "validation": {
         "title": "Virun Generéierung ze korrigéieren:"
       }
+    },
+    "historique": {
+      "back": "Zréck",
+      "title": "Meng Factur-X",
+      "subtitle": "Historique vun de leschten 12 Méint. Méi al Rechnunge ginn automatesch purgéiert (RGPD).",
+      "loading": "Historique gëtt gelueden…",
+      "signIn": "Umellen fir den Historique ze kucken",
+      "newInvoice": "Nei Factur-X",
+      "searchPlaceholder": "Sich no Nummer, Client, Verkeefer…",
+      "noResults": "Keng Resultater fir dës Sich.",
+      "empty": "Nach keng Factur-X generéiert. Generéiert Är éischt Rechnung fir se hei ze gesinn.",
+      "deleteConfirm": "Rechnung {num} vum Historique läschen?",
+      "col": {
+        "number": "Nummer",
+        "date": "Datum",
+        "buyer": "Client",
+        "ttc": "Brutto",
+        "template": "Schablon",
+        "actions": "Aktiounen"
+      },
+      "actions": {
+        "download": "Download",
+        "edit": "Editéieren",
+        "delete": "Läschen"
+      },
+      "hintTitle": "Opbewahrung:",
+      "hintBody": "Den Historique späichert d'Metadaten vun Äre Factur-X 12 Méint laang. Dokumenter kënnen zu all Moment identesch nei generéiert ginn (XML/PDF-Ënnerschrëft strikt reproduzéierbar). Fir 10-Joer Opbewahrung (Art. L102 B LPF FR oder Art. 65 §1 TVA LU) archivéiert Är PDFen op Ärem eegene Support."
     }
   }
 }
