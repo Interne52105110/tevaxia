@@ -120,6 +120,14 @@ const SECTIONS: Section[] = [
     ],
   },
   {
+    titleKey: "facturation",
+    links: [
+      { href: "/facturation", key: "facturationHub" },
+      { href: "/facturation/emission", key: "facturationEmission" },
+      { href: "/facturation/historique", key: "facturationHistorique" },
+    ],
+  },
+  {
     titleKey: "str",
     links: [
       { href: "/str", key: "strHub" },

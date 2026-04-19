@@ -23,6 +23,8 @@
     "connexion": "Sign in",
     "hedonique": "Hedonic Valuation",
     "vefa": "VEFA Calculator",
+    "facturation": "Electronic invoicing",
+    "strHub": "STR / Airbnb",
     "amlKyc": "AML / KYC",
     "pagPap": "Zoning (PAG/PAP)",
     "comparer": "Compare 2 properties",
@@ -249,6 +251,26 @@
         "title": "VEFA (Off-plan)",
         "description": "Off-plan purchase simulation: VAT 3% vs 17%, fund call scheduling, comparison with existing properties.",
         "tag": "VAT 3% / 17%"
+      },
+      "facturation": {
+        "title": "Electronic invoicing",
+        "description": "Factur-X preparation compliant with EN 16931 for the FR reform of 01/09/2026. 6 real estate templates (landlord, syndic, LU hotel, commercial lease, valuer), FR + LU VAT, PDF/A-3 + XML export.",
+        "tag": "Factur-X · EN 16931"
+      },
+      "str": {
+        "title": "Short-term rentals (STR)",
+        "description": "7 tools for Airbnb / Booking / Vrbo hosts in LU: net yield after tax, 90-day threshold + EU Reg 2024/1028 compliance, long vs short-term arbitrage, dynamic pricing.",
+        "tag": "Airbnb / Booking"
+      },
+      "esg": {
+        "title": "Real estate ESG",
+        "description": "CRREM stranding analysis, EU Taxonomy 2020/852, SFDR Art. 8/9, CRR Pillar 3 ESG. LU calibration, Paris 1.5 °C pathways, Climate Delegated Act.",
+        "tag": "CRREM · Taxonomy"
+      },
+      "proAgences": {
+        "title": "Real estate agency CRM",
+        "description": "7-stage mandate pipeline, buyer CRM + nurturing, eIDAS signature, co-branded property sheet, OpenImmo XML export, annual commissions.",
+        "tag": "B2B LU agencies"
       }
     },
     "stats": {
@@ -4568,6 +4590,7 @@
       "gestionLocative": "Rental management",
       "pms": "Hotel / motel PMS",
       "hotellerie": "Hospitality — analysis",
+      "facturation": "Electronic invoicing",
       "str": "STR / Airbnb",
       "energy": "Energy & ESG",
       "conformite": "Compliance (AML / KYC)",
@@ -4649,6 +4672,9 @@
       "hotelCapex": "10-year CAPEX",
       "hotelTransactions": "LU transactions",
       "hotelGroupe": "Group dashboard",
+      "facturationHub": "Invoicing hub",
+      "facturationEmission": "Issue a Factur-X",
+      "facturationHistorique": "12-month history",
       "strHub": "STR / Airbnb hub",
       "strRenta": "STR profitability",
       "strForecast": "STR forecast",

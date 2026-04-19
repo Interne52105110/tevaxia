@@ -30,6 +30,7 @@ const MENU_GROUPS: MenuGroup[] = [
       { href: "/achat-vs-location", key: "achatLocation" },
       { href: "/comparer", key: "comparer" },
       { href: "/vefa", key: "vefa" },
+      { href: "/str", key: "strHub" },
     ],
   },
   {
@@ -47,6 +48,7 @@ const MENU_GROUPS: MenuGroup[] = [
       { href: "/syndic", key: "syndic" },
       { href: "/aml-kyc", key: "amlKyc" },
       { href: "/pro-agences", key: "proAgences" },
+      { href: "/facturation", key: "facturation" },
       { href: "/api-banques", key: "apiBanques" },
     ],
   },

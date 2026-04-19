@@ -24,6 +24,8 @@
     "profil": "Profil",
     "hedonique": "Hedonesch Bewäertung",
     "vefa": "VEFA Rechner",
+    "facturation": "Elektronesch Rechnungsstellung",
+    "strHub": "STR / Airbnb",
     "amlKyc": "AML / KYC",
     "pagPap": "PAG / PAP",
     "comparer": "2 Immobilie vergläichen",
@@ -249,6 +251,26 @@
         "title": "VEFA (Neibau)",
         "description": "VEFA-Kafsimulatioun: TVA 3% vs 17%, Ratenplang, Vergläich mat bestoenden Immobilien.",
         "tag": "TVA 3% / 17%"
+      },
+      "facturation": {
+        "title": "Elektronesch Rechnungsstellung",
+        "description": "Factur-X Virbereedung konform mat EN 16931 fir d'FR-Reform vum 01.09.2026. 6 Immobilien-Schablounen (Locateur, Syndic, LU-Hotel, Gewerbemiete, Evaluateur), FR + LU TVA, PDF/A-3 + XML Export.",
+        "tag": "Factur-X · EN 16931"
+      },
+      "str": {
+        "title": "Kuerzzäitvermietung (STR)",
+        "description": "7 Tools fir Airbnb / Booking / Vrbo Hosten zu LU: Nettorendement no Steier, 90-Deeg-Schwell + EU Reg 2024/1028 Conformitéit, Laang- vs Kuerzzäit-Arbitrage, dynamescht Pricing.",
+        "tag": "Airbnb / Booking"
+      },
+      "esg": {
+        "title": "Immobilien-ESG",
+        "description": "CRREM Stranding-Analyse, EU-Taxonomie 2020/852, SFDR Art. 8/9, CRR Pillar 3 ESG. LU-Kalibréierung, Paräis 1,5 °C Pathways, Climate Delegated Act.",
+        "tag": "CRREM · Taxonomy"
+      },
+      "proAgences": {
+        "title": "CRM fir Immobilienagencen",
+        "description": "7-Etappe-Mandatspipeline, Akeefer-CRM + Nurturing, eIDAS-Ënnerschrëft, co-branded Objetsblat, OpenImmo-XML-Export, jäerlech Provisiounen.",
+        "tag": "B2B LU-Agencen"
       }
     },
     "stats": {
@@ -4568,6 +4590,7 @@
       "gestionLocative": "Loyer-Gestioun",
       "pms": "Hotel / Motel PMS",
       "hotellerie": "Hotellerie — Analys",
+      "facturation": "Elektronesch Rechnungsstellung",
       "str": "STR / Airbnb",
       "energy": "Energie & ESG",
       "conformite": "Konformitéit (AML / KYC)",
@@ -4649,6 +4672,9 @@
       "hotelCapex": "10-Joer CAPEX",
       "hotelTransactions": "LU-Transaktiounen",
       "hotelGroupe": "Grupp-Dashboard",
+      "facturationHub": "Rechnungs-Hub",
+      "facturationEmission": "Factur-X ausstellen",
+      "facturationHistorique": "12-Méint-Historie",
       "strHub": "STR / Airbnb-Hub",
       "strRenta": "STR-Rentabilitéit",
       "strForecast": "STR-Forecast",

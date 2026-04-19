@@ -23,6 +23,8 @@
     "connexion": "Iniciar sessão",
     "hedonique": "Avaliação hedónica",
     "vefa": "Calculadora VEFA",
+    "facturation": "Faturação eletrónica",
+    "strHub": "STR / Airbnb",
     "amlKyc": "AML / KYC",
     "pagPap": "PAG / PAP",
     "comparer": "Comparar 2 imóveis",
@@ -249,6 +251,26 @@
         "title": "VEFA (Planta)",
         "description": "Simulação de compra em VEFA: IVA 3% vs 17%, escalonamento de chamadas de fundos, comparação com o existente.",
         "tag": "IVA 3% / 17%"
+      },
+      "facturation": {
+        "title": "Faturação eletrónica",
+        "description": "Preparação Factur-X conforme EN 16931 para a reforma FR de 01/09/2026. 6 templates imobiliários (senhorio, syndic, hotel LU, arrendamento comercial, avaliador), IVA FR + LU, exportação PDF/A-3 + XML.",
+        "tag": "Factur-X · EN 16931"
+      },
+      "str": {
+        "title": "Alojamento curto (STR)",
+        "description": "7 ferramentas para anfitriões Airbnb / Booking / Vrbo em LU: rentabilidade líquida após imposto, conformidade limite 90d + Regulamento UE 2024/1028, arbitragem longo vs curto prazo, pricing dinâmico.",
+        "tag": "Airbnb / Booking"
+      },
+      "esg": {
+        "title": "ESG imobiliário",
+        "description": "Análise stranding CRREM, Taxonomia UE 2020/852, SFDR Art. 8/9, CRR Pillar 3 ESG. Calibração LU, pathways Paris 1,5 °C, Climate Delegated Act.",
+        "tag": "CRREM · Taxonomy"
+      },
+      "proAgences": {
+        "title": "CRM Agências imobiliárias",
+        "description": "Pipeline mandatos 7 etapas, CRM compradores + nurturing, assinatura eIDAS, ficha imóvel co-branded, exportação OpenImmo XML, comissões anuais.",
+        "tag": "B2B agências LU"
       }
     },
     "stats": {
@@ -4568,6 +4590,7 @@
       "gestionLocative": "Gestão locativa",
       "pms": "PMS hotel / motel",
       "hotellerie": "Hotelaria — análise",
+      "facturation": "Faturação eletrónica",
       "str": "STR / Airbnb",
       "energy": "Energia & ESG",
       "conformite": "Conformidade (AML / KYC)",
@@ -4649,6 +4672,9 @@
       "hotelCapex": "CAPEX 10 anos",
       "hotelTransactions": "Transações LU",
       "hotelGroupe": "Dashboard grupo",
+      "facturationHub": "Hub faturação",
+      "facturationEmission": "Emitir uma Factur-X",
+      "facturationHistorique": "Histórico 12 meses",
       "strHub": "STR / Airbnb hub",
       "strRenta": "Rentabilidade STR",
       "strForecast": "STR forecast",
