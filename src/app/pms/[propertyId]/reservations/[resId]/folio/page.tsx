@@ -17,6 +17,9 @@ import type {
 } from "@/lib/pms/types";
 import { formatEUR } from "@/lib/calculations";
 import { errMsg } from "@/lib/pms/errors";
+import { buildPmsFacturX } from "@/lib/facturation/factur-x-pms-builder";
+import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
+import { track } from "@/lib/analytics";
 
 const QUICK_CATEGORIES: { cat: PmsChargeCategory; label: string; defaultPrice: number }[] = [
   { cat: "breakfast", label: "Petit-déj", defaultPrice: 15 },
@@ -171,6 +174,52 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
     }
   };
 
+  const handleFacturX = async () => {
+    if (!property || !reservation) return;
+    try {
+      const inv = buildPmsFacturX({
+        reservation: {
+          reservation_number: reservation.reservation_number,
+          booker_name: reservation.booker_name,
+          booker_email: reservation.booker_email,
+          check_in: reservation.check_in,
+          check_out: reservation.check_out,
+          nb_adults: reservation.nb_adults,
+          nb_children: reservation.nb_children,
+        },
+        property: {
+          name: property.name,
+          address: property.address,
+          city: property.commune,
+          country_code: "LU",
+        },
+        charges,
+      });
+      const artifacts = await generateFacturXPdf(inv);
+      const blob = new Blob([artifacts.pdfBytes as BlobPart], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = artifacts.pdfFilename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      const xmlBlob = new Blob([artifacts.xml], { type: "application/xml" });
+      const xmlUrl = URL.createObjectURL(xmlBlob);
+      const a2 = document.createElement("a");
+      a2.href = xmlUrl; a2.download = artifacts.xmlFilename;
+      document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
+      URL.revokeObjectURL(xmlUrl);
+
+      track("pms_facturx_generated", {
+        reservation_number: reservation.reservation_number,
+        nb_charges: charges.filter((c) => !c.voided).length,
+        total_ttc: folio?.total_ttc ?? 0,
+      });
+    } catch (e) {
+      setError(errMsg(e));
+    }
+  };
+
   const grouped = useMemo(() => groupChargesByCategory(charges), [charges]);
   const breakdown = useMemo(() => computeVatBreakdown(charges), [charges]);
 
@@ -217,6 +266,13 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
               <button onClick={handleSettle}
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
                 Générer la facture
+              </button>
+            )}
+            {charges.filter((c) => !c.voided).length > 0 && (
+              <button onClick={handleFacturX}
+                className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-100"
+                title="Génère Factur-X EN 16931 (PDF/A-3 + XML CII embarqué) pour transmission e-invoicing client corporate">
+                ⚡ Factur-X
               </button>
             )}
             {folio.status === "settled" && folio.invoice_id && (
