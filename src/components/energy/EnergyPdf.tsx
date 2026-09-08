@@ -278,13 +278,13 @@ function ImpactDoc({ result, classeActuelle, valeur }: { result: ImpactResponse;
   return (
     <Document>
       <CoverPage
-        title="Impact CPE sur la valeur"
+        title="Scenario de valeur par classe CPE"
         subtitle={`Classe ${classeActuelle} · ${fmtEur(valeur)}`}
         date={today()}
         reference={ref}
       />
       <Page size="A4" style={s.page}>
-        <PageHeader title="Impact CPE sur la valeur" reference={ref} />
+        <PageHeader title="Scenario de valeur par classe CPE" reference={ref} />
 
         <KpiGrid items={[
           { label: "Valeur du bien", value: fmtEur(valeur), highlight: true },
@@ -292,7 +292,7 @@ function ImpactDoc({ result, classeActuelle, valeur }: { result: ImpactResponse;
           { label: "Classes analysees", value: String(result.classes.length) },
         ]} />
 
-        <ConfidenceGauge level={result.classes.length >= 7 ? "high" : result.classes.length >= 4 ? "medium" : "low"} />
+        <Text style={s.note}>Hypotheses illustratives ou saisies — aucune calibration statistique ni fiabilite mesuree.</Text>
 
         <Text style={s.section}>Impact par classe energetique</Text>
         <View style={s.tHead}>
@@ -317,10 +317,9 @@ function ImpactDoc({ result, classeActuelle, valeur }: { result: ImpactResponse;
           <Text style={s.note}>Sources : {result.sources.join(" ; ")}</Text>
         )}
 
-        <Disclaimer />
+        <Text style={s.disclaimer}>Scenario illustratif uniquement. Aucun montant d’aide, financement ou effet fiscal n’est calcule dans ce rapport.</Text>
         <Footer />
       </Page>
-      <DisclaimerPage reference={ref} />
     </Document>
   );
 }

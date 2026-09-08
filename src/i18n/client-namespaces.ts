@@ -39,6 +39,7 @@ export const CLIENT_NAMESPACES = [
   "drive",
   "energy",
   "energyAudit",
+  "energyImpactAudit",
   "esgCrrem",
   "esgTaxo",
   "estimateurConstruction",

@@ -149,3 +149,12 @@ Budget total de devis facultatif, remplaçant les ratios illustratifs par chambr
 Gain RevPAR fixé à zéro par défaut, supprimant la promesse non documentée d’un gain de label. Un gain commercial saisi est converti en contribution après coûts variables via une marge explicite ; il n’est plus traité comme un bénéfice intégral. Entretien additionnel déduit avant payback et VAN. VAN de flux constants sur dix ans, actualisés à 4 %, aides supposées immédiates. Dette, fiscalité, TVA récupérable, remplacements et valeur résiduelle exclus et signalés. Pour délais d’aides/financement : renvoi au scénario détaillé.
 
 Validation : 1 137 tests / 88 fichiers réussis, build et lint ciblé réussis. Nouveaux cas d’aides saisies, réconciliation des coûts, marge, entretien, absence de travaux, surconsommation, occupation nulle et données invalides. QA navigateur cinq langues et largeurs 320/390/768/1440 réussie ; inspection visuelle du rendu.
+
+## Impact énergétique sur la valeur — 8 septembre 2026
+
+- L’ancienne page attribuait des coefficients, des tailles d’échantillon communales et des niveaux de confiance à des organismes sans jeu de données justificatif identifié dans le dépôt. Ces présentations sont retirées de cette page.
+- Remplacement par un scénario de sensibilité : coefficients illustratifs modifiables, D = 0 %, valeur cible = valeur déclarée × (1 + coefficient cible) / (1 + coefficient actuel). Valeur actuelle conservée exactement, écarts négatifs possibles, saisies invalides masquant résultats et export.
+- Suppression des fourchettes présentées comme statistiques, des émissions CO2 déduites automatiquement de la seule classe, et du prompt IA exigeant des références non établies. La page ne dépend plus de l’ancien service Java d’impact.
+- PDF corrigé : aucune fiabilité attribuée au simple nombre de classes, hypothèses et formule explicites, aucun montant d’aide ou effet fiscal calculé. PDF français annoncé dans les cinq langues.
+- Tests : 1 142 tests / 89 fichiers passent ; lint ciblé et build passent. PDF généré, contenu contrôlé, deux pages rendues et page de calcul inspectée.
+- Limite de périmètre : le module energy-comparables reste utilisé par la page syndic ; son audit est encore à effectuer. L’ancien backend Java n’est pas corrigé par ce lot. L’audit global de Tevaxia reste ouvert.

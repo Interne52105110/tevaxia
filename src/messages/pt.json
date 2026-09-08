@@ -18105,5 +18105,26 @@
     "aidScope": "Um hotel não é automaticamente elegível para Klimabonus habitacional. Verifique utilização, empresa beneficiária, despesas, data do pedido e acumulação. Zero apoio considerado significa nenhum valor contabilizado, não decisão de inelegibilidade.",
     "official": "Apoios ambientais às empresas — Guichet.lu",
     "detailed": "Cenário detalhado: apoios diferidos e financiamento"
+  },
+  "energyImpactAudit": {
+    "title": "Desempenho energético: cenário de valor",
+    "description": "Teste o efeito de hipóteses de preço por classe energética sobre o valor declarado do imóvel.",
+    "scope": "Os coeficientes propostos são exemplos ilustrativos. Não se baseiam em transações verificadas e não são taxas oficiais nem uma avaliação de mercado. Não foi estabelecida qualquer amostra estatística ou nível de confiança.",
+    "value": "Valor atual do imóvel (€)",
+    "current": "Classe atual",
+    "hypotheses": "Hipóteses em relação à classe D",
+    "example": "Altere cada coeficiente com base nos seus próprios elementos. D mantém-se em 0 %. Os valores propostos apenas ilustram o cálculo.",
+    "class": "Classe",
+    "invalid": "Introduza um valor positivo até 100 milhões de euros e coeficientes entre −90 % e +100 %.",
+    "results": "Resultados do cenário",
+    "base": "Valor de referência D calculado",
+    "coefficient": "Hipótese / D",
+    "target": "Valor do cenário",
+    "delta": "Diferença face ao valor atual",
+    "pdf": "Descarregar PDF (francês)",
+    "methodTitle": "Método e limites",
+    "formula": "Valor alvo = valor atual × (1 + coeficiente alvo / 100) ÷ (1 + coeficiente atual / 100). O valor declarado mantém-se exatamente para a classe atual.",
+    "limits": "A diferença calculada não é um lucro líquido: obras, despesas e impostos não são deduzidos. A classe energética, por si só, não determina o consumo real nem as emissões de CO₂. A avaliação de mercado exige comparáveis verificados e as características do imóvel.",
+    "renovation": "Calcular custos e poupanças da renovação"
   }
 }

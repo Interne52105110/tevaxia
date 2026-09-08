@@ -18105,5 +18105,26 @@
     "aidScope": "A hotel does not automatically qualify for residential Klimabonus. Verify building use, beneficiary business, eligible expenditure, application date and cumulation rules. Zero included aid means no amount is counted in this scenario, not an ineligibility decision.",
     "official": "Environmental business grants — Guichet.lu",
     "detailed": "Detailed scenario: delayed grants and financing"
+  },
+  "energyImpactAudit": {
+    "title": "Energy performance: value scenario",
+    "description": "Test how assumed prices by EPC class affect your property's declared value.",
+    "scope": "The proposed coefficients are illustrative examples. They are not based on verified transactions and are neither official rates nor a market valuation. No statistical sample or confidence level has been established.",
+    "value": "Current property value (€)",
+    "current": "Current class",
+    "hypotheses": "Assumptions relative to class D",
+    "example": "Edit each coefficient using your own evidence. D remains at 0%. Proposed values only illustrate the calculation.",
+    "class": "Class",
+    "invalid": "Enter a positive value up to €100 million and coefficients between −90% and +100%.",
+    "results": "Scenario results",
+    "base": "Calculated class D reference value",
+    "coefficient": "Assumption / D",
+    "target": "Scenario value",
+    "delta": "Difference from current value",
+    "pdf": "Download PDF (French)",
+    "methodTitle": "Method and limitations",
+    "formula": "Target value = current value × (1 + target coefficient / 100) ÷ (1 + current coefficient / 100). The current class retains its declared value exactly.",
+    "limits": "The calculated difference is not net profit: works, fees and taxes are not deducted. EPC class alone cannot determine actual consumption or CO₂ emissions. Market valuation requires verified comparables and property characteristics.",
+    "renovation": "Calculate renovation costs and savings"
   }
 }

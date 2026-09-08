@@ -18105,5 +18105,26 @@
     "aidScope": "Un hôtel ne relève pas automatiquement des aides Klimabonus pour logements. Faites vérifier l’usage du bâtiment, l’entreprise bénéficiaire, les dépenses admissibles, la date de demande et les règles de cumul. Zéro aide retenue signifie qu’aucun montant n’est compté dans ce scénario, pas une décision d’inéligibilité.",
     "official": "Aides environnementales aux entreprises — Guichet.lu",
     "detailed": "Scénario détaillé : aides différées et financement"
+  },
+  "energyImpactAudit": {
+    "title": "Impact énergétique : scénario de valeur",
+    "description": "Testez l’effet d’hypothèses de prix par classe CPE sur la valeur déclarée de votre bien.",
+    "scope": "Les coefficients proposés sont des exemples illustratifs. Ils ne proviennent pas de transactions vérifiées et ne constituent ni un barème officiel ni une estimation de marché. Aucun échantillon statistique ou niveau de confiance n’est établi.",
+    "value": "Valeur actuelle du bien (€)",
+    "current": "Classe actuelle",
+    "hypotheses": "Hypothèses par rapport à la classe D",
+    "example": "Modifiez chaque coefficient selon vos propres éléments. D reste à 0 %. Les valeurs proposées servent uniquement à illustrer le calcul.",
+    "class": "Classe",
+    "invalid": "Saisissez une valeur positive jusqu’à 100 millions d’euros et des coefficients compris entre −90 % et +100 %.",
+    "results": "Résultats du scénario",
+    "base": "Valeur de référence D calculée",
+    "coefficient": "Hypothèse / D",
+    "target": "Valeur du scénario",
+    "delta": "Écart avec la valeur actuelle",
+    "pdf": "Télécharger le PDF (français)",
+    "methodTitle": "Méthode et limites",
+    "formula": "Valeur cible = valeur actuelle × (1 + coefficient cible / 100) ÷ (1 + coefficient actuel / 100). La valeur actuelle est conservée exactement pour sa propre classe.",
+    "limits": "L’écart calculé n’est pas un bénéfice net : travaux, frais et fiscalité ne sont pas déduits. La classe CPE seule ne suffit pas à déterminer la consommation réelle ou les émissions de CO₂. Il faut des comparables vérifiés et les caractéristiques du bien pour estimer sa valeur de marché.",
+    "renovation": "Calculer les coûts et économies de rénovation"
   }
 }

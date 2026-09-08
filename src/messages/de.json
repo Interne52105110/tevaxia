@@ -18105,5 +18105,26 @@
     "aidScope": "Ein Hotel fällt nicht automatisch unter Wohnungs-Klimabonus. Gebäudenutzung, begünstigtes Unternehmen, förderfähige Kosten, Antragsdatum und Kumulation prüfen. Null angesetzte Hilfe bedeutet keine Anrechnung im Szenario, keinen Ausschlussbescheid.",
     "official": "Umwelthilfen für Unternehmen — Guichet.lu",
     "detailed": "Detailszenario: spätere Hilfen und Finanzierung"
+  },
+  "energyImpactAudit": {
+    "title": "Energieeffizienz: Wertszenario",
+    "description": "Prüfen Sie, wie angenommene Preise nach Energieklasse den angegebenen Immobilienwert beeinflussen.",
+    "scope": "Die vorgeschlagenen Koeffizienten sind illustrative Beispiele. Sie beruhen nicht auf verifizierten Transaktionen und sind weder offizielle Sätze noch eine Marktwertermittlung. Eine statistische Stichprobe oder ein Konfidenzniveau ist nicht belegt.",
+    "value": "Aktueller Immobilienwert (€)",
+    "current": "Aktuelle Klasse",
+    "hypotheses": "Annahmen gegenüber Klasse D",
+    "example": "Passen Sie jeden Koeffizienten anhand eigener Nachweise an. D bleibt bei 0 %. Die vorgeschlagenen Werte veranschaulichen nur die Berechnung.",
+    "class": "Klasse",
+    "invalid": "Geben Sie einen positiven Wert bis 100 Millionen Euro und Koeffizienten zwischen −90 % und +100 % ein.",
+    "results": "Szenarioergebnisse",
+    "base": "Berechneter Referenzwert für D",
+    "coefficient": "Annahme / D",
+    "target": "Szenariowert",
+    "delta": "Differenz zum aktuellen Wert",
+    "pdf": "PDF herunterladen (Französisch)",
+    "methodTitle": "Methode und Grenzen",
+    "formula": "Zielwert = aktueller Wert × (1 + Zielkoeffizient / 100) ÷ (1 + aktueller Koeffizient / 100). Für die aktuelle Klasse bleibt der angegebene Wert exakt erhalten.",
+    "limits": "Die Differenz ist kein Nettogewinn: Baukosten, Gebühren und Steuern sind nicht abgezogen. Die Energieklasse allein bestimmt weder tatsächlichen Verbrauch noch CO₂-Emissionen. Eine Marktwertermittlung erfordert geprüfte Vergleichsobjekte und die Eigenschaften der Immobilie.",
+    "renovation": "Renovierungskosten und Einsparungen berechnen"
   }
 }

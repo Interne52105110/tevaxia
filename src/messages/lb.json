@@ -18105,5 +18105,26 @@
     "aidScope": "En Hotel fält net automatesch ënner Wunnengs-Klimabonus. Préift Gebainotzung, begënschtegte Betrib, berechtegt Ausgaben, Datum a Kumulatioun. Null Hëllef am Szenario ass keng Entscheedung iwwer Ineligibilitéit.",
     "official": "Ëmwelthëllefe fir Betriber — Guichet.lu",
     "detailed": "Detailléierte Szenario: spéider Hëllefen a Finanzéierung"
+  },
+  "energyImpactAudit": {
+    "title": "Energieeffizienz: Wäertszenario",
+    "description": "Test, wéi ugeholl Präisser no Energieklass den uginnene Wäert vun Ärer Immobilie beaflossen.",
+    "scope": "Déi proposéiert Koeffiziente sinn illustrativ Beispiller. Si baséieren net op verifizéierten Transaktiounen a si weder offiziell Sätz nach eng Maartwäertschätzung. Eng statistesch Prouf oder e Vertrauensniveau ass net beluecht.",
+    "value": "Aktuelle Wäert vun der Immobilie (€)",
+    "current": "Aktuell Klass",
+    "hypotheses": "Hypotheesen am Verglach mat Klass D",
+    "example": "Passt all Koeffizient un Är eege Beleeër un. D bleift bei 0 %. Déi proposéiert Wäerter illustréieren nëmmen d’Berechnung.",
+    "class": "Klass",
+    "invalid": "Gitt e positive Wäert bis 100 Milliounen Euro a Koeffizienten tëschent −90 % an +100 % an.",
+    "results": "Resultater vum Szenario",
+    "base": "Berechente Referenzwäert fir D",
+    "coefficient": "Hypothees / D",
+    "target": "Wäert am Szenario",
+    "delta": "Differenz zum aktuelle Wäert",
+    "pdf": "PDF eroflueden (Franséisch)",
+    "methodTitle": "Method a Grenzen",
+    "formula": "Zilwäert = aktuelle Wäert × (1 + Zilkoeffizient / 100) ÷ (1 + aktuelle Koeffizient / 100). Fir déi aktuell Klass bleift den uginnene Wäert exakt erhalen.",
+    "limits": "Déi berechent Differenz ass keen Nettogewënn: Aarbechten, Käschten a Steiere sinn net ofgezunn. D’Energieklass eleng bestëmmt weder den tatsächleche Verbrauch nach d’CO₂-Emissiounen. Eng Maartwäertschätzung erfuerdert verifizéiert Vergläichsobjeten an d’Eegenschafte vun der Immobilie.",
+    "renovation": "Renovatiounskäschten an Erspuernisser berechnen"
   }
 }

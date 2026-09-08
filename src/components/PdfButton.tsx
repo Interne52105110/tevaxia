@@ -62,7 +62,7 @@ export function PdfButton({ onClick, label, generateBlob, filename }: { onClick?
   if (generateBlob) {
     return (
       <>
-        <div className="inline-flex items-center rounded-lg border border-card-border shadow-sm overflow-hidden">
+        <div className="inline-flex max-w-full flex-wrap items-center rounded-lg border border-card-border shadow-sm overflow-hidden">
           <button
             type="button"
             onClick={() => gatedAction(handlePreview)}
