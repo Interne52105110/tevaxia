@@ -1,5 +1,5 @@
+import { TABLES_REEVALUATION } from './coefficients-reevaluation';
 import {
-  COEFFICIENTS_REEVALUATION,
   TAUX_PLAFOND_LOYER,
   TAUX_DROITS_TOTAL,
   BELLEGEN_AKT_PAR_PERSONNE,
@@ -31,10 +31,11 @@ import {
 // UTILS
 // ============================================================
 
-export function getCoefficient(annee: number): number {
-  if (annee < 1960) return COEFFICIENTS_REEVALUATION[1960] || 15.52;
-  if (annee > 2026) return 1;
-  return COEFFICIENTS_REEVALUATION[annee] || 1;
+export function getCoefficient(annee: number, anneeReference = 2026): number {
+  const table=TABLES_REEVALUATION[anneeReference];
+  if(!table || !Number.isInteger(annee))throw new RangeError('Millésime de réévaluation non disponible (2015–2026).');
+  // Le tableau vise 1918 et les années antérieures ; les années récentes valent 1.
+  return table.values[Math.max(1918,Math.min(annee,anneeReference))];
 }
 
 export function formatEUR(amount: number): string {
@@ -98,8 +99,8 @@ export interface CapitalInvestiResult {
 }
 
 export function calculerCapitalInvesti(input: CapitalInvestiInput): CapitalInvestiResult {
-  const coeffAcquisition = getCoefficient(input.anneeAcquisition);
-  const coeffTravaux = input.travauxMontant > 0 ? getCoefficient(input.travauxAnnee) : 1;
+  const coeffAcquisition = getCoefficient(input.anneeAcquisition, input.anneeBail);
+  const coeffTravaux = input.travauxMontant > 0 ? getCoefficient(input.travauxAnnee, input.anneeBail) : 1;
 
   const prixReevalue = input.prixAcquisition * coeffAcquisition;
   const travauxReevalues = input.travauxMontant * coeffTravaux;
@@ -109,7 +110,7 @@ export function calculerCapitalInvesti(input: CapitalInvestiInput): CapitalInves
   if (input.tranchesSupplementaires) {
     for (const t of input.tranchesSupplementaires) {
       if (t.montant > 0) {
-        tranchesSupReevaluees += t.montant * getCoefficient(t.annee);
+        tranchesSupReevaluees += t.montant * getCoefficient(t.annee, input.anneeBail);
       }
     }
   }
@@ -462,7 +463,7 @@ export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
   }
 
   // Cession longue durée (> 2 ans)
-  const coefficient = getCoefficient(input.anneeAcquisition);
+  const coefficient = getCoefficient(input.anneeAcquisition, input.anneeCession);
   const prixAcquisitionRevalorise = input.prixAcquisition * coefficient;
   const fraisForfaitaires = (input.fraisAcquisition || 0) + (input.travauxDeductibles || 0);
   const gainBrut = input.prixCession - prixAcquisitionRevalorise - fraisForfaitaires;

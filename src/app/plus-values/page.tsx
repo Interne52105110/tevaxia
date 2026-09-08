@@ -173,6 +173,8 @@ export default function PlusValues() {
                 />
                 <InputField
                   label={t("anneeCession")}
+                  type="select"
+                  options={Array.from({length:12},(_,i)=>({value:String(2026-i),label:String(2026-i)}))}
                   value={anneeCession}
                   onChange={(v) => setAnneeCession(Number(v))}
                   min={1960}

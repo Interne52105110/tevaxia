@@ -12,10 +12,10 @@ import {
 
 describe("getCoefficient", () => {
   it("returns correct coefficient for 2020", () => {
-    expect(getCoefficient(2020)).toBe(1.95);
+    expect(getCoefficient(2020)).toBe(1.15);
   });
   it("returns correct coefficient for 2000", () => {
-    expect(getCoefficient(2000)).toBe(3.07);
+    expect(getCoefficient(2000)).toBe(1.65);
   });
   it("returns 1 for future years", () => {
     expect(getCoefficient(2030)).toBe(1);
@@ -34,11 +34,11 @@ describe("calculerCapitalInvesti", () => {
       appliquerVetuste: false,
       tauxVetusteAnnuel: 0.02,
     });
-    // 500000 × 1.95 = 975000
-    expect(result.prixReevalue).toBe(975000);
-    expect(result.capitalInvesti).toBe(975000);
-    // Loyer max = 975000 × 5% / 12
-    expect(result.loyerMensuelMax).toBeCloseTo(975000 * 0.05 / 12, 0);
+    // 500000 × 1.09 (table 2025) = 545000
+    expect(result.prixReevalue).toBe(545000);
+    expect(result.capitalInvesti).toBe(545000);
+    // Loyer max = 545000 × 5% / 12
+    expect(result.loyerMensuelMax).toBeCloseTo(545000 * 0.05 / 12, 0);
   });
 
   it("applies vetuste when enabled", () => {
@@ -54,7 +54,7 @@ describe("calculerCapitalInvesti", () => {
     });
     // Vétusté = 5 ans × 2% = 10%
     expect(result.decoteVetustePct).toBeCloseTo(0.10);
-    expect(result.capitalInvesti).toBeCloseTo(975000 * 0.90, 0);
+    expect(result.capitalInvesti).toBeCloseTo(545000 * 0.90, 0);
   });
 
   it("handles colocation", () => {
@@ -150,10 +150,10 @@ describe("calculerPlusValue", () => {
       estCouple: false,
     });
     expect(result.typeGain).toBe("cession");
-    expect(result.coefficient).toBe(2.33); // Coeff 2010
-    // Prix revalorisé = 300000 × 2.33 = 699000
-    // Gain brut = 600000 - 699000 = -99000 (négatif = pas d'impôt)
-    expect(result.gainImposable).toBe(0);
+    expect(result.coefficient).toBe(1.26); // 2010 dans la table 2025
+    // Prix revalorisé = 300000 × 1.26 = 378000
+    // Gain après abattement = 600000 - 378000 - 50000 = 172000
+    expect(result.gainImposable).toBe(172000);
   });
 
   it("doubles abatement for couple", () => {
@@ -216,5 +216,17 @@ describe("calculerDSCR", () => {
     });
     // NOI = 30000, DSCR = 30000/24000 = 1.25
     expect(dscr).toBeCloseTo(1.25);
+  });
+});
+
+
+describe('article 102(6) : millésime de liquidation',()=>{
+  it('ne réévalue pas un investissement contemporain et utilise chaque tableau annuel',()=>{
+    expect(getCoefficient(2026,2026)).toBe(1);
+    expect(getCoefficient(2020,2025)).toBe(1.09);
+    expect(getCoefficient(2020,2026)).toBe(1.15);
+    expect(getCoefficient(2000,2020)).toBe(1.40);
+    expect(getCoefficient(1900,2026)).toBe(206.57);
+    expect(()=>getCoefficient(2000,2030)).toThrow(RangeError);
   });
 });

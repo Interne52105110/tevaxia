@@ -26,13 +26,13 @@ describe("COEFFICIENTS_REEVALUATION", () => {
     expect(COEFFICIENTS_REEVALUATION[2000]).toBeGreaterThan(COEFFICIENTS_REEVALUATION[2026]);
   });
 
-  it("2025 coefficient is 1.52", () => {
-    expect(COEFFICIENTS_REEVALUATION[2025]).toBe(1.52);
+  it("2025 coefficient is 1 in the 2026 table", () => {
+    expect(COEFFICIENTS_REEVALUATION[2025]).toBe(1);
   });
 
-  it("no coefficient exceeds 16", () => {
+  it("coefficients are finite and positive", () => {
     for (const coeff of Object.values(COEFFICIENTS_REEVALUATION)) {
-      expect(coeff).toBeLessThanOrEqual(16);
+      expect(Number.isFinite(coeff)).toBe(true);
       expect(coeff).toBeGreaterThan(0);
     }
   });

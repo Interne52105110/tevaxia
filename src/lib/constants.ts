@@ -2,24 +2,9 @@
 // CONSTANTES FISCALES & RÉGLEMENTAIRES — LUXEMBOURG
 // ============================================================
 
-// Coefficients de réévaluation (Art. 102 LIR) — pour plus-values et capital investi
-// Source : Administration des Contributions Directes, barème 2025
-export const COEFFICIENTS_REEVALUATION: Record<number, number> = {
-  1960: 15.52, 1961: 15.21, 1962: 14.91, 1963: 14.30, 1964: 13.82,
-  1965: 13.35, 1966: 12.91, 1967: 12.60, 1968: 12.33, 1969: 11.87,
-  1970: 11.34, 1971: 10.83, 1972: 10.28, 1973: 9.68, 1974: 8.78,
-  1975: 7.86, 1976: 7.28, 1977: 6.82, 1978: 6.60, 1979: 6.33,
-  1980: 5.95, 1981: 5.51, 1982: 5.05, 1983: 4.64, 1984: 4.35,
-  1985: 4.17, 1986: 4.17, 1987: 4.17, 1988: 4.10, 1989: 3.96,
-  1990: 3.82, 1991: 3.70, 1992: 3.59, 1993: 3.47, 1994: 3.38,
-  1995: 3.32, 1996: 3.28, 1997: 3.23, 1998: 3.20, 1999: 3.17,
-  2000: 3.07, 2001: 2.97, 2002: 2.87, 2003: 2.80, 2004: 2.73,
-  2005: 2.63, 2006: 2.56, 2007: 2.49, 2008: 2.40, 2009: 2.40,
-  2010: 2.33, 2011: 2.25, 2012: 2.17, 2013: 2.10, 2014: 2.08,
-  2015: 2.07, 2016: 2.07, 2017: 2.03, 2018: 1.99, 2019: 1.96,
-  2020: 1.95, 2021: 1.88, 2022: 1.77, 2023: 1.64, 2024: 1.57,
-  2025: 1.52, 2026: 1.48,
-};
+import { TABLES_REEVALUATION } from './coefficients-reevaluation';
+// Table en vigueur en 2026 ; pour un calcul historique, sélectionner le millésime.
+export const COEFFICIENTS_REEVALUATION = TABLES_REEVALUATION[2026].values;
 
 // Droits d'enregistrement et transcription
 export const TAUX_ENREGISTREMENT = 0.06; // 6%
@@ -37,7 +22,7 @@ export const TVA_FAVEUR_PLAFOND = 50_000; // Plafond de la faveur fiscale TVA 3%
 
 // Loyer — règle des 5% du capital investi
 export const TAUX_PLAFOND_LOYER = 0.05; // 5% annuel
-export const TAUX_VETUSTE_ANNUEL = 0.02; // 2% par an de décote vétusté
+export const TAUX_VETUSTE_ANNUEL = 0.02; // Ancien nom conservé : 2% PAR PÉRIODE DE DEUX ANS, après 15 ans.
 
 // Plus-values
 export const SEUIL_SPECULATION_ANNEES = 2; // Détention ≤ 2 ans = spéculation
