@@ -1065,14 +1065,9 @@ export default function SyndicPage() {
       <SEOContent
         ns="syndic"
         sections={[
-          { titleKey: "gestionTitle", contentKey: "gestionContent" },
-          { titleKey: "chargesTitle", contentKey: "chargesContent" },
           { titleKey: "renovationTitle", contentKey: "renovationContent" },
-          { titleKey: "reglementationTitle", contentKey: "reglementationContent" },
         ]}
         faq={[
-          { questionKey: "faq1Q", answerKey: "faq1A" },
-          { questionKey: "faq2Q", answerKey: "faq2A" },
           { questionKey: "faq3Q", answerKey: "faq3A" },
           { questionKey: "faq4Q", answerKey: "faq4A" },
         ]}

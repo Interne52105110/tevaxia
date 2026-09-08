@@ -7521,8 +7521,8 @@
       "portfolioDesc": "Consolide biens gérés : valeur, rendement, exposition géographique.",
       "energyPortfolioTitle": "Portfolio énergétique",
       "energyPortfolioDesc": "Vue CPE / CO₂ / stranding risk CRREM sur tout le patrimoine.",
-      "epbdTitle": "Échéances EPBD IV",
-      "epbdDesc": "Calendrier 2030 / 2050 des seuils énergétiques obligatoires par bâtiment.",
+      "epbdTitle": "EPBD",
+      "epbdDesc": "Commission européenne — EPBD",
       "amlTitle": "AML / KYC",
       "amlDesc": "Vérification parties et seuils CSSF pour entrées copropriétaires ou cessions.",
       "benchmarkTitle": "Benchmark inter-copros",
@@ -7664,7 +7664,7 @@
       "chargesTitle": "Répartition des charges de copropriété : règles et bonnes pratiques",
       "chargesContent": "<p>La répartition des charges communes en copropriété luxembourgeoise obéit à des règles précises :</p><ul><li><strong>Charges générales</strong> (art. 6, loi 1975) : réparties selon les tantièmes de copropriété proportionnels à la valeur relative des lots privatifs.</li><li><strong>Charges spéciales</strong> : certaines charges peuvent être réparties selon l'utilité (ascenseur réparti selon les étages, chauffage selon la surface).</li><li><strong>Fonds de réserve</strong> : la constitution d'un fonds de réserve pour les gros travaux est recommandée (minimum 5 % du budget annuel).</li><li><strong>Transparence</strong> : le syndic doit présenter les comptes annuels détaillés et le budget prévisionnel en AG.</li></ul>",
       "renovationTitle": "Rénovation énergétique en copropriété : obligations et aides",
-      "renovationContent": "<p>La rénovation énergétique des copropriétés est devenue un enjeu majeur au Luxembourg :</p><ul><li><strong>Directive EPBD 2024/1275</strong> : les bâtiments résidentiels les plus énergivores devront être rénovés selon un calendrier progressif (classe E en 2030, classe D en 2033).</li><li><strong>Klimabonus / PRIMe House</strong> : le programme de subventions luxembourgeois couvre 30 à 50 % des coûts de rénovation pour l'isolation, le chauffage, les fenêtres et les énergies renouvelables.</li><li><strong>Vote en AG</strong> : les travaux de rénovation énergétique requièrent une majorité qualifiée des 2/3 des tantièmes (travaux d'amélioration) ou majorité simple (travaux d'entretien nécessaires).</li><li><strong>Conseil énergétique</strong> : myenergy propose un accompagnement gratuit pour les copropriétés souhaitant établir un plan de rénovation.</li></ul>",
+      "renovationContent": "<p>Saisissez les montants TTC de vos devis et les aides déjà confirmées, toutes à zéro au départ. Aucun montant n’est déduit automatiquement de la classe CPE. Les résultats supposent une aide disponible immédiatement et excluent le financement. La classe cible est un objectif à valider par un conseiller.</p><p>Pour le résidentiel, l’EPBD fixe une trajectoire nationale de consommation moyenne. La seule lettre du CPE ne permet pas d’attribuer une échéance individuelle 2030 ou 2033. Les règles nationales applicables au bâtiment doivent être vérifiées.</p><p>La répartition au prorata des tantièmes est une hypothèse budgétaire. Les droits de chaque bénéficiaire et les clés du règlement de copropriété doivent être vérifiés ; une aide n’est pas automatiquement transférable entre lots.</p>",
       "reglementationTitle": "Cadre réglementaire luxembourgeois",
       "reglementationContent": "<p>Le cadre juridique applicable aux copropriétés au Luxembourg comprend :</p><ul><li><strong>Loi du 16 mai 1975</strong> : statut de la copropriété des immeubles bâtis — définit les règles de copropriété, les droits et obligations des copropriétaires, le rôle du syndic.</li><li><strong>Règlement grand-ducal du 13 juin 1975</strong> : modalités d'application de la loi de 1975.</li><li><strong>Loi du 21 septembre 2006</strong> : bail d'habitation — encadre les loyers et les charges récupérables.</li><li><strong>Règlement grand-ducal du 5 mai 2023</strong> : aides financières PRIMe House pour la rénovation énergétique.</li><li><strong>Directive EPBD 2024/1275</strong> : performance énergétique des bâtiments — échéances de rénovation.</li></ul>",
       "faq1Q": "Comment sont calculés les tantièmes de copropriété ?",
@@ -7672,9 +7672,9 @@
       "faq2Q": "Quelles majorités sont nécessaires pour voter des travaux de rénovation énergétique ?",
       "faq2A": "Les travaux d'entretien courant peuvent être votés à la majorité simple (50 % + 1 des tantièmes). Les travaux d'amélioration (dont la rénovation énergétique profonde) nécessitent une majorité qualifiée des 2/3 des tantièmes représentés. Les travaux modifiant la destination de l'immeuble requièrent l'unanimité.",
       "faq3Q": "Comment financer la rénovation énergétique d'une copropriété au Luxembourg ?",
-      "faq3A": "Le financement combine : le fonds de réserve, des appels de fonds extraordinaires, des emprunts collectifs contractés par le syndicat, et les subventions Klimabonus/PRIMe House. Les banques luxembourgeoises proposent des prêts copropriété dédiés. myenergy accompagne gratuitement les copropriétés dans leur démarche.",
+      "faq3A": "Saisissez les montants TTC de vos devis et les aides déjà confirmées, toutes à zéro au départ. Aucun montant n’est déduit automatiquement de la classe CPE. Les résultats supposent une aide disponible immédiatement et excluent le financement. La classe cible est un objectif à valider par un conseiller.",
       "faq4Q": "Quelles sont les obligations du syndic en matière d'énergie ?",
-      "faq4A": "Le syndic doit veiller au maintien du certificat de performance énergétique (CPE), informer les copropriétaires des obligations EPBD, proposer en AG les travaux nécessaires pour atteindre les objectifs réglementaires, et accompagner les demandes de subventions Klimabonus. Il est responsable du suivi des consommations énergétiques des parties communes."
+      "faq4A": "Pour le résidentiel, l’EPBD fixe une trajectoire nationale de consommation moyenne. La seule lettre du CPE ne permet pas d’attribuer une échéance individuelle 2030 ou 2033. Les règles nationales applicables au bâtiment doivent être vérifiées."
     }
   },
   "hotellerieHub": {

@@ -7399,8 +7399,8 @@
       "portfolioDesc": "Consolida bens geridos: valor, rendimento, exposicao geografica.",
       "energyPortfolioTitle": "Portfolio energetico",
       "energyPortfolioDesc": "Vista CPE / CO₂ / risco stranding CRREM em todo o patrimonio.",
-      "epbdTitle": "Prazos EPBD IV",
-      "epbdDesc": "Calendario 2030 / 2050 dos limites energeticos obrigatorios por edificio.",
+      "epbdTitle": "EPBD",
+      "epbdDesc": "Comissão Europeia — EPBD",
       "amlTitle": "AML / KYC",
       "amlDesc": "Verificacao das partes e limites CSSF para entradas de condominos ou cessoes.",
       "benchmarkTitle": "Benchmark inter-condominios",
@@ -7542,7 +7542,7 @@
       "chargesTitle": "Distribuicao de encargos: regras e boas praticas",
       "chargesContent": "<p>A distribuicao dos encargos comuns segue regras precisas:</p><ul><li><strong>Encargos gerais</strong> (art. 6, lei 1975): distribuidos segundo a permilagem.</li><li><strong>Encargos especiais</strong>: podem ser distribuidos por utilidade.</li><li><strong>Fundo de reserva</strong>: recomendado (minimo 5% do orcamento anual).</li></ul>",
       "renovationTitle": "Renovacao energetica em condominio: obrigacoes e apoios",
-      "renovationContent": "<p>A renovacao energetica de condominios tornou-se uma questao central no Luxemburgo:</p><ul><li><strong>Diretiva EPBD 2024/1275</strong>: os edificios com pior desempenho devem ser renovados progressivamente.</li><li><strong>Klimabonus / PRIMe House</strong>: cobre 30-50% dos custos de renovacao.</li><li><strong>Votacao na AG</strong>: requer maioria qualificada de 2/3 da permilagem.</li></ul>",
+      "renovationContent": "<p>Introduza orçamentos com IVA e apoios já confirmados, inicialmente todos a zero. Nenhum montante é deduzido automaticamente da classe energética. Os resultados pressupõem apoios imediatamente disponíveis e excluem financiamento. Um consultor deve validar a classe pretendida.</p><p>Para edifícios residenciais, a EPBD estabelece uma trajetória nacional de consumo médio. A letra da classe energética não permite atribuir um prazo individual de 2030 ou 2033. Devem verificar-se as regras nacionais aplicáveis ao edifício.</p><p>A distribuição por permilagem é uma hipótese orçamental. Devem verificar-se os direitos de cada beneficiário e as regras do condomínio; os apoios não são automaticamente transferíveis entre frações.</p>",
       "reglementationTitle": "Quadro regulamentar luxemburgues",
       "reglementationContent": "<p>O quadro juridico inclui:</p><ul><li><strong>Lei de 16 de maio de 1975</strong>: estatuto da copropriedade.</li><li><strong>Regulamento grao-ducal de 13 de junho de 1975</strong>: medidas de aplicacao.</li><li><strong>Lei de 21 de setembro de 2006</strong>: arrendamento habitacional.</li><li><strong>Regulamento grao-ducal de 5 de maio de 2023</strong>: apoios PRIMe House.</li><li><strong>Diretiva EPBD 2024/1275</strong>: desempenho energetico dos edificios.</li></ul>",
       "faq1Q": "Como se calculam as permilagens de copropriedade?",
@@ -7550,9 +7550,9 @@
       "faq2Q": "Que maiorias sao necessarias para votar obras de renovacao energetica?",
       "faq2A": "Manutencao corrente: maioria simples. Obras de melhoria (incluindo renovacao energetica): maioria qualificada de 2/3. Alteracao da destinacao: unanimidade.",
       "faq3Q": "Como financiar a renovacao energetica de um condominio?",
-      "faq3A": "Financiamento combina: fundo de reserva, contribuicoes extraordinarias, emprestimos coletivos e subsidios Klimabonus/PRIMe House.",
+      "faq3A": "Introduza orçamentos com IVA e apoios já confirmados, inicialmente todos a zero. Nenhum montante é deduzido automaticamente da classe energética. Os resultados pressupõem apoios imediatamente disponíveis e excluem financiamento. Um consultor deve validar a classe pretendida.",
       "faq4Q": "Quais sao as obrigacoes do sindico em materia de energia?",
-      "faq4A": "O sindico deve manter o certificado energetico, informar sobre as obrigacoes EPBD, propor obras necessarias na AG e apoiar os pedidos de subsidio Klimabonus."
+      "faq4A": "Para edifícios residenciais, a EPBD estabelece uma trajetória nacional de consumo médio. A letra da classe energética não permite atribuir um prazo individual de 2030 ou 2033. Devem verificar-se as regras nacionais aplicáveis ao edifício."
     }
   },
   "hotellerieHub": {

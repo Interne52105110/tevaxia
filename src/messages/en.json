@@ -7521,8 +7521,8 @@
       "portfolioDesc": "Consolidates managed properties: value, yield, geographic exposure.",
       "energyPortfolioTitle": "Energy portfolio",
       "energyPortfolioDesc": "CPE / CO₂ / CRREM stranding risk view across the portfolio.",
-      "epbdTitle": "EPBD IV deadlines",
-      "epbdDesc": "2030 / 2050 mandatory energy threshold calendar per building.",
+      "epbdTitle": "EPBD",
+      "epbdDesc": "European Commission — EPBD",
       "amlTitle": "AML / KYC",
       "amlDesc": "Party verification and CSSF thresholds for co-owner entries or transfers.",
       "benchmarkTitle": "Inter-condo benchmark",
@@ -7664,7 +7664,7 @@
       "chargesTitle": "Co-ownership charges distribution: rules and best practices",
       "chargesContent": "<p>Common charges distribution in Luxembourg co-ownership follows precise rules:</p><ul><li><strong>General charges</strong> (art. 6, law 1975): distributed according to co-ownership shares proportional to the relative value of each private lot.</li><li><strong>Special charges</strong>: certain charges may be distributed by utility (elevator by floor, heating by area).</li><li><strong>Reserve fund</strong>: building a reserve fund for major works is recommended (minimum 5% of annual budget).</li><li><strong>Transparency</strong>: the syndic must present detailed annual accounts and the forecast budget at the GA.</li></ul>",
       "renovationTitle": "Energy renovation in co-ownership: obligations and subsidies",
-      "renovationContent": "<p>Energy renovation of co-owned buildings has become a major issue in Luxembourg:</p><ul><li><strong>EPBD Directive 2024/1275</strong>: the worst-performing residential buildings must be renovated on a progressive timeline (class E by 2030, class D by 2033).</li><li><strong>Klimabonus / PRIMe House</strong>: Luxembourg's subsidy programme covers 30-50% of renovation costs for insulation, heating, windows and renewables.</li><li><strong>GA vote</strong>: energy renovation works require a qualified majority of 2/3 of shares (improvement works) or simple majority (necessary maintenance).</li><li><strong>Energy advice</strong>: myenergy offers free support for co-ownerships wishing to establish a renovation plan.</li></ul>",
+      "renovationContent": "<p>Enter VAT-inclusive quotes and already confirmed grants, all initially zero. No amount is inferred automatically from the EPC class. Results assume grants are immediately available and exclude financing. The target class must be assessed by an energy adviser.</p><p>For residential buildings, the EPBD sets a national average-consumption trajectory. An EPC letter alone does not establish an individual 2030 or 2033 deadline. Applicable national rules must be checked for the building.</p><p>Allocation by ownership shares is a budgeting assumption. Each beneficiary's eligibility and the building's allocation rules must be checked; grants are not automatically transferable between units.</p>",
       "reglementationTitle": "Luxembourg regulatory framework",
       "reglementationContent": "<p>The legal framework applicable to co-ownerships in Luxembourg includes:</p><ul><li><strong>Law of 16 May 1975</strong>: co-ownership status for buildings — defines rules, rights and obligations of co-owners, the role of the syndic.</li><li><strong>Grand-ducal regulation of 13 June 1975</strong>: implementing measures of the 1975 law.</li><li><strong>Law of 21 September 2006</strong>: residential lease — regulates rents and recoverable charges.</li><li><strong>Grand-ducal regulation of 5 May 2023</strong>: PRIMe House financial aids for energy renovation.</li><li><strong>EPBD Directive 2024/1275</strong>: energy performance of buildings — renovation deadlines.</li></ul>",
       "faq1Q": "How are co-ownership shares calculated?",
@@ -7672,9 +7672,9 @@
       "faq2Q": "What majorities are needed to vote on energy renovation works?",
       "faq2A": "Routine maintenance works can be voted by simple majority (50% + 1 of shares). Improvement works (including deep energy renovation) require a qualified majority of 2/3 of represented shares. Works modifying the building's purpose require unanimity.",
       "faq3Q": "How to finance the energy renovation of a co-ownership in Luxembourg?",
-      "faq3A": "Financing combines: the reserve fund, extraordinary contributions, collective loans taken by the syndicate, and Klimabonus/PRIMe House subsidies. Luxembourg banks offer dedicated co-ownership loans. myenergy provides free support for co-ownerships in their approach.",
+      "faq3A": "Enter VAT-inclusive quotes and already confirmed grants, all initially zero. No amount is inferred automatically from the EPC class. Results assume grants are immediately available and exclude financing. The target class must be assessed by an energy adviser.",
       "faq4Q": "What are the syndic's obligations regarding energy?",
-      "faq4A": "The syndic must maintain the energy performance certificate (EPC), inform co-owners of EPBD obligations, propose necessary works at the GA to meet regulatory targets, and support Klimabonus subsidy applications. They are responsible for monitoring energy consumption of common areas."
+      "faq4A": "For residential buildings, the EPBD sets a national average-consumption trajectory. An EPC letter alone does not establish an individual 2030 or 2033 deadline. Applicable national rules must be checked for the building."
     }
   },
   "hotellerieHub": {

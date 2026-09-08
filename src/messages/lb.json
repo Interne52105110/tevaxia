@@ -7399,8 +7399,8 @@
       "portfolioDesc": "Konsolidéiert d'verwalt Gidder: Wäert, Rendement, geografesch Verdeelung.",
       "energyPortfolioTitle": "Energieportfolio",
       "energyPortfolioDesc": "CPE / CO₂ / CRREM Stranding-Risiko-Vue iwwert de ganze Portfolio.",
-      "epbdTitle": "EPBD IV Eekonferenzen",
-      "epbdDesc": "Kalenner 2030 / 2050 vun den obligatoreschen Energiefellen pro Gebai.",
+      "epbdTitle": "EPBD",
+      "epbdDesc": "Europäesch Kommissioun — EPBD",
       "amlTitle": "AML / KYC",
       "amlDesc": "Parteiverifikatioun a CSSF-Schwellen fir Co-Proprietär-Entrée oder Cessiounen.",
       "benchmarkTitle": "Inter-Copros Benchmark",
@@ -7542,7 +7542,7 @@
       "chargesTitle": "Chargeverdeelung: Reegelen a Best Practices",
       "chargesContent": "<p>D'Verdeelung vun de gemeinsamen Chargen follegt preziise Reegelen:</p><ul><li><strong>Allgemeng Chargen</strong> (Art. 6, Gesetz 1975): no Undeeler verdeelt.</li><li><strong>Speziell Chargen</strong>: kënne no Notzen verdeelt ginn.</li><li><strong>Reservefong</strong>: empfuelen (min. 5% vum Joersbudget).</li></ul>",
       "renovationTitle": "Energetesch Renovatioun an der Copropriétéit",
-      "renovationContent": "<p>D'energetesch Renovatioun ass eng zentral Erausfuerderung:</p><ul><li><strong>EPBD-Richtlinn 2024/1275</strong>: déi energetesch schlechsten Gebaiern mussen progressiv renovéiert ginn.</li><li><strong>Klimabonus / PRIMe House</strong>: deckt 30-50% vun de Käschten.</li><li><strong>Ofstemmen an der AG</strong>: qualifizéiert Majoritéit vun 2/3 erfuerdert.</li></ul>",
+      "renovationContent": "<p>Gitt Devisen inklusiv TVA a scho bestätegt Hëllefen an; am Ufank stinn all Wäerter op null. Kee Montant gëtt automatesch aus der Energieklass ofgeleet. D’Hëllefe ginn als direkt disponibel ugeholl; d’Finanzéierung ass ausgeschloss. En Energieberoder muss d’Zilklass bewäerten.</p><p>Fir Wunngebaier setzt d’EPBD en nationale Wee fir den duerchschnëttleche Verbrauch fest. De Buschtaf vun der Energieklass eleng ergëtt keng individuell Frist 2030 oder 2033. Déi national Reegelen, déi fir d’Gebai gëllen, musse gepréift ginn.</p><p>D’Verdeelung no Miteegentumsundeeler ass eng Budgethypothees. D’Rechter vun all Beneficiaire an d’Verdeelungsreegele vun der Coproprietéit musse gepréift ginn; Hëllefe sinn net automatesch tëschent Eenheeten iwwerdrobar.</p>",
       "reglementationTitle": "Lëtzebuergesche Rechtsrahmen",
       "reglementationContent": "<p>De juristesche Kader ëmfaasst:</p><ul><li><strong>Gesetz vum 16. Mee 1975</strong>: Copropriétéitsstatut.</li><li><strong>Groussherzoglechen Reglement vum 13. Juni 1975</strong>: Ëmsetzungsmossnahmen.</li><li><strong>Gesetz vum 21. September 2006</strong>: Wunnloyer.</li><li><strong>Groussherzoglechen Reglement vum 5. Mee 2023</strong>: PRIMe House Hëllefen.</li><li><strong>EPBD-Richtlinn 2024/1275</strong>: Energieeffizienz vun Gebaiern.</li></ul>",
       "faq1Q": "Wéi ginn d'Undeeler vun der Copropriétéit berechent?",
@@ -7550,9 +7550,9 @@
       "faq2Q": "Wéi eng Majoritéite si fir energetesch Renovatiounsaarbechte néideg?",
       "faq2A": "Laufend Ënnerhalt: einfach Majoritéit. Verbesserungsaarbechten: qualifizéiert Majoritéit vun 2/3. Ëmwidmung: Eestëmmegkeet.",
       "faq3Q": "Wéi finanzéiert een d'energetesch Renovatioun?",
-      "faq3A": "Finanzéierung kombinéiert: Reservefong, aussergewéinlech Bäiträg, kollektiv Prêten an Klimabonus/PRIMe House Subventiounen.",
+      "faq3A": "Gitt Devisen inklusiv TVA a scho bestätegt Hëllefen an; am Ufank stinn all Wäerter op null. Kee Montant gëtt automatesch aus der Energieklass ofgeleet. D’Hëllefe ginn als direkt disponibel ugeholl; d’Finanzéierung ass ausgeschloss. En Energieberoder muss d’Zilklass bewäerten.",
       "faq4Q": "Wat sinn d'Pflichten vum Syndic an der Energie?",
-      "faq4A": "De Syndic muss den Energieausweis pflegen, iwwer EPBD-Pflichten informéieren, néideg Aarbechten an der AG virschloen an Klimabonus-Ufroen ënnerstëtzen."
+      "faq4A": "Fir Wunngebaier setzt d’EPBD en nationale Wee fir den duerchschnëttleche Verbrauch fest. De Buschtaf vun der Energieklass eleng ergëtt keng individuell Frist 2030 oder 2033. Déi national Reegelen, déi fir d’Gebai gëllen, musse gepréift ginn."
     }
   },
   "hotellerieHub": {

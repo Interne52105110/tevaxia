@@ -7399,8 +7399,8 @@
       "portfolioDesc": "Konsolidiert verwaltete Objekte: Wert, Rendite, geografische Verteilung.",
       "energyPortfolioTitle": "Energieportfolio",
       "energyPortfolioDesc": "CPE / CO₂ / CRREM Stranding-Risiko-Ansicht über das gesamte Portfolio.",
-      "epbdTitle": "EPBD IV Fristen",
-      "epbdDesc": "Kalender 2030 / 2050 der verpflichtenden Energieschwellen je Gebäude.",
+      "epbdTitle": "EPBD",
+      "epbdDesc": "Europäische Kommission — EPBD",
       "amlTitle": "AML / KYC",
       "amlDesc": "Parteienprüfung und CSSF-Schwellen für Miteigentümer-Zugänge oder Übertragungen.",
       "benchmarkTitle": "Inter-WEG Benchmark",
@@ -7542,7 +7542,7 @@
       "chargesTitle": "Nebenkostenverteilung: Regeln und Best Practices",
       "chargesContent": "<p>Die Verteilung der Gemeinschaftskosten im luxemburgischen Wohnungseigentum folgt genauen Regeln:</p><ul><li><strong>Allgemeine Kosten</strong> (Art. 6, Gesetz 1975): verteilt nach Miteigentumsanteilen.</li><li><strong>Sonderkosten</strong>: bestimmte Kosten koennen nach Nutzen verteilt werden.</li><li><strong>Ruecklagefonds</strong>: Bildung eines Fonds fuer groessere Arbeiten empfohlen (mind. 5% des Jahresbudgets).</li></ul>",
       "renovationTitle": "Energetische Sanierung im Wohnungseigentum: Pflichten und Foerderungen",
-      "renovationContent": "<p>Die energetische Sanierung von Wohnungseigentum ist ein zentrales Thema in Luxemburg:</p><ul><li><strong>EPBD-Richtlinie 2024/1275</strong>: Die energetisch schlechtesten Wohngebaeude muessen nach einem progressiven Zeitplan saniert werden.</li><li><strong>Klimabonus / PRIMe House</strong>: Das luxemburgische Foerderprogramm deckt 30-50% der Sanierungskosten.</li><li><strong>Abstimmung in der EV</strong>: Energetische Sanierungsarbeiten erfordern eine qualifizierte Mehrheit von 2/3 der Anteile.</li></ul>",
+      "renovationContent": "<p>Geben Sie Angebote einschließlich Mehrwertsteuer und bereits bestätigte Zuschüsse ein; anfangs sind alle Werte null. Die Energieklasse bestimmt keinen Betrag automatisch. Zuschüsse werden als sofort verfügbar angenommen, Finanzierung ist ausgeschlossen. Die Zielklasse muss ein Energieberater beurteilen.</p><p>Für Wohngebäude legt die EPBD einen nationalen Pfad für den durchschnittlichen Energieverbrauch fest. Ein Energieklassenbuchstabe allein begründet keine individuelle Frist 2030 oder 2033. Die für das Gebäude geltenden nationalen Regeln sind zu prüfen.</p><p>Die Verteilung nach Miteigentumsanteilen ist eine Budgetannahme. Ansprüche jedes Begünstigten und die Verteilungsschlüssel der Gemeinschaft sind zu prüfen; Zuschüsse sind nicht automatisch zwischen Einheiten übertragbar.</p>",
       "reglementationTitle": "Luxemburgischer Rechtsrahmen",
       "reglementationContent": "<p>Der rechtliche Rahmen umfasst:</p><ul><li><strong>Gesetz vom 16. Mai 1975</strong>: Wohnungseigentumsgesetz.</li><li><strong>Grossherzogliche Verordnung vom 13. Juni 1975</strong>: Durchfuehrungsbestimmungen.</li><li><strong>Gesetz vom 21. September 2006</strong>: Wohnraummietrecht.</li><li><strong>Grossherzogliche Verordnung vom 5. Mai 2023</strong>: PRIMe House Foerderungen.</li><li><strong>EPBD-Richtlinie 2024/1275</strong>: Energieeffizienz von Gebaeuden.</li></ul>",
       "faq1Q": "Wie werden Miteigentumsanteile berechnet?",
@@ -7550,9 +7550,9 @@
       "faq2Q": "Welche Mehrheiten sind fuer energetische Sanierungsarbeiten erforderlich?",
       "faq2A": "Routinewartung: einfache Mehrheit. Verbesserungsarbeiten (einschl. energetischer Sanierung): qualifizierte Mehrheit von 2/3 der Anteile. Aenderung der Gebaeudebestimmung: Einstimmigkeit.",
       "faq3Q": "Wie finanziert man die energetische Sanierung eines Wohnungseigentums?",
-      "faq3A": "Finanzierung kombiniert: Ruecklagefonds, ausserordentliche Beitraege, Gemeinschaftsdarlehen und Klimabonus/PRIMe House Foerderungen. Luxemburger Banken bieten spezielle Wohnungseigentumskredite an.",
+      "faq3A": "Geben Sie Angebote einschließlich Mehrwertsteuer und bereits bestätigte Zuschüsse ein; anfangs sind alle Werte null. Die Energieklasse bestimmt keinen Betrag automatisch. Zuschüsse werden als sofort verfügbar angenommen, Finanzierung ist ausgeschlossen. Die Zielklasse muss ein Energieberater beurteilen.",
       "faq4Q": "Welche Pflichten hat der Hausverwalter bezueglich Energie?",
-      "faq4A": "Der Hausverwalter muss den Energieausweis pflegen, ueber EPBD-Pflichten informieren, notwendige Arbeiten in der EV vorschlagen und Klimabonus-Antraege unterstuetzen."
+      "faq4A": "Für Wohngebäude legt die EPBD einen nationalen Pfad für den durchschnittlichen Energieverbrauch fest. Ein Energieklassenbuchstabe allein begründet keine individuelle Frist 2030 oder 2033. Die für das Gebäude geltenden nationalen Regeln sind zu prüfen."
     }
   },
   "hotellerieHub": {
