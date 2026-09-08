@@ -67,17 +67,25 @@ export const KLIMAPRET_MAX = 100_000; // Max 100 000 €
 export const KLIMAPRET_DUREE_MAX = 15; // 15 ans
 export const KLIMAPRET_GARANTIE_MAX = 50_000; // Garantie État max 50 000 €
 
-// Émoluments notariaux — barème Luxembourg (simplifié)
+// Tarif notarial : art. 6 et art. 19 n° 89, barème 7, vente de gré à gré.
+// Tranches SUCCESSIVES du tableau, converties en limites cumulées ; euros HT.
+// Source : Chambre des notaires, règlement modifié du 24 juillet 1971.
 export const BAREME_NOTAIRE = [
-  { limite: 10_000, taux: 0.04 },      // 4% jusqu'à 10 000
-  { limite: 25_000, taux: 0.02 },      // 2% de 10 001 à 25 000
-  { limite: 50_000, taux: 0.015 },     // 1,5% de 25 001 à 50 000
-  { limite: 100_000, taux: 0.01 },     // 1% de 50 001 à 100 000
-  { limite: 250_000, taux: 0.008 },    // 0,8% de 100 001 à 250 000
-  { limite: 500_000, taux: 0.005 },    // 0,5% de 250 001 à 500 000
-  { limite: 1_000_000, taux: 0.004 },  // 0,4% de 500 001 à 1 000 000
-  { limite: Infinity, taux: 0.002 },   // 0,2% au-delà
+  { limite: 3718.40, taux: .04 },
+  { limite: 7436.80, taux: .02 },
+  { limite: 17352.54, taux: .015 },
+  { limite: 24789.35, taux: .008 },
+  { limite: 74368.05, taux: .006 },
+  { limite: 148736.11, taux: .005 },
+  { limite: 247893.52, taux: .003 },
+  { limite: 1239467.62, taux: .001 },
+  { limite: Infinity, taux: .0005 },
 ];
+// Obligation avec garantie : art. 19 n° 58 et 61, barème 5.
+export const BAREME_OBLIGATION = BAREME_NOTAIRE.map((tranche, i) => ({
+  limite: tranche.limite,
+  taux: [.025, .0175, .01, .005, .0035, .0025, .002, .0005, .0001][i],
+}));
 
 // Barème impôt sur le revenu LU 2025–2026 (article 118 — classe 1)
 export const BAREME_IR_CLASSE1 = [

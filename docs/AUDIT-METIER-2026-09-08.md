@@ -76,3 +76,26 @@ SHA-256 loyers : `61ae31831f3bbb111a3ff8c735858e0778479d6720fc523ee030a7839f3e4b
 /hedonique utilise désormais le même moteur et les mêmes contrôles que /estimation : retrait du second jeu de coefficients, erreurs-types et significativités sans échantillon de ventes justificatif. Les textes de présentation associés sont corrigés dans les cinq langues. L’export PDF reçoit désormais la source et les limites ; parcours PDF authentifié non testé de bout en bout dans cette session. Une modification de la recherche invalide la sélection précédente ; le mode emphytéotique ne produit plus une estimation en pleine propriété.
 
 Guides /guide/plus-value-immobiliere et /guide/regle-5-pourcent-loyer réécrits avec règles datées, sources précises et exemple de loyer 2020 réconcilié à 2 069,20 €/mois. Suppression des anciennes illustrations 2015×2,07 et du quart de taux présenté comme régime ordinaire 2026. Les cinq langues passent les contrôles mobiles, liens aux calculateurs et textes ; build et lint ciblé réussis.
+
+
+## Acquisition — lot tarif, crédit personnel et hypothèque
+
+Barèmes notariaux 7 (vente de gré à gré, minimum 99,16 € HT) et 5 (obligation avec garantie, minimum 61,97 € HT), selon les tranches successives du tableau officiel. Émoluments HT et TVA 17 % séparés. Exemple de vente à 750 000 € : 1 900,23 € HT + 323,04 € de TVA. Copies, débours et diligences exceptionnelles non chiffrés.
+
+Hypothèque : enregistrement de l’obligation à 0,24 % du principal ; inscription à 0,05 % du montant garanti, accessoires compris si saisis. Prêt ordinaire non exonéré. Exemple de principal 400 000 €, garantie 480 000 € : droits 960 € + 240 €, émoluments 928,19 € HT + 157,79 € de TVA, soit 2 285,98 € hors débours et frais bancaires.
+
+Bëllegen Akt : minimum de perception 100 €, soldes personnels et quotes-parts distincts ; aucune transférabilité entre acquéreurs ; société exclue. Non-résident EEE pouvant s’installer : crédit possible ; hors EEE, avance des droits puis remboursement éventuel explicités. Le régime publié confirme 40 000 € ; annonce de 45 000 € du 16 juillet 2026 identifiée comme projet au Conseil du 24 juillet, entrée en vigueur non confirmée et non incorporée.
+
+Réduction temporaire : aucune application sur la seule date ; confirmation d’éligibilité requise, et enregistrement du compromis/réservation avant juillet pour la prolongation juillet–septembre 2025. VEFA : prix hors TVA, sans construction déjà réalisée à l’acte, avantage TVA entièrement disponible et construction éligible supposés ; limites visibles et retournées par l’API. Le taux de TVA renvoyé est effectif après plafond. Le parcours simplifié ne chiffre plus une VEFA sans ventilation et dirige vers le détail. Ce lot ne liquide pas les projets déjà commencés, exonérations hypothécaires, reports partiels d’avantage TVA ou tous les cas immobiliers particuliers.
+
+PDF : crédit imputé ajouté au détail et limites transmises ; les émoluments transmis sont TTC. Téléchargement authentifié non testé de bout en bout.
+
+Sources :
+- https://www.notariat.lu/notaire/reglement-revision-tarifs (art. 4, 5, 6 et 19 n° 58/61/89 ; tableau visualisé dans le texte coordonné joint à l’avis 51.123 du Conseil d’État).
+- https://conseil-etat.public.lu/dam-assets/fr/avis/2015/05/19_05_2015/51_123/51123-Texte.pdf
+- https://pfi.public.lu/fr/citoyen/hypotheques.html
+- https://pfi.public.lu/fr/citoyen/enregistrement/tarif.html
+- https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html
+- https://guichet.public.lu/fr/citoyens/logement/aides/aides-indirectes-avantages-fiscaux/credit-impot-actes-notaries.html
+- https://guichet.public.lu/fr/citoyens/actualites/2025/juin/04-mesures-fiscales-logement.html
+- https://gouvernement.lu/fr/actualites/toutes_actualites/communiques/2026/07-juillet/24-conseil-gouvernement.html

@@ -217,7 +217,7 @@ export async function downloadEstimationPdf(params: EstimationPdfParams) {
 export interface FraisPdfParams {
   prixAchat: number; droitsEnregistrement: number; droitTranscription: number;
   tva?: number; fraisNotaire: number; fraisHypotheque?: number;
-  totalFrais: number; totalAcquisition: number; isVEFA?: boolean;
+  totalFrais: number; totalAcquisition: number; isVEFA?: boolean; creditBellegenAkt?: number; limites?: string;
 }
 
 function FraisDoc({ p }: { p: FraisPdfParams }) {
@@ -226,7 +226,7 @@ function FraisDoc({ p }: { p: FraisPdfParams }) {
     <Document>
       <CoverPage
         title="Frais d'acquisition"
-        subtitle={`${p.isVEFA ? "VEFA (TVA 3 %)" : "Ancien"} · ${fmtEur(p.prixAchat)}`}
+        subtitle={`${p.isVEFA ? "VEFA (prix hors TVA)" : "Ancien"} · ${fmtEur(p.prixAchat)}`}
         value={fmtEur(p.totalFrais)}
         date={today()}
         reference={ref}
@@ -245,11 +245,13 @@ function FraisDoc({ p }: { p: FraisPdfParams }) {
         <Text style={s.section}>Detail des frais</Text>
         <Row label="Droits d'enregistrement" value={fmtEur(p.droitsEnregistrement)} />
         <Row label="Droit de transcription" value={fmtEur(p.droitTranscription)} />
+        {p.creditBellegenAkt != null && <Row label="Credit Bellegen Akt impute" value={fmtEur(-p.creditBellegenAkt)} />}
         {p.tva != null && <Row label="TVA" value={fmtEur(p.tva)} />}
         <Row label="Frais de notaire" value={fmtEur(p.fraisNotaire)} />
         {p.fraisHypotheque != null && <Row label="Frais d'hypotheque" value={fmtEur(p.fraisHypotheque)} />}
         <RowHL label="Total des frais" value={fmtEur(p.totalFrais)} />
         <RowHL label="Cout total d'acquisition" value={fmtEur(p.totalAcquisition)} />
+        {p.limites && <Text style={{ fontSize: 9, marginTop: 12 }}>{p.limites}</Text>}
 
         <Disclaimer />
         <Footer />

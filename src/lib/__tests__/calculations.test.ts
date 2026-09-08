@@ -85,9 +85,9 @@ describe("calculerFraisAcquisition", () => {
     });
     // Droits = 750000 × 7% = 52500
     expect(result.droitsTotal).toBe(52500);
-    // Bëllegen Akt = min(80000, 52500) = 52500
-    expect(result.creditBellegenAkt).toBe(52500);
-    expect(result.droitsApresCredit).toBe(0);
+    // Crédit limité par le minimum de perception de 100 €.
+    expect(result.creditBellegenAkt).toBe(52400);
+    expect(result.droitsApresCredit).toBe(100);
   });
 
   it("limits Bellegen Akt for single buyer", () => {

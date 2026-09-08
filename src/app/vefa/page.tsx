@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
-import { calculerEmolumentsNotaire, formatEUR, formatPct } from "@/lib/calculations";
+import { calculerEmolumentsNotaire, calculerFraisHypotheque, formatEUR, formatPct } from "@/lib/calculations";
 import SEOContent from "@/components/SEOContent";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
 import RelatedTools from "@/components/RelatedTools";
@@ -41,6 +41,7 @@ const MONTH_KEYS = [
 
 export default function VefaCalculator() {
   const t = useTranslations("vefa");
+  const a = useTranslations("acquisitionAudit");
 
   // ── Inputs ──────────────────────────────────────────────────
   const [prixTotal, setPrixTotal] = useState(650000);
@@ -86,7 +87,7 @@ export default function VefaCalculator() {
     // -- Droits d'enregistrement (terrain only) --
     const droitsBruts = partTerrain * TAUX_DROITS;
     const bellegenAktMax = nbAcquereurs * 40_000;
-    const bellegenAkt = residencePrincipale ? Math.min(bellegenAktMax, droitsBruts) : 0;
+    const bellegenAkt = residencePrincipale ? Math.min(bellegenAktMax, Math.max(0, droitsBruts - 100)) : 0;
     const droitsNets = Math.max(0, droitsBruts - bellegenAkt);
 
     // -- TVA on construction --
@@ -106,11 +107,10 @@ export default function VefaCalculator() {
     }
 
     // -- Notary fees --
-    const emolumentsNotaire = calculerEmolumentsNotaire(prixTotal);
+    const emolumentsNotaire = Math.round(calculerEmolumentsNotaire(prixTotal) * 1.17 * 100) / 100;
 
     // -- Mortgage costs --
-    const droitsHypotheque = montantHypotheque * 0.005;
-    const fraisHypotheque = droitsHypotheque + calculerEmolumentsNotaire(montantHypotheque) * 0.5;
+    const fraisHypotheque = calculerFraisHypotheque(montantHypotheque).total;
 
     // -- Totals --
     const totalFrais = droitsNets + tvaMontant + emolumentsNotaire + fraisHypotheque;
@@ -228,6 +228,7 @@ export default function VefaCalculator() {
   // ── Render ──────────────────────────────────────────────────
   return (
     <>
+      <div className="mx-auto max-w-7xl px-4 py-4 text-sm text-muted space-y-2"><p>{a("vefaScope")}</p><p>{a("creditHint")}</p><p>{a("mortgageScope")}</p><a className="underline" href="/frais-acquisition">{a("openDetailed")}</a></div>
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">

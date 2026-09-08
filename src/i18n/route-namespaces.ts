@@ -547,6 +547,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "cookie",
     "crmContextBar",
     "estimation",
+    "estimationAudit",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
@@ -587,6 +588,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/frais-acquisition": [
+    "acquisitionAudit",
     "aiChat",
     "backup",
     "common",
@@ -659,6 +661,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/gestion-locative/lot/[id]": [
     "aiChat",
     "backup",
+    "calculLoyer",
     "cookie",
     "crmContextBar",
     "glLotEdit",
@@ -693,6 +696,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/gestion-locative/portefeuille": [
     "aiChat",
     "backup",
+    "calculLoyer",
     "cookie",
     "crmContextBar",
     "glPortefeuille",
@@ -875,16 +879,20 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/hedonique": [
+    "aiAnalysis",
     "aiChat",
     "backup",
     "common",
     "cookie",
     "crmContextBar",
-    "hedonique",
+    "estimation",
+    "estimationAudit",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar"
+    "saveButton",
+    "syndicContextBar",
+    "valorisation"
   ],
   "/hotellerie/alerts": [
     "aiChat",
@@ -1338,7 +1346,6 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/plus-values": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "common",
@@ -1346,7 +1353,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
-    "plusValues",
+    "plusValuesAudit",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar"
@@ -2424,11 +2431,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "backup",
     "cookie",
     "crmContextBar",
+    "estimationAudit",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar",
-    "transparencePage"
+    "syndicContextBar"
   ],
   "/valorisation": [
     "aiAnalysis",
@@ -2445,6 +2452,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "valorisation"
   ],
   "/vefa": [
+    "acquisitionAudit",
     "aiAnalysis",
     "aiChat",
     "backup",
@@ -2469,8 +2477,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "verify"
   ],
   "/wizard-particulier": [
+    "acquisitionAudit",
     "aiChat",
     "backup",
+    "calculLoyer",
     "cookie",
     "crmContextBar",
     "hotellerieContextBar",

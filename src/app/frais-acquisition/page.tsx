@@ -5,18 +5,19 @@ import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
-import { calculerFraisAcquisition, formatEUR, formatPct } from "@/lib/calculations";
+import { calculerFraisAcquisition, formatEUR2 as formatEUR, formatPct } from "@/lib/calculations";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
 import RelatedTools from "@/components/RelatedTools";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import SEOContent from "@/components/SEOContent";
+
 import { PdfButton } from "@/components/PdfButton";
 const _lazy_generateFraisPdfBlob = async (...args: Parameters<typeof import("@/components/ToolsPdf")["generateFraisPdfBlob"]>): Promise<Blob> => (await import("@/components/ToolsPdf")).generateFraisPdfBlob(...args);
 
 export default function FraisAcquisition() {
   const t = useTranslations("fraisAcquisition");
+  const a = useTranslations("acquisitionAudit");
   const [prixBien, setPrixBien] = useState(750000);
   const [estNeuf, setEstNeuf] = useState(false);
   const [partTerrain, setPartTerrain] = useState(250000);
@@ -25,6 +26,11 @@ export default function FraisAcquisition() {
   const [achatSociete, setAchatSociete] = useState(false);
   const [nbAcquereurs, setNbAcquereurs] = useState<1 | 2>(2);
   const [montantHypotheque, setMontantHypotheque] = useState(600000);
+
+  const [quotePartPremier, setQuotePartPremier] = useState(50);
+  const [credit1, setCredit1] = useState(40000);
+  const [credit2, setCredit2] = useState(40000);
+  const [accessoiresHypotheque, setAccessoiresHypotheque] = useState(0);
 
   // Frais annexes optionnels (architecte, géomètre, diagnostic, déménagement)
   const [inclureFraisAnnexes, setInclureFraisAnnexes] = useState(false);
@@ -37,15 +43,13 @@ export default function FraisAcquisition() {
     ? fraisArchitecte + fraisGeometre + fraisDiagnostic + fraisDemenagement + fraisCourtage
     : 0;
 
-  // Un non-résident fiscal LU ne peut pas déclarer le bien comme RP LU
-  // (sauf cas rares de détachement). On force donc residencePrincipale = false.
-  const effRP = nonResident ? false : residencePrincipale;
+  // L'installation future peut ouvrir le droit ; une société n'est pas éligible.
+  const effRP = residencePrincipale && !achatSociete;
 
   const partConstruction = prixBien - partTerrain;
 
-  const result = useMemo(
-    () =>
-      calculerFraisAcquisition({
+  const result = useMemo(() => {
+    try { return calculerFraisAcquisition({
         prixBien,
         estNeuf,
         partTerrain: estNeuf ? partTerrain : undefined,
@@ -53,9 +57,12 @@ export default function FraisAcquisition() {
         residencePrincipale: effRP,
         nbAcquereurs,
         montantHypotheque,
-      }),
-    [prixBien, estNeuf, partTerrain, partConstruction, effRP, nbAcquereurs, montantHypotheque]
-  );
+        baseInscriptionHypotheque: montantHypotheque + accessoiresHypotheque,
+        achatSociete,
+        quotePartPremier: quotePartPremier / 100,
+        creditsRestants: nbAcquereurs === 1 ? [credit1] : [credit1, credit2],
+      }); } catch { return null; }
+    }, [prixBien, estNeuf, partTerrain, partConstruction, effRP, nbAcquereurs, montantHypotheque, accessoiresHypotheque, achatSociete, quotePartPremier, credit1, credit2]);
 
   return (
     <>
@@ -78,7 +85,7 @@ export default function FraisAcquisition() {
               <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionBien")}</h2>
               <div className="space-y-4">
                 <InputField
-                  label={t("prixBien")}
+                  label={estNeuf ? a("prixHT") : t("prixBien")}
                   value={prixBien}
                   onChange={(v) => setPrixBien(Number(v))}
                   suffix="€"
@@ -121,7 +128,7 @@ export default function FraisAcquisition() {
                   onChange={setNonResident}
                   hint={t("nonResidentHint")}
                 />
-                {!nonResident && (
+                {!achatSociete && (
                   <ToggleField
                     label={t("residencePrincipale")}
                     checked={residencePrincipale}
@@ -132,7 +139,7 @@ export default function FraisAcquisition() {
                 {nonResident && (
                   <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
                     <strong className="block mb-1">{t("nonResidentDisclaimerTitle")}</strong>
-                    {t("nonResidentDisclaimerText")}
+                    {a("nonResident")}
                   </div>
                 )}
                 <ToggleField
@@ -164,6 +171,12 @@ export default function FraisAcquisition() {
                     { value: "2", label: t("acquereur2") },
                   ]}
                 />
+                {effRP && <>
+                  <p className="text-sm text-muted">{a("creditHint")}</p>
+                  {nbAcquereurs === 2 && <InputField label={a("quote")} value={quotePartPremier} onChange={v => setQuotePartPremier(Number(v))} suffix="%" min={1} max={99} />}
+                  <InputField label={a("credit1")} value={credit1} onChange={v => setCredit1(Number(v))} suffix="€" min={0} max={40000} />
+                  {nbAcquereurs === 2 && <InputField label={a("credit2")} value={credit2} onChange={v => setCredit2(Number(v))} suffix="€" min={0} max={40000} />}
+                </>}
               </div>
             </div>
 
@@ -172,11 +185,13 @@ export default function FraisAcquisition() {
               <InputField
                 label={t("montantHypotheque")}
                 value={montantHypotheque}
-                onChange={(v) => setMontantHypotheque(Number(v))}
+                onChange={(v) => { setMontantHypotheque(Number(v)); if (Number(v) === 0) setAccessoiresHypotheque(0); }}
                 suffix="€"
                 min={0}
-                hint={t("montantHypothequeHint")}
+                hint={a("mortgageHint")}
               />
+              {montantHypotheque > 0 && <InputField label={a("accessoires")} value={accessoiresHypotheque} onChange={v => setAccessoiresHypotheque(Number(v))} suffix="€" min={0} />}
+              <p className="mt-3 text-xs text-muted">{a("mortgageScope")}</p>
             </div>
 
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
@@ -236,6 +251,7 @@ export default function FraisAcquisition() {
 
           {/* Results */}
           <div className="space-y-6">
+            {!result ? <p role="alert" className="rounded-xl border border-red-300 p-4">{a("invalid")}</p> : <>
             <ResultPanel
               title={t("resultDroitsTitle")}
               lines={[
@@ -262,7 +278,7 @@ export default function FraisAcquisition() {
                   { label: t("baseTva"), value: formatEUR(result.tvaApplicable), sub: true },
                   {
                     label: t("tauxApplique"),
-                    value: effRP ? t("tauxReduit") : t("tauxNormal"),
+                    value: formatPct(result.tvaApplicable > 0 ? result.montantTva / result.tvaApplicable : 0),
                   },
                   { label: t("montantTva"), value: formatEUR(result.montantTva) },
                   ...(result.faveurFiscaleTva > 0
@@ -275,10 +291,14 @@ export default function FraisAcquisition() {
             <ResultPanel
               title={t("resultAutresFrais")}
               lines={[
-                { label: t("emolumentsNotaire"), value: formatEUR(result.emolumentsNotaire) },
+                { label: a("notaryHT"), value: formatEUR(result.emolumentsNotaireHT) },
+                { label: a("notaryVAT"), value: formatEUR(result.tvaEmolumentsNotaire) },
                 ...(montantHypotheque > 0
                   ? [
-                      { label: t("fraisHypotheque"), value: formatEUR(result.fraisHypotheque) },
+                      { label: a("obligation"), value: formatEUR(result.droitsObligation) },
+                      { label: a("inscription"), value: formatEUR(result.droitsHypotheque) },
+                      { label: a("mortgageHT"), value: formatEUR(result.emolumentsHypothequeHT) },
+                      { label: a("mortgageVAT"), value: formatEUR(result.tvaEmolumentsHypotheque) },
                     ]
                   : []),
               ]}
@@ -352,13 +372,13 @@ export default function FraisAcquisition() {
               <h3 className="mb-3 text-base font-semibold text-navy">{t("bonASavoir")}</h3>
               <div className="space-y-2 text-sm text-muted leading-relaxed">
                 <p>
-                  <strong className="text-slate">{t("infobellegenTitle")}</strong> — {t("infobellegenText")}
+                  <strong className="text-slate">{t("infobellegenTitle")}</strong> — {a("creditHint")}
                 </p>
                 <p>
-                  <strong className="text-slate">{t("infoVefaTitle")}</strong> — {t("infoVefaText")}
+                  <strong className="text-slate">{t("infoVefaTitle")}</strong> — {a("vefaScope")}
                 </p>
                 <p>
-                  <strong className="text-slate">{t("infoNotaireTitle")}</strong> — {t("infoNotaireText")}
+                  <strong className="text-slate">{t("infoNotaireTitle")}</strong> — {a("notaryScope")}
                 </p>
               </div>
             </div>
@@ -370,7 +390,7 @@ export default function FraisAcquisition() {
                     nom: `${t("savePrefix")} — ${formatEUR(prixBien)}`,
                     type: "frais",
                     valeurPrincipale: result.totalFrais,
-                    data: { prixBien, estNeuf, partTerrain, residencePrincipale, nbAcquereurs, montantHypotheque },
+                    data: { prixBien, estNeuf, partTerrain, residencePrincipale: effRP, nbAcquereurs, montantHypotheque, quotePartPremier, credit1, credit2, accessoiresHypotheque, achatSociete },
                   });
                 }}
                 label={t("sauvegarder")}
@@ -382,6 +402,8 @@ export default function FraisAcquisition() {
                 generateBlob={() =>
                   _lazy_generateFraisPdfBlob({
                     prixAchat: prixBien,
+                    creditBellegenAkt: result.creditBellegenAkt,
+                    limites: a("notaryScope") + " " + a("mortgageScope") + " " + (estNeuf ? a("vefaScope") : ""),
                     droitsEnregistrement: result.droitsEnregistrement,
                     droitTranscription: result.droitsTranscription,
                     tva: estNeuf ? result.montantTva : undefined,
@@ -396,33 +418,19 @@ export default function FraisAcquisition() {
             </div>
 
             <RelatedTools keys={["aides", "estimation", "vefa"]} />
+            </>}
+            <p className="text-sm text-muted">{a("scope")}</p>
+            <div className="flex flex-wrap gap-4 text-sm underline">
+              <a href="https://www.notariat.lu/notaire/reglement-revision-tarifs">{a("tariffSource")}</a>
+              <a href="https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html">Bëllegen Akt</a>
+              <a href="https://pfi.public.lu/fr/citoyen/hypotheques.html">{a("mortgageSource")}</a>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
 
-    <SEOContent
-      ns="fraisAcquisition"
-      sections={[
-        { titleKey: "comprendreTitle", contentKey: "comprendreContent" },
-        { titleKey: "bellegenAktTitle", contentKey: "bellegenAktContent" },
-        { titleKey: "vefaTvaTitle", contentKey: "vefaTvaContent" },
-        { titleKey: "exempleTitle", contentKey: "exempleContent" },
-      ]}
-      faq={[
-        { questionKey: "faq1q", answerKey: "faq1a" },
-        { questionKey: "faq2q", answerKey: "faq2a" },
-        { questionKey: "faq3q", answerKey: "faq3a" },
-        { questionKey: "faq4q", answerKey: "faq4a" },
-        { questionKey: "faq5q", answerKey: "faq5a" },
-      ]}
-      relatedLinks={[
-        { href: "/simulateur-aides", labelKey: "aides" },
-        { href: "/vefa", labelKey: "vefa" },
-        { href: "/achat-vs-location", labelKey: "achatLocation" },
-      ]}
-    />
     </>
   );
 }

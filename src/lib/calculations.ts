@@ -7,6 +7,7 @@ import {
   TVA_TAUX_REDUIT,
   TVA_FAVEUR_PLAFOND,
   BAREME_NOTAIRE,
+  BAREME_OBLIGATION,
   PRIME_ACCESSION_MAX,
   PRIME_ACCESSION_MAJORATION_COPROPRIETE,
   PRIME_ACCESSION_MAJORATION_JUMELEE,
@@ -153,6 +154,12 @@ export interface FraisAcquisitionInput {
   nbAcquereurs: 1 | 2;
   montantHypotheque?: number;
   dateActe?: string; // YYYY-MM — pour taux temporaire réduit
+  baseInscriptionHypotheque?: number; // Principal garanti + accessoires stipulés dans l'acte.
+  achatSociete?: boolean;
+  reductionBaseConfirmee?: boolean; // Conditions de la réduction temporaire validées dans l'acte.
+  compromisEnregistreAvantJuillet2025?: boolean;
+  quotePartPremier?: number; // Fraction de propriété du premier acquéreur, entre 0 et 1.
+  creditsRestants?: number[]; // Solde personnel confirmé par l'AED, dans l'ordre des acquéreurs.
 }
 
 export interface FraisAcquisitionResult {
@@ -170,7 +177,12 @@ export interface FraisAcquisitionResult {
   montantTva: number;
   faveurFiscaleTva: number;
   // Notaire
-  emolumentsNotaire: number;
+  emolumentsNotaire: number; // TTC pour compatibilité avec les totaux et les exports.
+  emolumentsNotaireHT: number;
+  tvaEmolumentsNotaire: number;
+  droitsObligation: number;
+  emolumentsHypothequeHT: number;
+  tvaEmolumentsHypotheque: number;
   // Hypothèque
   fraisHypotheque: number;
   droitsHypotheque: number;
@@ -178,38 +190,67 @@ export interface FraisAcquisitionResult {
   totalFrais: number;
   totalPourcentage: number;
   coutTotalAcquisition: number;
+  hypotheses: string[];
 }
 
-export function calculerEmolumentsNotaire(montant: number): number {
-  let emoluments = 0;
-  let restant = montant;
-  let seuil = 0;
+const centimes = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 
-  for (const tranche of BAREME_NOTAIRE) {
-    const largeurTranche = tranche.limite - seuil;
-    const montantDansTranche = Math.min(restant, largeurTranche);
-    emoluments += montantDansTranche * tranche.taux;
-    restant -= montantDansTranche;
-    seuil = tranche.limite;
-    if (restant <= 0) break;
+function emolumentTarife(montant: number, bareme: typeof BAREME_NOTAIRE, minimum: number): number {
+  if (!Number.isFinite(montant) || montant < 0) throw new RangeError('Montant notarial invalide.');
+  if (montant === 0) return 0; // Absence d'acte, pas un acte de valeur nulle.
+  let total = 0;
+  let precedent = 0;
+  const base = Math.ceil(montant); // Art. 4 : de euro en euro, sans fraction.
+  for (const tranche of bareme) {
+    total += Math.max(0, Math.min(base, tranche.limite) - precedent) * tranche.taux;
+    if (base <= tranche.limite) break;
+    precedent = tranche.limite;
   }
+  return centimes(Math.max(minimum, total));
+}
 
-  return emoluments;
+/** Émolument HT d'une vente de gré à gré, hors copies, débours et diligences exceptionnelles. */
+export function calculerEmolumentsNotaire(montant: number): number {
+  return emolumentTarife(montant, BAREME_NOTAIRE, 99.16);
+}
+
+/** Prêt hypothécaire ordinaire non exonéré ; principal et assiette d'inscription distincts. */
+export function calculerFraisHypotheque(principal: number, baseInscription = principal) {
+  if (!Number.isFinite(baseInscription) || baseInscription < principal) throw new RangeError('La garantie doit couvrir au moins le principal.');
+  const emolumentsHT = emolumentTarife(principal, BAREME_OBLIGATION, 61.97);
+  const tvaEmoluments = centimes(emolumentsHT * TVA_TAUX_NORMAL);
+  const droitsObligation = centimes(principal * .0024);
+  const droitsInscription = centimes(baseInscription * .0005);
+  return { emolumentsHT, tvaEmoluments, droitsObligation, droitsInscription,
+    total: centimes(emolumentsHT + tvaEmoluments + droitsObligation + droitsInscription) };
 }
 
 export function calculerFraisAcquisition(input: FraisAcquisitionInput): FraisAcquisitionResult {
-  // Taux temporaire réduit (oct 2024 - juin 2025) : 3.5% au lieu de 7%
+  const montants = [input.prixBien, input.partTerrain ?? 0, input.partConstruction ?? 0, input.montantHypotheque ?? 0];
+  if (montants.some(n => typeof n !== 'number' || !Number.isFinite(n) || n < 0)
+    || typeof input.estNeuf !== 'boolean' || typeof input.residencePrincipale !== 'boolean'
+    || ![1, 2].includes(input.nbAcquereurs)
+    || ['achatSociete', 'reductionBaseConfirmee', 'compromisEnregistreAvantJuillet2025'].some(k => {
+      const v = input[k as keyof FraisAcquisitionInput]; return v !== undefined && typeof v !== 'boolean';
+    })) throw new RangeError('Données d’acquisition invalides.');
+  if (input.estNeuf && (input.partTerrain === undefined || input.partTerrain > input.prixBien
+    || (input.partConstruction !== undefined && Math.abs(input.partTerrain + input.partConstruction - input.prixBien) > .01))) {
+    throw new RangeError('VEFA : renseignez un prix hors TVA et des parts terrain/construction cohérentes.');
+  }
+  // La seule date ne prouve pas l'éligibilité à une mesure temporaire.
   let tauxDroitsEffectif = TAUX_DROITS_TOTAL;
-  if (input.dateActe) {
-    const [y, m] = input.dateActe.split("-").map(Number);
-    if ((y === 2024 && m >= 10) || (y === 2025 && m <= 6)) {
-      tauxDroitsEffectif = 0.035; // 3.5% temporaire
-    }
+  if (input.dateActe && !/^202[456]-(0[1-9]|1[0-2])$/.test(input.dateActe)) throw new RangeError('Millésime pris en charge : 2024–2026.');
+  if (input.reductionBaseConfirmee) {
+    const date = input.dateActe ?? '';
+    const periode = date >= '2024-10' && date <= '2025-06';
+    const prolongation = date >= '2025-07' && date <= '2025-09' && input.compromisEnregistreAvantJuillet2025 === true;
+    if (!periode && !prolongation) throw new RangeError('Date ou enregistrement du compromis incompatible avec la réduction temporaire.');
+    tauxDroitsEffectif = .035;
   }
 
   // Base des droits d'enregistrement
   let baseDroits: number;
-  if (input.estNeuf && input.partTerrain) {
+  if (input.estNeuf && input.partTerrain !== undefined) {
     baseDroits = input.partTerrain;
   } else {
     baseDroits = input.prixBien;
@@ -217,17 +258,25 @@ export function calculerFraisAcquisition(input: FraisAcquisitionInput): FraisAcq
 
   const ratioEnreg = tauxDroitsEffectif * (6/7); // Proportion enregistrement
   const ratioTransc = tauxDroitsEffectif * (1/7); // Proportion transcription
-  const droitsEnregistrement = baseDroits * ratioEnreg;
-  const droitsTranscription = baseDroits * ratioTransc;
-  const droitsTotal = droitsEnregistrement + droitsTranscription;
+  const droitsEnregistrement = centimes(baseDroits * ratioEnreg);
+  const droitsTranscription = centimes(baseDroits * ratioTransc);
+  const droitsTotal = centimes(droitsEnregistrement + droitsTranscription);
 
   // Bëllegen Akt
   let creditBellegenAkt = 0;
-  if (input.residencePrincipale) {
-    const maxCredit = input.nbAcquereurs * BELLEGEN_AKT_PAR_PERSONNE;
-    creditBellegenAkt = Math.min(maxCredit, droitsTotal);
+  if (input.residencePrincipale && !input.achatSociete) {
+    const quote = input.nbAcquereurs === 1 ? 1 : (input.quotePartPremier ?? .5);
+    const soldes = input.creditsRestants ?? Array(input.nbAcquereurs).fill(BELLEGEN_AKT_PAR_PERSONNE);
+    if (!Number.isFinite(quote) || quote <= 0 || quote > 1 || (input.nbAcquereurs === 2 && quote === 1)
+      || soldes.length !== input.nbAcquereurs || soldes.some(n => !Number.isFinite(n) || n < 0 || n > BELLEGEN_AKT_PAR_PERSONNE)) {
+      throw new RangeError('Vérifiez les quotes-parts et les soldes personnels du Bëllegen Akt.');
+    }
+    const parts = input.nbAcquereurs === 1 ? [1] : [quote, 1 - quote];
+    // Un solde inutilisé ne peut pas acquitter les droits d'un autre acquéreur.
+    const imputable = parts.reduce((sum, part, i) => sum + Math.min(soldes[i], droitsTotal * part), 0);
+    creditBellegenAkt = centimes(Math.min(imputable, Math.max(0, droitsTotal - 100)));
   }
-  const droitsApresCredit = Math.max(0, droitsTotal - creditBellegenAkt);
+  const droitsApresCredit = centimes(Math.max(input.prixBien > 0 ? 100 : 0, droitsTotal - creditBellegenAkt));
 
   // TVA
   let tauxTva = 0;
@@ -236,8 +285,8 @@ export function calculerFraisAcquisition(input: FraisAcquisitionInput): FraisAcq
   let tvaApplicable = 0;
 
   if (input.estNeuf) {
-    const baseConstruction = input.partConstruction || (input.prixBien - (input.partTerrain || 0));
-    if (input.residencePrincipale) {
+    const baseConstruction = input.partConstruction ?? (input.prixBien - (input.partTerrain ?? 0));
+    if (input.residencePrincipale && !input.achatSociete) {
       tauxTva = TVA_TAUX_REDUIT;
       const tvaNormale = baseConstruction * TVA_TAUX_NORMAL;
       const tvaReduite = baseConstruction * TVA_TAUX_REDUIT;
@@ -251,17 +300,21 @@ export function calculerFraisAcquisition(input: FraisAcquisitionInput): FraisAcq
     }
   }
 
-  // Émoluments notariaux
-  const emolumentsNotaire = calculerEmolumentsNotaire(input.prixBien);
+  montantTva = centimes(montantTva);
+  faveurFiscaleTva = centimes(faveurFiscaleTva);
+  tauxTva = tvaApplicable > 0 ? montantTva / tvaApplicable : 0;
 
-  // Frais d'hypothèque (inscription + émoluments notaire hypothèque)
-  const montantHyp = input.montantHypotheque || 0;
-  const droitsHypotheque = montantHyp * 0.005; // 0,5% droit d'inscription
-  const fraisHypotheque = droitsHypotheque + calculerEmolumentsNotaire(montantHyp) * 0.5;
+  // Vente : émoluments tarifés HT + TVA. Copies et débours non compris.
+  const emolumentsNotaireHT = calculerEmolumentsNotaire(input.prixBien);
+  const tvaEmolumentsNotaire = centimes(emolumentsNotaireHT * TVA_TAUX_NORMAL);
+  const emolumentsNotaire = centimes(emolumentsNotaireHT + tvaEmolumentsNotaire);
+  const hypotheque = calculerFraisHypotheque(input.montantHypotheque ?? 0, input.baseInscriptionHypotheque);
+  const droitsHypotheque = hypotheque.droitsInscription;
+  const fraisHypotheque = hypotheque.total;
 
   // Totaux
-  const totalFrais = droitsApresCredit + montantTva + emolumentsNotaire + fraisHypotheque;
-  const coutTotalAcquisition = input.prixBien + totalFrais;
+  const totalFrais = centimes(droitsApresCredit + montantTva + emolumentsNotaire + fraisHypotheque);
+  const coutTotalAcquisition = centimes(input.prixBien + totalFrais);
   const totalPourcentage = input.prixBien > 0 ? totalFrais / input.prixBien : 0;
 
   return {
@@ -276,11 +329,22 @@ export function calculerFraisAcquisition(input: FraisAcquisitionInput): FraisAcq
     montantTva,
     faveurFiscaleTva,
     emolumentsNotaire,
+    emolumentsNotaireHT,
+    tvaEmolumentsNotaire,
+    droitsObligation: hypotheque.droitsObligation,
+    emolumentsHypothequeHT: hypotheque.emolumentsHT,
+    tvaEmolumentsHypotheque: hypotheque.tvaEmoluments,
     fraisHypotheque,
     droitsHypotheque,
     totalFrais,
     totalPourcentage,
     coutTotalAcquisition,
+    hypotheses: [
+      'Vente de gré à gré d’un logement ; hors copies, débours et diligences exceptionnelles. Émoluments notaire TTC, détail HT et TVA séparé.',
+      'Prêt ordinaire non exonéré ; garantie égale au principal sauf assiette d’inscription explicitement renseignée.',
+      ...(input.residencePrincipale && !input.achatSociete ? ['Occupation personnelle et conditions du crédit à confirmer. Plafond documenté 40 000 euros ; solde intégral et parts égales par défaut. Hors EEE : droits à avancer avant éventuel remboursement.'] : []),
+      ...(input.estNeuf ? ['Prix hors TVA, aucune construction déjà réalisée à l’acte. Toute la construction supposée éligible et faveur TVA de 50 000 euros intégralement disponible si habitation personnelle.'] : []),
+    ],
   };
 }
 

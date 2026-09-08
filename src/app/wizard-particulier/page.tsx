@@ -30,6 +30,7 @@ const STEP_KEYS = [
 
 export default function WizardParticulier() {
   const t = useTranslations("wizardParticulierPage");
+  const acquisitionAudit = useTranslations("acquisitionAudit");
   const tl = useTranslations("calculLoyer");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
@@ -84,7 +85,8 @@ export default function WizardParticulier() {
   const prixRetenu = prixNegocie > 0 ? prixNegocie : estimation?.estimationCentrale ?? 0;
 
   const frais: FraisAcquisitionResult | null = useMemo(() => {
-    if (!prixRetenu) return null;
+    // Ce parcours ne recueille pas la ventilation HT/terrain nécessaire en VEFA.
+    if (!prixRetenu || estNeuf) return null;
     return calculerFraisAcquisition({
       prixBien: prixRetenu,
       estNeuf,
@@ -470,6 +472,8 @@ export default function WizardParticulier() {
               </div>
             </div>
 
+            <p className="text-sm text-muted">{estNeuf ? acquisitionAudit("vefaScope") : acquisitionAudit("creditHint")}</p>
+            <a className="text-sm underline" href="/frais-acquisition">{acquisitionAudit("openDetailed")}</a>
             {frais && (
               <div className="rounded-xl border border-card-border bg-card p-6">
                 <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("step2.totalFrais")}</div>

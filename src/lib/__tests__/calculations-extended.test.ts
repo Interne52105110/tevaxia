@@ -12,15 +12,14 @@ import {
 
 describe("calculerEmolumentsNotaire", () => {
   it("calculates for small amount (first tranche only)", () => {
-    // 5000 × 4% = 200
-    expect(calculerEmolumentsNotaire(5000)).toBeCloseTo(200, 0);
+    // 3718.40 × 4% + 1281.60 × 2% = 174.368 HT
+    expect(calculerEmolumentsNotaire(5000)).toBeCloseTo(174.37, 2);
   });
 
   it("calculates for 750k (multiple tranches)", () => {
     const result = calculerEmolumentsNotaire(750000);
-    // Manual: 10k×4% + 15k×2% + 25k×1.5% + 50k×1% + 150k×0.8% + 250k×0.5% + 250k×0.4%
-    // = 400 + 300 + 375 + 500 + 1200 + 1250 + 1000 = 5025
-    expect(result).toBeCloseTo(5025, 0);
+    // Tarif officiel, barème 7 : tranches successives cumulées.
+    expect(result).toBeCloseTo(1900.23, 2);
   });
 
   it("returns 0 for 0 amount", () => {
@@ -46,6 +45,7 @@ describe("calculerFraisAcquisition — extended", () => {
       residencePrincipale: false,
       nbAcquereurs: 1,
       dateActe: "2025-03",
+      reductionBaseConfirmee: true,
     });
     // Normal: 7% = 35000, Reduced: 3.5% = 17500
     expect(normal.droitsTotal).toBe(35000);
@@ -75,9 +75,9 @@ describe("calculerFraisAcquisition — extended", () => {
       nbAcquereurs: 1,
       montantHypotheque: 400000,
     });
-    // Mortgage inscription: 0.5% of 400k = 2000 + notary fees on mortgage
-    expect(result.droitsHypotheque).toBe(2000);
-    expect(result.fraisHypotheque).toBeGreaterThan(2000);
+    // Inscription 200 + obligation 960 + émoluments 928.19 HT + TVA157.79.
+    expect(result.droitsHypotheque).toBe(200);
+    expect(result.fraisHypotheque).toBe(2245.98);
   });
 
   it("totalPourcentage is consistent", () => {

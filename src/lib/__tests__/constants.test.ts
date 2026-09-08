@@ -50,7 +50,7 @@ describe("Droits d'enregistrement", () => {
 
 describe("BAREME_NOTAIRE", () => {
   it("has 8 tranches", () => {
-    expect(BAREME_NOTAIRE).toHaveLength(8);
+    expect(BAREME_NOTAIRE).toHaveLength(9);
   });
 
   it("tranches are in ascending order", () => {
@@ -80,9 +80,8 @@ describe("BAREME_NOTAIRE", () => {
       prevLimit = tranche.limite;
       if (remaining <= 0) break;
     }
-    // Should be around 5000-6000€ for a 750k property
-    expect(fees).toBeGreaterThan(4000);
-    expect(fees).toBeLessThan(7000);
+    // Barème 7 officiel, avant arrondi monétaire et TVA.
+    expect(fees).toBeCloseTo(1900.22579, 5);
   });
 });
 
