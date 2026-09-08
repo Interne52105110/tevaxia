@@ -1,3 +1,4 @@
+import { reserveAiUsage } from "@/lib/ai-quota";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { authenticateApiRequestAsync, logApiCall, type ApiKeyRecord } from "@/lib/api-auth";
@@ -15,7 +16,6 @@ const SYSTEM_PROMPT =
   "Cite les sources pertinentes (Observatoire de l'Habitat, STATEC, législation LU). " +
   "Réponds dans la langue de l'utilisateur.";
 
-const FREE_DAILY_LIMIT = 5;
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -90,28 +90,6 @@ async function getAiSettings(userId: string): Promise<AiSettings | null> {
   return data as AiSettings | null;
 }
 
-async function incrementUsage(userId: string, settings: AiSettings | null): Promise<void> {
-  const client = getServiceClient();
-  if (!client) return;
-  const today = new Date().toISOString().slice(0, 10);
-  const isNewDay = !settings || settings.last_usage_date !== today;
-  const newUsage = isNewDay ? 1 : (settings?.daily_usage ?? 0) + 1;
-
-  await client.from("user_ai_settings").upsert({
-    user_id: userId,
-    ai_provider: settings?.ai_provider ?? "gemini",
-    ai_api_key_encrypted: settings?.ai_api_key_encrypted ?? null,
-    daily_usage: newUsage,
-    last_usage_date: today,
-  });
-}
-
-function getRemainingQuota(settings: AiSettings | null): number {
-  if (!settings) return FREE_DAILY_LIMIT;
-  const today = new Date().toISOString().slice(0, 10);
-  if (settings.last_usage_date !== today) return FREE_DAILY_LIMIT;
-  return Math.max(0, FREE_DAILY_LIMIT - settings.daily_usage);
-}
 
 // ── LLM call adapters ──────────────────────────────────────
 // Gemini 3.x prélève son budget de raisonnement SUR max_tokens, sans le compter
@@ -301,9 +279,10 @@ export async function POST(request: Request) {
     }
 
     // ── Rate limit (JWT free tier only — API keys already rate-limited by tier) ──
-    if (!hasByok && auth.source === "jwt") {
-      const remaining = getRemainingQuota(settings);
-      if (remaining <= 0) {
+    let remaining = -1;
+    if (!hasByok) {
+      remaining = await reserveAiUsage(userId);
+      if (remaining < 0) {
         return NextResponse.json(
           {
             error: "Quota quotidien atteint (5 analyses/jour). Ajoutez votre propre clé API dans votre profil pour un usage illimité.",
@@ -352,13 +331,7 @@ export async function POST(request: Request) {
     }
 
     // ── Increment usage (JWT free tier) ──
-    if (!hasByok && auth.source === "jwt") {
-      await incrementUsage(userId, settings);
-    }
 
-    const remaining = hasByok || auth.source === "apikey"
-      ? -1
-      : getRemainingQuota(settings) - 1;
 
     const response = NextResponse.json(
       { text, model, provider, remaining },

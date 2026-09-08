@@ -1,3 +1,5 @@
+import { bankingStore } from "@/lib/banking-store";
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { isConfigured, startAuth, createSession, getSession } from "@/lib/enable-banking";
 import { createClient } from "@supabase/supabase-js";
@@ -37,7 +39,11 @@ export async function POST(req: Request) {
 
   try {
     const validUntil = new Date(Date.now() + 180 * 86_400_000).toISOString(); // 180 j (max PSD2)
-    const state = `u_${user.id}_${Date.now()}`;
+    const redirect = new URL(body.redirect);
+    if (redirect.origin !== new URL(req.url).origin) return NextResponse.json({ error: "Invalid redirect" }, { status: 400 });
+    const state = randomUUID();
+    const { error: stateError } = await bankingStore().from("banking_auth_states").insert({ state, user_id: user.id });
+    if (stateError) throw new Error("Banking authorization storage failed");
     const auth = await startAuth({
       aspsp: { name: body.institutionId, country: body.country },
       redirectUrl: body.redirect,
@@ -68,7 +74,26 @@ export async function GET(req: Request) {
   if (!code && !id) return NextResponse.json({ error: "code or id required" }, { status: 400 });
 
   try {
+    const store = bankingStore();
+    if (code) {
+      const state = url.searchParams.get("state");
+      if (!state || !/^[0-9a-f-]{36}$/i.test(state)) return NextResponse.json({ error: "Invalid authorization state" }, { status: 403 });
+      const { data: consumed, error } = await store.from("banking_auth_states").delete()
+        .eq("state", state).eq("user_id", user.id).gt("expires_at", new Date().toISOString()).select("state");
+      if (error || !consumed?.length) return NextResponse.json({ error: "Authorization expired or already used" }, { status: 403 });
+    } else {
+      const { data: owned, error } = await store.from("banking_connections").select("session_id")
+        .eq("session_id", id!).eq("user_id", user.id).gt("valid_until", new Date().toISOString()).maybeSingle();
+      if (error || !owned) return NextResponse.json({ error: "Session not owned by user" }, { status: 403 });
+    }
     const session = code ? await createSession(code) : await getSession(id!);
+    if (code) {
+      const { error } = await store.from("banking_connections").insert({
+        session_id: session.session_id, user_id: user.id,
+        account_ids: session.accounts.map(a => a.uid), valid_until: session.access.valid_until,
+      });
+      if (error) throw new Error("Banking session ownership storage failed");
+    }
     return NextResponse.json({
       id: session.session_id,
       accounts: session.accounts.map((a) => a.uid),

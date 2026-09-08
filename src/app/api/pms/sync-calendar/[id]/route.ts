@@ -1,3 +1,5 @@
+import { safeOutbound } from "@/lib/safe-outbound";
+import { validateICal } from "@/lib/pms/ical-parser";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { parseICal, filterFutureEvents, dedupeByUid, isActiveEvent } from "@/lib/pms/ical-parser";
@@ -57,11 +59,11 @@ export async function POST(
   const icsUrl = cal.ics_url.replace(/^webcal:\/\//i, "https://");
   let ics: string;
   try {
-    const res = await fetch(icsUrl, {
+    const res = await safeOutbound(icsUrl, {
       headers: { "User-Agent": "tevaxia-pms/1.0 (iCal sync)" },
-      signal: AbortSignal.timeout(15000),
+      maxBytes: 2_000_000,
     });
-    if (!res.ok) {
+    if (res.status < 200 || res.status >= 300) {
       await supabase.from("pms_external_calendars").update({
         last_sync_at: new Date().toISOString(),
         last_sync_status: "error",
@@ -69,7 +71,8 @@ export async function POST(
       }).eq("id", id);
       return NextResponse.json({ error: `Fetch failed : HTTP ${res.status}` }, { status: 502 });
     }
-    ics = await res.text();
+    ics = res.text;
+    validateICal(ics);
   } catch (e) {
     const msg = e instanceof Error ? e.message : "Fetch error";
     await supabase.from("pms_external_calendars").update({
@@ -124,13 +127,15 @@ export async function POST(
           booker_name: summary.slice(0, 100),
           notes: `Bloc iCal ${cal.label}${ev.description ? "\n\n" + ev.description.slice(0, 500) : ""}`,
         });
-      if (!insErr) imported++;
+      if (insErr) throw new Error("Échec de sauvegarde de la réservation");
+      imported++;
     } else if (found.check_in !== ev.start || found.check_out !== ev.end) {
       // Dates modifiées upstream
-      await supabase
+      const { error: writeError } = await supabase
         .from("pms_reservations")
         .update({ check_in: ev.start, check_out: ev.end })
         .eq("id", found.id);
+      if (writeError) throw new Error("Échec de mise à jour de la réservation");
       updated++;
     }
   }
@@ -139,10 +144,11 @@ export async function POST(
   let deactivated = 0;
   for (const [uid, res] of existingByUid.entries()) {
     if (!seenUids.has(uid) && res.status === "confirmed") {
-      await supabase
+      const { error: writeError } = await supabase
         .from("pms_reservations")
         .update({ status: "cancelled", cancelled_at: new Date().toISOString(), cancellation_reason: "UID absent de la source iCal" })
         .eq("id", res.id);
+      if (writeError) throw new Error("Échec de mise à jour de la réservation");
       deactivated++;
     }
   }

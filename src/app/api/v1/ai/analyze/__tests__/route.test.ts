@@ -17,6 +17,7 @@ vi.mock("@supabase/supabase-js", () => {
   const getUser = vi.fn().mockResolvedValue({ data: { user: { id: "user-123" } } });
   return {
     createClient: vi.fn().mockReturnValue({
+      rpc: vi.fn().mockResolvedValue({ data: 4, error: null }),
       from: fromFn,
       auth: { getUser },
     }),

@@ -1,3 +1,4 @@
+import { ownsBankAccount } from "@/lib/banking-store";
 import { NextResponse } from "next/server";
 import { isConfigured, getAccountTransactions } from "@/lib/enable-banking";
 import { createClient } from "@supabase/supabase-js";
@@ -28,6 +29,7 @@ export async function GET(req: Request) {
   if (!accountId) return NextResponse.json({ error: "accountId required" }, { status: 400 });
 
   try {
+    if (!await ownsBankAccount(data.user.id, accountId)) return NextResponse.json({ error: "Compte bancaire non associé à cet utilisateur. Reconnectez votre banque." }, { status: 403 });
     const txs = await getAccountTransactions(accountId, dateFrom);
     const movements = txs
       .filter((t) => t.status === "BOOK")

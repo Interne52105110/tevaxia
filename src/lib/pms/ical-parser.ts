@@ -118,6 +118,18 @@ export function parseICal(ics: string): ICalEvent[] {
   return events;
 }
 
+/** Reject truncated, malformed or unsupported feeds before reconciliation. */
+export function validateICal(ics: string): void {
+  const lines = unfold(ics).map(line => line.trim()).filter(Boolean);
+  if (lines[0] !== "BEGIN:VCALENDAR" || lines.at(-1) !== "END:VCALENDAR") throw new Error("Calendrier iCal invalide : réservations conservées");
+  const starts = lines.filter(line => line === "BEGIN:VEVENT").length;
+  const ends = lines.filter(line => line === "END:VEVENT").length;
+  const events = parseICal(ics);
+  if (starts !== ends || events.length !== starts || lines.some(line => /^(RRULE|RDATE|EXDATE)[;:]/.test(line))) throw new Error("Événements iCal incomplets ou récurrents non pris en charge");
+  const validDate = (date: string) => { const d = new Date(date); return Number.isFinite(d.getTime()) && d.toISOString().slice(0, 10) === date; };
+  if (events.some(e => !validDate(e.start) || !validDate(e.end) || e.start >= e.end)) throw new Error("Dates iCal invalides");
+}
+
 /**
  * Filtre pour ne garder que les événements futurs ou en cours
  * (pour éviter de créer des réservations historiques inutilement).

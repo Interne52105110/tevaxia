@@ -94,7 +94,6 @@ export default function ApiDashboardPage() {
 
   const [showCreate, setShowCreate] = useState(false);
   const [newKeyName, setNewKeyName] = useState("");
-  const [newKeyTier, setNewKeyTier] = useState<ApiTier>("free");
   const [createdKeyPlain, setCreatedKeyPlain] = useState<string | null>(null);
 
   const formatDate = (s: string | null): string => {
@@ -156,10 +155,9 @@ export default function ApiDashboardPage() {
     setLoading(true);
     setError(null);
     try {
-      const { plainKey } = await createApiKey({ name: newKeyName.trim(), tier: newKeyTier });
+      const { plainKey } = await createApiKey({ name: newKeyName.trim() });
       setCreatedKeyPlain(plainKey);
       setNewKeyName("");
-      setNewKeyTier("free");
       await reloadKeys();
     } catch (e) {
       setError(errMsg(e, t("errCreate")));
@@ -241,15 +239,7 @@ export default function ApiDashboardPage() {
               onChange={(e) => setNewKeyName(e.target.value)}
               className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm sm:col-span-2"
             />
-            <select
-              value={newKeyTier}
-              onChange={(e) => setNewKeyTier(e.target.value as ApiTier)}
-              className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
-            >
-              <option value="free">Free</option>
-              <option value="pro">Pro</option>
-              <option value="enterprise">Enterprise</option>
-            </select>
+            <span className="self-center text-sm text-muted">Free</span>
             <button
               onClick={handleCreate}
               disabled={loading || !newKeyName.trim()}

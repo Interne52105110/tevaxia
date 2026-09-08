@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { supabase } from "@/lib/supabase";
@@ -16,6 +16,7 @@ type Step = "loading" | "configure" | "select-bank" | "authenticate" | "done";
 export default function Psd2Page() {
   const { user } = useAuth();
   const t = useTranslations("glPsd2");
+  const exchangedCode = useRef<string | null>(null);
   const [configured, setConfigured] = useState<boolean | null>(null);
   const [institutions, setInstitutions] = useState<Institution[]>([]);
   const [country, setCountry] = useState("LU");
@@ -38,11 +39,12 @@ export default function Psd2Page() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
-    if (code && user) {
+    if (code && user && exchangedCode.current !== code) {
+      exchangedCode.current = code;
       setStep("loading");
       (async () => {
         try {
-          const res = await authFetch(`/api/psd2/requisition?code=${encodeURIComponent(code)}`);
+          const res = await authFetch(`/api/psd2/requisition?code=${encodeURIComponent(code)}&state=${encodeURIComponent(params.get("state") ?? "")}`);
           const data = await res.json();
           if (!res.ok) throw new Error(data.error ?? t("errExchange"));
           setSessionId(data.id);

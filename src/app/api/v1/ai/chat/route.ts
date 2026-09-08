@@ -1,3 +1,4 @@
+import { reserveAiUsage } from "@/lib/ai-quota";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { authenticateApiRequestAsync, logApiCall, type ApiKeyRecord } from "@/lib/api-auth";
@@ -19,7 +20,6 @@ const SYSTEM_PROMPT =
   "Si une question sort de ton champ (médecine, droit pénal, etc.) décline poliment. " +
   "Réponds dans la langue de l'utilisateur (français par défaut).";
 
-const FREE_DAILY_LIMIT = 5;
 const MAX_MESSAGES = 20;
 const MAX_CONTENT_LENGTH = 4000;
 
@@ -93,28 +93,6 @@ async function getAiSettings(userId: string): Promise<AiSettings | null> {
   return data as AiSettings | null;
 }
 
-async function incrementUsage(userId: string, settings: AiSettings | null): Promise<void> {
-  const client = getServiceClient();
-  if (!client) return;
-  const today = new Date().toISOString().slice(0, 10);
-  const isNewDay = !settings || settings.last_usage_date !== today;
-  const newUsage = isNewDay ? 1 : (settings?.daily_usage ?? 0) + 1;
-
-  await client.from("user_ai_settings").upsert({
-    user_id: userId,
-    ai_provider: settings?.ai_provider ?? "gemini",
-    ai_api_key_encrypted: settings?.ai_api_key_encrypted ?? null,
-    daily_usage: newUsage,
-    last_usage_date: today,
-  });
-}
-
-function getRemainingQuota(settings: AiSettings | null): number {
-  if (!settings) return FREE_DAILY_LIMIT;
-  const today = new Date().toISOString().slice(0, 10);
-  if (settings.last_usage_date !== today) return FREE_DAILY_LIMIT;
-  return Math.max(0, FREE_DAILY_LIMIT - settings.daily_usage);
-}
 
 // Modèle Gemini pilotable par variable d'env : Google ferme les anciens modèles
 // aux nouveaux comptes (gemini-2.5-flash renvoie déjà 404 « no longer available
@@ -298,9 +276,10 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!hasByok && auth.source === "jwt") {
-      const remaining = getRemainingQuota(settings);
-      if (remaining <= 0) {
+    let remaining = -1;
+    if (!hasByok) {
+      remaining = await reserveAiUsage(userId);
+      if (remaining < 0) {
         return NextResponse.json(
           { error: "Quota quotidien atteint. Ajoutez votre clé API dans le profil pour un usage illimité.", remaining: 0 },
           { status: 429, headers: { ...CORS_HEADERS, "Retry-After": "86400" } },
@@ -339,13 +318,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: `Erreur du fournisseur IA : ${message}` }, { status: 502, headers: CORS_HEADERS });
     }
 
-    if (!hasByok && auth.source === "jwt") {
-      await incrementUsage(userId, settings);
-    }
 
-    const remaining = hasByok || auth.source === "apikey"
-      ? -1
-      : getRemainingQuota(settings) - 1;
 
     const response = NextResponse.json({ text, model, provider, remaining }, { status: 200, headers: CORS_HEADERS });
     if (auth.keyRecord) {

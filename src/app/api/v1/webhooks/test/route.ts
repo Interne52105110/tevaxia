@@ -1,3 +1,4 @@
+import { safeOutbound } from "@/lib/safe-outbound";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
@@ -90,7 +91,7 @@ export async function POST(request: Request) {
   let error: string | undefined;
 
   try {
-    const res = await fetch(webhook.url, {
+    const res = await safeOutbound(webhook.url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,10 +100,10 @@ export async function POST(request: Request) {
         "User-Agent": "tevaxia-webhooks/1.0",
       },
       body: payloadStr,
-      signal: AbortSignal.timeout(8000),
+      maxBytes: 64_000,
     });
     status = res.status;
-    responseBody = (await res.text()).slice(0, 2000);
+    responseBody = res.text.slice(0, 2000);
   } catch (e) {
     error = e instanceof Error ? e.message : "unknown_error";
   }
