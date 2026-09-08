@@ -383,7 +383,7 @@ export default function FraisAcquisition() {
               </div>
             </div>
 
-            <div className="flex justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-2">
               <SaveButton
                 onClick={() => {
                   sauvegarderEvaluation({

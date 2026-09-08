@@ -10,7 +10,7 @@ interface ResultLineProps {
 function ResultLine({ label, value, highlight, large, sub, warning }: ResultLineProps) {
   return (
     <div
-      className={`flex items-center justify-between py-2 ${
+      className={`flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-2 ${
         highlight ? "border-t-2 border-gold pt-3" : sub ? "pl-4" : ""
       } ${large ? "text-lg" : "text-sm"}`}
     >
@@ -18,7 +18,7 @@ function ResultLine({ label, value, highlight, large, sub, warning }: ResultLine
         {label}
       </span>
       <span
-        className={`font-mono font-semibold ${
+        className={`ml-auto shrink-0 font-mono font-semibold ${
           warning ? "text-warning" : highlight ? "text-navy" : "text-foreground"
         } ${large ? "text-xl" : ""}`}
       >

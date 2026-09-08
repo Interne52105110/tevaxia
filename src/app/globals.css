@@ -57,6 +57,19 @@ body {
   color: var(--foreground);
 }
 
+/* Default reading scale requested for the entire interface.
+   CSS zoom reflows layout and also enlarges controls, icons and pixel-sized text.
+   Browser zoom remains available; printed reports keep their page dimensions. */
+@media screen {
+  html { zoom: 1.1; }
+  @supports not (zoom: 1.1) {
+    html { font-size: 110%; }
+  }
+  /* Let grid content and intrinsic form widths fit the reduced layout space. */
+  .grid > * { min-width: 0; }
+  input, select, textarea { min-width: 0; max-width: 100%; }
+}
+
 /* Custom scrollbar — navy solid, better discoverability + accessibility */
 ::-webkit-scrollbar { width: 12px; height: 12px; }
 ::-webkit-scrollbar-track { background: #F1EFEA; }
