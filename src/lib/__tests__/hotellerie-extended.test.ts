@@ -120,7 +120,7 @@ describe("Renovation hotel", () => {
     expect(r.economiesAnnuelles).toBe(0);
   });
 
-  it("Klimabonus discount reduces total cost", () => {
+  it("does not invent residential Klimabonus for a hotel", () => {
     const r = computeRenovationHotel({
       surfaceChauffeeM2: 2500,
       nbChambres: 40,
@@ -136,8 +136,8 @@ describe("Renovation hotel", () => {
       occupancy: 0.65,
       gainRevparPctViaLabel: 0,
     });
-    expect(r.aideKlimabonusTotal).toBeGreaterThan(0);
-    expect(r.coutNetTotal).toBeLessThan(r.coutBrutTotal);
+    expect(r.aideKlimabonusTotal).toBe(0);
+    expect(r.coutNetTotal).toBe(r.coutBrutTotal);
   });
 
   it("payback is shorter when label gain is added", () => {
@@ -156,7 +156,7 @@ describe("Renovation hotel", () => {
       occupancy: 0.65,
     };
     const without = computeRenovationHotel({ ...inputs, gainRevparPctViaLabel: 0 });
-    const withLabel = computeRenovationHotel({ ...inputs, gainRevparPctViaLabel: 3 });
+    const withLabel = computeRenovationHotel({ ...inputs, gainRevparPctViaLabel: 3, margeRecettesSupplementaires: .5 });
     expect(withLabel.paybackAvecLabel).toBeLessThan(without.paybackSansLabel);
   });
 
@@ -176,7 +176,7 @@ describe("Renovation hotel", () => {
       occupancy: 0.70,
     };
     const without = computeRenovationHotel({ ...inputs, gainRevparPctViaLabel: 0 });
-    const withLabel = computeRenovationHotel({ ...inputs, gainRevparPctViaLabel: 3 });
+    const withLabel = computeRenovationHotel({ ...inputs, gainRevparPctViaLabel: 3, margeRecettesSupplementaires: .5 });
     expect(withLabel.vanDixAns).toBeGreaterThan(without.vanDixAns);
   });
 });

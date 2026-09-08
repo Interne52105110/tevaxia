@@ -183,6 +183,10 @@ export interface RenovationHotelInputs {
   adr: number;
   occupancy: number;
   gainRevparPctViaLabel: number;
+  aidesConfirmees?: number;
+  coutTravauxSaisi?: number;
+  margeRecettesSupplementaires?: number; // 0..1 ; recettes additionnelles nettes des coûts variables
+  entretienAnnuelSupplementaire?: number;
 }
 
 export interface RenovationHotelLine {

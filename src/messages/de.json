@@ -7640,7 +7640,7 @@
     "exploitationTitle": "USALI Betriebs-GuV",
     "exploitationSubtitle": "5-Jahres-GuV: Umsatz → departmental → GOP → EBITDA, GOPPAR & Benchmark",
     "renovationTitle": "Energetische Hotelsanierung",
-    "renovationSubtitle": "Kosten pro Zimmer, Klimabonus Tertiär, ROI auf Rechnungen + Label-Effekt",
+    "renovationSubtitle": "Hotelszenario: Baubudget, belegte Hilfen, Energieersparnisse und Nettobeitrag zusätzlicher Umsätze. Ausgangsquoten sind Beispiele, keine Angebote oder Förderzusagen.",
     "revparComparisonTitle": "RevPAR vs Markt",
     "revparComparisonSubtitle": "MPI / ARI / RGI Indizes — Fair Share gegenüber Compset",
     "scoreE2Title": "E-2 / Investor-Visa-Score",
@@ -7987,7 +7987,7 @@
       "paybackVAN": "Payback & 10-Jahres-NPV (4 % Diskont)",
       "energyImpact": "Energieeffekt",
       "perPostDetail": "Detail nach Posten",
-      "methodNote": "Klimabonus Tertiär — die angezeigten Förderquoten sind die durchschnittlich beobachteten Werte pro Posten für LU-Tertiärgebäude. Genaue Sätze hängen vom Haushaltsjahr (Klima-Pak-Gesetz) und vom angestrebten Leistungslabel ab. Vor Beauftragung mit myenergy abklären.",
+      "methodNote": "Szenarioannahmen ohne Kosten- oder Leistungsbestätigung. Eingetragene Hilfen gelten als sofort verfügbar und werden proportional verteilt; kein Klimabonus-Satz wird zugeteilt. Umsatzgewinne werden mit der Marge multipliziert und zu Energieersparnissen nach Wartung addiert. Zehnjähriger Kapitalwert bei 4 %, konstante Jahresendflüsse, ohne Schulden, Steuern, erstattbare MwSt., Ersatzinvestitionen und Restwert. Bei späteren Hilfen oder Finanzierung Detailszenario verwenden.",
       "labels": {
         "surfaceChauffee": "Gesamte beheizte Fläche",
         "nbChambres": "Anzahl Zimmer",
@@ -8002,9 +8002,9 @@
         "adr": "ADR",
         "occupation": "Auslastung",
         "gainRevpar": "RevPAR-Gewinn durch Öko-Label",
-        "hintCpe": "Siehe EPB / Energierechnung",
-        "hintConsoAuto": "0 = automatisch berechnet",
-        "hintGainLabel": "Green Key, EU Ecolabel = +1-3% RevPAR beobachtet",
+        "hintCpe": "Abgerechnete Endenergie je beheiztem m²; keinen CPE-Primärenergieindex direkt verwenden.",
+        "hintConsoAuto": "0 = Beispielszenario nach gewählten Arbeiten; durch Fachplanung ersetzen. Kein garantiertes CPE-Ergebnis.",
+        "hintGainLabel": "Eingegebene Geschäftsannahme, standardmäßig 0 %. Ein Label garantiert keinen RevPAR-Zuwachs.",
         "vanCumulee": "Kumulativer Kapitalwert 10 Jahre"
       },
       "results": {
@@ -8215,17 +8215,17 @@
   "hotellerieRenovation": {
     "seo": {
       "klimabonusTitle": "Klimabonus für Hotel-Tertiärbereich",
-      "klimabonusContent": "Das Klimabonus-Regime (Gesetz vom 23.12.2022) deckt energetische Sanierungen im luxemburgischen Tertiärbereich ab. Für ein Hotel förderfähig: Dämmung, HLK, LED + GLT, 3-fach-Fenster, Wärmepumpen, Solarthermie. Subventionsquoten 25-62,5 % je nach Umfang und Zielleistung, mit CO₂-Bonus je nach realen Einsparungen.",
+      "klimabonusContent": "Ein Hotel fällt nicht automatisch unter Wohnungs-Klimabonus. Gebäudenutzung, begünstigtes Unternehmen, förderfähige Kosten, Antragsdatum und Kumulation prüfen. Null angesetzte Hilfe bedeutet keine Anrechnung im Szenario, keinen Ausschlussbescheid.",
       "tertiaireTitle": "Unterschiede Tertiär vs. Wohnbau",
-      "tertiaireContent": "Für den Tertiärbereich laufen die Anträge über den KMU-One-Stop-Shop und das Wirtschaftsministerium. Mindestverbesserungsschwellen (z. B. 30 % Primärenergiegewinn) bedingen die Förderfähigkeit. Kostendeckel sind höher (250-450 €/m²), ein Energieaudit ist systematisch erforderlich.",
+      "tertiaireContent": "Ein Hotel fällt nicht automatisch unter Wohnungs-Klimabonus. Gebäudenutzung, begünstigtes Unternehmen, förderfähige Kosten, Antragsdatum und Kumulation prüfen. Null angesetzte Hilfe bedeutet keine Anrechnung im Szenario, keinen Ausschlussbescheid.",
       "roiTitle": "ROI: Energieeinsparungen + RevPAR-Gewinn durch Label",
-      "roiContent": "Die Rentabilität einer Hotelsanierung kombiniert zwei Effekte. Erstens: direkte Energieeinsparungen (20-40 % der Jahresrechnung nach Tiefensanierung). Zweitens: RevPAR-Gewinn via Öko-Label (Green Key, EU Ecolabel, Biosphere) — +1 bis +3 % ADR laut STR und HOTREC. Der zweite Effekt ist oft der eigentliche ROI-Hebel.",
+      "roiContent": "Szenarioannahmen ohne Kosten- oder Leistungsbestätigung. Eingetragene Hilfen gelten als sofort verfügbar und werden proportional verteilt; kein Klimabonus-Satz wird zugeteilt. Umsatzgewinne werden mit der Marge multipliziert und zu Energieersparnissen nach Wartung addiert. Zehnjähriger Kapitalwert bei 4 %, konstante Jahresendflüsse, ohne Schulden, Steuern, erstattbare MwSt., Ersatzinvestitionen und Restwert. Bei späteren Hilfen oder Finanzierung Detailszenario verwenden.",
       "faq1q": "Klimabonus mit anderen Hilfen kombinierbar?",
-      "faq1a": "Ja, mit Klimaprêt (0%-subventioniertes Darlehen), regional/kommunalen Hilfen und Energieversorger-Prämien. Kombinationen sind auf 80-100 % der förderfähigen Ausgaben gedeckelt.",
+      "faq1a": "Ein Hotel fällt nicht automatisch unter Wohnungs-Klimabonus. Gebäudenutzung, begünstigtes Unternehmen, förderfähige Kosten, Antragsdatum und Kumulation prüfen. Null angesetzte Hilfe bedeutet keine Anrechnung im Szenario, keinen Ausschlussbescheid.",
       "faq2q": "Welche Maßnahme bietet den besten ROI?",
-      "faq2a": "Für ein bestehendes E/F-Hotel bieten Dachdämmung + Wärmepumpenwechsel typisch den schnellsten ROI (6-10 Jahre). LED + GLT ist absolut am profitabelsten, wenn der Stromverbrauch dominiert. Fenster nur rentabel bei stark degradierten Bestandsfenstern.",
+      "faq2a": "Szenarioannahmen ohne Kosten- oder Leistungsbestätigung. Eingetragene Hilfen gelten als sofort verfügbar und werden proportional verteilt; kein Klimabonus-Satz wird zugeteilt. Umsatzgewinne werden mit der Marge multipliziert und zu Energieersparnissen nach Wartung addiert. Zehnjähriger Kapitalwert bei 4 %, konstante Jahresendflüsse, ohne Schulden, Steuern, erstattbare MwSt., Ersatzinvestitionen und Restwert. Bei späteren Hilfen oder Finanzierung Detailszenario verwenden.",
       "faq3q": "Erhöht ein Öko-Label den ADR wirklich?",
-      "faq3a": "STR Global + Cornell-Hospitality-Studien: Green Key-zertifizierte Hotels erzielen +2 bis +4 % ADR gegenüber unzertifizierten, mit 1-2 Pp. Belegungsaufschlag. Der Effekt ist bei Corporate und MICE stärker (CSR-Kriterien).",
+      "faq3a": "Eingegebene Geschäftsannahme, standardmäßig 0 %. Ein Label garantiert keinen RevPAR-Zuwachs.",
       "faqTitle": "Häufig gestellte Fragen",
       "relatedTitle": "Weiterführend"
     }
@@ -18088,5 +18088,22 @@
     "sources": "Quellen und Verfahren für Hilfen",
     "sourceNote": "Diese Quellen erläutern Voraussetzungen und Verfahren; sie bestätigen nicht die Kosten oder Ersparnisse Ihres Szenarios.",
     "error": "Beträge und Sätze prüfen. Hilfen dürfen Kosten und Darlehen den Anfangsbedarf nicht übersteigen. Ganze Jahreszahlen und Hilfsauszahlung innerhalb des Zeitraums erforderlich."
+  },
+  "hotelRenovationAudit": {
+    "intro": "Hotelszenario: Baubudget, belegte Hilfen, Energieersparnisse und Nettobeitrag zusätzlicher Umsätze. Ausgangsquoten sind Beispiele, keine Angebote oder Förderzusagen.",
+    "finalEnergy": "Abgerechnete Endenergie je beheiztem m²; keinen CPE-Primärenergieindex direkt verwenden.",
+    "autoConso": "0 = Beispielszenario nach gewählten Arbeiten; durch Fachplanung ersetzen. Kein garantiertes CPE-Ergebnis.",
+    "labelHint": "Eingegebene Geschäftsannahme, standardmäßig 0 %. Ein Label garantiert keinen RevPAR-Zuwachs.",
+    "quote": "Angesetztes Gesamtbaubudget (optional)",
+    "quoteHint": "Leer = beispielhafte Zimmerquoten; Angebote eingeben. Verteilung nach Quoten, keine vertragliche Kostenaufteilung.",
+    "aid": "Angesetzte bestätigte Hilfen",
+    "maintenance": "Zusätzliche jährliche Wartung",
+    "margin": "Marge auf Zusatzumsätze nach variablen Kosten",
+    "netContribution": "Nettobeitrag zusätzlicher Umsätze",
+    "method": "Szenarioannahmen ohne Kosten- oder Leistungsbestätigung. Eingetragene Hilfen gelten als sofort verfügbar und werden proportional verteilt; kein Klimabonus-Satz wird zugeteilt. Umsatzgewinne werden mit der Marge multipliziert und zu Energieersparnissen nach Wartung addiert. Zehnjähriger Kapitalwert bei 4 %, konstante Jahresendflüsse, ohne Schulden, Steuern, erstattbare MwSt., Ersatzinvestitionen und Restwert. Bei späteren Hilfen oder Finanzierung Detailszenario verwenden.",
+    "aidTitle": "Unternehmenshilfen: passende Regelung prüfen",
+    "aidScope": "Ein Hotel fällt nicht automatisch unter Wohnungs-Klimabonus. Gebäudenutzung, begünstigtes Unternehmen, förderfähige Kosten, Antragsdatum und Kumulation prüfen. Null angesetzte Hilfe bedeutet keine Anrechnung im Szenario, keinen Ausschlussbescheid.",
+    "official": "Umwelthilfen für Unternehmen — Guichet.lu",
+    "detailed": "Detailszenario: spätere Hilfen und Finanzierung"
   }
 }

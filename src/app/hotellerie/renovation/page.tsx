@@ -5,18 +5,19 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
-import SEOContent from "@/components/SEOContent";
+
 import { computeRenovationHotel } from "@/lib/hotellerie/renovation";
 
 function formatEUR(n: number): string {
   if (!isFinite(n) || isNaN(n)) return "—";
-  return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+  return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n === 0 ? 0 : n);
 }
 
 export default function RenovationHotelPage() {
   const locale = useLocale();
   const t = useTranslations("hotellerieToolPages");
   const tc = useTranslations("hotellerieCalc");
+  const audit = useTranslations("hotelRenovationAudit");
   const tcr = useTranslations("hotellerieCalc.renovation");
   const tl = useTranslations("hotellerieCalc.renovation.labels");
   const tr = useTranslations("hotellerieCalc.renovation.results");
@@ -39,17 +40,21 @@ export default function RenovationHotelPage() {
   const [travauxFenetres, setFenetres] = useState(false);
   const [adr, setAdr] = useState(120);
   const [occupancy, setOccupancy] = useState(0.65);
-  const [gainRevparPctViaLabel, setGainLabel] = useState(2);
+  const [gainRevparPctViaLabel, setGainLabel] = useState(0);
+  const [aidesConfirmees,setAides]=useState(0);
+  const [coutSaisi,setCoutSaisi]=useState('');
+  const [margeRecettesSupplementaires,setMarge]=useState(.5);
+  const [entretienAnnuelSupplementaire,setEntretien]=useState(0);
 
   const result = useMemo(() => {
     try {
       return computeRenovationHotel({
         surfaceChauffeeM2, nbChambres, consoActuelleKwhM2, consoCibleKwhM2, prixKwhMoyen,
         travauxIsolation, travauxCVC, travauxECS, travauxLED, travauxFenetres,
-        adr, occupancy, gainRevparPctViaLabel,
+        adr, occupancy, gainRevparPctViaLabel, aidesConfirmees, coutTravauxSaisi:coutSaisi === "" ? undefined : Number(coutSaisi), margeRecettesSupplementaires, entretienAnnuelSupplementaire,
       });
     } catch { return null; }
-  }, [surfaceChauffeeM2, nbChambres, consoActuelleKwhM2, consoCibleKwhM2, prixKwhMoyen, travauxIsolation, travauxCVC, travauxECS, travauxLED, travauxFenetres, adr, occupancy, gainRevparPctViaLabel]);
+  }, [surfaceChauffeeM2, nbChambres, consoActuelleKwhM2, consoCibleKwhM2, prixKwhMoyen, travauxIsolation, travauxCVC, travauxECS, travauxLED, travauxFenetres, adr, occupancy, gainRevparPctViaLabel, aidesConfirmees, coutSaisi, margeRecettesSupplementaires, entretienAnnuelSupplementaire]);
 
   return (
     <div className="bg-background">
@@ -62,7 +67,7 @@ export default function RenovationHotelPage() {
             {t("backToHub")}
           </Link>
           <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">{t("renovationTitle")}</h1>
-          <p className="mt-2 text-lg text-white/70">{t("renovationSubtitle")}</p>
+          <p className="mt-2 text-lg text-white/70">{audit("intro")}</p>
         </div>
       </section>
 
@@ -74,8 +79,8 @@ export default function RenovationHotelPage() {
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <InputField label={tl("surfaceChauffee")} value={surfaceChauffeeM2} onChange={(v) => setSurfaceChauffeeM2(Number(v) || 0)} suffix="m²" />
                 <InputField label={tl("nbChambres")} value={nbChambres} onChange={(v) => setNbChambres(Number(v) || 0)} />
-                <InputField label={tl("consoActuelle")} value={consoActuelleKwhM2} onChange={(v) => setConsoActuelleKwhM2(Number(v) || 0)} suffix="kWh/m²/an" hint={tl("hintCpe")} />
-                <InputField label={tl("consoCible")} value={consoCibleKwhM2} onChange={(v) => setConsoCibleKwhM2(Number(v) || 0)} suffix="kWh/m²/an" hint={tl("hintConsoAuto")} />
+                <InputField label={tl("consoActuelle")} value={consoActuelleKwhM2} onChange={(v) => setConsoActuelleKwhM2(Number(v) || 0)} suffix="kWh/m²/an" hint={audit("finalEnergy")} />
+                <InputField label={tl("consoCible")} value={consoCibleKwhM2} onChange={(v) => setConsoCibleKwhM2(Number(v) || 0)} suffix="kWh/m²/an" hint={audit("autoConso")} />
                 <InputField label={tl("prixKwh")} value={prixKwhMoyen.toFixed(3)} onChange={(v) => setPrixKwhMoyen(Number(v) || 0)} suffix="€" className="sm:col-span-2" />
               </div>
             </div>
@@ -100,10 +105,16 @@ export default function RenovationHotelPage() {
 
             <div className="rounded-xl border border-card-border bg-card p-6">
               <h2 className="text-base font-semibold text-navy">{tcr("hotelPerf")}</h2>
+              <div className="mt-4 space-y-4">
+                <InputField label={audit("quote")} value={coutSaisi} onChange={setCoutSaisi} min={0} suffix="€" hint={audit("quoteHint")} />
+                <InputField label={audit("aid")} value={aidesConfirmees} onChange={v=>setAides(Number(v))} min={0} suffix="€" />
+                <InputField label={audit("maintenance")} value={entretienAnnuelSupplementaire} onChange={v=>setEntretien(Number(v))} min={0} suffix="€" />
+                <InputField label={audit("margin")} value={margeRecettesSupplementaires*100} onChange={v=>setMarge(Number(v)/100)} min={0} max={100} suffix="%" />
+              </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <InputField label={tl("adr")} value={adr} onChange={(v) => setAdr(Number(v) || 0)} suffix="€" />
-                <InputField label={tl("occupation")} value={Math.round(occupancy * 100)} onChange={(v) => setOccupancy(Math.max(5, Math.min(95, Number(v) || 0)) / 100)} suffix="%" />
-                <InputField label={tl("gainRevpar")} value={gainRevparPctViaLabel} onChange={(v) => setGainLabel(Math.max(0, Math.min(15, Number(v) || 0)))} suffix="%" hint={tl("hintGainLabel")} className="sm:col-span-2" />
+                <InputField label={tl("occupation")} value={Math.round(occupancy * 100)} onChange={(v) => setOccupancy(Math.max(0, Math.min(100, Number(v) || 0)) / 100)} suffix="%" />
+                <InputField label={tl("gainRevpar")} value={gainRevparPctViaLabel} onChange={(v) => setGainLabel(Math.max(0, Math.min(15, Number(v) || 0)))} suffix="%" hint={audit("labelHint")} className="sm:col-span-2" />
               </div>
             </div>
           </div>
@@ -116,7 +127,7 @@ export default function RenovationHotelPage() {
                   <div className="mt-2 text-3xl font-bold text-navy">{formatEUR(result.coutNetTotal)}</div>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-800">{tr("brutBadge", { amount: formatEUR(result.coutBrutTotal) })}</span>
-                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">{tr("klimabonusBadge", { amount: formatEUR(result.aideKlimabonusTotal) })}</span>
+                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">{audit("aid")}: {formatEUR(result.aideKlimabonusTotal)}</span>
                   </div>
                 </div>
 
@@ -124,8 +135,9 @@ export default function RenovationHotelPage() {
                   title={tcr("annualBenefits")}
                   lines={[
                     { label: tr("economiesEnergie"), value: formatEUR(result.economiesAnnuelles), highlight: true },
-                    { label: tr("gainRevparLabel"), value: formatEUR(result.gainRevparAnnuel), highlight: true },
-                    { label: tr("totalAnnuel"), value: formatEUR(result.economiesAnnuelles + result.gainRevparAnnuel), highlight: true, large: true },
+                    { label: audit("netContribution"), value: formatEUR(result.gainRevparAnnuel), highlight: true },
+                    { label: audit("maintenance"), value: formatEUR(result.lines.some(l=>l.retenu) ? -entretienAnnuelSupplementaire : 0) },
+                    { label: tr("totalAnnuel"), value: formatEUR(result.economiesAnnuelles + result.gainRevparAnnuel - (result.lines.some(l=>l.retenu) ? entretienAnnuelSupplementaire : 0)), highlight: true, large: true },
                   ]}
                 />
 
@@ -160,9 +172,9 @@ export default function RenovationHotelPage() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-card-border/50">
-                        {result.lines.map((line) => (
+                        {result.lines.map((line, index) => (
                           <tr key={line.poste} className={!line.retenu ? "opacity-40" : ""}>
-                            <td className="px-2 py-2 text-navy">{line.poste}</td>
+                            <td className="px-2 py-2 text-navy">{tl(["isolation","cvc","ecs","led","fenetres"][index])}</td>
                             <td className="px-2 py-2 text-right">{formatEUR(line.coutBrut)}</td>
                             <td className="px-2 py-2 text-right text-emerald-700">{formatEUR(line.aide)}</td>
                             <td className="px-2 py-2 text-right font-semibold text-navy">{formatEUR(line.coutNet)}</td>
@@ -180,27 +192,11 @@ export default function RenovationHotelPage() {
         </div>
 
         <div className="mt-10 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
-          {tcr("methodNote")}
+          {audit("method")}
         </div>
       </div>
 
-      <SEOContent
-        ns="hotellerieRenovation"
-        sections={[
-          { titleKey: "klimabonusTitle", contentKey: "klimabonusContent" },
-          { titleKey: "tertiaireTitle", contentKey: "tertiaireContent" },
-          { titleKey: "roiTitle", contentKey: "roiContent" },
-        ]}
-        faq={[
-          { questionKey: "faq1q", answerKey: "faq1a" },
-          { questionKey: "faq2q", answerKey: "faq2a" },
-          { questionKey: "faq3q", answerKey: "faq3a" },
-        ]}
-        relatedLinks={[
-          { href: "/hotellerie/valorisation", labelKey: "hotelValorisation" },
-          { href: "/energy/renovation", labelKey: "energyRenovation" },
-        ]}
-      />
+      <section className="mx-auto max-w-7xl px-4 pb-10 space-y-3"><h2 className="text-lg font-semibold text-navy">{audit("aidTitle")}</h2><p className="text-sm text-muted">{audit("aidScope")}</p><a className="block text-navy underline" href="https://guichet.public.lu/fr/entreprises/financement-aides/aides-environnement/industrie-services/aide-protec-environnement.html">{audit("official")}</a><Link className="block text-navy underline" href={`${lp}/energy/renovation`}>{audit("detailed")}</Link></section>
     </div>
   );
 }

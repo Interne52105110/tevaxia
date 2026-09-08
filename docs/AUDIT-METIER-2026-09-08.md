@@ -138,3 +138,14 @@ Guide Klimabonus réécrit dans cinq langues : conditions techniques et dates, d
 Validation : 1 125 tests / 87 fichiers, build et lint ciblé réussis. Navigateur dans les cinq langues : aide différée, prêt sans effet sur la VAN du projet, prêt à taux zéro, facture après travaux supérieure, données invalides, guide et écrans 320/390/768/1440. PDFs réels de 20/50 ans générés, extraction et rendu contrôlés (3/4 pages), en-tête du tableau répété, aucune ligne tronquée. Parcours d’authentification PDF non vérifié de bout en bout.
 
 Limite : `energy-api` Java autonome garde l’ancienne API de rénovation ; son déploiement indépendant n’est pas couvert. Le site utilise désormais le moteur de scénario local. Les autres outils énergétiques et la rénovation hôtelière restent à contrôler séparément.
+
+
+## Rénovation hôtelière — 8 septembre 2026
+
+Suppression des taux automatiques de subvention par poste (20–50 %) : le calcul ne présume plus que Klimabonus résidentiel couvre un hôtel. Montant d’aides confirmées saisi par l’utilisateur, zéro retenu par défaut, sans conclure à l’inéligibilité. Les modalités des aides aux entreprises sont renvoyées à la démarche officielle : https://guichet.public.lu/fr/entreprises/financement-aides/aides-environnement/industrie-services/aide-protec-environnement.html .
+
+Budget total de devis facultatif, remplaçant les ratios illustratifs par chambre. La répartition entre postes est comptable et proportionnelle aux ratios, explicitement non contractuelle. La consommation requise est l’énergie finale facturée, pas un indice d’énergie primaire. À défaut de cible technique, le scénario de réduction est illustratif et multiplicatif ; aucune garantie de performance. Une cible plus énergivore reste une économie négative. Aucune économie ni effet commercial attribué en l’absence de travaux sélectionnés.
+
+Gain RevPAR fixé à zéro par défaut, supprimant la promesse non documentée d’un gain de label. Un gain commercial saisi est converti en contribution après coûts variables via une marge explicite ; il n’est plus traité comme un bénéfice intégral. Entretien additionnel déduit avant payback et VAN. VAN de flux constants sur dix ans, actualisés à 4 %, aides supposées immédiates. Dette, fiscalité, TVA récupérable, remplacements et valeur résiduelle exclus et signalés. Pour délais d’aides/financement : renvoi au scénario détaillé.
+
+Validation : 1 137 tests / 88 fichiers réussis, build et lint ciblé réussis. Nouveaux cas d’aides saisies, réconciliation des coûts, marge, entretien, absence de travaux, surconsommation, occupation nulle et données invalides. QA navigateur cinq langues et largeurs 320/390/768/1440 réussie ; inspection visuelle du rendu.

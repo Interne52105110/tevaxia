@@ -7640,7 +7640,7 @@
     "exploitationTitle": "USALI Exploitatiounsbilanz",
     "exploitationSubtitle": "5-Joeres-GuV: Ëmsaz → departmental → GOP → EBITDA, GOPPAR & Benchmark",
     "renovationTitle": "Energetesch Hotelrenovéierung",
-    "renovationSubtitle": "Käschten pro Zëmmer, Klimabonus Tertiair, ROI op Rechnungen + Label-Effekt",
+    "renovationSubtitle": "Hotellszenario: Aarbechtsbudget, beluechten Hëllefen, Energieerspuernisser an Nettobäitrag vun zousätzlechem Ëmsaz. Ufanksratioe si Beispiller, keng Offeren oder Hëllefsverspriechen.",
     "revparComparisonTitle": "RevPAR vs Maart",
     "revparComparisonSubtitle": "MPI / ARI / RGI Indizen — Fair Share géint Compset",
     "scoreE2Title": "E-2 / Investisseur-Visa-Score",
@@ -7987,7 +7987,7 @@
       "paybackVAN": "Payback & 10-Joeres-NPV (4 % Diskont)",
       "energyImpact": "Energieeffekt",
       "perPostDetail": "Detail no Posten",
-      "methodNote": "Klimabonus Tertiair — déi ugewise Förderquoten sinn déi duerchschnëttlech beobachte Wäerter pro Posten fir LU-Tertiairsgebaier. Genau Sätz hänken vum Haushaltsjoer (Klima-Pak-Gesetz) a vum agezielten Leeschtungslabel of. Virum Engagement mat myenergy klären.",
+      "methodNote": "Szenarioannahmen ouni Bestätegung vu Käschten oder Leeschtung. Agedroen Hëllefe gëllen als direkt disponibel a ginn proportional verdeelt; kee Klimabonus-Saz gëtt zougewisen. Ëmsazgewënn gëtt mat der Marge multiplizéiert an op Energieerspuernisser nom Entretien bäigerechent. Zéngjärege Kapitalwäert bei 4 %, konstante Flux um Joresenn, ouni Scholden, Steieren, recuperabel TVA, Ersatzinvestitiounen a Reschtwäert. Fir spéider Hëllefen oder Finanzéierung den detailléierte Szenario benotzen.",
       "labels": {
         "surfaceChauffee": "Gesamt behëtzte Fläch",
         "nbChambres": "Zuel Zëmmer",
@@ -8002,9 +8002,9 @@
         "adr": "ADR",
         "occupation": "Auslaaschtung",
         "gainRevpar": "RevPAR-Gewënn duerch Öko-Label",
-        "hintCpe": "Kuckt EPB / Energierechnung",
-        "hintConsoAuto": "0 = automatesch berechent",
-        "hintGainLabel": "Green Key, EU Ecolabel = +1-3% RevPAR observéiert",
+        "hintCpe": "Facturéiert Endenergie pro gehëtztem m²; keen CPE-Primärenergieindex direkt benotzen.",
+        "hintConsoAuto": "0 = Beispillszenario no gewielten Aarbechten; duerch technesch Studie ersetzen. Kee garantéiert CPE-Resultat.",
+        "hintGainLabel": "Agedroe Geschäftsannahm, standardméisseg 0 %. E Label garantéiert kee RevPAR-Zouwuess.",
         "vanCumulee": "Kumuléierte Kapitalwäert 10 Joer"
       },
       "results": {
@@ -8215,17 +8215,17 @@
   "hotellerieRenovation": {
     "seo": {
       "klimabonusTitle": "Klimabonus fir den Hotel-Tertiärberäich",
-      "klimabonusContent": "De Klimabonus (Gesetz vum 23.12.2022) deckt energetesch Sanéierungen am Tertiärberäich. Förderfäeg: Isolatioun, HLK, LED + GLT, 3-fach-Fënsteren, Wärmepompelen. Subventiounsquoten 25-62,5 %, plus CO₂-Bonus.",
+      "klimabonusContent": "En Hotel fält net automatesch ënner Wunnengs-Klimabonus. Préift Gebainotzung, begënschtegte Betrib, berechtegt Ausgaben, Datum a Kumulatioun. Null Hëllef am Szenario ass keng Entscheedung iwwer Ineligibilitéit.",
       "tertiaireTitle": "Differenzen Tertiär vs. Wunnbau",
-      "tertiaireContent": "Fir den Tertiärberäich lafen d'Ufroen iwwert de PME-Guichet an d'Wirtschaftsministère. Minimum-Verbesserungsschwellen bedingen d'Förderfäegkeet. Käschtedeckel sinn méi héich, en Energieaudit ass zwingend.",
+      "tertiaireContent": "En Hotel fält net automatesch ënner Wunnengs-Klimabonus. Préift Gebainotzung, begënschtegte Betrib, berechtegt Ausgaben, Datum a Kumulatioun. Null Hëllef am Szenario ass keng Entscheedung iwwer Ineligibilitéit.",
       "roiTitle": "ROI: Energieasparungen + RevPAR-Gewënn duerch Label",
-      "roiContent": "Zwee Effekter: (1) direkt Energieasparungen (20-40 % vun der Joresrechnung). (2) RevPAR-Gewënn via Öko-Label (Green Key, EU Ecolabel) — +1 bis +3 % ADR laut STR.",
+      "roiContent": "Szenarioannahmen ouni Bestätegung vu Käschten oder Leeschtung. Agedroen Hëllefe gëllen als direkt disponibel a ginn proportional verdeelt; kee Klimabonus-Saz gëtt zougewisen. Ëmsazgewënn gëtt mat der Marge multiplizéiert an op Energieerspuernisser nom Entretien bäigerechent. Zéngjärege Kapitalwäert bei 4 %, konstante Flux um Joresenn, ouni Scholden, Steieren, recuperabel TVA, Ersatzinvestitiounen a Reschtwäert. Fir spéider Hëllefen oder Finanzéierung den detailléierte Szenario benotzen.",
       "faq1q": "Klimabonus mat aneren Hëllefe kombinéierbar?",
-      "faq1a": "Jo, mat Klimaprêt, regional/kommunalen Hëllefen an Energieversuergerprimen. Kombinatioune sinn op 80-100 % gedeckelt.",
+      "faq1a": "En Hotel fält net automatesch ënner Wunnengs-Klimabonus. Préift Gebainotzung, begënschtegte Betrib, berechtegt Ausgaben, Datum a Kumulatioun. Null Hëllef am Szenario ass keng Entscheedung iwwer Ineligibilitéit.",
       "faq2q": "Wéi eng Moosnam bitt de beschten ROI?",
-      "faq2a": "Fir e bestehenden E/F-Hotel bidden Daachisolatioun + Wärmepompel typesch de schnellsten ROI (6-10 Joer).",
+      "faq2a": "Szenarioannahmen ouni Bestätegung vu Käschten oder Leeschtung. Agedroen Hëllefe gëllen als direkt disponibel a ginn proportional verdeelt; kee Klimabonus-Saz gëtt zougewisen. Ëmsazgewënn gëtt mat der Marge multiplizéiert an op Energieerspuernisser nom Entretien bäigerechent. Zéngjärege Kapitalwäert bei 4 %, konstante Flux um Joresenn, ouni Scholden, Steieren, recuperabel TVA, Ersatzinvestitiounen a Reschtwäert. Fir spéider Hëllefen oder Finanzéierung den detailléierte Szenario benotzen.",
       "faq3q": "Erhéicht en Öko-Label den ADR wierklech?",
-      "faq3a": "STR + Cornell-Studien: Green-Key-zertifizéiert Hoteler kréien +2 bis +4 % ADR vs. netzertifizéiert.",
+      "faq3a": "Agedroe Geschäftsannahm, standardméisseg 0 %. E Label garantéiert kee RevPAR-Zouwuess.",
       "faqTitle": "Heefeg gestallte Froen",
       "relatedTitle": "Méi erausfannen"
     }
@@ -18088,5 +18088,22 @@
     "sources": "Quellen an Demarchë fir Hëllefen",
     "sourceNote": "Dës Quellen erklären d’Konditiounen an Demarchen; si bestätegen net d’Käschten oder Erspuernisser vun Ärem Szenario.",
     "error": "Préift Beträg a Sätz. Hëllefen däerfen d’Käschten an de Prêt den Ufanksbedarf net iwwerschreiden. Ganz Joer an Hëllefsausbezuelung am Zäitraum sinn néideg."
+  },
+  "hotelRenovationAudit": {
+    "intro": "Hotellszenario: Aarbechtsbudget, beluechten Hëllefen, Energieerspuernisser an Nettobäitrag vun zousätzlechem Ëmsaz. Ufanksratioe si Beispiller, keng Offeren oder Hëllefsverspriechen.",
+    "finalEnergy": "Facturéiert Endenergie pro gehëtztem m²; keen CPE-Primärenergieindex direkt benotzen.",
+    "autoConso": "0 = Beispillszenario no gewielten Aarbechten; duerch technesch Studie ersetzen. Kee garantéiert CPE-Resultat.",
+    "labelHint": "Agedroe Geschäftsannahm, standardméisseg 0 %. E Label garantéiert kee RevPAR-Zouwuess.",
+    "quote": "Ugehollene Gesamtbudget vun Aarbechten (optional)",
+    "quoteHint": "Eidel = beispillhaft Ratioe pro Zëmmer; Offeren androen. Verdeelung no Ratioen, keng kontraktuell Käschtenopdeelung.",
+    "aid": "Aberechent bestätegt Hëllefen",
+    "maintenance": "Zousätzleche jäerlechen Entretien",
+    "margin": "Marge op zousätzlechem Ëmsaz no variabele Käschten",
+    "netContribution": "Nettobäitrag vun zousätzlechem Ëmsaz",
+    "method": "Szenarioannahmen ouni Bestätegung vu Käschten oder Leeschtung. Agedroen Hëllefe gëllen als direkt disponibel a ginn proportional verdeelt; kee Klimabonus-Saz gëtt zougewisen. Ëmsazgewënn gëtt mat der Marge multiplizéiert an op Energieerspuernisser nom Entretien bäigerechent. Zéngjärege Kapitalwäert bei 4 %, konstante Flux um Joresenn, ouni Scholden, Steieren, recuperabel TVA, Ersatzinvestitiounen a Reschtwäert. Fir spéider Hëllefen oder Finanzéierung den detailléierte Szenario benotzen.",
+    "aidTitle": "Betribshëllefen: de passende Regime préifen",
+    "aidScope": "En Hotel fält net automatesch ënner Wunnengs-Klimabonus. Préift Gebainotzung, begënschtegte Betrib, berechtegt Ausgaben, Datum a Kumulatioun. Null Hëllef am Szenario ass keng Entscheedung iwwer Ineligibilitéit.",
+    "official": "Ëmwelthëllefe fir Betriber — Guichet.lu",
+    "detailed": "Detailléierte Szenario: spéider Hëllefen a Finanzéierung"
   }
 }

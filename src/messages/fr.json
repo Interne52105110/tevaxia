@@ -7762,7 +7762,7 @@
     "exploitationTitle": "Bilan d'exploitation USALI",
     "exploitationSubtitle": "P&L 5 ans : revenue → departmental → GOP → EBITDA, GOPPAR & benchmark",
     "renovationTitle": "Rénovation énergétique hôtelière",
-    "renovationSubtitle": "Coûts par chambre, aides Klimabonus tertiaire, ROI factures + label",
+    "renovationSubtitle": "Scénario hôtelier : budget de travaux, aides documentées, économies d’énergie et contribution nette de recettes supplémentaires. Les ratios initiaux sont illustratifs et ne constituent pas un devis ni une promesse de subvention.",
     "revparComparisonTitle": "RevPAR vs marché",
     "revparComparisonSubtitle": "Indices MPI / ARI / RGI — fair share par rapport au compset",
     "scoreE2Title": "Score visa E-2 / investisseur",
@@ -8109,7 +8109,7 @@
       "paybackVAN": "Payback & VAN 10 ans (actu. 4 %)",
       "energyImpact": "Impact énergétique",
       "perPostDetail": "Détail par poste",
-      "methodNote": "Klimabonus tertiaire — les taux d'aide affichés sont les moyennes observées par poste pour bâtiments tertiaires LU. Les barèmes exacts dépendent de l'exercice budgétaire (loi Klima-Pak) et du label de performance ciblé. Vérifier auprès de myenergy avant engagement.",
+      "methodNote": "Hypothèses de scénario, sans validation du coût ni de la performance technique. Les aides saisies sont supposées disponibles immédiatement et réparties proportionnellement aux coûts ; aucun taux Klimabonus n’est attribué. Les gains commerciaux sont multipliés par la marge saisie, puis ajoutés aux économies d’énergie nettes d’entretien. VAN sur dix ans à 4 %, flux constants de fin d’année, hors dette, fiscalité, TVA récupérable, remplacement futur et valeur résiduelle. Pour une aide différée ou un financement, utilisez le scénario détaillé.",
       "labels": {
         "surfaceChauffee": "Surface chauffée totale",
         "nbChambres": "Nombre de chambres",
@@ -8124,9 +8124,9 @@
         "adr": "ADR",
         "occupation": "Occupation",
         "gainRevpar": "Gain RevPAR via label éco",
-        "hintCpe": "Voir CPE / facture énergie",
-        "hintConsoAuto": "0 = calculée auto",
-        "hintGainLabel": "Green Key, EU Ecolabel = +1-3 % RevPAR observé",
+        "hintCpe": "Énergie finale facturée par m² chauffé ; ne pas utiliser directement un indice CPE d’énergie primaire.",
+        "hintConsoAuto": "0 = scénario illustratif selon les travaux sélectionnés, à remplacer par l’étude technique. Aucun résultat CPE garanti.",
+        "hintGainLabel": "Hypothèse commerciale saisie, 0 % par défaut. Aucun gain de RevPAR garanti par un label.",
         "vanCumulee": "VAN cumulée 10 ans"
       },
       "results": {
@@ -8337,17 +8337,17 @@
   "hotellerieRenovation": {
     "seo": {
       "klimabonusTitle": "Klimabonus pour le tertiaire hôtelier",
-      "klimabonusContent": "Le régime Klimabonus (loi du 23 décembre 2022) couvre les rénovations énergétiques dans le tertiaire luxembourgeois. Pour un hôtel, les postes éligibles incluent isolation, CVC, éclairage LED + GTB, fenêtres triple vitrage, PAC et solaire thermique. Les taux de subvention atteignent 25-62,5 % selon ampleur de la rénovation et performance cible, avec bonus CO₂ selon les économies réelles.",
+      "klimabonusContent": "Un hôtel ne relève pas automatiquement des aides Klimabonus pour logements. Faites vérifier l’usage du bâtiment, l’entreprise bénéficiaire, les dépenses admissibles, la date de demande et les règles de cumul. Zéro aide retenue signifie qu’aucun montant n’est compté dans ce scénario, pas une décision d’inéligibilité.",
       "tertiaireTitle": "Différences tertiaire vs résidentiel",
-      "tertiaireContent": "Pour le tertiaire, les démarches passent par le Guichet Unique PME et le ministère de l'Économie (et non Klima-Agence pour les particuliers). Des seuils minimums d'amélioration énergétique (ex. gain 30 % minimum sur EP) conditionnent l'éligibilité. Les coûts plafonds sont plus élevés (€250-450/m² selon poste) et l'audit énergétique est systématiquement requis.",
+      "tertiaireContent": "Un hôtel ne relève pas automatiquement des aides Klimabonus pour logements. Faites vérifier l’usage du bâtiment, l’entreprise bénéficiaire, les dépenses admissibles, la date de demande et les règles de cumul. Zéro aide retenue signifie qu’aucun montant n’est compté dans ce scénario, pas une décision d’inéligibilité.",
       "roiTitle": "ROI : économies énergie + gain RevPAR via label",
-      "roiContent": "La rentabilité d'une rénovation hôtelière combine deux effets. Premier effet : économies énergie directes (20-40 % de la facture annuelle après rénovation profonde). Second effet : gain RevPAR observé via label éco (Green Key, EU Ecolabel, Biosphere) — entre +1 et +3 % d'ADR selon les études STR et HOTREC. Ce second effet est souvent le vrai levier de ROI.",
+      "roiContent": "Hypothèses de scénario, sans validation du coût ni de la performance technique. Les aides saisies sont supposées disponibles immédiatement et réparties proportionnellement aux coûts ; aucun taux Klimabonus n’est attribué. Les gains commerciaux sont multipliés par la marge saisie, puis ajoutés aux économies d’énergie nettes d’entretien. VAN sur dix ans à 4 %, flux constants de fin d’année, hors dette, fiscalité, TVA récupérable, remplacement futur et valeur résiduelle. Pour une aide différée ou un financement, utilisez le scénario détaillé.",
       "faq1q": "Peut-on cumuler Klimabonus avec d'autres aides ?",
-      "faq1a": "Oui, avec le Klimaprêt (prêt bonifié 0 %), les aides régionales/communales et les primes des fournisseurs d'énergie. Les cumuls sont plafonnés à 80-100 % des dépenses éligibles selon les régimes.",
+      "faq1a": "Un hôtel ne relève pas automatiquement des aides Klimabonus pour logements. Faites vérifier l’usage du bâtiment, l’entreprise bénéficiaire, les dépenses admissibles, la date de demande et les règles de cumul. Zéro aide retenue signifie qu’aucun montant n’est compté dans ce scénario, pas une décision d’inéligibilité.",
       "faq2q": "Quel poste offre le meilleur ROI ?",
-      "faq2a": "Pour un hôtel existant classé E/F, l'isolation toiture + remplacement PAC offre typiquement le ROI le plus rapide (6-10 ans). L'éclairage LED + GTB est le plus rentable en valeur absolue si la consommation électrique est dominante. Les menuiseries sont rentables seulement si les fenêtres existantes sont très dégradées.",
+      "faq2a": "Hypothèses de scénario, sans validation du coût ni de la performance technique. Les aides saisies sont supposées disponibles immédiatement et réparties proportionnellement aux coûts ; aucun taux Klimabonus n’est attribué. Les gains commerciaux sont multipliés par la marge saisie, puis ajoutés aux économies d’énergie nettes d’entretien. VAN sur dix ans à 4 %, flux constants de fin d’année, hors dette, fiscalité, TVA récupérable, remplacement futur et valeur résiduelle. Pour une aide différée ou un financement, utilisez le scénario détaillé.",
       "faq3q": "Un label éco augmente-t-il vraiment l'ADR ?",
-      "faq3a": "Études STR Global + Cornell Hospitality : les hôtels certifiés Green Key ou équivalent obtiennent +2 à +4 % d'ADR vs concurrents non certifiés, avec une prime d'occupation de 1-2 points. L'effet est plus fort sur le segment corporate et MICE (critères RSE exigés par les clients entreprises).",
+      "faq3a": "Hypothèse commerciale saisie, 0 % par défaut. Aucun gain de RevPAR garanti par un label.",
       "faqTitle": "Questions fréquentes",
       "relatedTitle": "Aller plus loin"
     }
@@ -18088,5 +18088,22 @@
     "sources": "Sources et démarches pour les aides",
     "sourceNote": "Ces sources expliquent l’éligibilité et les procédures ; elles ne valident pas les coûts ou économies saisis dans votre scénario.",
     "error": "Vérifiez les montants et les taux. Les aides ne peuvent dépasser le coût, ni le prêt le besoin initial. Les années doivent être entières et le versement des aides compris dans l’horizon."
+  },
+  "hotelRenovationAudit": {
+    "intro": "Scénario hôtelier : budget de travaux, aides documentées, économies d’énergie et contribution nette de recettes supplémentaires. Les ratios initiaux sont illustratifs et ne constituent pas un devis ni une promesse de subvention.",
+    "finalEnergy": "Énergie finale facturée par m² chauffé ; ne pas utiliser directement un indice CPE d’énergie primaire.",
+    "autoConso": "0 = scénario illustratif selon les travaux sélectionnés, à remplacer par l’étude technique. Aucun résultat CPE garanti.",
+    "labelHint": "Hypothèse commerciale saisie, 0 % par défaut. Aucun gain de RevPAR garanti par un label.",
+    "quote": "Budget total de travaux retenu (facultatif)",
+    "quoteHint": "Vide = ratios illustratifs par chambre ; saisissez vos devis. La répartition entre postes est proportionnelle aux ratios, pas une ventilation contractuelle.",
+    "aid": "Aides confirmées retenues",
+    "maintenance": "Entretien annuel supplémentaire",
+    "margin": "Marge sur les recettes additionnelles après coûts variables",
+    "netContribution": "Contribution nette des recettes additionnelles",
+    "method": "Hypothèses de scénario, sans validation du coût ni de la performance technique. Les aides saisies sont supposées disponibles immédiatement et réparties proportionnellement aux coûts ; aucun taux Klimabonus n’est attribué. Les gains commerciaux sont multipliés par la marge saisie, puis ajoutés aux économies d’énergie nettes d’entretien. VAN sur dix ans à 4 %, flux constants de fin d’année, hors dette, fiscalité, TVA récupérable, remplacement futur et valeur résiduelle. Pour une aide différée ou un financement, utilisez le scénario détaillé.",
+    "aidTitle": "Aides aux entreprises : vérifier le dispositif adapté",
+    "aidScope": "Un hôtel ne relève pas automatiquement des aides Klimabonus pour logements. Faites vérifier l’usage du bâtiment, l’entreprise bénéficiaire, les dépenses admissibles, la date de demande et les règles de cumul. Zéro aide retenue signifie qu’aucun montant n’est compté dans ce scénario, pas une décision d’inéligibilité.",
+    "official": "Aides environnementales aux entreprises — Guichet.lu",
+    "detailed": "Scénario détaillé : aides différées et financement"
   }
 }
