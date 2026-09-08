@@ -1073,9 +1073,9 @@
     "typeBienLabel": "Property type",
     "typeBienAppartement": "Apartment",
     "typeBienMaison": "House",
-    "typeBienHint": "Observatory data mainly covers apartments",
+    "typeBienHint": "Apartments only",
     "parkingLabel": "Parking included",
-    "parkingHint": "+4% on average",
+    "parkingHint": "+4% assumption on prices excluding annexes",
     "neufLabel": "New build (VEFA)",
     "neufHint": "VEFA reference price instead of existing",
     "emphyteotiqueLabel": "Emphyteutic lease",
@@ -1134,8 +1134,8 @@
     "copierLien": "Copy link",
     "sauvegarder": "Save",
     "evaluationSauvegardee": "Valuation saved!",
-    "disclaimer": "Indicative estimate based on public data from the Observatoire de l'Habitat and statistical adjustment coefficients. This is not a professional valuation. For an EVS 2025 compliant appraisal, use the",
-    "disclaimerLink": "valuation module",
+    "disclaimer": "Indicative estimate using internal assumptions. Read the methodology before use.",
+    "disclaimerLink": "Methodology",
     "selectCommune": "Select a municipality to get an estimate",
     "quartierTitle": "Prices by neighbourhood — {commune}",
     "quartierSource": "Indicative prices by neighbourhood — Source: aggregated listings",
@@ -1176,7 +1176,9 @@
     "historyTitle": "History for this commune",
     "historyClear": "Clear all",
     "historyVsPrev": "vs prev. estim.",
-    "historyNote": "Stored only in your browser (localStorage). Nothing sent to the server. Last 50 estimates kept."
+    "historyNote": "Stored only in your browser (localStorage). Nothing sent to the server. Last 50 estimates kept.",
+    "auditLimits": "Freehold apartments only. Adjustments are internal assumptions, without validation against an independent sales sample. The ±18% range (±25% for asking prices only) is a convention, with no guaranteed accuracy or probability.",
+    "auditMissing": "No estimate is available for these inputs. Check the area and published data for the sale type. Suppressed official prices are not invented."
   },
   "fraisAcquisition": {
     "title": "Acquisition Fees Simulator",
@@ -17951,5 +17953,28 @@
     "imprimer": "Print / PDF",
     "sources": "Method and sources",
     "limitations": "One transaction and no other gains or losses to offset. Annual speculative gains below €500 are exempt. Reinvestment relief, share sales, business assets, non-residents, class 1a, extraordinary deductions under article 131(3) and minimum bases for old acquisitions require separate analysis. The sale must still be declared even if exempt."
+  },
+  "estimationAudit": {
+    "title": "Estimation data and limitations",
+    "limits": "Freehold apartments only. Adjustments are internal assumptions, without validation against an independent sales sample. The ±18% range (±25% for asking prices only) is a convention, with no guaranteed accuracy or probability.",
+    "missing": "No estimate is available for these inputs. Check the area and published data for the sale type. Suppressed official prices are not invented.",
+    "sources": "Official sources, published 25 June 2026",
+    "period": "Period: 1 April 2025 to 31 March 2026 (rolling 12 months). Recorded prices include annexes; the estimator uses adjusted prices excluding annexes where available. Asking prices are not completed sales.",
+    "adjustments": "Simulation adjustments",
+    "assumptions": "These percentages are working assumptions, not official Observatory coefficients. No MAPE, R², significance or accuracy on real sales has been demonstrated.",
+    "parameter": "Parameter",
+    "adjustment": "Adjustment",
+    "transactions": "Recorded prices including annexes",
+    "horsAnnexes": "Adjusted prices excluding annexes",
+    "annonces": "Sale asking prices",
+    "loyers": "Advertised rents",
+    "method": "Method and scope",
+    "formula": "Price = municipal mean × (1 + sum of adjustments / 100) × floor area. No individual neighborhood prices. For VEFA, no automatic premium for new condition or energy rating: the VEFA source already reflects that segment.",
+    "vefa": "Published VEFA prices include 3% VAT, subject to the €50,000 tax benefit limit. Adapt this basis if your purchase is ineligible. Parking is a +4% assumption only on the basis excluding annexes; cellars and other annexes are not valued separately.",
+    "suppression": "Suppressed prices remain unavailable: fewer than 10 recorded sales or 30 advertisements in these files. Synthetic examples are not comparable sales and do not measure model reliability.",
+    "type": "Apartments only",
+    "parking": "+4% assumption on prices excluding annexes",
+    "disclaimer": "Indicative estimate using internal assumptions. Read the methodology before use.",
+    "link": "Methodology"
   }
 }

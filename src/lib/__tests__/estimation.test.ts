@@ -98,3 +98,18 @@ describe("backtestModel", () => {
     expect(r.r2Approx).toBeGreaterThanOrEqual(-1);
   });
 });
+
+
+describe("scope and no double counting", () => {
+  it.each([0, -1, NaN, Infinity])("rejects invalid surface %s", surface => expect(estimer({ ...BASE, surface })).toBeNull());
+  it("does not value houses with apartment means", () => expect(estimer({ ...BASE, typeBien: "maison" })).toBeNull());
+  it("does not replace a suppressed VEFA price by an existing one", () => expect(estimer({ ...BASE, commune: "Berdorf", estNeuf: true })).toBeNull());
+  it("ignores fictitious neighborhood specificity", () => expect(estimer({ ...BASE, quartier: "Belair" })).toEqual(estimer(BASE)));
+  it("does not add new-condition or energy premiums on VEFA means", () => {
+    const r = estimer({ ...BASE, estNeuf: true, etat: "adjEtatNeuf", classeEnergie: "A" })!;
+    expect(r.ajustements.some(a => a.labelKey === "estAjustEtat" || a.labelKey === "estAjustEnergie")).toBe(false);
+    expect(r.prixM2Base).toBeCloseTo(10585.16645, 4);
+    expect(r.estimationAnnonces).toBeNull();
+  });
+  it("uses the price excluding annexes before adding the parking assumption", () => expect(estimer(BASE)!.prixM2Base).toBeCloseTo(9104.1424, 4));
+});

@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       return response;
     }
 
-    if (!body.commune || !body.surface) {
+    if (!body || typeof body !== "object" || Array.isArray(body) || typeof body.commune !== "string" || !body.surface) {
       statusCode = 400;
       response = NextResponse.json(
         { success: false, error: "Missing required fields: commune, surface" },
@@ -50,11 +50,15 @@ export async function POST(request: Request) {
       return response;
     }
 
-    const result = estimer(body);
+    if (body.typeBien && body.typeBien !== "appartement") {
+      statusCode = 400;
+      return NextResponse.json({ success: false, error: "Only freehold apartments are supported" }, { status: 400, headers: API_CORS_HEADERS });
+    }
+    const result = estimer({ nbChambres: 0, typeBien: "appartement", estNeuf: false, parking: false, etage: "adjEtage2e3eRef", etat: "adjEtatBonRef", exterieur: "adjExtBalconRef", classeEnergie: "D", ...body });
     if (!result) {
       statusCode = 404;
       response = NextResponse.json(
-        { success: false, error: "Municipality not found" },
+        { success: false, error: "No estimate: invalid inputs, ambiguous municipality or unavailable price for this segment" },
         { status: 404, headers: API_CORS_HEADERS },
       );
       return response;
@@ -66,7 +70,8 @@ export async function POST(request: Request) {
       meta: {
         api_key_name: auth.keyRecord.name,
         tier: auth.keyRecord.tier,
-        method: "tegova_evs_2025+hedonic",
+        method: "municipal_mean_with_unvalidated_assumptions",
+        limitations: "Indicative freehold apartment estimate. Conventional range, not a statistical confidence interval. See /transparence.",
       },
     }));
     return response;

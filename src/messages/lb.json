@@ -1073,9 +1073,9 @@
     "typeBienLabel": "Typ vun der Immobilie",
     "typeBienAppartement": "Appartement",
     "typeBienMaison": "Haus",
-    "typeBienHint": "D'Donnéeë vum Observatoire betreffe virun allem Appartementer",
+    "typeBienHint": "Nëmme Wunnengen",
     "parkingLabel": "Parking abegraff",
-    "parkingHint": "+4% am Duerchschnëtt",
+    "parkingHint": "Hypothees +4 % op Basis ouni Annexe",
     "neufLabel": "Neibau (VEFA)",
     "neufHint": "VEFA-Referenzpräis amplaz Bestandspräis",
     "emphyteotiqueLabel": "Emphyteotesche Bail",
@@ -1134,8 +1134,8 @@
     "copierLien": "Link kopéieren",
     "sauvegarder": "Späicheren",
     "evaluationSauvegardee": "Bewäertung gespäichert!",
-    "disclaimer": "Indikativ Schätzung op Basis vun ëffentlechen Donnéeë vum Observatoire de l'Habitat an de statistesche Upassungskoefficienten. Stellt keng professionell Bewäertung duer. Fir eng EVS 2025 konform Expertise benotzt d'",
-    "disclaimerLink": "Bewäertungsmodul",
+    "disclaimer": "Indikativ Schätzung mat internen Hypotheesen. Liest d’Method virum Gebrauch.",
+    "disclaimerLink": "Method",
     "selectCommune": "Wielt eng Gemeng fir eng Schätzung ze kréien",
     "quartierTitle": "Präisser pro Quartier — {commune}",
     "quartierSource": "Richtpräisser pro Quartier — Quell: aggregéiert Annoncen",
@@ -1176,7 +1176,9 @@
     "historyTitle": "Historique fir dës Gemeng",
     "historyClear": "Alles läschen",
     "historyVsPrev": "vs virescht Estim.",
-    "historyNote": "Nëmmen an Ärem Browser gespäichert. Déi 50 lescht Schätzungen."
+    "historyNote": "Nëmmen an Ärem Browser gespäichert. Déi 50 lescht Schätzungen.",
+    "auditLimits": "Nëmme Wunnengen am Volleegentum. Upassunge sinn intern Hypotheesen ouni Validatioun mat onofhängege Verkafsdonnéeën. D’Spann ±18 % (±25 % nëmme mat Annoncepräisser) ass eng Konventioun ouni garantéiert Genauegkeet oder Warscheinlechkeet.",
+    "auditMissing": "Keng Schätzung fir dës Donnéeën disponibel. Kontrolléiert d’Fläch an déi publizéiert Präisser fir d’Verkafsaart. Net publizéiert Präisser ginn net erfonnt."
   },
   "fraisAcquisition": {
     "title": "Erwerbskäschtesimulator",
@@ -17951,5 +17953,28 @@
     "provision": "Bei Spekulatioun gëtt de Beschäftegungsfong als Tarifdifferenz berechent. Beim Cessiounsgewënn ass et eng Provisioun vu 7 % vun der Akommessteier, oder 7–9 % iwwer 150.000 € (Klass 1) / 300.000 € (Klass 2). Déi genee Verdeelung op aussergewéinlech Akommes ass mam Joresdossier ze liquidéieren; keng definitiv Steierfestsetzung.",
     "produitHint": "Erléis ass kee Gewënn: De Kafpräis gëtt hei net ofgezunn. Reschtschold, net aginn Handhebungsgebühren an aner Obligatioune bleiwen ze bezuelen.",
     "limitations": "Eng eenzeg Operatioun ouni aner ze verrechnend Gewënner oder Verloschter. Jäerlech Spekulatiounsgewënner ënner 500 € si befreit. Neiinvestitioun, Undeelsverkaf, Betribsverméigen, Netresidenten, Klass 1a, aussergewéinlech Ofzich nom Artikel 131(3) an al Mindestbasisse musse separat analyséiert ginn. Och e befreite Verkaf muss deklaréiert ginn."
+  },
+  "estimationAudit": {
+    "title": "Donnéeën a Grenze vun der Schätzung",
+    "limits": "Nëmme Wunnengen am Volleegentum. Upassunge sinn intern Hypotheesen ouni Validatioun mat onofhängege Verkafsdonnéeën. D’Spann ±18 % (±25 % nëmme mat Annoncepräisser) ass eng Konventioun ouni garantéiert Genauegkeet oder Warscheinlechkeet.",
+    "missing": "Keng Schätzung fir dës Donnéeën disponibel. Kontrolléiert d’Fläch an déi publizéiert Präisser fir d’Verkafsaart. Net publizéiert Präisser ginn net erfonnt.",
+    "sources": "Offiziell Quellen, publizéiert de 25. Juni 2026",
+    "period": "Period: 1. Abrëll 2025 bis 31. Mäerz 2026 (12 Méint). Registréiert Präisser enthalen Annexe; de Rechner benotzt affinéiert Präisser ouni Annexe, wa verfügbar. Annoncepräisser si keng ofgeschlosse Verkafspräisser.",
+    "adjustments": "Upassunge fir d’Simulatioun",
+    "assumptions": "Dës Prozenter sinn Aarbechtshypotheesen, keng offiziell Koeffiziente vum Observatoire. MAPE, R², Signifikanz oder Genauegkeet op reelle Verkafsdonnéeë sinn net nogewisen.",
+    "parameter": "Parameter",
+    "adjustment": "Upassung",
+    "transactions": "Registréiert Präisser mat Annexen",
+    "horsAnnexes": "Affinéiert Präisser ouni Annexe",
+    "annonces": "Annoncepräisser fir Verkaf",
+    "loyers": "Annoncéiert Loyeren",
+    "method": "Method a Beräich",
+    "formula": "Präis = Gemengemoyenne × (1 + Zomm vun den Upassungen / 100) × Fläch. Keng individuell Quartierspräisser. Bei VEFA keen automateschen Zouschlag fir Neibau oder Energieklass: d’VEFA-Basis enthält dëst Segment schonn.",
+    "vefa": "Publizéiert VEFA-Präisser enthalen 3 % TVA bannent der Steiervergënschtegung vu 50.000 €. Passt d’Basis un, wann Är Operatioun net berechtegt ass. Parking: Hypothees +4 % nëmmen op d’Basis ouni Annexe; Keller an aner Annexe ginn net separat bewäert.",
+    "suppression": "Net publizéiert Präisser bleiwen net verfügbar: manner wéi 10 Verkafstransaktiounen oder 30 Annoncen an dëse Fichieren. Syntheetesch Beispiller si keng Vergläichsverkeef a moossen net d’Zouverlässegkeet vum Modell.",
+    "type": "Nëmme Wunnengen",
+    "parking": "Hypothees +4 % op Basis ouni Annexe",
+    "disclaimer": "Indikativ Schätzung mat internen Hypotheesen. Liest d’Method virum Gebrauch.",
+    "link": "Method"
   }
 }

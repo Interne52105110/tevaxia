@@ -95,7 +95,7 @@ export async function GET() {
   return NextResponse.json({
     success: true,
     checkedAt: new Date().toISOString(),
-    tevaxiaDataPeriode: "2025-T4",
+    tevaxiaDataPeriode: "2025-04-01 — 2026-03-31",
     datasets: results,
     note: "Les données tevaxia.lu sont mises à jour manuellement. Cette API vérifie les dernières mises à jour des sources publiques pour détecter quand un rafraîchissement est nécessaire.",
   });

@@ -44,3 +44,28 @@ Limites : les périodes sont estimées à partir des années saisies ; vérifier
 Sources : [ACD vente](https://impotsdirects.public.lu/fr/az/v/vente_immeuble.html), [modèle 700 F 2025, p. 3–4, incluant prolongation](https://impotsdirects.public.lu/dam-assets/fr/formulaires/pers_physiques/2025/700F-2025.pdf), [article 118 et barème](https://impotsdirects.public.lu/fr/az/t/tarif_pers.html), [exemple demi-taux global](https://impotsdirects.public.lu/fr/az/d/demi_txglob.html), [formules ACD 2025, feuilles Classe 1/2, cellule B34](https://impotsdirects.public.lu/dam-assets/fr/baremes/bareme-2025-format-excel.xlsx), [CADEP1, p. 6–8](https://impotsdirects.public.lu/content/dam/acd/fr/legislation/legi09/Circulaire_CADEP_1_du_23_octobre_2009.pdf), articles 99bis/99ter/102/126/130/131 du LIR 2026 cité plus haut.
 
 Contrôles : 1 053 tests réussis. Exemple ACD 50 000 € ordinaires + 100 000 € gain imposable : cote fictive 46 590 €, IR sur gain 15 530 €. Build et TypeScript, navigateur cinq langues et mobile, API valeurs attendues/erreurs 400, impression avec dates et données d’entrée contrôlés. Aucun résultat d’impôt n’est affiché pour des dates invalides. Les corrections n’établissent pas une validation fiscale exhaustive de tous les dossiers.
+
+
+## Données communales et estimation — lot septembre 2026
+
+Remplacement des moyennes arrondies non justifiées et des prix de quartiers sans provenance par les quatre fichiers XLS officiels publiés le 25 juin 2026 (CC0), période glissante du 1er avril 2025 au 31 mars 2026. 100 communes, total de 3 538 ventes existantes et 569 VEFA réconcilié au fichier source. Les prix masqués (*) restent à null : seuil de 10 ventes enregistrées, 30 annonces dans ces fichiers. Recherche par quartier conservée uniquement comme rattachement géographique à la commune, sans prix inventé. Les noms Luxembourg-Ville, Petange, Erpeldange, Préizerdaul et Redange-sur-Attert sont normalisés pour le rapprochement des sources.
+
+Les prix enregistrés avec annexes restent dans les vues de marché. L’estimation utilise la série affinée hors annexes ; le supplément parking de 4 % est une hypothèse visible, pas une statistique officielle. VEFA : pas de cumul avec les suppléments d’état neuf et d’énergie ; pas de remplacement automatique par l’ancien lorsque la série VEFA est masquée. La TVA de 3 % avec faveur fiscale limitée à 50 000 € est rappelée comme convention de la source. Maisons exclues, surfaces invalides refusées. Les moyennes avec et sans annexes ne sont plus moyennées comme deux évaluations comparables.
+
+Les marges ±18/25 % sont conventionnelles, sans probabilité ni précision garantie. /transparence ne présente plus les métriques de 20 exemples synthétiques comme preuve de performance. Les coefficients sont explicitement des hypothèses internes et non des coefficients officiels.
+
+Sources exactes (import dans src/lib/market-data-2026t1.json) :
+- https://download.data.public.lu/resources/prix-de-vente-des-appartements-par-commune/20260625-075922/prix-moyen-au-metre-carre-enregistre-par-commune-2026t1.xls
+- https://download.data.public.lu/resources/prix-de-vente-des-appartements-prix-affines-hors-annexes-par-commune/20260625-080045/prix-affine-au-metre-carre-par-commune-2026t1.xls
+- https://download.data.public.lu/resources/prix-annonces-des-logements-par-commune/20260625-080844/vente-appartement-2025-26.xls
+- https://download.data.public.lu/resources/loyers-annonces-des-logements-par-commune/20260625-081047/location-appartement-2025-26.xls
+
+La revue des autres modèles, des tendances reconstituées et des contenus secondaires reste à poursuivre. Le retrait des allégations de précision ne constitue pas une calibration du modèle.
+
+SHA-256 transactions : `178d37250eefa024c962ac34953a7873fbf0486fa53d12918417e4b60f64a26a`.
+
+SHA-256 affines : `ffd6e9728146f8c518ea079edff3bae1877652c450906dda7a1b0c7105f74e39`.
+
+SHA-256 annonces : `b31167af2cc402f8f45e6359aa4090bab02db348b0a0f8202acc106b839bba7a`.
+
+SHA-256 loyers : `61ae31831f3bbb111a3ff8c735858e0778479d6720fc523ee030a7839f3e4b19`.

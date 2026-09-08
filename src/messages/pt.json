@@ -1073,9 +1073,9 @@
     "typeBienLabel": "Tipo de imóvel",
     "typeBienAppartement": "Apartamento",
     "typeBienMaison": "Moradia",
-    "typeBienHint": "Os dados do Observatório cobrem principalmente apartamentos",
+    "typeBienHint": "Apenas apartamentos",
     "parkingLabel": "Estacionamento incluído",
-    "parkingHint": "+4% em média",
+    "parkingHint": "Hipótese +4% na base sem anexos",
     "neufLabel": "Construção nova (VEFA)",
     "neufHint": "Preço de referência VEFA em vez de existente",
     "emphyteotiqueLabel": "Enfiteuse",
@@ -1134,8 +1134,8 @@
     "copierLien": "Copiar link",
     "sauvegarder": "Guardar",
     "evaluationSauvegardee": "Avaliação guardada!",
-    "disclaimer": "Estimativa indicativa baseada em dados públicos do Observatoire de l'Habitat e coeficientes de ajustamento estatísticos. Não constitui uma avaliação profissional. Para uma peritagem conforme EVS 2025, utilize o",
-    "disclaimerLink": "módulo de avaliação",
+    "disclaimer": "Estimativa indicativa com hipóteses internas. Leia a metodologia antes de utilizar.",
+    "disclaimerLink": "Metodologia",
     "selectCommune": "Selecione um município para obter uma estimativa",
     "quartierTitle": "Preços por bairro — {commune}",
     "quartierSource": "Preços indicativos por bairro — Fonte: anúncios agregados",
@@ -1176,7 +1176,9 @@
     "historyTitle": "Histórico para este município",
     "historyClear": "Limpar tudo",
     "historyVsPrev": "vs estim. anterior",
-    "historyNote": "Armazenado apenas no seu navegador. Últimas 50 estimativas."
+    "historyNote": "Armazenado apenas no seu navegador. Últimas 50 estimativas.",
+    "auditLimits": "Apenas apartamentos em propriedade plena. Os ajustes são hipóteses internas, sem validação numa amostra independente de vendas. A faixa ±18% (±25% só com anúncios) é convencional, sem precisão ou probabilidade garantida.",
+    "auditMissing": "Não há estimativa disponível para estes dados. Verifique a área e os preços publicados para o tipo de venda. Preços omitidos oficialmente não são inventados."
   },
   "fraisAcquisition": {
     "title": "Simulador de Encargos de Aquisição",
@@ -17951,5 +17953,28 @@
     "provision": "Na especulação, o fundo de emprego é calculado por diferença na tabela. Na alienação é uma provisão de 7 % do imposto sobre o rendimento, ou 7–9 % acima de 150 000 € (classe 1) / 300 000 € (classe 2). A afetação exata aos rendimentos extraordinários deve ser liquidada no processo anual; não é um imposto definitivo.",
     "produitHint": "O produto da venda não é lucro: o preço de compra não é deduzido aqui. Dívida restante, despesas de cancelamento de hipoteca não introduzidas e outros compromissos continuam a ser pagos.",
     "limitations": "Uma operação e sem outros ganhos ou perdas a compensar. Ganhos especulativos anuais inferiores a 500 € estão isentos. Reinvestimento, venda de participações, ativos profissionais, não residentes, classe 1a, deduções extraordinárias do artigo 131(3) e bases mínimas de aquisições antigas exigem análise separada. A venda deve ser declarada mesmo quando isenta."
+  },
+  "estimationAudit": {
+    "title": "Dados e limites da estimativa",
+    "limits": "Apenas apartamentos em propriedade plena. Os ajustes são hipóteses internas, sem validação numa amostra independente de vendas. A faixa ±18% (±25% só com anúncios) é convencional, sem precisão ou probabilidade garantida.",
+    "missing": "Não há estimativa disponível para estes dados. Verifique a área e os preços publicados para o tipo de venda. Preços omitidos oficialmente não são inventados.",
+    "sources": "Fontes oficiais, publicadas em 25 de junho de 2026",
+    "period": "Período: 1 de abril de 2025 a 31 de março de 2026 (12 meses móveis). Os preços registados incluem anexos; o estimador usa preços ajustados sem anexos quando disponíveis. Preços anunciados não são vendas concluídas.",
+    "adjustments": "Ajustes de simulação",
+    "assumptions": "Estas percentagens são hipóteses de trabalho, não coeficientes oficiais do Observatório. Não foi demonstrada MAPE, R², significância ou precisão em vendas reais.",
+    "parameter": "Parâmetro",
+    "adjustment": "Ajuste",
+    "transactions": "Preços registados com anexos",
+    "horsAnnexes": "Preços ajustados sem anexos",
+    "annonces": "Preços de venda anunciados",
+    "loyers": "Rendas anunciadas",
+    "method": "Método e âmbito",
+    "formula": "Preço = média municipal × (1 + soma dos ajustes / 100) × área. Sem preços individuais por bairro. Em VEFA, sem prémio automático por estado novo ou classe energética: a base já reflete esse segmento.",
+    "vefa": "Os preços VEFA publicados incluem IVA de 3%, dentro do benefício fiscal de 50.000 €. Adapte a base se a sua operação não for elegível. Estacionamento: hipótese de +4% apenas sobre a base sem anexos; caves e outros anexos não são avaliados separadamente.",
+    "suppression": "Preços omitidos permanecem indisponíveis: menos de 10 vendas ou 30 anúncios nestes ficheiros. Exemplos sintéticos não são vendas comparáveis e não medem a fiabilidade do modelo.",
+    "type": "Apenas apartamentos",
+    "parking": "Hipótese +4% na base sem anexos",
+    "disclaimer": "Estimativa indicativa com hipóteses internas. Leia a metodologia antes de utilizar.",
+    "link": "Metodologia"
   }
 }

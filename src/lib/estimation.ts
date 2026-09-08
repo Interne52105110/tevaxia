@@ -1,14 +1,6 @@
-// ============================================================
-// ESTIMATION INSTANTANÉE — Modèle hédonique recalibré
-// ============================================================
-// Modèle log-linéaire simplifié : prix/m² commune (Observatoire)
-// × ajustements multiplicatifs continus (étage, état, énergie,
-// surface, extérieur, parking).
-// Recalibration 2026-Q1 : coefficients ajustés sur données
-// Observatoire de l'Habitat 2024-2025 (1 923 transactions).
-// MAPE in-sample : 14.7 % (sur 20 biens-test synthétiques).
-
-import { rechercherCommune, type SearchResult } from "./market-data";
+// Estimation indicative : moyenne communale × (1 + somme des hypothèses) × surface.
+// Les ajustements ne proviennent pas d’une régression validée sur des ventes individuelles.
+import { rechercherCommune, getMarketDataCommune } from "./market-data";
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "./adjustments";
 
 export interface EstimationInput {
@@ -43,7 +35,7 @@ export interface EstimationResult {
 }
 
 // Impact de la classe énergie sur le prix (en %)
-// Source : Observatoire de l'Habitat, analyses Spuerkeess, tendances marché
+// Hypothèses internes, pas de source statistique démontrée pour ces pourcentages.
 const IMPACT_ENERGIE: Record<string, number> = {
   "A": 5,
   "B": 3,
@@ -55,7 +47,7 @@ const IMPACT_ENERGIE: Record<string, number> = {
 };
 
 // Ajustement surface : les petites surfaces ont un prix/m² plus élevé
-// Source : modèle hédonique Observatoire
+// Hypothèse interne de sensibilité.
 function ajustSurface(surface: number): number {
   if (surface < 40) return 8;
   if (surface < 55) return 4;
@@ -67,40 +59,17 @@ function ajustSurface(surface: number): number {
 }
 
 export function estimer(input: EstimationInput): EstimationResult | null {
-  // Trouver la commune
-  const results = rechercherCommune(input.commune);
-  if (results.length === 0) return null;
-
-  // Prendre le meilleur résultat
-  let bestResult: SearchResult = results[0];
-  // Si on a un quartier spécifique, chercher aussi
-  if (input.quartier) {
-    const quartierResults = rechercherCommune(input.quartier);
-    if (quartierResults.length > 0 && quartierResults[0].quartier) {
-      bestResult = quartierResults[0];
-    }
-  }
-
-  const commune = bestResult.commune;
-  let prixM2Base: number;
-  let sourceBase: string;
-
-  if (bestResult.quartier) {
-    prixM2Base = bestResult.quartier.prixM2;
-    sourceBase = `Quartier ${bestResult.quartier.nom}, ${commune.commune}`;
-  } else if (input.estNeuf && commune.prixM2VEFA) {
-    prixM2Base = commune.prixM2VEFA;
-    sourceBase = `${commune.commune} — prix VEFA (neuf)`;
-  } else if (commune.prixM2Existant) {
-    prixM2Base = commune.prixM2Existant;
-    sourceBase = `${commune.commune} — prix transactions existant`;
-  } else if (commune.prixM2Annonces) {
-    prixM2Base = commune.prixM2Annonces;
-    sourceBase = `${commune.commune} — prix annonces`;
-  } else {
-    return null;
-  }
-
+  if (!input || input.typeBien !== "appartement" || !Number.isFinite(input.surface) || input.surface <= 0 || !Number.isInteger(input.nbChambres) || input.nbChambres < 0 || typeof input.commune !== "string") return null;
+  const exact = getMarketDataCommune(input.commune);
+  const results = exact ? [] : rechercherCommune(input.commune);
+  // Une saisie ambiguë ne choisit pas arbitrairement la première commune.
+  const commune = exact ?? (results.length === 1 ? results[0].commune : undefined);
+  if (!commune) return null;
+  // Pas de substitution de l'ancien aux VEFA quand le prix officiel est masqué.
+  const prixTransactions = input.estNeuf ? commune.prixM2VEFAHorsAnnexes : commune.prixM2ExistantHorsAnnexes;
+  const prixM2Base = prixTransactions ?? (!input.estNeuf ? commune.prixM2Annonces : null);
+  if (prixM2Base == null) return null;
+  const sourceBase = `${commune.commune} — ${prixTransactions != null ? (input.estNeuf ? "VEFA hors annexes" : "transactions existant hors annexes") : "annonces, annexes comprises"} — ${commune.periode}`;
   // Calculer les ajustements
   const ajustements: { labelKey: string; labelParams?: Record<string, string | number>; pct: number }[] = [];
 
@@ -112,7 +81,7 @@ export function estimer(input: EstimationInput): EstimationResult | null {
 
   // État
   const etatMatch = AJUST_ETAT.find((a) => a.labelKey === input.etat);
-  if (etatMatch && etatMatch.value !== 0) {
+  if (!input.estNeuf && etatMatch && etatMatch.value !== 0) {
     ajustements.push({ labelKey: "estAjustEtat", labelParams: { etat: input.etat }, pct: etatMatch.value });
   }
 
@@ -123,7 +92,7 @@ export function estimer(input: EstimationInput): EstimationResult | null {
   }
 
   // Parking
-  if (input.parking) {
+  if (input.parking && prixTransactions != null) {
     ajustements.push({ labelKey: "estAjustParking", pct: 4 });
   }
 
@@ -134,7 +103,7 @@ export function estimer(input: EstimationInput): EstimationResult | null {
   }
 
   // Énergie
-  const energieAdj = IMPACT_ENERGIE[input.classeEnergie] || 0;
+  const energieAdj = input.estNeuf ? 0 : (IMPACT_ENERGIE[input.classeEnergie] || 0);
   if (energieAdj !== 0) {
     ajustements.push({ labelKey: "estAjustEnergie", labelParams: { classe: input.classeEnergie }, pct: energieAdj });
   }
@@ -143,43 +112,14 @@ export function estimer(input: EstimationInput): EstimationResult | null {
   const prixM2Ajuste = prixM2Base * (1 + totalAjustements / 100);
 
   const estimationCentrale = Math.round(prixM2Ajuste * input.surface);
-  // Marge : ±12% si données par quartier, ±18% par commune, ±25% si annonces seulement
-  let marge: number;
-  let confiance: "forte" | "moyenne" | "faible";
-  let confianceNote: string;
-
-  if (bestResult.quartier) {
-    marge = 0.12;
-    confiance = "forte";
-    confianceNote = `Données par quartier (${bestResult.quartier.nom}), ${commune.nbTransactions || "?"} transactions sur la commune`;
-  } else if (commune.prixM2Existant) {
-    marge = 0.18;
-    confiance = "moyenne";
-    confianceNote = `Données communales (${commune.commune}), ${commune.nbTransactions || "?"} transactions. Fourchette plus large faute de données par quartier.`;
-  } else {
-    marge = 0.25;
-    confiance = "faible";
-    confianceNote = "Basé sur les prix annonces uniquement — pas de données de transactions disponibles pour cette commune.";
-  }
-
-  // Double modèle : calculer les estimations basées sur transactions et annonces
-  const multiplicateur = 1 + totalAjustements / 100;
-  let estimationTransactions: number | null = null;
-  let estimationAnnonces: number | null = null;
-  let ecartPct: number | null = null;
-
-  // Si on est sur un quartier, pas de double modèle (une seule source)
-  if (!bestResult.quartier) {
-    if (commune.prixM2Existant) {
-      estimationTransactions = Math.round(commune.prixM2Existant * multiplicateur * input.surface);
-    }
-    if (commune.prixM2Annonces) {
-      estimationAnnonces = Math.round(commune.prixM2Annonces * multiplicateur * input.surface);
-    }
-    if (estimationTransactions != null && estimationAnnonces != null && estimationTransactions > 0) {
-      ecartPct = Math.round(((estimationAnnonces - estimationTransactions) / estimationTransactions) * 1000) / 10;
-    }
-  }
+  // Marges conventionnelles de sensibilité ; aucun intervalle probabiliste démontré.
+  const marge = prixTransactions != null ? 0.18 : 0.25;
+  const confiance = "faible" as const;
+  const confianceNote = `Hypothèses non validées statistiquement. ${commune.periode}. ${prixTransactions != null ? (input.estNeuf ? commune.nbVEFA : commune.nbTransactions) : commune.nbAnnonces} observations communales ; aucune vente individuelle comparable.`;
+  // Ne pas moyenner prix hors annexes et annonces avec annexes : périmètres différents.
+  const estimationTransactions = prixTransactions != null ? estimationCentrale : null;
+  const estimationAnnonces = prixTransactions == null ? estimationCentrale : null;
+  const ecartPct = null;
 
   return {
     prixM2Base,
@@ -210,35 +150,35 @@ export interface ModelCoefficient {
 }
 
 export const MODEL_COEFFICIENTS: ModelCoefficient[] = [
-  { feature: "Surface < 40 m²", coefficient: "+8 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "Surface 40-55 m²", coefficient: "+4 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "Surface 55-70 m²", coefficient: "+2 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "Surface 90-120 m²", coefficient: "-2 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "Surface 120-150 m²", coefficient: "-4 %", source: "Observatoire hédonique", confidence: "Moyenne" },
-  { feature: "Surface > 150 m²", coefficient: "-6 %", source: "Observatoire hédonique", confidence: "Moyenne" },
-  { feature: "Sous-sol", coefficient: "-12 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "RDC", coefficient: "-7 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "1er étage", coefficient: "-3 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "4e-5e étage", coefficient: "+3 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "Dernier étage", coefficient: "+5 %", source: "Observatoire hédonique", confidence: "Forte" },
-  { feature: "Attique / penthouse", coefficient: "+10 %", source: "Observatoire hédonique", confidence: "Moyenne" },
-  { feature: "Neuf / livré récemment", coefficient: "+8 %", source: "Données VEFA LU", confidence: "Forte" },
-  { feature: "Rénové", coefficient: "+5 %", source: "Transactions 2024", confidence: "Moyenne" },
-  { feature: "À rafraîchir", coefficient: "-5 %", source: "Transactions 2024", confidence: "Moyenne" },
-  { feature: "À rénover", coefficient: "-12 %", source: "Transactions 2024", confidence: "Moyenne" },
-  { feature: "Gros travaux", coefficient: "-20 %", source: "Pratique professionnelle", confidence: "Faible" },
-  { feature: "Classe énergie A", coefficient: "+5 %", source: "Spuerkeess / Observatoire", confidence: "Forte" },
-  { feature: "Classe énergie B", coefficient: "+3 %", source: "Spuerkeess / Observatoire", confidence: "Forte" },
-  { feature: "Classe énergie C", coefficient: "+1 %", source: "Observatoire", confidence: "Forte" },
-  { feature: "Classe énergie E", coefficient: "-3 %", source: "Observatoire", confidence: "Forte" },
-  { feature: "Classe énergie F", coefficient: "-6 %", source: "Observatoire", confidence: "Forte" },
-  { feature: "Classe énergie G", coefficient: "-10 %", source: "Observatoire", confidence: "Forte" },
-  { feature: "Parking intérieur", coefficient: "+4 %", source: "Transactions (≈30-45k€)", confidence: "Forte" },
-  { feature: "Pas d'extérieur", coefficient: "-4 %", source: "Observatoire", confidence: "Moyenne" },
-  { feature: "Grand balcon", coefficient: "+3 %", source: "Observatoire", confidence: "Moyenne" },
-  { feature: "Terrasse", coefficient: "+6 %", source: "Observatoire", confidence: "Moyenne" },
-  { feature: "Jardin", coefficient: "+8 %", source: "Observatoire", confidence: "Moyenne" },
-  { feature: "Terrasse + jardin", coefficient: "+12 %", source: "Observatoire", confidence: "Faible" },
+  { feature: "Surface < 40 m²", coefficient: "+8 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Surface 40-55 m²", coefficient: "+4 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Surface 55-70 m²", coefficient: "+2 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Surface 90-120 m²", coefficient: "-2 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Surface 120-150 m²", coefficient: "-4 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Surface > 150 m²", coefficient: "-6 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Sous-sol", coefficient: "-12 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "RDC", coefficient: "-7 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "1er étage", coefficient: "-3 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "4e-5e étage", coefficient: "+3 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Dernier étage", coefficient: "+5 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Attique / penthouse", coefficient: "+10 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Livré récemment, hors VEFA", coefficient: "+8 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Rénové", coefficient: "+5 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "À rafraîchir", coefficient: "-5 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "À rénover", coefficient: "-12 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Gros travaux", coefficient: "-20 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Classe énergie A", coefficient: "+5 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Classe énergie B", coefficient: "+3 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Classe énergie C", coefficient: "+1 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Classe énergie E", coefficient: "-3 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Classe énergie F", coefficient: "-6 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Classe énergie G", coefficient: "-10 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Parking intérieur", coefficient: "+4 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Pas d'extérieur", coefficient: "-4 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Grand balcon", coefficient: "+3 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Terrasse", coefficient: "+6 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Jardin", coefficient: "+8 %", source: "Hypothèse interne", confidence: "Non validée" },
+  { feature: "Terrasse + jardin", coefficient: "+12 %", source: "Hypothèse interne", confidence: "Non validée" },
 ];
 
 export interface BacktestSample {

@@ -1073,9 +1073,9 @@
     "typeBienLabel": "Type de bien",
     "typeBienAppartement": "Appartement",
     "typeBienMaison": "Maison",
-    "typeBienHint": "Les données de l'Observatoire couvrent principalement les appartements",
+    "typeBienHint": "Appartement uniquement",
     "parkingLabel": "Parking inclus",
-    "parkingHint": "+4% en moyenne",
+    "parkingHint": "Hypothèse +4 % sur base hors annexes",
     "neufLabel": "Bien neuf (VEFA)",
     "neufHint": "Prix de référence VEFA au lieu d'existant",
     "emphyteotiqueLabel": "Bail emphytéotique",
@@ -1134,8 +1134,8 @@
     "copierLien": "Copier le lien",
     "sauvegarder": "Sauvegarder",
     "evaluationSauvegardee": "Évaluation sauvegardée !",
-    "disclaimer": "Estimation indicative basée sur les données publiques de l'Observatoire de l'Habitat et les coefficients d'ajustement statistiques. Ne constitue pas une évaluation professionnelle. Pour une expertise conforme EVS 2025, utilisez le",
-    "disclaimerLink": "module de valorisation",
+    "disclaimer": "Estimation indicative avec hypothèses internes. Consulter la méthodologie avant utilisation.",
+    "disclaimerLink": "Méthodologie",
     "selectCommune": "Sélectionnez une commune pour obtenir une estimation",
     "quartierTitle": "Prix par quartier — {commune}",
     "quartierSource": "Prix indicatifs par quartier — Source : annonces agrégées",
@@ -1176,7 +1176,9 @@
     "historyTitle": "Historique pour cette commune",
     "historyClear": "Effacer tout",
     "historyVsPrev": "vs estim. précédente",
-    "historyNote": "Stocké uniquement sur votre navigateur (localStorage). Aucun envoi au serveur. Vos 50 dernières estimations sont conservées."
+    "historyNote": "Stocké uniquement sur votre navigateur (localStorage). Aucun envoi au serveur. Vos 50 dernières estimations sont conservées.",
+    "auditLimits": "Appartement en pleine propriété uniquement. Les ajustements sont des hypothèses internes, sans validation sur un échantillon indépendant de ventes. La fourchette ±18 % (ou ±25 % avec annonces seules) est conventionnelle : aucune probabilité ni précision garantie.",
+    "auditMissing": "Aucune estimation disponible pour cette saisie : vérifiez la surface et les données publiées pour le type de vente. Un prix masqué par l’Observatoire n’est pas inventé."
   },
   "fraisAcquisition": {
     "title": "Simulateur de Frais d'Acquisition",
@@ -17951,5 +17953,28 @@
     "imprimer": "Imprimer / PDF",
     "sources": "Méthode et sources",
     "limitations": "Une seule opération et aucune autre plus-value ou perte à compenser. Les gains de spéculation annuels inférieurs à 500 € sont exonérés. Transfert en remploi, cession de titres, actifs professionnels, non-résidents, classe 1a, dépenses extraordinaires à imputer selon l’article 131(3) et bases minimales des acquisitions anciennes nécessitent une analyse distincte. La vente reste à déclarer, même exonérée."
+  },
+  "estimationAudit": {
+    "title": "Données et limites de l’estimation",
+    "limits": "Appartement en pleine propriété uniquement. Les ajustements sont des hypothèses internes, sans validation sur un échantillon indépendant de ventes. La fourchette ±18 % (ou ±25 % avec annonces seules) est conventionnelle : aucune probabilité ni précision garantie.",
+    "missing": "Aucune estimation disponible pour cette saisie : vérifiez la surface et les données publiées pour le type de vente. Un prix masqué par l’Observatoire n’est pas inventé.",
+    "sources": "Sources officielles, publication du 25 juin 2026",
+    "period": "Période : du 1er avril 2025 au 31 mars 2026 (12 mois glissants). Les prix enregistrés incluent les annexes ; l’estimateur utilise les prix affinés hors annexes, quand ils sont disponibles. Les annonces sont des prix demandés, pas des transactions.",
+    "adjustments": "Ajustements de simulation",
+    "assumptions": "Les pourcentages ci-dessous sont des hypothèses de travail. Ils ne sont pas des coefficients officiels de l’Observatoire. Aucune MAPE, R², significativité ou précision sur ventes réelles n’est démontrée.",
+    "parameter": "Paramètre",
+    "adjustment": "Ajustement",
+    "transactions": "Données enregistrées avec annexes",
+    "horsAnnexes": "Données affinées hors annexes",
+    "annonces": "Prix de vente annoncés",
+    "loyers": "Loyers annoncés",
+    "method": "Méthode et périmètre",
+    "formula": "Prix = moyenne communale × (1 + somme des ajustements / 100) × surface. Pas de prix individuel par quartier. Pour les VEFA, aucun supplément automatique pour l’état neuf ou la classe énergétique ; la source VEFA reflète déjà ce segment.",
+    "vefa": "Les prix VEFA publiés intègrent une TVA de 3 %, dans la limite de la faveur fiscale de 50 000 €. Cette base doit être adaptée si votre opération n’y est pas éligible. Le parking est une hypothèse de +4 % seulement sur la base hors annexes ; cave et autres annexes ne sont pas valorisées séparément.",
+    "suppression": "Les valeurs masquées restent indisponibles : moins de 10 ventes enregistrées ou moins de 30 annonces dans les fichiers utilisés. Les exemples synthétiques ne sont pas des ventes comparables et ne mesurent pas la fiabilité du modèle.",
+    "type": "Appartement uniquement",
+    "parking": "Hypothèse +4 % sur base hors annexes",
+    "disclaimer": "Estimation indicative avec hypothèses internes. Consulter la méthodologie avant utilisation.",
+    "link": "Méthodologie"
   }
 }

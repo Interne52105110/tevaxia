@@ -1073,9 +1073,9 @@
     "typeBienLabel": "Immobilientyp",
     "typeBienAppartement": "Wohnung",
     "typeBienMaison": "Haus",
-    "typeBienHint": "Die Daten des Observatoire betreffen hauptsächlich Wohnungen",
+    "typeBienHint": "Nur Wohnungen",
     "parkingLabel": "Stellplatz inklusive",
-    "parkingHint": "+4% im Durchschnitt",
+    "parkingHint": "Annahme +4 % auf Basis ohne Nebenflächen",
     "neufLabel": "Neubau (VEFA)",
     "neufHint": "VEFA-Referenzpreis statt Bestandspreis",
     "emphyteotiqueLabel": "Erbbaurecht",
@@ -1134,8 +1134,8 @@
     "copierLien": "Link kopieren",
     "sauvegarder": "Speichern",
     "evaluationSauvegardee": "Bewertung gespeichert!",
-    "disclaimer": "Indikative Schätzung auf Basis öffentlicher Daten des Observatoire de l'Habitat und statistischer Anpassungskoeffizienten. Stellt keine professionelle Bewertung dar. Für ein EVS 2025 konformes Gutachten verwenden Sie das",
-    "disclaimerLink": "Bewertungsmodul",
+    "disclaimer": "Indikative Schätzung mit internen Annahmen. Methodik vor Verwendung lesen.",
+    "disclaimerLink": "Methodik",
     "selectCommune": "Wählen Sie eine Gemeinde aus, um eine Schätzung zu erhalten",
     "quartierTitle": "Preise nach Viertel — {commune}",
     "quartierSource": "Richtpreise nach Viertel — Quelle: aggregierte Anzeigen",
@@ -1176,7 +1176,9 @@
     "historyTitle": "Historie für diese Gemeinde",
     "historyClear": "Alles löschen",
     "historyVsPrev": "vs vorh. Sch.",
-    "historyNote": "Nur in Ihrem Browser gespeichert. Letzte 50 Schätzungen."
+    "historyNote": "Nur in Ihrem Browser gespeichert. Letzte 50 Schätzungen.",
+    "auditLimits": "Nur Wohnungen im Volleigentum. Anpassungen sind interne Annahmen ohne Validierung anhand unabhängiger Verkäufe. Die Spanne ±18 % (±25 % nur bei Angebotspreisen) ist eine Konvention ohne garantierte Genauigkeit oder Wahrscheinlichkeit.",
+    "auditMissing": "Für diese Eingaben ist keine Schätzung verfügbar. Fläche und veröffentlichte Daten für die Verkaufsart prüfen. Unterdrückte amtliche Preise werden nicht erfunden."
   },
   "fraisAcquisition": {
     "title": "Erwerbskostensimulator",
@@ -17951,5 +17953,28 @@
     "provision": "Bei Spekulation wird der Beschäftigungsfonds als Tarifdifferenz berechnet. Bei Veräußerungsgewinn ist dies eine Rückstellung von 7 % der Einkommensteuer, bzw. 7–9 % oberhalb 150.000 € (Klasse 1) / 300.000 € (Klasse 2). Die genaue Zuordnung außerordentlicher Einkünfte bleibt im Jahresbescheid zu klären; keine endgültige Steuerfestsetzung.",
     "produitHint": "Erlös ist kein Gewinn: Der Kaufpreis wird hier nicht abgezogen. Restschuld, nicht erfasste Löschungskosten und weitere Verpflichtungen bleiben zu bezahlen.",
     "limitations": "Eine Transaktion ohne weitere verrechenbare Gewinne oder Verluste. Jährliche Spekulationsgewinne unter 500 € sind steuerfrei. Reinvestition, Anteilsverkäufe, Betriebsvermögen, Nichtansässige, Klasse 1a, außergewöhnliche Abzüge nach Artikel 131(3) und Mindestwerte alter Erwerbe sind gesondert zu prüfen. Auch steuerfreie Verkäufe sind zu erklären."
+  },
+  "estimationAudit": {
+    "title": "Daten und Grenzen der Schätzung",
+    "limits": "Nur Wohnungen im Volleigentum. Anpassungen sind interne Annahmen ohne Validierung anhand unabhängiger Verkäufe. Die Spanne ±18 % (±25 % nur bei Angebotspreisen) ist eine Konvention ohne garantierte Genauigkeit oder Wahrscheinlichkeit.",
+    "missing": "Für diese Eingaben ist keine Schätzung verfügbar. Fläche und veröffentlichte Daten für die Verkaufsart prüfen. Unterdrückte amtliche Preise werden nicht erfunden.",
+    "sources": "Amtliche Quellen, veröffentlicht am 25. Juni 2026",
+    "period": "Zeitraum: 1. April 2025 bis 31. März 2026 (gleitende 12 Monate). Beurkundete Preise enthalten Nebenflächen; der Rechner nutzt bereinigte Preise ohne Nebenflächen, soweit verfügbar. Angebotspreise sind keine abgeschlossenen Verkäufe.",
+    "adjustments": "Simulationsanpassungen",
+    "assumptions": "Diese Prozentsätze sind Arbeitsannahmen, keine amtlichen Koeffizienten des Observatoriums. MAPE, R², Signifikanz oder Genauigkeit an realen Verkäufen sind nicht nachgewiesen.",
+    "parameter": "Parameter",
+    "adjustment": "Anpassung",
+    "transactions": "Beurkundete Preise mit Nebenflächen",
+    "horsAnnexes": "Bereinigte Preise ohne Nebenflächen",
+    "annonces": "Verkaufsangebotspreise",
+    "loyers": "Angebotsmieten",
+    "method": "Methode und Umfang",
+    "formula": "Preis = Gemeindemittelwert × (1 + Summe der Anpassungen / 100) × Fläche. Keine individuellen Viertelpreise. Bei VEFA kein automatischer Neubau- oder Energieaufschlag, da diese Basis das Segment bereits abbildet.",
+    "vefa": "Veröffentlichte VEFA-Preise enthalten 3 % Mehrwertsteuer innerhalb der Steuervergünstigung von 50.000 €. Bei fehlender Berechtigung ist die Basis anzupassen. Parkplatz: Annahme +4 % nur auf die Basis ohne Nebenflächen; Keller und andere Nebenflächen werden nicht separat bewertet.",
+    "suppression": "Unterdrückte Preise bleiben nicht verfügbar: weniger als 10 Verkäufe oder 30 Inserate in diesen Dateien. Synthetische Beispiele sind keine Vergleichsverkäufe und messen keine Modellzuverlässigkeit.",
+    "type": "Nur Wohnungen",
+    "parking": "Annahme +4 % auf Basis ohne Nebenflächen",
+    "disclaimer": "Indikative Schätzung mit internen Annahmen. Methodik vor Verwendung lesen.",
+    "link": "Methodik"
   }
 }

@@ -23,212 +23,28 @@ export interface MarketDataCommune {
   prixM2Annonces: number | null;
   loyerM2Annonces: number | null;
   nbTransactions: number | null;
+  nbVEFA: number | null;
+  nbAnnonces: number | null;
+  nbLocations: number | null;
+  prixM2ExistantHorsAnnexes: number | null;
+  prixM2VEFAHorsAnnexes: number | null;
   periode: string;
   source: string;
   quartiers?: QuartierData[];
 }
 
-// Données de marché — Source: Observatoire de l'Habitat Q4 2025
-// Prix moyens au m² enregistrés (actes notariés via Publicité Foncière)
-// Ces données sont issues des publications officielles et mises à jour trimestriellement
-const MARKET_DATA: MarketDataCommune[] = [
-  // Canton Luxembourg
-  { commune: "Luxembourg", canton: "Luxembourg", prixM2Existant: 10200, prixM2VEFA: 12500, prixM2Annonces: 11200, loyerM2Annonces: 28.5, nbTransactions: 890, periode: "2025-T4", source: "Observatoire de l'Habitat / Publicité Foncière",
-    quartiers: [
-      // Source : Observatoire de l'Habitat — prix annoncés par quartier Lux-Ville
-      { nom: "Belair", prixM2: 12200, loyerM2: 32.0, tendance: "stable", note: "Résidentiel premium, ambassades, très recherché" },
-      { nom: "Limpertsberg", prixM2: 11800, loyerM2: 30.5, tendance: "stable", note: "Quartier familial haut de gamme, théâtre, parcs" },
-      { nom: "Kirchberg", prixM2: 11500, loyerM2: 29.0, tendance: "hausse", note: "Institutions EU, neuf récent, Philharmonie, Auchan" },
-      { nom: "Ville-Haute / Centre", prixM2: 11200, loyerM2: 30.0, tendance: "stable", note: "Hypercentre historique, commerces, Place d'Armes" },
-      { nom: "Merl", prixM2: 10500, loyerM2: 27.0, tendance: "stable", note: "Résidentiel calme, parc, école internationale" },
-      { nom: "Neudorf / Weimershof", prixM2: 10200, loyerM2: 27.0, tendance: "hausse", note: "Proximité Kirchberg, en développement" },
-      { nom: "Clausen", prixM2: 10000, loyerM2: 27.5, tendance: "hausse", note: "Rives de l'Alzette, restaurants, rénové" },
-      { nom: "Gasperich / Cloche d'Or", prixM2: 10800, loyerM2: 28.0, tendance: "hausse", note: "Neuf, centre commercial, bureaux, en plein essor" },
-      { nom: "Cessange", prixM2: 9800, loyerM2: 25.5, tendance: "hausse", note: "Proximité Cloche d'Or, résidentiel en développement" },
-      { nom: "Cents", prixM2: 9600, loyerM2: 25.0, tendance: "stable", note: "Résidentiel familial, proche Kirchberg" },
-      { nom: "Pfaffenthal", prixM2: 9800, loyerM2: 26.0, tendance: "hausse", note: "Funiculaire, gentrification, charme historique" },
-      { nom: "Eich", prixM2: 9500, loyerM2: 25.0, tendance: "stable", note: "Résidentiel calme, piscine, nord de la ville" },
-      { nom: "Rollingergrund", prixM2: 9400, loyerM2: 24.5, tendance: "stable", note: "Parc Bambësch, résidentiel" },
-      { nom: "Mühlenbach", prixM2: 9300, loyerM2: 24.0, tendance: "stable", note: "Résidentiel, proche centre et Kirchberg" },
-      { nom: "Bonnevoie", prixM2: 9000, loyerM2: 24.0, tendance: "hausse", note: "En transformation, multiculturel, gare proche" },
-      { nom: "Hollerich", prixM2: 8800, loyerM2: 23.5, tendance: "hausse", note: "Projets urbains, nouvelle ligne tram" },
-      { nom: "Gare", prixM2: 8700, loyerM2: 23.0, tendance: "stable", note: "Central, gare, commerces, mixte" },
-      { nom: "Hamm", prixM2: 8800, loyerM2: 23.0, tendance: "stable", note: "Résidentiel calme, cimetière" },
-      { nom: "Dommeldange", prixM2: 8600, loyerM2: 23.0, tendance: "stable", note: "Nord, gare, résidentiel" },
-      { nom: "Beggen", prixM2: 8500, loyerM2: 22.5, tendance: "stable", note: "Nord, résidentiel, plus accessible" },
-      { nom: "Weimerskirch", prixM2: 8400, loyerM2: 22.0, tendance: "stable", note: "Nord-est, calme, résidentiel" },
-      { nom: "Pulvermühl", prixM2: 8500, loyerM2: 22.5, tendance: "stable", note: "Proche gare, résidentiel" },
-      { nom: "Grund", prixM2: 9200, loyerM2: 25.0, tendance: "stable", note: "Vallée de l'Alzette, charme historique, tourisme" },
-    ],
-  },
-  { commune: "Strassen", canton: "Luxembourg", prixM2Existant: 9800, prixM2VEFA: 11800, prixM2Annonces: 10500, loyerM2Annonces: 26.0, nbTransactions: 85, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Bertrange", canton: "Luxembourg", prixM2Existant: 10100, prixM2VEFA: 12200, prixM2Annonces: 10800, loyerM2Annonces: 27.0, nbTransactions: 95, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Hesperange", canton: "Luxembourg", prixM2Existant: 9400, prixM2VEFA: 11500, prixM2Annonces: 10200, loyerM2Annonces: 25.5, nbTransactions: 110, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Walferdange", canton: "Luxembourg", prixM2Existant: 8900, prixM2VEFA: 10800, prixM2Annonces: 9700, loyerM2Annonces: 24.0, nbTransactions: 65, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Sandweiler", canton: "Luxembourg", prixM2Existant: 9100, prixM2VEFA: 11000, prixM2Annonces: 9800, loyerM2Annonces: 24.5, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Niederanven", canton: "Luxembourg", prixM2Existant: 9700, prixM2VEFA: 11500, prixM2Annonces: 10300, loyerM2Annonces: 25.0, nbTransactions: 50, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Kopstal", canton: "Luxembourg", prixM2Existant: 9900, prixM2VEFA: null, prixM2Annonces: 10500, loyerM2Annonces: 25.5, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Steinsel", canton: "Luxembourg", prixM2Existant: 8600, prixM2VEFA: 10500, prixM2Annonces: 9300, loyerM2Annonces: 23.5, nbTransactions: 35, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Contern", canton: "Luxembourg", prixM2Existant: 8800, prixM2VEFA: 10600, prixM2Annonces: 9500, loyerM2Annonces: 24.0, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Schuttrange", canton: "Luxembourg", prixM2Existant: 9200, prixM2VEFA: 11000, prixM2Annonces: 9900, loyerM2Annonces: 25.0, nbTransactions: 35, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Capellen
-  { commune: "Mamer", canton: "Capellen", prixM2Existant: 9500, prixM2VEFA: 11200, prixM2Annonces: 10100, loyerM2Annonces: 25.0, nbTransactions: 75, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre Mamer", prixM2: 10100, loyerM2: 26.5, tendance: "stable", note: "Centre-ville, lycée, commerces, résidentiel recherché" },
-      { nom: "Capellen", prixM2: 9200, loyerM2: 24.0, tendance: "stable", note: "Zone commerciale, Auchan, accès autoroute A6" },
-      { nom: "Holzem", prixM2: 8800, loyerM2: 23.0, tendance: "stable", note: "Village résidentiel, cadre rural, plus accessible" },
-    ],
-  },
-  { commune: "Steinfort", canton: "Capellen", prixM2Existant: 6900, prixM2VEFA: 8500, prixM2Annonces: 7500, loyerM2Annonces: 20.0, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Kehlen", canton: "Capellen", prixM2Existant: 8800, prixM2VEFA: 10200, prixM2Annonces: 9400, loyerM2Annonces: 23.0, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Koerich", canton: "Capellen", prixM2Existant: 7800, prixM2VEFA: 9200, prixM2Annonces: 8400, loyerM2Annonces: 21.0, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Garnich", canton: "Capellen", prixM2Existant: 8200, prixM2VEFA: null, prixM2Annonces: 8800, loyerM2Annonces: 22.0, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Habscht", canton: "Capellen", prixM2Existant: 7200, prixM2VEFA: null, prixM2Annonces: 7800, loyerM2Annonces: 20.5, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Septfontaines", canton: "Capellen", prixM2Existant: 7500, prixM2VEFA: null, prixM2Annonces: 8100, loyerM2Annonces: 21.0, nbTransactions: 12, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Esch-sur-Alzette
-  { commune: "Esch-sur-Alzette", canton: "Esch-sur-Alzette", prixM2Existant: 6700, prixM2VEFA: 8200, prixM2Annonces: 7200, loyerM2Annonces: 19.5, nbTransactions: 280, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre / Brillplaz", prixM2: 7200, loyerM2: 20.5, tendance: "stable", note: "Centre-ville, commerces, Brillplaz rénové" },
-      { nom: "Belval", prixM2: 7800, loyerM2: 21.0, tendance: "hausse", note: "Nouveau quartier, université, Rockhal, neuf" },
-      { nom: "Raemerich", prixM2: 6800, loyerM2: 19.5, tendance: "stable", note: "Résidentiel, proche centre" },
-      { nom: "Wobrecken", prixM2: 6500, loyerM2: 19.0, tendance: "stable", note: "Résidentiel calme" },
-      { nom: "Lallange", prixM2: 6200, loyerM2: 18.5, tendance: "stable", note: "Plus excentré, plus accessible" },
-      { nom: "Nördstad", prixM2: 6000, loyerM2: 18.0, tendance: "stable", note: "Nord, logement social mixte" },
-    ],
-  },
-  { commune: "Differdange", canton: "Esch-sur-Alzette", prixM2Existant: 6100, prixM2VEFA: 7800, prixM2Annonces: 6700, loyerM2Annonces: 18.5, nbTransactions: 120, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre Differdange", prixM2: 6400, loyerM2: 19.0, tendance: "stable", note: "Centre-ville, commerces" },
-      { nom: "Oberkorn", prixM2: 6000, loyerM2: 18.0, tendance: "stable", note: "Résidentiel, parc Gaalgebierg" },
-      { nom: "Niederkorn", prixM2: 5800, loyerM2: 17.5, tendance: "stable", note: "Plus accessible, proche nature" },
-      { nom: "Fousbann", prixM2: 6200, loyerM2: 18.5, tendance: "hausse", note: "Nouveau développement" },
-    ],
-  },
-  { commune: "Dudelange", canton: "Esch-sur-Alzette", prixM2Existant: 6400, prixM2VEFA: 8000, prixM2Annonces: 7000, loyerM2Annonces: 19.0, nbTransactions: 130, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre Dudelange", prixM2: 6800, loyerM2: 19.5, tendance: "stable", note: "Centre-ville, commerces, marché" },
-      { nom: "Burange", prixM2: 6200, loyerM2: 18.5, tendance: "stable", note: "Résidentiel, sud de Dudelange" },
-      { nom: "Brill", prixM2: 6500, loyerM2: 19.0, tendance: "stable", note: "Quartier résidentiel, infrastructures sportives" },
-      { nom: "Italie", prixM2: 6300, loyerM2: 18.5, tendance: "stable", note: "Quartier italien historique, caractère multiculturel, commerces méditerranéens" },
-    ],
-  },
-  { commune: "Bettembourg", canton: "Esch-sur-Alzette", prixM2Existant: 6600, prixM2VEFA: 8400, prixM2Annonces: 7300, loyerM2Annonces: 19.5, nbTransactions: 85, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre Bettembourg", prixM2: 7000, loyerM2: 20.5, tendance: "stable", note: "Centre-ville, gare, commerces, parc Merveilleux" },
-      { nom: "Noertzange", prixM2: 6300, loyerM2: 18.5, tendance: "stable", note: "Résidentiel calme, sud de Bettembourg" },
-      { nom: "Huncherange", prixM2: 6100, loyerM2: 18.0, tendance: "stable", note: "Village périphérique, cadre rural, plus accessible" },
-    ],
-  },
-  { commune: "Sanem", canton: "Esch-sur-Alzette", prixM2Existant: 6300, prixM2VEFA: 7900, prixM2Annonces: 6900, loyerM2Annonces: 18.5, nbTransactions: 70, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Belvaux", prixM2: 6600, loyerM2: 19.0, tendance: "hausse", note: "Proximité Belval, commerces, développement actif" },
-      { nom: "Soleuvre", prixM2: 6200, loyerM2: 18.0, tendance: "stable", note: "Résidentiel, centre sportif, bon cadre de vie" },
-      { nom: "Ehlerange", prixM2: 5900, loyerM2: 17.5, tendance: "stable", note: "Périphérique, proche autoroute A4, plus accessible" },
-    ],
-  },
-  { commune: "Mondercange", canton: "Esch-sur-Alzette", prixM2Existant: 6500, prixM2VEFA: 8200, prixM2Annonces: 7100, loyerM2Annonces: 19.0, nbTransactions: 55, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Schifflange", canton: "Esch-sur-Alzette", prixM2Existant: 6200, prixM2VEFA: 7700, prixM2Annonces: 6800, loyerM2Annonces: 18.0, nbTransactions: 60, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Pétange", canton: "Esch-sur-Alzette", prixM2Existant: 5800, prixM2VEFA: 7400, prixM2Annonces: 6400, loyerM2Annonces: 17.5, nbTransactions: 90, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre Pétange", prixM2: 6000, loyerM2: 18.0, tendance: "stable", note: "Centre-ville, gare, commerces" },
-      { nom: "Rodange", prixM2: 5600, loyerM2: 17.0, tendance: "stable", note: "Gare, proche frontière française" },
-      { nom: "Lamadelaine", prixM2: 5500, loyerM2: 16.5, tendance: "stable", note: "Résidentiel, Fond-de-Gras à proximité" },
-    ],
-  },
-  { commune: "Käerjeng", canton: "Esch-sur-Alzette", prixM2Existant: 6000, prixM2VEFA: 7600, prixM2Annonces: 6600, loyerM2Annonces: 17.5, nbTransactions: 45, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Kayl", canton: "Esch-sur-Alzette", prixM2Existant: 5900, prixM2VEFA: 7500, prixM2Annonces: 6400, loyerM2Annonces: 17.5, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Leudelange", canton: "Esch-sur-Alzette", prixM2Existant: 8400, prixM2VEFA: 10200, prixM2Annonces: 9100, loyerM2Annonces: 23.0, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Roeser", canton: "Esch-sur-Alzette", prixM2Existant: 7800, prixM2VEFA: 9500, prixM2Annonces: 8400, loyerM2Annonces: 22.0, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Frisange", canton: "Esch-sur-Alzette", prixM2Existant: 7200, prixM2VEFA: 8800, prixM2Annonces: 7800, loyerM2Annonces: 20.5, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Reckange-sur-Mess", canton: "Esch-sur-Alzette", prixM2Existant: 7000, prixM2VEFA: 8600, prixM2Annonces: 7600, loyerM2Annonces: 20.0, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Dippach", canton: "Esch-sur-Alzette", prixM2Existant: 7400, prixM2VEFA: 9000, prixM2Annonces: 8000, loyerM2Annonces: 21.0, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Mersch
-  { commune: "Mersch", canton: "Mersch", prixM2Existant: 7100, prixM2VEFA: 8800, prixM2Annonces: 7700, loyerM2Annonces: 21.0, nbTransactions: 55, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre Mersch", prixM2: 7600, loyerM2: 22.0, tendance: "stable", note: "Centre-ville, gare, lycée, commerces, carrefour routier" },
-      { nom: "Beringen", prixM2: 6800, loyerM2: 20.0, tendance: "stable", note: "Résidentiel calme, ouest de Mersch" },
-      { nom: "Rollingen", prixM2: 6600, loyerM2: 19.5, tendance: "stable", note: "Village périphérique, cadre verdoyant, plus accessible" },
-    ],
-  },
-  { commune: "Lintgen", canton: "Mersch", prixM2Existant: 7300, prixM2VEFA: 9000, prixM2Annonces: 7900, loyerM2Annonces: 21.5, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Larochette", canton: "Mersch", prixM2Existant: 6200, prixM2VEFA: 7800, prixM2Annonces: 6800, loyerM2Annonces: 18.5, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Lorentzweiler", canton: "Mersch", prixM2Existant: 7500, prixM2VEFA: 9200, prixM2Annonces: 8100, loyerM2Annonces: 22.0, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Bissen", canton: "Mersch", prixM2Existant: 6600, prixM2VEFA: 8200, prixM2Annonces: 7200, loyerM2Annonces: 19.5, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Colmar-Berg", canton: "Mersch", prixM2Existant: 6400, prixM2VEFA: 8000, prixM2Annonces: 7000, loyerM2Annonces: 19.0, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Feulen", canton: "Mersch", prixM2Existant: 6200, prixM2VEFA: 7800, prixM2Annonces: 6800, loyerM2Annonces: 18.5, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Schieren", canton: "Mersch", prixM2Existant: 6500, prixM2VEFA: 8100, prixM2Annonces: 7100, loyerM2Annonces: 19.0, nbTransactions: 12, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Helperknapp", canton: "Mersch", prixM2Existant: 6800, prixM2VEFA: null, prixM2Annonces: 7400, loyerM2Annonces: 19.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Nommern", canton: "Mersch", prixM2Existant: 6300, prixM2VEFA: null, prixM2Annonces: 6900, loyerM2Annonces: 18.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Grevenmacher
-  { commune: "Junglinster", canton: "Grevenmacher", prixM2Existant: 7700, prixM2VEFA: 9400, prixM2Annonces: 8300, loyerM2Annonces: 22.5, nbTransactions: 60, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Grevenmacher", canton: "Grevenmacher", prixM2Existant: 5700, prixM2VEFA: 7200, prixM2Annonces: 6300, loyerM2Annonces: 17.0, nbTransactions: 35, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Wormeldange", canton: "Grevenmacher", prixM2Existant: 5500, prixM2VEFA: null, prixM2Annonces: 6100, loyerM2Annonces: 16.5, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Flaxweiler", canton: "Grevenmacher", prixM2Existant: 6800, prixM2VEFA: null, prixM2Annonces: 7400, loyerM2Annonces: 19.5, nbTransactions: 12, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Betzdorf", canton: "Grevenmacher", prixM2Existant: 7200, prixM2VEFA: 8800, prixM2Annonces: 7800, loyerM2Annonces: 21.0, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Manternach", canton: "Grevenmacher", prixM2Existant: 5300, prixM2VEFA: null, prixM2Annonces: 5800, loyerM2Annonces: 16.0, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Mertert", canton: "Grevenmacher", prixM2Existant: 5600, prixM2VEFA: 7000, prixM2Annonces: 6200, loyerM2Annonces: 17.0, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Biwer", canton: "Grevenmacher", prixM2Existant: 6500, prixM2VEFA: null, prixM2Annonces: 7100, loyerM2Annonces: 19.0, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Remich
-  { commune: "Remich", canton: "Remich", prixM2Existant: 5900, prixM2VEFA: 7400, prixM2Annonces: 6500, loyerM2Annonces: 18.0, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Mondorf-les-Bains", canton: "Remich", prixM2Existant: 6800, prixM2VEFA: 8400, prixM2Annonces: 7400, loyerM2Annonces: 19.5, nbTransactions: 35, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Stadtbredimus", canton: "Remich", prixM2Existant: 5600, prixM2VEFA: null, prixM2Annonces: 6200, loyerM2Annonces: 17.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Dalheim", canton: "Remich", prixM2Existant: 6200, prixM2VEFA: null, prixM2Annonces: 6800, loyerM2Annonces: 18.0, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Lenningen", canton: "Remich", prixM2Existant: 6400, prixM2VEFA: null, prixM2Annonces: 7000, loyerM2Annonces: 18.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Bous", canton: "Remich", prixM2Existant: 6100, prixM2VEFA: null, prixM2Annonces: 6700, loyerM2Annonces: 17.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Waldbredimus", canton: "Remich", prixM2Existant: 5800, prixM2VEFA: null, prixM2Annonces: 6400, loyerM2Annonces: 17.0, nbTransactions: 5, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Weiler-la-Tour", canton: "Remich", prixM2Existant: 7000, prixM2VEFA: null, prixM2Annonces: 7600, loyerM2Annonces: 20.0, nbTransactions: 12, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Schengen", canton: "Remich", prixM2Existant: 5500, prixM2VEFA: null, prixM2Annonces: 6100, loyerM2Annonces: 16.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Echternach
-  { commune: "Echternach", canton: "Echternach", prixM2Existant: 5400, prixM2VEFA: 6800, prixM2Annonces: 5900, loyerM2Annonces: 16.5, nbTransactions: 25, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Beaufort", canton: "Echternach", prixM2Existant: 5000, prixM2VEFA: null, prixM2Annonces: 5500, loyerM2Annonces: 15.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Rosport-Mompach", canton: "Echternach", prixM2Existant: 5100, prixM2VEFA: null, prixM2Annonces: 5600, loyerM2Annonces: 15.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Waldbillig", canton: "Echternach", prixM2Existant: 4900, prixM2VEFA: null, prixM2Annonces: 5400, loyerM2Annonces: 15.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Berdorf", canton: "Echternach", prixM2Existant: 5200, prixM2VEFA: null, prixM2Annonces: 5700, loyerM2Annonces: 15.5, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Bech", canton: "Echternach", prixM2Existant: 5300, prixM2VEFA: null, prixM2Annonces: 5800, loyerM2Annonces: 16.0, nbTransactions: 6, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Diekirch
-  { commune: "Diekirch", canton: "Diekirch", prixM2Existant: 5700, prixM2VEFA: 7000, prixM2Annonces: 6200, loyerM2Annonces: 17.0, nbTransactions: 30, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Ettelbruck", canton: "Diekirch", prixM2Existant: 5900, prixM2VEFA: 7300, prixM2Annonces: 6500, loyerM2Annonces: 17.5, nbTransactions: 40, periode: "2025-T4", source: "Observatoire de l'Habitat",
-    quartiers: [
-      { nom: "Centre Ettelbruck", prixM2: 6200, loyerM2: 18.0, tendance: "stable", note: "Centre-ville, gare, commerces, Däich" },
-      { nom: "Warken", prixM2: 5700, loyerM2: 17.0, tendance: "stable", note: "Résidentiel, nord d'Ettelbruck" },
-      { nom: "Ingeldorf", prixM2: 5500, loyerM2: 16.5, tendance: "stable", note: "Proximité gare, résidentiel calme, accès A7" },
-    ],
-  },
-  { commune: "Erpeldange-sur-Sûre", canton: "Diekirch", prixM2Existant: 5600, prixM2VEFA: 7000, prixM2Annonces: 6100, loyerM2Annonces: 17.0, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Vallée de l'Ernz", canton: "Diekirch", prixM2Existant: 5200, prixM2VEFA: null, prixM2Annonces: 5700, loyerM2Annonces: 15.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Tandel", canton: "Diekirch", prixM2Existant: 4800, prixM2VEFA: null, prixM2Annonces: 5300, loyerM2Annonces: 15.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Bourscheid", canton: "Diekirch", prixM2Existant: 4600, prixM2VEFA: null, prixM2Annonces: 5100, loyerM2Annonces: 14.5, nbTransactions: 6, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Reisdorf", canton: "Diekirch", prixM2Existant: 4700, prixM2VEFA: null, prixM2Annonces: 5200, loyerM2Annonces: 14.5, nbTransactions: 5, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Putscheid", canton: "Diekirch", prixM2Existant: 4500, prixM2VEFA: null, prixM2Annonces: 5000, loyerM2Annonces: 14.0, nbTransactions: 5, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Wiltz
-  { commune: "Wiltz", canton: "Wiltz", prixM2Existant: 4700, prixM2VEFA: 6200, prixM2Annonces: 5200, loyerM2Annonces: 15.0, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Esch-sur-Sûre", canton: "Wiltz", prixM2Existant: 4400, prixM2VEFA: null, prixM2Annonces: 4900, loyerM2Annonces: 14.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Lac de la Haute-Sûre", canton: "Wiltz", prixM2Existant: 4200, prixM2VEFA: null, prixM2Annonces: 4700, loyerM2Annonces: 13.5, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Winseler", canton: "Wiltz", prixM2Existant: 4100, prixM2VEFA: null, prixM2Annonces: 4600, loyerM2Annonces: 13.5, nbTransactions: 6, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Boulaide", canton: "Wiltz", prixM2Existant: 4000, prixM2VEFA: null, prixM2Annonces: 4500, loyerM2Annonces: 13.0, nbTransactions: 5, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Goesdorf", canton: "Wiltz", prixM2Existant: 4300, prixM2VEFA: null, prixM2Annonces: 4800, loyerM2Annonces: 14.0, nbTransactions: 5, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Clervaux
-  { commune: "Clervaux", canton: "Clervaux", prixM2Existant: 4400, prixM2VEFA: 5800, prixM2Annonces: 4900, loyerM2Annonces: 14.5, nbTransactions: 15, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Parc Hosingen", canton: "Clervaux", prixM2Existant: 4200, prixM2VEFA: null, prixM2Annonces: 4700, loyerM2Annonces: 13.5, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Weiswampach", canton: "Clervaux", prixM2Existant: 4300, prixM2VEFA: null, prixM2Annonces: 4800, loyerM2Annonces: 14.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Troisvierges", canton: "Clervaux", prixM2Existant: 4100, prixM2VEFA: 5500, prixM2Annonces: 4600, loyerM2Annonces: 13.5, nbTransactions: 12, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Kiischpelt", canton: "Clervaux", prixM2Existant: 3900, prixM2VEFA: null, prixM2Annonces: 4400, loyerM2Annonces: 13.0, nbTransactions: 5, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Wincrange", canton: "Clervaux", prixM2Existant: 4000, prixM2VEFA: null, prixM2Annonces: 4500, loyerM2Annonces: 13.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Munshausen", canton: "Clervaux", prixM2Existant: 4100, prixM2VEFA: null, prixM2Annonces: 4600, loyerM2Annonces: 13.5, nbTransactions: 5, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Vianden
-  { commune: "Vianden", canton: "Vianden", prixM2Existant: 4500, prixM2VEFA: null, prixM2Annonces: 5000, loyerM2Annonces: 14.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  // Canton Redange
-  { commune: "Redange", canton: "Redange", prixM2Existant: 5500, prixM2VEFA: 7000, prixM2Annonces: 6000, loyerM2Annonces: 16.5, nbTransactions: 20, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Grosbous", canton: "Redange", prixM2Existant: 5200, prixM2VEFA: null, prixM2Annonces: 5700, loyerM2Annonces: 15.5, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Préizerdaul", canton: "Redange", prixM2Existant: 5000, prixM2VEFA: null, prixM2Annonces: 5500, loyerM2Annonces: 15.0, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Rambrouch", canton: "Redange", prixM2Existant: 4800, prixM2VEFA: null, prixM2Annonces: 5300, loyerM2Annonces: 14.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Saeul", canton: "Redange", prixM2Existant: 5800, prixM2VEFA: null, prixM2Annonces: 6300, loyerM2Annonces: 16.5, nbTransactions: 6, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Beckerich", canton: "Redange", prixM2Existant: 5100, prixM2VEFA: null, prixM2Annonces: 5600, loyerM2Annonces: 15.5, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Ell", canton: "Redange", prixM2Existant: 5000, prixM2VEFA: null, prixM2Annonces: 5500, loyerM2Annonces: 15.0, nbTransactions: 6, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Wahl", canton: "Redange", prixM2Existant: 5300, prixM2VEFA: null, prixM2Annonces: 5800, loyerM2Annonces: 15.5, nbTransactions: 6, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Useldange", canton: "Redange", prixM2Existant: 5400, prixM2VEFA: null, prixM2Annonces: 5900, loyerM2Annonces: 16.0, nbTransactions: 10, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-  { commune: "Vichten", canton: "Redange", prixM2Existant: 5300, prixM2VEFA: null, prixM2Annonces: 5800, loyerM2Annonces: 15.5, nbTransactions: 8, periode: "2025-T4", source: "Observatoire de l'Habitat" },
-];
+// Import des quatre fichiers officiels CC0, publication 25 juin 2026.
+// 12 mois glissants ; valeurs non publiées (*) conservées à null.
+// Aucun prix par quartier n'est déduit de ces moyennes communales.
+import snapshot from "./market-data-2026t1.json";
+export const MARKET_SOURCES = {
+  transactions: "https://data.public.lu/fr/datasets/prix-de-vente-des-appartements-par-commune/",
+  horsAnnexes: "https://data.public.lu/fr/datasets/prix-de-vente-des-appartements-prix-affines-hors-annexes-par-commune/",
+  annonces: "https://data.public.lu/fr/datasets/prix-annonces-des-logements-par-commune/",
+  loyers: "https://data.public.lu/fr/datasets/loyers-annonces-des-logements-par-commune/",
+};
+const MARKET_DATA: MarketDataCommune[] = snapshot;
+
 
 // Sources de données ouvertes — URLs réelles
 export const DATA_SOURCES = {
@@ -462,7 +278,7 @@ const LOCALITES_COMMUNES: Record<string, string> = {
   "lenningen": "Lenningen", "canach": "Lenningen",
 
   // Commune de Bous
-  "bous": "Bous", "erpeldange-bous": "Bous", "rolling": "Bous",
+  "bous": "Bous-Waldbredimus", "erpeldange-bous": "Bous-Waldbredimus", "rolling": "Bous-Waldbredimus",
 
   // Commune de Beaufort
   "beaufort": "Beaufort", "dillingen": "Beaufort", "grundhof": "Beaufort",
@@ -542,7 +358,7 @@ const LOCALITES_COMMUNES: Record<string, string> = {
   "putscheid": "Putscheid", "stolzembourg": "Putscheid",
 
   // Commune de Grosbous
-  "grosbous": "Grosbous",
+  "grosbous": "Groussbus-Wal",
 
   // Commune de Préizerdaul
   "préizerdaul": "Préizerdaul", "preizerdaul": "Préizerdaul",
@@ -556,7 +372,7 @@ const LOCALITES_COMMUNES: Record<string, string> = {
   "saeul": "Saeul",
 
   // Commune de Septfontaines
-  "septfontaines": "Septfontaines", "roodt-septfontaines": "Septfontaines",
+  "septfontaines": "Habscht", "roodt-septfontaines": "Habscht",
 
   // Commune de Beckerich
   "beckerich": "Beckerich", "noerdange": "Beckerich",
@@ -596,11 +412,72 @@ const LOCALITES_COMMUNES: Record<string, string> = {
   "useldange": "Useldange",
 
   // Commune de Wahl
-  "wahl": "Wahl",
+  "wahl": "Groussbus-Wal",
 
   // Commune de Vichten
   "vichten": "Vichten",
 };
+
+Object.assign(LOCALITES_COMMUNES, {
+  "belair": "Luxembourg",
+  "limpertsberg": "Luxembourg",
+  "kirchberg": "Luxembourg",
+  "ville-haute": "Luxembourg",
+  "centre": "Esch-sur-Alzette",
+  "merl": "Luxembourg",
+  "neudorf": "Luxembourg",
+  "weimershof": "Luxembourg",
+  "clausen": "Luxembourg",
+  "gasperich": "Luxembourg",
+  "cloche d'or": "Luxembourg",
+  "cessange": "Luxembourg",
+  "cents": "Luxembourg",
+  "pfaffenthal": "Luxembourg",
+  "eich": "Luxembourg",
+  "rollingergrund": "Luxembourg",
+  "mühlenbach": "Luxembourg",
+  "bonnevoie": "Luxembourg",
+  "hollerich": "Luxembourg",
+  "gare": "Luxembourg",
+  "hamm": "Luxembourg",
+  "dommeldange": "Luxembourg",
+  "beggen": "Luxembourg",
+  "weimerskirch": "Luxembourg",
+  "pulvermühl": "Luxembourg",
+  "grund": "Luxembourg",
+  "centre mamer": "Mamer",
+  "capellen": "Mamer",
+  "holzem": "Mamer",
+  "brillplaz": "Esch-sur-Alzette",
+  "belval": "Esch-sur-Alzette",
+  "raemerich": "Esch-sur-Alzette",
+  "wobrecken": "Esch-sur-Alzette",
+  "lallange": "Esch-sur-Alzette",
+  "nördstad": "Esch-sur-Alzette",
+  "centre differdange": "Differdange",
+  "oberkorn": "Differdange",
+  "niederkorn": "Differdange",
+  "fousbann": "Differdange",
+  "centre dudelange": "Dudelange",
+  "burange": "Dudelange",
+  "brill": "Dudelange",
+  "italie": "Dudelange",
+  "centre bettembourg": "Bettembourg",
+  "noertzange": "Bettembourg",
+  "huncherange": "Bettembourg",
+  "belvaux": "Sanem",
+  "soleuvre": "Sanem",
+  "ehlerange": "Sanem",
+  "centre pétange": "Pétange",
+  "rodange": "Pétange",
+  "lamadelaine": "Pétange",
+  "centre mersch": "Mersch",
+  "beringen": "Mersch",
+  "rollingen": "Mersch",
+  "centre ettelbruck": "Ettelbruck",
+  "warken": "Ettelbruck",
+  "ingeldorf": "Ettelbruck"
+});
 
 export interface SearchResult {
   commune: MarketDataCommune;
@@ -655,7 +532,7 @@ export function rechercherCommune(query: string): SearchResult[] {
     }
   }
 
-  return results;
+  return results.sort((a, b) => Number(b.commune.commune.toLowerCase() === q) - Number(a.commune.commune.toLowerCase() === q));
 }
 
 export function getMarketDataCommune(commune: string): MarketDataCommune | undefined {

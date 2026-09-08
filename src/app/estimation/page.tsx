@@ -11,7 +11,6 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "rec
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
 import { formatEUR, calculerMensualite } from "@/lib/calculations";
 import { getDemographics } from "@/lib/demographics";
-import ConfidenceGauge from "@/components/ConfidenceGauge";
 import Link from "next/link";
 import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
@@ -26,7 +25,7 @@ import ShareLinkButton from "@/components/ShareLinkButton";
 import ShareButton from "@/components/ShareButton";
 import AuthGate from "@/components/AuthGate";
 import MarketAlertButton from "@/components/MarketAlertButton";
-import SEOContent from "@/components/SEOContent";
+import EstimationMethod from "@/components/EstimationMethod";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 export default function Estimation() {
@@ -167,7 +166,7 @@ export default function Estimation() {
   const comparables = useMemo(() => {
     if (!selectedResult || !result) return [];
     const basePrix = result.prixM2Ajuste;
-    const types = ["appartement", "appartement", "maison", "appartement", "maison"] as const;
+    const types = ["appartement"] as const;
     const trimestres = ["T4 2025", "T3 2025", "T2 2025", "T1 2025", "T4 2024"];
     // Deterministic seed from commune name
     const seed = selectedResult.commune.commune.length;
@@ -311,7 +310,6 @@ export default function Estimation() {
             <div className="mt-4 space-y-3">
               <InputField label={t("typeBienLabel")} type="select" value="appartement" onChange={() => {}} options={[
                 { value: "appartement", label: t("typeBienAppartement") },
-                { value: "maison", label: t("typeBienMaison") },
               ]} hint={t("typeBienHint")} />
               <ToggleField label={t("parkingLabel")} checked={parking} onChange={setParking} hint={t("parkingHint")} />
               <ToggleField label={t("neufLabel")} checked={estNeuf} onChange={setEstNeuf} hint={t("neufHint")} />
@@ -535,7 +533,7 @@ export default function Estimation() {
               })()}
 
               {/* Confiance */}
-              <ConfidenceGauge level={result.confiance} note={result.confianceNote} />
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">{t("auditLimits")}</div>
 
               {/* Analyse IA */}
               <AiAnalysisCard
@@ -556,7 +554,7 @@ export default function Estimation() {
                   `Confiance: ${result.confiance}`,
                   `Ajustements: ${result.ajustements.map((a) => `${tv(a.labelKey)} ${a.pct > 0 ? "+" : ""}${a.pct}%`).join(", ")}`,
                 ].filter(Boolean).join("\n")}
-                prompt="Analyse cette estimation immobilière au Luxembourg. Commente le niveau de prix par rapport au marché actuel, la pertinence des ajustements, et donne un avis professionnel sur la confiance du résultat. Si pertinent, mentionne des facteurs locaux spécifiques à cette commune."
+                prompt="Explique les hypothèses de cette estimation indicative. Les ajustements et fourchettes ne sont pas validés statistiquement. Ne présente pas les exemples synthétiques comme des ventes, ne revendique pas une précision mesurée, et ne déduis pas de faits locaux absents des données."
               />
 
               {/* Profil commune */}
@@ -878,7 +876,7 @@ export default function Estimation() {
 
           {!selectedResult && (
             <div className="text-center py-8 text-muted text-sm">
-              {t("selectCommune")}
+              {selectedResult ? t("auditMissing") : t("selectCommune")}
             </div>
           )}
         </div>
@@ -886,27 +884,7 @@ export default function Estimation() {
 
     </div>
 
-    <SEOContent
-      ns="estimation"
-      sections={[
-        { titleKey: "contextTitle", contentKey: "contextContent" },
-        { titleKey: "methodeTitle", contentKey: "methodeContent" },
-        { titleKey: "facteursTitle", contentKey: "facteursContent" },
-        { titleKey: "exempleTitle", contentKey: "exempleContent" },
-      ]}
-      faq={[
-        { questionKey: "faq1q", answerKey: "faq1a" },
-        { questionKey: "faq2q", answerKey: "faq2a" },
-        { questionKey: "faq3q", answerKey: "faq3a" },
-        { questionKey: "faq4q", answerKey: "faq4a" },
-        { questionKey: "faq5q", answerKey: "faq5a" },
-      ]}
-      relatedLinks={[
-        { href: "/carte", labelKey: "carte" },
-        { href: "/hedonique", labelKey: "hedonique" },
-        { href: "/valorisation", labelKey: "valorisation" },
-      ]}
-    />
+    <EstimationMethod />
     </>
   );
 }
