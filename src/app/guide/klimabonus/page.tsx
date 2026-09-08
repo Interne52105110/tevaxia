@@ -20,9 +20,9 @@ export default async function GuideKlimabonus() {
     <GuideTemplate
       namespace={NAMESPACE}
       slug={SLUG}
-      readingMinutes={8}
+      readingMinutes={4}
+      updatedAt="2026-09-08"
       inlineCalculatorHref="/simulateur-aides"
-      hasTable
       sections={[
         { id: "principe", paragraphs: 2, callout: { variant: "info", key: "callout1" } },
         { id: "travaux", paragraphs: 2 },

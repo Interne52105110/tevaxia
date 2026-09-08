@@ -125,3 +125,16 @@ Sources primaires :
 Validation : 1 104 tests/86 fichiers réussis, cas de plafonds et de non-cumul ajoutés. Compilation et lint ciblé réussis. Parcours navigateur acquisition/épargne/revenus exclus/mensualité/entrée invalide dans les cinq langues, largeurs 320/390/768/1440, sans débordement. PDF réellement généré (4 pages), contrôlé par extraction et rendu : inconnus conservés, mensualité séparée, lignes non coupées de leur description. Authentification/téléchargement utilisateur non testés de bout en bout.
 
 Périmètre restant : les autres pages de rénovation résidentielle/hôtelière utilisent leurs propres moteurs et doivent encore être corrigées ; la présente validation ne les couvre pas. Elle ne constitue pas une revue exhaustive de tous les modules de Tevaxia.
+
+
+## Rénovation résidentielle et guide Klimabonus — 8 septembre 2026
+
+Le scénario du site ne déduit plus de subventions du seul saut de classe CPE et ne promet plus de plus-value immobilière automatique. Les hypothèses de coût, consommation, énergie primaire/finale, CO2 et aides de l’ancien calcul ont été retirées de ce parcours lorsqu’elles ne disposaient pas d’un fondement adapté au bien.
+
+Nouveau moteur `renovation-scenario.ts` : devis et frais TTC saisis, aides documentées uniquement (zéro retenu par défaut ne signifie pas inéligibilité), année de versement, factures annuelles avant/après, entretien additionnel, évolution des dépenses énergétiques et taux d’actualisation paramétrables. Flux de fin d’année, hausse à compter de l’année 2. Aucun gain de revente ni valeur résiduelle implicite. Un emprunt amortissable facultatif calcule mensualité, intérêts et budget de première année, séparément de la VAN/TRI du projet. TRI négatifs préservés ; aucun TRI fictif si les flux ne relèvent pas du cas conventionnel à solution unique pris en charge. Récupération de la mise selon les flux cumulés réels du scénario, sans faux délai à 99 ans. Pas de dépendance à l’ancien moteur Java dans ce parcours navigateur.
+
+Guide Klimabonus réécrit dans cinq langues : conditions techniques et dates, distinction du conseil gratuit d’orientation et de la mission agréée, accord préalable et procédure distincte pour mesure isolée, plafonds et cumul à examiner. Suppression des montants/faux seuil social de 60 000 EUR, multiplicateur automatique 150 %, audit systématiquement gratuit et crédit 0 % présenté comme garanti. Exemple de trésorerie purement arithmétique : 100 000 EUR TTC et 20 000 EUR d’aides confirmées = 80 000 EUR nets, mais 100 000 EUR à avancer si la prime arrive ensuite. Sources Guichet 2026 et AED déjà citées dans le lot aides.
+
+Validation : 1 125 tests / 87 fichiers, build et lint ciblé réussis. Navigateur dans les cinq langues : aide différée, prêt sans effet sur la VAN du projet, prêt à taux zéro, facture après travaux supérieure, données invalides, guide et écrans 320/390/768/1440. PDFs réels de 20/50 ans générés, extraction et rendu contrôlés (3/4 pages), en-tête du tableau répété, aucune ligne tronquée. Parcours d’authentification PDF non vérifié de bout en bout.
+
+Limite : `energy-api` Java autonome garde l’ancienne API de rénovation ; son déploiement indépendant n’est pas couvert. Le site utilise désormais le moteur de scénario local. Les autres outils énergétiques et la rénovation hôtelière restent à contrôler séparément.

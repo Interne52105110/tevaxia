@@ -10070,153 +10070,86 @@
       ]
     },
     "klimabonus": {
-      "title": "Klimabonus 2026: Energy Renovation Aids in Luxembourg",
-      "metaDescription": "Klimabonus 2026 LU: PRIMe House subsidies (insulation, HP, PV, windows), 150% social Topup, free energy audit, zero-rate Klimaprêt, 3% VAT combination, amounts by item.",
-      "subtitle": "The complete overview of energy renovation aids in Luxembourg: amounts, conditions, audit, Klimaprêt and possible combinations in 2026.",
+      "title": "Klimabonus 2026: conditions and procedures",
+      "subtitle": "Prepare an energy application and budget without counting unconfirmed assistance.",
+      "section1Title": "Identify the applicable scheme",
+      "section1P1": "Klimabonus 2026 supports qualifying energy measures in residential buildings. For building-envelope renovation, the building must notably be more than ten years old from the building-permit date. Conditions depend on the measure and application dates.",
+      "section1P2": "Owner-occupiers are not the only applicants: landlords and certain groups or legal entities may also apply. A dwelling, hotel and commercial building must not automatically be treated as eligible under the same scheme.",
+      "callout1Title": "Check dates before committing",
+      "callout1Body": "Older applications may remain under an earlier scheme. Check the procedure for the measure and its dates; a reform announcement is not a grant award.",
+      "section2Title": "Obtain measure-specific amounts",
+      "section3Title": "Advice and prior application",
+      "section3P1": "Distinguish free introductory Klima-Agence advice from an accredited adviser’s technical assignment, which may be charged and subsidised subject to conditions. Works cost or a CPE class improvement alone cannot calculate a grant.",
+      "section3P2": "For renovation with energy advice, obtain approval in principle before works begin. A separate procedure exists for a single measure without full advice. Prepare quotes, areas, performance data and evidence, then follow the chosen scheme’s deadlines.",
+      "section4Title": "Build the budget after grants",
+      "section4P1": "Separate grants, VAT relief and bank financing. Cumulation depends on each scheme’s rules. A loan must be repaid; it does not reduce economic cost like a grant. A grant paid after works does not immediately fund a deposit.",
+      "callout3Title": "Budget example without assuming eligibility",
+      "callout3Body": "With €100,000 total including VAT and €20,000 of confirmed grants, net cost is €80,000. If grants arrive in year 1, initial funding is still €100,000 before borrowing. VAT relief already included in the price must not be deducted again.",
+      "metaDescription": "Prepare an energy application and budget without counting unconfirmed assistance.",
       "category": "Energy & renovation",
       "essentiel": [
-        "Klimabonus = combined PRIMe House subsidies (capital grants) + Klimaprêt (zero-rate loan) + recommended free energy audit.",
-        "2026 social Topup: increase up to 150% of the base amount if annual taxable income ≤ €60,000.",
-        "Indicative overall cap: up to 75% of eligible works combined (with social Topup).",
-        "Free energy advice (myenergy) then EPC by an approved adviser: before + after works.",
-        "Combinable with 3% housing VAT and 1.5% Klimaprêt (up to €50,000 interest-free covered by the State)."
+        "Measures, areas, materials, performance, equipment and dates determine the rates. Total cost alone cannot produce a reliable calculation.",
+        "Amount depends on the assignment, building and eligible fees; no universal allowance is added automatically.",
+        "Depends on income, household and eligible state aid, with cumulation limits. No automatic percentage of the works budget.",
+        "14% of eligible net works, within the remaining €50,000 allowance per dwelling, shared between construction and renovation. Do not deduct from an already reduced price again."
       ],
-      "section1Title": "Principle and architecture of the scheme",
-      "section1P1": "Klimabonus is the Luxembourg programme of energy renovation aids, managed by the Ministry of the Environment via myenergy. It combines three complementary levers: PRIMe House capital grants (paid after works), the Klimaprêt (1.5% bank loan, with State subsidy bringing the effective rate to 0% for the household), and the energy audit by an approved adviser to scope the project (subsidised up to €1,500).",
-      "section1P2": "The programme applies to existing dwellings in Luxembourg, whether owner-occupied or rented. Works must be carried out by companies established in Luxembourg or the EU, and invoices settled within 4 years of the agreement in principle. A 2026 reform introduced a social Topup for low-income households, which can boost the aid by up to 150% of the base amount.",
-      "callout1Title": "2026 social Topup",
-      "callout1Body": "If the household's annual taxable income does not exceed €60,000, PRIMe House aid is increased to 150% of the base amount. Combined with 3% housing VAT and 0% Klimaprêt, total aids can cover up to 75% of works for eligible households.",
-      "section2Title": "Eligible works and amounts",
-      "section2P1": "Main items (2025-2026 schedule, base amounts excluding social Topup): roof/attic insulation up to €55/m²; external wall insulation up to €110/m²; floor/cellar insulation up to €55/m²; triple-glazed windows up to €150/m² of glazed area; air-to-water or geothermal heat pump €6,000 to €12,000; dual-flow ventilation with heat recovery €3,000 to €5,000; photovoltaic installation €500/kWp (max 20 kWp); EV charging station up to €1,200.",
-      "section2P2": "For deep renovations targeting energy class A or B (jump from G/F to A/B), an energy renovation bonus increases subsidies by 25 to 50% depending on the class jump. A 25% bonus is granted if the dwelling is rented at a social or affordable rent. The 2026 social Topup (income ≤ €60,000) increases up to 150% of the base amount and can stack with the other bonuses.",
-      "section3Title": "Procedure and EPC",
-      "section3P1": "The procedure starts with a free energy audit by myenergy (neutral advice subsidised up to €1,500). A pre-works Energy Performance Certificate (EPC) is then produced by an approved energy adviser. The EPC classes the building from A (very efficient) to I (very energy-intensive) by primary energy demand and thermal insulation of the envelope.",
-      "section3P2": "An agreement-in-principle request is filed on myenergy.lu with the works quote and EPC. Once works are done (within 4 years), a new post-works EPC must show an improvement of at least 2 energy classes (or A/B class achieved). The final dossier with paid invoices triggers the subsidy payment by bank transfer.",
-      "section4Title": "Examples of aid stacking",
-      "section4Intro": "For a deep renovation of an older single-family house (class G → class A), here are the orders of magnitude of stackable aids in 2026.",
-      "table": {
-        "caption": "Klimabonus aid stacking 2026 — worked examples",
-        "headers": [
-          "Item",
-          "Cost excl. VAT",
-          "PRIMe House base",
-          "Social Topup (≤ €60k)"
-        ],
-        "rows": [
-          [
-            "Roof insulation (200 m²)",
-            "€20,000",
-            "€11,000",
-            "€16,500"
-          ],
-          [
-            "Wall insulation (150 m²)",
-            "€30,000",
-            "€16,500",
-            "€24,750"
-          ],
-          [
-            "Triple-glazed windows (30 m²)",
-            "€18,000",
-            "€4,500",
-            "€6,750"
-          ],
-          [
-            "Geothermal heat pump",
-            "€30,000",
-            "€12,000",
-            "€18,000"
-          ],
-          [
-            "10 kWp photovoltaic",
-            "€20,000",
-            "€5,000",
-            "€5,000"
-          ]
-        ],
-        "footnote": "Total deep renovation project: ~€118,000 excl. VAT, of which €49,000 to €71,000 of PRIMe House subsidies. Add: 3% VAT saving (~€16,500) and effective 0% Klimaprêt up to €50,000."
-      },
-      "callout3Title": "Real out-of-pocket cost after aids",
-      "callout3Body": "For the table's deep renovation (€118,000 excl. VAT, social Topup household), the stack gives: €71,000 PRIMe House + €16,500 VAT 3% saving = €87,500 in direct aids. Remaining to finance: €30,500, fundable by effective 0% Klimaprêt over 15 years (~€170 monthly). I.e., less than 30% of total cost actually borne by the household.",
+      "section2P1": "Measures, areas, materials, performance, equipment and dates determine the rates. Total cost alone cannot produce a reliable calculation.",
+      "section2P2": "Depends on income, household and eligible state aid, with cumulation limits. No automatic percentage of the works budget.",
       "inlineCalc": {
-        "title": "Simulate your Klimabonus aids in a few clicks",
-        "description": "Our acquisition / renovation aids simulator computes the PRIMe House + social Topup + 3% VAT + Klimaprêt stack based on your situation and works detail.",
+        "title": "Housing assistance: 2026 estimate",
+        "description": "Calculate grants for your situation and distinguish tax relief from assistance that still needs assessment. Prefilled figures are examples; confirm conditions and remaining allowances before relying on an amount.",
         "cta": "Run the simulation"
       },
       "tools": [
         {
           "href": "/simulateur-aides",
-          "title": "Renovation aids simulator",
-          "description": "PRIMe House, social Topup, 3% VAT, Klimaprêt — automated stack."
+          "title": "Housing assistance: 2026 estimate",
+          "description": "Excludes unassessed assistance, monthly payments and guarantees. This is not the total of all possible assistance."
         },
         {
-          "href": "/energy",
-          "title": "tevaxia Energy module",
-          "description": "Valuation impact, renovation ROI, energy community, EPBD/CPE."
-        },
-        {
-          "href": "/energy/cpe",
-          "title": "EPC diagnostic",
-          "description": "Preliminary energy class estimate before official audit."
-        },
-        {
-          "href": "/vefa",
-          "title": "VEFA simulator",
-          "description": "For new-build buyers already in class A/B."
-        }
-      ],
-      "faq": [
-        {
-          "q": "Can Klimabonus subsidies be combined with 3% VAT?",
-          "a": "Yes. PRIMe House / Klimabonus subsidies are fully combinable with 3% housing VAT and the effective 0% Klimaprêt. It is one of Europe's most advantageous schemes for energy renovation."
-        },
-        {
-          "q": "How much can you get for installing a heat pump in Luxembourg?",
-          "a": "PRIMe House aid for an air-to-water or geothermal HP ranges from €6,000 to €12,000 depending on type and capacity. With the 2026 social Topup (income ≤ €60,000), it can reach €18,000. Add 3% housing VAT and 0% Klimaprêt."
-        },
-        {
-          "q": "What is the 2026 social Topup?",
-          "a": "An increase up to 150% of the base PRIMe House amount for households whose annual taxable income does not exceed €60,000. It aims to make energy renovation accessible to low-income households. Stackable with other bonuses (social rent, deep renovation)."
-        },
-        {
-          "q": "Is an energy audit required to benefit from Klimabonus?",
-          "a": "The free audit by a myenergy adviser is not strictly mandatory but strongly recommended. The EPC by an approved adviser (before and after works) is mandatory for subsidies, and energy improvement must reach at least 2 classes or class A/B."
-        },
-        {
-          "q": "Does Klimaprêt replace PRIMe House?",
-          "a": "No, they are two complementary schemes. PRIMe House = capital grants paid after works. Klimaprêt = 1.5% bank loan with State subsidy bringing the effective cost to 0% for the household. You can and should stack them."
-        },
-        {
-          "q": "Can co-ownerships benefit from Klimabonus?",
-          "a": "Yes. A co-ownership can apply for Klimabonus on works voted at the GM on common parts (roof, facade, collective heating). Each co-owner benefits from the share proportional to their tantièmes. The syndic can also request a Klimaprêt on behalf of the association."
+          "href": "/energy/renovation",
+          "title": "Renovation: scenario budget and returns",
+          "description": "Compare your budget, confirmed grants and expected bill savings. Starting values are editable examples: an energy class alone cannot predict works costs, grants or property appreciation."
         }
       ],
       "sources": [
         {
-          "title": "Klimabonus — official myenergy portal",
-          "org": "myenergy / Ministry of the Environment",
-          "url": "https://www.myenergy.lu/"
-        },
-        {
-          "title": "PRIMe House — procedure",
+          "title": "Klimabonus 2026",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/aides-construction-renovation/aides-construction-renovation/aides-amelioration.html"
+          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement.html"
         },
         {
-          "title": "Klimaprêt — procedure",
+          "title": "Energy advice",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/aides-construction-renovation/aides-financieres/klimapret.html"
+          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html"
         },
         {
-          "title": "Modified law of 23 December 2016 — sustainable housing aids",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/2016/12/23/n3/jo",
-          "year": 2016
+          "title": "Housing VAT at 3%",
+          "org": "AED",
+          "url": "https://pfi.public.lu/fr/citoyen/tva/logement.html"
         },
         {
-          "title": "Energy Performance Certificate (EPC)",
-          "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/proprietaire/economie-energie/certificat-performance-energetique.html"
+          "title": "Grants and conditions — Housing Ministry",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/dam-assets/documents/legislation/lois/aides-loi-07-08-2023-accessible.pdf"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the works budget enough to calculate Klimabonus?",
+          "a": "Measures, areas, materials, performance, equipment and dates determine the rates. Total cost alone cannot produce a reliable calculation."
+        },
+        {
+          "q": "Is energy advice always free?",
+          "a": "Distinguish free introductory Klima-Agence advice from an accredited adviser’s technical assignment, which may be charged and subsidised subject to conditions. Works cost or a CPE class improvement alone cannot calculate a grant."
+        },
+        {
+          "q": "Does a climate loan guarantee a 0% rate?",
+          "a": "Financing and subsidy must be assessed with the bank and housing office. A loan is not a grant and does not guarantee a 1.5% bank rate."
+        },
+        {
+          "q": "Can I deduct reduced VAT again?",
+          "a": "14% of eligible net works, within the remaining €50,000 allowance per dwelling, shared between construction and renovation. Do not deduct from an already reduced price again."
         }
       ]
     },
@@ -18103,5 +18036,57 @@
       "privee": "Obtain an offer before committing, based on the measure and supplier. No general 5% rate.",
       "commune": "Rules specific to each municipality and measure, with defined bases and caps. No invented amount for an unknown municipality."
     }
+  },
+  "renovationAudit": {
+    "title": "Renovation: scenario budget and returns",
+    "intro": "Compare your budget, confirmed grants and expected bill savings. Starting values are editable examples: an energy class alone cannot predict works costs, grants or property appreciation.",
+    "budget": "Budget and documented grants",
+    "travauxTTC": "Works — quoted cost including VAT",
+    "honorairesTTC": "Fees and other costs including VAT",
+    "aidesConfirmees": "Confirmed grants included in this scenario",
+    "anneeVersementAides": "Grant payment year (0 = immediately)",
+    "aidNote": "Enter documented amounts only; leave 0 if no grant is included. This does not mean you are ineligible. Do not deduct reduced VAT already included in quotes a second time.",
+    "aidLink": "Review housing assistance",
+    "energy": "Operating savings",
+    "factureAvant": "Annual energy bill before works",
+    "factureApres": "Expected annual energy bill after works",
+    "entretienSupplementaire": "Additional annual maintenance",
+    "energyNote": "Use bills and a consistent technical scenario: comparable usage, occupancy and reference prices before/after. Prices may differ by energy source. Unchanged fixed charges are not savings.",
+    "assumptions": "Projection assumptions",
+    "horizonAns": "Analysis horizon — years",
+    "hausseEnergiePct": "Annual change in energy spending — %",
+    "actualisationPct": "Annual discount rate — %",
+    "assumptionsNote": "Annual cash flows at year-end. Energy escalation starts in year 2; maintenance stays constant in nominal euros. Grants are paid in the entered year. No automatic resale gain, tax, residual value or unentered future replacement.",
+    "finance": "Optional bank financing",
+    "montantPret": "Borrowed amount (0 = no loan)",
+    "tauxPretPct": "Nominal annual loan rate — %",
+    "dureePretAns": "Loan term — years",
+    "financeNote": "Amortising loan with constant monthly payments, excluding insurance and unentered bank fees. The rate is your assumption or offer, not a guaranteed climate-loan rate. Project returns are calculated before financing.",
+    "results": "Scenario results",
+    "cost": "Total cost including VAT",
+    "net": "Cost after included grants",
+    "initial": "Initial cash requirement",
+    "equity": "Initial equity after loan",
+    "savings": "Net savings — year 1",
+    "npv": "Project net present value",
+    "irr": "Annual project IRR",
+    "payback": "Investment recovery (undiscounted cumulative flows)",
+    "yearNumber": "Year {n}",
+    "notDefined": "Not defined for these cash flows",
+    "notRecovered": "Not reached within the horizon",
+    "scope": "Financial simulation based on your assumptions, without promising grants, an energy class or appreciation. NPV and IRR include entered grants and their timing, but exclude the loan to keep project returns separate from financing. Negative IRRs remain negative; unsupported non-unique-IRR cash flows are shown as undefined.",
+    "financeResults": "Loan impact on your budget",
+    "payment": "Monthly payment excluding insurance",
+    "interestCost": "Interest over the full loan term",
+    "cashAfterDebt": "Net savings less debt payments — year 1",
+    "inputs": "Selected inputs",
+    "schedule": "Annual project cash flows, before financing",
+    "year": "Year",
+    "flow": "Net cash flow",
+    "cumulative": "Cumulative",
+    "discounted": "Discounted cash flow",
+    "sources": "Grant sources and procedures",
+    "sourceNote": "These sources explain eligibility and procedures; they do not validate the costs or savings entered in your scenario.",
+    "error": "Check amounts and rates. Grants cannot exceed cost, nor the loan the initial cash requirement. Years must be whole numbers and grant payment within the horizon."
   }
 }

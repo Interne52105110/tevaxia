@@ -483,17 +483,15 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "workspaces"
   ],
   "/energy/renovation": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "cookie",
     "crmContextBar",
-    "energy",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar",
-    "valorisation"
+    "renovationAudit",
+    "syndicContextBar"
   ],
   "/esg/crrem-pathways": [
     "aiChat",

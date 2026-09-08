@@ -9948,153 +9948,86 @@
       ]
     },
     "klimabonus": {
-      "title": "Klimabonus 2026: Hëllefe fir energeetesch Sanéierung zu Lëtzebuerg",
-      "metaDescription": "Klimabonus 2026 LU: PRIMe-House-Subventiounen (Isolatioun, WP, PV, Fënsteren), 150 % Sozial-Topup, gratis Energieaudit, zinslose Klimaprêt, 3 % TVA-Kombinatioun, Montanten je Posten.",
-      "subtitle": "Den komplette Iwwerbléck iwwer d'Hëllefen zur energeetescher Sanéierung zu Lëtzebuerg: Montanten, Bedingungen, Audit, Klimaprêt a méiglech Kombinatiounen 2026.",
+      "title": "Klimabonus 2026: Konditiounen an Demarchen",
+      "subtitle": "En Energiedossier a Budget virbereeden ouni onbestätegt Hëllefen anzerechnen.",
+      "section1Title": "De passende Regime bestëmmen",
+      "section1P1": "Klimabonus 2026 ënnerstëtzt berechtegt Energiemoossnamen a Wunngebaier. Bei der Sanéierung vun der Gebaihaut muss d’Gebai besonnesch iwwer zéng Joer zënter der Baugeneemegung hunn. D’Konditiounen hänke vun der Moossnam an den Datumer of.",
+      "section1P2": "Net nëmmen Eegennotzer: Vermieter a bestëmmte Gruppen oder juristesch Persoune kënnen eng Demande maachen. Wunneng, Hotel an Déngschtleeschtungsgebai falen awer net automatesch ënner dee selwechte Regime.",
+      "callout1Title": "Datumer virum Engagement préifen",
+      "callout1Body": "Al Dossiere kënnen ënner engem fréiere Regime bleiwen. Préift d’Demarche no Moossnam an Datumer; eng Reformannoncë ass keng Bewëllegung.",
+      "section2Title": "Beträg no Moossnam ermëttelen",
+      "section3Title": "Berodung an Demande am Viraus",
+      "section3P1": "Ënnerscheet déi gratis Orientéierungsberodung vu Klima-Agence vun der technescher Missioun vun engem zougeloossene Beroder, déi kaschte kann a bedéngt subventionéiert gëtt. Budget oder CPE-Klassensprong eleng geet net duer fir d’Hëllef ze berechnen.",
+      "section3P2": "Bei Renovatioun mat Energieberodung frot de prinzipiellen Accord virum Ufank vun den Aarbechten. Fir eng eenzel Moossnam ouni komplett Berodung gëtt et eng separat Demarche. Offeren, Flächen, Leeschtungsdaten a Beleger virbereeden an Delaien anhalen.",
+      "section4Title": "Budget no Hëllefen opstellen",
+      "section4P1": "Trennt Primmen, TVA-Virdeeler a Bankfinanzéierung. Kumulatioun hänkt vun all Hëllefsreegel of. E Prêt muss zréckbezuelt ginn a reduzéiert net d’Wirtschaftskäschte wéi eng Primm. Eng spéider Hëllef finanzéiert keen direkten Acompte.",
+      "callout3Title": "Budgetbeispill ouni ugehollenen Usproch",
+      "callout3Body": "Bei 100.000 € Gesamtkäschte mat TVA an 20.000 € bestätegten Hëllefen sinn d’Nettokäschten 80.000 €. Bei Bezuelung am Joer 1 bleift den Ufanksbedarf 100.000 € virum Prêt. Schonn enthale TVA-Virdeeler net nach eng Kéier ofzéien.",
+      "metaDescription": "En Energiedossier a Budget virbereeden ouni onbestätegt Hëllefen anzerechnen.",
       "category": "Energie a Sanéierung",
       "essentiel": [
-        "Klimabonus = Bündel vun den Hëllefe PRIMe House (Kapitalsubventiounen) + Klimaprêt (Nullzins-Prêt) + empfuelene gratis Energieberodung.",
-        "Sozial-Topup 2026: Erhéijung bis 150 % vum Grondbetrag bei jährlechem zu versteierendem Akommes ≤ 60.000 €.",
-        "Indikative Gesamthéchstwert: bis zu 75 % vun de berechtegten Aarbechte kumuléiert (mat Sozial-Topup).",
-        "Gratis Energieberodung (myenergy), dann CPE duerch zougeloossenen Beroder: virun an no Aarbechten.",
-        "Kombinéierbar mat 3 % Wunn-TVA a Klimaprêt 1,5 % (bis 50.000 € zinsfräi vum Staat iwwerholl)."
+        "Moossnamen, Flächen, Materialien, Leeschtung, Anlagen an Datumer bestëmmen d’Sätz. De Gesamtpräis eleng geet net duer.",
+        "Betrag no Missioun, Gebai a berechtegten Honorairen; keng automatesch Pauschal.",
+        "No Akommes, Stot a berechtegter staatlecher Hëllef, mat Kumulgrenzen. Kee pauschale Prozentsaz vum Budget.",
+        "14 % vun de berechtegten Nettoaarbechten, bis zum Rescht vum 50.000-€-Virdeel pro Wunneng, fir Bau a Renovatioun zesummen. Net nach eng Kéier vun engem reduzéierte Präis ofzéien."
       ],
-      "section1Title": "Prinzip an Architektur vum Programm",
-      "section1P1": "Klimabonus ass de Lëtzebuerger Programm fir Hëllefen zur energeetescher Sanéierung, vum Ëmweltministère iwwer myenergy verwalt. En bündelt dräi komplementär Hiewelen: Kapitalsubventiounen PRIMe House (no Aarbechten ausbezuelt), Klimaprêt (Bankprêt zu 1,5 %, Staat iwwerhëlt d'Bonifikatioun fir effektiv 0 % Haushaltskäschten) an Energieaudit duerch zougeloossenen Beroder fir d'Projet ze steieren (bis 1.500 € subventionéiert).",
-      "section1P2": "De Programm gëllt fir bestoend Wunnengen zu Lëtzebuerg, ob selwer bewunnt oder verlount. Aarbechten musse vun zu Lëtzebuerg oder an der EU ugesiddelten Entreprisen duerchgefouert ginn, Rechnungen bannent 4 Joer no der Grondverständegung bezuelt. Eng Reform 2026 huet en Sozial-Topup fir akommesschwaach Haushaller agefouert, deen d'Hëllef bis 150 % vum Grondbetrag erhéije kann.",
-      "callout1Title": "Sozial-Topup 2026",
-      "callout1Body": "Wann d'jährlecht zu versteierend Haushaltsakommes 60.000 € net iwwerschreit, gëtt d'PRIMe-House-Hëllef op 150 % vum Grondbetrag erhéicht. Kombinéiert mat 3 % Wunn-TVA an 0 %-Klimaprêt kann d'Gesamthëllef bis zu 75 % vun den Aarbechtskäschte fir berechtegt Haushaller ofdecken.",
-      "section2Title": "Berechtegt Aarbechten a Montanten",
-      "section2P1": "Haaptpostren (Tarif 2025-2026, Grondbeträg ouni Sozial-Topup): Daach-/Daachbuedemdämmung bis 55 €/m²; Baussemauer-Isolatioun bis 110 €/m²; Buedem-/Kellerdämmung bis 55 €/m²; Fënster Dräifachverglasung bis 150 €/m² Glasfläch; Loft-Waasser- oder Äerdwärmepompel 6.000 bis 12.000 €; Lëftung mat Wärmeréckgewannung 3.000 bis 5.000 €; Photovoltaikanlage 500 €/kWp (max. 20 kWp); E-Auto-Luedstatioun bis 1.200 €.",
-      "section2P2": "Fir Déifsanéierunge mat Zilklass A oder B (Sprong vu G/F op A/B) erhéicht en Energiesanéierungs-Bonus d'Subventiounen ëm 25 bis 50 % je Klassesprong. E Bonus vu 25 % gëtt accordéiert, wann d'Wunneng zu enger Sozial- oder bezuelbarer Loyer verlount gëtt. De Sozial-Topup 2026 (Akommes ≤ 60.000 €) erhéicht bis 150 % vum Grondbetrag an ass mat den anere Bonifikatioune kumuléierbar.",
-      "section3Title": "Prozedur an CPE",
-      "section3P1": "D'Prozedur fänkt mat engem gratis Energieaudit duerch myenergy un (neutral Berodung bis 1.500 € subventionéiert). Duerno erstellt en zougeloossenen Energieberoder e CPE virun den Aarbechten. De CPE klasséiert d'Gebai vun A (ganz effizient) bis I (ganz energieintensiv) no Primärenergiebedarf an Wärmedämmung vun der Gebaienhüll.",
-      "section3P2": "Eng Grondverständegung gëtt op myenergy.lu mat Kostenvirschlag a CPE beantraagt. Nodeems d'Aarbechte gemaach sinn (bannent 4 Joer), muss en neie CPE no Aarbechten eng Verbesserung vun op mannst 2 Energieklassen (oder Erreeche vun der Klass A/B) weisen. Den finalen Dossier mat bezuelte Rechnungen léist d'Auszuelung per Banküberweisung aus.",
-      "section4Title": "Beispiller fir Hëllefekumulatioun",
-      "section4Intro": "Fir eng Déifsanéierung vun engem ältere Eenfamilljenhaus (Klass G → Klass A) hei d'Gréissteuerunge vun de kumuléierbaren Hëllefen 2026.",
-      "table": {
-        "caption": "Klimabonus-Hëllefekumulatioun 2026 — Rechenbeispiller",
-        "headers": [
-          "Posten",
-          "Netto-Käschten",
-          "PRIMe House Basis",
-          "Sozial-Topup (≤ 60k €)"
-        ],
-        "rows": [
-          [
-            "Daachdämmung (200 m²)",
-            "20.000 €",
-            "11.000 €",
-            "16.500 €"
-          ],
-          [
-            "Mauerdämmung (150 m²)",
-            "30.000 €",
-            "16.500 €",
-            "24.750 €"
-          ],
-          [
-            "Dräifachverglaste Fënsteren (30 m²)",
-            "18.000 €",
-            "4.500 €",
-            "6.750 €"
-          ],
-          [
-            "Geothermie-Wärmepompel",
-            "30.000 €",
-            "12.000 €",
-            "18.000 €"
-          ],
-          [
-            "Photovoltaik 10 kWp",
-            "20.000 €",
-            "5.000 €",
-            "5.000 €"
-          ]
-        ],
-        "footnote": "Gesamtprojet Déifsanéierung: ~118.000 € netto, dovun 49.000 bis 71.000 € PRIMe-House-Subventiounen. Dozou: TVA-3 %-Erspuernis (~16.500 €) an effektiv 0 %-Klimaprêt bis 50.000 €."
-      },
-      "callout3Title": "Tatsächlech Reschtkäschten no Hëllefen",
-      "callout3Body": "Fir d'Déifsanéierung vum Tableau (118.000 € netto, Sozial-Topup-Haushalt) ergëtt de Stack: 71.000 € PRIMe House + 16.500 € TVA-3 %-Erspuernis = 87.500 € direkt Hëllefen. Restfinanzéierung: 30.500 €, finanzéierbar per effektivem 0 %-Klimaprêt iwwer 15 Joer (~170 € pro Mount). Also manner wéi 30 % vun de Gesamtkäschten effektiv vum Haushalt ze droen.",
+      "section2P1": "Moossnamen, Flächen, Materialien, Leeschtung, Anlagen an Datumer bestëmmen d’Sätz. De Gesamtpräis eleng geet net duer.",
+      "section2P2": "No Akommes, Stot a berechtegter staatlecher Hëllef, mat Kumulgrenzen. Kee pauschale Prozentsaz vum Budget.",
       "inlineCalc": {
-        "title": "Simuléiert Är Klimabonus-Hëllefen a wéinegen Klicks",
-        "description": "Eise Hëllefen-Simulator (Erwerb / Sanéierung) berechent de Stack PRIMe House + Sozial-Topup + 3 % TVA + Klimaprêt no Ärer Situatioun an Ären Aarbechten.",
+        "title": "Wunnengsbäihëllefen: Schätzung 2026",
+        "description": "Berechent d’Primme fir Är Situatioun an ënnerscheet Steiervirdeeler vun Hëllefen, déi nach gepréift musse ginn. Viragefëllte Wäerter si Beispiller; bestätegt d’Konditiounen an Är Reschtuspréch.",
         "cta": "Simulatioun starten"
       },
       "tools": [
         {
           "href": "/simulateur-aides",
-          "title": "Sanéierungs-Hëllefen-Simulator",
-          "description": "PRIMe House, Sozial-Topup, 3 % TVA, Klimaprêt — automatiséierten Stack."
+          "title": "Wunnengsbäihëllefen: Schätzung 2026",
+          "description": "Ouni onbekannt Hëllefen, Mountsbezuelungen a Garantien. Dëst ass net den Total vun alle méiglechen Hëllefen."
         },
         {
-          "href": "/energy",
-          "title": "tevaxia Energie-Modul",
-          "description": "Wäerimpakt, Sanéierungs-ROI, Energiegemeinschaft, EPBD/CPE."
-        },
-        {
-          "href": "/energy/cpe",
-          "title": "CPE-Diagnos",
-          "description": "Virschätzung vun der Energieklass virum offiziellen Audit."
-        },
-        {
-          "href": "/vefa",
-          "title": "VEFA-Simulator",
-          "description": "Fir Keefer vu Neibaute schonn an Klass A/B."
-        }
-      ],
-      "faq": [
-        {
-          "q": "Sinn d'Klimabonus-Hëllefen mat der 3 % TVA kombinéierbar?",
-          "a": "Jo. PRIMe-House-/Klimabonus-Subventiounen si voll mat der 3 % Wunn-TVA an dem effektive 0 %-Klimaprêt kombinéierbar. Et ass eent vun de virdeelechste Programmer Europas fir energeetesch Sanéierung."
-        },
-        {
-          "q": "Wéi vill Subventioun kritt een fir eng Wärmepompel zu Lëtzebuerg?",
-          "a": "PRIMe-House-Hëllef fir eng Loft-Waasser- oder Äerdwärmepompel variéiert vu 6.000 bis 12.000 € je no Typ a Leeschtung. Mam Sozial-Topup 2026 (Akommes ≤ 60.000 €) kann se 18.000 € erreechen. Dozou 3 % Wunn-TVA an 0 %-Klimaprêt."
-        },
-        {
-          "q": "Wat ass de Sozial-Topup 2026?",
-          "a": "Eng Erhéijung bis 150 % vum PRIMe-House-Grondbetrag fir Haushaller mat jährlechem zu versteierendem Akommes ≤ 60.000 €. Si soll energeetesch Sanéierung fir akommesschwaach Haushaller zougänglech maachen. Mat anere Bonifikatioune kumuléierbar (Sozialloyer, Déifsanéierung)."
-        },
-        {
-          "q": "Brauch et en Energieaudit fir vum Klimabonus ze profitéieren?",
-          "a": "De gratis Audit duerch e myenergy-Beroder ass net zwingend, awer staark empfuelen. De CPE duerch en zougeloossenen Beroder (virun an no Aarbechten) ass fir Subventiounen Pflicht, an d'Energieverbesserung muss op mannst 2 Klassen oder Klass A/B erreechen."
-        },
-        {
-          "q": "Ersetzt Klimaprêt PRIMe House?",
-          "a": "Nee, et sinn zwee komplementär Programmer. PRIMe House = Kapitalsubventiounen no Aarbechten. Klimaprêt = Bankprêt zu 1,5 % mat Staatsbonifikatioun fir effektiv 0 % Haushaltskäschten. Dir kënnt a sollt béid kumuléieren."
-        },
-        {
-          "q": "Kënne Copropriétéite vum Klimabonus profitéieren?",
-          "a": "Jo. Eng Copropriétéit kann eng Klimabonus-Demande fir an der GV beschlossen Aarbechten op Gemeinschaftsdeeler maachen (Daach, Fassad, Heizungszentral). All Copropriétaire profitéiert vun der quote-part anteileg zu sengen Undeeler. De Syndikus kann och e Klimaprêt am Numm vun der Gemeinschaft ufroen."
+          "href": "/energy/renovation",
+          "title": "Renovatioun: Budget a Rentabilitéit vum Szenario",
+          "description": "Vergläicht Budget, bestätegt Hëllefen an erwaart Erspuernisser op Rechnungen. Ufankswäerter si verännerbar Beispiller: Eng Energieklass eleng bestëmmt weder Aarbechtskäschten nach Hëllefen oder Wäertzouwuess."
         }
       ],
       "sources": [
         {
-          "title": "Klimabonus — offiziellt myenergy-Portal",
-          "org": "myenergy / Ëmweltministère",
-          "url": "https://www.myenergy.lu/"
-        },
-        {
-          "title": "PRIMe House — Prozedur",
+          "title": "Klimabonus 2026",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/aides-construction-renovation/aides-construction-renovation/aides-amelioration.html"
+          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement.html"
         },
         {
-          "title": "Klimaprêt — Prozedur",
+          "title": "Energieberodung",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/aides-construction-renovation/aides-financieres/klimapret.html"
+          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html"
         },
         {
-          "title": "Geännert Gesetz vum 23. Dezember 2016 — Hëllefe fir nohaltegt Wunnen",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/2016/12/23/n3/jo",
-          "year": 2016
+          "title": "Wunnengs-TVA 3 %",
+          "org": "AED",
+          "url": "https://pfi.public.lu/fr/citoyen/tva/logement.html"
         },
         {
-          "title": "Energieausweis (CPE)",
-          "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/proprietaire/economie-energie/certificat-performance-energetique.html"
+          "title": "Primmen a Konditiounen — Wunnengsministère",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/dam-assets/documents/legislation/lois/aides-loi-07-08-2023-accessible.pdf"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Geet de Budget duer fir Klimabonus ze berechnen?",
+          "a": "Moossnamen, Flächen, Materialien, Leeschtung, Anlagen an Datumer bestëmmen d’Sätz. De Gesamtpräis eleng geet net duer."
+        },
+        {
+          "q": "Ass Energieberodung ëmmer gratis?",
+          "a": "Ënnerscheet déi gratis Orientéierungsberodung vu Klima-Agence vun der technescher Missioun vun engem zougeloossene Beroder, déi kaschte kann a bedéngt subventionéiert gëtt. Budget oder CPE-Klassensprong eleng geet net duer fir d’Hëllef ze berechnen."
+        },
+        {
+          "q": "Garantéiert e Klimaprêt 0 % Zënsen?",
+          "a": "Finanzéierung a Bäihëllef mat Bank a Guichet unique klären. E Prêt ass keng Primm a garantéiert kee Bankzëns vun 1,5 %."
+        },
+        {
+          "q": "Kann ech reduzéiert TVA nach eng Kéier ofzéien?",
+          "a": "14 % vun de berechtegten Nettoaarbechten, bis zum Rescht vum 50.000-€-Virdeel pro Wunneng, fir Bau a Renovatioun zesummen. Net nach eng Kéier vun engem reduzéierte Präis ofzéien."
         }
       ]
     },
@@ -18103,5 +18036,57 @@
       "privee": "Virum Engagement eng Offer no Moossnam a Liwwerant ufroen. Keen allgemenge Saz vu 5 %.",
       "commune": "Eege Reegelen no Gemeng a Moossnam, mat spezifesche Basissen a Limitten. Keen erfonntene Betrag fir eng onbekannt Gemeng."
     }
+  },
+  "renovationAudit": {
+    "title": "Renovatioun: Budget a Rentabilitéit vum Szenario",
+    "intro": "Vergläicht Budget, bestätegt Hëllefen an erwaart Erspuernisser op Rechnungen. Ufankswäerter si verännerbar Beispiller: Eng Energieklass eleng bestëmmt weder Aarbechtskäschten nach Hëllefen oder Wäertzouwuess.",
+    "budget": "Budget a beluechten Hëllefen",
+    "travauxTTC": "Aarbechten — Offere mat TVA",
+    "honorairesTTC": "Honorairen an aner Käschte mat TVA",
+    "aidesConfirmees": "Bestätegt Hëllefen an dësem Szenario",
+    "anneeVersementAides": "Joer vun der Hëllefsausbezuelung (0 = direkt)",
+    "aidNote": "Nëmme beluechte Beträg androen; 0 wann keng Hëllef aberechent gëtt. Dat bedeit net, datt keen Usproch besteet. TVA-Reduktiounen aus den Offeren net nach eng Kéier ofzéien.",
+    "aidLink": "Wunnengsbäihëllefe préifen",
+    "energy": "Betribserspuernisser",
+    "factureAvant": "Jäerlech Energierechnung virun den Aarbechten",
+    "factureApres": "Erwaart jäerlech Energierechnung no den Aarbechten",
+    "entretienSupplementaire": "Zousätzleche jäerlechen Entretien",
+    "energyNote": "Benotzt Rechnungen an e kohärenten technesche Szenario: vergläichbar Notzung, Bewunnung a Referenzpräisser virdrun/duerno. Präisser kënne jee no Energiequell variéieren. Onverännert fix Käschte si keng Erspuernis.",
+    "assumptions": "Projektiounsannahmen",
+    "horizonAns": "Analysezäitraum — Joer",
+    "hausseEnergiePct": "Jäerlech Ännerung vun Energiekäschten — %",
+    "actualisationPct": "Jäerlechen Diskonttaux — %",
+    "assumptionsNote": "Joresflux um Enn vum Joer. Energiepräisännerung ab Joer 2; Entretien bleift an nominalen Euro konstant. Hëllefen am uginnene Joer. Keen automatesche Verkafsgewënn, Steieren, Reschtwäert oder net agedroen Ersatzinvestitiounen.",
+    "finance": "Optional Bankfinanzéierung",
+    "montantPret": "Prêtbetrag (0 = ouni Prêt)",
+    "tauxPretPct": "Nominale Joreszënssaz — %",
+    "dureePretAns": "Prêtdauer — Joer",
+    "financeNote": "Prêt mat konstante Mountsraten, ouni Assurance an net agedroe Bankkäschten. Saz aus Ärer Annahm oder Offer, kee garantéierte Klimaprêt-Saz. Projet-Rentabilitéit virun der Finanzéierung.",
+    "results": "Resultater vum Szenario",
+    "cost": "Gesamtkäschte mat TVA",
+    "net": "Käschten no aberechenten Hëllefen",
+    "initial": "Ufanksbedarf u Liquiditéit",
+    "equity": "Ufanks-Eegekapital nom Prêt",
+    "savings": "Nettoerspuernis — Joer 1",
+    "npv": "Kapitalwäert vum Projet",
+    "irr": "Jäerleche Projet-IRR",
+    "payback": "Amortisatioun (kumuléiert Flux ouni Diskontéierung)",
+    "yearNumber": "Joer {n}",
+    "notDefined": "Fir dës Flux net definéiert",
+    "notRecovered": "Am Zäitraum net erreecht",
+    "scope": "Finanzsimulatioun vun Ären Annahmen, ouni Versprieche vun Hëllefen, Energieklass oder Wäertzouwuess. Kapitalwäert an IRR enthalen Hëllefen an hire Bezuelzäitpunkt, awer kee Prêt: Rentabilitéit a Finanzéierung bleiwen getrennt. Negativen IRR bleift negativ; net ënnerstëtzte Flux ouni eendeitegen IRR gëtt als net definéiert gewisen.",
+    "financeResults": "Prêt-Effekt op Äre Budget",
+    "payment": "Mountsrat ouni Assurance",
+    "interestCost": "Zënsen iwwer déi ganz Prêtdauer",
+    "cashAfterDebt": "Nettoerspuernis minus Prêtraten — Joer 1",
+    "inputs": "Benotzt Parameteren",
+    "schedule": "Jäerlech Projet-Flux virun der Finanzéierung",
+    "year": "Joer",
+    "flow": "Nettoflux",
+    "cumulative": "Kumuléiert",
+    "discounted": "Diskontéierte Flux",
+    "sources": "Quellen an Demarchë fir Hëllefen",
+    "sourceNote": "Dës Quellen erklären d’Konditiounen an Demarchen; si bestätegen net d’Käschten oder Erspuernisser vun Ärem Szenario.",
+    "error": "Préift Beträg a Sätz. Hëllefen däerfen d’Käschten an de Prêt den Ufanksbedarf net iwwerschreiden. Ganz Joer an Hëllefsausbezuelung am Zäitraum sinn néideg."
   }
 }
