@@ -7,9 +7,6 @@ import {
   TVA_TAUX_REDUIT,
   TVA_FAVEUR_PLAFOND,
   BAREME_NOTAIRE,
-  ABATTEMENT_CESSION,
-  ABATTEMENT_CESSION_COUPLE,
-  SEUIL_SPECULATION_ANNEES,
   PRIME_ACCESSION_MAX,
   PRIME_ACCESSION_MAJORATION_COPROPRIETE,
   PRIME_ACCESSION_MAJORATION_JUMELEE,
@@ -139,7 +136,7 @@ export function calculerCapitalInvesti(input: CapitalInvestiInput): CapitalInves
   const decoteVetuste=decoteBrute-entretienImpute;
   const capitalInvesti=valeurBrute-decoteVetuste;
   const supplementMobilierMensuel=input.estMeuble?(input.mobilierEligible??0)*.015:0;
-  const loyerMensuelMax=capitalInvesti*.05/12+supplementMobilierMensuel;
+  const loyerMensuelMax=capitalInvesti*TAUX_PLAFOND_LOYER/12+supplementMobilierMensuel;
   return {prixReevalue,coeffAcquisition,travauxReevalues,coeffTravaux,anneesVetuste,decoteVetuste,decoteVetustePct,capitalInvesti,loyerAnnuelMax:loyerMensuelMax*12,loyerMensuelMax,loyerM2Mensuel:input.surfaceHabitable>0?loyerMensuelMax/input.surfaceHabitable:0,loyerParColocataire:input.nbColocataires&&input.nbColocataires>1?loyerMensuelMax/input.nbColocataires:undefined,supplementMobilierMensuel,terrainReevalue,entretienImpute,reportEntretien,periodesVetuste,donneesCompletes:input.anneeConstruction!==undefined&&input.appliquerVetuste!==false&&(!input.estMeuble||input.mobilierEligible!==undefined)};
 }
 
@@ -311,58 +308,29 @@ export function tauxMoyenIR(revenuImposable: number): number {
   return calculerImpotBareme(revenuImposable) / revenuImposable;
 }
 
-/**
- * Calcule l'impôt sur un gain de spéculation (taux global = barème progressif).
- * Si revenuImposable est fourni : calcul du taux marginal réel.
- * Sinon : estimation à 40% (taux marginal max).
- */
-function impotSpeculation(gainImposable: number, revenuImposable?: number): { impot: number; taux: number; estEstimation: boolean } {
-  if (gainImposable <= 0) return { impot: 0, taux: 0, estEstimation: false };
-  if (revenuImposable != null && revenuImposable > 0) {
-    const impotSansGain = calculerImpotBareme(revenuImposable);
-    const impotAvecGain = calculerImpotBareme(revenuImposable + gainImposable);
-    const impot = impotAvecGain - impotSansGain;
-    const taux = impot / gainImposable;
-    return { impot, taux, estEstimation: false };
-  }
-  return { impot: gainImposable * 0.40, taux: 0.40, estEstimation: true };
-}
-
-/**
- * Calcule l'impôt sur un gain de cession (demi-taux global).
- * Art. 130(4) LIR : impôt = gain × (taux moyen global / 2).
- * Si revenuImposable est fourni : calcul du demi-taux réel.
- * Sinon : estimation à 20%.
- */
-function impotCession(gainImposable: number, revenuImposable?: number): { impot: number; taux: number; estEstimation: boolean } {
-  if (gainImposable <= 0) return { impot: 0, taux: 0, estEstimation: false };
-  if (revenuImposable != null && revenuImposable > 0) {
-    const revenuTotal = revenuImposable + gainImposable;
-    const tauxGlobal = tauxMoyenIR(revenuTotal);
-    const demiTaux = tauxGlobal / 2;
-    const impot = gainImposable * demiTaux;
-    return { impot, taux: demiTaux, estEstimation: false };
-  }
-  return { impot: gainImposable * 0.20, taux: 0.20, estEstimation: true };
-}
-
-// ============================================================
-// MODULE 3 — PLUS-VALUES IMMOBILIÈRES
-// ============================================================
-
+// PRIVATE PROPERTY CAPITAL GAINS — 2025–2026, resident classes 1 and 2.
 export interface PlusValueInput {
   prixAcquisition: number;
   anneeAcquisition: number;
   prixCession: number;
   anneeCession: number;
-  fraisAcquisition?: number; // Frais déductibles à l'acquisition
-  travauxDeductibles?: number; // Travaux de plus-value
-  estResidencePrincipale: boolean;
-  estCouple: boolean;
-  revenuImposable?: number; // Pour calcul taux global (spéculation)
+  dateAcquisition?: string;
+  dateCession?: string;
+  fraisAcquisition?: number;
+  travauxDeductibles?: number;
+  travauxAnnee?: number;
+  tranchesTravaux?: TrancheTravauxInput[];
+  fraisCession?: number;
+  estResidencePrincipale: boolean; // Confirmation des conditions art. 102bis, pas simple intention.
+  estCouple: boolean; // Imposition collective, pas simple concubinage.
+  revenuImposable?: number; // Revenu ordinaire ajusté, hors gain et hors autres revenus extraordinaires.
   modeAcquisition?: "achat" | "succession" | "donation";
+  abattementsAnterieurs?: number;
+  abattementSuccessionDisponible?: number;
+  compromisEnregistreAvantJuillet2025?: boolean;
+  soumisDependance?: boolean;
+  autresBasesDependance?: number;
 }
-
 export interface PlusValueResult {
   typeGain: "speculation" | "cession" | "exonere";
   dureeDetention: number;
@@ -371,119 +339,96 @@ export interface PlusValueResult {
   fraisForfaitaires: number;
   gainBrut: number;
   abattement: number;
+  abattementSuccession: number;
   gainImposable: number;
-  estimationImpot: number;
+  estimationImpot: number; // IR additionnel seul, contribution emploi séparée.
   tauxEffectif: number;
-  netApresImpot: number; // Produit net = prix cession - prix acquisition - impôt
+  netApresImpot: number; // Gain économique après IR, coût fiscal complet dans fourchette séparée.
+  produitNetMin: number;
+  produitNetMax: number;
+  emploiMin: number;
+  emploiMax: number;
+  dependance: number;
+  impotTotalMin: number;
+  impotTotalMax: number;
+  fractionTaux: number;
+  seuilSpeculation: number;
   explication: string;
+  erreurSaisie?: string;
 }
 
+function dateValide(value?: string): Date | null {
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  const d = new Date(`${value}T00:00:00Z`);
+  return Number.isFinite(d.getTime()) && d.toISOString().slice(0, 10) === value ? d : null;
+}
+function impotResident(revenu: number, couple: boolean): number {
+  const r = Math.floor(Math.max(0, revenu) / 50) * 50;
+  return Math.floor(calculerImpotBareme(r / (couple ? 2 : 1)) * (couple ? 2 : 1) + 1e-8);
+}
+// Formules ACD 2025, feuilles Classe 1 et Classe 2, cellule B34 (revenu ordinaire).
+function impotOrdinaireMajore(revenu: number, couple: boolean): number {
+  const i = impotResident(revenu, couple);
+  return Math.floor(i * (revenu > (couple ? 300000 : 150000) ? 1.09 : 1.07)
+    - (revenu > (couple ? 300000 : 150000) ? (couple ? 1863.6 : 931.8) : 0) + 1e-8);
+}
 export function calculerPlusValue(input: PlusValueInput): PlusValueResult {
-  const dureeDetention = input.anneeCession - input.anneeAcquisition;
-  const mode = input.modeAcquisition || "achat";
-
-  // Label du prix d'acquisition selon le mode
-  const prixLabel =
-    mode === "succession"
-      ? "Valeur successorale déclarée (art. 102 LIR)"
-      : mode === "donation"
-      ? "Valeur déclarée dans l'acte de donation (art. 102 LIR)"
-      : "Prix d'acquisition";
-
-  // Exonération résidence principale
-  if (input.estResidencePrincipale) {
-    return {
-      typeGain: "exonere",
-      dureeDetention,
-      prixAcquisitionRevalorise: input.prixAcquisition,
-      coefficient: 1,
-      fraisForfaitaires: 0,
-      gainBrut: input.prixCession - input.prixAcquisition,
-      abattement: 0,
-      gainImposable: 0,
-      estimationImpot: 0,
-      tauxEffectif: 0,
-      netApresImpot: input.prixCession - input.prixAcquisition,
-      explication:
-        mode === "succession"
-          ? "Exonération totale : résidence principale occupée effectivement et de manière continue. Base d'acquisition = valeur successorale déclarée (art. 102 LIR)."
-          : mode === "donation"
-          ? "Exonération totale : résidence principale occupée effectivement et de manière continue. Base d'acquisition = valeur déclarée dans l'acte de donation (art. 102 LIR)."
-          : "Exonération totale : résidence principale occupée effectivement et de manière continue depuis l'acquisition ou pendant les 5 années précédant la cession.",
-    };
+  const vide: PlusValueResult = {typeGain:'cession',dureeDetention:0,prixAcquisitionRevalorise:0,coefficient:1,fraisForfaitaires:0,gainBrut:0,abattement:0,abattementSuccession:0,gainImposable:0,estimationImpot:0,tauxEffectif:0,netApresImpot:0,produitNetMin:0,produitNetMax:0,emploiMin:0,emploiMax:0,dependance:0,impotTotalMin:0,impotTotalMax:0,fractionTaux:.5,seuilSpeculation:5,explication:''};
+  const invalid = (message: string) => ({...vide,erreurSaisie:message});
+  const acq = dateValide(input.dateAcquisition), vente = dateValide(input.dateCession);
+  if (!acq || !vente || acq > vente || vente.getUTCFullYear()<2025 || vente.getUTCFullYear()>2026 || acq.getUTCFullYear()<1941) return invalid('Dates exactes requises : acquisition depuis 1941, cession en 2025 ou 2026, acquisition antérieure à la cession.');
+  const montants=[input.prixAcquisition,input.prixCession,input.fraisAcquisition??0,input.travauxDeductibles??0,input.fraisCession??0,input.abattementsAnterieurs??0,input.abattementSuccessionDisponible??0,input.autresBasesDependance??0];
+  if(montants.some(v=>!Number.isFinite(v)||v<0)||!Number.isFinite(input.revenuImposable)||(input.revenuImposable ?? -1) < 0) return invalid('Renseignez des montants positifs ou nuls et le revenu ordinaire imposable ajusté.');
+  if(acq.getUTCFullYear()!==input.anneeAcquisition||vente.getUTCFullYear()!==input.anneeCession) return invalid('Les dates et millésimes doivent correspondre.');
+  const mode=input.modeAcquisition??'achat';
+  if(!['achat','succession','donation'].includes(mode))return invalid('Mode d’acquisition non reconnu.');
+  if((input.abattementSuccessionDisponible??0)>(input.estCouple?150000:75000)||(mode!=='succession'&&(input.abattementSuccessionDisponible??0)>0))return invalid('Vérifiez l’abattement successoral personnel encore disponible.');
+  const date=input.dateCession!;
+  const transitoire=date<='2025-06-30'||(date<='2025-09-30'&&input.compromisEnregistreAvantJuillet2025===true);
+  const seuilSpeculation=transitoire?2:5;
+  const anniversaire=new Date(acq);anniversaire.setUTCFullYear(acq.getUTCFullYear()+seuilSpeculation);
+  // Le 29 février : échéance au dernier jour du mois si l’année cible n’est pas bissextile.
+  if(anniversaire.getUTCMonth()!==acq.getUTCMonth())anniversaire.setUTCDate(0);
+  const speculation=vente<=anniversaire;
+  let dureeDetention=vente.getUTCFullYear()-acq.getUTCFullYear();
+  if(vente.toISOString().slice(5,10)<acq.toISOString().slice(5,10))dureeDetention--;
+  const tranches=[{montant:input.travauxDeductibles??0,annee:input.travauxAnnee??input.anneeAcquisition},...(input.tranchesTravaux??[])];
+  if(tranches.some(t=>!Number.isFinite(t.montant)||t.montant<0||(t.montant>0&&(!Number.isInteger(t.annee)||t.annee<input.anneeAcquisition||t.annee>input.anneeCession))))return invalid('Travaux : montants justifiés et année comprise entre acquisition et cession.');
+  const coefficient=speculation?1:getCoefficient(input.anneeAcquisition,input.anneeCession);
+  const prixAcquisitionRevalorise=input.prixAcquisition*coefficient;
+  const travaux=tranches.reduce((n,t)=>n+t.montant*(speculation?1:getCoefficient(t.annee,input.anneeCession)),0);
+  const fraisForfaitaires=(input.fraisAcquisition??0)*coefficient+travaux+(input.fraisCession??0);
+  const gainBrut=input.prixCession-prixAcquisitionRevalorise-fraisForfaitaires;
+  const coutHistorique=input.prixAcquisition+(input.fraisAcquisition??0)+tranches.reduce((n,t)=>n+t.montant,0);
+  const produitAvantImpot=input.prixCession-(input.fraisCession??0);
+  if(input.estResidencePrincipale)return {...vide,typeGain:'exonere',dureeDetention,prixAcquisitionRevalorise,coefficient,fraisForfaitaires,gainBrut,netApresImpot:produitAvantImpot-coutHistorique,produitNetMin:produitAvantImpot,produitNetMax:produitAvantImpot,seuilSpeculation,explication:'Exonération selon la confirmation des conditions de l’article 102bis LIR. La cession reste à déclarer.'};
+  const abattementSuccession=speculation?0:Math.min(Math.max(0,gainBrut),input.abattementSuccessionDisponible??0);
+  const abattement=speculation?0:Math.min(Math.max(0,gainBrut-abattementSuccession),Math.max(0,(input.estCouple?100000:50000)-(input.abattementsAnterieurs??0)));
+  const gainImposable=speculation && gainBrut<500 ? 0 : Math.max(0,gainBrut-abattementSuccession-abattement);
+  const ord=input.revenuImposable!;
+  const total=ord+gainImposable;
+  const irSans=impotResident(ord,input.estCouple);
+  const irNormal=impotResident(total,input.estCouple);
+  const fractionTaux=speculation?1:transitoire?.25:.5;
+  const revenuArrondi=Math.floor(total/50)*50;
+  // Taux spécial tronqué au centième de pourcentage ; règle du calcul le plus favorable, art. 131.
+  const tauxSpecial=revenuArrondi>0?Math.floor((irNormal/revenuArrondi)*fractionTaux*10000+1e-8)/10000:0;
+  const estimationImpot=speculation||gainImposable<=250?Math.max(0,irNormal-irSans):Math.max(0,Math.min(irNormal-irSans,Math.floor(gainImposable*tauxSpecial+1e-8)));
+  let emploiMin:number,emploiMax:number;
+  if(speculation||gainImposable<=250){
+    emploiMin=Math.max(0,impotOrdinaireMajore(total,input.estCouple)-impotOrdinaireMajore(ord,input.estCouple)-estimationImpot);emploiMax=emploiMin;
+  } else {
+    // Provision distincte : la ventilation du fonds sur les revenus extraordinaires au-delà du seuil doit être liquidée avec le dossier annuel.
+    emploiMin=estimationImpot*.07;emploiMax=total>(input.estCouple?300000:150000)?estimationImpot*.09:emploiMin;
   }
-
-  // Spéculation (≤ 2 ans)
-  if (dureeDetention <= SEUIL_SPECULATION_ANNEES) {
-    const fraisDeductibles = (input.fraisAcquisition || 0) + (input.travauxDeductibles || 0);
-    const gainBrut = input.prixCession - input.prixAcquisition - fraisDeductibles;
-    const gainImposable = Math.max(0, gainBrut);
-    // Taux global (barème progressif) — calcul réel si revenu connu, sinon estimation 40%
-    const { impot: estimationImpot, taux: tauxEffectif, estEstimation } = impotSpeculation(gainImposable, input.revenuImposable);
-
-    const modeExplication =
-      mode === "succession"
-        ? ` Base d'acquisition = valeur successorale déclarée (art. 102 LIR).`
-        : mode === "donation"
-        ? ` Base d'acquisition = valeur déclarée dans l'acte de donation (art. 102 LIR).`
-        : "";
-
-    const tauxExplication = estEstimation
-      ? `Estimation au taux marginal max de 40% (renseignez votre revenu imposable pour un calcul précis).`
-      : `Taux marginal effectif de ${formatPct(tauxEffectif)} calculé selon le barème IR classe 1.`;
-
-    return {
-      typeGain: "speculation",
-      dureeDetention,
-      prixAcquisitionRevalorise: input.prixAcquisition,
-      coefficient: 1,
-      fraisForfaitaires: fraisDeductibles,
-      gainBrut,
-      abattement: 0,
-      gainImposable,
-      estimationImpot,
-      tauxEffectif,
-      netApresImpot: input.prixCession - input.prixAcquisition - estimationImpot,
-      explication: `Gain de spéculation (détention ≤ 2 ans). Imposé au taux global (barème progressif). ${tauxExplication}${modeExplication}`,
-    };
-  }
-
-  // Cession longue durée (> 2 ans)
-  const coefficient = getCoefficient(input.anneeAcquisition, input.anneeCession);
-  const prixAcquisitionRevalorise = input.prixAcquisition * coefficient;
-  const fraisForfaitaires = (input.fraisAcquisition || 0) + (input.travauxDeductibles || 0);
-  const gainBrut = input.prixCession - prixAcquisitionRevalorise - fraisForfaitaires;
-  const abattement = input.estCouple ? ABATTEMENT_CESSION_COUPLE : ABATTEMENT_CESSION;
-  const gainImposable = Math.max(0, gainBrut - abattement);
-  // Demi-taux global (art. 130(4) LIR) — calcul réel si revenu connu, sinon estimation 20%
-  const { impot: estimationImpot, taux: tauxEffectif, estEstimation } = impotCession(gainImposable, input.revenuImposable);
-
-  const modeExplication =
-    mode === "succession"
-      ? ` Base d'acquisition = valeur successorale déclarée (art. 102 LIR).`
-      : mode === "donation"
-      ? ` Base d'acquisition = valeur déclarée dans l'acte de donation (art. 102 LIR).`
-      : "";
-
-  const tauxExplication = estEstimation
-    ? `Imposé au demi-taux global (estimation ~20% — renseignez votre revenu imposable pour un calcul précis).`
-    : `Imposé au demi-taux global de ${formatPct(tauxEffectif)} (art. 130(4) LIR, barème classe 1).`;
-
-  return {
-    typeGain: "cession",
-    dureeDetention,
-    prixAcquisitionRevalorise,
-    coefficient,
-    fraisForfaitaires,
-    gainBrut,
-    abattement,
-    gainImposable,
-    estimationImpot,
-    tauxEffectif,
-    netApresImpot: input.prixCession - input.prixAcquisition - estimationImpot,
-    explication: `Gain de cession (détention > 2 ans). ${prixLabel} revalorisé${mode === "achat" ? " par le coefficient" : " (coefficient"} ${coefficient.toFixed(2)}${mode !== "achat" ? ")" : ""}. Abattement décennal de ${formatEUR(abattement)}. ${tauxExplication}${modeExplication}`,
-  };
+  const baseAutres=input.autresBasesDependance??0;
+  const dep=(base:number)=>base*.014<=24.79?0:base*.014;
+  const dependance=input.soumisDependance?Math.max(0,dep(baseAutres+gainImposable)-dep(baseAutres)):0;
+  const impotTotalMin=estimationImpot+emploiMin+dependance,impotTotalMax=estimationImpot+emploiMax+dependance;
+  return {typeGain:speculation?'speculation':'cession',dureeDetention,prixAcquisitionRevalorise,coefficient,fraisForfaitaires,gainBrut,abattement,abattementSuccession,gainImposable,estimationImpot,tauxEffectif:gainImposable>0?estimationImpot/gainImposable:0,netApresImpot:produitAvantImpot-coutHistorique-estimationImpot,produitNetMin:produitAvantImpot-impotTotalMax,produitNetMax:produitAvantImpot-impotTotalMin,emploiMin,emploiMax,dependance,impotTotalMin,impotTotalMax,fractionTaux,seuilSpeculation,explication:`Articles 99bis, 99ter, 102, 130 et 131 LIR. Date et prix du dernier achat à titre onéreux, y compris en succession/donation. Calcul résident classe ${input.estCouple?'2':'1'}, sans autres revenus extraordinaires ni revenus étrangers exonérés avec progressivité. Contribution emploi provisionnée séparément ; liquidation annuelle à vérifier.`};
 }
+
+// ============================================================
 
 // ============================================================
 // MODULE 4 — SIMULATEUR D'AIDES

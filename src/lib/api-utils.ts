@@ -12,6 +12,10 @@ export async function handleCalculation<T>(
     return NextResponse.json({ success: false, error: "Invalid JSON body" }, { status: 400 });
   }
 
+  if (body === null || typeof body !== "object" || Array.isArray(body)) {
+    return NextResponse.json({ success: false, error: "JSON object required" }, { status: 400 });
+  }
+
   // Basic validation: check required fields exist
   if (requiredFields) {
     const missing = requiredFields.filter((f) => (body as Record<string, unknown>)[f] === undefined);

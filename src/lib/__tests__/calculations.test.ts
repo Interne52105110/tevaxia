@@ -119,8 +119,11 @@ describe("calculerPlusValue", () => {
     const result = calculerPlusValue({
       prixAcquisition: 400000,
       anneeAcquisition: 2015,
+      dateAcquisition: "2015-01-15",
       prixCession: 600000,
       anneeCession: 2025,
+      dateCession: "2025-12-15",
+      revenuImposable: 50000,
       estResidencePrincipale: true,
       estCouple: false,
     });
@@ -132,8 +135,11 @@ describe("calculerPlusValue", () => {
     const result = calculerPlusValue({
       prixAcquisition: 400000,
       anneeAcquisition: 2024,
+      dateAcquisition: "2024-01-15",
       prixCession: 500000,
       anneeCession: 2025,
+      dateCession: "2025-12-15",
+      revenuImposable: 50000,
       estResidencePrincipale: false,
       estCouple: false,
     });
@@ -145,8 +151,11 @@ describe("calculerPlusValue", () => {
     const result = calculerPlusValue({
       prixAcquisition: 300000,
       anneeAcquisition: 2010,
+      dateAcquisition: "2010-01-15",
       prixCession: 600000,
       anneeCession: 2025,
+      dateCession: "2025-12-15",
+      revenuImposable: 50000,
       estResidencePrincipale: false,
       estCouple: false,
     });
@@ -161,8 +170,11 @@ describe("calculerPlusValue", () => {
     const result = calculerPlusValue({
       prixAcquisition: 200000,
       anneeAcquisition: 2015,
+      dateAcquisition: "2015-01-15",
       prixCession: 600000,
       anneeCession: 2025,
+      dateCession: "2025-12-15",
+      revenuImposable: 50000,
       estResidencePrincipale: false,
       estCouple: true,
     });

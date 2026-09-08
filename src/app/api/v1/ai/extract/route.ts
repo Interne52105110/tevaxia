@@ -47,14 +47,14 @@ const EXTRACTION_SCHEMAS: Record<string, { instructions: string; schema: string 
   },
   plus_values: {
     instructions:
-      "Extrait les données d'un acte notarié ou d'une déclaration fiscale de plus-value immobilière luxembourgeoise.",
+      "Extrait les données d'un acte notarié ou d'une déclaration fiscale de plus-value immobilière luxembourgeoise. En succession ou donation, rechercher le prix et la date du dernier achat à titre onéreux par le détenteur antérieur ; ne pas les remplacer par la valeur de transmission. Ne pas conclure une exonération de résidence principale à partir du seul intitulé du bien.",
     schema: `{
   "modeAcquisition": "achat" | "succession" | "donation",
   "prixAcquisition": number (€),
   "anneeAcquisition": number (AAAA),
   "prixCession": number (€),
   "anneeCession": number (AAAA),
-  "fraisAcquisition": number (€, 0 si forfaitaire 25%),
+  "fraisAcquisition": number (frais réels admissibles justifiés, jamais de forfait inventé),
   "travauxDeductibles": number (€),
   "estResidencePrincipale": boolean,
   "estCouple": boolean

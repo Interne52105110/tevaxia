@@ -25,7 +25,7 @@ export const TAUX_PLAFOND_LOYER = 0.05; // 5% annuel
 export const TAUX_VETUSTE_ANNUEL = 0.02; // Ancien nom conservé : 2% PAR PÉRIODE DE DEUX ANS, après 15 ans.
 
 // Plus-values
-export const SEUIL_SPECULATION_ANNEES = 2; // Détention ≤ 2 ans = spéculation
+export const SEUIL_SPECULATION_ANNEES = 5; // Régime courant ; dérogations 2025 déterminées par date dans le moteur
 export const ABATTEMENT_CESSION = 50_000; // 50 000 € d'abattement décennal
 export const ABATTEMENT_CESSION_COUPLE = 100_000; // 100 000 € pour couple
 export const DEMI_TAUX_GLOBAL = true; // Gains de cession taxés au demi-taux global
@@ -79,31 +79,30 @@ export const BAREME_NOTAIRE = [
   { limite: Infinity, taux: 0.002 },   // 0,2% au-delà
 ];
 
-// Barème impôt sur le revenu LU 2025 (simplifié — classe 1)
+// Barème impôt sur le revenu LU 2025–2026 (article 118 — classe 1)
 export const BAREME_IR_CLASSE1 = [
-  { limite: 12_438, taux: 0 },
-  { limite: 14_508, taux: 0.08 },
-  { limite: 16_578, taux: 0.09 },
-  { limite: 18_648, taux: 0.10 },
-  { limite: 20_718, taux: 0.11 },
-  { limite: 22_788, taux: 0.12 },
-  { limite: 24_858, taux: 0.14 },
-  { limite: 26_928, taux: 0.16 },
-  { limite: 28_998, taux: 0.18 },
-  { limite: 31_068, taux: 0.20 },
-  { limite: 33_138, taux: 0.22 },
-  { limite: 35_208, taux: 0.24 },
-  { limite: 37_278, taux: 0.26 },
-  { limite: 39_348, taux: 0.28 },
-  { limite: 41_418, taux: 0.30 },
-  { limite: 43_488, taux: 0.32 },
-  { limite: 45_558, taux: 0.34 },
-  { limite: 47_628, taux: 0.36 },
-  { limite: 49_698, taux: 0.38 },
-  { limite: 51_768, taux: 0.39 },
-  { limite: 110_403, taux: 0.40 },
-  { limite: 165_600, taux: 0.41 },
-  { limite: 220_788, taux: 0.42 },
+  { limite: 13230, taux: 0 },
+  { limite: 15435, taux: 0.08 },
+  { limite: 17640, taux: 0.09 },
+  { limite: 19845, taux: 0.1 },
+  { limite: 22050, taux: 0.11 },
+  { limite: 24255, taux: 0.12 },
+  { limite: 26550, taux: 0.14 },
+  { limite: 28845, taux: 0.16 },
+  { limite: 31140, taux: 0.18 },
+  { limite: 33435, taux: 0.2 },
+  { limite: 35730, taux: 0.22 },
+  { limite: 38025, taux: 0.24 },
+  { limite: 40320, taux: 0.26 },
+  { limite: 42615, taux: 0.28 },
+  { limite: 44910, taux: 0.3 },
+  { limite: 47205, taux: 0.32 },
+  { limite: 49500, taux: 0.34 },
+  { limite: 51795, taux: 0.36 },
+  { limite: 54090, taux: 0.38 },
+  { limite: 117450, taux: 0.39 },
+  { limite: 176160, taux: 0.4 },
+  { limite: 234870, taux: 0.41 },
   { limite: Infinity, taux: 0.42 },
 ];
 

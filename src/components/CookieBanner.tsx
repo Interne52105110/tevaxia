@@ -52,7 +52,7 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6">
+    <div className="print:hidden fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6">
       <div className="mx-auto max-w-2xl rounded-xl border border-card-border bg-card p-5 shadow-lg">
         <p className="text-sm text-slate leading-relaxed">
           {t("message")}
