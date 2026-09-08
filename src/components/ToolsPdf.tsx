@@ -479,18 +479,20 @@ export async function downloadAchatLocationPdf(params: AchatLocationPdfParams) {
 
 export interface AidesPdfParams {
   profil: string; revenus?: string;
-  aides: { label: string; montant: number; description?: string }[];
+  aides: { label: string; montant: number | null; description?: string; periodicite?: "unique" | "mensuelle" }[];
   totalAides: number; economiesFiscales?: number; totalAvantage?: number;
+  scope?: string; unknownLabel?: string; monthlyLabel?: string;
 }
 
 function AidesDoc({ p }: { p: AidesPdfParams }) {
   const ref = generateRef();
+  const amount = (n: number) => `${n.toFixed(2)} EUR`;
   return (
     <Document>
       <CoverPage
         title="Simulateur d'aides au logement"
         subtitle={`Profil ${p.profil}${p.revenus ? " · " + p.revenus : ""}`}
-        value={fmtEur(p.totalAides)}
+        value={p.aides.every(a => a.montant === null) ? (p.unknownLabel ?? "À déterminer") : amount(p.totalAides)}
         date={today()}
         reference={ref}
       />
@@ -498,22 +500,23 @@ function AidesDoc({ p }: { p: AidesPdfParams }) {
         <PageHeader title="Simulateur d'aides au logement" reference={ref} />
 
         <KpiGrid items={[
-          { label: "Total aides directes", value: fmtEur(p.totalAides), highlight: true },
-          ...(p.economiesFiscales != null ? [{ label: "Economies fiscales", value: fmtEur(p.economiesFiscales) }] : []),
-          ...(p.totalAvantage != null ? [{ label: "Avantage total", value: fmtEur(p.totalAvantage), highlight: true }] : []),
+          { label: "Total aides directes", value: amount(p.totalAides), highlight: true },
+          ...(p.economiesFiscales != null ? [{ label: "Economies fiscales", value: amount(p.economiesFiscales) }] : []),
+          ...(p.totalAvantage != null ? [{ label: "Sous-total ponctuel chiffre", value: amount(p.totalAvantage), highlight: true }] : []),
           { label: "Profil", value: p.profil },
         ]} />
 
+        <Text style={s.note}>{p.scope ?? "Estimation sous conditions. Montants inconnus, garanties et mensualites exclus du sous-total ponctuel. Ne pas deduire deux fois les avantages fiscaux deja inclus dans les frais ou le prix."}</Text>
         <Text style={s.section}>Aides identifiees</Text>
         {p.aides.map((a, i) => (
-          <View key={i}>
-            <Row label={a.label} value={fmtEur(a.montant)} />
+          <View key={i} wrap={false}>
+            <Row label={a.label} value={a.montant === null ? (p.unknownLabel ?? "À déterminer") : amount(a.montant) + (a.periodicite === "mensuelle" ? (p.monthlyLabel ?? " / mois") : "")} />
             {a.description && <Text style={s.note}>{a.description}</Text>}
           </View>
         ))}
-        <RowHL label="Total aides directes" value={fmtEur(p.totalAides)} />
-        {p.economiesFiscales != null && <Row label="Economies fiscales estimees" value={fmtEur(p.economiesFiscales)} />}
-        {p.totalAvantage != null && <RowHL label="Avantage total" value={fmtEur(p.totalAvantage)} />}
+        <RowHL label="Total aides directes" value={amount(p.totalAides)} />
+        {p.economiesFiscales != null && <Row label="Economies fiscales estimees" value={amount(p.economiesFiscales)} />}
+        {p.totalAvantage != null && <RowHL label="Sous-total ponctuel chiffre" value={amount(p.totalAvantage)} />}
 
         <Disclaimer />
         <Footer />

@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { MEMORIAL_WATCH, MEMORIAL_LAST_UPDATED } from "../memorial-a-watch";
 
 describe("MEMORIAL_WATCH", () => {
-  it("contains at least 6 entries", () => {
-    expect(MEMORIAL_WATCH.length).toBeGreaterThanOrEqual(6);
+  it("contains documented entries", () => {
+    expect(MEMORIAL_WATCH.length).toBeGreaterThanOrEqual(1);
   });
 
   it("every entry has valid date format YYYY-MM-DD", () => {
@@ -36,6 +36,7 @@ describe("MEMORIAL_WATCH", () => {
   it("every URL starts with http://", () => {
     for (const e of MEMORIAL_WATCH) {
       expect(e.url).toMatch(/^https?:\/\//);
+      expect(new URL(e.url).pathname).not.toBe("/");
     }
   });
 

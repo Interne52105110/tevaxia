@@ -167,10 +167,10 @@ describe("simulerAides", () => {
     });
     const bellegen = result.aides.find((a) => a.nom === "Bëllegen Akt");
     expect(bellegen).toBeDefined();
-    expect(bellegen!.montant).toBeGreaterThan(0);
+    expect(bellegen!.montant).toBeNull(); // Soldes et éligibilité non confirmés.
   });
 
-  it("includes prime epargne when eligible", () => {
+  it("does not award the maximum savings grant from the old three-year flag", () => {
     const result = simulerAides({
       prixBien: 500000,
       residencePrincipale: true,
@@ -185,7 +185,7 @@ describe("simulerAides", () => {
     });
     const epargne = result.aides.find((a) => a.nom === "Prime d'épargne");
     expect(epargne).toBeDefined();
-    expect(epargne!.montant).toBe(5000);
+    expect(epargne!.montant).toBeNull();
   });
 
   it("totalGeneral is sum of all aides", () => {
@@ -201,7 +201,7 @@ describe("simulerAides", () => {
       estNeuf: false,
       montantPret: 400000,
     });
-    expect(result.totalGeneral).toBeGreaterThan(0);
+    expect(result.totalGeneral).toBe(0); // Aucun droit chiffré avec les anciens champs seuls.
     expect(result.aides.length).toBeGreaterThanOrEqual(2);
   });
 });

@@ -8,6 +8,7 @@ export const CLIENT_NAMESPACES = [
   "aiAnalysis",
   "aiChat",
   "aiSettings",
+  "aidesAudit",
   "ais",
   "amlKyc",
   "amlKycArchives",

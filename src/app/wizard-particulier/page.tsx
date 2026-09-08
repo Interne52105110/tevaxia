@@ -31,6 +31,7 @@ const STEP_KEYS = [
 export default function WizardParticulier() {
   const t = useTranslations("wizardParticulierPage");
   const acquisitionAudit = useTranslations("acquisitionAudit");
+  const aidesAudit = useTranslations("aidesAudit");
   const tl = useTranslations("calculLoyer");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
@@ -556,12 +557,13 @@ export default function WizardParticulier() {
 
             {aides && (
               <div className="rounded-xl border border-card-border bg-card p-6">
-                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("step3.totalAides")}</div>
-                <div className="mt-1 text-3xl font-bold text-emerald-700">{formatEUR(aides.totalGeneral)}</div>
+                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{aidesAudit("subtotal")}</div>
+                <div className="mt-1 text-3xl font-bold text-emerald-700">{aides.aides.some(a => a.montant !== null) ? formatEUR(aides.totalGeneral) : aidesAudit("unknown")}</div>
                 <div className="mt-1 text-sm text-muted">
                   {t("step3.cashEco", { cash: formatEUR(aides.totalAidesDirectes), eco: formatEUR(aides.totalEconomies) })}
                 </div>
 
+                <p className="mt-3 text-sm text-muted">{aidesAudit("subtotalNote")} <Link href={`${lp}/simulateur-aides`} className="underline">{t("step3.simulateurComplet")}</Link></p>
                 {aides.aides.length === 0 ? (
                   <p className="mt-4 text-sm text-muted">{t("step3.aucuneAide")}</p>
                 ) : (
@@ -570,10 +572,10 @@ export default function WizardParticulier() {
                       <div key={i} className="rounded-lg border border-card-border bg-background p-3">
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0 flex-1">
-                            <div className="text-sm font-semibold text-navy">{a.nom}</div>
-                            <div className="mt-0.5 text-xs text-muted">{a.description}</div>
+                            <div className="text-sm font-semibold text-navy">{aidesAudit(`names.${a.id}`)}</div>
+                            <div className="mt-0.5 text-xs text-muted">{aidesAudit(`descriptions.${a.id}`)}</div>
                           </div>
-                          <div className="shrink-0 text-sm font-bold text-emerald-700">{formatEUR(a.montant)}</div>
+                          <div className="shrink-0 text-sm font-bold text-emerald-700">{a.montant === null ? aidesAudit("unknown") : formatEUR(a.montant)}</div>
                         </div>
                       </div>
                     ))}

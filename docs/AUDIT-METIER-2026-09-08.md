@@ -99,3 +99,29 @@ Sources :
 - https://guichet.public.lu/fr/citoyens/logement/aides/aides-indirectes-avantages-fiscaux/credit-impot-actes-notaries.html
 - https://guichet.public.lu/fr/citoyens/actualites/2025/juin/04-mesures-fiscales-logement.html
 - https://gouvernement.lu/fr/actualites/toutes_actualites/communiques/2026/07-juillet/24-conseil-gouvernement.html
+
+
+## Aides individuelles au logement — contrôle du 8 septembre 2026
+
+Le moteur précédent attribuait des plafonds sans vérifier les revenus, une prime d’épargne forfaitaire, des économies d’intérêts non amorties et des pourcentages énergétiques non justifiés. Ces calculs sont remplacés par des résultats conditionnels, avec montants inconnus explicitement exclus du sous-total.
+
+- Prime d’accession pour acte 2026 : articles 16 et 32, annexe III de la loi modifiée du 7 août 2023 (texte coordonné au 1er mars 2026). Revenu net moyen 2024/2025, indice moyen 952,30, composition réelle du foyer, majorations 15/40 %, pots personnels restants. Le tableau ministériel confirme le plafond de 52 233,65 EUR pour une personne seule. L’annexe prévoit +1 000 EUR de plafond de prime par enfant au-delà du troisième ; le titre simplifié 500–10 000 EUR n’a pas remplacé la formule légale. Cas sans deux années ordinaires de revenus non chiffrés.
+- Épargne : accroissements annuels réels par bénéficiaire, 10 %, plafond 500 EUR/an sur dix ans, accès conditionné à la prime d’accession, à l’investissement de 90 % et au délai. Pot partagé de 35 000 EUR/personne après autres aides et prime d’accession.
+- Intérêt : taux de l’annexe IV, revenu net 2025 (indice moyen 960,17), arrondi au huitième de point inférieur, correction des prêts sous 1,5 %, plafonnement au taux nominal. Seule la mensualité initiale d’un premier nouveau droit est estimée sur le capital plafonné 200 000 + 20 000/enfant, maximum 280 000 EUR. Seuil mensuel de 10 EUR ; aucune projection forfaitaire à 10/25 ans. Anciens droits, amortissement ultérieur et réexamens nécessitent un dossier.
+- Bëllegen Akt : soldes/quotes-parts explicitement confirmés, minimum de perception de 100 EUR, avantage fiscal séparé des primes en capital pour éviter une seconde déduction dans le parcours d’acquisition.
+- TVA : base HT admissible et solde restant exigés ; différence de 14 points et plafond commun au logement, sans addition de deux faveurs construction/rénovation. Pour les bailleurs, la possibilité en rénovation est signalée sans attribution automatique.
+- Klimabonus, conseil, complément social, prêt climatique, primes fournisseurs et communes : pas de montant calculé à partir du seul budget. Dossier technique, devis, dates et règles de cumul requis ; liens vers les démarches actuelles. Les aides énergétiques ne sont pas exclues automatiquement pour un bailleur.
+- UI dans les cinq langues, sous-total ponctuel distinct de la mensualité, qualification du résultat conservée à la sauvegarde et au PDF. Suppression des tableaux et de la veille non étayés (dont le faux plafond de 42 500 EUR). Les aides ne sont pas présentées comme accordées.
+
+Sources primaires :
+- https://logement.public.lu/dam-assets/documents/legislation/lois/aides-loi-07-08-2023-accessible.pdf (annexes III–V inspectées ; tableau III rendu et lu)
+- https://logement.public.lu/fr/proprietaire/obtenir-aide-achat-construction/prime-accession-propriete.html (plafonds 2024/2025)
+- https://guichet.public.lu/fr/citoyens/logement/aides/aides-directes-capital/prime-epargne.html
+- https://guichet.public.lu/fr/citoyens/aides/logement-construction/aides-interet/subvention-interet.html
+- https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html
+- https://pfi.public.lu/fr/citoyen/tva/logement.html
+- https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement.html
+
+Validation : 1 104 tests/86 fichiers réussis, cas de plafonds et de non-cumul ajoutés. Compilation et lint ciblé réussis. Parcours navigateur acquisition/épargne/revenus exclus/mensualité/entrée invalide dans les cinq langues, largeurs 320/390/768/1440, sans débordement. PDF réellement généré (4 pages), contrôlé par extraction et rendu : inconnus conservés, mensualité séparée, lignes non coupées de leur description. Authentification/téléchargement utilisateur non testés de bout en bout.
+
+Périmètre restant : les autres pages de rénovation résidentielle/hôtelière utilisent leurs propres moteurs et doivent encore être corrigées ; la présente validation ne les couvre pas. Elle ne constitue pas une revue exhaustive de tous les modules de Tevaxia.

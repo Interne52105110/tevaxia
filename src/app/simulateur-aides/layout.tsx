@@ -4,7 +4,7 @@ import { localizedAlternates } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Simulateur d'aides au logement Luxembourg — Bëllegen Akt, Klimabonus",
   description:
-    "Simulez toutes les aides au logement au Luxembourg : Bëllegen Akt, prime d'accession, subvention d'intérêt, garantie État, Klimabonus, aides communales. 5 couches d'aides cumulables.",
+    "Estimez les primes au logement 2026 selon les revenus et le foyer. Distinguez Bëllegen Akt, TVA, subvention mensuelle et aides énergétiques à faire chiffrer.",
   alternates: localizedAlternates("/simulateur-aides", "fr"),
 };
 

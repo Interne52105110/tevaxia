@@ -1935,8 +1935,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   ],
   "/simulateur-aides": [
     "aiChat",
+    "aidesAudit",
     "backup",
-    "common",
     "cookie",
     "crmContextBar",
     "hotellerieContextBar",
@@ -2479,6 +2479,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/wizard-particulier": [
     "acquisitionAudit",
     "aiChat",
+    "aidesAudit",
     "backup",
     "calculLoyer",
     "cookie",
