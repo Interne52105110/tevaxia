@@ -1079,7 +1079,7 @@
     "neufLabel": "Neubau (VEFA)",
     "neufHint": "VEFA-Referenzpreis statt Bestandspreis",
     "emphyteotiqueLabel": "Erbbaurecht",
-    "emphyteotiqueHint": "Immobilie im Erbbaurecht / Emphyteuse (kein Volleigentum)",
+    "emphyteotiqueHint": "Nur Wohnungen im Volleigentum. Anpassungen sind interne Annahmen ohne Validierung anhand unabhängiger Verkäufe. Die Spanne ±18 % (±25 % nur bei Angebotspreisen) ist eine Konvention ohne garantierte Genauigkeit oder Wahrscheinlichkeit.",
     "dureeRestanteLabel": "Restlaufzeit",
     "ansSuffix": "Jahre",
     "canonAnnuelLabel": "Jährlicher Erbbauzins",
@@ -5231,7 +5231,7 @@
     "coeff_col_ci95": "95 %-KI",
     "coeff_col_significance": "Sig.",
     "coeff_col_significance_hint": "Statistische Signifikanz: *** < 1 %, ** < 5 %, * < 10 %, ns = nicht signifikant",
-    "coeff_ci_legend": "95 %-KI = 95 %-Konfidenzintervall (Koeff. ± 1,96 × Standardfehler). Standardfehler per Bootstrap auf ACT-Transaktionen 2018-2024. Signifikanz: *** α<1 %, ** α<5 %, * α<10 %.",
+    "coeff_ci_legend": "Diese Prozentsätze sind Arbeitsannahmen, keine amtlichen Koeffizienten des Observatoriums. MAPE, R², Signifikanz oder Genauigkeit an realen Verkäufen sind nicht nachgewiesen.",
     "literatureCompareTitle": "Vergleich mit akademischer Literatur",
     "literatureCompareSubtitle": "Position des tevaxia-Koeffizienten vs. veröffentlichte Bandbreiten (Observatoire de l'Habitat 2023, LISER 2019, EZB OP275 2022).",
     "literatureRange": "Literaturbandbreite:",
@@ -5298,7 +5298,7 @@
       "faq4Q": "Wie genau ist das Modell pro Gemeinde?",
       "faq4A": "Die Genauigkeit variiert: ±10 % in Luxemburg-Stadt oder Esch-sur-Alzette, bis ±18 % in ländlichen Gemeinden mit wenigen Transaktionen."
     },
-    "calibrationBadge": "Modell neukalibriert Q1 2026 — MAPE 14,7 %",
+    "calibrationBadge": "Indikative Schätzung mit internen Annahmen. Methodik vor Verwendung lesen.",
     "methodologyLink": "Öffentliche Methodik →"
   },
   "indices": {
@@ -9253,7 +9253,7 @@
     },
     "regle5Pourcent": {
       "title": "5 %-Mietregel Luxemburg: Berechnung und Reform 2026",
-      "metaDescription": "5%-Regel LU: max. Jahresmiete = 5% des aufgewerteten investierten Kapitals. STATEC-Koeffizienten, 2%/Jahr Abnutzung, umlegbare Nebenkosten, Gesetzentwurf 8184 (3,5%), Beispiele.",
+      "metaDescription": "Die jährliche Mietobergrenze ohne Nebenkosten beträgt 5 % des aufgewerteten investierten Kapitals nach Nettoabschreibung. Sie entspricht weder 5 % des aktuellen Marktwerts noch einer garantierten Rendite. Umlagefähige Kosten sind getrennt zu behandeln.",
       "subtitle": "So funktioniert Luxemburgs gesetzliche Mietobergrenze, ihre Berechnung und der Effekt der bevorstehenden Reform.",
       "category": "Mieten & Mietvertrag",
       "essentiel": [
@@ -9560,7 +9560,7 @@
     },
     "plusValue": {
       "title": "Immobilien-Veräußerungsgewinn Luxemburg: Steuern 2026 (LIR)",
-      "metaDescription": "Immobilienkapitalgewinne LU 2026: Spekulation < 2 Jahre nach Tarif, Veräußerung ≥ 2 Jahre zum Viertel des Gesamtsatzes, Freibetrag 50.000 €/100.000 €, Hauptwohnsitz-Befreiung, STATEC-Koeffizient.",
+      "metaDescription": "2026 gelten private Verkäufe bei höchstens fünf Jahren Haltedauer als Spekulation; danach kann der halbe globale Steuersatz gelten. 2025 gelten die Zweijahresgrenze und der Viertelsatz bis 30. Juni sowie vom 1. Juli bis 30. September, wenn der Vorvertrag bis 30. Juni bei der AED registriert wurde. Genaue Daten sind entscheidend.",
       "subtitle": "Verstehen Sie die Besteuerung eines Immobilien-Kapitalgewinns nach Haltedauer, Nutzung und anwendbarem Steuerregime.",
       "category": "Besteuerung der Veräußerung",
       "essentiel": [
@@ -11332,7 +11332,7 @@
       },
       "hedonique": {
         "title": "Hedonisches Modell",
-        "desc": "14 Koeffizienten ACT 2018-2024, KI 95 %, MAPE 14,7 %."
+        "desc": "Indikative Schätzung mit internen Annahmen. Methodik vor Verwendung lesen."
       },
       "dcfMulti": {
         "title": "Multi-Tenant DCF",
@@ -11352,7 +11352,7 @@
       },
       "transparence": {
         "title": "Transparenzseite",
-        "desc": "MAPE 14,7 %, R², öffentliche hedonische Koeffizienten."
+        "desc": "Indikative Schätzung mit internen Annahmen. Methodik vor Verwendung lesen."
       },
       "apiDocs": {
         "title": "API-Dokumentation",
@@ -11513,7 +11513,7 @@
       "faq1q": "Muss ich mich anmelden, um die Tools zu nutzen?",
       "faq1a": "Nein, die meisten öffentlichen Tools funktionieren ohne Konto. Ein Konto ermöglicht Cloud-Speicherung (500 Items kostenlos), Preisalarme pro Gemeinde und signierte PDF-Berichte.",
       "faq2q": "Akzeptieren Banken die tevaxia-Schätzung?",
-      "faq2a": "Die öffentliche Schätzung ist indikativ (MAPE ~14,7 %). Für eine Bankunterlage verlangen die meisten LU-Banken einen von einem TEGOVA REV/TRV-zertifizierten Gutachter signierten EVS 2025-Bericht.",
+      "faq2a": "Diese Prozentsätze sind Arbeitsannahmen, keine amtlichen Koeffizienten des Observatoriums. MAPE, R², Signifikanz oder Genauigkeit an realen Verkäufen sind nicht nachgewiesen.",
       "faq3q": "Wie funktioniert Bëllegen Akt?",
       "faq3a": "Der Bëllegen-Abschlag bietet eine Steuergutschrift von bis zu 30.000 € pro Käufer für einen Hauptwohnsitz. /frais-acquisition berechnet ihn automatisch.",
       "faq4q": "Kann ich tevaxia für eine Immobilie in FR oder BE nutzen?",
@@ -11540,7 +11540,7 @@
       "toolsIntro": "TEGOVA-ausgerichtete Module + Modell-Transparenz.",
       "faqTitle": "Häufige Fragen",
       "faq1q": "Ist die hedonische Methode veröffentlicht?",
-      "faq1a": "Ja, /transparence zeigt 14 Koeffizienten, KI 95 %, Signifikanz, MAPE 14,7 % und R². Sie können diese Methode in Ihrem Bericht zitieren.",
+      "faq1a": "Diese Prozentsätze sind Arbeitsannahmen, keine amtlichen Koeffizienten des Observatoriums. MAPE, R², Signifikanz oder Genauigkeit an realen Verkäufen sind nicht nachgewiesen.",
       "faq2q": "Wie funktioniert die SHA-256-Signatur?",
       "faq2a": "Bei Ausstellung wird das PDF gehasht und der Hash in der DB gespeichert (unveränderbar per Trigger). Der Kunde fügt die URL auf /verify ein, die neu hasht und vergleicht.",
       "faq3q": "Multi-Gutachter: wie teilen?",
@@ -11722,7 +11722,7 @@
       "faq3q": "Sind Antworten signiert?",
       "faq3a": "PDF-Berichte enthalten SHA-256-Signatur. JSON-Antworten standardmäßig nicht signiert.",
       "faq4q": "Ist die Methodik open-source?",
-      "faq4a": "Hedonisches Modell öffentlich auf /transparence. Client-Code progressiv open-source. Backend proprietär.",
+      "faq4a": "Diese Prozentsätze sind Arbeitsannahmen, keine amtlichen Koeffizienten des Observatoriums. MAPE, R², Signifikanz oder Genauigkeit an realen Verkäufen sind nicht nachgewiesen.",
       "relatedTitle": "Weiterführend",
       "ctaTitle": "Integration starten",
       "ctaDesc": "Kostenloser API-Schlüssel in 2 Min.",
@@ -17976,5 +17976,16 @@
     "parking": "Annahme +4 % auf Basis ohne Nebenflächen",
     "disclaimer": "Indikative Schätzung mit internen Annahmen. Methodik vor Verwendung lesen.",
     "link": "Methodik"
+  },
+  "fiscalGuideAudit": {
+    "updated": "Berechnungsleitfäden — Regeln geprüft am 8. September 2026",
+    "open": "Rechner öffnen",
+    "pvRegime": "2026 gelten private Verkäufe bei höchstens fünf Jahren Haltedauer als Spekulation; danach kann der halbe globale Steuersatz gelten. 2025 gelten die Zweijahresgrenze und der Viertelsatz bis 30. Juni sowie vom 1. Juli bis 30. September, wenn der Vorvertrag bis 30. Juni bei der AED registriert wurde. Genaue Daten sind entscheidend.",
+    "pvAbat": "Bei langfristigen Verkäufen wird der verbleibende Zehnjahresfreibetrag von 50.000 € (100.000 € bei Zusammenveranlagung) nach anderen zulässigen Abzügen und dem zulässigen Erbschaftsfreibetrag angewandt. Er gilt nicht für Spekulation. Einkommensteuer hängt von regulärem Einkommen und Steuerklasse ab.",
+    "rentRule": "Die jährliche Mietobergrenze ohne Nebenkosten beträgt 5 % des aufgewerteten investierten Kapitals nach Nettoabschreibung. Sie entspricht weder 5 % des aktuellen Marktwerts noch einer garantierten Rendite. Umlagefähige Kosten sind getrennt zu behandeln.",
+    "rentCoef": "Die Aufwertung verwendet die jährliche Tabelle nach Artikel 102 LIR der ACD. Kaufpreis, zulässige Kosten und jede Verbesserung werden nach ihrem jeweiligen Jahr aufgewertet; zukünftige Arbeiten sind ausgeschlossen. Möbel gehören nicht zu diesem Immobilienkapital.",
+    "rentFurniture": "Nach dem aktuellen Recht für möblierte Wohnungen beträgt der monatliche Zuschlag höchstens 1,5 % der zulässigen Rechnungen für Möbel, die weniger als zehn Jahre alt sind. Kein automatischer Zuschlag von 20 % auf die Immobilienmiete.",
+    "rentExample": "Prüfbares Beispiel: Baujahr 1970, Kauf 2000 für 380.000 € plus 28.000 € Kosten; Grundstück 81.600 €; Verbesserungen 15.000 € im Jahr 2000; Mietbeginn 2020. Mit Faktor 1,4 und ohne anrechenbare Instandhaltung: aufgewertetes Kapital 592.200 €, Abschreibung 95.592 €, Nettokapital 496.608 €, monatliche Obergrenze 2.069,20 €.",
+    "rentScope": "Grundstückskauf mit anschließendem Bau, mehrjährige Ausgaben und Sonderregime verlangen eine passende Aufteilung. Urkunden und Rechnungen aufbewahren; Gemeindemittelwerte ersetzen kein investiertes Kapital."
   }
 }

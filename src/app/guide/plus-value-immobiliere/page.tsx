@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { localizedAlternates } from "@/lib/seo";
-import GuideTemplate from "@/components/guide/GuideTemplate";
+import AuditedFiscalGuide from "@/components/guide/AuditedFiscalGuide";
 
 const SLUG = "plus-value-immobiliere";
 const NAMESPACE = "guide.plusValue";
@@ -15,20 +15,4 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function GuidePlusValue() {
-  return (
-    <GuideTemplate
-      namespace={NAMESPACE}
-      slug={SLUG}
-      readingMinutes={9}
-      inlineCalculatorHref="/plus-values"
-      hasTable
-      sections={[
-        { id: "regime", paragraphs: 2, callout: { variant: "info", key: "callout1" } },
-        { id: "calcul", paragraphs: 2 },
-        { id: "abattements", paragraphs: 2, callout: { variant: "tip", key: "callout2" } },
-        { id: "exemples", paragraphs: 1, callout: { variant: "example", key: "callout3" } },
-      ]}
-    />
-  );
-}
+export default async function Guide() { return <AuditedFiscalGuide kind="pv" />; }

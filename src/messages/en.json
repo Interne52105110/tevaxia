@@ -1079,7 +1079,7 @@
     "neufLabel": "New build (VEFA)",
     "neufHint": "VEFA reference price instead of existing",
     "emphyteotiqueLabel": "Emphyteutic lease",
-    "emphyteotiqueHint": "Leasehold / emphyteusis (not freehold)",
+    "emphyteotiqueHint": "Freehold apartments only. Adjustments are internal assumptions, without validation against an independent sales sample. The ±18% range (±25% for asking prices only) is a convention, with no guaranteed accuracy or probability.",
     "dureeRestanteLabel": "Remaining term",
     "ansSuffix": "years",
     "canonAnnuelLabel": "Annual ground rent",
@@ -5231,7 +5231,7 @@
     "coeff_col_ci95": "95% CI",
     "coeff_col_significance": "Sig.",
     "coeff_col_significance_hint": "Statistical significance: *** < 1%, ** < 5%, * < 10%, ns = not significant",
-    "coeff_ci_legend": "95% CI = 95% confidence interval (coef ± 1.96 × standard error). Standard error bootstrapped on ACT transactions 2018-2024. Significance: *** α<1%, ** α<5%, * α<10%.",
+    "coeff_ci_legend": "These percentages are working assumptions, not official Observatory coefficients. No MAPE, R², significance or accuracy on real sales has been demonstrated.",
     "literatureCompareTitle": "Comparison with academic literature",
     "literatureCompareSubtitle": "Position of tevaxia coefficient vs published ranges (Observatoire de l'Habitat 2023, LISER 2019, ECB OP275 2022).",
     "literatureRange": "Literature range:",
@@ -5298,7 +5298,7 @@
       "faq4Q": "How accurate is the model by municipality?",
       "faq4A": "Accuracy varies by transaction density. In Luxembourg City, Esch-sur-Alzette or Differdange, where volumes are high, the confidence interval is ±10%. In northern rural municipalities (Winseler, Kiischpelt) with fewer than 10 transactions per year, the interval can reach ±18%. The model systematically displays a confidence index adapted to each municipality."
     },
-    "calibrationBadge": "Model recalibrated Q1 2026 — MAPE 14.7 %",
+    "calibrationBadge": "Indicative estimate using internal assumptions. Read the methodology before use.",
     "methodologyLink": "Public methodology →"
   },
   "indices": {
@@ -9375,7 +9375,7 @@
     },
     "regle5Pourcent": {
       "title": "Luxembourg 5 % rent rule: calculation and 2026 reform",
-      "metaDescription": "5% rule in LU: max annual rent = 5% of revalued invested capital. STATEC coefficients, 2%/year wear-and-tear, recoverable charges, bill 8184 reform to 3.5%, worked examples.",
+      "metaDescription": "The annual rent cap excluding charges is 5% of revalued invested capital after net depreciation. It is neither 5% of current market value nor a guaranteed yield. Recoverable charges are separate.",
       "subtitle": "How Luxembourg's statutory rent cap works, how to compute it, and the impact of the upcoming reform.",
       "category": "Renting & lease",
       "essentiel": [
@@ -9682,7 +9682,7 @@
     },
     "plusValue": {
       "title": "Luxembourg real estate capital gains: 2026 tax rules (LIR)",
-      "metaDescription": "LU real estate capital gains 2026: speculation < 2 years at progressive rate, transfer ≥ 2 years at one quarter of global rate, €50,000/€100,000 allowance, primary residence exemption, STATEC coefficient.",
+      "metaDescription": "In 2026, private sales held for no more than five years are speculative; longer holdings may qualify for half the overall tax rate. In 2025, the two-year threshold and quarter overall rate apply through 30 June, and from 1 July to 30 September if the preliminary agreement was registered with AED by 30 June. Exact dates matter.",
       "subtitle": "Understand the taxation of a real estate capital gain by holding period, property use and applicable tax regime.",
       "category": "Disposal taxation",
       "essentiel": [
@@ -11454,7 +11454,7 @@
       },
       "hedonique": {
         "title": "Hedonic model",
-        "desc": "14 coefficients calibrated ACT 2018-2024, CI 95%, MAPE 14.7%."
+        "desc": "Indicative estimate using internal assumptions. Read the methodology before use."
       },
       "dcfMulti": {
         "title": "Multi-tenant DCF",
@@ -11474,7 +11474,7 @@
       },
       "transparence": {
         "title": "Transparency page",
-        "desc": "MAPE 14.7%, R², public hedonic coefficients."
+        "desc": "Indicative estimate using internal assumptions. Read the methodology before use."
       },
       "apiDocs": {
         "title": "API documentation",
@@ -11635,7 +11635,7 @@
       "faq1q": "Do I need to log in to use the tools?",
       "faq1a": "No, most public tools (estimation, fees, aids, capital gains) work without an account. An account lets you save estimates to the cloud (500 free items), receive price alerts per commune and generate signed PDF reports.",
       "faq2q": "Is the tevaxia estimate accepted by banks?",
-      "faq2a": "The public estimate is indicative (MAPE ~14.7%). For a banking file, most LU banks require an EVS 2025 report signed by a TEGOVA REV/TRV certified valuer. The /valorisation module generates a compliant PDF, SHA-256 signable, publicly verifiable at /verify.",
+      "faq2a": "These percentages are working assumptions, not official Observatory coefficients. No MAPE, R², significance or accuracy on real sales has been demonstrated.",
       "faq3q": "How does the Bëllegen Akt work?",
       "faq3a": "The Bëllegen Abatement (law 09/07/2014, amended) offers a registration duty tax credit of up to €30,000 per buyer for a primary residence. /frais-acquisition computes it automatically based on your profile (resident, first-time, couple/single).",
       "faq4q": "Can I use tevaxia for property in France or Belgium?",
@@ -11662,7 +11662,7 @@
       "toolsIntro": "TEGOVA-aligned modules + hedonic model transparency.",
       "faqTitle": "Frequently asked questions",
       "faq1q": "Is the hedonic method published?",
-      "faq1a": "Yes, /transparence shows the 14 coefficients, 95% CI, significance (ns/*/**/***), MAPE 14.7% and R². Model re-calibrated on ACT 2018-2024. You can cite this method in your report.",
+      "faq1a": "These percentages are working assumptions, not official Observatory coefficients. No MAPE, R², significance or accuracy on real sales has been demonstrated.",
       "faq2q": "How does SHA-256 signature work?",
       "faq2a": "On issuance, the PDF is hashed and the hash stored in DB (immutable via trigger). The signature block contains hash + /verify URL + timestamp. Client pastes URL on /verify which re-hashes and compares — if matches, integrity guaranteed. No costly PKI needed.",
       "faq3q": "Multi-valuer: how to share?",
@@ -11844,7 +11844,7 @@
       "faq3q": "Are responses signed?",
       "faq3a": "PDF reports (EVS valuation) include SHA-256 signature verifiable at /verify. JSON responses aren't signed by default (client already authenticates with API key). On Enterprise request: JWT response signature possible.",
       "faq4q": "Is the methodology open-source?",
-      "faq4a": "Hedonic model is public: coefficients, 95% CI, MAPE 14.7%, R² published on /transparence. DCF/MLV algorithms follow TEGOVA EVS 2025 + EBA/CRR standards. Client source code progressively open-source (pure calculation libs on GitHub forthcoming). Backend proprietary.",
+      "faq4a": "These percentages are working assumptions, not official Observatory coefficients. No MAPE, R², significance or accuracy on real sales has been demonstrated.",
       "relatedTitle": "Go further",
       "ctaTitle": "Start integrating",
       "ctaDesc": "Free API key in 2 min, OpenAPI documentation + playground, support via Intercom.",
@@ -17976,5 +17976,16 @@
     "parking": "+4% assumption on prices excluding annexes",
     "disclaimer": "Indicative estimate using internal assumptions. Read the methodology before use.",
     "link": "Methodology"
+  },
+  "fiscalGuideAudit": {
+    "updated": "Calculation guides — rules checked on 8 September 2026",
+    "open": "Open calculator",
+    "pvRegime": "In 2026, private sales held for no more than five years are speculative; longer holdings may qualify for half the overall tax rate. In 2025, the two-year threshold and quarter overall rate apply through 30 June, and from 1 July to 30 September if the preliminary agreement was registered with AED by 30 June. Exact dates matter.",
+    "pvAbat": "For long-term sales, the remaining ten-year allowance of €50,000 (€100,000 for joint assessment) follows other eligible deductions and the eligible inheritance allowance. It does not apply to speculative gains. Income tax depends on ordinary income and tax class; a universal flat rate would be misleading.",
+    "rentRule": "The annual rent cap excluding charges is 5% of revalued invested capital after net depreciation. It is neither 5% of current market value nor a guaranteed yield. Recoverable charges are separate.",
+    "rentCoef": "Revaluation uses the annual Article 102 LIR table published by ACD. Purchase price, eligible fees and each improvement use their respective years; future work is excluded. Furniture is not part of this property capital.",
+    "rentFurniture": "Under the current furnished tenancy regime, the monthly supplement is capped at 1.5% of eligible invoices for furniture less than ten years old. There is no automatic 20% uplift on property rent.",
+    "rentExample": "Verifiable example: built in 1970, bought in 2000 for €380,000 plus €28,000 fees; land €81,600; improvements €15,000 in 2000; lease in 2020. With coefficient 1.4 and no deductible maintenance: revalued capital €592,200, depreciation €95,592, net capital €496,608, monthly cap €2,069.20.",
+    "rentScope": "Land followed by construction, spending over several years and special regimes require appropriate allocation. Keep deeds, invoices and evidence; a municipal average does not replace invested capital."
   }
 }

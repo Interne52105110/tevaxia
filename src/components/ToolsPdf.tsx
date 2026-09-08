@@ -112,6 +112,8 @@ function RowHL({ label, value: v }: { label: string; value: string }) {
 /* ==================== 1. ESTIMATION ==================== */
 
 export interface EstimationPdfParams {
+  sourceBase?: string;
+  limitations?: string;
   commune: string; typeBien: string; surface: number; chambres?: number;
   prixBas: number; prixMoyen: number; prixHaut: number; prixM2: number;
   adjustments?: { label: string; impact: string }[];
@@ -147,6 +149,9 @@ function EstimationDoc({ p }: { p: EstimationPdfParams }) {
         {p.confidence && <ConfidenceGauge level={p.confidence} />}
 
         <PriceRangeBar min={p.prixBas} mid={p.prixMoyen} max={p.prixHaut} label="Fourchette de prix estimee" />
+
+        {p.sourceBase && <Text style={{ fontSize: 9, marginVertical: 6 }}>Source : {p.sourceBase}</Text>}
+        {p.limitations && <Text style={{ fontSize: 9, lineHeight: 1.4, marginBottom: 10 }}>{p.limitations}</Text>}
 
         <Text style={s.section}>Bien evalue</Text>
         <Row label="Commune" value={p.commune} />

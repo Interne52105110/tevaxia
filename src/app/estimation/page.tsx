@@ -146,7 +146,7 @@ export default function Estimation() {
   const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
 
   const result = useMemo(() => {
-    if (!selectedResult) return null;
+    if (!selectedResult || bailEmphyteotique) return null;
     return estimer({
       commune: selectedResult.commune.commune,
       quartier: selectedResult.quartier?.nom,
@@ -160,7 +160,7 @@ export default function Estimation() {
       typeBien: "appartement",
       estNeuf,
     });
-  }, [selectedResult, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf]);
+  }, [selectedResult, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf, bailEmphyteotique]);
 
   // ── Comparables synthétiques ──
   const comparables = useMemo(() => {
@@ -226,7 +226,7 @@ export default function Estimation() {
               <input
                 type="text"
                 value={communeSearch}
-                onChange={(e) => { setCommuneSearch(e.target.value); if (!e.target.value) setSelectedResult(null); }}
+                onChange={(e) => { setCommuneSearch(e.target.value); setSelectedResult(null); }}
                 placeholder={t("searchPlaceholder")}
                 className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-3 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
               />
@@ -341,6 +341,7 @@ export default function Estimation() {
                     <div className="font-semibold">{formatEUR(result.estimationHaute)}</div>
                   </div>
                 </div>
+                <div className="mt-3 text-xs text-white/70">{result.sourceBase}</div>
                 <div className="mt-3 text-xs text-white/50">
                   {t("prixM2Detail", { prixM2: result.prixM2Ajuste, surface })}
                 </div>
@@ -825,6 +826,8 @@ export default function Estimation() {
                   filename={`estimation-${(selectedResult?.commune.commune || communeSearch).toLowerCase()}-${new Date().toLocaleDateString("fr-FR")}.pdf`}
                   generateBlob={() =>
                     _lazy_generateEstimationPdfBlob({
+                      sourceBase: result.sourceBase,
+                      limitations: t("auditLimits"),
                       commune: selectedResult?.commune.commune || communeSearch,
                       typeBien: t("typeBienAppartement"),
                       surface,

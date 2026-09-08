@@ -69,3 +69,10 @@ SHA-256 affines : `ffd6e9728146f8c518ea079edff3bae1877652c450906dda7a1b0c7105f74
 SHA-256 annonces : `b31167af2cc402f8f45e6359aa4090bab02db348b0a0f8202acc106b839bba7a`.
 
 SHA-256 loyers : `61ae31831f3bbb111a3ff8c735858e0778479d6720fc523ee030a7839f3e4b19`.
+
+
+## Cohérence des estimateurs et guides
+
+/hedonique utilise désormais le même moteur et les mêmes contrôles que /estimation : retrait du second jeu de coefficients, erreurs-types et significativités sans échantillon de ventes justificatif. Les textes de présentation associés sont corrigés dans les cinq langues. L’export PDF reçoit désormais la source et les limites ; parcours PDF authentifié non testé de bout en bout dans cette session. Une modification de la recherche invalide la sélection précédente ; le mode emphytéotique ne produit plus une estimation en pleine propriété.
+
+Guides /guide/plus-value-immobiliere et /guide/regle-5-pourcent-loyer réécrits avec règles datées, sources précises et exemple de loyer 2020 réconcilié à 2 069,20 €/mois. Suppression des anciennes illustrations 2015×2,07 et du quart de taux présenté comme régime ordinaire 2026. Les cinq langues passent les contrôles mobiles, liens aux calculateurs et textes ; build et lint ciblé réussis.

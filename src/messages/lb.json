@@ -1079,7 +1079,7 @@
     "neufLabel": "Neibau (VEFA)",
     "neufHint": "VEFA-Referenzpräis amplaz Bestandspräis",
     "emphyteotiqueLabel": "Emphyteotesche Bail",
-    "emphyteotiqueHint": "Immobilie am Buedemrecht / Emphytéose (kee Volleigentum)",
+    "emphyteotiqueHint": "Nëmme Wunnengen am Volleegentum. Upassunge sinn intern Hypotheesen ouni Validatioun mat onofhängege Verkafsdonnéeën. D’Spann ±18 % (±25 % nëmme mat Annoncepräisser) ass eng Konventioun ouni garantéiert Genauegkeet oder Warscheinlechkeet.",
     "dureeRestanteLabel": "Reschtlafzäit",
     "ansSuffix": "Joer",
     "canonAnnuelLabel": "Jäerleche Canon",
@@ -5231,7 +5231,7 @@
     "coeff_col_ci95": "95 %-KI",
     "coeff_col_significance": "Sig.",
     "coeff_col_significance_hint": "Statistesch Bedeitung: *** < 1 %, ** < 5 %, * < 10 %, ns = net bedeitend",
-    "coeff_ci_legend": "95 %-KI = 95 %-Konfidenzintervall (Koeff. ± 1,96 × Standardfeeler). Standardfeeler per Bootstrap op ACT-Transaktiounen 2018-2024. Bedeitung: *** α<1 %, ** α<5 %, * α<10 %.",
+    "coeff_ci_legend": "Dës Prozenter sinn Aarbechtshypotheesen, keng offiziell Koeffiziente vum Observatoire. MAPE, R², Signifikanz oder Genauegkeet op reelle Verkafsdonnéeë sinn net nogewisen.",
     "literatureCompareTitle": "Verglach mat der akademescher Literatur",
     "literatureCompareSubtitle": "Positioun vum tevaxia-Koeffizient vis-à-vis vu publizéierte Bereicher (Observatoire de l'Habitat 2023, LISER 2019, EZB OP275 2022).",
     "literatureRange": "Literaturberäich:",
@@ -5298,7 +5298,7 @@
       "faq4Q": "Wéi genee ass d'Modell pro Gemeng?",
       "faq4A": "±10 % an der Stad Lëtzebuerg oder Esch-Uelzecht, bis ±18 % a ländleche Gemengen."
     },
-    "calibrationBadge": "Modell nei kalibréiert Q1 2026 — MAPE 14,7 %",
+    "calibrationBadge": "Indikativ Schätzung mat internen Hypotheesen. Liest d’Method virum Gebrauch.",
     "methodologyLink": "Ëffentlech Methodik →"
   },
   "indices": {
@@ -9253,7 +9253,7 @@
     },
     "regle5Pourcent": {
       "title": "5 %-Locatiounsregel Lëtzebuerg: Berechnung a Reform 2026",
-      "metaDescription": "5%-Regel LU: max. Joresloyer = 5% vum opgewäerten investéierte Kapital. STATEC-Koeffizienten, 2%/Joer Veraltung, recuperabel Käschten, Projet 8184 Reform op 3,5%, Beispiller.",
+      "metaDescription": "D’jäerlech Loyersplafong ouni Niewekäschte läit bei 5 % vum revaloriséierten investéierte Kapital no der Nettodecote. Dat si weder 5 % vum aktuelle Maartwäert nach eng garantéiert Rendite. Recuperabel Käschte ginn separat behandelt.",
       "subtitle": "Wéi d'gesetzlech Mietoebergrenz zu Lëtzebuerg funktionéiert, d'Berechnung an den Effekt vun der kommender Reform.",
       "category": "Locatioun a Bail",
       "essentiel": [
@@ -9560,7 +9560,7 @@
     },
     "plusValue": {
       "title": "Immobilien-Plus-value Lëtzebuerg: Steieren 2026 (LIR)",
-      "metaDescription": "Immobilie-Kapitalgewënner LU 2026: Spekulatioun < 2 Joer no Tarif, Veräusserung ≥ 2 Joer zum Véierel vum Gesamtsaz, Fräibedrag 50.000 €/100.000 €, Haaptwunnsëtz-Befreiung, STATEC-Koeffizient.",
+      "metaDescription": "2026 gëllt e private Verkaf bei enger Haltedauer vu maximal fënnef Joer als Spekulatioun; duerno kann den hallwe globale Steiersaz gëllen. 2025 gëllen d’Zweejoersgrenz an de Véierelsaz bis den 30. Juni an tëscht dem 1. Juli an dem 30. September, wann de Virvertrag bis den 30. Juni bei der AED registréiert gouf. Déi genee Datume si wichteg.",
       "subtitle": "Verstitt d'Besteierung vun engem Immobilie-Kapitalgewënn no Haltedauer, Notzung an applikabelem Steierregime.",
       "category": "Besteierung vun der Veräusserung",
       "essentiel": [
@@ -11332,7 +11332,7 @@
       },
       "hedonique": {
         "title": "Hedonescht Modell",
-        "desc": "14 Koeffizienten, KI 95 %, MAPE 14,7 %."
+        "desc": "Indikativ Schätzung mat internen Hypotheesen. Liest d’Method virum Gebrauch."
       },
       "dcfMulti": {
         "title": "Multi-Locataire DCF",
@@ -11352,7 +11352,7 @@
       },
       "transparence": {
         "title": "Transparenzsäit",
-        "desc": "MAPE 14,7 %, R², ëffentlech Koeffizienten."
+        "desc": "Indikativ Schätzung mat internen Hypotheesen. Liest d’Method virum Gebrauch."
       },
       "apiDocs": {
         "title": "API-Dokumentatioun",
@@ -11513,7 +11513,7 @@
       "faq1q": "Muss een sech umellen?",
       "faq1a": "Nee, déi meescht ëffentlech Tools funktionéieren ouni Konto. E Konto erméiglecht Cloud-Späicherung.",
       "faq2q": "Gëtt d'tevaxia-Schätzung vun de Banken unerkannt?",
-      "faq2a": "Déi ëffentlech Schätzung ass indikativ (MAPE ~14,7 %). Fir en Bankendossier verlaangen Banken en EVS 2025-Bericht.",
+      "faq2a": "Dës Prozenter sinn Aarbechtshypotheesen, keng offiziell Koeffiziente vum Observatoire. MAPE, R², Signifikanz oder Genauegkeet op reelle Verkafsdonnéeë sinn net nogewisen.",
       "faq3q": "Wéi funktionéiert de Bëllegen Akt?",
       "faq3a": "De Bëllegen Abatement bitt e Steierkredit bis 30.000 € pro Keefer fir d'Haaptresidenz.",
       "faq4q": "Kann ech tevaxia fir e Bien a FR oder BE notzen?",
@@ -11540,7 +11540,7 @@
       "toolsIntro": "TEGOVA-ausgeriicht Moduler + Modell-Transparenz.",
       "faqTitle": "Heefeg Froen",
       "faq1q": "Ass déi hedonesch Method publizéiert?",
-      "faq1a": "Jo, /transparence weist 14 Koeffizienten, KI 95 %, MAPE 14,7 %.",
+      "faq1a": "Dës Prozenter sinn Aarbechtshypotheesen, keng offiziell Koeffiziente vum Observatoire. MAPE, R², Signifikanz oder Genauegkeet op reelle Verkafsdonnéeë sinn net nogewisen.",
       "faq2q": "Wéi funktionéiert d'SHA-256-Signatur?",
       "faq2a": "Bei Emissioun gëtt PDF gehasht, Hash gespäichert (onverännerbar). Client setzt URL op /verify.",
       "faq3q": "Multi-Gutachter: wéi deelen?",
@@ -11722,7 +11722,7 @@
       "faq3q": "Sinn d'Äntwerten ënnerschriwwen?",
       "faq3a": "PDF-Berichter enthalen SHA-256-Signatur. JSON-Äntwerten standardméisseg net ënnerschriwwen.",
       "faq4q": "Ass d'Methodologie open-source?",
-      "faq4a": "Hedonescht Modell ëffentlech op /transparence. Client-Code progressiv open-source. Backend propriétaire.",
+      "faq4a": "Dës Prozenter sinn Aarbechtshypotheesen, keng offiziell Koeffiziente vum Observatoire. MAPE, R², Signifikanz oder Genauegkeet op reelle Verkafsdonnéeë sinn net nogewisen.",
       "relatedTitle": "Méi erausfannen",
       "ctaTitle": "Integratioun starten",
       "ctaDesc": "Gratis API-Schlëssel an 2 Min.",
@@ -17976,5 +17976,16 @@
     "parking": "Hypothees +4 % op Basis ouni Annexe",
     "disclaimer": "Indikativ Schätzung mat internen Hypotheesen. Liest d’Method virum Gebrauch.",
     "link": "Method"
+  },
+  "fiscalGuideAudit": {
+    "updated": "Berechnungsguiden — Reegelen den 8. September 2026 gepréift",
+    "open": "Rechner opmaachen",
+    "pvRegime": "2026 gëllt e private Verkaf bei enger Haltedauer vu maximal fënnef Joer als Spekulatioun; duerno kann den hallwe globale Steiersaz gëllen. 2025 gëllen d’Zweejoersgrenz an de Véierelsaz bis den 30. Juni an tëscht dem 1. Juli an dem 30. September, wann de Virvertrag bis den 30. Juni bei der AED registréiert gouf. Déi genee Datume si wichteg.",
+    "pvAbat": "Bei laangfristege Verkeef gëtt de reschtlechen Zéngjoersabattement vu 50.000 € (100.000 € bei kollektiver Besteierung) no aneren zougeloossenen Ofzich an dem zougeloossenen Ierfschaftsabattement applizéiert. Hie gëllt net fir Spekulatioun. D’Akommessteier hänkt vum ordinären Akommes an der Steierklass of.",
+    "rentRule": "D’jäerlech Loyersplafong ouni Niewekäschte läit bei 5 % vum revaloriséierten investéierte Kapital no der Nettodecote. Dat si weder 5 % vum aktuelle Maartwäert nach eng garantéiert Rendite. Recuperabel Käschte ginn separat behandelt.",
+    "rentCoef": "D’Revalorisatioun benotzt déi jäerlech Tabell no Artikel 102 LIR vun der ACD. Kafpräis, zougeloosse Käschten an all Verbesserung gi no hirem Joer revaloriséiert; zukünfteg Aarbechte sinn ausgeschloss. Miwwele gehéieren net zu dësem Immobiliekapital.",
+    "rentFurniture": "Am aktuelle Regime fir miwweléiert Wunnengen läit de monatlechen Zouschlag bei maximal 1,5 % vun de berechtegte Rechnunge fir Miwwelen, déi manner wéi zéng Joer al sinn. Keen automateschen Zouschlag vun 20 % op den Immobilieloyer.",
+    "rentExample": "Nokontrolléierbart Beispill: Baujoer 1970, Kaf 2000 fir 380.000 € plus 28.000 € Käschten; Terrain 81.600 €; Verbesserungen 15.000 € am Joer 2000; Bail 2020. Mat Koeffizient 1,4 an ouni verrechenbaren Entretien: revaloriséiert Kapital 592.200 €, Decote 95.592 €, Nettokapital 496.608 €, monatlech Plafong 2.069,20 €.",
+    "rentScope": "Terrain mat uschléissendem Bau, Ausgaben iwwer e puer Joer a speziell Regimer erfuerderen eng passend Opdeelung. Haalt Akten a Rechnungen; eng Gemengemoyenne ersetzt net dat investéiert Kapital."
   }
 }

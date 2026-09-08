@@ -1079,7 +1079,7 @@
     "neufLabel": "Construção nova (VEFA)",
     "neufHint": "Preço de referência VEFA em vez de existente",
     "emphyteotiqueLabel": "Enfiteuse",
-    "emphyteotiqueHint": "Imóvel em direito de superfície / enfiteuse (sem plena propriedade)",
+    "emphyteotiqueHint": "Apenas apartamentos em propriedade plena. Os ajustes são hipóteses internas, sem validação numa amostra independente de vendas. A faixa ±18% (±25% só com anúncios) é convencional, sem precisão ou probabilidade garantida.",
     "dureeRestanteLabel": "Duração restante",
     "ansSuffix": "anos",
     "canonAnnuelLabel": "Cânon anual",
@@ -5231,7 +5231,7 @@
     "coeff_col_ci95": "IC 95 %",
     "coeff_col_significance": "Sig.",
     "coeff_col_significance_hint": "Significancia estatistica: *** < 1 %, ** < 5 %, * < 10 %, ns = nao significativo",
-    "coeff_ci_legend": "IC 95 % = intervalo de confianca a 95 % (coef ± 1,96 × erro-padrao). Erro-padrao por bootstrap nas transacoes ACT 2018-2024. Significancia: *** α<1 %, ** α<5 %, * α<10 %.",
+    "coeff_ci_legend": "Estas percentagens são hipóteses de trabalho, não coeficientes oficiais do Observatório. Não foi demonstrada MAPE, R², significância ou precisão em vendas reais.",
     "literatureCompareTitle": "Comparação com a literatura académica",
     "literatureCompareSubtitle": "Posição do coeficiente tevaxia face aos intervalos publicados (Observatoire de l'Habitat 2023, LISER 2019, BCE OP275 2022).",
     "literatureRange": "Intervalo da literatura:",
@@ -5298,7 +5298,7 @@
       "faq4Q": "Qual a precisão do modelo por município?",
       "faq4A": "A precisão varia: ±10% na Cidade do Luxemburgo ou Esch-sur-Alzette, até ±18% em municípios rurais do norte."
     },
-    "calibrationBadge": "Modelo recalibrado Q1 2026 — MAPE 14,7 %",
+    "calibrationBadge": "Estimativa indicativa com hipóteses internas. Leia a metodologia antes de utilizar.",
     "methodologyLink": "Metodologia pública →"
   },
   "indices": {
@@ -9253,7 +9253,7 @@
     },
     "regle5Pourcent": {
       "title": "Regra dos 5 % do arrendamento Luxemburgo: cálculo e reforma 2026",
-      "metaDescription": "Regra dos 5% LU: renda anual máx = 5% do capital investido reavaliado. Coeficientes STATEC, vetustez 2%/ano, encargos recuperáveis, projeto 8184 reforma para 3,5%, exemplos calculados.",
+      "metaDescription": "O limite anual da renda sem encargos é 5% do capital investido reavaliado após depreciação líquida. Não corresponde a 5% do valor de mercado atual nem a uma rentabilidade garantida. Os encargos recuperáveis são separados.",
       "subtitle": "O mecanismo de limitação legal da renda no Luxemburgo, o seu cálculo e o impacto da reforma em curso.",
       "category": "Arrendamento e contrato",
       "essentiel": [
@@ -9560,7 +9560,7 @@
     },
     "plusValue": {
       "title": "Mais-valia imobiliária Luxemburgo: fiscalidade 2026 (LIR)",
-      "metaDescription": "Mais-valia imobiliária LU 2026: especulação < 2 anos à taxa progressiva, cessão ≥ 2 anos a um quarto da taxa global, abatimento 50 000 €/100 000 €, isenção residência principal, coeficiente STATEC.",
+      "metaDescription": "Em 2026, vendas privadas com detenção até cinco anos são especulativas; depois pode aplicar-se metade da taxa global. Em 2025, o prazo de dois anos e um quarto da taxa global aplicam-se até 30 de junho e de 1 de julho a 30 de setembro se o contrato-promessa foi registado na AED até 30 de junho. As datas exatas são decisivas.",
       "subtitle": "Compreender a tributação de uma mais-valia imobiliária consoante a duração de detenção, a utilização do bem e o regime fiscal aplicável.",
       "category": "Tributação da cessão",
       "essentiel": [
@@ -11332,7 +11332,7 @@
       },
       "hedonique": {
         "title": "Modelo hedónico",
-        "desc": "14 coeficientes calibrados ACT 2018-2024, IC 95 %, MAPE 14,7 %."
+        "desc": "Estimativa indicativa com hipóteses internas. Leia a metodologia antes de utilizar."
       },
       "dcfMulti": {
         "title": "DCF multi-inquilinos",
@@ -11352,7 +11352,7 @@
       },
       "transparence": {
         "title": "Página transparência",
-        "desc": "MAPE 14,7 %, R², coeficientes hedónicos públicos."
+        "desc": "Estimativa indicativa com hipóteses internas. Leia a metodologia antes de utilizar."
       },
       "apiDocs": {
         "title": "Documentação API",
@@ -11513,7 +11513,7 @@
       "faq1q": "É preciso iniciar sessão para usar as ferramentas?",
       "faq1a": "Não, a maioria funciona sem conta. Uma conta permite guardar estimativas na cloud, receber alertas e gerar relatórios PDF.",
       "faq2q": "A estimativa tevaxia é aceite pelos bancos?",
-      "faq2a": "A estimativa pública é indicativa (MAPE ~14,7 %). Para um processo bancário, a maioria dos bancos LU exige um relatório EVS 2025 assinado por avaliador TEGOVA.",
+      "faq2a": "Estas percentagens são hipóteses de trabalho, não coeficientes oficiais do Observatório. Não foi demonstrada MAPE, R², significância ou precisão em vendas reais.",
       "faq3q": "Como funciona o Bëllegen Akt?",
       "faq3a": "O Abatimento Bëllegen oferece um crédito fiscal até 30.000 € por comprador para residência principal. /frais-acquisition calcula automaticamente.",
       "faq4q": "Posso usar tevaxia para imóvel em FR ou BE?",
@@ -11540,7 +11540,7 @@
       "toolsIntro": "Módulos TEGOVA-alinhados + transparência modelo hedónico.",
       "faqTitle": "Perguntas frequentes",
       "faq1q": "O método hedónico é publicado?",
-      "faq1a": "Sim, /transparence mostra os 14 coeficientes, IC 95 %, significância, MAPE 14,7 %.",
+      "faq1a": "Estas percentagens são hipóteses de trabalho, não coeficientes oficiais do Observatório. Não foi demonstrada MAPE, R², significância ou precisão em vendas reais.",
       "faq2q": "Como funciona a assinatura SHA-256?",
       "faq2a": "Na emissão, PDF é hashed e hash armazenado em DB (imutável). Cliente cola URL em /verify que re-hash e compara.",
       "faq3q": "Multi-avaliadores: como partilhar?",
@@ -11722,7 +11722,7 @@
       "faq3q": "As respostas são assinadas?",
       "faq3a": "Relatórios PDF incluem assinatura SHA-256 verificável em /verify. Respostas JSON não assinadas por defeito.",
       "faq4q": "A metodologia é open-source?",
-      "faq4a": "Modelo hedónico público em /transparence. Código cliente progressivamente open-source. Backend proprietário.",
+      "faq4a": "Estas percentagens são hipóteses de trabalho, não coeficientes oficiais do Observatório. Não foi demonstrada MAPE, R², significância ou precisão em vendas reais.",
       "relatedTitle": "Saber mais",
       "ctaTitle": "Iniciar integração",
       "ctaDesc": "Chave API grátis em 2 min, documentação OpenAPI.",
@@ -17976,5 +17976,16 @@
     "parking": "Hipótese +4% na base sem anexos",
     "disclaimer": "Estimativa indicativa com hipóteses internas. Leia a metodologia antes de utilizar.",
     "link": "Metodologia"
+  },
+  "fiscalGuideAudit": {
+    "updated": "Guias de cálculo — regras verificadas em 8 de setembro de 2026",
+    "open": "Abrir calculadora",
+    "pvRegime": "Em 2026, vendas privadas com detenção até cinco anos são especulativas; depois pode aplicar-se metade da taxa global. Em 2025, o prazo de dois anos e um quarto da taxa global aplicam-se até 30 de junho e de 1 de julho a 30 de setembro se o contrato-promessa foi registado na AED até 30 de junho. As datas exatas são decisivas.",
+    "pvAbat": "Nas vendas de longo prazo, o abatimento decenal restante de 50.000 € (100.000 € na tributação conjunta) aplica-se após outras deduções elegíveis e o abatimento sucessório elegível. Não se aplica à especulação. O imposto depende do rendimento ordinário e da classe fiscal.",
+    "rentRule": "O limite anual da renda sem encargos é 5% do capital investido reavaliado após depreciação líquida. Não corresponde a 5% do valor de mercado atual nem a uma rentabilidade garantida. Os encargos recuperáveis são separados.",
+    "rentCoef": "A reavaliação utiliza a tabela anual do artigo 102 LIR publicada pela ACD. Preço, despesas elegíveis e cada melhoria são reavaliados pelo respetivo ano; obras futuras são excluídas. O mobiliário não integra este capital imobiliário.",
+    "rentFurniture": "No regime atual de arrendamento mobilado, o suplemento mensal está limitado a 1,5% das faturas elegíveis de móveis com menos de dez anos. Não existe aumento automático de 20% sobre a renda imobiliária.",
+    "rentExample": "Exemplo verificável: construção em 1970, compra em 2000 por 380.000 € mais 28.000 € de despesas; terreno 81.600 €; melhorias 15.000 € em 2000; contrato em 2020. Com coeficiente 1,4 e sem manutenção imputável: capital reavaliado 592.200 €, depreciação 95.592 €, capital líquido 496.608 €, limite mensal 2.069,20 €.",
+    "rentScope": "Terreno seguido de construção, despesas em vários anos e regimes especiais exigem repartição adequada. Guarde escrituras, faturas e provas; uma média municipal não substitui o capital investido."
   }
 }

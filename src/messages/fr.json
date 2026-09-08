@@ -1079,7 +1079,7 @@
     "neufLabel": "Bien neuf (VEFA)",
     "neufHint": "Prix de référence VEFA au lieu d'existant",
     "emphyteotiqueLabel": "Bail emphytéotique",
-    "emphyteotiqueHint": "Bien en droit de superficie / emphytéose (pas pleine propriété)",
+    "emphyteotiqueHint": "Appartement en pleine propriété uniquement. Les ajustements sont des hypothèses internes, sans validation sur un échantillon indépendant de ventes. La fourchette ±18 % (ou ±25 % avec annonces seules) est conventionnelle : aucune probabilité ni précision garantie.",
     "dureeRestanteLabel": "Durée restante",
     "ansSuffix": "ans",
     "canonAnnuelLabel": "Canon annuel",
@@ -5231,7 +5231,7 @@
     "coeff_col_ci95": "IC 95 %",
     "coeff_col_significance": "Sig.",
     "coeff_col_significance_hint": "Significativité statistique : *** < 1 %, ** < 5 %, * < 10 %, ns = non significatif",
-    "coeff_ci_legend": "IC 95 % = intervalle de confiance à 95 % (coef ± 1,96 × erreur-type). Erreur-type estimée par bootstrap sur transactions ACT 2018-2024. Significativité : *** α<1 %, ** α<5 %, * α<10 %.",
+    "coeff_ci_legend": "Les pourcentages ci-dessous sont des hypothèses de travail. Ils ne sont pas des coefficients officiels de l’Observatoire. Aucune MAPE, R², significativité ou précision sur ventes réelles n’est démontrée.",
     "literatureCompareTitle": "Comparaison avec la littérature académique",
     "literatureCompareSubtitle": "Position du coefficient tevaxia par rapport aux fourchettes publiées (Observatoire de l'Habitat 2023, LISER 2019, ECB OP275 2022).",
     "literatureRange": "Fourchette littérature :",
@@ -5298,7 +5298,7 @@
       "faq4Q": "Quelle est la précision du modèle par commune ?",
       "faq4A": "La précision varie selon la densité de transactions. À Luxembourg-Ville, Esch-sur-Alzette ou Differdange, où les volumes sont élevés, l'intervalle de confiance est de &plusmn;10 %. Dans les communes rurales du nord (Winseler, Kiischpelt) avec moins de 10 transactions par an, l'intervalle peut atteindre &plusmn;18 %. Le modèle affiche systématiquement un indice de confiance adapté à chaque commune."
     },
-    "calibrationBadge": "Modèle recalibré Q1 2026 — MAPE 14,7 %",
+    "calibrationBadge": "Estimation indicative avec hypothèses internes. Consulter la méthodologie avant utilisation.",
     "methodologyLink": "Méthodologie publique →"
   },
   "indices": {
@@ -9375,7 +9375,7 @@
     },
     "regle5Pourcent": {
       "title": "Règle des 5 % du loyer Luxembourg : calcul et réforme 2026",
-      "metaDescription": "Règle des 5 % au LU : loyer annuel max = 5 % du capital investi réévalué. Coefficients STATEC, vétusté 2 %/an, charges récupérables, projet 8184 réforme à 3,5 %, exemples chiffrés.",
+      "metaDescription": "Le plafond annuel du loyer hors charges est de 5 % du capital investi réévalué, après décote nette. Il ne s’agit ni de 5 % du prix de marché actuel ni d’un rendement garanti. Les charges récupérables se traitent séparément.",
       "subtitle": "Le mécanisme de plafonnement légal du loyer au Luxembourg, son calcul et l'impact de la réforme à venir.",
       "category": "Location & bail",
       "essentiel": [
@@ -9682,7 +9682,7 @@
     },
     "plusValue": {
       "title": "Plus-value immobilière Luxembourg : fiscalité 2026 (LIR)",
-      "metaDescription": "Plus-value immobilière LU 2026 : spéculation < 2 ans au barème, cession ≥ 2 ans au quart du taux global, abattement 50 000 €/100 000 €, exonération résidence principale, coefficient STATEC.",
+      "metaDescription": "En 2026, la cession privée relève de la spéculation lorsque la détention ne dépasse pas cinq ans ; au-delà, le demi-taux global peut s’appliquer. En 2025, le seuil de deux ans et le quart du taux global concernent les actes jusqu’au 30 juin, ainsi que ceux du 1er juillet au 30 septembre avec compromis enregistré à l’AED au plus tard le 30 juin. Les dates exactes sont déterminantes.",
       "subtitle": "Comprendre l'imposition d'une plus-value immobilière selon la durée de détention, l'usage du bien et le régime fiscal applicable.",
       "category": "Fiscalité de la cession",
       "essentiel": [
@@ -11454,7 +11454,7 @@
       },
       "hedonique": {
         "title": "Modèle hédonique",
-        "desc": "14 coefficients calibrés ACT 2018-2024, IC 95 %, MAPE 14,7 %."
+        "desc": "Estimation indicative avec hypothèses internes. Consulter la méthodologie avant utilisation."
       },
       "dcfMulti": {
         "title": "DCF multi-locataires",
@@ -11474,7 +11474,7 @@
       },
       "transparence": {
         "title": "Page transparence",
-        "desc": "MAPE 14,7 %, R², coefficients hédoniques publics."
+        "desc": "Estimation indicative avec hypothèses internes. Consulter la méthodologie avant utilisation."
       },
       "apiDocs": {
         "title": "Documentation API",
@@ -11635,7 +11635,7 @@
       "faq1q": "Faut-il se connecter pour utiliser les outils ?",
       "faq1a": "Non, la plupart des outils publics (estimation, frais, aides, plus-values) fonctionnent sans compte. Un compte permet de sauvegarder vos estimations dans le cloud (500 items gratuits), recevoir des alertes prix par commune et générer des rapports PDF signés.",
       "faq2q": "L'estimation tevaxia est-elle acceptée par les banques ?",
-      "faq2a": "L'estimation publique est indicative (MAPE ~14,7 %). Pour un dossier bancaire, la plupart des banques LU exigent un rapport EVS 2025 signé par un évaluateur certifié TEGOVA REV/TRV. Le module /valorisation génère un rapport PDF conforme, signable SHA-256, vérifiable publiquement sur /verify.",
+      "faq2a": "Les pourcentages ci-dessous sont des hypothèses de travail. Ils ne sont pas des coefficients officiels de l’Observatoire. Aucune MAPE, R², significativité ou précision sur ventes réelles n’est démontrée.",
       "faq3q": "Comment fonctionne le Bëllegen Akt ?",
       "faq3a": "L'Abattement Bëllegen (loi 09/07/2014, modifiée) offre un crédit d'impôt sur les droits d'enregistrement jusqu'à 30 000 € par acquéreur pour une résidence principale. /frais-acquisition le calcule automatiquement selon votre profil (résident, primo-accédant, couple/célibataire).",
       "faq4q": "Puis-je utiliser tevaxia pour un bien en France ou Belgique ?",
@@ -11662,7 +11662,7 @@
       "toolsIntro": "Modules TEGOVA-aligned + transparence modèle hédonique.",
       "faqTitle": "Questions fréquentes",
       "faq1q": "La méthode hédonique est-elle publiée ?",
-      "faq1a": "Oui, /transparence affiche les 14 coefficients, l'IC 95 %, la significativité (ns/*/**/***), MAPE 14,7 % et R². Le modèle est re-calibré sur ACT 2018-2024. Vous pouvez citer cette méthode dans votre rapport.",
+      "faq1a": "Les pourcentages ci-dessous sont des hypothèses de travail. Ils ne sont pas des coefficients officiels de l’Observatoire. Aucune MAPE, R², significativité ou précision sur ventes réelles n’est démontrée.",
       "faq2q": "Comment fonctionne la signature SHA-256 ?",
       "faq2a": "À l'émission, le PDF est hashé et le hash stocké en DB (immuable via trigger). Le bloc signature dans le PDF contient le hash + URL /verify + horodatage. Le client colle l'URL sur /verify qui re-hashe et compare — si ça matche, intégrité garantie. Pas besoin de PKI coûteuse.",
       "faq3q": "Multi-négociateurs : comment mutualiser ?",
@@ -11844,7 +11844,7 @@
       "faq3q": "Les réponses sont-elles signées ?",
       "faq3a": "Les rapports PDF (valorisation EVS) incluent une signature SHA-256 vérifiable sur /verify. Les réponses JSON ne sont pas signées par défaut (le client s'authentifie déjà avec la clé API). Sur demande Enterprise : signature JWT des réponses possible.",
       "faq4q": "La méthodologie est-elle open-source ?",
-      "faq4a": "Le modèle hédonique est public : coefficients, IC 95 %, MAPE 14,7 %, R² publiés sur /transparence. Les algorithmes DCF/MLV suivent les standards TEGOVA EVS 2025 + EBA/CRR. Le code source client est open-source progressivement (libs calculs pures sur GitHub à venir). Le backend propriétaire.",
+      "faq4a": "Les pourcentages ci-dessous sont des hypothèses de travail. Ils ne sont pas des coefficients officiels de l’Observatoire. Aucune MAPE, R², significativité ou précision sur ventes réelles n’est démontrée.",
       "relatedTitle": "Aller plus loin",
       "ctaTitle": "Démarrez l'intégration",
       "ctaDesc": "Clé API gratuite en 2 min, documentation OpenAPI + playground, support via Intercom.",
@@ -17976,5 +17976,16 @@
     "parking": "Hypothèse +4 % sur base hors annexes",
     "disclaimer": "Estimation indicative avec hypothèses internes. Consulter la méthodologie avant utilisation.",
     "link": "Méthodologie"
+  },
+  "fiscalGuideAudit": {
+    "updated": "Guides de calcul — règles vérifiées au 8 septembre 2026",
+    "open": "Ouvrir le calculateur",
+    "pvRegime": "En 2026, la cession privée relève de la spéculation lorsque la détention ne dépasse pas cinq ans ; au-delà, le demi-taux global peut s’appliquer. En 2025, le seuil de deux ans et le quart du taux global concernent les actes jusqu’au 30 juin, ainsi que ceux du 1er juillet au 30 septembre avec compromis enregistré à l’AED au plus tard le 30 juin. Les dates exactes sont déterminantes.",
+    "pvAbat": "En cession à long terme, l’abattement décennal restant de 50 000 € (100 000 € en imposition collective) intervient après les autres déductions admissibles et l’abattement successoral admissible. Il ne s’applique pas à la spéculation. L’IR dépend du revenu ordinaire et de la classe fiscale : un taux forfaitaire universel serait trompeur.",
+    "rentRule": "Le plafond annuel du loyer hors charges est de 5 % du capital investi réévalué, après décote nette. Il ne s’agit ni de 5 % du prix de marché actuel ni d’un rendement garanti. Les charges récupérables se traitent séparément.",
+    "rentCoef": "La réévaluation utilise le tableau annuel prévu à l’article 102 LIR, publié par l’ACD. Le prix, les frais admissibles et chaque amélioration sont réévalués selon leur année ; les travaux futurs sont exclus. Le mobilier n’entre pas dans ce capital immobilier.",
+    "rentFurniture": "Pour les logements meublés soumis au régime actuel, le supplément mensuel ne peut dépasser 1,5 % des factures admissibles de meubles de moins de dix ans. Il ne s’agit pas d’un supplément automatique de 20 % au loyer immobilier.",
+    "rentExample": "Exemple vérifiable : logement construit en 1970, acheté en 2000 pour 380 000 € + 28 000 € de frais, terrain de 81 600 €, améliorations de 15 000 € en 2000, bail en 2020. Avec le coefficient 1,4 et sans entretien imputable : capital réévalué 592 200 €, décote 95 592 €, capital net 496 608 €, plafond mensuel 2 069,20 €.",
+    "rentScope": "Les acquisitions de terrains puis constructions, les dépenses ventilées sur plusieurs années et les régimes spéciaux demandent une ventilation appropriée. Conservez actes, factures et justificatifs ; une moyenne communale ne remplace pas le capital investi."
   }
 }
