@@ -24,8 +24,13 @@ export default function CalculateurLoyer() {
   const [travauxAnnee, setTravauxAnnee] = useState(2015);
   const [anneeBail, setAnneeBail] = useState(2026);
   const [surfaceHabitable, setSurfaceHabitable] = useState(80);
-  const [appliquerVetuste, setAppliquerVetuste] = useState(false);
-  const [tauxVetuste, setTauxVetuste] = useState(2);
+  const [appliquerVetuste, setAppliquerVetuste] = useState(true);
+  const tauxVetuste = 2;
+  const [anneeConstruction,setAnneeConstruction]=useState(2010);
+  const [fraisAcquisition,setFraisAcquisition]=useState(0);
+  const [terrainMontant,setTerrainMontant]=useState<number|undefined>();
+  const [entretienReevalue,setEntretienReevalue]=useState(0);
+  const [mobilierEligible,setMobilierEligible]=useState(0);
   const [avecColocation, setAvecColocation] = useState(false);
   const [nbColocataires, setNbColocataires] = useState(3);
   const [estMeuble, setEstMeuble] = useState(false);
@@ -66,9 +71,9 @@ export default function CalculateurLoyer() {
         nbColocataires: avecColocation ? nbColocataires : undefined,
         appliquerVetuste,
         tauxVetusteAnnuel: tauxVetuste / 100,
-        estMeuble,
+        estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible,
       }),
-    [prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, coproTranches, anneeBail, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble]
+    [prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, coproTranches, anneeBail, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible]
   );
 
   // Historique plafond légal : comment le loyer max a évolué aux années clés
@@ -81,14 +86,14 @@ export default function CalculateurLoyer() {
           prixAcquisition,
           anneeAcquisition,
           travauxMontant,
-          travauxAnnee: travauxAnnee <= a ? travauxAnnee : anneeAcquisition,
+          travauxAnnee,
           tranchesSupplementaires: coproTranches.filter((tr) => tr.annee <= a),
           anneeBail: a,
           surfaceHabitable,
           nbColocataires: avecColocation ? nbColocataires : undefined,
           appliquerVetuste,
           tauxVetusteAnnuel: tauxVetuste / 100,
-          estMeuble,
+          estMeuble:false, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue:0, mobilierEligible:0,
         });
         return {
           annee: a,
@@ -97,7 +102,7 @@ export default function CalculateurLoyer() {
           capitalInvesti: r.capitalInvesti,
         };
       });
-  }, [historiqueAnnees, anneeAcquisition, prixAcquisition, travauxMontant, travauxAnnee, coproTranches, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble]);
+  }, [historiqueAnnees, anneeAcquisition, prixAcquisition, travauxMontant, travauxAnnee, coproTranches, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible]);
 
   // Scénario post-travaux : inclut les travaux projetés comme tranche supplémentaire
   const resultPostTravaux = useMemo(() => {
@@ -116,9 +121,9 @@ export default function CalculateurLoyer() {
       nbColocataires: avecColocation ? nbColocataires : undefined,
       appliquerVetuste,
       tauxVetusteAnnuel: tauxVetuste / 100,
-      estMeuble,
+      estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible,
     });
-  }, [showPostTravaux, postTravauxMontant, postTravauxAnnee, coproTranches, prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble]);
+  }, [showPostTravaux, postTravauxMontant, postTravauxAnnee, coproTranches, prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible]);
 
   return (
     <>
@@ -135,9 +140,9 @@ export default function CalculateurLoyer() {
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Inputs */}
-          <div className="space-y-6">
+          <div className="min-w-0 space-y-6">
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionAcquisition")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -160,6 +165,13 @@ export default function CalculateurLoyer() {
               </div>
             </div>
 
+            <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm space-y-4">
+              <InputField label={t("anneeConstruction")} value={anneeConstruction} onChange={v=>setAnneeConstruction(Number(v))} min={1800} max={anneeAcquisition}/>
+              <InputField label={t("fraisAcquisition")} value={fraisAcquisition} onChange={v=>setFraisAcquisition(Number(v))} min={0} suffix="€"/>
+              <InputField label={t("terrainMontant")} value={terrainMontant??''} onChange={v=>setTerrainMontant(v===''?undefined:Number(v))} min={0} suffix="€" hint={t("terrainHint")}/>
+              <InputField label={t("entretienReevalue")} value={entretienReevalue} onChange={v=>setEntretienReevalue(Number(v))} min={0} suffix="€" hint={t("entretienHint")}/>
+              {estMeuble&&<InputField label={t("mobilierEligible")} value={mobilierEligible} onChange={v=>setMobilierEligible(Number(v))} min={0} suffix="€" hint={t("mobilierHint")}/>}
+            </div>
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
               <h2 className="mb-4 text-base font-semibold text-navy">{t("sectionTravaux")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -203,11 +215,11 @@ export default function CalculateurLoyer() {
                         label={t("postTravauxAnnee")}
                         value={postTravauxAnnee}
                         onChange={(v) => setPostTravauxAnnee(Number(v))}
-                        min={new Date().getFullYear()}
-                        max={new Date().getFullYear() + 10}
+                        min={anneeAcquisition}
+                        max={anneeBail}
                       />
                     </div>
-                    {resultPostTravaux && (
+                    {resultPostTravaux && !result.erreurSaisie && !resultPostTravaux.erreurSaisie && (
                       <div className="mt-2 grid gap-2 sm:grid-cols-3 text-xs">
                         <div className="rounded bg-white p-2 border border-sky-200">
                           <div className="text-[10px] uppercase text-muted">{t("postTravauxLoyerAvant")}</div>
@@ -350,18 +362,6 @@ export default function CalculateurLoyer() {
                   onChange={setAppliquerVetuste}
                   hint={t("appliquerVetusteHint")}
                 />
-                {appliquerVetuste && (
-                  <InputField
-                    label={t("tauxVetuste")}
-                    value={tauxVetuste}
-                    onChange={(v) => setTauxVetuste(Number(v))}
-                    suffix="%"
-                    min={0}
-                    max={5}
-                    step={0.5}
-                    hint={t("tauxVetusteHint")}
-                  />
-                )}
               </div>
               <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
                 <p className="text-xs text-amber-800 leading-relaxed">
@@ -396,14 +396,17 @@ export default function CalculateurLoyer() {
           </div>
 
           {/* Results */}
-          <div className="space-y-6">
+          {result.erreurSaisie ? <p role="alert" className="rounded-xl bg-amber-50 p-5">{t("erreurSaisie")}</p> : <div className="min-w-0 space-y-6">
+            {!result.donneesCompletes&&<p className="rounded-xl bg-amber-50 p-4 text-sm">{t("donneesIncompletes")}</p>}
             <ResultPanel
               title={t("resultCapitalInvesti")}
               lines={[
                 { label: t("prixAcquisition"), value: formatEUR(prixAcquisition) },
                 { label: t("coeffReevaluation", { annee: anneeAcquisition }), value: result.coeffAcquisition.toFixed(2), sub: true },
                 { label: t("prixReevalue"), value: formatEUR(result.prixReevalue) },
-                ...(travauxMontant > 0
+                { label: t("terrainReevalue"), value: formatEUR(result.terrainReevalue), sub:true },
+                { label: t("entretienImpute"), value: formatEUR(result.entretienImpute), sub:true },
+                ...(result.travauxReevalues > 0
                   ? [
                       { label: t("travauxAmelioration"), value: formatEUR(travauxMontant) },
                       { label: t("coeffReevaluation", { annee: travauxAnnee }), value: result.coeffTravaux.toFixed(2), sub: true },
@@ -412,7 +415,7 @@ export default function CalculateurLoyer() {
                   : []),
                 ...(appliquerVetuste
                   ? [{
-                      label: t("vetusteLabel", { annees: result.anneesVetuste, taux: tauxVetuste }),
+                      label: t("vetusteLabel", { annees: result.periodesVetuste, taux: tauxVetuste }),
                       value: `- ${formatEUR(result.decoteVetuste)} (${(result.decoteVetustePct * 100).toFixed(0)}%)`,
                       warning: result.decoteVetustePct >= 0.5,
                     }]
@@ -425,7 +428,8 @@ export default function CalculateurLoyer() {
               title={t("resultPlafondLoyer")}
               className="border-gold/30"
               lines={[
-                { label: t("loyerAnnuelMax"), value: formatEUR2(result.loyerAnnuelMax) },
+                { label: t("loyerAnnuelMax"), value: formatEUR2(result.capitalInvesti*.05) },
+                { label: t("supplementMobilier"), value: formatEUR2(result.supplementMobilierMensuel) },
                 { label: t("loyerMensuelMax"), value: formatEUR2(result.loyerMensuelMax), highlight: true, large: true },
                 { label: t("loyerM2Mois"), value: formatEUR2(result.loyerM2Mensuel), sub: true },
                 ...(avecColocation && result.loyerParColocataire
@@ -514,7 +518,7 @@ export default function CalculateurLoyer() {
                     nom: `${t("savePrefix")} — ${formatEUR(prixAcquisition)} (${surfaceHabitable} m²)`,
                     type: "loyer",
                     valeurPrincipale: result.loyerMensuelMax,
-                    data: { prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, appliquerVetuste, tauxVetuste, avecColocation, nbColocataires, estMeuble },
+                    data: { prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, appliquerVetuste, tauxVetuste, avecColocation, nbColocataires, estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible },
                   });
                 }}
                 label={t("saveButton")}
@@ -528,6 +532,9 @@ export default function CalculateurLoyer() {
                     capitalInvesti: result.capitalInvesti,
                     surface: surfaceHabitable,
                     plafondLoyer: result.loyerAnnuelMax,
+                    supplementMobilier:result.supplementMobilierMensuel,
+                    anneeReference:anneeBail,
+                    donneesCompletes:result.donneesCompletes,
                     loyerMensuel: result.loyerMensuelMax,
                     loyerM2: result.loyerM2Mensuel,
                     rendementBrut: result.capitalInvesti > 0 ? (result.loyerAnnuelMax / result.capitalInvesti) * 100 : 0,
@@ -548,12 +555,13 @@ export default function CalculateurLoyer() {
                 Observatoire des loyers LU →
               </Link>
             </div>
-          </div>
+          </div>}
         </div>
       </div>
 
     </div>
 
+    <div className="mx-auto max-w-5xl px-6 py-4 text-sm"><p>{t("champApplication")}</p><a className="underline" href="https://logement.public.lu/dam-assets/documents/legislation/lois/bl-loi-modifiee-du-21-09-2006-accessible.pdf">Loi du 21 septembre 2006 — art. 3 (texte coordonné au 1er août 2024)</a></div>
     <SEOContent
       ns="calculLoyer"
       sections={[
@@ -562,13 +570,7 @@ export default function CalculateurLoyer() {
         { titleKey: "coefficientTitle", contentKey: "coefficientContent" },
         { titleKey: "vetusteTitle", contentKey: "vetusteContent" },
       ]}
-      faq={[
-        { questionKey: "faq1q", answerKey: "faq1a" },
-        { questionKey: "faq2q", answerKey: "faq2a" },
-        { questionKey: "faq3q", answerKey: "faq3a" },
-        { questionKey: "faq4q", answerKey: "faq4a" },
-        { questionKey: "faq5q", answerKey: "faq5a" },
-      ]}
+      faq={[]}
       relatedLinks={[
         { href: "/estimation", labelKey: "estimation" },
         { href: "/plus-values", labelKey: "plusValues" },

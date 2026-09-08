@@ -341,6 +341,7 @@ export async function downloadPlusValuesPdf(params: PlusValuesPdfParams) {
 export interface LoyerPdfParams {
   capitalInvesti: number; surface: number; plafondLoyer: number;
   loyerMensuel: number; loyerM2: number; rendementBrut: number; commune?: string;
+  supplementMobilier?:number; anneeReference?:number; donneesCompletes?:boolean;
 }
 
 function LoyerDoc({ p }: { p: LoyerPdfParams }) {
@@ -372,7 +373,10 @@ function LoyerDoc({ p }: { p: LoyerPdfParams }) {
         <Row label="Surface habitable" value={`${fmtNum(p.surface)} m2`} />
 
         <Text style={s.section}>Resultats</Text>
-        <Row label="Plafond annuel (5 % capital)" value={fmtEur(p.plafondLoyer)} />
+        <Row label="Loyer de base annuel (5 % capital)" value={fmtEur(p.capitalInvesti*.05)} />
+        <Row label="Supplément mobilier mensuel" value={fmtEur(p.supplementMobilier??0)} />
+        {p.anneeReference&&<Row label="Millésime du tableau ACD" value={String(p.anneeReference)}/>}
+        {p.donneesCompletes===false&&<Text style={s.note}>Estimation partielle : vérifier les données et conditions de décote.</Text>}
         <RowHL label="Loyer mensuel max" value={fmtEur(p.loyerMensuel)} />
         <Row label="Loyer au m2" value={`${fmtNum(p.loyerM2, 2)} EUR/m2`} />
         <Row label="Rendement brut" value={fmtPct(p.rendementBrut)} />

@@ -30,6 +30,7 @@ const STEP_KEYS = [
 
 export default function WizardParticulier() {
   const t = useTranslations("wizardParticulierPage");
+  const tl = useTranslations("calculLoyer");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
 
@@ -610,7 +611,8 @@ export default function WizardParticulier() {
 
             {loyer && envisageLocatif && (
               <div className="rounded-xl border border-card-border bg-card p-6">
-                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("step4.loyerMaxTitle")}</div>
+                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{tl("estimationPartielle")}</div>
+                <p className="my-2 text-xs text-amber-800">{tl("donneesIncompletes")} <a className="underline" href="/calculateur-loyer">{tl("title")}</a></p>
                 <div className="mt-1 text-3xl font-bold text-navy">{formatEUR(loyer.loyerMensuelMax)} <span className="text-sm text-muted">{t("step4.parMois")}</span></div>
                 <div className="mt-1 text-sm text-muted">
                   {t("step4.detailLoyer", { m2: formatEUR(loyer.loyerM2Mensuel), annuel: formatEUR(loyer.loyerAnnuelMax) })}
@@ -621,7 +623,7 @@ export default function WizardParticulier() {
                   {loyer.travauxReevalues > 0 && (
                     <div className="flex justify-between"><span className="text-muted">{t("step4.travauxReevalues")}</span><span className="font-medium">{formatEUR(loyer.travauxReevalues)}</span></div>
                   )}
-                  <div className="flex justify-between"><span className="text-muted">{t("step4.decoteVetuste")}</span><span className="font-medium">- {formatEUR(loyer.decoteVetuste)} ({loyer.decoteVetustePct.toFixed(1)} %)</span></div>
+                  <div className="flex justify-between"><span className="text-muted">{t("step4.decoteVetuste")}</span><span className="font-medium">- {formatEUR(loyer.decoteVetuste)} ({(loyer.decoteVetustePct * 100).toFixed(1)} %)</span></div>
                 </div>
               </div>
             )}

@@ -80,7 +80,13 @@ export interface CapitalInvestiInput {
   nbColocataires?: number;
   appliquerVetuste: boolean;
   tauxVetusteAnnuel: number;
-  estMeuble?: boolean; // Logement meublé = +10% sur le loyer max
+  estMeuble?: boolean;
+  anneeConstruction?: number;
+  fraisAcquisition?: number; // Frais admissibles de l'acte, non déjà compris dans le prix.
+  terrainMontant?: number; // Part terrain, frais afférents compris ; à défaut forfait 20%.
+  entretienReevalue?: number; // Frais d'entretien/réparation justifiés, réévalués, encore imputables.
+  mobilierEligible?: number; // Factures de moins de dix ans au jour du bail/adaptation.
+
 }
 
 export interface CapitalInvestiResult {
@@ -96,65 +102,45 @@ export interface CapitalInvestiResult {
   loyerMensuelMax: number;
   loyerM2Mensuel: number;
   loyerParColocataire?: number;
+  supplementMobilierMensuel: number;
+  terrainReevalue: number;
+  entretienImpute: number;
+  reportEntretien: number;
+  periodesVetuste: number;
+  donneesCompletes: boolean;
+  erreurSaisie?: string;
 }
 
 export function calculerCapitalInvesti(input: CapitalInvestiInput): CapitalInvestiResult {
-  const coeffAcquisition = getCoefficient(input.anneeAcquisition, input.anneeBail);
-  const coeffTravaux = input.travauxMontant > 0 ? getCoefficient(input.travauxAnnee, input.anneeBail) : 1;
-
-  const prixReevalue = input.prixAcquisition * coeffAcquisition;
-  const travauxReevalues = input.travauxMontant * coeffTravaux;
-
-  // Tranches supplémentaires de travaux
-  let tranchesSupReevaluees = 0;
-  if (input.tranchesSupplementaires) {
-    for (const t of input.tranchesSupplementaires) {
-      if (t.montant > 0) {
-        tranchesSupReevaluees += t.montant * getCoefficient(t.annee, input.anneeBail);
-      }
-    }
-  }
-
-  const valeurBrute = prixReevalue + travauxReevalues + tranchesSupReevaluees;
-
-  // Vétusté — optionnelle et configurable
-  // La loi de 2006 ne fixe pas de taux de vétusté précis.
-  // La pratique courante utilise 1-2%/an mais ce n'est pas une obligation légale.
-  const anneeRef = input.travauxMontant > 0
-    ? Math.max(input.anneeAcquisition, input.travauxAnnee)
-    : input.anneeAcquisition;
-  const anneesVetuste = Math.max(0, input.anneeBail - anneeRef);
-  const decoteVetustePct = input.appliquerVetuste
-    ? Math.min(1, anneesVetuste * input.tauxVetusteAnnuel)
-    : 0;
-  const decoteVetuste = valeurBrute * decoteVetustePct;
-
-  const capitalInvesti = valeurBrute - decoteVetuste;
-  const loyerAnnuelMax = capitalInvesti * TAUX_PLAFOND_LOYER;
-  // Meublé : +10% autorisé par la loi
-  const loyerAnnuelMaxFinal = input.estMeuble ? loyerAnnuelMax * 1.10 : loyerAnnuelMax;
-  const loyerMensuelMax = loyerAnnuelMaxFinal / 12;
-  const loyerM2Mensuel = input.surfaceHabitable > 0 ? loyerMensuelMax / input.surfaceHabitable : 0;
-
-  const result: CapitalInvestiResult = {
-    prixReevalue,
-    coeffAcquisition,
-    travauxReevalues,
-    coeffTravaux,
-    anneesVetuste,
-    decoteVetuste,
-    decoteVetustePct,
-    capitalInvesti,
-    loyerAnnuelMax: loyerAnnuelMaxFinal,
-    loyerMensuelMax,
-    loyerM2Mensuel,
-  };
-
-  if (input.nbColocataires && input.nbColocataires > 1) {
-    result.loyerParColocataire = loyerMensuelMax / input.nbColocataires;
-  }
-
-  return result;
+  const vide: CapitalInvestiResult = {prixReevalue:0,coeffAcquisition:1,travauxReevalues:0,coeffTravaux:1,anneesVetuste:0,decoteVetuste:0,decoteVetustePct:0,capitalInvesti:0,loyerAnnuelMax:0,loyerMensuelMax:0,loyerM2Mensuel:0,supplementMobilierMensuel:0,terrainReevalue:0,entretienImpute:0,reportEntretien:0,periodesVetuste:0,donneesCompletes:false};
+  const construction=input.anneeConstruction??input.anneeAcquisition;
+  const montants=[input.prixAcquisition,input.travauxMontant??0,input.fraisAcquisition??0,input.terrainMontant??0,input.entretienReevalue??0,input.mobilierEligible??0];
+  if(!Number.isInteger(input.anneeBail)||!Number.isFinite(input.surfaceHabitable)||input.surfaceHabitable<0||(input.nbColocataires!==undefined&&(!Number.isInteger(input.nbColocataires)||input.nbColocataires<1))||montants.some(n=>!Number.isFinite(n)||n<0)||!Number.isInteger(input.anneeAcquisition)||!Number.isInteger(construction)||construction>input.anneeAcquisition||input.anneeAcquisition>input.anneeBail||input.anneeAcquisition<1918||construction<1800||!TABLES_REEVALUATION[input.anneeBail])return {...vide,erreurSaisie:'Vérifiez les montants et les années : construction ≤ acquisition ≤ bail, millésime du bail de 2015 à 2026.'};
+  if(input.estMeuble&&input.anneeBail<2025)return {...vide,erreurSaisie:'Le supplément mobilier est proposé pour les millésimes 2025–2026 ; les baux antérieurs nécessitent une analyse datée.'};
+  const baseInitiale=input.prixAcquisition+(input.fraisAcquisition??0);
+  const terrain=input.terrainMontant??baseInitiale*.20;
+  if(terrain>baseInitiale)return {...vide,erreurSaisie:'La part du terrain ne peut pas dépasser le capital initial.'};
+  const coeffAcquisition=getCoefficient(input.anneeAcquisition,input.anneeBail);
+  const prixReevalue=baseInitiale*coeffAcquisition;
+  const terrainReevalue=terrain*coeffAcquisition;
+  const tranches=[{montant:input.travauxMontant??0,annee:input.travauxAnnee},...(input.tranchesSupplementaires??[])];
+  if(tranches.some(t=>!Number.isFinite(t.montant)||t.montant<0||(t.montant>0&&(!Number.isInteger(t.annee)||t.annee<input.anneeAcquisition))))return {...vide,erreurSaisie:'Vérifiez les travaux et leurs années de réalisation.'};
+  const travauxReevalues=tranches.filter(t=>t.montant>0&&t.annee<=input.anneeBail).reduce((n,t)=>n+t.montant*getCoefficient(t.annee,input.anneeBail),0);
+  const coeffTravaux=(input.travauxMontant??0)>0&&input.travauxAnnee<=input.anneeBail?getCoefficient(input.travauxAnnee,input.anneeBail):1;
+  const valeurBrute=prixReevalue+travauxReevalues;
+  // Art. 3(3)-(4) : terrain exclu, achat présumé déjà décoté au jour de l'acte.
+  // Les travaux d'amélioration ne redémarrent pas le compteur de l'immeuble.
+  const anneesVetuste=Math.max(0,input.anneeBail-Math.max(input.anneeAcquisition,construction+15));
+  const periodesVetuste=Math.floor(anneesVetuste/2);
+  const decoteVetustePct=input.appliquerVetuste!==false?Math.min(1,periodesVetuste*.02):0;
+  const decoteBrute=Math.max(0,valeurBrute-terrainReevalue)*decoteVetustePct;
+  const entretienImpute=Math.min(decoteBrute,input.entretienReevalue??0);
+  const reportEntretien=Math.max(0,(input.entretienReevalue??0)-entretienImpute);
+  const decoteVetuste=decoteBrute-entretienImpute;
+  const capitalInvesti=valeurBrute-decoteVetuste;
+  const supplementMobilierMensuel=input.estMeuble?(input.mobilierEligible??0)*.015:0;
+  const loyerMensuelMax=capitalInvesti*.05/12+supplementMobilierMensuel;
+  return {prixReevalue,coeffAcquisition,travauxReevalues,coeffTravaux,anneesVetuste,decoteVetuste,decoteVetustePct,capitalInvesti,loyerAnnuelMax:loyerMensuelMax*12,loyerMensuelMax,loyerM2Mensuel:input.surfaceHabitable>0?loyerMensuelMax/input.surfaceHabitable:0,loyerParColocataire:input.nbColocataires&&input.nbColocataires>1?loyerMensuelMax/input.nbColocataires:undefined,supplementMobilierMensuel,terrainReevalue,entretienImpute,reportEntretien,periodesVetuste,donneesCompletes:input.anneeConstruction!==undefined&&input.appliquerVetuste!==false&&(!input.estMeuble||input.mobilierEligible!==undefined)};
 }
 
 // ============================================================

@@ -52,9 +52,10 @@ describe("calculerCapitalInvesti", () => {
       appliquerVetuste: true,
       tauxVetusteAnnuel: 0.02,
     });
-    // Vétusté = 5 ans × 2% = 10%
-    expect(result.decoteVetustePct).toBeCloseTo(0.10);
-    expect(result.capitalInvesti).toBeCloseTo(545000 * 0.90, 0);
+    // Pas de décote avant quinze ans ; année de construction absente : résultat incomplet.
+    expect(result.decoteVetustePct).toBe(0);
+    expect(result.donneesCompletes).toBe(false);
+    expect(result.capitalInvesti).toBeCloseTo(545000, 0);
   });
 
   it("handles colocation", () => {

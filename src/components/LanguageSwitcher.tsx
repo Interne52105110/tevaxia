@@ -29,7 +29,9 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="flex gap-0.5 rounded-lg bg-white/10 p-0.5">
+    <>
+    <select aria-label="Langue / Language" value={currentLocale} onChange={e=>{window.location.href=buildPath(e.target.value)}} className="sm:hidden rounded-lg bg-navy px-1 py-2 text-xs text-white">{LOCALES.map(l=><option key={l.code} value={l.code}>{l.label}</option>)}</select>
+    <div className="hidden sm:flex gap-0.5 rounded-lg bg-white/10 p-0.5">
       {LOCALES.map((l) => (
         <a
           key={l.code}
@@ -44,5 +46,6 @@ export default function LanguageSwitcher() {
         </a>
       ))}
     </div>
+    </>
   );
 }

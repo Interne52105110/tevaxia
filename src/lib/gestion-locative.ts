@@ -51,6 +51,7 @@ export interface LotAnalysis {
   loyerLegalM2Mensuel: number;
   ecartLegalPct: number; // (loyerActuel - max) / max — négatif si sous le plafond
   depasseLegal: boolean;
+  plafondComplet: boolean;
 
   rendementBrutPct: number; // loyerAnnuel / prixAcquisition
   rendementNetApproximatif: number; // brut - 1.5% charges
@@ -289,7 +290,8 @@ export function analyzeLot(lot: RentalLot): LotAnalysis {
     loyerLegalMensuelMax: capital.loyerMensuelMax,
     loyerLegalM2Mensuel: capital.loyerM2Mensuel,
     ecartLegalPct,
-    depasseLegal: lot.loyerMensuelActuel > capital.loyerMensuelMax && capital.loyerMensuelMax > 0,
+    plafondComplet: capital.donneesCompletes,
+    depasseLegal: capital.donneesCompletes && lot.loyerMensuelActuel > capital.loyerMensuelMax && capital.loyerMensuelMax > 0,
     rendementBrutPct,
     rendementNetApproximatif: Math.max(0, rendementBrutPct - 0.015),
     klimabonusEligible,

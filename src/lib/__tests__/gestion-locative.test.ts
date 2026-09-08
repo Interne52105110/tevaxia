@@ -29,9 +29,10 @@ describe("analyzeLot", () => {
     expect(r.rendementNetApproximatif).toBeGreaterThanOrEqual(0);
   });
 
-  it("flags legal overage when actual > max", () => {
+  it("does not certify legal overage with missing construction data", () => {
     const r = analyzeLot(mkLot({ loyerMensuelActuel: 10_000 }));
-    expect(r.depasseLegal).toBe(true);
+    expect(r.depasseLegal).toBe(false);
+    expect(r.plafondComplet).toBe(false);
     expect(r.ecartLegalPct).toBeGreaterThan(0);
   });
 
@@ -66,10 +67,11 @@ describe("analyzeLot", () => {
     expect(a.loyerLegalMensuelMax).toBe(g.loyerLegalMensuelMax);
   });
 
-  it("furnished flag impacts ceiling (typically +10 to +20 %)", () => {
+  it("does not invent a furniture supplement without invoices", () => {
     const nonMeuble = analyzeLot(mkLot({ estMeuble: false }));
     const meuble = analyzeLot(mkLot({ estMeuble: true }));
-    expect(meuble.loyerLegalMensuelMax).toBeGreaterThan(nonMeuble.loyerLegalMensuelMax);
+    expect(meuble.loyerLegalMensuelMax).toBe(nonMeuble.loyerLegalMensuelMax);
+    expect(meuble.plafondComplet).toBe(false);
   });
 });
 
@@ -99,12 +101,12 @@ describe("summarize", () => {
     expect(s.lotsKlimabonus).toBe(2);
   });
 
-  it("counts lots above legal ceiling", () => {
+  it("does not certify incomplete lots as above the legal ceiling", () => {
     const s = summarize([
       mkLot({ id: "a", loyerMensuelActuel: 10_000 }),
       mkLot({ id: "b", loyerMensuelActuel: 500 }),
     ]);
-    expect(s.lotsHorsPlafond).toBe(1);
+    expect(s.lotsHorsPlafond).toBe(0);
   });
 
   it("computes annual rent = monthly × 12", () => {

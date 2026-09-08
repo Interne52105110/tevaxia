@@ -14,6 +14,7 @@ export default function LotEditPage() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("glLotEdit");
+  const tl = useTranslations("calculLoyer");
   const lp = locale === "fr" ? "" : `/${locale}`;
   const id = String(params?.id ?? "");
   const isNew = id === "nouveau";
@@ -206,7 +207,7 @@ export default function LotEditPage() {
 
           <div className="space-y-5 lg:sticky lg:top-6 lg:self-start">
             <div className={`rounded-2xl p-6 text-white shadow-lg ${analysis.depasseLegal ? "bg-gradient-to-br from-rose-600 to-rose-800" : "bg-gradient-to-br from-teal-700 to-emerald-800"}`}>
-              <div className="text-xs uppercase tracking-wider text-white/80 font-semibold">{t("capBadge")}</div>
+              <div className="text-xs uppercase tracking-wider text-white/80 font-semibold">{tl("estimationPartielle")}</div>
               <div className="mt-2 text-3xl font-bold">{formatEUR(analysis.loyerLegalMensuelMax)} <span className="text-sm">{t("perMonth")}</span></div>
               <div className="mt-1 text-sm text-white/90">{t("capM2", { value: formatEUR(analysis.loyerLegalM2Mensuel) })}</div>
               <div className="mt-4 text-xs text-white/80">
@@ -214,6 +215,7 @@ export default function LotEditPage() {
                 {" · "}{t("gapLabel")}{" "}
                 <span className="font-semibold">{analysis.ecartLegalPct > 0 ? "+" : ""}{(analysis.ecartLegalPct * 100).toFixed(1)} %</span>
               </div>
+              {!analysis.plafondComplet && <p className="mt-3 text-xs">{tl("donneesIncompletes")} <a className="underline" href="/calculateur-loyer">{tl("title")}</a></p>}
               {analysis.depasseLegal && (
                 <div className="mt-3 rounded-lg bg-white/15 p-2 text-xs">
                   {t("warnOffLimit")}

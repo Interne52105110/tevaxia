@@ -10,6 +10,7 @@ import { useAuth } from "@/components/AuthProvider";
 export default function PortefeuillePage() {
   const locale = useLocale();
   const t = useTranslations("glPortefeuille");
+  const tl = useTranslations("calculLoyer");
   const lp = locale === "fr" ? "" : `/${locale}`;
   const { user } = useAuth();
 
@@ -168,14 +169,14 @@ export default function PortefeuillePage() {
                       <div className="font-semibold text-navy">{t("lotRentPerMonth", { value: formatEUR(l.loyerMensuelActuel) })}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-muted">{t("lotLegalCap")}</div>
-                      <div className={`font-semibold ${a.depasseLegal ? "text-rose-700" : "text-emerald-700"}`}>
+                      <div className="text-xs text-muted">{tl("estimationPartielle")}</div>
+                      <div className={`font-semibold ${!a.plafondComplet ? "text-amber-800" : a.depasseLegal ? "text-rose-700" : "text-emerald-700"}`}>
                         {t("lotRentPerMonth", { value: formatEUR(a.loyerLegalMensuelMax) })}
                       </div>
                     </div>
                     <div>
                       <div className="text-xs text-muted">{t("lotGap")}</div>
-                      <div className={`font-semibold ${a.depasseLegal ? "text-rose-700" : "text-emerald-700"}`}>
+                      <div className={`font-semibold ${!a.plafondComplet ? "text-amber-800" : a.depasseLegal ? "text-rose-700" : "text-emerald-700"}`}>
                         {a.ecartLegalPct > 0 ? "+" : ""}{(a.ecartLegalPct * 100).toFixed(1)} %
                       </div>
                     </div>
@@ -185,6 +186,7 @@ export default function PortefeuillePage() {
                     </div>
                   </div>
 
+                  {!a.plafondComplet && <p className="mt-3 text-xs text-amber-800">{tl("donneesIncompletes")} <Link className="underline" href={`${lp}/calculateur-loyer`}>{tl("title")}</Link></p>}
                   {a.klimabonusMessage && (
                     <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-2 text-xs text-emerald-900">
                       🌱 {a.klimabonusMessage}

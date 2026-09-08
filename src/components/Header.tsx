@@ -131,7 +131,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-navy text-white shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex min-h-16 flex-wrap gap-2 py-2 items-center justify-between">
           <LocaleLink href={isEnergy ? "/energy" : "/"} className="flex items-center gap-2">
             {isEnergy ? (
               <>
