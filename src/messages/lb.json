@@ -8985,7 +8985,7 @@
     "kpiR2": "R² ca.",
     "kpiR2Desc": "Bestëmmtheetsmooss",
     "kpiBiens": "Testimmobilien",
-    "kpiBiensDesc": "Validéierungsstéchprouw",
+    "kpiBiensDesc": "Syntheetesch Beispiller",
     "sectionMethodologie": "Methodik",
     "methodoP1": "De Modell kombinéiert e Referenzpräis pro m² (no Gemeng oder Quartier, vum Observatoire de l'Habitat iwwer data.public.lu) mat multiplikative Upassungen déi d'intrinsesch Eegeschafte vun der Immobilie reflektéieren. Et ass keen AVM (Automated Valuation Model) am Banksënn — et verfügt net iwwer d'Vollständegkeet vun den notarielle Akten.",
     "methodoApproche": "Den Ansaz ass log-linear:",
@@ -9021,13 +9021,13 @@
     "confForte": "Héich",
     "confMoyenne": "Mëttel",
     "confFaible": "Niddreg",
-    "sectionBacktest": "Back-Test-Resultater",
+    "sectionBacktest": "Verglach op Basis vu syntheetesche Beispiller",
     "backtestBiens": "Immobilien",
-    "backtestDesc": "Vergläich tëschent dem reelle Referenzpräis an der Modellschätzung. Déi reell Präisser kommen aus beobachte Spannen an de betraffene Gemengen.",
+    "backtestDesc": "D’Referenzpräisser vun dëse Beispiller sinn am Modell op Basis vu Maartpräisspanne festgeluecht. Et handelt sech weder ëm verifizéiert Transaktiounen nach ëm eng onofhängeg Validatioun. D’Kennzuelen hei uewen beschreiwen nëmmen dës Beispiller a moossen net d’Genauegkeet bei reelle Verkafspräisser.",
     "thCommune": "Gemeng",
     "thSurface": "Fläch",
     "thEnergie": "Energie",
-    "thPrixReel": "Reelle Präis",
+    "thPrixReel": "Referenzpräis",
     "thEstimation": "Schätzung",
     "thErreur": "Feeler",
     "mapeFooter": "MAPE (mëttlere absolute Feeler)",
@@ -10850,7 +10850,7 @@
     "desc": "Konfiguréiert den KI-Fournisseur fir d'automatesch Analyse vun Ären Berechnungsresultater.",
     "providerLabel": "Fournisseur",
     "apiKeyLabel": "API-Schlëssel",
-    "apiKeyHint": "Äre Schlëssel bleift um Server a gëtt ni clientsäiteg exponéiert. Eidel loossen fir de gratis Gemini-Service ze benotzen.",
+    "apiKeyHint": "Äre Schlëssel gëtt an dëse Formulaire gelueden, fir datt Dir en ännere kënnt. Loosst d’Feld eidel, fir de Standardservice ze benotzen.",
     "usageToday": "Analysen haut",
     "unlimited": "Onlimitéiert (perséinleche Schlëssel)",
     "byokExplain": "Par défaut benotzt Tevaxia Google Gemini (3.6 Flash, 5 gratis Analysen/Dag). Fir onlimitéiert Notzung oder en anere Modell, füügt Äre eegene API-Schlëssel derbäi (BYOK). Kritt en op der Websäit vum gewielte Fournisseur.",
@@ -10859,7 +10859,10 @@
     "loading": "Lueden...",
     "saving": "Späicheren...",
     "saved": "Gespäichert!",
-    "save": "Späicheren"
+    "save": "Späicheren",
+    "loadError": "Är Astellunge konnten net geluede ginn. Probéiert et nach eng Kéier, ier Dir se ännert.",
+    "saveError": "D’Späicheren ass feelgeschloen. Är Ännerunge bleiwen am Formulaire. Probéiert et nach eng Kéier.",
+    "retry": "Nach eng Kéier probéieren"
   },
   "aiAnalysis": {
     "title": "KI-Analyse",
@@ -17872,5 +17875,11 @@
         ]
       }
     }
+  },
+  "saveButton": {
+    "save": "Späicheren",
+    "saving": "Gëtt gespäichert…",
+    "saved": "Gespäichert!",
+    "error": "D’Späicheren ass feelgeschloen. Kontrolléiert de verfügbare Späicher an Ärem Browser a probéiert et nach eng Kéier."
   }
 }

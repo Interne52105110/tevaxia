@@ -100,6 +100,21 @@ describe("supprimerEvaluation / corbeille", () => {
     expect(listerCorbeille()).toHaveLength(0);
   });
 
+  it("keeps the recoverable copy when restoring fails due to full storage", () => {
+    const v = sauvegarderEvaluation({ nom: "Recover", type: "estimation", data: {} });
+    supprimerEvaluation(v.id);
+    const setItem = localStorage.setItem;
+    const spy = vi.spyOn(localStorage, "setItem").mockImplementation((key, value) => {
+      if (key === "tevaxia_valuations") throw new Error("QuotaExceededError");
+      setItem(key, value);
+    });
+    expect(() => restaurerEvaluation(v.id)).toThrow("QuotaExceededError");
+    expect(listerCorbeille().map((item) => item.id)).toContain(v.id);
+    spy.mockRestore();
+    restaurerEvaluation(v.id);
+    expect(chargerEvaluation(v.id)?.nom).toBe("Recover");
+  });
+
   it("compterCorbeille returns the count", () => {
     sauvegarderEvaluation({ nom: "1", type: "estimation", data: {} });
     const v2 = sauvegarderEvaluation({ nom: "2", type: "estimation", data: {} });

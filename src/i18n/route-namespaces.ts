@@ -27,6 +27,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar"
   ],
   "/actions-prioritaires": [
@@ -108,6 +109,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar"
   ],
   "/calculateur-loyer/observatoire": [
@@ -131,6 +133,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar"
   ],
   "/calculateur-vrd": [
@@ -312,6 +315,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar"
   ],
   "/docs/[persona]": [
@@ -546,6 +550,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar",
     "valorisation"
   ],
@@ -591,6 +596,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar"
   ],
   "/gestion-locative/ais": [
@@ -1342,6 +1348,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "plusValues",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/calendrier": [
@@ -1928,6 +1935,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "simulateurAides",
     "syndicContextBar"
   ],
@@ -2131,6 +2139,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "strRentabilite",
     "syndicContextBar"
   ],
@@ -2431,6 +2440,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "saveButton",
     "syndicContextBar",
     "valorisation"
   ],

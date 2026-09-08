@@ -27,26 +27,35 @@ const KEY_PLACEHOLDERS: Record<AiPrefs["ai_provider"], string> = {
 };
 
 export default function AiSettingsSection() {
-  const t = useTranslations("aiSettings");
   const { user } = useAuth();
+  if (!user || !supabase) return null;
+  return <AiSettingsForm key={user.id} userId={user.id} />;
+}
+
+function AiSettingsForm({ userId }: { userId: string }) {
+  const t = useTranslations("aiSettings");
   const [prefs, setPrefs] = useState<AiPrefs>({ ai_provider: "gemini", ai_api_key_encrypted: "" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [dailyUsage, setDailyUsage] = useState(0);
+  const [hasByok, setHasByok] = useState(false);
+  const [error, setError] = useState<"loadError" | "saveError" | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
 
   useEffect(() => {
-    if (!user || !supabase) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- mount/dep-driven sync with external source (URL, localStorage, Supabase)
-      setLoading(false);
-      return;
-    }
-    supabase
-      .from("user_ai_settings")
-      .select("ai_provider, ai_api_key_encrypted, daily_usage, last_usage_date")
-      .eq("user_id", user.id)
-      .maybeSingle()
-      .then(({ data }) => {
+    if (!supabase) return;
+    const client = supabase;
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const { data, error } = await client
+          .from("user_ai_settings")
+          .select("ai_provider, ai_api_key_encrypted, daily_usage, last_usage_date")
+          .eq("user_id", userId)
+          .maybeSingle();
+        if (cancelled) return;
+        if (error) throw error;
         if (data) {
           setPrefs({
             ai_provider: data.ai_provider,
@@ -54,27 +63,38 @@ export default function AiSettingsSection() {
           });
           const today = new Date().toISOString().slice(0, 10);
           setDailyUsage(data.last_usage_date === today ? data.daily_usage : 0);
+          setHasByok(!!data.ai_api_key_encrypted);
         }
-        setLoading(false);
-      });
-  }, [user]);
+      } catch {
+        if (!cancelled) setError("loadError");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+    void load();
+    return () => { cancelled = true; };
+  }, [userId, loadAttempt]);
 
   const save = async () => {
-    if (!user || !supabase) return;
+    if (!supabase || saving || loading || error === "loadError") return;
     setSaving(true);
-    await supabase.from("user_ai_settings").upsert({
-      user_id: user.id,
-      ai_provider: prefs.ai_provider,
-      ai_api_key_encrypted: prefs.ai_api_key_encrypted || null,
-    });
-    setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    setSaved(false);
+    setError(null);
+    try {
+      const { error } = await supabase.from("user_ai_settings").upsert({
+        user_id: userId,
+        ai_provider: prefs.ai_provider,
+        ai_api_key_encrypted: prefs.ai_api_key_encrypted || null,
+      });
+      if (error) throw error;
+      setHasByok(!!prefs.ai_api_key_encrypted);
+      setSaved(true);
+    } catch {
+      setError("saveError");
+    } finally {
+      setSaving(false);
+    }
   };
-
-  if (!user || !supabase) return null;
-
-  const hasByok = !!prefs.ai_api_key_encrypted;
 
   return (
     <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
@@ -94,12 +114,22 @@ export default function AiSettingsSection() {
 
       {loading ? (
         <p className="mt-4 text-sm text-muted">{t("loading")}</p>
+      ) : error === "loadError" ? (
+        <div className="mt-4 space-y-2">
+          <p role="alert" className="text-sm text-rose-700">{t("loadError")}</p>
+          <button onClick={() => {
+            setError(null);
+            setLoading(true);
+            setLoadAttempt((attempt) => attempt + 1);
+          }} className="text-sm font-semibold text-navy underline">{t("retry")}</button>
+        </div>
       ) : (
         <div className="mt-5 space-y-4">
           {/* Provider select */}
           <div>
             <label className="block text-sm font-medium text-slate mb-1">{t("providerLabel")}</label>
             <select
+              disabled={saving}
               value={prefs.ai_provider}
               onChange={(e) => {
                 setPrefs((p) => ({ ...p, ai_provider: e.target.value as AiPrefs["ai_provider"] }));
@@ -117,6 +147,7 @@ export default function AiSettingsSection() {
           <div>
             <label className="block text-sm font-medium text-slate mb-1">{t("apiKeyLabel")}</label>
             <input
+              disabled={saving}
               type="password"
               value={prefs.ai_api_key_encrypted}
               onChange={(e) => {
@@ -147,6 +178,7 @@ export default function AiSettingsSection() {
             <p className="text-xs text-amber-800 leading-relaxed">{t("byokExplain")}</p>
           </div>
 
+          {error === "saveError" && <p role="alert" className="text-sm text-rose-700">{t("saveError")}</p>}
           <button
             onClick={save}
             disabled={saving}

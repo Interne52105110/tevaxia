@@ -8985,7 +8985,7 @@
     "kpiR2": "R² aprox.",
     "kpiR2Desc": "Coeficiente de determinação",
     "kpiBiens": "Imóveis-teste",
-    "kpiBiensDesc": "Amostra de validação",
+    "kpiBiensDesc": "Exemplos sintéticos",
     "sectionMethodologie": "Metodologia",
     "methodoP1": "O modelo combina um preço de referência por m² (por município ou bairro, do Observatoire de l'Habitat via data.public.lu) com ajustamentos multiplicativos que refletem as características intrínsecas do imóvel. Não é um AVM (Automated Valuation Model) no sentido bancário — não dispõe da exaustividade dos atos notariais.",
     "methodoApproche": "A abordagem é log-linear:",
@@ -9021,13 +9021,13 @@
     "confForte": "Alta",
     "confMoyenne": "Média",
     "confFaible": "Baixa",
-    "sectionBacktest": "Resultados do back-test",
+    "sectionBacktest": "Comparação com exemplos sintéticos",
     "backtestBiens": "imóveis",
-    "backtestDesc": "Comparação entre o preço real de referência e a estimativa produzida pelo modelo. Os preços reais são derivados de intervalos observados nos municípios em questão.",
+    "backtestDesc": "Os preços de referência destes exemplos são definidos no modelo a partir de intervalos de mercado. Não são transações verificadas nem uma validação independente. Os indicadores acima descrevem apenas estes exemplos e não medem a precisão em vendas reais.",
     "thCommune": "Município",
     "thSurface": "Área",
     "thEnergie": "Energia",
-    "thPrixReel": "Preço real",
+    "thPrixReel": "Preço de referência",
     "thEstimation": "Estimativa",
     "thErreur": "Erro",
     "mapeFooter": "MAPE (erro absoluto médio)",
@@ -10850,7 +10850,7 @@
     "desc": "Configure o fornecedor IA para análise automática dos seus resultados de cálculo.",
     "providerLabel": "Fornecedor",
     "apiKeyLabel": "Chave API",
-    "apiKeyHint": "A sua chave fica no servidor e nunca é exposta do lado do cliente. Deixe vazio para utilizar o serviço gratuito Google Gemini.",
+    "apiKeyHint": "A sua chave é carregada neste formulário para poder editá-la. Deixe em branco para utilizar o serviço predefinido.",
     "usageToday": "Análises hoje",
     "unlimited": "Ilimitado (chave pessoal)",
     "byokExplain": "Por defeito, o Tevaxia utiliza Google Gemini (3.6 Flash, 5 análises gratuitas/dia). Para uso ilimitado ou outro modelo, adicione a sua própria chave API (BYOK). Obtenha-a no site do fornecedor escolhido.",
@@ -10859,7 +10859,10 @@
     "loading": "A carregar...",
     "saving": "A guardar...",
     "saved": "Guardado!",
-    "save": "Guardar"
+    "save": "Guardar",
+    "loadError": "Não foi possível carregar as suas definições. Tente novamente antes de as editar.",
+    "saveError": "Não foi possível guardar. As alterações permanecem no formulário; tente novamente.",
+    "retry": "Tentar novamente"
   },
   "aiAnalysis": {
     "title": "Análise IA",
@@ -17872,5 +17875,11 @@
         ]
       }
     }
+  },
+  "saveButton": {
+    "save": "Guardar",
+    "saving": "A guardar…",
+    "saved": "Guardado!",
+    "error": "Não foi possível guardar. Verifique o armazenamento disponível no navegador e tente novamente."
   }
 }

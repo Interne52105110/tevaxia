@@ -9107,7 +9107,7 @@
     "kpiR2": "R² approx.",
     "kpiR2Desc": "Coefficient de détermination",
     "kpiBiens": "Biens-test",
-    "kpiBiensDesc": "Échantillon de validation",
+    "kpiBiensDesc": "Exemples synthétiques",
     "sectionMethodologie": "Méthodologie",
     "methodoP1": "Le modèle combine un prix de référence au m² (par commune ou quartier, issu de l'Observatoire de l'Habitat via data.public.lu) avec des ajustements multiplicatifs reflétant les caractéristiques intrinsèques du bien. Ce n'est pas un AVM (Automated Valuation Model) au sens bancaire — il ne dispose pas de l'exhaustivité des actes notariés.",
     "methodoApproche": "L'approche est log-linéaire :",
@@ -9143,13 +9143,13 @@
     "confForte": "Forte",
     "confMoyenne": "Moyenne",
     "confFaible": "Faible",
-    "sectionBacktest": "Résultats du back-test",
+    "sectionBacktest": "Comparaison sur des exemples synthétiques",
     "backtestBiens": "biens",
-    "backtestDesc": "Comparaison entre le prix réel de référence et l'estimation produite par le modèle. Les prix réels sont issus de fourchettes observées sur les communes concernées.",
+    "backtestDesc": "Les prix de référence de ces exemples sont définis dans le modèle à partir de fourchettes de marché. Il ne s’agit pas de transactions vérifiées ni d’une validation indépendante. Les indicateurs ci-dessus décrivent uniquement ces exemples et ne mesurent pas la précision sur des ventes réelles.",
     "thCommune": "Commune",
     "thSurface": "Surface",
     "thEnergie": "Énergie",
-    "thPrixReel": "Prix réel",
+    "thPrixReel": "Prix de référence",
     "thEstimation": "Estimation",
     "thErreur": "Erreur",
     "mapeFooter": "MAPE (erreur absolue moyenne)",
@@ -10972,7 +10972,7 @@
     "desc": "Configurez le fournisseur IA pour l'analyse automatique de vos résultats de calcul.",
     "providerLabel": "Fournisseur",
     "apiKeyLabel": "Clé API",
-    "apiKeyHint": "Votre clé reste sur le serveur et n'est jamais exposée côté client. Laissez vide pour utiliser le service gratuit Google Gemini.",
+    "apiKeyHint": "Votre clé est chargée dans ce formulaire pour vous permettre de la modifier. Laissez vide pour utiliser le service par défaut.",
     "usageToday": "Analyses aujourd'hui",
     "unlimited": "Illimité (clé personnelle)",
     "byokExplain": "Par défaut, Tevaxia utilise Google Gemini (3.6 Flash, 5 analyses/jour gratuites). Pour un usage illimité ou un autre modèle, ajoutez votre propre clé API (BYOK). Obtenez-la sur le site du fournisseur choisi.",
@@ -10981,7 +10981,10 @@
     "loading": "Chargement...",
     "saving": "Enregistrement...",
     "saved": "Enregistré !",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "loadError": "Impossible de charger vos réglages. Réessayez avant de les modifier.",
+    "saveError": "L’enregistrement a échoué. Vos modifications sont conservées dans le formulaire ; réessayez.",
+    "retry": "Réessayer"
   },
   "aiAnalysis": {
     "title": "Analyse IA",
@@ -17872,5 +17875,11 @@
         ]
       }
     }
+  },
+  "saveButton": {
+    "save": "Sauvegarder",
+    "saving": "Sauvegarde…",
+    "saved": "Sauvegardé !",
+    "error": "La sauvegarde a échoué. Vérifiez le stockage disponible dans votre navigateur, puis réessayez."
   }
 }

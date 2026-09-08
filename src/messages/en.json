@@ -9107,7 +9107,7 @@
     "kpiR2": "R² approx.",
     "kpiR2Desc": "Coefficient of determination",
     "kpiBiens": "Test properties",
-    "kpiBiensDesc": "Validation sample",
+    "kpiBiensDesc": "Synthetic examples",
     "sectionMethodologie": "Methodology",
     "methodoP1": "The model combines a reference price per m² (by municipality or neighbourhood, from the Observatoire de l'Habitat via data.public.lu) with multiplicative adjustments reflecting the property's intrinsic characteristics. This is not an AVM (Automated Valuation Model) in the banking sense — it does not have the completeness of notarial deeds.",
     "methodoApproche": "The approach is log-linear:",
@@ -9143,13 +9143,13 @@
     "confForte": "High",
     "confMoyenne": "Medium",
     "confFaible": "Low",
-    "sectionBacktest": "Back-test results",
+    "sectionBacktest": "Comparison on synthetic examples",
     "backtestBiens": "properties",
-    "backtestDesc": "Comparison between the actual reference price and the model's estimate. Actual prices are derived from ranges observed in the relevant municipalities.",
+    "backtestDesc": "Reference prices for these examples are defined in the model using market ranges. These are not verified transactions or an independent validation. The indicators above describe only these examples and do not measure accuracy on actual sales.",
     "thCommune": "Municipality",
     "thSurface": "Area",
     "thEnergie": "Energy",
-    "thPrixReel": "Actual price",
+    "thPrixReel": "Reference price",
     "thEstimation": "Estimate",
     "thErreur": "Error",
     "mapeFooter": "MAPE (mean absolute error)",
@@ -10972,7 +10972,7 @@
     "desc": "Configure the AI provider for automatic analysis of your calculation results.",
     "providerLabel": "Provider",
     "apiKeyLabel": "API Key",
-    "apiKeyHint": "Your key stays on the server and is never exposed client-side. Leave empty to use the free Google Gemini service.",
+    "apiKeyHint": "Your key is loaded into this form so you can edit it. Leave blank to use the default service.",
     "usageToday": "Analyses today",
     "unlimited": "Unlimited (personal key)",
     "byokExplain": "By default, Tevaxia uses Google Gemini (3.6 Flash, 5 free analyses/day). For unlimited usage or a different model, add your own API key (BYOK). Get it from your chosen provider's website.",
@@ -10981,7 +10981,10 @@
     "loading": "Loading...",
     "saving": "Saving...",
     "saved": "Saved!",
-    "save": "Save"
+    "save": "Save",
+    "loadError": "Unable to load your settings. Please retry before editing them.",
+    "saveError": "Saving failed. Your changes remain in the form; please retry.",
+    "retry": "Retry"
   },
   "aiAnalysis": {
     "title": "AI Analysis",
@@ -17872,5 +17875,11 @@
         ]
       }
     }
+  },
+  "saveButton": {
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved!",
+    "error": "Saving failed. Check the available storage in your browser, then retry."
   }
 }

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import bundleAnalyzer from "@next/bundle-analyzer";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const withBundleAnalyzer = bundleAnalyzer({
@@ -68,4 +69,30 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer(withNextIntl(nextConfig));
+// Téléversement des source maps vers Sentry.
+//
+// Sans cette enveloppe, Sentry recevait bien les erreurs mais avec des piles
+// entièrement minifiées : « Error: Ea at Ji » ne se diagnostique pas. Une
+// alerte illisible coûte le temps de la lire et n'apprend rien.
+//
+// Les source maps sont produites pour le téléversement puis supprimées du
+// build : elles ne sont jamais servies aux visiteurs, et le code reste
+// minifié en production.
+//
+// Sans SENTRY_AUTH_TOKEN — le cas en local — le greffon saute simplement le
+// téléversement. Une construction locale ne doit pas échouer faute d'un jeton
+// qui ne la concerne pas.
+export default withSentryConfig(withBundleAnalyzer(withNextIntl(nextConfig)), {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  silent: !process.env.CI,
+  // Étend le téléversement aux fichiers servis depuis des sous-dossiers, sans
+  // quoi une partie des piles reste minifiée.
+  widenClientFileUpload: true,
+  sourcemaps: { deleteSourcemapsAfterUpload: true },
+  // Retire les journaux de débogage du SDK du bundle client.
+  // `disableLogger` faisait la même chose et est déprécié.
+  webpack: { treeshake: { removeDebugLogging: true } },
+  telemetry: false,
+});

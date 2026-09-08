@@ -67,13 +67,13 @@ function purgeExpiredTrash() {
 
 // ── Helpers Supabase (dual-write en arrière-plan) ──
 
-async function cloudUpsert(v: SavedValuation): Promise<void> {
-  if (!supabase) return;
+async function cloudUpsert(v: SavedValuation): Promise<boolean> {
+  if (!supabase) return false;
   try {
     const { data: auth } = await supabase.auth.getUser();
     const user = auth?.user;
-    if (!user) return;
-    await supabase.from("valuations").upsert(
+    if (!user) return false;
+    const { error } = await supabase.from("valuations").upsert(
       {
         user_id: user.id,
         local_id: v.id,
@@ -86,8 +86,10 @@ async function cloudUpsert(v: SavedValuation): Promise<void> {
       },
       { onConflict: "user_id,local_id" }
     );
+    return !error;
   } catch (e) {
     console.warn("cloudUpsert failed:", e);
+    return false;
   }
 }
 
@@ -161,13 +163,17 @@ export function listerEvaluations(): SavedValuation[] {
  * avec le résultat fusionné pour une lecture ultérieure cohérente.
  */
 export async function listerEvaluationsAsync(): Promise<{ items: SavedValuation[]; cloud: boolean }> {
-  const local = getAll();
   const cloud = await cloudList();
+  // Relire après la requête pour conserver les modifications faites en attente.
+  const local = getAll();
   if (cloud.length === 0) return { items: local, cloud: false };
 
   const byId = new Map<string, SavedValuation>();
   for (const v of local) byId.set(v.id, v);
+  const trashedIds = new Set(getTrash().map((v) => v.id));
   for (const v of cloud) {
+    // Une suppression distante peut être lente ou échouer hors ligne.
+    if (trashedIds.has(v.id)) continue;
     const existing = byId.get(v.id);
     if (!existing || existing.date < v.date) byId.set(v.id, v);
   }
@@ -200,9 +206,9 @@ export function supprimerTout() {
     const now = new Date().toISOString();
     trash.unshift(...all.map((v) => ({ ...v, deletedAt: now })));
     saveTrash(trash);
-    for (const v of all) void cloudDelete(v.id);
   }
   saveAll([]);
+  for (const v of all) void cloudDelete(v.id);
 }
 
 /**
@@ -212,8 +218,8 @@ export function supprimerTout() {
 export async function syncLocalToCloud(): Promise<number> {
   const local = getAll();
   if (local.length === 0) return 0;
-  await Promise.all(local.map((v) => cloudUpsert(v)));
-  return local.length;
+  const results = await Promise.all(local.map((v) => cloudUpsert(v)));
+  return results.filter(Boolean).length;
 }
 
 // ── Corbeille (locale uniquement) ──
@@ -226,12 +232,12 @@ export function restaurerEvaluation(id: string) {
   const trash = getTrash();
   const item = trash.find((t) => t.id === id);
   if (item) {
-    saveTrash(trash.filter((t) => t.id !== id));
     const { deletedAt: _deletedAt, ...valuation } = item;
-    const all = getAll();
+    const all = getAll().filter((v) => v.id !== id);
     all.unshift(valuation);
     if (all.length > LOCAL_CAP) all.length = LOCAL_CAP;
     saveAll(all);
+    saveTrash(trash.filter((t) => t.id !== id));
     void cloudUpsert(valuation);
   }
 }

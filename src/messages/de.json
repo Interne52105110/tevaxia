@@ -8985,7 +8985,7 @@
     "kpiR2": "R² ca.",
     "kpiR2Desc": "Bestimmtheitsmaß",
     "kpiBiens": "Testimmobilien",
-    "kpiBiensDesc": "Validierungsstichprobe",
+    "kpiBiensDesc": "Synthetische Beispiele",
     "sectionMethodologie": "Methodik",
     "methodoP1": "Das Modell kombiniert einen Referenzpreis pro m² (nach Gemeinde oder Stadtviertel, vom Observatoire de l'Habitat über data.public.lu) mit multiplikativen Anpassungen, die die intrinsischen Eigenschaften der Immobilie widerspiegeln. Es handelt sich nicht um ein AVM (Automated Valuation Model) im Banksinne — es verfügt nicht über die Vollständigkeit der notariellen Urkunden.",
     "methodoApproche": "Der Ansatz ist log-linear:",
@@ -9021,13 +9021,13 @@
     "confForte": "Hoch",
     "confMoyenne": "Mittel",
     "confFaible": "Niedrig",
-    "sectionBacktest": "Back-Test-Ergebnisse",
+    "sectionBacktest": "Vergleich anhand synthetischer Beispiele",
     "backtestBiens": "Immobilien",
-    "backtestDesc": "Vergleich zwischen dem tatsächlichen Referenzpreis und der Modellschätzung. Die tatsächlichen Preise stammen aus beobachteten Spannen in den betreffenden Gemeinden.",
+    "backtestDesc": "Die Referenzpreise dieser Beispiele sind im Modell anhand von Marktpreisspannen festgelegt. Es handelt sich weder um verifizierte Transaktionen noch um eine unabhängige Validierung. Die obigen Kennzahlen beschreiben nur diese Beispiele und messen nicht die Genauigkeit bei tatsächlichen Verkäufen.",
     "thCommune": "Gemeinde",
     "thSurface": "Fläche",
     "thEnergie": "Energie",
-    "thPrixReel": "Tatsächlicher Preis",
+    "thPrixReel": "Referenzpreis",
     "thEstimation": "Schätzung",
     "thErreur": "Fehler",
     "mapeFooter": "MAPE (mittlerer absoluter Fehler)",
@@ -10850,7 +10850,7 @@
     "desc": "Konfigurieren Sie den KI-Anbieter für die automatische Analyse Ihrer Berechnungsergebnisse.",
     "providerLabel": "Anbieter",
     "apiKeyLabel": "API-Schlüssel",
-    "apiKeyHint": "Ihr Schlüssel bleibt auf dem Server und wird nie clientseitig offengelegt. Leer lassen, um den kostenlosen Gemini-Dienst zu nutzen.",
+    "apiKeyHint": "Ihr Schlüssel wird in dieses Formular geladen, damit Sie ihn bearbeiten können. Lassen Sie das Feld leer, um den Standarddienst zu verwenden.",
     "usageToday": "Analysen heute",
     "unlimited": "Unbegrenzt (persönlicher Schlüssel)",
     "byokExplain": "Standardmässig nutzt Tevaxia Google Gemini (3.6 Flash, 5 kostenlose Analysen/Tag). Für unbegrenzten Einsatz oder ein anderes Modell fügen Sie Ihren eigenen API-Schlüssel hinzu (BYOK). Erhalten Sie ihn auf der Website des gewählten Anbieters.",
@@ -10859,7 +10859,10 @@
     "loading": "Laden...",
     "saving": "Speichern...",
     "saved": "Gespeichert!",
-    "save": "Speichern"
+    "save": "Speichern",
+    "loadError": "Ihre Einstellungen konnten nicht geladen werden. Bitte versuchen Sie es vor dem Bearbeiten erneut.",
+    "saveError": "Speichern fehlgeschlagen. Ihre Änderungen bleiben im Formular erhalten. Bitte versuchen Sie es erneut.",
+    "retry": "Erneut versuchen"
   },
   "aiAnalysis": {
     "title": "KI-Analyse",
@@ -17872,5 +17875,11 @@
         ]
       }
     }
+  },
+  "saveButton": {
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "saved": "Gespeichert!",
+    "error": "Speichern fehlgeschlagen. Prüfen Sie den verfügbaren Speicher Ihres Browsers und versuchen Sie es erneut."
   }
 }

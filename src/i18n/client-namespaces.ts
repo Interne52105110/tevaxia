@@ -134,6 +134,7 @@ export const CLIENT_NAMESPACES = [
   "profilOrganisation",
   "profileTypes",
   "propcalc",
+  "saveButton",
   "signer",
   "simulateurAides",
   "strArbitrage",
