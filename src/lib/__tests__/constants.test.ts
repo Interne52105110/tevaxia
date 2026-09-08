@@ -104,8 +104,8 @@ describe("BAREME_IR_CLASSE1", () => {
 });
 
 describe("Plus-values constants", () => {
-  it("speculation threshold is 2 years", () => {
-    expect(SEUIL_SPECULATION_ANNEES).toBe(2);
+  it("ordinary speculation threshold is 5 years (dated exceptions tested separately)", () => {
+    expect(SEUIL_SPECULATION_ANNEES).toBe(5);
   });
 
   it("couple abatement is double", () => {
