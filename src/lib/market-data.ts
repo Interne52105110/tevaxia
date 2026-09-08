@@ -217,7 +217,7 @@ const LOCALITES_COMMUNES: Record<string, string> = {
   "warken": "Ettelbruck",
 
   // Commune de Diekirch
-  "gilsdorf": "Diekirch", "ingeldorf": "Diekirch",
+  "gilsdorf": "Bettendorf", "ingeldorf": "Erpeldange-sur-Sûre",
 
   // Commune de Wiltz
   "weidingen": "Wiltz", "niederwiltz": "Wiltz",
@@ -453,7 +453,6 @@ Object.assign(LOCALITES_COMMUNES, {
   "raemerich": "Esch-sur-Alzette",
   "wobrecken": "Esch-sur-Alzette",
   "lallange": "Esch-sur-Alzette",
-  "nördstad": "Esch-sur-Alzette",
   "centre differdange": "Differdange",
   "oberkorn": "Differdange",
   "niederkorn": "Differdange",
@@ -476,7 +475,7 @@ Object.assign(LOCALITES_COMMUNES, {
   "rollingen": "Mersch",
   "centre ettelbruck": "Ettelbruck",
   "warken": "Ettelbruck",
-  "ingeldorf": "Ettelbruck"
+  "ingeldorf": "Erpeldange-sur-Sûre"
 });
 
 export interface SearchResult {

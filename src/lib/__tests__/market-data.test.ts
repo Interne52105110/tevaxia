@@ -120,3 +120,10 @@ describe("official snapshot published 25 June 2026", () => {
     expect(belair[0].quartier).toBeUndefined();
   });
 });
+
+
+it("uses current municipal affiliation for Ingeldorf and Gilsdorf", () => {
+  expect(rechercherCommune("Ingeldorf")[0].commune.commune).toBe("Erpeldange-sur-Sûre");
+  expect(rechercherCommune("Gilsdorf")[0].commune.commune).toBe("Bettendorf");
+  expect(rechercherCommune("Nördstad")).toEqual([]);
+});
