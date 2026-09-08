@@ -158,3 +158,12 @@ Validation : 1 137 tests / 88 fichiers réussis, build et lint ciblé réussis. 
 - PDF corrigé : aucune fiabilité attribuée au simple nombre de classes, hypothèses et formule explicites, aucun montant d’aide ou effet fiscal calculé. PDF français annoncé dans les cinq langues.
 - Tests : 1 142 tests / 89 fichiers passent ; lint ciblé et build passent. PDF généré, contenu contrôlé, deux pages rendues et page de calcul inspectée.
 - Limite de périmètre : le module energy-comparables reste utilisé par la page syndic ; son audit est encore à effectuer. L’ancien backend Java n’est pas corrigé par ce lot. L’audit global de Tevaxia reste ouvert.
+
+## Syndic — budgets énergie et rénovation — 8 septembre 2026
+
+- Retrait de la valeur forfaitaire de 6 500 €/m² et des coefficients communaux non étayés. Renvoi vers le scénario de sensibilité distinct ; suppression du module energy-comparables devenu inutilisé et de ses tests qui ne vérifiaient aucune donnée source.
+- Retrait du calcul automatique Klimabonus par saut de classe/surface. Travaux TTC, honoraires et aides confirmées désormais saisis explicitement, valeurs initiales nulles. Le taux de couverture affiché est le rapport aide/budget. Saisies non finies, négatives ou aides supérieures au budget bloquent les résultats et les tableaux.
+- Les coûts et honoraires ne sont plus imputés automatiquement à un changement de classe ; la durée forfaitaire et le taux d’honoraires fixe de 10 % sont retirés. Budget nul ne signifie plus bâtiment conforme.
+- Suppression du calendrier individuel déduit de la lettre CPE. Source : Commission européenne, Energy Performance of Buildings Directive, https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/energy-performance-buildings-directive_en (consulté le 8 septembre 2026). Le résidentiel relève d’une trajectoire nationale de consommation moyenne ; les règles nationales applicables au bâtiment sont à vérifier.
+- La répartition des aides par tantièmes est explicitement une hypothèse budgétaire, sans présumer des droits individuels ni de la transférabilité des aides. Hypothèse de versement immédiat, financement exclu. Les lots d’exemple deviennent déterministes et leur génération évite les surfaces négatives et les tantièmes négatifs par arrondis.
+- Périmètre : les onglets énergie/rénovation du tableau syndic sont corrigés. L’ensemble de la gestion de copropriété, les clés légales de charges et les autres modules professionnels ne sont pas déclarés audités par ce lot.

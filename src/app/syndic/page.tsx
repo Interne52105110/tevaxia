@@ -7,8 +7,8 @@ import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import SEOContent from "@/components/SEOContent";
 import { formatEUR } from "@/lib/calculations";
-import { estimerCoutsRenovation, type RenovationEstimate } from "@/lib/renovation-costs";
-import { getEnergyComparables, getAvailableCommunes, buildImpactRange } from "@/lib/energy-comparables";
+
+import { getAllCommunes } from "@/lib/market-data";
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -84,48 +84,6 @@ interface ChargesConfig {
 /*  EPBD deadlines                                                     */
 /* ------------------------------------------------------------------ */
 
-function getEpbdDeadline(classe: string): string {
-  switch (classe) {
-    case "I": return "2030";
-    case "H": return "2030";
-    case "G": return "2033";
-    case "F": return "2033";
-    case "E": return "2040";
-    case "D": return "2045";
-    default: return "Conforme";
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/*  Klimabonus subsidy estimation                                      */
-/* ------------------------------------------------------------------ */
-
-function estimerKlimabonus(
-  classeActuelle: string,
-  classeCible: string,
-  surface: number
-): { eligible: boolean; montantEstime: number; tauxCouverture: number } {
-  const indexActuel = ENERGY_CLASSES.indexOf(classeActuelle);
-  const indexCible = ENERGY_CLASSES.indexOf(classeCible);
-  if (indexCible < 0 || indexActuel < 0 || indexCible >= indexActuel) {
-    return { eligible: false, montantEstime: 0, tauxCouverture: 0 };
-  }
-  const saut = indexActuel - indexCible;
-  // Klimabonus: ~25-50 EUR/m2 for 1-2 class jumps, up to 80-120 EUR/m2 for deep renovation
-  let tauxParM2: number;
-  if (saut >= 5) tauxParM2 = 100;
-  else if (saut >= 3) tauxParM2 = 70;
-  else if (saut >= 2) tauxParM2 = 45;
-  else tauxParM2 = 25;
-
-  const montant = Math.round(tauxParM2 * surface);
-  return { eligible: true, montantEstime: montant, tauxCouverture: saut >= 3 ? 0.35 : 0.25 };
-}
-
-/* ------------------------------------------------------------------ */
-/*  Helpers                                                            */
-/* ------------------------------------------------------------------ */
-
 const DEFAULT_BUILDING: BuildingConfig = {
   name: "Résidence Les Tilleuls",
   address: "12, rue des Champs",
@@ -148,17 +106,18 @@ const DEFAULT_CHARGES: ChargesConfig = {
 };
 
 function generateLots(nbLots: number, surfaceTotale: number): Lot[] {
+  nbLots = Number.isFinite(nbLots) ? Math.max(1, Math.min(200, Math.floor(nbLots))) : 1;
+  surfaceTotale = Number.isFinite(surfaceTotale) ? Math.max(0, surfaceTotale) : 0;
   const lots: Lot[] = [];
-  const baseSurface = Math.round(surfaceTotale / nbLots);
+  const baseSurface = Math.floor(surfaceTotale * 100 / nbLots) / 100;
   let remainingSurface = surfaceTotale;
 
   for (let i = 0; i < nbLots; i++) {
     const isLast = i === nbLots - 1;
-    // Add some realistic variation (+/- 20%)
-    const variation = isLast ? 0 : (Math.random() - 0.5) * 0.4;
+    // Deterministic illustrative lots: do not invent random occupied areas.
     const surface = isLast
-      ? remainingSurface
-      : Math.max(25, Math.round(baseSurface * (1 + variation)));
+      ? Math.round(remainingSurface * 100) / 100
+      : baseSurface;
     remainingSurface -= surface;
 
     lots.push({
@@ -166,7 +125,7 @@ function generateLots(nbLots: number, surfaceTotale: number): Lot[] {
       numero: String(i + 1),
       surface,
       tantiemes: 0, // will be auto-calculated
-      occupant: Math.random() > 0.3 ? "proprietaire" : "locataire",
+      occupant: "proprietaire",
       loyerMensuel: Math.round(surface * 18),
     });
   }
@@ -178,7 +137,7 @@ function generateLots(nbLots: number, surfaceTotale: number): Lot[] {
     if (i === lots.length - 1) {
       lot.tantiemes = tantRemaining;
     } else {
-      lot.tantiemes = Math.round((lot.surface / totalSurf) * 1000);
+      lot.tantiemes = totalSurf > 0 ? Math.floor((lot.surface / totalSurf) * 1000) : Math.floor(1000 / lots.length);
       tantRemaining -= lot.tantiemes;
     }
   });
@@ -200,7 +159,8 @@ function fmtDec(n: number, dec = 1, locale = "fr-FR"): string {
 
 export default function SyndicPage() {
   const t = useTranslations("syndic");
-  const communes = useMemo(() => getAvailableCommunes(), []);
+  const ta = useTranslations("syndicEnergyAudit");
+  const communes = useMemo(() => getAllCommunes(), []);
 
   /* --- State --- */
   const [activeTab, setActiveTab] = useState<Tab>("config");
@@ -209,6 +169,9 @@ export default function SyndicPage() {
   const [charges, setCharges] = useState<ChargesConfig>(DEFAULT_CHARGES);
   const [targetClass, setTargetClass] = useState<string>("C");
   const [agMode, setAgMode] = useState(false);
+  const [works, setWorks] = useState(0);
+  const [fees, setFees] = useState(0);
+  const [aid, setAid] = useState(0);
 
   /* --- Derived calculations --- */
   const totalTantiemes = useMemo(() => lots.reduce((s, l) => s + l.tantiemes, 0), [lots]);
@@ -229,23 +192,28 @@ export default function SyndicPage() {
     return lots.length > 0 ? occupied / lots.length : 0;
   }, [lots]);
 
-  /* --- Energy calculations --- */
-  const energyData = useMemo(() => {
-    const { data, isCommune } = getEnergyComparables(building.commune);
-    const impactRange = buildImpactRange(data);
-    const currentImpact = impactRange[building.classeEnergie];
-    return { data, isCommune, impactRange, currentImpact };
-  }, [building.commune, building.classeEnergie]);
+  // Entered budgets only: CPE class does not determine works or grant eligibility.
+  const validBudget = [works, fees, aid].every(n => Number.isFinite(n) && n >= 0 && n <= 100_000_000) && aid <= works + fees;
+  const renovation = {
+    postes: works > 0 ? [{ labelKey: "workItem", coutMin: works, coutMax: works, coutMoyen: works }] : [],
+    totalMin: works, totalMax: works, totalMoyen: works,
+    honoraires: fees, totalAvecHonoraires: works + fees,
+  };
+  const klimabonus = { eligible: aid > 0, montantEstime: aid, tauxCouverture: works + fees > 0 ? aid / (works + fees) : 0 };
 
-  const renovation = useMemo<RenovationEstimate>(
-    () => estimerCoutsRenovation(building.classeEnergie, targetClass, building.surfaceTotale, building.anneeConstruction),
-    [building.classeEnergie, targetClass, building.surfaceTotale, building.anneeConstruction]
-  );
-
-  const klimabonus = useMemo(
-    () => estimerKlimabonus(building.classeEnergie, targetClass, building.surfaceTotale),
-    [building.classeEnergie, targetClass, building.surfaceTotale]
-  );
+  function budgetInputs() {
+    return <div className="rounded-xl border border-card-border bg-card p-5 space-y-4">
+      <p className="text-sm text-muted">{ta("budgetScope")}</p>
+      <p className="text-sm text-muted">{ta("allocation")}</p>
+      <div className="grid gap-4 sm:grid-cols-3">{([
+        ["works", works, setWorks], ["fees", fees, setFees], ["aid", aid, setAid],
+      ] as const).map(([key, value, setter]) => <label key={key} className="text-sm">{ta(key)}
+        <input id={"syndic-" + key} type="number" min="0" max="100000000" value={Number.isNaN(value) ? "" : value}
+          onChange={e => setter(e.target.valueAsNumber)} className="mt-2 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2" />
+      </label>)}</div>
+      {!validBudget && <p role="alert" className="text-red-700">{ta("invalid")}</p>}
+    </div>;
+  }
 
   /* --- Handlers --- */
   const updateBuilding = useCallback(<K extends keyof BuildingConfig>(key: K, value: BuildingConfig[K]) => {
@@ -620,13 +588,7 @@ export default function SyndicPage() {
   /* ------------------------------------------------------------------ */
 
   function renderEnergy() {
-    const currentImpact = energyData.currentImpact;
-    const valeurEstimeeM2 = 6500; // average price/m2 in Luxembourg for estimation
-    const valeurBatiment = valeurEstimeeM2 * building.surfaceTotale;
-    const impactEur = currentImpact
-      ? Math.round(valeurBatiment * (currentImpact.central / 100))
-      : 0;
-
+    if (!validBudget) return budgetInputs();
     return (
       <div className="space-y-6">
         {/* Current energy class badge */}
@@ -651,49 +613,10 @@ export default function SyndicPage() {
           </p>
         </div>
 
-        {/* Green premium / brown discount */}
-        <div className="grid gap-4 sm:grid-cols-2">
-          <ResultPanel
-            title={t("greenPremiumBrown")}
-            lines={[
-              { label: t("currentClassLabel"), value: building.classeEnergie, highlight: true },
-              {
-                label: t("priceImpact"),
-                value: currentImpact ? `${currentImpact.central > 0 ? "+" : ""}${currentImpact.central}%` : "N/A",
-                warning: currentImpact ? currentImpact.central < 0 : false,
-              },
-              {
-                label: t("impactOnValue"),
-                value: formatEUR(impactEur),
-                warning: impactEur < 0,
-              },
-              {
-                label: t("confidence"),
-                value: currentImpact ? t(`confidence_${currentImpact.confidence}`) : "N/A",
-                sub: true,
-              },
-              {
-                label: t("source"),
-                value: energyData.isCommune ? building.commune : t("nationalAvg"),
-                sub: true,
-              },
-            ]}
-          />
-
-          <ResultPanel
-            title={t("buildingValue")}
-            lines={[
-              { label: t("estimatedValueM2"), value: `${fmt(valeurEstimeeM2)} \u20AC/m\u00B2` },
-              { label: t("totalSurface"), value: `${fmt(building.surfaceTotale)} m\u00B2` },
-              { label: t("grossValue"), value: formatEUR(valeurBatiment), highlight: true },
-              {
-                label: t("adjustedValue"),
-                value: formatEUR(valeurBatiment + impactEur),
-                highlight: true,
-                large: true,
-              },
-            ]}
-          />
+        {budgetInputs()}
+        <div className="rounded-xl border border-card-border p-5 text-sm">
+          <p>{ta("valueScope")}</p>
+          <Link className="mt-3 inline-block text-energy underline" href="/energy/impact">{ta("valueLink")}</Link>
         </div>
 
         {/* Renovation cost summary */}
@@ -706,17 +629,16 @@ export default function SyndicPage() {
             { label: t("estimatedCostAvg"), value: formatEUR(renovation.totalMoyen), highlight: true },
             { label: t("honoraires"), value: formatEUR(renovation.honoraires), sub: true },
             { label: t("totalWithHonoraires"), value: formatEUR(renovation.totalAvecHonoraires), highlight: true, large: true },
-            { label: t("estimatedDuration"), value: `${renovation.dureeEstimeeMois} ${t("months")}` },
           ]}
         />
 
         {/* Klimabonus */}
         {klimabonus.eligible && (
           <div className="rounded-xl border border-green-200 bg-green-50 p-6 shadow-sm">
-            <h3 className="mb-3 text-base font-semibold text-green-800">{t("klimabonusTitle")}</h3>
+            <h3 className="mb-3 text-base font-semibold text-green-800">{ta("aid")}</h3>
             <div className="grid gap-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-green-700">{t("estimatedSubsidy")}</span>
+                <span className="text-green-700">{ta("aid")}</span>
                 <span className="font-mono font-bold text-green-800">{formatEUR(klimabonus.montantEstime)}</span>
               </div>
               <div className="flex justify-between">
@@ -728,7 +650,7 @@ export default function SyndicPage() {
                 <span className="font-mono font-bold text-green-800">{formatEUR(renovation.totalAvecHonoraires - klimabonus.montantEstime)}</span>
               </div>
             </div>
-            <p className="mt-3 text-xs text-green-600">{t("klimabonusNote")}</p>
+            <p className="mt-3 text-xs text-green-600">{ta("allocation")}</p>
           </div>
         )}
 
@@ -793,7 +715,7 @@ export default function SyndicPage() {
   /* ------------------------------------------------------------------ */
 
   function renderRenovation() {
-    const epbdDeadline = getEpbdDeadline(building.classeEnergie);
+    if (!validBudget) return budgetInputs();
     const targetClasses = ENERGY_CLASSES.filter(
       (c) => ENERGY_CLASSES.indexOf(c) < ENERGY_CLASSES.indexOf(building.classeEnergie)
     );
@@ -841,24 +763,14 @@ export default function SyndicPage() {
           </p>
         </div>
 
-        {/* EPBD Timeline */}
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
-          <h3 className="mb-3 text-base font-semibold text-amber-800">{t("epbdTimeline")}</h3>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <div className="text-sm text-amber-700">{t("currentClassLabel")}</div>
-              <div className="text-lg font-bold text-amber-900">{t("class")} {building.classeEnergie}</div>
-            </div>
-            <div>
-              <div className="text-sm text-amber-700">{t("epbdDeadline")}</div>
-              <div className="text-lg font-bold text-amber-900">{epbdDeadline}</div>
-            </div>
-          </div>
-          <p className="mt-3 text-xs text-amber-600">{t("epbdNote")}</p>
+        {budgetInputs()}
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-950">
+          <p>{ta("epbd")}</p>
+          <a className="mt-3 inline-block underline" href="https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/energy-performance-buildings-directive_en">{ta("source")}</a>
         </div>
 
         {/* Renovation breakdown */}
-        {renovation.postes.length > 0 ? (
+        {renovation.totalAvecHonoraires > 0 ? (
           <div className="rounded-xl border border-card-border bg-card shadow-sm">
             <h3 className="p-4 text-base font-semibold text-navy border-b border-card-border">{t("renovationBreakdown")}</h3>
             <div className="overflow-x-auto">
@@ -901,7 +813,7 @@ export default function SyndicPage() {
                     <td className="px-4 py-3 text-right font-mono">{formatEUR(renovation.totalMoyen)}</td>
                   </tr>
                   <tr className="bg-navy/5">
-                    <td className="px-4 py-2 text-muted">{t("honoraires")} (10%)</td>
+                    <td className="px-4 py-2 text-muted">{ta("fees")}</td>
                     {!agMode && (
                       <>
                         <td className="px-4 py-2"></td>
@@ -923,7 +835,7 @@ export default function SyndicPage() {
                   {klimabonus.eligible && (
                     <>
                       <tr className="bg-green-50">
-                        <td className="px-4 py-2 text-green-700">{t("klimabonusSubsidy")}</td>
+                        <td className="px-4 py-2 text-green-700">{ta("aid")}</td>
                         {!agMode && (
                           <>
                             <td className="px-4 py-2"></td>
@@ -950,12 +862,12 @@ export default function SyndicPage() {
           </div>
         ) : (
           <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center">
-            <p className="text-green-800 font-medium">{t("alreadyCompliant")}</p>
+            <p className="text-green-800 font-medium">{ta("budgetScope")}</p>
           </div>
         )}
 
         {/* Per-lot cost AG view */}
-        {agMode && renovation.postes.length > 0 && (
+        {agMode && renovation.totalAvecHonoraires > 0 && (
           <div className="rounded-xl border border-card-border bg-card shadow-sm">
             <h3 className="p-4 text-base font-semibold text-navy border-b border-card-border">{t("agPerLotTitle")}</h3>
             <p className="px-4 py-2 text-sm text-muted">{t("agPerLotDesc")}</p>
@@ -1001,10 +913,6 @@ export default function SyndicPage() {
         {/* Renovation duration */}
         {renovation.postes.length > 0 && (
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className="rounded-xl border border-card-border bg-card p-4 text-center">
-              <div className="text-2xl font-bold text-navy">{renovation.dureeEstimeeMois}</div>
-              <div className="text-sm text-muted">{t("monthsDuration")}</div>
-            </div>
             <div className="rounded-xl border border-card-border bg-card p-4 text-center">
               <div className="text-2xl font-bold text-navy">{renovation.postes.length}</div>
               <div className="text-sm text-muted">{t("workItems")}</div>

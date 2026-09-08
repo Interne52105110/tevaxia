@@ -18126,5 +18126,17 @@
     "formula": "Valor alvo = valor atual × (1 + coeficiente alvo / 100) ÷ (1 + coeficiente atual / 100). O valor declarado mantém-se exatamente para a classe atual.",
     "limits": "A diferença calculada não é um lucro líquido: obras, despesas e impostos não são deduzidos. A classe energética, por si só, não determina o consumo real nem as emissões de CO₂. A avaliação de mercado exige comparáveis verificados e as características do imóvel.",
     "renovation": "Calcular custos e poupanças da renovação"
+  },
+  "syndicEnergyAudit": {
+    "works": "Orçamento de obras introduzido (€)",
+    "fees": "Honorários introduzidos (€)",
+    "aid": "Apoios confirmados introduzidos (€)",
+    "budgetScope": "Introduza orçamentos com IVA e apoios já confirmados, inicialmente todos a zero. Nenhum montante é deduzido automaticamente da classe energética. Os resultados pressupõem apoios imediatamente disponíveis e excluem financiamento. Um consultor deve validar a classe pretendida.",
+    "invalid": "Introduza montantes não negativos até 100 milhões de euros cada. Os apoios não podem ultrapassar obras e honorários.",
+    "valueScope": "O valor de mercado não pode ser deduzido de um preço nacional fixo nem apenas da classe energética. Use comparáveis verificados e um cenário de sensibilidade separado.",
+    "valueLink": "Abrir o cenário de valor",
+    "epbd": "Para edifícios residenciais, a EPBD estabelece uma trajetória nacional de consumo médio. A letra da classe energética não permite atribuir um prazo individual de 2030 ou 2033. Devem verificar-se as regras nacionais aplicáveis ao edifício.",
+    "source": "Comissão Europeia — EPBD",
+    "allocation": "A distribuição por permilagem é uma hipótese orçamental. Devem verificar-se os direitos de cada beneficiário e as regras do condomínio; os apoios não são automaticamente transferíveis entre frações."
   }
 }

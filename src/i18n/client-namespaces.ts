@@ -162,6 +162,7 @@ export const CLIENT_NAMESPACES = [
   "syndicContextBar",
   "syndicCoproprietes",
   "syndicDetail",
+  "syndicEnergyAudit",
   "syndicFondsTravaux",
   "syndicLettres",
   "syndicMessagerie",

@@ -18126,5 +18126,17 @@
     "formula": "Zilwäert = aktuelle Wäert × (1 + Zilkoeffizient / 100) ÷ (1 + aktuelle Koeffizient / 100). Fir déi aktuell Klass bleift den uginnene Wäert exakt erhalen.",
     "limits": "Déi berechent Differenz ass keen Nettogewënn: Aarbechten, Käschten a Steiere sinn net ofgezunn. D’Energieklass eleng bestëmmt weder den tatsächleche Verbrauch nach d’CO₂-Emissiounen. Eng Maartwäertschätzung erfuerdert verifizéiert Vergläichsobjeten an d’Eegenschafte vun der Immobilie.",
     "renovation": "Renovatiounskäschten an Erspuernisser berechnen"
+  },
+  "syndicEnergyAudit": {
+    "works": "Aginnene Budget fir Aarbechten (€)",
+    "fees": "Aginnen Honorairen (€)",
+    "aid": "Aginne bestätegt Hëllefen (€)",
+    "budgetScope": "Gitt Devisen inklusiv TVA a scho bestätegt Hëllefen an; am Ufank stinn all Wäerter op null. Kee Montant gëtt automatesch aus der Energieklass ofgeleet. D’Hëllefe ginn als direkt disponibel ugeholl; d’Finanzéierung ass ausgeschloss. En Energieberoder muss d’Zilklass bewäerten.",
+    "invalid": "Gitt net negativ Montante bis jeeweils 100 Milliounen Euro an. D’Hëllefen däerfen Aarbechten an Honorairen net iwwerschreiden.",
+    "valueScope": "De Maartwäert kann net aus engem feste nationale Präis oder eleng aus der Energieklass ofgeleet ginn. Benotzt verifizéiert Vergläichsobjeten an e separate Sensibilitéitsszenario.",
+    "valueLink": "Wäertszenario opmaachen",
+    "epbd": "Fir Wunngebaier setzt d’EPBD en nationale Wee fir den duerchschnëttleche Verbrauch fest. De Buschtaf vun der Energieklass eleng ergëtt keng individuell Frist 2030 oder 2033. Déi national Reegelen, déi fir d’Gebai gëllen, musse gepréift ginn.",
+    "source": "Europäesch Kommissioun — EPBD",
+    "allocation": "D’Verdeelung no Miteegentumsundeeler ass eng Budgethypothees. D’Rechter vun all Beneficiaire an d’Verdeelungsreegele vun der Coproprietéit musse gepréift ginn; Hëllefe sinn net automatesch tëschent Eenheeten iwwerdrobar."
   }
 }

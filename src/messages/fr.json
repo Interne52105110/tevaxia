@@ -18126,5 +18126,17 @@
     "formula": "Valeur cible = valeur actuelle × (1 + coefficient cible / 100) ÷ (1 + coefficient actuel / 100). La valeur actuelle est conservée exactement pour sa propre classe.",
     "limits": "L’écart calculé n’est pas un bénéfice net : travaux, frais et fiscalité ne sont pas déduits. La classe CPE seule ne suffit pas à déterminer la consommation réelle ou les émissions de CO₂. Il faut des comparables vérifiés et les caractéristiques du bien pour estimer sa valeur de marché.",
     "renovation": "Calculer les coûts et économies de rénovation"
+  },
+  "syndicEnergyAudit": {
+    "works": "Budget travaux saisi (€)",
+    "fees": "Honoraires saisis (€)",
+    "aid": "Aides confirmées saisies (€)",
+    "budgetScope": "Saisissez les montants TTC de vos devis et les aides déjà confirmées, toutes à zéro au départ. Aucun montant n’est déduit automatiquement de la classe CPE. Les résultats supposent une aide disponible immédiatement et excluent le financement. La classe cible est un objectif à valider par un conseiller.",
+    "invalid": "Saisissez des montants positifs ou nuls, jusqu’à 100 millions d’euros chacun. Les aides ne peuvent pas dépasser travaux et honoraires.",
+    "valueScope": "La valeur de marché ne peut pas être déduite d’un prix national fixe ou de la seule classe CPE. Utilisez des comparables vérifiés et, séparément, un scénario de sensibilité.",
+    "valueLink": "Ouvrir le scénario de valeur",
+    "epbd": "Pour le résidentiel, l’EPBD fixe une trajectoire nationale de consommation moyenne. La seule lettre du CPE ne permet pas d’attribuer une échéance individuelle 2030 ou 2033. Les règles nationales applicables au bâtiment doivent être vérifiées.",
+    "source": "Commission européenne — EPBD",
+    "allocation": "La répartition au prorata des tantièmes est une hypothèse budgétaire. Les droits de chaque bénéficiaire et les clés du règlement de copropriété doivent être vérifiés ; une aide n’est pas automatiquement transférable entre lots."
   }
 }

@@ -18126,5 +18126,17 @@
     "formula": "Zielwert = aktueller Wert × (1 + Zielkoeffizient / 100) ÷ (1 + aktueller Koeffizient / 100). Für die aktuelle Klasse bleibt der angegebene Wert exakt erhalten.",
     "limits": "Die Differenz ist kein Nettogewinn: Baukosten, Gebühren und Steuern sind nicht abgezogen. Die Energieklasse allein bestimmt weder tatsächlichen Verbrauch noch CO₂-Emissionen. Eine Marktwertermittlung erfordert geprüfte Vergleichsobjekte und die Eigenschaften der Immobilie.",
     "renovation": "Renovierungskosten und Einsparungen berechnen"
+  },
+  "syndicEnergyAudit": {
+    "works": "Eingegebenes Baubudget (€)",
+    "fees": "Eingegebene Honorare (€)",
+    "aid": "Eingegebene bestätigte Zuschüsse (€)",
+    "budgetScope": "Geben Sie Angebote einschließlich Mehrwertsteuer und bereits bestätigte Zuschüsse ein; anfangs sind alle Werte null. Die Energieklasse bestimmt keinen Betrag automatisch. Zuschüsse werden als sofort verfügbar angenommen, Finanzierung ist ausgeschlossen. Die Zielklasse muss ein Energieberater beurteilen.",
+    "invalid": "Geben Sie nicht negative Beträge bis jeweils 100 Millionen Euro ein. Zuschüsse dürfen Baukosten und Honorare nicht übersteigen.",
+    "valueScope": "Der Marktwert lässt sich weder aus einem festen nationalen Preis noch allein aus der Energieklasse ableiten. Nutzen Sie geprüfte Vergleichsobjekte und ein gesondertes Sensitivitätsszenario.",
+    "valueLink": "Wertszenario öffnen",
+    "epbd": "Für Wohngebäude legt die EPBD einen nationalen Pfad für den durchschnittlichen Energieverbrauch fest. Ein Energieklassenbuchstabe allein begründet keine individuelle Frist 2030 oder 2033. Die für das Gebäude geltenden nationalen Regeln sind zu prüfen.",
+    "source": "Europäische Kommission — EPBD",
+    "allocation": "Die Verteilung nach Miteigentumsanteilen ist eine Budgetannahme. Ansprüche jedes Begünstigten und die Verteilungsschlüssel der Gemeinschaft sind zu prüfen; Zuschüsse sind nicht automatisch zwischen Einheiten übertragbar."
   }
 }

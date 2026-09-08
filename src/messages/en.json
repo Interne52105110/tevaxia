@@ -18126,5 +18126,17 @@
     "formula": "Target value = current value × (1 + target coefficient / 100) ÷ (1 + current coefficient / 100). The current class retains its declared value exactly.",
     "limits": "The calculated difference is not net profit: works, fees and taxes are not deducted. EPC class alone cannot determine actual consumption or CO₂ emissions. Market valuation requires verified comparables and property characteristics.",
     "renovation": "Calculate renovation costs and savings"
+  },
+  "syndicEnergyAudit": {
+    "works": "Entered works budget (€)",
+    "fees": "Entered fees (€)",
+    "aid": "Entered confirmed grants (€)",
+    "budgetScope": "Enter VAT-inclusive quotes and already confirmed grants, all initially zero. No amount is inferred automatically from the EPC class. Results assume grants are immediately available and exclude financing. The target class must be assessed by an energy adviser.",
+    "invalid": "Enter non-negative amounts up to €100 million each. Grants cannot exceed works and fees.",
+    "valueScope": "Market value cannot be inferred from a fixed national price or EPC class alone. Use verified comparables and a separate sensitivity scenario.",
+    "valueLink": "Open the value scenario",
+    "epbd": "For residential buildings, the EPBD sets a national average-consumption trajectory. An EPC letter alone does not establish an individual 2030 or 2033 deadline. Applicable national rules must be checked for the building.",
+    "source": "European Commission — EPBD",
+    "allocation": "Allocation by ownership shares is a budgeting assumption. Each beneficiary's eligibility and the building's allocation rules must be checked; grants are not automatically transferable between units."
   }
 }
