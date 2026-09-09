@@ -5,7 +5,6 @@ import {
   calculerPlusValue,
   calculerLTV,
   calculerMensualite,
-  calculerCapaciteEmprunt,
   calculerDSCR,
   getCoefficient,
 } from "../calculations";
@@ -201,22 +200,6 @@ describe("calculerMensualite", () => {
   it("handles zero rate", () => {
     const m = calculerMensualite(600000, 0, 25);
     expect(m).toBe(600000 / (25 * 12));
-  });
-});
-
-describe("calculerCapaciteEmprunt", () => {
-  it("calculates borrowing capacity", () => {
-    const result = calculerCapaciteEmprunt({
-      revenuNetMensuel: 5000,
-      chargesMensuelles: 500,
-      tauxEndettementMax: 0.40,
-      tauxInteret: 0.035,
-      dureeAnnees: 25,
-    });
-    // Mensualité max = 5000 × 40% - 500 = 1500
-    expect(result.mensualiteMax).toBe(1500);
-    expect(result.capaciteEmprunt).toBeGreaterThan(250000);
-    expect(result.capaciteEmprunt).toBeLessThan(350000);
   });
 });
 

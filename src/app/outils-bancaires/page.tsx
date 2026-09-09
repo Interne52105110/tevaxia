@@ -13,16 +13,15 @@ import ResultPanel from "@/components/ResultPanel";
 import {
   calculerLTV,
   calculerMensualite,
-  calculerCapaciteEmprunt,
   genererTableauAmortissement,
   calculerDSCR,
-  simulerRemboursementAnticipe,
   formatEUR,
   formatEUR2,
   formatPct,
 } from "@/lib/calculations";
 import { PdfButton } from "@/components/PdfButton";
 const _lazy_generateBancairePdfBlob = async (...args: Parameters<typeof import("@/components/ToolsPdf")["generateBancairePdfBlob"]>): Promise<Blob> => (await import("@/components/ToolsPdf")).generateBancairePdfBlob(...args);
+import LoanPlanning from "@/components/LoanPlanning";
 import LoanOffers, {LoanRateSources} from "@/components/LoanOffers";
 import MortgageConditions from "@/components/MortgageConditions";
 
@@ -105,63 +104,6 @@ function TabLTV() {
             })}</p>
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function TabCapacite() {
-  const t = useTranslations("outilsBancaires");
-  const [revenuNet, setRevenuNet] = useState(5000);
-  const [charges, setCharges] = useState(500);
-  const [tauxEndettement, setTauxEndettement] = useState(40);
-  const [tauxInteret, setTauxInteret] = useState(3.5);
-  const [duree, setDuree] = useState(25);
-  const [tauxAssurance, setTauxAssurance] = useState(0.30); // % du capital
-
-  const result = useMemo(
-    () =>
-      calculerCapaciteEmprunt({
-        revenuNetMensuel: revenuNet,
-        chargesMensuelles: charges,
-        tauxEndettementMax: tauxEndettement / 100,
-        tauxInteret: tauxInteret / 100,
-        dureeAnnees: duree,
-      }),
-    [revenuNet, charges, tauxEndettement, tauxInteret, duree]
-  );
-
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-base font-semibold text-navy">{t("incomeAndCharges")}</h2>
-        <div className="space-y-4">
-          <InputField label={t("netMonthlyIncome")} value={revenuNet} onChange={(v) => setRevenuNet(Number(v))} suffix="€" />
-          <InputField label={t("existingMonthlyCharges")} value={charges} onChange={(v) => setCharges(Number(v))} suffix="€" hint={t("existingMonthlyChargesHint")} />
-          <InputField label={t("maxDebtRatio")} value={tauxEndettement} onChange={(v) => setTauxEndettement(Number(v))} suffix="%" min={10} max={50} />
-          <InputField label={t("interestRate")} value={tauxInteret} onChange={(v) => setTauxInteret(Number(v))} suffix="%" step={0.1} />
-          <InputField label={t("loanDuration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
-          <InputField label={t("remainingBalanceInsurance")} value={tauxAssurance} onChange={(v) => setTauxAssurance(Number(v))} suffix={t("pctCapital")} step={0.05} hint={t("remainingBalanceInsuranceHint")} />
-        </div>
-        <LoanRateSources />
-      </div>
-      <div className="space-y-6">
-        <ResultPanel
-          title={t("results")}
-          lines={[
-            { label: t("maxMonthlyPayment"), value: formatEUR2(result.mensualiteMax) },
-            { label: t("ofWhichInsurance", { pct: tauxAssurance }), value: formatEUR2(result.capaciteEmprunt * tauxAssurance / 100 / 12), sub: true },
-            { label: t("borrowingCapacity"), value: formatEUR(result.capaciteEmprunt), highlight: true, large: true },
-          ]}
-        />
-        <ResultPanel
-          title={t("withDeposit")}
-          lines={[
-            { label: t("plusDeposit", { amount: "50 000" }), value: formatEUR(result.capaciteEmprunt + 50000), sub: true },
-            { label: t("plusDeposit", { amount: "100 000" }), value: formatEUR(result.capaciteEmprunt + 100000), sub: true },
-            { label: t("plusDeposit", { amount: "150 000" }), value: formatEUR(result.capaciteEmprunt + 150000), sub: true },
-          ]}
-        />
       </div>
     </div>
   );
@@ -320,179 +262,6 @@ function TabDSCR() {
   );
 }
 
-function TabRemboursement() {
-  const t = useTranslations("outilsBancaires");
-  const [capital, setCapital] = useState(600000);
-  const [taux, setTaux] = useState(3.5);
-  const [duree, setDuree] = useState(25);
-  const [moisPrepaiement, setMoisPrepaiement] = useState(60);
-  const [montantRembourse, setMontantRembourse] = useState(100000);
-  const [penaliteMois, setPenaliteMois] = useState(6);
-  const [strategie, setStrategie] = useState<"reduire_duree" | "reduire_mensualite">("reduire_duree");
-
-  const res = useMemo(
-    () =>
-      simulerRemboursementAnticipe({
-        capital,
-        tauxAnnuel: taux / 100,
-        dureeAnnees: duree,
-        moisPrepaiement,
-        montantRembourse,
-        penaliteMoisInterets: penaliteMois,
-        strategie,
-      }),
-    [capital, taux, duree, moisPrepaiement, montantRembourse, penaliteMois, strategie]
-  );
-
-  const gainColor = res.gainNet > 0 ? "text-success" : res.gainNet < 0 ? "text-error" : "text-muted";
-  const anneesApres = Math.floor(res.nouvelleDureeMois / 12);
-  const moisApres = res.nouvelleDureeMois % 12;
-
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div className="space-y-6">
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("remboursLoanParams")}</h2>
-          <div className="space-y-4">
-            <InputField label={t("borrowedCapital")} value={capital} onChange={(v) => setCapital(Number(v))} suffix="€" />
-            <InputField label={t("annualInterestRate")} value={taux} onChange={(v) => setTaux(Number(v))} suffix="%" step={0.1} />
-            <InputField label={t("duration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
-          </div>
-          <LoanRateSources />
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("remboursPrepayParams")}</h2>
-          <div className="space-y-4">
-            <InputField
-              label={t("remboursMonth")}
-              value={moisPrepaiement}
-              onChange={(v) => setMoisPrepaiement(Number(v))}
-              min={1}
-              max={duree * 12}
-              hint={t("remboursMonthHint", { max: duree * 12 })}
-            />
-            <InputField
-              label={t("remboursAmount")}
-              value={montantRembourse}
-              onChange={(v) => setMontantRembourse(Number(v))}
-              suffix="€"
-              hint={t("remboursAmountHint")}
-            />
-            <InputField
-              label={t("remboursPenalty")}
-              value={penaliteMois}
-              onChange={(v) => setPenaliteMois(Number(v))}
-              suffix={t("remboursPenaltyUnit")}
-              step={0.5}
-              min={0}
-              max={12}
-              hint={t("remboursPenaltyHint")}
-            />
-            <div>
-              <label className="block text-sm font-medium text-slate mb-1.5">{t("remboursStrategy")}</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setStrategie("reduire_duree")}
-                  className={`rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
-                    strategie === "reduire_duree"
-                      ? "border-navy bg-navy text-white"
-                      : "border-card-border bg-card text-slate hover:bg-background"
-                  }`}
-                >
-                  {t("remboursReduceDuration")}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setStrategie("reduire_mensualite")}
-                  className={`rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
-                    strategie === "reduire_mensualite"
-                      ? "border-navy bg-navy text-white"
-                      : "border-card-border bg-card text-slate hover:bg-background"
-                  }`}
-                >
-                  {t("remboursReduceMonthly")}
-                </button>
-              </div>
-              <p className="mt-1.5 text-xs text-muted">{t("remboursStrategyHint")}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-2">{t("remboursLegalTitle")}</h3>
-          <p className="text-xs text-muted leading-relaxed">
-            {t("remboursLegalBody")}
-          </p>
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        <div className={`rounded-2xl bg-gradient-to-br ${res.gainNet > 0 ? "from-emerald-600 to-emerald-800" : res.gainNet < 0 ? "from-red-600 to-red-800" : "from-gray-500 to-gray-700"} p-8 text-center text-white shadow-lg`}>
-          <div className="text-sm text-white/70">{t("remboursNetGain")}</div>
-          <div className="mt-2 text-5xl font-bold">
-            {res.gainNet > 0 ? "+" : ""}{formatEUR(res.gainNet)}
-          </div>
-          <div className="mt-2 text-xs text-white/70">
-            {t("remboursNetGainDetail", {
-              gain: formatEUR(res.gainInterets),
-              penalty: formatEUR(res.penalite),
-            })}
-          </div>
-        </div>
-
-        <ResultPanel
-          title={t("remboursResult")}
-          lines={[
-            { label: t("remboursInitialMonthly"), value: formatEUR2(res.mensualiteInitiale) },
-            { label: t("remboursRemainingBefore"), value: formatEUR(res.capitalRestantAvant) },
-            { label: t("remboursRemainingAfter"), value: formatEUR(res.capitalRestantApres), highlight: true },
-            { label: t("remboursNewMonthly"), value: formatEUR2(res.nouvelleMensualite) },
-            {
-              label: t("remboursNewDuration"),
-              value: anneesApres > 0
-                ? t("remboursYearsMonths", { years: anneesApres, months: moisApres })
-                : t("remboursMonthsOnly", { months: res.nouvelleDureeMois }),
-              highlight: true,
-            },
-          ]}
-        />
-
-        <ResultPanel
-          title={t("remboursComparison")}
-          lines={[
-            { label: t("remboursInterestWithout"), value: formatEUR(res.interetsRestantsAvant) },
-            { label: t("remboursInterestWith"), value: formatEUR(res.interetsRestantsApres) },
-            { label: t("remboursInterestSaved"), value: formatEUR(res.gainInterets), highlight: true },
-            { label: t("remboursPenaltyPaid"), value: formatEUR(res.penalite) },
-            { label: t("remboursNetGain"), value: formatEUR(res.gainNet), highlight: true, large: true },
-          ]}
-        />
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-2">{t("remboursRecommendation")}</h3>
-          <p className={`text-sm font-medium ${gainColor}`}>
-            {res.gainNet > 0
-              ? t("remboursRecoPositive", { amount: formatEUR(res.gainNet) })
-              : res.gainNet < 0
-                ? t("remboursRecoNegative", { amount: formatEUR(-res.gainNet) })
-                : t("remboursRecoNeutral")}
-          </p>
-          {res.breakEvenMois !== null && res.penalite > 0 && (
-            <p className="mt-2 text-xs text-muted">
-              {t("remboursBreakEven", { months: res.breakEvenMois })}
-            </p>
-          )}
-          {res.breakEvenMois === null && res.penalite > 0 && (
-            <p className="mt-2 text-xs text-muted">{t("remboursBreakEvenNever")}</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function RatesHistoryChart() {
   const t = useTranslations("outilsBancaires");
   // On garde les 8 dernières années pour garder le graphique lisible
@@ -584,11 +353,11 @@ export default function OutilsBancaires() {
 
         {/* Tab content */}
         {activeTab === "ltv" && <TabLTV />}
-        {activeTab === "capacite" && <TabCapacite />}
+        {activeTab === "capacite" && <LoanPlanning kind="capacity" />}
         {activeTab === "amortissement" && <TabAmortissement />}
         {activeTab === "dscr" && <TabDSCR />}
         {activeTab === "cpe" && <MortgageConditions />}
-        {activeTab === "remboursement" && <TabRemboursement />}
+        {activeTab === "remboursement" && <LoanPlanning kind="prepayment" />}
         {activeTab === "comparateur" && <LoanOffers />}
 
         {/* Historique taux BCE / OAT / hypothécaire */}

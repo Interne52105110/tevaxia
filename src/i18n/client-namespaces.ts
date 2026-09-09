@@ -94,6 +94,7 @@ export const CLIENT_NAMESPACES = [
   "invitation",
   "liensPartages",
   "loanOffersAudit",
+  "loanPlanningAudit",
   "marche",
   "marcheForecast",
   "mesEvaluations",
