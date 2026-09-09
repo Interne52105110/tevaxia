@@ -846,3 +846,12 @@ PWA 9168e0e confirmée en production : CI 34407993584 success ; Vercel dpl_AUYFP
 Traduction des derniers libellés fixes (accroche, conditions, solutions, plan, contact) dans les cinq langues ; conservation des liens internes localisés. Textes secondaires portés à 14 px avant zoom global et opacité 75 % pour améliorer la lecture. Lien énergie remplacé par Klima-Agence (https://www.klima-agence.lu/fr, consulté le 10 septembre). Build et lint réussis ; navigateur : cinq langues, quatre largeurs 320/390/768/1440, libellés/liens/styles contrôlés, capture allemande inspectée. Aucun calcul modifié.
 
 Le lot précédent ff435db est publié : CI 34409790040 réussie, déploiement dpl_Hh2nfATUGV8Ka3X3h2rpUSiAf4Gy Ready ; cinq pages factures vérifiées en production avec HTTP 200, titre exact, lien de connexion et quatre largeurs.
+
+
+## 10 septembre — authentification de l’API de facturation
+
+La route /api/v1/facturation/generate acceptait toute valeur non vide de clé. Elle utilise maintenant authenticateApiRequestAsync : contrôle des clés configurées ou actives en base et limite commune de requêtes. Clés free/sandbox refusées pour cet export annoncé Pro ; clés Pro/Enterprise admises. OPTIONS/CORS, réponses no-store, formats explicites et erreurs structurelles 400/422 ; détails des erreurs internes non exposés. Dix tests avec le véritable vérificateur de clés et un export simulé, dont refus avant lecture du corps, Bearer Enterprise et limite 60/min Pro. Suite 1 341 tests / 127 fichiers, lint et build réussis. Contrôle HTTP local réel : sans clé 401, clé fictive 401, sandbox 403, OPTIONS 204. Aucun export réel ni donnée client écrit en production pour ce test.
+
+Périmètre limité à l’accès HTTP : le modèle fiscal, le schéma complet, les calculs XML et la conformité PDF/A/Factur-X ne sont pas validés par ce lot. Anomalies déjà repérées dans le générateur : allégations de conformité non démontrées, pagination absente et textes tronqués ; elles nécessitent une reprise séparée des documents et de leurs interfaces.
+
+Le pied de page 9520bb3 est publié : CI 34410196241 réussie, dpl_9wn53Bt7MS52th1LFRjKwBvsZ9x4 Ready, cinq versions contrôlées en production.

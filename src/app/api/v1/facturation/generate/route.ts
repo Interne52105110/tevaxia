@@ -1,14 +1,18 @@
 import { NextResponse } from "next/server";
 import { validateInvoice, type FacturXInvoice } from "@/lib/facturation/factur-x";
 import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
+import { authenticateApiRequestAsync, corsPreflightResponse, API_CORS_HEADERS } from "@/lib/api-auth";
 
 export const runtime = "nodejs";
+const responseHeaders = { ...API_CORS_HEADERS, "Cache-Control": "no-store" };
+
+export async function OPTIONS() { return corsPreflightResponse(); }
 
 /**
  * POST /api/v1/facturation/generate
  *
- * Génère une Factur-X (PDF/A-3 + XML CII embarqué) à partir d'un body JSON
- * conforme au type FacturXInvoice. Protégé par clé API tevaxia (plan Pro).
+ * Generates the current billing export from FacturXInvoice input.
+ * Export-format compliance is reviewed separately. Requires a valid Pro/Enterprise key.
  *
  * Body: FacturXInvoice JSON
  * Réponse défaut: application/pdf (binaire).
@@ -16,24 +20,31 @@ export const runtime = "nodejs";
  * Param ?format=json : renvoie { xml, pdf_base64, filename }.
  */
 export async function POST(req: Request) {
-  const apiKey = req.headers.get("x-api-key") ?? req.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
-  if (!apiKey) {
-    return NextResponse.json({ error: "API key required (X-API-Key or Authorization: Bearer)" }, { status: 401 });
+  const auth = await authenticateApiRequestAsync(req);
+  if (!auth.ok) {
+    auth.response.headers.set("Cache-Control", "no-store");
+    return auth.response;
   }
+  if (auth.keyRecord.tier !== "pro" && auth.keyRecord.tier !== "enterprise") {
+    return NextResponse.json({ error: "Pro or Enterprise API key required" }, { status: 403, headers: responseHeaders });
+  }
+
+  const format = new URL(req.url).searchParams.get("format") ?? "pdf";
+  if (!["pdf", "xml", "json"].includes(format)) return NextResponse.json({ error: "Unsupported format" }, { status: 400, headers: responseHeaders });
 
   let body: FacturXInvoice;
   try {
     body = await req.json() as FacturXInvoice;
   } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400, headers: responseHeaders });
   }
 
-  const errors = validateInvoice(body);
+  let errors;
+  try { errors = validateInvoice(body); }
+  catch { return NextResponse.json({ error: "Invalid invoice structure" }, { status: 422, headers: responseHeaders }); }
   if (errors.length) {
-    return NextResponse.json({ error: "Validation failed", validation: errors }, { status: 422 });
+    return NextResponse.json({ error: "Validation failed", validation: errors }, { status: 422, headers: responseHeaders });
   }
-
-  const format = new URL(req.url).searchParams.get("format") ?? "pdf";
 
   try {
     const artifacts = await generateFacturXPdf(body);
@@ -42,6 +53,7 @@ export async function POST(req: Request) {
       return new Response(artifacts.xml, {
         status: 200,
         headers: {
+          ...responseHeaders,
           "Content-Type": "application/xml; charset=utf-8",
           "Content-Disposition": `attachment; filename="${artifacts.xmlFilename}"`,
         },
@@ -54,18 +66,19 @@ export async function POST(req: Request) {
         pdf_base64: Buffer.from(artifacts.pdfBytes).toString("base64"),
         filename_pdf: artifacts.pdfFilename,
         filename_xml: artifacts.xmlFilename,
-      });
+      }, { headers: responseHeaders });
     }
 
     // default: pdf
     return new Response(new Uint8Array(artifacts.pdfBytes), {
       status: 200,
       headers: {
+        ...responseHeaders,
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="${artifacts.pdfFilename}"`,
       },
     });
-  } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "Unable to generate billing export" }, { status: 500, headers: responseHeaders });
   }
 }
