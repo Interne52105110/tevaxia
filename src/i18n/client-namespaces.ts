@@ -115,6 +115,7 @@ export const CLIENT_NAMESPACES = [
   "pagPap",
   "paiementsLocatifs",
   "partage",
+  "pdfActions",
   "plusValuesAudit",
   "pms",
   "pmsChannels",

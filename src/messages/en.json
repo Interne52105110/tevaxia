@@ -19005,5 +19005,15 @@
     "depth": "Thickness / depth (cm)",
     "transfer": "Add this quantity to the schedule",
     "transferScope": "The added item retains the dimensions in its label. Then enter the VAT-inclusive price and reference. Avoid entering the same item manually as well."
+  },
+  "pdfActions": {
+    "preview": "Preview",
+    "generating": "Generating PDF…",
+    "popupBlocked": "The browser blocked the window. Allow pop-ups for this site or use download.",
+    "failed": "The PDF could not be generated. Try again; your inputs remain on the page.",
+    "signInTitle": "Sign in for PDF reports",
+    "signInScope": "Sign in or create an account to preview and download your reports.",
+    "signIn": "Sign in / create an account",
+    "cancel": "Cancel"
   }
 }

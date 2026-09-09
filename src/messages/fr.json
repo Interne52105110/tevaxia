@@ -19005,5 +19005,15 @@
     "depth": "Épaisseur / profondeur (cm)",
     "transfer": "Ajouter ce métré au bordereau",
     "transferScope": "Le poste ajouté conserve les dimensions dans son libellé. Renseignez ensuite le prix TTC et sa référence. Évitez de saisir aussi le même poste manuellement."
+  },
+  "pdfActions": {
+    "preview": "Prévisualiser",
+    "generating": "Génération du PDF…",
+    "popupBlocked": "Le navigateur a bloqué la fenêtre. Autorisez les fenêtres de ce site ou utilisez le téléchargement.",
+    "failed": "Le PDF n’a pas pu être généré. Réessayez ; vos saisies restent dans la page.",
+    "signInTitle": "Connexion pour les rapports PDF",
+    "signInScope": "Connectez-vous ou créez un compte pour prévisualiser et télécharger vos rapports.",
+    "signIn": "Se connecter / créer un compte",
+    "cancel": "Annuler"
   }
 }

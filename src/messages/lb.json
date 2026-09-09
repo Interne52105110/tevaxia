@@ -19005,5 +19005,15 @@
     "depth": "Déckt / Déift (cm)",
     "transfer": "Dëse Métré an de Bordereau iwwerhuelen",
     "transferScope": "D’Dimensioune bleiwen an der Bezeechnung vum Posten. Gitt duerno de Präis mat TVA an d’Referenz an. Erfaasst dee selwechte Posten net nach eng Kéier manuell."
+  },
+  "pdfActions": {
+    "preview": "Virschau",
+    "generating": "PDF gëtt erstallt…",
+    "popupBlocked": "De Browser huet d’Fënster blockéiert. Erlaabt Pop-ups fir dës Säit oder benotzt den Download.",
+    "failed": "De PDF konnt net erstallt ginn. Probéiert nach eng Kéier; Är Agabe bleiwen op der Säit.",
+    "signInTitle": "Umelle fir PDF-Rapporten",
+    "signInScope": "Mellt Iech un oder erstellt e Kont, fir Är Rapporte virzekucken an erofzelueden.",
+    "signIn": "Umellen / Kont erstellen",
+    "cancel": "Ofbriechen"
   }
 }

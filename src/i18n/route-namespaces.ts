@@ -26,6 +26,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar"
@@ -107,6 +108,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar"
@@ -131,6 +133,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar"
@@ -146,6 +149,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "estimateurConstruction",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar",
     "vrdBudget"
@@ -160,6 +164,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "marketEvidence",
     "nav",
     "officialPriceIndex",
+    "pdfActions",
     "pmsContextBar",
     "populationEvidence",
     "syndicContextBar"
@@ -254,6 +259,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -321,6 +327,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "dcfMulti",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar"
@@ -365,6 +372,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "energySharingAudit",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -387,6 +395,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "epbdAudit",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -411,6 +420,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hvac",
     "hvacScenarioAudit",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -422,6 +432,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "energyImpactAudit",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -433,6 +444,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "lenozThresholdAudit",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -467,6 +479,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "energyPortfolioAudit",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -492,6 +505,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "renovationAudit",
     "syndicContextBar"
@@ -539,6 +553,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "estimateurConstruction",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar",
     "vrdBudget"
@@ -554,6 +569,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "estimationAudit",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar",
@@ -601,6 +617,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "fraisAcquisition",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar"
@@ -893,6 +910,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "estimationAudit",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "syndicContextBar",
@@ -1260,6 +1278,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "marketEvidence",
     "nav",
     "officialPriceIndex",
+    "pdfActions",
     "pmsContextBar",
     "publishedMarket",
     "syndicContextBar"
@@ -1309,6 +1328,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "mortgageConditionsAudit",
     "nav",
     "outilsBancaires",
+    "pdfActions",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -1630,6 +1650,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "portfolio",
     "syndicContextBar"
@@ -1741,6 +1762,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "proaFicheBien",
     "syndicContextBar"
@@ -1953,6 +1975,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "saveButton",
     "simulateurAides",
@@ -2460,6 +2483,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "esgDossierAudit",
     "hotellerieContextBar",
     "nav",
+    "pdfActions",
     "pmsContextBar",
     "prudentialAudit",
     "reconciliationAudit",

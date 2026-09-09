@@ -19005,5 +19005,15 @@
     "depth": "Espessura / profundidade (cm)",
     "transfer": "Adicionar esta medição ao mapa",
     "transferScope": "As dimensões ficam na descrição do artigo. Introduza depois o preço com IVA e a referência. Evite introduzir também o mesmo artigo manualmente."
+  },
+  "pdfActions": {
+    "preview": "Pré-visualizar",
+    "generating": "A gerar PDF…",
+    "popupBlocked": "O navegador bloqueou a janela. Permita janelas para este site ou utilize a transferência.",
+    "failed": "Não foi possível gerar o PDF. Tente novamente; os dados introduzidos permanecem na página.",
+    "signInTitle": "Iniciar sessão para relatórios PDF",
+    "signInScope": "Inicie sessão ou crie uma conta para pré-visualizar e descarregar os relatórios.",
+    "signIn": "Iniciar sessão / criar conta",
+    "cancel": "Cancelar"
   }
 }

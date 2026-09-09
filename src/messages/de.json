@@ -19005,5 +19005,15 @@
     "depth": "Dicke / Tiefe (cm)",
     "transfer": "Dieses Aufmaß ins Verzeichnis übernehmen",
     "transferScope": "Die Maße bleiben in der Positionsbezeichnung erhalten. Ergänzen Sie danach Bruttopreis und Referenz. Erfassen Sie dieselbe Position nicht zusätzlich manuell."
+  },
+  "pdfActions": {
+    "preview": "Vorschau",
+    "generating": "PDF wird erstellt…",
+    "popupBlocked": "Der Browser hat das Fenster blockiert. Erlauben Sie Pop-ups für diese Website oder nutzen Sie den Download.",
+    "failed": "Das PDF konnte nicht erstellt werden. Versuchen Sie es erneut; Ihre Eingaben bleiben auf der Seite.",
+    "signInTitle": "Anmelden für PDF-Berichte",
+    "signInScope": "Melden Sie sich an oder erstellen Sie ein Konto, um Berichte anzusehen und herunterzuladen.",
+    "signIn": "Anmelden / Konto erstellen",
+    "cancel": "Abbrechen"
   }
 }

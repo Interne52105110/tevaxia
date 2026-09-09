@@ -1,171 +1,39 @@
 "use client";
-
-import { useState } from "react";
-import { useAuth } from "@/components/AuthProvider";
-
-export function PdfButton({ onClick, label, generateBlob, filename }: { onClick?: () => void; label: string; generateBlob?: () => Promise<Blob>; filename?: string }) {
-  const { user } = useAuth();
-  const [showGate, setShowGate] = useState(false);
-
-  const gatedAction = (action: () => void) => {
-    if (user) {
-      action();
-    } else {
-      setShowGate(true);
-    }
-  };
-
-  const handlePreview = async () => {
-    if (!generateBlob) return;
-    // Ouvrir la fenêtre AVANT l'await pour éviter le popup blocker
-    const win = window.open("", "_blank");
-    if (!win) return;
-    win.document.title = "Génération du PDF...";
-    const loadingP = win.document.createElement("p");
-    loadingP.setAttribute("style", "font-family:sans-serif;padding:40px;color:#666");
-    loadingP.textContent = "Génération du PDF en cours...";
-    win.document.body.replaceChildren(loadingP);
-    try {
-      const blob = await generateBlob();
-      const url = URL.createObjectURL(blob);
-      win.location.href = url;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      const container = win.document.createElement("div");
-      container.setAttribute("style", "font-family:sans-serif;padding:40px");
-      const title = win.document.createElement("p");
-      title.setAttribute("style", "color:red;font-weight:bold");
-      title.textContent = "Erreur lors de la génération du PDF";
-      const pre = win.document.createElement("pre");
-      pre.setAttribute("style", "color:#666;font-size:12px;margin-top:12px;white-space:pre-wrap");
-      pre.textContent = msg;
-      container.append(title, pre);
-      win.document.body.replaceChildren(container);
-      console.error("PDF generation error:", err);
-    }
-  };
-
-  const handleDownload = async () => {
-    if (generateBlob && filename) {
-      const blob = await generateBlob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(url);
-    } else if (onClick) {
-      onClick();
-    }
-  };
-
-  if (generateBlob) {
-    return (
-      <>
-        <div className="inline-flex max-w-full flex-wrap items-center rounded-lg border border-card-border shadow-sm overflow-hidden">
-          <button
-            type="button"
-            onClick={() => gatedAction(handlePreview)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-navy bg-white transition hover:bg-gray-50 active:scale-95 border-r border-card-border"
-            title="Prévisualiser"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-            </svg>
-            Prévisualiser
-          </button>
-          <button
-            type="button"
-            onClick={() => gatedAction(handleDownload)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-white bg-navy transition hover:bg-navy-light active:scale-95"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-            {label}
-          </button>
-        </div>
-
-        {showGate && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="mx-4 w-full max-w-sm rounded-xl border border-card-border bg-card p-6 shadow-xl">
-              <div className="text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                  </svg>
-                </div>
-                <p className="text-sm text-muted">
-                  Creez un compte gratuit pour telecharger vos rapports PDF
-                </p>
-              </div>
-              <div className="mt-6 flex flex-col gap-2">
-                <a
-                  href="/connexion"
-                  className="block w-full rounded-lg bg-navy-800 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-navy-700"
-                >
-                  Creer un compte
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setShowGate(false)}
-                  className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm font-medium text-muted transition hover:bg-background"
-                >
-                  Annuler
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </>
-    );
-  }
-
-  return (
-    <>
-      <button
-        type="button"
-        onClick={() => gatedAction(() => onClick?.())}
-        className="inline-flex items-center gap-2 rounded-lg bg-navy-800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-navy-700 active:scale-95"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-        </svg>
-        {label}
-      </button>
-
-      {showGate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="mx-4 w-full max-w-sm rounded-xl border border-card-border bg-card p-6 shadow-xl">
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/20">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                </svg>
-              </div>
-              <p className="text-sm text-muted">
-                Creez un compte gratuit pour telecharger vos rapports PDF
-              </p>
-            </div>
-            <div className="mt-6 flex flex-col gap-2">
-              <a
-                href="/connexion"
-                className="block w-full rounded-lg bg-navy-800 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-navy-700"
-              >
-                Creer un compte
-              </a>
-              <button
-                type="button"
-                onClick={() => setShowGate(false)}
-                className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm font-medium text-muted transition hover:bg-background"
-              >
-                Annuler
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
+import {useEffect,useId,useRef,useState} from 'react';
+import {useLocale,useTranslations} from 'next-intl';
+import {useAuth} from '@/components/AuthProvider';
+export function PdfButton({onClick,label,generateBlob,filename}:{onClick?:()=>void|Promise<void>;label:string;generateBlob?:()=>Promise<Blob>;filename?:string}){
+ const {user,loading}=useAuth(),t=useTranslations('pdfActions'),locale=useLocale(),titleId=useId(),dialog=useRef<HTMLDialogElement>(null),running=useRef(false);
+ const [showGate,setShowGate]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState<string|null>(null);
+ useEffect(()=>{const el=dialog.current;if(!el)return;if(showGate&&!user){if(!el.open)el.showModal()}else if(el.open)el.close()},[showGate,user]);
+ function isWaiting(win:Window){try{return !win.closed&&win.location.href==='about:blank'}catch{return false}}
+ function previewMessage(win:Window,text:string){if(!isWaiting(win))return;win.document.title=text;const p=win.document.createElement('p');p.style.cssText='font-family:system-ui,sans-serif;padding:32px;line-height:1.5';p.textContent=text;win.document.body.replaceChildren(p)}
+ async function run(preview:boolean){
+  if(loading||running.current)return;
+  if(!user){setShowGate(true);return}
+  let win:Window|null=null;
+  if(preview){win=window.open('','_blank');if(!win){setError(t('popupBlocked'));return}previewMessage(win,t('generating'))}
+  running.current=true;setBusy(true);setError(null);
+  try{
+   if(generateBlob){const blob=await generateBlob();if(!(blob instanceof Blob)||blob.size===0)throw new Error('Empty PDF');
+    if(preview&&win){if(isWaiting(win)){const url=URL.createObjectURL(blob);win.location.href=url;const timer=window.setInterval(()=>{if(win.closed){URL.revokeObjectURL(url);window.clearInterval(timer)}},1000)}}
+    else{const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename||'rapport.pdf';a.click();window.setTimeout(()=>URL.revokeObjectURL(url),1000)}
+   }else if(onClick){await onClick()}
+  }catch{const message=t('failed');setError(message);if(win&&!win.closed)previewMessage(win,message)}
+  finally{running.current=false;setBusy(false)}
+ }
+ const disabled=loading||busy||(!generateBlob&&!onClick);
+ return <>
+  <span className="inline-flex max-w-full flex-col gap-2 align-middle" aria-busy={busy}>
+   <span className="inline-flex max-w-full flex-wrap items-center overflow-hidden rounded-lg border border-card-border shadow-sm">
+    {generateBlob&&<button type="button" disabled={disabled} onClick={()=>void run(true)} className="border-r border-card-border bg-white px-3 py-2 text-sm font-medium text-navy hover:bg-gray-50 disabled:cursor-wait disabled:opacity-60">{t('preview')}</button>}
+    <button type="button" disabled={disabled} onClick={()=>void run(false)} className="bg-navy px-3 py-2 text-sm font-semibold text-white hover:bg-navy-light disabled:cursor-wait disabled:opacity-60">{label}</button>
+   </span>
+   {busy&&<span role="status" className="text-xs text-muted">{t('generating')}</span>}
+   {error&&<span role="alert" className="max-w-sm text-sm text-rose-700 [overflow-wrap:anywhere]">{error}</span>}
+  </span>
+  <dialog ref={dialog} aria-labelledby={titleId} onCancel={()=>setShowGate(false)} onClose={()=>setShowGate(false)} className="m-auto max-w-sm rounded-xl border border-card-border bg-card p-5 text-foreground shadow-xl backdrop:bg-black/50" style={{width:'calc(100% - 2rem)'}}>
+   <h2 id={titleId} className="text-lg font-semibold text-navy">{t('signInTitle')}</h2><p className="mt-3 text-sm text-muted">{t('signInScope')}</p><div className="mt-5 flex flex-col gap-3"><a href={(locale==='fr'?'':'/'+locale)+'/connexion'} className="rounded-lg bg-navy px-4 py-2 text-center text-sm font-semibold text-white">{t('signIn')}</a><button type="button" onClick={()=>setShowGate(false)} className="rounded-lg border border-card-border px-4 py-2 text-sm">{t('cancel')}</button></div>
+  </dialog>
+ </>;
 }

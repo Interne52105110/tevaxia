@@ -405,3 +405,11 @@ Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg e
 - CSV et PDF réutilisent le moteur de totaux en centimes. Cinq PDF (15 pages) rendus et contrôlés. Les anciens générateurs ConstructionDoc/VrdDoc de ToolsPdf sont désormais sans appel depuis ces pages et restent hérités.
 - Vérification : 1183 tests / 101 fichiers, build réussi, lint sans erreur (avertissement existant calculateur-loyer). Cinq parcours VRD et cinq parcours de non-régression construction réussis à 320/390/768/1440 px ; cinq CSV vérifiés. Cas : 100 × 6 × 20/100 = 120 m³ ; 120 × 22 = 2640 € TTC.
 - Construction 110e281 : CI 34356811700 réussie, déploiement dpl_58h2QQ7HXktoEtdvsFSMPiyb1BNw prêt et cinq parcours de production réussis.
+
+
+## Commandes PDF communes — contrôle du parcours et des erreurs
+- Chargement de session et génération en cours désactivent les actions ; verrou synchrone contre les doubles générations.
+- Fenêtre de connexion native accessible et traduite dans les cinq langues, lien de connexion localisé, fermeture par Échap et retour du focus.
+- Échecs de génération, fichiers vides et fenêtres bloquées signalés sans exposer de détails techniques. Une fenêtre de prévisualisation fermée ou déjà naviguée n’est pas réutilisée.
+- Validation : 1 183 tests / 101 fichiers, build de production, lint du composant ; fixture isolée des actions autorisées et parcours public réel dans les cinq langues / quatre largeurs. Aucun compte réel ni donnée client utilisé pour les tests authentifiés simulés.
+- Ces contrôles portent sur la commande commune, pas sur l’exactitude de tous les rapports PDF encore à revoir.
