@@ -2042,7 +2042,7 @@
     "existing": "Existant",
     "newVefa": "VEFA (neuf)",
     "listings": "Annonces",
-    "yield": "Rendement",
+    "yield": "Rapport loyer/prix brut",
     "grossYield": "Rendement brut",
     "yieldFormula": "(loyer/m² × 12) / prix/m²",
     "yieldFormulaShort": "loyer × 12 / prix",
@@ -18901,5 +18901,28 @@
     "communesSource": "Source Observatoire de l’Habitat — transactions",
     "map": "Voir la carte",
     "estimate": "Estimer un bien"
+  },
+  "marketEvidence": {
+    "title": "Observations publiées",
+    "scope": "Moyennes issues d’échantillons distincts : les prix annoncés ne sont pas une médiane de transactions. Leur écart avec les prix enregistrés ne mesure ni une évolution temporelle ni une remise négociable. Aucune fourchette de valeur ou note de qualité du marché n’est déduite de ces observations.",
+    "ratioScope": "Le rapport loyer/prix brut combine le loyer annoncé moyen × 12 et le prix enregistré moyen au m², sur des biens différents. Il ne mesure pas le rendement d’un investissement précis et ne déduit ni vacance, charges, travaux, frais ni impôts.",
+    "existing": "Existant enregistré / m²",
+    "vefa": "VEFA enregistrée / m²",
+    "asking": "Prix annoncé / m²",
+    "rent": "Loyer annoncé / m² / mois",
+    "salesCount": "Transactions existantes",
+    "vefaCount": "Transactions VEFA",
+    "askingCount": "Annonces de vente",
+    "rentCount": "Annonces de location",
+    "unpublished": "Non publié",
+    "period": "Période",
+    "publication": "Publication",
+    "sources": "Sources",
+    "sourceSales": "Transactions — Observatoire",
+    "sourceAsking": "Prix annoncés — Observatoire",
+    "sourceRent": "Loyers annoncés — Observatoire",
+    "sourceAdjusted": "Prix hors annexes — Observatoire",
+    "ratioTitle": "Rapport loyer/prix brut",
+    "pdfTitle": "Observations de marché — fiche commune"
   }
 }

@@ -2042,7 +2042,7 @@
     "existing": "Bestand",
     "newVefa": "VEFA (Neibau)",
     "listings": "Annoncen",
-    "yield": "Rendement",
+    "yield": "Bruttoloyer-/Präisverhältnis",
     "grossYield": "Bruttorendement",
     "yieldFormula": "(Loyer/m² × 12) / Präis/m²",
     "yieldFormulaShort": "Loyer × 12 / Präis",
@@ -18901,5 +18901,28 @@
     "communesSource": "Quell Observatoire de l’Habitat — Transaktiounen",
     "map": "Kaart weisen",
     "estimate": "Immobilie schätzen"
+  },
+  "marketEvidence": {
+    "title": "Publizéiert Observatiounen",
+    "scope": "Mëttelwäerter aus verschiddene Prouwen: annoncéiert Präisser si kee Median vun Transaktiounen. Den Ënnerscheed zu registréierte Präisser moosst weder en Zäittrend nach e verhandelbare Rabatt. Keng Wäertspann oder Maartqualitéitsnot gëtt doraus ofgeleet.",
+    "ratioScope": "De Bruttoloyer-/Präisverhältnis kombinéiert den duerchschnëttlechen annoncéierte Loyer × 12 an de registréierten Duerchschnëttspräis pro m² vu verschiddenen Immobilien. Et ass kee Rendement vun engem bestëmmten Investment; Leerstand, Käschten, Aarbechten, Fraisen a Steiere ginn net ofgezunn.",
+    "existing": "Bestand registréiert / m²",
+    "vefa": "VEFA registréiert / m²",
+    "asking": "Annoncéierte Präis / m²",
+    "rent": "Annoncéierte Loyer / m² / Mount",
+    "salesCount": "Bestandstransaktiounen",
+    "vefaCount": "VEFA-Transaktiounen",
+    "askingCount": "Verkafsannoncen",
+    "rentCount": "Locatiounsannoncen",
+    "unpublished": "Net publizéiert",
+    "period": "Period",
+    "publication": "Publikatioun",
+    "sources": "Quellen",
+    "sourceSales": "Transaktiounen — Observatoire",
+    "sourceAsking": "Annoncéiert Präisser — Observatoire",
+    "sourceRent": "Annoncéiert Loyeren — Observatoire",
+    "sourceAdjusted": "Präisser ouni Annexen — Observatoire",
+    "ratioTitle": "Bruttoloyer-/Präisverhältnis",
+    "pdfTitle": "Maartobservatiounen — Gemeng"
   }
 }

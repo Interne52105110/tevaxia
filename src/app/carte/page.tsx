@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { formatEUR } from "@/lib/calculations";
+import Link from "@/components/LocaleLink";
+import { useLocale,useTranslations } from "next-intl";
+
 import { rechercherCommune, type MarketDataCommune } from "@/lib/market-data";
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
 import CommunePopulation from "@/components/CommunePopulation";
 import { getMarketCycle } from "@/lib/market-cycle";
-import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
+import MarketEvidence from "@/components/MarketEvidence";
+import {MARKET_EVIDENCE_LABELS,type MarketEvidenceLabels} from "@/lib/market-evidence";
 import dynamic from "next/dynamic";
 import { PdfButton } from "@/components/PdfButton";
 const _lazy_generateCartePdfBlob = async (...args: Parameters<typeof import("@/components/ToolsPdf")["generateCartePdfBlob"]>): Promise<Blob> => (await import("@/components/ToolsPdf")).generateCartePdfBlob(...args);
@@ -59,7 +60,9 @@ function getYieldColor(yieldPct: number | null): string {
 
 export default function Carte() {
   const t = useTranslations("carte");
-  const tCommune = useTranslations("commune");
+  const locale=useLocale();
+  const formatEUR=(n:number)=>n.toLocaleString(locale==="lb"?"de-DE":locale,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2});
+  const evidence = useTranslations("marketEvidence");
   const [search, setSearch] = useState("");
   const [selectedCommune, setSelectedCommune] = useState<MarketDataCommune | null>(null);
   const [sortBy, setSortBy] = useState<"prix" | "canton" | "nom">("canton");
@@ -83,7 +86,7 @@ export default function Carte() {
   const searchResults = useMemo(() => rechercherCommune(search), [search]);
 
   const sortedCommunes = useMemo(() => {
-    const filtered = search && searchResults.length > 0
+    const filtered = search.trim()
       ? searchResults.map((r) => r.commune)
       : allCommunes;
 
@@ -124,7 +127,7 @@ export default function Carte() {
         {/* Légende */}
         {isRendement ? (
           <div className="mb-6 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-muted">{t("grossYield")} :</span>
+            <span className="text-muted">{evidence("ratioTitle")} :</span>
             <span className="rounded px-2 py-0.5 bg-red-100 text-red-800">{"< 3 %"}</span>
             <span className="rounded px-2 py-0.5 bg-amber-100 text-amber-800">3–4 %</span>
             <span className="rounded px-2 py-0.5 bg-green-100 text-green-800">{"> 4 %"}</span>
@@ -312,7 +315,7 @@ export default function Carte() {
                       <MarketAlertButton commune={selectedCommune.commune} />
                     </div>
 
-                    <div className="mt-4 grid grid-cols-2 gap-3">
+                    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                       <div className={`rounded-lg p-3 text-center ${priceField === "prixM2Existant" ? "bg-navy/15 ring-2 ring-navy/30" : "bg-navy/5"}`}>
                         <div className="text-xs text-muted">{t("existing")}</div>
                         <div className="text-lg font-bold text-navy">{selectedCommune.prixM2Existant ? formatEUR(selectedCommune.prixM2Existant) : "—"}</div>
@@ -341,7 +344,7 @@ export default function Carte() {
                       if (yieldPct == null) return null;
                       return (
                         <div className={`mt-3 rounded-lg p-3 text-center ${isRendement ? "ring-2 ring-teal/40" : ""} ${getYieldColor(yieldPct)}`}>
-                          <div className="text-xs font-medium">{t("grossYield")}</div>
+                          <div className="text-xs font-medium">{evidence("ratioTitle")}</div>
                           <div className="text-xl font-bold">{yieldPct.toFixed(2)} %</div>
                           <div className="text-[10px]">{t("yieldFormulaShort")}</div>
                         </div>
@@ -373,37 +376,7 @@ export default function Carte() {
                       );
                     })()}
 
-                    {/* Score de marche */}
-                    {(() => {
-                      const score = computeMarketScore(selectedCommune);
-                      const color = getScoreColor(score.level);
-                      const barColor = getScoreBarColor(score.level);
-                      return (
-                        <div className="mt-3 rounded-lg bg-background p-3">
-                          <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-xs text-muted">{t("marketScore")}</span>
-                            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${color}`}>
-                              {tCommune(`scoreLevels.${score.level}`)} ({score.score}/100)
-                            </span>
-                          </div>
-                          <div className="h-2 rounded-full bg-gray-200">
-                            <div className={`h-2 rounded-full ${barColor} transition-all`} style={{ width: `${score.score}%` }} />
-                          </div>
-                          <div className="mt-1.5 grid grid-cols-2 gap-1">
-                            {score.components.map((comp) => (
-                              <div key={comp.key} className="flex items-center justify-between text-[10px]">
-                                <span className="text-muted">{tCommune(`scoreComponents.${comp.key}`)}</span>
-                                <span className="font-mono font-medium text-slate">{comp.score}/25</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    })()}
-
-                    <div className="mt-3 text-xs text-muted">
-                      {t("transactions", { count: selectedCommune.nbTransactions ?? 0 })} — {selectedCommune.source}
-                    </div>
+                    <div className="mt-3"><MarketEvidence market={selectedCommune}/></div>
 
                     <div className="mt-4 flex gap-2">
                       <Link
@@ -424,24 +397,7 @@ export default function Carte() {
                         label="PDF"
                         filename={`carte-prix-${selectedCommune.commune.toLowerCase()}-${new Date().toLocaleDateString("fr-FR")}.pdf`}
                         generateBlob={() =>
-                          _lazy_generateCartePdfBlob({
-                            commune: selectedCommune.commune,
-                            prixMoyenM2: selectedCommune.prixM2Existant || 0,
-                            prixMedianM2: selectedCommune.prixM2Annonces || undefined,
-                            nbTransactions: selectedCommune.nbTransactions || undefined,
-                            fourchetteBasse: selectedCommune.prixM2Existant
-                              ? Math.round(selectedCommune.prixM2Existant * 0.85)
-                              : undefined,
-                            fourchetteHaute: selectedCommune.prixM2VEFA || undefined,
-                            details: [
-                              ...(selectedCommune.prixM2VEFA
-                                ? [{ label: "Prix VEFA/m2", value: `${formatEUR(selectedCommune.prixM2VEFA)}/m2` }]
-                                : []),
-                              ...(selectedCommune.loyerM2Annonces
-                                ? [{ label: "Loyer/m2/mois", value: `${selectedCommune.loyerM2Annonces.toFixed(1)} EUR` }]
-                                : []),
-                            ],
-                          })
+                          _lazy_generateCartePdfBlob({market:selectedCommune,locale,labels:Object.fromEntries(MARKET_EVIDENCE_LABELS.map(key=>[key,evidence(key)])) as MarketEvidenceLabels})
                         }
                       />
                     </div>

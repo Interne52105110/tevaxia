@@ -1,6 +1,8 @@
 "use client";
+import {MARKET_SOURCES,type MarketDataCommune} from "@/lib/market-data";
+import {marketObservationRows,type MarketEvidenceLabels} from "@/lib/market-evidence";
 
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, Link as PdfLink } from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
 import {
   CoverPage,
@@ -810,67 +812,21 @@ export async function downloadMarchePdf(params: MarchePdfParams) {
 
 /* ==================== 11. CARTE DES PRIX ==================== */
 
-export interface CartePdfParams {
-  commune: string; prixMoyenM2: number; prixMedianM2?: number;
-  nbTransactions?: number; fourchetteBasse?: number; fourchetteHaute?: number;
-  classement?: string; details?: { label: string; value: string }[];
+export interface CartePdfParams { market:MarketDataCommune;locale:string;labels:MarketEvidenceLabels }
+function CarteDoc({p}:{p:CartePdfParams}){
+ const ref=generateRef(),t=p.labels,m=p.market,fmt=(n:number,d:number)=>n.toLocaleString(p.locale==='lb'?'de-DE':p.locale,{minimumFractionDigits:d,maximumFractionDigits:d}).replace(/[\u00a0\u202f]/g,' ');
+ const rows=marketObservationRows(m).map(r=>({label:t[r.label],value:r.value==null?t.unpublished:fmt(r.value,r.unit==='money'?2:0)+(r.unit==='money'?' EUR':'')}));
+ return <Document><CoverPage title={t.pdfTitle} subtitle={m.commune} value={m.prixM2Existant==null?t.unpublished:fmt(m.prixM2Existant,2)+' EUR/m²'} date={today()} reference={ref}/>
+  <Page size="A4" style={s.page}><PageHeader title={t.pdfTitle+' — '+m.commune} reference={ref}/>
+   <Text style={s.section}>{t.title}</Text><Text style={s.note}>{t.period}: {m.periode}</Text><Text style={s.note}>{m.source}</Text>
+   <View style={{marginTop:12}}>{rows.map((row,i)=><Row key={i} label={row.label} value={row.value}/>)}</View>
+   <Text style={{...s.note,marginTop:18}}>{t.scope}</Text><Text style={{...s.note,marginTop:10}}>{t.ratioScope}</Text>
+   <Text style={s.section}>{t.sources}</Text>{([['transactions','sourceSales'],['annonces','sourceAsking'],['loyers','sourceRent']] as const).map(([key,label])=><PdfLink key={key} src={MARKET_SOURCES[key]} style={{fontSize:9,color:'#1B2A4A',marginBottom:7}}>{t[label]}</PdfLink>)}
+   <Disclaimer/><Footer/>
+  </Page><DisclaimerPage reference={ref}/></Document>;
 }
-
-function CarteDoc({ p }: { p: CartePdfParams }) {
-  const ref = generateRef();
-  return (
-    <Document>
-      <CoverPage
-        title="Carte des prix"
-        subtitle={`Fiche commune · ${p.commune}`}
-        value={`${fmtEur(p.prixMoyenM2)}/m2`}
-        date={today()}
-        reference={ref}
-      />
-      <Page size="A4" style={s.page}>
-        <PageHeader title="Carte des prix — Fiche commune" reference={ref} />
-
-        <KpiGrid items={[
-          { label: "Prix moyen au m2", value: `${fmtEur(p.prixMoyenM2)}/m2`, highlight: true },
-          ...(p.prixMedianM2 != null ? [{ label: "Prix median au m2", value: `${fmtEur(p.prixMedianM2)}/m2` }] : []),
-          ...(p.fourchetteBasse != null && p.fourchetteHaute != null ? [{ label: "Fourchette", value: `${fmtEur(p.fourchetteBasse)} - ${fmtEur(p.fourchetteHaute)}/m2` }] : []),
-          ...(p.nbTransactions != null ? [{ label: "Transactions", value: fmtNum(p.nbTransactions) }] : []),
-          ...(p.classement ? [{ label: "Classement national", value: p.classement }] : []),
-        ]} />
-
-        <Text style={s.section}>{p.commune}</Text>
-        <RowHL label="Prix moyen au m2" value={`${fmtEur(p.prixMoyenM2)}/m2`} />
-        {p.prixMedianM2 != null && <Row label="Prix median au m2" value={`${fmtEur(p.prixMedianM2)}/m2`} />}
-        {p.fourchetteBasse != null && p.fourchetteHaute != null && (
-          <Row label="Fourchette" value={`${fmtEur(p.fourchetteBasse)} - ${fmtEur(p.fourchetteHaute)}/m2`} />
-        )}
-        {p.nbTransactions != null && <Row label="Nombre de transactions" value={fmtNum(p.nbTransactions)} />}
-        {p.classement && <Row label="Classement national" value={p.classement} />}
-
-        {p.details && p.details.length > 0 && <>
-          <Text style={s.section}>Details</Text>
-          {p.details.map((d, i) => <Row key={i} label={d.label} value={d.value} />)}
-        </>}
-
-        <Disclaimer />
-        <Footer />
-      </Page>
-      <DisclaimerPage reference={ref} />
-    </Document>
-  );
-}
-
-export async function generateCartePdfBlob(params: CartePdfParams): Promise<Blob> {
-  const { pdf } = await import("@react-pdf/renderer");
-  return pdf(<CarteDoc p={params} />).toBlob();
-}
-
-export async function downloadCartePdf(params: CartePdfParams) {
-  const blob = await generateCartePdfBlob(params);
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a"); a.href = url; a.download = `carte-prix-${params.commune.toLowerCase()}-${today()}.pdf`; a.click();
-  URL.revokeObjectURL(url);
-}
+export async function generateCartePdfBlob(params:CartePdfParams):Promise<Blob>{const {pdf}=await import('@react-pdf/renderer');return pdf(<CarteDoc p={params}/>).toBlob()}
+export async function downloadCartePdf(params:CartePdfParams){const blob=await generateCartePdfBlob(params),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`carte-prix-${params.market.commune.toLowerCase()}-${today()}.pdf`;a.click();URL.revokeObjectURL(url)}
 
 /* ==================== 12. ESTIMATEUR CONSTRUCTION ==================== */
 

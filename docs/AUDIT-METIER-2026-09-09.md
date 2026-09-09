@@ -359,3 +359,14 @@ La page /indices retire le composite de santé du marché à composantes non ét
 Validation : 1 180 tests dans 99 fichiers, compilation et lint réussis. Chaque point est comparé à la réponse JSON-stat source, avec contrôle des unités, du pays, du champ TOTAL, de l’année de base et de l’absence de 2026. Vérifications navigateur dans cinq langues, quatre pages consommatrices et quatre largeurs, tableaux, recherche, tri, lien communal localisé et CSV téléchargé.
 
 Limite de ce lot : le module d’ajustements temporels ancien demeure dans un composant orphelin non utilisé par les pages ; il n’alimente plus les graphiques publics. Les autres indicateurs du marché commercial et les commentaires locaux font l’objet de la suite de la revue.
+
+
+## Carte, fiches communales et PDF — observations distinctes et valeurs absentes
+
+La carte et les fiches communales présentent maintenant le même bloc d’observations : moyennes enregistrées existant/VEFA, prix annoncés, loyers annoncés et leurs effectifs respectifs, période et liens directs vers les sources de l’Observatoire de l’Habitat. Les prix absents sont « non publiés », tout en conservant les effectifs disponibles. Les montants sont affichés avec centimes.
+
+Le score de marché et les commentaires automatiques attribuant une qualité au volume de transactions ou une remise négociable à l’écart annonces/transacté sont retirés de ces pages. Le ratio loyer/prix brut est nommé comme tel : il combine des moyennes de biens différents et ne déduit pas vacance, charges, travaux, frais ou impôts ; il ne constitue pas le rendement d’un investissement précis. Une recherche sans résultat sur la carte n’affiche plus toutes les communes. Les liens vers estimation et valorisation respectent la langue courante.
+
+Le PDF de carte reçoit les mêmes observations, libellés et dates que l’écran. Il ne présente plus le prix annoncé comme médiane, ni une décote artificielle de 15 % et un prix VEFA comme fourchette de valeur. Une moyenne non publiée n’est jamais remplacée par zéro, y compris sur la couverture. Les liens de sources sont cliquables. Les libellés et explications métier sont traduits en cinq langues ; le pied de page et l’avertissement commun historique restent en français.
+
+Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg et Beaufort, cinq langues), trente pages inspectées visuellement ; montants, centimes, période, effectifs, mentions de données absentes et trois liens source vérifiés. Contrôles navigateur des deux communes et de la carte, cinq langues et quatre largeurs, retrait des scores, recherche inconnue et liens localisés. Les cartes de montants utilisent une colonne sur petit écran pour conserver les centimes lisibles avec le zoom général de 10 %. Aucun nouveau modèle financier n’est introduit : le bloc et le PDF exposent les observations existantes sans fabriquer de médiane ou d’intervalle.

@@ -2042,7 +2042,7 @@
     "existing": "Existente",
     "newVefa": "VEFA (novo)",
     "listings": "Anúncios",
-    "yield": "Rendimento",
+    "yield": "Rácio renda/preço bruto",
     "grossYield": "Rendimento bruto",
     "yieldFormula": "(renda/m² × 12) / preço/m²",
     "yieldFormulaShort": "renda × 12 / preço",
@@ -18901,5 +18901,28 @@
     "communesSource": "Fonte Observatório da Habitação — transações",
     "map": "Ver mapa",
     "estimate": "Estimar imóvel"
+  },
+  "marketEvidence": {
+    "title": "Observações publicadas",
+    "scope": "Médias de amostras distintas: os preços anunciados não são uma mediana de transações. A diferença face aos preços registados não mede evolução temporal nem desconto negociável. Não são deduzidos intervalos de valor ou notas de qualidade do mercado destas observações.",
+    "ratioScope": "O rácio renda/preço bruto combina renda média anunciada × 12 e preço médio registado por m² de imóveis diferentes. Não mede a rentabilidade de um investimento específico e não deduz vacância, despesas, obras, custos de aquisição ou impostos.",
+    "existing": "Existente registado / m²",
+    "vefa": "VEFA registada / m²",
+    "asking": "Preço anunciado / m²",
+    "rent": "Renda anunciada / m² / mês",
+    "salesCount": "Transações existentes",
+    "vefaCount": "Transações VEFA",
+    "askingCount": "Anúncios de venda",
+    "rentCount": "Anúncios de arrendamento",
+    "unpublished": "Não publicado",
+    "period": "Período",
+    "publication": "Publicação",
+    "sources": "Fontes",
+    "sourceSales": "Transações — Observatório da Habitação",
+    "sourceAsking": "Preços anunciados — Observatório",
+    "sourceRent": "Rendas anunciadas — Observatório",
+    "sourceAdjusted": "Preços sem anexos — Observatório",
+    "ratioTitle": "Rácio renda/preço bruto",
+    "pdfTitle": "Observações de mercado — município"
   }
 }

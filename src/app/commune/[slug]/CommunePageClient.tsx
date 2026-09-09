@@ -2,13 +2,13 @@
 
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale,useTranslations } from "next-intl";
 import LocaleLink from "@/components/LocaleLink";
 import { getCommuneBySlug, getAllMarketData } from "@/lib/market-data";
 import CommunePopulation from "@/components/CommunePopulation";
-import { formatEUR } from "@/lib/calculations";
+
 import { PriceEvolutionChart } from "@/components/PriceChart";
-import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
+import MarketEvidence from "@/components/MarketEvidence";
 import MarketAlertButton from "@/components/MarketAlertButton";
 import RelatedCommunes from "@/components/RelatedCommunes";
 import RelatedTools from "@/components/RelatedTools";
@@ -16,7 +16,10 @@ import RelatedTools from "@/components/RelatedTools";
 export default function CommunePageClient() {
   const params = useParams();
   const slug = typeof params.slug === "string" ? params.slug : "";
+  const locale=useLocale();
+  const formatEUR=(n:number)=>n.toLocaleString(locale==="lb"?"de-DE":locale,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2});
   const t = useTranslations("commune");
+  const evidence=useTranslations("marketEvidence");
 
   const commune = useMemo(() => getCommuneBySlug(slug), [slug]);
 
@@ -58,7 +61,7 @@ export default function CommunePageClient() {
         </div>
 
         {/* Prix overview */}
-        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl bg-navy/5 p-4 text-center">
             <div className="text-xs text-muted">{t("priceM2Existant")}</div>
             <div className="text-2xl font-bold text-navy">{commune.prixM2Existant ? formatEUR(commune.prixM2Existant) : "—"}</div>
@@ -74,76 +77,15 @@ export default function CommunePageClient() {
             <div className="text-2xl font-bold text-gold-dark">{commune.loyerM2Annonces ? `${commune.loyerM2Annonces.toFixed(1)} €` : "—"}</div>
           </div>
           <div className="rounded-xl bg-teal/10 p-4 text-center">
-            <div className="text-xs text-muted">{t("grossYield")}</div>
+            <div className="text-xs text-muted">{evidence("ratioTitle")}</div>
             <div className="text-2xl font-bold text-teal">{rendementBrut ? `${rendementBrut.toFixed(1)}%` : "—"}</div>
           </div>
         </div>
 
-        {/* Market score */}
-        {(() => {
-          const score = computeMarketScore(commune);
-          const color = getScoreColor(score.level);
-          const barColor = getScoreBarColor(score.level);
-          return (
-            <div className="mt-6 rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                <h2 className="text-base font-semibold text-navy">{t("marketScore")}</h2>
-                <span className={`rounded-full px-3 py-1 text-xs font-semibold ${color}`}>
-                  {t(`scoreLevels.${score.level}`)} &mdash; {score.score}/100
-                </span>
-              </div>
-              <div className="h-2.5 rounded-full bg-gray-200">
-                <div className={`h-2.5 rounded-full ${barColor} transition-all`} style={{ width: `${score.score}%` }} />
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {score.components.map((comp) => (
-                  <div key={comp.key} className="text-center">
-                    <div className="text-xs text-muted">{t(`scoreComponents.${comp.key}`)}</div>
-                    <div className="text-sm font-semibold text-navy">{comp.score}/25</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })()}
-
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           {/* Left */}
           <div className="space-y-6">
-            {/* Auto-generated area guide */}
-            <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="text-base font-semibold text-navy mb-3">{t("marketSectionTitle", { commune: commune.commune })}</h2>
-              <div className="text-sm text-muted leading-relaxed space-y-2">
-                <p>
-                  {t.rich("marketP1", {
-                    commune: commune.commune,
-                    price: formatEUR(commune.prixM2Existant || 0),
-                    periode: commune.periode,
-                    strong: (chunks) => <strong className="text-slate">{chunks}</strong>,
-                  })}
-                  {commune.prixM2VEFA && " " + t("marketP1Vefa", { priceVefa: formatEUR(commune.prixM2VEFA) })}
-                </p>
-                {commune.nbTransactions && (
-                  <p>{commune.nbTransactions > 50
-                    ? t("marketTransactionsGood", { nb: commune.nbTransactions })
-                    : t("marketTransactionsLimited", { nb: commune.nbTransactions })}</p>
-                )}
-                {commune.loyerM2Annonces && (
-                  <p>
-                    {t("marketRent", { rent: commune.loyerM2Annonces.toFixed(1) })}
-                    {rendementBrut && " " + t("marketYield", { yield: rendementBrut.toFixed(1) })}
-                  </p>
-                )}
-                {commune.prixM2Existant && commune.prixM2Annonces && (
-                  <p>
-                    {t.rich("marketGap", {
-                      pct: ((commune.prixM2Annonces - commune.prixM2Existant) / commune.prixM2Existant * 100).toFixed(0),
-                      strong: (chunks) => <strong className="text-slate">{chunks}</strong>,
-                    })}
-                  </p>
-                )}
-              </div>
-            </div>
+            <MarketEvidence market={commune}/>
 
             <CommunePopulation commune={commune.commune} />
 

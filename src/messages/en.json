@@ -2042,7 +2042,7 @@
     "existing": "Existing",
     "newVefa": "VEFA (new)",
     "listings": "Listings",
-    "yield": "Yield",
+    "yield": "Gross rent/price ratio",
     "grossYield": "Gross yield",
     "yieldFormula": "(rent/m² × 12) / price/m²",
     "yieldFormulaShort": "rent × 12 / price",
@@ -18901,5 +18901,28 @@
     "communesSource": "Housing Observatory source — transactions",
     "map": "View map",
     "estimate": "Estimate a property"
+  },
+  "marketEvidence": {
+    "title": "Published observations",
+    "scope": "Averages from separate samples: asking prices are not a transaction median. Their gap with recorded prices measures neither a time trend nor a negotiable discount. No valuation range or market-quality score is inferred from these observations.",
+    "ratioScope": "The gross rent/price ratio combines average asking rent × 12 and average recorded price per m², for different properties. It is not the return on a specific investment and deducts no vacancy, running costs, works, fees or taxes.",
+    "existing": "Recorded existing / m²",
+    "vefa": "Recorded off-plan / m²",
+    "asking": "Asking price / m²",
+    "rent": "Asking rent / m² / month",
+    "salesCount": "Existing transactions",
+    "vefaCount": "Off-plan transactions",
+    "askingCount": "Sale listings",
+    "rentCount": "Rental listings",
+    "unpublished": "Not published",
+    "period": "Period",
+    "publication": "Publication",
+    "sources": "Sources",
+    "sourceSales": "Transactions — Housing Observatory",
+    "sourceAsking": "Asking prices — Housing Observatory",
+    "sourceRent": "Asking rents — Housing Observatory",
+    "sourceAdjusted": "Prices excluding annexes — Observatory",
+    "ratioTitle": "Gross rent/price ratio",
+    "pdfTitle": "Market observations — municipality"
   }
 }

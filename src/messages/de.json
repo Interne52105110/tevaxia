@@ -2042,7 +2042,7 @@
     "existing": "Bestand",
     "newVefa": "VEFA (Neubau)",
     "listings": "Anzeigen",
-    "yield": "Rendite",
+    "yield": "Bruttomiet-/Preisverhältnis",
     "grossYield": "Bruttorendite",
     "yieldFormula": "(Miete/m² × 12) / Preis/m²",
     "yieldFormulaShort": "Miete × 12 / Preis",
@@ -18901,5 +18901,28 @@
     "communesSource": "Quelle Wohnungsobservatorium — Transaktionen",
     "map": "Karte anzeigen",
     "estimate": "Immobilie schätzen"
+  },
+  "marketEvidence": {
+    "title": "Veröffentlichte Beobachtungen",
+    "scope": "Mittelwerte aus unterschiedlichen Stichproben: Angebotspreise sind kein Transaktionsmedian. Die Differenz zu registrierten Preisen misst weder zeitliche Entwicklung noch verhandelbaren Abschlag. Daraus werden keine Wertspanne oder Marktqualitätsnote abgeleitet.",
+    "ratioScope": "Das Bruttomiet-/Preisverhältnis kombiniert durchschnittliche Angebotsmiete × 12 und registrierten Durchschnittspreis je m² verschiedener Immobilien. Es ist keine Rendite einer bestimmten Investition; Leerstand, Kosten, Arbeiten, Gebühren und Steuern werden nicht abgezogen.",
+    "existing": "Bestand registriert / m²",
+    "vefa": "VEFA registriert / m²",
+    "asking": "Angebotspreis / m²",
+    "rent": "Angebotsmiete / m² / Monat",
+    "salesCount": "Bestandstransaktionen",
+    "vefaCount": "VEFA-Transaktionen",
+    "askingCount": "Verkaufsanzeigen",
+    "rentCount": "Mietanzeigen",
+    "unpublished": "Nicht veröffentlicht",
+    "period": "Zeitraum",
+    "publication": "Veröffentlichung",
+    "sources": "Quellen",
+    "sourceSales": "Transaktionen — Wohnungsobservatorium",
+    "sourceAsking": "Angebotspreise — Wohnungsobservatorium",
+    "sourceRent": "Angebotsmieten — Wohnungsobservatorium",
+    "sourceAdjusted": "Preise ohne Nebenflächen — Observatorium",
+    "ratioTitle": "Bruttomiet-/Preisverhältnis",
+    "pdfTitle": "Marktbeobachtungen — Gemeinde"
   }
 }
