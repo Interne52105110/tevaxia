@@ -180,3 +180,10 @@ describe("reconcilier", () => {
     expect(result.ecartMaxPct).toBeGreaterThan(0);
   });
 });
+
+describe('Residual renovation sensitivity validation',()=>{
+ const i={classeActuelle:'E',classeCible:'B',valeurApresRenovation:800000,coutTravauxRenovation:80000,honorairesEtudes:8000,fraisFinancement:3000,margePrudentielle:10,aidesPrevues:0};
+ it('uses confirmed grants without silently capping an excessive claim',()=>{expect(calculerResiduelleEnergetique(i).valeurResiduelle).toBe(699900);expect(calculerResiduelleEnergetique({...i,aidesPrevues:40000}).valeurResiduelle).toBe(739900);expect(()=>calculerResiduelleEnergetique({...i,aidesPrevues:100101})).toThrow()});
+ it('keeps negative residuals visible and does not infer costs from CPE labels',()=>{expect(calculerResiduelleEnergetique({...i,valeurApresRenovation:50000}).valeurResiduelle).toBe(-50100);expect(calculerResiduelleEnergetique({...i,classeActuelle:'A+',classeCible:'I'})).toEqual(calculerResiduelleEnergetique(i))});
+ it('rejects non-finite and negative costs and invalid margin or value',()=>{for(const key of ['coutTravauxRenovation','honorairesEtudes','fraisFinancement','aidesPrevues','margePrudentielle'])for(const n of [-1,NaN,Infinity])expect(()=>calculerResiduelleEnergetique({...i,[key]:n})).toThrow();expect(()=>calculerResiduelleEnergetique({...i,valeurApresRenovation:0})).toThrow();expect(()=>calculerResiduelleEnergetique({...i,margePrudentielle:101})).toThrow()});
+});

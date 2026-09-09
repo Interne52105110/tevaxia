@@ -1178,7 +1178,9 @@
     "historyVsPrev": "vs prev. estim.",
     "historyNote": "Stored only in your browser (localStorage). Nothing sent to the server. Last 50 estimates kept.",
     "auditLimits": "Freehold apartments only. Adjustments are internal assumptions, without validation against an independent sales sample. The ±18% range (±25% for asking prices only) is a convention, with no guaranteed accuracy or probability.",
-    "auditMissing": "No estimate is available for these inputs. Check the area and published data for the sale type. Suppressed official prices are not invented."
+    "auditMissing": "No estimate is available for these inputs. Check the area and published data for the sale type. Suppressed official prices are not invented.",
+    "renovationDossierNote": "An energy-class jump is insufficient to price works. Use a building study and detailed quotations; no cost envelope is automatically inferred from this estimate.",
+    "renovationDossierLink": "Compare a renovation project using documented inputs"
   },
   "fraisAcquisition": {
     "title": "Acquisition Fees Simulator",
@@ -18628,5 +18630,32 @@
     "adjusted": "Value after the entered adjustment (€)",
     "resultNote": "This sensitivity remains separate from other valuation methods and is not automatically included in their result or the valuation PDF.",
     "source": "RICS: ESG factors in commercial property valuation, 2026 edition"
+  },
+  "renovationResidualAudit": {
+    "title": "Residual value: a documented renovation scenario",
+    "intro": "Subtract a renovation budget from an assumed post-works value, using the same valuation date and scope. Costs come from the file, not an EPC class jump.",
+    "value": "Assumed post-works value (€)",
+    "works": "Works quotations including VAT (€)",
+    "fees": "Fees and studies including VAT (€)",
+    "finance": "Included financing costs (€)",
+    "margin": "Contingency (%, from 0 to 100)",
+    "grant": "Grants confirmed in the file (€)",
+    "reference": "References for quotations, grants, post-works value and valuation date",
+    "scope": "This formula is a cost sensitivity: it does not establish a market discount, sale price or EVS/CRR compliance. It does not calculate a future EPC or necessary works. A professional must review comparables, timing, discounting, tax and any other costs.",
+    "costNote": "Use VAT-inclusive amounts under the file's actual VAT regime. The selected contingency applies to works + fees + financing costs. Zero means no amount included: check omissions. Avoid duplicate costs across quotations, fees and financing.",
+    "grantNote": "Use zero without a confirmed grant. Do not deduct VAT savings already reflected in quotations. Grants cannot exceed the budget including contingency. This calculation does not assess eligibility or payment dates.",
+    "invalid": "Enter valid value and costs, a file reference and a contingency from 0 to 100%. Grants must be between zero and the total budget.",
+    "result": "Scenario breakdown",
+    "brut": "Works + fees + financing",
+    "reserve": "Contingency amount",
+    "budget": "Total budget including contingency",
+    "net": "Net cost after grants",
+    "residual": "Calculated residual balance",
+    "costShare": "Net cost / post-works value (%)",
+    "negative": "The balance is negative: net costs exceed the entered post-works value. This is not converted into a zero market value.",
+    "resultNote": "No result is automatically transferred to other methods or the valuation PDF. This subtraction does not replace an analysis using dated cash flows.",
+    "source": "Guichet.lu: EPC and energy-assessment documents",
+    "linkNote": "An energy-class jump is insufficient to price works. Use a building study and detailed quotations; no cost envelope is automatically inferred from this estimate.",
+    "link": "Compare a renovation project using documented inputs"
   }
 }

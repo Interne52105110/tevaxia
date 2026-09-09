@@ -505,7 +505,7 @@ export function calculerTermeReversion(input: TermeReversionInput): TermeReversi
 }
 
 // ============================================================
-// 6. APPROCHE RÉSIDUELLE ÉNERGÉTIQUE (EVS 2025)
+// 6. SENSIBILITÉ RÉSIDUELLE À PARTIR DES COÛTS DU DOSSIER
 // ============================================================
 
 export interface ResiduelleEnergetiqueInput {
@@ -532,10 +532,13 @@ export interface ResiduelleEnergetiqueResult {
 }
 
 export function calculerResiduelleEnergetique(input: ResiduelleEnergetiqueInput): ResiduelleEnergetiqueResult {
+  const values=[input.valeurApresRenovation,input.coutTravauxRenovation,input.honorairesEtudes,input.fraisFinancement,input.margePrudentielle,input.aidesPrevues];
+  if(!values.every(v=>Number.isFinite(v)&&v>=0&&v<=1e12)||input.valeurApresRenovation<=0||input.margePrudentielle>100)throw new RangeError('Invalid residual assumptions');
   const coutTotalBrut = input.coutTravauxRenovation + input.honorairesEtudes + input.fraisFinancement;
   const margePrudentielleMontant = coutTotalBrut * (input.margePrudentielle / 100);
   const coutTotalAvecMarge = coutTotalBrut + margePrudentielleMontant;
-  const aidesDeduites = Math.min(input.aidesPrevues, coutTotalAvecMarge);
+  if(input.aidesPrevues>coutTotalAvecMarge)throw new RangeError('Confirmed grants exceed budget');
+  const aidesDeduites = input.aidesPrevues;
   const coutNetApresAides = coutTotalAvecMarge - aidesDeduites;
 
   const valeurResiduelle = input.valeurApresRenovation - coutNetApresAides;

@@ -11,7 +11,6 @@ import {
   calculerCapitalisation,
   calculerDCF,
   calculerMLV,
-  calculerResiduelleEnergetique,
   calculerTermeReversion,
   reconcilier,
   type Comparable,
@@ -40,7 +39,7 @@ import { getDemographics } from "@/lib/demographics";
 import { getLatestValue, TAUX_HYPOTHECAIRE, OAT_10Y, INDICE_CONSTRUCTION } from "@/lib/macro-data";
 import { getProfile } from "@/lib/profile";
 import { genererNarrative } from "@/lib/narrative";
-import { estimerCoutsRenovation } from "@/lib/renovation-costs";
+import { RenovationResidual } from "@/components/RenovationResidual";
 import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { sauvegarderEvaluation } from "@/lib/storage";
@@ -856,226 +855,7 @@ function TabESG() { return <EsgDossier />; }
 // TAB — RÉSIDUELLE ÉNERGÉTIQUE
 // ============================================================
 
-function TabEnergie({ valeurMarcheCible, surfaceBien }: { valeurMarcheCible: number; surfaceBien: number }) {
-  const t = useTranslations("valorisation");
-  const [classeActuelle, setClasseActuelle] = useState("E");
-  const [classeCible, setClasseCible] = useState("B");
-  const [anneeConstruction, setAnneeConstruction] = useState(1985);
-  const [valeurApres, setValeurApres] = useState(valeurMarcheCible);
-  const [coutTravaux, setCoutTravaux] = useState(80000);
-  const [honoraires, setHonoraires] = useState(8000);
-  const [fraisFinancement, setFraisFinancement] = useState(3000);
-  const [margePrudentielle, setMargePrudentielle] = useState(10);
-  const [aidesPrevues, setAidesPrevues] = useState(40000);
-
-  const energyClassOptions = [
-    { value: "A", label: t("classeA") },
-    { value: "B", label: t("classeB") },
-    { value: "C", label: t("classeC") },
-    { value: "D", label: t("classeD") },
-    { value: "E", label: t("classeE") },
-    { value: "F", label: t("classeF") },
-    { value: "G", label: t("classeG") },
-  ];
-
-  const targetClassOptions = [
-    { value: "A", label: t("classeA") },
-    { value: "B", label: t("classeB") },
-    { value: "C", label: t("classeC") },
-    { value: "D", label: t("classeD") },
-  ];
-
-  const result = useMemo(
-    () =>
-      calculerResiduelleEnergetique({
-        classeActuelle,
-        classeCible,
-        valeurApresRenovation: valeurApres,
-        coutTravauxRenovation: coutTravaux,
-        honorairesEtudes: honoraires,
-        fraisFinancement,
-        margePrudentielle,
-        aidesPrevues,
-      }),
-    [classeActuelle, classeCible, valeurApres, coutTravaux, honoraires, fraisFinancement, margePrudentielle, aidesPrevues]
-  );
-
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div className="space-y-6">
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgPerfEnergetique")}</h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <InputField
-              label={t("enClasseActuelle")}
-              type="select"
-              value={classeActuelle}
-              onChange={setClasseActuelle}
-              options={energyClassOptions}
-            />
-            <InputField
-              label={t("enClasseCible")}
-              type="select"
-              value={classeCible}
-              onChange={setClasseCible}
-              options={targetClassOptions}
-            />
-          </div>
-          <InputField
-            label={t("esgAnneeConstruction")}
-            value={anneeConstruction}
-            onChange={(v) => setAnneeConstruction(Number(v))}
-            min={1800}
-            max={2026}
-            className="mt-4"
-            hint={t("enAnneeConstructionHint")}
-          />
-          <InputField
-            label={t("enValeurApresRenovation")}
-            value={valeurApres}
-            onChange={(v) => setValeurApres(Number(v))}
-            suffix="€"
-            className="mt-4"
-            hint={t("enValeurApresHint")}
-          />
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base font-semibold text-navy">{t("enCoutsRenovation")}</h2>
-            <button
-              onClick={() => {
-                const est = estimerCoutsRenovation(classeActuelle, classeCible, surfaceBien, anneeConstruction);
-                if (est.totalMoyen > 0) {
-                  setCoutTravaux(est.totalMoyen);
-                  setHonoraires(est.honoraires);
-                }
-              }}
-              className="rounded-lg bg-gold px-3 py-1.5 text-xs font-medium text-navy-dark hover:bg-gold-light transition-colors"
-            >
-              {t("enEstimerAuto")}
-            </button>
-          </div>
-
-          {/* Détail estimation auto */}
-          {(() => {
-            const est = estimerCoutsRenovation(classeActuelle, classeCible, surfaceBien, anneeConstruction);
-            if (est.postes.length === 0) return null;
-            return (
-              <div className="mb-4 rounded-lg bg-background border border-card-border p-3">
-                <div className="text-xs font-semibold text-navy mb-2">{t("enEstimationAutoTitle", { classeActuelle, classeCible, surface: surfaceBien, annee: anneeConstruction })}</div>
-                <div className="space-y-1">
-                  {est.postes.map((p) => (
-                    <div key={p.labelKey} className="flex justify-between text-xs">
-                      <span className="text-muted">{t(p.labelKey)}</span>
-                      <span className="font-mono">{formatEUR(p.coutMin)} – {formatEUR(p.coutMax)}</span>
-                    </div>
-                  ))}
-                  <div className="flex justify-between text-xs font-semibold border-t border-card-border pt-1 mt-1">
-                    <span>{t("enTotalTravauxFourchette")}</span>
-                    <span className="font-mono">{formatEUR(est.totalMin)} – {formatEUR(est.totalMax)}</span>
-                  </div>
-                  <div className="flex justify-between text-xs text-muted">
-                    <span>{t("enHonoraires10pct")}</span>
-                    <span className="font-mono">{formatEUR(est.honoraires)}</span>
-                  </div>
-                  <div className="flex justify-between text-xs text-muted">
-                    <span>{t("enDureeEstimee")}</span>
-                    <span>{est.dureeEstimeeMois} {t("suffixMois")}</span>
-                  </div>
-                </div>
-                <p className="mt-2 text-[10px] text-muted">{t("enFourchetteNote")}</p>
-              </div>
-            );
-          })()}
-
-          <div className="space-y-4">
-            <InputField label={t("enTravauxRenovation")} value={coutTravaux} onChange={(v) => setCoutTravaux(Number(v))} suffix="€" hint={t("enTravauxHint")} />
-            <InputField label={t("enHonorairesEtudes")} value={honoraires} onChange={(v) => setHonoraires(Number(v))} suffix="€" hint={t("enHonorairesHint")} />
-            <InputField label={t("enFraisFinancement")} value={fraisFinancement} onChange={(v) => setFraisFinancement(Number(v))} suffix="€" hint={t("enFraisFinancementHint")} />
-            <InputField
-              label={t("enMargePrudentielle")}
-              value={margePrudentielle}
-              onChange={(v) => setMargePrudentielle(Number(v))}
-              suffix="%"
-              step={1}
-              hint={t("enMargePrudentielleHint")}
-            />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("enAidesPrevues")}</h2>
-          <InputField
-            label={t("enTotalAides")}
-            value={aidesPrevues}
-            onChange={(v) => setAidesPrevues(Number(v))}
-            suffix="€"
-            hint={t("enTotalAidesHint")}
-          />
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        {/* Diagramme visuel classe énergétique */}
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="mb-3 text-sm font-semibold text-navy">{t("enTransitionEnergetique")}</h3>
-          <div className="flex items-center justify-center gap-4">
-            <div className="text-center">
-              <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-xl text-2xl font-bold text-white ${
-                classeActuelle <= "C" ? "bg-green-500" : classeActuelle <= "E" ? "bg-amber-500" : "bg-red-500"
-              }`}>
-                {classeActuelle}
-              </div>
-              <div className="mt-1 text-xs text-muted">{t("enActuelle")}</div>
-            </div>
-            <svg className="h-6 w-6 text-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-            <div className="text-center">
-              <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-xl text-2xl font-bold text-white ${
-                classeCible <= "B" ? "bg-green-500" : "bg-green-400"
-              }`}>
-                {classeCible}
-              </div>
-              <div className="mt-1 text-xs text-muted">{t("enCible")}</div>
-            </div>
-          </div>
-        </div>
-
-        <ResultPanel
-          title={t("enResultTitle")}
-          className="border-gold/30"
-          lines={[
-            { label: t("enValeurApresClasse", { classe: classeCible }), value: formatEUR(result.valeurApresRenovation) },
-            { label: t("enTravauxHonoFinancement"), value: `- ${formatEUR(result.coutTotalBrut)}`, sub: true },
-            { label: t("enMargePrudentiellePct", { pct: margePrudentielle }), value: `- ${formatEUR(result.margePrudentielleMontant)}`, sub: true },
-            { label: t("enCoutTotalBrutMarge"), value: `- ${formatEUR(result.coutTotalAvecMarge)}` },
-            { label: t("enAidesPrevuesLine"), value: `+ ${formatEUR(result.aidesDeduites)}` },
-            { label: t("enCoutNetApresAides"), value: `- ${formatEUR(result.coutNetApresAides)}` },
-            { label: t("enValeurResiduelle"), value: formatEUR(result.valeurResiduelle), highlight: true, large: true },
-            { label: t("enDecoteEnergetique"), value: `${formatEUR(result.decoteEnergetique)} (${result.decoteEnergetiquePct.toFixed(1)}%)`, warning: result.decoteEnergetiquePct > 15 },
-          ]}
-        />
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="mb-3 text-base font-semibold text-navy">{t("enMethodeEVSTitle")}</h3>
-          <div className="space-y-2 text-sm text-muted leading-relaxed">
-            <p>
-              <strong className="text-slate">{t("enPrincipe")} :</strong> {t("enPrincipeText")}
-            </p>
-            <p>
-              <strong className="text-slate">{t("enValeurResiduelle")}</strong> = {t("enFormule")}
-            </p>
-            <p>
-              <strong className="text-slate">{t("enArt208EBA")} :</strong> {t("enArt208EBAText")}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+function TabEnergie() { return <RenovationResidual />; }
 
 // ============================================================
 // TAB 5 — MLV / CRR
@@ -1967,7 +1747,7 @@ export default function Valorisation() {
         {activeTab === "terme_reversion" && <TabTermeReversion onValeur={onValeurCap} />}
         {activeTab === "dcf" && <TabDCF onValeur={onValeurDCF} />}
         {activeTab === "esg" && <TabESG />}
-        {activeTab === "energie" && <TabEnergie valeurMarcheCible={valeurMarchePourMLV} surfaceBien={surfaceBien} />}
+        {activeTab === "energie" && <TabEnergie />}
         {activeTab === "mlv" && <TabMLV valeurMarche={valeurMarchePourMLV} />}
         {activeTab === "reconciliation" && (
           <TabReconciliation

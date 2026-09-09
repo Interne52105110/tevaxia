@@ -1178,7 +1178,9 @@
     "historyVsPrev": "vs estim. précédente",
     "historyNote": "Stocké uniquement sur votre navigateur (localStorage). Aucun envoi au serveur. Vos 50 dernières estimations sont conservées.",
     "auditLimits": "Appartement en pleine propriété uniquement. Les ajustements sont des hypothèses internes, sans validation sur un échantillon indépendant de ventes. La fourchette ±18 % (ou ±25 % avec annonces seules) est conventionnelle : aucune probabilité ni précision garantie.",
-    "auditMissing": "Aucune estimation disponible pour cette saisie : vérifiez la surface et les données publiées pour le type de vente. Un prix masqué par l’Observatoire n’est pas inventé."
+    "auditMissing": "Aucune estimation disponible pour cette saisie : vérifiez la surface et les données publiées pour le type de vente. Un prix masqué par l’Observatoire n’est pas inventé.",
+    "renovationDossierNote": "Un saut de classe énergétique ne suffit pas à chiffrer des travaux. Utilisez une étude du bâtiment et des devis détaillés ; aucune enveloppe de coût n’est déduite automatiquement de cette estimation.",
+    "renovationDossierLink": "Comparer un projet de rénovation à partir du dossier"
   },
   "fraisAcquisition": {
     "title": "Simulateur de Frais d'Acquisition",
@@ -18628,5 +18630,32 @@
     "adjusted": "Valeur après l’ajustement saisi (€)",
     "resultNote": "Cette sensibilité reste distincte des autres méthodes de valorisation et n’est pas intégrée automatiquement à leur résultat ou au PDF d’évaluation.",
     "source": "RICS : prise en compte des facteurs ESG dans la valorisation commerciale, édition 2026"
+  },
+  "renovationResidualAudit": {
+    "title": "Valeur résiduelle : scénario de rénovation documenté",
+    "intro": "Soustrayez un budget de rénovation à une hypothèse de valeur après travaux, sur la même base de date et de périmètre. Les coûts viennent du dossier, pas d’un saut de classe CPE.",
+    "value": "Hypothèse de valeur après travaux (€)",
+    "works": "Devis des travaux TTC (€)",
+    "fees": "Honoraires et études TTC (€)",
+    "finance": "Frais de financement retenus (€)",
+    "margin": "Provision pour aléas (%, de 0 à 100)",
+    "grant": "Aides confirmées dans le dossier (€)",
+    "reference": "Références des devis, aides, valeur après travaux et date de valeur",
+    "scope": "La formule est une sensibilité aux coûts : elle ne prouve pas une décote de marché, un prix de vente ou une conformité EVS/CRR. Elle ne calcule ni classe énergétique future ni travaux nécessaires. Le professionnel doit vérifier les comparables, le calendrier, l’actualisation, la fiscalité et les autres coûts éventuels.",
+    "costNote": "Montants TTC avec le régime TVA réel du dossier. La provision choisie porte ici sur travaux + honoraires + frais de financement. Zéro signifie aucun montant compté : vérifiez les omissions. Évitez les doublons entre devis, honoraires et financement.",
+    "grantNote": "Zéro sans aide confirmée. Ne déduisez pas une économie TVA déjà incluse aux devis TTC. Les aides ne peuvent dépasser le budget avec provision. Ce calcul n’examine pas l’éligibilité ni le calendrier des versements.",
+    "invalid": "Renseignez la valeur et les coûts valides, une référence de dossier et une provision de 0 à 100 %. Les aides doivent rester comprises entre zéro et le budget total.",
+    "result": "Décomposition du scénario",
+    "brut": "Travaux + honoraires + financement",
+    "reserve": "Provision pour aléas",
+    "budget": "Budget total avec provision",
+    "net": "Coût net après aides",
+    "residual": "Solde résiduel calculé",
+    "costShare": "Coût net / valeur après travaux (%)",
+    "negative": "Le solde est négatif : le coût net dépasse la valeur après travaux saisie. Ce résultat n’est pas transformé en valeur de marché nulle.",
+    "resultNote": "Aucun résultat n’est reporté automatiquement dans les autres méthodes ou le PDF d’évaluation. Cette soustraction ne remplace pas une analyse financière avec flux datés.",
+    "source": "Guichet.lu : le CPE et les documents de l’évaluation énergétique",
+    "linkNote": "Un saut de classe énergétique ne suffit pas à chiffrer des travaux. Utilisez une étude du bâtiment et des devis détaillés ; aucune enveloppe de coût n’est déduite automatiquement de cette estimation.",
+    "link": "Comparer un projet de rénovation à partir du dossier"
   }
 }

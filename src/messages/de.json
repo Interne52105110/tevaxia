@@ -1178,7 +1178,9 @@
     "historyVsPrev": "vs vorh. Sch.",
     "historyNote": "Nur in Ihrem Browser gespeichert. Letzte 50 Schätzungen.",
     "auditLimits": "Nur Wohnungen im Volleigentum. Anpassungen sind interne Annahmen ohne Validierung anhand unabhängiger Verkäufe. Die Spanne ±18 % (±25 % nur bei Angebotspreisen) ist eine Konvention ohne garantierte Genauigkeit oder Wahrscheinlichkeit.",
-    "auditMissing": "Für diese Eingaben ist keine Schätzung verfügbar. Fläche und veröffentlichte Daten für die Verkaufsart prüfen. Unterdrückte amtliche Preise werden nicht erfunden."
+    "auditMissing": "Für diese Eingaben ist keine Schätzung verfügbar. Fläche und veröffentlichte Daten für die Verkaufsart prüfen. Unterdrückte amtliche Preise werden nicht erfunden.",
+    "renovationDossierNote": "Ein Sprung der Energieklasse reicht nicht zur Kostenschätzung. Nutzen Sie eine Gebäudestudie und detaillierte Angebote; aus dieser Schätzung wird kein Renovierungsbudget abgeleitet.",
+    "renovationDossierLink": "Renovierungsprojekt anhand des Dossiers vergleichen"
   },
   "fraisAcquisition": {
     "title": "Erwerbskostensimulator",
@@ -18628,5 +18630,32 @@
     "adjusted": "Wert nach eingegebener Anpassung (€)",
     "resultNote": "Diese Sensitivität bleibt von anderen Bewertungsmethoden getrennt und wird nicht automatisch in deren Ergebnis oder das Bewertungs-PDF übernommen.",
     "source": "RICS: ESG-Faktoren in der Gewerbeimmobilienbewertung, Ausgabe 2026"
+  },
+  "renovationResidualAudit": {
+    "title": "Restwert: dokumentiertes Renovierungsszenario",
+    "intro": "Ziehen Sie ein Renovierungsbudget von einem angenommenen Wert nach Arbeiten ab, mit gleichem Bewertungsstichtag und Umfang. Kosten stammen aus dem Dossier, nicht aus einem Sprung der Energieklasse.",
+    "value": "Angenommener Wert nach Arbeiten (€)",
+    "works": "Angebote für Arbeiten inkl. MwSt. (€)",
+    "fees": "Honorare und Studien inkl. MwSt. (€)",
+    "finance": "Berücksichtigte Finanzierungskosten (€)",
+    "margin": "Reserve für Unvorhergesehenes (%, 0 bis 100)",
+    "grant": "Im Dossier bestätigte Beihilfen (€)",
+    "reference": "Referenzen für Angebote, Beihilfen, Wert nach Arbeiten und Stichtag",
+    "scope": "Die Formel zeigt eine Kostensensitivität, keinen belegten Marktabschlag, Verkaufspreis oder EVS/CRR-Nachweis. Sie berechnet weder eine künftige Energieklasse noch nötige Arbeiten. Fachleute müssen Vergleichsobjekte, Zeitplan, Abzinsung, Steuern und weitere Kosten prüfen.",
+    "costNote": "Bruttobeträge nach dem tatsächlichen Mehrwertsteuerregime. Die Reserve gilt hier für Arbeiten + Honorare + Finanzierungskosten. Null bedeutet keinen angesetzten Betrag: Prüfen Sie fehlende Kosten. Vermeiden Sie Doppelzählungen.",
+    "grantNote": "Ohne bestätigte Beihilfe null eingeben. Keine bereits im Bruttopreis enthaltene Steuerersparnis erneut abziehen. Beihilfen dürfen das Budget mit Reserve nicht überschreiten. Förderfähigkeit und Auszahlungstermine werden nicht geprüft.",
+    "invalid": "Gültigen Wert, Kosten, Dossierreferenz und Reserve von 0 bis 100 % angeben. Beihilfen müssen zwischen null und dem Gesamtbudget liegen.",
+    "result": "Aufschlüsselung des Szenarios",
+    "brut": "Arbeiten + Honorare + Finanzierung",
+    "reserve": "Reservebetrag",
+    "budget": "Gesamtbudget mit Reserve",
+    "net": "Nettokosten nach Beihilfen",
+    "residual": "Berechneter Restsaldo",
+    "costShare": "Nettokosten / Wert nach Arbeiten (%)",
+    "negative": "Der Saldo ist negativ: Die Nettokosten übersteigen den angegebenen Wert nach Arbeiten. Daraus wird kein Marktwert von null abgeleitet.",
+    "resultNote": "Kein Ergebnis wird automatisch in andere Methoden oder das Bewertungs-PDF übernommen. Diese Subtraktion ersetzt keine Analyse mit datierten Zahlungsströmen.",
+    "source": "Guichet.lu: Energieausweis und Bewertungsunterlagen",
+    "linkNote": "Ein Sprung der Energieklasse reicht nicht zur Kostenschätzung. Nutzen Sie eine Gebäudestudie und detaillierte Angebote; aus dieser Schätzung wird kein Renovierungsbudget abgeleitet.",
+    "link": "Renovierungsprojekt anhand des Dossiers vergleichen"
   }
 }

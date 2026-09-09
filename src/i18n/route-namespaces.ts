@@ -2449,6 +2449,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "renovationResidualAudit",
     "saveButton",
     "syndicContextBar",
     "valorisation"

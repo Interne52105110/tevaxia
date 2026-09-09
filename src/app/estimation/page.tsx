@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import { estimer } from "@/lib/estimation";
@@ -12,7 +12,6 @@ import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
 import { formatEUR, calculerMensualite } from "@/lib/calculations";
 import { getDemographics } from "@/lib/demographics";
 import Link from "next/link";
-import { estimerCoutsRenovation } from "@/lib/renovation-costs";
 import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
 import { readUrlHash } from "@/lib/url-state";
 import { sauvegarderEvaluation } from "@/lib/storage";
@@ -30,6 +29,7 @@ import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 export default function Estimation() {
   const t = useTranslations("estimation");
+  const locale = useLocale();
   const tv = useTranslations("valorisation");
 
   const [communeSearch, setCommuneSearch] = useState("");
@@ -421,6 +421,7 @@ export default function Estimation() {
                 </div>
               )}
 
+              <div className="rounded-xl border border-card-border bg-card p-5 text-sm"><p>{t('renovationDossierNote')}</p><Link href={(locale==='fr'?'':'/'+locale)+'/energy/renovation'} className="mt-3 inline-block underline">{t('renovationDossierLink')}</Link></div>
               <AuthGate>
               {/* Double modèle : transactions vs annonces */}
               {result.estimationTransactions != null && result.estimationAnnonces != null && (
@@ -600,29 +601,6 @@ export default function Estimation() {
                 );
               })()}
 
-              {/* Estimation rénovation si classe énergie faible */}
-              {classeEnergie >= "E" && (() => {
-                const reno = estimerCoutsRenovation(classeEnergie, "B", surface);
-                if (reno.postes.length === 0) return null;
-                return (
-                  <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-navy mb-2">{t("renovationTitle", { classeFrom: classeEnergie, classeTo: "B" })}</h3>
-                    <div className="space-y-1 text-xs">
-                      {reno.postes.map((p) => (
-                        <div key={p.labelKey} className="flex justify-between">
-                          <span className="text-muted">{tv(p.labelKey)}</span>
-                          <span className="font-mono">{formatEUR(p.coutMin)} – {formatEUR(p.coutMax)}</span>
-                        </div>
-                      ))}
-                      <div className="flex justify-between font-semibold border-t border-card-border pt-1 mt-1">
-                        <span>{t("totalRenovation")}</span>
-                        <span className="font-mono">{formatEUR(reno.totalAvecHonoraires)}</span>
-                      </div>
-                    </div>
-                    <p className="mt-2 text-[10px] text-muted">{t("renovationDisclaimer")}</p>
-                  </div>
-                );
-              })()}
 
               {/* Transactions comparables */}
               {comparables.length > 0 && (

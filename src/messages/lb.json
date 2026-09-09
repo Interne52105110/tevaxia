@@ -1178,7 +1178,9 @@
     "historyVsPrev": "vs virescht Estim.",
     "historyNote": "Nëmmen an Ärem Browser gespäichert. Déi 50 lescht Schätzungen.",
     "auditLimits": "Nëmme Wunnengen am Volleegentum. Upassunge sinn intern Hypotheesen ouni Validatioun mat onofhängege Verkafsdonnéeën. D’Spann ±18 % (±25 % nëmme mat Annoncepräisser) ass eng Konventioun ouni garantéiert Genauegkeet oder Warscheinlechkeet.",
-    "auditMissing": "Keng Schätzung fir dës Donnéeën disponibel. Kontrolléiert d’Fläch an déi publizéiert Präisser fir d’Verkafsaart. Net publizéiert Präisser ginn net erfonnt."
+    "auditMissing": "Keng Schätzung fir dës Donnéeën disponibel. Kontrolléiert d’Fläch an déi publizéiert Präisser fir d’Verkafsaart. Net publizéiert Präisser ginn net erfonnt.",
+    "renovationDossierNote": "E Sprong vun der Energieklass geet net duer fir Aarbechten ze chiffréieren. Benotzt eng Gebaietüd an detailléiert Devisen; aus dëser Schätzung gëtt kee Renovatiounsbudget ofgeleet.",
+    "renovationDossierLink": "Renovatiounsprojet mat Donnéeën aus dem Dossier vergläichen"
   },
   "fraisAcquisition": {
     "title": "Erwerbskäschtesimulator",
@@ -18628,5 +18630,32 @@
     "adjusted": "Wäert no der aginnener Upassung (€)",
     "resultNote": "Dës Sensitivitéit bleift vun anere Bewäertungsmethoden getrennt a gëtt net automatesch an hiert Resultat oder de Bewäertungs-PDF iwwerholl.",
     "source": "RICS: ESG-Faktoren an der kommerzieller Immobiliebewäertung, Editioun 2026"
+  },
+  "renovationResidualAudit": {
+    "title": "Reschtwäert: dokumentéiert Renovatiounsszenario",
+    "intro": "Zitt e Renovatiounsbudget vun engem ugehollene Wäert no Aarbechten of, mam selwechte Bewäertungsdatum an Ëmfang. D'Käschte kommen aus dem Dossier, net aus engem Sprong vun der Energieklass.",
+    "value": "Ugehollene Wäert no Aarbechten (€)",
+    "works": "Devisë fir Aarbechten inkl. TVA (€)",
+    "fees": "Honorairen an Etüden inkl. TVA (€)",
+    "finance": "Berücksichtegt Finanzéierungskäschten (€)",
+    "margin": "Reserve fir Onvirgesinnes (%, vun 0 bis 100)",
+    "grant": "Am Dossier bestätegt Hëllefen (€)",
+    "reference": "Referenze fir Devisen, Hëllefen, Wäert no Aarbechten a Bewäertungsdatum",
+    "scope": "D'Formel weist eng Käschtesensitivitéit, kee bewisene Maartofschlag, Verkafspräis oder EVS/CRR-Konformitéit. Si berechent weder eng zukünfteg Energieklass nach néideg Aarbechten. E Fachmann muss Vergläichsobjeten, Zäitplang, Aktualiséierung, Steieren an aner Käschte kontrolléieren.",
+    "costNote": "Bruttobeträg nom reelle TVA-Regimm vum Dossier. D'Reserve gëllt hei fir Aarbechten + Honorairen + Finanzéierungskäschten. Null bedeit keen agerechente Betrag: Kontrolléiert feelend Käschten. Vermeit Duebelzielungen.",
+    "grantNote": "Null ouni bestätegt Hëllef. Zitt keng TVA-Erspuernis nach eng Kéier of, déi schonn am Devis ass. Hëllefen däerfen de Budget mat Reserve net iwwerschreiden. Eligibilitéit a Bezuelungsdatumer ginn net iwwerpréift.",
+    "invalid": "Gitt gültege Wäert a Käschten, eng Dossierreferenz an eng Reserve vun 0 bis 100 % un. Hëllefe mussen tëscht null an dem Gesamtbudget leien.",
+    "result": "Opdeelung vum Szenario",
+    "brut": "Aarbechten + Honorairen + Finanzéierung",
+    "reserve": "Reservebetrag",
+    "budget": "Gesamtbudget mat Reserve",
+    "net": "Nettokäschten no Hëllefen",
+    "residual": "Berechente Reschtsaldo",
+    "costShare": "Nettokäschten / Wäert no Aarbechten (%)",
+    "negative": "De Saldo ass negativ: D'Nettokäschten iwwerschreiden den uginnene Wäert no Aarbechten. Doraus gëtt kee Maartwäert vun null ofgeleet.",
+    "resultNote": "Kee Resultat gëtt automatesch an aner Methoden oder de Bewäertungs-PDF iwwerholl. Dës Subtraktioun ersetzt keng Analys mat datéierte Geldflëss.",
+    "source": "Guichet.lu: Energiepass an Evaluatiounsdokumenter",
+    "linkNote": "E Sprong vun der Energieklass geet net duer fir Aarbechten ze chiffréieren. Benotzt eng Gebaietüd an detailléiert Devisen; aus dëser Schätzung gëtt kee Renovatiounsbudget ofgeleet.",
+    "link": "Renovatiounsprojet mat Donnéeën aus dem Dossier vergläichen"
   }
 }

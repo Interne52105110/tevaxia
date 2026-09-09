@@ -1178,7 +1178,9 @@
     "historyVsPrev": "vs estim. anterior",
     "historyNote": "Armazenado apenas no seu navegador. Últimas 50 estimativas.",
     "auditLimits": "Apenas apartamentos em propriedade plena. Os ajustes são hipóteses internas, sem validação numa amostra independente de vendas. A faixa ±18% (±25% só com anúncios) é convencional, sem precisão ou probabilidade garantida.",
-    "auditMissing": "Não há estimativa disponível para estes dados. Verifique a área e os preços publicados para o tipo de venda. Preços omitidos oficialmente não são inventados."
+    "auditMissing": "Não há estimativa disponível para estes dados. Verifique a área e os preços publicados para o tipo de venda. Preços omitidos oficialmente não são inventados.",
+    "renovationDossierNote": "Um salto de classe energética não basta para orçamentar obras. Utilize um estudo do edifício e orçamentos detalhados; não se deduz automaticamente um custo desta estimativa.",
+    "renovationDossierLink": "Comparar um projeto de renovação com dados do processo"
   },
   "fraisAcquisition": {
     "title": "Simulador de Encargos de Aquisição",
@@ -18628,5 +18630,32 @@
     "adjusted": "Valor após o ajustamento introduzido (€)",
     "resultNote": "Esta sensibilidade permanece separada dos outros métodos e não é incluída automaticamente no resultado ou PDF de avaliação.",
     "source": "RICS: fatores ESG na avaliação de imóveis comerciais, edição 2026"
+  },
+  "renovationResidualAudit": {
+    "title": "Valor residual: cenário de renovação documentado",
+    "intro": "Subtraia um orçamento de renovação a uma hipótese de valor após obras, com a mesma data de avaliação e âmbito. Os custos provêm do processo, não de um salto de classe energética.",
+    "value": "Hipótese de valor após obras (€)",
+    "works": "Orçamentos de obras com IVA (€)",
+    "fees": "Honorários e estudos com IVA (€)",
+    "finance": "Custos de financiamento considerados (€)",
+    "margin": "Provisão para imprevistos (%, de 0 a 100)",
+    "grant": "Apoios confirmados no processo (€)",
+    "reference": "Referências de orçamentos, apoios, valor após obras e data de avaliação",
+    "scope": "A fórmula é uma sensibilidade aos custos, não prova desconto de mercado, preço de venda ou conformidade EVS/CRR. Não calcula classe energética futura nem obras necessárias. Um profissional deve verificar comparáveis, calendário, atualização, fiscalidade e outros custos.",
+    "costNote": "Montantes com IVA segundo o regime real do processo. A provisão aplica-se a obras + honorários + financiamento. Zero significa nenhum montante incluído: verifique omissões. Evite duplicações entre orçamentos, honorários e financiamento.",
+    "grantNote": "Zero sem apoio confirmado. Não deduza poupanças de IVA já incluídas nos orçamentos. Os apoios não podem exceder o orçamento com provisão. Não se avaliam elegibilidade nem datas de pagamento.",
+    "invalid": "Introduza valor e custos válidos, referência do processo e provisão de 0 a 100 %. Os apoios devem ficar entre zero e o orçamento total.",
+    "result": "Decomposição do cenário",
+    "brut": "Obras + honorários + financiamento",
+    "reserve": "Montante da provisão",
+    "budget": "Orçamento total com provisão",
+    "net": "Custo líquido após apoios",
+    "residual": "Saldo residual calculado",
+    "costShare": "Custo líquido / valor após obras (%)",
+    "negative": "O saldo é negativo: o custo líquido excede o valor após obras introduzido. O resultado não é convertido num valor de mercado nulo.",
+    "resultNote": "Nenhum resultado é transferido automaticamente para outros métodos ou o PDF de avaliação. Esta subtração não substitui uma análise com fluxos datados.",
+    "source": "Guichet.lu: certificado energético e documentos de avaliação",
+    "linkNote": "Um salto de classe energética não basta para orçamentar obras. Utilize um estudo do edifício e orçamentos detalhados; não se deduz automaticamente um custo desta estimativa.",
+    "link": "Comparar um projeto de renovação com dados do processo"
   }
 }

@@ -174,3 +174,17 @@ Une sensibilité de valeur séparée applique uniquement le pourcentage saisi à
 Source professionnelle : RICS, ESG and sustainability in commercial property valuation, quatrième édition 2026, entrée en vigueur le 30 avril 2026, consultée le 9 septembre. Aucun pourcentage de marché n’est déduit de ce standard.
 
 Validation : 1 130 tests / 95 fichiers réussis ; trois tests remplacent dix tests de l’ancien score. Lint et compilation réussis. Cinq langues et quatre largeurs testées, états inconnus, indépendance CPE/valeur, ajustements positifs/négatifs, justification manquante et entrées invalides. Un débordement préexistant du titre allemand de la valorisation a été corrigé par retour à la ligne du groupe titre/badge.
+
+## Valeur résiduelle après rénovation et coûts automatiques
+
+La valeur résiduelle repose désormais sur une hypothèse de valeur après travaux, des devis TTC, honoraires, financement, provision choisie et aides confirmées. Les valeurs principales sont vides au départ ; aucune aide de 40 000 EUR n’est préremplie. Le dossier et la date de valeur doivent être référencés. Le résultat est présenté comme une sensibilité aux coûts, pas comme une décote de marché démontrée ou une conformité EVS/CRR. Le besoin de vérifier calendrier, actualisation et autres coûts est explicite.
+
+La fonction refuse coûts négatifs/non finis, valeur nulle, provision hors de 0–100 % et aides supérieures au budget, au lieu de plafonner silencieusement ces dernières. Une valeur résiduelle négative reste visible. Exemple : 800 000 EUR de valeur après travaux ; 80 000 + 8 000 + 3 000 EUR de coûts ; provision 10 % = 9 100 EUR ; budget 100 100 EUR ; solde 699 900 EUR sans aide ou 739 900 EUR avec 40 000 EUR confirmés. Le changement des étiquettes CPE ne modifie aucun coût.
+
+L’ancien estimateur déduisant les travaux, leurs prix et leur durée d’un saut de classe et d’une surface habitable est supprimé, ainsi que ses deux usages. Sur la page d’estimation, un renvoi général accessible sans connexion conduit au comparateur de rénovation documenté. Les détails d’estimation restent soumis au contrôle de connexion existant. Le texte d’aide automatique « jusqu’à 62,5 % » n’est plus affiché dans ce bloc.
+
+Validation : 1 127 tests / 94 fichiers réussis ; ajout de trois tests sur les coûts/grants/invalides, suppression de six tests de l’estimateur sans source. Compilation et lint réussis. Cinq langues, quatre largeurs, budgets, aides excessives, montants négatifs et liens localisés contrôlés. Aucun nouveau PDF ni transfert automatique vers la réconciliation. La première vérification du lien a révélé qu’il était dans le bloc protégé : le renvoi général a été déplacé en dehors, sans modifier le contrôle d’accès.
+
+## Disponibilité HTTP — contrôle transversal
+
+Un contrôle en lecture seule des 160 routes statiques sans paramètre ni groupe de route a été effectué en production. Aucune réponse 4xx/5xx ni erreur réseau. Ce contrôle ne valide pas les calculs, l’authentification ou les parcours des routes dynamiques ; la revue métier reste ouverte.
