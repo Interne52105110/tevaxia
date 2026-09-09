@@ -17,10 +17,8 @@ import type {
 } from "@/lib/pms/types";
 
 import { errMsg } from "@/lib/pms/errors";
-import { buildPmsFacturX } from "@/lib/facturation/factur-x-pms-builder";
-import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
+import { prepareFolioStatement } from "@/lib/pms/folio-statement";
 import ChargeEntry from "@/components/pms/ChargeEntry";
-import { track, captureError } from "@/lib/analytics";
 
 const STATUS_COLORS: Record<PmsFolio["status"], string> = {
   open: "bg-blue-100 text-blue-900",
@@ -63,6 +61,7 @@ function FolioScreen(props: { params: Promise<{ propertyId: string; resId: strin
   const router = useRouter();
   const t = useTranslations("pmsFolio");
   const te = useTranslations("pmsChargeEntry");
+  const ts = useTranslations("pmsStatement");
   const locale = useLocale();
   const formatEUR = (n: number) => new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
@@ -80,6 +79,8 @@ function FolioScreen(props: { params: Promise<{ propertyId: string; resId: strin
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showVoided, setShowVoided] = useState(false);
+  const exportLock = useRef(false);
+  const [exporting, setExporting] = useState(false);
   const mutationLock = useRef(false);
   const [mutating, setMutating] = useState(false);
 
@@ -137,50 +138,27 @@ function FolioScreen(props: { params: Promise<{ propertyId: string; resId: strin
     finally { mutationLock.current = false; setMutating(false); }
   };
 
-  const handleFacturX = async () => {
-    if (!property || !reservation) return;
+  const handleStatement = async () => {
+    if (!property || !reservation || !folio || exportLock.current) return;
+    exportLock.current = true; setExporting(true);
+    const current = request.current;
     try {
-      const inv = buildPmsFacturX({
-        reservation: {
-          reservation_number: reservation.reservation_number,
-          booker_name: reservation.booker_name,
-          booker_email: reservation.booker_email,
-          check_in: reservation.check_in,
-          check_out: reservation.check_out,
-          nb_adults: reservation.nb_adults,
-          nb_children: reservation.nb_children,
-        },
-        property: {
-          name: property.name,
-          address: property.address,
-          city: property.commune,
-          country_code: "LU",
-        },
-        charges,
-      });
-      const artifacts = await generateFacturXPdf(inv);
-      const blob = new Blob([artifacts.pdfBytes as BlobPart], { type: "application/pdf" });
+      const report = prepareFolioStatement(folio, charges);
+      const [{ pdf }, { default: FolioStatementPdf }] = await Promise.all([import("@react-pdf/renderer"), import("@/components/pms/FolioStatementPdf")]);
+      const labels = Object.fromEntries(["title", "scope", "amountScope", "status", "generated", "ht", "vat", "gross", "balance", "lines", "quantity", "unit", "rate", "reference", "missing"].map(k => [k, ts(k)]));
+      const categories = Object.fromEntries(Object.entries(CATEGORY_KEY).map(([k, v]) => [k, t(v)]));
+      const blob = await pdf(<FolioStatementPdf report={report} property={property.name} reservation={reservation.reservation_number} stay={`${reservation.check_in} - ${reservation.check_out}`} status={t(STATUS_KEY[folio.status])} generatedAt={new Date().toISOString()} labels={labels} categories={categories} locale={locale} />).toBlob();
+      if (current !== request.current) return;
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url; a.download = artifacts.pdfFilename;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-
-      const xmlBlob = new Blob([artifacts.xml], { type: "application/xml" });
-      const xmlUrl = URL.createObjectURL(xmlBlob);
-      const a2 = document.createElement("a");
-      a2.href = xmlUrl; a2.download = artifacts.xmlFilename;
-      document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
-      URL.revokeObjectURL(xmlUrl);
-
-      track("pms_facturx_generated", {
-        reservation_number: reservation.reservation_number,
-        nb_charges: charges.filter((c) => !c.voided).length,
-        total_ttc: folio?.total_ttc ?? 0,
-      });
-    } catch (e) {
-      captureError(e, { module: "pms_facturx", action: "generate", reservation_number: reservation?.reservation_number });
-      setError(errMsg(e));
+      a.href = url; a.download = `folio-${folio.id.replace(/[^a-zA-Z0-9-]/g, "")}.pdf`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch {
+      if (current === request.current) setError(ts("error"));
+    } finally {
+      exportLock.current = false;
+      if (current === request.current) setExporting(false);
     }
   };
 
@@ -225,7 +203,7 @@ function FolioScreen(props: { params: Promise<{ propertyId: string; resId: strin
           </div>
         </div>
         {folio && (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className={`rounded-full px-3 py-1 text-xs font-semibold ${STATUS_COLORS[folio.status]}`}>
               {t(STATUS_KEY[folio.status])}
             </span>
@@ -236,10 +214,10 @@ function FolioScreen(props: { params: Promise<{ propertyId: string; resId: strin
               </button>
             )}
             {charges.filter((c) => !c.voided).length > 0 && (
-              <button onClick={handleFacturX}
+              <button id="folio-statement" disabled={exporting} onClick={handleStatement}
                 className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-100"
-                title={t("facturXTitle")}>
-                {t("btnFacturX")}
+                title={ts("scope")}>
+                {ts(exporting ? "exporting" : "download")}
               </button>
             )}
             {folio.status === "settled" && folio.invoice_id && (

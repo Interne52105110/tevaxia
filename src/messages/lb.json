@@ -17211,8 +17211,8 @@
     "btnGenerate": "Rechnung generéieren",
     "confirmSettle": "Endgülteg Rechnung fir dëse Folio generéieren ({amount} TTC)?",
     "factureGenerated": "Rechnung erfollegräich generéiert.",
-    "btnFacturX": "⚡ Factur-X",
-    "facturXTitle": "Generéiert Factur-X EN 16931 (PDF/A-3 + agebetten CII-XML) fir E-Invoicing un Firmencliente",
+    "btnFacturX": "PDF-Auszug eroflueden",
+    "facturXTitle": "Momentopnam vun den aktiven erfaasste Leeschtungen. Dësen Auszug ass weder eng ausgestallt Rechnung nach eng Bezuelquittung oder eng Factur-X-Datei. Et gëtt keng Rechnungsnummer a keng Bezuelungsfrist erstallt.",
     "btnSeeInvoice": "Rechnung kucken →",
     "errDescPriceRequired": "Beschreiwung a Präis néideg.",
     "voidPrompt": "Stornogrond:",
@@ -19800,5 +19800,25 @@
     "error": "Späicheren net méiglech. Den Entworf bleift erhalen; kontrolléiert de Folio a probéiert nach eng Kéier.",
     "openFolioFirst": "Maacht de Folio vun der Reservatioun op, fir de Status ze préiwen oder e Folio virun der Erfaassung unzeleeën.",
     "retry": "Nach eng Kéier probéieren"
+  },
+  "pmsStatement": {
+    "title": "Folio-Auszug",
+    "scope": "Momentopnam vun den aktiven erfaasste Leeschtungen. Dësen Auszug ass weder eng ausgestallt Rechnung nach eng Bezuelquittung oder eng Factur-X-Datei. Et gëtt keng Rechnungsnummer a keng Bezuelungsfrist erstallt.",
+    "amountScope": "Historesch Montante ginn ouni Neiberechnung vun der TVA iwwerholl. Eng erfaassten Openthaltssteier bleift an de Leeschtungsgesamtzomme mat abegraff. Den erfaasste Saldo beweist keng Bezuelung; en Nullsaz eleng bestëmmt net déi steierlech Behandlung.",
+    "status": "Folio-Status",
+    "generated": "Exportéiert den",
+    "ht": "Erfaasst Netto",
+    "vat": "Erfaasst TVA",
+    "gross": "Erfaasst Brutto",
+    "balance": "Erfaasste Saldo",
+    "lines": "Aktiv Leeschtungen",
+    "quantity": "Quantitéit",
+    "unit": "Eenheetspräis netto",
+    "rate": "Erfaasste Saz",
+    "reference": "Präis- an TVA-Referenz",
+    "missing": "Net uginn",
+    "download": "PDF-Auszug eroflueden",
+    "exporting": "Auszug gëtt erstallt…",
+    "error": "Den Auszug konnt net erstallt ginn. Luet d’Leeschtungen nei a probéiert nach eng Kéier."
   }
 }

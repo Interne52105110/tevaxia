@@ -17211,8 +17211,8 @@
     "btnGenerate": "Générer la facture",
     "confirmSettle": "Générer la facture définitive pour ce folio ({amount} TTC) ?",
     "factureGenerated": "Facture générée avec succès.",
-    "btnFacturX": "⚡ Factur-X",
-    "facturXTitle": "Génère Factur-X EN 16931 (PDF/A-3 + XML CII embarqué) pour transmission e-invoicing client corporate",
+    "btnFacturX": "Télécharger le relevé PDF",
+    "facturXTitle": "Photographie des prestations actives enregistrées. Ce relevé ne constitue ni une facture émise, ni une quittance, ni un fichier Factur-X. Aucune numérotation de facture ni échéance de paiement n’est créée.",
     "btnSeeInvoice": "Voir facture →",
     "errDescPriceRequired": "Description et prix requis.",
     "voidPrompt": "Motif d'annulation :",
@@ -19800,5 +19800,25 @@
     "error": "Enregistrement impossible. Le brouillon est conservé ; vérifiez le folio et réessayez.",
     "openFolioFirst": "Ouvrez le folio de la réservation pour vérifier son état ou créer un folio avant la saisie.",
     "retry": "Réessayer"
+  },
+  "pmsStatement": {
+    "title": "Relevé du folio",
+    "scope": "Photographie des prestations actives enregistrées. Ce relevé ne constitue ni une facture émise, ni une quittance, ni un fichier Factur-X. Aucune numérotation de facture ni échéance de paiement n’est créée.",
+    "amountScope": "Montants historiques repris sans recalcul de TVA. La taxe de séjour, lorsqu’elle est enregistrée, reste incluse dans les totaux des prestations. Le solde enregistré ne prouve pas un paiement ; un taux nul ne détermine pas à lui seul le régime fiscal.",
+    "status": "Statut du folio",
+    "generated": "Exporté le",
+    "ht": "HT enregistré",
+    "vat": "TVA enregistrée",
+    "gross": "TTC enregistré",
+    "balance": "Solde enregistré",
+    "lines": "Prestations actives",
+    "quantity": "Quantité",
+    "unit": "Prix unitaire HT",
+    "rate": "Taux enregistré",
+    "reference": "Référence du tarif et de la TVA",
+    "missing": "Non renseignée",
+    "download": "Télécharger le relevé PDF",
+    "exporting": "Préparation du relevé…",
+    "error": "Le relevé n’a pas pu être généré. Rechargez les prestations et réessayez."
   }
 }

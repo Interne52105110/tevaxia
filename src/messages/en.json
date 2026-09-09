@@ -17211,8 +17211,8 @@
     "btnGenerate": "Generate invoice",
     "confirmSettle": "Generate the final invoice for this folio ({amount} incl. VAT)?",
     "factureGenerated": "Invoice generated successfully.",
-    "btnFacturX": "⚡ Factur-X",
-    "facturXTitle": "Generates Factur-X EN 16931 (PDF/A-3 + embedded CII XML) for corporate e-invoicing",
+    "btnFacturX": "Download PDF statement",
+    "facturXTitle": "Snapshot of the active recorded charges. This statement is neither an issued invoice, a payment receipt nor a Factur-X file. No invoice number or payment due date is created.",
     "btnSeeInvoice": "See invoice →",
     "errDescPriceRequired": "Description and price required.",
     "voidPrompt": "Void reason:",
@@ -19800,5 +19800,25 @@
     "error": "Unable to save. Your draft is retained; check the folio and retry.",
     "openFolioFirst": "Open the reservation folio to check its status or create a folio before entering charges.",
     "retry": "Retry"
+  },
+  "pmsStatement": {
+    "title": "Folio statement",
+    "scope": "Snapshot of the active recorded charges. This statement is neither an issued invoice, a payment receipt nor a Factur-X file. No invoice number or payment due date is created.",
+    "amountScope": "Historical amounts are copied without recalculating VAT. Recorded visitor tax remains included in the charge totals. The recorded balance does not prove payment; a zero rate alone does not establish the tax treatment.",
+    "status": "Folio status",
+    "generated": "Exported at",
+    "ht": "Recorded net",
+    "vat": "Recorded VAT",
+    "gross": "Recorded gross",
+    "balance": "Recorded balance",
+    "lines": "Active charges",
+    "quantity": "Quantity",
+    "unit": "Net unit price",
+    "rate": "Recorded rate",
+    "reference": "Price and VAT reference",
+    "missing": "Not provided",
+    "download": "Download PDF statement",
+    "exporting": "Preparing statement…",
+    "error": "The statement could not be generated. Reload the charges and try again."
   }
 }

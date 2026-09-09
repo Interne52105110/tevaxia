@@ -17211,8 +17211,8 @@
     "btnGenerate": "Gerar fatura",
     "confirmSettle": "Gerar a fatura definitiva para este folio ({amount} c/IVA)?",
     "factureGenerated": "Fatura gerada com sucesso.",
-    "btnFacturX": "⚡ Factur-X",
-    "facturXTitle": "Gera Factur-X EN 16931 (PDF/A-3 + XML CII incorporado) para transmissão e-invoicing a clientes corporate",
+    "btnFacturX": "Descarregar extrato PDF",
+    "facturXTitle": "Retrato dos serviços ativos registados. Este extrato não constitui uma fatura emitida, um recibo de pagamento ou um ficheiro Factur-X. Não cria número de fatura nem data de vencimento.",
     "btnSeeInvoice": "Ver fatura →",
     "errDescPriceRequired": "Descrição e preço obrigatórios.",
     "voidPrompt": "Motivo da anulação:",
@@ -19800,5 +19800,25 @@
     "error": "Não foi possível guardar. O rascunho é mantido; verifique o folio e tente novamente.",
     "openFolioFirst": "Abra o folio da reserva para verificar o estado ou criar um folio antes de lançar prestações.",
     "retry": "Tentar novamente"
+  },
+  "pmsStatement": {
+    "title": "Extrato do fólio",
+    "scope": "Retrato dos serviços ativos registados. Este extrato não constitui uma fatura emitida, um recibo de pagamento ou um ficheiro Factur-X. Não cria número de fatura nem data de vencimento.",
+    "amountScope": "Os montantes históricos são copiados sem recalcular o IVA. A taxa turística registada permanece incluída nos totais dos serviços. O saldo registado não comprova pagamento; uma taxa nula não determina por si só o tratamento fiscal.",
+    "status": "Estado do fólio",
+    "generated": "Exportado em",
+    "ht": "Base registada",
+    "vat": "IVA registado",
+    "gross": "Total registado",
+    "balance": "Saldo registado",
+    "lines": "Serviços ativos",
+    "quantity": "Quantidade",
+    "unit": "Preço unitário sem IVA",
+    "rate": "Taxa registada",
+    "reference": "Referência do preço e do IVA",
+    "missing": "Não indicada",
+    "download": "Descarregar extrato PDF",
+    "exporting": "A preparar o extrato…",
+    "error": "Não foi possível gerar o extrato. Recarregue os serviços e tente novamente."
   }
 }

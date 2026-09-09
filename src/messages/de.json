@@ -17211,8 +17211,8 @@
     "btnGenerate": "Rechnung erstellen",
     "confirmSettle": "Endgültige Rechnung für dieses Folio erstellen ({amount} brutto)?",
     "factureGenerated": "Rechnung erfolgreich erstellt.",
-    "btnFacturX": "⚡ Factur-X",
-    "facturXTitle": "Erzeugt Factur-X EN 16931 (PDF/A-3 + eingebettetes CII-XML) für E-Invoicing an Firmenkunden",
+    "btnFacturX": "PDF-Auszug herunterladen",
+    "facturXTitle": "Momentaufnahme der aktiven erfassten Leistungen. Dieser Auszug ist weder eine ausgestellte Rechnung noch eine Zahlungsquittung oder eine Factur-X-Datei. Es werden keine Rechnungsnummer und kein Zahlungsziel erzeugt.",
     "btnSeeInvoice": "Rechnung ansehen →",
     "errDescPriceRequired": "Beschreibung und Preis erforderlich.",
     "voidPrompt": "Stornogrund:",
@@ -19800,5 +19800,25 @@
     "error": "Speichern fehlgeschlagen. Der Entwurf bleibt erhalten; prüfen Sie das Folio und versuchen Sie es erneut.",
     "openFolioFirst": "Öffnen Sie das Reservierungsfolio, um seinen Status zu prüfen oder vor der Eingabe ein Folio anzulegen.",
     "retry": "Erneut versuchen"
+  },
+  "pmsStatement": {
+    "title": "Folio-Auszug",
+    "scope": "Momentaufnahme der aktiven erfassten Leistungen. Dieser Auszug ist weder eine ausgestellte Rechnung noch eine Zahlungsquittung oder eine Factur-X-Datei. Es werden keine Rechnungsnummer und kein Zahlungsziel erzeugt.",
+    "amountScope": "Historische Beträge werden ohne Neuberechnung der Mehrwertsteuer übernommen. Erfasste Aufenthaltsabgaben bleiben in den Leistungssummen enthalten. Der erfasste Saldo belegt keine Zahlung; ein Nullsatz allein bestimmt nicht die steuerliche Behandlung.",
+    "status": "Folio-Status",
+    "generated": "Exportiert am",
+    "ht": "Erfasstes Netto",
+    "vat": "Erfasste MwSt.",
+    "gross": "Erfasstes Brutto",
+    "balance": "Erfasster Saldo",
+    "lines": "Aktive Leistungen",
+    "quantity": "Menge",
+    "unit": "Einzelpreis netto",
+    "rate": "Erfasster Satz",
+    "reference": "Preis- und Steuerbeleg",
+    "missing": "Nicht angegeben",
+    "download": "PDF-Auszug herunterladen",
+    "exporting": "Auszug wird erstellt…",
+    "error": "Der Auszug konnte nicht erstellt werden. Laden Sie die Leistungen neu und versuchen Sie es erneut."
   }
 }
