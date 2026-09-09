@@ -1,91 +1,72 @@
-// Tevaxia Service Worker — v3 (PWA + offline fallback)
-const CACHE_VERSION = "tevaxia-v3";
-const APP_SHELL = ["/", "/offline", "/manifest.json", "/logo-tevaxia-512.svg"];
+// Tevaxia service worker: public offline screens and immutable build assets only.
+const CACHE_VERSION = "tevaxia-v4";
+const OFFLINE_PAGES = ["/offline", "/en/offline", "/de/offline", "/pt/offline", "/lb/offline"];
+const PUBLIC_FILES = ["/manifest.json", "/logo-tevaxia-512.svg"];
 
-// Install: pre-cache app shell
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_VERSION).then((cache) =>
-      // ignore failures on individual entries
-      Promise.all(APP_SHELL.map((url) => cache.add(url).catch(() => null)))
-    )
-  );
-  self.skipWaiting();
+  event.waitUntil((async () => {
+    try {
+      const cache = await caches.open(CACHE_VERSION);
+      await Promise.all([...OFFLINE_PAGES, ...PUBLIC_FILES].map(path =>
+        cache.add(new Request(new URL(path, self.location.origin), { credentials: "omit", cache: "reload" })).catch(() => null)
+      ));
+    } catch { /* Offline support is optional when storage is unavailable. */ }
+    await self.skipWaiting();
+  })());
 });
 
-// Activate: purge old caches
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key !== CACHE_VERSION)
-          .map((key) => caches.delete(key))
-      )
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    try {
+      const keys = await caches.keys();
+      // Remove our old navigation caches, without touching other applications' caches.
+      await Promise.all(keys.filter(key => /^tevaxia-v\d+$/.test(key) && key !== CACHE_VERSION).map(key => caches.delete(key)));
+    } catch { /* The new worker never reads old caches, even when storage cleanup is unavailable. */ }
+    await self.clients.claim();
+  })());
 });
 
-// Fetch: network-first for navigations, cache-first for static assets
+async function offlineResponse(pathname) {
+  const locale = pathname.match(/^\/(en|de|pt|lb)(?:\/|$)/)?.[1];
+  try {
+    const cache = await caches.open(CACHE_VERSION);
+    return (await cache.match(locale ? `/${locale}/offline` : "/offline"))
+      || (await cache.match("/offline"))
+      || new Response("Offline", { status: 503, headers: { "Content-Type": "text/plain; charset=utf-8" } });
+  } catch {
+    return new Response("Offline", { status: 503, headers: { "Content-Type": "text/plain; charset=utf-8" } });
+  }
+}
+
+async function staticResponse(request) {
+  let cache;
+  try {
+    cache = await caches.open(CACHE_VERSION);
+    const cached = await cache.match(request);
+    if (cached) return cached;
+  } catch { /* Fall through to the network. */ }
+  const response = await fetch(request);
+  if (response.ok && !/\b(private|no-store)\b/i.test(response.headers.get("Cache-Control") || "")) {
+    try { if (cache) await cache.put(request, response.clone()); } catch { /* A full cache must not break the response. */ }
+  }
+  return response;
+}
+
 self.addEventListener("fetch", (event) => {
   const { request } = event;
-
-  // Only handle GET requests
   if (request.method !== "GET") return;
-
-  // Skip cross-origin requests
-  if (!request.url.startsWith(self.location.origin)) return;
-
   const url = new URL(request.url);
+  if (url.origin !== self.location.origin || request.headers.has("authorization")) return;
+  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/_next/data/")
+    || url.searchParams.has("_rsc") || request.headers.get("RSC") === "1") return;
 
-  // Never cache API responses, calendar feeds, sentry, analytics
-  if (
-    url.pathname.startsWith("/api/") ||
-    url.pathname.startsWith("/_next/data/") ||
-    url.pathname.includes("/sentry") ||
-    url.searchParams.has("_rsc")
-  ) {
-    return;
-  }
-
-  // Static assets: cache-first
-  if (
-    url.pathname.match(
-      /\.(js|css|svg|png|jpg|jpeg|webp|avif|woff2?|ico)$/
-    ) ||
-    url.pathname.startsWith("/_next/static/")
-  ) {
-    event.respondWith(
-      caches.match(request).then(
-        (cached) =>
-          cached ||
-          fetch(request).then((response) => {
-            if (response.ok) {
-              const clone = response.clone();
-              caches.open(CACHE_VERSION).then((cache) => cache.put(request, clone));
-            }
-            return response;
-          })
-      )
-    );
-    return;
-  }
-
-  // Pages / navigations: network-first with offline fallback
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            const clone = response.clone();
-            caches.open(CACHE_VERSION).then((cache) => cache.put(request, clone));
-          }
-          return response;
-        })
-        .catch(() =>
-          caches.match(request).then((cached) => cached || caches.match("/offline"))
-        )
-    );
+    // Never store or replay an arbitrary page: it may contain private data or a share token.
+    event.respondWith(fetch(request).catch(() => offlineResponse(url.pathname)));
+    return;
+  }
+  if (PUBLIC_FILES.includes(url.pathname) || (url.pathname.startsWith("/_next/static/")
+    && /\.(js|css|svg|png|jpg|jpeg|webp|avif|woff2?|ico)$/.test(url.pathname))) {
+    event.respondWith(staticResponse(request));
   }
 });

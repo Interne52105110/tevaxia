@@ -817,3 +817,14 @@ Factures/routes bd1998f confirmées en production : CI 34404141074 success ; Ver
 Relevé PDF fae95a2 confirmé en production : CI 34405527410 success ; Vercel dpl_BTfm29LzCDJwhZaKnNpu9qVmeVyN Ready ; cinq pages factures vérifiées avec titre/statut HTTP et quatre largeurs. Dix pages PDF fictives inspectées ; pas de modification de facture réelle ni de validation SQL.
 
 Validation finale navigation : build/lint réussis ; dix menus testés (PMS/syndic × cinq langues), libellés/destinations, rubrique active unique, 320/390/768 px ouverture/fermeture et Échap, retour bureau, changement de compte/déconnexion syndic. Cinq pages /offline vérifiées HTTP, titre, métadonnées noindex et quatre largeurs. Les 140 URL dynamiques et 5 URL hors ligne sont accessibles ; aucune donnée réelle modifiée.
+
+
+## Cache PWA — ne plus conserver les pages privées
+
+- Le service worker v4 ne met plus en cache les navigations, même réussies, et ne rejoue jamais une ancienne page consultée. Il précache seulement les cinq écrans /offline et deux fichiers publics avec credentials omit ; cache des fichiers de build sous /_next/static et des fichiers publics explicitement désignés.
+- Comparaison exacte de l’origine ; requêtes API, RSC, avec Authorization, méthodes non GET et fichiers hors périmètre non interceptés. Réponses private/no-store non stockées. Fallback hors ligne selon la langue de l’URL, depuis le cache courant uniquement, puis réponse 503 simple si le stockage est absent.
+- Activation : suppression des anciennes versions tevaxia-vN, sans toucher aux autres caches. Le nouveau worker prend aussi le relais si le nettoyage du stockage échoue ; il ne consulte pas ces anciennes versions. Enregistrement updateViaCache none et en-tête HTTP no-cache/no-store sur /sw.js.
+- Neuf tests supplémentaires, suite 1 322 tests / 125 fichiers réussie ; build, lint des fichiers TypeScript et vérification syntaxique du worker réussis (public/sw.js est exclu par la configuration ESLint du dépôt). Navigateur isolé : cache v3 fictif supprimé, cache étranger préservé, vraie coupure réseau dans cinq langues, aucune page privée ajoutée au cache v4 ; inspection visuelle du fallback.
+- Aucun compte, aucune facture, aucun document métier en production modifié par ces essais. Le cache HTTP général du navigateur et les sauvegardes applicatives constituent d’autres mécanismes ; ce lot porte sur le service worker.
+
+Navigation 400d356 confirmée en production : CI 34407231200 success ; Vercel dpl_Hc6tve1KeXoR7jQjrqb9VqGqp5Rs Ready ; 140 URL internes et cinq pages hors ligne avec métadonnées/noindex et quatre largeurs revérifiées. Menus connectés contrôlés séparément sur composants réels avec services simulés.
