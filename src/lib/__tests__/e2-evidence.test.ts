@@ -1,0 +1,8 @@
+import {describe,it,expect} from 'vitest';
+import {E2_ITEMS,emptyE2File,validateE2File,parseE2File,e2FileCsv} from '../hotellerie/e2-evidence';
+describe('E2 evidence file',()=>{
+ it('starts entirely unknown without a score or eligibility verdict',()=>{const i=emptyE2File();expect(Object.keys(i.items)).toEqual([...E2_ITEMS]);expect(Object.values(i.items).every(v=>v.status==='unknown')).toBe(true);expect(validateE2File(i)).toEqual(i);expect(i).not.toHaveProperty('score')});
+ it('requires evidence for a documented status but accepts explicit open questions',()=>{const i=emptyE2File();i.items.funds.status='documented';expect(()=>validateE2File(i)).toThrow();i.items.funds.reference='Bank records, 2026-09-09';expect(validateE2File(i)).toEqual(i);i.items.control.status='review';expect(validateE2File(i)).toEqual(i)});
+ it('rejects legacy, incomplete and oversized imports',()=>{expect(()=>parseE2File('{"scoreTotal":95}')).toThrow();const i=emptyE2File();expect(parseE2File(JSON.stringify(i))).toEqual(i);expect(()=>parseE2File(JSON.stringify({...i,items:{funds:i.items.funds}}))).toThrow();i.items.funds.reference='x'.repeat(1501);expect(()=>validateE2File(i)).toThrow()});
+ it('exports all criteria, entered states and references without formula execution',()=>{const i=emptyE2File();i.name='=TEST';i.items.funds.reference='a;b"c';const labels=Object.fromEntries([...E2_ITEMS,'scope','unknown','documented','review'].map(k=>[k,k]));const csv=e2FileCsv(i,labels);expect(csv).toContain('"\'=TEST"');expect(csv).toContain('"funds";"unknown";"a;b""c"');expect(csv).toContain('9FAM040209.html');expect(csv).not.toContain('scoreTotal')});
+});
