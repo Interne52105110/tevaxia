@@ -18745,5 +18745,24 @@
     "integration": "Verifique os casos de uso, dados necessários, tratamento de erros e revisão humana. Uma morada por si só não fornece todas as características necessárias à estimativa.",
     "logging": "O registo das chaves geridas em base de dados inclui identificador da chave, endpoint, estado, duração da chamada e última utilização. Esta descrição não constitui garantia geral de privacidade: tratamentos, conservação e prestadores devem ser documentados contratualmente.",
     "availability": "Disponibilidade, tempos de resposta, alojamento, quotas e compromissos de serviço devem ser acordados antes da integração. Não são anunciados indicadores de desempenho ou frequência garantida de atualização."
+  },
+  "reconciliationAudit": {
+    "title": "Reconciliação dos métodos",
+    "scope": "Analise valores do mesmo imóvel, data e âmbito. A média ponderada ajuda a comparar pressupostos; não certifica um valor de mercado.",
+    "weights": "Os pesos iniciais são ilustrativos. Apenas métodos disponíveis com peso positivo são considerados e normalizados para 100%. Um método ausente não reduz mecanicamente o valor.",
+    "weight": "Peso relativo (0–100)",
+    "note": "Nota de trabalho: razões da escolha dos métodos e pesos",
+    "noteScope": "Esta nota permanece neste separador e não é exportada. Inclua a justificação e os documentos no dossier final.",
+    "result": "Valor ponderado retido",
+    "transfer": "Este valor e os pesos retidos são usados na gravação, exportação PDF/DOCX, partilha e secção prudencial. Não é criado um valor alternativo quando os métodos estão ausentes ou excluídos.",
+    "gap": "Diferença entre extremos / média simples",
+    "dispersion": "Desvio-padrão descritivo entre métodos",
+    "dispersionNote": "Estas diferenças descrevem os métodos retidos, não a precisão estatística, um intervalo de confiança ou um limiar de conformidade EVS. A convergência pode resultar de pressupostos comuns.",
+    "invalid": "Sem valor a reter: verifique os valores e pesos (números de 0 a 100). Pelo menos um valor positivo deve ter peso positivo.",
+    "scenario": "Variações aritméticas opcionais",
+    "scenarioNote": "As variações escolhidas aplicam-se ao valor ponderado. Não recalculam rendas, desocupação ou taxas dos métodos, não constituem intervalo estatístico nem são exportadas automaticamente.",
+    "low": "Redução",
+    "high": "Aumento",
+    "scenarioInvalid": "São necessários um valor retido e duas percentagens de 0 a 100."
   }
 }

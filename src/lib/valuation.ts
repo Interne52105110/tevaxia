@@ -358,12 +358,15 @@ export interface ReconciliationResult {
     valeur: number;
     poids: number;
     contribution: number;
+    poidsEffectif: number;
   }[];
   ecartType: number;
   ecartMaxPct: number; // Écart max entre méthodes en %
 }
 
 export function reconcilier(input: ReconciliationInput): ReconciliationResult {
+  if (!input || [input.poidsComparaison,input.poidsCapitalisation,input.poidsDCF].some(v=>!Number.isFinite(v)||v<0||v>100)
+    || [input.valeurComparaison,input.valeurCapitalisation,input.valeurDCF].some(v=>v!==undefined&&(!Number.isFinite(v)||v<0||v>1e15))) throw new RangeError('Invalid reconciliation values or weights');
   const methodes: { nom: string; valeur: number; poids: number }[] = [];
 
   if (input.valeurComparaison && input.poidsComparaison > 0) {
@@ -384,6 +387,7 @@ export function reconcilier(input: ReconciliationInput): ReconciliationResult {
   const contributions = methodes.map((m) => ({
     ...m,
     contribution: totalPoids > 0 ? (m.valeur * m.poids) / totalPoids : 0,
+    poidsEffectif: totalPoids > 0 ? m.poids / totalPoids * 100 : 0,
   }));
 
   // Écart-type

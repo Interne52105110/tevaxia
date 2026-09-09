@@ -18745,5 +18745,24 @@
     "integration": "Prüfen Sie Anwendungsfälle, erforderliche Daten, Fehlerbehandlung und menschliche Kontrolle. Eine Adresse allein liefert nicht alle Merkmale für eine Schätzung.",
     "logging": "Bei datenbankverwalteten Schlüsseln werden Schlüsselkennung, Endpoint, Status, Aufrufdauer und letzte Nutzung protokolliert. Dies ist keine umfassende Datenschutzgarantie: Verarbeitungsumfang, Aufbewahrung und Dienstleister sind vertraglich zu dokumentieren.",
     "availability": "Verfügbarkeit, Antwortzeiten, Hosting, Kontingente und Servicezusagen sind vor der Integration zu vereinbaren. Es werden keine Leistungszahlen oder garantierten Aktualisierungsintervalle zugesagt."
+  },
+  "reconciliationAudit": {
+    "title": "Abstimmung der Methoden",
+    "scope": "Prüfen Sie Werte für dieselbe Immobilie, denselben Stichtag und denselben Umfang. Der gewichtete Mittelwert hilft beim Vergleich der Annahmen; er bestätigt keinen Marktwert.",
+    "weights": "Die Ausgangsgewichte sind Beispiele. Nur verfügbare Methoden mit positivem Gewicht werden berücksichtigt und auf 100 % normiert. Eine fehlende Methode vermindert den Wert nicht automatisch.",
+    "weight": "Relatives Gewicht (0–100)",
+    "note": "Arbeitsnotiz: Gründe für Methodenwahl und Gewichtung",
+    "noteScope": "Diese Notiz bleibt in diesem Reiter und wird nicht exportiert. Übernehmen Sie Begründung und Belege in die abschließenden Unterlagen.",
+    "result": "Gewichteter angesetzter Wert",
+    "transfer": "Dieser Wert und die Gewichte werden beim Speichern, PDF/DOCX-Export, Teilen und im prudentiellen Bereich verwendet. Bei fehlenden oder ausgeschlossenen Methoden wird kein Ersatzwert erzeugt.",
+    "gap": "Spanne zwischen Extremwerten / einfacher Mittelwert",
+    "dispersion": "Deskriptive Standardabweichung zwischen Methoden",
+    "dispersionNote": "Diese Abweichungen beschreiben die berücksichtigten Methoden, keine statistische Genauigkeit, kein Konfidenzintervall und keine EVS-Konformitätsschwelle. Übereinstimmung kann aus gemeinsamen Annahmen entstehen.",
+    "invalid": "Kein ansetzbarer Wert: Prüfen Sie Werte und Gewichte (Zahlen von 0 bis 100). Mindestens ein positiver Methodenwert muss ein positives Gewicht haben.",
+    "scenario": "Optionale arithmetische Variationen",
+    "scenarioNote": "Die gewählten Variationen werden auf den gewichteten Wert angewandt. Sie berechnen weder Mieten, Leerstand noch Methodenzinssätze neu, sind keine statistische Bandbreite und werden nicht automatisch exportiert.",
+    "low": "Senkung",
+    "high": "Erhöhung",
+    "scenarioInvalid": "Ein angesetzter Wert und zwei Prozentsätze von 0 bis 100 sind erforderlich."
   }
 }

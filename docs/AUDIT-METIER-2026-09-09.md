@@ -256,3 +256,14 @@ Les bases sont explicites : vacance sur le loyer brut ; gestion et provision sur
 Le contrat OpenAPI de capitalisation décrit les vrais paramètres et fractions de taux, et son accès public actuel. Les champs historiques de ratios de l'API conservent leur formule documentée. Une protection contre l'infini est également ajoutée au DCF pour un taux de sortie extrêmement petit.
 
 Validation : 1 153 tests / 97 fichiers réussis, compilation et lint réussis. Cinq langues, quatre largeurs, NOI, ERV vide/nulle/négative, taux nul, champs vides, transfert et effacement en réconciliation, API valide/400 contrôlés. Aucun nouveau PDF dans ce lot.
+
+
+## Réconciliation et cohérence des rapports
+
+La pondération normalise uniquement les méthodes disponibles et retenues ; poids non finis, négatifs ou supérieurs à 100 refusés. Une absence de méthode ne devient plus une valeur immobilière fictive de 750 000 EUR. La valeur centrale et les poids persistent entre réconciliation et sensibilité prudentielle et alimentent le PDF, le DOCX, la sauvegarde et les données de partage. Aucun export n'est proposé lorsque le résultat est absent ou invalide. Une signature antérieure n'est plus réutilisée si son contenu de calcul a changé. Les parcours externes de signature et de partage n'ont pas été exécutés avec des données réelles.
+
+Les faux seuils EVS de dispersion, jauges de confiance fondées sur le seul nombre de méthodes, récits automatiques de conformité et sensibilités arbitraires sont supprimés de ce parcours. Les variations basse et haute sont explicitement arithmétiques, facultatives et non exportées. La note de travail doit être reprise dans le dossier final par le rédacteur. Les rapports ne déclarent plus automatiquement indépendance, conformité ou prime/décote universelle liée au CPE.
+
+Une erreur d'unité est corrigée dans le PDF : le prix moyen au m² des références était divisé une seconde fois par la surface du bien. Les montants des rapports conservent désormais deux décimales, comme l'écran. Les quatre modèles utilisent la même valeur pondérée et affichent les poids effectifs.
+
+Validation : 1 156 tests / 97 fichiers réussis ; compilation et lint réussis. Parcours dans cinq langues et quatre largeurs : deux valeurs 840 000 et 86 590 EUR, pondérations 25/75, résultat 274 942,50 EUR ; transfert prudentiel identique, poids conservés, zéro/vides/invalides et retrait des exports contrôlés. Quatre PDF fictifs totalisant 32 pages générés, textes vérifiés et toutes les pages inspectées visuellement ; DOCX généré et contenu XML contrôlé. Les autres parcours de rapports et la conservation des saisies propres à chaque méthode restent à examiner.

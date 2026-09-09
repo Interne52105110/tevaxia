@@ -1,6 +1,6 @@
 "use client";
 
-import { formatEUR } from "@/lib/calculations";
+const formatEUR = (n: number) => new Intl.NumberFormat("fr-FR", {style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
 import { getProfile } from "@/lib/profile";
 
 interface DocxReportData {
@@ -14,6 +14,7 @@ interface DocxReportData {
   valeurCapitalisation?: number;
   valeurDCF?: number;
   valeurReconciliee?: number;
+  reconciliation?: {nom:string;valeur:number;poidsEffectif:number}[];
   noi?: number;
   tauxCap?: number;
   irr?: number;
@@ -66,6 +67,7 @@ export async function downloadDocxReport(data: DocxReportData) {
   if (data.valeurComparaison) sections.push(new Paragraph({ children: [new TextRun({ text: `Comparaison : `, color: "6B7280", size: 20 }), new TextRun({ text: formatEUR(data.valeurComparaison), size: 22, bold: true })] }));
   if (data.valeurCapitalisation) sections.push(new Paragraph({ children: [new TextRun({ text: `Capitalisation : `, color: "6B7280", size: 20 }), new TextRun({ text: formatEUR(data.valeurCapitalisation), size: 22, bold: true })] }));
   if (data.valeurDCF) sections.push(new Paragraph({ children: [new TextRun({ text: `DCF : `, color: "6B7280", size: 20 }), new TextRun({ text: formatEUR(data.valeurDCF), size: 22, bold: true })] }));
+  if (data.reconciliation) for (const m of data.reconciliation) sections.push(new Paragraph({children:[new TextRun({text:`Pondération retenue — ${m.nom} : ${m.poidsEffectif.toFixed(2)} %`,size:20})]}));
   if (data.valeurReconciliee) {
     sections.push(new Paragraph({ spacing: { before: 100 }, children: [new TextRun({ text: `Valeur réconciliée : `, size: 22 }), new TextRun({ text: formatEUR(data.valeurReconciliee), size: 28, bold: true, color: "1B2A4A" })] }));
   }

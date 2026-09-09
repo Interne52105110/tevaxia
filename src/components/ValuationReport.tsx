@@ -14,7 +14,6 @@ import {
   KpiGrid,
   Footer,
   PageHeader,
-  ConfidenceGauge,
   PriceRangeBar,
   MarketContext,
   generateRef,
@@ -42,7 +41,7 @@ try {
 // Note: Intl.NumberFormat uses non-breaking spaces that react-pdf/Inter can't render.
 // Use manual formatting with regular spaces instead.
 const fmtEur = (n: number) => {
-  const str = Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  const str = n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ").replace(".", ",");
   return `${str} EUR`;
 };
 
@@ -204,6 +203,7 @@ export interface ReportData {
   valeurCapitalisation?: number;
   valeurDCF?: number;
   valeurRéconciliee?: number;
+  reconciliation?: {nom:string;valeur:number;poidsEffectif:number}[];
   // Capitalisation details
   noi?: number;
   tauxCap?: number;
@@ -274,7 +274,8 @@ export interface ReportData {
 
 /** Best available value */
 function bestValue(d: ReportData): number | undefined {
-  return d.valeurRéconciliee || d.valeurComparaison || d.valeurCapitalisation || d.valeurDCF;
+  if (d.valeurRéconciliee !== undefined) return Number.isFinite(d.valeurRéconciliee) && d.valeurRéconciliee > 0 ? d.valeurRéconciliee : undefined;
+  return d.valeurComparaison || d.valeurCapitalisation || d.valeurDCF;
 }
 
 /** Count how many methods were used */
@@ -284,14 +285,6 @@ function methodCount(d: ReportData): number {
   if (d.valeurCapitalisation && d.valeurCapitalisation > 0) c++;
   if (d.valeurDCF && d.valeurDCF > 0) c++;
   return c;
-}
-
-/** Confidence level based on methods used */
-function confidenceLevel(d: ReportData): "low" | "medium" | "high" {
-  const mc = methodCount(d);
-  if (mc >= 3) return "high";
-  if (mc >= 2) return "medium";
-  return "low";
 }
 
 /** Energy class color */
@@ -392,10 +385,9 @@ function IdentificationPage({ data, reference }: { data: ReportData; reference: 
       <KpiGrid items={kpis} />
 
       <View style={s.spacer} />
-      <ConfidenceGauge level={confidenceLevel(data)} />
       <Text style={s.note}>
-        Fiabilite basee sur {mc} méthode{mc > 1 ? "s" : ""} d&apos;evaluation utilisee{mc > 1 ? "s" : ""}.
-        Plus le nombre de méthodes convergentes est eleve, plus l&apos;estimation est robuste.
+        {mc} méthode{mc > 1 ? "s" : ""} présentée{mc > 1 ? "s" : ""}. Le nombre de méthodes ne mesure pas la précision.
+        La qualité dépend des données, des hypothèses et de leur validation indépendante.
       </Text>
 
       {data.fourchetteBas != null && data.fourchetteHaut != null && bv && (
@@ -507,7 +499,7 @@ function ComparablesPage({ data, reference }: { data: ReportData; reference: str
 
       <Text style={s.section}>Comparables de marche</Text>
       <Text style={s.note}>
-        {comps.length} transaction{comps.length > 1 ? "s" : ""} comparable{comps.length > 1 ? "s" : ""} identifiee{comps.length > 1 ? "s" : ""} et ajustee{comps.length > 1 ? "s" : ""}.
+        {comps.length} référence{comps.length > 1 ? "s" : ""} saisie{comps.length > 1 ? "s" : ""}. Les ventes, dates, surfaces et conditions doivent être documentées.
       </Text>
 
       <View style={{ marginTop: 10 }}>
@@ -518,7 +510,7 @@ function ComparablesPage({ data, reference }: { data: ReportData; reference: str
           <Text style={s.tCellBR}>Surface</Text>
           <Text style={s.tCellBR}>Prix/m2</Text>
           <Text style={s.tCellBR}>Ajust.</Text>
-          <Text style={s.tCellBR}>Prix ajuste</Text>
+          <Text style={s.tCellBR}>Prix ajuste /m2</Text>
         </View>
         {/* Rows */}
         {comps.map((c, i) => (
@@ -531,12 +523,12 @@ function ComparablesPage({ data, reference }: { data: ReportData; reference: str
             <Text style={s.tCellR}>{fmtEur(c.prixAjuste)}</Text>
           </View>
         ))}
-        {/* Weighted average */}
+        {/* Simple averages of declared unit prices */}
         <View style={s.tRowHL}>
-          <Text style={{ ...s.tCellB, flex: 2 }}>Moyenne ajustee</Text>
+          <Text style={{ ...s.tCellB, flex: 2 }}>Moyennes simples</Text>
           <Text style={s.tCellBR} />
           <Text style={s.tCellBR} />
-          <Text style={s.tCellBR}>{data.surface > 0 ? fmtEur(avgPrixAjuste / data.surface) : "—"}</Text>
+          <Text style={s.tCellBR}>{fmtEur(comps.reduce((sum,c)=>sum+c.prixM2,0)/comps.length)}</Text>
           <Text style={s.tCellBR} />
           <Text style={s.tCellBR}>{fmtEur(avgPrixAjuste)}</Text>
         </View>
@@ -673,12 +665,12 @@ function ReconciliationPage({ data, reference }: { data: ReportData; reference: 
   const bv = bestValue(data);
   if (!bv) return null;
 
-  const methods: { name: string; value: number }[] = [];
-  if (data.valeurComparaison && data.valeurComparaison > 0)
+  const methods: { name: string; value: number; weight?:number }[] = data.reconciliation?.map(m=>({name:m.nom,value:m.valeur,weight:m.poidsEffectif})) ?? [];
+  if (!data.reconciliation && data.valeurComparaison && data.valeurComparaison > 0)
     methods.push({ name: "Comparaison", value: data.valeurComparaison });
-  if (data.valeurCapitalisation && data.valeurCapitalisation > 0)
+  if (!data.reconciliation && data.valeurCapitalisation && data.valeurCapitalisation > 0)
     methods.push({ name: "Capitalisation", value: data.valeurCapitalisation });
-  if (data.valeurDCF && data.valeurDCF > 0)
+  if (!data.reconciliation && data.valeurDCF && data.valeurDCF > 0)
     methods.push({ name: "DCF", value: data.valeurDCF });
 
   return (
@@ -700,7 +692,7 @@ function ReconciliationPage({ data, reference }: { data: ReportData; reference: 
               : 0;
             return (
               <View key={m.name} style={s.tRow}>
-                <Text style={s.tCell}>{m.name}</Text>
+                <Text style={s.tCell}>{m.name}{m.weight !== undefined ? ` (${m.weight.toFixed(2)} %)` : ""}</Text>
                 <Text style={s.tCellR}>{fmtEur(m.value)}</Text>
                 <Text style={s.tCellR}>
                   {data.valeurRéconciliee ? `${écart > 0 ? "+" : ""}${écart.toFixed(1)} %` : "—"}
@@ -806,29 +798,10 @@ function EsgPage({ data, reference }: { data: ReportData; reference: string }) {
       )}
 
       <View style={s.spacerLg} />
-      <Text style={s.sectionSm}>Reference green premium / brown discount</Text>
-      <Text style={{ fontSize: 8, color: SLATE, lineHeight: 1.6, marginTop: 4 }}>
-        Les etudes recentes (RICS 2024, JLL Luxembourg) montrent qu&apos;un bien classe A-B beneficie
-        d&apos;une prime de 5 a 15 % par rapport a la moyenne du marche, tandis qu&apos;un bien classe F-G
-        subit une decote de 10 a 25 %. Ces écarts tendent a s&apos;amplifier avec le durcissement
-        des exigences reglementaires europeennes (EPBD, taxonomie).
-      </Text>
-
-      <View style={s.spacerLg} />
-      <View style={{ flexDirection: "row" as const, gap: 8 }}>
-        <View style={{ ...s.cell, borderLeft: "3pt solid #16A34A" }}>
-          <Text style={s.cellLabel}>Green premium (A-B)</Text>
-          <Text style={s.cellValue}>+5 a +15 %</Text>
-        </View>
-        <View style={{ ...s.cell, borderLeft: "3pt solid #EAB308" }}>
-          <Text style={s.cellLabel}>Neutre (C-D)</Text>
-          <Text style={s.cellValue}>0 %</Text>
-        </View>
-        <View style={{ ...s.cell, borderLeft: "3pt solid #DC2626" }}>
-          <Text style={s.cellLabel}>Brown discount (F-I)</Text>
-          <Text style={s.cellValue}>-10 a -25 %</Text>
-        </View>
-      </View>
+      <Text style={s.sectionSm}>Portée des informations environnementales</Text>
+      <Text style={s.note}>La classe et les autres informations éventuelles sont déclarées dans le dossier.
+        Aucun pourcentage universel de prime ou de décote n’est déduit du CPE. Tout effet sur la valeur doit être justifié
+        par des données pertinentes au bien et au marché, sans double compte des travaux ou ajustements.</Text>
 
       <Footer />
     </Page>
@@ -878,8 +851,8 @@ function NarrativePage({ data, reference }: { data: ReportData; reference: strin
 function CertificationPage({ data, reference }: { data: ReportData; reference: string }) {
   const statements = [
     "Les analyses et opinions contenues dans ce rapport sont basees sur les informations fournies et les donnees de marche disponibles à la date du rapport.",
-    "L'evaluation a ete menee conformement aux principes des European Valuation Standards (EVS 2025, 10e edition, TEGOVA).",
-    "L'évaluateur n'a aucun interet financier actuel ou futur dans le bien evalue.",
+    "Le rédacteur doit vérifier et documenter le référentiel applicable et les conditions de sa mission. Le logiciel ne certifie aucune conformité EVS, TEGOVA ou CRR.",
+    "L’indépendance, les conflits d’intérêts, les qualifications et l’étendue des diligences doivent faire l’objet de déclarations expresses du rédacteur ; ils ne sont pas attestés automatiquement.",
     "Les valeurs indiquees sont exprimees en euros et s'entendent hors droits d'enregistrement, TVA et frais de mutation, sauf mention contraire.",
     "Ce rapport est destiné exclusivement a l'usage du mandant et ne peut etre communiqué à des tiers sans l'accord préalable de l'évaluateur.",
     "Les résultats de cette simulation indicative ne sauraient se substituer à une expertise certifiée par un évaluateur REV/TEGOVA.",
@@ -889,7 +862,7 @@ function CertificationPage({ data, reference }: { data: ReportData; reference: s
     <Page size="A4" style={s.page}>
       <PageHeader title="Rapport de valorisation" reference={reference} />
 
-      <Text style={s.section}>Certification</Text>
+      <Text style={s.section}>Rédacteur et vérifications du dossier</Text>
 
       {(data.expertNom || data.expertSociete) && (
         <View style={{ marginTop: 8, marginBottom: 16 }}>
@@ -899,7 +872,7 @@ function CertificationPage({ data, reference }: { data: ReportData; reference: s
         </View>
       )}
 
-      <Text style={s.sectionSm}>Declarations</Text>
+      <Text style={s.sectionSm}>Points à documenter avant signature</Text>
       {statements.map((stmt, i) => (
         <View key={i} style={{ flexDirection: "row" as const, marginBottom: 8, paddingLeft: 4 }}>
           <Text style={{ fontSize: 9, color: GOLD, marginRight: 8 }}>{i + 1}.</Text>
@@ -1016,9 +989,9 @@ function ValuationDisclaimerPage({ data, reference }: { data: ReportData; refere
 
 function getTemplateTitle(template?: ReportData["reportTemplate"]): string {
   switch (template) {
-    case "bancaire": return "RAPPORT DE VALORISATION — USAGE BANCAIRE (MLV)";
-    case "judiciaire": return "RAPPORT D'EXPERTISE IMMOBILIÈRE — USAGE JUDICIAIRE";
-    case "succession": return "RAPPORT DE VALORISATION — SUCCESSION / PARTAGE";
+    case "bancaire": return "VALORISATION\nDOSSIER BANCAIRE";
+    case "judiciaire": return "VALORISATION\nDOSSIER JUDICIAIRE";
+    case "succession": return "VALORISATION\nSUCCESSION / PARTAGE";
     default: return "RAPPORT DE VALORISATION";
   }
 }

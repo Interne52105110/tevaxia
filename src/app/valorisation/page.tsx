@@ -10,6 +10,7 @@ import {
   reconcilier,
   type Comparable,
 } from "@/lib/valuation";
+import {ReconciliationPanel,type ReconciliationWeights} from "@/components/ReconciliationPanel";
 import {CapitalisationScenario} from "@/components/CapitalisationScenario";
 import {PrudentialValue} from "@/components/PrudentialValue";
 import {DcfScenario} from "@/components/DcfScenario";
@@ -33,10 +34,7 @@ import MarketDataPanel from "@/components/MarketDataPanel";
 const _lazy_generateReportBlob = async (...args: Parameters<typeof import("@/components/ValuationReport")["generateReportBlob"]>): Promise<Blob> => (await import("@/components/ValuationReport")).generateReportBlob(...args);
 import { PdfButton } from "@/components/PdfButton";
 import { downloadDocxReport } from "@/components/ValuationDocx";
-import { getDemographics } from "@/lib/demographics";
-import { getLatestValue, TAUX_HYPOTHECAIRE, OAT_10Y, INDICE_CONSTRUCTION } from "@/lib/macro-data";
 import { getProfile } from "@/lib/profile";
-import { genererNarrative } from "@/lib/narrative";
 import { RenovationResidual } from "@/components/RenovationResidual";
 import { TermReversion } from "@/components/TermReversion";
 import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
@@ -47,7 +45,6 @@ import RelatedTools from "@/components/RelatedTools";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import SignReportButton from "@/components/SignReportButton";
 import ReportModeEVS from "@/components/ReportModeEVS";
-import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 type ActiveTab = "comparaison" | "capitalisation" | "terme_reversion" | "dcf" | "esg" | "energie" | "mlv" | "reconciliation";
 
@@ -508,347 +505,6 @@ function TabMLV({valeurMarche}:{valeurMarche:number}) {return <PrudentialValue v
 // TAB 5 — RÉCONCILIATION
 // ============================================================
 
-function TabReconciliation({
-  valeurComparaison,
-  valeurCapitalisation,
-  valeurDCF,
-  selectedCommune,
-  assetType,
-  evsInfo,
-  surfaceBien,
-}: {
-  valeurComparaison: number;
-  valeurCapitalisation: number;
-  valeurDCF: number;
-  selectedCommune: MarketDataCommune | null;
-  assetType: string;
-  evsInfo: { label: string };
-  surfaceBien: number;
-}) {
-  const t = useTranslations("valorisation");
-  const [poidsComp, setPoidsComp] = useState(50);
-  const [poidsCap, setPoidsCap] = useState(25);
-  const [poidsDCF, setPoidsDCF] = useState(25);
-
-  // Scénarios : ajustement en % sur chaque valeur
-  const [scenarioHautPct, setScenarioHautPct] = useState(10);
-  const [scenarioBasPct, setScenarioBasPct] = useState(10);
-
-  const makeReconc = useCallback((compAdj: number, capAdj: number, dcfAdj: number) => {
-    return reconcilier({
-      valeurComparaison: valeurComparaison ? valeurComparaison * (1 + compAdj / 100) : undefined,
-      poidsComparaison: poidsComp,
-      valeurCapitalisation: valeurCapitalisation ? valeurCapitalisation * (1 + capAdj / 100) : undefined,
-      poidsCapitalisation: poidsCap,
-      valeurDCF: valeurDCF ? valeurDCF * (1 + dcfAdj / 100) : undefined,
-      poidsDCF,
-    });
-  }, [valeurComparaison, valeurCapitalisation, valeurDCF, poidsComp, poidsCap, poidsDCF]);
-
-  const resultBase = useMemo(() => makeReconc(0, 0, 0), [makeReconc]);
-  const resultHaut = useMemo(() => makeReconc(scenarioHautPct, scenarioHautPct, scenarioHautPct), [makeReconc, scenarioHautPct]);
-  const resultBas = useMemo(() => makeReconc(-scenarioBasPct, -scenarioBasPct, -scenarioBasPct), [makeReconc, scenarioBasPct]);
-
-  return (
-    <div className="space-y-8">
-      <div className="grid gap-8 lg:grid-cols-2">
-        {/* Pondérations */}
-        <div className="space-y-6">
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">{t("recValeursMethodePonderation")}</h2>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-lg bg-background p-3">
-                <div>
-                  <div className="text-sm font-medium text-slate">{t("tabComparaison")}</div>
-                  <div className="text-lg font-bold text-navy">{valeurComparaison ? formatEUR(valeurComparaison) : "—"}</div>
-                </div>
-                <InputField label={t("poids")} value={poidsComp} onChange={(v) => setPoidsComp(Number(v))} suffix="%" min={0} max={100} className="w-24" />
-              </div>
-              <div className="flex items-center justify-between rounded-lg bg-background p-3">
-                <div>
-                  <div className="text-sm font-medium text-slate">{t("tabCapitalisation")}</div>
-                  <div className="text-lg font-bold text-navy">{valeurCapitalisation ? formatEUR(valeurCapitalisation) : "—"}</div>
-                </div>
-                <InputField label={t("poids")} value={poidsCap} onChange={(v) => setPoidsCap(Number(v))} suffix="%" min={0} max={100} className="w-24" />
-              </div>
-              <div className="flex items-center justify-between rounded-lg bg-background p-3">
-                <div>
-                  <div className="text-sm font-medium text-slate">DCF</div>
-                  <div className="text-lg font-bold text-navy">{valeurDCF ? formatEUR(valeurDCF) : "—"}</div>
-                </div>
-                <InputField label={t("poids")} value={poidsDCF} onChange={(v) => setPoidsDCF(Number(v))} suffix="%" min={0} max={100} className="w-24" />
-              </div>
-            </div>
-          </div>
-
-          {/* Paramètres scénarios */}
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">{t("recScenarios")}</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <InputField label={t("recScenarioHaut")} value={scenarioHautPct} onChange={(v) => setScenarioHautPct(Number(v))} suffix="%" min={1} max={30} hint={t("recScenarioHautHint")} />
-              <InputField label={t("recScenarioBas")} value={scenarioBasPct} onChange={(v) => setScenarioBasPct(Number(v))} suffix="%" min={1} max={30} hint={t("recScenarioBasHint")} />
-            </div>
-            <p className="mt-2 text-xs text-muted">{t("recScenarioNote")}</p>
-          </div>
-        </div>
-
-        {/* Résultat base */}
-        <div className="space-y-6">
-          <div className="rounded-xl border-2 border-gold/40 bg-gradient-to-br from-card to-gold/5 p-8 shadow-sm text-center">
-            <div className="text-sm text-muted uppercase tracking-wider">{t("recValeurReconciliee")}</div>
-            <div className="mt-2 text-4xl font-bold text-navy">{formatEUR(resultBase.valeurReconciliee)}</div>
-            <div className="mt-2 text-sm text-muted">{t("recScenarioCentral")}</div>
-          </div>
-
-          <ResultPanel
-            title={t("recControleQualite")}
-            lines={[
-              { label: t("recEcartMaxMethodes"), value: `${resultBase.ecartMaxPct.toFixed(1)}%`, warning: resultBase.ecartMaxPct > 20 },
-              { label: t("recEcartType"), value: formatEUR(resultBase.ecartType), sub: true },
-              ...(resultBase.ecartMaxPct > 20 ? [{ label: t("recAlerte"), value: t("recAlerteEcart"), warning: true }] : []),
-            ]}
-          />
-
-          <AiAnalysisCard
-            context={[
-              `Rapport EVS 2025 — ${assetType} (${evsInfo.label})`,
-              `Commune: ${selectedCommune?.commune ?? "non spécifiée"}${selectedCommune?.canton ? ` (${selectedCommune.canton})` : ""}`,
-              `Surface: ${surfaceBien} m²`,
-              "",
-              `Méthode Comparaison: ${valeurComparaison ? formatEUR(valeurComparaison) : "non retenue"} — poids ${poidsComp}%`,
-              `Méthode Capitalisation: ${valeurCapitalisation ? formatEUR(valeurCapitalisation) : "non retenue"} — poids ${poidsCap}%`,
-              `Méthode DCF: ${valeurDCF ? formatEUR(valeurDCF) : "non retenue"} — poids ${poidsDCF}%`,
-              "",
-              `Valeur réconciliée (scénario central): ${formatEUR(resultBase.valeurReconciliee)}`,
-              `Écart max entre méthodes: ${resultBase.ecartMaxPct.toFixed(1)}%`,
-              `Écart-type: ${formatEUR(resultBase.ecartType)}`,
-              "",
-              `Scénario bas (−${scenarioBasPct}%): ${formatEUR(resultBas.valeurReconciliee)}`,
-              `Scénario haut (+${scenarioHautPct}%): ${formatEUR(resultHaut.valeurReconciliee)}`,
-            ].join("\n")}
-            prompt="Rédige le commentaire de réconciliation pour un rapport EVS 2025 (TEGOVA) au Luxembourg. Structure attendue : (1) justification professionnelle des pondérations choisies entre méthodes (approche comparative, capitalisation, DCF), en cohérence avec le type d'actif et la disponibilité des données marché ; (2) analyse de l'écart entre méthodes et interprétation (convergence = fiabilité, divergence > 15% = signal d'attention) ; (3) commentaire sur la fourchette haut-bas et la sensibilité ; (4) conclusion motivée sur la valeur de marché retenue. Ton neutre, professionnel, référencé EVS 2025 / Charte TEGOVA 5e édition."
-          />
-
-          <AiAnalysisCard
-            context={[
-              `CHALLENGER EVS — audit critique avant export du rapport`,
-              `Type actif: ${assetType} (${evsInfo.label})`,
-              `Commune: ${selectedCommune?.commune ?? "NON RENSEIGNÉE"}`,
-              `Surface: ${surfaceBien} m²`,
-              "",
-              `Méthodes retenues:`,
-              `  - Comparaison: ${valeurComparaison ? formatEUR(valeurComparaison) : "ABSENTE"}${valeurComparaison ? ` — poids ${poidsComp}% (${valeurComparaison && surfaceBien > 0 ? formatEUR(valeurComparaison / surfaceBien) : "—"}/m²)` : ""}`,
-              `  - Capitalisation: ${valeurCapitalisation ? formatEUR(valeurCapitalisation) : "ABSENTE"}${valeurCapitalisation ? ` — poids ${poidsCap}%` : ""}`,
-              `  - DCF: ${valeurDCF ? formatEUR(valeurDCF) : "ABSENTE"}${valeurDCF ? ` — poids ${poidsDCF}%` : ""}`,
-              "",
-              `Somme des pondérations: ${poidsComp + poidsCap + poidsDCF}%${poidsComp + poidsCap + poidsDCF !== 100 ? " (NON CONFORME — doit être 100%)" : ""}`,
-              `Écart max entre méthodes: ${resultBase.ecartMaxPct.toFixed(1)}%${resultBase.ecartMaxPct > 20 ? " (> 20% — seuil d'alerte EVS)" : ""}`,
-              `Valeur réconciliée: ${formatEUR(resultBase.valeurReconciliee)}`,
-              selectedCommune?.prixM2Existant
-                ? `Prix communal référence: ${formatEUR(selectedCommune.prixM2Existant)}/m² (écart vs prix/m² retenu: ${surfaceBien > 0 && resultBase.valeurReconciliee > 0 ? `${(((resultBase.valeurReconciliee / surfaceBien) / selectedCommune.prixM2Existant - 1) * 100).toFixed(1)}%` : "—"})`
-                : "Pas de référence prix communal disponible",
-            ].join("\n")}
-            prompt="Agis comme un AUDITEUR CRITIQUE / CHALLENGER d'un rapport d'évaluation EVS 2025 TEGOVA. Ne complimente pas, cherche les failles. Livre une checklist priorisée : (1) DONNÉES MANQUANTES bloquantes pour conformité (commune, surface, au moins une méthode, pondérations totales = 100%) ; (2) INCOHÉRENCES internes (écart méthodes > 20%, écart vs marché local > ±30%, pondérations bizarres pour le type d'actif) ; (3) LACUNES MÉTHODOLOGIQUES (méthode inadaptée au type de valeur EVS visé, comparables non justifiés, taux de capitalisation non motivé) ; (4) RISQUES DE NON-CONFORMITÉ Charte TEGOVA / IVS (hypothèses non documentées, incertitude non quantifiée, indépendance non déclarée) ; (5) AMÉLIORATIONS prioritaires avant signature. Concis, direct, liste actionnable. Préfixe chaque ligne par [BLOQUANT], [MAJEUR] ou [MINEUR]."
-          />
-        </div>
-      </div>
-
-      {/* Tableau comparatif 3 scénarios */}
-      <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-card-border bg-background">
-              <th className="px-4 py-3 text-left font-semibold text-navy"></th>
-              <th className="px-4 py-3 text-center font-semibold text-error">{t("recScenarioBasCol", { pct: scenarioBasPct })}</th>
-              <th className="px-4 py-3 text-center font-semibold text-navy bg-navy/5">{t("recScenarioCentralCol")}</th>
-              <th className="px-4 py-3 text-center font-semibold text-success">{t("recScenarioHautCol", { pct: scenarioHautPct })}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {valeurComparaison > 0 && (
-              <tr className="border-b border-card-border/50">
-                <td className="px-4 py-2 text-muted">{t("tabComparaison")}</td>
-                <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurComparaison * (1 - scenarioBasPct / 100))}</td>
-                <td className="px-4 py-2 text-center font-mono bg-navy/5 font-semibold">{formatEUR(valeurComparaison)}</td>
-                <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurComparaison * (1 + scenarioHautPct / 100))}</td>
-              </tr>
-            )}
-            {valeurCapitalisation > 0 && (
-              <tr className="border-b border-card-border/50">
-                <td className="px-4 py-2 text-muted">{t("tabCapitalisation")}</td>
-                <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurCapitalisation * (1 - scenarioBasPct / 100))}</td>
-                <td className="px-4 py-2 text-center font-mono bg-navy/5 font-semibold">{formatEUR(valeurCapitalisation)}</td>
-                <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurCapitalisation * (1 + scenarioHautPct / 100))}</td>
-              </tr>
-            )}
-            {valeurDCF > 0 && (
-              <tr className="border-b border-card-border/50">
-                <td className="px-4 py-2 text-muted">DCF</td>
-                <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurDCF * (1 - scenarioBasPct / 100))}</td>
-                <td className="px-4 py-2 text-center font-mono bg-navy/5 font-semibold">{formatEUR(valeurDCF)}</td>
-                <td className="px-4 py-2 text-center font-mono">{formatEUR(valeurDCF * (1 + scenarioHautPct / 100))}</td>
-              </tr>
-            )}
-            <tr className="bg-background font-semibold">
-              <td className="px-4 py-3 text-navy">{t("recValeurReconciliee")}</td>
-              <td className="px-4 py-3 text-center font-mono text-error text-lg">{formatEUR(resultBas.valeurReconciliee)}</td>
-              <td className="px-4 py-3 text-center font-mono text-navy text-lg bg-navy/5">{formatEUR(resultBase.valeurReconciliee)}</td>
-              <td className="px-4 py-3 text-center font-mono text-success text-lg">{formatEUR(resultHaut.valeurReconciliee)}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
-        <p className="text-xs text-amber-800 leading-relaxed">
-          {t("recScenariosNote")}
-        </p>
-      </div>
-
-      {/* Tornado / Sensitivity chart */}
-      {resultBase.valeurReconciliee > 0 && (() => {
-        const base = resultBase.valeurReconciliee;
-
-        // Build sensitivity items based on available methods
-        const items: { label: string; description: string; impactPos: number; impactNeg: number }[] = [];
-
-        // ERV +/- 10% => ~10% impact on all methods (weighted by their contribution)
-        items.push({
-          label: t("sensERV"),
-          description: t("sensERVDesc"),
-          impactPos: base * 0.10,
-          impactNeg: -base * 0.10,
-        });
-
-        // Cap rate +/- 50bps => ~10% on capitalisation value (weighted)
-        if (valeurCapitalisation > 0) {
-          const capWeight = poidsCap / (poidsComp + poidsCap + poidsDCF || 1);
-          const capImpact = valeurCapitalisation * 0.10 * capWeight;
-          items.push({
-            label: t("sensTauxCap"),
-            description: t("sensTauxCapDesc"),
-            impactPos: capImpact,
-            impactNeg: -capImpact,
-          });
-        }
-
-        // Discount rate +/- 50bps => ~5% on DCF value (weighted)
-        if (valeurDCF > 0) {
-          const dcfWeight = poidsDCF / (poidsComp + poidsCap + poidsDCF || 1);
-          const dcfImpact = valeurDCF * 0.05 * dcfWeight;
-          items.push({
-            label: t("sensTauxActu"),
-            description: t("sensTauxActuDesc"),
-            impactPos: dcfImpact,
-            impactNeg: -dcfImpact,
-          });
-        }
-
-        // Vacancy +/- 200bps => ~3% on income methods (capitalisation + DCF weighted)
-        {
-          const incomeWeight = ((valeurCapitalisation > 0 ? poidsCap : 0) + (valeurDCF > 0 ? poidsDCF : 0))
-            / (poidsComp + poidsCap + poidsDCF || 1);
-          if (incomeWeight > 0) {
-            const vacImpact = base * 0.03 * incomeWeight;
-            items.push({
-              label: t("sensVacance"),
-              description: t("sensVacanceDesc"),
-              impactPos: vacImpact,
-              impactNeg: -vacImpact,
-            });
-          }
-        }
-
-        // Sort by absolute impact (largest first)
-        items.sort((a, b) => Math.abs(b.impactPos) - Math.abs(a.impactPos));
-
-        const maxAbsImpact = Math.max(...items.map((it) => Math.max(Math.abs(it.impactPos), Math.abs(it.impactNeg))));
-
-        return (
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-base font-semibold text-navy mb-1">{t("sensTitle")}</h3>
-            <p className="text-xs text-muted mb-6">
-              {t("sensSubtitle", { base: formatEUR(base) })}
-            </p>
-            <div className="space-y-4">
-              {items.map((item) => {
-                const pctNeg = maxAbsImpact > 0 ? (Math.abs(item.impactNeg) / maxAbsImpact) * 100 : 0;
-                const pctPos = maxAbsImpact > 0 ? (Math.abs(item.impactPos) / maxAbsImpact) * 100 : 0;
-                return (
-                  <div key={item.label}>
-                    <div className="flex items-center justify-between mb-1">
-                      <div>
-                        <span className="text-sm font-medium text-navy">{item.label}</span>
-                        <span className="ml-2 text-xs text-muted hidden sm:inline">{item.description}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 h-7">
-                      {/* Negative (left side) */}
-                      <div className="flex-1 flex justify-end">
-                        <div className="text-xs font-mono text-error mr-2 whitespace-nowrap min-w-[90px] text-right">
-                          {formatEUR(item.impactNeg)}
-                        </div>
-                        <div className="relative w-full max-w-[200px] flex justify-end">
-                          <div
-                            className="h-6 rounded-l bg-error/70 transition-all"
-                            style={{ width: `${pctNeg}%`, minWidth: pctNeg > 0 ? "4px" : "0px" }}
-                          />
-                        </div>
-                      </div>
-                      {/* Center line */}
-                      <div className="w-px h-7 bg-navy/30 flex-shrink-0" />
-                      {/* Positive (right side) */}
-                      <div className="flex-1 flex justify-start">
-                        <div className="relative w-full max-w-[200px] flex justify-start">
-                          <div
-                            className="h-6 rounded-r bg-success/70 transition-all"
-                            style={{ width: `${pctPos}%`, minWidth: pctPos > 0 ? "4px" : "0px" }}
-                          />
-                        </div>
-                        <div className="text-xs font-mono text-success ml-2 whitespace-nowrap min-w-[90px]">
-                          +{formatEUR(item.impactPos)}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="mt-5 pt-4 border-t border-card-border/50">
-              <p className="text-xs text-muted leading-relaxed">
-                {t("sensFootnote")}
-              </p>
-            </div>
-          </div>
-        );
-      })()}
-
-      {/* Texte narratif */}
-      {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-4">{t("recAnalyseNarrative")}</h3>
-          <div className="prose prose-sm text-slate leading-relaxed space-y-3">
-            {genererNarrative({
-              commune: selectedCommune?.commune,
-              assetType,
-              evsType: evsInfo.label,
-              surface: surfaceBien,
-              valeurComparaison: valeurComparaison || undefined,
-              valeurCapitalisation: valeurCapitalisation || undefined,
-              valeurDCF: valeurDCF || undefined,
-              valeurReconciliee: resultBase.valeurReconciliee || undefined,
-              prixM2Commune: selectedCommune?.prixM2Existant || undefined,
-              nbTransactions: selectedCommune?.nbTransactions || undefined,
-            }, t).split("\n\n").map((para, i) => (
-              <p key={i} className="text-sm">{para.split(/\*\*(.+?)\*\*/g).map((seg, j) => j % 2 === 1 ? <strong key={j}>{seg}</strong> : seg)}</p>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ============================================================
 // PAGE PRINCIPALE
 // ============================================================
@@ -881,15 +537,19 @@ export default function Valorisation() {
   // Template de rapport PDF + commissionnaire (banque / juge / notaire)
   const [reportTemplate, setReportTemplate] = useState<"standard" | "bancaire" | "judiciaire" | "succession">("standard");
   const [commissionnaire, setCommissionnaire] = useState("");
-  const [signature, setSignature] = useState<{ hash: string; url: string; date: string } | null>(null);
+  const [signature, setSignature] = useState<{ hash: string; url: string; date: string; payload: string } | null>(null);
 
   // Stable callback refs
   const onValeurComp = useCallback((v: number) => setValeurComparaison(v), []);
   const onValeurCap = useCallback((v: number) => setValeurCapitalisation(v), []);
   const onValeurDCF = useCallback((v: number) => setValeurDCF(v), []);
 
-  // Valeur de marché pour MLV (prend la réconciliée ou la meilleure dispo)
-  const valeurMarchePourMLV = valeurComparaison || valeurCapitalisation || valeurDCF || 750000;
+  const [reconciliationWeights,setReconciliationWeights]=useState<ReconciliationWeights>({comparison:50,capitalisation:25,dcf:25});
+  const reconciliation=useMemo(()=>{try{return reconcilier({valeurComparaison,poidsComparaison:reconciliationWeights.comparison,valeurCapitalisation,poidsCapitalisation:reconciliationWeights.capitalisation,valeurDCF,poidsDCF:reconciliationWeights.dcf})}catch{return null}},[valeurComparaison,valeurCapitalisation,valeurDCF,reconciliationWeights]);
+  const valeurMarchePourMLV=reconciliation?.valeurReconciliee??0;
+
+  const signaturePayload={commune:selectedCommune?.commune,assetType:assetConfig.id,evsType:evsInfo.id,surface:surfaceBien,prixM2Commune:selectedCommune?.prixM2Existant,valeurComparaison,valeurCapitalisation,valeurDCF,valeurReconciliee:valeurMarchePourMLV,reconciliationWeights};
+  const currentSignature=signature?.payload===JSON.stringify(signaturePayload)?signature:null;
 
   // Tab labels inside component to use t()
   const TABS: { id: ActiveTab; label: string }[] = [
@@ -911,6 +571,7 @@ export default function Valorisation() {
     setValeurComparaison(0);
     setValeurCapitalisation(0);
     setValeurDCF(0);
+    setReconciliationWeights({comparison:50,capitalisation:25,dcf:25});
   }, []);
 
   return (
@@ -1046,7 +707,7 @@ export default function Valorisation() {
             {valeurDCF > 0 && (
               <div className="rounded-lg bg-card border border-card-border px-3 py-2"><span className="text-muted">DCF :</span> <span className="font-semibold text-navy">{formatEUR(valeurDCF)}</span></div>
             )}
-            {(valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (<>
+            {valeurMarchePourMLV > 0 && (<>
               <div className="w-full flex flex-wrap items-center gap-2 rounded-lg border border-navy/15 bg-navy/5 px-3 py-2">
                 <label className="text-xs font-semibold text-navy">{t("reportTemplateLabel")}</label>
                 <select
@@ -1073,8 +734,8 @@ export default function Valorisation() {
                     nom: `${t("pageTitle")} — ${selectedCommune?.commune || "?"} — ${surfaceBien} m²`,
                     type: "valorisation",
                     commune: selectedCommune?.commune,
-                    valeurPrincipale: valeurComparaison || valeurCapitalisation || valeurDCF,
-                    data: { surfaceBien, assetType, evsValueType, commune: selectedCommune?.commune, valeurComparaison, valeurCapitalisation, valeurDCF },
+                    valeurPrincipale: valeurMarchePourMLV,
+                    data: { surfaceBien, assetType, evsValueType, commune: selectedCommune?.commune, valeurComparaison, valeurCapitalisation, valeurDCF, valeurReconciliee:valeurMarchePourMLV, reconciliationWeights },
                   });
                 }}
                 label={t("sauvegarder")}
@@ -1082,7 +743,6 @@ export default function Valorisation() {
               />
               <PdfButton
                 generateBlob={() => {
-                  const demo = selectedCommune ? getDemographics(selectedCommune.commune) : undefined;
                   const prof = getProfile();
                   return _lazy_generateReportBlob({
                     dateRapport: new Date().toISOString().split("T")[0],
@@ -1093,6 +753,8 @@ export default function Valorisation() {
                     valeurComparaison: valeurComparaison || undefined,
                     valeurCapitalisation: valeurCapitalisation || undefined,
                     valeurDCF: valeurDCF || undefined,
+                    valeurRéconciliee: valeurMarchePourMLV,
+                    reconciliation: reconciliation?.methodes,
                     prixM2Commune: selectedCommune?.prixM2Existant || undefined,
                     transactionsCommune: selectedCommune?.nbTransactions || undefined,
                     comparables: comparables.filter(c => c.prixVente > 0).map(c => {
@@ -1107,20 +769,6 @@ export default function Valorisation() {
                         prixAjuste: Math.round(prixM2 * (1 + totalAjust / 100)),
                       };
                     }),
-                    demographicsCommune: demo ? {
-                      population: demo.population,
-                      croissancePct: demo.croissancePct,
-                      revenuMedian: demo.revenuMedian,
-                      tauxChomage: demo.tauxChomage,
-                      pctEtrangers: demo.pctEtrangers,
-                      densiteHabKm2: demo.densiteHabKm2,
-                      canton: demo.canton,
-                    } : undefined,
-                    tauxHypothecaire: getLatestValue(TAUX_HYPOTHECAIRE),
-                    oat10y: getLatestValue(OAT_10Y),
-                    indiceConstruction: getLatestValue(INDICE_CONSTRUCTION),
-                    fourchetteBas: valeurComparaison ? Math.round(valeurComparaison * 0.92) : undefined,
-                    fourchetteHaut: valeurComparaison ? Math.round(valeurComparaison * 1.08) : undefined,
                     classeEnergie: undefined,
                     expertNom: prof.nomComplet || undefined,
                     expertSociete: prof.societe || undefined,
@@ -1128,9 +776,9 @@ export default function Valorisation() {
                     logoUrl: prof.logoUrl || undefined,
                     reportTemplate,
                     commissionnaire: commissionnaire.trim() || undefined,
-                    signatureHash: signature?.hash,
-                    signatureUrl: signature?.url,
-                    signatureDate: signature?.date,
+                    signatureHash: currentSignature?.hash,
+                    signatureUrl: currentSignature?.url,
+                    signatureDate: currentSignature?.date,
                   });
                 }}
                 filename={`tevaxia-rapport-${reportTemplate}-${new Date().toISOString().split("T")[0]}.pdf`}
@@ -1146,6 +794,8 @@ export default function Valorisation() {
                   valeurComparaison: valeurComparaison || undefined,
                   valeurCapitalisation: valeurCapitalisation || undefined,
                   valeurDCF: valeurDCF || undefined,
+                  valeurReconciliee: valeurMarchePourMLV,
+                  reconciliation: reconciliation?.methodes,
                 })}
                 className="rounded-lg border border-gold px-3 py-2 text-xs font-medium text-gold-dark hover:bg-gold/10 transition-colors"
               >
@@ -1166,23 +816,15 @@ export default function Valorisation() {
                     valeurComparaison: valeurComparaison || undefined,
                     valeurCapitalisation: valeurCapitalisation || undefined,
                     valeurDCF: valeurDCF || undefined,
-                    valeurRetenue: valeurComparaison || valeurCapitalisation || valeurDCF || undefined,
+                    valeurRetenue: valeurMarchePourMLV,
+                    reconciliation: reconciliation?.methodes,
                   },
                 }}
               />
               <SignReportButton
                 reportTitle={`Valorisation ${selectedCommune?.commune ?? ""} — ${surfaceBien} m²`}
-                payload={{
-                  commune: selectedCommune?.commune,
-                  assetType: assetConfig.id,
-                  evsType: evsInfo.id,
-                  surface: surfaceBien,
-                  prixM2Commune: selectedCommune?.prixM2Existant,
-                  valeurComparaison: valeurComparaison || 0,
-                  valeurCapitalisation: valeurCapitalisation || 0,
-                  valeurDCF: valeurDCF || 0,
-                }}
-                onSigned={(hash, url, date) => setSignature({ hash, url, date })}
+                payload={signaturePayload}
+                onSigned={(hash, url, date) => setSignature({ hash, url, date, payload:JSON.stringify(signaturePayload) })}
               />
             </>)}
             {(selectedCommune || comparables.length > 0 || valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
@@ -1283,15 +925,8 @@ export default function Valorisation() {
         {activeTab === "energie" && <TabEnergie />}
         {activeTab === "mlv" && <TabMLV valeurMarche={valeurMarchePourMLV} />}
         {activeTab === "reconciliation" && (
-          <TabReconciliation
-            valeurComparaison={valeurComparaison}
-            valeurCapitalisation={valeurCapitalisation}
-            valeurDCF={valeurDCF}
-            selectedCommune={selectedCommune}
-            assetType={t(assetConfig.labelKey)}
-            evsInfo={{ label: t(evsInfo.labelKey) }}
-            surfaceBien={surfaceBien}
-          />
+          <ReconciliationPanel values={{comparison:valeurComparaison,capitalisation:valeurCapitalisation,dcf:valeurDCF}} weights={reconciliationWeights} onWeights={setReconciliationWeights} result={reconciliation}/>
+
         )}
         </>)}
 

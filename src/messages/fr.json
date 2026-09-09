@@ -18745,5 +18745,24 @@
     "integration": "Vérifiez vos cas d’usage, les données requises, la gestion des erreurs et les contrôles humains. Une adresse seule ne fournit pas toutes les caractéristiques nécessaires à l’estimation.",
     "logging": "La journalisation des clés gérées en base porte sur l’identifiant de clé, l’endpoint, le statut, la durée d’appel et la dernière utilisation. Ce descriptif ne constitue pas une garantie globale de confidentialité : périmètre des traitements, conservation et sous-traitants doivent être documentés contractuellement.",
     "availability": "Disponibilité, délais de réponse, hébergement, quotas et engagements de service sont à convenir avant intégration. Aucune performance chiffrée ni cadence garantie de mise à jour n’est annoncée ici."
+  },
+  "reconciliationAudit": {
+    "title": "Réconciliation des méthodes",
+    "scope": "Examinez les valeurs obtenues sur un même bien, à une même date et selon un même périmètre. La moyenne pondérée aide à comparer vos hypothèses ; elle ne certifie pas une valeur de marché.",
+    "weights": "Les poids initiaux sont illustratifs. Seules les méthodes disponibles avec un poids positif sont retenues ; leurs poids sont normalisés à 100 %. Une méthode absente n’abaisse pas mécaniquement la valeur.",
+    "weight": "Poids relatif (0–100)",
+    "note": "Note de travail : raisons du choix des méthodes et des poids",
+    "noteScope": "Cette note reste dans cet onglet et n’est pas exportée. Reportez les justifications et pièces dans le dossier final.",
+    "result": "Valeur pondérée retenue",
+    "transfer": "Cette valeur et les poids retenus sont utilisés pour la sauvegarde, les exports PDF/DOCX, le partage et le volet prudentiel. Aucune valeur de secours n’est créée lorsque les méthodes sont absentes ou exclues.",
+    "gap": "Écart entre les extrêmes / moyenne simple",
+    "dispersion": "Écart-type descriptif entre les méthodes",
+    "dispersionNote": "Ces écarts décrivent les méthodes retenues, pas une précision statistique, un intervalle de confiance ou un seuil de conformité EVS. Une convergence peut provenir d’hypothèses communes.",
+    "invalid": "Aucune valeur à retenir : vérifiez les valeurs disponibles et les poids (nombres de 0 à 100). Au moins une méthode positive doit avoir un poids positif.",
+    "scenario": "Variations arithmétiques facultatives",
+    "scenarioNote": "Ces variations choisies s’appliquent à la valeur pondérée. Elles ne recalculent pas les loyers, la vacance ou les taux des méthodes, ne constituent pas une fourchette statistique et ne sont pas exportées automatiquement.",
+    "low": "Baisse",
+    "high": "Hausse",
+    "scenarioInvalid": "Une valeur retenue et deux pourcentages de 0 à 100 sont nécessaires."
   }
 }

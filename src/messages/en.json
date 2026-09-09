@@ -18745,5 +18745,24 @@
     "integration": "Check your use cases, required data, error handling and human review. An address alone does not provide all the characteristics needed for an estimate.",
     "logging": "Logging for database-managed keys records the key identifier, endpoint, status, call duration and last use. This description is not a general privacy guarantee: processing scope, retention and service providers must be documented contractually.",
     "availability": "Agree availability, response times, hosting, quotas and service commitments before integration. No numerical performance or guaranteed update frequency is stated here."
+  },
+  "reconciliationAudit": {
+    "title": "Method reconciliation",
+    "scope": "Review values for the same property, date and scope. The weighted average helps compare assumptions; it does not certify market value.",
+    "weights": "Initial weights are illustrative. Only available methods with a positive weight are retained; their weights are normalised to 100%. A missing method does not mechanically reduce the value.",
+    "weight": "Relative weight (0–100)",
+    "note": "Working note: reasons for selecting methods and weights",
+    "noteScope": "This note stays in this tab and is not exported. Add the justification and evidence to the final file.",
+    "result": "Retained weighted value",
+    "transfer": "This value and the retained weights are used for saving, PDF/DOCX exports, sharing and the prudential section. No fallback value is invented when methods are absent or excluded.",
+    "gap": "Range between extremes / simple mean",
+    "dispersion": "Descriptive standard deviation between methods",
+    "dispersionNote": "These differences describe the retained methods, not statistical accuracy, a confidence interval or an EVS compliance threshold. Convergence can result from shared assumptions.",
+    "invalid": "No value to retain: check available values and weights (numbers from 0 to 100). At least one positive method value must have a positive weight.",
+    "scenario": "Optional arithmetic variations",
+    "scenarioNote": "These chosen variations apply to the weighted value. They do not recalculate rents, vacancy or method rates, do not form a statistical range and are not automatically exported.",
+    "low": "Decrease",
+    "high": "Increase",
+    "scenarioInvalid": "A retained value and two percentages from 0 to 100 are required."
   }
 }

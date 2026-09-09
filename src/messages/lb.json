@@ -18745,5 +18745,24 @@
     "integration": "Préift Uwendungsfäll, néideg Donnéeën, Feelerbehandlung a mënschlech Kontroll. Eng Adress eleng liwwert net all néideg Charakteristike fir eng Schätzung.",
     "logging": "Fir Schlësselen aus der Datebank ginn d'Schlëssel-ID, Endpoint, Status, Ufro-Dauer an déi lescht Notzung protokolléiert. Dat ass keng allgemeng Dateschutzgarantie: Ëmfang, Späicherdauer an Déngschtleeschter musse vertraglech dokumentéiert ginn.",
     "availability": "Disponibilitéit, Äntwertzäiten, Hosting, Quoten a Servicezousoe si virun der Integratioun ze vereinbaren. Hei gi keng Leeschtungszuelen oder garantéiert Aktualiséierungsintervalle versprach."
+  },
+  "reconciliationAudit": {
+    "title": "Reconciliatioun vun de Methoden",
+    "scope": "Préift Wäerter fir de selwechten Objet, dee selwechten Datum an dee selwechten Ëmfang. De gewiichte Moyenne hëlleft Hypothesen ze vergläichen; e zertifiéiert kee Maartwäert.",
+    "weights": "D’Ausgangsgewichter si Beispiller. Nëmmen disponibel Methode mat positivem Gewiicht ginn zeréckbehalen an op 100 % normaliséiert. Eng feelend Method reduzéiert de Wäert net automatesch.",
+    "weight": "Relatiivt Gewiicht (0–100)",
+    "note": "Aarbechtsnotiz: Grënn fir d’Methoden an d’Gewichter",
+    "noteScope": "Dës Notiz bleift an dësem Reiter a gëtt net exportéiert. Iwwerhuelt d’Begrënnung an d’Beleeër an de finalen Dossier.",
+    "result": "Zeréckbehale gewiichte Wäert",
+    "transfer": "Dëse Wäert an d’Gewichter gi fir d'Späicheren, PDF/DOCX-Exporter, d’Deelen an de prudentielle Beräich benotzt. Et gëtt keen Ersatzwäert, wann d’Methode feelen oder ausgeschloss sinn.",
+    "gap": "Spann tëscht den Extremwäerter / einfache Moyenne",
+    "dispersion": "Deskriptiv Standardofwäichung tëscht Methoden",
+    "dispersionNote": "Dës Ofwäichunge beschreiwen d’Methoden, keng statistesch Prezisioun, kee Konfidenzintervall a keng EVS-Konformitéitsschwell. Eng Konvergenz kann aus gemeinsame Hypothesen entstoen.",
+    "invalid": "Kee Wäert zeréckzebehalen: Préift Wäerter a Gewichter (Zuele vun 0 bis 100). Op d’mannst ee positive Methodewäert muss e positiivt Gewiicht hunn.",
+    "scenario": "Fakultativ arithmetesch Variatiounen",
+    "scenarioNote": "Déi gewielte Variatioune bezéie sech op de gewiichte Wäert. Si berechne keng Loyeren, Leerstand oder Methodentauxen nei, si keng statistesch Spann a ginn net automatesch exportéiert.",
+    "low": "Reduktioun",
+    "high": "Erhéijung",
+    "scenarioInvalid": "En zeréckbehale Wäert an zwee Prozentsätz vun 0 bis 100 sinn néideg."
   }
 }

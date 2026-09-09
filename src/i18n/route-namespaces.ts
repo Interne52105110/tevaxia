@@ -2438,7 +2438,6 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/valorisation": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "common",
@@ -2449,6 +2448,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "prudentialAudit",
+    "reconciliationAudit",
     "renovationResidualAudit",
     "saveButton",
     "syndicContextBar",

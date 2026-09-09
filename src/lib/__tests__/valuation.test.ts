@@ -229,3 +229,11 @@ describe('direct capitalisation boundaries',()=>{
  it('omits impossible sensitivity rates instead of publishing zero values',()=>{const r=calculerCapitalisation({...i,tauxCapitalisation:.001});expect(r.sensibilite.every(s=>s.tauxCap>0&&s.valeur>0)).toBe(true)});
  it('rejects DCF exit-rate overflow rather than serializing infinity',()=>{expect(()=>calculerDCF({loyerAnnuelInitial:10000,tauxIndexation:0,tauxVacance:0,chargesAnnuelles:1000,tauxProgressionCharges:0,periodeAnalyse:2,tauxActualisation:0,tauxCapSortie:Number.MIN_VALUE,fraisCessionPct:0})).toThrow()});
 });
+
+
+describe('reconciliation retained methods and effective weights',()=>{
+ const i={valeurComparaison:800000,poidsComparaison:50,valeurCapitalisation:600000,poidsCapitalisation:25,valeurDCF:1000000,poidsDCF:25};
+ it('normalizes only retained methods and exposes their actual contributions',()=>{const r=reconcilier({...i,valeurComparaison:0});expect(r.valeurReconciliee).toBe(800000);expect(r.methodes.map(m=>m.poidsEffectif)).toEqual([50,50]);expect(r.methodes.reduce((s,m)=>s+m.contribution,0)).toBe(r.valeurReconciliee);expect(reconcilier({...i,poidsCapitalisation:0,poidsComparaison:0}).valeurReconciliee).toBe(1000000)});
+ it('does not invent a value when no method is retained',()=>{expect(reconcilier({...i,poidsComparaison:0,poidsCapitalisation:0,poidsDCF:0}).methodes).toEqual([]);expect(reconcilier({...i,valeurComparaison:0,valeurCapitalisation:0,valeurDCF:0}).valeurReconciliee).toBe(0)});
+ it('rejects negative, non-finite or excessive values and weights',()=>{for(const patch of [{poidsDCF:NaN},{poidsCapitalisation:-1},{poidsComparaison:101},{valeurDCF:-1},{valeurComparaison:Infinity}])expect(()=>reconcilier({...i,...patch})).toThrow()});
+});
