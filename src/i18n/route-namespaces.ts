@@ -304,12 +304,12 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/dcf-multi": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "common",
     "cookie",
     "crmContextBar",
+    "dcfLeaseAudit",
     "dcfMulti",
     "hotellerieContextBar",
     "nav",

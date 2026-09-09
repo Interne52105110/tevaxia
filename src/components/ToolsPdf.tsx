@@ -677,6 +677,7 @@ export async function downloadBancairePdf(params: BancairePdfParams) {
 /* ==================== 9. DCF MULTI-TENANT ==================== */
 
 export interface DcfMultiPdfParams {
+  audit?: import("@/lib/dcf-leases").DCFLeaseInput & {scope:string;cashFlows:import("@/lib/dcf-leases").DCFLeaseAnnualCF[]};
   nomBien?: string;
   baux: { locataire: string; loyer: number; echeance: string }[];
   loyerTotal: number; tauxActualisation: number;
@@ -686,6 +687,7 @@ export interface DcfMultiPdfParams {
 
 function DcfMultiDoc({ p }: { p: DcfMultiPdfParams }) {
   const ref = generateRef();
+  const fmtEur=(n:number)=>n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g," ").replace(".",",")+" EUR";
   return (
     <Document>
       <CoverPage
@@ -702,16 +704,16 @@ function DcfMultiDoc({ p }: { p: DcfMultiPdfParams }) {
           { label: "Valeur totale", value: fmtEur(p.valeurTotale), highlight: true },
           { label: "Valeur flux actualises", value: fmtEur(p.valeurDCF) },
           { label: "Valeur terminale", value: fmtEur(p.valeurTerminale) },
-          { label: "Loyer total annuel", value: fmtEur(p.loyerTotal) },
+          { label: "Loyer contractuel actif a la date de valeur", value: fmtEur(p.loyerTotal) },
           ...(p.tri != null ? [{ label: "TRI", value: fmtPct(p.tri, 2) }] : []),
           ...(p.rendement != null ? [{ label: "Rendement initial", value: fmtPct(p.rendement, 2) }] : []),
         ]} />
 
         {p.nomBien && <Row label="Bien" value={p.nomBien} />}
 
-        <Text style={s.section}>Baux en cours</Text>
+        <Text style={s.section}>Baux declares</Text>
         {p.baux.map((b, i) => <Row key={i} label={`${b.locataire} (ech. ${b.echeance})`} value={`${fmtEur(b.loyer)}/an`} />)}
-        <RowHL label="Loyer total annuel" value={fmtEur(p.loyerTotal)} />
+        <RowHL label="Loyer contractuel actif a la date de valeur" value={fmtEur(p.loyerTotal)} />
 
         <Text style={s.section}>Valorisation DCF</Text>
         <Row label="Taux d'actualisation" value={fmtPct(p.tauxActualisation, 2)} />
@@ -722,6 +724,7 @@ function DcfMultiDoc({ p }: { p: DcfMultiPdfParams }) {
         <Disclaimer />
         <Footer />
       </Page>
+      {p.audit&&<Page size="A4" style={s.page}><PageHeader title="Hypotheses et flux du scenario" reference={ref}/><Text style={{fontSize:9,lineHeight:1.5,marginBottom:12}}>{p.audit.scope}</Text><Row label="Date de valeur" value={p.audit.dateValeur}/><Row label="Horizon (annees)" value={String(p.audit.periodeAnalyse)}/><Row label="Taux de sortie" value={fmtPct(p.audit.tauxCapSortie,2)}/><Row label="Frais de cession" value={fmtPct(p.audit.fraisCessionPct,2)}/><Row label="Charges fixes non recuperables / an" value={fmtEur(p.audit.chargesProprietaireFixe)}/><Row label="Reserve CAPEX / an" value={fmtEur(p.audit.capexAnnuel??0)}/><Row label="Vacance sur ERV retenue" value={fmtPct(p.audit.vacanceERV,2)}/><Text style={s.section}>Donnees declarees par bail</Text>{p.audit.leases.map(l=><View key={l.id} wrap={false} style={{marginBottom:12}}><Text style={{fontSize:10,fontWeight:700}}>{l.locataire}</Text><Row label="Surface" value={`${l.surface} m2`}/><Row label="Loyer annuel courant / initial si futur" value={fmtEur(l.loyerAnnuel)}/><Row label="Debut / fin" value={`${l.dateDebut} / ${l.dateFin}`}/><Row label="Sortie anticipee retenue" value={l.dateBreak||"Non retenue"}/><Row label="ERV / m2 / an" value={fmtEur(l.ervM2)}/><Row label="Renouvellement / indexation" value={`${fmtPct(l.probabiliteRenouvellement,2)} / ${fmtPct(l.indexation,2)}`}/><Row label="Franchise (mois) / amenagement" value={`${l.franchiseMois} / ${fmtEur(l.fitOutContribution)}`}/><Row label="Charges remboursees / an" value={fmtEur(l.chargesLocataire)}/>{l.stepRents?.map(step=><Row key={step.annee} label={`Palier annee de bail ${step.annee}`} value={fmtEur(step.nouveauLoyer)}/>)}</View>)}<Text style={s.section}>Flux annuels apres amenagement et CAPEX</Text>{p.audit.cashFlows.map(cf=><Row key={cf.annee} label={`Annee ${cf.annee} — net / actualise`} value={`${fmtEur(cf.fluxNet)} / ${fmtEur(cf.fluxActualise)}`}/>)}<Footer/></Page>}
       <DisclaimerPage reference={ref} />
     </Document>
   );

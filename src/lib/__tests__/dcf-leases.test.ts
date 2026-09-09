@@ -1,14 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { calculerDCFLeases, type Lease } from "../dcf-leases";
-
-// DCF uses Math.random pour break options / renouvellement → seed determinist
-beforeEach(() => {
-  let seed = 0;
-  vi.spyOn(Math, "random").mockImplementation(() => {
-    seed += 0.123456789;
-    return (seed % 1 + 1) % 1;
-  });
-});
 
 const mkLease = (p: Partial<Lease> = {}): Lease => ({
   id: p.id ?? "1",
@@ -77,11 +68,8 @@ describe("calculerDCFLeases — invariants", () => {
     expect(longRes.wault).toBeGreaterThan(shortRes.wault);
   });
 
-  it("empty leases → zeros (résilience)", () => {
-    const r = calculerDCFLeases({ ...BASE_INPUT, leases: [] });
-    expect(r.surfaceTotale).toBe(0);
-    expect(r.loyerTotalAnnuel).toBe(0);
-    expect(r.wault).toBe(0);
+  it("rejects an empty portfolio instead of presenting a valuation",()=>{
+    expect(()=>calculerDCFLeases({...BASE_INPUT,leases:[]})).toThrow();
   });
 
   it("cashFlows a la longueur = periodeAnalyse", () => {
@@ -175,4 +163,55 @@ describe("calculerDCFLeases — discount rate effect", () => {
     const high = calculerDCFLeases({ ...BASE_INPUT, fraisCessionPct: 12 });
     expect(low.valeurTerminaleNette).toBeGreaterThan(high.valeurTerminaleNette);
   });
+});
+
+
+describe('monthly expected lease cash flows',()=>{
+ const lease=mkLease({surface:100,loyerAnnuel:12000,dateDebut:'2026-01',dateFin:'2030-12',indexation:0,ervM2:120,probabiliteRenouvellement:100,chargesLocataire:0});
+ const base={leases:[lease],periodeAnalyse:1,tauxActualisation:0,tauxCapSortie:10,fraisCessionPct:0,chargesProprietaireFixe:0,vacanceERV:0,dateValeur:'2026-01'};
+ it('prorates a future lease, real rent-free months and one-off fit-out',()=>{
+  const r=calculerDCFLeases({...base,leases:[{...lease,dateDebut:'2026-07',dateFin:'2026-12',franchiseMois:2,fitOutContribution:2400}]});
+  expect(r.cashFlows[0].loyers).toBe(6000);expect(r.cashFlows[0].franchises).toBe(2000);expect(r.cashFlows[0].fitOut).toBe(2400);
+  expect(r.cashFlows[0].fluxNet).toBe(1600);expect(r.valeurDCF).toBe(121600);expect(r.tauxOccupation).toBe(0);expect(r.wault).toBe(0);
+  expect(r.monthly.filter(m=>m.fitOut>0).map(m=>m.date)).toEqual(['2026-07']);
+ });
+ it('uses expected renewal without random draws or an 80% discontinuity',()=>{
+  const random=vi.spyOn(Math,'random').mockImplementation(()=>{throw Error('random draw forbidden')});
+  try{
+   const expired={...lease,dateDebut:'2020-01',dateFin:'2025-12',probabiliteRenouvellement:50};
+   const i={...base,vacanceERV:20,leases:[expired]};const r=calculerDCFLeases(i);
+   expect(r).toEqual(calculerDCFLeases(i));expect(r.cashFlows[0].loyerBrutEffectif).toBeCloseTo(4800,8);
+   const a=calculerDCFLeases({...base,leases:[{...expired,probabiliteRenouvellement:80}]}),b=calculerDCFLeases({...base,leases:[{...expired,probabiliteRenouvellement:79}]});
+   expect(a.cashFlows[0].noi-b.cashFlows[0].noi).toBeCloseTo(120,8);
+  }finally{random.mockRestore()}
+ });
+ it('does not turn zero expected rent into a negative notional rental expense',()=>{
+  const r=calculerDCFLeases({...base,leases:[lease,{...lease,id:'vacant',dateDebut:'2020-01',dateFin:'2025-12',probabiliteRenouvellement:0}]});
+  expect(r.cashFlows[0].loyerVacance).toBe(12000);expect(r.cashFlows[0].noi).toBe(12000);
+ });
+ it('treats a chosen break month as an explicit exit scenario',()=>{
+  const r=calculerDCFLeases({...base,leases:[{...lease,dateBreak:'2026-03',probabiliteRenouvellement:50}]});
+  expect(r.cashFlows[0].noi).toBe(7500);expect(r.valeurDCF).toBe(67500);expect(r.wault).toBe(.25);
+ });
+ it('does not re-index current rent over historical lease years',()=>{
+  const r=calculerDCFLeases({...base,periodeAnalyse:2,leases:[{...lease,dateDebut:'2020-01',indexation:10,franchiseMois:3,fitOutContribution:1000}]});
+  expect(r.cashFlows[0].noi).toBeCloseTo(12000,8);expect(r.cashFlows[1].noi).toBeCloseTo(13200,8);
+  expect(r.cashFlows[0].fitOut).toBe(0);expect(r.cashFlows[0].franchises).toBe(0);
+ });
+ it('applies future rent steps at their specified lease year',()=>{
+  const r=calculerDCFLeases({...base,periodeAnalyse:2,leases:[{...lease,indexation:10,stepRents:[{annee:2,nouveauLoyer:24000}]}]});
+  expect(r.cashFlows[0].noi).toBeCloseTo(12000,8);expect(r.cashFlows[1].noi).toBeCloseTo(24000,8);expect(r.fluxTerminal).toBeCloseTo(26400,8);
+ });
+ it('matches tenant recoveries with expenses and deducts recurring capex in value',()=>{
+  const r=calculerDCFLeases({...base,leases:[{...lease,chargesLocataire:1200}],chargesProprietaireFixe:1000,capexAnnuel:1000});
+  expect(r.cashFlows[0].chargesRecuperees).toBe(1200);expect(r.cashFlows[0].chargesProprietaire).toBe(2200);
+  expect(r.cashFlows[0].noi).toBe(11000);expect(r.cashFlows[0].fluxNet).toBe(10000);expect(r.valeurDCF).toBe(110000);
+ });
+ it('uses the next forecast year for the terminal base, not premature all-ERV',()=>{
+  const r=calculerDCFLeases({...base,leases:[{...lease,ervM2:240}]});expect(r.noiStabilise).toBe(12000);expect(r.valeurDCF).toBe(132000);expect(r.irr).toBeNull();
+ });
+ it('rejects invalid dates, fractions, rates and lease amounts',()=>{
+  for(const patch of [{dateValeur:'2026-13'},{periodeAnalyse:1.5},{tauxCapSortie:0},{tauxActualisation:NaN},{vacanceERV:101},{capexAnnuel:-1}])expect(()=>calculerDCFLeases({...base,...patch})).toThrow();
+  for(const patch of [{dateFin:'2025-12'},{dateBreak:'2025-12'},{surface:0},{loyerAnnuel:NaN},{probabiliteRenouvellement:-1},{franchiseMois:1.5},{stepRents:[{annee:1,nouveauLoyer:0},{annee:1,nouveauLoyer:1}]}])expect(()=>calculerDCFLeases({...base,leases:[{...lease,...patch}]})).toThrow();
+ });
 });

@@ -38,6 +38,7 @@ export const CLIENT_NAMESPACES = [
   "crmContextBar",
   "dashboardHero",
   "dashboardPage",
+  "dcfLeaseAudit",
   "dcfMulti",
   "drive",
   "energy",
