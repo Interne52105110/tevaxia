@@ -1421,6 +1421,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsInvoiceRecord",
     "pmsJournal",
     "syndicContextBar"
   ],

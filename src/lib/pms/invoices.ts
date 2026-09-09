@@ -6,30 +6,8 @@ function ensureClient() {
   return supabase;
 }
 
-/** Sum recorded amounts in integer cents, keeping each currency separate. */
-export function invoiceTotalsByCurrency(invoices: PmsInvoice[]) {
-  const totals = new Map<string, { issued: bigint; paid: bigint }>();
-  for (const inv of invoices) {
-    if (!/^[A-Z]{3}$/.test(inv.currency) || typeof inv.issued !== "boolean" || typeof inv.paid !== "boolean") throw new Error("Invalid invoice status or currency");
-    const cents = (value: number) => {
-      const text = String(value);
-      if (value == null || !/^-?\d+(\.\d{1,2})?$/.test(text)) throw new Error("Invalid invoice amount");
-      const [whole, fraction = ""] = text.replace(/^-/, "").split(".");
-      return (BigInt(whole) * 100n + BigInt(fraction.padEnd(2, "0"))) * (text.startsWith("-") ? -1n : 1n);
-    };
-    const gross = cents(inv.total_ttc);
-    if (cents(inv.total_ht) + cents(inv.total_tva) + cents(inv.taxe_sejour) !== gross) throw new Error("Unbalanced invoice");
-    const row = totals.get(inv.currency) ?? { issued: 0n, paid: 0n };
-    if (inv.issued) row.issued += gross;
-    if (inv.paid) row.paid += gross;
-    totals.set(inv.currency, row);
-  }
-  const amount = (n: bigint) => {
-    if (n > BigInt(Number.MAX_SAFE_INTEGER) || n < BigInt(-Number.MAX_SAFE_INTEGER)) throw new Error("Invoice total too large");
-    return Number(n) / 100;
-  };
-  return [...totals].sort(([a], [b]) => a.localeCompare(b)).map(([currency, row]) => ({ currency, issued: amount(row.issued), paid: amount(row.paid) }));
-}
+import { invoiceTotalsByCurrency } from "./invoice-record";
+export { invoiceTotalsByCurrency } from "./invoice-record";
 
 /** Complete live read. A changing or truncated result must not become a partial KPI or backup. */
 export async function listInvoices(propertyId: string, expectedUserId?: string): Promise<PmsInvoice[]> {

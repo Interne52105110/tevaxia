@@ -7,13 +7,14 @@ import { useAuth } from "@/components/AuthProvider";
 import { getProperty } from "@/lib/pms/properties";
 import { invoiceTotalsByCurrency, listInvoices, issueInvoice, markInvoicePaid } from "@/lib/pms/invoices";
 import type { PmsProperty, PmsInvoice } from "@/lib/pms/types";
-import { generatePmsInvoiceBlob } from "@/components/PmsInvoicePdf";
+import { prepareInvoiceRecord, INVOICE_RECORD_LABEL_KEYS } from "@/lib/pms/invoice-record";
 import { errMsg } from "@/lib/pms/errors";
 
 function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
   const { propertyId } = use(props.params);
   const tc = useTranslations("pms.common");
   const t = useTranslations("pms.invoices");
+  const tr = useTranslations("pmsInvoiceRecord");
   const locale = useLocale();
   const formatEUR = (n: number, currency: string) => new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { style: "currency", currency, minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
   const prefix = locale === "fr" ? "" : `/${locale}`;
@@ -23,6 +24,8 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const exportLock = useRef(false);
+  const [exporting, setExporting] = useState<string | null>(null);
   const request = useRef(0);
   useEffect(() => () => { request.current++; }, []);
   const reload = useCallback(async () => {
@@ -45,16 +48,21 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
   }, [user, authLoading, reload]);
 
   const handleDownloadPdf = async (inv: PmsInvoice) => {
-    if (!property) return;
+    if (!property || exportLock.current) return;
+    exportLock.current = true; setExporting(inv.id); setError(null);
+    const current = request.current;
     try {
-      const blob = await generatePmsInvoiceBlob(inv, property);
+      const record = prepareInvoiceRecord(inv, property);
+      const labels = Object.fromEntries(INVOICE_RECORD_LABEL_KEYS.map(key => [key, tr(key)]));
+      const { generatePmsInvoiceBlob } = await import("@/components/PmsInvoicePdf");
+      const blob = await generatePmsInvoiceBlob(record, labels, locale, new Date().toISOString());
+      if (current !== request.current) return;
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url;
-      a.download = `${inv.invoice_number}.pdf`;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 5000);
-    } catch (e) { setError(errMsg(e)); }
+      a.href = url; a.download = `releve-${inv.id}.pdf`; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch { if (current === request.current) setError(tr("downloadError")); }
+    finally { exportLock.current = false; setExporting(null); }
   };
 
   const handleIssue = async (inv: PmsInvoice) => {
@@ -137,7 +145,7 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
                     {inv.paid ? <span className="text-emerald-700">✓</span> : <span className="text-muted">—</span>}
                   </td>
                   <td className="py-2 px-2 text-right text-[11px]">
-                    <button type="button" onClick={() => handleDownloadPdf(inv)} className="text-navy hover:underline mr-2">{t("actionPdf")}</button>
+                    <button type="button" disabled={exporting !== null} onClick={() => handleDownloadPdf(inv)} className="text-navy hover:underline mr-2 disabled:opacity-50">{exporting === inv.id ? tr("downloading") : tr("download")}</button>
                     {!inv.issued && (
                       <button type="button" onClick={() => handleIssue(inv)} className="text-emerald-700 hover:underline mr-2">{t("actionIssue")}</button>
                     )}
