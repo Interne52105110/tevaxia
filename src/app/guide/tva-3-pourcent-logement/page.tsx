@@ -21,6 +21,7 @@ export default async function GuideTva3() {
       namespace={NAMESPACE}
       slug={SLUG}
       readingMinutes={7}
+      updatedAt="2026-09-09"
       inlineCalculatorHref="/vefa"
       hasTable
       sections={[

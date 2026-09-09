@@ -10346,96 +10346,93 @@
     },
     "tva3Pourcent": {
       "title": "3 % Wohnungs-MwSt Luxemburg: Bedingungen und AED-Verfahren 2026",
-      "metaDescription": "Wohn-MwSt. LU 2026: super-ermäßigter Satz 3 %, 50.000 € Steuergutschrift-Obergrenze pro Wohnung, max 400 m² Fläche, AED-Vorabgenehmigung Pflicht, VEFA, Renovierung > 20 Jahre, Beispiele.",
-      "subtitle": "Alles, um den Vorteil der 3 % Wohn-MwSt. zu aktivieren und bis zu 50.000 € beim Bau, Kauf oder bei der Renovierung einer Luxemburger Wohnung zu sparen.",
+      "metaDescription": "Wohnungsmehrwertsteuer: Vorteil bis 50.000 EUR, Hauptwohnsitz, Neubau oder Renovierung und zwei Verfahren. Nachprüfbare Beispiele mit Obergrenze.",
+      "subtitle": "Die Wohnungsmehrwertsteuer betrifft begünstigte Arbeiten für einen Hauptwohnsitz nach der geänderten Verordnung vom 30. Juli 2002. Sie ist keine allgemeine Ermäßigung des Wohnungskaufpreises.",
       "category": "Bau & VEFA",
       "essentiel": [
-        "Super-ermäßigter Wohn-MwSt.-Satz: 3 % statt 17 % (LU-Normalsatz), 14 Punkte Differenz als Steuergutschrift erfasst.",
-        "Vorteilsobergrenze: 50.000 € MwSt. pro Wohnung über deren Lebensdauer, also etwa 357.000 € Arbeiten netto zum ermäßigten Satz.",
-        "AED-Vorabgenehmigung Pflicht vor Baubeginn oder VEFA-Aktunterzeichnung.",
-        "Maximale Wohnfläche 400 m²; darüber hinaus 17 %-Satz auf den Überschuss.",
-        "Berechtigt: Neubau, Umbau, Renovierung/Reparatur einer über 20 Jahre alten Wohnung, durch MwSt.-pflichtigen Profi."
+        "Der Vorteil ist auf 50.000 EUR je Wohnung begrenzt. Bei Sätzen von 17 % und 3 % beträgt die rechnerische Ersparnis 14 % der begünstigten Nettobasis, höchstens das Restguthaben. Fällige Mehrwertsteuer ist die normale Steuer abzüglich dieses Vorteils. Ein Eigentümerwechsel bedeutet nicht, dass die volle Grenze erneut verfügbar ist: Prüfen Sie den Vorgang bei der Steuerverwaltung.",
+        "Seit 2015 ist der Vorteil bei Schaffung von Wohnraum dem Hauptwohnsitz des Eigentümers vorbehalten. Dazu gehören Neubau, Umwandlung in Wohnraum und Erweiterung. Renovierung kann auch den Hauptwohnsitz eines Dritten, etwa eines Mieters, betreffen. Eine Zweitwohnung erfüllt die Nutzungsbedingung nicht."
       ],
       "section1Title": "Prinzip und anwendbarer Satz",
-      "section1P1": "Luxemburg wendet den super-ermäßigten MwSt.-Satz von 3 % auf Bau, Umbau und Renovierung von Wohnungen für Wohnzwecke an, gemäß Artikel 44ter des geänderten MwSt.-Gesetzes und der AED-Rundschreiben Nr. 800. Dieser Satz ist einer der niedrigsten Europas und ein wesentlicher Steuervorteil im Vergleich zum seit 2024 geltenden Normalsatz von 17 % (zuvor 16 % in 2023, 17 % normal außerhalb temporärer Maßnahmen).",
-      "section1P2": "Der Mechanismus ist eine Steuergutschrift: Die MwSt. wird zu 3 % statt 17 % berechnet, also 14 MwSt.-Punkte gespart. Dieser Vorteil ist auf 50.000 € MwSt. pro Wohnung gedeckelt, was etwa 357.000 € Arbeiten netto zum ermäßigten Satz entspricht. Darüber hinaus gilt der Normalsatz von 17 % auf den Überschuss.",
-      "callout1Title": "Wohnfläche auf 400 m² gedeckelt",
-      "callout1Body": "Die Wohnfläche der begünstigten Wohnung darf 400 m² nicht überschreiten. Darüber hinaus gilt der 3 %-Satz nur anteilig im Rahmen der Obergrenze (auf 400 m²). Keller, nicht ausgebaute Dachböden, nicht angeschlossene Garagen und gewerbliche Teile sind von der Wohnflächenberechnung ausgeschlossen.",
+      "section1P1": "Die Wohnungsmehrwertsteuer betrifft begünstigte Arbeiten für einen Hauptwohnsitz nach der geänderten Verordnung vom 30. Juli 2002. Sie ist keine allgemeine Ermäßigung des Wohnungskaufpreises.",
+      "section1P2": "Der Vorteil ist auf 50.000 EUR je Wohnung begrenzt. Bei Sätzen von 17 % und 3 % beträgt die rechnerische Ersparnis 14 % der begünstigten Nettobasis, höchstens das Restguthaben. Fällige Mehrwertsteuer ist die normale Steuer abzüglich dieses Vorteils. Ein Eigentümerwechsel bedeutet nicht, dass die volle Grenze erneut verfügbar ist: Prüfen Sie den Vorgang bei der Steuerverwaltung.",
+      "callout1Title": "Hauptwohnsitz und gemischte Nutzung",
+      "callout1Body": "Bei gemischter Nutzung sieht die amtliche Broschüre den Vorteil insgesamt vor, wenn die Hauptwohnfläche mehr als drei Viertel der Gesamtfläche beträgt; bei drei Vierteln oder weniger gilt er anteilig. Prüfen Sie die Einordnung der Wohnung und ihrer Nebenräume. Dieser Leitfaden verwendet keine Flächenobergrenze von 400 m².",
       "section2Title": "Voraussetzungen",
-      "section2P1": "Das Objekt muss Wohnzwecken dienen: Hauptwohnsitz, vom Käufer bewohnter Zweitwohnsitz, oder Wohnung, die einem Mieter vermietet wird, der dort seinen Wohnsitz begründet. Die Wohnung muss mindestens zwei Jahre nach Lieferung oder Fertigstellung dem Wohnen dienen, andernfalls wird der Vorteil zurückgefordert. Bei Renovierung muss die Wohnung über 20 Jahre alt sein (außer Wohnraumschaffung durch Umbau, ohne Altersbedingung).",
-      "section2P2": "Berechtigt: Neubau, Umbau von Räumen zu Wohnraum (Wohnraumschaffung), Renovierung und Reparatur einer über 20 Jahre alten Wohnung (einschließlich Rohbau, Ausbau, Dämmung, Heizung, Fenster, Bad). Ausgeschlossen: Geschäfts- oder Büroräume, nicht angeschlossene Garagen, Pools, Tennisplätze, Gartenhütten, Luxus-Nebengebäude und Gartengestaltungen.",
+      "section2P1": "Seit 2015 ist der Vorteil bei Schaffung von Wohnraum dem Hauptwohnsitz des Eigentümers vorbehalten. Dazu gehören Neubau, Umwandlung in Wohnraum und Erweiterung. Renovierung kann auch den Hauptwohnsitz eines Dritten, etwa eines Mieters, betreffen. Eine Zweitwohnung erfüllt die Nutzungsbedingung nicht.",
+      "section2P2": "Die Steuerverwaltung unterscheidet Renovierung binnen fünf Jahren nach Erwerb unabhängig vom Alter und Renovierung einer mindestens zehn Jahre alten Wohnung. Die Bezeichnung Renovierung allein genügt nicht: Kategorie, Arbeiten und Fristen sind zu prüfen. Möbel, Einbauküchen sowie Notar-, Architekten- und Beratungsingenieurhonorare gehören unter anderem nicht zum Wohnungsmehrwertsteuerregime. Nutzung und Bewohnung müssen die Bedingungen erfüllen. Die Broschüre nennt insbesondere die Hauptwohnnutzung binnen zwei Jahren nach Fertigstellung und zwei Jahre Bewohnung. Abweichende Nutzung kann zur Rückzahlung des Vorteils samt gesetzlichen Zinsen führen.",
       "callout2Title": "Kombination mit Bëllegen Akt und Klimabonus",
-      "callout2Body": "Die 3 % Wohn-MwSt. ist voll mit dem Bëllegen Akt (40.000 € pro Käufer auf Eintragungsgebühren) und mit Klimabonus-Hilfen für energetische Sanierung kombinierbar. Für einen Erstkäufer in VEFA können die kumulierten Einsparungen 130.000 € überschreiten.",
+      "callout2Body": "Jede Förderung behält ihre Bedingungen und Obergrenze. Bëllegen Akt betrifft die Abgaben, der Mehrwertsteuervorteil begünstigte Arbeiten. Prüfen Sie andere Hilfen, Termine und Kumulierungsregeln gesondert; dieser Leitfaden berechnet keine automatische Kombination.",
       "section3Title": "Verfahren bei der AED",
-      "section3P1": "Die Genehmigung muss VOR Baubeginn oder Unterzeichnung eines VEFA-Erwerbsakts bei der Verwaltung für Eintragung, Domänen und MwSt. (AED) beantragt werden. Das Formular (auf guichet.lu) wird mit Wohnungsplänen, Bau- oder Stadtplanungsgenehmigung und einer kostenmäßigen Schätzung der Arbeiten eingereicht. Die AED erlässt eine Genehmigungsentscheidung, die den maximalen, dem ermäßigten Satz unterliegenden MwSt.-Betrag (Obergrenze 50.000 €) festlegt.",
-      "section3P2": "Bei einer VEFA berechnet der Bauträger die MwSt. direkt zu 3 % auf den Wohnanteil, nach Erhalt der Genehmigung. Bei einem Einzelbauherrn oder Bauherrn gibt es zwei Modalitäten: direkte 3 %-Rechnungstellung durch Handwerker (sofern sie die Genehmigung halten) oder 17 %-Rechnungstellung mit anschließender Erstattung der Differenz durch die AED gegen Vorlage der Rechnungen. Die Erstattungsantrag erfolgt über die eAED-Telefachverfahren.",
+      "section3P1": "Direkte Anwendung: Lieferant und Eigentümer beantragen die Genehmigung vor Beginn der betreffenden Arbeiten für einen Kostenvoranschlag von mindestens 3.000 EUR netto. Antrag, Wohnung, Nutzung und Arbeiten werden beschrieben; nach Genehmigung stellt der Lieferant die zugelassenen Arbeiten mit 3 % in Rechnung. Online erfolgt dies über sein Geschäftskonto mit Vollmacht des Eigentümers.",
+      "section3P2": "Erstattung: Nach den Arbeiten beantragt der Eigentümer die Differenz für begünstigte Ausgaben zum Normalsatz mit detaillierten Rechnungen und Zahlungsbelegen. Jede Rechnung muss mindestens 1.250 EUR netto, der Antrag 3.000 EUR netto umfassen. Die Broschüre nennt mindestens sechs Monate zwischen Anträgen und fünf Jahre Verjährung ab dem 31. Dezember des betreffenden Jahres. Dies ist von der vorherigen Genehmigung zu unterscheiden.",
       "section4Title": "Rechenbeispiele",
-      "section4Intro": "Wirkung des 3 %-MwSt.-Vorteils auf typische Projekte. Die Berechnung vergleicht die Bruttokosten zu 17 % (normal) mit 3 % (Vorteil).",
+      "section4Intro": "Fiktive Beispiele: Die gesamte Nettobasis ist begünstigt, die Nutzung erfüllt die Bedingungen und volle 50.000 EUR sind verfügbar. Grundstück, Honorare und ausgeschlossene Arbeiten sind nicht enthalten. Die Tabelle belegt keine Förderfähigkeit.",
       "table": {
-        "caption": "Erzielte Einsparungen durch 3 % Wohn-MwSt.",
+        "caption": "Mehrwertsteuer nach Begrenzung des Vorteils",
         "headers": [
-          "Projekt",
-          "Netto",
-          "MwSt. 17 %",
-          "MwSt. 3 %",
-          "Einsparung"
+          "Begünstigtes Netto",
+          "Normale Steuer",
+          "Genutzter Vorteil",
+          "Fällige Steuer",
+          "Bruttokosten"
         ],
         "rows": [
           [
-            "Badrenovierung",
-            "30.000 €",
-            "5.100 €",
-            "900 €",
-            "4.200 €"
+            "30 000 EUR",
+            "5 100 EUR",
+            "4 200 EUR",
+            "900 EUR",
+            "30 900 EUR"
           ],
           [
-            "Schwere Wohnungsrenovierung",
-            "100.000 €",
-            "17.000 €",
-            "3.000 €",
-            "14.000 €"
+            "100 000 EUR",
+            "17 000 EUR",
+            "14 000 EUR",
+            "3 000 EUR",
+            "103 000 EUR"
           ],
           [
-            "Neubau",
-            "300.000 €",
-            "51.000 €",
-            "9.000 €",
-            "42.000 €"
+            "300 000 EUR",
+            "51 000 EUR",
+            "42 000 EUR",
+            "9 000 EUR",
+            "309 000 EUR"
           ],
           [
-            "Hochwertiger Neubau",
-            "400.000 €",
-            "68.000 €",
-            "12.000 €",
-            "50.000 €"
+            "400 000 EUR",
+            "68 000 EUR",
+            "50 000 EUR",
+            "18 000 EUR",
+            "418 000 EUR"
           ],
           [
-            "Bau über Obergrenze",
-            "500.000 €",
-            "85.000 €",
-            "27.000 €",
-            "50.000 €"
+            "500 000 EUR",
+            "85 000 EUR",
+            "50 000 EUR",
+            "35 000 EUR",
+            "535 000 EUR"
           ]
         ],
-        "footnote": "Die Einsparung entspricht der Differenz zwischen MwSt. 17 % und MwSt. 3 %, gedeckelt auf 50.000 € pro Wohnung."
+        "footnote": "Vorteil = kleinerer Betrag aus 14 % der Nettobasis und verfügbaren 50.000 EUR; fällige Steuer = 17 % der Nettobasis minus Vorteil; Brutto = Netto + fällige Steuer. Bereits verbrauchtes Guthaben erhöht die Steuer."
       },
-      "callout3Title": "Konkreter Fall: VEFA zu 600.000 €",
-      "callout3Body": "Ein Paar kauft eine neue VEFA-Wohnung für 600.000 € netto (Grundstück 150.000 €, Bau 450.000 €). Auf den Bauanteil 3 % MwSt. statt 17 % = 50.000 € Einsparung (Obergrenze erreicht). Auf den Grundstücksanteil 7 % Eintragungsgebühren komplett durch Bëllegen Akt Paar kompensiert. Gesamter Steuervorteil: ca. 81.000 € (MwSt. + Bëllegen Akt).",
+      "callout3Title": "Beispiel: 400.000 EUR begünstigte Nettoarbeiten",
+      "callout3Body": "Normale Steuer: 68.000 EUR. Rechnerische Differenz: 56.000 EUR, auf 50.000 EUR begrenzt. Fällige Steuer: 18.000 EUR; Bruttokosten: 418.000 EUR. Dies sind nicht 3 % des gesamten Preises; andere Steuervorteile sind nicht enthalten.",
       "inlineCalc": {
         "title": "Simulieren Sie Ihre VEFA mit der 3 % Wohn-MwSt.",
-        "description": "Unser VEFA-Simulator teilt Grundstück/Bau auf, berechnet die 3 % Wohn-MwSt. mit 50.000 €-Obergrenze, addiert den Bëllegen Akt auf den Grundstücksanteil und gibt die tatsächlichen Gesamtkosten an.",
+        "description": "VEFA: ausschließlich Nettopreis eingeben. Vorausgesetzt werden kein bereits errichteter Bau bei Beurkundung, vollständig begünstigte Bauleistungen und noch verfügbare 50.000 € MwSt.-Vergünstigung bei Eigennutzung. Bereits begonnene Projekte oder verbrauchte Vergünstigungen erfordern eine Einzelabrechnung.",
         "cta": "VEFA-Simulation starten"
       },
       "tools": [
         {
           "href": "/vefa",
           "title": "VEFA-Simulator",
-          "description": "Aufteilung Grundstück / Bau und 3 % Wohn-MwSt. automatisiert."
+          "description": "VEFA: ausschließlich Nettopreis eingeben. Vorausgesetzt werden kein bereits errichteter Bau bei Beurkundung, vollständig begünstigte Bauleistungen und noch verfügbare 50.000 € MwSt.-Vergünstigung bei Eigennutzung. Bereits begonnene Projekte oder verbrauchte Vergünstigungen erfordern eine Einzelabrechnung."
         },
         {
           "href": "/frais-acquisition",
           "title": "Erwerbskosten",
-          "description": "Globale Berechnung mit MwSt., Gebühren, Bëllegen Akt und Hypothek."
+          "description": "Teilberechnung nach dokumentierten Regeln. Kreditobergrenze 40.000 € gemäß Gesetz vom 3. Juli 2025. Die im Juli 2026 angekündigte Erhöhung auf 45.000 € wird ohne Bestätigung des Inkrafttretens nicht berücksichtigt."
         },
         {
           "href": "/estimateur-construction",
@@ -10445,63 +10442,53 @@
         {
           "href": "/simulateur-aides",
           "title": "Erwerbsbeihilfen",
-          "description": "Kombination aus 3 %-MwSt., Bëllegen Akt, Klimabonus und Prämien."
+          "description": "Jede Förderung behält ihre Bedingungen und Obergrenze. Bëllegen Akt betrifft die Abgaben, der Mehrwertsteuervorteil begünstigte Arbeiten. Prüfen Sie andere Hilfen, Termine und Kumulierungsregeln gesondert; dieser Leitfaden berechnet keine automatische Kombination."
         }
       ],
       "faq": [
         {
           "q": "Wie hoch ist die MwSt.-Vorteilsobergrenze von 3 % in Luxemburg?",
-          "a": "Die Vorteilsobergrenze beträgt 50.000 € MwSt. pro Wohnung über deren Lebensdauer. Das entspricht etwa 357.000 € Arbeiten netto zum ermäßigten Satz. Darüber hinaus gilt der Normalsatz von 17 % auf den Überschuss."
+          "a": "Der Vorteil ist auf 50.000 EUR je Wohnung begrenzt. Bei Sätzen von 17 % und 3 % beträgt die rechnerische Ersparnis 14 % der begünstigten Nettobasis, höchstens das Restguthaben. Fällige Mehrwertsteuer ist die normale Steuer abzüglich dieses Vorteils. Ein Eigentümerwechsel bedeutet nicht, dass die volle Grenze erneut verfügbar ist: Prüfen Sie den Vorgang bei der Steuerverwaltung."
         },
         {
           "q": "Ist eine Vorabgenehmigung für die 3 % MwSt. erforderlich?",
-          "a": "Ja. Ein Vorabantrag muss vor Baubeginn oder VEFA-Aktunterzeichnung bei der AED eingereicht werden. Das Formular ist auf guichet.lu verfügbar und muss Pläne, Genehmigung und kostenmäßige Schätzung enthalten."
+          "a": "Direkte Anwendung: Lieferant und Eigentümer beantragen die Genehmigung vor Beginn der betreffenden Arbeiten für einen Kostenvoranschlag von mindestens 3.000 EUR netto. Antrag, Wohnung, Nutzung und Arbeiten werden beschrieben; nach Genehmigung stellt der Lieferant die zugelassenen Arbeiten mit 3 % in Rechnung. Online erfolgt dies über sein Geschäftskonto mit Vollmacht des Eigentümers. Erstattung: Nach den Arbeiten beantragt der Eigentümer die Differenz für begünstigte Ausgaben zum Normalsatz mit detaillierten Rechnungen und Zahlungsbelegen. Jede Rechnung muss mindestens 1.250 EUR netto, der Antrag 3.000 EUR netto umfassen. Die Broschüre nennt mindestens sechs Monate zwischen Anträgen und fünf Jahre Verjährung ab dem 31. Dezember des betreffenden Jahres. Dies ist von der vorherigen Genehmigung zu unterscheiden."
         },
         {
           "q": "Gilt die 3 % MwSt. für eine Mietinvestition?",
-          "a": "Ja, sofern der Mieter die Wohnung als seinen Wohnsitz nutzt (effektive Belegung). Die Immobilie muss mindestens zwei Jahre nach Lieferung als Wohnraum vermietet bleiben, andernfalls wird der Vorteil zurückgefordert."
+          "a": "Seit 2015 ist der Vorteil bei Schaffung von Wohnraum dem Hauptwohnsitz des Eigentümers vorbehalten. Dazu gehören Neubau, Umwandlung in Wohnraum und Erweiterung. Renovierung kann auch den Hauptwohnsitz eines Dritten, etwa eines Mieters, betreffen. Eine Zweitwohnung erfüllt die Nutzungsbedingung nicht."
         },
         {
           "q": "Gilt die 3 % MwSt. für Renovierungen?",
-          "a": "Ja, bei Renovierung und Reparatur einer über 20 Jahre alten Wohnung und ohne Altersbedingung bei Wohnraumschaffung durch Umbau (z.B. Umbau eines Geschäftsraums in Wohnraum). Dämm-, Heizungs-, Fenster-, Badarbeiten sind berechtigt. Dekoration und Luxus-Außenausstattung nicht."
+          "a": "Die Steuerverwaltung unterscheidet Renovierung binnen fünf Jahren nach Erwerb unabhängig vom Alter und Renovierung einer mindestens zehn Jahre alten Wohnung. Die Bezeichnung Renovierung allein genügt nicht: Kategorie, Arbeiten und Fristen sind zu prüfen. Möbel, Einbauküchen sowie Notar-, Architekten- und Beratungsingenieurhonorare gehören unter anderem nicht zum Wohnungsmehrwertsteuerregime."
         },
         {
           "q": "Kann die 3 % MwSt. mit Bëllegen Akt und Klimabonus kombiniert werden?",
-          "a": "Ja, die drei Regelungen sind voll kombinierbar. Für einen Erstkäufer in VEFA mit berechtigten energetischen Sanierungsarbeiten können die Gesamteinsparungen 130.000 € überschreiten."
+          "a": "Jede Förderung behält ihre Bedingungen und Obergrenze. Bëllegen Akt betrifft die Abgaben, der Mehrwertsteuervorteil begünstigte Arbeiten. Prüfen Sie andere Hilfen, Termine und Kumulierungsregeln gesondert; dieser Leitfaden berechnet keine automatische Kombination."
         },
         {
-          "q": "Welche maximale Wohnfläche berechtigt zur 3 % MwSt.?",
-          "a": "400 m² Wohnfläche. Darüber hinaus gilt der Normalsatz auf den Überschuss. Keller, nicht ausgebaute Dachböden, nicht angeschlossene Garagen und gewerbliche Teile zählen nicht zur Wohnfläche."
+          "q": "Wie wird eine gemischt genutzte Wohnung behandelt?",
+          "a": "Bei gemischter Nutzung sieht die amtliche Broschüre den Vorteil insgesamt vor, wenn die Hauptwohnfläche mehr als drei Viertel der Gesamtfläche beträgt; bei drei Vierteln oder weniger gilt er anteilig. Prüfen Sie die Einordnung der Wohnung und ihrer Nebenräume. Dieser Leitfaden verwendet keine Flächenobergrenze von 400 m²."
         }
       ],
       "sources": [
         {
-          "title": "Anwendung des super-ermäßigten MwSt.-Satzes — Verfahren",
+          "title": "TVA - Logement (2025)",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/dam-assets/pdf/TVA-logement/brochures/brochure-tva-logement-fr-2025.pdf"
+        },
+        {
+          "title": "TVA Logement",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/tva-logement-ou-taux-super-reduit.html"
+        },
+        {
+          "title": "Verfahren bei der AED",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/construction/aides-construction/taux-tva-super-reduit-logement.html"
-        },
-        {
-          "title": "Artikel 44ter geändertes MwSt.-Gesetz — super-ermäßigter Wohnsatz",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1979/02/12/n1/jo"
-        },
-        {
-          "title": "Großherzogliches Reglement vom 30. Juli 2002 — Anwendungsmodalitäten",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/rgd/2002/07/30/n4/jo",
-          "year": 2002
-        },
-        {
-          "title": "AED-Rundschreiben Nr. 800 — Wohn-MwSt.",
-          "org": "AED",
-          "url": "https://pfi.public.lu/fr.html"
-        },
-        {
-          "title": "eAED-Telefachverfahren — Wohn-MwSt.-Anträge",
-          "org": "AED",
-          "url": "https://eaed.b2g.etat.lu/"
+          "url": "https://guichet.public.lu/fr/citoyens/impots-taxes/bien-immobilier/construction-renovation-bien-immobilier/remboursement-tva-taux-reduit.html"
         }
-      ]
+      ],
+      "section4P1": "Fiktive Beispiele: Die gesamte Nettobasis ist begünstigt, die Nutzung erfüllt die Bedingungen und volle 50.000 EUR sind verfügbar. Grundstück, Honorare und ausgeschlossene Arbeiten sind nicht enthalten. Die Tabelle belegt keine Förderfähigkeit."
     },
     "bailCommercial": {
       "title": "Gewerbemietvertrag Luxemburg: Gesetz 03.02.2018, 9 Jahre",

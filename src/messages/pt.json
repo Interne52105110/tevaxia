@@ -10346,96 +10346,93 @@
     },
     "tva3Pourcent": {
       "title": "IVA habitação 3 % Luxemburgo: condições e procedimento AED 2026",
-      "metaDescription": "TVA habitação LU 2026: taxa super-reduzida 3 %, teto da vantagem fiscal 50 000 € por habitação, superfície máx 400 m², autorização AED prévia obrigatória, VEFA, renovação > 20 anos, exemplos.",
-      "subtitle": "Tudo para ativar a vantagem fiscal TVA 3 % e poupar até 50 000 € na construção, compra ou renovação de uma habitação no Luxemburgo.",
+      "metaDescription": "IVA habitação: benefício de 50 000 EUR, residência principal, criação ou renovação e dois procedimentos. Exemplos verificáveis com limite.",
+      "subtitle": "O IVA habitação aplica-se a obras elegíveis destinadas à residência principal, segundo o regulamento alterado de 30 de julho de 2002. Não é uma redução geral do preço de compra de uma habitação.",
       "category": "Construção & VEFA",
       "essentiel": [
-        "Taxa TVA habitação super-reduzida: 3 % em vez de 17 % (taxa normal LU), diferença de 14 pontos captada como vantagem fiscal.",
-        "Teto da vantagem: 50 000 € de TVA por habitação ao longo da sua vida útil, ou seja cerca de 357 000 € de obras sem TVA beneficiando da taxa reduzida.",
-        "Autorização AED prévia obrigatória antes do início das obras ou assinatura de escritura VEFA.",
-        "Superfície habitável máxima 400 m²; além, taxa de 17 % sobre o excesso.",
-        "Elegível: construção nova, transformação, renovação/reparação de habitação com mais de 20 anos, por sujeito passivo de TVA."
+        "O benefício é limitado a 50 000 EUR por habitação. Com taxas de 17 % e 3 %, a poupança teórica é de 14 % da base elegível sem IVA, limitada ao saldo disponível. O IVA devido é o IVA normal menos esse benefício. Uma mudança de proprietário não implica um novo limite completo: confirme o processo com a administração fiscal.",
+        "Desde 2015, o benefício para criação é reservado à residência principal do proprietário. A criação inclui construção, transformação em habitação e ampliação. A renovação pode também abranger a residência principal de um terceiro, como um inquilino. Uma residência secundária não cumpre a afetação exigida."
       ],
       "section1Title": "Princípio e taxa aplicável",
-      "section1P1": "O Luxemburgo aplica a taxa super-reduzida de TVA de 3 % à construção, transformação e renovação de habitações destinadas à habitação, ao abrigo do artigo 44ter da lei TVA modificada e da circular AED n.º 800. Esta taxa é uma das mais baixas da Europa e uma vantagem fiscal importante face à taxa normal de 17 % em vigor desde 2024 (anteriormente 16 % em 2023, 17 % normal fora de medidas temporárias).",
-      "section1P2": "O mecanismo é uma vantagem fiscal: a TVA é faturada a 3 % em vez de 17 %, ou seja uma poupança de 14 pontos de TVA. Esta vantagem está limitada a 50 000 € de TVA por habitação, o que corresponde a cerca de 357 000 € de obras sem TVA beneficiando da taxa reduzida. Além, aplica-se a taxa normal de 17 % sobre o excesso.",
-      "callout1Title": "Superfície habitável limitada a 400 m²",
-      "callout1Body": "A superfície habitável da habitação beneficiária não pode exceder 400 m². Além, a taxa de 3 % aplica-se proporcionalmente apenas dentro do limite (em 400 m²). Caves, sótãos não convertidos, garagens não anexas e partes comerciais são excluídas do cálculo da superfície habitável.",
+      "section1P1": "O IVA habitação aplica-se a obras elegíveis destinadas à residência principal, segundo o regulamento alterado de 30 de julho de 2002. Não é uma redução geral do preço de compra de uma habitação.",
+      "section1P2": "O benefício é limitado a 50 000 EUR por habitação. Com taxas de 17 % e 3 %, a poupança teórica é de 14 % da base elegível sem IVA, limitada ao saldo disponível. O IVA devido é o IVA normal menos esse benefício. Uma mudança de proprietário não implica um novo limite completo: confirme o processo com a administração fiscal.",
+      "callout1Title": "Residência principal e utilização mista",
+      "callout1Body": "Na utilização mista, a brochura oficial prevê o benefício integral quando a área de residência principal excede três quartos da área total; a três quartos ou menos, aplica-se proporcionalmente. Verifique a qualificação da habitação e dos espaços acessórios. Este guia não aplica um limite de superfície de 400 m².",
       "section2Title": "Condições de elegibilidade",
-      "section2P1": "O bem deve ser afeto à habitação: residência principal, residência secundária ocupada pelo adquirente, ou habitação alugada a um inquilino que aí estabelece a sua residência. A habitação deve permanecer afeta à habitação durante pelo menos dois anos após a entrega ou conclusão, sob pena de revogação da vantagem. Para a renovação, a habitação deve ter mais de 20 anos (exceto criação de habitação por transformação, sem condição de idade).",
-      "section2P2": "Elegíveis: construção nova, transformação de um local em habitação (criação de habitação), renovação e reparação de uma habitação com mais de 20 anos (incluindo estrutura, acabamentos, isolamento, aquecimento, janelas, casa de banho). Excluídos: locais comerciais ou de escritórios, garagens não anexas, piscinas, courts de ténis, abrigos de jardim, dependências de luxo e arranjos de jardim paisagístico.",
+      "section2P1": "Desde 2015, o benefício para criação é reservado à residência principal do proprietário. A criação inclui construção, transformação em habitação e ampliação. A renovação pode também abranger a residência principal de um terceiro, como um inquilino. Uma residência secundária não cumpre a afetação exigida.",
+      "section2P2": "A administração distingue renovação nos cinco anos após a aquisição, independentemente da idade, e renovação de habitação com pelo menos dez anos. A designação renovação não basta: verifique categoria, obras e prazos. Móveis, cozinhas equipadas e honorários de notário, arquiteto ou engenheiro-consultor figuram entre as exclusões do regime IVA habitação. A utilização e a ocupação devem respeitar as condições. A brochura prevê, nomeadamente, afetação à residência principal nos dois anos após a conclusão e dois anos de ocupação. Uma utilização incompatível pode levar à restituição do benefício com juros legais.",
       "callout2Title": "Cumulação com Bëllegen Akt e Klimabonus",
-      "callout2Body": "A TVA habitação a 3 % cumula-se totalmente com o Bëllegen Akt (40 000 € por comprador sobre os direitos de registo) e com os apoios Klimabonus para renovação energética. Para um primo-comprador em VEFA, a poupança cumulada pode exceder 130 000 €.",
+      "callout2Body": "Cada apoio mantém as suas condições e limite. O Bëllegen Akt incide nos impostos, o benefício de IVA nas obras elegíveis. Verifique separadamente outros apoios, prazos e regras de acumulação; este guia não calcula uma elegibilidade conjunta automática.",
       "section3Title": "Procedimento junto da AED",
-      "section3P1": "A autorização deve ser pedida à Administração do Registo, Domínios e TVA (AED) ANTES do início das obras ou da assinatura da escritura VEFA. O formulário (disponível em guichet.lu) é acompanhado das plantas da habitação, da licença de construção ou de urbanismo e de uma estimativa orçamental das obras. A AED emite uma decisão de aprovação especificando o montante máximo de TVA elegível para a taxa reduzida (teto 50 000 €).",
-      "section3P2": "Para uma VEFA, o promotor fatura diretamente a TVA a 3 % sobre a parte habitacional, após obtenção da aprovação. Para um construtor individual ou dono de obra, existem duas modalidades: faturação direta a 3 % pelos artesãos (se detiverem a aprovação) ou faturação a 17 % depois reembolso da diferença pela AED contra apresentação das faturas. O pedido de reembolso é feito via teleprocedimentos eAED.",
+      "section3P1": "Aplicação direta: fornecedor e proprietário pedem aprovação antes do início das obras abrangidas, com orçamento de pelo menos 3 000 EUR sem IVA. O pedido descreve habitação, utilização e obras; após aprovação, o fornecedor fatura as obras autorizadas a 3 %. O depósito online usa o espaço profissional do fornecedor com mandato do proprietário.",
+      "section3P2": "Reembolso: após as obras, o proprietário pede a diferença sobre despesas elegíveis faturadas à taxa normal, com faturas detalhadas e provas de pagamento. Cada fatura deve atingir 1 250 EUR sem IVA e o pedido 3 000 EUR sem IVA. A brochura indica pelo menos seis meses entre pedidos e prescrição de cinco anos a partir de 31 de dezembro do ano correspondente. Esta via é distinta da aprovação prévia.",
       "section4Title": "Exemplos calculados",
-      "section4Intro": "Efeito da vantagem TVA 3 % em projetos típicos. O cálculo compara o custo TTC a 17 % (normal) e a 3 % (vantagem).",
+      "section4Intro": "Exemplos fictícios: toda a base sem IVA é elegível, a utilização cumpre as condições e o benefício de 50 000 EUR está integralmente disponível. Não se incluem terreno, honorários ou obras excluídas. A tabela não determina elegibilidade.",
       "table": {
-        "caption": "Poupança realizada com a TVA habitação 3 %",
+        "caption": "IVA após aplicação do limite do benefício",
         "headers": [
-          "Projeto",
-          "Sem IVA",
-          "TVA 17 %",
-          "TVA 3 %",
-          "Poupança"
+          "Base elegível sem IVA",
+          "IVA normal",
+          "Benefício aplicado",
+          "IVA devido",
+          "Custo total"
         ],
         "rows": [
           [
-            "Renovação casa de banho",
-            "30 000 €",
-            "5 100 €",
-            "900 €",
-            "4 200 €"
+            "30 000 EUR",
+            "5 100 EUR",
+            "4 200 EUR",
+            "900 EUR",
+            "30 900 EUR"
           ],
           [
-            "Renovação pesada apartamento",
-            "100 000 €",
-            "17 000 €",
-            "3 000 €",
-            "14 000 €"
+            "100 000 EUR",
+            "17 000 EUR",
+            "14 000 EUR",
+            "3 000 EUR",
+            "103 000 EUR"
           ],
           [
-            "Construção nova",
-            "300 000 €",
-            "51 000 €",
-            "9 000 €",
-            "42 000 €"
+            "300 000 EUR",
+            "51 000 EUR",
+            "42 000 EUR",
+            "9 000 EUR",
+            "309 000 EUR"
           ],
           [
-            "Construção topo de gama",
-            "400 000 €",
-            "68 000 €",
-            "12 000 €",
-            "50 000 €"
+            "400 000 EUR",
+            "68 000 EUR",
+            "50 000 EUR",
+            "18 000 EUR",
+            "418 000 EUR"
           ],
           [
-            "Construção além do teto",
-            "500 000 €",
-            "85 000 €",
-            "27 000 €",
-            "50 000 €"
+            "500 000 EUR",
+            "85 000 EUR",
+            "50 000 EUR",
+            "35 000 EUR",
+            "535 000 EUR"
           ]
         ],
-        "footnote": "A poupança corresponde à diferença entre TVA 17 % e TVA 3 %, limitada a 50 000 € por habitação."
+        "footnote": "Benefício = menor valor entre 14 % da base e 50 000 EUR disponíveis; IVA devido = 17 % da base menos benefício; total = base + IVA devido. Um limite já parcialmente consumido aumenta o IVA."
       },
-      "callout3Title": "Caso concreto: VEFA a 600 000 €",
-      "callout3Body": "Um casal compra um apartamento novo VEFA por 600 000 € sem IVA (terreno 150 000 €, construção 450 000 €). Sobre a parte construção, TVA 3 % em vez de 17 % = poupança de 50 000 € (teto atingido). Sobre a parte terreno, direitos de registo 7 % integralmente compensados pelo Bëllegen Akt casal. Vantagem fiscal total: cerca de 81 000 € (TVA + Bëllegen Akt).",
+      "callout3Title": "Exemplo: 400 000 EUR de obras elegíveis sem IVA",
+      "callout3Body": "IVA normal: 68 000 EUR. Diferença teórica: 56 000 EUR, limitada a 50 000 EUR. IVA devido: 18 000 EUR; custo total: 418 000 EUR. Não corresponde a 3 % de todo o preço e não inclui outro benefício fiscal.",
       "inlineCalc": {
         "title": "Simule a sua VEFA com a TVA habitação 3 %",
-        "description": "O nosso simulador VEFA decompõe terreno/construção, calcula a TVA habitação a 3 % com teto de 50 000 €, adiciona o Bëllegen Akt sobre a parte terreno e dá o custo total real.",
+        "description": "VEFA: introduza apenas o preço sem IVA. Este modo pressupõe nenhuma construção realizada na escritura, construção totalmente elegível e benefício de IVA de 50.000 € ainda disponível para habitação própria. Projetos iniciados ou benefícios já usados exigem cálculo individual.",
         "cta": "Iniciar a simulação VEFA"
       },
       "tools": [
         {
           "href": "/vefa",
           "title": "Simulador VEFA",
-          "description": "Decomposição terreno / construção e TVA habitação 3 % automatizada."
+          "description": "VEFA: introduza apenas o preço sem IVA. Este modo pressupõe nenhuma construção realizada na escritura, construção totalmente elegível e benefício de IVA de 50.000 € ainda disponível para habitação própria. Projetos iniciados ou benefícios já usados exigem cálculo individual."
         },
         {
           "href": "/frais-acquisition",
           "title": "Custos de aquisição",
-          "description": "Cálculo global com TVA, direitos, Bëllegen Akt e hipoteca."
+          "description": "Estimativa parcial segundo regras documentadas. Crédito limitado a 40.000 €, confirmado pela lei de 3 de julho de 2025. O aumento para 45.000 € anunciado em julho de 2026 não está incluído sem confirmação da entrada em vigor."
         },
         {
           "href": "/estimateur-construction",
@@ -10445,63 +10442,53 @@
         {
           "href": "/simulateur-aides",
           "title": "Apoios à aquisição",
-          "description": "Cumulação TVA 3 %, Bëllegen Akt, Klimabonus e prémios."
+          "description": "Cada apoio mantém as suas condições e limite. O Bëllegen Akt incide nos impostos, o benefício de IVA nas obras elegíveis. Verifique separadamente outros apoios, prazos e regras de acumulação; este guia não calcula uma elegibilidade conjunta automática."
         }
       ],
       "faq": [
         {
           "q": "Qual é o teto da vantagem TVA a 3 % no Luxemburgo?",
-          "a": "O teto da vantagem é de 50 000 € de TVA por habitação ao longo da sua vida útil. Corresponde a cerca de 357 000 € de obras sem TVA beneficiando da taxa reduzida. Além, aplica-se a taxa normal de 17 % sobre o excesso."
+          "a": "O benefício é limitado a 50 000 EUR por habitação. Com taxas de 17 % e 3 %, a poupança teórica é de 14 % da base elegível sem IVA, limitada ao saldo disponível. O IVA devido é o IVA normal menos esse benefício. Uma mudança de proprietário não implica um novo limite completo: confirme o processo com a administração fiscal."
         },
         {
           "q": "É necessária autorização prévia para a TVA a 3 %?",
-          "a": "Sim. Um pedido prévio deve ser dirigido à AED antes de qualquer início de obras ou assinatura de escritura VEFA. O formulário está disponível em guichet.lu e deve incluir plantas, licença e estimativa orçamental."
+          "a": "Aplicação direta: fornecedor e proprietário pedem aprovação antes do início das obras abrangidas, com orçamento de pelo menos 3 000 EUR sem IVA. O pedido descreve habitação, utilização e obras; após aprovação, o fornecedor fatura as obras autorizadas a 3 %. O depósito online usa o espaço profissional do fornecedor com mandato do proprietário. Reembolso: após as obras, o proprietário pede a diferença sobre despesas elegíveis faturadas à taxa normal, com faturas detalhadas e provas de pagamento. Cada fatura deve atingir 1 250 EUR sem IVA e o pedido 3 000 EUR sem IVA. A brochura indica pelo menos seis meses entre pedidos e prescrição de cinco anos a partir de 31 de dezembro do ano correspondente. Esta via é distinta da aprovação prévia."
         },
         {
           "q": "A TVA a 3 % aplica-se a um investimento de arrendamento?",
-          "a": "Sim, desde que o inquilino afete a habitação à sua residência (ocupação efetiva). O bem deve permanecer arrendado para habitação durante pelo menos dois anos após a entrega, sob pena de revogação da vantagem."
+          "a": "Desde 2015, o benefício para criação é reservado à residência principal do proprietário. A criação inclui construção, transformação em habitação e ampliação. A renovação pode também abranger a residência principal de um terceiro, como um inquilino. Uma residência secundária não cumpre a afetação exigida."
         },
         {
           "q": "A TVA a 3 % aplica-se à renovação?",
-          "a": "Sim, na renovação e reparação de uma habitação com mais de 20 anos, e sem condição de idade para a criação de habitação por transformação (ex.: transformação de um local comercial em habitação). Obras de isolamento, aquecimento, janelas, casa de banho são elegíveis. Decoração e equipamentos de luxo exteriores não."
+          "a": "A administração distingue renovação nos cinco anos após a aquisição, independentemente da idade, e renovação de habitação com pelo menos dez anos. A designação renovação não basta: verifique categoria, obras e prazos. Móveis, cozinhas equipadas e honorários de notário, arquiteto ou engenheiro-consultor figuram entre as exclusões do regime IVA habitação."
         },
         {
           "q": "Pode-se cumular a TVA a 3 % com o Bëllegen Akt e o Klimabonus?",
-          "a": "Sim, os três regimes cumulam-se totalmente. Para um primo-comprador em VEFA realizando obras de renovação energética elegíveis, a poupança total pode exceder 130 000 €."
+          "a": "Cada apoio mantém as suas condições e limite. O Bëllegen Akt incide nos impostos, o benefício de IVA nas obras elegíveis. Verifique separadamente outros apoios, prazos e regras de acumulação; este guia não calcula uma elegibilidade conjunta automática."
         },
         {
-          "q": "Qual é a superfície habitável máxima que dá direito à TVA 3 %?",
-          "a": "400 m² de superfície habitável. Além, a taxa normal aplica-se ao excesso. Caves, sótãos não convertidos, garagens não anexas e partes comerciais não contam na superfície habitável."
+          "q": "Como tratar uma habitação de utilização mista?",
+          "a": "Na utilização mista, a brochura oficial prevê o benefício integral quando a área de residência principal excede três quartos da área total; a três quartos ou menos, aplica-se proporcionalmente. Verifique a qualificação da habitação e dos espaços acessórios. Este guia não aplica um limite de superfície de 400 m²."
         }
       ],
       "sources": [
         {
-          "title": "Aplicação da taxa super-reduzida de TVA — procedimento",
+          "title": "TVA - Logement (2025)",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/dam-assets/pdf/TVA-logement/brochures/brochure-tva-logement-fr-2025.pdf"
+        },
+        {
+          "title": "TVA Logement",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/tva-logement-ou-taux-super-reduit.html"
+        },
+        {
+          "title": "Procedimento junto da AED",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/construction/aides-construction/taux-tva-super-reduit-logement.html"
-        },
-        {
-          "title": "Artigo 44ter lei TVA modificada — taxa super-reduzida habitação",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1979/02/12/n1/jo"
-        },
-        {
-          "title": "Regulamento Grão-Ducal de 30 de julho de 2002 — modalidades de aplicação",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/rgd/2002/07/30/n4/jo",
-          "year": 2002
-        },
-        {
-          "title": "Circular AED n.º 800 — TVA habitação",
-          "org": "AED",
-          "url": "https://pfi.public.lu/fr.html"
-        },
-        {
-          "title": "Teleprocedimentos eAED — pedidos TVA habitação",
-          "org": "AED",
-          "url": "https://eaed.b2g.etat.lu/"
+          "url": "https://guichet.public.lu/fr/citoyens/impots-taxes/bien-immobilier/construction-renovation-bien-immobilier/remboursement-tva-taux-reduit.html"
         }
-      ]
+      ],
+      "section4P1": "Exemplos fictícios: toda a base sem IVA é elegível, a utilização cumpre as condições e o benefício de 50 000 EUR está integralmente disponível. Não se incluem terreno, honorários ou obras excluídas. A tabela não determina elegibilidade."
     },
     "bailCommercial": {
       "title": "Arrendamento comercial Luxemburgo: lei 03.02.2018, 9 anos",

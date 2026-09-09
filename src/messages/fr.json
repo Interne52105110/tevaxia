@@ -10468,96 +10468,93 @@
     },
     "tva3Pourcent": {
       "title": "TVA logement 3 % Luxembourg : conditions et démarche AED 2026",
-      "metaDescription": "TVA logement LU 2026 : taux super-réduit 3 %, plafond avantage fiscal 50 000 € par logement, surface max 400 m², autorisation AED préalable, VEFA, rénovation > 20 ans, exemples chiffrés.",
-      "subtitle": "Tout pour activer la faveur fiscale TVA 3 % et économiser jusqu'à 50 000 € sur la construction, l'achat ou la rénovation d'un logement au Luxembourg.",
+      "metaDescription": "TVA logement : avantage de 50 000 EUR, habitation principale, création ou rénovation et deux procédures AED. Exemples plafonnés vérifiables.",
+      "subtitle": "La TVA logement concerne des travaux éligibles affectés à l’habitation principale, selon le règlement grand-ducal modifié du 30 juillet 2002. Elle ne constitue pas une réduction générale du prix d’achat d’un logement.",
       "category": "Construction & VEFA",
       "essentiel": [
-        "Taux TVA logement super-réduit : 3 % au lieu de 17 % (taux normal LU), différence de 14 points captée comme faveur fiscale.",
-        "Plafond de la faveur : 50 000 € de TVA par logement sur sa durée de vie, soit environ 357 000 € de travaux HT bénéficiant du taux réduit.",
-        "Autorisation préalable de l'AED obligatoire avant tout début de travaux ou signature d'acte VEFA.",
-        "Surface habitable maximale 400 m² ; au-delà, taux 17 % sur l'excédent.",
-        "Eligible : construction neuve, transformation, rénovation/réparation d'un logement de plus de 20 ans, par un assujetti TVA."
+        "L’avantage est limité à 50 000 EUR par logement. Avec des taux de 17 % et 3 %, le gain théorique est de 14 % de la base HT éligible, limité au solde encore disponible. La TVA à payer est donc la TVA normale moins cet avantage. Un changement de propriétaire ne permet pas de supposer le plafond intégral à nouveau disponible : vérifiez le dossier auprès de l’AED.",
+        "Depuis 2015, la faveur pour la création est réservée à l’habitation principale du propriétaire. La création comprend notamment la construction, la transformation en logement et l’agrandissement. La rénovation peut aussi concerner l’habitation principale d’un tiers, comme un locataire. Une résidence secondaire ne remplit pas l’affectation requise."
       ],
       "section1Title": "Principe et taux applicable",
-      "section1P1": "Le Luxembourg applique le taux super-réduit de TVA de 3 % à la construction, transformation et rénovation de logements destinés à l'habitation, en vertu de l'article 44ter de la loi TVA modifiée et de la circulaire AED n° 800. Ce taux est l'un des plus faibles d'Europe et constitue un avantage fiscal majeur par rapport au taux normal de 17 % en vigueur depuis 2024 (anciennement 16 % en 2023, 17 % normal hors mesures temporaires).",
-      "section1P2": "Le mécanisme prend la forme d'une faveur fiscale : la TVA est facturée à 3 % au lieu de 17 %, soit une économie de 14 points de TVA. Cette faveur est plafonnée à 50 000 € de TVA par logement, ce qui correspond à environ 357 000 € de travaux HT bénéficiant du taux réduit. Au-delà, le taux normal de 17 % s'applique sur le surplus.",
-      "callout1Title": "Surface habitable plafonnée à 400 m²",
-      "callout1Body": "La surface habitable du logement bénéficiaire ne doit pas excéder 400 m². Au-delà, le taux 3 % ne s'applique qu'au prorata de la surface dans la limite (sur 400 m²). Caves, greniers non aménagés, garages non attenants et parties commerciales sont exclus du calcul de la surface habitable.",
+      "section1P1": "La TVA logement concerne des travaux éligibles affectés à l’habitation principale, selon le règlement grand-ducal modifié du 30 juillet 2002. Elle ne constitue pas une réduction générale du prix d’achat d’un logement.",
+      "section1P2": "L’avantage est limité à 50 000 EUR par logement. Avec des taux de 17 % et 3 %, le gain théorique est de 14 % de la base HT éligible, limité au solde encore disponible. La TVA à payer est donc la TVA normale moins cet avantage. Un changement de propriétaire ne permet pas de supposer le plafond intégral à nouveau disponible : vérifiez le dossier auprès de l’AED.",
+      "callout1Title": "Affectation à l’habitation principale et usage mixte",
+      "callout1Body": "Pour un usage mixte, la brochure AED prévoit la faveur sur l’ensemble lorsque la surface réservée à l’habitation principale dépasse trois quarts de la surface totale ; à trois quarts ou moins, elle est proportionnelle à la partie concernée. Vérifiez la qualification du logement et de ses accessoires. Aucun plafond de surface de 400 m² n’est retenu dans ce guide.",
       "section2Title": "Conditions d'éligibilité",
-      "section2P1": "Le bien doit être affecté à l'habitation : résidence principale, résidence secondaire occupée par l'acquéreur, ou logement loué à un locataire qui y établit sa résidence. Le logement doit rester affecté à l'habitation pendant au moins deux ans après la livraison ou l'achèvement, sous peine de remise en cause de la faveur. Pour la rénovation, le logement doit avoir plus de 20 ans (sauf création de logement par transformation, sans condition d'âge).",
-      "section2P2": "Sont éligibles : la construction neuve, la transformation d'un local en logement (création de logement), la rénovation et la réparation d'un logement de plus de 20 ans (incluant gros œuvre, second œuvre, isolation, chauffage, fenêtres, salle de bain). Sont exclus : les locaux commerciaux ou de bureaux, les garages non attenants au logement, les piscines, courts de tennis, abris de jardin, dépendances de luxe, et l'aménagement de jardins paysagers.",
+      "section2P1": "Depuis 2015, la faveur pour la création est réservée à l’habitation principale du propriétaire. La création comprend notamment la construction, la transformation en logement et l’agrandissement. La rénovation peut aussi concerner l’habitation principale d’un tiers, comme un locataire. Une résidence secondaire ne remplit pas l’affectation requise.",
+      "section2P2": "La brochure AED distingue la rénovation dans les cinq ans suivant l’acquisition, indépendamment de l’âge, et celle d’un logement âgé d’au moins dix ans. Le seul mot « rénovation » ne suffit pas : vérifiez catégorie, travaux et délais applicables. Les meubles, cuisines équipées et honoraires de notaire, d’architecte ou d’ingénieur-conseil sont notamment exclus du régime TVA logement. L’affectation et l’occupation doivent être maintenues selon les conditions du régime. La brochure prévoit notamment une affectation à l’habitation principale dans les deux ans après l’achèvement et deux ans d’occupation. Une utilisation non conforme peut entraîner restitution de l’avantage et intérêts légaux.",
       "callout2Title": "Cumul avec le Bëllegen Akt et le Klimabonus",
-      "callout2Body": "La TVA logement à 3 % se cumule pleinement avec le Bëllegen Akt (40 000 € par acquéreur sur les droits d'enregistrement) et avec les aides Klimabonus pour la rénovation énergétique. Pour un primo-accédant achetant en VEFA, l'économie cumulée peut dépasser 130 000 €.",
+      "callout2Body": "Chaque dispositif conserve ses conditions et son propre plafond. Le Bëllegen Akt porte sur les droits, la faveur TVA sur les travaux éligibles. Vérifiez séparément les autres aides, leur calendrier et leurs règles de cumul ; aucun cumul automatique n’est calculé dans ce guide.",
       "section3Title": "Démarche auprès de l'AED",
-      "section3P1": "L'autorisation doit être demandée à l'Administration de l'enregistrement, des domaines et de la TVA (AED) AVANT le début des travaux ou la signature de l'acte d'acquisition VEFA. Le formulaire (disponible sur guichet.lu) est accompagné des plans du logement, du permis de construire ou d'urbanisme, et d'une estimation chiffrée des travaux. L'AED délivre une décision d'agrément précisant le montant maximum de TVA pouvant bénéficier du taux réduit (plafond 50 000 €).",
-      "section3P2": "Pour une VEFA, le promoteur facture directement la TVA à 3 % sur la part logement, après obtention de l'agrément. Pour un constructeur individuel ou maître d'ouvrage, deux modalités existent : facturation directe à 3 % par les artisans (s'ils détiennent l'agrément) ou facturation à 17 % puis remboursement de la différence par l'AED sur présentation des factures. La demande de remboursement se fait via les téléprocédures eAED.",
+      "section3P1": "Application directe : le fournisseur et le propriétaire demandent l’agrément avant le commencement des travaux concernés, pour un devis d’au moins 3 000 EUR HT. La demande décrit le logement, l’affectation et les travaux ; après accord, le fournisseur facture les travaux autorisés à 3 %. Le dépôt en ligne passe par l’espace professionnel du fournisseur avec mandat du propriétaire.",
+      "section3P2": "Remboursement : le propriétaire demande après travaux la différence sur les dépenses éligibles facturées au taux normal, avec factures détaillées et preuves de paiement. Chaque facture doit atteindre 1 250 EUR HT et la demande 3 000 EUR HT. La brochure indique un intervalle d’au moins six mois entre demandes et une prescription de cinq ans à compter du 31 décembre de l’année concernée. Cette voie est distincte de l’agrément préalable.",
       "section4Title": "Exemples chiffrés",
-      "section4Intro": "Effet de la faveur TVA 3 % sur des projets typiques. Le calcul compare le coût TTC à 17 % (taux normal) et à 3 % (faveur).",
+      "section4Intro": "Exemples fictifs : toute la base HT est éligible, affectation conforme et avantage de 50 000 EUR intégralement disponible. Aucun terrain, honoraire ni travail exclu dans ces montants. Ce tableau ne détermine pas l’éligibilité.",
       "table": {
-        "caption": "Économie réalisée grâce à la TVA logement 3 %",
+        "caption": "TVA après plafonnement de l’avantage",
         "headers": [
-          "Projet",
-          "HT",
-          "TVA 17 %",
-          "TVA 3 %",
-          "Économie"
+          "Base HT éligible",
+          "TVA normale",
+          "Avantage retenu",
+          "TVA due",
+          "Coût TTC"
         ],
         "rows": [
           [
-            "Rénovation salle de bain",
-            "30 000 €",
-            "5 100 €",
-            "900 €",
-            "4 200 €"
+            "30 000 EUR",
+            "5 100 EUR",
+            "4 200 EUR",
+            "900 EUR",
+            "30 900 EUR"
           ],
           [
-            "Rénovation lourde appartement",
-            "100 000 €",
-            "17 000 €",
-            "3 000 €",
-            "14 000 €"
+            "100 000 EUR",
+            "17 000 EUR",
+            "14 000 EUR",
+            "3 000 EUR",
+            "103 000 EUR"
           ],
           [
-            "Construction neuve",
-            "300 000 €",
-            "51 000 €",
-            "9 000 €",
-            "42 000 €"
+            "300 000 EUR",
+            "51 000 EUR",
+            "42 000 EUR",
+            "9 000 EUR",
+            "309 000 EUR"
           ],
           [
-            "Construction haut de gamme",
-            "400 000 €",
-            "68 000 €",
-            "12 000 €",
-            "50 000 €"
+            "400 000 EUR",
+            "68 000 EUR",
+            "50 000 EUR",
+            "18 000 EUR",
+            "418 000 EUR"
           ],
           [
-            "Construction au-delà du plafond",
-            "500 000 €",
-            "85 000 €",
-            "27 000 €",
-            "50 000 €"
+            "500 000 EUR",
+            "85 000 EUR",
+            "50 000 EUR",
+            "35 000 EUR",
+            "535 000 EUR"
           ]
         ],
-        "footnote": "L'économie correspond à la différence entre TVA 17 % et TVA 3 %, plafonnée à 50 000 € par logement."
+        "footnote": "Avantage = minimum entre 14 % du HT et 50 000 EUR disponibles ; TVA due = 17 % du HT moins l’avantage ; TTC = HT + TVA due. Si une partie du plafond est consommée, la TVA augmente."
       },
-      "callout3Title": "Cas concret : VEFA à 600 000 €",
-      "callout3Body": "Un couple achète un appartement neuf VEFA pour 600 000 € HT (part terrain 150 000 €, part construction 450 000 €). Sur la part construction, TVA 3 % au lieu de 17 % = économie de 50 000 € (plafond atteint). Sur la part terrain, droits d'enregistrement 7 % entièrement compensés par le Bëllegen Akt couple. Total faveur fiscale : environ 81 000 € (TVA + Bëllegen Akt).",
+      "callout3Title": "Exemple : 400 000 EUR HT de travaux éligibles",
+      "callout3Body": "TVA normale : 68 000 EUR. Différence théorique : 56 000 EUR, limitée à 50 000 EUR. TVA due : 18 000 EUR ; coût TTC : 418 000 EUR. Ce résultat n’est pas 3 % de tout le prix et ne comprend aucun autre avantage fiscal.",
       "inlineCalc": {
         "title": "Simulez votre VEFA avec la TVA logement 3 %",
-        "description": "Notre simulateur VEFA décompose terrain/construction, calcule la TVA logement à 3 % avec plafond 50 000 €, ajoute le Bëllegen Akt sur la part terrain et donne le coût total réel.",
+        "description": "VEFA : saisir exclusivement le prix hors TVA. Ce mode suppose aucune construction déjà réalisée à l’acte, toute la construction éligible et un avantage TVA de 50 000 € encore disponible pour l’habitation personnelle. Un projet déjà commencé ou un avantage déjà consommé nécessite un décompte spécifique.",
         "cta": "Lancer la simulation VEFA"
       },
       "tools": [
         {
           "href": "/vefa",
           "title": "Simulateur VEFA",
-          "description": "Décomposition terrain / construction et TVA logement 3 % automatisée."
+          "description": "VEFA : saisir exclusivement le prix hors TVA. Ce mode suppose aucune construction déjà réalisée à l’acte, toute la construction éligible et un avantage TVA de 50 000 € encore disponible pour l’habitation personnelle. Un projet déjà commencé ou un avantage déjà consommé nécessite un décompte spécifique."
         },
         {
           "href": "/frais-acquisition",
           "title": "Frais d'acquisition",
-          "description": "Calcul global avec TVA, droits, Bëllegen Akt et hypothèque."
+          "description": "Estimation partielle des frais selon les règles documentées. Le crédit est calculé sur un plafond de 40 000 € confirmé par la loi du 3 juillet 2025. La hausse à 45 000 € annoncée en juillet 2026 n’est pas intégrée sans confirmation de son entrée en vigueur."
         },
         {
           "href": "/estimateur-construction",
@@ -10567,63 +10564,53 @@
         {
           "href": "/simulateur-aides",
           "title": "Aides à l'acquisition",
-          "description": "Cumul TVA 3 %, Bëllegen Akt, Klimabonus et primes."
+          "description": "Chaque dispositif conserve ses conditions et son propre plafond. Le Bëllegen Akt porte sur les droits, la faveur TVA sur les travaux éligibles. Vérifiez séparément les autres aides, leur calendrier et leurs règles de cumul ; aucun cumul automatique n’est calculé dans ce guide."
         }
       ],
       "faq": [
         {
           "q": "Quel est le plafond de l'avantage TVA à 3 % au Luxembourg ?",
-          "a": "Le plafond de la faveur est de 50 000 € de TVA par logement sur sa durée de vie. Cela correspond à environ 357 000 € de travaux HT bénéficiant du taux réduit. Au-delà, le taux normal de 17 % s'applique sur le surplus."
+          "a": "L’avantage est limité à 50 000 EUR par logement. Avec des taux de 17 % et 3 %, le gain théorique est de 14 % de la base HT éligible, limité au solde encore disponible. La TVA à payer est donc la TVA normale moins cet avantage. Un changement de propriétaire ne permet pas de supposer le plafond intégral à nouveau disponible : vérifiez le dossier auprès de l’AED."
         },
         {
           "q": "Faut-il une autorisation préalable pour la TVA à 3 % ?",
-          "a": "Oui. Une demande préalable doit être adressée à l'AED avant tout début de travaux ou signature d'acte d'acquisition VEFA. Le formulaire est disponible sur guichet.lu et doit être accompagné des plans, du permis et d'une estimation chiffrée."
+          "a": "Application directe : le fournisseur et le propriétaire demandent l’agrément avant le commencement des travaux concernés, pour un devis d’au moins 3 000 EUR HT. La demande décrit le logement, l’affectation et les travaux ; après accord, le fournisseur facture les travaux autorisés à 3 %. Le dépôt en ligne passe par l’espace professionnel du fournisseur avec mandat du propriétaire. Remboursement : le propriétaire demande après travaux la différence sur les dépenses éligibles facturées au taux normal, avec factures détaillées et preuves de paiement. Chaque facture doit atteindre 1 250 EUR HT et la demande 3 000 EUR HT. La brochure indique un intervalle d’au moins six mois entre demandes et une prescription de cinq ans à compter du 31 décembre de l’année concernée. Cette voie est distincte de l’agrément préalable."
         },
         {
           "q": "La TVA à 3 % s'applique-t-elle à un investissement locatif ?",
-          "a": "Oui, à condition que le locataire affecte le logement à sa résidence (occupation effective). Le bien doit rester loué en habitation pendant au moins deux ans après la livraison, sous peine de remise en cause de la faveur."
+          "a": "Depuis 2015, la faveur pour la création est réservée à l’habitation principale du propriétaire. La création comprend notamment la construction, la transformation en logement et l’agrandissement. La rénovation peut aussi concerner l’habitation principale d’un tiers, comme un locataire. Une résidence secondaire ne remplit pas l’affectation requise."
         },
         {
           "q": "La TVA à 3 % s'applique-t-elle à la rénovation ?",
-          "a": "Oui, sur la rénovation et la réparation d'un logement de plus de 20 ans, et sans condition d'âge pour la création de logement par transformation (ex. : transformation d'un local commercial en habitation). Travaux d'isolation, chauffage, fenêtres, salle de bain sont éligibles. Pas la décoration ni les équipements de luxe extérieurs."
+          "a": "La brochure AED distingue la rénovation dans les cinq ans suivant l’acquisition, indépendamment de l’âge, et celle d’un logement âgé d’au moins dix ans. Le seul mot « rénovation » ne suffit pas : vérifiez catégorie, travaux et délais applicables. Les meubles, cuisines équipées et honoraires de notaire, d’architecte ou d’ingénieur-conseil sont notamment exclus du régime TVA logement."
         },
         {
           "q": "Peut-on cumuler la TVA à 3 % avec le Bëllegen Akt et le Klimabonus ?",
-          "a": "Oui, les trois dispositifs sont pleinement cumulables. Pour un primo-accédant en VEFA réalisant des travaux de rénovation énergétique éligibles, l'économie totale peut dépasser 130 000 €."
+          "a": "Chaque dispositif conserve ses conditions et son propre plafond. Le Bëllegen Akt porte sur les droits, la faveur TVA sur les travaux éligibles. Vérifiez séparément les autres aides, leur calendrier et leurs règles de cumul ; aucun cumul automatique n’est calculé dans ce guide."
         },
         {
-          "q": "Quelle surface habitable maximale ouvre droit à la TVA 3 % ?",
-          "a": "400 m² de surface habitable. Au-delà, le taux normal s'applique sur l'excédent. Caves, greniers non aménagés, garages non attenants et parties commerciales ne sont pas comptés dans la surface habitable."
+          "q": "Comment traiter un logement à usage mixte ?",
+          "a": "Pour un usage mixte, la brochure AED prévoit la faveur sur l’ensemble lorsque la surface réservée à l’habitation principale dépasse trois quarts de la surface totale ; à trois quarts ou moins, elle est proportionnelle à la partie concernée. Vérifiez la qualification du logement et de ses accessoires. Aucun plafond de surface de 400 m² n’est retenu dans ce guide."
         }
       ],
       "sources": [
         {
-          "title": "Application du taux super-réduit de TVA — démarche",
+          "title": "TVA - Logement (2025)",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/dam-assets/pdf/TVA-logement/brochures/brochure-tva-logement-fr-2025.pdf"
+        },
+        {
+          "title": "TVA Logement",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/tva-logement-ou-taux-super-reduit.html"
+        },
+        {
+          "title": "Démarche auprès de l'AED",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/logement/construction/aides-construction/taux-tva-super-reduit-logement.html"
-        },
-        {
-          "title": "Article 44ter loi TVA modifiée — taux super-réduit logement",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1979/02/12/n1/jo"
-        },
-        {
-          "title": "Règlement grand-ducal du 30 juillet 2002 — modalités d'application",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/rgd/2002/07/30/n4/jo",
-          "year": 2002
-        },
-        {
-          "title": "Circulaire AED n° 800 — TVA logement",
-          "org": "AED",
-          "url": "https://pfi.public.lu/fr.html"
-        },
-        {
-          "title": "Téléprocédures eAED — demandes TVA logement",
-          "org": "AED",
-          "url": "https://eaed.b2g.etat.lu/"
+          "url": "https://guichet.public.lu/fr/citoyens/impots-taxes/bien-immobilier/construction-renovation-bien-immobilier/remboursement-tva-taux-reduit.html"
         }
-      ]
+      ],
+      "section4P1": "Exemples fictifs : toute la base HT est éligible, affectation conforme et avantage de 50 000 EUR intégralement disponible. Aucun terrain, honoraire ni travail exclu dans ces montants. Ce tableau ne détermine pas l’éligibilité."
     },
     "bailCommercial": {
       "title": "Bail commercial Luxembourg : loi 03.02.2018, durée 9 ans",

@@ -301,3 +301,15 @@ Hub hôtellerie (0abe245) confirmé en production : CI 34399433885 success, Verc
 - Cinq exemples pour un ou deux acquéreurs, minimum de 100 EUR préservé : deux soldes complets à 750 000 EUR => crédit 52 400, droits 100, solde cumulé 27 600. Aucun cumul d’aides garanti. Sources PFI conditions/délais et Guichet vérifiées.
 - Métadonnées réexportées quatre langues et date mise à jour. Correction complémentaire du sommaire du guide notarial : clé FAQ inexistante remplacée par la traduction commune ; contrôle explicite de l’absence de clés brutes dans la page.
 - Validation : build/lint réussis, dix pages des deux guides en cinq langues/quatre largeurs, tableaux et données structurées contrôlés. Le guide notarial 1b8bea5 avait CI 34400411294 réussie ; la vérification finale en production inclura ce correctif du sommaire.
+
+
+## Guide TVA logement — plafond exact et procédures distinctes
+
+- Les cinq langues corrigent les tableaux incohérents : à 400 000 EUR HT, TVA normale 68 000, faveur plafonnée 50 000, TVA due 18 000, TTC 418 000 ; à 500 000 HT, TVA due 35 000 et TTC 535 000. Exemples sans terrain ni postes exclus, tout éligible et plafond intégral disponible explicitement supposés. Aucun total d’économies cumulées inventé.
+- Brochure AED 2025 et ministère du Logement vérifiés : création réservée à l’habitation principale du propriétaire ; rénovation possible pour celle d’un tiers ; rénovation dans les cinq ans de l’acquisition ou logement d’au moins dix ans, suppression de l’ancien seuil de vingt ans. Retrait du plafond de 400 m², règle d’usage mixte expliquée ; frais professionnels/meubles non confondus avec travaux éligibles.
+- Application directe avec fournisseur avant travaux distinguée du remboursement après travaux. Devis minimal 3 000 EUR HT, factures de remboursement 1 250 EUR HT et ensemble 3 000 EUR HT, intervalle et prescription documentés ; usage/occupation et régularisation mentionnés. Avantage antérieurement consommé à vérifier, aucun nouveau plafond présumé par changement de propriétaire.
+- Guide, six FAQ structurées, cinq exemples, métadonnées et date actualisés. Build/lint et cinq pages/quatre largeurs réussis. Aucun moteur fiscal ou PDF modifié dans ce lot.
+
+Guides Bëllegen Akt/notaire (90e8308) confirmés en production : CI 34401078513 success, Vercel dpl_G6YiD4erXhSzvLfMAP3FF9MVGrYL Ready ; dix pages revérifiées, y compris traduction du sommaire.
+
+Contrôle d’accès Supabase complémentaire : la session navigateur authentifiée ne donne pas accès au projet de la configuration Tevaxia et redirige vers une autre organisation. Aucun compte, permission, secret ou donnée modifié. L’absence d’accès empêche toujours de certifier/appliquer les changements SQL en production ; la revue des autres surfaces continue.
