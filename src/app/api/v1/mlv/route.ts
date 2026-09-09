@@ -12,39 +12,7 @@ export async function OPTIONS() {
   return corsPreflightResponse();
 }
 
-/**
- * POST /api/v1/mlv — Mortgage Lending Value dédié
- *
- * Renvoie la MLV (CRR art. 4(1)(74)) à partir de la valeur de marché
- * et des décotes prudentielles. Distinct de /api/v1/estimation qui
- * renvoie la Market Value. Conforme EBA/GL/2020/06 (LOM) + CRR2 art. 125/126.
- *
- * Body JSON :
- *   {
- *     "valeurMarche": 750000,
- *     "decoteConjoncturelle": 5,      // % — marge prudentielle conditions actuelles
- *     "decoteCommercialisation": 3,   // % — délai/risque de liquidité
- *     "decoteSpecifique": 2           // % — risques spécifiques au bien
- *   }
- *
- * Réponse :
- *   {
- *     "success": true,
- *     "data": {
- *       "valeurMarche": 750000,
- *       "totalDecotes": 75000,
- *       "totalDecotesPct": 10,
- *       "mlv": 675000,
- *       "ratioMLVsurMV": 0.90,
- *       "ltvBands": [...]  // Risk weights CRR2 par palier LTV
- *     },
- *     "meta": {
- *       "api_key_name": "...",
- *       "tier": "...",
- *       "method": "crr_art_4_1_74+eba_gl_2020_06"
- *     }
- *   }
- */
+/** Legacy route name: documented haircut sensitivity only, no certified MLV or regulatory risk weights. */
 export async function POST(request: Request) {
   const startedAt = Date.now();
   const auth = await authenticateApiRequestAsync(request);
@@ -65,9 +33,10 @@ export async function POST(request: Request) {
       return response;
     }
 
+    if (body === null || typeof body !== "object" || Array.isArray(body)) throw new RangeError("JSON object required");
     const { valeurMarche, decoteConjoncturelle, decoteCommercialisation, decoteSpecifique } = body;
 
-    if (typeof valeurMarche !== "number" || valeurMarche <= 0) {
+    if (typeof valeurMarche !== "number" || !Number.isFinite(valeurMarche) || valeurMarche <= 0 || valeurMarche > 1e12) {
       statusCode = 400;
       response = NextResponse.json(
         { success: false, error: "valeurMarche must be a positive number" },
@@ -81,7 +50,7 @@ export async function POST(request: Request) {
       ["decoteCommercialisation", decoteCommercialisation],
       ["decoteSpecifique", decoteSpecifique],
     ] as const) {
-      if (typeof value !== "number" || value < 0 || value > 100) {
+      if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 100) {
         statusCode = 400;
         response = NextResponse.json(
           { success: false, error: `${name} must be a number between 0 and 100 (percentage)` },
@@ -114,21 +83,18 @@ export async function POST(request: Request) {
       meta: {
         api_key_name: auth.keyRecord.name,
         tier: auth.keyRecord.tier,
-        method: "crr_art_4_1_74+eba_gl_2020_06",
-        bases_legales: [
-          "Règlement (UE) 575/2013 art. 4(1)(74) (CRR)",
-          "EBA/GL/2020/06 Loan Origination and Monitoring",
-          "CSSF Circulaire 20/740",
-        ],
+        method: "documented_haircut_sensitivity",
+        regulatory_value: false,
+        legacy_fields: "mlv and ratioMLVsurMV describe the arithmetic scenario only; ltvBands is empty",
       },
     }));
     return response;
   } catch (e) {
-    statusCode = 500;
+    statusCode = e instanceof RangeError ? 400 : 500;
     const message = e instanceof Error ? e.message : "Unknown error";
     response = NextResponse.json(
       { success: false, error: `Calculation error: ${message}` },
-      { status: 500, headers: API_CORS_HEADERS },
+      { status: statusCode, headers: API_CORS_HEADERS },
     );
     return response;
   } finally {

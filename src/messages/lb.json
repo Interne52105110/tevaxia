@@ -2670,7 +2670,7 @@
     "tabDCF": "DCF",
     "tabESG": "ESG",
     "tabEnergie": "Energie",
-    "tabMLV": "MLV",
+    "tabMLV": "Prudenz / CRR",
     "tabReconciliation": "Ofstëmmung",
     "baseDeValeur": "Wäertbasis",
     "surfaceDuBien": "Immobiliëfläch",
@@ -18697,5 +18697,23 @@
     "reference": "Notizen a Referenze fir Loyeren a Rendementer",
     "transfer": "D'Method liwwert den Ertragswäert fir d'Reconciliatioun. Si eleng ass keng zertifiéiert Maartbewäertung.",
     "source": "RICS: Investitiounsmethod, Term/Reversioun an equivalente Rendement"
+  },
+  "prudentialAudit": {
+    "title": "Wäertsensibilitéit a prudentiellen Dossier",
+    "scope": "Test dokumentéiert Reduktioune vum Referenzwäert. Dës arithmetesch Berechnung bestëmmt weder e Mortgage Lending Value (MLV) nach e CRR-konformen Immobiliëwäert.",
+    "regulation": "Eng prudentiell Bewäertung erfuerdert ënner anerem eng onofhängeg Expertise, konservativ Critèren, transparent Dokumentatioun an d’Anhale vun den uwendbare Plafongen. De Bankdossier muss de Rechtskader, den Ursprongswäert, Neibewäertungen a relevant Risike préiwen.",
+    "base": "Referenzwäert",
+    "baseNote": "Wäert aus der Reconciliatioun vun de Methoden; seng Uweisung zertifiéiert kee Maartwäert. Fëllt fir d’éischt d’Bewäertungsmethoden aus.",
+    "cycle": "Maartzyklus",
+    "liquidity": "Liquiditéit / Vermarktung",
+    "specific": "Spezifesch Risiken",
+    "reference": "Datéiert Bewäertungsreferenz, Begrënnung vun den Ofschléi an Dokumenter",
+    "formula": "D’Prozentsätz ginn zesummegerechent an eemol op de Referenzwäert applizéiert; hir Zomm däerf 100 % net iwwerschreiden. Vermeit eng duebel Berücksichtegung vun Upassungen, déi schonn an de Methode stiechen.",
+    "cut": "Gesamtreduktioun",
+    "result": "Szenariowäert",
+    "noTransfer": "Dëst Szenario ersetzt d’Reconciliatioun net a gëtt net automatesch an de Rapport iwwerholl.",
+    "invalid": "Gitt eng Dossierreferenz an e positive Wäert aus de Methoden un. D’Ofschléi mussen endlech, net negativ an zesummen héchstens 100 % sinn.",
+    "weights": "Hei gëtt weder e Risikogewiicht nach eng Prêtlimitt ofgeleet. Si hänken ënner anerem vun der Expositioun, dem Objet, de Garantien, dem prudentielle Regime an de Konditioune vun den CRR-Artikelen 124–126 of.",
+    "source": "Referenztext — Reglement (EU) 2024/1623 (CRR3)"
   }
 }

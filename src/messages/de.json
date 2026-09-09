@@ -2670,7 +2670,7 @@
     "tabDCF": "DCF",
     "tabESG": "ESG",
     "tabEnergie": "Energie",
-    "tabMLV": "MLV",
+    "tabMLV": "Vorsicht / CRR",
     "tabReconciliation": "Abstimmung",
     "baseDeValeur": "Wertbasis",
     "surfaceDuBien": "Immobilienfläche",
@@ -18697,5 +18697,23 @@
     "reference": "Notizen und Quellen zu Mieten und Renditen",
     "transfer": "Die Methode liefert den Ertragswert für die Abstimmung. Sie allein ist keine zertifizierte Marktwertermittlung.",
     "source": "RICS: Investmentmethode, Term/Reversion und äquivalente Rendite"
+  },
+  "prudentialAudit": {
+    "title": "Wertsensitivität und aufsichtsrechtliche Unterlagen",
+    "scope": "Prüfen Sie dokumentierte Abschläge auf den Referenzwert. Diese Rechenoperation bestimmt weder einen Beleihungswert (MLV) noch einen CRR-konformen Immobilienwert.",
+    "regulation": "Eine aufsichtsrechtliche Bewertung verlangt unter anderem eine unabhängige Bewertung, konservative Kriterien, transparente Unterlagen und die Beachtung geltender Obergrenzen. Die Bankunterlagen müssen Rechtsrahmen, ursprünglichen Wert, Neubewertungen und relevante Risiken prüfen.",
+    "base": "Referenzwert",
+    "baseNote": "Wert aus der Abstimmung der Bewertungsmethoden; die Anzeige bestätigt keinen Marktwert. Füllen Sie zuerst die Bewertungsmethoden aus.",
+    "cycle": "Marktzyklus",
+    "liquidity": "Liquidität / Vermarktung",
+    "specific": "Spezifische Risiken",
+    "reference": "Datierte Bewertungsreferenz, Begründung der Abschläge und Belege",
+    "formula": "Die Prozentsätze werden addiert und einmal auf den Referenzwert angewandt; ihre Summe darf 100 % nicht überschreiten. Vermeiden Sie die doppelte Berücksichtigung bereits enthaltener Anpassungen.",
+    "cut": "Gesamter Abschlag",
+    "result": "Szenariowert",
+    "noTransfer": "Dieses Szenario ersetzt die Wertabstimmung nicht und wird nicht automatisch in den Bericht übertragen.",
+    "invalid": "Geben Sie eine Unterlagenreferenz und einen positiven Wert aus den Methoden an. Die Abschläge müssen endlich, nicht negativ und zusammen höchstens 100 % sein.",
+    "weights": "Hier werden weder Risikogewicht noch Kreditgrenze abgeleitet. Sie hängen unter anderem von Risikoposition, Immobilie, Sicherheiten, Aufsichtsrahmen und den Voraussetzungen der CRR-Artikel 124–126 ab.",
+    "source": "Referenztext — Verordnung (EU) 2024/1623 (CRR3)"
   }
 }

@@ -2670,7 +2670,7 @@
     "tabDCF": "DCF",
     "tabESG": "ESG",
     "tabEnergie": "Énergie",
-    "tabMLV": "MLV",
+    "tabMLV": "Prudence / CRR",
     "tabReconciliation": "Réconciliation",
     "baseDeValeur": "Base de valeur",
     "surfaceDuBien": "Surface du bien",
@@ -18697,5 +18697,23 @@
     "reference": "Notes et références des loyers et taux",
     "transfer": "Cette méthode alimente la valeur de l’approche par les revenus utilisée dans la réconciliation. Elle ne constitue pas, à elle seule, une valeur de marché certifiée.",
     "source": "RICS : méthode d’investissement, terme/réversion et rendement équivalent"
+  },
+  "prudentialAudit": {
+    "title": "Sensibilité de valeur et dossier prudentiel",
+    "scope": "Testez des réductions documentées de la valeur de référence. Ce calcul arithmétique ne détermine ni une Mortgage Lending Value (MLV), ni une valeur du bien conforme au CRR.",
+    "regulation": "Une évaluation prudentielle exige notamment une expertise indépendante, des critères conservateurs, une justification transparente et le respect des plafonds applicables. Le dossier bancaire doit vérifier le régime juridique, la valeur à l’origine, les réévaluations et les risques pertinents.",
+    "base": "Valeur de référence",
+    "baseNote": "Valeur issue de la réconciliation des méthodes ; son affichage ne certifie pas une valeur de marché. Complétez d’abord les méthodes de valorisation.",
+    "cycle": "Cycle de marché",
+    "liquidity": "Liquidité / commercialisation",
+    "specific": "Risques spécifiques",
+    "reference": "Référence datée de la valeur, justification des décotes et pièces du dossier",
+    "formula": "Les pourcentages sont additionnés et appliqués une fois à la valeur de référence ; leur somme ne peut dépasser 100 %. Évitez les doubles comptes avec les ajustements déjà intégrés aux méthodes.",
+    "cut": "Réduction totale",
+    "result": "Valeur du scénario",
+    "noTransfer": "Ce scénario ne remplace pas la réconciliation et n’est pas transféré automatiquement dans le rapport.",
+    "invalid": "Renseignez la référence du dossier et une valeur positive issue des méthodes. Les décotes doivent être finies, non négatives et leur total au plus égal à 100 %.",
+    "weights": "Aucune pondération de risque ni limite de prêt n’est déduite ici. Leur détermination dépend notamment du type d’exposition, du bien, des garanties, du régime prudentiel et des conditions des articles 124 à 126 du CRR.",
+    "source": "Texte de référence — règlement (UE) 2024/1623 (CRR3)"
   }
 }

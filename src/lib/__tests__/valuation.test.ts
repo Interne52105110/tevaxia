@@ -107,7 +107,8 @@ describe("calculerMLV", () => {
     expect(result.totalDecotesPct).toBe(10);
     expect(result.mlv).toBe(900000);
     expect(result.ratioMLVsurMV).toBeCloseTo(0.90);
-    expect(result.ltvBands.length).toBeGreaterThan(0);
+    expect(result.ltvBands).toEqual([]);
+    expect(result.regulatoryValue).toBe(false);
   });
 });
 
@@ -210,4 +211,11 @@ describe('DCF terminal income and validation',()=>{
  it('accepts zero discount and keeps exact sensitivity rate coordinates',()=>{const r=calculerDCF({...input,tauxActualisation:0});expect(r.valeurDCF).toBeCloseTo(86590,8);expect(r.irr).toBe(0);expect(r.sensibilite.some(c=>c.tauxActu===0)).toBe(true);const precise=calculerDCF({...input,tauxActualisation:.05555});expect(precise.sensibilite.some(c=>Math.abs(c.tauxActu-5.555)<1e-10)).toBe(true)});
  it('rejects invalid inputs and non-positive income that cannot support exit capitalisation',()=>{for(const patch of [{periodeAnalyse:0},{periodeAnalyse:1.5},{periodeAnalyse:51},{tauxCapSortie:0},{tauxActualisation:-1},{tauxVacance:1.1},{fraisCessionPct:-.1},{chargesAnnuelles:NaN},{loyerAnnuelInitial:-1},{tauxIndexation:-1.1},{chargesAnnuelles:20000}])expect(()=>calculerDCF({...input,...patch})).toThrow()});
  it('does not claim an independent IRR for flows with interim losses',()=>{const r=calculerDCF({...input,chargesAnnuelles:12000,tauxProgressionCharges:-.5});expect(r.cashFlows[0].noi).toBe(-3000);expect(r.irr).toBeNull()});
+});
+
+
+describe('prudential sensitivity guards',()=>{
+ const i={valeurMarche:1000000,decoteConjoncturelle:5,decoteCommercialisation:3,decoteSpecifique:2};
+ it('keeps adjustments additive and bounds the total without inventing risk weights',()=>{expect(calculerMLV(i).mlv).toBe(900000);expect(calculerMLV({...i,decoteConjoncturelle:95}).mlv).toBe(0);expect(calculerMLV(i).ltvBands).toEqual([])});
+ it('rejects invalid values, negative adjustments and totals above 100 percent',()=>{for(const patch of [{valeurMarche:0},{valeurMarche:Infinity},{decoteConjoncturelle:NaN},{decoteSpecifique:-1},{decoteConjoncturelle:96}])expect(()=>calculerMLV({...i,...patch})).toThrow()});
 });

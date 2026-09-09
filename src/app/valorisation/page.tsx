@@ -8,10 +8,10 @@ import { formatEUR, formatEUR2, formatPct } from "@/lib/calculations";
 import {
   calculerComparaison,
   calculerCapitalisation,
-  calculerMLV,
   reconcilier,
   type Comparable,
 } from "@/lib/valuation";
+import {PrudentialValue} from "@/components/PrudentialValue";
 import {DcfScenario} from "@/components/DcfScenario";
 import { EsgDossier } from "@/components/EsgDossier";
 import SEOContent from "@/components/SEOContent";
@@ -627,115 +627,7 @@ function TabEnergie() { return <RenovationResidual />; }
 // TAB 5 — MLV / CRR
 // ============================================================
 
-function TabMLV({ valeurMarche }: { valeurMarche: number }) {
-  const t = useTranslations("valorisation");
-  const [decoteConj, setDecoteConj] = useState(5);
-  const [decoteComm, setDecoteComm] = useState(3);
-  const [decoteSpec, setDecoteSpec] = useState(2);
-
-  const result = useMemo(
-    () =>
-      calculerMLV({
-        valeurMarche,
-        decoteConjoncturelle: decoteConj,
-        decoteCommercialisation: decoteComm,
-        decoteSpecifique: decoteSpec,
-      }),
-    [valeurMarche, decoteConj, decoteComm, decoteSpec]
-  );
-
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div className="space-y-6">
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("mlvValeurMarche")}</h2>
-          <div className="text-center py-4">
-            <div className="text-sm text-muted">{t("mlvValeurMarcheEVS1")}</div>
-            <div className="text-3xl font-bold text-navy mt-1">{formatEUR(valeurMarche)}</div>
-            <p className="text-xs text-muted mt-2">{t("mlvIssueReconciliation")}</p>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("mlvDecotesPrudentielles")}</h2>
-          <div className="space-y-4">
-            <InputField
-              label={t("mlvDecoteConjoncturelle")}
-              value={decoteConj}
-              onChange={(v) => setDecoteConj(Number(v))}
-              suffix="%"
-              step={0.5}
-              hint={t("mlvDecoteConjHint")}
-            />
-            <InputField
-              label={t("mlvDecoteCommercialisation")}
-              value={decoteComm}
-              onChange={(v) => setDecoteComm(Number(v))}
-              suffix="%"
-              step={0.5}
-              hint={t("mlvDecoteCommHint")}
-            />
-            <InputField
-              label={t("mlvDecoteSpecifique")}
-              value={decoteSpec}
-              onChange={(v) => setDecoteSpec(Number(v))}
-              suffix="%"
-              step={0.5}
-              hint={t("mlvDecoteSpecHint")}
-            />
-          </div>
-          <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
-            <p className="text-xs text-amber-800 leading-relaxed">
-              {t("mlvCRRNote")}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        <ResultPanel
-          title={t("mlvResultTitle")}
-          className="border-gold/30"
-          lines={[
-            { label: t("mlvValeurMarcheMV"), value: formatEUR(result.valeurMarche) },
-            { label: t("mlvDecoteConjLine", { pct: decoteConj }), value: `- ${formatEUR(result.valeurMarche * decoteConj / 100)}`, sub: true },
-            { label: t("mlvDecoteCommLine", { pct: decoteComm }), value: `- ${formatEUR(result.valeurMarche * decoteComm / 100)}`, sub: true },
-            { label: t("mlvDecoteSpecLine", { pct: decoteSpec }), value: `- ${formatEUR(result.valeurMarche * decoteSpec / 100)}`, sub: true },
-            { label: t("mlvTotalDecotes"), value: `- ${formatEUR(result.totalDecotes)} (${result.totalDecotesPct.toFixed(1)}%)` },
-            { label: "MLV", value: formatEUR(result.mlv), highlight: true, large: true },
-            { label: t("mlvRatioMLVMV"), value: `${(result.ratioMLVsurMV * 100).toFixed(1)}%`, sub: true },
-          ]}
-        />
-
-        {/* CRR Risk Weight bands */}
-        <div className="rounded-xl border border-card-border bg-card shadow-sm">
-          <div className="px-6 pt-5 pb-3">
-            <h3 className="text-base font-semibold text-navy">{t("mlvCRR2Title")}</h3>
-            <p className="text-xs text-muted mt-1">{t("mlvCRR2Subtitle")}</p>
-          </div>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-y border-card-border bg-background">
-                <th className="px-4 py-2 text-left font-semibold text-navy">{t("mlvThBandeLTV")}</th>
-                <th className="px-4 py-2 text-right font-semibold text-navy">{t("mlvThRiskWeight")}</th>
-                <th className="px-4 py-2 text-right font-semibold text-navy">{t("mlvThPretMax")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.ltvBands.filter(b => b.ltvMax <= 1.0).map((band) => (
-                <tr key={band.label} className="border-b border-card-border/50">
-                  <td className="px-4 py-2">{band.label}</td>
-                  <td className="px-4 py-2 text-right font-mono">{(band.riskWeight * 100).toFixed(0)}%</td>
-                  <td className="px-4 py-2 text-right font-mono font-semibold">{formatEUR(band.montantMaxPret)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
+function TabMLV({valeurMarche}:{valeurMarche:number}) {return <PrudentialValue value={valeurMarche}/>;}
 
 // ============================================================
 // TAB 5 — RÉCONCILIATION

@@ -315,76 +315,21 @@ export interface MLVResult {
   totalDecotesPct: number;
   mlv: number;
   ratioMLVsurMV: number;
-  // CRR Risk Weight bands (Art. 125/126 CRR2)
-  ltvBands: {
-    label: string;
-    ltvMax: number;
-    riskWeight: number;
-    montantMaxPret: number;
-    commentaire: string;
-  }[];
+  /** Legacy property retained empty: no regulatory risk weights can be inferred from these inputs. */
+  ltvBands: never[];
+  method: 'documented_haircut_sensitivity';
+  regulatoryValue: false;
 }
 
+/** Historical function name; arithmetic sensitivity only, not a determination of MLV or CRR property value. */
 export function calculerMLV(input: MLVInput): MLVResult {
+  if (!input || !Number.isFinite(input.valeurMarche) || input.valeurMarche <= 0 || input.valeurMarche > 1e12
+    || [input.decoteConjoncturelle,input.decoteCommercialisation,input.decoteSpecifique].some(v=>!Number.isFinite(v)||v<0||v>100)) throw new RangeError('Invalid valuation sensitivity inputs');
   const totalDecotesPct = input.decoteConjoncturelle + input.decoteCommercialisation + input.decoteSpecifique;
-  const totalDecotes = input.valeurMarche * (totalDecotesPct / 100);
+  if (totalDecotesPct > 100) throw new RangeError('Total adjustments exceed 100%');
+  const totalDecotes = input.valeurMarche * totalDecotesPct / 100;
   const mlv = input.valeurMarche - totalDecotes;
-  const ratioMLVsurMV = input.valeurMarche > 0 ? mlv / input.valeurMarche : 0;
-
-  // CRR2 Art. 125 — Residential risk weight bands
-  const ltvBands = [
-    {
-      label: "LTV ≤ 50%",
-      ltvMax: 0.50,
-      riskWeight: 0.20,
-      montantMaxPret: mlv * 0.50,
-      commentaire: "Pondération réduite — couverture forte",
-    },
-    {
-      label: "50% < LTV ≤ 60%",
-      ltvMax: 0.60,
-      riskWeight: 0.25,
-      montantMaxPret: mlv * 0.60,
-      commentaire: "Pondération favorable",
-    },
-    {
-      label: "60% < LTV ≤ 80%",
-      ltvMax: 0.80,
-      riskWeight: 0.30,
-      montantMaxPret: mlv * 0.80,
-      commentaire: "Standard résidentiel — seuil EBA",
-    },
-    {
-      label: "80% < LTV ≤ 90%",
-      ltvMax: 0.90,
-      riskWeight: 0.40,
-      montantMaxPret: mlv * 0.90,
-      commentaire: "Au-delà du standard — surpondération",
-    },
-    {
-      label: "90% < LTV ≤ 100%",
-      ltvMax: 1.00,
-      riskWeight: 0.50,
-      montantMaxPret: mlv * 1.00,
-      commentaire: "Exposition élevée — capital réglementaire accru",
-    },
-    {
-      label: "LTV > 100%",
-      ltvMax: Infinity,
-      riskWeight: 0.70,
-      montantMaxPret: mlv * 1.00,
-      commentaire: "LTV supérieur à 100% — pondération maximale",
-    },
-  ];
-
-  return {
-    valeurMarche: input.valeurMarche,
-    totalDecotes,
-    totalDecotesPct,
-    mlv,
-    ratioMLVsurMV,
-    ltvBands,
-  };
+  return {valeurMarche:input.valeurMarche,totalDecotes,totalDecotesPct,mlv,ratioMLVsurMV:mlv/input.valeurMarche,ltvBands:[],method:'documented_haircut_sensitivity',regulatoryValue:false};
 }
 
 // ============================================================

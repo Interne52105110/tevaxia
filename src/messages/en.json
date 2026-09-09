@@ -2670,7 +2670,7 @@
     "tabDCF": "DCF",
     "tabESG": "ESG",
     "tabEnergie": "Energy",
-    "tabMLV": "MLV",
+    "tabMLV": "Prudence / CRR",
     "tabReconciliation": "Reconciliation",
     "baseDeValeur": "Basis of value",
     "surfaceDuBien": "Property area",
@@ -18697,5 +18697,23 @@
     "reference": "Notes and references for rents and yields",
     "transfer": "This method feeds the income-approach value used in reconciliation. It does not by itself constitute a certified market valuation.",
     "source": "RICS: investment method, term/reversion and equivalent yield"
+  },
+  "prudentialAudit": {
+    "title": "Value sensitivity and prudential file",
+    "scope": "Test documented reductions to the reference value. This arithmetic calculation determines neither a Mortgage Lending Value (MLV) nor a CRR-compliant property value.",
+    "regulation": "Prudential valuation requires, among other things, an independent appraisal, conservative criteria, transparent documentation and compliance with applicable caps. The banking file must address the legal regime, original value, revaluations and relevant risks.",
+    "base": "Reference value",
+    "baseNote": "Value from reconciliation of valuation methods; displaying it does not certify market value. Complete the valuation methods first.",
+    "cycle": "Market cycle",
+    "liquidity": "Liquidity / marketing",
+    "specific": "Specific risks",
+    "reference": "Dated valuation reference, justification of reductions and supporting documents",
+    "formula": "Percentages are added and applied once to the reference value; their sum must not exceed 100%. Avoid counting adjustments already included in the methods twice.",
+    "cut": "Total reduction",
+    "result": "Scenario value",
+    "noTransfer": "This scenario does not replace reconciliation and is not automatically transferred to the report.",
+    "invalid": "Provide a file reference and a positive value from the valuation methods. Reductions must be finite, non-negative and total at most 100%.",
+    "weights": "No risk weight or lending limit is inferred here. These depend on the exposure type, property, collateral, prudential regime and the conditions in CRR Articles 124–126, among other factors.",
+    "source": "Reference text — Regulation (EU) 2024/1623 (CRR3)"
   }
 }

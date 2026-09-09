@@ -148,6 +148,7 @@ export const CLIENT_NAMESPACES = [
   "profilOrganisation",
   "profileTypes",
   "propcalc",
+  "prudentialAudit",
   "renovationAudit",
   "renovationResidualAudit",
   "saveButton",

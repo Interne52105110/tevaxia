@@ -2670,7 +2670,7 @@
     "tabDCF": "DCF",
     "tabESG": "ESG",
     "tabEnergie": "Energia",
-    "tabMLV": "MLV",
+    "tabMLV": "Prudência / CRR",
     "tabReconciliation": "Reconciliação",
     "baseDeValeur": "Base de valor",
     "surfaceDuBien": "Área do imóvel",
@@ -18697,5 +18697,23 @@
     "reference": "Notas e referências das rendas e taxas",
     "transfer": "O método alimenta o valor da abordagem pelo rendimento na reconciliação. Não constitui, por si só, uma avaliação de mercado certificada.",
     "source": "RICS: método de investimento, termo/reversão e rendimento equivalente"
+  },
+  "prudentialAudit": {
+    "title": "Sensibilidade do valor e dossier prudencial",
+    "scope": "Teste reduções documentadas do valor de referência. Este cálculo aritmético não determina um Mortgage Lending Value (MLV) nem um valor do imóvel conforme ao CRR.",
+    "regulation": "Uma avaliação prudencial exige, entre outros elementos, avaliação independente, critérios conservadores, documentação transparente e respeito pelos limites aplicáveis. O dossier bancário deve verificar o regime jurídico, valor inicial, reavaliações e riscos pertinentes.",
+    "base": "Valor de referência",
+    "baseNote": "Valor resultante da reconciliação dos métodos; a sua apresentação não certifica um valor de mercado. Preencha primeiro os métodos de avaliação.",
+    "cycle": "Ciclo de mercado",
+    "liquidity": "Liquidez / comercialização",
+    "specific": "Riscos específicos",
+    "reference": "Referência datada da avaliação, justificação das reduções e documentos",
+    "formula": "As percentagens são somadas e aplicadas uma vez ao valor de referência; a soma não pode ultrapassar 100%. Evite contar duas vezes os ajustes já incluídos nos métodos.",
+    "cut": "Redução total",
+    "result": "Valor do cenário",
+    "noTransfer": "Este cenário não substitui a reconciliação nem é transferido automaticamente para o relatório.",
+    "invalid": "Indique uma referência do dossier e um valor positivo obtido pelos métodos. As reduções devem ser finitas, não negativas e somar no máximo 100%.",
+    "weights": "Não é inferida qualquer ponderação de risco ou limite de crédito. A sua determinação depende, nomeadamente, da exposição, imóvel, garantias, regime prudencial e condições dos artigos 124–126 do CRR.",
+    "source": "Texto de referência — Regulamento (UE) 2024/1623 (CRR3)"
   }
 }
