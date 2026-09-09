@@ -18865,5 +18865,15 @@
     "exportLeases": "Export leases (CSV)",
     "exportMonthly": "Export monthly cash flows (CSV)",
     "exportScope": "The lease CSV includes lease inputs and rent steps. The monthly CSV contains lease-level flows; global fixed expenses and CAPEX reserve are in the annual table and PDF. The PDF records assumptions and amounts used."
+  },
+  "populationEvidence": {
+    "title": "Population registered in RNPP",
+    "date": "Extract dated {date}",
+    "population": "Population",
+    "mineurs": "Minors",
+    "majeurs": "Adults",
+    "unavailable": "Municipality absent from this extract: no estimated value is displayed.",
+    "scope": "Administrative extract from the national register of natural persons published by CTIE. The total adds adults and minors of both sexes. This differs from STATEC resident-population statistics. No income, employment rate, density or growth rate is inferred from this extract.",
+    "source": "Official CTIE / RNPP source — CC0 licence"
   }
 }

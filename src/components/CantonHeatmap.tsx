@@ -136,7 +136,7 @@ export default function CantonHeatmap({ data }: { data: MarketDataCommune[] }) {
               }}
               title={agg ? `${tile.displayName} — ${Math.round(agg.prixMoyen).toLocaleString("fr-FR")} €/m² moyen (${agg.nbCommunes} communes, ${agg.nbTransactions} transactions)` : tile.displayName}
             >
-              <div className="text-[10px] font-bold uppercase tracking-wider leading-tight">
+              <div className="text-[10px] font-bold uppercase tracking-wider leading-tight [overflow-wrap:anywhere]">
                 {tile.displayName}
               </div>
               {agg && (

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { formatEUR } from "@/lib/calculations";
 import { rechercherCommune, type MarketDataCommune } from "@/lib/market-data";
 import { PriceEvolutionChart, PriceIndexChart } from "@/components/PriceChart";
-import { getDemographics } from "@/lib/demographics";
+import CommunePopulation from "@/components/CommunePopulation";
 import { getMarketCycle } from "@/lib/market-cycle";
 import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
 import dynamic from "next/dynamic";
@@ -447,25 +447,7 @@ export default function Carte() {
                     </div>
                   </div>
 
-                  {/* Démographie */}
-                  {(() => {
-                    const demo = getDemographics(selectedCommune.commune);
-                    if (!demo) return null;
-                    return (
-                      <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-                        <h3 className="text-sm font-semibold text-navy mb-2">{t("demographics")}</h3>
-                        <div className="grid grid-cols-2 gap-2 text-xs">
-                          <div><span className="text-muted">{t("population")}</span><br/><span className="font-semibold">{demo.population.toLocaleString("fr-FR")}</span></div>
-                          <div><span className="text-muted">{t("growth")}</span><br/><span className="font-semibold text-success">+{demo.croissancePct}%</span> <span className="text-[10px] text-muted">{t("tenYears")}</span></div>
-                          <div><span className="text-muted">{t("density")}</span><br/><span className="font-semibold">{demo.densiteHabKm2} {t("densityUnit")}</span></div>
-                          <div><span className="text-muted">{t("foreignersPct")}</span><br/><span className="font-semibold">{demo.pctEtrangers}%</span></div>
-                          {demo.revenuMedian && <div><span className="text-muted">{t("medianIncome")}</span><br/><span className="font-semibold">{formatEUR(demo.revenuMedian)}/{t("perYear")}</span></div>}
-                          {demo.tauxEmploi && <div><span className="text-muted">{t("employmentRate")}</span><br/><span className="font-semibold">{demo.tauxEmploi}%</span></div>}
-                        </div>
-                        <p className="mt-2 text-[10px] text-muted">{t("demographicsSource")}</p>
-                      </div>
-                    );
-                  })()}
+                  <CommunePopulation commune={selectedCommune.commune} />
 
                   {/* Quartiers si dispo */}
                   {selectedCommune.quartiers && selectedCommune.quartiers.length > 0 && (

@@ -335,3 +335,14 @@ Le prétendu backtest MAPE interne et les bandes à 95 % sont retirés de la pr�
 Validation : 1 181 tests dans 98 fichiers, compilation et lint réussis. Cas constant : occupation 50 %, ADR 100 €, RevPAR 50 €, variation ±10 % = 45–55 €. Tests de cohérence des projections, dates impossibles/futures, doublons, jours absents, valeurs nulles/invalides, données fictives et validation avant persistance. Dix rendus isolés de composant (cinq langues, séries complètes et incomplètes), quatre largeurs, formulaires et tableaux vérifiés ; capture française inspectée. Ces essais utilisent des fixtures locales, sans authentification à un dossier client et sans écriture de données réelles. La vérification des écritures de bout en bout avec un compte client réel n’a pas été effectuée.
 
 Contrôle public : barrière de connexion et liens localisés préservés, descriptif du hub aligné dans les cinq langues.
+
+
+## Carte et communes — population officielle RNPP
+
+Les chiffres démographiques arrondis et estimés sans références par ligne sont remplacés par l’extrait CTIE du registre national des personnes physiques au 1er juillet 2026, publié le 6 juillet. Source officielle CC0 : https://data.public.lu/fr/datasets/registre-national-des-personnes-physiques-rnpp-population-par-commune-population-per-municipality/. L’extrait est administratif ; il n’est pas présenté comme une statistique STATEC de population résidente.
+
+Les 100 communes, noms et quatre effectifs (majeurs/mineurs par sexe) concordent entre les versions CSV et XML officielles téléchargées indépendamment. Population = majeurs + mineurs, total des 100 lignes : 693 913. Exemples : Luxembourg 138 215, Esch-sur-Alzette 38 323, Redange/Attert 3 170. Le nom Redange du jeu immobilier est rapproché explicitement du code 0809. Les noms inconnus ne reçoivent aucun repli national ou estimation.
+
+Le même composant affiche population, majeurs, mineurs, date et lien source sur la carte et les fiches communales, dans les cinq langues. Les revenus médians, taux d’emploi, proportions d’étrangers, densités et croissances non justifiés sont retirés. Les helpers cantonaux inutilisés de l’ancien jeu estimatif sont supprimés. Le fichier source original Windows-1252 est conservé avec empreinte SHA-256, métadonnées et désactivation de la conversion de fins de ligne pour préserver son intégrité sur Windows et en CI Linux.
+
+Validation : 1 177 tests dans 98 fichiers, compilation et lint réussis. Les tests couvrent 100 codes uniques, additions, somme nationale, exemples indépendants, source/empreinte, correspondance de toutes les communes immobilières et absence de champs économiques inventés. Parcours carte et trois fiches dans les cinq langues et quatre largeurs. Le nom Grevenmacher de la carte par canton peut maintenant se couper sur petit écran, supprimant un débordement à 320 px.

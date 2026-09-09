@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import LocaleLink from "@/components/LocaleLink";
 import { getCommuneBySlug, getAllMarketData } from "@/lib/market-data";
-import { getDemographics } from "@/lib/demographics";
+import CommunePopulation from "@/components/CommunePopulation";
 import { formatEUR } from "@/lib/calculations";
 import { PriceEvolutionChart } from "@/components/PriceChart";
 import { computeMarketScore, getScoreColor, getScoreBarColor } from "@/lib/market-score";
@@ -19,7 +19,6 @@ export default function CommunePageClient() {
   const t = useTranslations("commune");
 
   const commune = useMemo(() => getCommuneBySlug(slug), [slug]);
-  const demo = useMemo(() => (commune ? getDemographics(commune.commune) : undefined), [commune]);
 
   if (!commune) {
     return (
@@ -146,21 +145,7 @@ export default function CommunePageClient() {
               </div>
             </div>
 
-            {/* Demographics */}
-            {demo && (
-              <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                <h2 className="text-base font-semibold text-navy mb-3">{t("demographics")}</h2>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div><span className="text-muted">{t("demoPopulation")}</span><br/><span className="font-semibold">{demo.population.toLocaleString("fr-FR")}</span></div>
-                  <div><span className="text-muted">{t("demoGrowth10y")}</span><br/><span className="font-semibold text-success">+{demo.croissancePct}%</span></div>
-                  <div><span className="text-muted">{t("demoDensity")}</span><br/><span className="font-semibold">{demo.densiteHabKm2} {t("habKm2")}</span></div>
-                  <div><span className="text-muted">{t("demoForeigners")}</span><br/><span className="font-semibold">{demo.pctEtrangers}%</span></div>
-                  {demo.revenuMedian && <div><span className="text-muted">{t("demoMedianIncome")}</span><br/><span className="font-semibold">{formatEUR(demo.revenuMedian)}{t("demoYearly")}</span></div>}
-                  {demo.tauxEmploi && <div><span className="text-muted">{t("demoEmploymentRate")}</span><br/><span className="font-semibold">{demo.tauxEmploi}%</span></div>}
-                </div>
-                <p className="mt-3 text-[10px] text-muted">{t("demoSource")}</p>
-              </div>
-            )}
+            <CommunePopulation commune={commune.commune} />
 
             {/* Quartiers */}
             {commune.quartiers && commune.quartiers.length > 0 && (

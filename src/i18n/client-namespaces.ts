@@ -126,6 +126,7 @@ export const CLIENT_NAMESPACES = [
   "pmsPos",
   "pmsTarifs",
   "pmsUsali",
+  "populationEvidence",
   "portfolio",
   "privacySettings",
   "proAgences",

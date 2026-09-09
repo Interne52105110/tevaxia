@@ -18865,5 +18865,15 @@
     "exportLeases": "Exportar contratos (CSV)",
     "exportMonthly": "Exportar fluxos mensais (CSV)",
     "exportScope": "O CSV dos contratos inclui entradas e escalões. O CSV mensal contém fluxos por contrato; custos fixos globais e reserva CAPEX constam da tabela anual e do PDF. O PDF regista hipóteses e montantes usados."
+  },
+  "populationEvidence": {
+    "title": "População inscrita no RNPP",
+    "date": "Extrato de {date}",
+    "population": "População",
+    "mineurs": "Menores",
+    "majeurs": "Adultos",
+    "unavailable": "Município ausente deste extrato: não é apresentado um valor estimado.",
+    "scope": "Extrato administrativo do registo nacional de pessoas singulares publicado pelo CTIE. O total soma adultos e menores de ambos os sexos. Distingue-se das estatísticas de população residente do STATEC. Não são inferidos rendimento, emprego, densidade ou crescimento deste extrato.",
+    "source": "Fonte oficial CTIE / RNPP — licença CC0"
   }
 }

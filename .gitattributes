@@ -1,0 +1,3 @@
+
+# Preserve original source bytes for reproducible SHA-256 verification.
+docs/sources/rnpp-2026-07-01.csv -text

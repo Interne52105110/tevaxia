@@ -1,0 +1,712 @@
+{
+  "referenceDate": "2026-07-01",
+  "publishedDate": "2026-07-06",
+  "retrievedDate": "2026-09-09",
+  "producer": "Centre des technologies de l’information de l’État (CTIE), RNPP",
+  "license": "CC0",
+  "sourceUrl": "https://data.public.lu/fr/datasets/registre-national-des-personnes-physiques-rnpp-population-par-commune-population-per-municipality/",
+  "resourceUrl": "https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-population-par-commune-population-per-municipality/20260706-115130/01-07-2026-rnrpp-population-commune.csv",
+  "sha256": "b5ff9fb13ed17cfeccadb1830815ad0197a74c89b1823d08d955dfbefc110f48",
+  "records": [
+    {
+      "code": "1101",
+      "commune": "Beaufort",
+      "population": 3146,
+      "mineurs": 612,
+      "majeurs": 2534
+    },
+    {
+      "code": "1102",
+      "commune": "Bech",
+      "population": 1366,
+      "mineurs": 233,
+      "majeurs": 1133
+    },
+    {
+      "code": "0802",
+      "commune": "Beckerich",
+      "population": 2921,
+      "mineurs": 564,
+      "majeurs": 2357
+    },
+    {
+      "code": "1103",
+      "commune": "Berdorf",
+      "population": 2299,
+      "mineurs": 465,
+      "majeurs": 1834
+    },
+    {
+      "code": "0401",
+      "commune": "Bertrange",
+      "population": 9690,
+      "mineurs": 1836,
+      "majeurs": 7854
+    },
+    {
+      "code": "0301",
+      "commune": "Bettembourg",
+      "population": 11718,
+      "mineurs": 2264,
+      "majeurs": 9454
+    },
+    {
+      "code": "0702",
+      "commune": "Bettendorf",
+      "population": 3050,
+      "mineurs": 547,
+      "majeurs": 2503
+    },
+    {
+      "code": "1201",
+      "commune": "Betzdorf",
+      "population": 4188,
+      "mineurs": 885,
+      "majeurs": 3303
+    },
+    {
+      "code": "0502",
+      "commune": "Bissen",
+      "population": 3586,
+      "mineurs": 674,
+      "majeurs": 2912
+    },
+    {
+      "code": "1202",
+      "commune": "Biwer",
+      "population": 1912,
+      "mineurs": 407,
+      "majeurs": 1505
+    },
+    {
+      "code": "0901",
+      "commune": "Boulaide",
+      "population": 1560,
+      "mineurs": 327,
+      "majeurs": 1233
+    },
+    {
+      "code": "0703",
+      "commune": "Bourscheid",
+      "population": 1788,
+      "mineurs": 326,
+      "majeurs": 1462
+    },
+    {
+      "code": "1311",
+      "commune": "Bous-Waldbredimus",
+      "population": 3344,
+      "mineurs": 696,
+      "majeurs": 2648
+    },
+    {
+      "code": "0611",
+      "commune": "Clervaux",
+      "population": 6387,
+      "mineurs": 1306,
+      "majeurs": 5081
+    },
+    {
+      "code": "0501",
+      "commune": "Colmar-Berg",
+      "population": 2518,
+      "mineurs": 521,
+      "majeurs": 1997
+    },
+    {
+      "code": "1104",
+      "commune": "Consdorf",
+      "population": 2103,
+      "mineurs": 432,
+      "majeurs": 1671
+    },
+    {
+      "code": "0402",
+      "commune": "Contern",
+      "population": 5031,
+      "mineurs": 1087,
+      "majeurs": 3944
+    },
+    {
+      "code": "1302",
+      "commune": "Dalheim",
+      "population": 2396,
+      "mineurs": 448,
+      "majeurs": 1948
+    },
+    {
+      "code": "0704",
+      "commune": "Diekirch",
+      "population": 7376,
+      "mineurs": 1131,
+      "majeurs": 6245
+    },
+    {
+      "code": "0302",
+      "commune": "Differdange",
+      "population": 31322,
+      "mineurs": 6746,
+      "majeurs": 24576
+    },
+    {
+      "code": "0203",
+      "commune": "Dippach",
+      "population": 4781,
+      "mineurs": 873,
+      "majeurs": 3908
+    },
+    {
+      "code": "0303",
+      "commune": "Dudelange",
+      "population": 22398,
+      "mineurs": 4105,
+      "majeurs": 18293
+    },
+    {
+      "code": "1105",
+      "commune": "Echternach",
+      "population": 6017,
+      "mineurs": 1034,
+      "majeurs": 4983
+    },
+    {
+      "code": "0805",
+      "commune": "Ell",
+      "population": 1678,
+      "mineurs": 301,
+      "majeurs": 1377
+    },
+    {
+      "code": "0706",
+      "commune": "Erpeldange-sur-Sûre",
+      "population": 2741,
+      "mineurs": 496,
+      "majeurs": 2245
+    },
+    {
+      "code": "0304",
+      "commune": "Esch-sur-Alzette",
+      "population": 38323,
+      "mineurs": 7265,
+      "majeurs": 31058
+    },
+    {
+      "code": "0915",
+      "commune": "Esch-sur-Sûre",
+      "population": 3395,
+      "mineurs": 697,
+      "majeurs": 2698
+    },
+    {
+      "code": "0707",
+      "commune": "Ettelbruck",
+      "population": 10145,
+      "mineurs": 1805,
+      "majeurs": 8340
+    },
+    {
+      "code": "0708",
+      "commune": "Feulen",
+      "population": 2445,
+      "mineurs": 519,
+      "majeurs": 1926
+    },
+    {
+      "code": "0504",
+      "commune": "Fischbach",
+      "population": 1366,
+      "mineurs": 305,
+      "majeurs": 1061
+    },
+    {
+      "code": "1203",
+      "commune": "Flaxweiler",
+      "population": 2275,
+      "mineurs": 453,
+      "majeurs": 1822
+    },
+    {
+      "code": "0305",
+      "commune": "Frisange",
+      "population": 5067,
+      "mineurs": 941,
+      "majeurs": 4126
+    },
+    {
+      "code": "0204",
+      "commune": "Garnich",
+      "population": 2497,
+      "mineurs": 547,
+      "majeurs": 1950
+    },
+    {
+      "code": "0904",
+      "commune": "Goesdorf",
+      "population": 1688,
+      "mineurs": 320,
+      "majeurs": 1368
+    },
+    {
+      "code": "1204",
+      "commune": "Grevenmacher",
+      "population": 5312,
+      "mineurs": 970,
+      "majeurs": 4342
+    },
+    {
+      "code": "0814",
+      "commune": "Groussbus-Wal",
+      "population": 2387,
+      "mineurs": 518,
+      "majeurs": 1869
+    },
+    {
+      "code": "0213",
+      "commune": "Habscht",
+      "population": 5307,
+      "mineurs": 986,
+      "majeurs": 4321
+    },
+    {
+      "code": "0505",
+      "commune": "Heffingen",
+      "population": 1620,
+      "mineurs": 360,
+      "majeurs": 1260
+    },
+    {
+      "code": "0512",
+      "commune": "Helperknapp",
+      "population": 5344,
+      "mineurs": 1223,
+      "majeurs": 4121
+    },
+    {
+      "code": "0403",
+      "commune": "Hesperange",
+      "population": 17298,
+      "mineurs": 3444,
+      "majeurs": 13854
+    },
+    {
+      "code": "1205",
+      "commune": "Junglinster",
+      "population": 9253,
+      "mineurs": 1999,
+      "majeurs": 7254
+    },
+    {
+      "code": "0212",
+      "commune": "Käerjeng",
+      "population": 11406,
+      "mineurs": 2043,
+      "majeurs": 9363
+    },
+    {
+      "code": "0306",
+      "commune": "Kayl",
+      "population": 9982,
+      "mineurs": 1924,
+      "majeurs": 8058
+    },
+    {
+      "code": "0206",
+      "commune": "Kehlen",
+      "population": 7625,
+      "mineurs": 1658,
+      "majeurs": 5967
+    },
+    {
+      "code": "0914",
+      "commune": "Kiischpelt",
+      "population": 1300,
+      "mineurs": 277,
+      "majeurs": 1023
+    },
+    {
+      "code": "0207",
+      "commune": "Koerich",
+      "population": 2786,
+      "mineurs": 538,
+      "majeurs": 2248
+    },
+    {
+      "code": "0208",
+      "commune": "Kopstal",
+      "population": 4743,
+      "mineurs": 965,
+      "majeurs": 3778
+    },
+    {
+      "code": "0905",
+      "commune": "Lac de la Haute-Sûre",
+      "population": 2377,
+      "mineurs": 494,
+      "majeurs": 1883
+    },
+    {
+      "code": "0506",
+      "commune": "Larochette",
+      "population": 2230,
+      "mineurs": 406,
+      "majeurs": 1824
+    },
+    {
+      "code": "1303",
+      "commune": "Lenningen",
+      "population": 2100,
+      "mineurs": 376,
+      "majeurs": 1724
+    },
+    {
+      "code": "0307",
+      "commune": "Leudelange",
+      "population": 2769,
+      "mineurs": 534,
+      "majeurs": 2235
+    },
+    {
+      "code": "0507",
+      "commune": "Lintgen",
+      "population": 3474,
+      "mineurs": 634,
+      "majeurs": 2840
+    },
+    {
+      "code": "0508",
+      "commune": "Lorentzweiler",
+      "population": 4772,
+      "mineurs": 967,
+      "majeurs": 3805
+    },
+    {
+      "code": "0001",
+      "commune": "Luxembourg",
+      "population": 138215,
+      "mineurs": 20122,
+      "majeurs": 118093
+    },
+    {
+      "code": "0209",
+      "commune": "Mamer",
+      "population": 11700,
+      "mineurs": 2672,
+      "majeurs": 9028
+    },
+    {
+      "code": "1206",
+      "commune": "Manternach",
+      "population": 2330,
+      "mineurs": 480,
+      "majeurs": 1850
+    },
+    {
+      "code": "0509",
+      "commune": "Mersch",
+      "population": 10916,
+      "mineurs": 2137,
+      "majeurs": 8779
+    },
+    {
+      "code": "1207",
+      "commune": "Mertert",
+      "population": 5774,
+      "mineurs": 1035,
+      "majeurs": 4739
+    },
+    {
+      "code": "0711",
+      "commune": "Mertzig",
+      "population": 2420,
+      "mineurs": 519,
+      "majeurs": 1901
+    },
+    {
+      "code": "0308",
+      "commune": "Mondercange",
+      "population": 7315,
+      "mineurs": 1237,
+      "majeurs": 6078
+    },
+    {
+      "code": "1304",
+      "commune": "Mondorf-les-Bains",
+      "population": 5562,
+      "mineurs": 856,
+      "majeurs": 4706
+    },
+    {
+      "code": "0404",
+      "commune": "Niederanven",
+      "population": 7178,
+      "mineurs": 1421,
+      "majeurs": 5757
+    },
+    {
+      "code": "0510",
+      "commune": "Nommern",
+      "population": 1501,
+      "mineurs": 293,
+      "majeurs": 1208
+    },
+    {
+      "code": "0309",
+      "commune": "Pétange",
+      "population": 21397,
+      "mineurs": 4425,
+      "majeurs": 16972
+    },
+    {
+      "code": "0612",
+      "commune": "Parc Hosingen",
+      "population": 4494,
+      "mineurs": 1002,
+      "majeurs": 3492
+    },
+    {
+      "code": "0803",
+      "commune": "Préizerdaul",
+      "population": 1803,
+      "mineurs": 332,
+      "majeurs": 1471
+    },
+    {
+      "code": "1002",
+      "commune": "Putscheid",
+      "population": 1199,
+      "mineurs": 266,
+      "majeurs": 933
+    },
+    {
+      "code": "0806",
+      "commune": "Rambrouch",
+      "population": 5109,
+      "mineurs": 1024,
+      "majeurs": 4085
+    },
+    {
+      "code": "0310",
+      "commune": "Reckange-sur-Mess",
+      "population": 3032,
+      "mineurs": 582,
+      "majeurs": 2450
+    },
+    {
+      "code": "0809",
+      "commune": "Redange/Attert",
+      "population": 3170,
+      "mineurs": 563,
+      "majeurs": 2607
+    },
+    {
+      "code": "0712",
+      "commune": "Reisdorf",
+      "population": 1453,
+      "mineurs": 319,
+      "majeurs": 1134
+    },
+    {
+      "code": "1306",
+      "commune": "Remich",
+      "population": 4177,
+      "mineurs": 699,
+      "majeurs": 3478
+    },
+    {
+      "code": "0311",
+      "commune": "Roeser",
+      "population": 7193,
+      "mineurs": 1378,
+      "majeurs": 5815
+    },
+    {
+      "code": "1109",
+      "commune": "Rosport-Mompach",
+      "population": 3824,
+      "mineurs": 771,
+      "majeurs": 3053
+    },
+    {
+      "code": "0312",
+      "commune": "Rumelange",
+      "population": 5743,
+      "mineurs": 1169,
+      "majeurs": 4574
+    },
+    {
+      "code": "0810",
+      "commune": "Saeul",
+      "population": 1068,
+      "mineurs": 247,
+      "majeurs": 821
+    },
+    {
+      "code": "0405",
+      "commune": "Sandweiler",
+      "population": 3855,
+      "mineurs": 804,
+      "majeurs": 3051
+    },
+    {
+      "code": "0313",
+      "commune": "Sanem",
+      "population": 19688,
+      "mineurs": 3839,
+      "majeurs": 15849
+    },
+    {
+      "code": "1310",
+      "commune": "Schengen",
+      "population": 5265,
+      "mineurs": 964,
+      "majeurs": 4301
+    },
+    {
+      "code": "0713",
+      "commune": "Schieren",
+      "population": 2210,
+      "mineurs": 422,
+      "majeurs": 1788
+    },
+    {
+      "code": "0314",
+      "commune": "Schifflange",
+      "population": 11791,
+      "mineurs": 2260,
+      "majeurs": 9531
+    },
+    {
+      "code": "0406",
+      "commune": "Schuttrange",
+      "population": 4455,
+      "mineurs": 923,
+      "majeurs": 3532
+    },
+    {
+      "code": "1307",
+      "commune": "Stadtbredimus",
+      "population": 2020,
+      "mineurs": 339,
+      "majeurs": 1681
+    },
+    {
+      "code": "0211",
+      "commune": "Steinfort",
+      "population": 6153,
+      "mineurs": 1109,
+      "majeurs": 5044
+    },
+    {
+      "code": "0407",
+      "commune": "Steinsel",
+      "population": 6328,
+      "mineurs": 1249,
+      "majeurs": 5079
+    },
+    {
+      "code": "0408",
+      "commune": "Strassen",
+      "population": 10998,
+      "mineurs": 2178,
+      "majeurs": 8820
+    },
+    {
+      "code": "1004",
+      "commune": "Tandel",
+      "population": 2370,
+      "mineurs": 516,
+      "majeurs": 1854
+    },
+    {
+      "code": "0609",
+      "commune": "Troisvierges",
+      "population": 3709,
+      "mineurs": 759,
+      "majeurs": 2950
+    },
+    {
+      "code": "0811",
+      "commune": "Useldange",
+      "population": 2168,
+      "mineurs": 453,
+      "majeurs": 1715
+    },
+    {
+      "code": "0714",
+      "commune": "Vallée de l'Ernz",
+      "population": 2961,
+      "mineurs": 611,
+      "majeurs": 2350
+    },
+    {
+      "code": "1003",
+      "commune": "Vianden",
+      "population": 2260,
+      "mineurs": 405,
+      "majeurs": 1855
+    },
+    {
+      "code": "0812",
+      "commune": "Vichten",
+      "population": 1447,
+      "mineurs": 315,
+      "majeurs": 1132
+    },
+    {
+      "code": "1108",
+      "commune": "Waldbillig",
+      "population": 1990,
+      "mineurs": 434,
+      "majeurs": 1556
+    },
+    {
+      "code": "0409",
+      "commune": "Walferdange",
+      "population": 9295,
+      "mineurs": 1855,
+      "majeurs": 7440
+    },
+    {
+      "code": "0410",
+      "commune": "Weiler-la-Tour",
+      "population": 2528,
+      "mineurs": 503,
+      "majeurs": 2025
+    },
+    {
+      "code": "0610",
+      "commune": "Weiswampach",
+      "population": 2746,
+      "mineurs": 506,
+      "majeurs": 2240
+    },
+    {
+      "code": "0916",
+      "commune": "Wiltz",
+      "population": 8599,
+      "mineurs": 2039,
+      "majeurs": 6560
+    },
+    {
+      "code": "0601",
+      "commune": "Wincrange",
+      "population": 5023,
+      "mineurs": 1069,
+      "majeurs": 3954
+    },
+    {
+      "code": "0913",
+      "commune": "Winseler",
+      "population": 1608,
+      "mineurs": 253,
+      "majeurs": 1355
+    },
+    {
+      "code": "1209",
+      "commune": "Wormeldange",
+      "population": 3271,
+      "mineurs": 627,
+      "majeurs": 2644
+    }
+  ]
+}

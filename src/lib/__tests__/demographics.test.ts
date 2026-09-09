@@ -1,64 +1,30 @@
-import { describe, it, expect } from "vitest";
-import { getDemographics, getCommunesByCanton, getCantons } from "../demographics";
-
-describe("getDemographics", () => {
-  it("finds a major commune by exact name", () => {
-    const r = getDemographics("Luxembourg");
-    expect(r).not.toBeNull();
-    expect(r!.commune.toLowerCase()).toContain("luxembourg");
-  });
-
-  it("is case-insensitive", () => {
-    const exact = getDemographics("Luxembourg");
-    const lower = getDemographics("luxembourg");
-    const upper = getDemographics("LUXEMBOURG");
-    expect(lower).toEqual(exact);
-    expect(upper).toEqual(exact);
-  });
-
-  it("returns null for an unknown commune", () => {
-    expect(getDemographics("XYZFAKECITY")).toBeNull();
-  });
-
-  it("has required demographic fields for known communes", () => {
-    const r = getDemographics("Esch-sur-Alzette");
-    if (r) {
-      expect(typeof r.population).toBe("number");
-      expect(r.population).toBeGreaterThan(0);
-      expect(typeof r.canton).toBe("string");
-    }
-  });
-});
-
-describe("getCantons", () => {
-  it("returns a sorted list of 12 LU cantons", () => {
-    const cantons = getCantons();
-    expect(cantons.length).toBeGreaterThanOrEqual(10); // LU has 12, tolerate if data partial
-    expect(cantons.length).toBeLessThanOrEqual(15);
-    const sorted = [...cantons].sort();
-    expect(cantons).toEqual(sorted);
-  });
-
-  it("includes major cantons", () => {
-    const cantons = getCantons();
-    expect(cantons).toContain("Luxembourg");
-    expect(cantons).toContain("Esch-sur-Alzette");
-  });
-});
-
-describe("getCommunesByCanton", () => {
-  it("returns communes of a given canton", () => {
-    const list = getCommunesByCanton("Luxembourg");
-    expect(list.length).toBeGreaterThan(0);
-    list.forEach((c) => expect(c.canton).toBe("Luxembourg"));
-  });
-
-  it("excludes the 'Luxembourg (pays)' aggregate entry", () => {
-    const list = getCommunesByCanton("Luxembourg");
-    expect(list.some((c) => c.commune === "Luxembourg (pays)")).toBe(false);
-  });
-
-  it("returns empty array for an unknown canton", () => {
-    expect(getCommunesByCanton("FAKECANTON")).toEqual([]);
-  });
+import {describe,it,expect} from 'vitest';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {getDemographics,DEMOGRAPHIC_SOURCE} from '../demographics';
+import {getAllMarketData} from '../market-data';
+describe('official RNPP population snapshot',()=>{
+ it('covers 100 unique municipalities and preserves the administrative total',()=>{
+  const rows=DEMOGRAPHIC_SOURCE.records;expect(rows).toHaveLength(100);expect(new Set(rows.map(r=>r.code)).size).toBe(100);
+  expect(rows.reduce((s,r)=>s+r.population,0)).toBe(693913);
+  rows.forEach(r=>{expect(r.population).toBe(r.mineurs+r.majeurs);expect(Number.isInteger(r.population)).toBe(true);expect(r.population).toBeGreaterThan(0)});
+ });
+ it('matches independently checked source examples',()=>{
+  expect(getDemographics('Luxembourg')).toMatchObject({code:'0001',population:138215,mineurs:20122,majeurs:118093});
+  expect(getDemographics('Esch-sur-Alzette')?.population).toBe(38323);
+  expect(getDemographics('Redange')).toMatchObject({code:'0809',population:3170});
+  expect(getDemographics('Groussbus-Wal')).not.toBeNull();expect(getDemographics('Bous-Waldbredimus')).not.toBeNull();
+ });
+ it('normalizes case and accents without inventing a fallback',()=>{
+  expect(getDemographics('  PETANGE ')).toEqual(getDemographics('Pétange'));
+  expect(getDemographics('XYZFAKECITY')).toBeNull();expect(getDemographics('_national')).toBeNull();expect(getDemographics('Grosbous')).toBeNull();
+ });
+ it('records source date and checksum and contains no unsupported economic estimates',()=>{
+  expect(DEMOGRAPHIC_SOURCE.referenceDate).toBe('2026-07-01');
+  const raw=readFileSync('docs/sources/rnpp-2026-07-01.csv');expect(createHash('sha256').update(raw).digest('hex')).toBe(DEMOGRAPHIC_SOURCE.sha256);
+  expect(getDemographics('Luxembourg')).not.toHaveProperty('revenuMedian');expect(getDemographics('Luxembourg')).not.toHaveProperty('croissancePct');
+ });
+ it('provides an exact population match for every market municipality',()=>{
+  const missing=getAllMarketData().map(c=>c.commune).filter(name=>!getDemographics(name));expect(missing).toEqual([]);
+ });
 });

@@ -18865,5 +18865,15 @@
     "exportLeases": "Bailen exportéieren (CSV)",
     "exportMonthly": "Monatsfluxen exportéieren (CSV)",
     "exportScope": "D’Bail-CSV enthält Agaben a Staffelen. D’Monats-CSV enthält Fluxe pro Bail; global Fixkäschten an d’CAPEX-Reserve stinn an der Jorestabell an am PDF. De PDF dokumentéiert Hypotheesen a Montanten."
+  },
+  "populationEvidence": {
+    "title": "Am RNPP registréiert Bevëlkerung",
+    "date": "Extrait vum {date}",
+    "population": "Bevëlkerung",
+    "mineurs": "Mannerjäreger",
+    "majeurs": "Volljäreger",
+    "unavailable": "Gemeng net an dësem Extrait: kee geschate Wäert ugewisen.",
+    "scope": "Administrativen Extrait aus dem nationale Persouneregister, publizéiert vum CTIE. Den Total zielt Volljäreger a Mannerjäreger vu béide Geschlechter zesummen. Net mat der STATEC-Statistik vun der Wunnbevëlkerung gläichzesetzen. Akommes, Beschäftegung, Dicht a Wuesstem ginn net aus dësem Extrait ofgeleet.",
+    "source": "Offiziell Quell CTIE / RNPP — CC0-Lizenz"
   }
 }

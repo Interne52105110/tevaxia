@@ -18865,5 +18865,15 @@
     "exportLeases": "Mietverträge exportieren (CSV)",
     "exportMonthly": "Monatliche Zahlungsströme exportieren (CSV)",
     "exportScope": "Die Vertrags-CSV enthält Eingaben und Staffeln. Die Monats-CSV enthält Zahlungsströme je Vertrag; globale Fixkosten und CAPEX-Reserve stehen in Jahrestabelle und PDF. Das PDF dokumentiert Annahmen und Beträge."
+  },
+  "populationEvidence": {
+    "title": "Im RNPP registrierte Bevölkerung",
+    "date": "Auszug vom {date}",
+    "population": "Bevölkerung",
+    "mineurs": "Minderjährige",
+    "majeurs": "Volljährige",
+    "unavailable": "Gemeinde nicht in diesem Auszug: kein geschätzter Wert angezeigt.",
+    "scope": "Administrativer Auszug aus dem nationalen Personenregister, veröffentlicht vom CTIE. Die Summe umfasst Volljährige und Minderjährige beider Geschlechter. Nicht mit der STATEC-Statistik der Wohnbevölkerung gleichzusetzen. Einkommen, Beschäftigungsquote, Dichte und Wachstum werden daraus nicht abgeleitet.",
+    "source": "Offizielle Quelle CTIE / RNPP — CC0-Lizenz"
   }
 }

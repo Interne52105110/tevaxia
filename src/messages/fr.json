@@ -18865,5 +18865,15 @@
     "exportLeases": "Exporter les baux (CSV)",
     "exportMonthly": "Exporter les flux mensuels (CSV)",
     "exportScope": "Le CSV des baux reprend leurs données, y compris les paliers. Le CSV mensuel reprend les flux par bail ; les charges fixes globales et la réserve CAPEX figurent dans le tableau annuel et le PDF. Le PDF décrit les hypothèses et les montants utilisés."
+  },
+  "populationEvidence": {
+    "title": "Population inscrite au RNPP",
+    "date": "Extrait au {date}",
+    "population": "Population",
+    "mineurs": "Mineurs",
+    "majeurs": "Majeurs",
+    "unavailable": "Commune absente de cet extrait : aucune valeur estimée affichée.",
+    "scope": "Extrait administratif du registre national des personnes physiques publié par le CTIE. Le total additionne les personnes majeures et mineures des deux sexes. Il ne doit pas être confondu avec les statistiques STATEC de population résidente. Aucun revenu, taux d’emploi, densité ou taux de croissance n’est déduit de cet extrait.",
+    "source": "Source officielle CTIE / RNPP — licence CC0"
   }
 }

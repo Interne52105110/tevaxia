@@ -157,6 +157,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "populationEvidence",
     "syndicContextBar"
   ],
   "/cgu": [
@@ -179,6 +180,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
+    "populationEvidence",
     "syndicContextBar"
   ],
   "/comparer": [
