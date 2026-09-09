@@ -559,3 +559,16 @@ Les chargements sont associés à l’utilisateur, l’organisation et les dates
 Validation ciblée : composant réel exécuté avec services simulés dans les cinq langues, périodes exactes contrôlées dans les requêtes, absence de requête avant saisie, zéro/absence/marge négative, changement rapide d’organisation, erreur/nouvelle tentative, déconnexion et lien de connexion localisé. Aucun compte client ni donnée réelle n’a été modifié. Lint réussi. Les parcours connectés réels et leurs droits serveur ne sont pas certifiés par cette simulation.
 
 Compilation de production réussie. Contrôle public local aux largeurs 320/390/768/1440 dans les cinq langues : service de comptes non configuré localement, aucune ligne protégée affichée. Les liens de connexion et états connectés ont été contrôlés dans la simulation ; le contrôle public en production est effectué après déploiement. Le message de service indisponible est traduit sans exposer de noms de tables ou de migrations.
+
+
+### Budget MICE — hypothèses explicites et capacité
+
+L’ancien modèle appliquait deux personnes par chambre, des marges fixes 45/25/75 %, des recettes annuelles présumées et une saisonnalité non sourcée, jusque dans le prompt d’analyse. Il est remplacé par un budget de période de 1 à 366 jours : groupes attendus (fractionnaires autorisés), nuitées-chambres, unités de restauration et journées-salles par groupe, tarifs, coûts directs par groupe et coûts fixes documentés. Aucun résultat initial ni référence de marché inventée.
+
+Les capacités disponibles pour cette activité sont saisies et contrôlées séparément pour les chambres et les salles. Les journées-salles représentent une salle pendant une journée ; les nuitées-chambres ne sont pas des nuitées-personnes. Les unités de restauration doivent être définies dans les hypothèses. Recettes = groupes × volume par groupe × tarif, arrondies au centime par ligne via entiers BigInt ; les coûts directs sont calculés par groupe, les coûts fixes une seule fois sur la période. Le solde est nommé contribution après coûts saisis, sans assimilation au GOP/EBITDA/bénéfice net. Les coûts fixes restent dus avec zéro groupe et la marge est indisponible si les recettes sont nulles.
+
+Tous les champs, y compris zéro, et les références sont requis. Précision 4 décimales pour quantités, 2 pour euros ; montants non finis/négatifs et capacités dépassées bloqués. CSV avec période, hypothèses, unités et résultats ; texte de référence protégé contre les débuts de formules.
+
+Validation : 1 236 tests dans 111 fichiers réussis, dont 6 cas métier MICE ; lint et build réussis. Cinq langues, quatre largeurs 320/390/768/1440, absence de résultat initial, champs manquants, dépassement de capacité, zéro groupe et export contrôlés. Cas indépendant : 2,5 groupes × 10 nuitées × 100 EUR = 2 500 EUR, restauration 1 000 EUR, salles 500 EUR, coûts directs 425 EUR, fixes 100 EUR, contribution 3 475 EUR. Les cinq CSV confirment l’addition des recettes et le solde.
+
+Benchmark connecté 0b15bb7 confirmé en production : CI 34380637265 réussie, dpl_D4pJpK7Q2UZEkVuy8KyYGCe2hXje Ready et contrôle public dans les cinq langues/quatre largeurs avec lien de connexion localisé, sans lignes privées.

@@ -1067,13 +1067,12 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/hotellerie/mice": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "cookie",
     "crmContextBar",
-    "hotelMice",
     "hotellerieContextBar",
+    "miceBudget",
     "nav",
     "pmsContextBar",
     "syndicContextBar"
