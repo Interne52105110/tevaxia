@@ -1288,6 +1288,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/outils-bancaires": [
     "aiChat",
     "backup",
+    "bankingBasicsAudit",
     "common",
     "cookie",
     "crmContextBar",
@@ -1723,6 +1724,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/pro-agences/fiche-bien": [
     "aiChat",
     "backup",
+    "bankingBasicsAudit",
     "cookie",
     "crmContextBar",
     "hotellerieContextBar",

@@ -186,7 +186,7 @@ describe("calculerLTV", () => {
     expect(calculerLTV({ valeurBien: 750000, montantPret: 600000 })).toBeCloseTo(0.80);
   });
   it("handles zero value", () => {
-    expect(calculerLTV({ valeurBien: 0, montantPret: 100000 })).toBe(0);
+    expect(() => calculerLTV({ valeurBien: 0, montantPret: 100000 })).toThrow();
   });
 });
 

@@ -10,6 +10,7 @@ import { formatEUR, calculerMensualite } from "@/lib/calculations";
 
 export default function FicheBienPage() {
   const t = useTranslations("proaFicheBien");
+  const banking = useTranslations('bankingBasicsAudit');
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
@@ -44,6 +45,7 @@ export default function FicheBienPage() {
     if (!includeFinancing) return null;
     const downPayment = askingPrice * (downPaymentPct / 100);
     const loanAmount = askingPrice - downPayment;
+    if (![askingPrice,downPaymentPct,loanRate,loanDuration].every(Number.isFinite) || askingPrice <= 0 || askingPrice > 1e12 || downPaymentPct < 0 || downPaymentPct > 100 || loanRate < 0 || loanRate > 30 || !Number.isInteger(loanDuration) || loanDuration < 1 || loanDuration > 50) return null;
     const monthlyPayment = calculerMensualite(loanAmount, loanRate / 100, loanDuration);
     return { downPayment, loanAmount, monthlyPayment };
   }, [includeFinancing, askingPrice, downPaymentPct, loanRate, loanDuration]);
@@ -57,6 +59,7 @@ export default function FicheBienPage() {
   }, [includeFees, askingPrice]);
 
   const handleGenerate = async () => {
+    if (includeFinancing && !financingData) { alert(banking('invalid')); return; }
     if (!title.trim() || !address.trim()) {
       alert(t("alertRequired"));
       return;
@@ -205,6 +208,7 @@ export default function FicheBienPage() {
                 <InputField label={t("fieldDownPct")} value={downPaymentPct} onChange={(v) => setDownPaymentPct(Number(v))} suffix="%" min={0} max={100} />
                 <InputField label={t("fieldRate")} value={loanRate} onChange={(v) => setLoanRate(Number(v))} suffix="%" step={0.1} />
                 <InputField label={t("fieldDuration")} value={loanDuration} onChange={(v) => setLoanDuration(Number(v))} suffix={t("durationSuffix")} min={5} max={35} />
+                {!financingData && <p role="alert" className="text-sm text-red-700">{banking('invalid')}</p>}
                 {financingData && (
                   <div className="rounded-lg bg-navy/5 p-3 text-xs">
                     <div className="flex justify-between"><span className="text-muted">{t("finDownLabel")}</span><span className="font-mono">{formatEUR(financingData.downPayment)}</span></div>

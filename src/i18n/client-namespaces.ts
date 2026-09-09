@@ -17,6 +17,7 @@ export const CLIENT_NAMESPACES = [
   "bailCommercial",
   "bailCommercialLabels",
   "bailCommercialPage",
+  "bankingBasicsAudit",
   "bilanPromoteur",
   "calculLoyer",
   "calculateurVrd",

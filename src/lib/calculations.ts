@@ -511,14 +511,14 @@ export interface DSCRInput {
 }
 
 export function calculerLTV(input: LTVInput): number {
-  return input.valeurBien > 0 ? input.montantPret / input.valeurBien : 0;
+  if (![input.valeurBien,input.montantPret].every(Number.isFinite) || input.valeurBien <= 0 || input.montantPret < 0) throw new RangeError('Invalid LTV inputs');
+  return input.montantPret / input.valeurBien;
 }
 
 export function calculerMensualite(capital: number, tauxAnnuel: number, dureeAnnees: number): number {
-  const tauxMensuel = tauxAnnuel / 12;
-  const nbMois = dureeAnnees * 12;
-  if (tauxMensuel === 0) return capital / nbMois;
-  return capital * (tauxMensuel * Math.pow(1 + tauxMensuel, nbMois)) / (Math.pow(1 + tauxMensuel, nbMois) - 1);
+  if (![capital,tauxAnnuel,dureeAnnees].every(Number.isFinite) || capital < 0 || capital > 1e12 || tauxAnnuel < 0 || tauxAnnuel > .3 || !Number.isInteger(dureeAnnees * 12) || dureeAnnees <= 0 || dureeAnnees > 50) throw new RangeError('Invalid loan inputs');
+  const r = tauxAnnuel / 12, n = dureeAnnees * 12;
+  return r === 0 ? capital / n : capital * r / -Math.expm1(-n * Math.log1p(r));
 }
 
 export function genererTableauAmortissement(
@@ -534,12 +534,12 @@ export function genererTableauAmortissement(
 
   for (let mois = 1; mois <= nbMois; mois++) {
     const interets = capitalRestant * tauxMensuel;
-    const capitalRembourse = mensualite - interets;
+    const capitalRembourse = mois === nbMois ? capitalRestant : Math.min(capitalRestant, mensualite - interets);
     capitalRestant = Math.max(0, capitalRestant - capitalRembourse);
 
     tableau.push({
       mois,
-      mensualite,
+      mensualite: capitalRembourse + interets,
       capital: capitalRembourse,
       interets,
       capitalRestant,
@@ -550,6 +550,7 @@ export function genererTableauAmortissement(
 }
 
 export function calculerDSCR(input: DSCRInput): number {
+  if (!Object.values(input).every(n => Number.isFinite(n) && n >= 0) || input.serviceDetteAnnuel === 0) throw new RangeError('Invalid DSCR inputs');
   const noi = input.revenuLocatifAnnuel - input.chargesAnnuelles;
-  return input.serviceDetteAnnuel > 0 ? noi / input.serviceDetteAnnuel : 0;
+  return noi / input.serviceDetteAnnuel;
 }
