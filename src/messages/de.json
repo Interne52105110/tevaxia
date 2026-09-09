@@ -12555,14 +12555,14 @@
     },
     "emission": {
       "backLanding": "Zurück",
-      "title": "Factur-X vorbereiten",
-      "subtitle": "Füllen Sie die Felder aus, validieren Sie, laden Sie das PDF/A-3 mit eingebettetem EN 16931 XML + Standalone-XML herunter.",
+      "title": "Dokument vorbereiten",
+      "subtitle": "Erfassen Sie Beteiligte, Leistungen und Beträge und prüfen Sie die Unterlagen vor Ausstellung und Versand.",
       "reset": "Zurücksetzen",
       "resetConfirm": "Rechnung zurücksetzen?",
       "generate": "PDF + XML erzeugen",
       "generating": "Wird erzeugt…",
       "successMsg": "Rechnung erzeugt. PDF und XML heruntergeladen.",
-      "hint": "Das PDF enthält das EN 16931 XML als Anhang (Factur-X). Das Standalone-XML wird separat für direkten Import in Ihre PA bereitgestellt.",
+      "hint": "Laden Sie ein PDF mit Seitenumbrüchen und die zugehörige CII-XML-Datei herunter. Prüfen Sie die Datei mit Ihrer Rechnungslösung und bewahren Sie das versandte Original auf.",
       "template": {
         "label": "Branchen-Vorlage",
         "generic": "Generisch",
@@ -12629,14 +12629,14 @@
     },
     "historique": {
       "back": "Zurück",
-      "title": "Meine Factur-X",
-      "subtitle": "Verlauf der letzten 12 Monate. Ältere Rechnungen werden automatisch gelöscht (DSGVO).",
+      "title": "Meine Rechnungsunterlagen",
+      "subtitle": "Erstellen Sie einen neuen Download aus gespeicherten Daten.",
       "loading": "Verlauf wird geladen…",
       "signIn": "Anmelden, um den Verlauf anzusehen",
-      "newInvoice": "Neue Factur-X",
+      "newInvoice": "Dokument vorbereiten",
       "searchPlaceholder": "Suche nach Nummer, Kunde, Verkäufer…",
       "noResults": "Keine Ergebnisse für diese Suche.",
-      "empty": "Noch keine Factur-X erzeugt. Erstellen Sie Ihre erste Rechnung, um sie hier zu sehen.",
+      "empty": "Noch keine Dokumente gespeichert.",
       "deleteConfirm": "Rechnung {num} aus dem Verlauf löschen?",
       "col": {
         "number": "Nummer",
@@ -12651,8 +12651,8 @@
         "edit": "Bearbeiten",
         "delete": "Löschen"
       },
-      "hintTitle": "Aufbewahrung:",
-      "hintBody": "Der Verlauf speichert die Metadaten Ihrer Factur-X 12 Monate lang. Dokumente können jederzeit identisch neu erzeugt werden (XML/PDF-Signatur strikt reproduzierbar). Für 10-Jahres-Aufbewahrung (Art. L102 B LPF FR oder Art. 65 §1 MwSt-Gesetz LU) archivieren Sie Ihre PDFs auf eigenem Speicher."
+      "hintTitle": "Originale aufbewahren",
+      "hintBody": "Ein neu erzeugtes Dokument ist eine neue Kopie gespeicherter Daten, kein ausgestelltes oder signiertes Original. Bewahren Sie geprüfte und versandte Originale separat auf."
     }
   },
   "syndicContextBar": {
@@ -19914,5 +19914,28 @@
     "title": "Sie sind offline",
     "message": "Zum Laden dieser Seite und Prüfen Ihrer Daten ist eine Internetverbindung erforderlich.",
     "tip": "Versuchen Sie es erneut, sobald die Verbindung wiederhergestellt ist."
+  },
+  "billingPreparation": {
+    "title": "Rechnungsunterlagen vorbereiten",
+    "subtitle": "Erfassen Sie Beteiligte, Leistungen und Beträge und prüfen Sie die Unterlagen vor Ausstellung und Versand.",
+    "scope": "Die Dateierstellung ersetzt weder Ausstellung noch steuerliche Prüfung oder Übermittlung an den Empfänger.",
+    "dataTitle": "Ihre Angaben",
+    "dataBody": "Referenzen, Daten, Beteiligte und Steuersätze werden von Ihnen erfasst. Eine Branchenvorlage bestimmt nicht die steuerliche Behandlung.",
+    "calculationTitle": "Berechnung je Position",
+    "calculationBody": "Rabatte, Nettobeträge, MwSt. nach Kategorie und Satz sowie Bruttosummen beruhen auf den erfassten Positionen und deren Rundung auf Cent.",
+    "exportTitle": "PDF und XML",
+    "exportBody": "Laden Sie ein PDF mit Seitenumbrüchen und die zugehörige CII-XML-Datei herunter. Prüfen Sie die Datei mit Ihrer Rechnungslösung und bewahren Sie das versandte Original auf.",
+    "frTitle": "Frankreich",
+    "frBody": "Betroffene Unternehmen müssen seit dem 1. September 2026 elektronische Rechnungen empfangen. Die DGFiP veröffentlicht den Zeitplan für die Ausstellung und zugelassene Plattformen.",
+    "luTitle": "Luxemburg",
+    "luBody": "Bei betroffenen öffentlichen Aufträgen und Konzessionsverträgen werden konforme Rechnungen gemäß dem offiziellen Verfahren über Peppol oder MyGuichet.lu übermittelt.",
+    "sourcesTitle": "Offizielle Quellen",
+    "prepare": "Dokument vorbereiten",
+    "history": "Verlauf ansehen",
+    "offers": "Angebote ansehen",
+    "metaDescription": "Rechnungsdaten, gerundete Beträge, PDF und CII-XML zur Prüfung vor dem Versand vorbereiten.",
+    "frLink": "DGFiP: zugelassene Plattformen",
+    "luLink": "Guichet.lu: elektronische Rechnungen",
+    "formatLink": "FNFE-MPE: Factur-X-Prüfung"
   }
 }

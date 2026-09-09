@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { listHistory, deleteHistoryEntry, type FacturXHistoryEntry } from "@/lib/facturation/history";
-import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
 
 function formatEUR(n: number, currency = "EUR"): string {
   if (!isFinite(n)) return "—";
@@ -32,7 +31,8 @@ export default function HistoriquePage() {
   }, [user, authLoading]);
 
   const reDownload = async (e: FacturXHistoryEntry) => {
-    const artifacts = await generateFacturXPdf(e.invoice_data);
+    const { generateFacturXPdf } = await import("@/lib/facturation/factur-x-pdf");
+    const artifacts = await generateFacturXPdf(e.invoice_data, { locale });
     const pdfBlob = new Blob([artifacts.pdfBytes as BlobPart], { type: "application/pdf" });
     const url = URL.createObjectURL(pdfBlob);
     const a = document.createElement("a");

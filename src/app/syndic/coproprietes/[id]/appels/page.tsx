@@ -18,7 +18,6 @@ import { listAllocationKeys, type AllocationKey } from "@/lib/coownership-alloca
 import { formatEUR } from "@/lib/calculations";
 import { errMsg } from "@/lib/errors";
 import { buildCoproFacturX } from "@/lib/facturation/factur-x-syndic-builder";
-import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
 import { track, captureError } from "@/lib/analytics";
 
 const STATUS_COLOR: Record<CallStatus, string> = {
@@ -217,7 +216,8 @@ export default function FundsCallsPage() {
         address: profile.adresse, country_code: "LU",
       },
     });
-    const artifacts = await generateFacturXPdf(inv);
+    const { generateFacturXPdf } = await import("@/lib/facturation/factur-x-pdf");
+    const artifacts = await generateFacturXPdf(inv, { locale });
     const blob = new Blob([artifacts.pdfBytes as BlobPart], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

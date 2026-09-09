@@ -1,29 +1,7 @@
-// ============================================================
-// Factur-X — génération XML EN 16931 (CII D22B)
-// ============================================================
-//
-// Génère le XML "Factur-X" (norme FR/DE identique, basée sur la norme
-// européenne EN 16931) au format UN/CEFACT Cross Industry Invoice (CII)
-// D22B. Ce XML est conçu pour être embarqué dans un PDF/A-3 (Factur-X)
-// ou transmis seul via Peppol / PPF pour la réforme e-invoicing FR du
-// 1er septembre 2026.
-//
-// Profils Factur-X supportés :
-//   - MINIMUM          (réduit, 8 champs)
-//   - BASIC WL         (sans lignes détaillées)
-//   - BASIC            (lignes détaillées, usage FR typique)
-//   - EN 16931         (= COMFORT, recommandé)
-//   - EXTENDED         (hors cadre EN 16931 — usage B2B étendu)
-//
-// Cette V1 cible le profil BASIC (couvre >95% des cas immo FR/LU).
-//
-// Références :
-//   - EN 16931-1:2017 — modèle sémantique
-//   - FNFE-MPE Factur-X v1.0.07 (08/2024)
-//   - Art. 242 nonies A annexe II CGI — mentions obligatoires
-//   - Loi 1990-1170 + Directive UE 2014/55 + UE 2020/4 e-invoicing
-//
-// ============================================================
+// CII XML preparation for embedding in the invoice PDF.
+// The tested corpus covers BASIC with standard VAT and complete party data.
+// Validate the selected profile and recipient requirements before transmission;
+// structural input checks do not establish tax or platform compliance.
 
 import { validateInvoice } from "./invoice-validation";
 import { invoiceAmount, invoiceLineCents, invoiceLineAmount, invoiceVatCents, invoiceDecimalText, invoiceDiscountedUnitPrice } from "./invoice-arithmetic";
@@ -192,9 +170,9 @@ export function computeTotals(inv: FacturXInvoice): FacturXTotals {
 
 function renderParty(p: FacturXParty, isSeller: boolean): string {
   const addressParts = [
+    p.postcode ? `        <ram:PostcodeCode>${xmlEscape(p.postcode)}</ram:PostcodeCode>` : "",
     p.address_line1 ? `        <ram:LineOne>${xmlEscape(p.address_line1)}</ram:LineOne>` : "",
     p.address_line2 ? `        <ram:LineTwo>${xmlEscape(p.address_line2)}</ram:LineTwo>` : "",
-    p.postcode ? `        <ram:PostcodeCode>${xmlEscape(p.postcode)}</ram:PostcodeCode>` : "",
     p.city ? `        <ram:CityName>${xmlEscape(p.city)}</ram:CityName>` : "",
     `        <ram:CountryID>${xmlEscape(p.country_code)}</ram:CountryID>`,
   ].filter(Boolean).join("\n");
@@ -223,9 +201,11 @@ ${vatBlock}
     </ram:${tag}>`;
 }
 
-function renderLine(line: FacturXLine, idx: number): string {
+function renderLine(line: FacturXLine, idx: number, profile: FacturXInvoice["profile"]): string {
   const net = invoiceLineAmount(line);
-  const desc = line.description
+  // BASIC has no separate Description element: retain the full text in the item name.
+  const name = profile === "BASIC" && line.description ? `${line.name}\n${line.description}` : line.name;
+  const desc = line.description && profile !== "BASIC"
     ? `<ram:Description>${xmlEscape(line.description)}</ram:Description>`
     : "";
   return `    <ram:IncludedSupplyChainTradeLineItem>
@@ -233,7 +213,7 @@ function renderLine(line: FacturXLine, idx: number): string {
         <ram:LineID>${xmlEscape(line.id || String(idx + 1))}</ram:LineID>
       </ram:AssociatedDocumentLineDocument>
       <ram:SpecifiedTradeProduct>
-        <ram:Name>${xmlEscape(line.name)}</ram:Name>
+      <ram:Name>${xmlEscape(name)}</ram:Name>
         ${desc}
       </ram:SpecifiedTradeProduct>
       <ram:SpecifiedLineTradeAgreement>
@@ -278,12 +258,12 @@ export function buildFacturXCiiXml(inv: FacturXInvoice): string {
   </ram:IncludedNote>`
   ).join("\n");
 
-  const dueBlock = inv.due_date
+  const dueBlock = inv.due_date || inv.payment_terms
     ? `    <ram:SpecifiedTradePaymentTerms>
-      <ram:DueDateDateTime>
-        <udt:DateTimeString format="102">${dateToCii(inv.due_date)}</udt:DateTimeString>
-      </ram:DueDateDateTime>
       ${inv.payment_terms ? `<ram:Description>${xmlEscape(inv.payment_terms)}</ram:Description>` : ""}
+      ${inv.due_date ? `<ram:DueDateDateTime>
+        <udt:DateTimeString format="102">${dateToCii(inv.due_date)}</udt:DateTimeString>
+      </ram:DueDateDateTime>` : ""}
     </ram:SpecifiedTradePaymentTerms>`
     : "";
 
@@ -335,7 +315,7 @@ export function buildFacturXCiiXml(inv: FacturXInvoice): string {
 ${notes}
   </rsm:ExchangedDocument>
   <rsm:SupplyChainTradeTransaction>
-${inv.lines.map(renderLine).join("\n")}
+${inv.lines.map((line, index) => renderLine(line, index, inv.profile)).join("\n")}
     <ram:ApplicableHeaderTradeAgreement>
 ${buyerRef}
 ${renderParty(inv.seller, true)}
@@ -345,6 +325,7 @@ ${contractRef}
     </ram:ApplicableHeaderTradeAgreement>
     <ram:ApplicableHeaderTradeDelivery />
     <ram:ApplicableHeaderTradeSettlement>
+      ${inv.payment_reference ? `<ram:PaymentReference>${xmlEscape(inv.payment_reference)}</ram:PaymentReference>` : ""}
       <ram:InvoiceCurrencyCode>${xmlEscape(inv.currency)}</ram:InvoiceCurrencyCode>
 ${paymentMeans}
 ${renderVatBreakdown(totals)}

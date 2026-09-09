@@ -12677,14 +12677,14 @@
     },
     "emission": {
       "backLanding": "Retour",
-      "title": "Préparer une Factur-X",
-      "subtitle": "Remplis les champs ci-dessous, valide, télécharge le PDF/A-3 avec XML EN 16931 embarqué + le XML standalone.",
+      "title": "Préparer un document",
+      "subtitle": "Saisissez les parties, les prestations et les montants, puis vérifiez vos documents avant émission et transmission.",
       "reset": "Réinitialiser",
       "resetConfirm": "Réinitialiser la facture ?",
       "generate": "Générer PDF + XML",
       "generating": "Génération…",
       "successMsg": "Facture générée. PDF et XML téléchargés.",
-      "hint": "Le PDF contient le XML EN 16931 en pièce jointe (Factur-X). Le XML standalone est fourni séparément pour import direct dans ta PA si besoin.",
+      "hint": "Téléchargez un PDF paginé et son XML CII. Validez le fichier avec votre solution de facturation et conservez l’original effectivement transmis.",
       "template": {
         "label": "Template métier",
         "generic": "Générique",
@@ -12751,14 +12751,14 @@
     },
     "historique": {
       "back": "Retour",
-      "title": "Mes Factur-X",
-      "subtitle": "Historique des 12 derniers mois. Les factures plus anciennes sont purgées automatiquement (cf. RGPD).",
+      "title": "Mes documents de facturation",
+      "subtitle": "Retrouvez les données enregistrées pour préparer un nouveau téléchargement.",
       "loading": "Chargement de l'historique…",
       "signIn": "Se connecter pour consulter l'historique",
-      "newInvoice": "Nouvelle Factur-X",
+      "newInvoice": "Préparer un document",
       "searchPlaceholder": "Rechercher par numéro, client, vendeur…",
       "noResults": "Aucun résultat pour cette recherche.",
-      "empty": "Aucune Factur-X générée pour le moment. Génère ta première facture pour la retrouver ici.",
+      "empty": "Aucun document enregistré pour le moment.",
       "deleteConfirm": "Supprimer la facture {num} de l'historique ?",
       "col": {
         "number": "Numéro",
@@ -12773,8 +12773,8 @@
         "edit": "Éditer",
         "delete": "Supprimer"
       },
-      "hintTitle": "Conservation :",
-      "hintBody": "L'historique garde les métadonnées de tes Factur-X pendant 12 mois. Les documents peuvent être régénérés à tout moment identiquement (signature XML/PDF strictement reproductible). Pour conservation légale 10 ans (Art. L102 B LPF FR ou Art. 65 §1 TVA LU), archive tes PDF sur ton propre support."
+      "hintTitle": "Conservation des originaux",
+      "hintBody": "Un document régénéré est une nouvelle copie des données enregistrées, pas l’original émis ou signé. Conservez séparément vos originaux validés et transmis."
     }
   },
   "syndicContextBar": {
@@ -19914,5 +19914,28 @@
     "title": "Vous êtes hors ligne",
     "message": "Une connexion internet est nécessaire pour charger cette page et vérifier vos données.",
     "tip": "Réessayez lorsque la connexion est rétablie."
+  },
+  "billingPreparation": {
+    "title": "Préparer vos documents de facturation",
+    "subtitle": "Saisissez les parties, les prestations et les montants, puis vérifiez vos documents avant émission et transmission.",
+    "scope": "La préparation d’un fichier ne vaut pas émission, validation fiscale ou transmission à son destinataire.",
+    "dataTitle": "Vos données",
+    "dataBody": "Références, dates, identités et taux sont renseignés par vous. Un modèle métier ne détermine pas le traitement fiscal applicable.",
+    "calculationTitle": "Calculs par ligne",
+    "calculationBody": "Remises, montants HT, TVA par catégorie et taux, puis TTC : les totaux reposent sur les lignes saisies et leurs arrondis au centime.",
+    "exportTitle": "PDF et XML",
+    "exportBody": "Téléchargez un PDF paginé et son XML CII. Validez le fichier avec votre solution de facturation et conservez l’original effectivement transmis.",
+    "frTitle": "France",
+    "frBody": "Les entreprises concernées doivent recevoir leurs factures électroniques depuis le 1er septembre 2026. Le calendrier d’émission et les plateformes agréées sont précisés par la DGFiP.",
+    "luTitle": "Luxembourg",
+    "luBody": "Pour les marchés publics et concessions concernés, utilisez Peppol ou MyGuichet.lu pour transmettre une facture conforme, selon la procédure officielle.",
+    "sourcesTitle": "Références officielles",
+    "prepare": "Préparer un document",
+    "history": "Consulter l’historique",
+    "offers": "Voir les offres",
+    "metaDescription": "Préparation de documents de facturation : saisie, arrondis, PDF paginé et XML CII à vérifier avant transmission.",
+    "frLink": "DGFiP : plateformes agréées",
+    "luLink": "Guichet.lu : facturation électronique",
+    "formatLink": "FNFE-MPE : validation Factur-X"
   }
 }

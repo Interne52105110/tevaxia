@@ -414,3 +414,18 @@ Moteur décimal exact (BigInt) pour prix × quantité × remise, arrondi de chaq
 Dix tests nouveaux ; suite 1 360 tests / 129 fichiers, ciblés 52, lint et compilation réussis. Navigateur réel cinq langues × quatre largeurs : taux 20 conservé, remise 10 → 20 → 10 modifiant le TTC, montant effacé bloquant l’export, dépassement géré. PDF technique d’une page rendu et inspecté : lignes 1,01 / 0,60 / 0,02, HT 1,63, TVA 0,33, TTC 1,96. XML embarqué identique au standalone, totaux réconciliés. Exemple arithmétique fictif, pas une validation de l’application territoriale du taux. Aucun téléchargement ni sauvegarde de facture client exécuté pour la QA navigateur.
 
 Références des équations consultées : https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-10/ et https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-17/. Ce lot ne certifie pas le format Factur-X/Peppol ; revendications PDF/A, pagination/textes longs, modèles métier et historique restent à reprendre. Validation 61b45b0 publiée : CI 34411171766 réussie, dpl_Ha6EMwu83rsLKEdBjmP8vsGTK34B Ready.
+
+
+## 10 septembre — PDF/A, pagination et présentation de la facturation
+
+Le PDF partagé embarque désormais des polices Source Sans Pro (licence OFL jointe), un profil sRGB, des identifiants et des métadonnées XMP UTF-8 avec déclaration du schéma Factur-X. Les noms accentués et les documents longs sont conservés ; pagination sans troncature, titres selon le type 380/381/384/386 et cinq langues. Chargement du générateur à la demande dans les trois écrans concernés. XML : ordre des adresses et des échéances corrigé, description conservée dans le nom du produit pour BASIC, référence de paiement et conditions sans échéance conservées.
+
+Contrôle externe Mustang CLI 2.26.0 (veraPDF et schémas/Schematron inclus) : cinq cas BASIC fictifs, TVA standard, identités complètes, huit lignes avec arrondis/remise et longues descriptions/notes, trois pages chacun. Les cinq fichiers effectivement téléchargés dans le navigateur passent les contrôles PDF/A et XML ; XML embarqué identique au fichier séparé et textes identiques au rendu Node. Quinze pages rendues et inspectées. Ces résultats portent sur ce corpus, pas sur tous les profils, régimes TVA ou exigences des destinataires. Les contrôles d’entrée restent des contrôles d’intégrité ; modèles métier, mentions fiscales et autres profils restent à revoir.
+
+La page d’accueil facturation et les textes actifs de préparation/historique distinguent préparation, émission, transmission et conservation d’un original. Suppression des promesses générales non établies de conformité, d’indexation automatique et d’archivage ; liens officiels DGFiP, Guichet.lu et FNFE-MPE. Métadonnées localisées et vérification des trois liens internes. Cinq langues × quatre largeurs sans débordement, scénarios interactifs d’arrondis toujours réussis. Les téléchargements QA utilisent des données fictives, exclusivement en local avec trafic Supabase bloqué.
+
+Validation : suite 1 364 tests / 130 fichiers réussie, quatre tests PDF ciblés repassés après correction du typage, lint sans erreur et build 1 347 pages réussi. Aucune vulnérabilité de dépendance de production signalée par npm audit au contrôle de ce lot.
+
+Références : https://fnfe-mpe.org/factur-x/implementer-factur-x/ ; https://github.com/ZUGFeRD/mustangproject/releases/tag/core-2.26.0 ; https://www.impots.gouv.fr/facturation-electronique-et-plateformes-agreees ; https://guichet.public.lu/fr/entreprises/gestion-juridique-comptabilite/marche-public-concession/facturation/emission-facture-electronique-marche-public-contrat-concession.html.
+
+Arrondis 062bfdb publiés : CI 34412816970 réussie ; dpl_22pXmA9ACUE455odp9PJPPPTBX7s Ready, cinq langues contrôlées sur la production.

@@ -12555,14 +12555,14 @@
     },
     "emission": {
       "backLanding": "Zréck",
-      "title": "Factur-X virbereeden",
-      "subtitle": "Fëllt d'Felder aus, validéiert, luet d'PDF/A-3 mat agebettent EN 16931 XML + Standalone-XML erof.",
+      "title": "En Dokument virbereeden",
+      "subtitle": "Gitt d’Parteien, d’Leeschtungen an d’Zommen an a kontrolléiert d’Dokumenter virum Ausstellen a Verschécken.",
       "reset": "Zrécksetzen",
       "resetConfirm": "Rechnung zrécksetzen?",
       "generate": "PDF + XML generéieren",
       "generating": "Gëtt generéiert…",
       "successMsg": "Rechnung generéiert. PDF an XML erofgelueden.",
-      "hint": "D'PDF enthält d'EN 16931 XML als Attachment (Factur-X). D'Standalone-XML gëtt separat geliwwert fir direkten Import an Är PA.",
+      "hint": "Luet e PDF mat Säitenëmbroch an déi zougehéiereg CII-XML-Datei erof. Validéiert d’Datei mat Ärer Rechnungsléisung a behält dat tatsächlech verschéckten Original.",
       "template": {
         "label": "Branchen-Schablon",
         "generic": "Generesch",
@@ -12629,14 +12629,14 @@
     },
     "historique": {
       "back": "Zréck",
-      "title": "Meng Factur-X",
-      "subtitle": "Historique vun de leschten 12 Méint. Méi al Rechnunge ginn automatesch purgéiert (RGPD).",
+      "title": "Meng Rechnungsdokumenter",
+      "subtitle": "Benotzt gespäichert Donnéeë fir en neien Download virzebereeden.",
       "loading": "Historique gëtt gelueden…",
       "signIn": "Umellen fir den Historique ze kucken",
-      "newInvoice": "Nei Factur-X",
+      "newInvoice": "En Dokument virbereeden",
       "searchPlaceholder": "Sich no Nummer, Client, Verkeefer…",
       "noResults": "Keng Resultater fir dës Sich.",
-      "empty": "Nach keng Factur-X generéiert. Generéiert Är éischt Rechnung fir se hei ze gesinn.",
+      "empty": "Nach keng Dokumenter gespäichert.",
       "deleteConfirm": "Rechnung {num} vum Historique läschen?",
       "col": {
         "number": "Nummer",
@@ -12651,8 +12651,8 @@
         "edit": "Editéieren",
         "delete": "Läschen"
       },
-      "hintTitle": "Opbewahrung:",
-      "hintBody": "Den Historique späichert d'Metadaten vun Äre Factur-X 12 Méint laang. Dokumenter kënnen zu all Moment identesch nei generéiert ginn (XML/PDF-Ënnerschrëft strikt reproduzéierbar). Fir 10-Joer Opbewahrung (Art. L102 B LPF FR oder Art. 65 §1 TVA LU) archivéiert Är PDFen op Ärem eegene Support."
+      "hintTitle": "Originaler behalen",
+      "hintBody": "E nei generéiert Dokument ass eng nei Kopie vu gespäicherten Donnéeën, keen ausgestallt oder ënnerschriwwent Original. Haalt validéiert a verschéckten Originaler separat."
     }
   },
   "syndicContextBar": {
@@ -19914,5 +19914,28 @@
     "title": "Dir sidd offline",
     "message": "Eng Internetverbindung ass néideg, fir dës Säit ze lueden an Är Donnéeën ze kontrolléieren.",
     "tip": "Probéiert nach eng Kéier, wann d’Verbindung erëm do ass."
+  },
+  "billingPreparation": {
+    "title": "Rechnungsdokumenter virbereeden",
+    "subtitle": "Gitt d’Parteien, d’Leeschtungen an d’Zommen an a kontrolléiert d’Dokumenter virum Ausstellen a Verschécken.",
+    "scope": "Eng Datei virbereeden ass keng Ausstellung, steierlech Validatioun oder Iwwermëttlung un den Empfänger.",
+    "dataTitle": "Är Donnéeën",
+    "dataBody": "Referenzen, Datumer, Identitéiten an Tauxe gitt Dir selwer an. Eng Beruffsvirlag bestëmmt net déi steierlech Behandlung.",
+    "calculationTitle": "Berechnung pro Linn",
+    "calculationBody": "Remisen, Zommen ouni TVA, TVA no Kategorie an Taux an den Total mat TVA baséieren op den aginne Linnen an hirer Ronnung op Cent.",
+    "exportTitle": "PDF an XML",
+    "exportBody": "Luet e PDF mat Säitenëmbroch an déi zougehéiereg CII-XML-Datei erof. Validéiert d’Datei mat Ärer Rechnungsléisung a behält dat tatsächlech verschéckten Original.",
+    "frTitle": "Frankräich",
+    "frBody": "Betraffe Betriber mussen zënter dem 1. September 2026 elektronesch Rechnunge kréien. D’DGFiP publizéiert de Kalenner fir d’Ausstellung an déi zougeloosse Plattformen.",
+    "luTitle": "Lëtzebuerg",
+    "luBody": "Fir betraffen ëffentlech Opträg a Konzessiounsverträg ginn entspriechend Rechnungen no der offizieller Prozedur iwwer Peppol oder MyGuichet.lu iwwermëttelt.",
+    "sourcesTitle": "Offiziell Quellen",
+    "prepare": "En Dokument virbereeden",
+    "history": "Historique kucken",
+    "offers": "Offere kucken",
+    "metaDescription": "Rechnungsdaten, geronnt Zommen, PDF an CII-XML virbereeden a virum Verschécke kontrolléieren.",
+    "frLink": "DGFiP: zougeloosse Plattformen",
+    "luLink": "Guichet.lu: elektronesch Rechnungen",
+    "formatLink": "FNFE-MPE: Factur-X-Validatioun"
   }
 }

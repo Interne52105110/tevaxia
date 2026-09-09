@@ -12677,14 +12677,14 @@
     },
     "emission": {
       "backLanding": "Back",
-      "title": "Prepare a Factur-X",
-      "subtitle": "Fill the fields below, validate, download the PDF/A-3 with embedded EN 16931 XML + standalone XML.",
+      "title": "Prepare a document",
+      "subtitle": "Enter parties, services and amounts, then check your documents before issuing and sending them.",
       "reset": "Reset",
       "resetConfirm": "Reset invoice?",
       "generate": "Generate PDF + XML",
       "generating": "Generating…",
       "successMsg": "Invoice generated. PDF and XML downloaded.",
-      "hint": "The PDF includes the EN 16931 XML as an attachment (Factur-X). The standalone XML is provided separately for direct import into your PA if needed.",
+      "hint": "Download a paginated PDF and its CII XML. Validate the file with your billing solution and keep the original actually sent.",
       "template": {
         "label": "Industry template",
         "generic": "Generic",
@@ -12751,14 +12751,14 @@
     },
     "historique": {
       "back": "Back",
-      "title": "My Factur-X",
-      "subtitle": "History of the last 12 months. Older invoices are automatically purged (GDPR).",
+      "title": "My billing documents",
+      "subtitle": "Use saved data to prepare a new download.",
       "loading": "Loading history…",
       "signIn": "Sign in to view history",
-      "newInvoice": "New Factur-X",
+      "newInvoice": "Prepare a document",
       "searchPlaceholder": "Search by number, customer, seller…",
       "noResults": "No results for this search.",
-      "empty": "No Factur-X generated yet. Create your first invoice to see it here.",
+      "empty": "No documents saved yet.",
       "deleteConfirm": "Delete invoice {num} from history?",
       "col": {
         "number": "Number",
@@ -12773,8 +12773,8 @@
         "edit": "Edit",
         "delete": "Delete"
       },
-      "hintTitle": "Retention:",
-      "hintBody": "History keeps your Factur-X metadata for 12 months. Documents can be regenerated identically at any time (XML/PDF signature strictly reproducible). For 10-year legal retention (Art. L102 B LPF FR or Art. 65 §1 VAT LU), archive your PDFs on your own storage."
+      "hintTitle": "Keeping originals",
+      "hintBody": "A regenerated document is a new copy of saved data, not the issued or signed original. Keep your validated and sent originals separately."
     }
   },
   "syndicContextBar": {
@@ -19914,5 +19914,28 @@
     "title": "You are offline",
     "message": "An internet connection is required to load this page and check your data.",
     "tip": "Try again when your connection is restored."
+  },
+  "billingPreparation": {
+    "title": "Prepare billing documents",
+    "subtitle": "Enter parties, services and amounts, then check your documents before issuing and sending them.",
+    "scope": "Preparing a file does not issue it, validate its tax treatment or send it to the recipient.",
+    "dataTitle": "Your data",
+    "dataBody": "You enter references, dates, identities and rates. A business template does not determine the applicable tax treatment.",
+    "calculationTitle": "Line calculations",
+    "calculationBody": "Discounts, net amounts, VAT by category and rate, then gross totals: calculations use the entered lines and their rounding to cents.",
+    "exportTitle": "PDF and XML",
+    "exportBody": "Download a paginated PDF and its CII XML. Validate the file with your billing solution and keep the original actually sent.",
+    "frTitle": "France",
+    "frBody": "Businesses within scope must receive electronic invoices from 1 September 2026. The DGFiP provides the issuing timetable and approved platforms.",
+    "luTitle": "Luxembourg",
+    "luBody": "For public procurement and concession contracts within scope, use Peppol or MyGuichet.lu to send a compliant invoice through the official procedure.",
+    "sourcesTitle": "Official references",
+    "prepare": "Prepare a document",
+    "history": "View history",
+    "offers": "View plans",
+    "metaDescription": "Prepare billing data, rounded amounts, paginated PDF and CII XML for checking before transmission.",
+    "frLink": "DGFiP: approved platforms",
+    "luLink": "Guichet.lu: electronic invoicing",
+    "formatLink": "FNFE-MPE: Factur-X validation"
   }
 }

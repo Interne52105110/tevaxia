@@ -12555,14 +12555,14 @@
     },
     "emission": {
       "backLanding": "Voltar",
-      "title": "Preparar uma Factur-X",
-      "subtitle": "Preencha os campos abaixo, valide, descarregue o PDF/A-3 com XML EN 16931 incorporado + XML standalone.",
+      "title": "Preparar um documento",
+      "subtitle": "Introduza as partes, as prestações e os montantes e verifique os documentos antes da emissão e do envio.",
       "reset": "Reiniciar",
       "resetConfirm": "Reiniciar a fatura?",
       "generate": "Gerar PDF + XML",
       "generating": "A gerar…",
       "successMsg": "Fatura gerada. PDF e XML descarregados.",
-      "hint": "O PDF contem o XML EN 16931 em anexo (Factur-X). O XML standalone e fornecido separadamente para importacao direta na sua PA.",
+      "hint": "Descarregue um PDF paginado e o respetivo XML CII. Valide o ficheiro com a sua solução de faturação e conserve o original efetivamente enviado.",
       "template": {
         "label": "Template por atividade",
         "generic": "Generico",
@@ -12629,14 +12629,14 @@
     },
     "historique": {
       "back": "Voltar",
-      "title": "As minhas Factur-X",
-      "subtitle": "Historico dos ultimos 12 meses. Faturas mais antigas sao purgadas automaticamente (RGPD).",
+      "title": "Os meus documentos de faturação",
+      "subtitle": "Utilize os dados guardados para preparar uma nova transferência.",
       "loading": "A carregar historico…",
       "signIn": "Entrar para ver o historico",
-      "newInvoice": "Nova Factur-X",
+      "newInvoice": "Preparar um documento",
       "searchPlaceholder": "Pesquisar por numero, cliente, vendedor…",
       "noResults": "Sem resultados para esta pesquisa.",
-      "empty": "Ainda nao gerou nenhuma Factur-X. Gere a primeira fatura para a ver aqui.",
+      "empty": "Ainda não existem documentos guardados.",
       "deleteConfirm": "Eliminar a fatura {num} do historico?",
       "col": {
         "number": "Numero",
@@ -12651,8 +12651,8 @@
         "edit": "Editar",
         "delete": "Eliminar"
       },
-      "hintTitle": "Conservacao:",
-      "hintBody": "O historico guarda os metadados das suas Factur-X durante 12 meses. Os documentos podem ser regerados a qualquer momento de forma identica (assinatura XML/PDF estritamente reproduzivel). Para conservacao legal 10 anos (Art. L102 B LPF FR ou Art. 65 §1 IVA LU), arquive os seus PDF em suporte proprio."
+      "hintTitle": "Conservação dos originais",
+      "hintBody": "Um documento regenerado é uma nova cópia dos dados guardados, não o original emitido ou assinado. Conserve separadamente os originais validados e enviados."
     }
   },
   "syndicContextBar": {
@@ -19914,5 +19914,28 @@
     "title": "Está offline",
     "message": "É necessária uma ligação à internet para carregar esta página e verificar os seus dados.",
     "tip": "Tente novamente quando a ligação for restabelecida."
+  },
+  "billingPreparation": {
+    "title": "Preparar documentos de faturação",
+    "subtitle": "Introduza as partes, as prestações e os montantes e verifique os documentos antes da emissão e do envio.",
+    "scope": "A preparação de um ficheiro não constitui emissão, validação fiscal ou envio ao destinatário.",
+    "dataTitle": "Os seus dados",
+    "dataBody": "As referências, datas, identidades e taxas são introduzidas por si. Um modelo profissional não determina o tratamento fiscal aplicável.",
+    "calculationTitle": "Cálculos por linha",
+    "calculationBody": "Descontos, valores sem IVA, IVA por categoria e taxa e totais com IVA são calculados a partir das linhas e dos arredondamentos ao cêntimo.",
+    "exportTitle": "PDF e XML",
+    "exportBody": "Descarregue um PDF paginado e o respetivo XML CII. Valide o ficheiro com a sua solução de faturação e conserve o original efetivamente enviado.",
+    "frTitle": "França",
+    "frBody": "As empresas abrangidas devem receber faturas eletrónicas desde 1 de setembro de 2026. A DGFiP indica o calendário de emissão e as plataformas autorizadas.",
+    "luTitle": "Luxemburgo",
+    "luBody": "Nos contratos públicos e de concessão abrangidos, utilize Peppol ou MyGuichet.lu para enviar uma fatura conforme através do procedimento oficial.",
+    "sourcesTitle": "Referências oficiais",
+    "prepare": "Preparar um documento",
+    "history": "Consultar o histórico",
+    "offers": "Ver ofertas",
+    "metaDescription": "Preparar dados de faturação, valores arredondados, PDF paginado e XML CII para verificar antes do envio.",
+    "frLink": "DGFiP: plataformas autorizadas",
+    "luLink": "Guichet.lu: faturação eletrónica",
+    "formatLink": "FNFE-MPE: validação Factur-X"
   }
 }

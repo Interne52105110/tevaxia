@@ -4,7 +4,6 @@ import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { computeTotals, validateInvoice, formatInvoiceNumber, VAT_RATES_FR, VAT_RATES_LU, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
-import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
 import { saveToHistory } from "@/lib/facturation/history";
 import { track, captureError } from "@/lib/analytics";
 
@@ -178,7 +177,8 @@ export default function EmissionPage() {
     setErrors([]);
     setGenerating(true);
     try {
-      const artifacts = await generateFacturXPdf(inv);
+      const { generateFacturXPdf } = await import("@/lib/facturation/factur-x-pdf");
+      const artifacts = await generateFacturXPdf(inv, { locale });
       // Download PDF
       const pdfBlob = new Blob([artifacts.pdfBytes as BlobPart], { type: "application/pdf" });
       const pdfUrl = URL.createObjectURL(pdfBlob);
