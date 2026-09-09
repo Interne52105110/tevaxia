@@ -8693,7 +8693,7 @@
     "legendDue": "Geschëllt",
     "legendPaidOnTime": "Krut (pünktlech)",
     "legendPaidLate": "Krut (verspéidegt)",
-    "facturxTitle": "Eng Factur-X fir dëse Mount virfëllen",
+    "facturxTitle": "Loyerszomme fir d’Prüfung virun der Rechnung iwwerhuelen",
     "month1Short": "Jan",
     "month2Short": "Feb",
     "month3Short": "Mäe",
@@ -8705,7 +8705,8 @@
     "month9Short": "Sep",
     "month10Short": "Okt",
     "month11Short": "Nov",
-    "month12Short": "Dez"
+    "month12Short": "Dez",
+    "prepareBilling": "Dokument virbereeden"
   },
   "hotelForecast": {
     "error": "Feeler",

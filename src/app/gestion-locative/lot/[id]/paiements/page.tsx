@@ -1,5 +1,6 @@
 "use client";
 
+import { rentalInvoiceDraft } from "@/lib/facturation/rental-draft";
 import { storeInvoiceDraft } from "@/lib/facturation/draft";
 
 import { useCallback, useEffect, useState } from "react";
@@ -30,6 +31,7 @@ export default function PaymentsPage() {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
   const t = useTranslations("paiementsLocatifs");
+  const ti = useTranslations("invoiceTemplate");
   const { user } = useAuth();
   const params = useParams();
   const id = String(params?.id ?? "");
@@ -128,56 +130,14 @@ export default function PaymentsPage() {
     } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
-  const prefillFacturX = (payment: RentalPayment, monthIdx: number) => {
+  const prepareInvoice = (payment: RentalPayment) => {
     if (!lot || !user) return;
-    const profile = getProfile();
-    const monthLabel = MONTHS[monthIdx - 1];
-    const now = new Date(selectedYear, monthIdx - 1, 1);
-    const due = new Date(selectedYear, monthIdx - 1, 5);
-    const invNum = `LOY-${selectedYear}-${String(monthIdx).padStart(2, "0")}-${lot.name.replace(/[^A-Za-z0-9]/g, "").slice(0, 6).toUpperCase()}`;
-    const draft = {
-      profile: "BASIC",
-      document_type: "380",
-      invoice_number: invNum,
-      issue_date: now.toISOString().slice(0, 10),
-      due_date: due.toISOString().slice(0, 10),
-      currency: "EUR",
-      seller: {
-        name: profile.nomComplet || "Bailleur",
-        address_line1: profile.adresse ?? "",
-        country_code: "FR",
-      },
-      buyer: {
-        name: lot.tenantName ?? "Locataire",
-        address_line1: lot.address ?? "",
-        city: lot.commune ?? "",
-        country_code: "FR",
-      },
-      lines: [
-        {
-          id: "1",
-          name: `Loyer ${monthLabel} ${selectedYear}`,
-          quantity: 1,
-          unit_code: "MON",
-          unit_price_net: payment.amount_rent,
-          vat_category: "E",
-          vat_rate_percent: 0,
-        },
-        ...(payment.amount_charges > 0 ? [{
-          id: "2",
-          name: `Charges ${monthLabel} ${selectedYear}`,
-          quantity: 1,
-          unit_code: "MON",
-          unit_price_net: payment.amount_charges,
-          vat_category: "E",
-          vat_rate_percent: 0,
-        }] : []),
-      ],
-      notes: ["Loyer d'habitation — exempt TVA art. 261 D CGI"],
-      payment_terms: "Paiement avant le 5 du mois",
-    };
-    try { storeInvoiceDraft(draft, user!.id); } catch (e) { setError(errMsg(e, t("error"))); return; }
-    window.location.href = `${lp}/facturation/emission`;
+    try {
+      const profile = getProfile();
+      const draft = rentalInvoiceDraft(payment, lot, user.id, { name: profile.nomComplet || profile.societe || "", address: profile.adresse }, { rent: ti("rent"), charges: ti("charges") });
+      storeInvoiceDraft(draft, user.id);
+      window.location.href = `${lp}/facturation/emission`;
+    } catch (e) { setError(errMsg(e, t("error"))); }
   };
 
   const downloadReceipt = async (payment: RentalPayment) => {
@@ -390,10 +350,10 @@ export default function PaymentsPage() {
                               {t("receiptPdf")}
                             </button>
                           )}
-                          <button onClick={() => prefillFacturX(p, m)}
+                          <button onClick={() => prepareInvoice(p)}
                             className="rounded-md bg-amber-50 border border-amber-200 px-2 py-1 text-[11px] font-medium text-amber-900 hover:bg-amber-100"
                             title={t("facturxTitle")}>
-                            Factur-X
+                            {t("prepareBilling")}
                           </button>
                           <button onClick={() => { setEditingId(p.id); setEditAmount(p.amount_total); }}
                             className="rounded-md border border-card-border bg-white px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">

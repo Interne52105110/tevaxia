@@ -8693,7 +8693,7 @@
     "legendDue": "Devido",
     "legendPaidOnTime": "Recebido (em dia)",
     "legendPaidLate": "Recebido (em atraso)",
-    "facturxTitle": "Pré-preencher uma Factur-X para este mês",
+    "facturxTitle": "Copiar os montantes da renda para verificar antes da faturação",
     "month1Short": "Jan",
     "month2Short": "Fev",
     "month3Short": "Mar",
@@ -8705,7 +8705,8 @@
     "month9Short": "Set",
     "month10Short": "Out",
     "month11Short": "Nov",
-    "month12Short": "Dez"
+    "month12Short": "Dez",
+    "prepareBilling": "Preparar um documento"
   },
   "hotelForecast": {
     "error": "Erro",

@@ -484,3 +484,12 @@ Référence sur la nature provisionnelle des appels en France : https://www.serv
 Lint sans erreur (une directive existante inutile), build réussi. Cinq langues testées sur l’écran réel avec services/rendu PDF simulés : texte de portée, absence des boutons fiscaux, actions PDF individuelle/groupée conservant le montant et le nom du fichier. Aucun PDF client ni opération financière produit par ces tests. Le rendu existant de l’appel n’a pas été modifié.
 
 Modèles e141499 publiés : CI 34417387221 réussie ; dpl_33mUwmg8eW6Rh3LhPSzzktNwTCKt Ready. Cinq langues, modèles sans taux implicite, taux personnalisé et quatre largeurs vérifiés en production.
+
+
+## 10 septembre — préremplissage locatif à vérifier avant facturation
+
+Le préremplissage utilise désormais le propriétaire, le lot, l’année et le mois du paiement réel ; il refuse les identités discordantes, périodes invalides, montants négatifs/non finis et totaux incohérents. Les deux montants enregistrés sont conservés, sans présumer le pays ou la TVA. Numéro et pays laissés à compléter, taux requis, aucune référence CGI ajoutée et aucun nom de partie inventé. Date de préparation au jour civil luxembourgeois, échéance du 5 exprimée comme date civile de la période. Libellés et action traduits ; enregistrement du brouillon sous le compte initiateur, échec visible.
+
+Neuf tests nouveaux ; suite 1 401 tests / 134 fichiers, lint sans erreur et build réussis. Cinq langues en navigateur isolé avec lecture simulée : montants/période/libellés conservés, destination localisée et brouillon par compte, TVA non supposée, refus sans écriture ni navigation pour un paiement d’un autre compte. Ni les quittances, ni le calcul des loyers, ni le stockage global des lots ne sont certifiés par ce lot.
+
+Appels de fonds f11163c publiés : CI 34417797988 réussie ; dpl_4SsVGeVhZwx33gFx4mJMKQ7xw5Gx Ready. Les scénarios connectés de ce module ont été vérifiés avec des services simulés, pas avec des données client de production.

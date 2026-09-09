@@ -8815,7 +8815,7 @@
     "legendDue": "Due",
     "legendPaidOnTime": "Received (on time)",
     "legendPaidLate": "Received (late)",
-    "facturxTitle": "Pre-fill a Factur-X for this month",
+    "facturxTitle": "Copy rental amounts for review before invoicing",
     "month1Short": "Jan",
     "month2Short": "Feb",
     "month3Short": "Mar",
@@ -8827,7 +8827,8 @@
     "month9Short": "Sep",
     "month10Short": "Oct",
     "month11Short": "Nov",
-    "month12Short": "Dec"
+    "month12Short": "Dec",
+    "prepareBilling": "Prepare a document"
   },
   "hotelForecast": {
     "error": "Error",
