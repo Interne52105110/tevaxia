@@ -1186,7 +1186,12 @@
     "evidenceMissing": "No individual comparable sale or municipal historical series is included in this result. For a valuation, document relevant sales, their dates, areas, ancillary spaces, condition and terms; a municipal average does not replace them.",
     "budgetScope": "To prepare your budget, enter the loan and your offer terms in the banking tools. Add acquisition costs, insurance, condominium charges, property tax and maintenance using the property's documents. These costs are not inferred from its estimated value.",
     "budgetLink": "Plan the financing",
-    "statisticsLink": "Consult official STATEC statistics"
+    "statisticsLink": "Consult official STATEC statistics",
+    "historyConfirm": "Clear all local history? This deletion is permanent. Export the original first if you wish to keep it.",
+    "historyDelete": "Delete this estimate",
+    "historyInvalid": "The local history contains unreadable or invalid data. Readable entries remain on screen. The original is intact and edits are blocked; you can export it before resetting the history.",
+    "historyStorageError": "Local storage is unavailable or full. The change was not saved. Check browser settings and reload before trying again.",
+    "historyExportRaw": "Export the original history"
   },
   "fraisAcquisition": {
     "title": "Acquisition Fees Simulator",

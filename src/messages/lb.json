@@ -1186,7 +1186,12 @@
     "evidenceMissing": "Dëst Resultat enthält keng individuell Vergläichsverkeef a keng historesch Zäitrei vun der Gemeng. Fir eng Expertise, dokumentéiert passend Verkeef, hir Datumer, Flächen, Annexen, Zoustand a Konditiounen; e Gemengemoyenne ersetzt se net.",
     "budgetScope": "Fir de Budget ze plangen, gitt de Prêt an d’Konditioune vun Ärer Offer an de Bankinstrumenter an. Ergänzt d’Acquisitiounskäschten, Assurance, Copropriétéitskäschten, Grondsteier an Ënnerhalt op Basis vun den Dokumenter vum Objet. Dës Käschte ginn net vum geschätzte Wäert ofgeleet.",
     "budgetLink": "Finanzéierung plangen",
-    "statisticsLink": "Offiziell STATEC-Statistike kucken"
+    "statisticsLink": "Offiziell STATEC-Statistike kucken",
+    "historyConfirm": "De ganze lokale Verlaf läschen? Dës Läschung ass definitiv. Exportéiert fir d’éischt d’Original, wann Dir et behale wëllt.",
+    "historyDelete": "Dës Schätzung läschen",
+    "historyInvalid": "De lokale Verlaf enthält onliesbar oder ongëlteg Donnéeën. Liesbar Entréeë bleiwen um Ecran. D’Original bleift onverännert an Ännerunge si gespaart; Dir kënnt et exportéieren, ier Dir de Verlaf zrécksetzt.",
+    "historyStorageError": "De lokale Späicher ass net disponibel oder voll. D’Ännerung gouf net gespäichert. Kontrolléiert d’Browserastellungen a luet d'Säit nei, ier Dir et nach eng Kéier probéiert.",
+    "historyExportRaw": "Originalverlaf exportéieren"
   },
   "fraisAcquisition": {
     "title": "Erwerbskäschtesimulator",

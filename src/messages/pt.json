@@ -1186,7 +1186,12 @@
     "evidenceMissing": "Este resultado não inclui vendas individuais comparáveis nem uma série histórica municipal. Para uma avaliação, documente vendas pertinentes, datas, áreas, anexos, estado e condições; uma média municipal não as substitui.",
     "budgetScope": "Para preparar o orçamento, introduza o crédito e as condições da sua proposta nas ferramentas bancárias. Acrescente despesas de aquisição, seguro, condomínio, imposto predial e manutenção a partir dos documentos do imóvel. Estes custos não são deduzidos do valor estimado.",
     "budgetLink": "Preparar o financiamento",
-    "statisticsLink": "Consultar as estatísticas oficiais do STATEC"
+    "statisticsLink": "Consultar as estatísticas oficiais do STATEC",
+    "historyConfirm": "Apagar todo o histórico local? A eliminação é definitiva. Exporte primeiro o original se pretender conservá-lo.",
+    "historyDelete": "Apagar esta estimativa",
+    "historyInvalid": "O histórico local contém dados ilegíveis ou inválidos. As entradas legíveis continuam visíveis. O original permanece intacto e as alterações estão bloqueadas; pode exportá-lo antes de repor o histórico.",
+    "historyStorageError": "O armazenamento local está indisponível ou cheio. A alteração não foi guardada. Verifique as definições do navegador e recarregue a página antes de tentar novamente.",
+    "historyExportRaw": "Exportar o histórico original"
   },
   "fraisAcquisition": {
     "title": "Simulador de Encargos de Aquisição",

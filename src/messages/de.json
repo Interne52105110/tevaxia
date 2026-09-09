@@ -1186,7 +1186,12 @@
     "evidenceMissing": "Dieses Ergebnis enthält weder einzelne Vergleichsverkäufe noch eine historische Zeitreihe der Gemeinde. Dokumentieren Sie für ein Gutachten geeignete Verkäufe mit Datum, Flächen, Nebenflächen, Zustand und Bedingungen; ein Gemeindedurchschnitt ersetzt diese nicht.",
     "budgetScope": "Geben Sie zur Budgetplanung Kredit und Angebotsbedingungen in die Bankwerkzeuge ein. Ergänzen Sie Erwerbskosten, Versicherung, Gemeinschaftskosten, Grundsteuer und Instandhaltung anhand der Objektunterlagen. Diese Kosten werden nicht aus dem geschätzten Wert abgeleitet.",
     "budgetLink": "Finanzierung planen",
-    "statisticsLink": "Offizielle STATEC-Statistiken ansehen"
+    "statisticsLink": "Offizielle STATEC-Statistiken ansehen",
+    "historyConfirm": "Den gesamten lokalen Verlauf löschen? Dies ist endgültig. Exportieren Sie zuerst das Original, wenn Sie es behalten möchten.",
+    "historyDelete": "Diese Schätzung löschen",
+    "historyInvalid": "Der lokale Verlauf enthält unlesbare oder ungültige Daten. Lesbare Einträge bleiben sichtbar. Das Original bleibt unverändert und Änderungen sind gesperrt; vor dem Zurücksetzen können Sie es exportieren.",
+    "historyStorageError": "Der lokale Speicher ist nicht verfügbar oder voll. Die Änderung wurde nicht gespeichert. Prüfen Sie die Browsereinstellungen und laden Sie die Seite vor einem neuen Versuch erneut.",
+    "historyExportRaw": "Originalverlauf exportieren"
   },
   "fraisAcquisition": {
     "title": "Erwerbskostensimulator",

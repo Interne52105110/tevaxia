@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
+import {parseEstimationHistory,resolveSharedCommune,type EstimationHistoryEntry} from "@/lib/estimation-history";
 import { estimer } from "@/lib/estimation";
 import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
@@ -44,38 +45,29 @@ export default function Estimation() {
   const [canonAnnuel, setCanonAnnuel] = useState(1200);
 
   // Historique local des estimations (par adresse / commune)
-  interface HistoryEntry {
-    id: string;
-    date: string;
-    commune: string;
-    quartier?: string;
-    adresse?: string;
-    surface: number;
-    estimationCentrale: number;
-    prixM2Ajuste: number;
-    classeEnergie: string;
-  }
   const [adresseInput, setAdresseInput] = useState("");
   const HISTORY_KEY = "tevaxia_estimation_history";
-  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [history, setHistory] = useState<EstimationHistoryEntry[]>([]);
+
+  const [historyRaw, setHistoryRaw] = useState<string | null>(null);
+  const [storageError, setStorageError] = useState(false);
 
   // Charger historique au mount
   useEffect(() => {
     try {
       const raw = localStorage.getItem(HISTORY_KEY);
-      if (raw) {
-
-        setHistory(JSON.parse(raw) as HistoryEntry[]);
-      }
-    } catch { /* ignore */ }
+      const parsed = parseEstimationHistory(raw);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate browser-only persisted data after SSR
+      setHistory(parsed.entries);
+      if (parsed.invalid) setHistoryRaw(raw);
+    } catch { setStorageError(true); }
   }, []);
 
   const saveToHistory = () => {
-    if (!selectedResult || !result) return;
+    if (!selectedResult || !result || historyRaw !== null || storageError) return;
     const adresse = adresseInput.trim() || undefined;
-    const entry: HistoryEntry = {
-      // eslint-disable-next-line react-hooks/purity -- called from event handler, not during render
-      id: `est-${Date.now()}`,
+    const entry: EstimationHistoryEntry = {
+      id: crypto.randomUUID(),
       date: new Date().toISOString(),
       commune: selectedResult.commune.commune,
       quartier: selectedResult.quartier?.nom,
@@ -86,26 +78,27 @@ export default function Estimation() {
       classeEnergie,
     };
     const next = [entry, ...history].slice(0, 50); // keep 50 most recent
-    setHistory(next);
     try {
       localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
-    } catch { /* quota full, ignore */ }
+      setHistory(next);
+    } catch { setStorageError(true); }
   };
 
   const removeFromHistory = (id: string) => {
+    if (historyRaw !== null || storageError) return;
     const next = history.filter((h) => h.id !== id);
-    setHistory(next);
     try {
       localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
-    } catch { /* ignore */ }
+      setHistory(next);
+    } catch { setStorageError(true); }
   };
 
   const clearHistory = () => {
-    if (!confirm("Effacer tout l'historique ?")) return;
-    setHistory([]);
+    if (!confirm(t("historyConfirm"))) return;
     try {
       localStorage.removeItem(HISTORY_KEY);
-    } catch { /* ignore */ }
+      setHistory([]); setHistoryRaw(null); setStorageError(false);
+    } catch { setStorageError(true); }
   };
 
   // ── Pre-remplissage depuis URL search params OU hash (lien partagé) ──
@@ -126,9 +119,9 @@ export default function Estimation() {
 
     if (commune) {
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- initialize the form from the browser URL once after SSR
       setCommuneSearch(String(commune));
-      const results = rechercherCommune(String(commune));
-      if (results.length > 0) setSelectedResult(results[0]);
+      setSelectedResult(resolveSharedCommune(String(commune)));
     }
     if (surf) setSurface(Number(surf));
     if (ch) setNbChambres(Number(ch));
@@ -142,9 +135,7 @@ export default function Estimation() {
 
   const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
 
-  const result = useMemo(() => {
-    if (!selectedResult || bailEmphyteotique) return null;
-    return estimer({
+  const result = !selectedResult || bailEmphyteotique ? null : estimer({
       commune: selectedResult.commune.commune,
       quartier: selectedResult.quartier?.nom,
       surface,
@@ -157,7 +148,6 @@ export default function Estimation() {
       typeBien: "appartement",
       estNeuf,
     });
-  }, [selectedResult, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf, bailEmphyteotique]);
 
   return (
     <>
@@ -310,6 +300,7 @@ export default function Estimation() {
                     className="flex-1 rounded-lg bg-white/10 px-3 py-1.5 text-xs text-white placeholder-white/50 border border-white/20 focus:outline-none focus:ring-1 focus:ring-white/40"
                   />
                   <button
+                    disabled={historyRaw !== null || storageError}
                     onClick={saveToHistory}
                     className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 hover:bg-white/20 px-3 py-1.5 text-xs font-semibold text-white border border-white/20 whitespace-nowrap"
                   >
@@ -321,6 +312,14 @@ export default function Estimation() {
                 </div>
               </div>
 
+              {(historyRaw !== null || storageError) && <div id="history-recovery" role="status" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950 space-y-3">
+                <p>{t(historyRaw !== null ? 'historyInvalid' : 'historyStorageError')}</p>
+                {historyRaw !== null && <button className="block underline" onClick={() => {
+                  const url=URL.createObjectURL(new Blob([historyRaw],{type:'application/json'}));
+                  const a=document.createElement('a'); a.href=url; a.download='tevaxia-estimation-history-original.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+                }}>{t('historyExportRaw')}</button>}
+                <button className="block underline" onClick={clearHistory}>{t('historyClear')}</button>
+              </div>}
               {/* Historique des estimations pour cette adresse */}
               {history.filter((h) => adresseInput.trim()
                 ? (h.adresse?.toLowerCase() === adresseInput.trim().toLowerCase())
@@ -344,7 +343,7 @@ export default function Estimation() {
                         <div key={h.id} className="flex items-center justify-between gap-3 rounded-lg border border-card-border/50 bg-background p-2.5 text-xs">
                           <div className="flex-1 min-w-0">
                             <div className="font-medium text-navy">
-                              {new Date(h.date).toLocaleDateString("fr-FR", { year: "numeric", month: "short", day: "numeric" })}
+                              {new Date(h.date).toLocaleDateString(locale === "lb" ? "de-DE" : locale, { year: "numeric", month: "short", day: "numeric" })}
                               {h.adresse && <span className="ml-1 text-muted">· {h.adresse}</span>}
                               {!h.adresse && h.quartier && <span className="ml-1 text-muted">· {h.quartier}</span>}
                             </div>
@@ -363,7 +362,8 @@ export default function Estimation() {
                           <button
                             onClick={() => removeFromHistory(h.id)}
                             className="text-muted hover:text-rose-600"
-                            aria-label="Supprimer"
+                            disabled={historyRaw !== null || storageError}
+                            aria-label={t("historyDelete")}
                           >
                             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />

@@ -1186,7 +1186,12 @@
     "evidenceMissing": "Aucune vente individuelle comparable ni série historique communale n’est intégrée à ce résultat. Pour une expertise, documentez des ventes pertinentes, leurs dates, surfaces, annexes, état et conditions ; une moyenne communale ne les remplace pas.",
     "budgetScope": "Pour préparer votre budget, renseignez le crédit et les conditions de votre offre dans les outils bancaires. Ajoutez les frais d’acquisition, l’assurance, les charges de copropriété, l’impôt foncier et l’entretien à partir des documents du bien. Ils ne sont pas déduits de sa valeur estimée.",
     "budgetLink": "Préparer le financement",
-    "statisticsLink": "Consulter les statistiques officielles STATEC"
+    "statisticsLink": "Consulter les statistiques officielles STATEC",
+    "historyConfirm": "Effacer tout l’historique local ? Cette suppression est définitive. Exportez d’abord l’original si vous souhaitez le conserver.",
+    "historyDelete": "Supprimer cette estimation",
+    "historyInvalid": "L’historique local contient des données illisibles ou invalides. Les entrées lisibles sont conservées à l’écran. L’original reste intact et toute modification est bloquée ; vous pouvez l’exporter avant de réinitialiser l’historique.",
+    "historyStorageError": "Le stockage local est inaccessible ou plein. La modification n’a pas été enregistrée. Vérifiez les paramètres du navigateur et rechargez la page avant de réessayer.",
+    "historyExportRaw": "Exporter l’historique original"
   },
   "fraisAcquisition": {
     "title": "Simulateur de Frais d'Acquisition",
