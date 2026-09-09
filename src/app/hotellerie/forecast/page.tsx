@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
@@ -8,10 +8,10 @@ import { listHotels, type Hotel } from "@/lib/hotels";
 import { listMyOrganizations } from "@/lib/orgs";
 import {
   listMetrics, upsertMetrics, deleteMetric,
-  parseCsvMetrics, buildForecast, generateSeedData,
+  parseCsvMetrics, buildForecast,
   type DailyMetric, type ForecastResult,
 } from "@/lib/hotel-forecast";
-import { formatEUR } from "@/lib/calculations";
+
 import { errMsg } from "@/lib/errors";
 
 type MetricKey = "occupancy" | "adr" | "revpar";
@@ -30,14 +30,17 @@ export default function HotelForecastPage() {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
   const t = useTranslations("hotelForecast");
+  const formatEUR=(value:number)=>value.toLocaleString(locale === "lb" ? "de-DE" : locale,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2});
   const { user } = useAuth();
 
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [activeHotelId, setActiveHotelId] = useState<string | null>(null);
+  const metricsRequest = useRef(0);
   const [metrics, setMetrics] = useState<DailyMetric[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [activeMetric, setActiveMetric] = useState<MetricKey>("occupancy");
   const [horizon, setHorizon] = useState(90);
+  const [variation, setVariation] = useState(0);
 
   const [showCsvImport, setShowCsvImport] = useState(false);
   const [csvText, setCsvText] = useState("");
@@ -45,8 +48,8 @@ export default function HotelForecastPage() {
   const [showManual, setShowManual] = useState(false);
   const [manualEntry, setManualEntry] = useState({
     metric_date: new Date().toISOString().slice(0, 10),
-    occupancy: 0.75,
-    adr: 120,
+    occupancy: NaN,
+    adr: NaN,
   });
 
   useEffect(() => {
@@ -68,13 +71,14 @@ export default function HotelForecastPage() {
   }, [user, t]);
 
   const refreshMetrics = useCallback(async (hotelId: string) => {
+    const request = ++metricsRequest.current;
     try {
       // Charge les 365 derniers jours pour historique
       const from = new Date();
       from.setUTCDate(from.getUTCDate() - 365);
       const ms = await listMetrics(hotelId, from.toISOString().slice(0, 10));
-      setMetrics(ms);
-    } catch (e) { setError(errMsg(e, t("error"))); }
+      if (request === metricsRequest.current) setMetrics(ms);
+    } catch (e) { if (request === metricsRequest.current) setError(errMsg(e, t("error"))); }
   }, [t]);
 
   useEffect(() => {
@@ -84,8 +88,8 @@ export default function HotelForecastPage() {
 
   const forecast: ForecastResult | null = useMemo(() => {
     if (metrics.length < 14) return null;
-    return buildForecast(metrics, activeMetric, horizon);
-  }, [metrics, activeMetric, horizon]);
+    try { return buildForecast(metrics, activeMetric, horizon, variation); } catch { return null; }
+  }, [metrics, activeMetric, horizon, variation]);
 
   const handleImportCsv = async () => {
     if (!activeHotelId || !csvText.trim()) return;
@@ -94,16 +98,6 @@ export default function HotelForecastPage() {
       if (rows.length === 0) { setError(t("noCsvRows")); return; }
       await upsertMetrics(activeHotelId, rows.map((r) => ({ ...r, source: "csv_import" as const })));
       setCsvText(""); setShowCsvImport(false);
-      await refreshMetrics(activeHotelId);
-    } catch (e) { setError(errMsg(e, t("error"))); }
-  };
-
-  const handleSeed = async () => {
-    if (!activeHotelId) return;
-    if (!confirm(t("seedConfirm"))) return;
-    try {
-      const rows = generateSeedData(0.72, 130, 120);
-      await upsertMetrics(activeHotelId, rows.map((r) => ({ ...r, source: "forecast_seed" as const })));
       await refreshMetrics(activeHotelId);
     } catch (e) { setError(errMsg(e, t("error"))); }
   };
@@ -137,7 +131,7 @@ export default function HotelForecastPage() {
   }
 
   return (
-    <div className="bg-background min-h-screen py-8 sm:py-12">
+    <div className="bg-background min-h-screen py-8 sm:py-12 [overflow-wrap:anywhere]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Link href={`${lp}/hotellerie`} className="text-xs text-muted hover:text-navy">{t("hubLink")}</Link>
         <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
@@ -145,6 +139,7 @@ export default function HotelForecastPage() {
           {t("subtitle")}
         </p>
 
+        {metrics.some(r=>r.source === "forecast_seed") && <p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{t("excludedDemo")}</p>}
         {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
 
         {hotels.length === 0 && (
@@ -161,7 +156,7 @@ export default function HotelForecastPage() {
           <>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <label className="text-xs text-muted">{t("hotelLabel")}</label>
-              <select value={activeHotelId ?? ""} onChange={(e) => setActiveHotelId(e.target.value)}
+              <select value={activeHotelId ?? ""} onChange={(e) => {metricsRequest.current++;setMetrics([]);setError(null);setActiveHotelId(e.target.value)}}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-1.5 text-sm">
                 {hotels.map((h) => <option key={h.id} value={h.id}>{h.name}</option>)}
               </select>
@@ -175,12 +170,7 @@ export default function HotelForecastPage() {
                   className="rounded-lg border border-card-border bg-card px-3 py-1.5 text-xs font-medium text-navy hover:bg-slate-50">
                   {t("importCsv")}
                 </button>
-                {metrics.length === 0 && (
-                  <button onClick={handleSeed}
-                    className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-amber-600">
-                    {t("generateDemo")}
-                  </button>
-                )}
+
               </div>
             </div>
 
@@ -195,14 +185,14 @@ export default function HotelForecastPage() {
                   </div>
                   <div>
                     <label className="text-xs text-muted">{t("occupancyLabel")}</label>
-                    <input type="number" min="0" max="1" step="0.01" value={manualEntry.occupancy}
-                      onChange={(e) => setManualEntry({ ...manualEntry, occupancy: Number(e.target.value) || 0 })}
+                    <input type="number" min="0" max="1" step="0.01" value={Number.isFinite(manualEntry.occupancy)?manualEntry.occupancy:""}
+                      onChange={(e) => setManualEntry({ ...manualEntry, occupancy: e.target.value === "" ? NaN : Number(e.target.value) || 0 })}
                       className="mt-1 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
                   </div>
                   <div>
                     <label className="text-xs text-muted">{t("adrLabel")}</label>
-                    <input type="number" min="0" step="1" value={manualEntry.adr}
-                      onChange={(e) => setManualEntry({ ...manualEntry, adr: Number(e.target.value) || 0 })}
+                    <input type="number" min="0" step="1" value={Number.isFinite(manualEntry.adr)?manualEntry.adr:""}
+                      onChange={(e) => setManualEntry({ ...manualEntry, adr: e.target.value === "" ? NaN : Number(e.target.value) || 0 })}
                       className="mt-1 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
                   </div>
                   <div className="flex items-end">
@@ -243,6 +233,7 @@ export default function HotelForecastPage() {
                   </button>
                 ))}
               </div>
+              <label className="flex flex-wrap items-center gap-2 text-xs text-muted">{t("variationLabel")}<input id="hotel-variation" type="number" min={0} max={100} value={Number.isFinite(variation)?variation:""} onChange={e=>setVariation(e.target.value===""?NaN:Number(e.target.value))} className="w-20 rounded border border-input-border bg-input-bg p-2" /></label>
               <label className="text-xs text-muted">{t("horizonLabel")}</label>
               <select value={horizon} onChange={(e) => setHorizon(Number(e.target.value))}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-1.5 text-sm">
@@ -266,7 +257,7 @@ export default function HotelForecastPage() {
                     value={activeMetric === "occupancy"
                       ? `${(avg(forecast.forecast.map((p) => p.value)) * 100).toFixed(1)} %`
                       : formatEUR(avg(forecast.forecast.map((p) => p.value)))} />
-                  <KpiCard label={t("kpiMape")} value={`${forecast.mape.toFixed(1)} %`} />
+                  <KpiCard label={t("variationLabel")} value={`± ${variation} %`} />
                   <KpiCard label={t("kpiHistoryPoints")} value={String(forecast.historical.length)} />
                 </div>
 
@@ -293,7 +284,7 @@ export default function HotelForecastPage() {
                       <tbody className="divide-y divide-card-border/50">
                         {forecast.forecast.map((p) => (
                           <tr key={p.date}>
-                            <td className="px-3 py-1.5">{new Date(p.date).toLocaleDateString("fr-FR", { weekday: "short", day: "2-digit", month: "short" })}</td>
+                            <td className="px-3 py-1.5">{new Date(p.date+"T00:00:00Z").toLocaleDateString(locale === "lb" ? "de-DE" : locale,{timeZone:"UTC", weekday: "short", day: "2-digit", month: "short" })}</td>
                             <td className="px-3 py-1.5 text-right font-medium">
                               {activeMetric === "occupancy" ? `${(p.value * 100).toFixed(1)} %` : formatEUR(p.value)}
                             </td>
@@ -337,7 +328,7 @@ export default function HotelForecastPage() {
                     <tbody className="divide-y divide-card-border/50">
                       {metrics.slice().reverse().slice(0, 60).map((m) => (
                         <tr key={m.id}>
-                          <td className="px-3 py-1.5">{new Date(m.metric_date).toLocaleDateString("fr-FR")}</td>
+                          <td className="px-3 py-1.5">{new Date(m.metric_date+"T00:00:00Z").toLocaleDateString(locale === "lb" ? "de-DE" : locale,{timeZone:"UTC"})}</td>
                           <td className="px-3 py-1.5 text-right">{m.occupancy !== null ? `${(m.occupancy * 100).toFixed(1)} %` : "—"}</td>
                           <td className="px-3 py-1.5 text-right">{m.adr !== null ? formatEUR(m.adr) : "—"}</td>
                           <td className="px-3 py-1.5 text-right">{m.revpar !== null ? formatEUR(m.revpar) : "—"}</td>

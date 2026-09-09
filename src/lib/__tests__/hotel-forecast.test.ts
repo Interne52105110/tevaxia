@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { holtWinters, parseCsvMetrics, buildForecast, generateSeedData, type DailyMetric } from "../hotel-forecast";
+import { holtWinters, parseCsvMetrics, buildForecast, generateSeedData, validateMetricInputs, type DailyMetric } from "../hotel-forecast";
 
 describe("holtWinters", () => {
   it("returns flat forecast for short series (fallback)", () => {
@@ -47,10 +47,9 @@ describe("parseCsvMetrics", () => {
     expect(out[0].occupancy).toBeCloseTo(0.82);
   });
 
-  it("ignores malformed lines", () => {
+  it("rejects malformed lines atomically", () => {
     const csv = `garbage\n2026-01-01,0.75,120\nfoo,bar,baz`;
-    const out = parseCsvMetrics(csv);
-    expect(out).toHaveLength(1);
+    expect(()=>parseCsvMetrics(csv)).toThrow();
   });
 });
 
@@ -69,15 +68,13 @@ describe("buildForecast", () => {
     updated_at: "",
   }));
 
-  it("produces 90-day horizon forecast with confidence band", () => {
-    const r = buildForecast(metrics, "occupancy", 90);
+  it("produces a 90-day projection with an explicit arithmetic variation", () => {
+    const r = buildForecast(metrics, "occupancy", 90,10);
     expect(r).not.toBeNull();
     expect(r!.forecast).toHaveLength(90);
     expect(r!.forecast[0].isForecast).toBe(true);
-    // Les bandes s'élargissent avec l'horizon
-    const firstBand = r!.forecast[0].upper - r!.forecast[0].lower;
-    const lastBand = r!.forecast[89].upper - r!.forecast[89].lower;
-    expect(lastBand).toBeGreaterThanOrEqual(firstBand);
+    expect(r!.forecast[0].lower).toBeCloseTo(r!.forecast[0].value*.9);
+    expect(r!.forecast[0].upper).toBeCloseTo(Math.min(1,r!.forecast[0].value*1.1));
   });
 
   it("returns null when series too short", () => {
@@ -95,10 +92,33 @@ describe("buildForecast", () => {
     });
   });
 
-  it("MAPE is a finite percentage", () => {
-    const r = buildForecast(metrics, "adr", 30);
-    expect(r).not.toBeNull();
-    expect(Number.isFinite(r!.mape)).toBe(true);
-    expect(r!.mape).toBeGreaterThanOrEqual(0);
+  it("does not claim a backtest score", () => {
+    expect(buildForecast(metrics, 'adr', 30)).not.toHaveProperty('mape');
   });
+});
+
+
+describe('hotel data validation and consistency',()=>{
+ const rows:DailyMetric[]=Array.from({length:28},(_,i)=>({id:String(i),hotel_id:'test',metric_date:new Date(Date.UTC(2024,0,1+i)).toISOString().slice(0,10),occupancy:.5,adr:100,revpar:50,source:'manual',notes:null,created_at:'',updated_at:''}));
+ it('uses the product of projected occupancy and ADR for projected RevPAR',()=>{
+  const r=buildForecast(rows,'revpar',30)!,o=buildForecast(rows,'occupancy',30)!,a=buildForecast(rows,'adr',30)!;
+  r.forecast.forEach((p,i)=>{expect(p.value).toBeCloseTo(o.forecast[i].value*a.forecast[i].value);expect(p.value).toBeCloseTo(50);expect(p.lower).toBe(p.value);expect(p.upper).toBe(p.value)});
+ });
+ it('excludes demo rows and refuses gaps, duplicates, missing values and impossible dates',()=>{
+  expect(buildForecast(rows.map(r=>({...r,source:'forecast_seed'})),'adr')).toBeNull();
+  for(const bad of [rows.filter((_,i)=>i!==4),[...rows,rows[0]],rows.map((r,i)=>i===2?{...r,metric_date:'2024-02-30'}:r),rows.map((r,i)=>i===2?{...r,adr:null}:r),rows.map((r,i)=>i===2?{...r,occupancy:1.1}:r)])expect(()=>buildForecast(bad,'adr')).toThrow();
+  expect(()=>buildForecast(rows,'adr',30,NaN)).toThrow();expect(()=>buildForecast(rows,'adr',181)).toThrow();
+ });
+ it('preserves CSV zeros, decimal commas and explicit small percentages',()=>{
+  expect(parseCsvMetrics('date;occupancy;adr\n2024-01-01;1%;100,50\n2024-01-02;0;0')).toEqual([{metric_date:'2024-01-01',occupancy:.01,adr:100.5},{metric_date:'2024-01-02',occupancy:0,adr:0}]);
+  for(const csv of ['2024-02-30,.5,100','2024-01-01,101%,100','2024-01-01,.5,-1','2024-01-01,.5,100abc','2024-01-01,.5,100\n2024-01-01,.5,100','2099-01-01,.5,100'])expect(()=>parseCsvMetrics(csv)).toThrow();
+ });
+ it('validates all inputs before persistence and refuses synthetic or contradictory metrics',()=>{
+  expect(validateMetricInputs([{metric_date:'2024-01-01',occupancy:.75,adr:120}])[0].revpar).toBe(90);
+  expect(validateMetricInputs([{metric_date:'2024-01-01',occupancy:0,adr:0}])[0].revpar).toBe(0);
+  for(const bad of [{metric_date:'2024-01-01',occupancy:NaN,adr:100},{metric_date:'2024-01-01',occupancy:.5,adr:100,revpar:90},{metric_date:'2024-01-01',occupancy:.5,adr:100,source:'forecast_seed' as const},{metric_date:'2024-01-01'}])expect(()=>validateMetricInputs([bad])).toThrow();
+ });
+ it('smoothing rejects invalid parameters instead of producing NaN',()=>{
+  expect(()=>holtWinters([1,NaN],2)).toThrow();expect(()=>holtWinters([1,2],0)).toThrow();expect(()=>holtWinters([1,2],2,{m:0})).toThrow();expect(()=>holtWinters([1,2],2,{alpha:2})).toThrow();
+ });
 });
