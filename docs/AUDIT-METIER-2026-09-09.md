@@ -572,3 +572,14 @@ Tous les champs, y compris zéro, et les références sont requis. Précision 4 
 Validation : 1 236 tests dans 111 fichiers réussis, dont 6 cas métier MICE ; lint et build réussis. Cinq langues, quatre largeurs 320/390/768/1440, absence de résultat initial, champs manquants, dépassement de capacité, zéro groupe et export contrôlés. Cas indépendant : 2,5 groupes × 10 nuitées × 100 EUR = 2 500 EUR, restauration 1 000 EUR, salles 500 EUR, coûts directs 425 EUR, fixes 100 EUR, contribution 3 475 EUR. Les cinq CSV confirment l’addition des recettes et le solde.
 
 Benchmark connecté 0b15bb7 confirmé en production : CI 34380637265 réussie, dpl_D4pJpK7Q2UZEkVuy8KyYGCe2hXje Ready et contrôle public dans les cinq langues/quatre largeurs avec lien de connexion localisé, sans lignes privées.
+
+
+### Parcours motel / aparthotel — consolidation des calculs
+
+La page utilisait un nombre de nuits arrondi avant multiplication, des recettes annexes automatiques (petit-déjeuner 8 %, autres 4 %), des ratios de charges par catégorie et une réserve FF&E retranchée pour nommer un EBITDA. Une division par un taux était ensuite appelée DCF. Ces calculs parallèles ont été supprimés de la page publique.
+
+La route est conservée et propose un parcours vers les outils déjà corrigés : compte d’exploitation documenté, valorisation par revenu/comparables documentés, puis acquisition et financement. Elle explique la notion d’unité vendue à la nuit pour un appartement et les pièces nécessaires, distingue revenu immobilier et exploitation et précise que les données doivent être reportées dans chaque outil. Aucun faux chiffre ou taux de marché lié à la catégorie n’est injecté. Les liens et contenus sont traduits dans les cinq langues.
+
+Budget MICE 49453db confirmé en production : CI34381335085 réussie, déploiement dpl_E5fUqk1VAfsf68R3GFyEECNDRj6n Ready, cinq langues/quatre largeurs, calculs, capacités, zéros et CSV contrôlés sur tevaxia.lu.
+
+Validation du parcours motel/aparthotel : build et lint réussis ; cinq langues et quatre largeurs, trois destinations localisées, navigation réelle vers le compte d’exploitation et absence des anciens calculs vérifiées.

@@ -7767,8 +7767,8 @@
     },
     "compsetTitle": "Comparatif hôtelier documenté",
     "compsetDesc": "Comparer des observations documentées sur une période commune de 1 à 366 jours. Aucune donnée STR, Horwath ou moyenne régionale n’est préremplie. Les résultats décrivent uniquement l’échantillon saisi et sa pertinence doit être justifiée.",
-    "motelTitle": "Aparthotel / Motel / Résidence",
-    "motelDesc": "Valorisation dédiée aux séjours prolongés et hôtellerie budget.",
+    "motelTitle": "Motel et aparthotel : préparer votre étude",
+    "motelDesc": "Établissez les comptes d’exploitation, la valeur et le financement avec vos propres données. Le type d’établissement ne détermine pas automatiquement les tarifs, les charges ou le taux de capitalisation.",
     "alertsTitle": "Yield alerts agentic",
     "alertsDesc": "Alertes automatiques pickup, ADR, occupation, GOP vs benchmark.",
     "ddTitle": "Due diligence 50 points",
@@ -19478,5 +19478,22 @@
     "result_fixedCosts": "Coûts fixes (€)",
     "result_contribution": "Contribution après coûts saisis (€)",
     "result_marginPct": "Contribution / revenus (%)"
+  },
+  "motelGuide": {
+    "title": "Motel et aparthotel : préparer votre étude",
+    "back": "Retour aux outils hôteliers",
+    "scope": "Établissez les comptes d’exploitation, la valeur et le financement avec vos propres données. Le type d’établissement ne détermine pas automatiquement les tarifs, les charges ou le taux de capitalisation.",
+    "operatingTitle": "1. Exploitation",
+    "operatingBody": "Renseignez la période, les unités disponibles et vendues, les recettes par activité et les charges réelles ou budgétées. Une unité correspond à ce que vous vendez pour une nuit : chambre ou appartement entier.",
+    "operatingLink": "Ouvrir le compte d’exploitation",
+    "valueTitle": "2. Valorisation",
+    "valueBody": "Documentez le revenu retenu, son périmètre et le taux de capitalisation, ou vos transactions comparables. Un résultat d’exploitation ne devient pas automatiquement un revenu immobilier net.",
+    "valueLink": "Ouvrir la valorisation",
+    "acquisitionTitle": "3. Acquisition et financement",
+    "acquisitionBody": "Renseignez le prix, les frais, les travaux, la dette et les flux annuels après les coûts pertinents. Les besoins de trésorerie et le prix de sortie restent des hypothèses à documenter.",
+    "acquisitionLink": "Ouvrir l’étude d’acquisition",
+    "recordsTitle": "Préparez vos justificatifs",
+    "recordsBody": "Détail des nuitées et des disponibilités, tarifs réellement pratiqués, recettes de petit-déjeuner et autres services, salaires et charges employeur, contrats et factures, entretien et investissements. Séparez les montants HT et TTC selon une base cohérente.",
+    "independent": "Les outils sont indépendants : reportez vos données et références dans chacun. La surface, la durée moyenne du séjour et la présence d’une kitchenette ne suffisent pas à déterminer une rentabilité."
   }
 }

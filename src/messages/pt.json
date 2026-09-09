@@ -7645,8 +7645,8 @@
     },
     "compsetTitle": "Comparação hoteleira documentada",
     "compsetDesc": "Comparar observações documentadas num período comum de 1 a 366 dias. Não existem médias STR, Horwath ou regionais pré-preenchidas. Os resultados descrevem apenas a amostra introduzida, cuja relevância deve ser justificada.",
-    "motelTitle": "Aparthotel / Motel / Résidence",
-    "motelDesc": "Valorização dedicada às estadias prolongadas e à hotelaria económica.",
+    "motelTitle": "Motel e aparthotel: preparar o estudo",
+    "motelDesc": "Prepare contas de exploração, avaliação e financiamento com os seus dados. O tipo de estabelecimento não determina automaticamente preços, custos ou taxas de capitalização.",
     "alertsTitle": "Yield alerts agentic",
     "alertsDesc": "Alertas automáticos sobre pickup, ADR, ocupação, GOP vs. benchmark.",
     "ddTitle": "Due diligence 50 points",
@@ -19478,5 +19478,22 @@
     "result_fixedCosts": "Custos fixos (€)",
     "result_contribution": "Contribuição após custos introduzidos (€)",
     "result_marginPct": "Contribuição / receitas (%)"
+  },
+  "motelGuide": {
+    "title": "Motel e aparthotel: preparar o estudo",
+    "back": "Voltar às ferramentas hoteleiras",
+    "scope": "Prepare contas de exploração, avaliação e financiamento com os seus dados. O tipo de estabelecimento não determina automaticamente preços, custos ou taxas de capitalização.",
+    "operatingTitle": "1. Exploração",
+    "operatingBody": "Introduza o período, unidades disponíveis e vendidas, receitas por atividade e custos reais ou orçamentados. Uma unidade é o que vende por noite: um quarto ou um apartamento inteiro.",
+    "operatingLink": "Abrir a conta de exploração",
+    "valueTitle": "2. Avaliação",
+    "valueBody": "Documente o rendimento utilizado, o seu âmbito e a taxa de capitalização, ou transações comparáveis. O resultado operacional não se torna automaticamente rendimento imobiliário líquido.",
+    "valueLink": "Abrir a avaliação",
+    "acquisitionTitle": "3. Aquisição e financiamento",
+    "acquisitionBody": "Introduza preço, encargos, obras, dívida e fluxos anuais após custos relevantes. Necessidades de tesouraria e preço de saída continuam a ser hipóteses a documentar.",
+    "acquisitionLink": "Abrir o estudo de aquisição",
+    "recordsTitle": "Preparar comprovativos",
+    "recordsBody": "Quartos-noite e disponibilidade, preços praticados, receitas de pequeno-almoço e serviços, salários e custos patronais, contratos e faturas, manutenção e investimentos. Use uma base fiscal coerente.",
+    "independent": "As ferramentas são independentes: introduza dados e referências em cada uma. Área, duração média da estadia e kitchenette não bastam para determinar rentabilidade."
   }
 }

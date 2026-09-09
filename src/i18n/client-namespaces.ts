@@ -83,7 +83,6 @@ export const CLIENT_NAMESPACES = [
   "hotelGroupe",
   "hotelHousekeeping",
   "hotelImpayes",
-  "hotelMotel",
   "hotelOperatingEvidence",
   "hotelPublishedDeals",
   "hotelRenovationAudit",

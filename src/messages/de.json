@@ -7645,8 +7645,8 @@
     },
     "compsetTitle": "Dokumentierter Hotelvergleich",
     "compsetDesc": "Dokumentierte Beobachtungen über einen gemeinsamen Zeitraum von 1 bis 366 Tagen vergleichen. Keine vorausgefüllten STR-, Horwath- oder Regionalwerte. Ergebnisse beschreiben nur die eingegebene Stichprobe; ihre Eignung ist zu begründen.",
-    "motelTitle": "Aparthotel / Motel / Résidence",
-    "motelDesc": "Bewertung speziell für Langzeitaufenthalte und Budget-Hotellerie.",
+    "motelTitle": "Motel und Aparthotel: Untersuchung vorbereiten",
+    "motelDesc": "Erstellen Sie Betriebsrechnung, Bewertung und Finanzierung mit eigenen Daten. Die Betriebsart legt weder Preise noch Kosten oder Kapitalisierungszinssätze automatisch fest.",
     "alertsTitle": "Yield alerts agentic",
     "alertsDesc": "Automatische Alerts zu Pickup, ADR, Auslastung, GOP vs. Benchmark.",
     "ddTitle": "Due diligence 50 points",
@@ -19478,5 +19478,22 @@
     "result_fixedCosts": "Fixkosten (€)",
     "result_contribution": "Beitrag nach erfassten Kosten (€)",
     "result_marginPct": "Beitrag / Erlöse (%)"
+  },
+  "motelGuide": {
+    "title": "Motel und Aparthotel: Untersuchung vorbereiten",
+    "back": "Zurück zu den Hoteltools",
+    "scope": "Erstellen Sie Betriebsrechnung, Bewertung und Finanzierung mit eigenen Daten. Die Betriebsart legt weder Preise noch Kosten oder Kapitalisierungszinssätze automatisch fest.",
+    "operatingTitle": "1. Betrieb",
+    "operatingBody": "Erfassen Sie Zeitraum, verfügbare und verkaufte Einheiten, Erlöse je Tätigkeit sowie tatsächliche oder geplante Kosten. Eine Einheit ist das pro Nacht verkaufte Zimmer oder ganze Apartment.",
+    "operatingLink": "Betriebsrechnung öffnen",
+    "valueTitle": "2. Bewertung",
+    "valueBody": "Dokumentieren Sie den gewählten Ertrag, seinen Umfang und den Kapitalisierungszinssatz oder Ihre Vergleichstransaktionen. Ein Betriebsergebnis ist nicht automatisch ein Nettoimmobilienertrag.",
+    "valueLink": "Bewertung öffnen",
+    "acquisitionTitle": "3. Erwerb und Finanzierung",
+    "acquisitionBody": "Erfassen Sie Kaufpreis, Gebühren, Arbeiten, Schulden und jährliche Zahlungsströme nach relevanten Kosten. Finanzierungsbedarf und Verkaufspreis sind zu dokumentierende Annahmen.",
+    "acquisitionLink": "Erwerbsstudie öffnen",
+    "recordsTitle": "Belege vorbereiten",
+    "recordsBody": "Zimmernächte und Verfügbarkeiten, tatsächliche Preise, Frühstücks- und sonstige Erlöse, Löhne und Arbeitgeberkosten, Verträge und Rechnungen, Instandhaltung und Investitionen. Verwenden Sie eine einheitliche Steuerbasis.",
+    "independent": "Die Tools sind unabhängig: Tragen Sie Daten und Quellen jeweils ein. Fläche, Aufenthaltsdauer und Küchenzeile allein bestimmen keine Rentabilität."
   }
 }

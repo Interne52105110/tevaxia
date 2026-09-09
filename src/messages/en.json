@@ -7767,8 +7767,8 @@
     },
     "compsetTitle": "Documented hotel comparison",
     "compsetDesc": "Compare documented observations over a common period of 1 to 366 days. No STR, Horwath or regional averages are prefilled. Results describe only the entered sample, whose relevance needs justification.",
-    "motelTitle": "Aparthotel / Motel / Résidence",
-    "motelDesc": "Valuation dedicated to extended-stay and budget hospitality.",
+    "motelTitle": "Motel and aparthotel: prepare your study",
+    "motelDesc": "Build operating accounts, valuation and financing using your own data. Property type does not automatically determine rates, costs or capitalization yields.",
     "alertsTitle": "Yield alerts agentic",
     "alertsDesc": "Automatic alerts on pickup, ADR, occupancy, GOP vs benchmark.",
     "ddTitle": "Due diligence 50 points",
@@ -19478,5 +19478,22 @@
     "result_fixedCosts": "Fixed costs (€)",
     "result_contribution": "Contribution after entered costs (€)",
     "result_marginPct": "Contribution / revenue (%)"
+  },
+  "motelGuide": {
+    "title": "Motel and aparthotel: prepare your study",
+    "back": "Back to hotel tools",
+    "scope": "Build operating accounts, valuation and financing using your own data. Property type does not automatically determine rates, costs or capitalization yields.",
+    "operatingTitle": "1. Operations",
+    "operatingBody": "Enter the period, available and sold units, revenue by activity and actual or budgeted costs. A unit is what you sell for one night: a room or a whole apartment.",
+    "operatingLink": "Open the operating statement",
+    "valueTitle": "2. Valuation",
+    "valueBody": "Document the selected income, its scope and capitalization rate, or your comparable transactions. Operating profit does not automatically become net property income.",
+    "valueLink": "Open valuation",
+    "acquisitionTitle": "3. Acquisition and financing",
+    "acquisitionBody": "Enter the price, fees, works, debt and annual cash flows after relevant costs. Funding needs and exit price remain assumptions to document.",
+    "acquisitionLink": "Open the acquisition study",
+    "recordsTitle": "Prepare supporting records",
+    "recordsBody": "Room nights and availability, actual rates, breakfast and other service revenue, salaries and employer costs, contracts and invoices, maintenance and investment. Use a consistent basis for amounts including or excluding tax.",
+    "independent": "Tools are independent: enter your data and references in each. Floor area, average stay and a kitchenette alone cannot determine profitability."
   }
 }

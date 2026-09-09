@@ -7645,8 +7645,8 @@
     },
     "compsetTitle": "Dokumentéierten Hotelverglach",
     "compsetDesc": "Dokumentéiert Observatiounen iwwer eng gemeinsam Period vun 1 bis 366 Deeg vergläichen. Keng virausgefëllte STR-, Horwath- oder regional Moyennen. D’Resultater beschreiwen nëmmen déi aginne Stéchprouf; hir Relevanz muss begrënnt ginn.",
-    "motelTitle": "Aparthotel / Motel / Résidence",
-    "motelDesc": "Valorisatioun speziell fir laang Openthalten a Budget-Hotellerie.",
+    "motelTitle": "Motel an Aparthotel: Är Etüd virbereeden",
+    "motelDesc": "Erstellt Betribsrechnung, Bewäertung a Finanzéierung mat Ären Donnéeën. Den Typ vum Betrib bestëmmt net automatesch Präisser, Käschten oder Kapitaliséierungstauxen.",
     "alertsTitle": "Yield alerts agentic",
     "alertsDesc": "Automatesch Alerten iwwer Pickup, ADR, Belegung, GOP vs. Benchmark.",
     "ddTitle": "Due diligence 50 points",
@@ -19478,5 +19478,22 @@
     "result_fixedCosts": "Fix Käschten (€)",
     "result_contribution": "Bäitrag no aginnene Käschten (€)",
     "result_marginPct": "Bäitrag / Recetten (%)"
+  },
+  "motelGuide": {
+    "title": "Motel an Aparthotel: Är Etüd virbereeden",
+    "back": "Zréck bei d’Hoteltools",
+    "scope": "Erstellt Betribsrechnung, Bewäertung a Finanzéierung mat Ären Donnéeën. Den Typ vum Betrib bestëmmt net automatesch Präisser, Käschten oder Kapitaliséierungstauxen.",
+    "operatingTitle": "1. Betrib",
+    "operatingBody": "Gitt Period, verfügbar a verkaaft Eenheeten, Recetten no Aktivitéit an tatsächlech oder geplangte Käschten an. Eng Eenheet ass dat, wat Dir pro Nuecht verkaaft: en Zëmmer oder e ganzt Appartement.",
+    "operatingLink": "Betribsrechnung opmaachen",
+    "valueTitle": "2. Bewäertung",
+    "valueBody": "Dokumentéiert den Ertrag, säin Ëmfang an de Kapitaliséierungstaux oder Är Vergläichstransaktiounen. E Betribsresultat ass net automatesch en Nettoimmobilienertrag.",
+    "valueLink": "Bewäertung opmaachen",
+    "acquisitionTitle": "3. Acquisitioun a Finanzéierung",
+    "acquisitionBody": "Gitt Präis, Fraisen, Aarbechten, Scholden a jäerlech Geldflëss no relevante Käschten an. Liquiditéitsbedarf an Austrëttspräis bleiwen ze dokumentéierend Hypotheesen.",
+    "acquisitionLink": "Acquisitiounsetüd opmaachen",
+    "recordsTitle": "Beleger virbereeden",
+    "recordsBody": "Zëmmernuechten a Verfügbarkeeten, tatsächlech Präisser, Kaffis- an aner Recetten, Léin a Patronatskäschten, Kontrakter a Rechnungen, Ënnerhalt an Investitiounen. Benotzt eng kohärent Steierbasis.",
+    "independent": "D’Tools sinn onofhängeg: Gitt Är Donnéeën a Quellen an all Tool an. Fläch, duerchschnëttlech Openthaltsdauer a Kitchenette eleng bestëmme keng Rentabilitéit."
   }
 }
