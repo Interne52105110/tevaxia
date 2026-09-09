@@ -1,0 +1,7 @@
+import {expect,it} from "vitest";
+import {validateGreenKeyFile,greenKeyFileCsv,type GreenKeyFile} from "../hotellerie/green-key-file";
+const file:GreenKeyFile={name:"Hotel",version:"2026-2031",scope:"Hotels, operator confirmation reference",rows:[{criterion:"Selected version, item reference",kind:"imperative",status:"unknown",proof:""}]};
+it("permits an explicit unreviewed draft without declaring eligibility",()=>{expect(validateGreenKeyFile(file)).toBe(file);expect(greenKeyFileCsv(file)).toContain("no eligibility, conformity or certification decision")});
+it("requires evidence or justification for every reviewed status",()=>{for(const status of ["evidence","review","na"] as const){expect(()=>validateGreenKeyFile({...file,rows:[{...file.rows[0],status}]})).toThrow();expect(()=>validateGreenKeyFile({...file,rows:[{...file.rows[0],status,proof:"Document dated 2026-09-09"}]})).not.toThrow()}});
+it("requires scope and version and a nonempty item reference",()=>{for(const patch of [{scope:""},{version:"" as const},{rows:[{...file.rows[0],criterion:""}]}])expect(()=>validateGreenKeyFile({...file,...patch})).toThrow()});
+it("exports the selected primary source and protects formula text",()=>{const csv=greenKeyFileCsv({...file,name:"=1+1"});expect(csv).toContain('"\'=1+1"');expect(csv).toContain("https://www.greenkey.global/criteria-20262031");expect(csv).toContain('"imperative";"unknown"')});

@@ -950,12 +950,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/hotellerie/certifications-esg": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "cookie",
     "crmContextBar",
-    "hotelCertifsEsg",
+    "greenKeyFile",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",

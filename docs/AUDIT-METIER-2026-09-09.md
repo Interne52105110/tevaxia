@@ -596,3 +596,23 @@ La portée annuelle est affichée : aucune vérification des dates de paiement d
 Validation : build/lint réussis ; 1 242 tests dans 112 fichiers, dont 6 nouveaux cas CAPEX. Contrôle UI cinq langues/quatre largeurs et cinq CSV : ouverture 100 EUR, fonds 20 EUR et travaux 80 EUR en 2026, puis fonds 20 EUR et travaux 70 EUR en 2027 donnent 150 EUR de dépenses, 40 EUR de fonds supplémentaires, solde −10 EUR et besoin complémentaire 10 EUR. Années non consécutives/champs manquants bloqués ; zéros conservés.
 
 Parcours motel/aparthotel 7c29974 confirmé en production : CI34381868504 réussie, déploiement dpl_F78T7y6JoPxRJ21se9bQueb9r2Nn Ready, cinq langues et quatre largeurs vérifiées avec navigation vers l’exploitation.
+
+
+### Green Key — retrait de l’éligibilité fictive
+
+L’ancien écran attribuait des points maison à 29 critères (dont des seuils non sourcés), concluait à l’éligibilité dès 40 points et demandait à l’IA d’estimer coûts, aides et gain de prix hôtelier. Ce mécanisme est supprimé.
+
+La page devient un registre documentaire interne : établissement, version 2022–2026 ou 2026–2031, périmètre et confirmation de l’opérateur ; références de critères saisies depuis la version choisie ; type impératif/progressif/à vérifier ; statut non examiné, preuve référencée, à vérifier ou non-applicabilité à justifier. Tout statut autre que non examiné exige un justificatif. Aucun score, pourcentage de conformité, seuil d’éligibilité ni décision de certification. Les références saisies ne sont pas présentées comme une liste exhaustive ni comme une validation indépendante.
+
+Sources primaires consultées le 9 septembre 2026 :
+- https://www.greenkey.global/criteria/2022-2026
+- https://www.greenkey.global/criteria-20262031
+- https://www.greenkey.global/application-process
+- https://www.greenkey.global/certification-process-2026-2031
+- https://www.greenkey.global/join-green-key
+
+La documentation officielle distingue critères impératifs et progressifs, prévoit une évaluation puis une décision. Deux référentiels sont publiés ; la procédure de transition est à confirmer avec le programme, sans sélection automatique fondée sur la date du navigateur. Le CSV conserve la version, la source, les déclarations et preuves, et indique qu’il ne constitue aucune décision de conformité ou de certification.
+
+Validation : build/lint réussis ; 1 246 tests dans 113 fichiers, dont 4 nouveaux contrôles du dossier. Cinq langues, quatre largeurs, statuts initiaux inconnus, obligation de preuve, ajout de ligne et export vérifiés ; cinq CSV relus avec version et statuts exacts. Les intitulés du hub sont alignés sur la préparation documentaire.
+
+CAPEX 5b234a7 confirmé en production : CI34382425442 réussie, dpl_HHdfFbVcXDyqnz4Y2UKDM45jXGG6 Ready ; cinq langues/quatre largeurs, calculs et exports vérifiés sur tevaxia.lu.
