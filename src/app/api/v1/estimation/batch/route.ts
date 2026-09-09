@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { estimer, type EstimationInput } from "@/lib/estimation";
+import {parseEstimationApiInput,ESTIMATION_API_METHOD,ESTIMATION_API_LIMITS} from "@/lib/estimation-api";
+import { estimer } from "@/lib/estimation";
 import {
   authenticateApiRequestAsync,
   logApiCall,
@@ -45,7 +46,7 @@ export async function POST(request: Request) {
       return response;
     }
 
-    if (!Array.isArray(body.items)) {
+    if (!body || typeof body !== "object" || Array.isArray(body) || !Array.isArray(body.items)) {
       statusCode = 400;
       response = NextResponse.json(
         { success: false, error: "Missing 'items' array in body" },
@@ -74,15 +75,8 @@ export async function POST(request: Request) {
 
     const results = body.items.map((raw, index) => {
       try {
-        const input = raw as EstimationInput;
-        if (!input.commune || !input.surface) {
-          return { index, success: false, error: "Missing required fields: commune, surface" };
-        }
-        if (typeof input.surface !== "number" || input.surface <= 0 || input.surface > 10000) {
-          return { index, success: false, error: "surface must be a positive number ≤ 10000" };
-        }
-        const result = estimer(input);
-        if (!result) return { index, success: false, error: "Municipality not found" };
+        const result = estimer(parseEstimationApiInput(raw));
+        if (!result) return { index, success: false, error: "No estimate: ambiguous municipality or unavailable price for this segment" };
         return { index, success: true, data: result };
       } catch (e) {
         return { index, success: false, error: e instanceof Error ? e.message : "Unknown error" };
@@ -100,7 +94,8 @@ export async function POST(request: Request) {
       meta: {
         api_key_name: auth.keyRecord.name,
         tier: auth.keyRecord.tier,
-        method: "tegova_evs_2025+hedonic",
+        method: ESTIMATION_API_METHOD,
+        limitations: ESTIMATION_API_LIMITS,
         batch_max: MAX_BATCH,
       },
     }));

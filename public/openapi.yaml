@@ -1,19 +1,11 @@
 openapi: 3.1.0
 info:
   title: tevaxia.lu API
-  version: "1.0.0"
-  description: |
-    API publique de tevaxia.lu — estimation immobilière TEGOVA-conforme
-    couvrant 100 communes luxembourgeoises et outils connexes.
-
-    **Authentification** : toutes les requêtes nécessitent une clé API
-    transmise via l'en-tête `X-API-Key` ou `Authorization: Bearer <key>`.
-    Créez et gérez vos clés dans votre profil tevaxia.lu > Tableau de
-    bord API.
-
-    **Rate limiting** : chaque clé est soumise à un quota selon son tier
-    (free, pro, enterprise, sandbox). Les en-têtes de réponse
-    `X-RateLimit-Remaining` et `X-RateLimit-Reset` renseignent l'état.
+  version: 1.1.0
+  description: >-
+    API de calculs indicatifs. Les hypothèses internes ne constituent ni une expertise certifiée ni une
+    décision de crédit. Authentification selon chaque endpoint, par X-API-Key ou Authorization: Bearer. Les
+    endpoints authentifiés appliquent des quotas et peuvent retourner 429 avec Retry-After.
   contact:
     name: Support tevaxia.lu
     email: contact@tevaxia.lu
@@ -21,22 +13,20 @@ info:
   license:
     name: Proprietary
 servers:
-  - url: https://www.tevaxia.lu
+  - url: https://tevaxia.lu
     description: Production
-  - url: https://preview.tevaxia.lu
-    description: Preview (environnement de pré-production Vercel)
 security:
   - ApiKeyHeader: []
   - BearerAuth: []
 tags:
   - name: Estimation
-    description: Estimation de valeur immobilière (TEGOVA EVS 2025 + hédonique)
+    description: Estimation indicative par référence communale et hypothèses internes
   - name: Agencies
     description: Endpoints B2B pour agences immobilières
   - name: PropCalc
     description: Rendement et cashflow multi-pays
   - name: Evaluation
-    description: MLV, DCF, capitalisation directe (méthodes EVS 2025)
+    description: Scénarios de valorisation et sensibilité, sans certification réglementaire
   - name: Costs
     description: Frais d'acquisition et taxes
   - name: Fiscal
@@ -48,122 +38,136 @@ paths:
     options:
       summary: Pré-vol CORS
       responses:
-        "204":
+        '204':
           description: CORS OK
     post:
-      tags: [Estimation]
-      summary: Estimation d'un bien unique
-      description: |
-        Calcule la valeur estimée d'un bien immobilier luxembourgeois à partir
-        de sa commune (ou quartier), sa surface et plusieurs caractéristiques
-        d'ajustement. Retourne une fourchette basse/centrale/haute et un
-        indice de confiance.
+      tags:
+        - Estimation
+      summary: Estimation indicative d’un appartement en pleine propriété
+      description: >-
+        Référence communale agrégée, ajustements internes non validés statistiquement et fourchette
+        conventionnelle. Pas de ventes individuelles, pas de prix par quartier. Les paramètres facultatifs
+        omis utilisent les valeurs par défaut du schéma ; aucune coercition de type ni aucun champ inconnu
+        n’est accepté.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EstimationInput"
+              $ref: '#/components/schemas/EstimationInput'
             examples:
-              luxembourg-belair:
-                summary: Appartement Belair 90m²
+              luxembourg:
+                summary: Appartement existant 85 m² — hypothèses explicites
                 value:
-                  commune: "Luxembourg"
-                  quartier: "Belair"
-                  surface: 90
+                  commune: Luxembourg
+                  surface: 85
                   nbChambres: 2
-                  etage: "entre"
-                  etat: "renove"
-                  exterieur: "balcon"
-                  parking: true
-                  classeEnergie: "B"
-                  typeBien: "appartement"
+                  etage: adjEtage2e3eRef
+                  etat: adjEtatBonRef
+                  exterieur: adjExtBalconRef
+                  parking: false
+                  classeEnergie: D
+                  typeBien: appartement
                   estNeuf: false
       responses:
-        "200":
+        '200':
           description: Estimation calculée
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EstimationResponse"
-        "400":
+                $ref: '#/components/schemas/EstimationResponse'
+        '400':
           description: Paramètres invalides
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "401":
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
           description: Non authentifié
-        "404":
-          description: Commune non trouvée
-        "429":
+        '404':
+          description: Commune ambiguë ou prix indisponible pour le segment
+        '429':
           description: Quota dépassé
   /api/v1/estimation/batch:
     options:
       summary: Pré-vol CORS
       responses:
-        "204":
+        '204':
           description: CORS OK
     post:
-      tags: [Estimation]
+      tags:
+        - Estimation
       summary: Estimation en lot (jusqu'à 1000 biens)
-      description: |
-        Traite un tableau de biens en une seule requête. Chaque item est
-        calculé indépendamment ; les erreurs individuelles n'interrompent
-        pas le traitement global. Idéal pour une réévaluation périodique
-        d'un portefeuille hypothécaire.
+      description: >-
+        Même validation, valeurs par défaut et méthode que l’endpoint unitaire. Réponse 200 pour un lot
+        traité, même si des éléments échouent ; consulter success et error pour chaque index. Aucun résultat
+        réglementaire.
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [items]
+              required:
+                - items
               properties:
                 items:
                   type: array
                   maxItems: 1000
                   items:
-                    $ref: "#/components/schemas/EstimationInput"
+                    $ref: '#/components/schemas/EstimationInput'
+                  minItems: 1
       responses:
-        "200":
+        '200':
           description: Lot traité (succès partiels possibles dans results[].error)
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success: { type: boolean }
-                  count: { type: integer }
-                  succeeded: { type: integer }
-                  failed: { type: integer }
+                  success:
+                    type: boolean
+                  count:
+                    type: integer
+                  succeeded:
+                    type: integer
+                  failed:
+                    type: integer
                   results:
                     type: array
                     items:
                       type: object
                       properties:
-                        index: { type: integer }
-                        success: { type: boolean }
-                        data: { type: object }
-                        error: { type: string }
-        "413":
+                        index:
+                          type: integer
+                        success:
+                          type: boolean
+                        data:
+                          type: object
+                        error:
+                          type: string
+        '400':
+          description: Corps invalide ou lot vide
+        '413':
           description: Lot trop volumineux (> 1000 items)
   /api/v1/agences/pdf:
     post:
-      tags: [Agencies]
+      tags:
+        - Agencies
       summary: Rapport d'estimation co-brandé (PDF)
       description: |
         Génère un PDF d'estimation à l'image d'une agence, incluant
         estimation + frais d'acquisition + aides applicables. Auth
         API key ou session avec org_id admin.
       responses:
-        "200":
+        '200':
           description: PDF binaire (application/pdf)
-        "401":
+        '401':
           description: Non autorisé
   /api/v1/ai/analyze:
     post:
-      tags: [AI]
+      tags:
+        - AI
       summary: Analyse IA d'un résultat (commentaire expert)
       description: |
         Génère un commentaire professionnel par LLM (Cerebras Llama 3.3
@@ -176,7 +180,9 @@ paths:
           application/json:
             schema:
               type: object
-              required: [context, prompt]
+              required:
+                - context
+                - prompt
               properties:
                 context:
                   type: string
@@ -185,23 +191,37 @@ paths:
                   type: string
                   description: Consigne métier pour le LLM
       responses:
-        "200":
+        '200':
           description: Analyse IA générée
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  text: { type: string }
-                  model: { type: string }
-                  provider: { type: string, enum: [cerebras, groq, openai, anthropic] }
-                  remaining: { type: integer, description: "-1 si illimité" }
-        "401": { description: Auth requise }
-        "429": { description: Quota quotidien atteint }
-        "502": { description: Erreur fournisseur IA }
+                  text:
+                    type: string
+                  model:
+                    type: string
+                  provider:
+                    type: string
+                    enum:
+                      - cerebras
+                      - groq
+                      - openai
+                      - anthropic
+                  remaining:
+                    type: integer
+                    description: '-1 si illimité'
+        '401':
+          description: Auth requise
+        '429':
+          description: Quota quotidien atteint
+        '502':
+          description: Erreur fournisseur IA
   /api/v1/ai/chat:
     post:
-      tags: [AI]
+      tags:
+        - AI
       summary: Conversation multi-tour avec l'assistant immobilier LU
       description: |
         Endpoint conversationnel spécialisé immobilier Luxembourg
@@ -213,32 +233,46 @@ paths:
           application/json:
             schema:
               type: object
-              required: [messages]
+              required:
+                - messages
               properties:
                 messages:
                   type: array
                   maxItems: 20
                   items:
                     type: object
-                    required: [role, content]
+                    required:
+                      - role
+                      - content
                     properties:
-                      role: { type: string, enum: [user, assistant] }
-                      content: { type: string, maxLength: 4000 }
+                      role:
+                        type: string
+                        enum:
+                          - user
+                          - assistant
+                      content:
+                        type: string
+                        maxLength: 4000
       responses:
-        "200":
+        '200':
           description: Réponse de l'assistant
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  text: { type: string }
-                  model: { type: string }
-                  provider: { type: string }
-                  remaining: { type: integer }
+                  text:
+                    type: string
+                  model:
+                    type: string
+                  provider:
+                    type: string
+                  remaining:
+                    type: integer
   /api/v1/ai/extract:
     post:
-      tags: [AI]
+      tags:
+        - AI
       summary: Extraction structurée depuis PDF/image (BYOK vision)
       description: |
         Extraction vision (OCR intelligent) depuis un document (PDF ou
@@ -253,118 +287,262 @@ paths:
           application/json:
             schema:
               type: object
-              required: [schema, fileBase64, mediaType]
+              required:
+                - schema
+                - fileBase64
+                - mediaType
               properties:
                 schema:
                   type: string
-                  enum: [bilan_promoteur, plus_values, dpe, facture_immo]
-                fileBase64: { type: string, description: "Fichier encodé base64 (sans préfixe data:)" }
-                mediaType: { type: string, enum: ["application/pdf", "image/png", "image/jpeg"] }
+                  enum:
+                    - bilan_promoteur
+                    - plus_values
+                    - dpe
+                    - facture_immo
+                fileBase64:
+                  type: string
+                  description: Fichier encodé base64 (sans préfixe data:)
+                mediaType:
+                  type: string
+                  enum:
+                    - application/pdf
+                    - image/png
+                    - image/jpeg
       responses:
-        "200":
+        '200':
           description: Données extraites
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  data: { type: object, description: "Objet JSON structuré selon le schéma demandé" }
-                  schema: { type: string }
-                  provider: { type: string, enum: [openai, anthropic] }
-                  model: { type: string }
-        "400": { description: Schéma inconnu ou mismatch provider/media }
-        "402": { description: "Clé BYOK vision requise" }
-        "413": { description: "Fichier > 8 MB" }
+                  data:
+                    type: object
+                    description: Objet JSON structuré selon le schéma demandé
+                  schema:
+                    type: string
+                  provider:
+                    type: string
+                    enum:
+                      - openai
+                      - anthropic
+                  model:
+                    type: string
+        '400':
+          description: Schéma inconnu ou mismatch provider/media
+        '402':
+          description: Clé BYOK vision requise
+        '413':
+          description: Fichier > 8 MB
   /api/v1/mlv:
     post:
-      summary: Valeur de prêt hypothécaire (MLV / CRR)
-      description: "Calcul Mortgage Lending Value selon EN 17503 + CSSF. Abattement prudentiel sur la Market Value."
-      tags: [Evaluation]
+      summary: Sensibilité de valeur — chemin historique MLV
+      description: >-
+        Décotes additives choisies par l’utilisateur, total <= 100 %. Pas de MLV certifiée, valeur CRR ni
+        pondération de risque. Les noms mlv et ratioMLVsurMV sont conservés pour compatibilité ; ltvBands
+        reste vide et regulatoryValue vaut false.
+      tags:
+        - Evaluation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [marketValue, assetType]
+              required:
+                - valeurMarche
+                - decoteConjoncturelle
+                - decoteCommercialisation
+                - decoteSpecifique
               properties:
-                marketValue: { type: number, example: 650000 }
-                assetType: { type: string, enum: [residential, office, retail, industrial, hotel] }
-                abattement: { type: number, description: "Abattement prudentiel ex 0.10 = 10%", example: 0.1 }
+                valeurMarche:
+                  type: number
+                  exclusiveMinimum: 0
+                  maximum: 1000000000000
+                decoteConjoncturelle:
+                  type: number
+                  minimum: 0
+                  maximum: 100
+                  description: Pourcentage, ex. 5 = 5 %
+                decoteCommercialisation:
+                  type: number
+                  minimum: 0
+                  maximum: 100
+                  description: Pourcentage, ex. 5 = 5 %
+                decoteSpecifique:
+                  type: number
+                  minimum: 0
+                  maximum: 100
+                  description: Pourcentage, ex. 5 = 5 %
       responses:
-        "200": { description: MLV calculée }
+        '200':
+          description: Scénario non réglementaire dans success/data/meta
+        '400':
+          description: Paramètres invalides
+        '401':
+          description: Non authentifié
+        '429':
+          description: Quota dépassé
   /api/v1/dcf:
     post:
-      summary: DCF multi-locataires (10 ans)
-      description: Discounted cash-flow avec reversion, vacance, index ICL, OpEx. Retourne VAN, TRI, valeur terminale.
-      tags: [Evaluation]
+      summary: DCF annuel simplifié
+      description: >-
+        Flux en fin d’année et revente en fin d’année N à partir du NOI de N+1. Loyers et charges croissent
+        séparément. Le champ irr est le taux d’actualisation par construction pour les flux conventionnels,
+        sinon null ; pas de rendement indépendant sur un prix d’achat réel. Hors travaux, financement,
+        fiscalité et acquisition.
+      tags:
+        - Evaluation
       responses:
-        "200": { description: "Flux + VAN + TRI" }
+        '200':
+          description: Scénario de flux actualisés dans success/data
+        '400':
+          description: Entrées invalides ou NOI terminal non positif
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - loyerAnnuelInitial
+                - tauxIndexation
+                - tauxVacance
+                - chargesAnnuelles
+                - tauxProgressionCharges
+                - periodeAnalyse
+                - tauxActualisation
+                - tauxCapSortie
+                - fraisCessionPct
+              properties:
+                loyerAnnuelInitial:
+                  type: number
+                  minimum: 0
+                  maximum: 1000000000000
+                tauxIndexation:
+                  type: number
+                  minimum: -1
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                tauxVacance:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                chargesAnnuelles:
+                  type: number
+                  minimum: 0
+                  maximum: 1000000000000
+                tauxProgressionCharges:
+                  type: number
+                  minimum: -1
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                periodeAnalyse:
+                  type: integer
+                  minimum: 1
+                  maximum: 50
+                tauxActualisation:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                tauxCapSortie:
+                  type: number
+                  exclusiveMinimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                fraisCessionPct:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
   /api/v1/capitalisation:
     post:
       summary: Capitalisation directe
-      description: "VM = NOI / taux de cap. Taux par asset-type LU."
-      tags: [Evaluation]
+      description: VM = NOI / taux de cap. Taux par asset-type LU.
+      tags:
+        - Evaluation
       responses:
-        "200": { description: Valeur capitalisée }
+        '200':
+          description: Valeur capitalisée
   /api/v1/capital-investi:
     post:
       summary: Capital investi total
-      tags: [PropCalc]
+      tags:
+        - PropCalc
       responses:
-        "200": { description: Total capital (apport + frais + travaux) }
+        '200':
+          description: Total capital (apport + frais + travaux)
   /api/v1/frais-acquisition:
     post:
       summary: Frais d'acquisition LU
-      description: "Droits d'enregistrement (6/7/10%), frais notaire, TVA logement, Bëllegen Akt."
-      tags: [Costs]
+      description: Droits d'enregistrement (6/7/10%), frais notaire, TVA logement, Bëllegen Akt.
+      tags:
+        - Costs
       responses:
-        "200": { description: Frais détaillés par poste }
+        '200':
+          description: Frais détaillés par poste
   /api/v1/plus-values:
     post:
       summary: Plus-value immobilière LU
-      description: "Art. 99ter LIR, demi-taux, abattement Bëllegen Akt, exonération résidence principale."
-      tags: [Fiscal]
+      description: Art. 99ter LIR, demi-taux, abattement Bëllegen Akt, exonération résidence principale.
+      tags:
+        - Fiscal
       responses:
-        "200": { description: Plus-value imposable + impôt }
+        '200':
+          description: Plus-value imposable + impôt
   /api/v1/market-data:
     get:
       summary: Données marché (STATEC + Euribor + OAT + ICV)
-      description: "Source STATEC, BCL, INSEE. Rafraîchi quotidiennement."
-      tags: [Data]
+      description: Source STATEC, BCL, INSEE. Rafraîchi quotidiennement.
+      tags:
+        - Data
       responses:
-        "200": { description: Indicateurs macro LU }
+        '200':
+          description: Indicateurs macro LU
   /api/v1/propcalc/countries:
     get:
       summary: Liste pays supportés PropCalc
-      description: "LU/FR/DE/BE/NL/IT/ES/PT/UK/US avec macro HICP + property growth."
-      tags: [PropCalc]
+      description: LU/FR/DE/BE/NL/IT/ES/PT/UK/US avec macro HICP + property growth.
+      tags:
+        - PropCalc
       responses:
-        "200": { description: Liste pays + méta }
+        '200':
+          description: Liste pays + méta
   /api/v1/propcalc/cashflow:
     post:
       summary: Cashflow locatif multi-pays
-      tags: [PropCalc]
+      tags:
+        - PropCalc
       responses:
-        "200": { description: Cashflow annuel + cumul 10 ans }
+        '200':
+          description: Cashflow annuel + cumul 10 ans
   /api/v1/propcalc/mortgage:
     post:
       summary: Amortissement hypothèque (multi-pays)
-      tags: [PropCalc]
+      tags:
+        - PropCalc
       responses:
-        "200": { description: Échéancier mensuel/annuel }
+        '200':
+          description: Échéancier mensuel/annuel
   /api/v1/propcalc/yield:
     post:
       summary: Rendement brut + net
-      tags: [PropCalc]
+      tags:
+        - PropCalc
       responses:
-        "200": { description: Yield calculé }
+        '200':
+          description: Yield calculé
   /api/v1/propcalc/fees:
     post:
       summary: Frais d'acquisition multi-pays
-      tags: [PropCalc]
+      tags:
+        - PropCalc
       responses:
-        "200": { description: Frais détaillés par pays }
+        '200':
+          description: Frais détaillés par pays
 components:
   securitySchemes:
     ApiKeyHeader:
@@ -377,73 +555,145 @@ components:
   schemas:
     EstimationInput:
       type: object
-      required: [commune, surface]
+      required:
+        - commune
+        - surface
       properties:
         commune:
           type: string
           description: Nom de la commune luxembourgeoise (ex. "Luxembourg")
+          minLength: 1
+          maxLength: 200
         quartier:
           type: string
-          description: Quartier optionnel pour affiner (ex. "Belair")
+          description: Information facultative, sans ajustement par quartier dans le jeu de données actuel
+          maxLength: 200
         surface:
           type: number
-          minimum: 1
           maximum: 10000
           description: Surface habitable en m²
+          exclusiveMinimum: 0
         nbChambres:
           type: integer
           minimum: 0
           maximum: 20
+          default: 0
         etage:
           type: string
-          enum: [rdc, entre, dernier, maison]
+          enum:
+            - adjEtageSousSol
+            - adjEtageRDC
+            - adjEtage1er
+            - adjEtage2e3eRef
+            - adjEtage4e5e
+            - adjEtageDernier
+            - adjEtageAttique
+          default: adjEtage2e3eRef
         etat:
           type: string
-          enum: [neuf, renove, bon, rafraichir, renover]
+          enum:
+            - adjEtatNeuf
+            - adjEtatRenove
+            - adjEtatBonRef
+            - adjEtatCorrect
+            - adjEtatARenover
+            - adjEtatGrosTravaux
+          default: adjEtatBonRef
         exterieur:
           type: string
-          enum: [aucun, balcon, terrasse, jardin]
+          enum:
+            - adjExtPasExterieur
+            - adjExtBalconRef
+            - adjExtGrandBalcon
+            - adjExtTerrasse
+            - adjExtJardin
+            - adjExtTerrasseJardin
+          default: adjExtBalconRef
         parking:
           type: boolean
+          default: false
         classeEnergie:
           type: string
-          enum: [A, B, C, D, E, F, G, NC]
+          enum:
+            - A
+            - B
+            - C
+            - D
+            - E
+            - F
+            - G
+          default: D
+          description: >-
+            Hypothèse de classe utilisée par ce modèle ; A+, H, I et inconnue ne disposent pas d’ajustement
+            dans cet endpoint.
         typeBien:
           type: string
-          enum: [appartement, maison]
+          enum:
+            - appartement
+          default: appartement
         estNeuf:
           type: boolean
+          default: false
+      additionalProperties: false
     EstimationResponse:
       type: object
       properties:
-        success: { type: boolean }
+        success:
+          type: boolean
         data:
           type: object
           properties:
-            estimationBasse: { type: number }
-            estimationCentrale: { type: number }
-            estimationHaute: { type: number }
-            prixM2Ajuste: { type: number }
+            estimationBasse:
+              type: number
+            estimationCentrale:
+              type: number
+            estimationHaute:
+              type: number
+            prixM2Ajuste:
+              type: number
             confiance:
               type: string
-              enum: [forte, moyenne, faible]
+              enum:
+                - faible
+              description: Limitation du modèle, pas de probabilité statistique
             ajustements:
               type: array
               items:
                 type: object
                 properties:
-                  labelKey: { type: string }
-                  pct: { type: number }
+                  labelKey:
+                    type: string
+                  pct:
+                    type: number
+            prixM2Base:
+              type: number
+            totalAjustements:
+              type: number
+            sourceBase:
+              type: string
+            confianceNote:
+              type: string
         meta:
           type: object
           properties:
-            api_key_name: { type: string }
+            api_key_name:
+              type: string
             tier:
               type: string
-              enum: [free, pro, enterprise, sandbox]
-            method: { type: string }
+              enum:
+                - free
+                - pro
+                - enterprise
+                - sandbox
+            method:
+              type: string
+            limitations:
+              type: string
     ErrorResponse:
       type: object
       properties:
-        success: { type: boolean, example: false }
-        error: { type: string }
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string

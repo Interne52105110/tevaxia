@@ -12407,7 +12407,8 @@
     "contact": {
       "question": "Froen zur B2B-Integratioun?",
       "footer": "— mir äntweren bannent 48 Aarbechtsstonnen a kënnen en dedizéierten SLA, e méi groussen Batch-Endpoint an Integratiouns-Support bidden."
-    }
+    },
+    "inputContract": "Eenzel- a Lotschätzunge benotzen dee selwechte Kontrakt: Appartementer am vollen Eegentum, fakultativ Parameteren an Defaultwäerter dokumentéiert an OpenAPI. D’Beispiller benotzen explizit Hypothesen, déi un den Objet unzepasse sinn. Onbekannt Felder, Boolescher als Text an onbekannt Upassungsschlëssele ginn ofgeleent. E Lot kann deelweis erfollegräich sinn: Préift all Resultat. D’Method benotzt eng Gemengereferenz a statistesch net validéiert Upassungen, ouni TEGOVA- oder CRR-Zertifizéierung."
   },
   "facturation": {
     "meta": {

@@ -12407,7 +12407,8 @@
     "contact": {
       "question": "Questões de integração B2B?",
       "footer": "— respondemos em 48 h úteis e podemos fornecer SLA dedicado, endpoint batch maior e suporte de integração."
-    }
+    },
+    "inputContract": "As estimativas individuais e em lote utilizam o mesmo contrato: apartamentos em plena propriedade, parâmetros opcionais e valores predefinidos documentados em OpenAPI. Os exemplos usam pressupostos explícitos a adaptar ao imóvel. Campos desconhecidos, booleanos textuais e chaves de ajuste não reconhecidas são recusados. Um lote pode ter sucesso parcial: verifique cada resultado. O método utiliza uma referência municipal e ajustes não validados estatisticamente, sem certificação TEGOVA ou CRR."
   },
   "facturation": {
     "meta": {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import {parseEstimationApiInput,ESTIMATION_API_METHOD,ESTIMATION_API_LIMITS} from "@/lib/estimation-api";
 import { estimer } from "@/lib/estimation";
 import {
   authenticateApiRequestAsync,
@@ -32,29 +33,7 @@ export async function POST(request: Request) {
       return response;
     }
 
-    if (!body || typeof body !== "object" || Array.isArray(body) || typeof body.commune !== "string" || !body.surface) {
-      statusCode = 400;
-      response = NextResponse.json(
-        { success: false, error: "Missing required fields: commune, surface" },
-        { status: 400, headers: API_CORS_HEADERS },
-      );
-      return response;
-    }
-
-    if (typeof body.surface !== "number" || body.surface <= 0 || body.surface > 10000) {
-      statusCode = 400;
-      response = NextResponse.json(
-        { success: false, error: "surface must be a positive number ≤ 10000" },
-        { status: 400, headers: API_CORS_HEADERS },
-      );
-      return response;
-    }
-
-    if (body.typeBien && body.typeBien !== "appartement") {
-      statusCode = 400;
-      return NextResponse.json({ success: false, error: "Only freehold apartments are supported" }, { status: 400, headers: API_CORS_HEADERS });
-    }
-    const result = estimer({ nbChambres: 0, typeBien: "appartement", estNeuf: false, parking: false, etage: "adjEtage2e3eRef", etat: "adjEtatBonRef", exterieur: "adjExtBalconRef", classeEnergie: "D", ...body });
+    const result = estimer(parseEstimationApiInput(body));
     if (!result) {
       statusCode = 404;
       response = NextResponse.json(
@@ -70,17 +49,17 @@ export async function POST(request: Request) {
       meta: {
         api_key_name: auth.keyRecord.name,
         tier: auth.keyRecord.tier,
-        method: "municipal_mean_with_unvalidated_assumptions",
-        limitations: "Indicative freehold apartment estimate. Conventional range, not a statistical confidence interval. See /transparence.",
+        method: ESTIMATION_API_METHOD,
+        limitations: ESTIMATION_API_LIMITS,
       },
     }));
     return response;
   } catch (e) {
-    statusCode = 500;
+    statusCode = e instanceof RangeError ? 400 : 500;
     const message = e instanceof Error ? e.message : "Unknown error";
     response = NextResponse.json(
       { success: false, error: `Calculation error: ${message}` },
-      { status: 500, headers: API_CORS_HEADERS },
+      { status: statusCode, headers: API_CORS_HEADERS },
     );
     return response;
   } finally {

@@ -80,8 +80,8 @@ curl https://www.tevaxia.lu/api/v1/estimation \\
         <section className="rounded-xl border border-amber-200 bg-amber-50 p-6 mb-6">
           <h2 className="text-base font-semibold text-amber-900">{t("sandbox.title")}</h2>
           <p className="mt-2 text-sm text-amber-900">{t("sandbox.desc")}</p>
-          <div className="mt-3 flex items-center gap-2">
-            <code className="flex-1 rounded-lg bg-white border border-amber-300 px-3 py-2 text-xs font-mono text-amber-900">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <code className="min-w-0 break-all flex-1 rounded-lg bg-white border border-amber-300 px-3 py-2 text-xs font-mono text-amber-900">
               tvx_sandbox_public_demo_key_read_only
             </code>
             <span className="rounded-full bg-amber-200 text-amber-900 px-2.5 py-1 text-[10px] font-semibold uppercase">
@@ -122,6 +122,7 @@ curl https://www.tevaxia.lu/api/v1/ai/chat \\
           <p className="mt-3 text-xs text-purple-900">{t("ai.footer")}</p>
         </section>
 
+        <p id="api-input-contract" className="mb-6 rounded-xl border border-card-border p-4 text-sm [overflow-wrap:anywhere]">{t('inputContract')}</p>
         <section className="rounded-xl border border-card-border bg-card p-6">
           <h2 className="text-base font-semibold text-navy">{t("example.title")}</h2>
           <pre className="mt-3 rounded-lg bg-slate-950 text-slate-100 p-4 text-xs overflow-x-auto">
@@ -137,13 +138,20 @@ curl https://www.tevaxia.lu/api/v1/ai/chat \\
       items: myPortfolio.map((asset) => ({
         commune: asset.commune,
         surface: asset.surface,
-        classeEnergie: asset.epc,
-        etat: asset.condition,
+        typeBien: "appartement",
+        estNeuf: false,
+        parking: false,
+        nbChambres: 0,
+        classeEnergie: "D",
+        etage: "adjEtage2e3eRef",
+        etat: "adjEtatBonRef",
+        exterieur: "adjExtBalconRef",
       })),
     }),
   }
 );
 
+if (!response.ok) throw new Error(await response.text());
 const { results, succeeded, failed } = await response.json();
 console.log(\`\${succeeded}/\${results.length} assets estimated\`);`}
           </pre>

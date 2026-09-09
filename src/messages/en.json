@@ -12529,7 +12529,8 @@
     "contact": {
       "question": "B2B integration questions?",
       "footer": "— we answer within 48 business hours and can provide a dedicated SLA, a larger batch endpoint and integration support."
-    }
+    },
+    "inputContract": "Single and batch estimates use the same contract: freehold apartments, optional parameters and defaults documented in OpenAPI. Examples use explicit assumptions to adapt to the property. Unknown fields, text booleans and unrecognised adjustment keys are rejected. A batch may partially succeed: check every result. The method uses a municipal reference and statistically unvalidated adjustments, without TEGOVA or CRR certification."
   },
   "facturation": {
     "meta": {

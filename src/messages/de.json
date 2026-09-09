@@ -12407,7 +12407,8 @@
     "contact": {
       "question": "Fragen zur B2B-Integration?",
       "footer": "— wir antworten innerhalb von 48 Werkstunden und können einen dedizierten SLA, einen größeren Batch-Endpoint und Integrations-Support bieten."
-    }
+    },
+    "inputContract": "Einzel- und Stapelschätzungen verwenden denselben Vertrag: Eigentumswohnungen, optionale Parameter und in OpenAPI dokumentierte Standardwerte. Die Beispiele nutzen ausdrückliche, an das Objekt anzupassende Annahmen. Unbekannte Felder, Boolesche Werte als Text und unbekannte Anpassungsschlüssel werden abgelehnt. Ein Stapel kann teilweise erfolgreich sein: Prüfen Sie jedes Ergebnis. Die Methode verwendet eine Gemeindereferenz und statistisch nicht validierte Anpassungen, ohne TEGOVA- oder CRR-Zertifizierung."
   },
   "facturation": {
     "meta": {

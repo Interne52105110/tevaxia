@@ -12529,7 +12529,8 @@
     "contact": {
       "question": "Questions d'intégration B2B ?",
       "footer": "— nous répondons sous 48 h ouvrées et pouvons fournir un SLA dédié, un endpoint batch plus volumineux et un support d'intégration."
-    }
+    },
+    "inputContract": "L’estimation unitaire et les lots utilisent le même contrat : appartements en pleine propriété, paramètres facultatifs et valeurs par défaut documentés dans OpenAPI. Les exemples utilisent des hypothèses explicites, à adapter au bien. Les champs inconnus, booléens textuels et clés d’ajustement non reconnues sont refusés. Un lot peut réussir partiellement : vérifiez chaque résultat. La méthode utilise une référence communale et des ajustements non validés statistiquement, sans certification TEGOVA ou CRR."
   },
   "facturation": {
     "meta": {
