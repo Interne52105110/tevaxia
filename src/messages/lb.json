@@ -12608,14 +12608,18 @@
         "paymentTerms": "Bezuelungskonditiounen",
         "notesPlaceholder": "Eng Mentioun pro Zeile (CGV, SEPA-Mandat, Verspéidungspenalitéiten…)",
         "discount": "Remise (%)",
-        "profile": "Profil vun der XML-Datei"
+        "profile": "Profil vun der XML-Datei",
+        "vatReason": "TVA-Begrënnung / Angab ze kontrolléieren",
+        "taxId": "Steierlech Kennung vum Verkeefer (ausser TVA-Nummer)"
       },
       "vat": {
         "S": "Standard",
         "E": "Befreit",
         "Z": "Null-Saz",
         "AE": "Autoliquidatioun",
-        "K": "Intra-EU Liwwerung"
+        "K": "Intra-EU Liwwerung",
+        "G": "Export ausserhalb vun der EU",
+        "O": "Net der TVA ënnerworf"
       },
       "addLine": "Zeile bäifügen",
       "removeLine": "Erofhuelen",

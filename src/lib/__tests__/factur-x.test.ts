@@ -13,6 +13,7 @@ function baseInvoice(): FacturXInvoice {
     issue_date: "2026-03-15",
     due_date: "2026-04-14",
     currency: "EUR",
+    vat_exemption_reasons: { E: "Exemption stated by the issuer for this technical fixture" },
     seller: {
       name: "SCI Exemple",
       legal_id: "123456789",

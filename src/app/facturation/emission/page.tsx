@@ -4,8 +4,9 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useLocale, useTranslations } from "next-intl";
+import { validateInvoiceForExport } from "@/lib/facturation/export-validation";
 import { SUPPORTED_INVOICE_PROFILES } from "@/lib/facturation/invoice-validation";
-import { computeTotals, validateInvoice, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
+import { computeTotals, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
 import { assertHistoryOwner, saveToHistory } from "@/lib/facturation/history";
 import { track, captureError } from "@/lib/analytics";
 
@@ -93,7 +94,7 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
   };
 
   const totals = useMemo(() => { try { return computeTotals(inv); } catch { return null; } }, [inv]);
-  const validation = useMemo(() => validateInvoice(inv), [inv]);
+  const validation = useMemo(() => validateInvoiceForExport(inv), [inv]);
 
   const setSeller = <K extends keyof FacturXInvoice["seller"]>(k: K, v: FacturXInvoice["seller"][K]) => {
     setInv({ ...inv, seller: { ...inv.seller, [k]: v } });
@@ -126,7 +127,7 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
     if (operation.current || !active.current) return;
     const historyOwner = userId;
     if (!totals) { setErrors([t("calculationError")]); return; }
-    const errs = validateInvoice(inv);
+    const errs = validateInvoiceForExport(inv);
     if (errs.length) {
       setErrors(errs.map((e) => `${e.rule}: ${e.message}`));
       setSuccess(null);
@@ -245,6 +246,8 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
                 onChange={(v) => setSeller("name", v)} required />
               <Field label={t("fields.legalId")} value={inv.seller.legal_id ?? ""}
                 onChange={(v) => setSeller("legal_id", v)} placeholder="SIREN / RCS" />
+              <Field label={t("fields.taxId")} value={inv.seller.tax_id ?? ""}
+                onChange={(v) => setSeller("tax_id", v)} />
               <Field label={t("fields.vatId")} value={inv.seller.vat_id ?? ""}
                 onChange={(v) => setSeller("vat_id", v)} placeholder="FR12345678901" />
               <SelectField label={t("fields.country")} value={inv.seller.country_code}
@@ -317,7 +320,8 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
                         { v: "E", l: "E — " + t("vat.E") },
                         { v: "Z", l: "Z — " + t("vat.Z") },
                         { v: "AE", l: "AE — " + t("vat.AE") },
-                        { v: "K", l: "K — " + t("vat.K") },
+                        { v: "G", l: "G — " + t("vat.G") },
+                        { v: "O", l: "O — " + t("vat.O") },
                       ]}
                       onChange={(v) => updateLine(idx, { vat_category: v as VatCategoryCode })} />
                   </div>
@@ -334,6 +338,12 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
             </div>
           </Section>
 
+          {[...new Set(inv.lines.map(line => line.vat_category))].filter(category => ["E","AE","G","O"].includes(category)).map(category => (
+            <Section key={category} title={`${t("fields.vatReason")} — ${category}`}>
+              <Field label={`${t("fields.vatReason")} ${category}`} value={inv.vat_exemption_reasons?.[category] ?? ""}
+                onChange={value => setField("vat_exemption_reasons", { ...inv.vat_exemption_reasons, [category]: value })} required />
+            </Section>
+          ))}
           {/* Payment */}
           <Section title={t("sections.payment")}>
             <div className="grid gap-3 sm:grid-cols-2">

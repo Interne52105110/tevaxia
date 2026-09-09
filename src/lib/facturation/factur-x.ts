@@ -3,7 +3,7 @@
 // Validate the selected profile and recipient requirements before transmission;
 // structural input checks do not establish tax or platform compliance.
 
-import { validateInvoice } from "./invoice-validation";
+import { validateInvoiceForExport } from "./export-validation";
 import { invoiceAmount, invoiceLineCents, invoiceLineAmount, invoiceVatCents, invoiceDecimalText, invoiceDiscountedUnitPrice } from "./invoice-arithmetic";
 
 export type VatScheme =
@@ -32,6 +32,7 @@ export interface FacturXParty {
   name: string;
   trading_name?: string; // nom commercial
   legal_id?: string;     // SIREN FR / RCS LU / équivalent
+  tax_id?: string;      // Seller tax registration identifier (CII scheme FC)
   vat_id?: string;       // TVA intracom. ex "FR12345678901"
   address_line1?: string;
   address_line2?: string;
@@ -67,6 +68,7 @@ export interface FacturXInvoice {
   lines: FacturXLine[];
   /** Mentions libres (ex mandat SEPA, ref contrat, CGV) */
   notes?: string[];
+  vat_exemption_reasons?: Partial<Record<VatCategoryCode, string>>;
   /** Référence client/contrat/marché */
   buyer_reference?: string;
   contract_reference?: string;
@@ -183,6 +185,8 @@ function renderParty(p: FacturXParty, isSeller: boolean): string {
       </ram:SpecifiedTaxRegistration>`
     : "";
 
+  const taxBlock = isSeller && p.tax_id ? `      <ram:SpecifiedTaxRegistration><ram:ID schemeID="FC">${xmlEscape(p.tax_id)}</ram:ID></ram:SpecifiedTaxRegistration>` : "";
+
   const legalBlock = p.legal_id
     ? `      <ram:SpecifiedLegalOrganization>
         <ram:ID>${xmlEscape(p.legal_id)}</ram:ID>
@@ -198,6 +202,7 @@ ${legalBlock}
 ${addressParts}
       </ram:PostalTradeAddress>
 ${vatBlock}
+${taxBlock}
     </ram:${tag}>`;
 }
 
@@ -228,7 +233,7 @@ function renderLine(line: FacturXLine, idx: number, profile: FacturXInvoice["pro
         <ram:ApplicableTradeTax>
           <ram:TypeCode>VAT</ram:TypeCode>
           <ram:CategoryCode>${xmlEscape(line.vat_category)}</ram:CategoryCode>
-          <ram:RateApplicablePercent>${invoiceDecimalText(line.vat_rate_percent)}</ram:RateApplicablePercent>
+          ${line.vat_category === "O" ? "" : `<ram:RateApplicablePercent>${invoiceDecimalText(line.vat_rate_percent)}</ram:RateApplicablePercent>`}
         </ram:ApplicableTradeTax>
         <ram:SpecifiedTradeSettlementLineMonetarySummation>
           <ram:LineTotalAmount>${fmt2(net)}</ram:LineTotalAmount>
@@ -237,18 +242,19 @@ function renderLine(line: FacturXLine, idx: number, profile: FacturXInvoice["pro
     </ram:IncludedSupplyChainTradeLineItem>`;
 }
 
-function renderVatBreakdown(totals: FacturXTotals): string {
+function renderVatBreakdown(totals: FacturXTotals, inv: FacturXInvoice): string {
   return totals.vat_breakdown.map((v) => `    <ram:ApplicableTradeTax>
       <ram:CalculatedAmount>${fmt2(v.tax_amount)}</ram:CalculatedAmount>
       <ram:TypeCode>VAT</ram:TypeCode>
+      ${inv.vat_exemption_reasons?.[v.category] ? `<ram:ExemptionReason>${xmlEscape(inv.vat_exemption_reasons[v.category]!)}</ram:ExemptionReason>` : ""}
       <ram:BasisAmount>${fmt2(v.taxable_amount)}</ram:BasisAmount>
       <ram:CategoryCode>${xmlEscape(v.category)}</ram:CategoryCode>
-      <ram:RateApplicablePercent>${invoiceDecimalText(v.rate_percent)}</ram:RateApplicablePercent>
+      ${v.category === "O" ? "" : `<ram:RateApplicablePercent>${invoiceDecimalText(v.rate_percent)}</ram:RateApplicablePercent>`}
     </ram:ApplicableTradeTax>`).join("\n");
 }
 
 export function buildFacturXCiiXml(inv: FacturXInvoice): string {
-  const errors = validateInvoice(inv);
+  const errors = validateInvoiceForExport(inv);
   if (errors.length) throw new RangeError(errors.map(error => `${error.field}: ${error.message}`).join("; "));
   const totals = computeTotals(inv);
   const guideline = profileToGuideline(inv.profile);
@@ -328,7 +334,7 @@ ${contractRef}
       ${inv.payment_reference ? `<ram:PaymentReference>${xmlEscape(inv.payment_reference)}</ram:PaymentReference>` : ""}
       <ram:InvoiceCurrencyCode>${xmlEscape(inv.currency)}</ram:InvoiceCurrencyCode>
 ${paymentMeans}
-${renderVatBreakdown(totals)}
+${renderVatBreakdown(totals, inv)}
 ${dueBlock}
       <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
         <ram:LineTotalAmount>${fmt2(totals.line_total)}</ram:LineTotalAmount>

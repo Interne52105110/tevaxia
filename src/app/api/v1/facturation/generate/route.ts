@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { validateInvoice, type FacturXInvoice } from "@/lib/facturation/factur-x";
+import { type FacturXInvoice } from "@/lib/facturation/factur-x";
+import { validateInvoiceForExport } from "@/lib/facturation/export-validation";
 import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
 import { authenticateApiRequestAsync, corsPreflightResponse, API_CORS_HEADERS } from "@/lib/api-auth";
 
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
   }
 
   let errors;
-  try { errors = validateInvoice(body); }
+  try { errors = validateInvoiceForExport(body); }
   catch { return NextResponse.json({ error: "Invalid invoice structure" }, { status: 422, headers: responseHeaders }); }
   if (errors.length) {
     return NextResponse.json({ error: "Validation failed", validation: errors }, { status: 422, headers: responseHeaders });

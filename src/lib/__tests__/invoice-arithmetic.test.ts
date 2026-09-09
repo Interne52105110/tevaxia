@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { computeTotals, buildFacturXCiiXml, type FacturXInvoice, type FacturXLine } from "../facturation/factur-x";
 import { invoiceLineAmount, invoiceDecimalText, invoiceDiscountedUnitPrice } from "../facturation/invoice-arithmetic";
 const line = (price: number, quantity=1, discount=0): FacturXLine => ({ id:"1",name:"Test",quantity,unit_price_net:price,discount_percent:discount,vat_category:"S",vat_rate_percent:20 });
-const invoice = (lines: FacturXLine[]): FacturXInvoice => ({ profile:"BASIC", document_type:"380", invoice_number:"TEST",issue_date:"2026-09-10",currency:"EUR",seller:{name:"Seller",country_code:"LU"},buyer:{name:"Buyer",country_code:"LU"},lines });
+const invoice = (lines: FacturXLine[]): FacturXInvoice => ({ profile:"BASIC", document_type:"380", invoice_number:"TEST",issue_date:"2026-09-10",currency:"EUR",seller:{name:"Seller",vat_id:"LU12345678",country_code:"LU"},buyer:{name:"Buyer",country_code:"LU"},lines });
 describe("decimal invoice arithmetic",()=>{
   it.each([[1.005,1.01],[2.675,2.68],[1.0049,1],[0.005,0.01]])("rounds a line of %s to %s",(input,output)=>expect(invoiceLineAmount(line(input))).toBe(output));
   it("sums already rounded lines and rounds VAT once per category/rate",()=>{

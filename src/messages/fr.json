@@ -12730,14 +12730,18 @@
         "paymentTerms": "Conditions de paiement",
         "notesPlaceholder": "Une mention par ligne (CGV, mandat SEPA, pénalités de retard…)",
         "discount": "Remise (%)",
-        "profile": "Profil du fichier XML"
+        "profile": "Profil du fichier XML",
+        "vatReason": "Motif / mention TVA à vérifier",
+        "taxId": "Identifiant fiscal du vendeur (hors numéro TVA)"
       },
       "vat": {
         "S": "Standard",
         "E": "Exempt",
         "Z": "Taux zéro",
         "AE": "Autoliquidation",
-        "K": "Livraison intra-UE"
+        "K": "Livraison intra-UE",
+        "G": "Exportation hors UE",
+        "O": "Hors champ TVA"
       },
       "addLine": "Ajouter une ligne",
       "removeLine": "Supprimer",

@@ -3,7 +3,7 @@ const generate = vi.hoisted(() => vi.fn());
 vi.mock("@/lib/facturation/factur-x-pdf", () => ({ generateFacturXPdf: generate }));
 import { OPTIONS, POST } from "../route";
 
-const invoice = { profile: "BASIC", document_type: "380", invoice_number: "TEST-1", issue_date: "2026-09-10", currency: "EUR", seller: { name: "Seller", country_code: "LU" }, buyer: { name: "Buyer", country_code: "LU" }, lines: [{ id: "1", name: "Service", quantity: 1, unit_price_net: 100, vat_category: "S", vat_rate_percent: 17 }] };
+const invoice = { profile: "BASIC", document_type: "380", invoice_number: "TEST-1", issue_date: "2026-09-10", currency: "EUR", seller: { name: "Seller", vat_id: "LU12345678", country_code: "LU" }, buyer: { name: "Buyer", country_code: "LU" }, lines: [{ id: "1", name: "Service", quantity: 1, unit_price_net: 100, vat_category: "S", vat_rate_percent: 17 }] };
 let key: string;
 function request(body: unknown = invoice, format = "pdf", apiKey: string | null = key) {
   return new Request(`http://localhost/api/v1/facturation/generate?format=${format}`, { method: "POST", headers: { "Content-Type": "application/json", ...(apiKey ? { "X-API-Key": apiKey } : {}) }, body: JSON.stringify(body) });
@@ -16,6 +16,10 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllEnvs());
 describe("billing API authorization boundary", () => {
+  it("returns 422 for missing tax identifiers before invoking the generator", async () => {
+    const response = await POST(request({ ...invoice, seller: { ...invoice.seller, vat_id: "" } }));
+    expect(response.status).toBe(422); expect(generate).not.toHaveBeenCalled();
+  });
   it("rejects absent and arbitrary keys before reading or exporting", async () => {
     for (const value of [null, "arbitrary-invalid-key"]) {
       const req = request(null, "pdf", value), read = vi.spyOn(req, "json");

@@ -56,6 +56,7 @@ export async function drawInvoice(pdf: PDFDocument, inv: FacturXInvoice, locale:
     section(label);write(party.name,11,bold);
     for(const value of [party.trading_name,party.address_line1,party.address_line2,[party.postcode,party.city].filter(Boolean).join(" "),party.country_code])if(value)write(value);
     if(party.legal_id)write(`${labels.legal}: ${party.legal_id}`);
+    if(party.tax_id)write(`${labels.taxId}: ${party.tax_id}`);
     if(party.vat_id)write(`${labels.vat}: ${party.vat_id}`);
     if(party.email||party.phone)write(`${labels.contact}: ${[party.email,party.phone].filter(Boolean).join(" · ")}`);
   }
@@ -68,13 +69,16 @@ export async function drawInvoice(pdf: PDFDocument, inv: FacturXInvoice, locale:
     ensure(75);write(`${index+1}. ${line.name}`,11,bold);
     write(`${labels.quantity}: ${invoiceDecimalText(line.quantity)} ${line.unit_code ?? "C62"} · ${labels.price}: ${invoiceDecimalText(line.unit_price_net)} ${inv.currency}`);
     if(line.discount_percent)write(`${labels.discount}: ${invoiceDecimalText(line.discount_percent)} %`);
-    write(`${labels.vat}: ${invoiceDecimalText(line.vat_rate_percent)} % · ${labels.category}: ${line.vat_category} · ${labels.net}: ${money(invoiceLineAmount(line))}`);
+    write(`${labels.vat}: ${line.vat_category === "O" ? "—" : invoiceDecimalText(line.vat_rate_percent) + " %"} · ${labels.category}: ${line.vat_category} · ${labels.net}: ${money(invoiceLineAmount(line))}`);
     if(line.description)write(line.description);
     ensure(10);page.drawLine({start:{x:left,y:y+2},end:{x:left+width,y:y+2},thickness:0.4,color:rule});y-=8;
   });
   const totals=computeTotals(inv);
   section(labels.breakdown);
-  for(const group of totals.vat_breakdown)write(`${group.category} · ${invoiceDecimalText(group.rate_percent)} % · ${labels.base}: ${money(group.taxable_amount)} · ${labels.tax}: ${money(group.tax_amount)}`);
+  for(const group of totals.vat_breakdown){
+    write(`${group.category} · ${group.category === "O" ? "—" : invoiceDecimalText(group.rate_percent) + " %"} · ${labels.base}: ${money(group.taxable_amount)} · ${labels.tax}: ${money(group.tax_amount)}`);
+    const reason=inv.vat_exemption_reasons?.[group.category];if(reason)write(`${labels.reason}: ${reason}`);
+  }
   ensure(90);y-=12;row(labels.net,money(totals.line_total));row(labels.tax,money(totals.vat_total));row(labels.gross,money(totals.grand_total),true);
   if(inv.payment_iban||inv.payment_bic||inv.payment_reference||inv.payment_terms){
     section(labels.payment);

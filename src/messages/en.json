@@ -12730,14 +12730,18 @@
         "paymentTerms": "Payment terms",
         "notesPlaceholder": "One mention per line (T&C, SEPA mandate, late penalties…)",
         "discount": "Discount (%)",
-        "profile": "XML file profile"
+        "profile": "XML file profile",
+        "vatReason": "VAT reason / wording to verify",
+        "taxId": "Seller tax registration identifier (other than VAT)"
       },
       "vat": {
         "S": "Standard",
         "E": "Exempt",
         "Z": "Zero rate",
         "AE": "Reverse charge",
-        "K": "Intra-EU supply"
+        "K": "Intra-EU supply",
+        "G": "Export outside the EU",
+        "O": "Not subject to VAT"
       },
       "addLine": "Add line",
       "removeLine": "Remove",

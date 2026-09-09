@@ -14,8 +14,9 @@ export function parseInvoiceDraft(raw: string): FacturXInvoice {
   if (!stringFields(data, ["due_date","buyer_reference","contract_reference","purchase_order_reference","payment_iban","payment_bic","payment_reference","payment_terms"])) throw new Error("Invalid invoice draft text");
   for (const key of ["seller", "buyer"]) {
     const party = data[key];
-    if (!object(party) || typeof party.name !== "string" || typeof party.country_code !== "string" || !stringFields(party, ["trading_name","legal_id","vat_id","address_line1","address_line2","postcode","city","email","phone"])) throw new Error("Invalid invoice draft party");
+    if (!object(party) || typeof party.name !== "string" || typeof party.country_code !== "string" || !stringFields(party, ["trading_name","legal_id","vat_id","tax_id","address_line1","address_line2","postcode","city","email","phone"])) throw new Error("Invalid invoice draft party");
   }
+  if (data.vat_exemption_reasons !== undefined && (!object(data.vat_exemption_reasons) || !Object.entries(data.vat_exemption_reasons).every(([category, reason]) => ["S","Z","E","AE","K","G","O"].includes(category) && typeof reason === "string"))) throw new Error("Invalid invoice draft VAT reasons");
   if (data.notes !== undefined && (!Array.isArray(data.notes) || !data.notes.every(note => typeof note === "string"))) throw new Error("Invalid invoice draft notes");
   if (!Array.isArray(data.lines)) throw new Error("Invalid invoice draft lines");
   for (const line of data.lines) {

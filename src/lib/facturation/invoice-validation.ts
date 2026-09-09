@@ -23,13 +23,14 @@ export function validateInvoice(inv: unknown): ValidationError[] {
     if (!object(party)) { add(nameRule, field, "Identité structurée requise"); continue; }
     if (!text(party.name) || !(party.name as string).trim()) add(nameRule, `${field}.name`, "Nom requis");
     if (typeof party.country_code !== "string" || !/^[A-Z]{2}$/.test(party.country_code)) add(countryRule, `${field}.country_code`, "Pays ISO alpha-2 requis");
-    for (const key of ["trading_name", "legal_id", "vat_id", "address_line1", "address_line2", "postcode", "city", "email", "phone"]) {
+    for (const key of ["trading_name", "legal_id", "vat_id", "tax_id", "address_line1", "address_line2", "postcode", "city", "email", "phone"]) {
       if (party[key] !== undefined && !text(party[key])) add("INPUT", `${field}.${key}`, "Texte invalide");
     }
   }
   for (const key of ["buyer_reference", "contract_reference", "purchase_order_reference", "payment_iban", "payment_bic", "payment_reference", "payment_terms"]) {
     if (inv[key] !== undefined && !text(inv[key])) add("INPUT", key, "Texte invalide");
   }
+  if (inv.vat_exemption_reasons !== undefined && (!object(inv.vat_exemption_reasons) || !Object.entries(inv.vat_exemption_reasons).every(([category, reason]) => ["S","Z","E","AE","K","G","O"].includes(category) && text(reason)))) add("INPUT", "vat_exemption_reasons", "Motifs TVA invalides");
   if (inv.notes !== undefined && (!Array.isArray(inv.notes) || !inv.notes.every(text))) add("INPUT", "notes", "Liste de textes requise");
   if (!Array.isArray(inv.lines) || !inv.lines.length) { add("BR-16", "lines", "Au moins une ligne requise"); return errors; }
   inv.lines.forEach((line, i) => {

@@ -12608,14 +12608,18 @@
         "paymentTerms": "Condicoes pagamento",
         "notesPlaceholder": "Uma mencao por linha (CGV, mandato SEPA, penalizacoes…)",
         "discount": "Desconto (%)",
-        "profile": "Perfil do ficheiro XML"
+        "profile": "Perfil do ficheiro XML",
+        "vatReason": "Motivo / menção de IVA a verificar",
+        "taxId": "Identificador fiscal do vendedor (exceto IVA)"
       },
       "vat": {
         "S": "Padrao",
         "E": "Isento",
         "Z": "Taxa zero",
         "AE": "Reverse charge",
-        "K": "Entrega intra-UE"
+        "K": "Entrega intra-UE",
+        "G": "Exportação para fora da UE",
+        "O": "Não sujeito a IVA"
       },
       "addLine": "Adicionar linha",
       "removeLine": "Remover",

@@ -493,3 +493,18 @@ Le préremplissage utilise désormais le propriétaire, le lot, l’année et le
 Neuf tests nouveaux ; suite 1 401 tests / 134 fichiers, lint sans erreur et build réussis. Cinq langues en navigateur isolé avec lecture simulée : montants/période/libellés conservés, destination localisée et brouillon par compte, TVA non supposée, refus sans écriture ni navigation pour un paiement d’un autre compte. Ni les quittances, ni le calcul des loyers, ni le stockage global des lots ne sont certifiés par ce lot.
 
 Appels de fonds f11163c publiés : CI 34417797988 réussie ; dpl_4SsVGeVhZwx33gFx4mJMKQ7xw5Gx Ready. Les scénarios connectés de ce module ont été vérifiés avec des services simulés, pas avec des données client de production.
+
+
+## 10 septembre — identifiants fiscaux et motifs dans les exports
+
+Validation d’export partagée par le formulaire, l’API et le générateur XML, en complément de l’intégrité des données. Identifiant vendeur requis ; numéro TVA ou identifiant fiscal distinct pour les catégories concernées. L’identifiant fiscal vendeur est transmis sous le schéma CII FC et imprimé dans le PDF, sans inventer de numéro TVA. Autoliquidation : identifiant client requis. Motif saisi explicitement pour E/AE/G/O, conservé intégralement dans la ventilation XML et le PDF. Un document O exclut les autres catégories et les numéros TVA vendeur/client ; les balises de taux TVA y sont omises et le PDF affiche un tiret à la place du taux.
+
+La catégorie K reste refusée explicitement : les informations de livraison nécessaires ne sont pas prises en charge. L’autre identifiant fiscal client (distinct de TVA/légal) et la représentation fiscale ne sont pas implémentés. Ces contrôles ne choisissent pas le régime fiscal, ne vérifient pas l’inscription des identifiants dans un registre et ne remplacent pas les règles nationales ou celles du destinataire.
+
+Treize tests supplémentaires, y compris réponse API 422 avant génération : suite 1 414 tests / 135 fichiers, lint sans erreur et build réussis. Les anciennes données de test valides ont été complétées avec des identifiants/motifs fictifs pour respecter cette frontière plus stricte. Les vérifications purement arithmétiques restent distinctes.
+
+Mustang CLI 2.26.0 : matrice de 18 XML (S/Z/E/AE/G/O × BASIC/EN 16931/EXTENDED) valide. Variante E avec identifiant fiscal FC et sans numéro TVA validée dans les trois profils. Cinq PDF BASIC de trois pages (FR E, EN AE, DE G, PT O, LB Z) passent PDF/A et XML ; quinze pages rendues/inspectées, page FR réinspectée après ajout FC. Motifs longs et descriptions complets. Navigateur réel local cinq langues/quatre largeurs : motifs et identifiants manquants bloquent, données corrigées permettent les téléchargements ; contenu PDF et XML embarqué/séparé identiques au corpus Node. PDF FR réellement téléchargé également validé extérieurement. Trafic Supabase bloqué pour ces téléchargements fictifs ; aucune facture client créée.
+
+Sources primaires : https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-26/ ; BR-S-02, BR-E-02, BR-E-10, BR-AE-02, BR-AE-10, BR-G-10, BR-O-02, BR-O-10 et BR-O-11 dans le même référentiel. Structure CII contrôlée sur les schémas Factur-X distribués avec Mustang. Ces sources étayent les contrôles du format, pas l’application d’un régime fiscal à une opération réelle.
+
+Préremplissage locatif a147a9d publié : CI 34418273901 réussie ; dpl_Ev5hroUsm8DTUAA1hfBGF95bUikr Ready. Scénarios connectés vérifiés avec des données et services simulés, sans opération client de production.

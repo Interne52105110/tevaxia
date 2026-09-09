@@ -12608,14 +12608,18 @@
         "paymentTerms": "Zahlungsbedingungen",
         "notesPlaceholder": "Eine Erwähnung pro Zeile (AGB, SEPA-Mandat, Verzugsstrafen…)",
         "discount": "Rabatt (%)",
-        "profile": "Profil der XML-Datei"
+        "profile": "Profil der XML-Datei",
+        "vatReason": "MwSt.-Begründung / Angabe zur Prüfung",
+        "taxId": "Steuerliche Kennung des Verkäufers (außer USt-ID)"
       },
       "vat": {
         "S": "Standard",
         "E": "Steuerbefreit",
         "Z": "Null-Satz",
         "AE": "Reverse Charge",
-        "K": "Innergemeinschaftliche Lieferung"
+        "K": "Innergemeinschaftliche Lieferung",
+        "G": "Ausfuhr außerhalb der EU",
+        "O": "Nicht der MwSt. unterliegend"
       },
       "addLine": "Position hinzufügen",
       "removeLine": "Entfernen",
