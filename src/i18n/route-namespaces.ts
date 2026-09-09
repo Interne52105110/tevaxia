@@ -1722,6 +1722,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/pro-agences/fiche-bien": [
+    "agencyPresentationAudit",
     "aiChat",
     "backup",
     "bankingBasicsAudit",

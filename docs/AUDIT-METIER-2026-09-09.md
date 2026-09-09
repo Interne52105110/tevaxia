@@ -99,3 +99,14 @@ L’annuité utilise une formule stable à taux presque nul. Le tableau conserve
 Le graphique historique des taux, alimenté par des séries sans références ligne par ligne et une année 2026 estimée, a été retiré de cette page ; le lien aux statistiques BCL le remplace. Les autres utilisations de macro-data restent à contrôler et sont inscrites dans l’inventaire de revue.
 
 Validation : 1 152 tests dans 93 fichiers réussis, compilation TypeScript/Next et lint ciblé réussis. Contrôle des trois onglets dans cinq langues et à 320/390/768/1440 pixels, cas invalides et ratios négatifs inclus, sans erreur JavaScript observée. Cinq PDF d’amortissement ont été générés et inspectés visuellement. Exemple indépendant : 12 000 EUR à 12 % nominal sur douze mois, mensualité 1 066,185464 EUR et intérêts 794,225570 EUR. Mise en ligne suivie dans le journal opérationnel.
+
+
+## Fiches immobilières des agences
+
+L’ancien forfait d’émoluments « 1,3 % + 500 EUR » est remplacé par la fonction tarifaire déjà vérifiée. Le calcul automatique est réservé au logement existant en vente ordinaire, avant Bëllegen Akt : 6 % d’enregistrement + 1 % de transcription et émolument de vente TVA 17 % comprise. Hypothèque, débours, copies, honoraires d’agence et frais bancaires sont exclus et visibles. À 750 000 EUR : droits 52 500 EUR + émolument TTC 2 223,27 EUR = sous-total 54 723,27 EUR. Pour terrain, local commercial, bureau ou VEFA, le PDF n’applique aucun sous-total résidentiel et invite à obtenir le décompte adapté.
+
+La valeur saisie n’est plus appelée « estimation indépendante » ou « modèle hédonique ». Son inclusion devient optionnelle ; la fourchette est explicitement un pourcentage choisi par l’agence, sans intervalle de confiance. Les descriptions commerciales préremplies sont supprimées. Les classes CPE et isolation sont distinctes, A+ est disponible, les valeurs par défaut sont non renseignées et aucune conformité réglementaire n’est certifiée par la fiche.
+
+Le PDF utilise maintenant la langue sélectionnée et les montants à deux décimales. L’apport sur prix et les frais chiffrés sont distingués ; le modèle de crédit exclut assurance et frais bancaires. Les saisies incohérentes bloquent l’export et les erreurs de génération sont affichées sans effacer les champs.
+
+Validation : 1 152 tests réussis, lint et compilation réussis, cinq langues et quatre largeurs vérifiées. Dix pages PDF de référence inspectées visuellement ; cinq autres PDF ont été réellement téléchargés via le formulaire local et leur contenu contrôlé. Contrôles d’interface : valeur optionnelle, A+/isolation distinctes, forfait supprimé, exclusion terrain/VEFA, taux zéro, champs invalides et bouton bloqué.

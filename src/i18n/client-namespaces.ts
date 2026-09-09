@@ -5,6 +5,7 @@ export const CLIENT_NAMESPACES = [
   "achatLocation",
   "acquisitionAudit",
   "actionsPrioritaires",
+  "agencyPresentationAudit",
   "aiAnalysis",
   "aiChat",
   "aiSettings",

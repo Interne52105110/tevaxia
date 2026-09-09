@@ -6,12 +6,16 @@ import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import { generatePropertyPresentationPdfBlob } from "@/components/PropertyPresentationPdf";
-import { formatEUR, calculerMensualite } from "@/lib/calculations";
+import { calculerFraisAcquisition, calculerMensualite } from "@/lib/calculations";
+
+import {bankingMoney} from '@/lib/banking-basics';
 
 export default function FicheBienPage() {
   const t = useTranslations("proaFicheBien");
+  const audit = useTranslations('agencyPresentationAudit');
   const banking = useTranslations('bankingBasicsAudit');
   const locale = useLocale();
+  const formatEUR = (n:number)=>bankingMoney(n,locale);
   const lp = locale === "fr" ? "" : `/${locale}`;
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
 
@@ -25,7 +29,11 @@ export default function FicheBienPage() {
   const [surface, setSurface] = useState(85);
   const [nbRooms, setNbRooms] = useState(3);
   const [nbBedrooms, setNbBedrooms] = useState(2);
-  const [energyClass, setEnergyClass] = useState("C");
+  const [energyClass, setEnergyClass] = useState("");
+  const [insulationClass,setInsulationClass]=useState('');
+  const [includeValuation,setIncludeValuation]=useState(false);
+  const [existing,setExisting]=useState(true);
+  const [error,setError]=useState('');
   const [parking, setParking] = useState(true);
   const [yearBuilt, setYearBuilt] = useState(2010);
   const [description, setDescription] = useState("");
@@ -50,15 +58,17 @@ export default function FicheBienPage() {
     return { downPayment, loanAmount, monthlyPayment };
   }, [includeFinancing, askingPrice, downPaymentPct, loanRate, loanDuration]);
 
+  const feesSupported=existing&&['Appartement','Maison','Studio','Penthouse'].includes(propertyType);
+  const validProperty=[askingPrice,surface,nbRooms,nbBedrooms,yearBuilt].every(Number.isFinite)&&askingPrice>0&&askingPrice<=1e12&&surface>0&&surface<=1e7&&Number.isInteger(nbRooms)&&nbRooms>=0&&nbRooms<=1000&&Number.isInteger(nbBedrooms)&&nbBedrooms>=0&&nbBedrooms<=nbRooms&&Number.isInteger(yearBuilt)&&yearBuilt>=1000&&yearBuilt<=2100&&(!includeValuation||([estimatedValue,estimationRange].every(Number.isFinite)&&estimatedValue>0&&estimatedValue<=1e12&&estimationRange>=0&&estimationRange<=100));
   const feesData = useMemo(() => {
-    if (!includeFees) return null;
-    const droitsEnregistrement = askingPrice * 0.07;
-    const notaryFees = askingPrice * 0.013 + 500;
-    const total = droitsEnregistrement + notaryFees;
-    return { registrationDuties: droitsEnregistrement, notaryFees, total };
-  }, [includeFees, askingPrice]);
+    if (!includeFees || !feesSupported || !Number.isFinite(askingPrice) || askingPrice<=0 || askingPrice>1e12) return null;
+    const r=calculerFraisAcquisition({prixBien:askingPrice,estNeuf:false,residencePrincipale:false,nbAcquereurs:1});
+    return {registrationDuties:r.droitsTotal,notaryFees:r.emolumentsNotaire,total:r.droitsTotal+r.emolumentsNotaire};
+  }, [includeFees,feesSupported,askingPrice]);
 
   const handleGenerate = async () => {
+    setError('');
+    if(!validProperty){setError(audit('invalid'));return;}
     if (includeFinancing && !financingData) { alert(banking('invalid')); return; }
     if (!title.trim() || !address.trim()) {
       alert(t("alertRequired"));
@@ -68,24 +78,27 @@ export default function FicheBienPage() {
     try {
       const features = featuresText.split("\n").filter((l) => l.trim().length > 0);
       const blob = await generatePropertyPresentationPdfBlob({
+        locale,labels:Object.fromEntries(['sectionAgency','fieldAgencyName','fieldAgentName','fieldAgentContact','fieldAsking','fieldSurface','sectionProperty','fieldType','fieldNbRooms','fieldNbBedrooms','fieldYearBuilt','fieldParking','fieldEnergy','fieldDesc','fieldFeatures','toggleFinancing','finDownLabel','finLoanLabel','fieldRate','fieldDuration','durationSuffix','finMonthlyLabel','usageTitle','pageTitle'].map(k=>[k,t(k)])),
+        auditLabels:Object.fromEntries(['energyNote','unknown','insulation','valuation','valuationNote','lower','upper','feesTotal','feesScope','registration','notary','financeNote','cash','scope','yes','no'].map(k=>[k,audit(k)])),
         agencyName: agencyName || undefined,
         agentName: agentName || undefined,
         agentContact: agentContact || undefined,
         title,
-        propertyType,
+        propertyType: propertyTypeOptions.find(o=>o.value===propertyType)?.label||propertyType,
         address,
         commune,
         surface,
-        nbRooms,
-        nbBedrooms,
-        energyClass: energyClass || undefined,
+        nbRooms:propertyType==='Terrain'?undefined:nbRooms,
+        nbBedrooms:propertyType==='Terrain'?undefined:nbBedrooms,
+        energyClass: propertyType==='Terrain'?undefined:energyClass||undefined,
+        insulationClass: propertyType==='Terrain'?undefined:insulationClass||undefined,
         parking,
-        yearBuilt,
+        yearBuilt:propertyType==='Terrain'?undefined:yearBuilt,
         description: description || undefined,
         askingPrice,
-        estimatedValue,
-        estimationLow: estimatedValue * (1 - estimationRange / 100),
-        estimationHigh: estimatedValue * (1 + estimationRange / 100),
+        estimatedValue:includeValuation?estimatedValue:undefined,
+        estimationLow: includeValuation?estimatedValue * (1 - estimationRange / 100):undefined,
+        estimationHigh: includeValuation?estimatedValue * (1 + estimationRange / 100):undefined,
         pricePerSqm: surface > 0 ? askingPrice / surface : undefined,
         downPayment: financingData?.downPayment,
         loanAmount: financingData?.loanAmount,
@@ -103,6 +116,8 @@ export default function FicheBienPage() {
       a.download = `fiche-bien-${title.replace(/[^a-z0-9]/gi, "_").slice(0, 40)}-${new Date().toLocaleDateString(dateLocale).replace(/\//g, "-")}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
+    } catch {
+      setError(audit('error'));
     } finally {
       setGenerating(false);
     }
@@ -164,13 +179,15 @@ export default function FicheBienPage() {
                   type="select"
                   value={energyClass}
                   onChange={setEnergyClass}
-                  options={["A","B","C","D","E","F","G","H","I"].map((v) => ({ value: v, label: v }))}
+                  options={['','A+','A','B','C','D','E','F','G','H','I'].map(v=>({value:v,label:v||audit('unknown')}))}
                 />
+                <InputField label={audit('insulation')} type="select" value={insulationClass} onChange={setInsulationClass} options={['','A+','A','B','C','D','E','F','G','H','I'].map(v=>({value:v,label:v||audit('unknown')}))}/>
                 <ToggleField label={t("fieldParking")} checked={parking} onChange={setParking} />
               </div>
             </div>
           </div>
 
+          <p className="text-sm text-muted">{audit('energyNote')}</p>
           <div className="rounded-xl border border-card-border bg-card p-5">
             <h2 className="text-base font-semibold text-navy mb-3">{t("sectionDesc")}</h2>
             <label className="block text-xs font-semibold text-slate mb-1">{t("fieldDesc")}</label>
@@ -196,12 +213,14 @@ export default function FicheBienPage() {
             <h2 className="text-base font-semibold text-navy mb-3">{t("sectionPrice")}</h2>
             <div className="grid gap-3">
               <InputField label={t("fieldAsking")} value={askingPrice} onChange={(v) => setAskingPrice(Number(v))} suffix="€" />
-              <InputField label={t("fieldEstimated")} value={estimatedValue} onChange={(v) => setEstimatedValue(Number(v))} suffix="€" hint={t("fieldEstimatedHint")} />
-              <InputField label={t("fieldRange")} value={estimationRange} onChange={(v) => setEstimationRange(Number(v))} suffix="%" min={0} max={30} />
+              <ToggleField label={audit('includeValuation')} checked={includeValuation} onChange={setIncludeValuation}/>
+              {includeValuation&&<><InputField label={t("fieldEstimated")} value={estimatedValue} onChange={(v) => setEstimatedValue(Number(v))} suffix="€" hint={t("fieldEstimatedHint")} />
+              <InputField label={t("fieldRange")} value={estimationRange} onChange={(v) => setEstimationRange(Number(v))} suffix="%" min={0} max={100} /></>}
             </div>
           </div>
 
           <div className="rounded-xl border border-card-border bg-card p-5">
+            <p className="mb-3 text-sm text-muted">{audit('financeNote')}</p>
             <ToggleField label={t("toggleFinancing")} checked={includeFinancing} onChange={setIncludeFinancing} />
             {includeFinancing && (
               <div className="mt-3 grid gap-3">
@@ -211,9 +230,9 @@ export default function FicheBienPage() {
                 {!financingData && <p role="alert" className="text-sm text-red-700">{banking('invalid')}</p>}
                 {financingData && (
                   <div className="rounded-lg bg-navy/5 p-3 text-xs">
-                    <div className="flex justify-between"><span className="text-muted">{t("finDownLabel")}</span><span className="font-mono">{formatEUR(financingData.downPayment)}</span></div>
-                    <div className="flex justify-between"><span className="text-muted">{t("finLoanLabel")}</span><span className="font-mono">{formatEUR(financingData.loanAmount)}</span></div>
-                    <div className="flex justify-between font-semibold text-navy"><span>{t("finMonthlyLabel")}</span><span className="font-mono">{formatEUR(financingData.monthlyPayment)}</span></div>
+                    <div className="flex flex-wrap gap-2 justify-between"><span className="text-muted">{t("finDownLabel")}</span><span className="font-mono">{formatEUR(financingData.downPayment)}</span></div>
+                    <div className="flex flex-wrap gap-2 justify-between"><span className="text-muted">{t("finLoanLabel")}</span><span className="font-mono">{formatEUR(financingData.loanAmount)}</span></div>
+                    <div className="flex flex-wrap gap-2 justify-between font-semibold text-navy"><span>{t("finMonthlyLabel")}</span><span className="font-mono">{formatEUR(financingData.monthlyPayment)}</span></div>
                   </div>
                 )}
               </div>
@@ -222,18 +241,21 @@ export default function FicheBienPage() {
 
           <div className="rounded-xl border border-card-border bg-card p-5">
             <ToggleField label={t("toggleFees")} checked={includeFees} onChange={setIncludeFees} />
+            {includeFees&&<><div className="mt-3"><ToggleField label={audit('existing')} checked={existing} onChange={setExisting}/></div><p className="mt-3 text-sm text-muted">{audit(feesSupported?'feesScope':'feesUnsupported')}</p><Link className="mt-2 block text-sm underline" href={`${lp}/frais-acquisition`}>{audit('quote')}</Link></>}
             {includeFees && feesData && (
               <div className="mt-3 rounded-lg bg-navy/5 p-3 text-xs">
-                <div className="flex justify-between"><span className="text-muted">{t("feeRegistration")}</span><span className="font-mono">{formatEUR(feesData.registrationDuties)}</span></div>
-                <div className="flex justify-between"><span className="text-muted">{t("feeNotary")}</span><span className="font-mono">{formatEUR(feesData.notaryFees)}</span></div>
-                <div className="flex justify-between font-semibold text-navy pt-1 mt-1 border-t border-navy/10"><span>{t("feeTotal")}</span><span className="font-mono">{formatEUR(feesData.total)}</span></div>
+                <div className="flex flex-wrap gap-2 justify-between"><span className="text-muted">{t("feeRegistration")}</span><span className="font-mono">{formatEUR(feesData.registrationDuties)}</span></div>
+                <div className="flex flex-wrap gap-2 justify-between"><span className="text-muted">{t("feeNotary")}</span><span className="font-mono">{formatEUR(feesData.notaryFees)}</span></div>
+                <div className="flex flex-wrap gap-2 justify-between font-semibold text-navy pt-1 mt-1 border-t border-navy/10"><span>{t("feeTotal")}</span><span className="font-mono">{formatEUR(feesData.total)}</span></div>
               </div>
             )}
           </div>
 
+          {!validProperty&&<p role="alert" className="text-sm text-red-700">{audit('invalid')}</p>}
+          {error&&<p role="alert" className="text-sm text-red-700">{error}</p>}
           <button
             onClick={handleGenerate}
-            disabled={generating}
+            disabled={generating||!validProperty||(includeFinancing&&!financingData)}
             className="w-full rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white hover:bg-navy-light disabled:opacity-50"
           >
             {generating ? t("btnGenerating") : t("btnDownload")}
