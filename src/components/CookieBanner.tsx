@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 declare global {
   interface Window {
@@ -22,6 +22,7 @@ function updateConsent(granted: boolean) {
 
 export default function CookieBanner() {
   const t = useTranslations("cookie");
+  const locale = useLocale();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -57,11 +58,11 @@ export default function CookieBanner() {
         <p className="text-sm text-slate leading-relaxed">
           {t("message")}
         </p>
-        <div className="mt-4 flex items-center justify-between">
-          <a href="/confidentialite" className="text-xs text-muted hover:text-navy hover:underline transition-colors">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <a href={`${locale === "fr" ? "" : `/${locale}`}/confidentialite`} className="text-xs text-muted hover:text-navy hover:underline transition-colors">
             {t("privacyLink")}
           </a>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={refuse}
               className="rounded-lg border border-card-border px-5 py-2 text-sm font-medium text-muted hover:bg-background transition-colors"

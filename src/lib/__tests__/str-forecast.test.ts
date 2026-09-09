@@ -20,9 +20,9 @@ describe("parseStrCsv", () => {
     expect(out[0].occupancy).toBeCloseTo(0.72);
   });
 
-  it("ignores malformed dates and headers", () => {
-    const out = parseStrCsv("year,occ,adr\n2025-01,0.6,120\nbad,bad,bad\n2025-02,0.7,130");
-    expect(out).toHaveLength(2);
+  it("rejects malformed rows atomically and accepts an exact header", () => {
+    expect(()=>parseStrCsv("date,occupancy,adr\n2025-01,0.6,120\nbad,bad,bad")).toThrow();
+    expect(parseStrCsv("date,occupancy,adr\n2025-01,0.6,120")).toHaveLength(1);
   });
 
   it("accepts optional nights column", () => {
@@ -31,8 +31,7 @@ describe("parseStrCsv", () => {
   });
 
   it("rejects month out of range", () => {
-    const out = parseStrCsv("2025-13,0.5,100\n2025-00,0.5,100");
-    expect(out).toHaveLength(0);
+    expect(()=>parseStrCsv("2025-13,0.5,100\n2025-00,0.5,100")).toThrow();
   });
 });
 
@@ -83,19 +82,19 @@ describe("buildStrForecast", () => {
     expect(r).not.toBeNull();
     expect(r!.historical).toHaveLength(24);
     expect(r!.forecast).toHaveLength(12);
-    expect(r!.confidence).toBe("high");
+    expect(r!.method).toBe("seasonal");
   });
 
-  it("marks confidence medium for 12-23 months", () => {
+  it("uses a constant mean for 12-23 months", () => {
     const seed = generateStrSeed(0.65, 130, 15);
     const r = buildStrForecast(seed, 12);
-    expect(r!.confidence).toBe("medium");
+    expect(r!.method).toBe("mean");
   });
 
-  it("marks confidence low for <12 months", () => {
+  it("uses a constant mean for 6-11 months", () => {
     const seed = generateStrSeed(0.65, 130, 8);
     const r = buildStrForecast(seed, 6);
-    expect(r!.confidence).toBe("low");
+    expect(r!.method).toBe("mean");
   });
 
   it("forecast months are correctly chained from last historical month", () => {
@@ -110,14 +109,7 @@ describe("buildStrForecast", () => {
     expect(r!.forecast[5]).toMatchObject({ year: 2026, month: 6 });
   });
 
-  it("MAPE is a finite non-negative percentage", () => {
-    const seed = generateStrSeed(0.65, 130, 24);
-    const r = buildStrForecast(seed, 12);
-    expect(Number.isFinite(r!.mape.revenue)).toBe(true);
-    expect(r!.mape.revenue).toBeGreaterThanOrEqual(0);
-  });
-
-  it("confidence bands are non-negative and clamp occupancy ≤ 1", () => {
+  it("arithmetic scenarios are non-negative and occupancy is bounded", () => {
     const seed = generateStrSeed(0.9, 250, 24);
     const r = buildStrForecast(seed, 12);
     r!.forecast.forEach((p) => {
@@ -127,4 +119,34 @@ describe("buildStrForecast", () => {
       expect(p.upperRevenue).toBeGreaterThanOrEqual(p.lowerRevenue);
     });
   });
+});
+
+
+describe('calendar revenue and honest scenario inputs',()=>{
+ const six=()=>Array.from({length:6},(_,i)=>({year:2024,month:i+1,occupancy:.5,adr:100,nights:null}));
+ it('uses leap-year calendar days and retains reported nights including zero',()=>{
+  const rows:StrMonthlyMetric[]=six();rows[0].nights=10;rows[2].nights=0;
+  const r=buildStrForecast(rows,2,10)!;
+  expect(r.historical[0].revenue).toBe(1000);expect(r.historical[0].revenueBasis).toBe('reported-nights');
+  expect(r.historical[1]).toMatchObject({days:29,nights:14.5,revenue:1450,revenueBasis:'occupancy-estimate'});
+  expect(r.historical[2].revenue).toBe(0);
+  expect(r.forecast[0]).toMatchObject({year:2024,month:7,days:31,revenue:1550,lowerRevenue:1395});
+  expect(r.forecast[0].upperRevenue).toBeCloseTo(1705);expect(r.variationPct).toBe(10);
+ });
+ it('parses decimal commas, explicit small percentages and absent nights distinctly',()=>{
+  const rows=parseStrCsv('date;occupancy;adr;nights\n2024-01;1%;100,50;0\n2024-02;0,5;100,50;');
+  expect(rows[0]).toMatchObject({occupancy:.01,adr:100.5,nights:0});expect(rows[1].nights).toBeNull();
+ });
+ it('rejects duplicates, missing months and invalid observations or assumptions',()=>{
+  for(const csv of ['2024-01,.5,100\n2024-01,.5,100','2024-01,.5,100\n2024-03,.5,100','2024-01,101%,100','2024-01,50%,-1','2024-02,50%,100,30','2024-01,50%,100,1.5','2024-01,50%oops,100'])expect(()=>parseStrCsv(csv),csv).toThrow();
+  for(const [h,v]of [[0,0],[1.5,0],[25,0],[6,NaN],[6,-1],[6,101]])expect(()=>buildStrForecast(six(),h,v)).toThrow();
+ });
+ it('zero revenues stay zero without NaN or a synthetic confidence range',()=>{
+  const r=buildStrForecast(six().map(r=>({...r,occupancy:0,adr:0})),6)!;
+  expect(r.forecast.every(p=>p.revenue===0&&p.lowerRevenue===0&&p.upperRevenue===0)).toBe(true);
+  expect(r).not.toHaveProperty('confidence');expect(r).not.toHaveProperty('mape');
+ });
+ it('demo is reproducible and contains no asserted actual nights',()=>{
+  expect(generateStrSeed()).toEqual(generateStrSeed());expect(generateStrSeed().every(r=>r.nights===null)).toBe(true);
+ });
 });

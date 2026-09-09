@@ -1,180 +1,80 @@
-// ============================================================
-// STR FORECAST — Holt-Winters mensuel (m=12) pour STR/Airbnb
-// ============================================================
-// Réutilise holtWinters de hotel-forecast.ts mais avec saisonnalité
-// annuelle (m=12 mois) au lieu de hebdomadaire, pour produire une
-// prévision 12-18 mois d'occupation, ADR et revenu d'un STR.
-
-import { holtWinters } from "./hotel-forecast";
-
-export interface StrMonthlyMetric {
-  year: number;
-  month: number; // 1-12
-  occupancy: number; // 0..1
-  adr: number;       // €
-  nights: number;    // nuitées vendues (ou 0 si inconnu)
+// Monthly scenario for one rental unit available throughout each calendar month.
+import { holtWinters } from './hotel-forecast';
+export interface StrMonthlyMetric { year:number; month:number; occupancy:number; adr:number; nights?:number|null }
+export interface StrForecastPoint { year:number; month:number; occupancy:number; adr:number; nights:number; days:number; revenue:number; lowerRevenue:number; upperRevenue:number; isForecast:boolean; revenueBasis:'reported-nights'|'occupancy-estimate'|'projection' }
+export interface StrForecastResult { historical:StrForecastPoint[]; forecast:StrForecastPoint[]; method:'mean'|'seasonal'; variationPct:number }
+export const calendarDays=(year:number,month:number)=>new Date(Date.UTC(year,month,0)).getUTCDate();
+export function sortedMonthly(metrics:StrMonthlyMetric[]):StrMonthlyMetric[]{return [...metrics].sort((a,b)=>(a.year-b.year)*12+a.month-b.month)}
+function validateRows(rows:StrMonthlyMetric[]):StrMonthlyMetric[]{
+ if(!Array.isArray(rows)||rows.length>1200)throw new RangeError('Invalid monthly series');
+ const sorted=sortedMonthly(rows);
+ sorted.forEach((r,i)=>{
+  if(!Number.isInteger(r.year)||r.year<2000||r.year>2100||!Number.isInteger(r.month)||r.month<1||r.month>12||!Number.isFinite(r.occupancy)||r.occupancy<0||r.occupancy>1||!Number.isFinite(r.adr)||r.adr<0||r.adr>1e6||r.nights!=null&&(!Number.isInteger(r.nights)||r.nights<0||r.nights>calendarDays(r.year,r.month)))throw new RangeError('Invalid monthly observation');
+  if(i&&r.year*12+r.month!==sorted[i-1].year*12+sorted[i-1].month+1)throw new RangeError('Months must be unique and consecutive');
+ });return sorted;
 }
-
-export interface StrForecastPoint {
-  year: number;
-  month: number;
-  occupancy: number;
-  adr: number;
-  revenue: number; // nuits × ADR — synthétique pour visualisation
-  lowerRevenue: number;
-  upperRevenue: number;
-  isForecast: boolean;
-}
-
-export interface StrForecastResult {
-  historical: StrForecastPoint[];
-  forecast: StrForecastPoint[];
-  mape: { occupancy: number; adr: number; revenue: number };
-  confidence: "low" | "medium" | "high"; // basé sur le nb de mois d'historique
-}
-
-/**
- * Parse CSV (YYYY-MM,occupancy,adr,[nights]) — occupancy en %, en dec ou 0..1
- */
-export function parseStrCsv(csv: string): StrMonthlyMetric[] {
-  const lines = csv.split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith("#"));
-  const out: StrMonthlyMetric[] = [];
-  for (const line of lines) {
-    const parts = line.split(/[,;\t]/).map((p) => p.trim());
-    if (parts.length < 3) continue;
-    const match = /^(\d{4})-(\d{1,2})$/.exec(parts[0]);
-    if (!match) continue;
-    const year = parseInt(match[1], 10);
-    const month = parseInt(match[2], 10);
-    if (year < 2000 || year > 2100 || month < 1 || month > 12) continue;
-    const occRaw = parseFloat(parts[1].replace("%", "").replace(",", "."));
-    const adr = parseFloat(parts[2].replace(",", "."));
-    if (isNaN(occRaw) || isNaN(adr)) continue;
-    const occupancy = occRaw > 1 ? occRaw / 100 : occRaw;
-    const nights = parts[3] ? parseFloat(parts[3].replace(",", ".")) : 0;
-    out.push({ year, month, occupancy, adr, nights: isNaN(nights) ? 0 : nights });
+function csvRows(input: string): string[][] {
+  const text = input.replace(/^\uFEFF/, "");
+  const delimiter = text.slice(0, text.search(/[\r\n]/) < 0 ? text.length : text.search(/[\r\n]/)).includes(";") ? ";" : text.split(/[\r\n]/)[0].includes("\t") ? "\t" : ",";
+  const rows: string[][] = []; let row: string[] = [], field = "", quoted = false, closed = false;
+  const pushField = () => { row.push(field.trim()); field = ""; closed = false; };
+  const pushRow = () => { pushField(); if (row.some(f => f !== "")) rows.push(row); row = []; };
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (quoted) {
+      if (ch === '"' && text[i + 1] === '"') { field += '"'; i++; }
+      else if (ch === '"') { quoted = false; closed = true; }
+      else field += ch;
+    } else if (ch === delimiter) pushField();
+    else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; pushRow(); }
+    else if (ch === '"' && field.trim() === "" && !closed) { field = ""; quoted = true; }
+    else if (ch === '"' || (closed && ch.trim())) throw new Error("Malformed CSV");
+    else field += ch;
   }
-  return out;
+  if (quoted) throw new Error("Unclosed CSV quote");
+  pushRow(); return rows;
 }
 
-/**
- * Convertit la série d'historique en dates string (YYYY-MM-01) pour l'affichage
- */
-export function sortedMonthly(metrics: StrMonthlyMetric[]): StrMonthlyMetric[] {
-  return [...metrics].sort((a, b) => (a.year - b.year) * 12 + (a.month - b.month));
+
+/** Occupancy: fraction 0..1, bare percentage >1, or explicit percent (1% = .01). */
+export function parseStrCsv(csv:string):StrMonthlyMetric[]{
+ if(csv.length>2_000_000)throw new RangeError('CSV too large');
+ const rows=csvRows(csv);
+ if(rows[0]?.[0]==='date'){
+  const header=rows.shift()!;
+  if(header.join(',')!=='date,occupancy,adr'&&header.join(',')!=='date,occupancy,adr,nights')throw new RangeError('Invalid CSV header');
+ }
+ if(!rows.length)throw new RangeError('Empty CSV');
+ const number=(s:string)=>{const v=s.replace(/[ \u00a0\u202f]/g,'').replace(',','.');if(!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(v))throw new RangeError('Invalid number');return Number(v)};
+ const result=rows.map(row=>{
+  if(row.length<3||row.length>4)throw new RangeError('Invalid CSV columns');
+  const match=/^(\d{4})-(\d{2})$/.exec(row[0]);if(!match)throw new RangeError('Invalid month');
+  const explicitPct=row[1].endsWith('%'),raw=number(explicitPct?row[1].slice(0,-1):row[1]);
+  return {year:Number(match[1]),month:Number(match[2]),occupancy:explicitPct||raw>1?raw/100:raw,adr:number(row[2]),nights:row[3]?.trim()?number(row[3]):null};
+ });return validateRows(result);
 }
-
-/**
- * Génère une prévision 12-18 mois à partir de l'historique mensuel.
- * Requiert au moins 24 mois d'historique pour activer la saisonnalité (m=12).
- * En-dessous, fallback tendance linéaire + moyenne.
- */
-export function buildStrForecast(
-  rawMetrics: StrMonthlyMetric[],
-  horizonMonths = 12,
-  daysPerMonth = 30,
-): StrForecastResult | null {
-  const metrics = sortedMonthly(rawMetrics);
-  if (metrics.length < 6) return null;
-
-  const occSeries = metrics.map((m) => m.occupancy);
-  const adrSeries = metrics.map((m) => m.adr);
-
-  const hwOcc = holtWinters(occSeries, horizonMonths, { m: 12, alpha: 0.3, beta: 0.1, gamma: 0.3 });
-  const hwAdr = holtWinters(adrSeries, horizonMonths, { m: 12, alpha: 0.3, beta: 0.1, gamma: 0.3 });
-
-  // MAPE
-  const lookback = Math.min(12, metrics.length);
-  let mapeOcc = 0, mapeAdr = 0, mapeRev = 0, cnt = 0;
-  for (let i = metrics.length - lookback; i < metrics.length; i++) {
-    if (occSeries[i] > 0) mapeOcc += Math.abs((occSeries[i] - hwOcc.fitted[i]) / occSeries[i]);
-    if (adrSeries[i] > 0) mapeAdr += Math.abs((adrSeries[i] - hwAdr.fitted[i]) / adrSeries[i]);
-    const actualRev = occSeries[i] * adrSeries[i] * daysPerMonth;
-    const fittedRev = hwOcc.fitted[i] * hwAdr.fitted[i] * daysPerMonth;
-    if (actualRev > 0) mapeRev += Math.abs((actualRev - fittedRev) / actualRev);
-    cnt++;
-  }
-  const divisor = Math.max(1, cnt);
-
-  const historical: StrForecastPoint[] = metrics.map((m) => ({
-    year: m.year,
-    month: m.month,
-    occupancy: m.occupancy,
-    adr: m.adr,
-    revenue: m.occupancy * m.adr * daysPerMonth,
-    lowerRevenue: m.occupancy * m.adr * daysPerMonth,
-    upperRevenue: m.occupancy * m.adr * daysPerMonth,
-    isForecast: false,
-  }));
-
-  const last = metrics[metrics.length - 1];
-  const forecast: StrForecastPoint[] = [];
-  const conf = 1.96;
-
-  for (let h = 1; h <= horizonMonths; h++) {
-    const monthIdx = last.month - 1 + h;
-    const yOffset = Math.floor(monthIdx / 12);
-    const year = last.year + yOffset;
-    const month = (monthIdx % 12) + 1;
-
-    const occ = Math.max(0, Math.min(1, hwOcc.forecast[h - 1]));
-    const adr = Math.max(0, hwAdr.forecast[h - 1]);
-    const revenue = occ * adr * daysPerMonth;
-
-    // Bande sur le revenu (combinant incertitude occ + adr simplifiée)
-    const occBand = conf * hwOcc.residStd * Math.sqrt(h);
-    const adrBand = conf * hwAdr.residStd * Math.sqrt(h);
-    const occLow = Math.max(0, Math.min(1, occ - occBand));
-    const occHigh = Math.max(0, Math.min(1, occ + occBand));
-    const adrLow = Math.max(0, adr - adrBand);
-    const adrHigh = Math.max(0, adr + adrBand);
-
-    forecast.push({
-      year, month, occupancy: occ, adr, revenue,
-      lowerRevenue: occLow * adrLow * daysPerMonth,
-      upperRevenue: occHigh * adrHigh * daysPerMonth,
-      isForecast: true,
-    });
-  }
-
-  // Confidence : basé sur la longueur d'historique
-  const confidence: StrForecastResult["confidence"] =
-    metrics.length >= 24 ? "high" : metrics.length >= 12 ? "medium" : "low";
-
-  return {
-    historical,
-    forecast,
-    mape: {
-      occupancy: (mapeOcc / divisor) * 100,
-      adr: (mapeAdr / divisor) * 100,
-      revenue: (mapeRev / divisor) * 100,
-    },
-    confidence,
-  };
+export function buildStrForecast(rawMetrics:StrMonthlyMetric[],horizonMonths=12,variationPct=0):StrForecastResult|null{
+ const metrics=validateRows(rawMetrics);
+ if(!Number.isInteger(horizonMonths)||horizonMonths<1||horizonMonths>24||!Number.isFinite(variationPct)||variationPct<0||variationPct>100)throw new RangeError('Invalid forecast assumptions');
+ if(metrics.length<6)return null;
+ const last=metrics[metrics.length-1];if(last.year*12+last.month+horizonMonths>2100*12+12)throw new RangeError('Forecast beyond supported dates');
+ const occ=holtWinters(metrics.map(r=>r.occupancy),horizonMonths,{m:12}),adr=holtWinters(metrics.map(r=>r.adr),horizonMonths,{m:12});
+ const historical:StrForecastPoint[]=metrics.map(r=>{
+  const days=calendarDays(r.year,r.month),nights=r.nights??r.occupancy*days,revenue=nights*r.adr;
+  return {...r,nights,days,revenue,lowerRevenue:revenue,upperRevenue:revenue,isForecast:false,revenueBasis:r.nights!=null?'reported-nights':'occupancy-estimate'};
+ });
+ const forecast:StrForecastPoint[]=Array.from({length:horizonMonths},(_,i)=>{
+  const index=last.year*12+last.month+i,year=Math.floor(index/12),month=index%12+1,days=calendarDays(year,month);
+  const occupancy=Math.max(0,Math.min(1,occ.forecast[i])),rate=Math.max(0,adr.forecast[i]),nights=occupancy*days,revenue=nights*rate;
+  if(!Number.isFinite(revenue))throw new RangeError('Non-finite forecast');
+  return {year,month,days,occupancy,adr:rate,nights,revenue,lowerRevenue:revenue*(1-variationPct/100),upperRevenue:revenue*(1+variationPct/100),isForecast:true,revenueBasis:'projection'};
+ });
+ return {historical,forecast,method:metrics.length>=24?'seasonal':'mean',variationPct};
 }
-
-/**
- * Génère un historique synthétique pour démo : 24 mois de données réalistes
- * LU STR avec saisonnalité (pic été + ville été 75 %, basse saison hiver 45 %).
- */
-export function generateStrSeed(baseOcc = 0.65, baseAdr = 130, months = 24): StrMonthlyMetric[] {
-  // Coefficients saisonniers LU (observations observatoire STR + AirDNA)
-  const seasonalOcc = [0.75, 0.78, 0.92, 1.02, 1.12, 1.22, 1.30, 1.32, 1.18, 1.08, 0.88, 0.82];
-  const seasonalAdr = [0.88, 0.90, 0.95, 1.02, 1.08, 1.15, 1.22, 1.25, 1.12, 1.05, 0.96, 0.95];
-
-  const out: StrMonthlyMetric[] = [];
-  const now = new Date();
-  const startYear = now.getUTCFullYear();
-  const startMonth = now.getUTCMonth() + 1;
-  for (let i = months; i >= 1; i--) {
-    const mIdx = startMonth - 1 - i;
-    const yOffset = Math.floor(mIdx / 12);
-    const year = startYear + yOffset;
-    const month = ((mIdx % 12) + 12) % 12 + 1;
-    const m = month - 1;
-    const occ = Math.max(0, Math.min(1, baseOcc * seasonalOcc[m] * (1 + (Math.random() - 0.5) * 0.05)));
-    const adr = Math.max(0, baseAdr * seasonalAdr[m] * (1 + (Math.random() - 0.5) * 0.05));
-    out.push({ year, month, occupancy: occ, adr, nights: Math.round(occ * 30) });
-  }
-  return out;
+/** Explicitly fictional deterministic demonstration. No market-data attribution. */
+export function generateStrSeed(baseOcc=.65,baseAdr=130,months=24):StrMonthlyMetric[]{
+ if(!Number.isInteger(months)||months<1||months>1200||!Number.isFinite(baseOcc)||baseOcc<0||baseOcc>1||!Number.isFinite(baseAdr)||baseAdr<0||baseAdr>1e6)throw new RangeError('Invalid demo');
+ const factors=[.75,.78,.92,1.02,1.12,1.22,1.30,1.32,1.18,1.08,.88,.82],rates=[.88,.90,.95,1.02,1.08,1.15,1.22,1.25,1.12,1.05,.96,.95];
+ const now=new Date(),end=now.getUTCFullYear()*12+now.getUTCMonth();
+ return Array.from({length:months},(_,i)=>{const index=end-months+i,year=Math.floor(index/12),month=index%12+1;return {year,month,occupancy:Math.min(1,baseOcc*factors[month-1]),adr:baseAdr*rates[month-1],nights:null}});
 }
