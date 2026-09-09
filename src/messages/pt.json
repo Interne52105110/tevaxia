@@ -400,7 +400,7 @@
       "lenozTitle": "Scoring LENOZ simplificado",
       "lenozDesc": "Avalie a sustentabilidade do seu imóvel segundo as 6 categorias da certificação LENOZ luxemburguesa. Classificação de Bronze a Platina.",
       "portfolioTitle": "Portfólio energético",
-      "portfolioDesc": "Analise o perfil energético do seu parque imobiliário. Comparação multi-imóveis, risco EPBD, pontuação média ponderada.",
+      "portfolioDesc": "Inventário das classes CPE declaradas, áreas e valores introduzidos. Importe os imóveis ou adicione-os manualmente.",
       "hvacTitle": "Simulador HVAC",
       "hvacDesc": "Dimensionamento de aquecimento e ventilação EN 12831. Catálogo de bombas de calor (Viessmann, Daikin, Vaillant…), VMC duplo fluxo, caldeiras a pellets. 7 lotes, Klimabonus 2026.",
       "simuler": "Simular",
@@ -7398,7 +7398,7 @@
       "portfolioTitle": "Portfolio patrimonial",
       "portfolioDesc": "Consolida bens geridos: valor, rendimento, exposicao geografica.",
       "energyPortfolioTitle": "Portfolio energetico",
-      "energyPortfolioDesc": "Vista CPE / CO₂ / risco stranding CRREM em todo o patrimonio.",
+      "energyPortfolioDesc": "Inventário das classes CPE declaradas, áreas e valores introduzidos. Importe os imóveis ou adicione-os manualmente.",
       "epbdTitle": "EPBD",
       "epbdDesc": "Comissão Europeia — EPBD",
       "amlTitle": "AML / KYC",
@@ -18224,5 +18224,25 @@
     "documents": "Documentos a reunir",
     "documentsText": "Prepare plantas disponíveis, detalhes de paredes e isolamento, características das instalações e um certificado existente, se houver. Para edifícios existentes, Guichet.lu refere faturas ou registos de energia térmica dos três anos anteriores. A lista exata depende do projeto.",
     "source": "Guichet.lu: procedimento e peritos habilitados"
+  },
+  "energyPortfolioAudit": {
+    "intro": "Inventário das classes CPE declaradas, áreas e valores introduzidos. Importe os imóveis ou adicione-os manualmente.",
+    "scopeTitle": "O que este inventário mede",
+    "scope": "Copie a classe de desempenho energético de um CPE válido, não a classe de isolamento ou o indicador ambiental. « ? » significa desconhecida. Os dados ficam neste navegador; exporte um CSV para os guardar.",
+    "method": "Os valores são os que introduz, sem prémio ou desconto automático. Uma letra CPE não basta para calcular o consumo real, as emissões de CO₂ ou o custo das obras. São necessários registos e um estudo adequado ao edifício.",
+    "regulation": "A classe, por si só, não determina uma obrigação de renovação até 2030 ou 2033. A EPBD distingue uma trajetória nacional residencial de limiares nacionais para edifícios não residenciais. Verifique as regras luxemburguesas aplicáveis a cada edifício; este inventário não certifica conformidade nem alinhamento com a Taxonomia ou o CRREM.",
+    "epbdLink": "Compreender os objetivos EPBD",
+    "impactLink": "Construir um cenário de valor com as suas hipóteses",
+    "cpeSource": "Guichet.lu — Certificado de desempenho energético",
+    "epbdSource": "Comissão Europeia — EPBD",
+    "storageError": "O portefólio guardado é ilegível ou contém dados inválidos. Foi conservado sem alterações. Descarregue o original para o recuperar antes de corrigir os dados guardados.",
+    "backup": "Descarregar dados originais",
+    "saveError": "Não foi possível guardar neste navegador. Exporte o portefólio em CSV para conservar as alterações.",
+    "empty": "Adicione um imóvel com a classe CPE declarada, a área e o valor.",
+    "classLabel": "Classe de desempenho energético declarada (? = desconhecida)",
+    "valueLabel": "Valor declarado (EUR)",
+    "summary": "Totais dos dados declarados",
+    "unknown": "Desconhecida",
+    "distributionNote": "Distribuição das áreas introduzidas, incluindo as sem classe conhecida. As letras não são objeto de média: este gráfico não constitui um CPE coletivo. As metodologias residenciais e não residenciais diferem; a distribuição é apenas um inventário descritivo."
   }
 }

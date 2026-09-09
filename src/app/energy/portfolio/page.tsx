@@ -1,27 +1,16 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { PdfButton } from "@/components/PdfButton";
-const _lazy_generatePortfolioPdfBlob = async (...args: Parameters<typeof import("@/components/energy/EnergyPdf")["generatePortfolioPdfBlob"]>): Promise<Blob> => (await import("@/components/energy/EnergyPdf")).generatePortfolioPdfBlob(...args);
-import AiAnalysisCard from "@/components/AiAnalysisCard";
-
-/* ------------------------------------------------------------------ */
-/*  Constants                                                          */
-/* ------------------------------------------------------------------ */
-
-const CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
+import { ENERGY_CLASSES as CLASSES, type EnergyProperty as Property, validEnergyProperty, readEnergyPortfolio, summarizeEnergyPortfolio, parseEnergyCsv as parseCsv, energyPortfolioCsv as propertiesToCsv } from "@/lib/energy-portfolio";
+import { buildEnergyPortfolioReport, PORTFOLIO_SOURCES as SOURCES } from "@/lib/energy-portfolio-report";
+import Link from "next/link";
 type Classe = (typeof CLASSES)[number];
 
-const IMPACT_ENERGIE: Record<string, number> = {
-  A: 8, B: 5, C: 2, D: 0, E: -3, F: -7, G: -12, H: -18, I: -25,
-};
-
-const CONSO_PAR_CLASSE: Record<string, number> = {
-  A: 35, B: 60, C: 93, D: 130, E: 180, F: 255, G: 350, H: 450, I: 550,
-};
 
 const CLASS_COLORS: Record<string, string> = {
+  "A+": "bg-green-700 text-white", "?": "bg-gray-500 text-white",
   A: "bg-green-600 text-white",
   B: "bg-green-500 text-white",
   C: "bg-lime-500 text-white",
@@ -34,6 +23,7 @@ const CLASS_COLORS: Record<string, string> = {
 };
 
 const BAR_COLORS: Record<string, string> = {
+  "A+": "bg-green-700", "?": "bg-gray-500",
   A: "bg-green-600",
   B: "bg-green-500",
   C: "bg-lime-500",
@@ -50,142 +40,15 @@ const TYPE_VALUES = ["Appartement", "Maison", "Commercial"] as const;
 
 const STORAGE_KEY = "tevaxia_energy_portfolio";
 
-/* ------------------------------------------------------------------ */
-/*  Types                                                              */
-/* ------------------------------------------------------------------ */
-
-interface Property {
-  id: string;
-  nom: string;
-  classe: string;
-  surface: number;
-  valeur: number;
-  type: string;
-  annee: number;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Helpers                                                            */
-/* ------------------------------------------------------------------ */
-
-function fmt(n: number): string {
-  return n.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
-}
-
-function fmtDec(n: number, digits = 1): string {
-  return n.toLocaleString("fr-FR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
-}
-
-function classeIndex(c: string): number {
-  const idx = CLASSES.indexOf(c as Classe);
-  return idx >= 0 ? idx + 1 : 4; // default D=4
-}
-
-function indexToClasse(idx: number): string {
-  const clamped = Math.max(1, Math.min(9, Math.round(idx)));
-  return CLASSES[clamped - 1];
-}
-
-function generateId(): string {
-  if (typeof crypto !== "undefined" && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-  return Date.now().toString();
-}
-
-/* ------------------------------------------------------------------ */
-/*  CSV helpers                                                        */
-/* ------------------------------------------------------------------ */
-
-const CSV_HEADERS = ["nom", "classe", "surface", "valeur", "type", "annee"] as const;
-
-const CSV_TEMPLATE_ROWS = [
-  CSV_HEADERS.join(","),
-  "12 rue de la Gare Bettembourg,D,85,650000,Appartement,1990",
-  "Villa Strassen,B,200,1500000,Maison,2015",
-].join("\n");
-
-function parseCsvLine(line: string): string[] {
-  const fields: string[] = [];
-  let current = "";
-  let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (inQuotes) {
-      if (ch === '"' && line[i + 1] === '"') {
-        current += '"';
-        i++;
-      } else if (ch === '"') {
-        inQuotes = false;
-      } else {
-        current += ch;
-      }
-    } else if (ch === '"') {
-      inQuotes = true;
-    } else if (ch === "," || ch === ";") {
-      fields.push(current.trim());
-      current = "";
-    } else {
-      current += ch;
-    }
-  }
-  fields.push(current.trim());
-  return fields;
-}
-
-function parseCsv(text: string): { properties: Omit<Property, "id">[]; errors: string[] } {
-  const lines = text.split(/\r?\n/).filter((l) => l.trim() !== "");
-  if (lines.length < 2) return { properties: [], errors: ["csv_empty"] };
-
-  const headerFields = parseCsvLine(lines[0]).map((h) => h.toLowerCase().replace(/^\uFEFF/, ""));
-  const colMap: Record<string, number> = {};
-  for (const h of CSV_HEADERS) {
-    const idx = headerFields.indexOf(h);
-    if (idx === -1) return { properties: [], errors: [`csv_missing_col:${h}`] };
-    colMap[h] = idx;
-  }
-
-  const props: Omit<Property, "id">[] = [];
-  const errors: string[] = [];
-
-  for (let i = 1; i < lines.length; i++) {
-    const fields = parseCsvLine(lines[i]);
-    if (fields.length < CSV_HEADERS.length) {
-      errors.push(`csv_row_short:${i + 1}`);
-      continue;
-    }
-    const nom = fields[colMap["nom"]];
-    const classe = fields[colMap["classe"]].toUpperCase();
-    const surfaceRaw = Number(fields[colMap["surface"]]);
-    const valeurRaw = Number(fields[colMap["valeur"]]);
-    const typeRaw = fields[colMap["type"]];
-    const anneeRaw = Number(fields[colMap["annee"]]);
-
-    if (!nom) { errors.push(`csv_row_empty_nom:${i + 1}`); continue; }
-    if (!CLASSES.includes(classe as Classe)) { errors.push(`csv_row_bad_classe:${i + 1}`); continue; }
-    if (isNaN(surfaceRaw) || surfaceRaw <= 0) { errors.push(`csv_row_bad_surface:${i + 1}`); continue; }
-    if (isNaN(valeurRaw) || valeurRaw <= 0) { errors.push(`csv_row_bad_valeur:${i + 1}`); continue; }
-    if (isNaN(anneeRaw) || anneeRaw < 1800) { errors.push(`csv_row_bad_annee:${i + 1}`); continue; }
-
-    props.push({ nom, classe, surface: surfaceRaw, valeur: valeurRaw, type: typeRaw || "Appartement", annee: anneeRaw });
-  }
-
-  return { properties: props, errors };
-}
-
-function propertiesToCsv(properties: Property[]): string {
-  const lines = [CSV_HEADERS.join(",")];
-  for (const p of properties) {
-    const nom = p.nom.includes(",") || p.nom.includes('"')
-      ? `"${p.nom.replace(/"/g, '""')}"`
-      : p.nom;
-    lines.push([nom, p.classe, p.surface, p.valeur, p.type, p.annee].join(","));
-  }
-  return lines.join("\n");
-}
-
+const CSV_TEMPLATE_ROWS = propertiesToCsv([
+ {nom:"12 rue de la Gare Bettembourg",classe:"D",surface:85,valeur:650000,type:"Appartement",annee:1990},
+ {nom:"Villa Strassen",classe:"B",surface:200,valeur:1500000,type:"Maison",annee:2015},
+]);
+function classeIndex(c: string) { return CLASSES.indexOf(c as Classe); }
+function generateId() { return crypto.randomUUID(); }
 function downloadCsvFile(content: string, filename: string) {
-  const blob = new Blob(["\uFEFF" + content], { type: "text/csv;charset=utf-8;" });
+  const json = filename.endsWith(".json");
+  const blob = new Blob([json ? content : "\uFEFF" + content], { type: json ? "application/json" : "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -200,7 +63,7 @@ function downloadCsvFile(content: string, filename: string) {
 /*  Sort types                                                         */
 /* ------------------------------------------------------------------ */
 
-type SortKey = "nom" | "classe" | "surface" | "valeur" | "conso" | "co2" | "impact";
+type SortKey = "nom" | "classe" | "surface" | "valeur";
 type SortDir = "asc" | "desc";
 
 /* ------------------------------------------------------------------ */
@@ -208,14 +71,20 @@ type SortDir = "asc" | "desc";
 /* ------------------------------------------------------------------ */
 
 export default function PortfolioPage() {
-  const t = useTranslations("energy.portfolio");
+  const t = useTranslations("energy.portfolio"), a = useTranslations("energyPortfolioAudit"), locale = useLocale();
+  const numberLocale = locale === "lb" ? "de-DE" : locale;
+  const fmt = (n: number) => new Intl.NumberFormat(numberLocale, {maximumFractionDigits:2}).format(n);
+  const fmtDec = (n: number) => new Intl.NumberFormat(numberLocale, {maximumFractionDigits:1}).format(n);
+  const [storageError, setStorageError] = useState(false);
+  const [saveError, setSaveError] = useState(false);
+  const rawSaved = useRef<string | null>(null);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
   // Form state
   const [nom, setNom] = useState("");
-  const [classe, setClasse] = useState<string>("D");
+  const [classe, setClasse] = useState<string>("?");
   const [surface, setSurface] = useState<number | "">("");
   const [valeur, setValeur] = useState<number | "">("");
   const [type, setType] = useState<string>("Appartement");
@@ -241,24 +110,23 @@ export default function PortfolioPage() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        if (Array.isArray(parsed)) setProperties(parsed);
-      }
-    } catch { /* ignore */ }
+      rawSaved.current = raw;
+      if (raw) setProperties(readEnergyPortfolio(raw));
+    } catch { setStorageError(true); }
     setLoaded(true);
   }, []);
 
   useEffect(() => {
-    if (!loaded) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
-  }, [properties, loaded]);
+    if (!loaded || storageError) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
+    catch { setSaveError(true); }
+  }, [properties, loaded, storageError]);
 
   /* ---- Add property ---------------------------------------------- */
 
+  const formValid = validEnergyProperty({nom, classe, surface, valeur, type, annee});
   function handleAdd() {
-    if (!nom.trim() || !surface || !valeur || !annee) return;
+    if (storageError || !formValid) return;
     const newProp: Property = {
       id: generateId(),
       nom: nom.trim(),
@@ -271,7 +139,7 @@ export default function PortfolioPage() {
     setProperties((prev) => [...prev, newProp]);
     // Reset form
     setNom("");
-    setClasse("D");
+    setClasse("?");
     setSurface("");
     setValeur("");
     setType("Appartement");
@@ -335,66 +203,7 @@ export default function PortfolioPage() {
   /* ---- Computed portfolio stats ---------------------------------- */
 
   const stats = useMemo(() => {
-    if (properties.length === 0) return null;
-
-    const totalSurface = properties.reduce((s, p) => s + p.surface, 0);
-    const totalValeur = properties.reduce((s, p) => s + p.valeur, 0);
-
-    // Weighted average class
-    const weightedIdx = totalSurface > 0
-      ? properties.reduce((s, p) => s + classeIndex(p.classe) * p.surface, 0) / totalSurface
-      : 4;
-
-    // Répartition by class (by surface)
-    const repartition: Record<string, number> = {};
-    for (const c of CLASSES) repartition[c] = 0;
-    for (const p of properties) {
-      repartition[p.classe] = (repartition[p.classe] || 0) + p.surface;
-    }
-
-    // Energy impact on total value
-    const valeurAjustee = properties.reduce((s, p) => {
-      const pct = IMPACT_ENERGIE[p.classe] || 0;
-      return s + p.valeur * (1 + pct / 100);
-    }, 0);
-    // Baseline value (if all were D class = 0%)
-    const valeurBase = properties.reduce((s, p) => {
-      const pct = IMPACT_ENERGIE[p.classe] || 0;
-      return s + p.valeur / (1 + pct / 100);
-    }, 0);
-    const impactTotal = valeurAjustee - valeurBase;
-    // Gain if all pass to B
-    const valeurSiB = properties.reduce((s, p) => {
-      const pctActuel = IMPACT_ENERGIE[p.classe] || 0;
-      const base = p.valeur / (1 + pctActuel / 100);
-      return s + base * (1 + IMPACT_ENERGIE["B"] / 100);
-    }, 0);
-    const gainSiB = valeurSiB - totalValeur;
-
-    // Consumption
-    const totalConsoKwh = properties.reduce(
-      (s, p) => s + (CONSO_PAR_CLASSE[p.classe] || 130) * p.surface,
-      0,
-    );
-    const totalCO2 = totalConsoKwh * 0.75 * 300 / 1000;
-
-    // EPBD risk
-    const worstPerformers = properties.filter((p) =>
-      ["F", "G", "H", "I"].includes(p.classe),
-    );
-
-    return {
-      totalSurface,
-      totalValeur,
-      weightedIdx,
-      weightedClasse: indexToClasse(weightedIdx),
-      repartition,
-      impactTotal,
-      gainSiB,
-      totalConsoKwh,
-      totalCO2,
-      worstPerformers,
-    };
+    return properties.length ? summarizeEnergyPortfolio(properties) : null;
   }, [properties]);
 
   /* ---- Sort logic for comparison table --------------------------- */
@@ -417,16 +226,6 @@ export default function PortfolioPage() {
         case "classe": return (classeIndex(a.classe) - classeIndex(b.classe)) * dir;
         case "surface": return (a.surface - b.surface) * dir;
         case "valeur": return (a.valeur - b.valeur) * dir;
-        case "conso": return (
-          (CONSO_PAR_CLASSE[a.classe] || 130) * a.surface -
-          (CONSO_PAR_CLASSE[b.classe] || 130) * b.surface
-        ) * dir;
-        case "co2": {
-          const co2A = (CONSO_PAR_CLASSE[a.classe] || 130) * a.surface * 0.75 * 300 / 1000;
-          const co2B = (CONSO_PAR_CLASSE[b.classe] || 130) * b.surface * 0.75 * 300 / 1000;
-          return (co2A - co2B) * dir;
-        }
-        case "impact": return ((IMPACT_ENERGIE[a.classe] || 0) - (IMPACT_ENERGIE[b.classe] || 0)) * dir;
         default: return 0;
       }
     });
@@ -443,6 +242,8 @@ export default function PortfolioPage() {
     return opt ? opt.label : storedValue;
   }
 
+  const report = buildEnergyPortfolioReport(properties,t,a,locale);
+
   /* ---- Render ---------------------------------------------------- */
 
   if (!loaded) return null;
@@ -456,21 +257,31 @@ export default function PortfolioPage() {
             {t("title")}
           </h1>
           <p className="mt-2 text-muted">
-            {t("subtitle")}
+            {a("intro")}
           </p>
         </div>
 
+        <section className="mb-6 space-y-3 rounded-xl border border-card-border bg-card p-5 text-sm text-muted">
+          <h2 className="font-semibold text-foreground">{a("scopeTitle")}</h2><p>{a("scope")}</p><p>{a("method")}</p>
+          <p>{a("regulation")}</p><Link href={(locale === "fr" ? "" : "/"+locale)+"/energy/epbd"} className="block text-energy underline">{a("epbdLink")}</Link>
+          <Link href={(locale === "fr" ? "" : "/"+locale)+"/energy/impact"} className="block text-energy underline">{a("impactLink")}</Link>
+          {SOURCES.map((url,i)=><a key={url} href={url} className="block text-energy underline">{a(i===0?"cpeSource":"epbdSource")}</a>)}
+        </section>
+        {storageError && <div role="alert" className="mb-6 rounded-xl border border-red-200 p-5 text-red-800"><p>{a("storageError")}</p>{rawSaved.current && <button className="mt-3 underline" onClick={()=>downloadCsvFile(rawSaved.current!,"portfolio-original.json")}>{a("backup")}</button>}</div>}
+        {saveError && <p role="alert" className="mb-6 text-red-700">{a("saveError")}</p>}
+        <input ref={csvInputRef} type="file" accept=".csv,text/csv" className="hidden" onChange={handleCsvImport} disabled={storageError}/>
+        {csvMessage && <p role="status" className="mb-4 rounded-lg border border-card-border p-3">{csvMessage.text}</p>}
         {/* ============================================================ */}
         {/*  EMPTY STATE                                                  */}
         {/* ============================================================ */}
-        {properties.length === 0 && !showForm && (
-          <div className="rounded-2xl border border-card-border bg-card p-12 text-center shadow-sm">
+        {properties.length === 0 && !showForm && !storageError && (
+          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-12 text-center shadow-sm">
             <div className="text-5xl mb-4">🏠</div>
             <h2 className="text-lg font-semibold text-foreground mb-2">
               {t("emptyTitle")}
             </h2>
             <p className="text-muted mb-6 max-w-md mx-auto">
-              {t("emptyDescription")}
+              {a("empty")}
             </p>
             <button
               onClick={() => setShowForm(true)}
@@ -479,7 +290,7 @@ export default function PortfolioPage() {
               + {t("addFirstProperty")}
             </button>
             <p className="mt-3 text-xs text-muted">{t("csvOrImport")}</p>
-            <div className="mt-2 flex items-center justify-center gap-2">
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
               <button
                 onClick={() => csvInputRef.current?.click()}
                 className="inline-flex items-center gap-1.5 rounded-lg border border-card-border bg-card px-4 py-2 text-xs font-medium text-foreground shadow-sm hover:bg-background transition-colors"
@@ -532,7 +343,7 @@ export default function PortfolioPage() {
 
             {showForm && (
               <div className="rounded-2xl border border-card-border bg-card p-6 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                   <h2 className="font-semibold text-foreground">
                     {t("addProperty")}
                   </h2>
@@ -547,10 +358,10 @@ export default function PortfolioPage() {
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {/* Nom / adresse */}
                   <div className="sm:col-span-2 lg:col-span-3">
-                    <label className="block text-sm font-medium text-foreground mb-1.5">
+                    <label htmlFor="portfolio-nom" className="block text-sm font-medium text-foreground mb-1.5">
                       {t("labelNom")}
                     </label>
-                    <input
+                    <input id="portfolio-nom"
                       type="text"
                       value={nom}
                       onChange={(e) => setNom(e.target.value)}
@@ -562,14 +373,15 @@ export default function PortfolioPage() {
                   {/* Classe energie */}
                   <div className="sm:col-span-2 lg:col-span-3">
                     <label className="block text-sm font-medium text-foreground mb-1.5">
-                      {t("labelClasse")}
+                      {a("classLabel")}
                     </label>
-                    <div className="flex gap-1.5">
+                    <div className="flex flex-wrap gap-1.5">
                       {CLASSES.map((c) => (
                         <button
                           key={c}
                           onClick={() => setClasse(c)}
-                          className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-all ${
+                          aria-pressed={classe === c}
+                          className={`min-w-9 flex-1 rounded-lg py-2.5 text-sm font-bold transition-all ${
                             classe === c
                               ? `${CLASS_COLORS[c]} ring-2 ring-offset-2 ring-energy`
                               : "bg-gray-100 text-gray-500 hover:bg-gray-200"
@@ -583,10 +395,10 @@ export default function PortfolioPage() {
 
                   {/* Surface */}
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">
+                    <label htmlFor="portfolio-surface" className="block text-sm font-medium text-foreground mb-1.5">
                       {t("labelSurface")}
                     </label>
-                    <input
+                    <input id="portfolio-surface"
                       type="number"
                       value={surface}
                       onChange={(e) =>
@@ -600,11 +412,11 @@ export default function PortfolioPage() {
 
                   {/* Valeur estimée */}
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">
-                      {t("labelValeur")}
+                    <label htmlFor="portfolio-valeur" className="block text-sm font-medium text-foreground mb-1.5">
+                      {a("valueLabel")}
                     </label>
                     <div className="relative">
-                      <input
+                      <input id="portfolio-valeur"
                         type="number"
                         value={valeur}
                         onChange={(e) =>
@@ -645,10 +457,10 @@ export default function PortfolioPage() {
 
                   {/* Annee construction */}
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">
+                    <label htmlFor="portfolio-annee" className="block text-sm font-medium text-foreground mb-1.5">
                       {t("labelAnnee")}
                     </label>
-                    <input
+                    <input id="portfolio-annee"
                       type="number"
                       value={annee}
                       onChange={(e) =>
@@ -656,16 +468,16 @@ export default function PortfolioPage() {
                       }
                       placeholder="1990"
                       className="w-full rounded-lg border border-input-border bg-input-bg px-4 py-2.5 text-foreground"
-                      min={1800}
-                      max={2026}
+                      min={1000}
+                      max={new Date().getFullYear()}
                     />
                   </div>
                 </div>
 
-                <div className="mt-6 flex gap-3">
+                <div className="mt-6 flex flex-wrap gap-3">
                   <button
                     onClick={handleAdd}
-                    disabled={!nom.trim() || !surface || !valeur || !annee}
+                    disabled={!formValid}
                     className="inline-flex items-center gap-2 rounded-xl bg-energy px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-energy/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {t("btnAdd")}
@@ -680,21 +492,6 @@ export default function PortfolioPage() {
               </div>
             )}
 
-            {/* Hidden CSV file input */}
-            <input
-              ref={csvInputRef}
-              type="file"
-              accept=".csv,text/csv"
-              className="hidden"
-              onChange={handleCsvImport}
-            />
-
-            {/* CSV import feedback message */}
-            {csvMessage && (
-              <div className={`mt-3 rounded-lg px-4 py-2.5 text-sm ${csvMessage.type === "success" ? "bg-green-50 text-green-800 border border-green-200" : "bg-red-50 text-red-800 border border-red-200"}`}>
-                {csvMessage.text}
-              </div>
-            )}
           </div>
         )}
 
@@ -703,11 +500,11 @@ export default function PortfolioPage() {
         {/* ============================================================ */}
         {properties.length > 0 && (
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <h2 className="font-semibold text-foreground">
                 {t("yourProperties", { count: properties.length })}
               </h2>
-              {stats && <PdfButton generateBlob={() => _lazy_generatePortfolioPdfBlob({ properties: properties.map((p) => ({ nom: p.nom, classe: p.classe, surface: p.surface, valeur: p.valeur })), averageScore: stats.weightedClasse, totalValeur: stats.totalValeur, totalConso: stats.totalConsoKwh, totalCO2: Math.round(stats.totalConsoKwh * 0.75 * 300 / 1000), worstCount: stats.worstPerformers.length })} filename={`energy-portfolio-${new Date().toLocaleDateString("fr-FR")}.pdf`} label={t("downloadPdf") || "PDF"} />}
+              {stats && <PdfButton generateBlob={async () => (await import("@/components/energy/EnergyAuditPdf")).generateEnergyAuditPdf(report)} filename="energy-portfolio.pdf" label={t("downloadPdf")} />}
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {properties.map((p) => (
@@ -717,8 +514,8 @@ export default function PortfolioPage() {
                 >
                   <button
                     onClick={() => handleDelete(p.id)}
-                    className="absolute top-3 right-3 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                    title={t("delete")}
+                    className="absolute top-3 right-3 text-gray-300 hover:text-red-500 transition-colors opacity-100"
+                    title={t("delete")} aria-label={t("delete")+" : "+p.nom}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -764,235 +561,13 @@ export default function PortfolioPage() {
         {/* ============================================================ */}
         {/*  PORTFOLIO SUMMARY (2+ properties)                            */}
         {/* ============================================================ */}
-        {stats && (
-          <div className="space-y-6 mb-8">
-            {/* ---- Score moyen pondéré -------------------------------- */}
-            <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
-                <h2 className="font-semibold text-foreground">
-                  {t("weightedScore")}
-                </h2>
-              </div>
-              <div className="p-6 flex items-center gap-6">
-                <span
-                  className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl text-2xl font-bold ${CLASS_COLORS[stats.weightedClasse]}`}
-                >
-                  {stats.weightedClasse}
-                </span>
-                <div>
-                  <div className="text-sm text-muted">
-                    {t("averageScore", { score: fmtDec(stats.weightedIdx) })}
-                  </div>
-                  <div className="text-xs text-muted mt-1">
-                    {t("weightedBySurface", { surface: fmt(stats.totalSurface) })}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ---- Répartition par classe ----------------------------- */}
-            <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
-                <h2 className="font-semibold text-foreground">
-                  {t("distributionByClass")}
-                </h2>
-              </div>
-              <div className="p-6">
-                {/* Stacked bar */}
-                <div className="h-10 rounded-xl overflow-hidden flex">
-                  {CLASSES.map((c) => {
-                    const pct =
-                      stats.totalSurface > 0
-                        ? (stats.repartition[c] / stats.totalSurface) * 100
-                        : 0;
-                    if (pct === 0) return null;
-                    return (
-                      <div
-                        key={c}
-                        className={`${BAR_COLORS[c]} flex items-center justify-center text-xs font-bold text-white transition-all`}
-                        style={{ width: `${pct}%` }}
-                        title={t("classPercent", { classe: c, percent: fmtDec(pct) })}
-                      >
-                        {pct >= 8 && `${c} ${Math.round(pct)}%`}
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* Legend */}
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {CLASSES.map((c) => {
-                    const pct =
-                      stats.totalSurface > 0
-                        ? (stats.repartition[c] / stats.totalSurface) * 100
-                        : 0;
-                    if (pct === 0) return null;
-                    return (
-                      <div key={c} className="flex items-center gap-1.5 text-xs">
-                        <span
-                          className={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold ${CLASS_COLORS[c]}`}
-                        >
-                          {c}
-                        </span>
-                        <span className="text-muted">
-                          {fmtDec(pct)}% ({fmt(stats.repartition[c])} m²)
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* ---- Valeur totale + impact energie --------------------- */}
-            <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
-                <h2 className="font-semibold text-foreground">
-                  {t("totalValueAndImpact")}
-                </h2>
-              </div>
-              <div className="p-6">
-                <div className="grid gap-4 sm:grid-cols-3">
-                  <div className="rounded-xl border border-card-border p-4 text-center">
-                    <div className="text-xs text-muted uppercase tracking-wider">
-                      {t("totalValue")}
-                    </div>
-                    <div className="mt-1 text-2xl font-bold text-foreground">
-                      {fmt(stats.totalValeur)} EUR
-                    </div>
-                    <div className="text-xs text-muted mt-0.5">
-                      {t("propertiesCount", { count: properties.length })}
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-card-border p-4 text-center">
-                    <div className="text-xs text-muted uppercase tracking-wider">
-                      {t("energyImpact")}
-                    </div>
-                    <div
-                      className={`mt-1 text-2xl font-bold ${
-                        stats.impactTotal >= 0 ? "text-green-600" : "text-red-600"
-                      }`}
-                    >
-                      {stats.impactTotal >= 0 ? "+" : ""}
-                      {fmt(Math.round(stats.impactTotal))} EUR
-                    </div>
-                    <div className="text-xs text-muted mt-0.5">
-                      {t("greenPremiumBrownDiscount")}
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-card-border p-4 text-center">
-                    <div className="text-xs text-muted uppercase tracking-wider">
-                      {t("potentialGainClassB")}
-                    </div>
-                    <div
-                      className={`mt-1 text-2xl font-bold ${
-                        stats.gainSiB > 0 ? "text-green-600" : "text-muted"
-                      }`}
-                    >
-                      {stats.gainSiB > 0 ? "+" : ""}
-                      {fmt(Math.round(stats.gainSiB))} EUR
-                    </div>
-                    <div className="text-xs text-muted mt-0.5">
-                      {t("ifAllClassB")}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ---- Consommation totale estimée ------------------------ */}
-            <div className="rounded-2xl border border-card-border bg-card shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-card-border bg-gradient-to-r from-energy/5 to-transparent">
-                <h2 className="font-semibold text-foreground">
-                  {t("estimatedTotalConsumption")}
-                </h2>
-              </div>
-              <div className="p-6">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-xl border border-card-border p-4 text-center">
-                    <div className="text-xs text-muted uppercase tracking-wider">
-                      {t("annualConsumption")}
-                    </div>
-                    <div className="mt-1 text-2xl font-bold text-energy">
-                      {fmt(stats.totalConsoKwh)} kWh/an
-                    </div>
-                    <div className="text-xs text-muted mt-0.5">
-                      {t("consumptionDetail", {
-                        surface: fmt(stats.totalSurface),
-                        average: fmt(Math.round(stats.totalConsoKwh / stats.totalSurface)),
-                      })}
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-card-border p-4 text-center">
-                    <div className="text-xs text-muted uppercase tracking-wider">
-                      {t("co2Emissions")}
-                    </div>
-                    <div className="mt-1 text-2xl font-bold text-orange-600">
-                      {fmt(Math.round(stats.totalCO2))} kg/an
-                    </div>
-                    <div className="text-xs text-muted mt-0.5">
-                      {t("co2TonsPerYear", { tons: fmtDec(stats.totalCO2 / 1000) })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ---- Risque EPBD ---------------------------------------- */}
-            {stats.worstPerformers.length > 0 && (
-              <div className="rounded-2xl border border-red-200 bg-red-50 shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-red-200 bg-gradient-to-r from-red-500/10 to-transparent">
-                  <h2 className="font-semibold text-red-800">{t("epbdRisk")}</h2>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-start gap-3">
-                    <div className="shrink-0 mt-0.5 text-red-600">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="font-semibold text-red-800">
-                        {t("epbdWarning", {
-                          worst: stats.worstPerformers.length,
-                          total: properties.length,
-                        })}
-                      </div>
-                      <div className="mt-2 text-sm text-red-700">
-                        {t("epbdDescription")}
-                      </div>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {stats.worstPerformers.map((p) => (
-                          <span
-                            key={p.id}
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-white/80 border border-red-200 px-3 py-1 text-xs"
-                          >
-                            <span
-                              className={`inline-flex items-center justify-center w-5 h-5 rounded text-xs font-bold ${CLASS_COLORS[p.classe]}`}
-                            >
-                              {p.classe}
-                            </span>
-                            <span className="text-red-800 font-medium">
-                              {p.nom}
-                            </span>
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+        {stats && <section id="portfolio-summary" className="mb-8 space-y-4 rounded-2xl border border-card-border bg-card p-5">
+          <h2 className="font-semibold">{a("summary")}</h2>
+          <dl className="grid gap-4 sm:grid-cols-2"><div><dt>{a("valueLabel")}</dt><dd className="text-xl font-bold break-words">{fmt(stats.totalValeur)} EUR</dd></div><div><dt>{t("colSurface")}</dt><dd className="text-xl font-bold">{fmt(stats.totalSurface)} m²</dd></div></dl>
+          <h3 className="font-semibold">{t("distributionByClass")}</h3>
+          <div className="space-y-2">{CLASSES.filter(c=>stats.repartition[c]>0).map(c=><div key={c}><div className="flex flex-wrap justify-between gap-2 text-sm"><span>{c==="?"?a("unknown"):c}</span><span>{fmt(stats.repartition[c])} m² · {fmtDec(stats.repartition[c]/stats.totalSurface*100)} %</span></div><div className="mt-1 h-3 rounded bg-gray-100"><div className={"h-3 rounded "+BAR_COLORS[c]} style={{width:`${stats.repartition[c]/stats.totalSurface*100}%`}}/></div></div>)}</div>
+          <p className="text-sm text-muted">{a("distributionNote")}</p>
+        </section>}
 
         {/* ============================================================ */}
         {/*  COMPARISON TABLE                                             */}
@@ -1032,32 +607,10 @@ export default function PortfolioPage() {
                     >
                       {t("colValeur")}{sortArrow("valeur")}
                     </th>
-                    <th
-                      className="px-4 py-3 font-medium text-muted cursor-pointer hover:text-foreground select-none text-right"
-                      onClick={() => toggleSort("conso")}
-                    >
-                      {t("colConso")}{sortArrow("conso")}
-                    </th>
-                    <th
-                      className="px-4 py-3 font-medium text-muted cursor-pointer hover:text-foreground select-none text-right"
-                      onClick={() => toggleSort("co2")}
-                    >
-                      {t("colCO2")}{sortArrow("co2")}
-                    </th>
-                    <th
-                      className="px-4 py-3 font-medium text-muted cursor-pointer hover:text-foreground select-none text-right"
-                      onClick={() => toggleSort("impact")}
-                    >
-                      {t("colImpact")}{sortArrow("impact")}
-                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sortedProperties.map((p) => {
-                    const conso =
-                      (CONSO_PAR_CLASSE[p.classe] || 130) * p.surface;
-                    const co2 = (conso * 0.75 * 300) / 1000;
-                    const impactPct = IMPACT_ENERGIE[p.classe] || 0;
                     return (
                       <tr
                         key={p.id}
@@ -1079,26 +632,6 @@ export default function PortfolioPage() {
                         <td className="px-4 py-3 text-right font-mono font-semibold">
                           {fmt(p.valeur)} EUR
                         </td>
-                        <td className="px-4 py-3 text-right font-mono">
-                          {fmt(conso)}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono">
-                          {fmt(Math.round(co2))}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono">
-                          <span
-                            className={
-                              impactPct > 0
-                                ? "text-green-600"
-                                : impactPct < 0
-                                  ? "text-red-600"
-                                  : "text-muted"
-                            }
-                          >
-                            {impactPct > 0 ? "+" : ""}
-                            {impactPct}%
-                          </span>
-                        </td>
                       </tr>
                     );
                   })}
@@ -1106,25 +639,7 @@ export default function PortfolioPage() {
               </table>
             </div>
 
-            {stats && (
-              <AiAnalysisCard
-                context={[
-                  `Portefeuille immobilier Luxembourg — ${properties.length} actifs`,
-                  `Surface totale: ${fmt(stats.totalSurface)} m²`,
-                  `Valeur totale: ${fmt(stats.totalValeur)} €`,
-                  `Classe énergétique moyenne pondérée surface: ${stats.weightedClasse} (indice ${fmtDec(stats.weightedIdx)})`,
-                  `Répartition par classe (m²): ${CLASSES.map((c) => stats.repartition[c] > 0 ? `${c}=${fmt(stats.repartition[c])}` : null).filter(Boolean).join(" · ")}`,
-                  `Impact énergie sur valeur actuelle: ${stats.impactTotal >= 0 ? "+" : ""}${fmt(Math.round(stats.impactTotal))} € (vs baseline classe D)`,
-                  `Gain potentiel si tous passent en B: ${fmt(Math.round(stats.gainSiB))} €`,
-                  `Consommation totale: ${fmt(stats.totalConsoKwh)} kWh/an (${fmt(Math.round(stats.totalConsoKwh / stats.totalSurface))} kWh/m²/an)`,
-                  `Émissions CO2 totales: ${fmt(Math.round(stats.totalCO2))} kg/an (${fmtDec(stats.totalCO2 / 1000)} tonnes)`,
-                  `Stranding risk EPBD (classes F-I): ${stats.worstPerformers.length} actifs / ${properties.length} (${stats.worstPerformers.length > 0 ? stats.worstPerformers.map((p) => `${p.nom} (${p.classe})`).join(", ") : "aucun"})`,
-                  "",
-                  `Détail actifs: ${properties.slice(0, 10).map((p) => `${p.nom} ${p.classe} ${fmt(p.surface)}m² ${fmt(p.valeur)}€ ${p.annee}`).join(" / ")}${properties.length > 10 ? `... (+${properties.length - 10} autres)` : ""}`,
-                ].join("\n")}
-                prompt="Analyse ce portefeuille immobilier sous l'angle ESG/CRREM/EPBD IV pour un asset manager / banquier. Livre : (1) diagnostic stranding risk CRREM 2030/2050 — quels actifs sont sur la trajectoire de dépassement carbone selon classe et trajectoire LU, (2) plan CAPEX priorisé (quels actifs rénover en premier : worst-first vs best-ROI, ordre de grandeur budget), (3) alignement Taxonomie UE / SFDR article 8-9, risque de non-alignement, (4) impact sur la valorisation du portefeuille à horizon 5-10 ans si rien n'est fait vs si plan de rénovation appliqué, (5) recommandation finale au board : arbitrage cession des stranded / rénovation / rotation. Chiffré, structuré, directement utilisable en comité d'investissement."
-              />
-            )}
+
           </div>
         )}
       </div>

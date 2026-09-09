@@ -400,7 +400,7 @@
       "lenozTitle": "Scoring LENOZ simplifié",
       "lenozDesc": "Évaluez la durabilité de votre bien selon les 6 catégories de la certification LENOZ luxembourgeoise. Scoring de Bronze à Platine.",
       "portfolioTitle": "Portfolio énergétique",
-      "portfolioDesc": "Analysez le profil énergétique de votre parc immobilier. Comparaison multi-biens, risque EPBD, score moyen pondéré.",
+      "portfolioDesc": "Inventaire des classes CPE déclarées, des surfaces et des valeurs saisies. Importez vos biens ou ajoutez-les manuellement.",
       "hvacTitle": "Simulateur HVAC",
       "hvacDesc": "Dimensionnement chauffage et ventilation EN 12831. Catalogue PAC (Viessmann, Daikin, Vaillant…), VMC double flux, chaudières pellets. Bordereau 7 lots, Klimabonus 2026.",
       "simuler": "Simuler",
@@ -7520,7 +7520,7 @@
       "portfolioTitle": "Portefeuille patrimonial",
       "portfolioDesc": "Consolide biens gérés : valeur, rendement, exposition géographique.",
       "energyPortfolioTitle": "Portfolio énergétique",
-      "energyPortfolioDesc": "Vue CPE / CO₂ / stranding risk CRREM sur tout le patrimoine.",
+      "energyPortfolioDesc": "Inventaire des classes CPE déclarées, des surfaces et des valeurs saisies. Importez vos biens ou ajoutez-les manuellement.",
       "epbdTitle": "EPBD",
       "epbdDesc": "Commission européenne — EPBD",
       "amlTitle": "AML / KYC",
@@ -18224,5 +18224,25 @@
     "documents": "Documents à réunir",
     "documentsText": "Préparez les plans disponibles, les détails des parois et de l’isolation, les caractéristiques des installations et le CPE existant s’il y en a un. Pour un bâtiment existant, Guichet.lu mentionne les factures ou relevés d’énergie thermique des trois années précédentes. La liste exacte dépend du projet.",
     "source": "Guichet.lu : démarche et experts habilités"
+  },
+  "energyPortfolioAudit": {
+    "intro": "Inventaire des classes CPE déclarées, des surfaces et des valeurs saisies. Importez vos biens ou ajoutez-les manuellement.",
+    "scopeTitle": "Ce que mesure cet inventaire",
+    "scope": "Recopiez la classe de performance énergétique du CPE en cours de validité, et non sa classe d’isolation ou son indicateur environnemental. « ? » signifie non renseigné. Les données restent dans ce navigateur ; exportez un CSV pour les sauvegarder.",
+    "method": "Les valeurs sont celles que vous saisissez, sans prime ni décote automatique. Une lettre CPE ne suffit pas à calculer une consommation réelle, des émissions de CO₂ ou un budget de travaux. Ces informations nécessitent des relevés et une étude adaptée au bâtiment.",
+    "regulation": "La classe seule ne détermine pas une obligation de rénovation avant 2030 ou 2033. L’EPBD distingue une trajectoire nationale pour le résidentiel et des seuils nationaux pour le non-résidentiel. Vérifiez les règles luxembourgeoises applicables à chaque bâtiment ; cet inventaire ne certifie ni conformité, ni alignement Taxonomie ou CRREM.",
+    "epbdLink": "Comprendre les objectifs EPBD",
+    "impactLink": "Construire un scénario de valeur avec vos hypothèses",
+    "cpeSource": "Guichet.lu — Certificat de performance énergétique",
+    "epbdSource": "Commission européenne — Directive EPBD",
+    "storageError": "Le portefeuille enregistré est illisible ou contient des données invalides. Il est conservé sans modification. Téléchargez l’original pour le récupérer avant de corriger les données enregistrées.",
+    "backup": "Télécharger les données originales",
+    "saveError": "La sauvegarde dans ce navigateur a échoué. Exportez votre portefeuille en CSV pour conserver vos modifications.",
+    "empty": "Ajoutez un bien avec sa classe CPE déclarée, sa surface et sa valeur.",
+    "classLabel": "Classe de performance énergétique déclarée (? = inconnue)",
+    "valueLabel": "Valeur déclarée (EUR)",
+    "summary": "Totaux des données déclarées",
+    "unknown": "Non renseignée",
+    "distributionNote": "Répartition des surfaces saisies, y compris celles sans classe connue. Les lettres ne sont pas moyennées : ce graphique ne constitue pas un CPE collectif. Les méthodes résidentielle et non résidentielle diffèrent ; cette répartition reste un inventaire descriptif."
   }
 }

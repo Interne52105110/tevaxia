@@ -400,7 +400,7 @@
       "lenozTitle": "LENOZ Scoring vereinfacht",
       "lenozDesc": "Bewäert d'Nohaltegkeet vun Ärer Immobilie no den 6 Kategorien vun der Lëtzebuerger LENOZ Zertifizéierung. Scoring vu Bronze bis Platin.",
       "portfolioTitle": "Energieportfolio",
-      "portfolioDesc": "Analyséiert den Energieprofil vun Ärem Immobiliepark. Multi-Immobilie-Vergläich, EPBD Risiko, gewiichten Duerchschnëttsscore.",
+      "portfolioDesc": "Inventar vun den deklaréierten Energiepassklassen, Flächen an aginne Wäerter. Importéiert Är Immobilien oder füügt se manuell derbäi.",
       "hvacTitle": "HVAC-Simulator",
       "hvacDesc": "Heizlaascht- an Lëftungsdimensionéierung no EN 12831. Wärmepompel-Katalog (Viessmann, Daikin, Vaillant…), KWL, Pelletkessel. Leeschtungsverzechnes 7 Loser, Klimabonus 2026.",
       "simuler": "Simuléieren",
@@ -7398,7 +7398,7 @@
       "portfolioTitle": "Verméigensportfolio",
       "portfolioDesc": "Konsolidéiert d'verwalt Gidder: Wäert, Rendement, geografesch Verdeelung.",
       "energyPortfolioTitle": "Energieportfolio",
-      "energyPortfolioDesc": "CPE / CO₂ / CRREM Stranding-Risiko-Vue iwwert de ganze Portfolio.",
+      "energyPortfolioDesc": "Inventar vun den deklaréierten Energiepassklassen, Flächen an aginne Wäerter. Importéiert Är Immobilien oder füügt se manuell derbäi.",
       "epbdTitle": "EPBD",
       "epbdDesc": "Europäesch Kommissioun — EPBD",
       "amlTitle": "AML / KYC",
@@ -18224,5 +18224,25 @@
     "documents": "Dokumenter zesummestellen",
     "documentsText": "Bereet disponibel Pläng, Detailer vu Maueren an Isolatioun, Donnéeë vun den Installatiounen an en existente CPE vir, wann et ee gëtt. Fir besteeënd Gebaier nennt Guichet.lu thermesch Energierechnungen oder Relevéë vun den dräi viregte Joren. Déi genee Lëscht hänkt vum Projet of.",
     "source": "Guichet.lu: Demarche a befugten Experten"
+  },
+  "energyPortfolioAudit": {
+    "intro": "Inventar vun den deklaréierten Energiepassklassen, Flächen an aginne Wäerter. Importéiert Är Immobilien oder füügt se manuell derbäi.",
+    "scopeTitle": "Wat dësen Inventar moosst",
+    "scope": "Iwwerhuelt d’Energieeffizienzklass aus engem gültegen Energiepass, net d’Wärmeschutzklass oder den Ëmweltindikator. „?“ bedeit onbekannt. D’Date bleiwen an dësem Browser; exportéiert eng CSV-Datei als Sécherung.",
+    "method": "D’Wäerter entspriechen Ären Donnéeën, ouni automateschen Zouschlag oder Ofschlag. Eng Energiepassklass eleng bestëmmt weder den tatsächleche Verbrauch nach CO₂-Emissiounen oder Renovatiounskäschten. Dofir si Beleeër an eng Etüd vum Gebai néideg.",
+    "regulation": "D’Klass eleng bestëmmt keng Renovatiounsflicht bis 2030 oder 2033. D’EPBD ënnerscheet national Ziler fir Wunngebaier an national Grenzwäerter fir Netwunngebaier. Préift déi lëtzebuergesch Reegelen, déi fir all Gebai gëllen; dësen Inventar bestätegt weder Konformitéit nach Taxonomie- oder CRREM-Ausriichtung.",
+    "epbdLink": "EPBD-Ziler verstoen",
+    "impactLink": "E Wäertzenario mat eegenen Hypotheesen erstellen",
+    "cpeSource": "Guichet.lu — Energiepass",
+    "epbdSource": "Europäesch Kommissioun — EPBD",
+    "storageError": "De gespäicherte Portfolio ass net liesbar oder enthält ongülteg Donnéeën. E bleift onverännert erhalen. Luet d’Original erof, ier Dir déi gespäichert Donnéeë korrigéiert.",
+    "backup": "Originaldaten eroflueden",
+    "saveError": "D’Späicheren an dësem Browser ass feelgeschloen. Exportéiert Äre Portfolio als CSV, fir Är Ännerungen ze behalen.",
+    "empty": "Füügt eng Immobilie mat deklaréierter Energiepassklass, Fläch a Wäert derbäi.",
+    "classLabel": "Deklaréiert Energieeffizienzklass (? = onbekannt)",
+    "valueLabel": "Deklaréierte Wäert (EUR)",
+    "summary": "Zomme vun den deklaréierten Donnéeën",
+    "unknown": "Onbekannt",
+    "distributionNote": "Verdeelung vun den aginne Flächen, och ouni bekannt Klass. D’Buschtawe ginn net gemëttelt: Dës Grafik ass kee gemeinsamen Energiepass. D’Methode fir Wunn- an Netwunngebaier ënnerscheede sech; dës Verdeelung ass just e beschreiwenden Inventar."
   }
 }

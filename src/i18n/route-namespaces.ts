@@ -453,12 +453,12 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/energy/portfolio": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "cookie",
     "crmContextBar",
     "energy",
+    "energyPortfolioAudit",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",

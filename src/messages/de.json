@@ -400,7 +400,7 @@
       "lenozTitle": "Vereinfachtes LENOZ-Scoring",
       "lenozDesc": "Bewerten Sie die Nachhaltigkeit Ihrer Immobilie anhand der 6 Kategorien der luxemburgischen LENOZ-Zertifizierung. Scoring von Bronze bis Platin.",
       "portfolioTitle": "Energieportfolio",
-      "portfolioDesc": "Analysieren Sie das Energieprofil Ihres Immobilienbestands. Mehrfachobjekt-Vergleich, EPBD-Risiko, gewichteter Durchschnittsscore.",
+      "portfolioDesc": "Bestandsübersicht der angegebenen Energiepassklassen, Flächen und Werte. Importieren Sie Ihre Immobilien oder fügen Sie sie manuell hinzu.",
       "hvacTitle": "HVAC-Simulator",
       "hvacDesc": "Heizlast- und Lüftungsdimensionierung nach EN 12831. Wärmepumpen-Katalog (Viessmann, Daikin, Vaillant…), KWL, Pelletkessel. Leistungsverzeichnis 7 Lose, Klimabonus 2026.",
       "simuler": "Simulieren",
@@ -7398,7 +7398,7 @@
       "portfolioTitle": "Vermögensportfolio",
       "portfolioDesc": "Konsolidiert verwaltete Objekte: Wert, Rendite, geografische Verteilung.",
       "energyPortfolioTitle": "Energieportfolio",
-      "energyPortfolioDesc": "CPE / CO₂ / CRREM Stranding-Risiko-Ansicht über das gesamte Portfolio.",
+      "energyPortfolioDesc": "Bestandsübersicht der angegebenen Energiepassklassen, Flächen und Werte. Importieren Sie Ihre Immobilien oder fügen Sie sie manuell hinzu.",
       "epbdTitle": "EPBD",
       "epbdDesc": "Europäische Kommission — EPBD",
       "amlTitle": "AML / KYC",
@@ -18224,5 +18224,25 @@
     "documents": "Unterlagen zusammenstellen",
     "documentsText": "Halten Sie vorhandene Pläne, Wand- und Dämmungsdetails, technische Anlagenangaben und einen bestehenden Energiepass bereit. Für bestehende Gebäude nennt Guichet.lu Wärmeenergierechnungen oder Verbrauchsaufzeichnungen der drei Vorjahre. Die genaue Liste hängt vom Projekt ab.",
     "source": "Guichet.lu: Verfahren und befugte Experten"
+  },
+  "energyPortfolioAudit": {
+    "intro": "Bestandsübersicht der angegebenen Energiepassklassen, Flächen und Werte. Importieren Sie Ihre Immobilien oder fügen Sie sie manuell hinzu.",
+    "scopeTitle": "Was diese Übersicht auswertet",
+    "scope": "Übernehmen Sie die Energieeffizienzklasse aus einem gültigen Energiepass, nicht die Wärmeschutzklasse oder den Umweltindikator. „?“ bedeutet unbekannt. Die Daten bleiben in diesem Browser; exportieren Sie eine CSV-Datei zur Sicherung.",
+    "method": "Die Werte entsprechen Ihren Eingaben, ohne automatischen Auf- oder Abschlag. Eine Energiepassklasse allein bestimmt weder den tatsächlichen Verbrauch noch CO₂-Emissionen oder Sanierungskosten. Dafür sind Aufzeichnungen und eine gebäudespezifische Untersuchung erforderlich.",
+    "regulation": "Die Klasse allein begründet keine Sanierungspflicht bis 2030 oder 2033. Die EPBD unterscheidet nationale Ziele für Wohngebäude und nationale Schwellenwerte für Nichtwohngebäude. Prüfen Sie die geltenden luxemburgischen Vorschriften je Gebäude; diese Übersicht bestätigt weder Konformität noch Taxonomie- oder CRREM-Ausrichtung.",
+    "epbdLink": "EPBD-Ziele verstehen",
+    "impactLink": "Wertszenario mit eigenen Annahmen erstellen",
+    "cpeSource": "Guichet.lu — Energiepass",
+    "epbdSource": "Europäische Kommission — EPBD",
+    "storageError": "Das gespeicherte Portfolio ist unlesbar oder enthält ungültige Daten. Es bleibt unverändert erhalten. Laden Sie das Original zur Wiederherstellung herunter, bevor Sie die gespeicherten Daten korrigieren.",
+    "backup": "Originaldaten herunterladen",
+    "saveError": "Das Speichern im Browser ist fehlgeschlagen. Exportieren Sie Ihr Portfolio als CSV, um Ihre Änderungen zu sichern.",
+    "empty": "Fügen Sie eine Immobilie mit angegebener Energiepassklasse, Fläche und Wert hinzu.",
+    "classLabel": "Angegebene Energieeffizienzklasse (? = unbekannt)",
+    "valueLabel": "Angegebener Wert (EUR)",
+    "summary": "Summen der angegebenen Daten",
+    "unknown": "Unbekannt",
+    "distributionNote": "Verteilung der eingegebenen Flächen einschließlich unbekannter Klassen. Die Buchstaben werden nicht gemittelt: Das Diagramm ist kein gemeinsamer Energiepass. Die Methoden für Wohn- und Nichtwohngebäude unterscheiden sich; die Verteilung ist nur eine beschreibende Übersicht."
   }
 }

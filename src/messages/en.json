@@ -400,7 +400,7 @@
       "lenozTitle": "Simplified LENOZ Scoring",
       "lenozDesc": "Assess your property's sustainability across the 6 categories of Luxembourg's LENOZ certification. Bronze to Platinum rating.",
       "portfolioTitle": "Energy Portfolio",
-      "portfolioDesc": "Analyse the energy profile of your property portfolio. Multi-property comparison, EPBD risk, weighted average score.",
+      "portfolioDesc": "Inventory of declared EPC classes, floor areas and entered values. Import your properties or add them manually.",
       "hvacTitle": "HVAC Simulator",
       "hvacDesc": "Heating and ventilation sizing per EN 12831. Heat pump catalogue (Viessmann, Daikin, Vaillant...), HRV, pellet boilers. 7-lot bill of quantities, Klimabonus 2026.",
       "simuler": "Simulate",
@@ -7520,7 +7520,7 @@
       "portfolioTitle": "Asset portfolio",
       "portfolioDesc": "Consolidates managed properties: value, yield, geographic exposure.",
       "energyPortfolioTitle": "Energy portfolio",
-      "energyPortfolioDesc": "CPE / CO₂ / CRREM stranding risk view across the portfolio.",
+      "energyPortfolioDesc": "Inventory of declared EPC classes, floor areas and entered values. Import your properties or add them manually.",
       "epbdTitle": "EPBD",
       "epbdDesc": "European Commission — EPBD",
       "amlTitle": "AML / KYC",
@@ -18224,5 +18224,25 @@
     "documents": "Documents to gather",
     "documentsText": "Prepare available plans, wall and insulation details, installation specifications and any existing EPC. For an existing building, Guichet.lu mentions thermal-energy bills or readings for the previous three years. The exact list depends on the project.",
     "source": "Guichet.lu: procedure and authorised experts"
+  },
+  "energyPortfolioAudit": {
+    "intro": "Inventory of declared EPC classes, floor areas and entered values. Import your properties or add them manually.",
+    "scopeTitle": "What this inventory measures",
+    "scope": "Copy the energy performance class from a valid EPC, not its insulation class or environmental indicator. “?” means unknown. Data stays in this browser; export a CSV to keep a backup.",
+    "method": "Values are the amounts you enter, with no automatic premium or discount. An EPC letter alone cannot determine actual consumption, CO₂ emissions or renovation costs. These require records and a study suited to the building.",
+    "regulation": "The class alone does not establish a renovation obligation by 2030 or 2033. The EPBD distinguishes a national residential trajectory from national thresholds for non-residential buildings. Check the Luxembourg rules applicable to each building; this inventory does not certify compliance or Taxonomy or CRREM alignment.",
+    "epbdLink": "Understand EPBD targets",
+    "impactLink": "Build a value scenario using your assumptions",
+    "cpeSource": "Guichet.lu — Energy performance certificate",
+    "epbdSource": "European Commission — EPBD",
+    "storageError": "The saved portfolio cannot be read or contains invalid data. It has been preserved unchanged. Download the original to recover it before correcting the saved data.",
+    "backup": "Download original data",
+    "saveError": "Saving in this browser failed. Export your portfolio as CSV to retain your changes.",
+    "empty": "Add a property with its declared EPC class, floor area and value.",
+    "classLabel": "Declared energy performance class (? = unknown)",
+    "valueLabel": "Declared value (EUR)",
+    "summary": "Totals of declared data",
+    "unknown": "Unknown",
+    "distributionNote": "Distribution of entered areas, including those with no known class. Letters are not averaged: this chart is not a collective EPC. Residential and non-residential methods differ; this distribution is a descriptive inventory only."
   }
 }
