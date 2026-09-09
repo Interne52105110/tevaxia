@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useState, useMemo, useRef } from "react";
+import { useTranslations,useLocale } from "next-intl";
 import InputField from "@/components/InputField";
-import { formatEUR } from "@/lib/calculations";
+import {downloadReportDraft} from "@/lib/report-draft";
 import { EVS_VALUE_TYPES, type EVSValueType } from "@/lib/asset-types";
 import type { MarketDataCommune } from "@/lib/market-data";
-import AiDraftButton from "@/components/AiDraftButton";
 
 /* ================================================================
    TYPES & PROPS
@@ -14,7 +13,8 @@ import AiDraftButton from "@/components/AiDraftButton";
 interface ReportModeProps {
   surfaceBien: number;
   assetType: string;
-  evsValueType: EVSValueType;
+  incomeLabel:string;
+  comparables:import("@/lib/valuation").Comparable[];
   selectedCommune: MarketDataCommune | null;
   valeurComparaison: number;
   valeurCapitalisation: number;
@@ -170,14 +170,16 @@ function SwotTA({
 export default function ReportModeEVS({
   surfaceBien,
   assetType,
-  evsValueType,
+  incomeLabel,
+  comparables,
   selectedCommune,
   valeurComparaison,
   valeurCapitalisation,
   valeurDCF,
   valeurMarchePourMLV,
 }: ReportModeProps) {
-  const t = useTranslations("valorisation");
+  const t = useTranslations("valorisation"),draftText=useTranslations("reportDraftAudit"),scopeText=useTranslations("valuationScope"),locale=useLocale(),draftRef=useRef<HTMLDivElement>(null);
+  const formatEUR=(n:number)=>Number.isFinite(n)?new Intl.NumberFormat(locale==='lb'?'de-DE':locale,{style:'currency',currency:'EUR'}).format(n):draftText("empty");
   const today = new Date().toISOString().split("T")[0];
 
   // ---- UI state ----
@@ -189,7 +191,7 @@ export default function ReportModeEVS({
   const [s1ClientSIREN, setS1ClientSIREN] = useState("");
   const [s1ClientAdresse, setS1ClientAdresse] = useState("");
   const [s1ClientLien, setS1ClientLien] = useState("");
-  const [s1TypeMission, setS1TypeMission] = useState<EVSValueType>(evsValueType);
+  const [s1TypeMission, setS1TypeMission] = useState<EVSValueType|"">("");
   const [s1Finalite, setS1Finalite] = useState("");
   const [s1UtilisationPrevue, setS1UtilisationPrevue] = useState("");
   const [s1BienDesignation, setS1BienDesignation] = useState("");
@@ -198,9 +200,9 @@ export default function ReportModeEVS({
   const [s1BienCadastre, setS1BienCadastre] = useState("");
   const [s1BienLots, setS1BienLots] = useState("");
   // 1.5 Types de valeur
-  const [s1ValVenale, setS1ValVenale] = useState(evsValueType === "market_value");
-  const [s1ValLocative, setS1ValLocative] = useState(evsValueType === "market_rent");
-  const [s1ValCRR, setS1ValCRR] = useState(evsValueType === "mlv");
+  const [s1ValVenale, setS1ValVenale] = useState(false);
+  const [s1ValLocative, setS1ValLocative] = useState(false);
+  const [s1ValCRR, setS1ValCRR] = useState(false);
   const [s1ValLTV, setS1ValLTV] = useState(false);
   const [s1Hypotheses, setS1Hypotheses] = useState("");
   // 1.5b
@@ -212,7 +214,7 @@ export default function ReportModeEVS({
   const [s1PersonneVisite, setS1PersonneVisite] = useState("");
   const [s1ConditionsVisite, setS1ConditionsVisite] = useState("");
   // 1.9
-  const [s1DateValeur, setS1DateValeur] = useState(today);
+  const [s1DateValeur, setS1DateValeur] = useState("");
   // 1.11
   const [s1DocsFournis, setS1DocsFournis] = useState("");
   const [s1DocsDemandesNonFournis, setS1DocsDemandesNonFournis] = useState("");
@@ -230,7 +232,7 @@ export default function ReportModeEVS({
   const [s2Desserte, setS2Desserte] = useState("");
 
   // ==================== SECTION 3 — SITUATION JURIDIQUE ====================
-  const [s3RegimePropriete, setS3RegimePropriete] = useState("pleine_propriete");
+  const [s3RegimePropriete, setS3RegimePropriete] = useState("");
   const [s3RefActe, setS3RefActe] = useState("");
   const [s3DateAcquisition, setS3DateAcquisition] = useState("");
   const [s3Servitudes, setS3Servitudes] = useState("");
@@ -247,21 +249,21 @@ export default function ReportModeEVS({
   // ==================== SECTION 5 — DESCRIPTION ====================
   const [s5TypeConstruction, setS5TypeConstruction] = useState(assetType);
   const [s5Structure, setS5Structure] = useState("");
-  const [s5Annee, setS5Annee] = useState(1990);
+  const [s5Annee, setS5Annee] = useState(NaN);
   const [s5UsagePhysique, setS5UsagePhysique] = useState("");
   const [s5UsageJuridique, setS5UsageJuridique] = useState("");
-  const [s5SurfaceTerrain, setS5SurfaceTerrain] = useState(0);
-  const [s5SurfaceBatiment] = useState(surfaceBien);
+  const [s5SurfaceTerrain, setS5SurfaceTerrain] = useState(NaN);
+  const s5SurfaceBatiment=surfaceBien;
   const [s5SourceMesures, setS5SourceMesures] = useState("");
-  const [s5GrosOeuvre, setS5GrosOeuvre] = useState("bon");
-  const [s5SecondOeuvre, setS5SecondOeuvre] = useState("bon");
-  const [s5Finitions, setS5Finitions] = useState("bon");
+  const [s5GrosOeuvre, setS5GrosOeuvre] = useState("");
+  const [s5SecondOeuvre, setS5SecondOeuvre] = useState("");
+  const [s5Finitions, setS5Finitions] = useState("");
   const [s5Diagnostics, setS5Diagnostics] = useState("");
   const [s5Confort, setS5Confort] = useState("");
   const [s5Installations, setS5Installations] = useState("");
   const [s5Annexes, setS5Annexes] = useState("");
   // ESG
-  const [s5ClasseEnergie, setS5ClasseEnergie] = useState("D");
+  const [s5ClasseEnergie, setS5ClasseEnergie] = useState("");
   const [s5ObligationsRenov, setS5ObligationsRenov] = useState("");
   const [s5Consommations, setS5Consommations] = useState("");
   const [s5CoutsConformite, setS5CoutsConformite] = useState("");
@@ -272,7 +274,7 @@ export default function ReportModeEVS({
   const [s5Certifications, setS5Certifications] = useState("");
 
   // ==================== SECTION 6 — SITUATION LOCATIVE ====================
-  const [s6Occupation, setS6Occupation] = useState("libre");
+  const [s6Occupation, setS6Occupation] = useState("");
   const [s6VacantsDescription, setS6VacantsDescription] = useState("");
   const [s6Charges, setS6Charges] = useState("");
 
@@ -288,16 +290,16 @@ export default function ReportModeEVS({
   const [s8Menaces, setS8Menaces] = useState("");
 
   // ==================== SECTION 9 — EVALUATION ====================
-  const [s9MethodeComparaison, setS9MethodeComparaison] = useState(true);
-  const [s9MethodeCapitalisation, setS9MethodeCapitalisation] = useState(true);
-  const [s9MethodeDCF, setS9MethodeDCF] = useState(true);
+  const [s9MethodeComparaison, setS9MethodeComparaison] = useState(false);
+  const [s9MethodeCapitalisation, setS9MethodeCapitalisation] = useState(false);
+  const [s9MethodeDCF, setS9MethodeDCF] = useState(false);
   const [s9MethodeResiduelle, setS9MethodeResiduelle] = useState(false);
   const [s9MethodeTermeReversion, setS9MethodeTermeReversion] = useState(false);
   const [s9Justification, setS9Justification] = useState("");
 
   // ==================== SECTION 10 — CONCLUSIONS ====================
-  const [s10ValeurHorsDroits, setS10ValeurHorsDroits] = useState(0);
-  const [s10ValeurDroitsInclus, setS10ValeurDroitsInclus] = useState(0);
+  const [s10ValeurHorsDroits, setS10ValeurHorsDroits] = useState(NaN);
+  const [s10ValeurDroitsInclus, setS10ValeurDroitsInclus] = useState(NaN);
   const [s10RegimeFiscal, setS10RegimeFiscal] = useState("");
   const [s10ImpactESG, setS10ImpactESG] = useState("");
   const [s10Reserves, setS10Reserves] = useState("");
@@ -305,14 +307,14 @@ export default function ReportModeEVS({
 
   // ==================== SECTION 11 — CERTIFICATION ====================
   const [s11ExpertNom, setS11ExpertNom] = useState("");
-  const [s11ExpertQualif, setS11ExpertQualif] = useState("REV (TEGOVA)");
-  const [s11DateSignature, setS11DateSignature] = useState(today);
-  const [s11Cert1, setS11Cert1] = useState(true);
-  const [s11Cert2, setS11Cert2] = useState(true);
-  const [s11Cert3, setS11Cert3] = useState(true);
-  const [s11Cert4, setS11Cert4] = useState(true);
-  const [s11Cert5, setS11Cert5] = useState(true);
-  const [s11Cert6, setS11Cert6] = useState(true);
+  const [s11ExpertQualif, setS11ExpertQualif] = useState("");
+  const [s11DateSignature, setS11DateSignature] = useState("");
+  const [s11Cert1, setS11Cert1] = useState(false);
+  const [s11Cert2, setS11Cert2] = useState(false);
+  const [s11Cert3, setS11Cert3] = useState(false);
+  const [s11Cert4, setS11Cert4] = useState(false);
+  const [s11Cert5, setS11Cert5] = useState(false);
+  const [s11Cert6, setS11Cert6] = useState(false);
 
   // ==================== ANNEXES ====================
   const [annexePlans, setAnnexePlans] = useState(false);
@@ -335,29 +337,8 @@ export default function ReportModeEVS({
   // ---- Auto-computed values ----
   const valeurReconciliee = useMemo(() => valeurMarchePourMLV, [valeurMarchePourMLV]);
 
-  // ---- Fill status ----
-  const isSectionFilled = (num: string): boolean => {
-    switch (num) {
-      case "1": return s1ClientNom.length > 0;
-      case "2": return !!selectedCommune || s2Localisation.length > 0;
-      case "3": return s3RegimePropriete.length > 0 && s3RefActe.length > 0;
-      case "4": return !!selectedCommune || s4Urbanisme.length > 0;
-      case "5": return surfaceBien > 0;
-      case "6": return s6Occupation.length > 0;
-      case "7": return valeurComparaison > 0 || !!selectedCommune || s7Tendances.length > 0;
-      case "8": return s8Forces.length > 0 || s8Faiblesses.length > 0;
-      case "9": return valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0;
-      case "10": return valeurReconciliee > 0;
-      case "11": return s11ExpertNom.length > 0;
-      case "A": return annexePlans || annexePhotos || annexeJuridique || annexeUrbanisme || annexeTechnique || annexeLocatif || annexeCalculs || annexeESG || annexeQualifications;
-      default: return false;
-    }
-  };
-
-  const totalSections = 12; // 11 + annexes
-  const filledSections = SECTIONS.filter((s) => isSectionFilled(s.num)).length;
-
   const conditionOptions = [
+    {value:"",label:draftText("empty")},
     { value: "neuf", label: t("rptCondNeuf") },
     { value: "tres_bon", label: t("rptCondTresBon") },
     { value: "bon", label: t("rptCondBon") },
@@ -391,7 +372,7 @@ export default function ReportModeEVS({
           type="select"
           value={s1TypeMission}
           onChange={(v) => setS1TypeMission(v as EVSValueType)}
-          options={EVS_VALUE_TYPES.map((e) => ({ value: e.id, label: `${e.evs} — ${t(e.labelKey)}` }))}
+          options={[{value:"",label:draftText("empty")},...EVS_VALUE_TYPES.map((e) => ({ value: e.id, label: t(e.labelKey) }))]}
         />
         <div>
           <label className="block text-sm font-medium text-slate mb-1">{t("rpt1_2_finalite")}</label>
@@ -416,7 +397,7 @@ export default function ReportModeEVS({
       <div className="space-y-2">
         <SubSection num="1.4" title={t("rpt1_4_title")} />
         <AutoData>
-          <p className="text-sm font-medium text-navy">{t("rpt1_4_auto")}</p>
+          <p className="text-sm font-medium text-navy">{scopeText("review")}</p>
         </AutoData>
       </div>
 
@@ -424,9 +405,9 @@ export default function ReportModeEVS({
       <div className="space-y-3">
         <SubSection num="1.5" title={t("rpt1_5_title")} />
         <div className="grid gap-2 sm:grid-cols-2">
-          <Check checked={s1ValVenale} onChange={setS1ValVenale} label={t("rpt1_5_venale")} />
-          <Check checked={s1ValLocative} onChange={setS1ValLocative} label={t("rpt1_5_locative")} />
-          <Check checked={s1ValCRR} onChange={setS1ValCRR} label={t("rpt1_5_crr")} />
+          <Check checked={s1ValVenale} onChange={setS1ValVenale} label={draftText("marketValue")} />
+          <Check checked={s1ValLocative} onChange={setS1ValLocative} label={draftText("marketRent")} />
+          <Check checked={s1ValCRR} onChange={setS1ValCRR} label={draftText("prudential")} />
           <Check checked={s1ValLTV} onChange={setS1ValLTV} label={t("rpt1_5_ltv")} />
         </div>
         <div>
@@ -445,7 +426,7 @@ export default function ReportModeEVS({
       <div className="space-y-2">
         <SubSection num="1.6" title={t("rpt1_6_title")} />
         <AutoData>
-          <p className="text-sm text-slate">{t("rptIndependanceText")}</p>
+          <p className="text-sm text-slate">{draftText("independence")}</p>
         </AutoData>
         <TA value={s1Independance} onChange={setS1Independance} placeholder={t("rpt1_6_hint")} rows={2} />
       </div>
@@ -454,7 +435,7 @@ export default function ReportModeEVS({
       <div className="space-y-2">
         <SubSection num="1.7" title={t("rpt1_7_title")} />
         <AutoData>
-          <p className="text-sm text-slate">{t("rptCompetenceText")}</p>
+          <p className="text-sm text-slate">{draftText("competence")}</p>
         </AutoData>
       </div>
 
@@ -555,36 +536,18 @@ export default function ReportModeEVS({
       <div className="space-y-2">
         <SubSection num="2.2" title={t("rpt2_2_title")} />
         <TA value={s2Localisation} onChange={setS2Localisation} placeholder={t("rpt2_2_hint")} />
-        <AiDraftButton
-          context={`Commune: ${selectedCommune?.commune ?? "non spécifiée"}${selectedCommune?.canton ? ` (${selectedCommune.canton})` : ""}\nType actif: ${assetType}\nBien: ${s1BienDesignation || s1BienAdresse || "—"}`}
-          prompt="Rédige un paragraphe professionnel (4-6 phrases) de Localisation particulière pour un rapport EVS 2025 TEGOVA au Luxembourg. Décris la situation micro-locale du bien : centralité/périphérie de la commune, type de tissu urbain, qualité de l'environnement immédiat, attractivité. Ton neutre, factuel, style rapport d'expert immobilier. Pas de markdown."
-          onResult={setS2Localisation}
-          size="xs"
-        />
       </div>
 
       {/* 2.3 Environnement et voisinage */}
       <div className="space-y-2">
         <SubSection num="2.3" title={t("rpt2_3_title")} />
         <TA value={s2Environnement} onChange={setS2Environnement} placeholder={t("rpt2_3_hint")} />
-        <AiDraftButton
-          context={`Commune: ${selectedCommune?.commune ?? "non spécifiée"}${selectedCommune?.canton ? ` (${selectedCommune.canton})` : ""}\nType actif: ${assetType}`}
-          prompt="Rédige le paragraphe Environnement et voisinage pour un rapport EVS 2025 TEGOVA au Luxembourg. Décris : qualité du voisinage (résidentiel / mixte / tertiaire), nuisances potentielles (trafic, industrie, bruit), équipements publics et commerces de proximité, espaces verts. 4-5 phrases, ton neutre d'expert. Pas de markdown."
-          onResult={setS2Environnement}
-          size="xs"
-        />
       </div>
 
       {/* 2.4 Desserte et transports */}
       <div className="space-y-2">
         <SubSection num="2.4" title={t("rpt2_4_title")} />
         <TA value={s2Desserte} onChange={setS2Desserte} placeholder={t("rpt2_4_hint")} />
-        <AiDraftButton
-          context={`Commune: ${selectedCommune?.commune ?? "non spécifiée"}${selectedCommune?.canton ? ` (${selectedCommune.canton})` : ""}\nType actif: ${assetType}`}
-          prompt="Rédige le paragraphe Desserte et transports pour un rapport EVS 2025 TEGOVA au Luxembourg. Mentionne : accès routier (autoroutes A1/A3/A6/A7/A13 pertinentes), transports en commun (CFL, lignes de bus principales, tram pour Luxembourg-Ville), proximité aéroport Findel, accessibilité frontaliers FR/BE/DE si pertinent. 3-5 phrases factuelles. Pas de markdown."
-          onResult={setS2Desserte}
-          size="xs"
-        />
       </div>
     </div>
   );
@@ -601,6 +564,7 @@ export default function ReportModeEVS({
           value={s3RegimePropriete}
           onChange={setS3RegimePropriete}
           options={[
+            {value:"",label:draftText("empty")},
             { value: "pleine_propriete", label: t("rptPleinePropriete") },
             { value: "copropriete", label: t("rptCopropriete") },
             { value: "indivision", label: t("rpt3_1_indivision") },
@@ -699,7 +663,7 @@ export default function ReportModeEVS({
             ]}
           />
           <InputField label={t("rpt5_1_structure")} type="text" value={s5Structure} onChange={setS5Structure} hint={t("rpt5_1_structureHint")} />
-          <InputField label={t("esgAnneeConstruction")} value={s5Annee} onChange={(v) => setS5Annee(Number(v))} min={1800} max={2030} />
+          <InputField label={t("esgAnneeConstruction")} value={Number.isNaN(s5Annee)?"":s5Annee} onChange={(v) => setS5Annee(v.trim()===""?NaN:Number(v))} min={1800} max={2030} />
         </div>
       </div>
 
@@ -716,7 +680,7 @@ export default function ReportModeEVS({
       <div className="space-y-3">
         <SubSection num="5.3" title={t("rpt5_3_title")} />
         <div className="grid gap-3 sm:grid-cols-3">
-          <InputField label={t("rpt5_3_surfaceTerrain")} value={s5SurfaceTerrain} onChange={(v) => setS5SurfaceTerrain(Number(v))} suffix="m²" />
+          <InputField label={t("rpt5_3_surfaceTerrain")} value={Number.isNaN(s5SurfaceTerrain)?"":s5SurfaceTerrain} onChange={(v) => setS5SurfaceTerrain(v.trim()===""?NaN:Number(v))} suffix="m²" />
           <div>
             <AutoData>
               <div className="text-sm">
@@ -774,7 +738,7 @@ export default function ReportModeEVS({
             type="select"
             value={s5ClasseEnergie}
             onChange={setS5ClasseEnergie}
-            options={["A", "B", "C", "D", "E", "F", "G"].map((c) => ({ value: c, label: c }))}
+            options={[{value:"",label:draftText("empty")},...["A+","A", "B", "C", "D", "E", "F", "G","H","I"].map((c) => ({ value: c, label: c }))]}
           />
           <div>
             <label className="block text-sm font-medium text-slate mb-1">{t("rpt5_7_obligationsRenov")}</label>
@@ -823,7 +787,7 @@ export default function ReportModeEVS({
 
         <div className="rounded-lg bg-navy/5 border border-navy/10 p-3">
           <p className="text-xs text-slate">
-            <span className="font-semibold text-navy">{t("rptESGArt208")} :</span> {t("rptESGArt208Text")}
+            <span className="font-semibold text-navy">{draftText("esg")}</span>
           </p>
         </div>
       </div>
@@ -842,6 +806,7 @@ export default function ReportModeEVS({
           value={s6Occupation}
           onChange={setS6Occupation}
           options={[
+            {value:"",label:draftText("empty")},
             { value: "libre", label: t("rpt6_1_libre") },
             { value: "occupe_proprietaire", label: t("rpt6_1_occupeProprietaire") },
             { value: "loue", label: t("rpt6_1_loue") },
@@ -859,7 +824,7 @@ export default function ReportModeEVS({
             <div className="grid gap-3 sm:grid-cols-2 text-sm">
               {valeurCapitalisation > 0 && (
                 <div>
-                  <span className="text-muted">{t("tabCapitalisation")} :</span>{" "}
+                  <span className="text-muted">{incomeLabel} :</span>{" "}
                   <span className="font-mono font-semibold text-navy">{formatEUR(valeurCapitalisation)}</span>
                 </div>
               )}
@@ -940,22 +905,7 @@ export default function ReportModeEVS({
         </div>
       </div>
 
-      {/* 7.2 Transactions comparables */}
-      <div className="space-y-2">
-        <SubSection num="7.2" title={t("rpt7_2_title")} />
-        {valeurComparaison > 0 ? (
-          <AutoData>
-            <div className="text-sm">
-              <span className="text-muted">{t("valeurParComparaison")} :</span>{" "}
-              <span className="font-mono font-semibold text-navy">{formatEUR(valeurComparaison)}</span>
-            </div>
-          </AutoData>
-        ) : (
-          <div className="rounded-lg border border-dashed border-card-border p-4 text-center text-sm text-muted">
-            {t("rptSelectCommuneFirst")}
-          </div>
-        )}
-      </div>
+      <div className="space-y-2"><SubSection num="7.2" title={t("rpt7_2_title")}/><p className="text-sm text-muted">{draftText("evidence")}</p>{comparables.map(c=><div key={c.id} className="rounded-lg border border-card-border p-3 space-y-2"><p>{c.adresse} — {c.dateVente}</p><p>{formatEUR(c.prixVente)} / {c.surface} m² — {t("poids")} : {c.poids}</p><p>{t("ajustementsTitle")} : {[c.ajustLocalisation,c.ajustEtat,c.ajustEtage,c.ajustExterieur,c.ajustParking,c.ajustDate,c.ajustAutre].join(" / ")} %</p><p>{c.source}</p><p>{c.justification}</p></div>)}</div>
     </div>
   );
 
@@ -1046,19 +996,6 @@ export default function ReportModeEVS({
             <label className="block text-sm font-medium text-slate mb-1">{t("rpt9_1_justification")}</label>
             <TA value={s9Justification} onChange={setS9Justification} placeholder={t("rpt9_1_justificationHint")} />
             <div className="mt-2">
-              <AiDraftButton
-                context={[
-                  `Type actif: ${assetType}`,
-                  `Type de valeur EVS: ${evsValueType}`,
-                  `Méthodes retenues: ${[s9MethodeComparaison && "Comparaison", s9MethodeCapitalisation && "Capitalisation", s9MethodeDCF && "DCF", s9MethodeResiduelle && "Résiduelle", s9MethodeTermeReversion && "Terme & Réversion"].filter(Boolean).join(", ")}`,
-                  `Valeur comparaison: ${valeurComparaison ? formatEUR(valeurComparaison) : "—"}`,
-                  `Valeur capitalisation: ${valeurCapitalisation ? formatEUR(valeurCapitalisation) : "—"}`,
-                  `Valeur DCF: ${valeurDCF ? formatEUR(valeurDCF) : "—"}`,
-                ].join("\n")}
-                prompt="Rédige la justification du choix des méthodes d'évaluation pour un rapport EVS 2025 TEGOVA (Luxembourg). Explique POURQUOI ces méthodes sont pertinentes pour ce type d'actif et cette finalité (EVS value type), et pourquoi les autres ont été écartées le cas échéant. Référence la Charte 5e édition et les European Valuation Standards. 5-8 phrases, style rapport professionnel."
-                onResult={setS9Justification}
-                size="xs"
-              />
             </div>
           </div>
         </div>
@@ -1089,7 +1026,7 @@ export default function ReportModeEVS({
             {valeurCapitalisation > 0 ? (
               <AutoData>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted">{t("tabCapitalisation")}</span>
+                  <span className="text-muted">{incomeLabel}</span>
                   <span className="font-mono font-semibold text-navy">{formatEUR(valeurCapitalisation)}</span>
                 </div>
               </AutoData>
@@ -1154,7 +1091,7 @@ export default function ReportModeEVS({
                 )}
                 {valeurCapitalisation > 0 && (
                   <div className="flex justify-between py-1 border-b border-blue-200/50">
-                    <span className="text-muted">{t("tabCapitalisation")}</span>
+                    <span className="text-muted">{incomeLabel}</span>
                     <span className="font-mono font-semibold text-navy">{formatEUR(valeurCapitalisation)}</span>
                   </div>
                 )}
@@ -1207,7 +1144,7 @@ export default function ReportModeEVS({
                     )}
                     {valeurCapitalisation > 0 && (
                       <tr className="border-b border-blue-100/50">
-                        <td className="py-2 text-slate">{t("tabCapitalisation")}</td>
+                        <td className="py-2 text-slate">{incomeLabel}</td>
                         <td className="py-2 text-right font-mono font-semibold text-navy">{formatEUR(valeurCapitalisation)}</td>
                       </tr>
                     )}
@@ -1240,46 +1177,19 @@ export default function ReportModeEVS({
             </div>
           )}
           <div className="grid gap-3 sm:grid-cols-2">
-            <InputField label={t("rpt10_2_horsDroits")} value={s10ValeurHorsDroits || valeurReconciliee} onChange={(v) => setS10ValeurHorsDroits(Number(v))} prefix="EUR" />
-            <InputField label={t("rpt10_2_droitsInclus")} value={s10ValeurDroitsInclus} onChange={(v) => setS10ValeurDroitsInclus(Number(v))} prefix="EUR" />
+            <InputField label={t("rpt10_2_horsDroits")} value={Number.isNaN(s10ValeurHorsDroits)?"":s10ValeurHorsDroits} onChange={(v) => setS10ValeurHorsDroits(v.trim()===""?NaN:Number(v))} prefix="EUR" />
+            <InputField label={t("rpt10_2_droitsInclus")} value={Number.isNaN(s10ValeurDroitsInclus)?"":s10ValeurDroitsInclus} onChange={(v) => setS10ValeurDroitsInclus(v.trim()===""?NaN:Number(v))} prefix="EUR" />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate mb-1">{t("rpt10_2_regimeFiscal")}</label>
             <TA value={s10RegimeFiscal} onChange={setS10RegimeFiscal} placeholder={t("rpt10_2_regimeFiscalHint")} rows={2} />
             <div className="mt-2">
-              <AiDraftButton
-                context={`Type actif: ${assetType}\nValeur hors droits: ${formatEUR(s10ValeurHorsDroits || valeurReconciliee)}\nValeur droits inclus: ${formatEUR(s10ValeurDroitsInclus)}`}
-                prompt="Rédige 2-3 phrases sur le régime fiscal applicable à cette acquisition immobilière au Luxembourg (droits d'enregistrement 6%, transcription 1%, Bëllegen Akt résidence principale, TVA construction si VEFA). Ton factuel expert."
-                onResult={setS10RegimeFiscal}
-                size="xs"
-              />
             </div>
           </div>
-          {/* CRR / MLV */}
-          {valeurMarchePourMLV > 0 && (
-            <AutoData>
-              <div className="grid gap-3 sm:grid-cols-2 text-sm">
-                <div>
-                  <span className="text-muted">{t("rpt10_2_crr")} :</span>{" "}
-                  <span className="font-mono font-semibold text-navy">{formatEUR(valeurMarchePourMLV)}</span>
-                </div>
-                <div>
-                  <span className="text-muted">LTV (80 %) :</span>{" "}
-                  <span className="font-mono font-semibold text-navy">{formatEUR(valeurMarchePourMLV * 0.8)}</span>
-                </div>
-              </div>
-            </AutoData>
-          )}
           <div>
             <label className="block text-sm font-medium text-slate mb-1">{t("rpt10_2_impactESG")}</label>
             <TA value={s10ImpactESG} onChange={setS10ImpactESG} placeholder={t("rpt10_2_impactESGHint")} rows={2} />
             <div className="mt-2">
-              <AiDraftButton
-                context={`Type actif: ${assetType}\nCommune: ${selectedCommune?.commune ?? "—"}`}
-                prompt="Rédige 3-4 phrases sur l'impact ESG estimé sur la valeur : alignement Taxonomie UE, risque de transition énergétique (CRREM pathway), exposition climatique physique (inondations, vague de chaleur), normes AEEV 2025 et obligations rénovation. Style rapport EVS 2025 professionnel."
-                onResult={setS10ImpactESG}
-                size="xs"
-              />
             </div>
           </div>
         </div>
@@ -1288,24 +1198,12 @@ export default function ReportModeEVS({
         <div className="space-y-2">
           <SubSection num="10.3" title={t("rpt10_3_title")} />
           <TA value={s10Reserves} onChange={setS10Reserves} placeholder={t("rpt10_3_hint")} />
-          <AiDraftButton
-            context={`Type actif: ${assetType}\nValeur retenue: ${formatEUR(valeurReconciliee)}`}
-            prompt="Rédige la clause des Réserves pour un rapport EVS 2025 TEGOVA au Luxembourg : hypothèses non vérifiées par l'expert (titres, servitudes, conformité urbanisme, absence de pollution, état structurel), conditions d'utilisation du rapport, limite de responsabilité, validité temporelle (6 mois typique). 5-7 phrases style rapport formel."
-            onResult={setS10Reserves}
-            size="xs"
-          />
         </div>
 
         {/* 10.3b Incertitude */}
         <div className="space-y-2">
           <SubSection num="10.3b" title={t("rpt10_3b_title")} />
           <TA value={s10Incertitude} onChange={setS10Incertitude} placeholder={t("rpt10_3b_hint")} />
-          <AiDraftButton
-            context={`Type actif: ${assetType}\nÉcart max méthodes / fourchette: selon réconciliation\nValeur retenue: ${formatEUR(valeurReconciliee)}`}
-            prompt="Rédige la clause d'Incertitude de l'évaluation conforme EVS 2025 / IVS 103 : niveau d'incertitude estimé (± %), facteurs contribuant à cette incertitude (volatilité marché, rareté données comparables, complexité de l'actif), fourchette de valeur raisonnable. 3-5 phrases formelles."
-            onResult={setS10Incertitude}
-            size="xs"
-          />
         </div>
       </div>
     );
@@ -1323,6 +1221,7 @@ export default function ReportModeEVS({
           value={s11ExpertQualif}
           onChange={setS11ExpertQualif}
           options={[
+            {value:"",label:draftText("empty")},
             { value: "REV (TEGOVA)", label: "REV (TEGOVA)" },
             { value: "TRV (TEGOVA)", label: "TRV (TEGOVA)" },
             { value: "MRICS", label: "MRICS" },
@@ -1350,7 +1249,7 @@ export default function ReportModeEVS({
 
       {/* Référentiel */}
       <AutoData>
-        <p className="text-sm font-medium text-navy">{t("rpt1_4_auto")}</p>
+        <p className="text-sm font-medium text-navy">{scopeText("review")}</p>
       </AutoData>
     </div>
   );
@@ -1358,7 +1257,7 @@ export default function ReportModeEVS({
   // ==================== ANNEXES ====================
   const renderSectionA = () => (
     <div className="space-y-3">
-      <p className="text-sm text-muted">{t("rptA_description")}</p>
+      <p className="text-sm text-muted">{draftText("annexes")}</p>
       <div className="space-y-2">
         <Check checked={annexePlans} onChange={setAnnexePlans} label={t("rptA_1_plans")} />
         <Check checked={annexePhotos} onChange={setAnnexePhotos} label={t("rptA_2_photos")} />
@@ -1395,69 +1294,33 @@ export default function ReportModeEVS({
      RENDER
      ================================================================ */
   return (
-    <div className="space-y-4">
-      {/* Progress indicator */}
-      <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-        <div className="flex items-center justify-between mb-2">
-          <div className="text-sm font-semibold text-navy">{t("rptProgress")}</div>
-          <div
-            className={`text-sm font-bold ${
-              filledSections >= 10
-                ? "text-success"
-                : filledSections >= 6
-                  ? "text-warning"
-                  : "text-error"
-            }`}
-          >
-            {filledSections}/{totalSections} {t("rptSectionsRemplies")}
-          </div>
-        </div>
-        <div className="h-2 rounded-full bg-gray-100">
-          <div
-            className={`h-2 rounded-full transition-all ${
-              filledSections >= 10
-                ? "bg-success"
-                : filledSections >= 6
-                  ? "bg-warning"
-                  : "bg-error"
-            }`}
-            style={{ width: `${(filledSections / totalSections) * 100}%` }}
-          />
-        </div>
-      </div>
-
+    <div id="report-draft" ref={draftRef} className="space-y-4 [overflow-wrap:anywhere]">
+      <div data-export-omit className="rounded-xl border border-card-border bg-card p-4 space-y-3"><p>{draftText("scope")}</p><button id="report-draft-export" className="rounded-lg bg-navy px-4 py-2 text-white" onClick={()=>draftRef.current&&downloadReportDraft(draftRef.current,{title:draftText("title"),empty:draftText("empty"),checked:draftText("checked"),unchecked:draftText("unchecked"),locale})}>{draftText("export")}</button></div>
+      <p className="text-sm text-muted">{draftText("review")}</p>
       {/* Sections */}
       {SECTIONS.map((section) => {
         const isExpanded = expanded[section.num] ?? false;
-        const isFilled = isSectionFilled(section.num);
 
         return (
           <div
             key={section.num}
+            data-report-section={section.num}
             className="rounded-xl border border-card-border bg-card shadow-sm overflow-hidden"
           >
             {/* Header */}
             <button
+              data-export-title
               onClick={() => toggleSection(section.num)}
               className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-background/50 transition-colors"
             >
               <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                  isFilled
-                    ? "bg-success/10 text-success"
-                    : "bg-navy/10 text-navy"
-                }`}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold bg-navy/10 text-navy"
               >
                 {section.num}
               </span>
               <span className="flex-1 text-sm font-semibold text-navy">
                 {t(section.titleKey)}
               </span>
-              {isFilled && (
-                <span className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success">
-                  {t("rptRempli")}
-                </span>
-              )}
               <svg
                 className={`h-5 w-5 text-muted transition-transform ${
                   isExpanded ? "rotate-180" : ""
@@ -1476,8 +1339,7 @@ export default function ReportModeEVS({
             </button>
 
             {/* Content */}
-            {isExpanded && (
-              <div className="border-t border-card-border px-5 py-5 space-y-5">
+              <div hidden={!isExpanded} className="border-t border-card-border px-5 py-5 space-y-5">
                 {sectionRenderers[section.num]?.()}
 
                 {/* Expert comment */}
@@ -1494,7 +1356,6 @@ export default function ReportModeEVS({
                   />
                 </div>
               </div>
-            )}
           </div>
         );
       })}

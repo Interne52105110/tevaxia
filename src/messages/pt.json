@@ -3057,7 +3057,7 @@
     "rpt1_5_ltv": "Rácio empréstimo/valor (LTV)",
     "rpt1_5_hypotheses": "Hipóteses retidas",
     "rpt1_5_hypothesesHint": "Hipóteses de vacância, indexação, obras, etc.",
-    "rpt1_5b_title": "Hipóteses especiais (EVS 5)",
+    "rpt1_5b_title": "Hipóteses especiais",
     "rpt1_5b_hint": "Hipóteses especiais na aceção da EVS 5: venda forçada, going concern, etc.",
     "rpt1_6_title": "Independência e conflitos de interesses",
     "rpt1_6_hint": "Informações complementares sobre a independência, se aplicável",
@@ -3142,7 +3142,7 @@
     "rpt5_7_consommationsHint": "kWh/m²/ano, faturas, certificado de desempenho energético (CPE)...",
     "rpt5_7_coutsConformite": "Custos de conformidade",
     "rpt5_7_coutsConformiteHint": "Estimativa das obras necessárias para atingir a classe-alvo",
-    "rpt5_7_art208": "Fatores ambientais Art. 208 EBA",
+    "rpt5_7_art208": "Fatores ambientais a documentar",
     "rpt5_7_risquesClimat": "Riscos climáticos",
     "rpt5_7_risquesClimatHint": "Inundações, ondas de calor, tempestades, seca...",
     "rpt5_7_geologie": "Geologia",
@@ -18790,5 +18790,33 @@
   "valuationSession": {
     "persistence": "Os dados mantêm-se entre separadores e modos durante esta sessão da página. Reiniciar limpa todos os formulários. Fechar ou recarregar pode perder os dados.",
     "incomeSource": "Método de rendimento selecionado (último separador de rendimento consultado)"
+  },
+  "valuationScope": {
+    "title": "Avaliação imobiliária — cenários e referências",
+    "intro": "Compare vendas documentadas, capitalize rendimentos ou desconte fluxos e escolha pesos adequados ao processo.",
+    "capitalValue": "Cenário indicativo de valor de capital",
+    "basis": "Estes cálculos não determinam automaticamente a renda de mercado, o valor de liquidação ou um valor prudencial CRR. Uma base de valor profissional exige âmbito, pressupostos e análise documentados.",
+    "asset": "O tipo de imóvel identifica o processo. Não altera automaticamente rendimentos, taxas ou ajustes. Verifique a sua pertinência para o imóvel e a data estudada.",
+    "inputs": "Os dados iniciais dos métodos são exemplos a substituir. Não se deduz do tipo de imóvel nenhuma taxa de mercado, dedução regulamentar ou pontuação de conformidade.",
+    "surfaceInvalid": "Introduza uma área positiva e finita, até 10 000 000 m², para obter uma reconciliação ou exportação.",
+    "review": "O autor deve documentar a escolha dos métodos, os comprovativos, as verificações e as conclusões. Preencher o formulário não certifica conformidade EVS, TEGOVA ou CRR.",
+    "draft": "Rascunho do processo"
+  },
+  "reportDraftAudit": {
+    "title": "Rascunho do processo de avaliação",
+    "scope": "Os PDF e DOCX do simulador resumem os cálculos. Para conservar os textos e escolhas deste rascunho, utilize a exportação HTML: inclui todas as secções, mesmo recolhidas. Abra o ficheiro num navegador para ler ou imprimir.",
+    "export": "Exportar este rascunho (HTML)",
+    "empty": "Não indicado",
+    "checked": "Assinalado pelo autor",
+    "unchecked": "Não assinalado",
+    "review": "Rascunho não certificado. O autor deve verificar declarações, qualificações, datas, documentos e conclusões. Uma caixa não assinalada não é uma conclusão negativa. Referências a normas não provam conformidade.",
+    "independence": "Declare relações, interesses e potenciais conflitos após verificação. O software não presume independência.",
+    "competence": "Indique as suas qualificações exatas e validade na secção do autor; o software não as verifica.",
+    "esg": "Documente os fatores ambientais pertinentes e os efeitos específicos no imóvel. Não se certifica alinhamento, prémio ou risco regulamentar.",
+    "annexes": "Lista de documentos a juntar ao processo final. Assinalar uma caixa não acrescenta ficheiros ou anexos aos PDF de cálculo.",
+    "marketValue": "Valor de mercado declarado",
+    "marketRent": "Renda de mercado declarada",
+    "prudential": "Valor prudencial a documentar",
+    "evidence": "Referências validadas no simulador. Ajustes por ordem: localização, estado, piso, exterior, estacionamento, data, outros. O autor deve juntar comprovativos."
   }
 }

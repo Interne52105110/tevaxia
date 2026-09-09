@@ -15,14 +15,12 @@ import {CapitalisationScenario} from "@/components/CapitalisationScenario";
 import {PrudentialValue} from "@/components/PrudentialValue";
 import {DcfScenario} from "@/components/DcfScenario";
 import { EsgDossier } from "@/components/EsgDossier";
-import SEOContent from "@/components/SEOContent";
 import {
   rechercherCommune,
   type SearchResult,
 } from "@/lib/market-data";
 import {
   ASSET_TYPES,
-  EVS_VALUE_TYPES,
   getAssetTypeConfig,
   type AssetType,
   type EVSValueType,
@@ -33,7 +31,6 @@ import { downloadDocxReport } from "@/components/ValuationDocx";
 import { getProfile } from "@/lib/profile";
 import { RenovationResidual } from "@/components/RenovationResidual";
 import { TermReversion } from "@/components/TermReversion";
-import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { sauvegarderEvaluation } from "@/lib/storage";
 import SaveButton from "@/components/SaveButton";
@@ -93,7 +90,7 @@ function TabMLV({valeurMarche}:{valeurMarche:number}) {return <PrudentialValue v
 // ============================================================
 
 export default function Valorisation() {
-  const t = useTranslations("valorisation"), sessionText=useTranslations("valuationSession");
+  const t = useTranslations("valorisation"), sessionText=useTranslations("valuationSession"), scopeText=useTranslations("valuationScope");
   const [viewMode, setViewMode] = useState<"calculateur" | "rapport">("calculateur");
   const [activeTab, setActiveTab] = useState<ActiveTab>("comparaison");
   const [visitedTabs,setVisitedTabs]=useState<ActiveTab[]>(['comparaison']);
@@ -103,7 +100,7 @@ export default function Valorisation() {
   const selectTab=(tab:ActiveTab)=>{setActiveTab(tab);setVisitedTabs(prev=>prev.includes(tab)?prev:[...prev,tab]);if(tab==='capitalisation'||tab==='terme_reversion')setIncomeSource(tab)};
   const [surfaceBien, setSurfaceBien] = useState(80);
   const [assetType, setAssetType] = useState<AssetType>("residential_apartment");
-  const [evsValueType, setEvsValueType] = useState<EVSValueType>("market_value");
+  const evsValueType:EVSValueType="market_value";
 
   // Recherche commune — état global (persiste entre onglets)
   const [communeSearch, setCommuneSearch] = useState("");
@@ -115,7 +112,6 @@ export default function Valorisation() {
   const [comparables, setComparables] = useState<Comparable[]>([]);
 
   const assetConfig = useMemo(() => getAssetTypeConfig(assetType), [assetType]);
-  const evsInfo = useMemo(() => EVS_VALUE_TYPES.find((e) => e.id === evsValueType)!, [evsValueType]);
 
   // Valeurs remontées par chaque onglet
   const comparisonResult=useMemo(()=>{try{return calculerComparaisonDocumentee(comparables,surfaceBien)}catch{return null}},[comparables,surfaceBien]);
@@ -137,11 +133,11 @@ export default function Valorisation() {
   const onValeurDCF = useCallback((v: number) => setValeurDCF(v), []);
 
   const [reconciliationWeights,setReconciliationWeights]=useState<ReconciliationWeights>({comparison:50,capitalisation:25,dcf:25});
-  const reconciliation=useMemo(()=>{try{return reconcilier({valeurComparaison,poidsComparaison:reconciliationWeights.comparison,valeurCapitalisation,poidsCapitalisation:reconciliationWeights.capitalisation,valeurDCF,poidsDCF:reconciliationWeights.dcf})}catch{return null}},[valeurComparaison,valeurCapitalisation,valeurDCF,reconciliationWeights]);
+  const reconciliation=useMemo(()=>{try{if(!Number.isFinite(surfaceBien)||surfaceBien<=0||surfaceBien>1e7)return null;return reconcilier({valeurComparaison,poidsComparaison:reconciliationWeights.comparison,valeurCapitalisation,poidsCapitalisation:reconciliationWeights.capitalisation,valeurDCF,poidsDCF:reconciliationWeights.dcf})}catch{return null}},[valeurComparaison,valeurCapitalisation,valeurDCF,reconciliationWeights,surfaceBien]);
   const valeurMarchePourMLV=reconciliation?.valeurReconciliee??0;
 
   const reportMethods=reconciliation?.methodes.map(m=>({...m,nom:m.nom==='Capitalisation'?incomeLabel:m.nom}));
-  const signaturePayload={incomeSource,comparables,commune:selectedCommune?.commune,assetType:assetConfig.id,evsType:evsInfo.id,surface:surfaceBien,prixM2Commune:selectedCommune?.prixM2Existant,valeurComparaison,valeurCapitalisation,valeurDCF,valeurReconciliee:valeurMarchePourMLV,reconciliationWeights};
+  const signaturePayload={incomeSource,comparables,commune:selectedCommune?.commune,assetType:assetConfig.id,evsType:"indicative_capital_value",surface:surfaceBien,prixM2Commune:selectedCommune?.prixM2Existant,valeurComparaison,valeurCapitalisation,valeurDCF,valeurReconciliee:valeurMarchePourMLV,reconciliationWeights};
   const currentSignature=signature?.payload===JSON.stringify(signaturePayload)?signature:null;
 
   // Tab labels inside component to use t()
@@ -160,7 +156,6 @@ export default function Valorisation() {
   const handleReset = useCallback(() => {
     setSurfaceBien(80);
     setAssetType("residential_apartment");
-    setEvsValueType("market_value");
     setReportTemplate("standard");
     setCommissionnaire("");
     setCommuneSearch("");
@@ -186,14 +181,12 @@ export default function Valorisation() {
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-3 [overflow-wrap:anywhere]">
             <h1 className="text-2xl font-bold text-navy sm:text-3xl">
-              {t("pageTitle")}
+              {scopeText("title")}
             </h1>
-            <span className="rounded-full bg-navy/10 px-3 py-0.5 text-xs font-semibold text-navy">
-              EVS 2025
-            </span>
+
           </div>
           <p className="mt-2 text-muted">
-            {t("pageSubtitle")}
+            {scopeText("intro")}
           </p>
         </div>
 
@@ -217,7 +210,7 @@ export default function Valorisation() {
                 : "text-muted hover:bg-background hover:text-foreground"
             }`}
           >
-            {t("modeRapportEVS")}
+            {scopeText("draft")}
           </button>
         </div>
 
@@ -242,55 +235,15 @@ export default function Valorisation() {
             </div>
           </div>
 
-          {/* EVS value type + asset context */}
-          <div className="grid gap-4 lg:grid-cols-3">
-            <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-              <InputField
-                label={t("baseDeValeur")}
-                type="select"
-                value={evsValueType}
-                onChange={(v) => setEvsValueType(v as EVSValueType)}
-                options={EVS_VALUE_TYPES.map((e) => ({ value: e.id, label: `${e.evs} — ${t(e.labelKey)}` }))}
-              />
-              <p className="mt-2 text-xs text-muted leading-relaxed">{t(evsInfo.descriptionKey)}</p>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <div className="rounded-xl border border-card-border bg-card p-4 space-y-3">
+              <h2 className="font-semibold">{scopeText("capitalValue")}</h2><p className="text-sm text-muted">{scopeText("basis")}</p><p className="text-sm text-muted">{scopeText("asset")}</p>
             </div>
-
-            <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-              <InputField
-                label={t("surfaceDuBien")}
-                value={surfaceBien}
-                onChange={(v) => setSurfaceBien(Number(v))}
-                suffix="m²"
-              />
-              <div className="mt-3 text-xs text-muted">
-                <div className="font-medium text-slate mb-1">{t("methodesRecommandees")} :</div>
-                {assetConfig.recommendedMethodKeys.map((mk, i) => (
-                  <div key={i}>• {t(mk)}</div>
-                ))}
-              </div>
+            <div className="rounded-xl border border-card-border bg-card p-4 space-y-3">
+              <InputField label={t("surfaceDuBien")} value={Number.isNaN(surfaceBien)?"":surfaceBien} onChange={v=>setSurfaceBien(v.trim()===""?NaN:Number(v))} min={0} max={1e7} suffix="m²"/>
+              {(!Number.isFinite(surfaceBien)||surfaceBien<=0||surfaceBien>1e7)&&<p id="valuation-surface-invalid" role="status" className="text-sm text-muted">{scopeText("surfaceInvalid")}</p>}
+              <p className="text-sm text-muted">{scopeText("inputs")}</p>
             </div>
-
-            <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-              <div className="text-xs font-medium text-slate mb-2">{t("parametresReference")} — {t(assetConfig.labelKey)}</div>
-              <div className="space-y-1 text-xs text-muted">
-                <div className="flex justify-between"><span>{t("tauxDeCapitalisation")}</span><span className="font-mono">{assetConfig.defaults.capRateMin}–{assetConfig.defaults.capRateMax}%</span></div>
-                <div className="flex justify-between"><span>{t("tauxDeVacance")}</span><span className="font-mono">{assetConfig.defaults.vacancyRate}%</span></div>
-                <div className="flex justify-between"><span>{t("tauxActualisation")}</span><span className="font-mono">{assetConfig.defaults.discountRateDefault}%</span></div>
-                <div className="flex justify-between"><span>{t("tauxSortieRevente")}</span><span className="font-mono">{assetConfig.defaults.exitCapDefault}%</span></div>
-                <div className="flex justify-between"><span>{t("decotesMLV")}</span><span className="font-mono">{assetConfig.defaults.mlvConjoncturelleDefault + assetConfig.defaults.mlvCommercialisationDefault + assetConfig.defaults.mlvSpecifiqueDefault}%</span></div>
-              </div>
-              {assetConfig.specificMetricKeys.length > 0 && (
-                <div className="mt-2 pt-2 border-t border-card-border text-xs text-muted">
-                  <span className="font-medium text-slate">{t("metriquesCles")} : </span>
-                  {assetConfig.specificMetricKeys.map((mk) => t(mk)).join(", ")}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Asset type notes */}
-          <div className="rounded-lg bg-navy/5 border border-navy/10 px-4 py-3">
-            <p className="text-xs text-slate leading-relaxed">{t(assetConfig.notesKey)}</p>
           </div>
 
           {/* Résumé persistant : commune + valeurs + reset */}
@@ -353,7 +306,7 @@ export default function Valorisation() {
                     dateRapport: new Date().toISOString().split("T")[0],
                     commune: selectedCommune?.commune,
                     assetType: t(assetConfig.labelKey),
-                    evsType: t(evsInfo.labelKey),
+                    evsType: scopeText("capitalValue"),
                     surface: surfaceBien,
                     valeurComparaison: valeurComparaison || undefined,
                     valeurCapitalisation: valeurCapitalisation || undefined,
@@ -394,7 +347,7 @@ export default function Valorisation() {
                   dateRapport: new Date().toISOString().split("T")[0],
                   commune: selectedCommune?.commune,
                   assetType: t(assetConfig.labelKey),
-                  evsType: t(evsInfo.labelKey),
+                  evsType: scopeText("capitalValue"),
                   surface: surfaceBien,
                   valeurComparaison: valeurComparaison || undefined,
                   valeurCapitalisation: valeurCapitalisation || undefined,
@@ -414,7 +367,7 @@ export default function Valorisation() {
                   inputs: {
                     commune: selectedCommune?.commune,
                     assetType: t(assetConfig.labelKey),
-                    evsType: t(evsInfo.labelKey),
+                    evsType: scopeText("capitalValue"),
                     surface: surfaceBien,
                     prixM2Commune: selectedCommune?.prixM2Existant,
                   },
@@ -447,52 +400,6 @@ export default function Valorisation() {
         {/* MODE CALCULATEUR */}
         <div key={sessionRevision} hidden={viewMode !== "calculateur"}>
         <p className="mb-4 text-sm text-muted">{sessionText("persistence")}</p>
-        {/* Checklist EVS */}
-        {(() => {
-          const check = evaluerChecklist({
-            communeSelectionnee: !!selectedCommune,
-            surfaceRenseignee: surfaceBien > 0,
-            assetTypeSelectionne: true,
-            evsTypeSelectionne: true,
-            comparaisonFaite: valeurComparaison > 0,
-            nbComparables: comparables.length,
-            capitalisationFaite: valeurCapitalisation > 0,
-            dcfFait: valeurDCF > 0,
-            esgEvalue: false,
-            classeEnergieRenseignee: false,
-            donnesMarcheConsultees: !!selectedCommune,
-            reconciliationFaite: valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0,
-            scenariosAnalyses: false,
-            narrativeGeneree: valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0,
-            mlvCalculee: false,
-          });
-          const score = scoreChecklist(check);
-          if (score.remplis === 0) return null;
-          return (
-            <div className="mb-4 rounded-xl border border-card-border bg-card p-4 shadow-sm">
-              <div className="flex items-center justify-between mb-2">
-                <div className="text-xs font-semibold text-navy">{t("conformiteEVS")}</div>
-                <div className={`text-xs font-bold ${score.pctCompletion >= 80 ? "text-success" : score.pctCompletion >= 50 ? "text-warning" : "text-error"}`}>
-                  {score.remplis}/{score.total} ({score.pctCompletion.toFixed(0)}%)
-                </div>
-              </div>
-              <div className="h-2 rounded-full bg-gray-100">
-                <div
-                  className={`h-2 rounded-full transition-all ${score.pctCompletion >= 80 ? "bg-success" : score.pctCompletion >= 50 ? "bg-warning" : "bg-error"}`}
-                  style={{ width: `${score.pctCompletion}%` }}
-                />
-              </div>
-              {score.obligatoiresManquants.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-1">
-                  {score.obligatoiresManquants.map((item) => (
-                    <span key={item.id} className="rounded bg-red-50 px-2 py-0.5 text-[10px] text-red-700">{t(item.labelKey)}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })()}
-
         {/* Tabs */}
         <div className="sticky top-16 z-30 mb-8 flex gap-1 overflow-x-auto rounded-xl bg-card border border-card-border p-1 shadow-sm">
           {TABS.map((tab) => (
@@ -541,7 +448,8 @@ export default function Valorisation() {
           <ReportModeEVS
             surfaceBien={surfaceBien}
             assetType={t(assetConfig.labelKey)}
-            evsValueType={evsValueType}
+            incomeLabel={incomeLabel}
+            comparables={comparisonResult?comparables:[]}
             selectedCommune={selectedCommune}
             valeurComparaison={valeurComparaison}
             valeurCapitalisation={valeurCapitalisation}
@@ -553,27 +461,7 @@ export default function Valorisation() {
         <RelatedTools keys={["hedonique", "comparer", "dcfMulti", "indices", "marche", "estimation"]} />
       </div>
 
-      <SEOContent
-        ns="valorisation"
-        sections={[
-          { titleKey: "evs2025Title", contentKey: "evs2025Content" },
-          { titleKey: "methodesTitle", contentKey: "methodesContent" },
-          { titleKey: "reconciliationTitle", contentKey: "reconciliationContent" },
-          { titleKey: "rapportTitle", contentKey: "rapportContent" },
-        ]}
-        faq={[
-          { questionKey: "faq1Q", answerKey: "faq1A" },
-          { questionKey: "faq2Q", answerKey: "faq2A" },
-          { questionKey: "faq3Q", answerKey: "faq3A" },
-          { questionKey: "faq4Q", answerKey: "faq4A" },
-          { questionKey: "faq5Q", answerKey: "faq5A" },
-        ]}
-        relatedLinks={[
-          { href: "/hedonique", labelKey: "hedonique" },
-          { href: "/dcf-multi", labelKey: "dcfMulti" },
-          { href: "/estimation", labelKey: "estimation" },
-        ]}
-      />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8"><p className="text-sm text-muted">{scopeText("review")}</p></div>
     </div>
   );
 }

@@ -3057,7 +3057,7 @@
     "rpt1_5_ltv": "Loan-to-Value (LTV)",
     "rpt1_5_hypotheses": "Assumptions",
     "rpt1_5_hypothesesHint": "Vacancy assumptions, indexation, works, etc.",
-    "rpt1_5b_title": "Special assumptions (EVS 5)",
+    "rpt1_5b_title": "Special assumptions",
     "rpt1_5b_hint": "Special assumptions as defined by EVS 5: forced sale, going concern, etc.",
     "rpt1_6_title": "Independence and conflicts of interest",
     "rpt1_6_hint": "Additional details on independence, if applicable",
@@ -3142,7 +3142,7 @@
     "rpt5_7_consommationsHint": "kWh/m²/year, bills, energy performance certificate (EPC)...",
     "rpt5_7_coutsConformite": "Compliance costs",
     "rpt5_7_coutsConformiteHint": "Estimated works needed to reach the target energy class",
-    "rpt5_7_art208": "Environmental factors Art. 208 EBA",
+    "rpt5_7_art208": "Environmental factors to document",
     "rpt5_7_risquesClimat": "Climate risks",
     "rpt5_7_risquesClimatHint": "Flooding, heatwaves, storms, drought...",
     "rpt5_7_geologie": "Geology",
@@ -18790,5 +18790,33 @@
   "valuationSession": {
     "persistence": "Inputs are retained between tabs and modes during this page session. Reset clears all forms. Closing or reloading may lose these inputs.",
     "incomeSource": "Selected income method (last income tab viewed)"
+  },
+  "valuationScope": {
+    "title": "Property valuation — scenarios and evidence",
+    "intro": "Compare documented sales, capitalise income or discount cash flows, then choose weights suited to your file.",
+    "capitalValue": "Indicative capital value scenario",
+    "basis": "These calculations do not automatically determine market rent, liquidation value or a CRR prudential value. A professional basis of value requires documented scope, assumptions and analysis.",
+    "asset": "The asset type identifies the file. It does not automatically change income, rates or adjustments. Check their relevance to the property and valuation date.",
+    "inputs": "Initial method inputs are examples to replace. No market rate, regulatory haircut or compliance score is inferred from the asset type.",
+    "surfaceInvalid": "Enter a positive finite area of at most 10,000,000 m² to obtain a reconciliation or export.",
+    "review": "The author must document method selection, evidence, property checks and conclusions. Completing the form does not certify EVS, TEGOVA or CRR compliance.",
+    "draft": "File draft"
+  },
+  "reportDraftAudit": {
+    "title": "Valuation file draft",
+    "scope": "Calculator PDF and DOCX files summarize calculations. To retain the text and choices in this draft, use its HTML export: all sections, including collapsed ones, are included. Open the file in a browser to read or print it.",
+    "export": "Export this draft (HTML)",
+    "empty": "Not provided",
+    "checked": "Checked by the author",
+    "unchecked": "Unchecked",
+    "review": "Uncertified draft. The author must verify statements, qualifications, dates, evidence and conclusions. An unchecked box is not a negative finding. References to standards do not prove compliance.",
+    "independence": "Disclose relationships, interests and potential conflicts after checking. The software does not presume independence.",
+    "competence": "Enter your exact qualifications and validity in the author section; the software does not verify them.",
+    "esg": "Document relevant environmental factors and their property-specific effects. No alignment, premium or regulatory risk is certified here.",
+    "annexes": "List of documents you must attach to the final file. Checking a box does not add files or appendices to calculation PDFs.",
+    "marketValue": "Declared market value",
+    "marketRent": "Declared market rent",
+    "prudential": "Prudential value to document",
+    "evidence": "References validated in the calculator. Adjustments in order: location, condition, floor, exterior, parking, date, other. The author must attach supporting evidence."
   }
 }

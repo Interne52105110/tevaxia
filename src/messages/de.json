@@ -3057,7 +3057,7 @@
     "rpt1_5_ltv": "Loan-to-Value (LTV)",
     "rpt1_5_hypotheses": "Annahmen",
     "rpt1_5_hypothesesHint": "Annahmen zu Leerstand, Indexierung, Arbeiten, etc.",
-    "rpt1_5b_title": "Besondere Annahmen (EVS 5)",
+    "rpt1_5b_title": "Besondere Annahmen",
     "rpt1_5b_hint": "Besondere Annahmen im Sinne von EVS 5: Zwangsverkauf, Fortführungswert, etc.",
     "rpt1_6_title": "Unabhängigkeit und Interessenkonflikte",
     "rpt1_6_hint": "Zusätzliche Angaben zur Unabhängigkeit, falls zutreffend",
@@ -3142,7 +3142,7 @@
     "rpt5_7_consommationsHint": "kWh/m²/Jahr, Rechnungen, Energieausweis (EPC)...",
     "rpt5_7_coutsConformite": "Kosten der Konformität",
     "rpt5_7_coutsConformiteHint": "Geschätzte Kosten der notwendigen Arbeiten zur Erreichung der Zielklasse",
-    "rpt5_7_art208": "Umweltfaktoren Art. 208 EBA",
+    "rpt5_7_art208": "Zu dokumentierende Umweltfaktoren",
     "rpt5_7_risquesClimat": "Klimarisiken",
     "rpt5_7_risquesClimatHint": "Überschwemmungen, Hitzewellen, Stürme, Dürre...",
     "rpt5_7_geologie": "Geologie",
@@ -18790,5 +18790,33 @@
   "valuationSession": {
     "persistence": "Eingaben bleiben während dieser Seitensitzung zwischen Tabs und Modi erhalten. Zurücksetzen leert alle Formulare. Beim Schließen oder Neuladen können die Eingaben verloren gehen.",
     "incomeSource": "Gewählte Ertragsmethode (zuletzt geöffneter Ertragstab)"
+  },
+  "valuationScope": {
+    "title": "Immobilienbewertung — Szenarien und Referenzen",
+    "intro": "Vergleichen Sie dokumentierte Verkäufe, kapitalisieren Sie Erträge oder diskontieren Sie Zahlungsströme und wählen Sie passende Gewichte.",
+    "capitalValue": "Indikatives Kapitalwertszenario",
+    "basis": "Diese Berechnungen bestimmen nicht automatisch Marktmiete, Liquidationswert oder einen aufsichtsrechtlichen CRR-Wert. Eine professionelle Wertgrundlage verlangt dokumentierten Umfang, Annahmen und Analyse.",
+    "asset": "Die Objektart kennzeichnet die Akte. Sie ändert Erträge, Zinssätze oder Anpassungen nicht automatisch. Prüfen Sie die Eignung für Objekt und Bewertungsstichtag.",
+    "inputs": "Anfangseingaben der Methoden sind zu ersetzende Beispiele. Aus der Objektart werden weder Marktzinssatz noch regulatorischer Abschlag oder Konformitätswert abgeleitet.",
+    "surfaceInvalid": "Geben Sie eine positive endliche Fläche von höchstens 10.000.000 m² für Abgleich oder Export ein.",
+    "review": "Methodenauswahl, Belege, Objektprüfungen und Schlussfolgerungen sind vom Verfasser zu dokumentieren. Das Ausfüllen bestätigt keine EVS-, TEGOVA- oder CRR-Konformität.",
+    "draft": "Aktenentwurf"
+  },
+  "reportDraftAudit": {
+    "title": "Entwurf der Bewertungsakte",
+    "scope": "PDF und DOCX des Rechners fassen Berechnungen zusammen. Texte und Auswahl dieses Entwurfs sichern Sie über den HTML-Export: alle Abschnitte, auch eingeklappte, sind enthalten. Öffnen Sie die Datei im Browser zum Lesen oder Drucken.",
+    "export": "Diesen Entwurf exportieren (HTML)",
+    "empty": "Nicht angegeben",
+    "checked": "Vom Verfasser angekreuzt",
+    "unchecked": "Nicht angekreuzt",
+    "review": "Nicht zertifizierter Entwurf. Aussagen, Qualifikationen, Daten, Belege und Schlussfolgerungen muss der Verfasser prüfen. Ein nicht angekreuztes Feld ist kein negativer Befund. Normverweise beweisen keine Konformität.",
+    "independence": "Legen Sie Beziehungen, Interessen und mögliche Konflikte nach Prüfung offen. Die Software setzt keine Unabhängigkeit voraus.",
+    "competence": "Tragen Sie Ihre genauen Qualifikationen und deren Gültigkeit im Verfasserabschnitt ein; die Software prüft sie nicht.",
+    "esg": "Dokumentieren Sie relevante Umweltfaktoren und ihre objektspezifischen Wirkungen. Es werden weder Übereinstimmung noch Prämie oder regulatorisches Risiko zertifiziert.",
+    "annexes": "Liste der selbst beizufügenden Unterlagen. Das Ankreuzen fügt den Berechnungs-PDFs keine Dateien oder Anlagen hinzu.",
+    "marketValue": "Erklärter Marktwert",
+    "marketRent": "Erklärte Marktmiete",
+    "prudential": "Zu dokumentierender aufsichtsrechtlicher Wert",
+    "evidence": "Im Rechner validierte Referenzen. Anpassungen in Reihenfolge: Lage, Zustand, Etage, Außenbereich, Parkplatz, Datum, Sonstiges. Der Verfasser muss Belege beifügen."
   }
 }

@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { localizedAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Property Valuation EVS 2025 — TEGOVA Luxembourg",
-  description:
-    "Property valuation tool compliant with TEGOVA EVS 2025. Comparison method, capitalisation, DCF, CRR mortgage lending value, energy residual approach, reconciliation. Offices, retail, hotels, logistics.",
+  title: "Immobilienbewertung — Szenarien und Referenzen",
+  description: "Vergleichen Sie dokumentierte Verkäufe, kapitalisieren Sie Erträge oder diskontieren Sie Zahlungsströme und wählen Sie passende Gewichte.",
   alternates: localizedAlternates("/valorisation", "de"),
 };
 

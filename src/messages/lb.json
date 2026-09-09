@@ -3057,7 +3057,7 @@
     "rpt1_5_ltv": "Loan-to-Value (LTV)",
     "rpt1_5_hypotheses": "Hypotheesen",
     "rpt1_5_hypothesesHint": "Hypotheesen zu Leierstand, Indexéierung, Aarbechten, etc.",
-    "rpt1_5b_title": "Speziell Hypotheesen (EVS 5)",
+    "rpt1_5b_title": "Speziell Hypotheesen",
     "rpt1_5b_hint": "Speziell Hypotheesen am Sënn vun EVS 5: Zwangsverkaf, going concern, etc.",
     "rpt1_6_title": "Onofhängegkeet an Interessekonflikter",
     "rpt1_6_hint": "Zousätzlech Informatioune iwwer d'Onofhängegkeet, wann zoutrëffend",
@@ -3142,7 +3142,7 @@
     "rpt5_7_consommationsHint": "kWh/m²/Joer, Rechnungen, Energieausweis (EPC)...",
     "rpt5_7_coutsConformite": "Konformitéitskäschten",
     "rpt5_7_coutsConformiteHint": "Geschätzte Käschte vun den néideg Aarbechten fir d'Zîlklass z'erreechen",
-    "rpt5_7_art208": "Ëmweltfaktoren Art. 208 EBA",
+    "rpt5_7_art208": "Ëmweltfaktore fir ze dokumentéieren",
     "rpt5_7_risquesClimat": "Klimarisiken",
     "rpt5_7_risquesClimatHint": "Iwwerschwemmungen, Hëtztwellen, Stéerm, Dréchent...",
     "rpt5_7_geologie": "Geologie",
@@ -18790,5 +18790,33 @@
   "valuationSession": {
     "persistence": "D’Agabe bleiwen tëscht den Tabs a Modi an dëser Säitesessioun erhalen. Zerécksetzen läscht all Formulairen. Beim Zoumaachen oder Neiluede kënnen d’Agabe verluer goen.",
     "incomeSource": "Ausgewielt Ertragsmethod (lescht gekuckten Ertragstab)"
+  },
+  "valuationScope": {
+    "title": "Immobiliebewäertung — Szenarien a Referenzen",
+    "intro": "Vergläicht dokumentéiert Verkeef, kapitaliséiert Erträg oder diskontéiert Cashflowen a wielt Gewiichter, déi bei Ären Dossier passen.",
+    "capitalValue": "Indikatiivt Kapitalwäertszenario",
+    "basis": "Dës Berechnunge bestëmmen net automatesch eng Maartlocatioun, e Liquidatiounswäert oder e prudentielle CRR-Wäert. Eng professionell Wäertbasis verlaangt en dokumentéierten Ëmfang, Hypotheesen an Analysen.",
+    "asset": "Den Immobilientyp identifizéiert den Dossier. Hie verännert Erträg, Tauxen oder Upassungen net automatesch. Kontrolléiert d’Eegnung fir den Objet an de Stéchdatum.",
+    "inputs": "D’Ufanksagabe vun de Methode si Beispiller fir z’ersetzen. Aus dem Immobilientyp gëtt kee Maarttaux, reglementareschen Ofschlag oder Konformitéitsscore ofgeleet.",
+    "surfaceInvalid": "Gitt eng positiv, endlech Fläch vu maximal 10 000 000 m² fir eng Reconciliatioun oder en Export an.",
+    "review": "D’Wiel vun de Methoden, d’Beweiser, d’Objetskontrollen an d’Conclusioune muss de Verfaasser dokumentéieren. D’Ausfëlle vum Formulaire zertifizéiert keng EVS-, TEGOVA- oder CRR-Konformitéit.",
+    "draft": "Dossiersentworf"
+  },
+  "reportDraftAudit": {
+    "title": "Entworf vum Bewäertungsdossier",
+    "scope": "D’PDF- an DOCX-Dateie vum Rechner resuméieren d’Berechnungen. Fir d’Texter an d’Auswiel vun dësem Entworf ze behalen, benotzt den HTML-Export: all Sektiounen, och zougeklappt, sinn dobäi. Maacht d’Datei am Browser op fir ze liesen oder ze drécken.",
+    "export": "Dësen Entworf exportéieren (HTML)",
+    "empty": "Net uginn",
+    "checked": "Vum Verfaasser ugekräizt",
+    "unchecked": "Net ugekräizt",
+    "review": "Net zertifizéierten Entworf. Aussoen, Qualifikatiounen, Datumer, Beweiser a Conclusioune muss de Verfaasser kontrolléieren. Eng net ugekräizte Këscht ass keng negativ Feststellung. Normreferenze beweise keng Konformitéit.",
+    "independence": "Deklaréiert Bezéiungen, Interessen a méiglech Konflikter no Kontroll. D’Software setzt keng Onofhängegkeet viraus.",
+    "competence": "Gitt Är genee Qualifikatiounen an hir Gültegkeet an der Verfaassersektioun un; d’Software kontrolléiert se net.",
+    "esg": "Dokumentéiert relevant Ëmweltfaktoren an hir objektspezifesch Effekter. Et gëtt keen Alignement, keng Primm a kee reglementaresche Risiko zertifizéiert.",
+    "annexes": "Lëscht vun Dokumenter, déi Dir selwer bäileeë musst. Eng Këscht ukräize füügt keng Dateien oder Annexen an d’Berechnungs-PDFen an.",
+    "marketValue": "Deklaréierte Maartwäert",
+    "marketRent": "Deklaréierte Maartloyer",
+    "prudential": "Prudentielle Wäert fir ze dokumentéieren",
+    "evidence": "Am Rechner validéiert Referenzen. Upassungen an der Reiefolleg: Lag, Zoustand, Stack, Bausseberäich, Parking, Datum, Aneres. De Verfaasser muss d’Beweiser bäileeën."
   }
 }

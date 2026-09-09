@@ -3057,7 +3057,7 @@
     "rpt1_5_ltv": "Ratio prêt/valeur (LTV)",
     "rpt1_5_hypotheses": "Hypothèses retenues",
     "rpt1_5_hypothesesHint": "Hypothèses de vacance, d'indexation, de travaux, etc.",
-    "rpt1_5b_title": "Hypothèses spéciales (EVS 5)",
+    "rpt1_5b_title": "Hypothèses spéciales",
     "rpt1_5b_hint": "Hypothèses spéciales au sens de l'EVS 5 : forced sale, going concern, etc.",
     "rpt1_6_title": "Indépendance et conflits d'intérêts",
     "rpt1_6_hint": "Précisions complémentaires sur l'indépendance, le cas échéant",
@@ -3142,7 +3142,7 @@
     "rpt5_7_consommationsHint": "kWh/m²/an, factures, certificat de performance énergétique (CPE)...",
     "rpt5_7_coutsConformite": "Coûts de mise en conformité",
     "rpt5_7_coutsConformiteHint": "Estimation des travaux nécessaires pour atteindre la classe cible",
-    "rpt5_7_art208": "Facteurs environnementaux Art. 208 EBA",
+    "rpt5_7_art208": "Facteurs environnementaux à documenter",
     "rpt5_7_risquesClimat": "Risques climatiques",
     "rpt5_7_risquesClimatHint": "Inondations, canicules, tempêtes, sécheresse...",
     "rpt5_7_geologie": "Géologie",
@@ -18790,5 +18790,33 @@
   "valuationSession": {
     "persistence": "Les saisies restent conservées entre les onglets et les modes pendant cette session de page. Réinitialiser efface tous les formulaires. Une fermeture ou un rechargement peut perdre ces saisies.",
     "incomeSource": "Méthode de revenu retenue (dernier onglet de revenu consulté)"
+  },
+  "valuationScope": {
+    "title": "Valorisation immobilière — scénarios et références",
+    "intro": "Comparez des ventes documentées, capitalisez un revenu ou actualisez des flux, puis choisissez les pondérations adaptées à votre dossier.",
+    "capitalValue": "Scénario indicatif de valeur en capital",
+    "basis": "Ces calculs ne déterminent pas automatiquement un loyer de marché, une valeur de liquidation ou une valeur prudentielle CRR. Une base de valeur professionnelle exige un périmètre, des hypothèses et une analyse documentés.",
+    "asset": "Le type d’actif sert à identifier le dossier. Il ne modifie pas automatiquement les revenus, taux ou ajustements. Vérifiez leur pertinence pour le bien et la date étudiés.",
+    "inputs": "Les données initiales des méthodes sont des exemples à remplacer. Aucun taux de marché, décote réglementaire ou score de conformité n’est déduit du type d’actif.",
+    "surfaceInvalid": "Indiquez une surface positive et finie, au maximum 10 000 000 m², pour établir une réconciliation ou un export.",
+    "review": "Le choix des méthodes, les pièces justificatives, les vérifications du bien et les conclusions restent à documenter par le rédacteur. Le remplissage du formulaire ne certifie aucune conformité EVS, TEGOVA ou CRR.",
+    "draft": "Brouillon du dossier"
+  },
+  "reportDraftAudit": {
+    "title": "Brouillon du dossier de valorisation",
+    "scope": "Les PDF et DOCX du calculateur résument les calculs. Pour conserver les textes et choix de ce brouillon, utilisez son export HTML : toutes les sections, même repliées, sont incluses. Ouvrez ensuite le fichier dans un navigateur pour le lire ou l’imprimer.",
+    "export": "Exporter ce brouillon (HTML)",
+    "empty": "Non renseigné",
+    "checked": "Coché par le rédacteur",
+    "unchecked": "Non coché",
+    "review": "Brouillon non certifié. Les déclarations, qualifications, dates, pièces et conclusions doivent être vérifiées par le rédacteur. Une case non cochée ne constitue pas une conclusion négative. Les références aux normes ne prouvent pas leur respect.",
+    "independence": "Déclarez les liens, intérêts et conflits éventuels après vérification. Aucune indépendance n’est présumée par le logiciel.",
+    "competence": "Renseignez vos qualifications exactes et leur validité dans la section du rédacteur ; le logiciel ne les vérifie pas.",
+    "esg": "Documentez les facteurs environnementaux pertinents et leur effet propre au bien. Aucun alignement, prime ou risque réglementaire n’est certifié ici.",
+    "annexes": "Liste des pièces à joindre vous-même au dossier final. Cocher une case n’ajoute aucun fichier ni annexe aux PDF de calcul.",
+    "marketValue": "Valeur de marché déclarée",
+    "marketRent": "Loyer de marché déclaré",
+    "prudential": "Valeur prudentielle à documenter",
+    "evidence": "Références validées dans le calculateur. Ajustements dans l’ordre : localisation, état, étage, extérieur, parking, date, autre. Les pièces justificatives doivent être jointes par le rédacteur."
   }
 }
