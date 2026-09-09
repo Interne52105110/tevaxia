@@ -134,3 +134,11 @@ Le détail conserve sept lots et ajoute les autres frais, saisis d’après les 
 La charge thermique et la puissance disponible sont renseignées depuis l’étude et les fiches aux mêmes conditions. Leur différence n’est pas une certification de dimensionnement : pas d’autosélection de produit, débit VMC, validation de modulation, appoint ou émetteurs. Le guide officiel Klima-Agence de planification des pompes à chaleur est lié ; aucun taux d’aide historique de ce guide n’est repris. Métadonnées et carte d’accueil adaptées.
 
 Validation : 1 144 tests / 94 fichiers réussis, compilation et lint ciblé réussis. Les cinq langues et quatre largeurs ont été vérifiées, avec unités, coûts négatifs, aides excessives, facteurs invalides et horizon de retour. Cinq PDF (dix pages) ont été générés et inspectés ; les montants et kWh correspondent au scénario. Ancien générateur PDF HVAC devenu inutilisé supprimé. La mise en ligne est suivie au journal opérationnel.
+
+## LENOZ
+
+Les médailles et le score simplifié sans dossier sont remplacés par la vérification des seuils des quatre classes officielles : 85/40 %, 70/35 %, 55/30 % et 40 % global sans minimum catégoriel. Le second seuil s’applique séparément aux catégories économie, écologie, bâtiment/installations techniques et fonctionnalité ; implantation et société n’ont pas ce minimum. Le pourcentage global doit provenir du dossier complet, il n’est pas la moyenne des quatre saisies.
+
+Les résultats restent une lecture des seuils déclarés et ne délivrent aucun certificat ni droit à aide. Les valeurs absentes, non finies et hors de 0 à 100 % empêchent le résultat et le PDF. Les métadonnées et l’accueil énergie sont adaptés dans les cinq langues. Les sources sont le ministère du Logement (classification et dossier LENOZ) et Guichet.lu, consultés le 9 septembre 2026.
+
+Validation : 1 148 tests / 95 fichiers réussis, compilation et lint ciblé réussis. Les transitions entre les quatre classes et l’absence de classe ont été vérifiées pour chaque minimum catégoriel. Parcours navigateur dans les cinq langues, de 320 à 1 440 pixels, réussi ; le titre allemand a été corrigé pour éviter un débordement. Cinq PDF d’une page ont été générés et inspectés. L’ancien PDF fondé sur les médailles a été supprimé.
