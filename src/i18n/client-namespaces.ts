@@ -189,6 +189,7 @@ export const CLIENT_NAMESPACES = [
   "taxonomyAudit",
   "tenantAssistant",
   "tenantPortal",
+  "termReversionAudit",
   "terresAgricoles",
   "trajectoryAudit",
   "valorisation",

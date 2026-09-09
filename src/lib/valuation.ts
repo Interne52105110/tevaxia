@@ -472,36 +472,30 @@ export interface TermeReversionResult {
   facteurDiffere: number; // PV factor
   // Total
   valeur: number;
-  rendementEquivalent: number; // Taux qui donne la même valeur en cap directe sur ERV
+  rendementEquivalent: number; // Taux commun appliqué au terme et à la réversion
+  rendementReversionnaire: number; // ERV / valeur, hors frais
+  rendementInitialSimple: number; // Loyer en place / valeur, hors frais
 }
 
 export function calculerTermeReversion(input: TermeReversionInput): TermeReversionResult {
-  // Terme : Years' Purchase pour n années au taux terme
-  const r1 = input.tauxTerme;
-  const n = input.dureeRestanteBail;
-  const facteurTerme = r1 > 0 ? (1 - Math.pow(1 + r1, -n)) / r1 : n;
-  const valeurTerme = input.loyerEnPlace * facteurTerme;
-
-  // Réversion : YP perpetuity au taux réversion × PV différé
-  const r2 = input.tauxReversion;
-  const facteurReversionPerp = r2 > 0 ? 1 / r2 : 0;
-  const facteurDiffere = Math.pow(1 + r2, -n);
-  const valeurReversion = input.erv * facteurReversionPerp * facteurDiffere;
-
-  const valeur = valeurTerme + valeurReversion;
-
-  // Rendement équivalent : taux qui donne valeur = ERV / taux
-  const rendementEquivalent = valeur > 0 ? input.erv / valeur : 0;
-
-  return {
-    valeurTerme,
-    facteurTerme,
-    valeurReversion,
-    facteurReversionPerp,
-    facteurDiffere,
-    valeur,
-    rendementEquivalent,
-  };
+  const r1=input.tauxTerme,r2=input.tauxReversion,n=input.dureeRestanteBail;
+  if(![input.loyerEnPlace,input.erv,r1,r2,n].every(Number.isFinite)||input.loyerEnPlace<0||input.loyerEnPlace>1e12||input.erv<=0||input.erv>1e12||r1<0||r1>1||r2<=0||r2>1||!Number.isInteger(n)||n<0||n>100)throw new RangeError('Invalid annual term/reversion assumptions');
+  // Annual rents in arrears; a zero term rate uses the finite annuity limit n.
+  const annuity=(rate:number)=>rate===0?n:-Math.expm1(-n*Math.log1p(rate))/rate;
+  const facteurTerme=annuity(r1),valeurTerme=input.loyerEnPlace*facteurTerme;
+  const facteurReversionPerp=1/r2,facteurDiffere=Math.exp(-n*Math.log1p(r2));
+  const valeurReversion=input.erv*facteurReversionPerp*facteurDiffere,valeur=valeurTerme+valeurReversion;
+  if(!Number.isFinite(valeur)||valeur<=0)throw new RangeError('Non-finite capital value');
+  const atRate=(rate:number)=>input.loyerEnPlace*annuity(rate)+input.erv/rate*Math.exp(-n*Math.log1p(rate));
+  // Both positive cash-flow components decrease with the common rate, so its root
+  // is bracketed by the two original rates (the lower bound may be zero).
+  let low=Math.min(r1,r2),high=Math.max(r1,r2);
+  for(let k=0;k<100&&high>low;k++){
+    const mid=(low+high)/2;
+    if(atRate(mid)>valeur)low=mid;else high=mid;
+  }
+  const rendementEquivalent=(low+high)/2;
+  return{valeurTerme,facteurTerme,valeurReversion,facteurReversionPerp,facteurDiffere,valeur,rendementEquivalent,rendementReversionnaire:input.erv/valeur,rendementInitialSimple:input.loyerEnPlace/valeur};
 }
 
 // ============================================================

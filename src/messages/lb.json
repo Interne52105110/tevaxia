@@ -18657,5 +18657,30 @@
     "source": "Guichet.lu: Energiepass an Evaluatiounsdokumenter",
     "linkNote": "E Sprong vun der Energieklass geet net duer fir Aarbechten ze chiffréieren. Benotzt eng Gebaietüd an detailléiert Devisen; aus dëser Schätzung gëtt kee Renovatiounsbudget ofgeleet.",
     "link": "Renovatiounsprojet mat Donnéeën aus dem Dossier vergläichen"
+  },
+  "termReversionAudit": {
+    "title": "Term a Reversioun — Joreszenario",
+    "intro": "D'Startwäerter sinn e Beispill. Gitt Joresloyeren no net recuperabele Käschten an am Dossier begrënnte Rendementer mat engem eenheetlechen Ëmfang un.",
+    "rent": "Aktuellen Netto-Joresloyer (€)",
+    "erv": "Ugehollene Netto-Joresmaartloyer (ERV, €)",
+    "years": "Lafzäit (ganz Joren, 0 bis 100)",
+    "termRate": "Term-Rendement (%, 0 bis 100)",
+    "reversionRate": "Reversiounsrendement (%, positiv, maximal 100)",
+    "scope": "Konventioun: Joresloyeren um Enn vum Joer, konstante Loyer am Term, duerno konstant ERV als éiweg Rent vum nächste Joer un. Keng automatesch Erhéijung vun der ERV. Acquisitiounskäschten, Steieren, Aarbechten, Leerstand an aner Geldflëss ginn net berechent. Loyeren a Rendementer brauchen eng Vergläichsanalys; kee Risikoniveau gëtt automatesch ofgeleet.",
+    "result": "Berechente Wäert a Rendementer",
+    "termValue": "Aktualiséierte Wäert vum Term",
+    "reversionValue": "Aktualiséierte Wäert vun der Reversioun",
+    "value": "Zomm vun deenen zwee Deeler",
+    "equivalent": "Jäerlechen equivalente Rendement",
+    "reversionary": "Einfache Reversiounsrendement: ERV / Wäert",
+    "initial": "Einfache Startrendement: aktuelle Loyer / Wäert",
+    "explanation": "Den equivalente Rendement ass dee gemeinsame Saz fir Term a Reversioun, deen dee selwechte Wäert ergëtt. Hie gëtt numeresch bestëmmt, net als ERV / Wäert. Déi einfach Rendementer sinn ouni Acquisitiounskäschten.",
+    "invalid": "Gülteg Loyeren, positiv ERV a Reversiounsrendement an eng ganz Lafzäit vun 0 bis 100 Joer sinn néideg. Ongülteg Resultater fléissen net an d'Reconciliatioun an.",
+    "gap": "Differenz ERV / aktuelle Loyer (%)",
+    "undefined": "Bei aktuellem Loyer null net berechenbar",
+    "same": "Aktuelle Loyer entsprécht der aginnener ERV",
+    "reference": "Notizen a Referenze fir Loyeren a Rendementer",
+    "transfer": "D'Method liwwert den Ertragswäert fir d'Reconciliatioun. Si eleng ass keng zertifiéiert Maartbewäertung.",
+    "source": "RICS: Investitiounsmethod, Term/Reversioun an equivalente Rendement"
   }
 }

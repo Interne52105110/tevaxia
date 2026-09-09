@@ -188,3 +188,11 @@ Validation : 1 127 tests / 94 fichiers réussis ; ajout de trois tests sur les c
 ## Disponibilité HTTP — contrôle transversal
 
 Un contrôle en lecture seule des 160 routes statiques sans paramètre ni groupe de route a été effectué en production. Aucune réponse 4xx/5xx ni erreur réseau. Ce contrôle ne valide pas les calculs, l’authentification ou les parcours des routes dynamiques ; la revue métier reste ouverte.
+
+## Terme et réversion — rendement équivalent
+
+Le rendement équivalent était égal au loyer de marché divisé par la valeur : ce rapport est le rendement réversionnaire simple. Il est désormais résolu comme le taux commun actualisant les loyers en place et la réversion vers la même valeur. Le rendement initial simple et le rendement réversionnaire restent affichés séparément, hors frais d'acquisition. Convention explicite : loyers annuels à terme échu, années entières et réversion perpétuelle constante ; hypothèses de départ illustratives à justifier.
+
+Exemple indépendant : 36 000 EUR pendant cinq ans au taux de terme de 4 %, puis 42 000 EUR capitalisés à 5 % et différés cinq ans : valeur 818 427,58 EUR ; rendement équivalent 4,9738 %, réversionnaire 5,1318 %, initial 4,3987 %. Le calcul accepte le terme nul et la réversion immédiate, refuse les durées fractionnaires et les valeurs invalides. La réconciliation reçoit la valeur calculée et efface cette entrée lorsque le scénario devient invalide.
+
+Référence méthodologique : [RICS, APC valuation competency advice](https://ww3.rics.org/uk/en/journals/property-journal/apc-valuation-competency-advice.html). Validation : 1 131 tests / 94 fichiers réussis, compilation et lint réussis ; cinq langues et quatre largeurs, restitution des flux, taux nuls, loyer nul, durée nulle, invalides et transfert vers la réconciliation contrôlés. Aucun nouveau PDF.

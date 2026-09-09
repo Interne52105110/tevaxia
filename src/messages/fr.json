@@ -18657,5 +18657,30 @@
     "source": "Guichet.lu : le CPE et les documents de l’évaluation énergétique",
     "linkNote": "Un saut de classe énergétique ne suffit pas à chiffrer des travaux. Utilisez une étude du bâtiment et des devis détaillés ; aucune enveloppe de coût n’est déduite automatiquement de cette estimation.",
     "link": "Comparer un projet de rénovation à partir du dossier"
+  },
+  "termReversionAudit": {
+    "title": "Terme et réversion — scénario annuel",
+    "intro": "Les valeurs initiales sont un exemple. Renseignez des loyers annuels nets de charges non récupérables et des taux justifiés par votre dossier, sur un périmètre cohérent.",
+    "rent": "Loyer net annuel en place (€)",
+    "erv": "Loyer net annuel de marché retenu (ERV, €)",
+    "years": "Durée du terme (années entières, 0 à 100)",
+    "termRate": "Taux du terme (%, 0 à 100)",
+    "reversionRate": "Taux de réversion (%, strictement positif, maximum 100)",
+    "scope": "Convention : loyers annuels en fin d’année, loyer en place constant pendant le terme, puis ERV constant à perpétuité à partir de l’année suivante. L’ERV n’est pas projeté avec une croissance automatique. Frais d’acquisition, fiscalité, travaux, vacance et autres flux ne sont pas calculés ici. Le choix des taux et des loyers relève de l’analyse des comparables ; aucun niveau de risque n’est déduit automatiquement.",
+    "result": "Valeur calculée et rendements",
+    "termValue": "Valeur actualisée du terme",
+    "reversionValue": "Valeur actualisée de la réversion",
+    "value": "Somme des deux composantes",
+    "equivalent": "Rendement équivalent annuel",
+    "reversionary": "Rendement réversionnaire simple : ERV / valeur",
+    "initial": "Rendement initial simple : loyer en place / valeur",
+    "explanation": "Le rendement équivalent est le taux commun appliqué au terme et à la réversion qui reproduit la même valeur. Il est résolu numériquement ; ce n’est pas le simple rapport ERV / valeur. Les rendements simples affichés sont hors frais d’acquisition.",
+    "invalid": "Loyers valides, ERV positif, taux de réversion positif et durée entière de 0 à 100 ans nécessaires. Un résultat invalide n’alimente pas la réconciliation.",
+    "gap": "Écart ERV / loyer en place (%)",
+    "undefined": "Non calculable avec un loyer en place nul",
+    "same": "Loyer en place égal à l’ERV saisi",
+    "reference": "Notes et références des loyers et taux",
+    "transfer": "Cette méthode alimente la valeur de l’approche par les revenus utilisée dans la réconciliation. Elle ne constitue pas, à elle seule, une valeur de marché certifiée.",
+    "source": "RICS : méthode d’investissement, terme/réversion et rendement équivalent"
   }
 }

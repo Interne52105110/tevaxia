@@ -18657,5 +18657,30 @@
     "source": "Guichet.lu: certificado energético e documentos de avaliação",
     "linkNote": "Um salto de classe energética não basta para orçamentar obras. Utilize um estudo do edifício e orçamentos detalhados; não se deduz automaticamente um custo desta estimativa.",
     "link": "Comparar um projeto de renovação com dados do processo"
+  },
+  "termReversionAudit": {
+    "title": "Termo e reversão — cenário anual",
+    "intro": "Os valores iniciais são um exemplo. Introduza rendas anuais líquidas de encargos não recuperáveis e taxas justificadas pelo processo, com âmbito coerente.",
+    "rent": "Renda líquida anual em vigor (€)",
+    "erv": "Renda líquida anual de mercado considerada (ERV, €)",
+    "years": "Duração do termo (anos inteiros, 0 a 100)",
+    "termRate": "Taxa do termo (%, 0 a 100)",
+    "reversionRate": "Taxa de reversão (%, positiva, máximo 100)",
+    "scope": "Convenção: rendas anuais no fim do ano, renda atual constante durante o termo, seguida de ERV constante em perpetuidade a partir do ano seguinte. Sem crescimento automático da ERV. Custos de aquisição, impostos, obras, desocupação e outros fluxos não são calculados. Taxas e rendas exigem análise de comparáveis; não se deduz automaticamente o risco.",
+    "result": "Valor calculado e rendimentos",
+    "termValue": "Valor atualizado do termo",
+    "reversionValue": "Valor atualizado da reversão",
+    "value": "Soma das duas componentes",
+    "equivalent": "Rendimento equivalente anual",
+    "reversionary": "Rendimento de reversão simples: ERV / valor",
+    "initial": "Rendimento inicial simples: renda atual / valor",
+    "explanation": "O rendimento equivalente é a taxa comum aplicada ao termo e à reversão que reproduz o mesmo valor. É calculado numericamente, não como ERV / valor. Os rendimentos simples excluem custos de aquisição.",
+    "invalid": "São necessários rendas válidas, ERV e taxa de reversão positivas e prazo inteiro de 0 a 100 anos. Resultados inválidos não alimentam a reconciliação.",
+    "gap": "Diferença ERV / renda atual (%)",
+    "undefined": "Não calculável com renda atual nula",
+    "same": "Renda atual igual à ERV introduzida",
+    "reference": "Notas e referências das rendas e taxas",
+    "transfer": "O método alimenta o valor da abordagem pelo rendimento na reconciliação. Não constitui, por si só, uma avaliação de mercado certificada.",
+    "source": "RICS: método de investimento, termo/reversão e rendimento equivalente"
   }
 }

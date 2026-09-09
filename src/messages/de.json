@@ -18657,5 +18657,30 @@
     "source": "Guichet.lu: Energieausweis und Bewertungsunterlagen",
     "linkNote": "Ein Sprung der Energieklasse reicht nicht zur Kostenschätzung. Nutzen Sie eine Gebäudestudie und detaillierte Angebote; aus dieser Schätzung wird kein Renovierungsbudget abgeleitet.",
     "link": "Renovierungsprojekt anhand des Dossiers vergleichen"
+  },
+  "termReversionAudit": {
+    "title": "Term und Reversion — jährliches Szenario",
+    "intro": "Die Ausgangswerte sind ein Beispiel. Geben Sie Jahresmieten nach nicht umlagefähigen Kosten und im Dossier begründete Renditen mit einheitlichem Umfang ein.",
+    "rent": "Jährliche Nettobestandsmiete (€)",
+    "erv": "Angesetzte jährliche Nettomarktmiete (ERV, €)",
+    "years": "Laufzeit (ganze Jahre, 0 bis 100)",
+    "termRate": "Term-Rendite (%, 0 bis 100)",
+    "reversionRate": "Reversionsrendite (%, positiv, höchstens 100)",
+    "scope": "Annahme: jährliche nachschüssige Mieten, konstante Bestandsmiete während der Laufzeit, danach konstante ERV als ewige Rente ab dem Folgejahr. Keine automatische Mietsteigerung. Erwerbskosten, Steuern, Arbeiten, Leerstand und andere Zahlungsströme werden nicht berechnet. Renditen und Mieten erfordern Vergleichsanalyse; kein Risikoniveau wird automatisch abgeleitet.",
+    "result": "Berechneter Wert und Renditen",
+    "termValue": "Barwert des Terms",
+    "reversionValue": "Barwert der Reversion",
+    "value": "Summe beider Bestandteile",
+    "equivalent": "Jährliche äquivalente Rendite",
+    "reversionary": "Einfache Reversionsrendite: ERV / Wert",
+    "initial": "Einfache Anfangsrendite: Bestandsmiete / Wert",
+    "explanation": "Die äquivalente Rendite ist der gemeinsame Satz für Term und Reversion, der denselben Wert ergibt. Er wird numerisch bestimmt und ist nicht ERV / Wert. Die einfachen Renditen berücksichtigen keine Erwerbskosten.",
+    "invalid": "Gültige Mieten, positive ERV und Reversionsrendite sowie ganze Laufzeit von 0 bis 100 Jahren erforderlich. Ungültige Ergebnisse fließen nicht in die Abstimmung ein.",
+    "gap": "Abweichung ERV / Bestandsmiete (%)",
+    "undefined": "Bei Bestandsmiete null nicht berechenbar",
+    "same": "Bestandsmiete entspricht der eingegebenen ERV",
+    "reference": "Notizen und Quellen zu Mieten und Renditen",
+    "transfer": "Die Methode liefert den Ertragswert für die Abstimmung. Sie allein ist keine zertifizierte Marktwertermittlung.",
+    "source": "RICS: Investmentmethode, Term/Reversion und äquivalente Rendite"
   }
 }

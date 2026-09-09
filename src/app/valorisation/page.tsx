@@ -3,7 +3,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
-import ToggleField from "@/components/ToggleField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatEUR2, formatPct } from "@/lib/calculations";
 import {
@@ -11,7 +10,6 @@ import {
   calculerCapitalisation,
   calculerDCF,
   calculerMLV,
-  calculerTermeReversion,
   reconcilier,
   type Comparable,
 } from "@/lib/valuation";
@@ -40,6 +38,7 @@ import { getLatestValue, TAUX_HYPOTHECAIRE, OAT_10Y, INDICE_CONSTRUCTION } from 
 import { getProfile } from "@/lib/profile";
 import { genererNarrative } from "@/lib/narrative";
 import { RenovationResidual } from "@/components/RenovationResidual";
+import { TermReversion } from "@/components/TermReversion";
 import { evaluerChecklist, scoreChecklist } from "@/lib/evs-checklist";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { sauvegarderEvaluation } from "@/lib/storage";
@@ -784,66 +783,7 @@ function TabDCF({ onValeur }: { onValeur: (v: number) => void }) {
 // TAB — TERME & RÉVERSION
 // ============================================================
 
-function TabTermeReversion({ onValeur }: { onValeur: (v: number) => void }) {
-  const t = useTranslations("valorisation");
-  const [loyerEnPlace, setLoyerEnPlace] = useState(36000);
-  const [erv, setErv] = useState(42000);
-  const [dureeRestante, setDureeRestante] = useState(5);
-  const [tauxTerme, setTauxTerme] = useState(4.0);
-  const [tauxReversion, setTauxReversion] = useState(5.0);
-
-  const result = useMemo(() => {
-    const r = calculerTermeReversion({
-      loyerEnPlace,
-      erv,
-      dureeRestanteBail: dureeRestante,
-      tauxTerme: tauxTerme / 100,
-      tauxReversion: tauxReversion / 100,
-    });
-    onValeur(r.valeur);
-    return r;
-  }, [loyerEnPlace, erv, dureeRestante, tauxTerme, tauxReversion, onValeur]);
-
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div className="space-y-6">
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("capRevenus")}</h2>
-          <div className="space-y-4">
-            <InputField label={t("trLoyerEnPlace")} value={loyerEnPlace} onChange={(v) => setLoyerEnPlace(Number(v))} suffix="€" hint={t("trLoyerEnPlaceHint")} />
-            <InputField label={t("trERV")} value={erv} onChange={(v) => setErv(Number(v))} suffix="€" hint={t("trERVHint")} />
-            <InputField label={t("trDureeRestante")} value={dureeRestante} onChange={(v) => setDureeRestante(Number(v))} suffix={t("suffixAns")} min={0} max={30} />
-          </div>
-        </div>
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("trTauxRendement")}</h2>
-          <div className="space-y-4">
-            <InputField label={t("trTauxTerme")} value={tauxTerme} onChange={(v) => setTauxTerme(Number(v))} suffix="%" step={0.1} hint={t("trTauxTermeHint")} />
-            <InputField label={t("trTauxReversion")} value={tauxReversion} onChange={(v) => setTauxReversion(Number(v))} suffix="%" step={0.1} hint={t("trTauxReversionHint")} />
-          </div>
-          <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
-            <p className="text-xs text-amber-800 leading-relaxed">
-              {t("trMethodeNote")}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="space-y-6">
-        <ResultPanel
-          title={t("trResultTitle")}
-          className="border-gold/30"
-          lines={[
-            { label: t("trTermeLine", { loyer: formatEUR(loyerEnPlace), facteur: result.facteurTerme.toFixed(3), duree: dureeRestante, taux: tauxTerme }), value: formatEUR(result.valeurTerme) },
-            { label: t("trReversionLine", { erv: formatEUR(erv), facteurPerp: result.facteurReversionPerp.toFixed(2), facteurDiff: result.facteurDiffere.toFixed(4) }), value: formatEUR(result.valeurReversion) },
-            { label: t("trValeurTotale"), value: formatEUR(result.valeur), highlight: true, large: true },
-            { label: t("trRendementEquivalent"), value: formatPct(result.rendementEquivalent), sub: true },
-            { label: loyerEnPlace < erv ? t("sousLoue") : t("surLoue"), value: `${((erv - loyerEnPlace) / loyerEnPlace * 100).toFixed(1)}%`, warning: loyerEnPlace > erv },
-          ]}
-        />
-      </div>
-    </div>
-  );
-}
+function TabTermeReversion({ onValeur }: { onValeur: (v:number)=>void }) { return <TermReversion onValue={onValeur} />; }
 
 // ============================================================
 // TAB — ESG / DURABILITÉ

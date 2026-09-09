@@ -18657,5 +18657,30 @@
     "source": "Guichet.lu: EPC and energy-assessment documents",
     "linkNote": "An energy-class jump is insufficient to price works. Use a building study and detailed quotations; no cost envelope is automatically inferred from this estimate.",
     "link": "Compare a renovation project using documented inputs"
+  },
+  "termReversionAudit": {
+    "title": "Term and reversion — annual scenario",
+    "intro": "Initial values are an example. Enter annual rents net of non-recoverable costs and yields supported by your file, with a consistent scope.",
+    "rent": "Annual net passing rent (€)",
+    "erv": "Selected annual net market rent (ERV, €)",
+    "years": "Term duration (whole years, 0 to 100)",
+    "termRate": "Term yield (%, 0 to 100)",
+    "reversionRate": "Reversion yield (%, strictly positive, maximum 100)",
+    "scope": "Convention: annual rents in arrears, constant passing rent during the term, then constant ERV in perpetuity from the following year. ERV is not automatically grown. Acquisition costs, tax, works, vacancy and other cash flows are not calculated here. Yields and rents require comparable analysis; no risk level is inferred automatically.",
+    "result": "Calculated value and yields",
+    "termValue": "Present value of the term",
+    "reversionValue": "Present value of the reversion",
+    "value": "Sum of both components",
+    "equivalent": "Annual equivalent yield",
+    "reversionary": "Simple reversionary yield: ERV / value",
+    "initial": "Simple initial yield: passing rent / value",
+    "explanation": "Equivalent yield is the common rate applied to term and reversion that reproduces the same value. It is solved numerically, not calculated as ERV / value. Displayed simple yields exclude acquisition costs.",
+    "invalid": "Valid rents, positive ERV and reversion yield, and a whole term from 0 to 100 years are required. Invalid results do not feed reconciliation.",
+    "gap": "ERV / passing rent difference (%)",
+    "undefined": "Not calculable with zero passing rent",
+    "same": "Passing rent equals the entered ERV",
+    "reference": "Notes and references for rents and yields",
+    "transfer": "This method feeds the income-approach value used in reconciliation. It does not by itself constitute a certified market valuation.",
+    "source": "RICS: investment method, term/reversion and equivalent yield"
   }
 }
