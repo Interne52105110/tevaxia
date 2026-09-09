@@ -246,3 +246,5 @@ Housekeeping corrigé : tâches/temps/coûts employeur réels saisis, vacations 
 Alertes hôtelières corrigées comme configuration de règles : surveillance/notification non confirmées, écritures explicites contrôlées. À poursuivre : cohérence marketing/accueil/tarifs avec les capacités réelles et parcours PMS, location/syndic/agences.
 
 Offre hôtelière publique et guide d’investissement repris : données/TVA/E-2/aides documentées, SEO traduit, 25 pages testées. Restent les contenus du hub hôtel, les offres PMS détaillées et les rapports/folios PMS.
+
+PMS rapport mensuel corrigé en journal des écritures + inventaire observé, PDF cinq langues et lectures complètes/isolées. Restent les folios (taux et prix par défaut, auto-posting, facturation), les fonctions SQL associées et les autres parcours PMS.

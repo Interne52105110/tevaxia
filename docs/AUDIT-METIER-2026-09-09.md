@@ -695,3 +695,17 @@ Housekeeping (ee4eac0) confirmé en ligne : CI 34388944339 réussie, Vercel dpl_
 - Vérification : lint ciblé et build réussis ; 25 pages publiques (5 pages × 5 langues), contenu, liens, métadonnées/FAQ structurée du guide et quatre largeurs vérifiés. Le reste des pages PMS, du hub hôtel et des offres métiers reste en cours de revue.
 
 Alertes (7540004) confirmées en production : CI 34389785747 réussie, Vercel dpl_CYQdCLfsCQ8CQZRhwXnPGoHq6aZa Ready, cinq parcours publics vérifiés.
+
+
+## PMS — journal mensuel et inventaire observé
+
+- Le rapport nommé USALI mélangeait revenus estimés d’audits nocturnes et écritures de folios, ajoutait la taxe de séjour au revenu, extrapolait l’inventaire maximum à tous les jours du mois et fabriquait le chiffre d’affaires de comparaison N-1. Il devient un journal des écritures enregistrées, sans certification USALI/comptable/fiscale, ni ADR/RevPAR/TRevPAR ou YoY calculés sur des bases différentes.
+- Période de posting UTC semi-ouverte, incluant les fractions de dernière seconde ; annulations exclues. Toutes les catégories conservées, taxe isolée, montants signés additionnés en centimes BigInt. Les taux et écritures historiques ne sont pas recalculés ; le journal ne prouve ni paiement, ni émission de facture, ni rattachement comptable au séjour.
+- Lecture paginée par 500 jusqu’à 200 000 lignes maximum ; dépassement, troncature, compte changeant, doublons, erreurs de requête et données incohérentes refusés au lieu de publier un total partiel. Identité vérifiée avant et après lecture, propriété filtrée par propriétaire. Lecture de données vivantes, sans verrouillage transactionnel ; aucune politique RLS/SQL de production modifiée ou certifiée.
+- Inventaire = somme des relevés quotidiens disponibles, taux sur ce même échantillon, couverture et statut clôturé explicités ; aucune extrapolation aux jours manquants. Aucun ratio sans dénominateur positif. Les revenus estimés et compteurs historiques de la fonction SQL night audit restent à revoir séparément.
+- Page, parent et menu : changement de mois/compte/propriété isolé, réponses tardives ignorées, erreurs et nouvelle tentative, déconnexion visible sans chargement infini. Liens PMS conservent la langue. PDF avec verrou anti-double-clic, erreur récupérable et téléchargement abandonné après démontage.
+- Export cinq langues, synthèse, 19 catégories sans troncature et détail des relevés ; montants au centime et mêmes limites explicites. 15 pages PDF rendues et inspectées, pieds de page contrôlés.
+- Correctif de génération des namespaces : inclusion des layouts ancêtres et de leurs imports clients, avec test Python de non-régression (sans récupération des namespaces des frères).
+- Vérification : 1 286 tests / 120 fichiers, 1 test Python, lint ciblé et build réussis ; composants réels page/parent/menu/PDF avec services simulés dans les cinq langues, quatre largeurs ; échantillon 30 chambres-nuitées/15 occupées = 50 %, 19 lignes dont 246,39 EUR hors taxe de séjour + 6 EUR = 252,39 EUR au total ; pagination 1 001 lignes et erreurs couvertes. Aucune écriture client effectuée pour les tests.
+
+Offre publique hôtel et guide (7c4eacb) confirmés en production : CI 34392746536, Vercel dpl_DoxNMXaWvj2PE1foPZSLvuS2UhwU Ready, 25 pages publiques revérifiées cinq langues/quatre largeurs.

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 interface Props {
   propertyId: string;
@@ -65,7 +66,7 @@ const SECTIONS: NavSection[] = [
     title: "Reporting",
     items: [
       { href: "/rapports", label: "Tableau de bord", icon: "📈", description: "Flash quotidien" },
-      { href: "/rapports/usali", label: "USALI mensuel", icon: "📘", description: "Standard AHLA v11" },
+      { href: "/rapports/usali", label: "journal", icon: "📘" },
       { href: "/rapports/pickup", label: "Pickup (RM)", icon: "📊", description: "Réservations récentes" },
       { href: "/rapports/forecast", label: "Revenue forecast", icon: "🔮", description: "Projection OTB + pickup" },
       { href: "/rapports/heatmap", label: "Heatmap occupancy", icon: "🗓️", description: "Calendrier annuel" },
@@ -75,7 +76,9 @@ const SECTIONS: NavSection[] = [
 
 export default function PropertySidebar({ propertyId, propertyName }: Props) {
   const pathname = usePathname();
-  const basePath = `/pms/${propertyId}`;
+  const locale = useLocale(), t = useTranslations("pmsJournal");
+  const lp = locale === "fr" ? "" : `/${locale}`;
+  const basePath = `${lp}/pms/${propertyId}`;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (href: string): boolean => {
@@ -99,7 +102,7 @@ export default function PropertySidebar({ propertyId, propertyName }: Props) {
       )}
 
       <aside className={`
-        ${mobileOpen ? "fixed inset-y-0 left-0 z-50 w-80 overflow-y-auto" : "hidden"}
+        ${mobileOpen ? "fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] overflow-y-auto" : "hidden"}
         lg:block lg:sticky lg:top-4 lg:self-start lg:h-[calc(100vh-2rem)] lg:overflow-y-auto
         bg-card border-r lg:border border-card-border lg:rounded-xl p-4
       `}>
@@ -129,7 +132,7 @@ export default function PropertySidebar({ propertyId, propertyName }: Props) {
                       <span className="shrink-0 text-lg leading-tight">{item.icon}</span>
                       <div className="min-w-0 flex-1">
                         <div className={`font-semibold leading-tight ${active ? "" : "text-navy"}`}>
-                          {item.label}
+                          {item.href === "/rapports/usali" ? t("title") : item.label}
                         </div>
                         {item.description && (
                           <div className={`mt-0.5 text-xs ${active ? "text-white/80" : "text-muted"} truncate`}>
@@ -146,10 +149,10 @@ export default function PropertySidebar({ propertyId, propertyName }: Props) {
         ))}
 
         <div className="mt-5 border-t border-card-border pt-4 px-1 space-y-1.5 text-xs">
-          <Link href="/pms" className="block text-muted hover:text-navy font-medium">
+          <Link href={`${lp}/pms`} className="block text-muted hover:text-navy font-medium">
             ← Tous mes hôtels
           </Link>
-          <Link href="/actions-prioritaires" className="block text-muted hover:text-navy font-medium">
+          <Link href={`${lp}/actions-prioritaires`} className="block text-muted hover:text-navy font-medium">
             🔔 Actions prioritaires
           </Link>
         </div>

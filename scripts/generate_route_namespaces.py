@@ -143,6 +143,19 @@ def page_to_route(page_path: Path) -> str:
     return "/" + "/".join(cleaned)
 
 
+def namespaces_for_page(page: Path, common: set[str]) -> set[str]:
+    """Include client imports of every layout wrapping this canonical page."""
+    visited: set[Path] = set()
+    ns = collect_ns_from_subtree(page, visited) | common
+    directory = page.parent
+    while directory.is_relative_to(APP):
+        ns |= collect_ns_from_subtree(directory / "layout.tsx", visited)
+        if directory == APP:
+            break
+        directory = directory.parent
+    return ns
+
+
 def main() -> None:
     common = common_namespaces()
     route_ns: dict[str, list[str]] = {}
@@ -158,8 +171,7 @@ def main() -> None:
         route = page_to_route(page)
         if route is None:
             continue
-        visited: set[Path] = set()
-        ns = collect_ns_from_subtree(page, visited) | common
+        ns = namespaces_for_page(page, common)
         route_ns[route] = sorted(ns)
 
     # Emit TS file

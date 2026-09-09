@@ -1384,6 +1384,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/chambres": [
@@ -1395,6 +1396,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/channels": [
@@ -1404,8 +1406,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsChannels",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/factures": [
@@ -1417,6 +1421,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/frontdesk": [
@@ -1426,8 +1431,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
     "pmsFrontdesk",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/groupes": [
@@ -1437,8 +1444,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
     "pmsGroupes",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/guests": [
@@ -1450,6 +1459,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]": [
@@ -1461,6 +1471,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/pos": [
@@ -1470,8 +1481,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
     "pmsFolio",
+    "pmsJournal",
     "pmsPos",
     "syndicContextBar"
   ],
@@ -1482,8 +1495,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
     "pmsForecast",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/rapports/heatmap": [
@@ -1493,8 +1508,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
     "pmsHeatmap",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/rapports": [
@@ -1506,6 +1523,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/rapports/pickup": [
@@ -1515,7 +1533,9 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
+    "pmsJournal",
     "pmsPickup",
     "syndicContextBar"
   ],
@@ -1526,8 +1546,9 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
-    "pmsUsali",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/reservations/[resId]/folio": [
@@ -1537,8 +1558,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
     "pmsFolio",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/reservations/[resId]": [
@@ -1550,6 +1573,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/reservations/nouveau": [
@@ -1561,6 +1585,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/reservations": [
@@ -1572,6 +1597,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/setup": [
@@ -1583,6 +1609,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/tarifs/bulk": [
@@ -1592,7 +1619,9 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "pms",
     "pmsContextBar",
+    "pmsJournal",
     "pmsTarifs",
     "syndicContextBar"
   ],
@@ -1605,6 +1634,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
+    "pmsJournal",
     "syndicContextBar"
   ],
   "/pms": [

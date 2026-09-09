@@ -1,215 +1,40 @@
 "use client";
-
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import type { UsaliMonthlyReport } from "@/lib/pms/usali";
+import type { MonthlyJournal, JournalRow } from "@/lib/pms/monthly-journal";
 
 const s = StyleSheet.create({
-  page: { padding: 30, fontSize: 8, fontFamily: "Helvetica", lineHeight: 1.3, color: "#0B2447" },
-  header: {
-    flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end",
-    borderBottom: "2 solid #0B2447", paddingBottom: 8, marginBottom: 12,
-  },
-  title: { fontSize: 16, fontWeight: "bold" },
-  subtitle: { fontSize: 10, color: "#475569", marginTop: 2 },
-  period: { fontSize: 9, color: "#334155", textAlign: "right" },
-  sectionTitle: {
-    fontSize: 9, fontWeight: "bold", textTransform: "uppercase",
-    color: "white", backgroundColor: "#0B2447",
-    padding: 4, marginTop: 10, marginBottom: 4, letterSpacing: 1,
-  },
-  kpiGrid: { flexDirection: "row", gap: 6, marginBottom: 10 },
-  kpiCard: {
-    flex: 1, padding: 6, backgroundColor: "#F8FAFC",
-    border: "0.5 solid #CBD5E1", borderRadius: 2,
-  },
-  kpiLabel: { fontSize: 7, textTransform: "uppercase", color: "#64748B", letterSpacing: 0.5 },
-  kpiValue: { fontSize: 13, fontWeight: "bold", color: "#0B2447", marginTop: 2 },
-  kpiSub: { fontSize: 6, color: "#94A3B8", marginTop: 1 },
-  kpiYoy: { fontSize: 7, marginTop: 2, fontWeight: "bold" },
-  kpiYoyPositive: { color: "#047857" },
-  kpiYoyNegative: { color: "#B91C1C" },
-  thead: {
-    flexDirection: "row", paddingVertical: 3, borderBottom: "1 solid #0B2447",
-    fontSize: 7, fontWeight: "bold", textTransform: "uppercase",
-    color: "#475569", marginTop: 2,
-  },
-  th: { flex: 1 },
-  thLabel: { flex: 2 },
-  row: { flexDirection: "row", paddingVertical: 2, fontSize: 8 },
-  rowAlt: { flexDirection: "row", paddingVertical: 2, backgroundColor: "#F8FAFC", fontSize: 8 },
-  rowBorder: { flexDirection: "row", paddingVertical: 3, borderTop: "0.5 solid #CBD5E1", fontWeight: "bold" },
-  amount: { flex: 1, textAlign: "right", fontFamily: "Helvetica" },
-  amountBold: { flex: 1, textAlign: "right", fontWeight: "bold" },
-  totalBar: {
-    flexDirection: "row", padding: 8, backgroundColor: "#EFF6FF",
-    borderTop: "1 solid #0B2447", marginTop: 4,
-    fontWeight: "bold", color: "#1E40AF",
-  },
-  footer: {
-    position: "absolute", bottom: 18, left: 30, right: 30,
-    fontSize: 6, color: "#94A3B8", textAlign: "center",
-    borderTop: "0.5 solid #CBD5E1", paddingTop: 4,
-  },
-  note: {
-    marginTop: 10, padding: 6, backgroundColor: "#FEF9C3",
-    fontSize: 6, color: "#713F12",
-  },
+  page: { padding: 36, paddingBottom: 65, fontFamily: "Helvetica", fontSize: 9, lineHeight: 1.4, color: "#152744" },
+  title: { fontSize: 20, fontWeight: "bold", lineHeight: 1.35, marginBottom: 8 },
+  subtitle: { fontSize: 12, marginBottom: 6 },
+  section: { fontSize: 13, fontWeight: "bold", marginTop: 16, marginBottom: 8 },
+  note: { padding: 10, backgroundColor: "#f1f5f9", marginTop: 10, marginBottom: 8, fontSize: 9 },
+  row: { flexDirection: "row", borderBottom: "0.5 solid #d8dee8", paddingVertical: 5 },
+  head: { backgroundColor: "#152744", color: "white", fontWeight: "bold", paddingVertical: 7 },
+  label: { width: "36%", paddingHorizontal: 5 },
+  count: { width: "10%", textAlign: "right", paddingHorizontal: 3 },
+  amount: { width: "18%", textAlign: "right", paddingHorizontal: 3 },
+  total: { backgroundColor: "#edf2f7", fontWeight: "bold" },
+  pair: { flexDirection: "row", justifyContent: "space-between", paddingVertical: 5, borderBottom: "0.5 solid #d8dee8" },
+  footer: { position: "absolute", bottom: 22, left: 36, right: 36, fontSize: 7, color: "#526174", borderTop: "0.5 solid #d8dee8", paddingTop: 5 },
 });
-
-const fmt = (n: number, decimals = 0): string =>
-  n.toLocaleString("fr-FR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-
-const fmtEUR = (n: number): string =>
-  fmt(n, 2) + " €";
-
-const fmtPct = (n: number): string =>
-  n.toFixed(2).replace(".", ",") + "%";
-
-interface Props {
-  report: UsaliMonthlyReport;
-  syndic?: { name?: string };
-}
-
-export default function UsaliReportPdf({ report, syndic }: Props) {
-  const yoy = report.prev_year_same_month;
-  const yoyPct = (cur: number, prev: number | undefined | null): { pct: number; sign: "+" | "-"; positive: boolean } | null => {
-    if (prev == null || prev === 0) return null;
-    const pct = Math.round((cur - prev) / prev * 1000) / 10;
-    return { pct: Math.abs(pct), sign: pct >= 0 ? "+" : "-", positive: pct >= 0 };
-  };
-
-  return (
-    <Document title={`USALI monthly — ${report.property_name} — ${report.month_label}`}>
-      <Page size="A4" style={s.page}>
-        <View style={s.header}>
-          <View>
-            <Text style={s.title}>Rapport USALI mensuel</Text>
-            <Text style={s.subtitle}>{report.property_name}</Text>
-          </View>
-          <View style={s.period}>
-            <Text style={{ fontWeight: "bold", fontSize: 11 }}>{report.month_label}</Text>
-            <Text>{report.period_start} → {report.period_end}</Text>
-            <Text style={{ fontSize: 7, color: "#64748B" }}>{report.days_in_period} jours</Text>
-          </View>
-        </View>
-
-        {/* KPIs principaux */}
-        <Text style={s.sectionTitle}>Performance indicators</Text>
-        <View style={s.kpiGrid}>
-          <KpiCard label="Occupancy" value={fmtPct(report.occupancy_pct)}
-            yoy={yoyPct(report.occupancy_pct, yoy?.occupancy_pct)} />
-          <KpiCard label="ADR" value={fmtEUR(report.adr)}
-            yoy={yoyPct(report.adr, yoy?.adr)} />
-          <KpiCard label="RevPAR" value={fmtEUR(report.revpar)}
-            yoy={yoyPct(report.revpar, yoy?.revpar)} />
-          <KpiCard label="TRevPAR" value={fmtEUR(report.trevpar)} />
-        </View>
-
-        <View style={s.kpiGrid}>
-          <KpiCard label="Rooms sold" value={fmt(report.rooms_sold)} sub="chambres vendues" />
-          <KpiCard label="Rooms available" value={fmt(report.rooms_available)} sub="inventaire total" />
-          <KpiCard label="Total revenue" value={fmtEUR(report.total_revenue_ttc)} sub="TTC" />
-          <KpiCard label="YoY room rev"
-            value={yoy ? `${yoyPct(report.room_revenue_ttc, yoy.room_revenue_ttc)?.sign}${yoyPct(report.room_revenue_ttc, yoy.room_revenue_ttc)?.pct.toFixed(1)}%` : "N/A"}
-            sub={yoy ? `vs ${fmtEUR(yoy.room_revenue_ttc)}` : "pas d'historique N-1"} />
-        </View>
-
-        {/* Revenus USALI */}
-        <Text style={s.sectionTitle}>Revenue breakdown (Uniform System of Accounts)</Text>
-        <View style={s.thead}>
-          <Text style={s.thLabel}>Department</Text>
-          <Text style={[s.th, { textAlign: "right" }]}>Revenue HT</Text>
-          <Text style={[s.th, { textAlign: "right" }]}>VAT</Text>
-          <Text style={[s.th, { textAlign: "right" }]}>Revenue TTC</Text>
-          <Text style={[s.th, { textAlign: "right" }]}>% Total</Text>
-        </View>
-        {[
-          { label: "Rooms", ht: report.room_revenue_ht, tva: report.room_revenue_tva, ttc: report.room_revenue_ttc },
-          { label: "Food & Beverage", ht: report.fb_revenue_ht, tva: report.fb_revenue_tva, ttc: report.fb_revenue_ttc },
-          { label: "Other Operated Departments", ht: report.other_revenue_ht, tva: report.other_revenue_tva, ttc: report.other_revenue_ttc },
-          { label: "City tax (non-TVA)", ht: report.taxe_sejour_collected, tva: 0, ttc: report.taxe_sejour_collected },
-        ].map((line, i) => {
-          const pct = report.total_revenue_ttc > 0 ? (line.ttc / report.total_revenue_ttc * 100) : 0;
-          return (
-            <View key={line.label} style={i % 2 === 0 ? s.row : s.rowAlt}>
-              <Text style={s.thLabel}>{line.label}</Text>
-              <Text style={s.amount}>{fmtEUR(line.ht)}</Text>
-              <Text style={s.amount}>{fmtEUR(line.tva)}</Text>
-              <Text style={s.amount}>{fmtEUR(line.ttc)}</Text>
-              <Text style={s.amount}>{pct.toFixed(1)}%</Text>
-            </View>
-          );
-        })}
-        <View style={s.totalBar}>
-          <Text style={s.thLabel}>Total Revenue</Text>
-          <Text style={s.amount}>{fmtEUR(report.total_revenue_ht)}</Text>
-          <Text style={s.amount}>{fmtEUR(report.total_revenue_tva)}</Text>
-          <Text style={s.amount}>{fmtEUR(report.total_revenue_ttc)}</Text>
-          <Text style={s.amount}>100%</Text>
-        </View>
-
-        {/* Ventilation catégories */}
-        {report.categories.length > 0 && (
-          <>
-            <Text style={s.sectionTitle}>Operated departments detail</Text>
-            <View style={s.thead}>
-              <Text style={s.thLabel}>Category</Text>
-              <Text style={[s.th, { textAlign: "right" }]}>Transactions</Text>
-              <Text style={[s.th, { textAlign: "right" }]}>HT</Text>
-              <Text style={[s.th, { textAlign: "right" }]}>VAT</Text>
-              <Text style={[s.th, { textAlign: "right" }]}>TTC</Text>
-            </View>
-            {report.categories.slice(0, 15).map((c, i) => (
-              <View key={c.category} style={i % 2 === 0 ? s.row : s.rowAlt}>
-                <Text style={s.thLabel}>{c.label}</Text>
-                <Text style={s.amount}>{c.nb_transactions}</Text>
-                <Text style={s.amount}>{fmtEUR(c.revenue_ht)}</Text>
-                <Text style={s.amount}>{fmtEUR(c.tva)}</Text>
-                <Text style={[s.amount, { fontWeight: "bold" }]}>{fmtEUR(c.revenue_ttc)}</Text>
-              </View>
-            ))}
-          </>
-        )}
-
-        {/* Flash activité */}
-        <Text style={s.sectionTitle}>Activity flash</Text>
-        <View style={s.kpiGrid}>
-          <KpiCard label="Arrivals" value={fmt(report.arrivals_total)} sub="arrivées du mois" />
-          <KpiCard label="Departures" value={fmt(report.departures_total)} sub="départs du mois" />
-          <KpiCard label="Stayovers" value={fmt(report.stayovers_total)} sub="nuits client in-house" />
-          <KpiCard label="No-shows" value={fmt(report.no_shows_total)} sub="non-présentés" />
-        </View>
-
-        <View style={s.note}>
-          <Text>
-            Rapport conforme Uniform System of Accounts for the Lodging Industry (USALI) v11 —
-            standard mondial AHLA/HOTREC. Revenue hébergement TVA 3% LU · F&B TVA 17% ·
-            Taxe séjour hors TVA (art. 44 loi 12.02.1979). Généré par tevaxia PMS{syndic?.name ? ` — ${syndic.name}` : ""}.
-          </Text>
-        </View>
-
-        <Text style={s.footer} fixed>
-          {report.property_name} · {report.month_label} · USALI monthly report · généré le {new Date().toLocaleDateString("fr-FR")}
-        </Text>
-      </Page>
-    </Document>
-  );
-}
-
-function KpiCard({ label, value, sub, yoy }: {
-  label: string; value: string; sub?: string;
-  yoy?: { pct: number; sign: "+" | "-"; positive: boolean } | null;
-}) {
-  return (
-    <View style={s.kpiCard}>
-      <Text style={s.kpiLabel}>{label}</Text>
-      <Text style={s.kpiValue}>{value}</Text>
-      {yoy && (
-        <Text style={[s.kpiYoy, yoy.positive ? s.kpiYoyPositive : s.kpiYoyNegative]}>
-          {yoy.sign}{yoy.pct.toFixed(1)}% YoY
-        </Text>
-      )}
-      {sub && !yoy && <Text style={s.kpiSub}>{sub}</Text>}
-    </View>
-  );
+// Built-in Helvetica supports these locales; normalise unsupported punctuation.
+const clean = (text: string) => text.replace(/[\u2011\u2013\u2014]/g, "-").replace(/[\u202f\u00a0]/g, " ");
+export default function UsaliReportPdf({ report: r, labels, locale }: { report: MonthlyJournal; labels: Record<string, string>; locale: string }) {
+  const t = (key: string) => clean(labels[key] ?? key);
+  const nf = new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale);
+  const mf = new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const money = (n: number) => clean(mf.format(n));
+  const label = (category: string) => clean(labels[`cat_${category}`] ?? labels[category] ?? category);
+  const head = <View style={[s.row, s.head]}><Text style={s.label}>{t("category")}</Text><Text style={s.count}>{t("count")}</Text>{["ht", "vat", "gross"].map(k => <Text key={k} style={s.amount}>{t(k)}</Text>)}</View>;
+  const row = (r: JournalRow, total = false) => <View key={r.category} wrap={false} style={total ? [s.row, s.total] : s.row}><Text style={s.label}>{label(r.category)}</Text><Text style={s.count}>{nf.format(r.count)}</Text><Text style={s.amount}>{money(r.ht)}</Text><Text style={s.amount}>{money(r.vat)}</Text><Text style={s.amount}>{money(r.gross)}</Text></View>;
+  const header = <><Text style={s.title}>{t("title")}</Text><Text style={s.subtitle}>{clean(r.propertyName)}</Text><Text>{r.start} - {r.end} · UTC</Text></>;
+  const footer = <Text style={s.footer} fixed>{t("title")} · {r.start} · UTC</Text>;
+  return <Document title={`${t("title")} - ${clean(r.propertyName)} - ${r.start}`} language={locale}>
+    <Page size="A4" style={s.page}>{header}<Text style={s.note}>{t("scope")}</Text><Text style={s.section}>{t("journal")}</Text>{head}{row(r.operating, true)}{row(r.taxes, true)}{row(r.total, true)}<Text style={s.note}>{t("pdfScope")}</Text>
+      <Text style={s.section}>{t("inventory")}</Text><Text>{t("inventoryScope")}</Text>
+      {[["coverage", `${r.recordedDays} / ${r.days}`], ["closedDays", nf.format(r.closedDays)], ["available", nf.format(r.available)], ["occupied", nf.format(r.occupied)], ["occupancy", r.occupancy == null ? t("unknown") : nf.format(r.occupancy) + " %"]].map(([key, value]) => <View key={key} style={s.pair} wrap={false}><Text style={{ width: "68%" }}>{t(key)}</Text><Text>{clean(value)}</Text></View>)}{footer}
+    </Page>
+    <Page size="A4" style={s.page}>{header}<Text style={s.section}>{t("journal")}</Text>{head}{r.rows.map(r => row(r))}{r.rows.length === 0 && <Text style={s.note}>{t("empty")}</Text>}<Text style={s.note}>{t("pdfScope")}</Text>{footer}</Page>
+    {r.audits.length > 0 && <Page size="A4" style={s.page}>{header}<Text style={s.section}>{t("inventory")}</Text><Text style={{ marginBottom: 12 }}>{t("inventoryScope")}</Text><View style={[s.row, s.head]}>{["date", "available", "occupied", "closed"].map(key => <Text key={key} style={{ width: "25%", paddingHorizontal: 4 }}>{t(key)}</Text>)}</View>{r.audits.map(a => <View key={a.audit_date} style={s.row} wrap={false}><Text style={{ width: "25%" }}>{a.audit_date}</Text><Text style={{ width: "25%" }}>{nf.format(a.total_rooms)}</Text><Text style={{ width: "25%" }}>{nf.format(a.occupied_rooms)}</Text><Text style={{ width: "25%" }}>{t(a.closed ? "closed" : "open")}</Text></View>)}{footer}</Page>}
+  </Document>;
 }
