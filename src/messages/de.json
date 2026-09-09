@@ -1180,7 +1180,13 @@
     "auditLimits": "Nur Wohnungen im Volleigentum. Anpassungen sind interne Annahmen ohne Validierung anhand unabhängiger Verkäufe. Die Spanne ±18 % (±25 % nur bei Angebotspreisen) ist eine Konvention ohne garantierte Genauigkeit oder Wahrscheinlichkeit.",
     "auditMissing": "Für diese Eingaben ist keine Schätzung verfügbar. Fläche und veröffentlichte Daten für die Verkaufsart prüfen. Unterdrückte amtliche Preise werden nicht erfunden.",
     "renovationDossierNote": "Ein Sprung der Energieklasse reicht nicht zur Kostenschätzung. Nutzen Sie eine Gebäudestudie und detaillierte Angebote; aus dieser Schätzung wird kein Renovierungsbudget abgeleitet.",
-    "renovationDossierLink": "Renovierungsprojekt anhand des Dossiers vergleichen"
+    "renovationDossierLink": "Renovierungsprojekt anhand des Dossiers vergleichen",
+    "evidenceTitle": "Verfügbare Daten und weitere Prüfungen",
+    "evidenceScope": "Die Schätzung verwendet einen aggregierten Gemeindereferenzwert, dessen Zeitraum und die unten aufgeführten Anpassungen. Ein Angebotspreis ist von einem Transaktionspreis zu unterscheiden.",
+    "evidenceMissing": "Dieses Ergebnis enthält weder einzelne Vergleichsverkäufe noch eine historische Zeitreihe der Gemeinde. Dokumentieren Sie für ein Gutachten geeignete Verkäufe mit Datum, Flächen, Nebenflächen, Zustand und Bedingungen; ein Gemeindedurchschnitt ersetzt diese nicht.",
+    "budgetScope": "Geben Sie zur Budgetplanung Kredit und Angebotsbedingungen in die Bankwerkzeuge ein. Ergänzen Sie Erwerbskosten, Versicherung, Gemeinschaftskosten, Grundsteuer und Instandhaltung anhand der Objektunterlagen. Diese Kosten werden nicht aus dem geschätzten Wert abgeleitet.",
+    "budgetLink": "Finanzierung planen",
+    "statisticsLink": "Offizielle STATEC-Statistiken ansehen"
   },
   "fraisAcquisition": {
     "title": "Erwerbskostensimulator",

@@ -1180,7 +1180,13 @@
     "auditLimits": "Nëmme Wunnengen am Volleegentum. Upassunge sinn intern Hypotheesen ouni Validatioun mat onofhängege Verkafsdonnéeën. D’Spann ±18 % (±25 % nëmme mat Annoncepräisser) ass eng Konventioun ouni garantéiert Genauegkeet oder Warscheinlechkeet.",
     "auditMissing": "Keng Schätzung fir dës Donnéeën disponibel. Kontrolléiert d’Fläch an déi publizéiert Präisser fir d’Verkafsaart. Net publizéiert Präisser ginn net erfonnt.",
     "renovationDossierNote": "E Sprong vun der Energieklass geet net duer fir Aarbechten ze chiffréieren. Benotzt eng Gebaietüd an detailléiert Devisen; aus dëser Schätzung gëtt kee Renovatiounsbudget ofgeleet.",
-    "renovationDossierLink": "Renovatiounsprojet mat Donnéeën aus dem Dossier vergläichen"
+    "renovationDossierLink": "Renovatiounsprojet mat Donnéeën aus dem Dossier vergläichen",
+    "evidenceTitle": "Disponibel Donnéeën a weider Kontrollen",
+    "evidenceScope": "D’Schätzung benotzt en aggregéierte Gemengereferenzwäert, seng Period an d’Upassungen hei drënner. En ugekënnegte Präis bleift vun engem Transaktiounspräis ze ënnerscheeden.",
+    "evidenceMissing": "Dëst Resultat enthält keng individuell Vergläichsverkeef a keng historesch Zäitrei vun der Gemeng. Fir eng Expertise, dokumentéiert passend Verkeef, hir Datumer, Flächen, Annexen, Zoustand a Konditiounen; e Gemengemoyenne ersetzt se net.",
+    "budgetScope": "Fir de Budget ze plangen, gitt de Prêt an d’Konditioune vun Ärer Offer an de Bankinstrumenter an. Ergänzt d’Acquisitiounskäschten, Assurance, Copropriétéitskäschten, Grondsteier an Ënnerhalt op Basis vun den Dokumenter vum Objet. Dës Käschte ginn net vum geschätzte Wäert ofgeleet.",
+    "budgetLink": "Finanzéierung plangen",
+    "statisticsLink": "Offiziell STATEC-Statistike kucken"
   },
   "fraisAcquisition": {
     "title": "Erwerbskäschtesimulator",

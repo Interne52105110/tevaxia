@@ -1180,7 +1180,13 @@
     "auditLimits": "Freehold apartments only. Adjustments are internal assumptions, without validation against an independent sales sample. The ±18% range (±25% for asking prices only) is a convention, with no guaranteed accuracy or probability.",
     "auditMissing": "No estimate is available for these inputs. Check the area and published data for the sale type. Suppressed official prices are not invented.",
     "renovationDossierNote": "An energy-class jump is insufficient to price works. Use a building study and detailed quotations; no cost envelope is automatically inferred from this estimate.",
-    "renovationDossierLink": "Compare a renovation project using documented inputs"
+    "renovationDossierLink": "Compare a renovation project using documented inputs",
+    "evidenceTitle": "Available data and further checks",
+    "evidenceScope": "The estimate uses an aggregate municipal reference, its period and the adjustments shown below. An asking price remains distinct from a transaction price.",
+    "evidenceMissing": "No individual comparable sale or municipal historical series is included in this result. For a valuation, document relevant sales, their dates, areas, ancillary spaces, condition and terms; a municipal average does not replace them.",
+    "budgetScope": "To prepare your budget, enter the loan and your offer terms in the banking tools. Add acquisition costs, insurance, condominium charges, property tax and maintenance using the property's documents. These costs are not inferred from its estimated value.",
+    "budgetLink": "Plan the financing",
+    "statisticsLink": "Consult official STATEC statistics"
   },
   "fraisAcquisition": {
     "title": "Acquisition Fees Simulator",

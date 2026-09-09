@@ -1180,7 +1180,13 @@
     "auditLimits": "Apenas apartamentos em propriedade plena. Os ajustes são hipóteses internas, sem validação numa amostra independente de vendas. A faixa ±18% (±25% só com anúncios) é convencional, sem precisão ou probabilidade garantida.",
     "auditMissing": "Não há estimativa disponível para estes dados. Verifique a área e os preços publicados para o tipo de venda. Preços omitidos oficialmente não são inventados.",
     "renovationDossierNote": "Um salto de classe energética não basta para orçamentar obras. Utilize um estudo do edifício e orçamentos detalhados; não se deduz automaticamente um custo desta estimativa.",
-    "renovationDossierLink": "Comparar um projeto de renovação com dados do processo"
+    "renovationDossierLink": "Comparar um projeto de renovação com dados do processo",
+    "evidenceTitle": "Dados disponíveis e verificações adicionais",
+    "evidenceScope": "A estimativa utiliza uma referência municipal agregada, o respetivo período e os ajustes indicados abaixo. Um preço anunciado é distinto de um preço de transação.",
+    "evidenceMissing": "Este resultado não inclui vendas individuais comparáveis nem uma série histórica municipal. Para uma avaliação, documente vendas pertinentes, datas, áreas, anexos, estado e condições; uma média municipal não as substitui.",
+    "budgetScope": "Para preparar o orçamento, introduza o crédito e as condições da sua proposta nas ferramentas bancárias. Acrescente despesas de aquisição, seguro, condomínio, imposto predial e manutenção a partir dos documentos do imóvel. Estes custos não são deduzidos do valor estimado.",
+    "budgetLink": "Preparar o financiamento",
+    "statisticsLink": "Consultar as estatísticas oficiais do STATEC"
   },
   "fraisAcquisition": {
     "title": "Simulador de Encargos de Aquisição",

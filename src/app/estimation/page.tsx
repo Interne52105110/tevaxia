@@ -6,11 +6,8 @@ import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import { estimer } from "@/lib/estimation";
 import { rechercherCommune, type SearchResult } from "@/lib/market-data";
-import { PRIX_MOYEN_M2 } from "@/lib/macro-data";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
-import { formatEUR, calculerMensualite } from "@/lib/calculations";
-import { getDemographics } from "@/lib/demographics";
+import { formatEUR } from "@/lib/calculations";
 import Link from "next/link";
 import { calculerDecoteEmphyteose } from "@/lib/emphyteose";
 import { readUrlHash } from "@/lib/url-state";
@@ -161,47 +158,6 @@ export default function Estimation() {
       estNeuf,
     });
   }, [selectedResult, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf, bailEmphyteotique]);
-
-  // ── Comparables synthétiques ──
-  const comparables = useMemo(() => {
-    if (!selectedResult || !result) return [];
-    const basePrix = result.prixM2Ajuste;
-    const types = ["appartement"] as const;
-    const trimestres = ["T4 2025", "T3 2025", "T2 2025", "T1 2025", "T4 2024"];
-    // Deterministic seed from commune name
-    const seed = selectedResult.commune.commune.length;
-    return Array.from({ length: 5 }, (_, i) => {
-      const variation = [0.92, 1.05, 0.97, 1.08, 0.88][i];
-      const surfVar = [0.85, 1.15, 0.9, 1.1, 1.2][i];
-      const surfComp = Math.round(surface * surfVar);
-      const prixM2 = Math.round(basePrix * variation);
-      return {
-        id: i,
-        type: types[(i + seed) % types.length],
-        surface: surfComp,
-        prixM2,
-        prixTotal: prixM2 * surfComp,
-        date: trimestres[i],
-      };
-    });
-  }, [selectedResult, result, surface]);
-
-  // ── Données graphique évolution prix commune ──
-  const communeChartData = useMemo(() => {
-    if (!selectedResult || !result) return [];
-    const communePrix = result.prixM2Ajuste;
-    // National 2025 price as reference
-    const national2025 = PRIX_MOYEN_M2.find((d) => d.year === 2025)?.value ?? 7500;
-    const communeFactor = communePrix / national2025;
-    return PRIX_MOYEN_M2
-      .filter((d) => d.year >= 2019)
-      .map((d) => ({
-        annee: d.year,
-        national: d.value,
-        commune: Math.round(d.value * communeFactor),
-      }));
-  }, [selectedResult, result]);
-
 
   return (
     <>
@@ -422,6 +378,14 @@ export default function Estimation() {
               )}
 
               <div className="rounded-xl border border-card-border bg-card p-5 text-sm"><p>{t('renovationDossierNote')}</p><Link href={(locale==='fr'?'':'/'+locale)+'/energy/renovation'} className="mt-3 inline-block underline">{t('renovationDossierLink')}</Link></div>
+              <section id="estimation-evidence" className="rounded-xl border border-card-border bg-card p-5 space-y-3 text-sm [overflow-wrap:anywhere]">
+                <h2 className="text-lg font-semibold">{t('evidenceTitle')}</h2>
+                <p>{t('evidenceScope')}</p>
+                <p>{t('evidenceMissing')}</p>
+                <p>{t('budgetScope')}</p>
+                <Link id="estimation-finance-link" className="block underline" href={`${locale === 'fr' ? '' : '/' + locale}/outils-bancaires`}>{t('budgetLink')}</Link>
+                <a className="block underline" href="https://lustat.statec.lu/">{t('statisticsLink')}</a>
+              </section>
               <AuthGate>
               {/* Double modèle : transactions vs annonces */}
               {result.estimationTransactions != null && result.estimationAnnonces != null && (
@@ -493,47 +457,6 @@ export default function Estimation() {
                 );
               })()}
 
-              {/* Coût mensuel total */}
-              {(() => {
-                const prixBien = result.estimationCentrale;
-                const apport = prixBien * 0.20;
-                const capitalEmprunte = prixBien - apport;
-                const mensualiteCredit = calculerMensualite(capitalEmprunte, 0.033, 25);
-                const chargesCopro = 250;
-                const impotFoncier = 15;
-                const totalMensuel = mensualiteCredit + chargesCopro + impotFoncier;
-                return (
-                  <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-navy mb-1">{t("siVousAchetez")}</h3>
-                    <p className="text-[10px] text-muted mb-3">{t("simulationIndicative")}</p>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted">{t("mensualiteCredit")}</span>
-                        <span className="font-mono">{formatEUR(Math.round(mensualiteCredit))}/{t("mois")}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted">{t("chargesCopro")}</span>
-                        <span className="font-mono">{formatEUR(chargesCopro)}/{t("mois")}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted">{t("impotFoncier")}</span>
-                        <span className="font-mono">{formatEUR(impotFoncier)}/{t("mois")}</span>
-                      </div>
-                      <div className="flex justify-between font-semibold border-t border-card-border pt-2 mt-2">
-                        <span className="text-navy">{t("totalMensuel")}</span>
-                        <span className="text-navy font-mono">{formatEUR(Math.round(totalMensuel))}/{t("mois")}</span>
-                      </div>
-                    </div>
-                    <p className="mt-2 text-[10px] text-muted">{t("chargesExplication")}</p>
-                    <div className="mt-3 text-center">
-                      <Link href="/achat-vs-location" className="text-xs font-medium text-navy hover:underline">
-                        {t("comparerLocation")}
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })()}
-
               {/* Confiance */}
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">{t("auditLimits")}</div>
 
@@ -558,123 +481,6 @@ export default function Estimation() {
                 ].filter(Boolean).join("\n")}
                 prompt="Explique les hypothèses de cette estimation indicative. Les ajustements et fourchettes ne sont pas validés statistiquement. Ne présente pas les exemples synthétiques comme des ventes, ne revendique pas une précision mesurée, et ne déduis pas de faits locaux absents des données."
               />
-
-              {/* Profil commune */}
-              {selectedResult && (() => {
-                const demo = getDemographics(selectedResult.commune.commune);
-                if (!demo) return null;
-                return (
-                  <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-navy mb-3">{t("profilCommune", { commune: demo.commune })}</h3>
-                    <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
-                      <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("population")}</div>
-                        <div className="font-semibold font-mono">{demo.population.toLocaleString("fr-FR")}</div>
-                      </div>
-                      <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("croissance")}</div>
-                        <div className="font-semibold font-mono">+{demo.croissancePct}%<span className="text-[10px] text-muted font-normal ml-1">{t("croissancePeriode")}</span></div>
-                      </div>
-                      <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("densite")}</div>
-                        <div className="font-semibold font-mono">{demo.densiteHabKm2.toLocaleString("fr-FR")} {t("densiteUnit")}</div>
-                      </div>
-                      {demo.revenuMedian && (
-                        <div>
-                          <div className="text-[10px] text-muted uppercase tracking-wide">{t("revenuMedian")}</div>
-                          <div className="font-semibold font-mono">{formatEUR(demo.revenuMedian)}/{t("an")}</div>
-                        </div>
-                      )}
-                      <div>
-                        <div className="text-[10px] text-muted uppercase tracking-wide">{t("pctEtrangers")}</div>
-                        <div className="font-semibold font-mono">{demo.pctEtrangers}%</div>
-                      </div>
-                      {demo.tauxEmploi && (
-                        <div>
-                          <div className="text-[10px] text-muted uppercase tracking-wide">{t("tauxEmploi")}</div>
-                          <div className="font-semibold font-mono">{demo.tauxEmploi}%</div>
-                        </div>
-                      )}
-                    </div>
-                    <p className="mt-3 text-[10px] text-muted">{t("sourcesDemographiques")}</p>
-                  </div>
-                );
-              })()}
-
-
-              {/* Transactions comparables */}
-              {comparables.length > 0 && (
-                <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                  <h3 className="text-sm font-semibold text-navy mb-1">{t("comparablesTitle")}</h3>
-                  <p className="text-[10px] text-muted mb-3">
-                    {t("comparablesSubtitle", { commune: selectedResult?.commune.commune ?? "", periode: selectedResult?.commune.periode ?? "" })}
-                  </p>
-                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {comparables.map((c) => (
-                      <div key={c.id} className="rounded-lg border border-card-border bg-background p-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold text-navy">{c.type === "appartement" ? t("typeBienAppartement") : t("typeBienMaison")}</span>
-                          <span className="text-[10px] text-muted">{c.date}</span>
-                        </div>
-                        <div className="text-lg font-bold text-navy">{formatEUR(c.prixTotal)}</div>
-                        <div className="flex items-center justify-between mt-1 text-[11px] text-muted">
-                          <span>{c.surface} m²</span>
-                          <span className="font-mono">{formatEUR(c.prixM2)}/m²</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="mt-3 text-[10px] text-muted">
-                    {t("comparablesDisclaimer")}
-                  </p>
-                </div>
-              )}
-
-              {/* Graphique évolution prix commune */}
-              {communeChartData.length > 0 && (
-                <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-                  <div className="mb-3">
-                    <h3 className="text-sm font-semibold text-navy">
-                      {t("chartTitle", { commune: selectedResult?.commune.commune ?? "" })}
-                    </h3>
-                    <p className="text-[10px] text-muted">
-                      {t("chartSource")}
-                    </p>
-                  </div>
-                  <ResponsiveContainer width="100%" height={180}>
-                    <AreaChart data={communeChartData} margin={{ top: 5, right: 5, bottom: 0, left: -10 }}>
-                      <defs>
-                        <linearGradient id="colorCommune" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#1B2A4A" stopOpacity={0.15} />
-                          <stop offset="95%" stopColor="#1B2A4A" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <XAxis dataKey="annee" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-                      <YAxis
-                        tick={{ fontSize: 10 }}
-                        tickLine={false}
-                        axisLine={false}
-                        tickFormatter={(v: number) => `${(v / 1000).toFixed(1)}k`}
-                        domain={["auto", "auto"]}
-                      />
-                      <Tooltip
-                        formatter={(value) => [formatEUR(Number(value)), t("tooltipPrixM2")]}
-                        labelFormatter={(label) => t("tooltipAnnee", { annee: label })}
-                        contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid #e5e2db" }}
-                      />
-                      <Area
-                        type="monotone"
-                        dataKey="commune"
-                        stroke="#1B2A4A"
-                        fill="url(#colorCommune)"
-                        strokeWidth={2}
-                        dot={{ r: 3, fill: "#1B2A4A" }}
-                        name={selectedResult?.commune.commune}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              )}
 
               {/* Prix par quartier */}
               {selectedResult?.commune.quartiers && selectedResult.commune.quartiers.length > 0 && (() => {

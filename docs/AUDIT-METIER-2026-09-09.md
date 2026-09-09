@@ -196,3 +196,11 @@ Le rendement équivalent était égal au loyer de marché divisé par la valeur 
 Exemple indépendant : 36 000 EUR pendant cinq ans au taux de terme de 4 %, puis 42 000 EUR capitalisés à 5 % et différés cinq ans : valeur 818 427,58 EUR ; rendement équivalent 4,9738 %, réversionnaire 5,1318 %, initial 4,3987 %. Le calcul accepte le terme nul et la réversion immédiate, refuse les durées fractionnaires et les valeurs invalides. La réconciliation reçoit la valeur calculée et efface cette entrée lorsque le scénario devient invalide.
 
 Référence méthodologique : [RICS, APC valuation competency advice](https://ww3.rics.org/uk/en/journals/property-journal/apc-valuation-competency-advice.html). Validation : 1 131 tests / 94 fichiers réussis, compilation et lint réussis ; cinq langues et quatre largeurs, restitution des flux, taux nuls, loyer nul, durée nulle, invalides et transfert vers la réconciliation contrôlés. Aucun nouveau PDF.
+
+## Estimation — provenance des informations complémentaires
+
+Retrait des cinq comparables fictifs calculés autour du résultat de l'estimation et datés comme des transactions. Retrait de la courbe communale obtenue en multipliant une série nationale par le prix ajusté du bien, ainsi que du profil démographique sans provenance vérifiable par valeur. Les références communales officielles et le calcul déjà audités le 8 septembre restent utilisés ; aucune nouvelle série n'est inventée.
+
+Un bloc public explique l'absence de ventes individuelles et de série historique communale dans ce résultat et les éléments nécessaires à une expertise. Il renvoie à STATEC pour les statistiques et aux outils bancaires contrôlés pour préparer le financement. Le crédit à 3,3 %, les charges fixes de 250 EUR et l'impôt de 15 EUR par mois ne sont plus présentés comme un budget du bien ; les frais réels à ajouter sont explicités. Le contrôle de connexion des détails est conservé.
+
+Source vérifiée : https://data.public.lu/fr/datasets/prix-de-vente-des-appartements-par-commune/ — publication du 25 juin 2026, données communales agrégées, période avril 2025 à mars 2026. Validation : compilation et lint réussis, cinq langues et quatre largeurs, absence des anciens blocs et navigation bancaire localisée contrôlées. Les formules et le PDF d'estimation ne sont pas modifiés par ce lot.
