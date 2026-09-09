@@ -1173,15 +1173,13 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/hotellerie/valorisation": [
-    "aiAnalysis",
     "aiChat",
     "backup",
+    "common",
     "cookie",
     "crmContextBar",
-    "hotellerieCalc",
+    "hotelValueEvidence",
     "hotellerieContextBar",
-    "hotellerieToolPages",
-    "hotellerieValorisation",
     "nav",
     "pmsContextBar",
     "syndicContextBar"

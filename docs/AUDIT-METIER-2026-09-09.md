@@ -453,3 +453,14 @@ Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg e
 - Textes du hub, descriptifs professionnels, métadonnées et guide IA alignés. Les anciennes fonctions usali.ts ne sont plus utilisées par la page et restent uniquement dans les tests historiques.
 - Sources : https://www.costar.com/products/str-benchmark/resources/glossary ; https://www.hftp.org/downloads/documents/usali/resources/usali_faqs.pdf .
 - Validation : cinq tests dédiés, suite 1 199 tests/104 fichiers, cinq langues/quatre largeurs ; cas de février 2024 (29 jours), capacité réelle, zéro vente/disponibilité, pertes et données manquantes. Cas recettes 35 000 €, personnel 10 000 €, GOP 18 000 €, EBITDA 16 000 €, après réserve 14 000 €.
+
+
+## Valorisation hôtelière — méthodes distinctes et preuves saisies
+- Retrait de l’estimation des recettes/charges par catégorie, du taux et du prix/chambre présumés, de la moyenne automatique entre méthodes et de la fourchette ±15 %. Le calcul revenu/taux est désormais nommé capitalisation directe, pas DCF.
+- Revenu annuel stabilisé et taux documentés sur un même périmètre de droits ; revenu nul/négatif conservé, sans assimiler absence de valeur par capitalisation à un bien valant zéro.
+- Comparaison : transactions identifiées, sources, prix, nombres de chambres entiers, dates au plus tard à la date de valeur, ajustements justifiés et poids explicites. Calcul prix/chambre ajusté puis moyenne pondérée sans arrondis intermédiaires, appliquée aux chambres du sujet.
+- Les deux méthodes peuvent être utilisées séparément ou affichées ensemble ; aucune réconciliation automatique. Droits immobiliers, mobilier et exploitation doivent être distingués.
+- CSV des hypothèses, transactions, références, dates, poids normalisés, unités et résultats séparés ; les anciens liens déjà partagés restent des lectures historiques et ne sont pas recalculés par cette page.
+- Sources : https://ww3.rics.org/uk/en/journals/property-journal/valuation-approaches-methods-models.html ; https://www.rics.org/profession-standards/rics-standards-and-guidance/sector-standards/valuation-standards/discounted-cash-flow-valuation .
+- Cinq tests métier ; suite 1 204 tests/105 fichiers. Cas 100 000 €/an à 5 % → 2 M€. Comparables 100 000 €/chambre +10 %, poids 1, et 120 000 €/chambre −5 %, poids 3 → 113 000 €/chambre, soit 2,26 M€ pour 20 chambres.
+- Validation navigateur finale de la valorisation hôtelière : cinq langues/quatre largeurs, méthodes indépendantes, export CSV, transactions futures refusées et zéro poids bloquant ; build et lint passent.
