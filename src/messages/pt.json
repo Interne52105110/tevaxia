@@ -54,7 +54,7 @@
     "hotelExploitation": "Balanço de exploração",
     "hotelRenovation": "Renovação energética hotel",
     "hotelRevpar": "Comparativo RevPAR",
-    "hotelE2": "Score visto E-2",
+    "hotelE2": "Preparação do dossier E-2",
     "proAgences": "Oferta agências B2B",
     "apiBanques": "API bancos",
     "guide": "Guia Imobiliário LU",
@@ -240,7 +240,7 @@
       },
       "hotellerie": {
         "title": "Análise & avaliação hoteleira",
-        "description": "Calculadores de apoio à decisão: avaliação RevPAR/EBITDA, DSCR, exploração, score E-2, previsão, comparação RevPAR mercado.",
+        "description": "Avaliação, cobertura da dívida, operação e dossiers: trabalhe com os seus números e fontes e pressupostos explícitos.",
         "tag": "Análise financeira"
       },
       "pms": {
@@ -3546,12 +3546,12 @@
     },
     "hotellerie": {
       "title": "Hotelaria",
-      "description": "Pré-aquisição RevPAR/DSCR, PMS recepção + canais + tarifas, relatórios USALI, forecast de pickup",
+      "description": "Avaliação, cobertura da dívida, operação e dossiers: trabalhe com os seus números e fontes e pressupostos explícitos.",
       "link1": "Hub hotelaria",
-      "link2": "Avaliação hoteleira (RevPAR/EBITDA)",
-      "link3": "DSCR & financiamento hotel",
+      "link2": "Avaliação documentada",
+      "link3": "Cobertura da dívida",
       "link4": "Balanço de exploração",
-      "link5": "Score E-2 / investidor",
+      "link5": "Preparação do dossier E-2",
       "linkGroupe": "Portfólio de grupo",
       "linkForecast": "Previsão RevPAR",
       "linkRevpar": "Comparação RevPAR",
@@ -3576,7 +3576,7 @@
       "cta": "Começar",
       "f1": "40+ ferramentas imobiliárias (estimativa, custos, mais-valias, renda, apoios, avaliação EVS, DCF, arrendamento comercial, VEFA, inspeção TEGOVA, wizard particular, etc.)",
       "f2": "13 simuladores energia & ESG (impacto CPE, renovação ROI, comunidade de energia, EPBD, LENOZ, HVAC, portfólio, CRREM pathways, Taxonomia UE 7.7)",
-      "f3": "20+ páginas hotelaria (avaliação, DSCR, USALI, renovação, RevPAR, score E-2, forecast 90 dias, compset, ESG, MICE, CAPEX 10 anos, transações LU, motel, benchmark grupo)",
+      "f3": "Ferramentas hoteleiras: avaliação documentada, cobertura da dívida, operação, preparação E-2, previsões com histórico fornecido, comparações com fontes, MICE, CAPEX e transações publicadas.",
       "f4": "8 ferramentas STR / Airbnb (rentabilidade, forecast, pricing, arbitragem, compliance LU, compliance UE 2024/1028, observatório)",
       "f5": "Faturação eletrónica Factur-X (preview EN 16931 — CII + PDF/A-3)",
       "f6": "Mapa interativo de preços — 100 municípios + bairros Luxemburgo-Cidade",
@@ -3614,9 +3614,9 @@
       "inherited": "Tudo do tier Conta, mais:",
       "f1": "Relatório de peritagem em formato EVS 2025: 11 secções + anexos, alinhado com os padrões EVS e a Carta 5.ª ed.",
       "f2": "Síndico completo: copropriedades, chamadas de fundos (Factur-X em lote), AG virtual com procuração, modelos de cartas editáveis (DOCX/PDF/Drive), benchmark",
-      "f3": "Grupo hoteleiro: dashboard multi-sites, owner report PDF, forecast 90 dias, CAPEX 10 anos, alertas, due diligence, housekeeping, incobráveis B2B",
+      "f3": "Grupo hoteleiro: fichas e períodos guardados, relatórios PDF de dados declarados, comparação de períodos e limiares. A monitorização automática de alertas não está confirmada.",
       "f4": "CRM agências B2B: pipeline de mandatos, contactos, tarefas, ficha de imóvel PDF co-marca",
-      "f5": "PMS hotel / motel: 19 categorias USALI, folio → Factur-X, conector webhook",
+      "f5": "A área PMS contém ecrãs de gestão de propriedades e reservas. As ferramentas de análise usam dados e fontes próprios; não se presume transferência automática para o grupo.",
       "f6": "API REST B2B: estimação, batch (1.000 imóveis), webhook PMS, faturação Factur-X, OpenAPI 3.1",
       "f7": "DCF multi-inquilinos (break options, step rents, CAPEX, IRR equity) + balanço promotor",
       "f8": "Transparência do modelo: MAPE + R² públicos, 29 coeficientes referenciados + modelo hedónico",
@@ -10622,38 +10622,38 @@
       ]
     },
     "investirHotel": {
-      "title": "Investir num hotel no Luxemburgo: guia 2026 (RevPAR, DSCR)",
-      "metaDescription": "Investir hotel LU 2026: mercado 130 hotéis / 8 000 quartos, RevPAR 60-150 €, valorização EBITDA x8-14 e preço/quarto 80k-400k €, DSCR 1,25-1,40x, due diligence STR + ITM + Energiepass.",
-      "subtitle": "O mercado hoteleiro luxemburguês em 2026, indicadores-chave de desempenho, abordagens de valorização e etapas de due diligence para investir.",
+      "title": "Investir num hotel no Luxemburgo: dados, cálculos e verificações",
+      "metaDescription": "Preparar um investimento hoteleiro: fontes turísticas, ADR e RevPAR, âmbito da avaliação, cobertura da dívida e documentos de due diligence.",
+      "subtitle": "Relacionar os valores do projeto com as fontes, distinguir indicadores e preparar as verificações antes da aquisição.",
       "category": "Hotelaria & investimento",
       "essentiel": [
-        "Mercado LU: ~130 hotéis classificados / ~8 000 quartos, taxa de ocupação média 60-65%, mix negócios (instituições UE, finanças) + lazer (UNESCO, Ardenas, Mosela).",
-        "Indicadores-chave: RevPAR (60 € budget → 150 € luxury), ADR (80 → 300 €), GOP 30-45% da receita, TIR-alvo investidor 8-15%.",
-        "Valorização: múltiplos EBITDA 8x-14x, preço/quarto 80k-400k € por categoria/localização, DCF 10 anos a WACC 7-10%.",
-        "Financiamento bancário LU: DSCR exigido 1,25-1,40x, LTV típica 50-65%, prazo 10-15 anos, garantia hipotecária de 1.º grau.",
-        "Apoios: Klimabonus terciário para renovação energética, apoios PME Ministério da Economia, observatórios STATEC + Compset LU."
+        "Guardar documentos, datas e âmbito fiscal de cada valor.",
+        "Calcular ADR, ocupação e RevPAR no mesmo período.",
+        "Distinguir imóvel, exploração e participações nos comparáveis.",
+        "Obter as definições e condições do financiador.",
+        "Verificar autorizações e condições de apoio para o projeto concreto."
       ],
-      "section1Title": "Mercado hoteleiro luxemburguês",
-      "section1P1": "O Luxemburgo conta com aproximadamente 130 hotéis classificados (1 a 5 estrelas) totalizando ~8 000 quartos, com uma taxa de ocupação média nacional de 60-65%. A procura é impulsionada por três segmentos: turismo de negócios (instituições europeias, setor financeiro, MICE), turismo de lazer (centro histórico UNESCO, Ardenas, rota do vinho do Mosela) e fluxos transfronteiriços (Grande Região, 11 M de habitantes).",
-      "section1P2": "A sazonalidade é marcada em baixa em julho-agosto (saída de fronteiriços e funcionários) e atinge picos em setembro-junho (regresso institucional). O segmento urbano Cidade do Luxemburgo impulsiona o desempenho graças a um mix corporate previsível. As regiões apresentam margens mais voláteis mas preços de aquisição mais acessíveis.",
-      "callout1Title": "Fonte de referência: observatório STATEC",
-      "callout1Body": "O STATEC publica mensalmente as estatísticas de hotelaria (dormidas, chegadas, taxas de ocupação por categoria e região). A cruzar com relatórios privados Lighthouse, STR (Smith Travel Research) e Horwath HTL para fazer benchmark do competitive set local.",
-      "section2Title": "Indicadores de desempenho",
-      "section2P1": "RevPAR (Revenue Per Available Room) = taxa de ocupação × ADR. Mede a receita de alojamento por quarto disponível. No LU: 60 € (budget) a 150 € (luxury). ADR (Average Daily Rate): 80-100 € (económico) a 200-300 € (luxo). TRevPAR (Total RevPAR) inclui F&B, MICE e outras receitas.",
-      "section2P2": "GOP (Gross Operating Profit) = resultado operacional bruto antes de fees de gestão, renda, encargos financeiros e impostos. Tipicamente 30-45% da receita para um hotel bem gerido. EBITDA (frequentemente igual ao GOP - fees de gestão) serve de base à valorização. TIR-alvo dos investidores hoteleiros LU: 8% (luxury prime LU-Cidade) a 15% (turnaround regional).",
-      "section3Title": "Valorização e financiamento",
-      "section3P1": "Três abordagens: múltiplo EBITDA (8x-14x no LU consoante categoria e qualidade do ativo, típico 10-12x para um 3* saudável na Cidade do Luxemburgo), preço por quarto (80 000-120 000 €/chave em budget/regiões, 250 000-400 000 €/chave em upscale LU-Cidade), DCF 10 anos + valor terminal a WACC 7-10% (método obrigatório para ativos core).",
-      "section3P2": "No financiamento bancário LU, o DSCR (Debt Service Coverage Ratio) exigido é de 1,25 a 1,40x: o cash-flow disponível após encargos de exploração deve cobrir no mínimo 1,25-1,40x o serviço anual da dívida. LTV típica 50-65%, prazo 10-15 anos, garantia hipotecária de 1.º grau + eventual penhor das ações da SPV.",
-      "callout2Title": "Investidor visto E-2 específico",
-      "callout2Body": "O Luxemburgo não tem visto investidor dedicado como o E-2 americano, mas oferece uma autorização de residência para investidores via Ministério dos Negócios Estrangeiros (capital mín. 500 000 € para retoma de empresa existente, 3 M € para criação/retoma com emprego). Para perfis americanos, a hotelaria LU é atrativa como alternativa ao tradicional visto E-2.",
-      "section4Title": "Due diligence em três pilares",
-      "section4P1": "Pilar operacional: análise dos últimos 3-5 exercícios (P&L detalhado por departamento - quartos, F&B, MICE, spa), tendências RevPAR/ADR/ocupação, benchmarking STR contra competitive set local, contratos de gestão/franquia em vigor, equipa em funções. Pilar imobiliário: estado estrutural, conformidade ITM (Inspeção do Trabalho e das Minas) segurança contra incêndios, acessibilidade, Energiepass (CPE terciário), estimativa de CAPEX de renovação e conformidade EPBD.",
-      "section4P2": "Pilar jurídico: verificação do arrendamento comercial ou título de propriedade, autorizações de exploração (autorização de estabelecimento, licença de restauração HoReCa, licença de cabaretage se houver bar), classificação por estrelas pelo Ministério da Economia. Apoios disponíveis: Klimabonus terciário para renovação energética comercial (isolamento, BC, fotovoltaico), apoios PME do Ministério da Economia para investimentos de modernização hoteleira, acesso a STATEC Compset + observatório LU para benchmark.",
-      "callout3Title": "Caso concreto: 3* na Cidade do Luxemburgo, 50 quartos",
-      "callout3Body": "Hotel 3* na Cidade do Luxemburgo Centro, 50 quartos, ADR 145 €, ocupação 70%, RevPAR 102 €. Receita anual de alojamento ≈ 1 850 000 €. + F&B e outras = receita total ~ 2 600 000 €. GOP 38% = 988 000 €. EBITDA após fees de gestão ≈ 850 000 €. Valorização a 11x EBITDA = 9 350 000 €, ou seja 187 000 €/quarto. Coerente com a banda upscale LU-Cidade.",
+      "section1Title": "Definir os dados do projeto",
+      "section1P1": "Comece pelos registos do estabelecimento: quartos disponíveis por dia, quartos vendidos, receita de alojamento, outras receitas e despesas. Guarde datas, documentos contabilísticos e tratamento do IVA. Dormidas de hóspedes não equivalem a noites de quarto vendidas.",
+      "section1P2": "Compare períodos e âmbitos iguais. Analise a sazonalidade com o histórico do hotel e documente encerramentos, obras e alterações de atividade. Uma estatística nacional, por si só, não prevê a receita de um hotel ou bairro.",
+      "callout1Title": "Observações turísticas e comparáveis",
+      "callout1Body": "O observatório Tevaxia apresenta séries Eurostat para hotéis e alojamentos semelhantes no Luxemburgo (NACE I55.1). Verifique o período e o indicador de cada série. Estas observações não fornecem o ADR, RevPAR ou preço de transação do seu hotel. O comparador utiliza os dados e referências que introduzir.",
+      "section2Title": "Calcular indicadores coerentes",
+      "section2P1": "No mesmo período: ocupação = noites de quarto vendidas / disponíveis; ADR = receita de alojamento / noites de quarto vendidas; RevPAR = receita de alojamento / noites de quarto disponíveis. RevPAR = ADR × ocupação quando as bases coincidem. Sem denominador positivo, o rácio é indeterminado.",
+      "section2P2": "Defina o âmbito contabilístico antes de reconciliar GOP, EBITDA e tesouraria. Identifique rendas, comissões de gestão e outras despesas; uma reserva de renovação não é uma depreciação. Justifique os ajustamentos com contas e contratos. O guia não pressupõe margens nem rentabilidades-alvo.",
+      "section3Title": "Avaliar e preparar o financiamento",
+      "section3P1": "Distinga imóvel, exploração e participações sociais. Na capitalização, justifique o rendimento anual e a taxa. Nas transações por quarto, verifique data, direitos vendidos e custos incluídos. Um DCF exige fluxos, taxa e saída documentados; a duração não é uma norma universal.",
+      "section3P2": "O DSCR relaciona o fluxo disponível para a dívida com o serviço da dívida no mesmo período, segundo a definição do financiador. Considere capital e juros conforme o plano de pagamentos. Obtenha as definições, limites, garantias e condições do banco: um cálculo Tevaxia não é uma aprovação de financiamento.",
+      "callout2Title": "E‑2: investimento nos Estados Unidos",
+      "callout2Body": "O Luxemburgo consta da lista americana de países com tratado E‑2. Este visto refere-se a investimento numa empresa nos Estados Unidos. Comprar um hotel situado no Luxemburgo não cumpre, por si só, essa condição. A autorização de residência luxemburguesa é um procedimento distinto; um dossier Tevaxia não comprova elegibilidade migratória.",
+      "section4Title": "Reunir documentos antes da aquisição",
+      "section4P1": "Reconcilie contas, reservas, recebimentos e contratos de exploração. Solicite a análise do título ou arrendamento, estado do edifício, equipamentos, autorizações aplicáveis e obras orçamentadas. A lista de due diligence regista documentos e questões pendentes; não é um certificado de conformidade.",
+      "section4P2": "O Guichet.lu distingue a autorização de estabelecimento do operador do estatuto hoteleiro que permite determinadas denominações. Verifique as atividades efetivas e respetivas autorizações. Identifique o regime de apoio e condições antes de assumir compromissos; o apoio ambiental citado exige candidatura antes do início dos trabalhos. Nenhum apoio é pressuposto no orçamento.",
+      "callout3Title": "Exemplo fictício: apenas receita de alojamento",
+      "callout3Body": "Hipóteses pedagógicas, sem referência ao mercado: 10 quartos disponíveis durante 365 dias representam 3 650 noites de quarto. Com 1 825 noites vendidas a um ADR de 100 € sem IVA, a receita de alojamento é de 182 500 € sem IVA, a ocupação de 50 % e o RevPAR de 50 €. Estes dados, isoladamente, não determinam EBITDA, valor ou capacidade de reembolso.",
       "inlineCalc": {
         "title": "Avalie um projeto hoteleiro luxemburguês",
-        "description": "A nossa suite hotelaria tevaxia cobre a valorização TEGOVA (DCF + múltiplos + preço/quarto), o DSCR bancário, o observatório STATEC LU e a pré-aquisição (E-2 friendly).",
+        "description": "A suite hoteleira oferece cenários de avaliação e financiamento documentados, observações turísticas com fontes e um dossier de aquisição. Nenhuma pontuação garante valor, financiamento ou visto E-2.",
         "cta": "Abrir a análise hoteleira"
       },
       "tools": [
@@ -10680,61 +10680,60 @@
       ],
       "faq": [
         {
-          "q": "Qual é o RevPAR médio dos hotéis no Luxemburgo?",
-          "a": "O RevPAR médio LU varia de 60 € (budget/económico) a 150 € (upscale/luxury). A Cidade do Luxemburgo apresenta os RevPAR mais elevados, impulsionados pelo turismo de negócios e pelas instituições europeias. Regiões (Ardenas, Mosela) têm padrões de RevPAR mais sazonais."
+          "q": "Que RevPAR utilizar?",
+          "a": "Calcule-o com a receita de alojamento e as noites de quarto disponíveis num período definido. O guia não fornece uma média de mercado aplicável a todos os hotéis."
         },
         {
-          "q": "Que DSCR exigem os bancos para um empréstimo hoteleiro no Luxemburgo?",
-          "a": "Os bancos LU exigem geralmente um DSCR de 1,25 a 1,40x: o cash-flow após encargos de exploração deve cobrir no mínimo 1,25-1,40 vezes o serviço anual da dívida. Um DSCR inferior a 1,25x torna o financiamento difícil de obter."
+          "q": "Que DSCR é necessário?",
+          "a": "O limite e a definição do fluxo dependem do projeto e do financiador. Confirme as condições; nenhum rácio garante crédito."
         },
         {
-          "q": "Que múltiplos EBITDA para valorizar um hotel LU?",
-          "a": "Os múltiplos EBITDA observados no LU vão de 8x (budget regional, antiquado) a 14x (luxury prime LU-Cidade). Um 3* saudável na Cidade do Luxemburgo transaciona tipicamente a 10-12x EBITDA estabilizado. Cruzar com a abordagem preço/quarto e um DCF 10 anos para validar."
+          "q": "Que múltiplo EBITDA utilizar?",
+          "a": "Utilize referências com âmbito, data e ajustamentos documentados. Não se pressupõe um múltiplo setorial luxemburguês."
         },
         {
-          "q": "Que preço por quarto para comprar um hotel no Luxemburgo?",
-          "a": "Preços observados: 80 000-120 000 €/quarto (budget/regiões), 150 000-200 000 €/quarto (3* médio), 250 000-400 000 €/quarto (upscale/luxury LU-Cidade). Acima, prime luxury em localizações excecionais. Sempre cruzar com o RevPAR potencial para validar a coerência."
+          "q": "Que preço por quarto utilizar?",
+          "a": "Compare transações documentadas e indique se o preço inclui imóvel, exploração, participações ou custos. O preço por quarto, por si só, não determina o valor."
         },
         {
-          "q": "O investimento hoteleiro no LU é elegível para o visto E-2 americano?",
-          "a": "O LU não é país signatário do tratado E-2 americano. Para investidores US, a alternativa é a autorização de residência LU para investidores (capital 500 000 € para retoma, 3 M € para criação/retoma com empregos) via Ministério dos Negócios Estrangeiros. A hotelaria é elegível."
+          "q": "Um hotel no Luxemburgo dá direito ao visto E‑2?",
+          "a": "A aquisição, por si só, não basta: o visto E‑2 refere-se a uma empresa nos Estados Unidos. O Luxemburgo é país do tratado; a nacionalidade elegível não substitui os outros requisitos."
         },
         {
-          "q": "Que apoios para renovar um hotel energeticamente no LU?",
-          "a": "O Klimabonus terciário propõe subsídios para a renovação energética de edifícios comerciais: isolamento, bombas de calor, fotovoltaico, ventilação. Cumuláveis com apoios PME para modernização. A diretiva EPBD impõe trajetórias de renovação para os ativos terciários mais energívoros até 2030-2033."
+          "q": "Como integrar um apoio à renovação?",
+          "a": "Identifique o regime e condições junto da autoridade competente. Distinga apoio solicitado de apoio concedido e condições de pagamento; não desconte um subsídio presumido do custo das obras."
         }
       ],
       "sources": [
         {
-          "title": "Observatório STATEC — alojamento turístico",
-          "org": "STATEC",
-          "url": "https://statistiques.public.lu/fr/themes/economie-finances/secteurs/tourisme.html"
+          "title": "Eurostat — tour_occ_mnor",
+          "org": "Eurostat",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_mnor/default/table?lang=en"
         },
         {
-          "title": "Klimabonus terciário — renovação energética comercial",
-          "org": "myenergy / Ministério do Ambiente",
-          "url": "https://www.myenergy.lu/fr/professionnels"
-        },
-        {
-          "title": "Apoios PME — investimento e inovação",
-          "org": "Ministério da Economia",
-          "url": "https://meco.gouvernement.lu/fr/le-ministere/aides.html"
-        },
-        {
-          "title": "Inspeção do Trabalho e das Minas (ITM) — segurança contra incêndios",
-          "org": "ITM",
-          "url": "https://itm.public.lu/"
-        },
-        {
-          "title": "Autorização de residência para investidor",
+          "title": "Exploitant d’un établissement d’hébergement",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/immigration/plus-3-mois/ressortissant-tiers/investisseur.html"
+          "url": "https://guichet.public.lu/fr/entreprises/creation-developpement/autorisation-etablissement/commerce/etablissement-hebergement.html"
         },
         {
-          "title": "TEGOVA EVS 2025 — Valuation of Hotels",
-          "org": "TEGOVA",
-          "url": "https://www.tegova.org/",
-          "year": 2025
+          "title": "Statut de l’hôtellerie",
+          "org": "Guichet.lu",
+          "url": "https://guichet.public.lu/fr/entreprises/creation-developpement/autorisation-etablissement/commerce/hotelier.html"
+        },
+        {
+          "title": "Aide à l’investissement en faveur de la protection de l’environnement",
+          "org": "Guichet.lu",
+          "url": "https://guichet.public.lu/fr/entreprises/financement-aides/aides-environnement/industrie-services/aide-protec-environnement.html"
+        },
+        {
+          "title": "Treaty Countries — Luxembourg E‑2",
+          "org": "U.S. Department of State",
+          "url": "https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fees/treaty.html"
+        },
+        {
+          "title": "Treaty Trader & Treaty Investor visas",
+          "org": "U.S. Department of State",
+          "url": "https://travel.state.gov/content/travel/en/us-visas/employment/treaty-trader-investor-visa-e.html"
         }
       ]
     },
@@ -11587,34 +11586,35 @@
     },
     "hotelier": {
       "title": "Guia hoteleiro",
-      "intro": "Explorador hotel, motel, aparthotel, B&B: tevaxia combina análise financeira (avaliação, DSCR, USALI) e PMS operacional (reservas, faturação IVA 3 %, iCal OTA).",
+      "intro": "A área PMS contém ecrãs de gestão de propriedades e reservas. As ferramentas de análise usam dados e fontes próprios; não se presume transferência automática para o grupo.",
       "backToHub": "Todos os guias",
       "parcoursTitle": "Percurso típico",
       "parcoursIntro": "De um novo projeto hoteleiro às operações diárias.",
       "parcoursStep1Title": "Pré-aquisição ou diagnóstico",
-      "parcoursStep1Desc": "Avalie o seu alvo com /hotellerie: DCF por RevPAR/ADR/ocupação, DSCR, benchmark MPI/ARI/RGI.",
-      "parcoursStep2Title": "Setup PMS em 5 min",
-      "parcoursStep2Desc": "/pms/proprietes/nouveau com valores LU pré-preenchidos. Assistente propõe 16 quartos + 2 rate plans.",
+      "parcoursStep1Desc": "Documente preço, fluxos, custos, financiamento e fontes de comparação. O dossier de due diligence reúne provas e observações; não constitui aprovação jurídica ou técnica.",
+      "parcoursStep2Title": "Configurar o estabelecimento",
+      "parcoursStep2Desc": "Introduza quartos e parâmetros. Verifique tarifas, tratamento fiscal e eventuais taxas locais antes de utilizar; não se garante um prazo de configuração.",
       "parcoursStep3Title": "Operar: reservas → faturação → reporting",
-      "parcoursStep3Desc": "Criar reserva com IVA + taxa turística, check-in/out em 1 clique, fatura PDF, iCal RFC 5545.",
+      "parcoursStep3Desc": "Confira reservas, consumos, taxas e comprovativos antes de produzir faturas ou relatórios. Os dados guardados não validam por si o tratamento fiscal ou contabilístico.",
       "toolsTitle": "Ferramentas recomendadas",
       "toolsIntro": "Análise + operações num só ambiente.",
       "faqTitle": "Perguntas frequentes",
       "faq1q": "O PMS gere vários hotéis?",
-      "faq1a": "Sim. Cada utilizador pode criar N propriedades em /pms. /hotellerie/groupe consolida RevPAR/EBITDA.",
+      "faq1a": "As fichas do grupo contêm períodos introduzidos pelo utilizador. Não consolidam automaticamente reservas ou indicadores do PMS. Compare períodos idênticos no benchmark.",
       "faq2q": "Posso sincronizar com Booking e Airbnb?",
-      "faq2a": "Sim via feed iCal RFC 5545 read-only. Cole URL no extranet Booking/Airbnb/Expedia.",
+      "faq2a": "Verifique as funções de importação/exportação disponíveis e o funcionamento do canal destinatário. Um calendário iCal não garante atualização imediata nem ausência de sobrerreservas; confira tarifas e pagamentos separadamente.",
       "faq3q": "Qual o IVA aplicável no Luxemburgo?",
-      "faq3a": "Alojamento: 3 %. F&B: 17 % padrão. Taxa turística: comunal, configurável.",
+      "faq3a": "A taxa depende do serviço e dos anexos da lei do IVA. F&B não determina uma taxa única. Verifique cada linha e taxa local nas fontes aplicáveis.",
       "faq4q": "O relatório EBITDA usa USALI?",
       "faq4a": "GOP = resultado departamental − despesas gerais. EBITDA = GOP − honorários de gestão + rendimentos não operacionais − gastos não operacionais. A reserva é deduzida depois. Esta conta simplificada não é certificação USALI, benchmark ou lucro líquido após financiamento e impostos.",
       "faq5q": "Como obter certificação Green Key ESG?",
-      "faq5a": "/hotellerie/certifications-esg faz pré-diagnóstico sobre 29 critérios FEE Green Key.",
+      "faq5a": "O dossier Green Key referencia critérios e provas da versão escolhida. Não calcula elegibilidade nem emite certificação. Confirme o procedimento com Green Key.",
       "relatedTitle": "Saber mais",
-      "ctaTitle": "Inicie o seu PMS em 5 minutos",
-      "ctaDesc": "Assistente 3 etapas com valores LU. Free tier 500 reservas.",
+      "ctaTitle": "Preparar o estabelecimento",
+      "ctaDesc": "Abra a conta e introduza os dados. Consulte as condições da oferta para funções e limites de acesso.",
       "ctaPrimary": "Criar a minha 1.ª propriedade",
-      "ctaSecondary": "Ver todos os guias"
+      "ctaSecondary": "Ver todos os guias",
+      "sources": "Fontes oficiais"
     },
     "investisseur": {
       "title": "Guia investidor",
@@ -13810,7 +13810,7 @@
     "personaAgency": "Agência imobiliária",
     "personaAgencyDesc": "Mandatos, pipeline, CRM, assinaturas, fichas de imóveis",
     "personaHotel": "Hoteleiro",
-    "personaHotelDesc": "PMS, reservas, USALI, channel manager, folios",
+    "personaHotelDesc": "A área PMS contém ecrãs de gestão de propriedades e reservas. As ferramentas de análise usam dados e fontes próprios; não se presume transferência automática para o grupo.",
     "continueBtn": "Continuar →",
     "step2Title": "2. A sua organização",
     "step2SubSyndic": "O gabinete de administração ou a sociedade de gestão.",
@@ -19693,5 +19693,42 @@
     "occupancy_drop": "Ocupação abaixo do limiar",
     "revpar_delta": "Desvio RevPAR / referência",
     "gop_margin_below": "Margem GOP abaixo do limiar"
+  },
+  "hotelMarketing": {
+    "title": "Ferramentas hoteleiras e dados documentados",
+    "description": "Avaliação, cobertura da dívida, operação e dossiers: trabalhe com os seus números e fontes e pressupostos explícitos.",
+    "publicList": "Ferramentas hoteleiras: avaliação documentada, cobertura da dívida, operação, preparação E-2, previsões com histórico fornecido, comparações com fontes, MICE, CAPEX e transações publicadas.",
+    "groupList": "Grupo hoteleiro: fichas e períodos guardados, relatórios PDF de dados declarados, comparação de períodos e limiares. A monitorização automática de alertas não está confirmada.",
+    "value": "Avaliação documentada",
+    "coverage": "Cobertura da dívida",
+    "e2": "Preparação do dossier E-2",
+    "pmsDesc": "A área PMS contém ecrãs de gestão de propriedades e reservas. As ferramentas de análise usam dados e fontes próprios; não se presume transferência automática para o grupo.",
+    "projectDesc": "Documente preço, fluxos, custos, financiamento e fontes de comparação. O dossier de due diligence reúne provas e observações; não constitui aprovação jurídica ou técnica.",
+    "setupTitle": "Configurar o estabelecimento",
+    "setupDesc": "Introduza quartos e parâmetros. Verifique tarifas, tratamento fiscal e eventuais taxas locais antes de utilizar; não se garante um prazo de configuração.",
+    "operateDesc": "Confira reservas, consumos, taxas e comprovativos antes de produzir faturas ou relatórios. Os dados guardados não validam por si o tratamento fiscal ou contabilístico.",
+    "multiDesc": "As fichas do grupo contêm períodos introduzidos pelo utilizador. Não consolidam automaticamente reservas ou indicadores do PMS. Compare períodos idênticos no benchmark.",
+    "calendarDesc": "Verifique as funções de importação/exportação disponíveis e o funcionamento do canal destinatário. Um calendário iCal não garante atualização imediata nem ausência de sobrerreservas; confira tarifas e pagamentos separadamente.",
+    "taxDesc": "A taxa depende do serviço e dos anexos da lei do IVA. F&B não determina uma taxa única. Verifique cada linha e taxa local nas fontes aplicáveis.",
+    "greenDesc": "O dossier Green Key referencia critérios e provas da versão escolhida. Não calcula elegibilidade nem emite certificação. Confirme o procedimento com Green Key.",
+    "ctaTitle": "Preparar o estabelecimento",
+    "ctaDesc": "Abra a conta e introduza os dados. Consulte as condições da oferta para funções e limites de acesso.",
+    "guideDesc": "A suite hoteleira oferece cenários de avaliação e financiamento documentados, observações turísticas com fontes e um dossier de aquisição. Nenhuma pontuação garante valor, financiamento ou visto E-2.",
+    "sources": "Fontes oficiais",
+    "tools": "Explorar ferramentas",
+    "operating": "Operação documentada",
+    "group": "Fichas do grupo",
+    "pms": "Abrir PMS",
+    "pricing": "Consultar ofertas",
+    "taxTitle": "Fiscalidade dos serviços",
+    "greenTitle": "Preparar dossier Green Key",
+    "dd": "Dossier de due diligence",
+    "ddDesc": "Referencie provas, reservas e pontos a examinar antes de uma transação.",
+    "valueDesc": "Introduza rendimento, taxa e comparáveis documentados para construir um cenário.",
+    "coverageDesc": "Compare fluxo disponível com um plano explícito de dívida.",
+    "e2Desc": "Reúna elementos do projeto e referências sem pontuação de elegibilidade.",
+    "operatingDesc": "Introduza receitas e categorias de custos; distinga GOP, EBITDA e reserva.",
+    "groupDesc": "Guarde períodos dos estabelecimentos e exporte dados declarados.",
+    "scope": "Os resultados dependem dos dados e do âmbito de cada ferramenta. Relatórios e dossiers não certificam conformidade USALI, fiscal, bancária nem elegibilidade administrativa."
   }
 }

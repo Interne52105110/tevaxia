@@ -20,7 +20,8 @@ export default async function GuideInvestirHotel() {
     <GuideTemplate
       namespace={NAMESPACE}
       slug={SLUG}
-      readingMinutes={10}
+      readingMinutes={6}
+      updatedAt="2026-09-09"
       inlineCalculatorHref="/hotellerie/valorisation"
       sections={[
         { id: "marche", paragraphs: 2, callout: { variant: "info", key: "callout1" } },

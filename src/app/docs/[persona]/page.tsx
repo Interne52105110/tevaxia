@@ -142,6 +142,8 @@ export default async function PersonaDocPage(props: { params: Promise<{ persona:
           </div>
         </div>
 
+        {guide.value === "hotelier" && <div className="text-sm"><h2 className="font-semibold">{t("sources")}</h2><ul className="mt-3 space-y-2"><li><a className="underline" href="https://pfi.public.lu/fr/citoyen/tva/taux-tva.html" target="_blank" rel="noreferrer">Portail de la fiscalité indirecte — TVA</a></li><li><a className="underline" href="https://www.greenkey.global/criteria-20262031" target="_blank" rel="noreferrer">Green Key — 2026–2031</a></li></ul></div>}
+
         {/* Liens connexes */}
         {guide.related.length > 0 && (
           <div>

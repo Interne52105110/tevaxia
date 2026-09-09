@@ -684,3 +684,14 @@ Le calcul des impayés (f5ccd3b) est confirmé en production : CI 34388203562 r�
 - Vérification : 1 278 tests / 119 fichiers, lint et build réussis. Tests service pour identité changée, accès hôtel refusé, portée des mutations, erreurs et notifications non activées ; composant simulé cinq langues pour frappes sans écriture, validation, doublon, brouillon après erreur, changement hôtel/compte, suppression et déconnexion ; parcours public/formulaire quatre largeurs. Aucune écriture ou notification QA en production.
 
 Housekeeping (ee4eac0) confirmé en ligne : CI 34388944339 réussie, Vercel dpl_752FT4TzJyuKCbzEeXUiiBPRG6rC Ready, cinq parcours métier complets vérifiés sur tevaxia.lu.
+
+
+## Offre hôtelière et guide d’investissement — cohérence des contenus
+
+- Accueil, tarifs, parcours hôtelier et solution hôtel alignés sur les outils documentés : retrait des scores de visa, rendements garantis, consolidation PMS supposée, configuration en cinq minutes, TVA F&B uniforme et promesses de certification/notification non établies.
+- Guide investir-hotel-luxembourg entièrement repris dans les cinq langues : statistiques et multiples non sourcés retirés ; périmètres des indicateurs, des transactions et du financement explicités ; exemple fictif exact (3 650 chambres-nuitées, 1 825 vendues, ADR 100 EUR HT, revenu 182 500 EUR HT, RevPAR 50 EUR).
+- Correction E-2 : Luxembourg pays du traité, investissement dans une entreprise aux États-Unis ; absence de lien automatique avec l’achat d’un hôtel au Luxembourg. Sources Department of State, Guichet autorisation/statut hôtelier/aide environnementale et Eurostat reliées directement. Aucune subvention présumée.
+- Réexport des métadonnées dans les quatre routes traduites ; date de mise à jour du guide fixée au 9 septembre. Titres longs du composant partagé autorisés à revenir à la ligne à 320 px, sans réduction de police.
+- Vérification : lint ciblé et build réussis ; 25 pages publiques (5 pages × 5 langues), contenu, liens, métadonnées/FAQ structurée du guide et quatre largeurs vérifiés. Le reste des pages PMS, du hub hôtel et des offres métiers reste en cours de revue.
+
+Alertes (7540004) confirmées en production : CI 34389785747 réussie, Vercel dpl_CYQdCLfsCQ8CQZRhwXnPGoHq6aZa Ready, cinq parcours publics vérifiés.

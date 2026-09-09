@@ -54,7 +54,7 @@
     "hotelExploitation": "Exploitatiounsbilanz",
     "hotelRenovation": "Energetesch Hotelrenovéierung",
     "hotelRevpar": "RevPAR-Verglach",
-    "hotelE2": "E-2 Visa-Score",
+    "hotelE2": "E-2-Dossier virbereeden",
     "proAgences": "B2B Offer Agencen",
     "apiBanques": "Banken-API",
     "guide": "LU Immobilie-Guide",
@@ -240,7 +240,7 @@
       },
       "hotellerie": {
         "title": "Hotelanalys & -bewäertung",
-        "description": "Entscheedungsrechner: RevPAR/EBITDA-Bewäertung, DSCR, Exploitatiounsbilanz, E-2-Score, Forecast, RevPAR-Maartvergläich.",
+        "description": "Bewäertung, Scholdendeckung, Betrib an Dossieren: mat Ären Zuelen, Quellen an explizitten Hypotheese schaffen.",
         "tag": "Finanzanalys"
       },
       "pms": {
@@ -3546,12 +3546,12 @@
     },
     "hotellerie": {
       "title": "Hotellerie",
-      "description": "Virakaf RevPAR/DSCR, PMS Frontdesk + Channels + Tariffer, USALI-Rapporten, Pickup-Forecast",
+      "description": "Bewäertung, Scholdendeckung, Betrib an Dossieren: mat Ären Zuelen, Quellen an explizitten Hypotheese schaffen.",
       "link1": "Hotellerie-Hub",
-      "link2": "Hotelbewäertung (RevPAR/EBITDA)",
-      "link3": "DSCR & Hotelfinanzéierung",
+      "link2": "Dokumentéiert Bewäertung",
+      "link3": "Scholdendeckung",
       "link4": "Exploitatiounsbilanz",
-      "link5": "E-2 / Investisseur-Score",
+      "link5": "E-2-Dossier virbereeden",
       "linkGroupe": "Gruppen-Portfolio",
       "linkForecast": "RevPAR-Forecast",
       "linkRevpar": "RevPAR-Vergläich",
@@ -3576,7 +3576,7 @@
       "cta": "Ufänken",
       "f1": "40+ Immobilientools (Schätzung, Käschten, Wäertzouwuess, Loyer, Hëllefen, EVS-Bewäertung, DCF, kommerziell Bail, VEFA, TEGOVA-Inspektioun, Privat-Wizard, asw.)",
       "f2": "13 Energie- & ESG-Simulatoren (CPE-Impakt, Renovatioun ROI, Energiegemeinschaft, EPBD, LENOZ, HVAC, Portfolio, CRREM-Pathways, EU-Taxonomie 7.7)",
-      "f3": "20+ Hotellerie-Säiten (Bewäertung, DSCR, USALI, Renovatioun, RevPAR, E-2-Score, 90-Deeg-Forecast, Compset, ESG, MICE, 10-Joer-CAPEX, LU-Transaktiounen, Motel, Grupp-Benchmark)",
+      "f3": "Hotelstools: dokumentéiert Bewäertung, Scholdendeckung, Betrib, E-2-Virbereedung, Prognosen aus geliwwerter Historie, belegte Vergläicher, MICE, CAPEX a publizéiert Transaktiounen.",
       "f4": "8 STR / Airbnb-Tools (Rentabilitéit, Forecast, Pricing, Arbitrage, LU-Compliance, EU-Compliance 2024/1028, Observatoire)",
       "f5": "Elektronesch Rechnungsstellung Factur-X (Preview EN 16931 — CII + PDF/A-3)",
       "f6": "Interaktiv Präiskaart — 100 Gemengen + Stad Lëtzebuerg-Quartieren",
@@ -3614,9 +3614,9 @@
       "inherited": "Alles vum Kont Tier, plus:",
       "f1": "Expertise am EVS-2025-Format: 11 Sektiounen + Annexen, un den EVS-Standarden an der Charte 5. Ed. ausgeriicht.",
       "f2": "Komplett Syndic: Kopropriétéiten, Fongerufer (Factur-X-Batch), virtuell AG mat Prokur, editierbar Bréiwervirlaagen (DOCX/PDF/Drive), Benchmark",
-      "f3": "Hotelgrupp: Multi-Site Dashboard, Owner-Bericht PDF, 90-Deeg-Forecast, 10-Joer-CAPEX, Alerts, Due Diligence, Housekeeping, B2B-Impayés",
+      "f3": "Hotelsgrupp: gespäichert Fichen a Perioden, PDF-Rapporte vun deklaréierten Donnéeën, Periodeverglach a Schwellwäerter. Automatesch Iwwerwaachung vun Alerten ass net bestätegt.",
       "f4": "B2B-Agence-CRM: Mandatspipeline, Kontakter, Aufgaben, Co-Brand-Fiche-PDF",
-      "f5": "Hotel- / Motel-PMS: 19 USALI-Kategorien, Folio → Factur-X, Webhook-Konnektor",
+      "f5": "De PMS-Beräich enthält Ecrane fir Etablissementer a Reservatiounen ze geréieren. Analysetools benotzen hir eegen Donnéeën a Quellen; keen automateschen Transfert an d’Grupp gëtt ugeholl.",
       "f6": "B2B-REST-API: Schätzung, Batch (1.000 Objekter), PMS-Webhook, Factur-X-Rechnungsstellung, OpenAPI 3.1",
       "f7": "DCF Multi-Locataire (Break Options, Step Rents, CAPEX, Equity IRR) + Promoteur-Bilan",
       "f8": "Modelltransparenz: ëffentlech MAPE + R², 29 beleeg Koeffizienten + hedonescht Modell",
@@ -10622,38 +10622,38 @@
       ]
     },
     "investirHotel": {
-      "title": "An en Hotel zu Lëtzebuerg investéieren: Guide 2026 (RevPAR, DSCR)",
-      "metaDescription": "Hotelinvestitioun LU 2026: 130 Hoteler / 8.000 Zëmmeren Marché, RevPAR 60-150 €, EBITDA-Bewäertung x8-14 a Präis/Zëmmer 80k-400k €, DSCR 1,25-1,40x, Due Diligence STR + ITM + Energiepass.",
-      "subtitle": "De Lëtzebuerger Hotelmarché 2026, wichteg Leeschtungskennzuelen, Bewäertungsapprochen an Due-Diligence-Schrëtt fir d'Investitioun.",
+      "title": "An en Hotel zu Lëtzebuerg investéieren: Donnéeën, Berechnungen a Kontrollen",
+      "metaDescription": "Eng Hotelinvestitioun virbereeden: Tourismusquellen, ADR a RevPAR, Bewäertungsëmfang, Scholdendeckung an Ënnerlage fir d’Due Diligence.",
+      "subtitle": "D’Zuele vum Projet mat hire Beleeër verbannen, Kennzuelen ënnerscheeden an d’Prüfung virum Kaf virbereeden.",
       "category": "Hotellerie & Investitioun",
       "essentiel": [
-        "LU-Marché: ~130 klassiféiert Hoteler / ~8.000 Zëmmeren, Duerchschnëttsauslaschtung 60-65 %, Mix Geschäft (EU-Institutiounen, Finanz) + Fräizäit (UNESCO, Ardennen, Musel).",
-        "Schlësselkennzuelen: RevPAR (60 € Budget → 150 € Luxury), ADR (80 → 300 €), GOP 30-45 % vum Umsaz, Investisseur-Ziel-IRR 8-15 %.",
-        "Bewäertung: EBITDA-Multiplikatoren 8x-14x, Präis/Zëmmer 80k-400k € je Kategorie/Standort, 10-Joer-DCF zu 7-10 % WACC.",
-        "LU-Bankfinanzéierung: erfuerderlechen DSCR 1,25-1,40x, typesch LTV 50-65 %, Lafzäit 10-15 Joer, éischtrangeg Hypothéik.",
-        "Fërderungen: tertiär Klimabonus fir energeetesch Sanéierung, KMU-Beihëllefen Wirtschaftsministère, STATEC + Compset LU Observatorien."
+        "Beleeër, Datumer a steierlechen Ëmfang vun all Zuel behalen.",
+        "ADR, Beleegung a RevPAR fir déiselwecht Period berechnen.",
+        "Bei Vergläicher Immobilie, Betrib an Undeeler ënnerscheeden.",
+        "Definitiounen a Finanzéierungsbedingunge vum Kreditgeber ufroen.",
+        "Geneemegungen an Hëllefsbedingunge fir de konkrete Projet préiwen."
       ],
-      "section1Title": "Lëtzebuerger Hotelmarché",
-      "section1P1": "Lëtzebuerg zielt ongeféier 130 klassiféiert Hoteler (1 bis 5 Stären) mat insgesamt ~8.000 Zëmmeren bei enger national Duerchschnëttsauslaschtung vu 60-65 %. D'Demande gëtt vun dräi Segmenter gedriwwen: Geschäftstourismus (EU-Institutiounen, Finanzsecteur, MICE), Fräizäittourismus (UNESCO-Altstad, Ardennen, Musel-Wäiroute) a grenziwwerschreidende Flux (Groussregioun, 11 Mio. Awunner).",
-      "section1P2": "D'Saisonalitéit ass am Juli-August (Ofreesvun Grenzgänger an Beamten) erof markéiert an am September-Juni (institutionnellen Réckkéier) am héchsten. Dat urban Segment Stad Lëtzebuerg dreift d'Performance dank engem berechenbare Corporate-Mix. D'Regioune weisen méi volatil Margen, mä méi zougänglech Erwerbspräisser op.",
-      "callout1Title": "Referenzquell: STATEC-Observatoire",
-      "callout1Body": "STATEC publizéiert monatlech Héibergementsstatistiken (Iwwernuechtungen, Akommen, Auslaschtungstaux no Kategorie a Regioun). Mat private Berichter vu Lighthouse, STR (Smith Travel Research) an Horwath HTL ofgläichen, fir de lokale Konkurrenzsatz ze benchmarken.",
-      "section2Title": "Leeschtungskennzuelen",
-      "section2P1": "RevPAR (Revenue Per Available Room) = Auslaschtungstaux × ADR. Moosst den Héibergementsumsaz pro disponibel Zëmmer. Zu LU: 60 € (Budget) bis 150 € (Luxury). ADR (Average Daily Rate): 80-100 € (Economy) bis 200-300 € (Luxus). TRevPAR (Total RevPAR) ëmfaasst F&B, MICE an aner Erläuse.",
-      "section2P2": "GOP (Gross Operating Profit) = Bruttobetriibsergebnis viru Management-Gebühren, Loyer, Finanzéierungskäschten a Steieren. Typesch 30-45 % vum Umsaz bei engem gutt geféierten Hotel. EBITDA (dacks gleich GOP - Management-Gebühren) déngt als Bewäertungsbasis. Ziel-IRR fir LU-Hotelinvestisseuren: 8 % (Luxury Prime LU-Stad) bis 15 % (regionalen Turnaround).",
-      "section3Title": "Bewäertung a Finanzéierung",
-      "section3P1": "Dräi Approchen: EBITDA-Multiplikator (8x-14x zu LU je Kategorie an Asset-Qualitéit, typesch 10-12x fir e gesonden 3* an der Stad Lëtzebuerg), Präis pro Zëmmer (80.000-120.000 €/Schlëssel an Budget/Regiounen, 250.000-400.000 €/Schlëssel an Upscale LU-Stad), 10-Joer-DCF + Restwäert zu 7-10 % WACC (verpflichten Method fir Core-Assets).",
-      "section3P2": "Bei LU-Bankfinanzéierung läit den erfuerderleche DSCR (Debt Service Coverage Ratio) bei 1,25 bis 1,40x: den nom Betriibskäschte verfügbare Cashflow muss op mannst d'1,25-1,40-facht vum jährleche Scholdendéngscht ofdecken. Typesch LTV 50-65 %, Lafzäit 10-15 Joer, éischtrangeg Hypothéik + méiglech SPV-Aktien-Verpflichtung.",
-      "callout2Title": "Spezifescht E-2-Visa-Investisseur",
-      "callout2Body": "Lëtzebuerg huet kee dediéierten Investisseurvisum wéi den US-amerikaneschen E-2, mä bitt eng Openthaltsgenehmegung fir Investisseuren iwwer den Ausseministère (min. 500.000 € fir bestoend Entrepriseiwwerhuelung, 3 Mio. € fir Schaffen/Iwwerhuelung mat Beschäftegung). Fir US-Profiler ass d'LU-Hotellerie als Alternativ zum traditionellen E-2-Visum attraktiv.",
-      "section4Title": "Dräi-Säulen-Due-Diligence",
-      "section4P1": "Operativ Säulen: Analyse vun den leschten 3-5 Geschäftsjoeren (detailléiert GuV no Departement - Zëmmeren, F&B, MICE, Spa), RevPAR/ADR/Auslaschtungstrends, STR-Benchmarking géint lokale Konkurrenzsatz, lafend Management-/Franchiseverträg, virhandent Team. Immobiliesäulen: baulechem Zoustand, ITM (Gewerbe- an Gruewenopsiicht) Brandschutzkonformitéit, Barrierefreiheet, Energiepass (Tertiär-CPE), Renovéierungs- an EPBD-Konformitéits-CAPEX-Schätzung.",
-      "section4P2": "Rechtlech Säulen: Iwwerpréifung vum Geschäftsmietvertrag oder Eegentumstitel, Betriibsgenehmegungen (Niederlassungserlabnis, HoReCa-Restaurantlizenz, Cabaretage-Lizenz bei Bar), Stärenklassifizéierung duerch d'Wirtschaftsministère. Verfügbar Fërderungen: tertiär Klimabonus fir gewerblech energeetesch Sanéierung (Isolatioun, WP, Photovoltaik), Wirtschaftsministère-KMU-Beihëllefe fir Hotelmoderniséierung, Zougang zu STATEC Compset + LU-Observatoire fir Benchmarking.",
-      "callout3Title": "Konkreete Fall: 3* an der Stad Lëtzebuerg, 50 Zëmmeren",
-      "callout3Body": "3*-Hotel an der Stad Lëtzebuerg Zentrum, 50 Zëmmeren, ADR 145 €, Auslaschtung 70 %, RevPAR 102 €. Joresumsaz Héibergement ≈ 1.850.000 €. + F&B an Sonstegt = Gesamtumsaz ~ 2.600.000 €. GOP 38 % = 988.000 €. EBITDA no Management-Gebühren ≈ 850.000 €. Bewäertung zu 11x EBITDA = 9.350.000 €, also 187.000 €/Zëmmer. Konsistent mat Upscale-Bandbreet LU-Stad.",
+      "section1Title": "D’Donnéeë vum Projet ofgrenzen",
+      "section1P1": "Fänkt mat de Betribsënnerlagen un: verfügbar Zëmmer pro Dag, verkaaft Zëmmer, Ënnerkonftsakommes, aner Recetten a Käschten. Halt Datumer, Comptabilitéitsbeleeër an d’TVA-Behandlung fest. Iwwernuechtunge vu Persoune sinn net dat selwecht wéi verkaaft Zëmmernuechten.",
+      "section1P2": "Vergläicht identesch Perioden an Ëmfäng. Analyséiert d’Saisonalitéit mat der Betribsgeschicht an dokumentéiert Fermeturen, Aarbechten an Aktivitéitsännerungen. National Statistiken eleng erlaben keng Prognos fir d’Akommes vun engem eenzelen Hotel oder Quartier.",
+      "callout1Title": "Tourismusobservatiounen a Vergläichswäerter",
+      "callout1Body": "Den Tevaxia-Observatoire weist Eurostat-Serië fir Hoteller an änlech Ënnerkonften zu Lëtzebuerg (NACE I55.1). Kontrolléiert d’Period an d’Kennzuel vun all Serie. Dës Observatioune liwwere keen ADR, RevPAR oder Transaktiounspräis fir Ären Hotel. De Verglach benotzt Är aginn Donnéeën a Quellen.",
+      "section2Title": "Kohärent Kennzuele berechnen",
+      "section2P1": "Fir déiselwecht Period: Beleegung = verkaaft Zëmmernuechten / verfügbar Zëmmernuechten; ADR = Ënnerkonftsakommes / verkaaft Zëmmernuechten; RevPAR = Ënnerkonftsakommes / verfügbar Zëmmernuechten. Bei identescher Basis gëllt RevPAR = ADR × Beleegung. Ouni positiven Nenner ass d’Verhältnis net bestëmmbar.",
+      "section2P2": "Definéiert de comptabelen Ëmfang, ier Dir GOP, EBITDA a Liquiditéit ofstëmmt. Identifizéiert Loyeren, Gestiounsfraisen an aner Käschten; eng Erneierungsreserv ass keng Ofschreiwung. Begrënnt Upassunge mat Konten a Verträg. De Guide setzt keng Marge oder Zilrendement viraus.",
+      "section3Title": "Bewäerten a Finanzéierung virbereeden",
+      "section3P1": "Ënnerscheet Immobilie, Betrib a Gesellschaftsundeeler. Begrënnt bei enger Kapitaliséierung d’Joresakommes an den Taux. Kontrolléiert bei Transaktioune pro Zëmmer den Datum, déi verkaaft Rechter an abegraff Käschten. En DCF brauch dokumentéiert Geldflëss, en Taux an en Exit; seng Dauer ass keen universelle Standard.",
+      "section3P2": "Den DSCR setzt de fir d’Schold verfügbare Geldfloss an d’Verhältnis zum Scholdendéngscht vun därselwechter Period, no der Definitioun vum Kreditgeber. Kapitalréckbezuelung an Zënse musse laut Bezuelplang berücksichtegt ginn. Loosst Definitiounen, Grenzwäerter, Garantien a Konditioune confirméieren: Eng Tevaxia-Berechnung ass keng Finanzéierungszouso.",
+      "callout2Title": "E‑2: Investitioun an den USA",
+      "callout2Body": "Lëtzebuerg steet op der US-Lëscht vun den E‑2-Vertragsstaaten. Dëse Visa betrëfft eng Investitioun an eng Entreprise an den USA. De Kaf vun engem Hotel zu Lëtzebuerg erfëllt dës Bedingung eleng net. E Lëtzebuerger Openthaltstitel ass eng separat Prozedur; en Tevaxia-Dossier bestätegt keng immigratiounsrechtlech Berechtegung.",
+      "section4Title": "Ënnerlage virum Kaf sammelen",
+      "section4P1": "Stëmmt Konten, Reservatiounen, Bezuelungen a Betribsverträg of. Loosst den Eegentumstitel oder Bail, de Gebaizoustand, Equipementer, zoustänneg Geneemegungen a beziffert Aarbechte préiwen. D’Due-Diligence-Lëscht dokumentéiert Beleeër an oppe Punkten; si ass kee Konformitéitscertificat.",
+      "section4P2": "Guichet.lu ënnerscheet d’Néierloossungsgeneemegung vum Bedreiwer an den Hotelierstatut fir verschidde Bezeechnungen. Kontrolléiert déi tatsächlech Aktivitéiten an hir Geneemegungen. Kläert den Hëllefsregimm a seng Bedingunge viru verbindlechen Engagementer; déi zitéiert Ëmwelthëllef verlaangt eng Demande virum Ufank vun den Aarbechten. Am Budget gëtt keng Hëllef virausgesat.",
+      "callout3Title": "Fiktiivt Beispill: nëmmen Ënnerkonftsakommes",
+      "callout3Body": "Rechenhypotheesen ouni Maartreferenz: 10 verfügbar Zëmmer iwwer 365 Deeg erginn 3.650 Zëmmernuechten. 1.825 verkaaft Zëmmernuechte mat engem ADR vun 100 € ouni TVA erginn 182.500 € Ënnerkonftsakommes ouni TVA, 50 % Beleegung a 50 € RevPAR. Doraus eleng ergëtt sech weder EBITDA nach Wäert oder Réckbezuelungskapazitéit.",
       "inlineCalc": {
         "title": "Bewäert e Lëtzebuerger Hotelprojet",
-        "description": "Eis tevaxia-Hotellerie-Suite ëmfaasst TEGOVA-Bewäertung (DCF + Multiplikatoren + Präis/Zëmmer), Bank-DSCR, LU STATEC-Observatoire a Pre-Akquisitioun (E-2-frëndlech).",
+        "description": "D’Hotelssuite bitt dokumentéiert Bewäertungs- a Finanzéierungsszenarien, belegten Tourismusdaten an en Akafsdossier. Kee Score garantéiert Wäert, Finanzéierung oder en E-2-Visa.",
         "cta": "Hotelanalyse opmaachen"
       },
       "tools": [
@@ -10680,61 +10680,60 @@
       ],
       "faq": [
         {
-          "q": "Wéi héich ass den duerchschnëttleche RevPAR vun Hoteler zu Lëtzebuerg?",
-          "a": "Den duerchschnëttleche RevPAR LU geet vu 60 € (Budget/Economy) bis 150 € (Upscale/Luxury). D'Stad Lëtzebuerg weist den héchsten RevPAR, gedriwwen vum Geschäftstourismus an den EU-Institutiounen. Touristesch Regiounen (Ardennen, Musel) hunn méi saisonal RevPAR-Muster."
+          "q": "Wéi ee RevPAR benotzen?",
+          "a": "Berechent en aus Ënnerkonftsakommes a verfügbare Zëmmernuechte fir eng definéiert Period. De Guide liwwert kee Maartduerchschnëtt fir all Hotel."
         },
         {
-          "q": "Wéi eng DSCR verlaangen d'Banken fir en Hotelkredit zu Lëtzebuerg?",
-          "a": "LU-Banken verlaangen an der Reegel en DSCR vu 1,25 bis 1,40x: den disponibele Cashflow no Betriibskäschte muss op mannst d'1,25- bis 1,40-facht vum jährleche Scholdendéngscht ofdecken. En DSCR ënner 1,25x mécht d'Finanzéierung schwéier erhältlech."
+          "q": "Wéi een DSCR ass néideg?",
+          "a": "Grenzwäert a Geldflossdefinitioun hänke vum Projet a Kreditgeber of. Loosst d’Konditioune confirméieren; keng Kennzuel garantéiert e Kredit."
         },
         {
-          "q": "Wéi eng EBITDA-Multiplikatoren fir e LU-Hotel ze bewäerten?",
-          "a": "LU-EBITDA-Multiplikatoren ginn vu 8x (Budget regional, ververalt) bis 14x (Luxury Prime LU-Stad). E gesonden 3* an der Stad Lëtzebuerg handelt typesch zu 10-12x stabiliséiertem EBITDA. Mat Präis/Zëmmer an 10-Joer-DCF ofgläichen, fir ze valéieren."
+          "q": "Wéi een EBITDA-Multiple benotzen?",
+          "a": "Benotzt Referenze mat dokumentéiertem Ëmfang, Datum an Upassungen. Hei gëtt kee Lëtzebuerger Secteurmultiple virausgesat."
         },
         {
-          "q": "Wéi en Präis pro Zëmmer fir den Akaf vun engem Hotel zu Lëtzebuerg?",
-          "a": "Beobachte Präisser: 80.000-120.000 €/Zëmmer (Budget/Regiounen), 150.000-200.000 €/Zëmmer (Mid-3*), 250.000-400.000 €/Zëmmer (Upscale/Luxury LU-Stad). Doriwwer Luxury Prime op aussergewéinleche Lagen. Ëmmer mat potenziellem RevPAR op Konsistenz préifen."
+          "q": "Wéi ee Präis pro Zëmmer benotzen?",
+          "a": "Vergläicht dokumentéiert Transaktiounen a kläert, ob Immobilie, Betrib, Undeeler oder Käschten am Präis sinn. E Präis pro Zëmmer eleng bestëmmt kee Wäert."
         },
         {
-          "q": "Ass d'Hotelinvestitioun zu LU fir den US-E-2-Visum berechtegt?",
-          "a": "LU ass kee US-E-2-Vertragsland. Fir US-Investisseuren ass d'Alternativ d'LU-Openthaltsgenehmegung fir Investisseuren (500.000 € fir Iwwerhuelung, 3 Mio. € fir Schaffen/Iwwerhuelung mat Aarbechtsplazen) iwwer den Ausseministère. Hotellerie ass berechtegt."
+          "q": "Berechtegt en Hotel zu Lëtzebuerg zum E‑2-Visa?",
+          "a": "De Kaf eleng geet net duer: Den E‑2-Visa betrëfft eng Entreprise an den USA. Lëtzebuerg ass Vertragsstaat; déi passend Nationalitéit ersetzt déi aner Bedingunge net."
         },
         {
-          "q": "Wéi eng Fërderunge fir energeetesch Hotelrenovéierung zu LU?",
-          "a": "Tertiär Klimabonus bitt Zouschëss fir energeetesch Sanéierung vu Gewerbegebainer: Isolatioun, Wärmepompen, Photovoltaik, Lëftung. Mat KMU-Beihëllefe fir Moderniséierung kombinéierbar. D'EPBD-Direktiv schreift Renovéierungspfaden fir déi energieintensivst Tertiärassets bis 2030-2033 vir."
+          "q": "Wéi gëtt eng Renovatiounshëllef berücksichtegt?",
+          "a": "Kläert de Regimm an d’Konditioune mat der zoustänneger Autoritéit. Ënnerscheet ugefroten a bewëllegt Hëllef mat hire Bezuelbedingunge; zitt keng ugeholl Subventioun vun de Baukäschten of."
         }
       ],
       "sources": [
         {
-          "title": "STATEC-Tourismusobservatoire",
-          "org": "STATEC",
-          "url": "https://statistiques.public.lu/fr/themes/economie-finances/secteurs/tourisme.html"
+          "title": "Eurostat — tour_occ_mnor",
+          "org": "Eurostat",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_mnor/default/table?lang=en"
         },
         {
-          "title": "Tertiär Klimabonus — gewerblech energeetesch Sanéierung",
-          "org": "myenergy / Ëmweltministère",
-          "url": "https://www.myenergy.lu/fr/professionnels"
-        },
-        {
-          "title": "KMU-Beihëllefen — Investitioun an Innovatioun",
-          "org": "Wirtschaftsministère",
-          "url": "https://meco.gouvernement.lu/fr/le-ministere/aides.html"
-        },
-        {
-          "title": "Gewerbe- a Gruewenopsiicht (ITM) — Brandschutz",
-          "org": "ITM",
-          "url": "https://itm.public.lu/"
-        },
-        {
-          "title": "Investisseur-Openthaltsgenehmegung",
+          "title": "Exploitant d’un établissement d’hébergement",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/immigration/plus-3-mois/ressortissant-tiers/investisseur.html"
+          "url": "https://guichet.public.lu/fr/entreprises/creation-developpement/autorisation-etablissement/commerce/etablissement-hebergement.html"
         },
         {
-          "title": "TEGOVA EVS 2025 — Valuation of Hotels",
-          "org": "TEGOVA",
-          "url": "https://www.tegova.org/",
-          "year": 2025
+          "title": "Statut de l’hôtellerie",
+          "org": "Guichet.lu",
+          "url": "https://guichet.public.lu/fr/entreprises/creation-developpement/autorisation-etablissement/commerce/hotelier.html"
+        },
+        {
+          "title": "Aide à l’investissement en faveur de la protection de l’environnement",
+          "org": "Guichet.lu",
+          "url": "https://guichet.public.lu/fr/entreprises/financement-aides/aides-environnement/industrie-services/aide-protec-environnement.html"
+        },
+        {
+          "title": "Treaty Countries — Luxembourg E‑2",
+          "org": "U.S. Department of State",
+          "url": "https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fees/treaty.html"
+        },
+        {
+          "title": "Treaty Trader & Treaty Investor visas",
+          "org": "U.S. Department of State",
+          "url": "https://travel.state.gov/content/travel/en/us-visas/employment/treaty-trader-investor-visa-e.html"
         }
       ]
     },
@@ -11587,34 +11586,35 @@
     },
     "hotelier": {
       "title": "Hotelier-Guide",
-      "intro": "Hotel-, Motel-, Aparthotel-, B&B-Betreiber: tevaxia kombinéiert Finanzanalys a operationnelle PMS.",
+      "intro": "De PMS-Beräich enthält Ecrane fir Etablissementer a Reservatiounen ze geréieren. Analysetools benotzen hir eegen Donnéeën a Quellen; keen automateschen Transfert an d’Grupp gëtt ugeholl.",
       "backToHub": "All Guiden",
       "parcoursTitle": "Typesche Wee",
       "parcoursIntro": "Vun engem neien Hotelprojet bis zum Deegschäft.",
       "parcoursStep1Title": "Virakaaf oder Diagnos",
-      "parcoursStep1Desc": "Evaluéiert Äert Ziel mat /hotellerie: DCF, DSCR, MPI/ARI/RGI-Benchmark.",
-      "parcoursStep2Title": "PMS-Setup an 5 Min",
-      "parcoursStep2Desc": "/pms/proprietes/nouveau mat LU-Standarden virbelegt.",
+      "parcoursStep1Desc": "Präis, Cashflow, Käschten, Finanzéierung a Vergläichsquelle dokumentéieren. Den Due-Diligence-Dossier sammelt Beleger an Observatiounen; hien ass keng juristesch oder technesch Validatioun.",
+      "parcoursStep2Title": "Etablissement konfiguréieren",
+      "parcoursStep2Desc": "Zëmmeren an Astellungen aginn. Tariffer, Steierbehandlung an eventuell lokal Taxe virum Gebrauch iwwerpréiwen; keng Installatiounsdauer gëtt garantéiert.",
       "parcoursStep3Title": "Operéieren: Reservéierungen → Rechnungen → Reporting",
-      "parcoursStep3Desc": "Reservéierung mat MwSt + Kurtaxe-Virschau, Check-in/out an 1 Klick, PDF-Rechnung, iCal RFC 5545.",
+      "parcoursStep3Desc": "Reservatiounen, Consommatiounen, Tauxen a Beleger virun enger Rechnung oder engem Rapport kontrolléieren. Gespäichert Donnéeë validéieren net automatesch Steieren oder Comptabilitéit.",
       "toolsTitle": "Empfohle Tools",
       "toolsIntro": "Analys + Operatiounen an enger Ëmgeebung.",
       "faqTitle": "Heefeg Froen",
       "faq1q": "Verwalt de PMS méi Hoteller?",
-      "faq1a": "Jo. All Benotzer kann N Objeten an /pms erstellen. /hotellerie/groupe konsolidéiert RevPAR/EBITDA.",
+      "faq1a": "Gruppefichen enthalen aginn Perioden. Si konsolidéieren net automatesch Reservatiounen oder Kennzuelen aus dem PMS. Am Benchmark identesch Periode vergläichen.",
       "faq2q": "Kann ech mat Booking an Airbnb synchroniséieren?",
-      "faq2a": "Jo via Read-only iCal RFC 5545. URL an Booking/Airbnb/Expedia-Extranet paste.",
+      "faq2a": "Disponibel Import-/Exportfunktiounen an d’Funktioun vum Zilkanal préiwen. En iCal-Kalenner garantéiert keng direkt Aktualiséierung oder Absence vun Iwwerbuchungen; Tariffer a Bezuelunge separat kontrolléieren.",
       "faq3q": "Wéi MwSt a Lëtzebuerg?",
-      "faq3a": "Ënnerbréngung: 3 %. F&B: 17 % Standard. Kurtaxe: kommunal, pro Objet konfiguréierbar.",
+      "faq3a": "Den Taux hänkt vun der Leeschtung an den Annexe vum TVA-Gesetz of. F&B bestëmmt keen eenheetlechen Taux. All Linn a lokal Tax no de gültege Quelle préiwen.",
       "faq4q": "Benotzt den EBITDA-Bericht USALI?",
       "faq4a": "GOP = Departementsresultat − allgemeng Käschten. EBITDA = GOP − Gestiounshonorairen + net operationell Recetten − net operationell Käschten. D’Reserve gëtt duerno ofgezunn. Dës vereinfacht Rechnung ass keng USALI-Zertifizéierung, kee Benchmark a keen Nettogewënn no Finanzéierung a Steieren.",
       "faq5q": "Wéi kritt ee Green Key ESG-Zertifikat?",
-      "faq5a": "/hotellerie/certifications-esg mécht eng Vir-Diagnos op déi 29 FEE Green Key-Kritäre.",
+      "faq5a": "De Green-Key-Dossier referenzéiert Critèren a Beleger vun der gewielter Versioun. Hie berechent keng Eligibilitéit a gëtt keng Zertifizéierung. D’Prozedur mat Green Key klären.",
       "relatedTitle": "Méi erausfannen",
-      "ctaTitle": "Start Äre PMS an 5 Minutten",
-      "ctaDesc": "3-Etappen-Assistent. Free-Tier 500 Reservéierungen.",
+      "ctaTitle": "Äert Etablissement virbereeden",
+      "ctaDesc": "E Kont opmaachen an Donnéeën aginn. Funktiounen an Zougangslimiten an den Offerbedéngunge préiwen.",
       "ctaPrimary": "Meng 1. Objet erstellen",
-      "ctaSecondary": "All Guiden"
+      "ctaSecondary": "All Guiden",
+      "sources": "Offiziell Quellen"
     },
     "investisseur": {
       "title": "Investeur-Guide",
@@ -13810,7 +13810,7 @@
     "personaAgency": "Immobilien-Agence",
     "personaAgencyDesc": "Mandaten, Pipeline, CRM, Ënnerschrëften, Immobilie-Ficheen",
     "personaHotel": "Hotelier",
-    "personaHotelDesc": "PMS, Reservatiounen, USALI, Channel Manager, Folios",
+    "personaHotelDesc": "De PMS-Beräich enthält Ecrane fir Etablissementer a Reservatiounen ze geréieren. Analysetools benotzen hir eegen Donnéeën a Quellen; keen automateschen Transfert an d’Grupp gëtt ugeholl.",
     "continueBtn": "Weider →",
     "step2Title": "2. Är Organisatioun",
     "step2SubSyndic": "De Syndic-Cabinet oder d'Gestiouns-Gesellschaft.",
@@ -19693,5 +19693,42 @@
     "occupancy_drop": "Beleegung ënner Schwellwäert",
     "revpar_delta": "RevPAR-/Referenzofwäichung",
     "gop_margin_below": "GOP-Marge ënner Schwellwäert"
+  },
+  "hotelMarketing": {
+    "title": "Hotelstools an dokumentéiert Donnéeën",
+    "description": "Bewäertung, Scholdendeckung, Betrib an Dossieren: mat Ären Zuelen, Quellen an explizitten Hypotheese schaffen.",
+    "publicList": "Hotelstools: dokumentéiert Bewäertung, Scholdendeckung, Betrib, E-2-Virbereedung, Prognosen aus geliwwerter Historie, belegte Vergläicher, MICE, CAPEX a publizéiert Transaktiounen.",
+    "groupList": "Hotelsgrupp: gespäichert Fichen a Perioden, PDF-Rapporte vun deklaréierten Donnéeën, Periodeverglach a Schwellwäerter. Automatesch Iwwerwaachung vun Alerten ass net bestätegt.",
+    "value": "Dokumentéiert Bewäertung",
+    "coverage": "Scholdendeckung",
+    "e2": "E-2-Dossier virbereeden",
+    "pmsDesc": "De PMS-Beräich enthält Ecrane fir Etablissementer a Reservatiounen ze geréieren. Analysetools benotzen hir eegen Donnéeën a Quellen; keen automateschen Transfert an d’Grupp gëtt ugeholl.",
+    "projectDesc": "Präis, Cashflow, Käschten, Finanzéierung a Vergläichsquelle dokumentéieren. Den Due-Diligence-Dossier sammelt Beleger an Observatiounen; hien ass keng juristesch oder technesch Validatioun.",
+    "setupTitle": "Etablissement konfiguréieren",
+    "setupDesc": "Zëmmeren an Astellungen aginn. Tariffer, Steierbehandlung an eventuell lokal Taxe virum Gebrauch iwwerpréiwen; keng Installatiounsdauer gëtt garantéiert.",
+    "operateDesc": "Reservatiounen, Consommatiounen, Tauxen a Beleger virun enger Rechnung oder engem Rapport kontrolléieren. Gespäichert Donnéeë validéieren net automatesch Steieren oder Comptabilitéit.",
+    "multiDesc": "Gruppefichen enthalen aginn Perioden. Si konsolidéieren net automatesch Reservatiounen oder Kennzuelen aus dem PMS. Am Benchmark identesch Periode vergläichen.",
+    "calendarDesc": "Disponibel Import-/Exportfunktiounen an d’Funktioun vum Zilkanal préiwen. En iCal-Kalenner garantéiert keng direkt Aktualiséierung oder Absence vun Iwwerbuchungen; Tariffer a Bezuelunge separat kontrolléieren.",
+    "taxDesc": "Den Taux hänkt vun der Leeschtung an den Annexe vum TVA-Gesetz of. F&B bestëmmt keen eenheetlechen Taux. All Linn a lokal Tax no de gültege Quelle préiwen.",
+    "greenDesc": "De Green-Key-Dossier referenzéiert Critèren a Beleger vun der gewielter Versioun. Hie berechent keng Eligibilitéit a gëtt keng Zertifizéierung. D’Prozedur mat Green Key klären.",
+    "ctaTitle": "Äert Etablissement virbereeden",
+    "ctaDesc": "E Kont opmaachen an Donnéeën aginn. Funktiounen an Zougangslimiten an den Offerbedéngunge préiwen.",
+    "guideDesc": "D’Hotelssuite bitt dokumentéiert Bewäertungs- a Finanzéierungsszenarien, belegten Tourismusdaten an en Akafsdossier. Kee Score garantéiert Wäert, Finanzéierung oder en E-2-Visa.",
+    "sources": "Offiziell Quellen",
+    "tools": "Tools entdecken",
+    "operating": "Dokumentéierte Betrib",
+    "group": "Gruppefichen",
+    "pms": "PMS opmaachen",
+    "pricing": "Offere kucken",
+    "taxTitle": "Steierbehandlung vun de Leeschtungen",
+    "greenTitle": "Green-Key-Dossier virbereeden",
+    "dd": "Due-Diligence-Dossier",
+    "ddDesc": "Beleger, Reserven a Prüfpunkte virun enger Transaktioun referenzéieren.",
+    "valueDesc": "Dokumentéiert Akommes, Tauxen a Vergläichsobjete fir e Szenario aginn.",
+    "coverageDesc": "Disponibele Cashflow mat engem explizitte Scholdeplang vergläichen.",
+    "e2Desc": "Projetsënnerlagen a relevant Quellen ouni Eligibilitéitsscore sammelen.",
+    "operatingDesc": "Recetten a Käschtekategorien aginn; GOP, EBITDA a Reserve ënnerscheeden.",
+    "groupDesc": "Periode vun den Etablissementer späicheren an deklaréiert Donnéeën exportéieren.",
+    "scope": "Resultater hänke vun den Donnéeën an dem Ëmfang vum Tool of. Rapporte bestätege keng USALI-, Steier- oder Bankkonformitéit a keng administrativ Eligibilitéit."
   }
 }
