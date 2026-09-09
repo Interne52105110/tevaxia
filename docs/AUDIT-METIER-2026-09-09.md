@@ -442,3 +442,14 @@ Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg e
 - Périmètre : transactions d’agriculteurs, usages non agricoles exclus. Note officielle : hors TVA, frais de notaire inclus et, depuis 2015, TVA sur ces frais incluse. Aucune moyenne reconstituée, aucune projection 2026 et aucune application automatique à la parcelle.
 - CSV et structure SDMX conservés avec SHA-256 et attributs Git de préservation des octets ; toutes les observations recoupées et labels lus dans CL_D2121_SPECIFICATION. Source de méthode : https://agriculture.public.lu/de/agrarstatistik/landwirtschaftliche-preise-und-indizes.html .
 - Validation : cinq tests métier/source, suite 1 194 tests/103 fichiers, build et lint, cinq langues/quatre largeurs et CSV contrôlés. Cas 2,5 ha × 40 000,25 €/ha = 100 000,63 € ; +10 000 −2 000 −3 000 = 105 000,63 €.
+
+
+## Compte d’exploitation hôtelier documenté
+- Retrait du modèle par catégorie qui ajoutait recettes restauration/annexes, ratios de charges, croissance et réserve 4 % sans justificatifs, et présentait le résultat après réserve comme EBITDA.
+- Nouveau compte d’une période déclarée de 1 à 366 jours ; jours calendaires réels, capacité disponible saisie et plafonnée à chambres × jours, chambres-nuits vendues cohérentes. Ratios indéfinis conservés comme tels en l’absence de dénominateur ; occupation zéro autorisée, plus de plancher 5 %/plafond 95 % inventé.
+- Onze catégories obligatoirement documentées, y compris zéro : recettes chambres/F&B/autres, personnel départemental et général séparé des autres charges, management, produits/charges non opérationnels et réserve. Pas de salaires ajoutés une seconde fois dans les autres charges.
+- GOP puis EBITDA avant réserve, puis EBITDA après réserve clairement séparés. Exclusions des intérêts, impôt sur résultat et amortissements explicites ; pas de certification USALI ou benchmark de solvabilité HVS/PwC.
+- Export CSV avec unités de chaque compteur/ratio/montant, toutes les lignes et références. Le titre générique de colonne du CSV promoteur a également été corrigé (valeur plutôt qu’EUR pour des cellules contenant des pourcentages ou textes).
+- Textes du hub, descriptifs professionnels, métadonnées et guide IA alignés. Les anciennes fonctions usali.ts ne sont plus utilisées par la page et restent uniquement dans les tests historiques.
+- Sources : https://www.costar.com/products/str-benchmark/resources/glossary ; https://www.hftp.org/downloads/documents/usali/resources/usali_faqs.pdf .
+- Validation : cinq tests dédiés, suite 1 199 tests/104 fichiers, cinq langues/quatre largeurs ; cas de février 2024 (29 jours), capacité réelle, zéro vente/disponibilité, pertes et données manquantes. Cas recettes 35 000 €, personnel 10 000 €, GOP 18 000 €, EBITDA 16 000 €, après réserve 14 000 €.

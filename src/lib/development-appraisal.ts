@@ -26,7 +26,7 @@ export function calculateDevelopment(input:DevelopmentInput){
 }
 export function parseDevelopmentSnapshot(raw:string):DevelopmentInput{if(raw.length>250000)throw new RangeError('File too large');const data=JSON.parse(raw);calculateDevelopment(data);return data}
 export function developmentCsv(input:DevelopmentInput){const r=calculateDevelopment(input),cell=(value:unknown)=>{let s=String(value??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};return '\uFEFF'+[
- ['kind','label','month','amount_EUR','reference'],...input.lines.map(l=>[l.kind,l.label,l.month,l.amount,l.reference]),
+ ['kind','label','month','value','reference'],...input.lines.map(l=>[l.kind,l.label,l.month,l.amount,l.reference]),
  ['assumption','project','',input.name,''],['assumption','mode','',input.mode,''],['assumption','tax_basis','','net_of_recoverable_VAT_including_nonrecoverable_VAT',input.taxReference],['assumption','target_pct','',input.targetPct,input.targetReference],['assumption','land_price',input.landMonth,input.mode==='known'?input.landPrice:null,input.landReference],['assumption','acquisition_fixed',input.landMonth,input.acquisitionFixed,input.acquisitionReference],['assumption','acquisition_pct',input.landMonth,input.acquisitionPct,input.acquisitionReference],
  ...(['costs','target','residualBudget','landCapacity','acquisition','profit','profitPct','headroom','maximumBudgetDeficit'] as const).map(k=>['summary',k,'',r[k],'']),
  ...r.timeline.flatMap(m=>[['timeline','revenue',m.month,m.revenue,''],['timeline','costs',m.month,m.costs,''],['timeline','cumulative',m.month,m.cumulative,''],['timeline','before_receipts',m.month,m.beforeReceipts,'']]),
