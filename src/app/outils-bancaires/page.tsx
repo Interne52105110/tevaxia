@@ -25,11 +25,7 @@ import {
 } from "@/lib/calculations";
 import { PdfButton } from "@/components/PdfButton";
 const _lazy_generateBancairePdfBlob = async (...args: Parameters<typeof import("@/components/ToolsPdf")["generateBancairePdfBlob"]>): Promise<Blob> => (await import("@/components/ToolsPdf")).generateBancairePdfBlob(...args);
-import {
-  simulateMortgageWithEnergy,
-  getAllEnergyLTVAdjustments,
-  type MortgageEnergyResult,
-} from "@/lib/energy-banking";
+import MortgageConditions from "@/components/MortgageConditions";
 
 type ActiveTab = "ltv" | "capacite" | "amortissement" | "dscr" | "cpe" | "remboursement" | "comparateur";
 
@@ -403,167 +399,6 @@ function TabDSCR() {
             { label: t("dscrAbove1_5"), value: t("dscrAbove1_5Desc"), sub: true },
           ]}
         />
-      </div>
-    </div>
-  );
-}
-
-const CPE_CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
-const CPE_CLASS_COLORS: Record<string, string> = {
-  A: "bg-green-600 text-white", B: "bg-green-500 text-white", C: "bg-lime-500 text-white",
-  D: "bg-yellow-400 text-gray-900", E: "bg-orange-400 text-white", F: "bg-orange-600 text-white",
-  G: "bg-red-600 text-white", H: "bg-red-700 text-white", I: "bg-red-900 text-white",
-};
-
-function TabCPE() {
-  const t = useTranslations("outilsBancaires");
-  const [valeurBien, setValeurBien] = useState(750000);
-  const [classeEnergie, setClasseEnergie] = useState("D");
-  const [tauxBase, setTauxBase] = useState(3.5);
-  const [ltvMaxBase, setLtvMaxBase] = useState(80);
-  const [duree, setDuree] = useState(25);
-
-  const result: MortgageEnergyResult = useMemo(
-    () => simulateMortgageWithEnergy({ valeurBien, classeEnergie, tauxBaseAnnuel: tauxBase, ltvMaxBase, dureeAnnees: duree }),
-    [valeurBien, classeEnergie, tauxBase, ltvMaxBase, duree]
-  );
-
-  const allAdj = useMemo(() => getAllEnergyLTVAdjustments(), []);
-
-  return (
-    <div className="space-y-8">
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="space-y-6">
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-base font-semibold text-navy">{t("cpeParams")}</h2>
-            <div className="space-y-4">
-              <InputField label={t("propertyValue")} value={valeurBien} onChange={(v) => setValeurBien(Number(v))} suffix="€" />
-              <div>
-                <label className="block text-sm font-medium text-slate mb-1.5">{t("cpeClasseEnergie")}</label>
-                <div className="flex gap-1.5">
-                  {CPE_CLASSES.map((c) => (
-                    <button key={c} onClick={() => setClasseEnergie(c)}
-                      className={`flex-1 rounded-lg py-2 text-sm font-bold transition-all ${
-                        classeEnergie === c ? `${CPE_CLASS_COLORS[c]} ring-2 ring-offset-2 ring-navy` : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-                      }`}>{c}</button>
-                  ))}
-                </div>
-              </div>
-              <InputField label={t("cpeBaseRate")} value={tauxBase} onChange={(v) => setTauxBase(Number(v))} suffix="%" step={0.1} />
-              <InputField label={t("cpeLtvMaxBase")} value={ltvMaxBase} onChange={(v) => setLtvMaxBase(Number(v))} suffix="%" min={50} max={100} />
-              <InputField label={t("loanDuration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
-            </div>
-            <MarketRatesBox
-              onSelectRate={(mid, dureeRate) => {
-                setTauxBase(mid);
-                if (dureeRate > 0) setDuree(dureeRate);
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          {/* Résultat principal */}
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-base font-semibold text-navy">{t("cpeResultTitle")}</h3>
-              <span className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${CPE_CLASS_COLORS[classeEnergie]}`}>{classeEnergie}</span>
-            </div>
-            <div className="divide-y divide-card-border/50">
-              <div className="flex items-center justify-between py-2 text-sm">
-                <span className="text-slate">{t("cpeAdjustedRate")}</span>
-                <span className="font-mono font-semibold text-foreground">{result.tauxAjuste.toFixed(2)} %</span>
-              </div>
-              <div className="flex items-center justify-between py-2 text-sm">
-                <span className="text-muted pl-4">{t("cpeRateDelta")}</span>
-                <span className={`font-mono text-sm ${result.adjustment.rateAdjustmentBps < 0 ? "text-green-600" : result.adjustment.rateAdjustmentBps > 0 ? "text-red-600" : "text-muted"}`}>
-                  {result.adjustment.rateAdjustmentBps > 0 ? "+" : ""}{result.adjustment.rateAdjustmentBps} bps
-                </span>
-              </div>
-              <div className="flex items-center justify-between py-2 text-sm">
-                <span className="text-slate">{t("cpeAdjustedLtv")}</span>
-                <span className="font-mono font-semibold text-foreground">{result.ltvMaxAjuste.toFixed(1)} %</span>
-              </div>
-              <div className="flex items-center justify-between py-2 text-sm">
-                <span className="text-muted pl-4">{t("cpeLtvDelta")}</span>
-                <span className={`font-mono text-sm ${result.adjustment.ltvAdjustmentBps > 0 ? "text-green-600" : result.adjustment.ltvAdjustmentBps < 0 ? "text-red-600" : "text-muted"}`}>
-                  {result.adjustment.ltvAdjustmentBps > 0 ? "+" : ""}{result.adjustment.ltvAdjustmentBps} bps
-                </span>
-              </div>
-              <div className="flex items-center justify-between py-2 border-t-2 border-gold pt-3 text-lg">
-                <span className="font-semibold text-slate">{t("cpeBorrowingCapacity")}</span>
-                <span className="font-mono font-semibold text-navy text-xl">{formatEUR(result.montantMaxAjuste)}</span>
-              </div>
-              <div className="flex items-center justify-between py-2 text-sm">
-                <span className="text-muted pl-4">{t("cpeCapacityDelta")}</span>
-                <span className={`font-mono font-semibold ${result.differenceCapacite > 0 ? "text-green-600" : result.differenceCapacite < 0 ? "text-red-600" : "text-muted"}`}>
-                  {result.differenceCapacite > 0 ? "+" : ""}{formatEUR(result.differenceCapacite)}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Mensualités */}
-          <ResultPanel
-            title={t("cpeMonthlyTitle")}
-            lines={[
-              { label: t("cpeMonthlyBase"), value: formatEUR2(result.mensualiteBase) },
-              { label: t("cpeMonthlyAdjusted"), value: formatEUR2(result.mensualiteAjustee), highlight: true },
-              { label: t("cpeMonthlyDelta"), value: `${result.differenceMensuelle > 0 ? "+" : ""}${formatEUR2(result.differenceMensuelle)}`, sub: true },
-              { label: t("cpeTotalCostDelta"), value: `${result.differenceCoutTotal > 0 ? "+" : ""}${formatEUR(result.differenceCoutTotal)}`, sub: true },
-            ]}
-          />
-
-          {/* Rationale */}
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-base font-semibold text-navy mb-2">{t("cpeRationale")}</h3>
-            <p className="text-sm text-muted leading-relaxed">{result.adjustment.rationale}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Tableau récapitulatif toutes classes */}
-      <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
-        <div className="px-6 py-4 border-b border-card-border">
-          <h3 className="text-base font-semibold text-navy">{t("cpeAllClassesTitle")}</h3>
-          <p className="text-xs text-muted mt-1">{t("cpeAllClassesDesc")}</p>
-        </div>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-card-border bg-background">
-              <th className="px-4 py-3 text-left font-semibold text-navy">{t("cpeColClasse")}</th>
-              <th className="px-4 py-3 text-right font-semibold text-navy">{t("cpeColLtv")}</th>
-              <th className="px-4 py-3 text-right font-semibold text-navy">{t("cpeColRate")}</th>
-              <th className="px-4 py-3 text-left font-semibold text-navy">{t("cpeColRationale")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allAdj.map((adj) => {
-              const isActive = adj.classe === classeEnergie;
-              return (
-                <tr key={adj.classe} className={`border-b border-card-border/50 ${isActive ? "bg-navy/5" : "hover:bg-background/50"}`}>
-                  <td className="px-4 py-2">
-                    <span className={`inline-flex items-center justify-center w-7 h-7 rounded text-xs font-bold ${CPE_CLASS_COLORS[adj.classe]}`}>{adj.classe}</span>
-                  </td>
-                  <td className="px-4 py-2 text-right font-mono">
-                    <span className={adj.ltvAdjustmentBps > 0 ? "text-green-600" : adj.ltvAdjustmentBps < 0 ? "text-red-600" : "text-muted"}>
-                      {adj.ltvAdjustmentBps > 0 ? "+" : ""}{adj.ltvAdjustmentBps} bps
-                    </span>
-                  </td>
-                  <td className="px-4 py-2 text-right font-mono">
-                    <span className={adj.rateAdjustmentBps < 0 ? "text-green-600" : adj.rateAdjustmentBps > 0 ? "text-red-600" : "text-muted"}>
-                      {adj.rateAdjustmentBps > 0 ? "+" : ""}{adj.rateAdjustmentBps} bps
-                    </span>
-                  </td>
-                  <td className="px-4 py-2 text-xs text-muted max-w-xs">{adj.rationale}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <div className="px-6 py-3 bg-gray-50 text-[11px] text-muted">
-          {t("cpeDisclaimer")}
-        </div>
       </div>
     </div>
   );
@@ -1002,7 +837,7 @@ export default function OutilsBancaires() {
         {activeTab === "capacite" && <TabCapacite />}
         {activeTab === "amortissement" && <TabAmortissement />}
         {activeTab === "dscr" && <TabDSCR />}
-        {activeTab === "cpe" && <TabCPE />}
+        {activeTab === "cpe" && <MortgageConditions />}
         {activeTab === "remboursement" && <TabRemboursement />}
         {activeTab === "comparateur" && <TabComparateur />}
 

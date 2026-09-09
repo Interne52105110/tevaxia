@@ -96,6 +96,7 @@ export const CLIENT_NAMESPACES = [
   "marche",
   "marcheForecast",
   "mesEvaluations",
+  "mortgageConditionsAudit",
   "nav",
   "observatoireHotellerie",
   "observatoireLoyers",

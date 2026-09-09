@@ -1292,6 +1292,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "cookie",
     "crmContextBar",
     "hotellerieContextBar",
+    "mortgageConditionsAudit",
     "nav",
     "outilsBancaires",
     "pmsContextBar",
