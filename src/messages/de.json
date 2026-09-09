@@ -39,7 +39,7 @@
     "energyRenovation": "Sanierung ROI",
     "energyCommunaute": "Energiegemeinschaft",
     "energyEpbd": "EPBD 2050",
-    "energyCpe": "CPE-Schätzer",
+    "energyCpe": "Energiepass vorbereiten",
     "energyLenoz": "LENOZ",
     "esgHub": "ESG Hub (CRREM, Taxonomie)",
     "esgCrrem": "CRREM Pathways",
@@ -375,7 +375,7 @@
       "renovation": "ROI Renovierung",
       "communaute": "Energiegemeinschaft",
       "epbd": "EPBD 2050",
-      "estimateurCpe": "CPE-Schätzer",
+      "estimateurCpe": "Energiepass vorbereiten",
       "lenoz": "LENOZ",
       "portfolio": "Portfolio",
       "hvac": "HVAC-Simulator",
@@ -395,8 +395,8 @@
       "communauteDesc": "Geteilte PV-Erzeugung, Installationskosten, Einsparungen pro Teilnehmer, monatliche Produktion, vermiedenes CO₂ und regulatorische Compliance-Checkliste.",
       "epbdTitle": "EPBD-Zeitplan 2050",
       "epbdDesc": "Europäische Richtlinie zur Gesamtenergieeffizienz von Gebäuden. Fristen 2026–2050, Stranding-Risiko nach Klasse, Auswirkung auf den Wert im Zeitverlauf.",
-      "estimateurTitle": "CPE-Klassen-Schätzer",
-      "estimateurDesc": "Sie kennen Ihre Energieklasse nicht? Beantworten Sie 6 Fragen, um eine indikative Schätzung Ihres Energiepasses zu erhalten.",
+      "estimateurTitle": "Energiepass vorbereiten",
+      "estimateurDesc": "Sammeln Sie Gebäudemerkmale und Unterlagen, bevor Sie einen befugten Experten kontaktieren.",
       "lenozTitle": "Vereinfachtes LENOZ-Scoring",
       "lenozDesc": "Bewerten Sie die Nachhaltigkeit Ihrer Immobilie anhand der 6 Kategorien der luxemburgischen LENOZ-Zertifizierung. Scoring von Bronze bis Platin.",
       "portfolioTitle": "Energieportfolio",
@@ -807,8 +807,8 @@
       }
     },
     "estimateurCpe": {
-      "title": "Schätzen Sie Ihre Energieklasse",
-      "description": "Beantworten Sie 6 einfache Fragen, um eine Schätzung der Energieklasse (CPE) Ihrer Immobilie in Luxemburg zu erhalten.",
+      "title": "Den Energiepass Ihres Wohngebäudes vorbereiten",
+      "description": "Sammeln Sie Gebäudemerkmale und Unterlagen, bevor Sie einen befugten Experten kontaktieren.",
       "result": "Ergebnis",
       "stepProgress": "Schritt {current} / {total}",
       "selectInstruction": "Wählen Sie die Antwort, die am besten zu Ihrer Immobilie passt.",
@@ -18206,5 +18206,23 @@
     "source1": "Europäische Kommission — EPBD",
     "source2": "Wirtschaftsministerium — technische Informationen",
     "reviewed": "Quellen geprüft am 9. September 2026."
+  },
+  "cpePreparationAudit": {
+    "title": "Den Energiepass Ihres Wohngebäudes vorbereiten",
+    "intro": "Sammeln Sie Gebäudemerkmale und Unterlagen, bevor Sie einen befugten Experten kontaktieren.",
+    "scope": "Ein allgemeiner Fragebogen kann keinen Energiepass berechnen. Energieeffizienz, Wärmedämmung und Emissionen sind unterschiedliche Kennwerte. Hier werden weder Punktzahl noch Energieklasse, theoretische Kosten oder Emissionen vergeben.",
+    "questions": "Angegebene Gebäudemerkmale",
+    "unknown": "Nicht angegeben / zu prüfen",
+    "summary": "Zusammenfassung für den Experten",
+    "expert": "Diese Angaben beruhen auf Ihren eigenen Informationen. Ein Energiepass erfordert detaillierte technische Daten und einen befugten Fachmann; bei bestehenden Wohngebäuden gehört eine Besichtigung zum Verfahren.",
+    "measurements": "Quotient aus Ihren Verbrauchsbelegen",
+    "measurementNote": "Geben Sie gelieferte Energie in kWh über zwölf Monate und die Fläche desselben Bereichs ein. Der Quotient korrigiert weder Klima noch Belegung; er rechnet Endenergie nicht in Primärenergie um und bestimmt keine Energieklasse. Die eingegebene Fläche ist nicht automatisch die offizielle Energiebezugsfläche.",
+    "energy": "Gelieferte Energie über zwölf Monate (kWh)",
+    "surface": "Zugehörige Fläche (m²)",
+    "ratio": "Angegebene Energie geteilt durch Fläche",
+    "missing": "Geben Sie nicht negative Energie und eine strikt positive Fläche zur Berechnung ein.",
+    "documents": "Unterlagen zusammenstellen",
+    "documentsText": "Halten Sie vorhandene Pläne, Wand- und Dämmungsdetails, technische Anlagenangaben und einen bestehenden Energiepass bereit. Für bestehende Gebäude nennt Guichet.lu Wärmeenergierechnungen oder Verbrauchsaufzeichnungen der drei Vorjahre. Die genaue Liste hängt vom Projekt ab.",
+    "source": "Guichet.lu: Verfahren und befugte Experten"
   }
 }

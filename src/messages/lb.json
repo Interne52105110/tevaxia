@@ -39,7 +39,7 @@
     "energyRenovation": "Renovatioun ROI",
     "energyCommunaute": "Energiegemeinschaft",
     "energyEpbd": "EPBD 2050",
-    "energyCpe": "CPE-Schätzer",
+    "energyCpe": "Energiepass virbereeden",
     "energyLenoz": "LENOZ",
     "esgHub": "ESG Hub (CRREM, Taxonomie)",
     "esgCrrem": "CRREM Pathways",
@@ -375,7 +375,7 @@
       "renovation": "ROI Renovatioun",
       "communaute": "Energiegemeinschaft",
       "epbd": "EPBD 2050",
-      "estimateurCpe": "CPE Schätzer",
+      "estimateurCpe": "Energiepass virbereeden",
       "lenoz": "LENOZ",
       "portfolio": "Portfolio",
       "hvac": "HVAC-Simulator",
@@ -395,8 +395,8 @@
       "communauteDesc": "Gedeelte PV-Produktioun, Installatiounskäschten, Aspuerunge pro Participant, monatleg Produktioun, CO₂ vermidden a Conformitéits-Checklëscht.",
       "epbdTitle": "EPBD Timeline 2050",
       "epbdDesc": "Europäesch Direktiv iwwert d'Energieleeschtung vu Gebaier. Frist 2026-2050, Stranding-Risiko pro Klass, Impakt op de Wäert am Laf vun der Zäit.",
-      "estimateurTitle": "CPE Klass Schätzer",
-      "estimateurDesc": "Dir kennt Är Energieklass net? Beäntwert 6 Froen fir eng indicativ Schätzung vun Ärem Energiepass ze kréien.",
+      "estimateurTitle": "Energiepass virbereeden",
+      "estimateurDesc": "Sammelt Gebaieegenschaften an nëtzlech Dokumenter, éier Dir e befugten Expert kontaktéiert.",
       "lenozTitle": "LENOZ Scoring vereinfacht",
       "lenozDesc": "Bewäert d'Nohaltegkeet vun Ärer Immobilie no den 6 Kategorien vun der Lëtzebuerger LENOZ Zertifizéierung. Scoring vu Bronze bis Platin.",
       "portfolioTitle": "Energieportfolio",
@@ -807,8 +807,8 @@
       }
     },
     "estimateurCpe": {
-      "title": "Schätzt Är Energieklass",
-      "description": "Beäntwert 6 einfach Froen fir eng Schätzung vun der Energieklass (CPE) vun Ärer Immobilie zu Lëtzebuerg ze kréien.",
+      "title": "Den Energiepass vun Ärer Wunneng virbereeden",
+      "description": "Sammelt Gebaieegenschaften an nëtzlech Dokumenter, éier Dir e befugten Expert kontaktéiert.",
       "result": "Resultat",
       "stepProgress": "Schrëtt {current} / {total}",
       "selectInstruction": "Wielt d'Äntwert, déi am beschten op Är Immobilie passt.",
@@ -18206,5 +18206,23 @@
     "source1": "Europäesch Kommissioun — EPBD",
     "source2": "Wirtschaftsministère — technesch Informatiounen",
     "reviewed": "Quelle gepréift den 9. September 2026."
+  },
+  "cpePreparationAudit": {
+    "title": "Den Energiepass vun Ärer Wunneng virbereeden",
+    "intro": "Sammelt Gebaieegenschaften an nëtzlech Dokumenter, éier Dir e befugten Expert kontaktéiert.",
+    "scope": "En allgemenge Questionnaire kann keen Energiepass berechnen. Energieperformanz, Wärmedämmung an Emissioune sinn ënnerschiddlech Indicateuren. Hei gëtt weder e Score nach eng Energieklass, theoreetesch Käschten oder Emissiounen zougewisen.",
+    "questions": "Uginn Eegenschaften",
+    "unknown": "Net uginn / ze préiwen",
+    "summary": "Resumé fir mam Expert ze kontrolléieren",
+    "expert": "Dës Informatioune baséieren op Ären Aussoen. En Energiepass erfuerdert detailléiert technesch Donnéeën an e befugte Fachmann; bei enger besteeënder Wunneng ass eng Visitt Deel vun der Demarche.",
+    "measurements": "Verhältnis aus Äre Verbrauchsrelevéen",
+    "measurementNote": "Gitt geliwwert Energie a kWh iwwer 12 Méint an déi entspriechend Fläch vum selwechte Beräich an. De Quotient korrigéiert weder Klima nach Besetzung; e rechent Endenergie net a Primärenergie ëm a bestëmmt keng Energieklass. Déi aginne Fläch ass net automatesch déi offiziell Energiereferenzfläch.",
+    "energy": "Geliwwert Energie iwwer 12 Méint (kWh)",
+    "surface": "Entspriechend Fläch (m²)",
+    "ratio": "Uginn Energie gedeelt duerch d’Fläch",
+    "missing": "Gitt net negativ Energie an eng strikt positiv Fläch an, fir de Verhältnis ze berechnen.",
+    "documents": "Dokumenter zesummestellen",
+    "documentsText": "Bereet disponibel Pläng, Detailer vu Maueren an Isolatioun, Donnéeë vun den Installatiounen an en existente CPE vir, wann et ee gëtt. Fir besteeënd Gebaier nennt Guichet.lu thermesch Energierechnungen oder Relevéë vun den dräi viregte Joren. Déi genee Lëscht hänkt vum Projet of.",
+    "source": "Guichet.lu: Demarche a befugten Experten"
   }
 }

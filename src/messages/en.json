@@ -38,7 +38,7 @@
     "energyRenovation": "Renovation ROI",
     "energyCommunaute": "Energy community",
     "energyEpbd": "EPBD 2050",
-    "energyCpe": "EPC Estimator",
+    "energyCpe": "Prepare an EPC",
     "energyLenoz": "LENOZ",
     "esgHub": "ESG Hub (CRREM, Taxonomy)",
     "esgCrrem": "CRREM Pathways",
@@ -375,7 +375,7 @@
       "renovation": "Renovation ROI",
       "communaute": "Energy Community",
       "epbd": "EPBD 2050",
-      "estimateurCpe": "CPE Estimator",
+      "estimateurCpe": "Prepare an EPC",
       "lenoz": "LENOZ",
       "portfolio": "Portfolio",
       "hvac": "HVAC Simulator",
@@ -395,8 +395,8 @@
       "communauteDesc": "Shared PV production, installation cost, savings per participant, monthly output, CO₂ avoided and regulatory compliance checklist.",
       "epbdTitle": "EPBD 2050 Timeline",
       "epbdDesc": "European Energy Performance of Buildings Directive. Key deadlines 2026-2050, stranding risk by class, long-term value impact.",
-      "estimateurTitle": "CPE Class Estimator",
-      "estimateurDesc": "Don't know your energy class? Answer 6 questions to get an indicative estimate of your energy passport rating.",
+      "estimateurTitle": "Prepare an EPC",
+      "estimateurDesc": "Gather useful property characteristics and documents before contacting an authorised expert.",
       "lenozTitle": "Simplified LENOZ Scoring",
       "lenozDesc": "Assess your property's sustainability across the 6 categories of Luxembourg's LENOZ certification. Bronze to Platinum rating.",
       "portfolioTitle": "Energy Portfolio",
@@ -807,8 +807,8 @@
       }
     },
     "estimateurCpe": {
-      "title": "Estimate your energy class",
-      "description": "Answer 6 simple questions to get an indicative estimate of the energy class (CPE) of your property in Luxembourg.",
+      "title": "Prepare your home's EPC assessment",
+      "description": "Gather useful property characteristics and documents before contacting an authorised expert.",
       "result": "Result",
       "stepProgress": "Step {current} / {total}",
       "selectInstruction": "Select the answer that best matches your property.",
@@ -18206,5 +18206,23 @@
     "source1": "European Commission — EPBD",
     "source2": "Ministry of the Economy — technical information",
     "reviewed": "Sources reviewed on 9 September 2026."
+  },
+  "cpePreparationAudit": {
+    "title": "Prepare your home's EPC assessment",
+    "intro": "Gather useful property characteristics and documents before contacting an authorised expert.",
+    "scope": "A general questionnaire cannot calculate an EPC. Energy performance, thermal insulation and emissions are separate indicators. No score, EPC letter, theoretical cost or emissions are assigned here.",
+    "questions": "Declared characteristics",
+    "unknown": "Not provided / to check",
+    "summary": "Summary to review with the expert",
+    "expert": "This is self-reported information. An EPC requires detailed technical data and an authorised professional; the procedure for an existing home includes a visit.",
+    "measurements": "Ratio from your meter or bill records",
+    "measurementNote": "Enter delivered energy in kWh over 12 months and the area covering the same scope. The quotient adjusts for neither climate nor occupancy; it does not convert final to primary energy or determine an EPC class. The entered area is not automatically the official energy reference area.",
+    "energy": "Delivered energy over 12 months (kWh)",
+    "surface": "Corresponding area (m²)",
+    "ratio": "Declared energy divided by area",
+    "missing": "Enter non-negative energy and a strictly positive area to calculate the ratio.",
+    "documents": "Documents to gather",
+    "documentsText": "Prepare available plans, wall and insulation details, installation specifications and any existing EPC. For an existing building, Guichet.lu mentions thermal-energy bills or readings for the previous three years. The exact list depends on the project.",
+    "source": "Guichet.lu: procedure and authorised experts"
   }
 }

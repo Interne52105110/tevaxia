@@ -383,10 +383,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/energy/estimateur-cpe": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "cookie",
+    "cpePreparationAudit",
     "crmContextBar",
     "energy",
     "hotellerieContextBar",

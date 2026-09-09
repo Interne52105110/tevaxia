@@ -32,6 +32,7 @@ export const CLIENT_NAMESPACES = [
   "coproAg",
   "coproAssistant",
   "copropPortal",
+  "cpePreparationAudit",
   "crmContextBar",
   "dashboardHero",
   "dashboardPage",

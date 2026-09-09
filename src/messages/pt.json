@@ -38,7 +38,7 @@
     "energyRenovation": "ROI Renovação",
     "energyCommunaute": "Comunidade de energia",
     "energyEpbd": "EPBD 2050",
-    "energyCpe": "Estimador CPE",
+    "energyCpe": "Preparar o CPE",
     "energyLenoz": "LENOZ",
     "esgHub": "ESG Hub (CRREM, Taxonomia)",
     "esgCrrem": "CRREM Pathways",
@@ -375,7 +375,7 @@
       "renovation": "ROI Renovação",
       "communaute": "Comunidade de energia",
       "epbd": "EPBD 2050",
-      "estimateurCpe": "Estimador CPE",
+      "estimateurCpe": "Preparar o CPE",
       "lenoz": "LENOZ",
       "portfolio": "Portfólio",
       "hvac": "Simulador HVAC",
@@ -395,8 +395,8 @@
       "communauteDesc": "Produção FV partilhada, custo de instalação, poupanças por participante, produção mensal, CO₂ evitado e checklist de conformidade regulamentar.",
       "epbdTitle": "Cronologia EPBD 2050",
       "epbdDesc": "Diretiva europeia sobre o desempenho energético. Prazos 2026-2050, risco de stranding por classe, impacto no valor ao longo do tempo.",
-      "estimateurTitle": "Estimador de classe CPE",
-      "estimateurDesc": "Não conhece a sua classe energética? Responda a 6 perguntas para obter uma estimativa indicativa do seu certificado de desempenho energético.",
+      "estimateurTitle": "Preparar o CPE",
+      "estimateurDesc": "Reúna características e documentos úteis antes de contactar um perito habilitado.",
       "lenozTitle": "Scoring LENOZ simplificado",
       "lenozDesc": "Avalie a sustentabilidade do seu imóvel segundo as 6 categorias da certificação LENOZ luxemburguesa. Classificação de Bronze a Platina.",
       "portfolioTitle": "Portfólio energético",
@@ -807,8 +807,8 @@
       }
     },
     "estimateurCpe": {
-      "title": "Estime a sua classe energética",
-      "description": "Responda a 6 perguntas simples para obter uma estimativa da classe energética (CPE) do seu imóvel no Luxemburgo.",
+      "title": "Preparar o certificado energético da habitação",
+      "description": "Reúna características e documentos úteis antes de contactar um perito habilitado.",
       "result": "Resultado",
       "stepProgress": "Etapa {current} / {total}",
       "selectInstruction": "Selecione a resposta que melhor corresponde ao seu imóvel.",
@@ -18206,5 +18206,23 @@
     "source1": "Comissão Europeia — EPBD",
     "source2": "Ministério da Economia — informação técnica",
     "reviewed": "Fontes consultadas em 9 de setembro de 2026."
+  },
+  "cpePreparationAudit": {
+    "title": "Preparar o certificado energético da habitação",
+    "intro": "Reúna características e documentos úteis antes de contactar um perito habilitado.",
+    "scope": "Um questionário geral não permite calcular um certificado energético. Desempenho energético, isolamento térmico e emissões são indicadores distintos. Não se atribuem aqui pontuação, classe energética, custo teórico ou emissões.",
+    "questions": "Características declaradas",
+    "unknown": "Não indicado / a verificar",
+    "summary": "Síntese a rever com o perito",
+    "expert": "Estas informações são declarativas. O certificado exige dados técnicos detalhados e um profissional habilitado; para uma habitação existente, o procedimento prevê uma visita.",
+    "measurements": "Rácio a partir dos seus registos",
+    "measurementNote": "Introduza energia fornecida em kWh durante 12 meses e a área correspondente ao mesmo perímetro. O quociente não corrige clima ou ocupação, não converte energia final em primária nem determina classe energética. A área introduzida não é automaticamente a área de referência energética oficial.",
+    "energy": "Energia fornecida em 12 meses (kWh)",
+    "surface": "Área correspondente (m²)",
+    "ratio": "Energia declarada dividida pela área",
+    "missing": "Introduza energia não negativa e área estritamente positiva para calcular o rácio.",
+    "documents": "Documentos a reunir",
+    "documentsText": "Prepare plantas disponíveis, detalhes de paredes e isolamento, características das instalações e um certificado existente, se houver. Para edifícios existentes, Guichet.lu refere faturas ou registos de energia térmica dos três anos anteriores. A lista exata depende do projeto.",
+    "source": "Guichet.lu: procedimento e peritos habilitados"
   }
 }

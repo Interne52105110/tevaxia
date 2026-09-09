@@ -39,7 +39,7 @@
     "energyRenovation": "ROI Rénovation",
     "energyCommunaute": "Communauté d'énergie",
     "energyEpbd": "EPBD 2050",
-    "energyCpe": "Estimateur CPE",
+    "energyCpe": "Préparer le CPE",
     "energyLenoz": "LENOZ",
     "esgHub": "ESG Hub (CRREM, Taxonomie)",
     "esgCrrem": "CRREM Pathways",
@@ -375,7 +375,7 @@
       "renovation": "ROI Rénovation",
       "communaute": "Communauté d'énergie",
       "epbd": "EPBD 2050",
-      "estimateurCpe": "Estimateur CPE",
+      "estimateurCpe": "Préparer le CPE",
       "lenoz": "LENOZ",
       "portfolio": "Portfolio",
       "hvac": "Simulateur HVAC",
@@ -395,8 +395,8 @@
       "communauteDesc": "Production PV partagée, coût d'installation, économies par participant, production mensuelle, CO₂ évité et checklist conformité réglementaire.",
       "epbdTitle": "Timeline EPBD 2050",
       "epbdDesc": "Directive européenne sur la performance énergétique. Échéances 2026-2050, risque de stranding par classe, impact sur la valeur dans le temps.",
-      "estimateurTitle": "Estimateur de classe CPE",
-      "estimateurDesc": "Vous ne connaissez pas votre classe énergie ? Répondez à 6 questions pour obtenir une estimation indicative de votre passeport énergétique.",
+      "estimateurTitle": "Préparer le CPE",
+      "estimateurDesc": "Rassemblez les caractéristiques et documents utiles avant de contacter un expert habilité.",
       "lenozTitle": "Scoring LENOZ simplifié",
       "lenozDesc": "Évaluez la durabilité de votre bien selon les 6 catégories de la certification LENOZ luxembourgeoise. Scoring de Bronze à Platine.",
       "portfolioTitle": "Portfolio énergétique",
@@ -807,8 +807,8 @@
       }
     },
     "estimateurCpe": {
-      "title": "Estimez votre classe énergie",
-      "description": "Répondez à 6 questions simples pour obtenir une estimation de la classe énergétique (CPE) de votre bien immobilier au Luxembourg.",
+      "title": "Préparer le CPE de son logement",
+      "description": "Rassemblez les caractéristiques et documents utiles avant de contacter un expert habilité.",
       "result": "Résultat",
       "stepProgress": "Étape {current} / {total}",
       "selectInstruction": "Sélectionnez la réponse qui correspond le mieux à votre bien.",
@@ -18206,5 +18206,23 @@
     "source1": "Commission européenne — EPBD",
     "source2": "Ministère de l’Économie — informations techniques",
     "reviewed": "Sources consultées le 9 septembre 2026."
+  },
+  "cpePreparationAudit": {
+    "title": "Préparer le CPE de son logement",
+    "intro": "Rassemblez les caractéristiques et documents utiles avant de contacter un expert habilité.",
+    "scope": "Un questionnaire général ne permet pas de calculer un CPE. La performance énergétique, l’isolation thermique et les émissions correspondent à des indicateurs distincts. Aucun score, lettre CPE, coût théorique ou émission n’est attribué ici.",
+    "questions": "Caractéristiques déclarées",
+    "unknown": "Non renseigné / à vérifier",
+    "summary": "Synthèse à vérifier avec l’expert",
+    "expert": "Ces informations sont déclaratives. Le CPE nécessite les données techniques détaillées et l’intervention d’un professionnel habilité ; pour un logement existant, la démarche prévoit une visite.",
+    "measurements": "Ratio à partir de vos relevés",
+    "measurementNote": "Saisissez l’énergie livrée, en kWh sur 12 mois, et la surface correspondant au même périmètre. Le quotient ne corrige ni le climat ni l’occupation ; il ne convertit pas l’énergie finale en énergie primaire et ne détermine aucune classe CPE. La surface renseignée n’est pas automatiquement la surface de référence énergétique officielle.",
+    "energy": "Énergie livrée sur 12 mois (kWh)",
+    "surface": "Surface correspondante (m²)",
+    "ratio": "Énergie déclarée divisée par la surface",
+    "missing": "Renseignez une énergie positive ou nulle et une surface strictement positive pour calculer le ratio.",
+    "documents": "Documents à réunir",
+    "documentsText": "Préparez les plans disponibles, les détails des parois et de l’isolation, les caractéristiques des installations et le CPE existant s’il y en a un. Pour un bâtiment existant, Guichet.lu mentionne les factures ou relevés d’énergie thermique des trois années précédentes. La liste exacte dépend du projet.",
+    "source": "Guichet.lu : démarche et experts habilités"
   }
 }
