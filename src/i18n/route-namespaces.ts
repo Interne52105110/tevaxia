@@ -1251,9 +1251,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "marche",
+    "marketEvidence",
     "nav",
     "officialPriceIndex",
     "pmsContextBar",
+    "publishedMarket",
     "syndicContextBar"
   ],
   "/mentions-legales": [

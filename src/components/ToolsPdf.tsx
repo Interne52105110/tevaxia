@@ -747,55 +747,26 @@ export async function downloadDcfMultiPdf(params: DcfMultiPdfParams) {
 /* ==================== 10. DONNEES MARCHE ==================== */
 
 export interface MarchePdfParams {
-  commune: string; trimestre?: string;
-  prixMedianAppart?: number; prixMedianMaison?: number;
-  volumeTransactions?: number; evolutionPct?: number;
-  prixM2Appart?: number; prixM2Maison?: number;
-  indicateurs?: { label: string; value: string }[];
+  communes:MarketDataCommune[]; locale:string; title:string; countLabel:string; scope:string; labels:MarketEvidenceLabels;
 }
-
-function MarcheDoc({ p }: { p: MarchePdfParams }) {
-  const ref = generateRef();
-  return (
-    <Document>
-      <CoverPage
-        title="Donnees de marche"
-        subtitle={`${p.commune}${p.trimestre ? " · " + p.trimestre : ""}`}
-        value={p.prixMedianAppart != null ? `${fmtEur(p.prixMedianAppart)} median appt.` : undefined}
-        date={today()}
-        reference={ref}
-      />
-      <Page size="A4" style={s.page}>
-        <PageHeader title="Donnees de marche" reference={ref} />
-
-        <KpiGrid items={[
-          ...(p.prixMedianAppart != null ? [{ label: "Prix median appart.", value: fmtEur(p.prixMedianAppart), highlight: true }] : []),
-          ...(p.prixMedianMaison != null ? [{ label: "Prix median maison", value: fmtEur(p.prixMedianMaison) }] : []),
-          ...(p.prixM2Appart != null ? [{ label: "Prix m2 appart.", value: `${fmtEur(p.prixM2Appart)}/m2` }] : []),
-          ...(p.prixM2Maison != null ? [{ label: "Prix m2 maison", value: `${fmtEur(p.prixM2Maison)}/m2` }] : []),
-          ...(p.volumeTransactions != null ? [{ label: "Transactions", value: fmtNum(p.volumeTransactions) }] : []),
-          ...(p.evolutionPct != null ? [{ label: "Evolution annuelle", value: `${p.evolutionPct > 0 ? "+" : ""}${fmtPct(p.evolutionPct)}` }] : []),
-        ]} />
-
-        <Text style={s.section}>{p.commune}{p.trimestre ? ` — ${p.trimestre}` : ""}</Text>
-        {p.prixMedianAppart != null && <Row label="Prix median appartement" value={fmtEur(p.prixMedianAppart)} />}
-        {p.prixMedianMaison != null && <Row label="Prix median maison" value={fmtEur(p.prixMedianMaison)} />}
-        {p.prixM2Appart != null && <Row label="Prix m2 appartement" value={`${fmtEur(p.prixM2Appart)}/m2`} />}
-        {p.prixM2Maison != null && <Row label="Prix m2 maison" value={`${fmtEur(p.prixM2Maison)}/m2`} />}
-        {p.volumeTransactions != null && <Row label="Volume de transactions" value={fmtNum(p.volumeTransactions)} />}
-        {p.evolutionPct != null && <Row label="Evolution annuelle" value={`${p.evolutionPct > 0 ? "+" : ""}${fmtPct(p.evolutionPct)}`} />}
-
-        {p.indicateurs && p.indicateurs.length > 0 && <>
-          <Text style={s.section}>Indicateurs cles</Text>
-          {p.indicateurs.map((ind, i) => <Row key={i} label={ind.label} value={ind.value} />)}
-        </>}
-
-        <Disclaimer />
-        <Footer />
-      </Page>
-      <DisclaimerPage reference={ref} />
-    </Document>
-  );
+function MarcheDoc({p}:{p:MarchePdfParams}) {
+ const ref=generateRef(),number=(n:number,d:number)=>n.toLocaleString(p.locale==='lb'?'de-DE':p.locale,{minimumFractionDigits:d,maximumFractionDigits:d}).replace(/[\u00a0\u202f]/g,' ');
+ // Standard PDF fonts avoid shared embedded-font glyph state across successive exports.
+ const page={...s.page,fontFamily:'Helvetica'},section={...s.section,fontFamily:'Helvetica'},note={...s.note,fontSize:9};
+ const footer=<View fixed style={{position:'absolute',bottom:25,left:40,right:40,flexDirection:'row',justifyContent:'space-between',borderTop:'0.5pt solid #ddd',paddingTop:6}}><Text style={{fontSize:8}}>tevaxia.lu</Text><Text style={{fontSize:8}} render={({pageNumber,totalPages})=>`${pageNumber} / ${totalPages}`}/></View>;
+ const header=<View style={{borderBottom:'1.5pt solid #1B2A4A',paddingBottom:10,marginBottom:14}}><Text style={{fontSize:12,color:'#1B2A4A',fontWeight:700}}>{p.title}</Text><Text style={note}>{ref}</Text></View>;
+ return <Document>
+  <Page size="A4" style={page}><View style={{backgroundColor:'#1B2A4A',padding:28,marginTop:90}}><Text style={{fontSize:20,color:'#C8A951',marginBottom:30}}>tevaxia.lu</Text><Text hyphenationCallback={word=>[word]} style={{fontSize:26,color:'white',fontWeight:700}}>{p.title}</Text><Text style={{fontSize:14,color:'white',marginTop:18}}>{p.countLabel}</Text></View><Text style={{...note,marginTop:24}}>{p.scope}</Text><Text style={note}>{today()} — {ref}</Text>{footer}</Page>
+  {p.communes.map(market=><Page key={market.commune} size="A4" style={page}>
+   {header}<Text style={section}>{market.commune} — {market.canton}</Text>
+   <Text style={note}>{p.labels.period}: {market.periode}</Text><Text style={note}>{market.source}</Text>
+   <View style={{marginTop:15}}>{marketObservationRows(market).map(r=><View key={r.field} style={{flexDirection:'row',borderBottom:'0.5pt solid #eee',paddingVertical:6}}><Text style={{width:'68%',paddingRight:10}}>{p.labels[r.label]}</Text><Text style={{width:'32%',textAlign:'right',fontWeight:700}}>{r.value==null?p.labels.unpublished:number(r.value,r.unit==='money'?2:0)+(r.unit==='money'?' €':'')}</Text></View>)}</View>
+   <Text style={section}>{p.labels.sources}</Text><Text style={note}>{p.scope}</Text><Text style={note}>{p.labels.scope}</Text>
+   {([['transactions','sourceSales'],['annonces','sourceAsking'],['loyers','sourceRent']] as const).map(([key,label])=><PdfLink key={key} src={MARKET_SOURCES[key]} style={{fontSize:9,marginTop:7,color:'#1B2A4A'}}>{p.labels[label]}</PdfLink>)}
+   {footer}
+  </Page>)}
+  <Page size="A4" style={page}>{header}<Text style={section}>{p.labels.title}</Text><Text style={note}>{p.scope}</Text><Text style={note}>{p.labels.scope}</Text><Text style={note}>{p.labels.ratioScope}</Text>{footer}</Page>
+ </Document>;
 }
 
 export async function generateMarchePdfBlob(params: MarchePdfParams): Promise<Blob> {
@@ -806,7 +777,7 @@ export async function generateMarchePdfBlob(params: MarchePdfParams): Promise<Bl
 export async function downloadMarchePdf(params: MarchePdfParams) {
   const blob = await generateMarchePdfBlob(params);
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a"); a.href = url; a.download = `marche-${params.commune.toLowerCase()}-${today()}.pdf`; a.click();
+  const a = document.createElement("a"); a.href = url; a.download = `marche-communes-${today()}.pdf`; a.click();
   URL.revokeObjectURL(url);
 }
 

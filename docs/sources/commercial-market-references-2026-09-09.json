@@ -1,0 +1,31 @@
+{
+  "retrievedOn": "2026-09-09",
+  "reports": [
+    {
+      "id": "office-q2-2026",
+      "url": "https://content.cushmanwakefield.com/api/public/content/85790d9d1da645ec8a369dfc2d0885c1?v=0ebfb4e7",
+      "pagesUsed": [
+        1,
+        2
+      ],
+      "sha256": "fc4e471ad949209afb8471220c09079ab49fbeb7e852e32150907046b4985a7a"
+    },
+    {
+      "id": "retail-h1-2026",
+      "url": "https://content.cushmanwakefield.com/api/public/content/7bff92eb9e6f411abc223f57882307ca?v=0e941721",
+      "pagesUsed": [
+        1,
+        2
+      ],
+      "sha256": "4c3a5c7c317920742e4526ad3ffe444f618e0d453c44878c109a2a04c602e604"
+    },
+    {
+      "id": "land-report19",
+      "url": "https://logement.public.lu/dam-assets/documents/publications/observatoire/rapport-analyse-19.pdf",
+      "pagesUsed": [
+        5
+      ],
+      "sha256": "c5d594b0ce518ec3e5b37be5c955fe895fac4475a169a0a611dba13ea78390f1"
+    }
+  ]
+}
