@@ -1112,9 +1112,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/hotellerie/pre-acquisition": [
     "aiChat",
     "backup",
+    "common",
     "cookie",
     "crmContextBar",
-    "hotelPreAcq",
+    "hotelAcquisitionEvidence",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",

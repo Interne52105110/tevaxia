@@ -1,0 +1,22 @@
+import {calculerMensualite,genererTableauAmortissement} from '../calculations';
+export type AcquisitionYear={cash:number;reference:string};
+export type AcquisitionInput={version:1;name:string;price:number;entryCosts:number;entryCapex:number;entryReference:string;debt:number;annualRatePct:number;months:number;monthlyCosts:number;loanReference:string;exitPrice:number;exitCosts:number;exitReference:string;discountPct:number;discountReference:string;years:AcquisitionYear[]};
+function money(n:number,min=0,max=1e9,precision=100){if(typeof n!=='number'||!Number.isFinite(n)||n<min||n>max||Math.abs(n*precision-Math.round(n*precision))>1e-5)throw new RangeError('Invalid amount')}
+function ref(s:string,max=500){if(typeof s!=='string'||!s.trim()||s.length>max)throw new RangeError('Reference required')}
+export function acquisitionIrr(flows:number[]):number|null{
+ const signs=flows.filter(n=>n!==0).map(Math.sign);if(signs[0]!==-1||signs.filter((s,k)=>k>0&&s!==signs[k-1]).length!==1)return null;
+ const npv=(r:number)=>flows.reduce((s,c,y)=>s+c/Math.pow(1+r,y),0);let low=-.9999,high=1;while(npv(high)>0&&high<1e6)high*=2;if(!(npv(low)>0&&npv(high)<=0))return null;
+ for(let n=0;n<200;n++){const mid=(low+high)/2;if(npv(mid)>0)low=mid;else high=mid}return (low+high)/2*100;
+}
+export function calculateAcquisition(i:AcquisitionInput){
+ if(!i||i.version!==1)throw new RangeError('Invalid version');ref(i.name,160);for(const k of ['entryReference','loanReference','exitReference','discountReference'] as const)ref(i[k]);for(const k of ['price','entryCosts','entryCapex','debt','monthlyCosts','exitPrice','exitCosts'] as const)money(i[k]);money(i.price,.01);money(i.annualRatePct,0,30,10000);money(i.months,1,600,1);money(i.discountPct,0,100,10000);
+ if(!Array.isArray(i.years)||i.years.length<1||i.years.length>30)throw new RangeError('Invalid horizon');for(const y of i.years){if(!y)throw new RangeError('Invalid year');money(y.cash,-1e9);ref(y.reference)}
+ const totalEntry=(Math.round(i.price*100)+Math.round(i.entryCosts*100)+Math.round(i.entryCapex*100))/100,initialEquity=(Math.round(totalEntry*100)-Math.round(i.debt*100))/100;
+ if(initialEquity<0||i.debt===0&&i.monthlyCosts!==0)throw new RangeError('Invalid funding');
+ const schedule=i.debt===0?[]:genererTableauAmortissement(i.debt,i.annualRatePct/100,i.months/12),monthlyPayment=calculerMensualite(i.debt,i.annualRatePct/100,i.months/12);
+ const years=i.years.map((y,k)=>{const part=schedule.slice(k*12,(k+1)*12),debtService=part.reduce((s,m)=>s+m.capital+m.interets,0)+part.length*i.monthlyCosts,remaining=part.at(-1)?.capitalRestant??0,exit=k===i.years.length-1?(Math.round(i.exitPrice*100)-Math.round(i.exitCosts*100))/100-remaining:0;return {year:k+1,cash:y.cash,reference:y.reference,debtMonths:part.length,debtService,dscr:debtService===0?null:y.cash/debtService,remaining,exit,equityCash:y.cash-debtService+exit}});
+ const flows=[-initialEquity,...years.map(y=>y.equityCash)],contributed=initialEquity+years.reduce((s,y)=>s+Math.max(0,-y.equityCash),0),distributed=years.reduce((s,y)=>s+Math.max(0,y.equityCash),0),npv=flows.reduce((s,c,y)=>s+c/Math.pow(1+i.discountPct/100,y),0);
+ return {totalEntry,initialEquity,monthlyPayment,exitDebt:years.at(-1)!.remaining,netExit:years.at(-1)!.exit,contributed,distributed,netGain:distributed-contributed,multiple:contributed===0?null:distributed/contributed,npv,irr:acquisitionIrr(flows),years};
+}
+export function parseAcquisition(raw:string):AcquisitionInput{if(raw.length>100000)throw new RangeError('File too large');const i=JSON.parse(raw);calculateAcquisition(i);return i}
+export function acquisitionCsv(i:AcquisitionInput){const r=calculateAcquisition(i),cell=(v:unknown)=>{let s=String(v??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'},units:Record<string,string>={version:'version',annualRatePct:'percent',months:'months',monthlyCosts:'EUR/month',discountPct:'percent',monthlyPayment:'EUR/month',multiple:'times',irr:'percent',year:'year',debtMonths:'months',dscr:'times'};const rows:unknown[][]=[['kind','label','value','unit'],...Object.entries(i).filter(([k])=>k!=='years').map(([k,v])=>['input',k,v,units[k]??(typeof v==='number'?'EUR':'text')]),...Object.entries(r).filter(([k])=>k!=='years').map(([k,v])=>['result',k,v,units[k]??'EUR']),...r.years.flatMap(y=>Object.entries(y).map(([k,v])=>['year_'+y.year,k,v,units[k]??(typeof v==='string'?'text':'EUR')]))];return '\uFEFF'+rows.map(row=>row.map(cell).join(';')).join('\r\n')}
