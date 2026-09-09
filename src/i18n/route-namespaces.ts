@@ -515,11 +515,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "backup",
     "cookie",
     "crmContextBar",
-    "esgTaxo",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar"
+    "syndicContextBar",
+    "taxonomyAudit"
   ],
   "/estimateur-construction": [
     "aiChat",

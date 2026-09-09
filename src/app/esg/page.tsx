@@ -34,7 +34,7 @@ export default async function EsgHubPage() {
       title: t("modTaxoTitle"),
       subtitle: t("modTaxoSubtitle"),
       desc: t("modTaxoDesc"),
-      tags: ["Art. 7.7", "Climate Mitigation", "DNSH", "CRR Pillar 3"],
+      tags: ["7.7", "2021/2139", "DNSH"],
       tone: "blue",
       status: "live",
     },
