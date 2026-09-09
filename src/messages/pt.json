@@ -186,7 +186,7 @@
       },
       "estimateurConstruction": {
         "title": "Custo de construção",
-        "description": "Decomposição detalhada por ofício (classificação STATEC). 17 postos, ajuste por classe energética e nível de acabamento.",
+        "description": "Prepare um orçamento com base nas suas propostas e hipóteses identificadas. Introduza todos os preços com IVA em euros. Não se presume qualquer tarifa, honorário ou acréscimo energético.",
         "tag": "STATEC out. 2025"
       },
       "calculateurVrd": {
@@ -3505,7 +3505,7 @@
     },
     "promoteur": {
       "title": "Promotor",
-      "description": "Orçamento inverso, calendário VEFA IVA 3%/17%, custos de construção STATEC, conformidade PAG",
+      "description": "Orçamento inverso, calendário VEFA IVA 3%/17%, orçamento de construção documentado, conformidade PAG",
       "link1": "Balanço promotor",
       "link2": "VEFA",
       "link3": "Estimador custo construção",
@@ -7031,13 +7031,13 @@
     "promoteur": {
       "meta": {
         "title": "Software promotor imobiliário Luxemburgo — pro forma, VEFA, custos",
-        "description": "Conta de exploração do promotor com plano de tesouraria, simulador VEFA com juros intercalares, estimador de custos de construção STATEC, obras de urbanização e conversão de áreas OAI/ILNAS."
+        "description": "Conta de exploração do promotor com plano de tesouraria, simulador VEFA com juros intercalares, estimador de orçamento de construção documentado, obras de urbanização e conversão de áreas OAI/ILNAS."
       },
       "hero": {
         "badge": "Para promotores e marchands de biens LU",
         "title": "Conta de exploração do promotor e simulação VEFA,",
         "titleAccent": "sem voltar a introduzir os custos três vezes",
-        "subtitle": "Conta de exploração do promotor completa com plano de tesouraria mensal e previsão de margem, simulador VEFA com juros intercalares e IVA LU 3 %, estimador de custos de construção referenciado STATEC (17 ofícios), calculador de obras de urbanização (9 lotes), conversor de áreas OAI/ILNAS. Concebido para promotores imobiliários e marchands de biens luxemburgueses.",
+        "subtitle": "Conta de exploração do promotor completa com plano de tesouraria mensal e previsão de margem, simulador VEFA com juros intercalares e IVA LU 3 %, orçamento de construção com base em propostas, calculador de obras de urbanização (9 lotes), conversor de áreas OAI/ILNAS. Concebido para promotores imobiliários e marchands de biens luxemburgueses.",
         "cta": "Começar gratuitamente",
         "ctaSecondary": "Ver como funciona",
         "kpis": [
@@ -11654,7 +11654,7 @@
       "parcoursStep2Title": "Balanço de operação",
       "parcoursStep2Desc": "/bilan-promoteur: receita × prazo × custo × financeiro × IVA. Tornado sensibilidade ±10 %.",
       "parcoursStep3Title": "Execução e comercialização VEFA",
-      "parcoursStep3Desc": "/vefa: chamadas escalonadas, atraso obra, GFA intrínseca vs extrínseca. /estimateur-construction.",
+      "parcoursStep3Desc": "/vefa: chamadas escalonadas, atraso obra, GFA intrínseca vs extrínseca. /estimateur-construction : Prepare um orçamento com base nas suas propostas e hipóteses identificadas. Introduza todos os preços com IVA em euros. Não se presume qualquer tarifa, honorário ou acréscimo energético.",
       "toolsTitle": "Ferramentas recomendadas",
       "toolsIntro": "Pipeline viabilidade → balanço → execução → comercialização.",
       "faqTitle": "Perguntas frequentes",
@@ -11663,7 +11663,7 @@
       "faq2q": "Como funciona GFA intrínseca vs extrínseca?",
       "faq2a": "/vefa separa ambas: extrínseca (segurador/banco) vs intrínseca (capitais próprios). Extrínseca obrigatória em LU.",
       "faq3q": "Os índices STATEC estão atualizados?",
-      "faq3a": "Sim, /estimateur-construction mostra ICV STATEC com YoY para 6 materiais. Atualização trimestral.",
+      "faq3a": "Prepare um orçamento com base nas suas propostas e hipóteses identificadas. Introduza todos os preços com IVA em euros. Não se presume qualquer tarifa, honorário ou acréscimo energético. O índice STATEC mede variações de preços na construção residencial, excluindo IVA e terreno. Não é uma proposta nem um preço universal por m². Nenhum preço unitário desta página é atribuído ao STATEC ou Batiprix.",
       "faq4q": "Posso partilhar balanço com banqueiro?",
       "faq4a": "Sim, /profil/liens-partages gera link público read-only com token seguro.",
       "relatedTitle": "Saber mais",
@@ -18958,5 +18958,37 @@
     "logisticsScope": "Não está disponível aqui uma série de rendas ou stock por zona com fonte e período verificados. Para um ativo logístico, utilize comparáveis documentados e os dados dos seus contratos de arrendamento.",
     "macroScope": "Ao comparar taxas de crédito, verifique o período, o tipo de contrato e a população observada. As ligações dão acesso às séries das instituições produtoras; não constituem uma oferta de financiamento.",
     "valuation": "Avaliar com os seus próprios dados"
+  },
+  "constructionBudget": {
+    "title": "Orçamento de construção documentado",
+    "scope": "Prepare um orçamento com base nas suas propostas e hipóteses identificadas. Introduza todos os preços com IVA em euros. Não se presume qualquer tarifa, honorário ou acréscimo energético.",
+    "surface": "Área bruta de referência (m²), facultativa",
+    "surfaceScope": "Esta área serve apenas para calcular o orçamento por m². Não multiplica os artigos: cada linha utiliza a sua própria quantidade. Um campo vazio deixa este rácio por calcular.",
+    "lines": "Artigos do orçamento",
+    "lineScope": "Adicione os trabalhos e despesas incluídos no seu âmbito. Para uma proposta global, introduza quantidade 1 e o montante com IVA. Evite contar duas vezes a proposta global e os seus componentes. Um campo vazio não equivale a zero.",
+    "line": "Artigo",
+    "remove": "Remover",
+    "label": "Descrição do artigo",
+    "kind": "Natureza",
+    "works": "Trabalhos com IVA",
+    "fees": "Despesas adicionais com IVA",
+    "quantity": "Quantidade",
+    "unit": "Unidade",
+    "unitPrice": "Preço unitário com IVA (€)",
+    "reference": "Referência da proposta, data ou hipótese documentada",
+    "lump": "Unidade / valor global",
+    "add": "Adicionar artigo",
+    "contingency": "Provisão para imprevistos (% dos trabalhos com IVA)",
+    "contingencyScope": "Taxa declarada, inicialmente zero. Aplica-se apenas ao subtotal dos trabalhos, sem despesas adicionais. Não é uma proposta nem uma garantia do custo final.",
+    "reason": "Justificação de uma provisão superior a zero",
+    "invalid": "Complete pelo menos um artigo: descrição, referência, quantidade positiva (até 4 casas decimais) e preço com IVA não negativo (até 2 casas decimais). A área introduzida deve ser positiva. A provisão deve ser de 0–100%, com justificação se positiva.",
+    "resultTitle": "Orçamento dos artigos introduzidos",
+    "partial": "Este total cobre apenas os artigos introduzidos. Adicione terreno, custos de aquisição, estudos, honorários, ligações e financiamento como despesas adicionais, se necessário. Nenhum apoio ou recuperação de IVA é deduzido automaticamente.",
+    "contingencyAmount": "Provisão com IVA",
+    "total": "Total com IVA",
+    "perM2": "Orçamento por m² bruto declarado",
+    "csv": "Exportar mapa CSV",
+    "indexScope": "O índice STATEC mede variações de preços na construção residencial, excluindo IVA e terreno. Não é uma proposta nem um preço universal por m². Nenhum preço unitário desta página é atribuído ao STATEC ou Batiprix.",
+    "source": "Metodologia STATEC"
   }
 }

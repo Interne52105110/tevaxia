@@ -28,6 +28,7 @@ export const CLIENT_NAMESPACES = [
   "comparisonAudit",
   "connexion",
   "conseilSyndical",
+  "constructionBudget",
   "convertisseurSurfaces",
   "cookie",
   "coproAccount",

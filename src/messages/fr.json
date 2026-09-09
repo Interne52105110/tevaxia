@@ -186,7 +186,7 @@
       },
       "estimateurConstruction": {
         "title": "Coût de construction",
-        "description": "Décomposition détaillée par corps de métier (classification STATEC). 17 postes, ajustement classe énergétique et finition.",
+        "description": "Construisez un budget à partir de vos devis et hypothèses identifiées. Saisissez tous les prix TTC, dans une même devise (euro). Aucun tarif, honoraire ou surcoût énergétique n’est présumé.",
         "tag": "STATEC oct. 2025"
       },
       "calculateurVrd": {
@@ -3505,7 +3505,7 @@
     },
     "promoteur": {
       "title": "Promoteur",
-      "description": "Bilan compte à rebours, échéancier VEFA TVA 3%/17%, coûts construction STATEC, conformité PAG",
+      "description": "Bilan compte à rebours, échéancier VEFA TVA 3%/17%, budget de construction documenté, conformité PAG",
       "link1": "Bilan promoteur",
       "link2": "VEFA",
       "link3": "Estimateur coût construction",
@@ -6968,13 +6968,13 @@
     "promoteur": {
       "meta": {
         "title": "Logiciel promoteur immobilier Luxembourg — bilan, VEFA, coûts",
-        "description": "Bilan promoteur avec plan de trésorerie, simulateur VEFA avec intérêts intercalaires, estimateur coûts construction STATEC, VRD et surfaces OAI/ILNAS."
+        "description": "Bilan promoteur avec plan de trésorerie, simulateur VEFA avec intérêts intercalaires, estimateur budget de construction documenté, VRD et surfaces OAI/ILNAS."
       },
       "hero": {
         "badge": "Pour promoteurs et marchands de biens LU",
         "title": "Bilan promoteur et simulation VEFA,",
         "titleAccent": "sans ressaisir 3 fois vos coûts",
-        "subtitle": "Bilan promoteur complet avec plan de trésorerie et marge prévisionnelle, simulateur VEFA avec intérêts intercalaires et TVA 3% LU, estimateur coûts construction référencés STATEC 17 postes, calculateur VRD par lot, convertisseur surfaces OAI/ILNAS. Pensé pour les promoteurs immobiliers et marchands de biens luxembourgeois.",
+        "subtitle": "Bilan promoteur complet avec plan de trésorerie et marge prévisionnelle, simulateur VEFA avec intérêts intercalaires et TVA 3% LU, budget de construction à partir de devis, calculateur VRD par lot, convertisseur surfaces OAI/ILNAS. Pensé pour les promoteurs immobiliers et marchands de biens luxembourgeois.",
         "cta": "Démarrer gratuitement",
         "ctaSecondary": "Voir comment ça marche",
         "kpis": [
@@ -11776,7 +11776,7 @@
       "parcoursStep2Title": "Bilan d'opération",
       "parcoursStep2Desc": "/bilan-promoteur : revenus × délai de commercialisation × coût construction × frais financiers × TVA. Tornado chart sensibilité ±10 % sur 8 variables (triées par amplitude). Phasage multi-tranches avec Gantt 48 mois.",
       "parcoursStep3Title": "Exécution et commercialisation VEFA",
-      "parcoursStep3Desc": "/vefa : appels de fonds étalés, retard chantier (slider 0-24 mois) et surcoût intérêts intercalaires, GFA intrinsèque vs extrinsèque (assureur, prime 0,3-2 %). /estimateur-construction : indices STATEC par matériau + export bordereau CSV par corps de métier pour mise en concurrence.",
+      "parcoursStep3Desc": "/vefa : appels de fonds étalés, retard chantier (slider 0-24 mois) et surcoût intérêts intercalaires, GFA intrinsèque vs extrinsèque (assureur, prime 0,3-2 %). /estimateur-construction : Construisez un budget à partir de vos devis et hypothèses identifiées. Saisissez tous les prix TTC, dans une même devise (euro). Aucun tarif, honoraire ou surcoût énergétique n’est présumé.",
       "toolsTitle": "Outils recommandés",
       "toolsIntro": "Pipeline faisabilité → bilan → exécution → commercialisation.",
       "faqTitle": "Questions fréquentes",
@@ -11785,7 +11785,7 @@
       "faq2q": "Comment fonctionne la GFA intrinsèque vs extrinsèque ?",
       "faq2a": "/vefa sépare les deux : extrinsèque (assureur ou banque garantit en cas de défaillance promoteur, prime 0,3-2 % du CA) vs intrinsèque (fonds propres du promoteur déposés chez notaire). L'extrinsèque est obligatoire pour vendre en VEFA en LU (loi 28.12.1976 art. 2-11). L'outil calcule les deux coûts pour arbitrage.",
       "faq3q": "Les indices STATEC sont-ils à jour ?",
-      "faq3a": "Oui, /estimateur-construction affiche l'ICV (Indice des Coûts de la Construction) STATEC avec YoY pour 6 matériaux : acier, béton, bois, isolants, aluminium, cuivre. Mise à jour trimestrielle. Batiprix 2026 intégré pour les prix unitaires par corps de métier.",
+      "faq3a": "Construisez un budget à partir de vos devis et hypothèses identifiées. Saisissez tous les prix TTC, dans une même devise (euro). Aucun tarif, honoraire ou surcoût énergétique n’est présumé. L’indice STATEC mesure une évolution de prix dans la construction résidentielle, hors TVA et terrain. Il ne fournit pas un devis ni un tarif universel par m². Aucun coût unitaire de cette page n’est attribué au STATEC ou à Batiprix.",
       "faq4q": "Puis-je partager le bilan avec mon banquier ?",
       "faq4a": "Oui, /profil/liens-partages génère un lien public read-only avec token sécurisé. Le banquier voit le bilan sans compte tevaxia. Bouton Imprimer/PDF disponible côté lecteur. Analytics : vous voyez le nombre de vues et la dernière consultation.",
       "relatedTitle": "Aller plus loin",
@@ -18958,5 +18958,37 @@
     "logisticsScope": "Aucune série de loyers ou de stocks par zone n’est disponible ici avec une source et une période vérifiées. Pour un actif logistique, utilisez des comparables documentés et les données de ses baux.",
     "macroScope": "Pour comparer un taux de crédit, vérifiez sa période, le type de contrat et la population observée. Les liens ci-dessous donnent accès aux séries des organismes producteurs ; ils ne constituent pas une offre de financement.",
     "valuation": "Évaluer avec ses propres données"
+  },
+  "constructionBudget": {
+    "title": "Budget de construction documenté",
+    "scope": "Construisez un budget à partir de vos devis et hypothèses identifiées. Saisissez tous les prix TTC, dans une même devise (euro). Aucun tarif, honoraire ou surcoût énergétique n’est présumé.",
+    "surface": "Surface brute de référence (m²), facultative",
+    "surfaceScope": "Cette surface sert uniquement à calculer le coût du budget par m². Elle ne multiplie pas les postes : chaque ligne utilise sa propre quantité. Une surface vide laisse ce ratio non calculé.",
+    "lines": "Postes du budget",
+    "lineScope": "Ajoutez les travaux et frais inclus dans votre périmètre. Pour un devis global, indiquez une quantité de 1 et son montant TTC. Évitez de compter deux fois un devis global et ses sous-postes. Une case vide ne vaut pas zéro.",
+    "line": "Poste",
+    "remove": "Supprimer",
+    "label": "Libellé du poste",
+    "kind": "Nature",
+    "works": "Travaux TTC",
+    "fees": "Frais annexes TTC",
+    "quantity": "Quantité",
+    "unit": "Unité",
+    "unitPrice": "Prix unitaire TTC (€)",
+    "reference": "Référence du devis, date ou hypothèse documentée",
+    "lump": "Unité / forfait",
+    "add": "Ajouter un poste",
+    "contingency": "Provision pour aléas (% des travaux TTC)",
+    "contingencyScope": "Taux déclaré, initialement nul. La provision s’applique uniquement au sous-total des travaux, sans les frais annexes. Elle n’est ni un devis ni une garantie de coût final.",
+    "reason": "Justification de la provision si supérieure à zéro",
+    "invalid": "Complétez au moins un poste : libellé, référence, quantité positive (4 décimales maximum) et prix TTC positif ou nul (2 décimales maximum). La surface renseignée doit être positive. Le taux d’aléas doit être entre 0 et 100 %, avec une justification s’il est positif.",
+    "resultTitle": "Budget des postes saisis",
+    "partial": "Ce total couvre seulement les postes renseignés. Ajoutez, si nécessaire, le terrain, les frais d’acquisition, études, honoraires, raccordements et financement dans les frais annexes. Aucune aide ni récupération de TVA n’est déduite automatiquement.",
+    "contingencyAmount": "Provision TTC",
+    "total": "Total TTC",
+    "perM2": "Budget par m² brut déclaré",
+    "csv": "Exporter le bordereau CSV",
+    "indexScope": "L’indice STATEC mesure une évolution de prix dans la construction résidentielle, hors TVA et terrain. Il ne fournit pas un devis ni un tarif universel par m². Aucun coût unitaire de cette page n’est attribué au STATEC ou à Batiprix.",
+    "source": "Méthodologie STATEC"
   }
 }

@@ -1,0 +1,12 @@
+import {describe,it,expect} from 'vitest';
+import {calculateConstructionBudget,constructionBudgetCsv,type ConstructionBudgetInput} from '../construction-budget';
+const sample=():ConstructionBudgetInput=>({surfaceM2:100,contingencyPct:10,contingencyReason:'Design uncertainty',lines:[{id:'a',kind:'works',label:'Walls',quantity:12.5,unit:'m2',unitPriceTtc:80.12,reference:'Quote 1'},{id:'b',kind:'fees',label:'Design',quantity:1,unit:'unit',unitPriceTtc:200,reference:'Quote 2'}]});
+describe('documented construction budget',()=>{
+ it('sums TTC lines and fees, adds contingency only on works and computes the declared surface ratio',()=>{const r=calculateConstructionBudget(sample());expect(r.worksTtc).toBe(1001.5);expect(r.feesTtc).toBe(200);expect(r.contingencyTtc).toBe(100.15);expect(r.totalTtc).toBe(1301.65);expect(r.costPerM2).toBe(13.0165)});
+ it('rounds fractional quantities to cents once per line, including half-cent ties',()=>{const p=sample();p.lines=[{...p.lines[0],quantity:.03,unitPriceTtc:.5}];p.contingencyPct=0;p.surfaceM2=null;const r=calculateConstructionBudget(p);expect(r.totalTtc).toBe(.02);expect(r.costPerM2).toBeNull()});
+ it('allows a documented free line and zero contingency without inventing costs',()=>{const p=sample();p.lines[0].unitPriceTtc=0;p.contingencyPct=0;p.contingencyReason='';expect(calculateConstructionBudget(p).totalTtc).toBe(200)});
+ it('rejects incomplete, nonfinite, negative, duplicate and unsupported inputs',()=>{
+  for(const mutate of [(p:ConstructionBudgetInput)=>{p.lines=[]},(p:ConstructionBudgetInput)=>{p.lines[0].reference=''},(p:ConstructionBudgetInput)=>{p.lines[0].quantity=0},(p:ConstructionBudgetInput)=>{p.lines[0].unitPriceTtc=-1},(p:ConstructionBudgetInput)=>{p.lines[0].unitPriceTtc=1.005},(p:ConstructionBudgetInput)=>{p.lines[0].quantity=1.00001},(p:ConstructionBudgetInput)=>{p.lines[0].unitPriceTtc=NaN},(p:ConstructionBudgetInput)=>{p.surfaceM2=0},(p:ConstructionBudgetInput)=>{p.contingencyReason=''},(p:ConstructionBudgetInput)=>{p.contingencyPct=101},(p:ConstructionBudgetInput)=>{p.lines[1].id='a'}]){const p=sample();mutate(p);expect(()=>calculateConstructionBudget(p)).toThrow()}
+ });
+ it('exports the same totals, null surface, quote references and escapes spreadsheet formulas',()=>{const p=sample();p.lines[0].label='=1+1';p.lines[0].reference='Quote "A"; revision';p.surfaceM2=null;const csv=constructionBudgetCsv(p);expect(csv).toContain('"\'=1+1"');expect(csv).toContain('Quote ""A""; revision');expect(csv).toContain('"1301.65"');expect(csv).toContain('"surface";"";"m2"')});
+});

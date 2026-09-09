@@ -186,7 +186,7 @@
       },
       "estimateurConstruction": {
         "title": "Baukaschten",
-        "description": "Detailléiert Opschlësselung no Gewierk (STATEC-Klassifikatioun). 17 Posten, Upassung no Energieklass a Fäerdegstellungsgrad.",
+        "description": "Stellt e Budget aus Ären Devisen a benannten Hypotheesen op. Gitt all Präisser mat TVA an Euro an. Et gëtt keen Tarif, Honorar oder Energieopschlag ugeholl.",
         "tag": "STATEC Okt. 2025"
       },
       "calculateurVrd": {
@@ -3505,7 +3505,7 @@
     },
     "promoteur": {
       "title": "Promoteur",
-      "description": "Bilan rückwärts, VEFA-Plang 3%/17% TVA, STATEC-Baukäschten, PAG-Konformitéit",
+      "description": "Bilan rückwärts, VEFA-Plang 3%/17% TVA, dokumentéierte Baubudget, PAG-Konformitéit",
       "link1": "Promoteur-Bilanz",
       "link2": "VEFA",
       "link3": "Baukäschten-Schätzer",
@@ -7031,13 +7031,13 @@
     "promoteur": {
       "meta": {
         "title": "Bauträger-Software Lëtzebuerg — Wirtschaftlechkeet, VEFA, Käschten",
-        "description": "Promoteur-Bilanz mat Cashflow-Plang, VEFA-Simulator mat Zwëschenzënsen, STATEC-Baukäschten-Schätzer, Stroossebau- an OAI/ILNAS-Fläch-Ëmwandlung."
+        "description": "Promoteur-Bilanz mat Cashflow-Plang, VEFA-Simulator mat Zwëschenzënsen, dokumentéierte Baubudget-Schätzer, Stroossebau- an OAI/ILNAS-Fläch-Ëmwandlung."
       },
       "hero": {
         "badge": "Fir LU Promoteuren a Marchands de biens",
         "title": "Promoteur-Bilanz a VEFA-Simulatioun,",
         "titleAccent": "ouni Käschten dräi Mol anzeginn",
-        "subtitle": "Komplett Promoteur-Bilanz mat monatlechem Cashflow-Plang a prospektiver Marge, VEFA-Simulator mat Zwëschenzënsen an LU 3 % TVA, STATEC-referenzéierte Baukäschten-Schätzer (17 Gewerker), Stroossebau-Rechner (9 Lous), OAI/ILNAS-Fläch-Ëmwandler. Gebaut fir Lëtzebuerger Promoteuren a Marchands de biens.",
+        "subtitle": "Komplett Promoteur-Bilanz mat monatlechem Cashflow-Plang a prospektiver Marge, VEFA-Simulator mat Zwëschenzënsen an LU 3 % TVA, Baubudget op Basis vun Devisen, Stroossebau-Rechner (9 Lous), OAI/ILNAS-Fläch-Ëmwandler. Gebaut fir Lëtzebuerger Promoteuren a Marchands de biens.",
         "cta": "Gratis ufänken",
         "ctaSecondary": "Kuckt wéi et funktionéiert",
         "kpis": [
@@ -11663,7 +11663,7 @@
       "faq2q": "Wéi GFA intrinsesch vs extrinsesch?",
       "faq2a": "/vefa trennt béid: extrinsesch (Versécherer/Bank) vs intrinsesch (Eegekapital). Extrinsesch obligatoresch an LU.",
       "faq3q": "Sinn STATEC-Indizen aktuell?",
-      "faq3a": "Jo, /estimateur-construction weist STATEC ICV mat YoY fir 6 Materialer.",
+      "faq3a": "Stellt e Budget aus Ären Devisen a benannten Hypotheesen op. Gitt all Präisser mat TVA an Euro an. Et gëtt keen Tarif, Honorar oder Energieopschlag ugeholl. De STATEC-Index moosst Präisverännerungen am Wunnengsbau ouni TVA an Terrain. En ass weder en Devis nach en universelle Präis pro m². Keen Eenheetspräis op dëser Säit gëtt STATEC oder Batiprix zougeschriwwen.",
       "faq4q": "Kann ech d'Bilanz mat menger Bank deelen?",
       "faq4a": "Jo, /profil/liens-partages generéiert ëffentleche Read-only-Link.",
       "relatedTitle": "Méi erausfannen",
@@ -18958,5 +18958,37 @@
     "logisticsScope": "Hei ass keng Loyers- oder Bestandsserie pro Zon mat iwwerpréifter Quell a Period disponibel. Fir e Logistikobjet benotzt dokumentéiert Vergläichsobjeten a seng Mietvertragsdaten.",
     "macroScope": "Beim Zënsverglach kontrolléiert d’Period, de Vertragstyp an déi observéiert Populatioun. D’Linke féieren op d’Serië vun den zoustännegen Institutiounen a si keng Finanzéierungsoffer.",
     "valuation": "Mat eegenen Date bewäerten"
+  },
+  "constructionBudget": {
+    "title": "Dokumentéierte Baubudget",
+    "scope": "Stellt e Budget aus Ären Devisen a benannten Hypotheesen op. Gitt all Präisser mat TVA an Euro an. Et gëtt keen Tarif, Honorar oder Energieopschlag ugeholl.",
+    "surface": "Bruttoreferenzfläch (m²), fakultativ",
+    "surfaceScope": "Dës Fläch déngt nëmme fir de Budget pro m² ze berechnen. Si multiplizéiert keng Posten: all Zeil benotzt hir eege Quantitéit. Bei engem eidele Feld gëtt dëse Ratio net berechent.",
+    "lines": "Budgetposten",
+    "lineScope": "Füügt d’Aarbechten a Fraise vun Ärem Perimeter derbäi. Fir e globale Devis gitt Quantitéit 1 an de Betrag mat TVA an. Vermeit eng duebel Erfaassung vum Gesamtdevis a sengen Ënnerposten. En eidelt Feld ass net null.",
+    "line": "Posten",
+    "remove": "Ewechhuelen",
+    "label": "Bezeechnung vum Posten",
+    "kind": "Zort",
+    "works": "Aarbechte mat TVA",
+    "fees": "Niewekäschte mat TVA",
+    "quantity": "Quantitéit",
+    "unit": "Eenheet",
+    "unitPrice": "Eenheetspräis mat TVA (€)",
+    "reference": "Devisreferenz, Datum oder dokumentéiert Hypothees",
+    "lump": "Eenheet / Forfait",
+    "add": "Posten derbäisetzen",
+    "contingency": "Reserve fir Onvirgesinnes (% vun den Aarbechte mat TVA)",
+    "contingencyScope": "Uginne Saz, ufanks null. D’Reserve gëllt nëmme fir d’Aarbechten ouni Niewekäschten. Si ass weder en Devis nach eng Garantie fir d’Endkäschten.",
+    "reason": "Begrënnung vun enger Reserve iwwer null",
+    "invalid": "Komplettéiert op d’mannst ee Posten: Bezeechnung, Referenz, positiv Quantitéit (maximal 4 Dezimalplazen) an net negative Präis mat TVA (maximal 2 Dezimalplazen). Eng uginn Fläch muss positiv sinn. D’Reserve muss 0–100 % sinn, mat Begrënnung wann se positiv ass.",
+    "resultTitle": "Budget vun den aginnene Posten",
+    "partial": "Dësen Total ëmfaasst nëmmen déi aginne Posten. Füügt wann néideg Terrain, Akafskäschten, Studien, Honorairen, Uschlëss a Finanzéierung als Niewekäschten derbäi. Keng Hëllef oder TVA-Réckbezuelung gëtt automatesch ofgezunn.",
+    "contingencyAmount": "Reserve mat TVA",
+    "total": "Total mat TVA",
+    "perM2": "Budget pro uginnem Brutto-m²",
+    "csv": "CSV-Verzeechnes exportéieren",
+    "indexScope": "De STATEC-Index moosst Präisverännerungen am Wunnengsbau ouni TVA an Terrain. En ass weder en Devis nach en universelle Präis pro m². Keen Eenheetspräis op dëser Säit gëtt STATEC oder Batiprix zougeschriwwen.",
+    "source": "STATEC-Methodik"
   }
 }

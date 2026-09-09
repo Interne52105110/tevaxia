@@ -186,7 +186,7 @@
       },
       "estimateurConstruction": {
         "title": "Baukosten",
-        "description": "Detaillierte Aufschlüsselung nach Gewerk (STATEC-Klassifikation). 17 Posten, Anpassung nach Energieklasse und Ausbaustufe.",
+        "description": "Erstellen Sie ein Budget aus Ihren Angeboten und benannten Annahmen. Geben Sie alle Preise einschließlich MwSt. in Euro an. Es werden keine Tarife, Honorare oder Energieaufschläge vorausgesetzt.",
         "tag": "STATEC Okt. 2025"
       },
       "calculateurVrd": {
@@ -3505,7 +3505,7 @@
     },
     "promoteur": {
       "title": "Projektentwickler",
-      "description": "Rückwärtsbudget, VEFA-Zahlungsplan 3%/17% MwSt., STATEC-Baukosten, PAG-Konformität",
+      "description": "Rückwärtsbudget, VEFA-Zahlungsplan 3%/17% MwSt., dokumentiertes Baubudget, PAG-Konformität",
       "link1": "Projektentwicklerbilanz",
       "link2": "VEFA",
       "link3": "Baukostenschätzer",
@@ -7031,13 +7031,13 @@
     "promoteur": {
       "meta": {
         "title": "Bauträger-Software Luxemburg — Wirtschaftlichkeit, VEFA, Kosten",
-        "description": "Bauträger-GuV mit Cashflow-Plan, VEFA-Simulator mit Zwischenzinsen, STATEC-Baukosten-Schätzer, Strassenbau- und OAI/ILNAS-Flächenumrechnung."
+        "description": "Bauträger-GuV mit Cashflow-Plan, VEFA-Simulator mit Zwischenzinsen, dokumentiertes Baubudget-Schätzer, Strassenbau- und OAI/ILNAS-Flächenumrechnung."
       },
       "hero": {
         "badge": "Für LU-Bauträger und Immobilienhändler",
         "title": "Bauträger-GuV und VEFA-Simulation,",
         "titleAccent": "ohne Kosten dreimal einzugeben",
-        "subtitle": "Vollständige Bauträger-GuV mit monatlichem Cashflow-Plan und Prognose-Marge, VEFA-Simulator mit Zwischenzinsen und LU-3 %-MwSt, STATEC-referenzierter Baukosten-Schätzer (17 Gewerke), Strassenbau-Rechner (9 Lose), OAI/ILNAS-Flächenumrechner. Gebaut für luxemburgische Bauträger und Immobilienhändler.",
+        "subtitle": "Vollständige Bauträger-GuV mit monatlichem Cashflow-Plan und Prognose-Marge, VEFA-Simulator mit Zwischenzinsen und LU-3 %-MwSt, Baubudget auf Angebotsbasis, Strassenbau-Rechner (9 Lose), OAI/ILNAS-Flächenumrechner. Gebaut für luxemburgische Bauträger und Immobilienhändler.",
         "cta": "Kostenlos starten",
         "ctaSecondary": "Funktionsweise ansehen",
         "kpis": [
@@ -11663,7 +11663,7 @@
       "faq2q": "Wie intrinsische vs extrinsische GFA?",
       "faq2a": "/vefa trennt beide: extrinsisch (Versicherer/Bank) vs intrinsisch (Eigenkapital beim Notar). Extrinsisch in LU obligatorisch.",
       "faq3q": "Sind STATEC-Indizes aktuell?",
-      "faq3a": "Ja, /estimateur-construction zeigt STATEC ICV mit YoY für 6 Materialien. Vierteljährliches Update.",
+      "faq3a": "Erstellen Sie ein Budget aus Ihren Angeboten und benannten Annahmen. Geben Sie alle Preise einschließlich MwSt. in Euro an. Es werden keine Tarife, Honorare oder Energieaufschläge vorausgesetzt. Der STATEC-Index misst Preisänderungen im Wohnungsbau ohne MwSt. und Grundstück. Er ist weder ein Angebot noch ein allgemeiner Preis je m². Kein Einheitspreis dieser Seite wird STATEC oder Batiprix zugeschrieben.",
       "faq4q": "Kann ich die GuV mit meinem Banker teilen?",
       "faq4a": "Ja, /profil/liens-partages generiert öffentlichen Read-only-Link. Banker sieht die GuV ohne Konto.",
       "relatedTitle": "Weiterführend",
@@ -18958,5 +18958,37 @@
     "logisticsScope": "Hier ist keine Miet- oder Bestandsreihe je Gebiet mit überprüfter Quelle und Zeitraum verfügbar. Verwenden Sie für ein Logistikobjekt dokumentierte Vergleichsobjekte und seine Mietvertragsdaten.",
     "macroScope": "Prüfen Sie beim Zinsvergleich Zeitraum, Vertragsart und beobachtete Grundgesamtheit. Die Links führen zu den Zeitreihen der zuständigen Institutionen und stellen kein Finanzierungsangebot dar.",
     "valuation": "Mit eigenen Daten bewerten"
+  },
+  "constructionBudget": {
+    "title": "Dokumentiertes Baubudget",
+    "scope": "Erstellen Sie ein Budget aus Ihren Angeboten und benannten Annahmen. Geben Sie alle Preise einschließlich MwSt. in Euro an. Es werden keine Tarife, Honorare oder Energieaufschläge vorausgesetzt.",
+    "surface": "Bruttoreferenzfläche (m²), optional",
+    "surfaceScope": "Diese Fläche dient nur zur Berechnung des Budgets pro m². Sie vervielfacht keine Positionen: jede Zeile verwendet ihre eigene Menge. Bei leerem Feld bleibt die Kennzahl unberechnet.",
+    "lines": "Budgetpositionen",
+    "lineScope": "Erfassen Sie die Arbeiten und Kosten Ihres Umfangs. Bei einem Pauschalangebot geben Sie Menge 1 und den Bruttobetrag ein. Vermeiden Sie die doppelte Erfassung eines Gesamtangebots und seiner Einzelpositionen. Ein leeres Feld ist nicht null.",
+    "line": "Position",
+    "remove": "Entfernen",
+    "label": "Positionsbezeichnung",
+    "kind": "Art",
+    "works": "Bauarbeiten inkl. MwSt.",
+    "fees": "Nebenkosten inkl. MwSt.",
+    "quantity": "Menge",
+    "unit": "Einheit",
+    "unitPrice": "Einheitspreis inkl. MwSt. (€)",
+    "reference": "Angebotsreferenz, Datum oder dokumentierte Annahme",
+    "lump": "Einheit / Pauschale",
+    "add": "Position hinzufügen",
+    "contingency": "Risikoreserve (% der Bauarbeiten inkl. MwSt.)",
+    "contingencyScope": "Angegebener Satz, anfangs null. Die Reserve gilt nur für die Bauarbeiten ohne Nebenkosten. Sie ist weder ein Angebot noch eine Garantie der Endkosten.",
+    "reason": "Begründung einer Reserve über null",
+    "invalid": "Vervollständigen Sie mindestens eine Position: Bezeichnung, Referenz, positive Menge (höchstens 4 Dezimalstellen) und nicht negativer Bruttopreis (höchstens 2 Dezimalstellen). Eine angegebene Fläche muss positiv sein. Die Reserve muss 0–100 % betragen und bei positivem Wert begründet sein.",
+    "resultTitle": "Budget der erfassten Positionen",
+    "partial": "Der Gesamtbetrag umfasst nur die erfassten Positionen. Ergänzen Sie bei Bedarf Grundstück, Erwerbskosten, Studien, Honorare, Anschlüsse und Finanzierung als Nebenkosten. Förderungen oder Vorsteuererstattungen werden nicht automatisch abgezogen.",
+    "contingencyAmount": "Reserve inkl. MwSt.",
+    "total": "Gesamt inkl. MwSt.",
+    "perM2": "Budget pro angegebenem Brutto-m²",
+    "csv": "CSV-Verzeichnis exportieren",
+    "indexScope": "Der STATEC-Index misst Preisänderungen im Wohnungsbau ohne MwSt. und Grundstück. Er ist weder ein Angebot noch ein allgemeiner Preis je m². Kein Einheitspreis dieser Seite wird STATEC oder Batiprix zugeschrieben.",
+    "source": "STATEC-Methodik"
   }
 }

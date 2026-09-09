@@ -186,7 +186,7 @@
       },
       "estimateurConstruction": {
         "title": "Construction cost",
-        "description": "Detailed breakdown by trade (STATEC classification). 17 items, energy class and finish level adjustment.",
+        "description": "Build a budget from your quotes and identified assumptions. Enter all prices including VAT in euros. No tariff, professional fee or energy premium is assumed.",
         "tag": "STATEC Oct. 2025"
       },
       "calculateurVrd": {
@@ -3505,7 +3505,7 @@
     },
     "promoteur": {
       "title": "Developer",
-      "description": "Backwards budget, VEFA schedule 3%/17% VAT, STATEC construction costs, PAG compliance",
+      "description": "Backwards budget, VEFA schedule 3%/17% VAT, documented construction budget, PAG compliance",
       "link1": "Developer feasibility",
       "link2": "VEFA",
       "link3": "Construction cost estimator",
@@ -6968,13 +6968,13 @@
     "promoteur": {
       "meta": {
         "title": "Luxembourg property developer software — pro forma, VEFA, costs",
-        "description": "Developer P&L with cash-flow plan, VEFA simulator with interim interest, STATEC construction cost estimator, road works and OAI/ILNAS surface conversion."
+        "description": "Developer P&L with cash-flow plan, VEFA simulator with interim interest, documented construction budget, road works and OAI/ILNAS surface conversion."
       },
       "hero": {
         "badge": "For LU developers and property dealers",
         "title": "Developer P&L and VEFA simulation,",
         "titleAccent": "without re-entering costs three times",
-        "subtitle": "Complete developer P&L with monthly cash-flow plan and forecast margin, VEFA simulator with interim interest and LU 3% VAT, STATEC-referenced construction cost estimator (17 trades), road works calculator (9 lots), OAI/ILNAS surface converter. Built for Luxembourg property developers and dealers.",
+        "subtitle": "Complete developer P&L with monthly cash-flow plan and forecast margin, VEFA simulator with interim interest and LU 3% VAT, quote-based construction budget, road works calculator (9 lots), OAI/ILNAS surface converter. Built for Luxembourg property developers and dealers.",
         "cta": "Start for free",
         "ctaSecondary": "See how it works",
         "kpis": [
@@ -11776,7 +11776,7 @@
       "parcoursStep2Title": "Operation P&L",
       "parcoursStep2Desc": "/bilan-promoteur: revenue × sales period × build cost × financial costs × VAT. Tornado chart ±10% sensitivity on 8 variables (sorted by amplitude). Multi-tranche phasing with 48-month Gantt.",
       "parcoursStep3Title": "Execution and VEFA sales",
-      "parcoursStep3Desc": "/vefa: staggered funds calls, construction delay (0-24 month slider) and intercalary interest surcharge, intrinsic vs extrinsic GFA (insurer, 0.3-2% premium). /estimateur-construction: STATEC material indices + CSV export per trade for competitive bidding.",
+      "parcoursStep3Desc": "/vefa: staggered funds calls, construction delay (0-24 month slider) and intercalary interest surcharge, intrinsic vs extrinsic GFA (insurer, 0.3-2% premium). /estimateur-construction : Build a budget from your quotes and identified assumptions. Enter all prices including VAT in euros. No tariff, professional fee or energy premium is assumed.",
       "toolsTitle": "Recommended tools",
       "toolsIntro": "Feasibility → P&L → execution → sales pipeline.",
       "faqTitle": "Frequently asked questions",
@@ -11785,7 +11785,7 @@
       "faq2q": "How does intrinsic vs extrinsic GFA work?",
       "faq2a": "/vefa separates both: extrinsic (insurer or bank guarantees if developer defaults, 0.3-2% of revenue premium) vs intrinsic (developer equity deposited with notary). Extrinsic is mandatory to sell VEFA in LU (law 28.12.1976 art. 2-11). Tool computes both costs for arbitration.",
       "faq3q": "Are STATEC indices up-to-date?",
-      "faq3a": "Yes, /estimateur-construction shows STATEC Construction Cost Index (ICV) with YoY for 6 materials: steel, concrete, wood, insulation, aluminium, copper. Quarterly update. Batiprix 2026 integrated for unit prices per trade.",
+      "faq3a": "Build a budget from your quotes and identified assumptions. Enter all prices including VAT in euros. No tariff, professional fee or energy premium is assumed. The STATEC index measures price changes in residential construction, excluding VAT and land. It is not a quote or a universal price per m². No unit cost on this page is attributed to STATEC or Batiprix.",
       "faq4q": "Can I share the P&L with my banker?",
       "faq4a": "Yes, /profil/liens-partages generates a read-only public link with secure token. Banker sees P&L without tevaxia account. Print/PDF button on viewer side. Analytics: you see view count and last consultation.",
       "relatedTitle": "Go further",
@@ -18958,5 +18958,37 @@
     "logisticsScope": "No rent or stock series by area is available here with a verified source and period. For a logistics asset, use documented comparables and its lease data.",
     "macroScope": "When comparing lending rates, check the period, contract type and observed population. The links below provide access to the producing institutions’ series; they do not constitute a financing offer.",
     "valuation": "Value using your own data"
+  },
+  "constructionBudget": {
+    "title": "Documented construction budget",
+    "scope": "Build a budget from your quotes and identified assumptions. Enter all prices including VAT in euros. No tariff, professional fee or energy premium is assumed.",
+    "surface": "Reference gross floor area (m²), optional",
+    "surfaceScope": "This area is used only to calculate the budget per m². It does not multiply the line items: each line uses its own quantity. Leaving it blank leaves this ratio uncalculated.",
+    "lines": "Budget line items",
+    "lineScope": "Add the works and fees included in your scope. For a lump-sum quote, enter quantity 1 and its VAT-inclusive amount. Avoid counting both a total quote and its component items. A blank field is not zero.",
+    "line": "Line",
+    "remove": "Remove",
+    "label": "Line description",
+    "kind": "Type",
+    "works": "Works including VAT",
+    "fees": "Additional fees including VAT",
+    "quantity": "Quantity",
+    "unit": "Unit",
+    "unitPrice": "Unit price including VAT (€)",
+    "reference": "Quote reference, date or documented assumption",
+    "lump": "Unit / lump sum",
+    "add": "Add a line",
+    "contingency": "Contingency (% of works including VAT)",
+    "contingencyScope": "Declared rate, initially zero. It applies only to the works subtotal, excluding additional fees. It is neither a quote nor a guarantee of the final cost.",
+    "reason": "Reason for a contingency above zero",
+    "invalid": "Complete at least one line: description, reference, positive quantity (up to 4 decimals) and non-negative VAT-inclusive price (up to 2 decimals). Any entered area must be positive. Contingency must be 0–100%, with a reason when positive.",
+    "resultTitle": "Budget of entered items",
+    "partial": "This total covers only the entered items. Add land, acquisition costs, studies, professional fees, connections and financing as additional fees where needed. No grant or VAT recovery is automatically deducted.",
+    "contingencyAmount": "Contingency including VAT",
+    "total": "Total including VAT",
+    "perM2": "Budget per declared gross m²",
+    "csv": "Export the CSV schedule",
+    "indexScope": "The STATEC index measures price changes in residential construction, excluding VAT and land. It is not a quote or a universal price per m². No unit cost on this page is attributed to STATEC or Batiprix.",
+    "source": "STATEC methodology"
   }
 }

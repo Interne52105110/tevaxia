@@ -529,6 +529,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "aiChat",
     "backup",
     "common",
+    "constructionBudget",
     "cookie",
     "crmContextBar",
     "estimateurConstruction",
