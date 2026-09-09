@@ -9464,95 +9464,93 @@
     },
     "bellegenAkt": {
       "title": "Bëllegen Akt 2026: Steuergutschrift notarielle Urkunde Luxemburg",
-      "metaDescription": "Bëllegen Akt 2026 in Luxemburg: 40.000 € Steuergutschrift pro Käufer (80.000 € für ein Paar) auf Eintragungsgebühren, Bedingungen, Verfahren, Beispiele.",
-      "subtitle": "Die Steuergutschrift, die einem Erstkäufer-Paar bis zu 80.000 € an Erwerbskosten sparen kann.",
+      "metaDescription": "Die Gutschrift gehört jedem Käufer persönlich und richtet sich nach Anteil und Restguthaben.",
+      "subtitle": "Die Gutschrift gehört jedem Käufer persönlich und richtet sich nach Anteil und Restguthaben. Zwei Käufer können zwei Guthaben haben, aber der ungenutzte Saldo des einen bezahlt nicht die Abgaben des anderen. Eine Ehe allein schafft keinen gemeinsamen Freibetrag von 80.000 EUR.",
       "category": "Erwerbsbeihilfen",
       "essentiel": [
-        "Steuergutschrift auf Eintragungs- und Transkriptionsgebühren: 40.000 € pro Käufer, 80.000 € für ein gemeinsam kaufendes Paar.",
-        "Hauptbedingung: die Immobilie tatsächlich und persönlich als Hauptwohnsitz bewohnen, ab Besitzeinweisung oder innerhalb von zwei Jahren.",
-        "Automatische Anwendung: der Notar wendet sie bei der Beurkundung an, kein zusätzlicher Aufwand für den Käufer.",
-        "Mindestbetrag von 100 € Gebühren bleibt in jedem Fall fällig, erhoben von der AED.",
-        "Nicht genutzte Gutschrift bleibt verfügbar: Wer 25.000 € beim ersten Kauf verbraucht hat, kann später noch 15.000 € für einen weiteren Hauptwohnsitz mobilisieren."
+        "Der Restkredit ist persönlich: bei AED/MyGuichet prüfen. Die voreingestellten 40.000 € setzen keine frühere Nutzung voraus. Restkredite sind nicht auf andere Käufer übertragbar. Mindestens 100 € bleiben je Urkunde zu zahlen.",
+        "Zwei verschiedene Fristen gelten: Einzug binnen zwei Jahren nach der Urkunde (vier Jahre bei Bauland oder einem Gebäude im Bau), danach mindestens zwei Jahre ununterbrochene persönliche Nutzung. Die Verpflichtungen stehen in der Urkunde. Eine Verlängerung oder Befreiung muss die Steuerverwaltung gewähren; eine Angabe im Rechner genügt nicht.",
+        "Im EWR ansässige Käufer können bei zugesagtem Einzug den Kredit beantragen. Außerhalb des EWR sind die Abgaben bis zur Vorlage einer luxemburgischen Wohnsitzbescheinigung vorzustrecken; das Ergebnis zeigt dann die Kosten nach einer möglichen Erstattung."
       ],
       "section1Title": "Prinzip und Höhe",
-      "section1P1": "Der Bëllegen Akt (sogenannter günstiger Akt) ist eine Steuergutschrift auf die beim Erwerb eines als Hauptwohnsitz vorgesehenen Wohnraums in Luxemburg fälligen Eintragungs- und Transkriptionsgebühren. Eingeführt durch das Gesetz vom 30. Juli 2002 und mehrfach reformiert, beträgt die aktuelle Obergrenze 40.000 € pro Käufer, also 80.000 € für ein gemeinsam kaufendes Paar. Die Gutschrift wird direkt auf die fälligen Gebühren angerechnet: keine Barerstattung.",
-      "section1P2": "Der Mechanismus ist einfach: Der Notar berechnet die fälligen Gebühren (6 % Eintragung + 1 % Transkription = 7 % vom Preis), zieht die verfügbare Bëllegen-Akt-Gutschrift jedes Käufers ab und vereinnahmt den Restbetrag für die AED. Übersteigt die Gutschrift die Gebühren, bleibt der Rest für einen zukünftigen Hauptwohnsitzerwerb verfügbar (die Gutschrift ist persönlich und lebenslang).",
+      "section1P1": "Die persönliche Gutschrift gilt für Käufe, die die Bedingungen der Eigennutzung erfüllen, darunter eine Nutzung von mindestens zwei Jahren. Der Notar stellt den Antrag. Prüfen Sie das Restguthaben jedes Käufers: 40.000 EUR ist die von den konsultierten amtlichen Quellen bestätigte Obergrenze, kein neues Guthaben bei jedem Kauf. Der Restkredit ist persönlich: bei AED/MyGuichet prüfen. Die voreingestellten 40.000 € setzen keine frühere Nutzung voraus. Restkredite sind nicht auf andere Käufer übertragbar. Mindestens 100 € bleiben je Urkunde zu zahlen.",
+      "section1P2": "Teilberechnung nach dokumentierten Regeln. Kreditobergrenze 40.000 € gemäß Gesetz vom 3. Juli 2025. Die im Juli 2026 angekündigte Erhöhung auf 45.000 € wird ohne Bestätigung des Inkrafttretens nicht berücksichtigt.",
       "callout1Title": "Verheiratetes oder verpartnertes Paar",
-      "callout1Body": "Um beide Gutschriften zu kumulieren (insgesamt 80.000 €), muss der Akt einen gemeinsamen Erwerb in Bruchteilen feststellen. Wird nur ein Ehepartner als Käufer genannt, ist nur dessen persönliche Gutschrift von 40.000 € mobilisierbar. Die Regel gilt für Ehe, eingetragene Partnerschaft und sogar einfaches Zusammenleben, sofern beide im Akt erscheinen.",
+      "callout1Body": "Die Gutschrift gehört jedem Käufer persönlich und richtet sich nach Anteil und Restguthaben. Zwei Käufer können zwei Guthaben haben, aber der ungenutzte Saldo des einen bezahlt nicht die Abgaben des anderen. Eine Ehe allein schafft keinen gemeinsamen Freibetrag von 80.000 EUR.",
       "section2Title": "Voraussetzungen",
-      "section2P1": "Vier kumulative Bedingungen müssen erfüllt sein: (1) die Immobilie muss in Luxemburg liegen, (2) sie muss als Haupt- und gewöhnlicher Wohnsitz des Käufers dienen, (3) tatsächliche und persönliche Bewohnung muss ab Besitzeinweisung oder innerhalb von zwei Jahren ab Akt beginnen, (4) der Käufer muss eine eidesstattliche Erklärung im Akt unterzeichnen. Die Gutschrift steht jeder natürlichen Person offen, ob in Luxemburg ansässig oder nicht.",
-      "section2P2": "Der Bëllegen Akt gilt für Wohnungen, Häuser sowie für Grundstücke, auf denen innerhalb von vier Jahren ein Hauptwohnsitz errichtet werden soll. Bei einem VEFA-Neubau gilt die Gutschrift für die Gebühren auf den Grundstücksanteil (der Bauanteil unterliegt der 3 % Wohn-MwSt.).",
+      "section2P1": "Zwei verschiedene Fristen gelten: Einzug binnen zwei Jahren nach der Urkunde (vier Jahre bei Bauland oder einem Gebäude im Bau), danach mindestens zwei Jahre ununterbrochene persönliche Nutzung. Die Verpflichtungen stehen in der Urkunde. Eine Verlängerung oder Befreiung muss die Steuerverwaltung gewähren; eine Angabe im Rechner genügt nicht.",
+      "section2P2": "Im EWR ansässige Käufer können bei zugesagtem Einzug den Kredit beantragen. Außerhalb des EWR sind die Abgaben bis zur Vorlage einer luxemburgischen Wohnsitzbescheinigung vorzustrecken; das Ergebnis zeigt dann die Kosten nach einer möglichen Erstattung.",
       "callout2Title": "Sanktion bei Nichteinhaltung",
-      "callout2Body": "Bewohnt der Käufer die Immobilie nicht fristgerecht oder verlässt er sie vor Ablauf der Verpflichtungsfrist, kann die AED die vollständige Rückzahlung der Gutschrift zuzüglich Verzugszinsen verlangen. Auch eine Vermietung im ersten Jahr kann eine Rückforderung auslösen. Prüfen Sie Ihren Bewohnungsplan vor der Unterzeichnung des Vorvertrags.",
+      "callout2Body": "Bei Nichteinhaltung von Fristen oder Nutzung kann die Gutschrift samt gesetzlichen Zinsen zurückgefordert werden, sofern keine Verlängerung oder Befreiung gewährt wird. Zurückgezahlte Ermäßigungen stellen das Guthaben in dieser Höhe wieder her; Zinsen bleiben fällig. Ein Verkauf nach der Mindestnutzung erneuert verbrauchtes Guthaben nicht. Klären Sie vor einem Weiterverkaufsvertrag den wirksamen Eigentumsübergang mit dem Notar.",
       "section3Title": "Verfahren und Anwendung",
-      "section3P1": "Vom Käufer ist kein direktes Verfahren erforderlich. Der Notar integriert die Erklärung in den Aktentwurf, fragt bei der AED den verfügbaren Restkredit jedes Käufers ab (insbesondere wenn einer bereits davon profitiert hat) und wendet die Gutschrift bei der Gebührenberechnung an. Die von der AED ausgestellte Quittung weist die angewandte Gutschrift ausdrücklich aus.",
-      "section3P2": "Für Käufer, die bereits einen Teil ihres Kredits genutzt haben, führt die AED ein personengebundenes Register. Der Notar fragt dieses Register über die Eintragungs-Telefachverfahren vor Aktabschluss ab. Der Restkredit wird automatisch berechnet und auf die Gebühren des Neuerwerbs angerechnet.",
+      "section3P1": "Der Notar stellt den Antrag im Rahmen der Urkunde. Käufer müssen Angaben liefern, Restguthaben prüfen und die nötigen Verpflichtungen eingehen; eine bedingungslose Anwendung wird nicht zugesagt. Bewahren Sie die Abrechnung der Steuerverwaltung und Nutzungsnachweise auf. Der Saldo ist im privaten MyGuichet-Konto abrufbar.",
+      "section3P2": "Der Restkredit ist persönlich: bei AED/MyGuichet prüfen. Die voreingestellten 40.000 € setzen keine frühere Nutzung voraus. Restkredite sind nicht auf andere Käufer übertragbar. Mindestens 100 € bleiben je Urkunde zu zahlen.",
       "section4Title": "Rechenbeispiele",
-      "section4Intro": "Wirkung des Bëllegen Akt nach Käuferprofil bei einer Bestandsimmobilie (Satz 7 %).",
+      "section4Intro": "Fiktive Beispiele für gewöhnliche Abgaben von 7 %, ohne Sonderzuschlag oder Befreiung. Ein Käufer hat 40.000 EUR Restguthaben; zwei Käufer haben je 40.000 EUR und erwerben gleiche Anteile. Die Abgabenspalten berücksichtigen den Mindestbetrag von 100 EUR.",
       "table": {
-        "caption": "Wirkung des Bëllegen Akt nach Profil und Preis",
+        "caption": "Verbleibende Abgaben und tatsächlich genutztes Guthaben",
         "headers": [
-          "Kaufpreis",
-          "Einzelkäufer (40.000 €)",
-          "Paar (80.000 €)",
-          "Ersparnis"
+          "Preis",
+          "Abgaben: 1 Käufer",
+          "Abgaben: 2 Käufer",
+          "Guthaben genutzt: 2"
         ],
         "rows": [
           [
-            "300.000 €",
-            "0 € Gebühren",
-            "0 € Gebühren",
-            "21.000 €"
+            "300 000 EUR",
+            "100 EUR",
+            "100 EUR",
+            "20 900 EUR"
           ],
           [
-            "500.000 €",
-            "0 € (Kredit > Gebühren)",
-            "0 € Gebühren",
-            "35.000 €"
+            "500 000 EUR",
+            "100 EUR",
+            "100 EUR",
+            "34 900 EUR"
           ],
           [
-            "750.000 €",
-            "12.500 € Gebühren",
-            "0 € Gebühren",
-            "52.500 €"
+            "750 000 EUR",
+            "12 500 EUR",
+            "100 EUR",
+            "52 400 EUR"
           ],
           [
-            "1.000.000 €",
-            "30.000 € Gebühren",
-            "0 € Gebühren",
-            "70.000 €"
+            "1 000 000 EUR",
+            "30 000 EUR",
+            "100 EUR",
+            "69 900 EUR"
           ],
           [
-            "1.500.000 €",
-            "65.000 € Gebühren",
-            "25.000 € Gebühren",
-            "80.000 € (Paar)"
+            "1 500 000 EUR",
+            "65 000 EUR",
+            "25 000 EUR",
+            "80 000 EUR"
           ]
         ],
-        "footnote": "Ersparnis für ein Erstkäufer-Paar, das den Kredit nie genutzt hat. Bei einem Einzelkäufer entspricht die Ersparnis dem Mindestwert zwischen fälligen Gebühren und 40.000 €."
+        "footnote": "Nur Abgaben: Notargebühren, deren Mehrwertsteuer, Auslagen und Darlehenskosten fehlen. Die letzte Spalte zeigt das tatsächlich verwendete Guthaben beider Käufer, keine Barauszahlung."
       },
       "callout3Title": "Konkreter Fall: Paar, Wohnung 750.000 €",
-      "callout3Body": "Fällige Gebühren: 52.500 € (7 % von 750.000). Bëllegen-Akt-Kredit Paar: 80.000 € verfügbar. Anrechnung: −52.500 €. Zu zahlende Gebühren: 0 € (AED-Mindestbetrag 100 €). Restkredit für künftigen Hauptwohnsitz: 27.500 €. Tatsächliche Ersparnis heute: 52.500 €.",
+      "callout3Body": "Bei 750.000 EUR betragen die Abgaben 52.500 EUR. Bei gleichen Anteilen und zwei vollen Guthaben werden 52.400 EUR verrechnet; 100 EUR bleiben fällig. Das gemeinsame Restguthaben beträgt dann 27.600 EUR, vorbehaltlich der bestätigten individuellen Salden und der Bedingungen des nächsten Kaufs.",
       "inlineCalc": {
-        "title": "Simulieren Sie Ihren Bëllegen Akt in wenigen Klicks",
-        "description": "Unser Erwerbskosten-Rechner wendet den Kredit automatisch entsprechend Ihrer Situation an (Einzelkäufer, Paar, bereits genutzter Kredit) und gibt Ihnen den exakten zu zahlenden Betrag am Aktentag.",
+        "title": "Detaillierten Kostenrechner öffnen",
+        "description": "Teilberechnung nach dokumentierten Regeln. Kreditobergrenze 40.000 € gemäß Gesetz vom 3. Juli 2025. Die im Juli 2026 angekündigte Erhöhung auf 45.000 € wird ohne Bestätigung des Inkrafttretens nicht berücksichtigt.",
         "cta": "Berechnung starten"
       },
       "tools": [
         {
           "href": "/frais-acquisition",
           "title": "Erwerbskosten-Rechner",
-          "description": "Automatische Bëllegen-Akt-Anrechnung nach Ihrem Profil."
+          "description": "Der Restkredit ist persönlich: bei AED/MyGuichet prüfen. Die voreingestellten 40.000 € setzen keine frühere Nutzung voraus. Restkredite sind nicht auf andere Käufer übertragbar. Mindestens 100 € bleiben je Urkunde zu zahlen."
         },
         {
           "href": "/simulateur-aides",
           "title": "Erwerbsbeihilfen-Simulator",
-          "description": "Bëllegen Akt, Wohnungsprämie, Zinszuschuss und Staatsgarantie kombinieren."
+          "description": "Jede Förderung behält ihre Bedingungen und Obergrenze. Bëllegen Akt betrifft die Abgaben, der Mehrwertsteuervorteil begünstigte Arbeiten. Prüfen Sie andere Hilfen, Termine und Kumulierungsregeln gesondert; dieser Leitfaden berechnet keine automatische Kombination."
         },
         {
           "href": "/vefa",
           "title": "VEFA-Simulator",
-          "description": "Bëllegen Akt auf den Grundstücksanteil und 3 % Wohn-MwSt. auf den Bau."
+          "description": "VEFA: ausschließlich Nettopreis eingeben. Vorausgesetzt werden kein bereits errichteter Bau bei Beurkundung, vollständig begünstigte Bauleistungen und noch verfügbare 50.000 € MwSt.-Vergünstigung bei Eigennutzung. Bereits begonnene Projekte oder verbrauchte Vergünstigungen erfordern eine Einzelabrechnung."
         },
         {
           "href": "/outils-bancaires",
@@ -9563,57 +9561,52 @@
       "faq": [
         {
           "q": "Wie hoch ist der Bëllegen Akt 2026?",
-          "a": "Der Bëllegen Akt beträgt 40.000 € pro Käufer, also 80.000 € für ein gemeinsam in Bruchteilen kaufendes Paar. Das ist die maximale Steuergutschrift, die auf Eintragungs- und Transkriptionsgebühren angerechnet werden kann."
+          "a": "Teilberechnung nach dokumentierten Regeln. Kreditobergrenze 40.000 € gemäß Gesetz vom 3. Juli 2025. Die im Juli 2026 angekündigte Erhöhung auf 45.000 € wird ohne Bestätigung des Inkrafttretens nicht berücksichtigt. Die Gutschrift gehört jedem Käufer persönlich und richtet sich nach Anteil und Restguthaben. Zwei Käufer können zwei Guthaben haben, aber der ungenutzte Saldo des einen bezahlt nicht die Abgaben des anderen. Eine Ehe allein schafft keinen gemeinsamen Freibetrag von 80.000 EUR."
         },
         {
           "q": "Ist der Bëllegen Akt mit anderen Beihilfen kombinierbar?",
-          "a": "Ja. Er ist mit der 3 % Wohn-MwSt. auf Neubauten, der Wohnungszugangsprämie, dem Zinszuschuss, der Sparprämie und der Staatsgarantie kombinierbar. Verboten ist nur die doppelte Nutzung desselben Kredits für zwei gleichzeitige Erwerbe."
+          "a": "Jede Förderung behält ihre Bedingungen und Obergrenze. Bëllegen Akt betrifft die Abgaben, der Mehrwertsteuervorteil begünstigte Arbeiten. Prüfen Sie andere Hilfen, Termine und Kumulierungsregeln gesondert; dieser Leitfaden berechnet keine automatische Kombination."
         },
         {
           "q": "Kann der Bëllegen Akt für eine Mietinvestition genutzt werden?",
-          "a": "Nein. Der Kredit ist strikt dem Erwerb eines vom Käufer persönlich bewohnten Hauptwohnsitzes vorbehalten. Mietinvestitionen, Zweitwohnsitze oder Gewerberäume sind ausgeschlossen."
+          "a": "Diese Gutschrift dient der persönlichen Wohnung des Käufers. Ein von Anfang an zur Vermietung, als Zweitwohnung oder gewerblich geplanter Kauf erfüllt diese Bedingung nicht."
         },
         {
           "q": "Muss man Luxemburg-Resident sein, um zu profitieren?",
-          "a": "Nein. Der Bëllegen Akt steht jeder natürlichen Person offen, die eine Immobilie in Luxemburg erwirbt, um dort ihren Hauptwohnsitz zu begründen, ob bereits Steuerresident oder beim Kauf zuziehend."
+          "a": "Im EWR ansässige Käufer können bei zugesagtem Einzug den Kredit beantragen. Außerhalb des EWR sind die Abgaben bis zur Vorlage einer luxemburgischen Wohnsitzbescheinigung vorzustrecken; das Ergebnis zeigt dann die Kosten nach einer möglichen Erstattung."
         },
         {
           "q": "Was passiert bei schnellem Wiederverkauf?",
-          "a": "Erfolgt der Wiederverkauf vor Ablauf der Verpflichtungsfrist, kann die AED die volle Rückzahlung der Gutschrift zuzüglich Verzugszinsen fordern. Ein Wiederverkauf nach mehreren Jahren tatsächlicher Bewohnung löst keine Rückforderung aus, der Kredit wird aber für einen Neuerwerb nicht wiederhergestellt."
+          "a": "Bei Nichteinhaltung von Fristen oder Nutzung kann die Gutschrift samt gesetzlichen Zinsen zurückgefordert werden, sofern keine Verlängerung oder Befreiung gewährt wird. Zurückgezahlte Ermäßigungen stellen das Guthaben in dieser Höhe wieder her; Zinsen bleiben fällig. Ein Verkauf nach der Mindestnutzung erneuert verbrauchtes Guthaben nicht. Klären Sie vor einem Weiterverkaufsvertrag den wirksamen Eigentumsübergang mit dem Notar."
         },
         {
           "q": "Wie prüfe ich den verfügbaren Kreditstand?",
-          "a": "Der Notar fragt die AED über Telefachverfahren vor dem Akt ab. Der Käufer kann auch direkt eine Standsbescheinigung bei der AED gegen Vorlage eines Ausweises anfordern. Wurde ein Teil bereits bei einem früheren Kauf verwendet, ist nur der Restbetrag mobilisierbar."
+          "a": "Der Restkredit ist persönlich: bei AED/MyGuichet prüfen. Die voreingestellten 40.000 € setzen keine frühere Nutzung voraus. Restkredite sind nicht auf andere Käufer übertragbar. Mindestens 100 € bleiben je Urkunde zu zahlen. Der Notar stellt den Antrag im Rahmen der Urkunde. Käufer müssen Angaben liefern, Restguthaben prüfen und die nötigen Verpflichtungen eingehen; eine bedingungslose Anwendung wird nicht zugesagt. Bewahren Sie die Abrechnung der Steuerverwaltung und Nutzungsnachweise auf. Der Saldo ist im privaten MyGuichet-Konto abrufbar."
         }
       ],
       "sources": [
         {
-          "title": "Steuergutschrift auf notarielle Urkunden (Bëllegen Akt) — Verfahren",
+          "title": "Prinzip und Höhe",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html"
+        },
+        {
+          "title": "Voraussetzungen",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot/conditions.html"
+        },
+        {
+          "title": "Sanktion bei Nichteinhaltung",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot/delais.html"
+        },
+        {
+          "title": "Verfahren und Anwendung",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/de/citoyens/aides/logement-construction/aides-indirectes/credit-impot-actes-notaries.html"
-        },
-        {
-          "title": "Bëllegen Akt — offizielles Datenblatt",
-          "org": "Logement.lu — Wohnungsbauministerium",
-          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/credit-impot-actes-notariaux-bellegen-akt.html"
-        },
-        {
-          "title": "Gesetz vom 30. Juli 2002 zur Einführung der Steuergutschrift auf notarielle Urkunden",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/2002/07/30/n3/jo",
-          "year": 2002
-        },
-        {
-          "title": "Bëllegen-Akt-Reform — Anhebung auf 40.000 €",
-          "org": "Paperjam",
-          "url": "https://paperjam.lu/article/frais-enregistrement-baisses-a"
-        },
-        {
-          "title": "Gesetz vom 22. Frimaire Jahr VII — Eintragungsgebühren",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1798/12/22/n1/jo"
+          "url": "https://guichet.public.lu/fr/citoyens/logement/aides/aides-indirectes-avantages-fiscaux/credit-impot-actes-notaries.html"
         }
-      ]
+      ],
+      "section4P1": "Fiktive Beispiele für gewöhnliche Abgaben von 7 %, ohne Sonderzuschlag oder Befreiung. Ein Käufer hat 40.000 EUR Restguthaben; zwei Käufer haben je 40.000 EUR und erwerben gleiche Anteile. Die Abgabenspalten berücksichtigen den Mindestbetrag von 100 EUR."
     },
     "plusValue": {
       "title": "Immobilien-Veräußerungsgewinn Luxemburg: Steuern 2026 (LIR)",

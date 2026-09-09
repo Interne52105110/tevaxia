@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function GuideFraisNotaire() {
-  const [t, locale] = await Promise.all([getTranslations("guide.fraisNotaire"), getLocale()]);
+  const [t, locale, tc] = await Promise.all([getTranslations("guide.fraisNotaire"), getLocale(), getTranslations("common")]);
   const nf = new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const bands = BAREME_NOTAIRE.map((v, i) => [i === 0 ? `0 - ${nf.format(v.limite)} EUR` : Number.isFinite(v.limite) ? `> ${nf.format(BAREME_NOTAIRE[i - 1].limite)} - ${nf.format(v.limite)} EUR` : `> ${nf.format(BAREME_NOTAIRE[i - 1].limite)} EUR`, `${nf.format(v.taux * 100)} %`]);
 
@@ -47,7 +47,7 @@ export default async function GuideFraisNotaire() {
     { id: "emoluments", label: t("section2Title") },
     { id: "hypotheque", label: t("section3Title") },
     { id: "exemples", label: t("section4Title") },
-    { id: "faq", label: t("faqTitle") },
+    { id: "faq", label: tc("faqTitle") },
   ];
 
   const faqSchema = {

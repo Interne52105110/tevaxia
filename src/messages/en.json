@@ -9586,95 +9586,93 @@
     },
     "bellegenAkt": {
       "title": "Bëllegen Akt 2026: notary deed tax credit Luxembourg",
-      "metaDescription": "Bëllegen Akt 2026 in Luxembourg: €40,000 tax credit per buyer (€80,000 for a couple) on registration duties, conditions, procedure, worked examples.",
-      "subtitle": "The tax credit that can save a first-time buyer couple up to €80,000 in acquisition costs.",
+      "metaDescription": "The credit belongs to each buyer and depends on their ownership share and remaining balance.",
+      "subtitle": "The credit belongs to each buyer and depends on their ownership share and remaining balance. Two buyers may have two credits, but one buyer’s unused balance cannot pay the other’s duties. Marriage alone does not create a joint EUR 80,000 allowance.",
       "category": "Acquisition aids",
       "essentiel": [
-        "Tax credit on registration and transcription duties: €40,000 per buyer, €80,000 for a couple buying jointly.",
-        "Main condition: effectively and personally occupy the property as your primary residence, from possession or within two years.",
-        "Automatic application: the notary applies it at signing, no extra paperwork for the buyer.",
-        "Floor of €100 in duties remains payable in all cases, levied by the Registration, Estates and VAT Administration (AED).",
-        "Unused credit remains available: a buyer who used €25,000 on a first purchase can still mobilise €15,000 on a future primary purchase."
+        "The credit balance is personal: check AED/MyGuichet. The suggested €40,000 assumes no previous use. One buyer’s balance cannot be transferred to another. A minimum €100 remains payable for the deed.",
+        "Two separate periods apply: move in within two years of the deed (four years for building land or a property under construction), then occupy the home personally without interruption for at least two years. The commitments appear in the deed. An extension or exemption is for the tax authority to grant, not a declaration in the simulator.",
+        "EEA residents may request the credit when committing to move into the property. Residents outside the EEA must advance the duties until they provide a Luxembourg residence certificate: the result then shows the cost after any refund."
       ],
       "section1Title": "Principle and amount",
-      "section1P1": "The Bëllegen Akt ('affordable deed') is a tax credit on the registration and transcription duties payable when buying a property intended as a primary residence in Luxembourg. Introduced by the law of 30 July 2002 and successively reformed, the current ceiling is €40,000 per buyer, i.e., €80,000 for a couple buying jointly. The credit is directly offset against duties owed: there is no cash refund.",
-      "section1P2": "The mechanism is simple: the notary calculates the duties due (6% registration + 1% transcription = 7% of the price), deducts the available Bëllegen Akt credit for each buyer, and collects the balance on behalf of the AED. If the credit exceeds the duties owed, the balance remains available for a future acquisition as a primary residence (the credit is personal and lifelong).",
+      "section1P1": "The personal credit is for purchases meeting the own-occupation conditions, including occupation for at least two years. The notary submits the application. Check each buyer’s remaining balance: EUR 40,000 is the ceiling confirmed by the official sources consulted, not a fresh credit for every purchase. The credit balance is personal: check AED/MyGuichet. The suggested €40,000 assumes no previous use. One buyer’s balance cannot be transferred to another. A minimum €100 remains payable for the deed.",
+      "section1P2": "Partial fee estimate under documented rules. The credit uses the €40,000 ceiling confirmed by the law of 3 July 2025. The increase to €45,000 announced in July 2026 is not included without confirmation that it has entered into force.",
       "callout1Title": "Married or partnered couple",
-      "callout1Body": "To pool both spouses' credits (€80,000 total), the deed must record a joint acquisition in indivision. If only one spouse is named as buyer, only their personal €40,000 credit is mobilisable. The rule applies to marriage, registered partnership and even simple cohabitation if both names appear on the deed.",
+      "callout1Body": "The credit belongs to each buyer and depends on their ownership share and remaining balance. Two buyers may have two credits, but one buyer’s unused balance cannot pay the other’s duties. Marriage alone does not create a joint EUR 80,000 allowance.",
       "section2Title": "Eligibility conditions",
-      "section2P1": "Four cumulative conditions must be met: (1) the property must be located in Luxembourg, (2) it must serve as the buyer's main and habitual residence, (3) effective and personal occupation must start from possession or within two years of the deed, and (4) the buyer must sign a sworn declaration included in the deed. The credit is open to any natural person, resident or non-resident of Luxembourg.",
-      "section2P2": "The Bëllegen Akt applies to apartments, houses, and land intended to receive a primary residence construction within four years. For a VEFA new-build, the credit applies to duties on the land share (the construction share being subject to 3% housing VAT).",
+      "section2P1": "Two separate periods apply: move in within two years of the deed (four years for building land or a property under construction), then occupy the home personally without interruption for at least two years. The commitments appear in the deed. An extension or exemption is for the tax authority to grant, not a declaration in the simulator.",
+      "section2P2": "EEA residents may request the credit when committing to move into the property. Residents outside the EEA must advance the duties until they provide a Luxembourg residence certificate: the result then shows the cost after any refund.",
       "callout2Title": "Penalty for non-compliance",
-      "callout2Body": "If the buyer does not occupy the property within the deadline, or leaves before the end of the commitment period, the AED can claim full reimbursement of the credit plus late interest. Renting out the property in the first year may also trigger restitution. Confirm your occupancy plans before signing the compromis.",
+      "callout2Body": "Failure to meet the deadlines or use conditions can require repayment of the credit with statutory interest, unless an extension or exemption is granted. Repaid relief restores the credit by the amount repaid; interest remains payable. A sale after the required occupation period does not restore consumed credit. Before signing a resale agreement, check the effective ownership transfer date with the notary.",
       "section3Title": "Procedure and application",
-      "section3P1": "No direct procedure is required from the buyer. The notary integrates the declaration into the draft deed, queries the AED for the available credit balance for each buyer (especially if one of them has already used the scheme), and applies the credit when calculating the duties. The duty receipt issued by the AED explicitly mentions the credit applied.",
-      "section3P2": "For buyers who have already used part of their credit, the AED keeps a personal register. The notary queries this register via the registration teleprocedures before finalising the deed. The residual credit is calculated automatically and offset against the duties due for the new acquisition.",
+      "section3P1": "The notary submits the application with the deed. Buyers must supply the information, check their balances and make the required commitments; unconditional application is not promised. Retain the tax authority’s statement and evidence of occupation. The balance can be checked in the private MyGuichet account.",
+      "section3P2": "The credit balance is personal: check AED/MyGuichet. The suggested €40,000 assumes no previous use. One buyer’s balance cannot be transferred to another. A minimum €100 remains payable for the deed.",
       "section4Title": "Worked examples",
-      "section4Intro": "Here is the Bëllegen Akt's effect by buyer profile, for an existing property (7% rate).",
+      "section4Intro": "Fictional examples for property subject to ordinary duties of 7%, without special surcharges or exemptions. One buyer has EUR 40,000 remaining; two buyers each have EUR 40,000 and buy equal shares. Duty columns preserve the EUR 100 minimum.",
       "table": {
-        "caption": "Bëllegen Akt effect by profile and price",
+        "caption": "Remaining duties and credit actually used",
         "headers": [
-          "Purchase price",
-          "Single buyer (€40,000)",
-          "Couple (€80,000)",
-          "Savings"
+          "Price",
+          "Duties: 1 buyer",
+          "Duties: 2 buyers",
+          "Credit used: 2"
         ],
         "rows": [
           [
-            "€300,000",
-            "€0 in duties",
-            "€0 in duties",
-            "€21,000"
+            "300 000 EUR",
+            "100 EUR",
+            "100 EUR",
+            "20 900 EUR"
           ],
           [
-            "€500,000",
-            "€0 (credit > duties)",
-            "€0 in duties",
-            "€35,000"
+            "500 000 EUR",
+            "100 EUR",
+            "100 EUR",
+            "34 900 EUR"
           ],
           [
-            "€750,000",
-            "€12,500 in duties",
-            "€0 in duties",
-            "€52,500"
+            "750 000 EUR",
+            "12 500 EUR",
+            "100 EUR",
+            "52 400 EUR"
           ],
           [
-            "€1,000,000",
-            "€30,000 in duties",
-            "€0 in duties",
-            "€70,000"
+            "1 000 000 EUR",
+            "30 000 EUR",
+            "100 EUR",
+            "69 900 EUR"
           ],
           [
-            "€1,500,000",
-            "€65,000 in duties",
-            "€25,000 in duties",
-            "€80,000 (couple)"
+            "1 500 000 EUR",
+            "65 000 EUR",
+            "25 000 EUR",
+            "80 000 EUR"
           ]
         ],
-        "footnote": "Savings for a first-time buyer couple who has never used the credit. For a single buyer, savings equal the lower of duties owed and €40,000."
+        "footnote": "Duties only: notarial fees, their VAT, disbursements and loan costs are excluded. The last column is the credit actually used by the two buyers, not cash paid to them."
       },
       "callout3Title": "Concrete case: couple, €750,000 apartment",
-      "callout3Body": "Duties owed: €52,500 (7% of €750,000). Couple Bëllegen Akt credit: €80,000 available. Offset: −€52,500. Duties payable: €0 (AED €100 floor). Residual credit for a future primary purchase: €27,500. Real savings today: €52,500.",
+      "callout3Body": "On EUR 750,000, duties are EUR 52,500. With equal shares and two full balances, EUR 52,400 is applied and EUR 100 remains payable. Combined remaining credit is then EUR 27,600, subject to balances confirmed by the tax authority and the next purchase’s conditions.",
       "inlineCalc": {
-        "title": "Simulate your Bëllegen Akt in a few clicks",
-        "description": "Our acquisition costs calculator automatically applies the credit based on your situation (single buyer, couple, credit already used) and gives you the exact amount payable on signing day.",
+        "title": "Open the detailed fee calculator",
+        "description": "Partial fee estimate under documented rules. The credit uses the €40,000 ceiling confirmed by the law of 3 July 2025. The increase to €45,000 announced in July 2026 is not included without confirmation that it has entered into force.",
         "cta": "Run the calculation"
       },
       "tools": [
         {
           "href": "/frais-acquisition",
           "title": "Acquisition costs calculator",
-          "description": "Automatic Bëllegen Akt offset based on your profile."
+          "description": "The credit balance is personal: check AED/MyGuichet. The suggested €40,000 assumes no previous use. One buyer’s balance cannot be transferred to another. A minimum €100 remains payable for the deed."
         },
         {
           "href": "/simulateur-aides",
           "title": "Acquisition aids simulator",
-          "description": "Combine Bëllegen Akt, housing premium, interest subsidy and State guarantee."
+          "description": "Each scheme retains its conditions and ceiling. Bëllegen Akt covers duties; the VAT benefit covers eligible works. Check other grants, their timing and combination rules separately; this guide does not calculate automatic combined eligibility."
         },
         {
           "href": "/vefa",
           "title": "VEFA simulator",
-          "description": "Bëllegen Akt on the land share and 3% housing VAT on construction."
+          "description": "Off-plan: enter a price excluding VAT. This mode assumes no construction completed at the deed, all construction eligible and the full €50,000 VAT benefit still available for personal occupation. Started projects or previously used benefits need an individual statement."
         },
         {
           "href": "/outils-bancaires",
@@ -9685,57 +9683,52 @@
       "faq": [
         {
           "q": "How much is the Bëllegen Akt in 2026?",
-          "a": "The Bëllegen Akt is €40,000 per buyer, i.e., €80,000 for a couple buying jointly in indivision. This is the maximum tax credit offsetable against registration and transcription duties."
+          "a": "Partial fee estimate under documented rules. The credit uses the €40,000 ceiling confirmed by the law of 3 July 2025. The increase to €45,000 announced in July 2026 is not included without confirmation that it has entered into force. The credit belongs to each buyer and depends on their ownership share and remaining balance. Two buyers may have two credits, but one buyer’s unused balance cannot pay the other’s duties. Marriage alone does not create a joint EUR 80,000 allowance."
         },
         {
           "q": "Can the Bëllegen Akt be combined with other aids?",
-          "a": "Yes. It combines with the 3% housing VAT on new-builds, the housing access premium, the interest subsidy, the savings premium and the State guarantee. The only forbidden combination is using the same credit twice for two simultaneous acquisitions."
+          "a": "Each scheme retains its conditions and ceiling. Bëllegen Akt covers duties; the VAT benefit covers eligible works. Check other grants, their timing and combination rules separately; this guide does not calculate automatic combined eligibility."
         },
         {
           "q": "Can the Bëllegen Akt be used for a rental investment?",
-          "a": "No. The credit is strictly reserved for the acquisition of a primary residence personally occupied by the buyer. A rental investment, secondary residence or commercial premises do not qualify."
+          "a": "This credit is for the buyer’s own home. A purchase intended from the outset for letting, a second home or commercial use does not meet that condition."
         },
         {
           "q": "Do I need to be a Luxembourg resident to benefit?",
-          "a": "No. The Bëllegen Akt is open to any natural person buying a property in Luxembourg to establish their primary residence there, whether already a tax resident or moving to the country at the time of purchase."
+          "a": "EEA residents may request the credit when committing to move into the property. Residents outside the EEA must advance the duties until they provide a Luxembourg residence certificate: the result then shows the cost after any refund."
         },
         {
           "q": "What happens if I sell my home quickly?",
-          "a": "If resale occurs before the end of the occupancy commitment period, the AED can claim full reimbursement of the credit plus late interest. A resale after several years of effective occupancy does not trigger restitution, but the credit is not restored for a new primary acquisition."
+          "a": "Failure to meet the deadlines or use conditions can require repayment of the credit with statutory interest, unless an extension or exemption is granted. Repaid relief restores the credit by the amount repaid; interest remains payable. A sale after the required occupation period does not restore consumed credit. Before signing a resale agreement, check the effective ownership transfer date with the notary."
         },
         {
           "q": "How do I check the available credit balance?",
-          "a": "The notary queries the AED via teleprocedures before the deed. The buyer can also request a balance certificate directly from the AED with an ID. If part of the credit was used in a previous purchase, only the residue is mobilisable."
+          "a": "The credit balance is personal: check AED/MyGuichet. The suggested €40,000 assumes no previous use. One buyer’s balance cannot be transferred to another. A minimum €100 remains payable for the deed. The notary submits the application with the deed. Buyers must supply the information, check their balances and make the required commitments; unconditional application is not promised. Retain the tax authority’s statement and evidence of occupation. The balance can be checked in the private MyGuichet account."
         }
       ],
       "sources": [
         {
-          "title": "Tax credit on notarial deeds (Bëllegen Akt) — procedure",
+          "title": "Principle and amount",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html"
+        },
+        {
+          "title": "Eligibility conditions",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot/conditions.html"
+        },
+        {
+          "title": "Penalty for non-compliance",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot/delais.html"
+        },
+        {
+          "title": "Procedure and application",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/aides-indirectes/credit-impot-actes-notaries.html"
-        },
-        {
-          "title": "Bëllegen Akt — official factsheet",
-          "org": "Logement.lu — Ministry of Housing",
-          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/credit-impot-actes-notariaux-bellegen-akt.html"
-        },
-        {
-          "title": "Law of 30 July 2002 establishing the tax credit on notarial deeds",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/2002/07/30/n3/jo",
-          "year": 2002
-        },
-        {
-          "title": "Bëllegen Akt reform — raised to €40,000",
-          "org": "Paperjam",
-          "url": "https://paperjam.lu/article/frais-enregistrement-baisses-a"
-        },
-        {
-          "title": "Law of 22 Frimaire Year VII — registration duties",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1798/12/22/n1/jo"
+          "url": "https://guichet.public.lu/fr/citoyens/logement/aides/aides-indirectes-avantages-fiscaux/credit-impot-actes-notaries.html"
         }
-      ]
+      ],
+      "section4P1": "Fictional examples for property subject to ordinary duties of 7%, without special surcharges or exemptions. One buyer has EUR 40,000 remaining; two buyers each have EUR 40,000 and buy equal shares. Duty columns preserve the EUR 100 minimum."
     },
     "plusValue": {
       "title": "Luxembourg real estate capital gains: 2026 tax rules (LIR)",

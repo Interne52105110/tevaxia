@@ -292,3 +292,12 @@ Relevés PDF (8c9e0a2) confirmés en production : CI 34398958161 success, Vercel
 - Métadonnées réexportées dans quatre routes locales, date du guide 9 septembre 2026. Build/lint réussis ; cinq langues, deux tableaux (neuf et cinq lignes), six FAQ structurées, sources et quatre largeurs vérifiés.
 
 Hub hôtellerie (0abe245) confirmé en production : CI 34399433885 success, Vercel dpl_4vWFWvR8ZCw68EpCf6GwgZAsPxyU Ready ; cinq pages revérifiées en quatre largeurs.
+
+
+## Guide Bëllegen Akt — solde personnel, délais et restitution
+
+- Les cinq versions distinguent le délai d’entrée dans le logement (deux ans, quatre pour terrain/immeuble en construction) et la durée de deux ans d’occupation continue. Dérogations/prorogations relevant de l’AED, engagements de l’acquéreur et justificatifs explicites ; suppression de l’application automatique sans démarche ni condition.
+- Solde propre à chaque acquéreur, quote-part et absence de transfert de crédit entre personnes ; traitement résident EEE / hors EEE expliqué, avec avance puis restitution dans ce dernier cas. Remboursement d’un avantage indu reconstitue le crédit à hauteur du principal restitué, pas des intérêts ; revente après occupation requise ne restaure pas le crédit consommé.
+- Cinq exemples pour un ou deux acquéreurs, minimum de 100 EUR préservé : deux soldes complets à 750 000 EUR => crédit 52 400, droits 100, solde cumulé 27 600. Aucun cumul d’aides garanti. Sources PFI conditions/délais et Guichet vérifiées.
+- Métadonnées réexportées quatre langues et date mise à jour. Correction complémentaire du sommaire du guide notarial : clé FAQ inexistante remplacée par la traduction commune ; contrôle explicite de l’absence de clés brutes dans la page.
+- Validation : build/lint réussis, dix pages des deux guides en cinq langues/quatre largeurs, tableaux et données structurées contrôlés. Le guide notarial 1b8bea5 avait CI 34400411294 réussie ; la vérification finale en production inclura ce correctif du sommaire.

@@ -21,6 +21,7 @@ export default async function GuideBellegenAkt() {
       namespace={NAMESPACE}
       slug={SLUG}
       readingMinutes={6}
+      updatedAt="2026-09-09"
       inlineCalculatorHref="/frais-acquisition"
       hasTable
       sections={[

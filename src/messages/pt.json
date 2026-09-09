@@ -9464,95 +9464,93 @@
     },
     "bellegenAkt": {
       "title": "Bëllegen Akt 2026: crédito fiscal de escritura notarial Luxemburgo",
-      "metaDescription": "Bëllegen Akt 2026 no Luxemburgo: crédito fiscal de 40 000 € por comprador (80 000 € para um casal) sobre os direitos de registo, condições, procedimento, exemplos.",
-      "subtitle": "O crédito fiscal que pode poupar até 80 000 € de custos de aquisição a um casal primo-comprador.",
+      "metaDescription": "O crédito pertence a cada adquirente e depende da sua quota e saldo disponível.",
+      "subtitle": "O crédito pertence a cada adquirente e depende da sua quota e saldo disponível. Duas pessoas podem ter dois créditos, mas o saldo não utilizado de uma não paga os impostos da outra. O casamento não cria por si só um crédito comum de 80 000 EUR.",
       "category": "Apoios à aquisição",
       "essentiel": [
-        "Crédito fiscal sobre os direitos de registo e transcrição: 40 000 € por comprador, 80 000 € para um casal que compra em conjunto.",
-        "Condição principal: ocupar efetiva e pessoalmente o imóvel como residência principal, desde a tomada de posse ou nos dois anos seguintes.",
-        "Aplicação automática: o notário aplica-o no momento da escritura, sem formalidade adicional para o comprador.",
-        "Mínimo de 100 € de direitos devidos em qualquer caso, cobrados pela Administração do Registo, Domínios e IVA (AED).",
-        "Crédito não utilizado permanece disponível: um comprador que utilizou 25 000 € numa primeira compra ainda pode mobilizar 15 000 € numa futura compra principal."
+        "O saldo é pessoal: confirme na AED/MyGuichet. Os 40.000 € propostos pressupõem nenhuma utilização anterior. O saldo de um comprador não se transfere para outro. Mantém-se um mínimo de 100 € por escritura.",
+        "Aplicam-se dois prazos distintos: ocupar o imóvel nos dois anos após a escritura (quatro anos para terreno ou imóvel em construção), depois habitá-lo pessoalmente sem interrupção durante pelo menos dois anos. Os compromissos constam da escritura. Uma prorrogação ou dispensa compete à administração fiscal, não a uma declaração no simulador.",
+        "Residentes no EEE podem pedir o crédito comprometendo-se a ocupar o imóvel. Fora do EEE, os direitos devem ser adiantados até apresentação do certificado de residência luxemburguês: o resultado representa o custo após eventual reembolso."
       ],
       "section1Title": "Princípio e montante",
-      "section1P1": "O Bëllegen Akt («ato acessível») é um crédito fiscal sobre os direitos de registo e transcrição devidos na aquisição de uma habitação destinada a servir de residência principal no Luxemburgo. Instituído pela lei de 30 de julho de 2002 e sucessivamente reformado, o limite atual é de 40 000 € por comprador, ou seja, 80 000 € para um casal que compra em conjunto. O crédito é imputado diretamente nos direitos devidos: não há reembolso em dinheiro.",
-      "section1P2": "O mecanismo é simples: o notário calcula os direitos devidos (6% registo + 1% transcrição = 7% do preço), deduz o crédito Bëllegen Akt disponível para cada comprador e cobra o saldo por conta da AED. Se o crédito exceder os direitos devidos, o saldo permanece disponível para uma aquisição futura como residência principal (o crédito é pessoal e vitalício).",
+      "section1P1": "O crédito pessoal destina-se a aquisições que cumprem as condições de habitação própria, incluindo ocupação durante pelo menos dois anos. O notário apresenta o pedido. Verifique o saldo de cada adquirente: 40 000 EUR é o limite confirmado pelas fontes oficiais consultadas, não um novo crédito em cada compra. O saldo é pessoal: confirme na AED/MyGuichet. Os 40.000 € propostos pressupõem nenhuma utilização anterior. O saldo de um comprador não se transfere para outro. Mantém-se um mínimo de 100 € por escritura.",
+      "section1P2": "Estimativa parcial segundo regras documentadas. Crédito limitado a 40.000 €, confirmado pela lei de 3 de julho de 2025. O aumento para 45.000 € anunciado em julho de 2026 não está incluído sem confirmação da entrada em vigor.",
       "callout1Title": "Casal casado ou em parceria",
-      "callout1Body": "Para acumular os créditos dos dois cônjuges (80 000 € no total), a escritura deve constatar a aquisição conjunta em compropriedade. Se apenas um dos cônjuges for nomeado comprador, apenas o seu crédito pessoal de 40 000 € é mobilizável. A regra aplica-se ao casamento, à parceria registada e até à coabitação simples se ambos figurarem na escritura.",
+      "callout1Body": "O crédito pertence a cada adquirente e depende da sua quota e saldo disponível. Duas pessoas podem ter dois créditos, mas o saldo não utilizado de uma não paga os impostos da outra. O casamento não cria por si só um crédito comum de 80 000 EUR.",
       "section2Title": "Condições de elegibilidade",
-      "section2P1": "Quatro condições cumulativas devem ser respeitadas: (1) o imóvel deve estar situado no Luxemburgo, (2) deve servir de residência principal e habitual do comprador, (3) a ocupação efetiva e pessoal deve começar desde a tomada de posse ou nos dois anos seguintes à escritura, e (4) o comprador deve assinar uma declaração sob compromisso de honra integrada na escritura. O crédito está aberto a qualquer pessoa singular, residente ou não residente no Luxemburgo.",
-      "section2P2": "O Bëllegen Akt aplica-se a apartamentos, casas e a terrenos destinados a receber a construção de uma residência principal no prazo de quatro anos. Para um imóvel novo VEFA, o crédito aplica-se aos direitos sobre a parte de terreno (a parte de construção está sujeita ao IVA habitação a 3%).",
+      "section2P1": "Aplicam-se dois prazos distintos: ocupar o imóvel nos dois anos após a escritura (quatro anos para terreno ou imóvel em construção), depois habitá-lo pessoalmente sem interrupção durante pelo menos dois anos. Os compromissos constam da escritura. Uma prorrogação ou dispensa compete à administração fiscal, não a uma declaração no simulador.",
+      "section2P2": "Residentes no EEE podem pedir o crédito comprometendo-se a ocupar o imóvel. Fora do EEE, os direitos devem ser adiantados até apresentação do certificado de residência luxemburguês: o resultado representa o custo após eventual reembolso.",
       "callout2Title": "Sanção em caso de incumprimento",
-      "callout2Body": "Se o comprador não ocupar o imóvel no prazo previsto, ou se o abandonar antes do termo do prazo de compromisso, a AED pode reclamar o reembolso integral do crédito, acrescido de juros de mora. O arrendamento do imóvel no primeiro ano também pode desencadear a restituição. Confirme o seu plano de ocupação antes de assinar o compromisso.",
+      "callout2Body": "O incumprimento dos prazos ou da utilização pode obrigar à restituição do crédito com juros legais, salvo prorrogação ou dispensa concedida. O benefício restituído reconstitui o crédito nesse montante; os juros continuam devidos. Uma venda após o período exigido não renova o crédito consumido. Antes de um compromisso de revenda, confirme com o notário a data efetiva da transmissão.",
       "section3Title": "Procedimento e aplicação",
-      "section3P1": "Nenhum procedimento direto é necessário por parte do comprador. O notário integra a declaração no projeto de escritura, consulta a AED sobre o saldo de crédito disponível para cada comprador (em particular se um deles já beneficiou do regime) e aplica o crédito no cálculo dos direitos. O recibo dos direitos emitido pela AED menciona explicitamente o crédito aplicado.",
-      "section3P2": "Para os compradores que já utilizaram parte do seu crédito, a AED mantém um registo nominal. O notário consulta esse registo via teleprocedimentos do registo antes de finalizar a escritura. O crédito residual é calculado automaticamente e imputado nos direitos devidos pela nova aquisição.",
+      "section3P1": "O notário apresenta o pedido no âmbito da escritura. Os adquirentes devem fornecer informações, verificar os saldos e assumir os compromissos exigidos; não se promete aplicação incondicional. Conserve o detalhe da administração fiscal e provas de ocupação. O saldo pode ser consultado no espaço privado MyGuichet.",
+      "section3P2": "O saldo é pessoal: confirme na AED/MyGuichet. Os 40.000 € propostos pressupõem nenhuma utilização anterior. O saldo de um comprador não se transfere para outro. Mantém-se um mínimo de 100 € por escritura.",
       "section4Title": "Exemplos calculados",
-      "section4Intro": "Eis o efeito do Bëllegen Akt segundo o perfil do comprador, para um imóvel antigo (taxa 7%).",
+      "section4Intro": "Exemplos fictícios com impostos comuns de 7 %, sem sobretaxas ou isenções especiais. Um adquirente dispõe de 40 000 EUR; dois dispõem de 40 000 EUR cada e compram em partes iguais. As colunas dos impostos mantêm o mínimo de 100 EUR.",
       "table": {
-        "caption": "Efeito do Bëllegen Akt segundo perfil e preço",
+        "caption": "Impostos restantes e crédito efetivamente utilizado",
         "headers": [
-          "Preço de compra",
-          "Comprador único (40 000 €)",
-          "Casal (80 000 €)",
-          "Poupança"
+          "Preço",
+          "Impostos: 1 adquirente",
+          "Impostos: 2 adquirentes",
+          "Crédito utilizado: 2"
         ],
         "rows": [
           [
-            "300 000 €",
-            "0 € de direitos",
-            "0 € de direitos",
-            "21 000 €"
+            "300 000 EUR",
+            "100 EUR",
+            "100 EUR",
+            "20 900 EUR"
           ],
           [
-            "500 000 €",
-            "0 € (crédito > direitos)",
-            "0 € de direitos",
-            "35 000 €"
+            "500 000 EUR",
+            "100 EUR",
+            "100 EUR",
+            "34 900 EUR"
           ],
           [
-            "750 000 €",
-            "12 500 € de direitos",
-            "0 € de direitos",
-            "52 500 €"
+            "750 000 EUR",
+            "12 500 EUR",
+            "100 EUR",
+            "52 400 EUR"
           ],
           [
-            "1 000 000 €",
-            "30 000 € de direitos",
-            "0 € de direitos",
-            "70 000 €"
+            "1 000 000 EUR",
+            "30 000 EUR",
+            "100 EUR",
+            "69 900 EUR"
           ],
           [
-            "1 500 000 €",
-            "65 000 € de direitos",
-            "25 000 € de direitos",
-            "80 000 € (casal)"
+            "1 500 000 EUR",
+            "65 000 EUR",
+            "25 000 EUR",
+            "80 000 EUR"
           ]
         ],
-        "footnote": "Poupança para um casal primo-comprador que nunca utilizou o crédito. Para um comprador único, a poupança equivale ao mínimo entre os direitos devidos e 40 000 €."
+        "footnote": "Apenas impostos: excluem-se emolumentos, respetivo IVA, despesas e empréstimo. A última coluna é o crédito efetivamente utilizado pelos dois adquirentes, não dinheiro recebido."
       },
       "callout3Title": "Caso concreto: casal, apartamento de 750 000 €",
-      "callout3Body": "Direitos devidos: 52 500 € (7% de 750 000). Crédito Bëllegen Akt casal: 80 000 € disponíveis. Imputação: −52 500 €. Direitos a pagar: 0 € (mínimo AED 100 €). Crédito residual para uma futura compra principal: 27 500 €. Poupança real hoje: 52 500 €.",
+      "callout3Body": "Para 750 000 EUR, os impostos são 52 500 EUR. Em partes iguais com dois saldos completos, imputam-se 52 400 EUR e ficam 100 EUR a pagar. O crédito conjunto restante é então 27 600 EUR, sujeito aos saldos confirmados e às condições da próxima compra.",
       "inlineCalc": {
-        "title": "Simule o seu Bëllegen Akt em alguns cliques",
-        "description": "A nossa calculadora de custos de aquisição aplica automaticamente o crédito segundo a sua situação (comprador único, casal, crédito já utilizado) e dá-lhe o montante exato a pagar no dia da escritura.",
+        "title": "Abrir o cálculo detalhado dos custos",
+        "description": "Estimativa parcial segundo regras documentadas. Crédito limitado a 40.000 €, confirmado pela lei de 3 de julho de 2025. O aumento para 45.000 € anunciado em julho de 2026 não está incluído sem confirmação da entrada em vigor.",
         "cta": "Iniciar o cálculo"
       },
       "tools": [
         {
           "href": "/frais-acquisition",
           "title": "Calculadora de custos de aquisição",
-          "description": "Imputação automática do Bëllegen Akt segundo o seu perfil."
+          "description": "O saldo é pessoal: confirme na AED/MyGuichet. Os 40.000 € propostos pressupõem nenhuma utilização anterior. O saldo de um comprador não se transfere para outro. Mantém-se um mínimo de 100 € por escritura."
         },
         {
           "href": "/simulateur-aides",
           "title": "Simulador de apoios à aquisição",
-          "description": "Combine Bëllegen Akt, prémio de habitação, subvenção de juros e garantia do Estado."
+          "description": "Cada apoio mantém as suas condições e limite. O Bëllegen Akt incide nos impostos, o benefício de IVA nas obras elegíveis. Verifique separadamente outros apoios, prazos e regras de acumulação; este guia não calcula uma elegibilidade conjunta automática."
         },
         {
           "href": "/vefa",
           "title": "Simulador VEFA",
-          "description": "Bëllegen Akt sobre a parte de terreno e IVA habitação 3% sobre a construção."
+          "description": "VEFA: introduza apenas o preço sem IVA. Este modo pressupõe nenhuma construção realizada na escritura, construção totalmente elegível e benefício de IVA de 50.000 € ainda disponível para habitação própria. Projetos iniciados ou benefícios já usados exigem cálculo individual."
         },
         {
           "href": "/outils-bancaires",
@@ -9563,57 +9561,52 @@
       "faq": [
         {
           "q": "Qual é o montante do Bëllegen Akt em 2026?",
-          "a": "O Bëllegen Akt ascende a 40 000 € por comprador, ou seja, 80 000 € para um casal que compra em conjunto em compropriedade. É o montante máximo do crédito fiscal imputável aos direitos de registo e transcrição."
+          "a": "Estimativa parcial segundo regras documentadas. Crédito limitado a 40.000 €, confirmado pela lei de 3 de julho de 2025. O aumento para 45.000 € anunciado em julho de 2026 não está incluído sem confirmação da entrada em vigor. O crédito pertence a cada adquirente e depende da sua quota e saldo disponível. Duas pessoas podem ter dois créditos, mas o saldo não utilizado de uma não paga os impostos da outra. O casamento não cria por si só um crédito comum de 80 000 EUR."
         },
         {
           "q": "O Bëllegen Akt é cumulável com outras ajudas?",
-          "a": "Sim. Cumula-se com o IVA habitação a 3% sobre os imóveis novos, o prémio de acesso à propriedade, a subvenção de juros, o prémio de poupança e a garantia do Estado. A única cumulação proibida é beneficiar duas vezes do mesmo crédito para duas aquisições simultâneas."
+          "a": "Cada apoio mantém as suas condições e limite. O Bëllegen Akt incide nos impostos, o benefício de IVA nas obras elegíveis. Verifique separadamente outros apoios, prazos e regras de acumulação; este guia não calcula uma elegibilidade conjunta automática."
         },
         {
           "q": "Pode-se usar o Bëllegen Akt para um investimento locativo?",
-          "a": "Não. O crédito é estritamente reservado à aquisição de residência principal ocupada pessoalmente pelo comprador. Um investimento locativo, residência secundária ou local comercial não dão direito ao crédito."
+          "a": "Este crédito destina-se à habitação pessoal do adquirente. Uma compra inicialmente destinada a arrendamento, residência secundária ou utilização comercial não cumpre essa condição."
         },
         {
           "q": "É preciso ser residente luxemburguês para beneficiar?",
-          "a": "Não. O Bëllegen Akt está aberto a qualquer pessoa singular que adquira um imóvel no Luxemburgo para nele estabelecer a sua residência principal, seja já residente fiscal ou se mude por ocasião da compra."
+          "a": "Residentes no EEE podem pedir o crédito comprometendo-se a ocupar o imóvel. Fora do EEE, os direitos devem ser adiantados até apresentação do certificado de residência luxemburguês: o resultado representa o custo após eventual reembolso."
         },
         {
           "q": "O que acontece se eu vender rapidamente?",
-          "a": "Se a revenda ocorrer antes do termo do prazo de compromisso de ocupação, a AED pode reclamar o reembolso integral do crédito acrescido de juros de mora. Uma revenda após vários anos de ocupação efetiva não desencadeia restituição, mas o crédito não é restaurado para uma nova aquisição principal."
+          "a": "O incumprimento dos prazos ou da utilização pode obrigar à restituição do crédito com juros legais, salvo prorrogação ou dispensa concedida. O benefício restituído reconstitui o crédito nesse montante; os juros continuam devidos. Uma venda após o período exigido não renova o crédito consumido. Antes de um compromisso de revenda, confirme com o notário a data efetiva da transmissão."
         },
         {
           "q": "Como verificar o saldo de crédito disponível?",
-          "a": "O notário consulta a AED via teleprocedimentos antes da escritura. O comprador também pode pedir uma certidão de saldo diretamente à AED apresentando um documento de identificação. Se uma parte do crédito já foi utilizada numa compra anterior, apenas o resíduo é mobilizável."
+          "a": "O saldo é pessoal: confirme na AED/MyGuichet. Os 40.000 € propostos pressupõem nenhuma utilização anterior. O saldo de um comprador não se transfere para outro. Mantém-se um mínimo de 100 € por escritura. O notário apresenta o pedido no âmbito da escritura. Os adquirentes devem fornecer informações, verificar os saldos e assumir os compromissos exigidos; não se promete aplicação incondicional. Conserve o detalhe da administração fiscal e provas de ocupação. O saldo pode ser consultado no espaço privado MyGuichet."
         }
       ],
       "sources": [
         {
-          "title": "Crédito de imposto sobre escrituras notariais (Bëllegen Akt) — procedimento",
+          "title": "Princípio e montante",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html"
+        },
+        {
+          "title": "Condições de elegibilidade",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot/conditions.html"
+        },
+        {
+          "title": "Sanção em caso de incumprimento",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot/delais.html"
+        },
+        {
+          "title": "Procedimento e aplicação",
           "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/aides-indirectes/credit-impot-actes-notaries.html"
-        },
-        {
-          "title": "Bëllegen Akt — ficha oficial",
-          "org": "Logement.lu — Ministério da Habitação",
-          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/credit-impot-actes-notariaux-bellegen-akt.html"
-        },
-        {
-          "title": "Lei de 30 de julho de 2002 que institui o crédito fiscal sobre escrituras notariais",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/2002/07/30/n3/jo",
-          "year": 2002
-        },
-        {
-          "title": "Reforma do Bëllegen Akt — elevado a 40 000 €",
-          "org": "Paperjam",
-          "url": "https://paperjam.lu/article/frais-enregistrement-baisses-a"
-        },
-        {
-          "title": "Lei de 22 Frimário Ano VII — direitos de registo",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1798/12/22/n1/jo"
+          "url": "https://guichet.public.lu/fr/citoyens/logement/aides/aides-indirectes-avantages-fiscaux/credit-impot-actes-notaries.html"
         }
-      ]
+      ],
+      "section4P1": "Exemplos fictícios com impostos comuns de 7 %, sem sobretaxas ou isenções especiais. Um adquirente dispõe de 40 000 EUR; dois dispõem de 40 000 EUR cada e compram em partes iguais. As colunas dos impostos mantêm o mínimo de 100 EUR."
     },
     "plusValue": {
       "title": "Mais-valia imobiliária Luxemburgo: fiscalidade 2026 (LIR)",
