@@ -60,7 +60,11 @@
     "guide": "LU Immobilie-Guide",
     "sourcesExternes": "Datequellen",
     "gestionLocative": "Locatiounsverwaltung",
-    "bailCommercial": "Commercielle Loyersvertrag"
+    "bailCommercial": "Commercielle Loyersvertrag",
+    "hotelE2Evidence": "E‑2-Dossier",
+    "hotelAcquisition": "Hotelkaf",
+    "hotelCoverage": "Scholdendéngschtdeckung",
+    "hotelOperating": "Betribsrechnung"
   },
   "common": {
     "language": "Sprooch",
@@ -19339,5 +19343,11 @@
     "invalid": "Fir all Zoustand „Beleg aginn“ eng Referenz ergänzen oder en aneren Zoustand wielen.",
     "importError": "Ongültegen oder inkompatibele Fichier: Den aktuellen Dossier bleift erhalen.",
     "storage": "JSON späicheren, fir méi spéit weiderzemaachen. Dës Säit verschéckt keng Dokumenter a stellt kee Visaantrag."
+  },
+  "authGate": {
+    "loading": "Sessioun gëtt gepréift…",
+    "title": "Detailer kucken",
+    "description": "Mellt Iech un oder erstellt e gratis Kont, fir d’Detailer ze kucken.",
+    "action": "Umellen / Kont erstellen"
   }
 }

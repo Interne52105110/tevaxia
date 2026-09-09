@@ -35,6 +35,11 @@ export default function Breadcrumbs() {
 
   // Map segments to label keys (nav.* translations)
   const SEGMENT_TO_KEY: Record<string, string> = {
+    hotellerie: "hotellerie",
+    "score-e2": "hotelE2Evidence",
+    "pre-acquisition": "hotelAcquisition",
+    dscr: "hotelCoverage",
+    exploitation: "hotelOperating",
     estimation: "estimation",
     "frais-acquisition": "frais",
     "calculateur-loyer": "loyer",

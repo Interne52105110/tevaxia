@@ -46,7 +46,7 @@
     "profil": "Profile",
     "syndic": "Syndic / Co-ownership",
     "propcalc": "PropCalc",
-    "hotellerie": "Hospitality",
+    "hotellerie": "Hotels",
     "hotelHub": "Hospitality hub",
     "pms": "PMS — Bookings & invoicing",
     "hotelValorisation": "Hotel valuation",
@@ -60,7 +60,11 @@
     "guide": "LU Real Estate Guide",
     "sourcesExternes": "Data sources",
     "gestionLocative": "Rental management",
-    "bailCommercial": "Commercial lease"
+    "bailCommercial": "Commercial lease",
+    "hotelE2Evidence": "E‑2 evidence file",
+    "hotelAcquisition": "Acquisition",
+    "hotelCoverage": "Debt coverage",
+    "hotelOperating": "Operating statement"
   },
   "common": {
     "language": "Language",
@@ -19339,5 +19343,11 @@
     "invalid": "Add a reference for every “Evidence entered” status, or choose another status.",
     "importError": "Invalid or incompatible file: the current file is preserved.",
     "storage": "Save JSON to resume after closing. This page does not send documents or submit a visa application."
+  },
+  "authGate": {
+    "loading": "Checking your session…",
+    "title": "View details",
+    "description": "Sign in or create a free account to view the details.",
+    "action": "Sign in / create account"
   }
 }

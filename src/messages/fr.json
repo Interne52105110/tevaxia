@@ -60,7 +60,11 @@
     "guide": "Guide immobilier LU",
     "sourcesExternes": "Sources de données",
     "gestionLocative": "Gestion locative",
-    "bailCommercial": "Bail commercial"
+    "bailCommercial": "Bail commercial",
+    "hotelE2Evidence": "Dossier E‑2",
+    "hotelAcquisition": "Pré-acquisition",
+    "hotelCoverage": "Couverture de dette",
+    "hotelOperating": "Compte d’exploitation"
   },
   "common": {
     "language": "Langue",
@@ -19339,5 +19343,11 @@
     "invalid": "Ajouter une référence pour chaque état « Pièce renseignée », ou choisir un autre état.",
     "importError": "Fichier invalide ou incompatible : le dossier courant est conservé.",
     "storage": "Enregistrer le JSON pour reprendre après fermeture. Aucun document ni demande de visa n’est envoyé depuis cette page."
+  },
+  "authGate": {
+    "loading": "Vérification de la session…",
+    "title": "Accéder aux détails",
+    "description": "Connectez-vous ou créez un compte gratuit pour consulter les détails.",
+    "action": "Se connecter / créer un compte"
   }
 }

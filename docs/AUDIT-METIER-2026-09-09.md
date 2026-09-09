@@ -498,3 +498,11 @@ Sources officielles consultées le 9 septembre 2026 : Department of State, 9 FAM
 Références : https://fam.state.gov/fam/09FAM/09FAM040209.html ; https://travel.state.gov/content/travel/en/us-visas/employment/treaty-trader-investor-visa-e.html ; https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fees/treaty.html . Le FAM a été récupéré directement sur le domaine officiel après échec de l'outil de lecture web ; aucun miroir USCIS non officiel n'a été retenu.
 
 Exports CSV et JSON : neuf états et références, sans score ; import validé avant remplacement et conservation du dossier en cas d'erreur. Aucun document n'est transmis par cette page. Validation : 1 221 tests, 108 fichiers, compilation et lint réussis ; cinq langues, quatre largeurs, saisies de références, exports et import incompatible vérifiés. L'ancien e2-score.ts reste orphelin de la page, ses anciens tests ne constituent pas une validation juridique de ses seuils.
+
+## Accès aux détails : clavier, langue et conservation des saisies
+
+AuthGate masque maintenant ses commandes au clavier et aux technologies d'assistance avec inert/aria-hidden tant que la session est en cours de vérification ou anonyme. L'état de chargement affiche un message traduit et pas d'invitation prématurée à se connecter. L'invitation et son lien respectent les cinq langues. Les enfants restent montés lors des transitions de session afin de préserver leurs saisies. Ce composant de présentation ne remplace pas les autorisations serveur des données privées.
+
+Le composant ToggleField autorise le retour à la ligne des longs libellés ; le débordement constaté sur le simulateur d'aides allemand à 320 px est corrigé. Les fils d'Ariane hôteliers des pages exploitation, DSCR, pré-acquisition et E‑2 ont des libellés traduits.
+
+Validation : composant réel testé hors ligne dans les cinq langues (chargement, navigation Tab, lien localisé, connexion/déconnexion simulées, un seul montage et maintien des saisies). Compilation finale et lint réussis. Navigateur sur simulateur d'aides : cinq langues, quatre largeurs, contrôle des attributs d'accessibilité, manipulation des interrupteurs, navigation vers connexion et fil d'Ariane E‑2. Aucun compte client réel n'a été modifié pour ces essais.

@@ -60,7 +60,11 @@
     "guide": "Guia Imobiliário LU",
     "sourcesExternes": "Fontes de dados",
     "gestionLocative": "Gestão de arrendamento",
-    "bailCommercial": "Arrendamento comercial"
+    "bailCommercial": "Arrendamento comercial",
+    "hotelE2Evidence": "Dossier E‑2",
+    "hotelAcquisition": "Aquisição",
+    "hotelCoverage": "Cobertura da dívida",
+    "hotelOperating": "Conta de exploração"
   },
   "common": {
     "language": "Língua",
@@ -19339,5 +19343,11 @@
     "invalid": "Adicionar referência para cada estado “Documento indicado” ou escolher outro estado.",
     "importError": "Ficheiro inválido ou incompatível: o processo atual é preservado.",
     "storage": "Guardar JSON para retomar após fechar. Esta página não envia documentos nem pedidos de visto."
+  },
+  "authGate": {
+    "loading": "A verificar a sessão…",
+    "title": "Consultar detalhes",
+    "description": "Inicie sessão ou crie uma conta gratuita para consultar os detalhes.",
+    "action": "Entrar / criar conta"
   }
 }

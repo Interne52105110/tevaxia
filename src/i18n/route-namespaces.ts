@@ -559,6 +559,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/estimation": [
     "aiAnalysis",
     "aiChat",
+    "authGate",
     "backup",
     "common",
     "cookie",
@@ -900,6 +901,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/hedonique": [
     "aiAnalysis",
     "aiChat",
+    "authGate",
     "backup",
     "common",
     "cookie",
@@ -1962,6 +1964,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/simulateur-aides": [
     "aiChat",
     "aidesAudit",
+    "authGate",
     "backup",
     "cookie",
     "crmContextBar",

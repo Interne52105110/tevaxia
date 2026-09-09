@@ -60,7 +60,11 @@
     "guide": "LU Immobilien-Ratgeber",
     "sourcesExternes": "Datenquellen",
     "gestionLocative": "Mietverwaltung",
-    "bailCommercial": "Gewerbemietvertrag"
+    "bailCommercial": "Gewerbemietvertrag",
+    "hotelE2Evidence": "E‑2-Unterlagen",
+    "hotelAcquisition": "Hotelankauf",
+    "hotelCoverage": "Schuldendienstdeckung",
+    "hotelOperating": "Betriebsrechnung"
   },
   "common": {
     "language": "Sprache",
@@ -19339,5 +19343,11 @@
     "invalid": "Für jeden Zustand „Beleg eingetragen“ eine Referenz ergänzen oder einen anderen Zustand wählen.",
     "importError": "Ungültige oder inkompatible Datei: Die aktuelle Akte bleibt erhalten.",
     "storage": "JSON speichern, um später fortzufahren. Diese Seite übermittelt keine Unterlagen oder Visumanträge."
+  },
+  "authGate": {
+    "loading": "Sitzung wird geprüft…",
+    "title": "Details ansehen",
+    "description": "Melden Sie sich an oder erstellen Sie ein kostenloses Konto, um die Details zu sehen.",
+    "action": "Anmelden / Konto erstellen"
   }
 }

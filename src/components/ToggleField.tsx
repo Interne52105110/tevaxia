@@ -10,7 +10,7 @@ interface ToggleFieldProps {
 export default function ToggleField({ label, checked, onChange, hint }: ToggleFieldProps) {
   return (
     <div className="flex items-center justify-between gap-4 py-1">
-      <div>
+      <div className="min-w-0 flex-1 [overflow-wrap:anywhere]">
         <span className="text-sm font-medium text-slate">{label}</span>
         {hint && <p className="text-xs text-muted">{hint}</p>}
       </div>
