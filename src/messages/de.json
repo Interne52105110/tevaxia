@@ -18764,5 +18764,27 @@
     "low": "Senkung",
     "high": "Erhöhung",
     "scenarioInvalid": "Ein angesetzter Wert und zwei Prozentsätze von 0 bis 100 sind erforderlich."
+  },
+  "comparisonAudit": {
+    "title": "Vergleich dokumentierter Verkäufe",
+    "scope": "Die Berechnung verwendet Ihre eingetragenen Verkäufe. Prüfen Sie Transaktion, verkaufte Rechte, Nebenflächen, Bedingungen und eine mit dem Bewertungsobjekt übereinstimmende Flächendefinition. Hier steht keine Datenbank einzelner Verkäufe zur Verfügung.",
+    "market": "Gemeindereferenz — bestehende Wohnungen",
+    "marketNote": "Der Gemeindedurchschnitt beschreibt mehrere Transaktionen. Er ist weder ein einzelner Vergleichsverkauf noch ein Wert für Häuser, Grundstücke oder Gewerbeobjekte. Er füllt keine Preise oder Anpassungen der Berechnung aus.",
+    "commune": "Gemeinde oder Ortschaft",
+    "official": "Offiziellen Datensatz ansehen",
+    "formula": "Angepasster Quadratmeterpreis = Verkaufspreis ÷ Fläche × (1 + Summe der Anpassungen ÷ 100). Der gewichtete Mittelwert wird mit der Objektfläche multipliziert. Gewichte sind relativ; null schließt eine Referenz aus.",
+    "add": "Leere Referenz hinzufügen",
+    "reference": "Referenz",
+    "date": "Verkaufsmonat",
+    "source": "Nachprüfbare Quelle (Urkunde, Akte, Referenz)",
+    "weight": "Relatives Gewicht (0–100)",
+    "adjustmentNote": "Anpassungen werden addiert. Eine positive Anpassung erhöht den Referenzpreis zur Vergleichbarkeit mit dem Objekt. Es werden keine statistische Tabelle, kein Zeitindex und kein automatischer Koeffizient angewendet.",
+    "justification": "Begründung der Anpassungen und Eignung (auch ohne Anpassung)",
+    "result": "Indikativer Vergleichswert",
+    "unit": "Gewichteter angepasster Quadratmeterpreis",
+    "effectiveWeight": "Effektives Gewicht",
+    "resultNote": "Das Ergebnis hängt von Auswahl und Prüfung durch den Verfasser ab. Anzahl und Gewichtung der Referenzen messen keine Genauigkeit. Belege und Begründung gehören in die abschließende Akte.",
+    "invalid": "Jede Referenz benötigt Adresse, Quelle, gültigen nicht zukünftigen Verkaufsmonat, positiven Preis und Fläche, Begründung sowie Gewicht von 0 bis 100. Mindestens ein Gewicht muss positiv sein. Jede Anpassung liegt zwischen −100 und 100 %, ihre Summe über −100 %.",
+    "methodSource": "RICS — Verwendung und Prüfung von Vergleichsdaten"
   }
 }

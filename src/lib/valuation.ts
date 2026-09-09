@@ -11,6 +11,8 @@ export interface Comparable {
   adresse: string;
   prixVente: number;
   surface: number; // m²
+  source?: string;
+  justification?: string;
   dateVente: string; // YYYY-MM
   // Ajustements en % (positif = comparable inférieur → valeur à la hausse)
   ajustLocalisation: number;
@@ -38,28 +40,30 @@ export interface ComparaisonResult {
   valeurEstimeePonderee: number;
 }
 
+/** Documented sales entry point; numeric comparison remains independently usable. */
+export function calculerComparaisonDocumentee(comparables:Comparable[],surfaceBien:number,latestMonth=new Date().toISOString().slice(0,7)):ComparaisonResult {
+  if(comparables.some(c=>!c.adresse.trim()||!c.source?.trim()||!c.justification?.trim()||!/^\d{4}-(0[1-9]|1[0-2])$/.test(c.dateVente)||c.dateVente>latestMonth))throw new RangeError('Documented sale references are required');
+  return calculerComparaison(comparables,surfaceBien);
+}
+
 export function calculerComparaison(
   comparables: Comparable[],
   surfaceBien: number
 ): ComparaisonResult {
+  if (!Number.isFinite(surfaceBien)||surfaceBien<=0||surfaceBien>1e7||!Array.isArray(comparables)||comparables.length===0) throw new RangeError('A positive subject area and comparable evidence are required');
   const results = comparables.map((c) => {
-    const prixM2Brut = c.surface > 0 ? c.prixVente / c.surface : 0;
-    const totalAjustements =
-      c.ajustLocalisation + c.ajustEtat + c.ajustEtage +
-      c.ajustExterieur + c.ajustParking + c.ajustDate + c.ajustAutre;
-    const prixM2Ajuste = prixM2Brut * (1 + totalAjustements / 100);
-
-    return {
-      id: c.id,
-      adresse: c.adresse,
-      prixM2Brut,
-      totalAjustements,
-      prixM2Ajuste,
-      poids: c.poids,
-    };
+    const adjustments=[c.ajustLocalisation,c.ajustEtat,c.ajustEtage,c.ajustExterieur,c.ajustParking,c.ajustDate,c.ajustAutre];
+    if (![c.prixVente,c.surface,c.poids,...adjustments].every(Number.isFinite)||c.prixVente<=0||c.prixVente>1e12||c.surface<=0||c.surface>1e7||c.poids<0||c.poids>100||adjustments.some(v=>v < -100||v>100)) throw new RangeError('Invalid comparable inputs');
+    const prixM2Brut = c.prixVente / c.surface;
+    const totalAjustements=adjustments.reduce((sum,v)=>sum+v,0);
+    if(totalAjustements<=-100) throw new RangeError('Adjustments must retain a positive comparable value');
+    const prixM2Ajuste=prixM2Brut*(1+totalAjustements/100);
+    if(!Number.isFinite(prixM2Ajuste)) throw new RangeError('Comparable value overflow');
+    return {id:c.id,adresse:c.adresse,prixM2Brut,totalAjustements,prixM2Ajuste,poids:c.poids};
   });
 
   const totalPoids = results.reduce((s, r) => s + r.poids, 0);
+  if(totalPoids<=0) throw new RangeError("At least one comparable must have a positive weight");
   const prixM2Moyen =
     results.length > 0
       ? results.reduce((s, r) => s + r.prixM2Ajuste, 0) / results.length
@@ -69,6 +73,7 @@ export function calculerComparaison(
       ? results.reduce((s, r) => s + r.prixM2Ajuste * r.poids, 0) / totalPoids
       : prixM2Moyen;
 
+  if(!Number.isFinite(prixM2MoyenPondere*surfaceBien)||!Number.isFinite(prixM2Moyen*surfaceBien)) throw new RangeError("Comparison value overflow");
   return {
     comparables: results,
     prixM2Moyen,

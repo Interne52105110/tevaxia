@@ -14,6 +14,7 @@ interface DocxReportData {
   valeurCapitalisation?: number;
   valeurDCF?: number;
   valeurReconciliee?: number;
+  comparables?: import("@/lib/valuation").Comparable[];
   reconciliation?: {nom:string;valeur:number;poidsEffectif:number}[];
   noi?: number;
   tauxCap?: number;
@@ -70,6 +71,11 @@ export async function downloadDocxReport(data: DocxReportData) {
   if (data.reconciliation) for (const m of data.reconciliation) sections.push(new Paragraph({children:[new TextRun({text:`Pondération retenue — ${m.nom} : ${m.poidsEffectif.toFixed(2)} %`,size:20})]}));
   if (data.valeurReconciliee) {
     sections.push(new Paragraph({ spacing: { before: 100 }, children: [new TextRun({ text: `Valeur réconciliée : `, size: 22 }), new TextRun({ text: formatEUR(data.valeurReconciliee), size: 28, bold: true, color: "1B2A4A" })] }));
+  }
+
+  if(data.comparables?.length){
+    sections.push(new Paragraph({text:"Références de comparaison déclarées",heading:HeadingLevel.HEADING_2,spacing:{before:300,after:100}}));
+    for(const c of data.comparables) sections.push(new Paragraph({text:`${c.adresse} — ${c.dateVente} — ${formatEUR(c.prixVente)} / ${c.surface} m² — poids ${c.poids} — ${c.source??''} — ${c.justification??''}`}));
   }
 
   // 4. Capitalisation

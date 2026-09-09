@@ -7,6 +7,7 @@ import {
   calculerTermeReversion,
   calculerResiduelleEnergetique,
   calculerComparaison,
+  calculerComparaisonDocumentee,
   reconcilier,
 } from "../valuation";
 
@@ -236,4 +237,29 @@ describe('reconciliation retained methods and effective weights',()=>{
  it('normalizes only retained methods and exposes their actual contributions',()=>{const r=reconcilier({...i,valeurComparaison:0});expect(r.valeurReconciliee).toBe(800000);expect(r.methodes.map(m=>m.poidsEffectif)).toEqual([50,50]);expect(r.methodes.reduce((s,m)=>s+m.contribution,0)).toBe(r.valeurReconciliee);expect(reconcilier({...i,poidsCapitalisation:0,poidsComparaison:0}).valeurReconciliee).toBe(1000000)});
  it('does not invent a value when no method is retained',()=>{expect(reconcilier({...i,poidsComparaison:0,poidsCapitalisation:0,poidsDCF:0}).methodes).toEqual([]);expect(reconcilier({...i,valeurComparaison:0,valeurCapitalisation:0,valeurDCF:0}).valeurReconciliee).toBe(0)});
  it('rejects negative, non-finite or excessive values and weights',()=>{for(const patch of [{poidsDCF:NaN},{poidsCapitalisation:-1},{poidsComparaison:101},{valeurDCF:-1},{valeurComparaison:Infinity}])expect(()=>reconcilier({...i,...patch})).toThrow()});
+});
+
+
+describe('comparison evidence boundaries',()=>{
+ const c={id:'independent',adresse:'QA',prixVente:600000,surface:75,dateVente:'2025-01',ajustLocalisation:10,ajustEtat:-5,ajustEtage:0,ajustExterieur:0,ajustParking:0,ajustDate:0,ajustAutre:0,poids:1};
+ it('adds adjustments and normalizes relative weights without premature rounding',()=>{
+  const r=calculerComparaison([c,{...c,id:'second',prixVente:400000,surface:60,ajustLocalisation:0,ajustEtat:0,poids:3}],90);
+  // (8000 * 1.05 + (400000/60)*3) / 4 * 90
+  expect(r.valeurEstimeePonderee).toBeCloseTo(639000,8);
+ });
+ it('excludes a zero-weight reference and rejects all-zero weights',()=>{
+  expect(calculerComparaison([c,{...c,prixVente:999999,poids:0}],90).valeurEstimeePonderee).toBeCloseTo(756000,8);
+  expect(()=>calculerComparaison([{...c,poids:0}],90)).toThrow();
+ });
+ it('rejects invalid areas, prices, weights and nonpositive adjusted values',()=>{
+  for(const surface of [0,-1,NaN,Infinity])expect(()=>calculerComparaison([c],surface)).toThrow();
+  for(const patch of [{surface:0},{prixVente:0},{prixVente:NaN},{poids:-1},{poids:101},{ajustEtat:NaN},{ajustEtat:-100,ajustLocalisation:0},{ajustEtat:101},{surface:Number.MIN_VALUE}])expect(()=>calculerComparaison([{...c,...patch}],90)).toThrow();
+  expect(()=>calculerComparaison([],90)).toThrow();
+ });
+});
+
+it('requires documented references and a valid non-future month before reporting',()=>{
+ const c={id:'1',adresse:'QA',source:'Act reference',justification:'Same area basis, no adjustment justified',prixVente:600000,surface:75,dateVente:'2026-08',ajustLocalisation:0,ajustEtat:0,ajustEtage:0,ajustExterieur:0,ajustParking:0,ajustDate:0,ajustAutre:0,poids:1};
+ expect(calculerComparaisonDocumentee([c],90,'2026-09').valeurEstimeePonderee).toBe(720000);
+ for(const patch of [{source:''},{adresse:''},{justification:''},{dateVente:'2026-13'},{dateVente:'2026-10'},{dateVente:''}])expect(()=>calculerComparaisonDocumentee([{...c,...patch}],90,'2026-09')).toThrow();
 });

@@ -18764,5 +18764,27 @@
     "low": "Reduktioun",
     "high": "Erhéijung",
     "scenarioInvalid": "En zeréckbehale Wäert an zwee Prozentsätz vun 0 bis 100 sinn néideg."
+  },
+  "comparisonAudit": {
+    "title": "Verglach vun dokumentéierte Verkafstransaktiounen",
+    "scope": "Dës Berechnung benotzt d’Verkeef, déi Dir agitt. Kontrolléiert d’Transaktioun, d’verkaafte Rechter, d’Annexen, d’Konditiounen an eng Flächendefinitioun, déi mam bewäerten Objet iwwereneestëmmt. Hei gëtt et keng Datebank vun eenzele Verkeef.",
+    "market": "Gemengereferenz — bestoend Appartementer",
+    "marketNote": "De Gemengenduerchschnëtt beschreift eng Grupp vun Transaktiounen. Et ass weder en eenzele Vergläichsverkaf nach e Wäert fir en Haus, Terrain oder Geschäftsimmobilie. Hie fëllt keng Präisser oder Upassunge vun der Berechnung aus.",
+    "commune": "Gemeng oder Uertschaft",
+    "official": "Offiziellen Datesaz kucken",
+    "formula": "Upasste Präis pro m² = Verkafspräis ÷ Fläch × (1 + Zomm vun den Upassungen ÷ 100). De gewiichten Duerchschnëtt gëtt mat der Fläch vum Objet multiplizéiert. D’Gewiichter si relativ; null schléisst eng Referenz aus.",
+    "add": "Eng eidel Referenz derbäisetzen",
+    "reference": "Referenz",
+    "date": "Mount vum Verkaf",
+    "source": "Nopréifbar Quell (Akt, Dossier, Referenz)",
+    "weight": "Relatiivt Gewiicht (0–100)",
+    "adjustmentNote": "D’Upassunge ginn zesummegerechent. Eng positiv Upassung erhéicht de Referenzpräis, fir en mam Objet vergläichbar ze maachen. Et gëtt keng statistesch Tabell, keen Zäitindex a keen automatesche Koeffizient applizéiert.",
+    "justification": "Begrënnung vun den Upassungen an der Eegnung (och ouni Upassung)",
+    "result": "Indikative Vergläichswäert",
+    "unit": "Gewiichten upasste Präis pro m²",
+    "effectiveWeight": "Effektiivt Gewiicht",
+    "resultNote": "D’Resultat hänkt vun der Auswiel an de Kontrolle vum Verfaasser of. D’Zuel an d’Gewiicht vun de Referenze moosse keng Genauegkeet. Huelt d’Beweiser an d’Begrënnung an de finalen Dossier op.",
+    "invalid": "Fëllt all Referenz aus: Adress, Quell, gültege Verkafsmount net an der Zukunft, positive Präis a Fläch, Begrënnung a Gewiicht vun 0 bis 100. Op d’mannst ee Gewiicht muss positiv sinn. All Upassung läit tëscht −100 an 100 %, hir Zomm iwwer −100 %.",
+    "methodSource": "RICS — Notzung a Kontroll vu Vergläichsreferenzen"
   }
 }

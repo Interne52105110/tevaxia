@@ -18764,5 +18764,27 @@
     "low": "Baisse",
     "high": "Hausse",
     "scenarioInvalid": "Une valeur retenue et deux pourcentages de 0 à 100 sont nécessaires."
+  },
+  "comparisonAudit": {
+    "title": "Comparaison de ventes documentées",
+    "scope": "Ce calcul utilise les ventes que vous renseignez. Vérifiez leur réalité, les droits vendus, les annexes, les conditions de transaction et une définition de surface cohérente avec le bien évalué. Le site ne dispose pas ici d’un fichier de ventes individuelles.",
+    "market": "Repère communal — appartements existants",
+    "marketNote": "La moyenne communale concerne un ensemble de transactions. Ce n’est ni une vente comparable ni une valeur de maison, de terrain ou de local professionnel. Elle ne remplit aucun prix ou ajustement du calcul.",
+    "commune": "Commune ou localité",
+    "official": "Consulter le jeu de données officiel",
+    "formula": "Prix ajusté au m² = prix de vente ÷ surface × (1 + somme des ajustements ÷ 100). La moyenne pondérée est multipliée par la surface du bien. Les poids sont relatifs ; zéro exclut une référence.",
+    "add": "Ajouter une référence vide",
+    "reference": "Référence",
+    "date": "Mois de vente",
+    "source": "Source vérifiable (acte, dossier, référence)",
+    "weight": "Poids relatif (0–100)",
+    "adjustmentNote": "Les ajustements s’additionnent. Un ajustement positif relève le prix de la référence pour la rendre comparable au bien évalué. Aucun barème statistique, indice de date ou coefficient automatique n’est appliqué.",
+    "justification": "Justification des ajustements et de la pertinence (y compris si aucun ajustement)",
+    "result": "Valeur indicative par comparaison",
+    "unit": "Prix ajusté pondéré",
+    "effectiveWeight": "Poids effectif",
+    "resultNote": "Le résultat dépend de la sélection et des vérifications du rédacteur. Le nombre de références et leur pondération ne mesurent pas la précision. Reprenez les pièces et le raisonnement dans le dossier final.",
+    "invalid": "Renseignez chaque référence : adresse, source, mois de vente valide non futur, prix et surface positifs, justification et poids de 0 à 100. Au moins un poids doit être positif. Chaque ajustement doit être compris entre −100 et 100 %, et leur somme supérieure à −100 %.",
+    "methodSource": "RICS — utilisation et vérification des références comparables"
   }
 }

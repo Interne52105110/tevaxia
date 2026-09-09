@@ -18764,5 +18764,27 @@
     "low": "Decrease",
     "high": "Increase",
     "scenarioInvalid": "A retained value and two percentages from 0 to 100 are required."
+  },
+  "comparisonAudit": {
+    "title": "Comparison of documented sales",
+    "scope": "This calculation uses the sales you enter. Verify the transaction, rights sold, ancillary areas, terms and an area definition consistent with the subject property. This tool has no individual sales database.",
+    "market": "Municipal reference — existing apartments",
+    "marketNote": "The municipal average describes a group of transactions. It is neither an individual comparable sale nor a house, land or commercial property value. It does not populate calculation prices or adjustments.",
+    "commune": "Municipality or locality",
+    "official": "View the official dataset",
+    "formula": "Adjusted unit price = sale price ÷ area × (1 + sum of adjustments ÷ 100). The weighted average is multiplied by the subject area. Weights are relative; zero excludes a reference.",
+    "add": "Add a blank reference",
+    "reference": "Reference",
+    "date": "Sale month",
+    "source": "Verifiable source (deed, file, reference)",
+    "weight": "Relative weight (0–100)",
+    "adjustmentNote": "Adjustments are additive. A positive adjustment raises the reference price to make it comparable to the subject. No statistical schedule, date index or automatic coefficient is applied.",
+    "justification": "Reasons for adjustments and relevance (including no adjustment)",
+    "result": "Indicative comparison value",
+    "unit": "Weighted adjusted unit price",
+    "effectiveWeight": "Effective weight",
+    "resultNote": "The result depends on the author’s selection and checks. The number of references and their weights do not measure accuracy. Include the evidence and reasoning in the final file.",
+    "invalid": "Complete each reference: address, source, valid non-future sale month, positive price and area, reasons and weight from 0 to 100. At least one weight must be positive. Each adjustment must be from −100 to 100%, and their sum greater than −100%.",
+    "methodSource": "RICS — use and verification of comparable evidence"
   }
 }

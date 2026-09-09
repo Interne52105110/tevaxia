@@ -25,6 +25,7 @@ export const CLIENT_NAMESPACES = [
   "common",
   "commune",
   "comparer",
+  "comparisonAudit",
   "connexion",
   "conseilSyndical",
   "convertisseurSurfaces",
