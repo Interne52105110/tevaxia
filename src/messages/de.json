@@ -12567,7 +12567,7 @@
         "label": "Branchen-Vorlage",
         "generic": "Generisch",
         "landlord": "Vermieter / SCI",
-        "syndic": "WEG-Verwaltung",
+        "syndic": "Verwaltungsleistungen",
         "hotel": "LU Hotel",
         "lease": "Gewerbemiete",
         "valuer": "Gutachter / Experte"
@@ -19950,5 +19950,14 @@
     "legacy": "Auf diesem Gerät liegt ein alter Entwurf ohne Kontozuordnung vor.",
     "restore": "Alten Entwurf wiederherstellen",
     "legacyConfirm": "Dieser Entwurf könnte einem anderen Nutzer dieses Geräts gehören. Bestätigen Sie, dass er Ihnen gehört, bevor der aktuelle Entwurf ersetzt wird."
+  },
+  "invoiceTemplate": {
+    "rent": "Miete",
+    "charges": "Nebenkosten",
+    "management": "Verwaltung einer Eigentümergemeinschaft",
+    "valuation": "Immobilienbewertung",
+    "night": "Übernachtung",
+    "breakfast": "Frühstück",
+    "scope": "Vorlagen bereiten Positionsbezeichnungen vor. Tragen Sie Preise, MwSt.-Kategorie und Satz gemäß Leistung und steuerlicher Behandlung ein. Vergeben Sie eine Nummer aus Ihrer eigenen Rechnungsfolge."
   }
 }

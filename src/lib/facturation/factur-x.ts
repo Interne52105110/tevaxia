@@ -365,7 +365,7 @@ export const VAT_RATES_LU = {
   exempt: 0,           // location habitation (exempt art. 44 §1 f LTVA)
 } as const;
 
-/** Numérotation séquentielle conforme Art. 242 nonies A annexe II CGI FR */
+/** Format a supplied sequence value; this helper does not allocate or guarantee unique invoice numbers. */
 export function formatInvoiceNumber(prefix: string, year: number, sequence: number): string {
   const yy = String(year).slice(-2);
   const seq = String(sequence).padStart(5, "0");

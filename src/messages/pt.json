@@ -12567,7 +12567,7 @@
         "label": "Template por atividade",
         "generic": "Generico",
         "landlord": "Senhorio / SCI",
-        "syndic": "Syndic condominio",
+        "syndic": "Serviços de administração",
         "hotel": "Hotel LU",
         "lease": "Arrendamento comercial",
         "valuer": "Avaliador / perito"
@@ -19950,5 +19950,14 @@
     "legacy": "Existe neste dispositivo um rascunho antigo não associado a uma conta.",
     "restore": "Restaurar o rascunho antigo",
     "legacyConfirm": "Este rascunho pode pertencer a outro utilizador deste dispositivo. Confirme que é seu antes de substituir o rascunho atual."
+  },
+  "invoiceTemplate": {
+    "rent": "Renda",
+    "charges": "Encargos",
+    "management": "Serviços de administração de condomínio",
+    "valuation": "Serviços de avaliação imobiliária",
+    "night": "Dormida",
+    "breakfast": "Pequeno-almoço",
+    "scope": "Os modelos preparam designações. Introduza preços, categoria e taxa de IVA de acordo com a prestação e o regime aplicável. Atribua um número da sua própria sequência de faturação."
   }
 }

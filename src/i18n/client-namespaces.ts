@@ -95,6 +95,7 @@ export const CLIENT_NAMESPACES = [
   "inspectionTegova",
   "invitation",
   "invoiceDraft",
+  "invoiceTemplate",
   "latePayment",
   "lenozThresholdAudit",
   "liensPartages",

@@ -5,108 +5,29 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useLocale, useTranslations } from "next-intl";
 import { SUPPORTED_INVOICE_PROFILES } from "@/lib/facturation/invoice-validation";
-import { computeTotals, validateInvoice, formatInvoiceNumber, VAT_RATES_FR, VAT_RATES_LU, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
+import { computeTotals, validateInvoice, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
 import { assertHistoryOwner, saveToHistory } from "@/lib/facturation/history";
 import { track, captureError } from "@/lib/analytics";
 
-type TemplateId = "generic" | "landlord" | "syndic" | "hotel" | "lease" | "valuer";
-
 import { invoiceDraftKey, LEGACY_INVOICE_DRAFT_KEY, parseInvoiceDraft, storeInvoiceDraft } from "@/lib/facturation/draft";
+import { invoiceDate, addInvoiceDays, blankInvoiceLine as blankLine, applyInvoiceTemplate, type TemplateId } from "@/lib/facturation/templates";
 
-function _fmt2(n: number): string { return n.toFixed(2); }
 function formatEUR(n: number, currency = "EUR", locale = "fr"): string {
   if (!isFinite(n)) return "—";
   return new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { style: "currency", currency, maximumFractionDigits: 2 }).format(n);
 }
 
-function blankLine(): FacturXLine {
-  return { id: "", name: "", quantity: 1, unit_code: "C62", unit_price_net: 0, vat_category: "S", vat_rate_percent: 20 };
-}
-
-function applyTemplate(tpl: TemplateId, current: FacturXInvoice): FacturXInvoice {
-  const base = { ...current };
-  const now = new Date();
-  const due = new Date(now.getTime() + 30 * 86400000);
-
-  switch (tpl) {
-    case "landlord":
-      return {
-        ...base,
-        lines: [{
-          id: "1",
-          name: `Loyer ${now.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}`,
-          quantity: 1,
-          unit_code: "MON",
-          unit_price_net: 0,
-          vat_category: "E",
-          vat_rate_percent: 0,
-        }],
-        notes: ["Loyer d'habitation — exempt TVA art. 261 D CGI"],
-        due_date: due.toISOString().slice(0, 10),
-      };
-    case "syndic":
-      return {
-        ...base,
-        lines: [{
-          id: "1",
-          name: `Appel de fonds ${now.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}`,
-          quantity: 1,
-          unit_code: "C62",
-          unit_price_net: 0,
-          vat_category: "E",
-          vat_rate_percent: 0,
-        }],
-        notes: ["Charges copropriété — tantièmes appliqués"],
-      };
-    case "hotel":
-      return {
-        ...base,
-        lines: [
-          { id: "1", name: "Nuitée", quantity: 1, unit_code: "DAY", unit_price_net: 0, vat_category: "S", vat_rate_percent: 3 },
-          { id: "2", name: "Petit-déjeuner", quantity: 1, unit_code: "C62", unit_price_net: 0, vat_category: "S", vat_rate_percent: 17 },
-        ],
-        notes: ["TVA LU 3% hébergement (art. 39 L. TVA)"],
-      };
-    case "lease":
-      return {
-        ...base,
-        lines: [
-          { id: "1", name: "Loyer trimestriel", quantity: 1, unit_code: "3MO", unit_price_net: 0, vat_category: "S", vat_rate_percent: 20 },
-          { id: "2", name: "Charges provisionnelles", quantity: 1, unit_code: "3MO", unit_price_net: 0, vat_category: "S", vat_rate_percent: 20 },
-        ],
-        notes: ["Bail commercial — indexation ILAT (INSEE)"],
-      };
-    case "valuer":
-      return {
-        ...base,
-        lines: [{
-          id: "1",
-          name: "Mission d'évaluation immobilière EVS 2025",
-          quantity: 1,
-          unit_code: "C62",
-          unit_price_net: 0,
-          vat_category: "S",
-          vat_rate_percent: 20,
-        }],
-        notes: ["Honoraires expertise TEGOVA REV/TRV"],
-      };
-    default:
-      return base;
-  }
-}
-
 function defaultInvoice(): FacturXInvoice {
-  const now = new Date();
-  const due = new Date(now.getTime() + 30 * 86400000);
+  const today = invoiceDate();
   return {
     profile: "BASIC",
     document_type: "380",
-    invoice_number: formatInvoiceNumber("F", now.getFullYear(), 1),
-    issue_date: now.toISOString().slice(0, 10),
-    due_date: due.toISOString().slice(0, 10),
+    invoice_number: "",
+    issue_date: today,
+    due_date: addInvoiceDays(today, 30),
     currency: "EUR",
-    seller: { name: "", country_code: "FR" },
-    buyer: { name: "", country_code: "FR" },
+    seller: { name: "", country_code: "LU" },
+    buyer: { name: "", country_code: "LU" },
     lines: [blankLine()],
     notes: [],
   };
@@ -133,6 +54,7 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
   const [success, setSuccess] = useState<string | null>(null);
 
   const td = useTranslations("invoiceDraft");
+  const tt = useTranslations("invoiceTemplate");
   const [storageError, setStorageError] = useState<string | null>(null);
   const [legacy, setLegacy] = useState(false);
   const [backupKey, setBackupKey] = useState(invoiceDraftKey(userId));
@@ -190,7 +112,7 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
 
   const applyTpl = (tpl: TemplateId) => {
     setTemplate(tpl);
-    setInv(applyTemplate(tpl, inv));
+    setInv(applyInvoiceTemplate(tpl, inv, key => tt(key)));
   };
 
   const resetAll = () => {
@@ -252,10 +174,6 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
     }
   };
 
-  const vatRates = inv.seller.country_code === "LU"
-    ? [VAT_RATES_LU.standard, VAT_RATES_LU.intermediate, VAT_RATES_LU.reduced, VAT_RATES_LU.super_reduced, 0]
-    : [VAT_RATES_FR.standard, VAT_RATES_FR.intermediate, VAT_RATES_FR.reduced, VAT_RATES_FR.super_reduced, 0];
-
   return (
     <div className="mx-auto max-w-5xl px-4 py-6">
       <fieldset disabled={generating} className="min-w-0">
@@ -283,6 +201,7 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
       {/* Template selector */}
       <div className="mb-5 rounded-xl border border-card-border bg-card p-4">
         <div className="text-xs uppercase tracking-wider font-bold text-navy mb-3">{t("template.label")}</div>
+        <p className="mb-3 text-sm text-slate">{tt("scope")}</p>
         <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-6">
           {(["generic", "landlord", "syndic", "hotel", "lease", "valuer"] as TemplateId[]).map((tpl) => (
             <button key={tpl} onClick={() => applyTpl(tpl)}
@@ -390,9 +309,8 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
                       onChange={(v) => updateLine(idx, { unit_price_net: v })} />
                     <NumField label={t("fields.discount")} value={l.discount_percent ?? 0} step={0.01}
                       onChange={(v) => updateLine(idx, { discount_percent: v })} />
-                    <SelectField label={t("fields.vatRate")} value={String(l.vat_rate_percent)}
-                      options={[...new Set([...vatRates, l.vat_rate_percent])].map((r) => ({ v: String(r), l: `${r}%` }))}
-                      onChange={(v) => updateLine(idx, { vat_rate_percent: Number(v) })} />
+                    <NumField label={t("fields.vatRate")} value={l.vat_rate_percent} step={0.01}
+                      onChange={(v) => updateLine(idx, { vat_rate_percent: v })} />
                     <SelectField label={t("fields.vatCategory")} value={l.vat_category}
                       options={[
                         { v: "S", l: "S — " + t("vat.S") },

@@ -12689,7 +12689,7 @@
         "label": "Template métier",
         "generic": "Générique",
         "landlord": "Bailleur / SCI",
-        "syndic": "Syndic copro",
+        "syndic": "Prestations du syndic",
         "hotel": "Hôtelier LU",
         "lease": "Bail commercial",
         "valuer": "Expert / évaluation"
@@ -19950,5 +19950,14 @@
     "legacy": "Un ancien brouillon non rattaché à un compte est présent sur cet appareil.",
     "restore": "Restaurer cet ancien brouillon",
     "legacyConfirm": "Ce brouillon peut provenir d’un autre utilisateur de cet appareil. Confirmez qu’il vous appartient avant de remplacer le brouillon actuel."
+  },
+  "invoiceTemplate": {
+    "rent": "Loyer",
+    "charges": "Charges",
+    "management": "Prestations de gestion de copropriété",
+    "valuation": "Mission d’évaluation immobilière",
+    "night": "Nuitée",
+    "breakfast": "Petit-déjeuner",
+    "scope": "Le modèle prépare des libellés. Renseignez les prix, la catégorie et le taux de TVA selon la prestation et le régime applicable. Attribuez un numéro selon votre propre séquence de facturation."
   }
 }

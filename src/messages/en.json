@@ -12689,7 +12689,7 @@
         "label": "Industry template",
         "generic": "Generic",
         "landlord": "Landlord / SCI",
-        "syndic": "Condo syndic",
+        "syndic": "Property management services",
         "hotel": "LU hotel",
         "lease": "Commercial lease",
         "valuer": "Valuer / expert"
@@ -19950,5 +19950,14 @@
     "legacy": "An old draft not linked to an account exists on this device.",
     "restore": "Restore the old draft",
     "legacyConfirm": "This draft may belong to another user of this device. Confirm it is yours before replacing the current draft."
+  },
+  "invoiceTemplate": {
+    "rent": "Rent",
+    "charges": "Charges",
+    "management": "Co-ownership management services",
+    "valuation": "Property valuation services",
+    "night": "Overnight stay",
+    "breakfast": "Breakfast",
+    "scope": "Templates prepare line labels. Enter prices, VAT category and rate according to the service and applicable tax treatment. Assign a number from your own invoicing sequence."
   }
 }

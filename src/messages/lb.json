@@ -12567,7 +12567,7 @@
         "label": "Branchen-Schablon",
         "generic": "Generesch",
         "landlord": "Locateur / SCI",
-        "syndic": "Syndic Mattbesëtz",
+        "syndic": "Verwaltungsleeschtungen",
         "hotel": "LU Hotel",
         "lease": "Gewerbemiete",
         "valuer": "Evaluateur / Expert"
@@ -19950,5 +19950,14 @@
     "legacy": "Op dësem Apparat gëtt et en alen Entworf ouni Kontozouuerdnung.",
     "restore": "Den alen Entworf restauréieren",
     "legacyConfirm": "Dësen Entworf kéint engem anere Benotzer vun dësem Apparat gehéieren. Confirméiert datt et Ären ass, ier den aktuellen Entworf ersat gëtt."
+  },
+  "invoiceTemplate": {
+    "rent": "Loyer",
+    "charges": "Käschten",
+    "management": "Verwaltung vun enger Copropriété",
+    "valuation": "Immobiliebewäertung",
+    "night": "Iwwernuechtung",
+    "breakfast": "Frühstück",
+    "scope": "D’Virlag bereet d’Bezeechnunge vir. Gitt Präisser, TVA-Kategorie an Taux no der Leeschtung an dem uwendbare Regime an. Vergitt eng Nummer aus Ärer eegener Rechnungssequenz."
   }
 }

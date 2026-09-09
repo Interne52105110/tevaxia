@@ -923,3 +923,14 @@ Cinq tests supplémentaires ; suite 1 385 tests / 132 fichiers, lint sans erreur
 Brouillons e62cc49 publiés : CI 34416743081 réussie ; dpl_2n47tS86gohHK9Z6DYPwEurfygDa Ready. Cinq langues en production, brouillon visiteur, interactions de calcul et quatre largeurs vérifiés.
 
 Navigateur réel : cinq langues, ancien MINIMUM conservé et export bloqué, choix BASIC/EN 16931/EXTENDED enregistrés et export activé, quatre largeurs sans débordement.
+
+
+## 10 septembre — modèles sans présomption fiscale et dates civiles
+
+Les modèles fournissent des libellés traduits mais ne préremplissent plus un prix, un taux, une exonération ou une qualification professionnelle. Suppression des mentions automatiques CGI/TVA LU/ILAT/TEGOVA/EVS dans ces modèles. Le modèle syndic concerne des prestations de gestion, pas une conversion d’appel de fonds en facture. La catégorie reste éditable et un taux numérique explicite est requis ; saisie libre pour les taux absents des anciennes listes nationales. Les données déjà enregistrées conservent leurs valeurs. Les nouveaux documents ne reçoivent plus systématiquement le numéro F-26-00001 : l’utilisateur attribue sa référence selon sa séquence.
+
+Date par défaut calculée selon le jour civil au Luxembourg ; ajout des trente jours sur des dates civiles, sans décalage UTC/DST. Les modèles préservent dates, références et parties existantes. Sept tests nouveaux : suite 1 392 tests / 133 fichiers réussie, lint sans erreur et build réussi.
+
+Profils b284e4f publiés : CI 34416998109 réussie ; dpl_CjrRyk1aAP9qRVr2HJXeMBkU2oaq Ready. Cinq langues et quatre largeurs, profil incompatible conservé/bloqué et trois profils disponibles vérifiés en production. Les mentions fiscales obligatoires et la conversion directe des appels syndic restent des travaux distincts.
+
+Contrôle navigateur cinq langues : nouveau numéro et taux vides, cinq modèles nécessitant prix/taux, absence de notes juridiques automatiques, taux personnalisé 19 % produisant 119 EUR pour 100 EUR HT. Quatre largeurs et anciens scénarios d’arrondis/remises réussis.
