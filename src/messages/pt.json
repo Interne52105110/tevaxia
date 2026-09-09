@@ -9155,90 +9155,89 @@
   },
   "guide": {
     "fraisNotaire": {
-      "title": "Custos notariais no Luxemburgo: tabelas 2026 e cálculo detalhado",
-      "metaDescription": "Custos notariais no Luxemburgo em 2026: 7% direitos de registo, 1% transcrição, Bëllegen Akt até 40 000 € por comprador, emolumentos notariais. Cálculo detalhado com exemplos.",
-      "subtitle": "O que a escritura notarial custa realmente, linha a linha, com as tabelas oficiais em vigor em 2026.",
+      "title": "Custos de aquisição no Luxemburgo: impostos e emolumentos",
+      "metaDescription": "Distinguir os montantes entregues ao Estado, a remuneração do notário, o IVA e as despesas próprias do processo.",
+      "subtitle": "Distinguir os montantes entregues ao Estado, a remuneração do notário, o IVA e as despesas próprias do processo.",
       "category": "Compra & financiamento",
       "essentiel": [
-        "Para um imóvel antigo: 7% de direitos (6% registo + 1% transcrição) acrescidos dos emolumentos do notário e dos custos hipotecários se houver empréstimo.",
-        "Para um imóvel novo VEFA: os direitos aplicam-se apenas à parte do terreno. A construção está sujeita ao IVA habitação a 3% (crédito de imposto limitado a 50 000 €).",
-        "O Bëllegen Akt concede um crédito de imposto de 40 000 € por comprador (80 000 € para um casal) sobre os direitos de registo, desde que ocupe pessoalmente o imóvel.",
-        "Os emolumentos notariais seguem uma tabela degressiva fixada por regulamento grão-ducal: de 1,650% no primeiro escalão a 0,550% acima de 30 000 €.",
-        "Para um imóvel de 750 000 € financiado a 80%, prever cerca de 65 000 a 75 000 € de custos totais antes do Bëllegen Akt."
+        "Numa aquisição imobiliária onerosa comum, o imposto de registo é de 6 % e o de transcrição de 1 %, num total de 7 %. Não são honorários do notário. Isenções, bases especiais e eventuais sobretaxas devem ser verificadas para a escritura.",
+        "O crédito pessoal destina-se a aquisições que cumprem as condições de habitação própria, incluindo ocupação durante pelo menos dois anos. O notário apresenta o pedido. Verifique o saldo de cada adquirente: 40 000 EUR é o limite confirmado pelas fontes oficiais consultadas, não um novo crédito em cada compra.",
+        "Venda particular: tabela 7 do regulamento notarial, mínimo de 99,16 € sem IVA, acrescido de 17% de IVA. Cópias, despesas, deslocações e trabalhos excecionais devem ser acrescentados segundo a conta do notário.",
+        "Empréstimo hipotecário comum não isento: 0,24% do capital, 0,05% da garantia, tabela 5 e IVA. Isenções, cancelamento, cópias e despesas bancárias não calculados."
       ],
       "section1Title": "Direitos de registo e transcrição",
-      "section1P1": "Qualquer transferência de propriedade imobiliária no Luxemburgo desencadeia dois direitos cobrados pela Administração do Registo, Domínios e IVA (AED): o direito de registo, fixado em 6% do preço, e o direito de transcrição, fixado em 1%. Estas taxas resultam da lei modificada de 22 Frimário Ano VII e da lei de 25 de setembro de 1905 sobre a transcrição de direitos reais imobiliários, e mantêm-se inalteradas em 2026.",
-      "section1P2": "Para um imóvel novo vendido em VEFA, os direitos aplicam-se apenas à parte de terreno indicada na escritura. A parte de construção está isenta dos direitos por estar sujeita ao IVA, à taxa super-reduzida de habitação de 3% (crédito de imposto limitado a 50 000 € por habitação, conforme circular AED n.º 800 e artigo 44ter da lei do IVA).",
+      "section1P1": "Numa aquisição imobiliária onerosa comum, o imposto de registo é de 6 % e o de transcrição de 1 %, num total de 7 %. Não são honorários do notário. Isenções, bases especiais e eventuais sobretaxas devem ser verificadas para a escritura.",
+      "section1P2": "Numa compra em planta, a escritura deve distinguir terreno, obras realizadas e obras por realizar: os impostos não incidem sempre apenas sobre o terreno. O IVA de 3 % nas obras elegíveis de criação exige, nomeadamente, habitação principal do proprietário e benefício fiscal disponível, limitado a 50 000 EUR por habitação. A taxa normal é de 17 %; a elegibilidade não é presumida.",
       "callout1Title": "O Bëllegen Akt em síntese",
-      "callout1Body": "Se o imóvel adquirido se tornar a sua residência principal e o ocupar de forma efetiva e pessoal, a AED aplica um crédito de imposto sobre os direitos de registo de 40 000 € por comprador (80 000 € para um casal que adquire em conjunto). O pedido é feito pelo notário no momento da escritura. Pelo menos 100 € permanecem devidos em qualquer caso.",
+      "callout1Body": "O crédito pessoal destina-se a aquisições que cumprem as condições de habitação própria, incluindo ocupação durante pelo menos dois anos. O notário apresenta o pedido. Verifique o saldo de cada adquirente: 40 000 EUR é o limite confirmado pelas fontes oficiais consultadas, não um novo crédito em cada compra. O saldo é pessoal: confirme na AED/MyGuichet. Os 40.000 € propostos pressupõem nenhuma utilização anterior. O saldo de um comprador não se transfere para outro. Mantém-se um mínimo de 100 € por escritura.",
       "section2Title": "Emolumentos notariais",
-      "section2P1": "Os emolumentos do notário luxemburguês são fixados pelo Regulamento Grão-Ducal de 26 de novembro de 2015 sobre os honorários dos notários. A tabela é proporcional e degressiva por escalões: 1,650% até 7 500 €, 1,100% de 7 500 € a 15 000 €, 0,825% de 15 000 € a 30 000 €, depois 0,550% acima. O notário não pode aumentar nem reduzir estas taxas.",
-      "section2P2": "A estes honorários acrescem os custos de formalidades suportados pelo cartório por conta do comprador: pesquisas hipotecárias, extrato cadastral, certificado urbanístico, certificado de cancelamento, fotocópias, transmissões à AED. Estas despesas representam geralmente entre 1 000 e 2 000 € para uma transação residencial clássica.",
+      "section2P1": "O regulamento alterado de 24 de julho de 1971 distingue atos e tabelas. A tabela 7 aplica-se à venda particular por escalões sucessivos: somam-se as parcelas, sem aplicar a taxa marginal ao preço inteiro. A tabela apresenta os limites acumulados da base.",
+      "section2P2": "Peça um detalhe dos emolumentos sem IVA, IVA, cópias e despesas efetivas. O tarifário já inclui as diligências principais e acessórias nele previstas; os suplementos devem ser identificados. Não se acrescenta aqui uma estimativa fixa para formalidades. Venda particular: tabela 7 do regulamento notarial, mínimo de 99,16 € sem IVA, acrescido de 17% de IVA. Cópias, despesas, deslocações e trabalhos excecionais devem ser acrescentados segundo a conta do notário.",
       "section3Title": "Custos hipotecários",
-      "section3P1": "Se a aquisição for financiada por crédito, a inscrição hipotecária a favor do banco gera custos distintos: um direito de hipoteca de 0,05% sobre o montante emprestado cobrado pela AED, os emolumentos do notário pela escritura de inscrição (seguindo a mesma tabela degressiva acima) e as taxas de inscrição no registo predial. Para um empréstimo de 600 000 €, contar com 5 500 a 6 500 € de custos hipotecários totais.",
-      "callout2Title": "Hipoteca convencional vs mandato",
-      "callout2Body": "Alguns bancos aceitam um mandato hipotecário (procuração para inscrever) em vez de uma inscrição hipotecária imediata. Isto divide os custos hipotecários por duas a três vezes, mas expõe a um custo posterior se o banco acabar por inscrever a hipoteca. Avalie o risco com o seu consultor bancário.",
+      "section3P1": "Empréstimo hipotecário comum não isento: 0,24% do capital, 0,05% da garantia, tabela 5 e IVA. Isenções, cancelamento, cópias e despesas bancárias não calculados.",
+      "callout2Title": "Montantes acessórios garantidos além do capital",
+      "callout2Body": "O capital do empréstimo e o montante garantido podem diferir devido a acessórios. Confirme bases, eventuais isenções, emolumentos e despesas bancárias; um mandato hipotecário não implica uma redução automática por um fator fixo.",
       "section4Title": "Exemplos calculados por preço de compra",
-      "section4Intro": "A tabela abaixo dá uma faixa indicativa para um imóvel antigo ocupado como residência principal por um casal comprador (Bëllegen Akt 80 000 € integralmente aplicado). Os custos hipotecários correspondem a um financiamento a 80% do valor.",
+      "section4Intro": "Exemplo fictício limitado aos impostos comuns de 7 %: dois adquirentes elegíveis em partes iguais, cada um com 40 000 EUR disponíveis. O crédito é limitado aos impostos e preserva-se a cobrança mínima de 100 EUR.",
       "table": {
-        "caption": "Custos de aquisição estimados — imóvel antigo, casal comprador, financiamento 80%",
+        "caption": "Apenas impostos — exemplo com dois adquirentes",
         "headers": [
           "Preço de compra",
-          "Direitos 7%",
-          "Bëllegen Akt",
-          "Líquido a pagar"
+          "Impostos antes do crédito",
+          "Crédito utilizado",
+          "Impostos restantes"
         ],
         "rows": [
           [
-            "300 000 €",
-            "21 000 €",
-            "−21 000 €",
-            "≈ 6 000 €"
+            "300 000 EUR",
+            "21 000 EUR",
+            "20 900 EUR",
+            "100 EUR"
           ],
           [
-            "500 000 €",
-            "35 000 €",
-            "−35 000 €",
-            "≈ 10 000 €"
+            "500 000 EUR",
+            "35 000 EUR",
+            "34 900 EUR",
+            "100 EUR"
           ],
           [
-            "750 000 €",
-            "52 500 €",
-            "−52 500 €",
-            "≈ 14 000 €"
+            "750 000 EUR",
+            "52 500 EUR",
+            "52 400 EUR",
+            "100 EUR"
           ],
           [
-            "1 000 000 €",
-            "70 000 €",
-            "−70 000 €",
-            "≈ 18 000 €"
+            "1 000 000 EUR",
+            "70 000 EUR",
+            "69 900 EUR",
+            "100 EUR"
           ],
           [
-            "1 500 000 €",
-            "105 000 €",
-            "−80 000 €",
-            "≈ 50 000 €"
+            "1 500 000 EUR",
+            "105 000 EUR",
+            "80 000 EUR",
+            "25 000 EUR"
           ]
         ],
-        "footnote": "Líquido a pagar = direitos restantes após Bëllegen Akt + emolumentos notariais + custos hipotecários + despesas. Estimativa 2026 para um casal primo-comprador. Parte hipotecária calculada sobre 80% do preço."
+        "footnote": "Esta coluna inclui apenas impostos restantes, excluindo emolumentos, respetivo IVA, despesas, hipoteca ou impostos especiais. Não é o total a entregar ao notário."
       },
-      "callout3Title": "Exemplo: casal a comprar apartamento de 750 000 €",
-      "callout3Body": "Direitos de registo e transcrição: 52 500 €. Bëllegen Akt casal: −52 500 € (utilização parcial do envelope de 80 000 €). Emolumentos notariais (venda): ≈ 5 700 €. Escritura hipotecária para 600 000 €: ≈ 6 200 €. Despesas e formalidades: ≈ 1 500 €. Total a desembolsar no dia da escritura: ≈ 13 500 €.",
+      "callout3Title": "Exemplo: impostos numa compra de 750 000 EUR",
+      "callout3Body": "Para 750 000 EUR, os impostos comuns são 52 500 EUR. Apenas nas hipóteses da tabela, utiliza-se um crédito de 52 400 EUR e ficam 100 EUR de impostos. As restantes rubricas são calculadas e justificadas separadamente.",
       "inlineCalc": {
-        "title": "Calcule os seus custos de aquisição reais",
-        "description": "A nossa calculadora aplica a tabela degressiva dos notários, o Bëllegen Akt segundo a sua situação, o IVA habitação para imóveis novos e o custo hipotecário consoante o financiamento.",
+        "title": "Abrir o cálculo detalhado dos custos",
+        "description": "Estimativa parcial segundo regras documentadas. Crédito limitado a 40.000 €, confirmado pela lei de 3 de julho de 2025. O aumento para 45.000 € anunciado em julho de 2026 não está incluído sem confirmação da entrada em vigor.",
         "cta": "Abrir a calculadora"
       },
       "tools": [
         {
           "href": "/frais-acquisition",
           "title": "Calculadora de custos de aquisição",
-          "description": "Estimativa completa: direitos, Bëllegen Akt, emolumentos, hipoteca, IVA habitação."
+          "description": "Venda particular: tabela 7 do regulamento notarial, mínimo de 99,16 € sem IVA, acrescido de 17% de IVA. Cópias, despesas, deslocações e trabalhos excecionais devem ser acrescentados segundo a conta do notário."
         },
         {
           "href": "/vefa",
           "title": "Simulador VEFA",
-          "description": "Decomposição terreno / construção e IVA habitação 3% para um imóvel novo."
+          "description": "VEFA: introduza apenas o preço sem IVA. Este modo pressupõe nenhuma construção realizada na escritura, construção totalmente elegível e benefício de IVA de 50.000 € ainda disponível para habitação própria. Projetos iniciados ou benefícios já usados exigem cálculo individual."
         },
         {
           "href": "/outils-bancaires",
@@ -9254,61 +9253,59 @@
       "faq": [
         {
           "q": "Quanto custam os custos notariais para um apartamento de 500 000 € no Luxemburgo?",
-          "a": "Para um apartamento antigo de 500 000 € comprado por um casal primo-comprador (Bëllegen Akt integral), conte com cerca de 10 000 a 12 000 € de custos totais: 35 000 € de direitos integralmente compensados pelo crédito de imposto, mais 4 200 € de emolumentos notariais, cerca de 4 500 € de custos hipotecários sobre 400 000 € emprestados e 1 500 € de despesas."
+          "a": "500 000 EUR × 7 % = 35 000 EUR ; 35 000 - 34 900 = 100 EUR. Exemplo fictício limitado aos impostos comuns de 7 %: dois adquirentes elegíveis em partes iguais, cada um com 40 000 EUR disponíveis. O crédito é limitado aos impostos e preserva-se a cobrança mínima de 100 EUR. Esta coluna inclui apenas impostos restantes, excluindo emolumentos, respetivo IVA, despesas, hipoteca ou impostos especiais. Não é o total a entregar ao notário."
         },
         {
           "q": "Os custos notariais são reduzidos para imóveis novos no Luxemburgo?",
-          "a": "Sim. Para um imóvel novo VEFA, os direitos de registo e transcrição aplicam-se apenas à parte de terreno indicada na escritura. A construção está sujeita ao IVA habitação super-reduzido de 3% (crédito de imposto limitado a 50 000 € por habitação). Os custos totais ficam geralmente entre 3 e 4% do preço."
+          "a": "Numa compra em planta, a escritura deve distinguir terreno, obras realizadas e obras por realizar: os impostos não incidem sempre apenas sobre o terreno. O IVA de 3 % nas obras elegíveis de criação exige, nomeadamente, habitação principal do proprietário e benefício fiscal disponível, limitado a 50 000 EUR por habitação. A taxa normal é de 17 %; a elegibilidade não é presumida."
         },
         {
           "q": "O que é o Bëllegen Akt e como o obtenho?",
-          "a": "O Bëllegen Akt é um crédito de imposto de 40 000 € por comprador (80 000 € para um casal) aplicado aos direitos de registo, desde que o imóvel sirva de residência principal e seja ocupado pessoalmente. O pedido é feito automaticamente pelo notário no momento da escritura. A AED cobra um mínimo de 100 € de direitos em qualquer caso."
+          "a": "O crédito pessoal destina-se a aquisições que cumprem as condições de habitação própria, incluindo ocupação durante pelo menos dois anos. O notário apresenta o pedido. Verifique o saldo de cada adquirente: 40 000 EUR é o limite confirmado pelas fontes oficiais consultadas, não um novo crédito em cada compra. O saldo é pessoal: confirme na AED/MyGuichet. Os 40.000 € propostos pressupõem nenhuma utilização anterior. O saldo de um comprador não se transfere para outro. Mantém-se um mínimo de 100 € por escritura."
         },
         {
-          "q": "Os custos notariais podem ser negociados no Luxemburgo?",
-          "a": "Não. Os emolumentos do notário luxemburguês são estritamente regulados pelo Regulamento Grão-Ducal de 26 de novembro de 2015 e o notário não pode aumentá-los nem reduzi-los. Apenas as despesas (formalidades) podem variar ligeiramente entre cartórios consoante as pesquisas efetuadas."
+          "q": "Que tabela de emolumentos se aplica?",
+          "a": "O regulamento alterado de 24 de julho de 1971 distingue atos e tabelas. A tabela 7 aplica-se à venda particular por escalões sucessivos: somam-se as parcelas, sem aplicar a taxa marginal ao preço inteiro. A tabela apresenta os limites acumulados da base. Venda particular: tabela 7 do regulamento notarial, mínimo de 99,16 € sem IVA, acrescido de 17% de IVA. Cópias, despesas, deslocações e trabalhos excecionais devem ser acrescentados segundo a conta do notário."
         },
         {
-          "q": "Quem paga os custos notariais no Luxemburgo, o comprador ou o vendedor?",
-          "a": "O comprador suporta a totalidade dos custos de aquisição (direitos, emolumentos da escritura de venda, custos hipotecários se houver empréstimo). O vendedor paga apenas as eventuais formalidades ligadas ao cancelamento de uma hipoteca pré-existente sobre o imóvel e a eventual comissão de agência se for contratualmente sua."
+          "q": "Como preparar o detalhe dos custos com o notário?",
+          "a": "Forneça o projeto de escritura, quotas, saldos pessoais do crédito, utilização do imóvel e, se necessário, capital e acessórios do empréstimo. Peça o detalhe dos fundos solicitados e das despesas ainda a acrescentar."
         },
         {
           "q": "Os custos notariais são dedutíveis fiscalmente no Luxemburgo?",
-          "a": "Para um investimento de arrendamento, os custos notariais (direitos, emolumentos, custos hipotecários) não são imediatamente dedutíveis mas são integrados no custo de aquisição e podem ser amortizados ao longo do período de detenção. Para a residência principal não são dedutíveis, mas o Bëllegen Akt cobre uma grande parte deles."
+          "a": "Num imóvel privado arrendado, a administração fiscal distingue os custos de aquisição, integrados no custo e amortizáveis na parte construída, dos custos de financiamento, incluindo a escritura de obrigação hipotecária, dedutíveis segundo as regras aplicáveis. O terreno não é amortizável. Não aplique esta regra globalmente à habitação própria: qualifique cada rubrica e o respetivo ano fiscal."
         }
       ],
       "sources": [
         {
-          "title": "Crédito de imposto sobre escrituras notariais (Bëllegen Akt) — procedimento",
-          "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/aides-indirectes/credit-impot-actes-notaries.html"
+          "title": "O Bëllegen Akt em síntese",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html"
         },
         {
-          "title": "Bëllegen Akt — ficha oficial",
-          "org": "Logement.lu — Ministério da Habitação",
-          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/credit-impot-actes-notariaux-bellegen-akt.html"
+          "title": "Tabela notarial oficial",
+          "org": "Chambre des Notaires",
+          "url": "https://www.notariat.lu/notaire/reglement-revision-tarifs"
         },
         {
-          "title": "Regulamento Grão-Ducal de 26 de novembro de 2015 sobre emolumentos notariais",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/rgd/2015/11/26/n6/jo",
-          "year": 2015
+          "title": "Direitos hipotecários",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/hypotheques.html"
         },
         {
-          "title": "Lei de 22 Frimário Ano VII sobre direitos de registo",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1798/12/22/n1/jo"
+          "title": "TVA logement",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/tva-logement-ou-taux-super-reduit.html"
         },
         {
-          "title": "Lei de 25 de setembro de 1905 sobre transcrição de direitos reais imobiliários",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1905/09/25/n1/jo"
-        },
-        {
-          "title": "IVA habitação a 3% — circular AED",
-          "org": "Administração do Registo, Domínios e IVA",
-          "url": "https://pfi.public.lu/fr.html"
+          "title": "Os custos notariais são dedutíveis fiscalmente no Luxemburgo?",
+          "org": "ACD",
+          "url": "https://impotsdirects.public.lu/fr/az/l/logem_loc.html"
         }
+      ],
+      "tariffHeaders": [
+        "Escalão da base",
+        "Taxa sem IVA"
       ]
     },
     "regle5Pourcent": {

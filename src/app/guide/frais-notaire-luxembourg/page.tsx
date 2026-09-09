@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
+import { BAREME_NOTAIRE } from "@/lib/constants";
 import { localizedAlternates } from "@/lib/seo";
 import { ArticleJsonLd } from "@/components/JsonLd";
 import RelatedGuides from "@/components/RelatedGuides";
@@ -30,7 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function GuideFraisNotaire() {
-  const t = await getTranslations("guide.fraisNotaire");
+  const [t, locale] = await Promise.all([getTranslations("guide.fraisNotaire"), getLocale()]);
+  const nf = new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const bands = BAREME_NOTAIRE.map((v, i) => [i === 0 ? `0 - ${nf.format(v.limite)} EUR` : Number.isFinite(v.limite) ? `> ${nf.format(BAREME_NOTAIRE[i - 1].limite)} - ${nf.format(v.limite)} EUR` : `> ${nf.format(BAREME_NOTAIRE[i - 1].limite)} EUR`, `${nf.format(v.taux * 100)} %`]);
 
   const essentiel = t.raw("essentiel") as string[];
   const sources = t.raw("sources") as Source[];
@@ -64,8 +67,8 @@ export default async function GuideFraisNotaire() {
           title={t("title")}
           subtitle={t("subtitle")}
           category={t("category")}
-          readingMinutes={8}
-          updatedAt="2026-04-26"
+          readingMinutes={6}
+          updatedAt="2026-09-09"
         />
 
         <KeyTakeaways items={essentiel} />
@@ -80,6 +83,7 @@ export default async function GuideFraisNotaire() {
 
         <GuideSection id="emoluments" number={2} title={t("section2Title")}>
           <p><AutoLink currentPath={PATH}>{t("section2P1")}</AutoLink></p>
+          <DataTable caption={t("section2Title")} headers={t.raw("tariffHeaders") as string[]} rows={bands} />
           <p><AutoLink currentPath={PATH}>{t("section2P2")}</AutoLink></p>
         </GuideSection>
 

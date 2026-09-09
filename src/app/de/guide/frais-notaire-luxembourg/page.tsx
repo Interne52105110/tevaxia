@@ -1,1 +1,1 @@
-export { default } from "@/app/guide/frais-notaire-luxembourg/page";
+export { default, generateMetadata } from "@/app/guide/frais-notaire-luxembourg/page";

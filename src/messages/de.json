@@ -9155,90 +9155,89 @@
   },
   "guide": {
     "fraisNotaire": {
-      "title": "Notargebühren in Luxemburg: Tarife 2026 und detaillierte Berechnung",
-      "metaDescription": "Notargebühren in Luxemburg 2026: 7 % Eintragungsgebühren, 1 % Transkription, Bëllegen Akt bis zu 40.000 € pro Käufer, Notargebühren. Detaillierte Berechnung mit Beispielen.",
-      "subtitle": "Was die notarielle Urkunde tatsächlich kostet, Posten für Posten, mit den 2026 geltenden offiziellen Tarifen.",
+      "title": "Immobilienkauf in Luxemburg: Abgaben und Notargebühren",
+      "metaDescription": "Zahlungen an den Staat, Vergütung des Notars, Mehrwertsteuer und fallbezogene Auslagen unterscheiden.",
+      "subtitle": "Zahlungen an den Staat, Vergütung des Notars, Mehrwertsteuer und fallbezogene Auslagen unterscheiden.",
       "category": "Kauf & Finanzierung",
       "essentiel": [
-        "Bei einer Bestandsimmobilie: 7 % Gebühren (6 % Eintragung + 1 % Transkription) plus Notargebühren und Hypothekenkosten bei Finanzierung.",
-        "Bei einem VEFA-Neubau: Gebühren gelten nur für den Grundstücksanteil. Der Bau unterliegt der ermäßigten Wohn-MwSt. von 3 % (Steuergutschrift gedeckelt auf 50.000 €).",
-        "Der Bëllegen Akt gewährt eine Steuergutschrift von 40.000 € pro Käufer (80.000 € für ein Paar) auf die Eintragungsgebühren, sofern Sie die Immobilie persönlich bewohnen.",
-        "Die Notargebühren folgen einem degressiven Tarif laut Großherzoglicher Verordnung: von 1,650 % auf der ersten Stufe bis 0,550 % über 30.000 €.",
-        "Für eine Immobilie zu 750.000 € mit 80 % Finanzierung: ca. 65.000 bis 75.000 € Gesamtkosten vor Bëllegen Akt einplanen."
+        "Beim gewöhnlichen entgeltlichen Immobilienkauf fallen 6 % Registrierungs- und 1 % Überschreibungsgebühr an, insgesamt 7 %. Dies ist keine Vergütung des Notars. Befreiungen, besondere Bemessungsgrundlagen und mögliche Zuschläge sind anhand der Urkunde zu prüfen.",
+        "Die persönliche Gutschrift gilt für Käufe, die die Bedingungen der Eigennutzung erfüllen, darunter eine Nutzung von mindestens zwei Jahren. Der Notar stellt den Antrag. Prüfen Sie das Restguthaben jedes Käufers: 40.000 EUR ist die von den konsultierten amtlichen Quellen bestätigte Obergrenze, kein neues Guthaben bei jedem Kauf.",
+        "Freihändiger Verkauf: Tarif 7 der Notarverordnung, mindestens 99,16 € netto, zuzüglich 17 % MwSt. Kopien, Auslagen, Reisen und außergewöhnliche Arbeiten laut Notarabrechnung ergänzen.",
+        "Gewöhnliches, nicht befreites Hypothekendarlehen: 0,24 % des Kapitals, 0,05 % der gesicherten Summe, Tarif 5 und MwSt. Befreiungen, Löschung, Kopien und Bankkosten werden nicht berechnet."
       ],
       "section1Title": "Eintragungs- und Transkriptionsgebühren",
-      "section1P1": "Jede Übertragung von Immobilieneigentum in Luxemburg löst zwei Gebühren aus, die von der Verwaltung für Eintragung, Domänen und MwSt. (AED) erhoben werden: die Eintragungsgebühr von 6 % des Preises und die Transkriptionsgebühr von 1 %. Diese Sätze stammen aus dem geänderten Gesetz vom 22. Frimaire Jahr VII und dem Gesetz vom 25. September 1905 über die Transkription dinglicher Rechte und sind 2026 unverändert.",
-      "section1P2": "Bei einem VEFA-Neubau gelten die Gebühren nur für den im Vertrag ausgewiesenen Grundstücksanteil. Der Bauanteil ist von den Gebühren befreit, da er der MwSt. unterliegt, zum super-ermäßigten Wohnsatz von 3 % (Steuergutschrift gedeckelt auf 50.000 € pro Wohnung gemäß AED-Rundschreiben Nr. 800 und Artikel 44ter MwSt.-Gesetz).",
+      "section1P1": "Beim gewöhnlichen entgeltlichen Immobilienkauf fallen 6 % Registrierungs- und 1 % Überschreibungsgebühr an, insgesamt 7 %. Dies ist keine Vergütung des Notars. Befreiungen, besondere Bemessungsgrundlagen und mögliche Zuschläge sind anhand der Urkunde zu prüfen.",
+      "section1P2": "Beim Kauf eines noch zu errichtenden Gebäudes sind Grundstück, bereits ausgeführte und noch auszuführende Arbeiten in der Urkunde zu unterscheiden: Die Abgaben betreffen nicht stets nur das Grundstück. Die Mehrwertsteuer von 3 % auf begünstigte Neubauarbeiten setzt insbesondere den Hauptwohnsitz des Eigentümers und einen noch verfügbaren Steuervorteil voraus, begrenzt auf 50.000 EUR je Wohnung. Der Normalsatz beträgt 17 %; eine Begünstigung wird nicht unterstellt.",
       "callout1Title": "Bëllegen Akt im Überblick",
-      "callout1Body": "Wenn die erworbene Immobilie Ihr Hauptwohnsitz wird und Sie sie tatsächlich und persönlich bewohnen, gewährt die AED eine Steuergutschrift auf die Eintragungsgebühren von 40.000 € pro Käufer (80.000 € für ein gemeinsam erwerbendes Paar). Der Antrag erfolgt durch den Notar bei der Beurkundung. Mindestens 100 € bleiben in jedem Fall fällig.",
+      "callout1Body": "Die persönliche Gutschrift gilt für Käufe, die die Bedingungen der Eigennutzung erfüllen, darunter eine Nutzung von mindestens zwei Jahren. Der Notar stellt den Antrag. Prüfen Sie das Restguthaben jedes Käufers: 40.000 EUR ist die von den konsultierten amtlichen Quellen bestätigte Obergrenze, kein neues Guthaben bei jedem Kauf. Der Restkredit ist persönlich: bei AED/MyGuichet prüfen. Die voreingestellten 40.000 € setzen keine frühere Nutzung voraus. Restkredite sind nicht auf andere Käufer übertragbar. Mindestens 100 € bleiben je Urkunde zu zahlen.",
       "section2Title": "Notargebühren",
-      "section2P1": "Die Notargebühren in Luxemburg sind durch die Großherzogliche Verordnung vom 26. November 2015 über die Honorare der Notare festgelegt. Der Tarif ist proportional und degressiv nach Stufen: 1,650 % bis 7.500 €, 1,100 % von 7.500 € bis 15.000 €, 0,825 % von 15.000 € bis 30.000 €, dann 0,550 % darüber. Der Notar darf diese Sätze weder erhöhen noch senken.",
-      "section2P2": "Hinzu kommen die vom Notariat für den Käufer ausgelegten Formalitätskosten: Hypothekenrecherchen, Katasterauszug, Bauplanungsbescheinigung, Hypothekenlöschungsbescheinigung, Kopien, Übermittlungen an die AED. Diese Auslagen liegen typischerweise zwischen 1.000 und 2.000 € für eine klassische Wohntransaktion.",
+      "section2P1": "Die geänderte Verordnung vom 24. Juli 1971 unterscheidet Urkunden und Tarife. Für einen freihändigen Verkauf gilt Tarif 7 mit aufeinanderfolgenden Stufen: Teilbeträge werden addiert, der Grenzsatz wird nicht auf den gesamten Preis angewandt. Die Tabelle zeigt kumulierte Bemessungsgrenzen.",
+      "section2P2": "Verlangen Sie eine Aufstellung von Nettohonorar, Mehrwertsteuer, Kopien und tatsächlichen Auslagen. Der Tarif umfasst bereits die geregelten Haupt- und Nebentätigkeiten; zusätzliche Positionen sind zu benennen. Hier wird keine pauschale Schätzung für Formalitäten hinzugerechnet. Freihändiger Verkauf: Tarif 7 der Notarverordnung, mindestens 99,16 € netto, zuzüglich 17 % MwSt. Kopien, Auslagen, Reisen und außergewöhnliche Arbeiten laut Notarabrechnung ergänzen.",
       "section3Title": "Hypothekenkosten",
-      "section3P1": "Bei Finanzierung des Erwerbs durch ein Darlehen entstehen separate Kosten für die Hypothekeneintragung zugunsten der Bank: eine Hypothekengebühr von 0,05 % auf den geliehenen Betrag durch die AED, Notargebühren für die Eintragungsurkunde (nach demselben degressiven Tarif) und Grundbucheintragungsgebühren. Bei einem Darlehen von 600.000 €: 5.500 bis 6.500 € Hypothekenkosten insgesamt einplanen.",
-      "callout2Title": "Konventionelle Hypothek vs. Mandat",
-      "callout2Body": "Manche Banken akzeptieren ein Hypothekenmandat (Vollmacht zur Eintragung) statt sofortiger Hypothekeneintragung. Das halbiert oder drittelt die Hypothekenkosten, birgt aber spätere Kosten, falls die Bank letztlich doch eintragen muss. Wägen Sie das Risiko mit Ihrem Bankberater ab.",
+      "section3P1": "Gewöhnliches, nicht befreites Hypothekendarlehen: 0,24 % des Kapitals, 0,05 % der gesicherten Summe, Tarif 5 und MwSt. Befreiungen, Löschung, Kopien und Bankkosten werden nicht berechnet.",
+      "callout2Title": "Zusätzlich gesicherte Nebenforderungen",
+      "callout2Body": "Darlehensbetrag und gesicherter Betrag können wegen Nebenforderungen abweichen. Klären Sie Bemessungsgrundlagen, mögliche Befreiungen, Urkundengebühren und Bankkosten; eine Hypothekenvollmacht rechtfertigt keine automatische Kostenteilung durch einen festen Faktor.",
       "section4Title": "Rechenbeispiele nach Kaufpreis",
-      "section4Intro": "Die folgende Tabelle zeigt eine indikative Spanne für eine Bestandsimmobilie als Hauptwohnsitz eines Käuferpaares (voller Bëllegen Akt 80.000 € angewendet). Die Hypothekenkosten entsprechen einer 80 %-Finanzierung.",
+      "section4Intro": "Fiktives Beispiel nur für gewöhnliche Abgaben von 7 %: zwei berechtigte Käufer mit gleichen Anteilen und jeweils 40.000 EUR Restguthaben. Die Gutschrift ist auf die Abgaben begrenzt; die Mindesterhebung von 100 EUR bleibt bestehen.",
       "table": {
-        "caption": "Geschätzte Erwerbskosten — Bestandsimmobilie, Käuferpaar, 80 % Finanzierung",
+        "caption": "Nur Abgaben — Beispiel mit zwei Käufern",
         "headers": [
           "Kaufpreis",
-          "7 % Gebühren",
-          "Bëllegen Akt",
-          "Netto zu zahlen"
+          "Abgaben vor Gutschrift",
+          "Verwendetes Guthaben",
+          "Verbleibende Abgaben"
         ],
         "rows": [
           [
-            "300.000 €",
-            "21.000 €",
-            "−21.000 €",
-            "≈ 6.000 €"
+            "300 000 EUR",
+            "21 000 EUR",
+            "20 900 EUR",
+            "100 EUR"
           ],
           [
-            "500.000 €",
-            "35.000 €",
-            "−35.000 €",
-            "≈ 10.000 €"
+            "500 000 EUR",
+            "35 000 EUR",
+            "34 900 EUR",
+            "100 EUR"
           ],
           [
-            "750.000 €",
-            "52.500 €",
-            "−52.500 €",
-            "≈ 14.000 €"
+            "750 000 EUR",
+            "52 500 EUR",
+            "52 400 EUR",
+            "100 EUR"
           ],
           [
-            "1.000.000 €",
-            "70.000 €",
-            "−70.000 €",
-            "≈ 18.000 €"
+            "1 000 000 EUR",
+            "70 000 EUR",
+            "69 900 EUR",
+            "100 EUR"
           ],
           [
-            "1.500.000 €",
-            "105.000 €",
-            "−80.000 €",
-            "≈ 50.000 €"
+            "1 500 000 EUR",
+            "105 000 EUR",
+            "80 000 EUR",
+            "25 000 EUR"
           ]
         ],
-        "footnote": "Netto zu zahlen = verbleibende Gebühren nach Bëllegen Akt + Notargebühren + Hypothekenkosten + Auslagen. Schätzung 2026 für ein Erstkäufer-Paar. Hypothekenanteil berechnet auf 80 % des Preises."
+        "footnote": "Diese Spalte enthält nur verbleibende Abgaben, ohne Notarvergütung, deren Mehrwertsteuer, Auslagen, Hypothekenkosten oder Sondersteuern. Sie ist nicht der Gesamtbetrag für das Notariat."
       },
-      "callout3Title": "Beispiel: Paar kauft Wohnung zu 750.000 €",
-      "callout3Body": "Eintragungs- und Transkriptionsgebühren: 52.500 €. Bëllegen Akt Paar: −52.500 € (Teilverbrauch der 80.000 €-Hülle). Notargebühren (Verkauf): ≈ 5.700 €. Hypothekenurkunde für 600.000 €: ≈ 6.200 €. Auslagen und Formalitäten: ≈ 1.500 €. Am Tag der Beurkundung zu zahlen: ≈ 13.500 €.",
+      "callout3Title": "Beispiel: Abgaben bei 750.000 EUR Kaufpreis",
+      "callout3Body": "Bei 750.000 EUR betragen die gewöhnlichen Abgaben 52.500 EUR. Nur unter den Tabellenannahmen werden 52.400 EUR Guthaben verwendet und 100 EUR Abgaben bleiben fällig. Andere Positionen werden gesondert berechnet und belegt.",
       "inlineCalc": {
-        "title": "Berechnen Sie Ihre tatsächlichen Erwerbskosten",
-        "description": "Unser Rechner wendet den degressiven Notartarif, den Bëllegen Akt entsprechend Ihrer Situation, die Wohn-MwSt. für Neubauten und die Hypothekenkosten je nach Finanzierung an.",
+        "title": "Detaillierten Kostenrechner öffnen",
+        "description": "Teilberechnung nach dokumentierten Regeln. Kreditobergrenze 40.000 € gemäß Gesetz vom 3. Juli 2025. Die im Juli 2026 angekündigte Erhöhung auf 45.000 € wird ohne Bestätigung des Inkrafttretens nicht berücksichtigt.",
         "cta": "Rechner öffnen"
       },
       "tools": [
         {
           "href": "/frais-acquisition",
           "title": "Erwerbskosten-Rechner",
-          "description": "Vollständige Schätzung: Gebühren, Bëllegen Akt, Notargebühren, Hypothek, Wohn-MwSt."
+          "description": "Freihändiger Verkauf: Tarif 7 der Notarverordnung, mindestens 99,16 € netto, zuzüglich 17 % MwSt. Kopien, Auslagen, Reisen und außergewöhnliche Arbeiten laut Notarabrechnung ergänzen."
         },
         {
           "href": "/vefa",
           "title": "VEFA-Simulator",
-          "description": "Aufteilung Grundstück / Bau und 3 % Wohn-MwSt. für einen Neubau."
+          "description": "VEFA: ausschließlich Nettopreis eingeben. Vorausgesetzt werden kein bereits errichteter Bau bei Beurkundung, vollständig begünstigte Bauleistungen und noch verfügbare 50.000 € MwSt.-Vergünstigung bei Eigennutzung. Bereits begonnene Projekte oder verbrauchte Vergünstigungen erfordern eine Einzelabrechnung."
         },
         {
           "href": "/outils-bancaires",
@@ -9254,61 +9253,59 @@
       "faq": [
         {
           "q": "Wie hoch sind die Notargebühren für eine Wohnung zu 500.000 € in Luxemburg?",
-          "a": "Für eine Bestandswohnung zu 500.000 € gekauft von einem Erstkäufer-Paar (voller Bëllegen Akt): rund 10.000 bis 12.000 € Gesamtkosten — 35.000 € Gebühren vollständig durch die Steuergutschrift kompensiert, plus 4.200 € Notargebühren, ca. 4.500 € Hypothekenkosten auf 400.000 € geliehen und 1.500 € Auslagen."
+          "a": "500 000 EUR × 7 % = 35 000 EUR ; 35 000 - 34 900 = 100 EUR. Fiktives Beispiel nur für gewöhnliche Abgaben von 7 %: zwei berechtigte Käufer mit gleichen Anteilen und jeweils 40.000 EUR Restguthaben. Die Gutschrift ist auf die Abgaben begrenzt; die Mindesterhebung von 100 EUR bleibt bestehen. Diese Spalte enthält nur verbleibende Abgaben, ohne Notarvergütung, deren Mehrwertsteuer, Auslagen, Hypothekenkosten oder Sondersteuern. Sie ist nicht der Gesamtbetrag für das Notariat."
         },
         {
           "q": "Sind die Notargebühren bei Neubauten in Luxemburg reduziert?",
-          "a": "Ja. Bei einem VEFA-Neubau gelten die Eintragungs- und Transkriptionsgebühren nur für den Grundstücksanteil. Der Bau unterliegt der super-ermäßigten Wohn-MwSt. von 3 % (Steuergutschrift gedeckelt auf 50.000 € pro Wohnung). Die Gesamtkosten liegen meist zwischen 3 und 4 % des Preises."
+          "a": "Beim Kauf eines noch zu errichtenden Gebäudes sind Grundstück, bereits ausgeführte und noch auszuführende Arbeiten in der Urkunde zu unterscheiden: Die Abgaben betreffen nicht stets nur das Grundstück. Die Mehrwertsteuer von 3 % auf begünstigte Neubauarbeiten setzt insbesondere den Hauptwohnsitz des Eigentümers und einen noch verfügbaren Steuervorteil voraus, begrenzt auf 50.000 EUR je Wohnung. Der Normalsatz beträgt 17 %; eine Begünstigung wird nicht unterstellt."
         },
         {
           "q": "Was ist der Bëllegen Akt und wie erhalte ich ihn?",
-          "a": "Der Bëllegen Akt ist eine Steuergutschrift von 40.000 € pro Käufer (80.000 € für ein Paar) auf die Eintragungsgebühren, sofern die Immobilie als Hauptwohnsitz dient und persönlich bewohnt wird. Der Antrag erfolgt automatisch durch den Notar bei der Beurkundung. Die AED erhebt in jedem Fall mindestens 100 € Gebühren."
+          "a": "Die persönliche Gutschrift gilt für Käufe, die die Bedingungen der Eigennutzung erfüllen, darunter eine Nutzung von mindestens zwei Jahren. Der Notar stellt den Antrag. Prüfen Sie das Restguthaben jedes Käufers: 40.000 EUR ist die von den konsultierten amtlichen Quellen bestätigte Obergrenze, kein neues Guthaben bei jedem Kauf. Der Restkredit ist persönlich: bei AED/MyGuichet prüfen. Die voreingestellten 40.000 € setzen keine frühere Nutzung voraus. Restkredite sind nicht auf andere Käufer übertragbar. Mindestens 100 € bleiben je Urkunde zu zahlen."
         },
         {
-          "q": "Können die Notargebühren in Luxemburg verhandelt werden?",
-          "a": "Nein. Die Notargebühren in Luxemburg sind streng durch die Großherzogliche Verordnung vom 26. November 2015 geregelt; der Notar darf sie weder erhöhen noch senken. Nur die Auslagen (Formalitäten) können je nach Notariat leicht variieren je nach durchgeführten Recherchen."
+          "q": "Welcher Tarif ist anzuwenden?",
+          "a": "Die geänderte Verordnung vom 24. Juli 1971 unterscheidet Urkunden und Tarife. Für einen freihändigen Verkauf gilt Tarif 7 mit aufeinanderfolgenden Stufen: Teilbeträge werden addiert, der Grenzsatz wird nicht auf den gesamten Preis angewandt. Die Tabelle zeigt kumulierte Bemessungsgrenzen. Freihändiger Verkauf: Tarif 7 der Notarverordnung, mindestens 99,16 € netto, zuzüglich 17 % MwSt. Kopien, Auslagen, Reisen und außergewöhnliche Arbeiten laut Notarabrechnung ergänzen."
         },
         {
-          "q": "Wer zahlt die Notargebühren in Luxemburg, der Käufer oder der Verkäufer?",
-          "a": "Der Käufer trägt die gesamten Erwerbskosten (Gebühren, Notargebühren der Verkaufsurkunde, Hypothekenkosten bei Finanzierung). Der Verkäufer zahlt nur die Formalitäten zur Löschung einer bestehenden Hypothek auf der Immobilie und die etwaige Maklerprovision, falls vertraglich von ihm zu tragen."
+          "q": "Wie bereiten Sie die Kostenaufstellung mit dem Notar vor?",
+          "a": "Legen Sie Urkundenentwurf, Eigentumsanteile, persönliche Restguthaben, Wohnnutzung und gegebenenfalls Darlehensbetrag samt gesicherten Nebenforderungen vor. Verlangen Sie eine genaue Aufstellung der Zahlungsanforderung und der noch hinzukommenden Kosten."
         },
         {
           "q": "Sind die Notargebühren in Luxemburg steuerlich absetzbar?",
-          "a": "Bei einer Mietinvestition sind die Notargebühren (Gebühren, Notargebühren, Hypothekenkosten) nicht sofort absetzbar, sondern werden den Erwerbskosten zugerechnet und können über die Haltedauer abgeschrieben werden. Beim Hauptwohnsitz sind sie nicht absetzbar, aber der Bëllegen Akt deckt einen Großteil davon."
+          "a": "Bei einer privat vermieteten Immobilie unterscheidet die Steuerverwaltung Anschaffungskosten, die zur Kostenbasis gehören und für den Gebäudeanteil abschreibbar sind, von Finanzierungskosten einschließlich der Hypothekenurkunde, die nach den Werbungskostenregeln abziehbar sind. Grund und Boden wird nicht abgeschrieben. Übertragen Sie dies nicht pauschal auf die eigene Wohnung: Jede Position und ihr Steuerjahr sind gesondert zu prüfen."
         }
       ],
       "sources": [
         {
-          "title": "Steuergutschrift auf notarielle Urkunden (Bëllegen Akt) — Verfahren",
-          "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/de/citoyens/aides/logement-construction/aides-indirectes/credit-impot-actes-notaries.html"
+          "title": "Bëllegen Akt im Überblick",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html"
         },
         {
-          "title": "Bëllegen Akt — offizielles Datenblatt",
-          "org": "Logement.lu — Wohnungsbauministerium",
-          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/credit-impot-actes-notariaux-bellegen-akt.html"
+          "title": "Amtlicher Notartarif",
+          "org": "Chambre des Notaires",
+          "url": "https://www.notariat.lu/notaire/reglement-revision-tarifs"
         },
         {
-          "title": "Großherzogliche Verordnung vom 26. November 2015 über Notargebühren",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/rgd/2015/11/26/n6/jo",
-          "year": 2015
+          "title": "Hypothekenabgaben",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/hypotheques.html"
         },
         {
-          "title": "Gesetz vom 22. Frimaire Jahr VII über Eintragungsgebühren",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1798/12/22/n1/jo"
+          "title": "TVA logement",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/tva-logement-ou-taux-super-reduit.html"
         },
         {
-          "title": "Gesetz vom 25. September 1905 über die Transkription dinglicher Rechte",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1905/09/25/n1/jo"
-        },
-        {
-          "title": "3 % Wohn-MwSt. — AED-Rundschreiben",
-          "org": "Verwaltung für Eintragung, Domänen und MwSt.",
-          "url": "https://pfi.public.lu/fr.html"
+          "title": "Sind die Notargebühren in Luxemburg steuerlich absetzbar?",
+          "org": "ACD",
+          "url": "https://impotsdirects.public.lu/fr/az/l/logem_loc.html"
         }
+      ],
+      "tariffHeaders": [
+        "Bemessungsstufe",
+        "Nettosatz"
       ]
     },
     "regle5Pourcent": {

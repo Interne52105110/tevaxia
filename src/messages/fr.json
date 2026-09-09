@@ -9277,90 +9277,89 @@
   },
   "guide": {
     "fraisNotaire": {
-      "title": "Frais de notaire au Luxembourg : barème 2026 et calcul détaillé",
-      "metaDescription": "Frais de notaire au Luxembourg en 2026 : droits d'enregistrement 7 %, transcription 1 %, Bëllegen Akt jusqu'à 40 000 €/personne, émoluments notariaux. Calcul détaillé avec exemples chiffrés.",
-      "subtitle": "Ce que coûte vraiment l'acte notarié, ligne par ligne, avec les barèmes officiels en vigueur en 2026.",
+      "title": "Frais d’acquisition au Luxembourg : droits et émoluments",
+      "metaDescription": "Distinguer les sommes versées à l’État, la rémunération du notaire, la TVA et les dépenses propres au dossier.",
+      "subtitle": "Distinguer les sommes versées à l’État, la rémunération du notaire, la TVA et les dépenses propres au dossier.",
       "category": "Achat & financement",
       "essentiel": [
-        "Pour un bien ancien : 7 % de droits (enregistrement 6 % + transcription 1 %) auxquels s'ajoutent les émoluments du notaire et les frais hypothécaires si vous empruntez.",
-        "Pour un bien neuf en VEFA : les droits ne s'appliquent qu'à la part terrain. La construction est soumise à la TVA logement à 3 % (faveur fiscale plafonnée à 50 000 €).",
-        "Le Bëllegen Akt accorde un crédit d'impôt de 40 000 € par acquéreur (80 000 € pour un couple) sur les droits d'enregistrement, à condition d'occuper personnellement le logement.",
-        "Les émoluments du notaire suivent un barème dégressif fixé par règlement grand-ducal : de 1,650 % sur la première tranche à 0,550 % au-delà de 30 000 €.",
-        "Pour un bien à 750 000 € financé à 80 %, prévoir environ 65 000 à 75 000 € de frais totaux avant Bëllegen Akt."
+        "Dans le cas ordinaire d’un achat immobilier à titre onéreux, les droits sont de 6 % pour l’enregistrement et 1 % pour la transcription, soit 7 % au total. Ce ne sont pas des honoraires du notaire. Exonérations, assiettes particulières et éventuelles surtaxes doivent être examinées selon l’acte.",
+        "Le crédit personnel est réservé aux acquisitions remplissant les conditions d’habitation personnelle, notamment l’occupation pendant au moins deux ans. Le notaire introduit la demande. Vérifiez le solde de chaque acquéreur : 40 000 EUR est le plafond confirmé par les sources officielles consultées, pas un nouveau crédit disponible à chaque achat.",
+        "Vente de gré à gré : barème 7 du règlement notarial, minimum 99,16 € HT, puis TVA 17 %. Copies, débours, frais de déplacement et diligences exceptionnelles restent à ajouter selon le décompte du notaire.",
+        "Prêt hypothécaire ordinaire non exonéré : obligation 0,24 % du principal, inscription 0,05 % de la garantie, barème 5 et TVA. Exonérations, mainlevée, copies et frais bancaires non chiffrés."
       ],
       "section1Title": "Droits d'enregistrement et de transcription",
-      "section1P1": "Tout transfert de propriété immobilière au Luxembourg déclenche deux droits perçus par l'Administration de l'enregistrement, des domaines et de la TVA (AED) : le droit d'enregistrement, fixé à 6 % du prix, et le droit de transcription, fixé à 1 %. Ces taux sont issus de la loi modifiée du 22 frimaire an VII et de la loi du 25 septembre 1905 sur la transcription des droits réels immobiliers, et n'ont pas changé en 2026.",
-      "section1P2": "Pour un bien neuf vendu en VEFA (vente en l'état futur d'achèvement), les droits ne portent que sur la part terrain figurant dans l'acte. La part construction est exonérée des droits car elle relève de la TVA, au taux super-réduit de 3 % pour le logement principal (faveur fiscale plafonnée à 50 000 € par logement, conformément à la circulaire AED n° 800 et à l'article 44ter de la loi TVA).",
+      "section1P1": "Dans le cas ordinaire d’un achat immobilier à titre onéreux, les droits sont de 6 % pour l’enregistrement et 1 % pour la transcription, soit 7 % au total. Ce ne sont pas des honoraires du notaire. Exonérations, assiettes particulières et éventuelles surtaxes doivent être examinées selon l’acte.",
+      "section1P2": "En VEFA, faites préciser dans l’acte le terrain, les travaux déjà réalisés et ceux restant à réaliser : les droits ne portent pas systématiquement sur le seul terrain. La TVA à 3 % sur des travaux éligibles de création suppose notamment l’habitation principale du propriétaire et un avantage encore disponible, plafonné à 50 000 EUR par logement. Le taux normal est de 17 % ; le bénéfice du taux réduit ne se présume pas.",
       "callout1Title": "Le Bëllegen Akt en bref",
-      "callout1Body": "Si le logement acquis devient votre résidence principale et que vous l'occupez effectivement et personnellement, l'AED applique un crédit d'impôt sur les droits d'enregistrement de 40 000 € par acquéreur (80 000 € pour un couple acquérant ensemble). La demande est faite par le notaire lors de la passation de l'acte. Au moins 100 € restent dus dans tous les cas.",
+      "callout1Body": "Le crédit personnel est réservé aux acquisitions remplissant les conditions d’habitation personnelle, notamment l’occupation pendant au moins deux ans. Le notaire introduit la demande. Vérifiez le solde de chaque acquéreur : 40 000 EUR est le plafond confirmé par les sources officielles consultées, pas un nouveau crédit disponible à chaque achat. Le solde est personnel : vérifiez-le auprès de l’AED/MyGuichet. Les 40 000 € proposés supposent aucun crédit déjà consommé. Le solde d’un acquéreur ne se transfère pas à l’autre. Un minimum de 100 € subsiste pour l’acte.",
       "section2Title": "Émoluments du notaire",
-      "section2P1": "Les émoluments du notaire luxembourgeois sont fixés par le règlement grand-ducal du 26 novembre 2015 concernant les honoraires des notaires. Le barème est proportionnel et dégressif par tranche : 1,650 % jusqu'à 7 500 €, 1,100 % de 7 500 € à 15 000 €, 0,825 % de 15 000 € à 30 000 €, puis 0,550 % au-delà. Le notaire ne peut ni majorer ni minorer ces taux.",
-      "section2P2": "À ces honoraires s'ajoutent les frais de formalités exposés par l'étude pour le compte de l'acquéreur : recherches hypothécaires, extrait cadastral, certificat d'urbanisme, certificat de mainlevée, photocopies, transmissions à l'AED. Ces débours représentent généralement entre 1 000 et 2 000 € pour une transaction résidentielle classique.",
+      "section2P1": "Le règlement modifié du 24 juillet 1971 distingue les actes et les barèmes. Pour une vente de gré à gré, le barème 7 s’applique par tranches successives : on additionne les fractions, sans appliquer le taux marginal au prix entier. Le tableau reprend les limites cumulées de l’assiette.",
+      "section2P2": "Demandez un décompte séparant émoluments HT, TVA, copies et débours réellement nécessaires. Le tarif inclut déjà les diligences principales et accessoires prévues par le texte ; les postes supplémentaires doivent être identifiés. Aucune enveloppe forfaitaire de formalités n’est ajoutée ici. Vente de gré à gré : barème 7 du règlement notarial, minimum 99,16 € HT, puis TVA 17 %. Copies, débours, frais de déplacement et diligences exceptionnelles restent à ajouter selon le décompte du notaire.",
       "section3Title": "Frais hypothécaires",
-      "section3P1": "Si l'acquisition est financée par un crédit, l'inscription hypothécaire au profit de la banque génère des frais distincts : un droit d'hypothèque de 0,05 % du montant emprunté perçu par l'AED, les émoluments du notaire pour l'acte d'inscription (suivant le même barème dégressif que ci-dessus), et les frais d'inscription au registre foncier. Pour un emprunt de 600 000 €, comptez 5 500 à 6 500 € de frais hypothécaires totaux.",
-      "callout2Title": "Hypothèque conventionnelle vs mandat",
-      "callout2Body": "Certaines banques acceptent un mandat hypothécaire (procuration de prendre inscription) au lieu d'une inscription hypothécaire immédiate. Cela divise les frais hypothécaires par deux à trois, mais expose à un coût ultérieur si la banque doit finalement inscrire l'hypothèque. Pesez le risque avec votre conseiller bancaire.",
+      "section3P1": "Prêt hypothécaire ordinaire non exonéré : obligation 0,24 % du principal, inscription 0,05 % de la garantie, barème 5 et TVA. Exonérations, mainlevée, copies et frais bancaires non chiffrés.",
+      "callout2Title": "Accessoires garantis en plus du principal",
+      "callout2Body": "Le principal emprunté et le montant garanti peuvent différer en raison des accessoires. Faites préciser les assiettes, les exonérations éventuelles, les émoluments de l’acte et les frais bancaires ; un mandat hypothécaire ne justifie pas une division automatique des frais.",
       "section4Title": "Exemples chiffrés par prix d'achat",
-      "section4Intro": "Le tableau ci-dessous donne une fourchette indicative pour un bien ancien occupé à titre de résidence principale par un couple acquéreur (Bëllegen Akt 80 000 € appliqué). Les frais hypothécaires correspondent à un financement à 80 % de la valeur.",
+      "section4Intro": "Exemple fictif limité aux droits ordinaires de 7 % : deux acquéreurs éligibles à parts égales, chacun disposant encore de 40 000 EUR. Le crédit est plafonné aux droits et le minimum de perception de 100 EUR est conservé.",
       "table": {
-        "caption": "Frais d'acquisition estimés — bien ancien, couple acquéreur, financement 80 %",
+        "caption": "Droits seuls — exemple à deux acquéreurs",
         "headers": [
-          "Prix d'achat",
-          "Droits 7 %",
-          "Bëllegen Akt",
-          "Total à payer"
+          "Prix d’achat",
+          "Droits avant crédit",
+          "Crédit utilisé",
+          "Droits restant dus"
         ],
         "rows": [
           [
-            "300 000 €",
-            "21 000 €",
-            "−21 000 €",
-            "≈ 6 000 €"
+            "300 000 EUR",
+            "21 000 EUR",
+            "20 900 EUR",
+            "100 EUR"
           ],
           [
-            "500 000 €",
-            "35 000 €",
-            "−35 000 €",
-            "≈ 10 000 €"
+            "500 000 EUR",
+            "35 000 EUR",
+            "34 900 EUR",
+            "100 EUR"
           ],
           [
-            "750 000 €",
-            "52 500 €",
-            "−52 500 €",
-            "≈ 14 000 €"
+            "750 000 EUR",
+            "52 500 EUR",
+            "52 400 EUR",
+            "100 EUR"
           ],
           [
-            "1 000 000 €",
-            "70 000 €",
-            "−70 000 €",
-            "≈ 18 000 €"
+            "1 000 000 EUR",
+            "70 000 EUR",
+            "69 900 EUR",
+            "100 EUR"
           ],
           [
-            "1 500 000 €",
-            "105 000 €",
-            "−80 000 €",
-            "≈ 50 000 €"
+            "1 500 000 EUR",
+            "105 000 EUR",
+            "80 000 EUR",
+            "25 000 EUR"
           ]
         ],
-        "footnote": "Total à payer = droits restants après Bëllegen Akt + émoluments notaire + frais hypothécaires + débours. Estimation 2026 pour un couple primo-acquéreur. La part hypothèque est calculée sur 80 % du prix."
+        "footnote": "Le solde de cette colonne comprend uniquement les droits, pas la rémunération du notaire, sa TVA, les débours, l’hypothèque ou des taxes particulières. Ce n’est pas le total à verser à l’étude."
       },
-      "callout3Title": "Exemple : couple achetant un appartement à 750 000 €",
-      "callout3Body": "Droits d'enregistrement et transcription : 52 500 €. Bëllegen Akt couple : −52 500 € (consommation partielle de l'enveloppe de 80 000 €). Émoluments notaire (vente) : ≈ 5 700 €. Acte hypothécaire pour 600 000 € : ≈ 6 200 €. Débours et formalités : ≈ 1 500 €. Total à débourser le jour de l'acte : ≈ 13 500 €.",
+      "callout3Title": "Exemple : droits sur un achat de 750 000 EUR",
+      "callout3Body": "Pour 750 000 EUR, les droits ordinaires s’élèvent à 52 500 EUR. Dans les seules hypothèses du tableau, le crédit utilisé est de 52 400 EUR et 100 EUR de droits restent dus. Les autres postes se calculent et se justifient séparément.",
       "inlineCalc": {
-        "title": "Calculez vos frais d'acquisition réels",
-        "description": "Notre calculateur applique le barème dégressif des notaires, le Bëllegen Akt selon votre situation, la TVA logement pour les biens neufs et le coût hypothécaire selon le financement.",
+        "title": "Ouvrir le calculateur détaillé des frais",
+        "description": "Estimation partielle des frais selon les règles documentées. Le crédit est calculé sur un plafond de 40 000 € confirmé par la loi du 3 juillet 2025. La hausse à 45 000 € annoncée en juillet 2026 n’est pas intégrée sans confirmation de son entrée en vigueur.",
         "cta": "Ouvrir le calculateur"
       },
       "tools": [
         {
           "href": "/frais-acquisition",
           "title": "Calculateur de frais d'acquisition",
-          "description": "Estimation complète : droits, Bëllegen Akt, émoluments, hypothèque, TVA logement."
+          "description": "Vente de gré à gré : barème 7 du règlement notarial, minimum 99,16 € HT, puis TVA 17 %. Copies, débours, frais de déplacement et diligences exceptionnelles restent à ajouter selon le décompte du notaire."
         },
         {
           "href": "/vefa",
           "title": "Simulateur VEFA",
-          "description": "Décomposition terrain / construction et TVA logement 3 % pour un bien neuf."
+          "description": "VEFA : saisir exclusivement le prix hors TVA. Ce mode suppose aucune construction déjà réalisée à l’acte, toute la construction éligible et un avantage TVA de 50 000 € encore disponible pour l’habitation personnelle. Un projet déjà commencé ou un avantage déjà consommé nécessite un décompte spécifique."
         },
         {
           "href": "/outils-bancaires",
@@ -9376,61 +9375,59 @@
       "faq": [
         {
           "q": "Combien de frais de notaire pour un appartement à 500 000 € au Luxembourg ?",
-          "a": "Pour un appartement ancien à 500 000 € acheté par un couple primo-acquéreur (Bëllegen Akt plein), comptez environ 10 000 à 12 000 € de frais totaux : droits 35 000 € entièrement annulés par le crédit d'impôt, plus 4 200 € d'émoluments notaire, environ 4 500 € de frais hypothécaires sur 400 000 € empruntés et 1 500 € de débours."
+          "a": "500 000 EUR × 7 % = 35 000 EUR ; 35 000 - 34 900 = 100 EUR. Exemple fictif limité aux droits ordinaires de 7 % : deux acquéreurs éligibles à parts égales, chacun disposant encore de 40 000 EUR. Le crédit est plafonné aux droits et le minimum de perception de 100 EUR est conservé. Le solde de cette colonne comprend uniquement les droits, pas la rémunération du notaire, sa TVA, les débours, l’hypothèque ou des taxes particulières. Ce n’est pas le total à verser à l’étude."
         },
         {
           "q": "Les frais de notaire sont-ils réduits pour un bien neuf au Luxembourg ?",
-          "a": "Oui. Pour un bien neuf vendu en VEFA, les droits d'enregistrement et de transcription ne portent que sur la part terrain figurant dans l'acte. La construction est soumise à la TVA logement au taux super-réduit de 3 % (faveur fiscale plafonnée à 50 000 € par logement). Les frais totaux tombent généralement entre 3 et 4 % du prix."
+          "a": "En VEFA, faites préciser dans l’acte le terrain, les travaux déjà réalisés et ceux restant à réaliser : les droits ne portent pas systématiquement sur le seul terrain. La TVA à 3 % sur des travaux éligibles de création suppose notamment l’habitation principale du propriétaire et un avantage encore disponible, plafonné à 50 000 EUR par logement. Le taux normal est de 17 % ; le bénéfice du taux réduit ne se présume pas."
         },
         {
           "q": "Qu'est-ce que le Bëllegen Akt et comment l'obtenir ?",
-          "a": "Le Bëllegen Akt est un crédit d'impôt de 40 000 € par acquéreur (80 000 € pour un couple) appliqué sur les droits d'enregistrement, à condition que le bien serve de résidence principale et soit occupé personnellement par l'acquéreur. La demande est faite automatiquement par le notaire lors de l'acte. L'AED perçoit au minimum 100 € de droits dans tous les cas."
+          "a": "Le crédit personnel est réservé aux acquisitions remplissant les conditions d’habitation personnelle, notamment l’occupation pendant au moins deux ans. Le notaire introduit la demande. Vérifiez le solde de chaque acquéreur : 40 000 EUR est le plafond confirmé par les sources officielles consultées, pas un nouveau crédit disponible à chaque achat. Le solde est personnel : vérifiez-le auprès de l’AED/MyGuichet. Les 40 000 € proposés supposent aucun crédit déjà consommé. Le solde d’un acquéreur ne se transfère pas à l’autre. Un minimum de 100 € subsiste pour l’acte."
         },
         {
-          "q": "Les frais de notaire peuvent-ils être négociés au Luxembourg ?",
-          "a": "Non. Les émoluments du notaire luxembourgeois sont strictement réglementés par le règlement grand-ducal du 26 novembre 2015 et le notaire ne peut ni les majorer ni les minorer. Seuls les débours (formalités) peuvent légèrement varier d'une étude à l'autre selon les recherches effectuées."
+          "q": "Quel barème doit être utilisé ?",
+          "a": "Le règlement modifié du 24 juillet 1971 distingue les actes et les barèmes. Pour une vente de gré à gré, le barème 7 s’applique par tranches successives : on additionne les fractions, sans appliquer le taux marginal au prix entier. Le tableau reprend les limites cumulées de l’assiette. Vente de gré à gré : barème 7 du règlement notarial, minimum 99,16 € HT, puis TVA 17 %. Copies, débours, frais de déplacement et diligences exceptionnelles restent à ajouter selon le décompte du notaire."
         },
         {
-          "q": "Qui paie les frais de notaire au Luxembourg : l'acheteur ou le vendeur ?",
-          "a": "L'acheteur supporte la totalité des frais d'acquisition (droits, émoluments de l'acte de vente, frais hypothécaires si emprunt). Le vendeur paie uniquement les éventuelles formalités liées à la mainlevée d'une hypothèque préexistante sur le bien et l'éventuelle commission d'agence si elle est à sa charge."
+          "q": "Comment préparer le décompte avec le notaire ?",
+          "a": "Communiquez le projet d’acte, les quotes-parts, les soldes personnels de crédit, l’usage du logement et, si nécessaire, le principal et les accessoires du prêt. Demandez le détail de l’appel de fonds et des dépenses restant à ajouter."
         },
         {
           "q": "Les frais de notaire sont-ils déductibles fiscalement au Luxembourg ?",
-          "a": "Pour un investissement locatif, les frais de notaire (droits, émoluments, frais hypothécaires) ne sont pas déductibles immédiatement mais sont intégrés au coût d'acquisition et peuvent être amortis sur la durée de détention. Pour la résidence principale, ils ne sont pas déductibles mais le Bëllegen Akt en couvre une grande partie."
+          "a": "Pour un immeuble privé loué, l’ACD distingue les frais d’acquisition, intégrés au prix de revient et amortissables pour la part bâtie, des frais de financement, dont l’acte d’obligation hypothécaire, déductibles selon les règles des frais d’obtention. Le terrain ne s’amortit pas. Ne transposez pas cette règle globalement à l’habitation personnelle : faites qualifier chaque poste et son année fiscale."
         }
       ],
       "sources": [
         {
-          "title": "Crédit d'impôt sur les actes notariés (Bëllegen Akt) — démarche",
-          "org": "Guichet.lu",
-          "url": "https://guichet.public.lu/fr/citoyens/aides/logement-construction/aides-indirectes/credit-impot-actes-notaries.html"
+          "title": "Le Bëllegen Akt en bref",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/enregistrement/credit-impot.html"
         },
         {
-          "title": "Bëllegen Akt — fiche officielle",
-          "org": "Logement.lu — Ministère du Logement",
-          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/credit-impot-actes-notariaux-bellegen-akt.html"
+          "title": "Tarif notarial officiel",
+          "org": "Chambre des Notaires",
+          "url": "https://www.notariat.lu/notaire/reglement-revision-tarifs"
         },
         {
-          "title": "Règlement grand-ducal du 26 novembre 2015 fixant les émoluments des notaires",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/rgd/2015/11/26/n6/jo",
-          "year": 2015
+          "title": "Droits hypothécaires",
+          "org": "AED / PFI",
+          "url": "https://pfi.public.lu/fr/citoyen/hypotheques.html"
         },
         {
-          "title": "Loi du 22 frimaire an VII relative aux droits d'enregistrement",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1798/12/22/n1/jo"
+          "title": "TVA logement",
+          "org": "Ministère du Logement",
+          "url": "https://logement.public.lu/fr/proprietaire/fiscalit/tva-logement-ou-taux-super-reduit.html"
         },
         {
-          "title": "Loi du 25 septembre 1905 sur la transcription des droits réels immobiliers",
-          "org": "Legilux",
-          "url": "https://legilux.public.lu/eli/etat/leg/loi/1905/09/25/n1/jo"
-        },
-        {
-          "title": "TVA logement à 3 % — circulaire AED",
-          "org": "Administration de l'enregistrement, des domaines et de la TVA",
-          "url": "https://pfi.public.lu/fr.html"
+          "title": "Les frais de notaire sont-ils déductibles fiscalement au Luxembourg ?",
+          "org": "ACD",
+          "url": "https://impotsdirects.public.lu/fr/az/l/logem_loc.html"
         }
+      ],
+      "tariffHeaders": [
+        "Tranche de l’assiette",
+        "Taux HT"
       ]
     },
     "regle5Pourcent": {
