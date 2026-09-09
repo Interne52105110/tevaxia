@@ -1,230 +1,37 @@
 "use client";
-
-import { useMemo, useState } from "react";
-import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
-import { buildPriceForecast, DEFAULT_SCENARIOS } from "@/lib/price-forecast";
-import { rechercherCommune, type SearchResult, getAllCommunes, getMarketDataCommune } from "@/lib/market-data";
-import { Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart } from "recharts";
-
-export default function MarcheForecastPage() {
-  const locale = useLocale();
-  const lp = locale === "fr" ? "" : `/${locale}`;
-  const t = useTranslations("marcheForecast");
-
-  const [communeSearch, setCommuneSearch] = useState("Luxembourg");
-  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(() => {
-    const r = rechercherCommune("Luxembourg");
-    return r[0] ?? null;
-  });
-  const [horizon, setHorizon] = useState(24);
-  const [pessimisteRate, setPessimisteRate] = useState(-3);
-  const [centralRate, setCentralRate] = useState(2);
-  const [optimisteRate, setOptimisteRate] = useState(5);
-
-  const searchResults = useMemo(() => rechercherCommune(communeSearch), [communeSearch]);
-
-  const basePrice = useMemo(() => {
-    if (!selectedResult?.commune.commune) return 7500;
-    const data = getMarketDataCommune(selectedResult.commune.commune);
-    return data?.prixM2Existant ?? 7500;
-  }, [selectedResult]);
-
-  const forecast = useMemo(() => {
-    const scenarios = [
-      { ...DEFAULT_SCENARIOS[0], annualGrowthPct: pessimisteRate },
-      { ...DEFAULT_SCENARIOS[1], annualGrowthPct: centralRate },
-      { ...DEFAULT_SCENARIOS[2], annualGrowthPct: optimisteRate },
-    ];
-    return buildPriceForecast(basePrice, horizon, scenarios);
-  }, [basePrice, horizon, pessimisteRate, centralRate, optimisteRate]);
-
-  return (
-    <div className="bg-background min-h-screen py-8 sm:py-12">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Link href={`${lp}/marche`} className="text-xs text-muted hover:text-navy">
-          {t("back")}
-        </Link>
-        <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
-        <p className="mt-1 max-w-3xl text-sm text-muted">{t("subtitle")}</p>
-
-        <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
-          <span className="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-emerald-800">
-            {t("badgeData")}
-          </span>
-          <span className="rounded-full bg-amber-50 border border-amber-200 px-3 py-1 text-amber-800">
-            {t("badgeDisclaimer")}
-          </span>
-        </div>
-
-        {/* Input zone */}
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
-          <div className="lg:col-span-2 rounded-xl border border-card-border bg-card p-5 shadow-sm">
-            <label className="text-xs font-semibold text-navy mb-2 block">{t("commune")}</label>
-            <input
-              type="text"
-              value={communeSearch}
-              onChange={(e) => setCommuneSearch(e.target.value)}
-              placeholder={t("communePlaceholder")}
-              className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
-              list="commune-list"
-            />
-            <datalist id="commune-list">
-              {getAllCommunes().slice(0, 50).map((c) => <option key={c} value={c} />)}
-            </datalist>
-            {searchResults.length > 0 && searchResults[0].commune.commune !== selectedResult?.commune.commune && (
-              <div className="mt-2 space-y-1">
-                {searchResults.slice(0, 3).map((r) => (
-                  <button
-                    key={r.commune.commune}
-                    onClick={() => {
-                      setSelectedResult(r);
-                      setCommuneSearch(r.commune.commune);
-                    }}
-                    className="block w-full text-left px-2 py-1 text-xs rounded hover:bg-navy/5"
-                  >
-                    {r.commune.commune} · {r.commune.prixM2Existant ? `${r.commune.prixM2Existant.toLocaleString("fr-FR")} €/m²` : "—"}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {selectedResult && (
-              <div className="mt-3 rounded-lg bg-navy/5 border border-navy/10 p-3">
-                <div className="text-xs text-muted">{t("currentPrice")}</div>
-                <div className="text-2xl font-mono font-bold text-navy">
-                  {basePrice.toLocaleString("fr-FR")} €/m²
-                </div>
-                <div className="text-xs text-muted">
-                  {selectedResult.commune.commune} · Q4 2025 Observatoire Habitat
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm space-y-3">
-            <div>
-              <label className="text-xs font-semibold text-navy mb-1 block">
-                {t("horizon")} <span className="font-mono">{horizon} {t("months")}</span>
-              </label>
-              <input
-                type="range"
-                min={6}
-                max={48}
-                step={6}
-                value={horizon}
-                onChange={(e) => setHorizon(Number(e.target.value))}
-                className="w-full"
-              />
-            </div>
-            <div className="grid grid-cols-3 gap-2 text-xs">
-              <div>
-                <label className="text-[10px] text-rose-700 font-semibold">{t("pessimiste")}</label>
-                <div className="flex items-center gap-1">
-                  <input
-                    type="number"
-                    value={pessimisteRate}
-                    onChange={(e) => setPessimisteRate(Number(e.target.value))}
-                    className="w-full rounded border border-rose-200 bg-rose-50 px-1.5 py-1 text-xs font-mono"
-                  />
-                  <span className="text-muted">%/an</span>
-                </div>
-              </div>
-              <div>
-                <label className="text-[10px] text-navy font-semibold">{t("central")}</label>
-                <div className="flex items-center gap-1">
-                  <input
-                    type="number"
-                    value={centralRate}
-                    onChange={(e) => setCentralRate(Number(e.target.value))}
-                    className="w-full rounded border border-navy/20 bg-navy/5 px-1.5 py-1 text-xs font-mono"
-                  />
-                  <span className="text-muted">%/an</span>
-                </div>
-              </div>
-              <div>
-                <label className="text-[10px] text-emerald-700 font-semibold">{t("optimiste")}</label>
-                <div className="flex items-center gap-1">
-                  <input
-                    type="number"
-                    value={optimisteRate}
-                    onChange={(e) => setOptimisteRate(Number(e.target.value))}
-                    className="w-full rounded border border-emerald-200 bg-emerald-50 px-1.5 py-1 text-xs font-mono"
-                  />
-                  <span className="text-muted">%/an</span>
-                </div>
-              </div>
-            </div>
-            <div className="pt-2 border-t border-card-border text-[11px] text-muted">
-              {t("cagrReference", { cagr: forecast.cagrHistorical.toFixed(1) })}
-            </div>
-          </div>
-        </div>
-
-        {/* KPI cards */}
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          <div className="rounded-xl border border-rose-200 bg-rose-50 p-4">
-            <div className="text-[10px] uppercase tracking-wider text-rose-700 font-semibold">{t("pessimiste")}</div>
-            <div className="mt-1 text-2xl font-mono font-bold text-rose-900">
-              {forecast.endPessimiste.toLocaleString("fr-FR")} €/m²
-            </div>
-            <div className="text-[10px] text-rose-700">
-              {((forecast.endPessimiste - forecast.basePrice) / forecast.basePrice * 100).toFixed(1)} %
-            </div>
-          </div>
-          <div className="rounded-xl border border-navy/20 bg-navy/5 p-4">
-            <div className="text-[10px] uppercase tracking-wider text-navy font-semibold">{t("central")}</div>
-            <div className="mt-1 text-2xl font-mono font-bold text-navy">
-              {forecast.endCentral.toLocaleString("fr-FR")} €/m²
-            </div>
-            <div className="text-[10px] text-navy/80">
-              {((forecast.endCentral - forecast.basePrice) / forecast.basePrice * 100).toFixed(1)} %
-            </div>
-          </div>
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-            <div className="text-[10px] uppercase tracking-wider text-emerald-700 font-semibold">{t("optimiste")}</div>
-            <div className="mt-1 text-2xl font-mono font-bold text-emerald-900">
-              {forecast.endOptimiste.toLocaleString("fr-FR")} €/m²
-            </div>
-            <div className="text-[10px] text-emerald-700">
-              {((forecast.endOptimiste - forecast.basePrice) / forecast.basePrice * 100).toFixed(1)} %
-            </div>
-          </div>
-        </div>
-
-        {/* Chart */}
-        <div className="mt-6 rounded-xl border border-card-border bg-card p-5 shadow-sm">
-          <h2 className="text-sm font-semibold text-navy mb-3">{t("chartTitle")}</h2>
-          <ResponsiveContainer width="100%" height={380}>
-            <ComposedChart data={forecast.series}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e2db" />
-              <XAxis dataKey="label" tick={{ fontSize: 9 }} interval={2} />
-              <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${(v/1000).toFixed(1)}k`} />
-              <Tooltip
-                formatter={(v: unknown) => typeof v === "number" ? `${v.toLocaleString("fr-FR")} €/m²` : "—"}
-                contentStyle={{ fontSize: 12, borderRadius: 8 }}
-              />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Line type="monotone" dataKey="historical" stroke="#6b7280" strokeWidth={2.5} dot={false} name={t("historical")} />
-              <Line type="monotone" dataKey="pessimiste" stroke="#dc2626" strokeWidth={2} dot={false} strokeDasharray="5 5" name={t("pessimiste")} />
-              <Line type="monotone" dataKey="central" stroke="#1e3a5f" strokeWidth={2.5} dot={false} name={t("central")} />
-              <Line type="monotone" dataKey="optimiste" stroke="#059669" strokeWidth={2} dot={false} strokeDasharray="5 5" name={t("optimiste")} />
-            </ComposedChart>
-          </ResponsiveContainer>
-          <p className="mt-3 text-[10px] text-muted">{t("chartNote")}</p>
-        </div>
-
-        {/* Methodology */}
-        <div className="mt-6 rounded-xl border border-sky-200 bg-sky-50 p-5">
-          <h3 className="text-sm font-semibold text-sky-900 mb-2">{t("methodTitle")}</h3>
-          <ul className="ml-4 list-disc space-y-1 text-xs text-sky-800">
-            <li>{t("methodHistorical")}</li>
-            <li>{t("methodRatio")}</li>
-            <li>{t("methodProjection")}</li>
-            <li>{t("methodDisclaimer")}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+import {useMemo,useState} from 'react';
+import Link from 'next/link';
+import {useLocale,useTranslations} from 'next-intl';
+import {buildPriceForecast,DEFAULT_SCENARIOS} from '@/lib/price-forecast';
+import {getAllCommunes,getMarketDataCommune,MARKET_SOURCES} from '@/lib/market-data';
+import {Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend,ResponsiveContainer,LineChart} from 'recharts';
+export default function MarcheForecastPage(){
+ const locale=useLocale(),lp=locale==='fr'?'':'/'+locale,t=useTranslations('marcheForecast');
+ const [commune,setCommune]=useState(''),[price,setPrice]=useState(''),[start,setStart]=useState(''),[horizon,setHorizon]=useState(24),[rates,setRates]=useState(['0','0','0']);
+ const market=commune?getMarketDataCommune(commune):null;
+ const number=(n:number)=>n.toLocaleString(locale==='lb'?'de-DE':locale,{minimumFractionDigits:2,maximumFractionDigits:2});
+ const forecast=useMemo(()=>{if(!price.trim()||rates.some(r=>!r.trim()))return null;try{return buildPriceForecast(Number(price),horizon,DEFAULT_SCENARIOS.map((s,i)=>({...s,annualGrowthPct:Number(rates[i])})),start)}catch{return null}},[price,horizon,rates,start]);
+ const input='mt-1 w-full min-w-0 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm';
+ return <main className="min-h-screen bg-background py-8 sm:py-12"><div className="mx-auto max-w-6xl px-4 sm:px-6 [overflow-wrap:anywhere]">
+  <Link href={lp+'/marche'} className="text-sm text-muted">{t('back')}</Link><h1 className="mt-3 text-2xl font-bold text-navy sm:text-3xl">{t('title')}</h1><p className="mt-3 max-w-3xl text-sm text-muted">{t('subtitle')}</p>
+  <div className="mt-6 grid gap-4 lg:grid-cols-2">
+   <section className="min-w-0 rounded-xl border border-card-border bg-card p-4 sm:p-5">
+    <label htmlFor="price-commune" className="text-sm font-semibold">{t('commune')}</label><select id="price-commune" value={commune} onChange={e=>{setCommune(e.target.value);setPrice('')}} className={input}><option value="">{t('select')}</option>{getAllCommunes().map(c=><option key={c} value={c}>{c}</option>)}</select>
+    {market&&<div data-price-reference className="mt-3 rounded-lg bg-navy/5 p-3 text-sm"><p>{t('reference')}</p><p className="my-2 text-xl font-bold">{market.prixM2Existant==null?t('unpublished'):number(market.prixM2Existant)+' €/m²'}</p><p>{market.periode}</p><p className="mt-1 text-xs">{market.source}</p><a className="mt-2 inline-block underline" href={MARKET_SOURCES.transactions} target="_blank" rel="noopener noreferrer">{t('source')}</a>{market.prixM2Existant!=null&&<button id="price-copy" type="button" onClick={()=>setPrice(String(market.prixM2Existant))} className="mt-3 block rounded border border-navy/30 px-3 py-2 text-left">{t('copy')}</button>}</div>}
+    <p className="mt-3 text-sm text-muted">{t('referenceScope')}</p>
+    <label htmlFor="price-base" className="mt-4 block text-sm font-semibold">{t('base')}</label><input id="price-base" type="number" min="0.01" max="1000000" step="any" value={price} onChange={e=>setPrice(e.target.value)} className={input}/>
+    <label htmlFor="price-start" className="mt-4 block text-sm font-semibold">{t('start')}</label><input id="price-start" type="month" min="2000-01" max="2099-12" value={start} onChange={e=>setStart(e.target.value)} className={input}/>
+   </section>
+   <section className="min-w-0 rounded-xl border border-card-border bg-card p-4 sm:p-5">
+    <label htmlFor="price-horizon" className="text-sm font-semibold">{t('horizon')}: {horizon} {t('months')}</label><input id="price-horizon" type="range" min="6" max="48" step="6" value={horizon} onChange={e=>setHorizon(Number(e.target.value))} className="mt-3 w-full"/>
+    <p className="mt-3 text-sm text-muted">{t('ratesScope')}</p><div className="mt-4 grid gap-3 sm:grid-cols-3">{DEFAULT_SCENARIOS.map((s,i)=><div key={s.name} className="min-w-0"><label htmlFor={'price-'+s.name} className="text-sm font-semibold">{t(s.name)}</label><input id={'price-'+s.name} type="number" step="any" min="-99.999" max="100" value={rates[i]} onChange={e=>setRates(old=>old.map((v,k)=>k===i?e.target.value:v))} className={input}/><p className="mt-1 text-xs text-muted">{t('annual')}</p></div>)}</div>
+   </section>
+  </div>
+  {!forecast?<p role="status" className="mt-5 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm">{t('invalid')}</p>:<section data-price-results className="mt-6 min-w-0 rounded-xl border border-card-border bg-card p-4 sm:p-5">
+   <h2 className="font-semibold text-navy">{t('chartTitle')}</h2><div className="mt-4 grid gap-3 lg:grid-cols-3">{DEFAULT_SCENARIOS.map(s=><div key={s.name} className="min-w-0 rounded-lg bg-navy/5 p-3"><h3 className="text-sm">{t(s.name)}</h3><p data-price-end={s.name} className="mt-1 text-xl font-bold">{number(forecast.series[forecast.series.length-1][s.name])} €/m²</p></div>)}</div>
+   <div className="mt-6 min-w-0"><ResponsiveContainer width="100%" height={340}><LineChart data={forecast.series}><CartesianGrid strokeDasharray="3 3"/><XAxis dataKey="label" minTickGap={45} tick={{fontSize:11}}/><YAxis width={65} tick={{fontSize:11}}/><Tooltip formatter={v=>typeof v==='number'?number(v)+' €/m²':'—'}/><Legend/>{DEFAULT_SCENARIOS.map(s=><Line key={s.name} type="linear" dataKey={s.name} name={t(s.name)} stroke={s.color} dot={false} isAnimationActive={false}/>)}</LineChart></ResponsiveContainer></div>
+   <details className="mt-4"><summary className="cursor-pointer text-sm font-semibold">{t('table')}</summary><div className="mt-3 overflow-x-auto"><table className="w-full text-sm"><thead><tr><th className="p-2 text-left">{t('month')}</th>{DEFAULT_SCENARIOS.map(s=><th className="p-2 text-right" key={s.name}>{t(s.name)} €/m²</th>)}</tr></thead><tbody>{forecast.series.map(p=><tr key={p.label}><th className="p-2 text-left font-normal">{p.label}{!p.isProjection?' *':''}</th>{DEFAULT_SCENARIOS.map(s=><td key={s.name} className="p-2 text-right">{number(p[s.name])}</td>)}</tr>)}</tbody></table></div><p className="mt-2 text-xs">* {t('anchor')}</p></details>
+  </section>}
+  <section className="mt-6 rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-900"><h2 className="font-semibold">{t('methodTitle')}</h2><p className="mt-2">{t('formula')}</p><p className="mt-2">{t('methodScope')}</p></section>
+ </div></main>;
 }

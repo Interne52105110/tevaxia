@@ -370,3 +370,11 @@ Le score de marché et les commentaires automatiques attribuant une qualité au 
 Le PDF de carte reçoit les mêmes observations, libellés et dates que l’écran. Il ne présente plus le prix annoncé comme médiane, ni une décote artificielle de 15 % et un prix VEFA comme fourchette de valeur. Une moyenne non publiée n’est jamais remplacée par zéro, y compris sur la couverture. Les liens de sources sont cliquables. Les libellés et explications métier sont traduits en cinq langues ; le pied de page et l’avertissement commun historique restent en français.
 
 Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg et Beaufort, cinq langues), trente pages inspectées visuellement ; montants, centimes, période, effectifs, mentions de données absentes et trois liens source vérifiés. Contrôles navigateur des deux communes et de la carte, cinq langues et quatre largeurs, retrait des scores, recherche inconnue et liens localisés. Les cartes de montants utilisent une colonne sur petit écran pour conserver les centimes lisibles avec le zoom général de 10 %. Aucun nouveau modèle financier n’est introduit : le bloc et le PDF exposent les observations existantes sans fabriquer de médiane ou d’intervalle.
+
+### Scénarios de prix immobiliers — 9 septembre, 15:00
+- Suppression de l’historique communal fictif interpolé depuis une ancienne série nationale et du CAGR associé. Suppression du prix de secours à 7 500 €/m².
+- Prix et mois de départ déclarés, référence communale facultative avec période/source exacte, copie explicite et absence de prix respectée. Changer de commune efface la saisie précédente.
+- Trois taux annuels constants déclarés, initiaux neutres à zéro, ordre et bornes contrôlés. Calcul exact prix × (1+taux/100)^(mois/12), sans arrondi intermédiaire. Aucune probabilité ni intervalle de confiance.
+- Tableau mensuel accessible, affichage monétaire localisé à deux décimales, cinq langues et quatre largeurs de 320 à 1440 pixels. Libellés et métadonnées corrigés.
+- Vérification : 1175 tests / 99 fichiers, build et lint réussis ; cinq parcours navigateur réussis (référence manquante, copie, changement de commune, capitalisation, champs vides/invalides et responsive).
+- Lot communal précédent a654fa9 : CI 34351228936 réussie, déploiement dpl_CNgSody7KFBPkdZoysJjGmDvJHwo prêt, cinq parcours de production réussis.

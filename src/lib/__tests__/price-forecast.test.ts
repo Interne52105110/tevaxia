@@ -1,94 +1,32 @@
-import { describe, it, expect } from "vitest";
-import { buildPriceForecast, DEFAULT_SCENARIOS } from "../price-forecast";
-
-describe("buildPriceForecast", () => {
-  it("returns series + 3 projections + CAGR", () => {
-    const r = buildPriceForecast(7500, 24);
-    expect(r.series.length).toBeGreaterThan(24);
-    expect(typeof r.cagrHistorical).toBe("number");
-    expect(r.basePrice).toBe(7500);
-    expect(r.endPessimiste).toBeGreaterThan(0);
-    expect(r.endCentral).toBeGreaterThan(0);
-    expect(r.endOptimiste).toBeGreaterThan(0);
-  });
-
-  it("optimiste > central > pessimiste at horizon", () => {
-    const r = buildPriceForecast(7500, 24);
-    expect(r.endOptimiste).toBeGreaterThan(r.endCentral);
-    expect(r.endCentral).toBeGreaterThan(r.endPessimiste);
-  });
-
-  it("negative growth → price decreases", () => {
-    const r = buildPriceForecast(10_000, 12, [
-      { name: "pessimiste", nameKey: "k", annualGrowthPct: -10, color: "#f00" },
-      { name: "central", nameKey: "k", annualGrowthPct: -10, color: "#f00" },
-      { name: "optimiste", nameKey: "k", annualGrowthPct: -10, color: "#f00" },
-    ]);
-    expect(r.endCentral).toBeLessThan(r.basePrice);
-  });
-
-  it("zero growth → price stable at horizon", () => {
-    const r = buildPriceForecast(8000, 12, [
-      { name: "pessimiste", nameKey: "k", annualGrowthPct: 0, color: "#f00" },
-      { name: "central", nameKey: "k", annualGrowthPct: 0, color: "#f00" },
-      { name: "optimiste", nameKey: "k", annualGrowthPct: 0, color: "#f00" },
-    ]);
-    expect(Math.abs(r.endCentral - r.basePrice)).toBeLessThan(1);
-  });
-
-  it("horizon months determines projection length", () => {
-    const r12 = buildPriceForecast(7500, 12);
-    const r24 = buildPriceForecast(7500, 24);
-    const r48 = buildPriceForecast(7500, 48);
-    const p12 = r12.series.filter((p) => p.isProjection).length;
-    const p24 = r24.series.filter((p) => p.isProjection).length;
-    const p48 = r48.series.filter((p) => p.isProjection).length;
-    expect(p12).toBe(12);
-    expect(p24).toBe(24);
-    expect(p48).toBe(48);
-  });
-
-  it("+10 %/an horizon 12 mois ≈ base × 1.10", () => {
-    const r = buildPriceForecast(1000, 12, [
-      { name: "pessimiste", nameKey: "k", annualGrowthPct: 10, color: "#f00" },
-      { name: "central", nameKey: "k", annualGrowthPct: 10, color: "#0f0" },
-      { name: "optimiste", nameKey: "k", annualGrowthPct: 10, color: "#00f" },
-    ]);
-    // Base × (1 + 0.10)^(12/12) = 1100
-    expect(r.endCentral).toBeGreaterThanOrEqual(1090);
-    expect(r.endCentral).toBeLessThanOrEqual(1110);
-  });
-
-  it("historical points have isProjection = false", () => {
-    const r = buildPriceForecast(7500, 12);
-    const hist = r.series.filter((p) => !p.isProjection);
-    expect(hist.length).toBeGreaterThan(0);
-    hist.forEach((p) => {
-      expect(p.isProjection).toBe(false);
-      expect(p.historical).toBeDefined();
-    });
-  });
-
-  it("labels follow MM/YY format", () => {
-    const r = buildPriceForecast(7500, 12);
-    r.series.forEach((p) => {
-      expect(p.label).toMatch(/^\d{2}\/\d{2}$/);
-    });
-  });
-
-  it("DEFAULT_SCENARIOS has 3 scenarios sorted pessimiste < central < optimiste", () => {
-    expect(DEFAULT_SCENARIOS).toHaveLength(3);
-    expect(DEFAULT_SCENARIOS[0].annualGrowthPct).toBeLessThan(DEFAULT_SCENARIOS[1].annualGrowthPct);
-    expect(DEFAULT_SCENARIOS[1].annualGrowthPct).toBeLessThan(DEFAULT_SCENARIOS[2].annualGrowthPct);
-  });
-
-  it("year/month fields are valid", () => {
-    const r = buildPriceForecast(7500, 24);
-    r.series.forEach((p) => {
-      expect(p.month).toBeGreaterThanOrEqual(1);
-      expect(p.month).toBeLessThanOrEqual(12);
-      expect(p.year).toBeGreaterThanOrEqual(2015);
-      expect(p.year).toBeLessThanOrEqual(2035);
-    });
-  });
+import {describe,it,expect} from 'vitest';
+import {buildPriceForecast,DEFAULT_SCENARIOS} from '../price-forecast';
+const scenarios=(rates:number[])=>DEFAULT_SCENARIOS.map((s,i)=>({...s,annualGrowthPct:rates[i]}));
+describe('declared property price scenarios',()=>{
+ it('uses exact compound growth without inventing history',()=>{
+  const r=buildPriceForecast(1000.1234,24,scenarios([-10,10,20]),'2026-12');
+  expect(r.series).toHaveLength(25);expect(r.series.filter(p=>!p.isProjection)).toHaveLength(1);
+  expect(r.series[0].central).toBe(1000.1234);
+  expect(r.series[12].central).toBeCloseTo(1100.13574,8);
+  expect(r.endCentral).toBeCloseTo(1210.149314,8);
+  expect(r.endPessimiste).toBeCloseTo(810.099954,8);
+  expect(r.endOptimiste).toBeCloseTo(1440.177696,8);
+  expect(r.series[1].label).toBe('01/2027');expect(r.series[24].label).toBe('12/2028');
+  expect(r).not.toHaveProperty('cagrHistorical');expect(r.series[0]).not.toHaveProperty('historical');
+ });
+ it('keeps zero growth exact and allows a negative ordered case',()=>{
+  expect(buildPriceForecast(9876.54321,48,DEFAULT_SCENARIOS,'2026-01').endCentral).toBe(9876.54321);
+  expect(buildPriceForecast(10000,6,scenarios([-20,-10,-5]),'2026-01').endCentral).toBeCloseTo(10000*Math.sqrt(.9),9);
+ });
+ it('rejects blank-equivalent, nonfinite or out-of-scope base prices and horizons',()=>{
+  for(const p of [0,-1,NaN,Infinity,1000001])expect(()=>buildPriceForecast(p,12,DEFAULT_SCENARIOS,'2026-01')).toThrow();
+  for(const h of [0,-1,1.5,49,NaN,Infinity])expect(()=>buildPriceForecast(1000,h,DEFAULT_SCENARIOS,'2026-01')).toThrow();
+ });
+ it('requires three unique ordered finite annual rates in the permitted range',()=>{
+  for(const r of [[-100,0,5],[-101,0,5],[0,0,101],[0,NaN,2],[1,0,2],[0,2,1]])expect(()=>buildPriceForecast(1000,12,scenarios(r),'2026-01')).toThrow();
+  expect(()=>buildPriceForecast(1000,12,DEFAULT_SCENARIOS.slice(1),'2026-01')).toThrow();
+  expect(()=>buildPriceForecast(1000,12,[DEFAULT_SCENARIOS[0],DEFAULT_SCENARIOS[0],DEFAULT_SCENARIOS[2]],'2026-01')).toThrow();
+ });
+ it('requires a valid explicit month when supplied',()=>{
+  for(const d of ['', '2026-00','2026-13','2026-1','1999-12','2100-01','2026-02-01'])expect(()=>buildPriceForecast(1000,12,DEFAULT_SCENARIOS,d)).toThrow();
+ });
 });
