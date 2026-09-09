@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 interface Props {
@@ -14,7 +14,6 @@ interface NavItem {
   href: string;
   label: string;
   icon: string;
-  description?: string;
 }
 
 interface NavSection {
@@ -24,76 +23,80 @@ interface NavSection {
 
 const SECTIONS: NavSection[] = [
   {
-    title: "Opérations du jour",
+    title: "section0",
     items: [
-      { href: "", label: "Dashboard", icon: "📊", description: "KPIs + today's flash" },
-      { href: "/frontdesk", label: "Front desk", icon: "🛎️", description: "Arrivées / départs / in-house" },
-      { href: "/pos", label: "POS restaurant / bar", icon: "🍽️", description: "Saisie rapide F&B + services" },
-      { href: "/calendrier", label: "Calendrier / Rooming", icon: "📅", description: "Vue 30 jours" },
+      { href: "", label: "item0", icon: "📊" },
+      { href: "/frontdesk", label: "item1", icon: "🛎️" },
+      { href: "/pos", label: "item2", icon: "🍽️" },
+      { href: "/calendrier", label: "item3", icon: "📅" },
     ],
   },
   {
-    title: "Réservations",
+    title: "section1",
     items: [
-      { href: "/reservations", label: "Toutes réservations", icon: "📋", description: "Liste filtrable" },
-      { href: "/reservations/nouveau", label: "Nouvelle réservation", icon: "➕", description: "Wizard booking" },
-      { href: "/groupes", label: "Groupes & allotements", icon: "👰", description: "Mariages, séminaires, MICE" },
-      { href: "/guests", label: "Clients (guests)", icon: "👥", description: "CRM hôtel" },
+      { href: "/reservations", label: "item4", icon: "📋" },
+      { href: "/reservations/nouveau", label: "item5", icon: "➕" },
+      { href: "/groupes", label: "item6", icon: "👰" },
+      { href: "/guests", label: "item7", icon: "👥" },
     ],
   },
   {
-    title: "Tarifs & distribution",
+    title: "section2",
     items: [
-      { href: "/tarifs", label: "Tarifs saisonniers", icon: "💰", description: "Rate plans × room types" },
-      { href: "/tarifs/bulk", label: "Édition en masse", icon: "⚡", description: "Ajustement % / fixe / stop sell" },
-      { href: "/channels", label: "Channels iCal", icon: "🔗", description: "Airbnb / Booking / VRBO sync" },
+      { href: "/tarifs", label: "item8", icon: "💰" },
+      { href: "/tarifs/bulk", label: "item9", icon: "⚡" },
+      { href: "/channels", label: "item10", icon: "🔗" },
     ],
   },
   {
-    title: "Chambres & Setup",
+    title: "section3",
     items: [
-      { href: "/chambres", label: "Chambres & types", icon: "🏠", description: "Inventory + room types" },
-      { href: "/setup", label: "Setup propriété", icon: "⚙️", description: "Paramètres" },
+      { href: "/chambres", label: "item11", icon: "🏠" },
+      { href: "/setup", label: "item12", icon: "⚙️" },
     ],
   },
   {
-    title: "Facturation",
+    title: "section4",
     items: [
-      { href: "/factures", label: "Factures", icon: "🧾", description: "Emises + TVA LU 3/17" },
+      { href: "/factures", label: "item13", icon: "🧾" },
     ],
   },
   {
-    title: "Reporting",
+    title: "section5",
     items: [
-      { href: "/rapports", label: "Tableau de bord", icon: "📈", description: "Flash quotidien" },
-      { href: "/rapports/usali", label: "journal", icon: "📘" },
-      { href: "/rapports/pickup", label: "Pickup (RM)", icon: "📊", description: "Réservations récentes" },
-      { href: "/rapports/forecast", label: "Revenue forecast", icon: "🔮", description: "Projection OTB + pickup" },
-      { href: "/rapports/heatmap", label: "Heatmap occupancy", icon: "🗓️", description: "Calendrier annuel" },
+      { href: "/rapports", label: "item14", icon: "📈" },
+      { href: "/rapports/usali", label: "item15", icon: "📘" },
+      { href: "/rapports/pickup", label: "item16", icon: "📊" },
+      { href: "/rapports/forecast", label: "item17", icon: "🔮" },
+      { href: "/rapports/heatmap", label: "item18", icon: "🗓️" },
     ],
   },
 ];
 
 export default function PropertySidebar({ propertyId, propertyName }: Props) {
   const pathname = usePathname();
-  const locale = useLocale(), t = useTranslations("pmsJournal");
+  const locale = useLocale(), t = useTranslations("pmsNavigation");
   const lp = locale === "fr" ? "" : `/${locale}`;
   const basePath = `${lp}/pms/${propertyId}`;
   const [mobileOpen, setMobileOpen] = useState(false);
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setMobileOpen(false); };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [mobileOpen]);
 
-  const isActive = (href: string): boolean => {
-    const fullPath = `${basePath}${href}`;
-    if (href === "") return pathname === fullPath;
-    if (href === "/reservations") return pathname === fullPath || (pathname.startsWith(`${fullPath}/`) && !pathname.includes("/nouveau"));
-    if (href === "/reservations/nouveau") return pathname === `${fullPath}`;
-    return pathname === fullPath || pathname.startsWith(`${fullPath}/`);
-  };
+  const activeHref = SECTIONS.flatMap(section => section.items.map(item => item.href))
+    .filter(href => pathname === `${basePath}${href}` || (href !== "" && pathname.startsWith(`${basePath}${href}/`)))
+    .sort((a, b) => b.length - a.length)[0];
+  const isActive = (href: string) => href === activeHref;
+
 
   return (
     <>
-      <button onClick={() => setMobileOpen(!mobileOpen)}
-        className="lg:hidden fixed bottom-4 right-4 z-50 rounded-full bg-navy px-4 py-3 text-sm font-bold text-white shadow-lg">
-        {mobileOpen ? "✕ Fermer" : "☰ Outils PMS"}
+      <button type="button" aria-expanded={mobileOpen} aria-controls="pmsNavigation" onClick={() => setMobileOpen(!mobileOpen)}
+        className="lg:hidden fixed bottom-4 right-4 z-[60] rounded-full bg-navy px-4 py-3 text-sm font-bold text-white shadow-lg">
+        {mobileOpen ? t("close") : t("tools")}
       </button>
 
       {mobileOpen && (
@@ -101,13 +104,13 @@ export default function PropertySidebar({ propertyId, propertyName }: Props) {
           onClick={() => setMobileOpen(false)} />
       )}
 
-      <aside className={`
+      <aside id="pmsNavigation" aria-label={t("tools")} className={`
         ${mobileOpen ? "fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] overflow-y-auto" : "hidden"}
         lg:block lg:sticky lg:top-4 lg:self-start lg:h-[calc(100vh-2rem)] lg:overflow-y-auto
-        bg-card border-r lg:border border-card-border lg:rounded-xl p-4
+        bg-card border-r lg:border border-card-border lg:rounded-xl p-4 pb-20 lg:pb-4
       `}>
         <div className="mb-5 px-1">
-          <div className="text-xs uppercase tracking-wider text-muted font-semibold">Propriété PMS</div>
+          <div className="text-xs uppercase tracking-wider text-muted font-semibold">{t("property")}</div>
           <Link href={basePath} className="mt-1 block text-base font-bold text-navy hover:underline truncate"
             onClick={() => setMobileOpen(false)}>
             {propertyName}
@@ -115,16 +118,16 @@ export default function PropertySidebar({ propertyId, propertyName }: Props) {
         </div>
 
         {SECTIONS.map((section) => (
-          <div key={section.title} className="mb-5">
+          <div key={t(section.title)} className="mb-5">
             <div className="px-1 mb-2 text-xs uppercase tracking-wider text-muted font-bold">
-              {section.title}
+              {t(section.title)}
             </div>
             <ul className="space-y-1">
               {section.items.map((item) => {
                 const active = isActive(item.href);
                 return (
                   <li key={item.href}>
-                    <Link href={`${basePath}${item.href}`}
+                    <Link aria-current={active ? "page" : undefined} href={`${basePath}${item.href}`}
                       onClick={() => setMobileOpen(false)}
                       className={`flex items-start gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
                         active ? "bg-navy text-white" : "hover:bg-background text-slate"
@@ -132,13 +135,8 @@ export default function PropertySidebar({ propertyId, propertyName }: Props) {
                       <span className="shrink-0 text-lg leading-tight">{item.icon}</span>
                       <div className="min-w-0 flex-1">
                         <div className={`font-semibold leading-tight ${active ? "" : "text-navy"}`}>
-                          {item.href === "/rapports/usali" ? t("title") : item.label}
+                          {t(item.label)}
                         </div>
-                        {item.description && (
-                          <div className={`mt-0.5 text-xs ${active ? "text-white/80" : "text-muted"} truncate`}>
-                            {item.description}
-                          </div>
-                        )}
                       </div>
                     </Link>
                   </li>
@@ -150,10 +148,10 @@ export default function PropertySidebar({ propertyId, propertyName }: Props) {
 
         <div className="mt-5 border-t border-card-border pt-4 px-1 space-y-1.5 text-xs">
           <Link href={`${lp}/pms`} className="block text-muted hover:text-navy font-medium">
-            ← Tous mes hôtels
+            {t("all")}
           </Link>
           <Link href={`${lp}/actions-prioritaires`} className="block text-muted hover:text-navy font-medium">
-            🔔 Actions prioritaires
+            {t("actions")}
           </Link>
         </div>
       </aside>

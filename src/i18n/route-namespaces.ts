@@ -1384,7 +1384,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/chambres": [
@@ -1396,7 +1396,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/channels": [
@@ -1409,7 +1409,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pms",
     "pmsChannels",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/factures": [
@@ -1422,7 +1422,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pms",
     "pmsContextBar",
     "pmsInvoiceRecord",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/frontdesk": [
@@ -1435,7 +1435,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pms",
     "pmsContextBar",
     "pmsFrontdesk",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/groupes": [
@@ -1448,7 +1448,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pms",
     "pmsContextBar",
     "pmsGroupes",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/guests": [
@@ -1460,7 +1460,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]": [
@@ -1472,7 +1472,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/pos": [
@@ -1487,6 +1487,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pmsContextBar",
     "pmsFolio",
     "pmsJournal",
+    "pmsNavigation",
     "pmsPos",
     "syndicContextBar"
   ],
@@ -1500,7 +1501,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pms",
     "pmsContextBar",
     "pmsForecast",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/rapports/heatmap": [
@@ -1513,7 +1514,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pms",
     "pmsContextBar",
     "pmsHeatmap",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/rapports": [
@@ -1525,7 +1526,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/rapports/pickup": [
@@ -1537,7 +1538,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "pmsPickup",
     "syndicContextBar"
   ],
@@ -1551,6 +1552,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pms",
     "pmsContextBar",
     "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/reservations/[resId]/folio": [
@@ -1565,6 +1567,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "pmsContextBar",
     "pmsFolio",
     "pmsJournal",
+    "pmsNavigation",
     "pmsStatement",
     "syndicContextBar"
   ],
@@ -1577,7 +1580,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/reservations/nouveau": [
@@ -1589,7 +1592,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/reservations": [
@@ -1601,7 +1604,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/setup": [
@@ -1613,7 +1616,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms/[propertyId]/tarifs/bulk": [
@@ -1625,7 +1628,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "pmsTarifs",
     "syndicContextBar"
   ],
@@ -1638,7 +1641,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pms",
     "pmsContextBar",
-    "pmsJournal",
+    "pmsNavigation",
     "syndicContextBar"
   ],
   "/pms": [
@@ -2227,7 +2230,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicAnnexes",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/appels": [
     "aiChat",
@@ -2238,7 +2242,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicAppels",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/archives": [
     "aiChat",
@@ -2249,7 +2254,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicArchives",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/assemblees/[assemblyId]": [
     "aiChat",
@@ -2260,7 +2266,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicAssemblyDetail",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/assemblees/[assemblyId]/visio": [
     "aiChat",
@@ -2271,6 +2278,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
+    "syndicNavigation",
     "syndicVisio"
   ],
   "/syndic/coproprietes/[id]/assemblees": [
@@ -2282,7 +2290,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicAssemblees",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/budget": [
     "aiChat",
@@ -2293,7 +2302,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicBudget",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/cles-repartition": [
     "aiChat",
@@ -2304,7 +2314,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicCles",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/comptabilite": [
     "aiChat",
@@ -2315,7 +2326,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicComptabilite",
-    "syndicContextBar"
+    "syndicContextBar",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/fonds-travaux": [
     "aiAnalysis",
@@ -2327,7 +2339,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
-    "syndicFondsTravaux"
+    "syndicFondsTravaux",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/messagerie": [
     "aiChat",
@@ -2338,7 +2351,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
-    "syndicMessagerie"
+    "syndicMessagerie",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/ocr-factures": [
     "aiChat",
@@ -2349,6 +2363,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
+    "syndicNavigation",
     "syndicOcr"
   ],
   "/syndic/coproprietes/[id]": [
@@ -2360,7 +2375,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
-    "syndicDetail"
+    "syndicDetail",
+    "syndicNavigation"
   ],
   "/syndic/coproprietes/[id]/rapprochement": [
     "aiChat",
@@ -2371,6 +2387,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
+    "syndicNavigation",
     "syndicRapprochement"
   ],
   "/syndic/coproprietes/[id]/relances": [
@@ -2382,6 +2399,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
+    "syndicNavigation",
     "syndicRelances"
   ],
   "/syndic/coproprietes/[id]/sepa-virements": [
@@ -2393,6 +2411,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
+    "syndicNavigation",
     "syndicSepa"
   ],
   "/syndic/coproprietes/[id]/travaux": [
@@ -2404,6 +2423,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "nav",
     "pmsContextBar",
     "syndicContextBar",
+    "syndicNavigation",
     "syndicTravaux"
   ],
   "/syndic/coproprietes": [

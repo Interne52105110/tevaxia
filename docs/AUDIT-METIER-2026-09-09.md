@@ -804,3 +804,16 @@ Validation finale locale du lot factures/routes : build et lint réussis ; cinq 
 - Source de la limite de conformité : [AED — contenu obligatoire des factures](https://pfi.public.lu/fr/professionnel/tva/en-cours-activite-economique/que-doivent-contenir-factures.html), notamment date, identification, nature/quantité des prestations et ventilation par taux. L’émission SQL, l’immutabilité et les originaux archivés restent hors certification tant que la base n’est pas accessible.
 
 Factures/routes bd1998f confirmées en production : CI 34404141074 success ; Vercel dpl_GBDVUT66pPAwH26JHUaPQs2dQAFZ Ready ; cinq pages factures avec titre/statut HTTP corrects et quatre largeurs ; 105 routes PMS HTTP 200 sans page 404. Ces contrôles remplacent les anciennes conclusions insuffisantes d’accessibilité multilingue du PMS.
+
+
+## Routes internes multilingues et navigation
+
+- Ajout des alias de 28 pages dynamiques agence/syndic/locataire/portails et de leurs layouts manquants : 148 fichiers. Les contrôles d’accès des composants canoniques et leurs métadonnées noindex sont repris ; aucune autorisation de données ajoutée. Inventaire HTTP avec identifiants fictifs : 140 adresses ont répondu sans page 404. Cela vérifie les routes, pas les opérations métier connectées.
+- Les 19 destinations du menu PMS et les 15 du menu syndic, titres de sections et liens secondaires sont localisés en cinq langues. Descriptions non vérifiées retirées (TVA 3/17 universelle, annexes obligatoires, automatismes). Une seule rubrique active, basée sur la destination la plus précise, avec aria-current.
+- Bouton de fermeture mobile placé au-dessus du panneau après découverte d’un recouvrement réel ; espace réservé en bas du menu, fermeture par Échap et état aria-expanded. Le layout syndic masque le menu après déconnexion, ignore les réponses anciennes et ne conserve pas le nom d’une précédente identité/copropriété ; suppression du main imbriqué.
+- Dernière page canonique sans alias : /offline. Quatre alias ajoutés, titre/métadonnées et retour accueil localisés ; retrait de la promesse non garantie d’accès aux données récentes. Tous les chemins canoniques ont désormais des fichiers de route dans les cinq langues ; cela ne certifie pas la traduction exhaustive du contenu de chaque écran.
+- Revue du service worker : le cache v3 stocke encore les réponses de navigation sans distinguer les pages privées et son fallback hors ligne est français. Correctif séparé à préparer ; aucun changement du service worker dans ce lot.
+
+Relevé PDF fae95a2 confirmé en production : CI 34405527410 success ; Vercel dpl_BTfm29LzCDJwhZaKnNpu9qVmeVyN Ready ; cinq pages factures vérifiées avec titre/statut HTTP et quatre largeurs. Dix pages PDF fictives inspectées ; pas de modification de facture réelle ni de validation SQL.
+
+Validation finale navigation : build/lint réussis ; dix menus testés (PMS/syndic × cinq langues), libellés/destinations, rubrique active unique, 320/390/768 px ouverture/fermeture et Échap, retour bureau, changement de compte/déconnexion syndic. Cinq pages /offline vérifiées HTTP, titre, métadonnées noindex et quatre largeurs. Les 140 URL dynamiques et 5 URL hors ligne sont accessibles ; aucune donnée réelle modifiée.
