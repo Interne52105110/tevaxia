@@ -642,3 +642,13 @@ Green Key 80f0167 confirmé en production : CI34383215142 réussie, dpl_D142ZVm9
 - Chargement anonyme remplacé par connexion localisée ; état isolé par utilisateur/hôtel et réponses tardives ignorées ; erreurs/réessai, verrou anti-double enregistrement et PDF, contrôles de formulaire associés à leurs libellés.
 - PDF dans cinq langues : toutes les rubriques affichées, inconnus explicites, centimes et pertes conservés, dates toujours présentes, sources intégrales, suppression des comparaisons de périodes arbitraires et des mentions de certification USALI/STR. Pied de page sur chaque page ; titre ajusté après contrôle visuel.
 - Vérification : 1 256 tests / 115 fichiers, dont 10 nouveaux tests métier/persistance. Parcours du composant réel avec services simulés dans cinq langues : zéro/inconnu, pertes, dates, doublon, changement utilisateur/hôtel et édition. Cinq PDF de deux pages rendus et inspectés (sources longues, libellés, bornes, pied de page). Formulaire avec CSS réel vérifié à 320/390/768/1440 px. Aucune écriture de test dans les comptes de production.
+
+
+## Tableau de groupe hôtelier — 9 septembre 2026
+
+- Le « CAPEX cumulé » était la somme des prix d’acquisition : renommé explicitement prix d’acquisition cumulés (EUR), sans confusion avec travaux ou valeur actuelle. Un prix manquant/invalide empêche le total complet ; un prix nul confirmé reste zéro. Les anciennes chambres à zéro sont inconnues, pas une capacité nulle supposée.
+- Accès direct aux fiches/périodes ajouté. Les liens de simulateurs n’affirment plus importer/rattacher automatiquement les données ; paramètres hôtel ignorés supprimés. Segments déclarés sans correspondance inventée aux étoiles.
+- Chargements, erreurs et réessais séparés ; état isolé par utilisateur et groupe, réponses tardives écartées ; aucune fausse liste vide pendant le chargement. Création validée (nom, chambres entières de 1 à 100 000, segment), auteur authentifié, verrou double clic ; suppression conserve sa confirmation dans le produit.
+- Vérification : 1 260 tests / 116 fichiers, ESLint ciblé, build production. Composant réel avec services simulés : cinq langues, montants inconnus/zéro, changements de groupe, création/doublon, suppression confirmée/annulée, erreurs/réessai et déconnexion. Parcours public et formulaire avec CSS réel sur quatre largeurs. Aucune mutation QA dans les comptes de production.
+
+La livraison précédente des périodes et PDF (3c1cc7c) est confirmée : CI 34386805577 réussie ; Vercel dpl_FfHVzmz5RDdgo1RXW3sPqem5prBi Ready sur tevaxia.lu ; parcours public vérifié dans les cinq langues.

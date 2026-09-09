@@ -1,325 +1,110 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { listMyOrganizations, type Organization } from "@/lib/orgs";
 import { listHotels, createHotel, deleteHotel, type Hotel, type HotelCategory } from "@/lib/hotels";
-import { formatEUR, formatPct } from "@/lib/calculations";
-import { errMsg } from "@/lib/errors";
-
-const CATEGORY_LABEL: Record<HotelCategory, string> = {
-  budget: "Budget (1-2★)",
-  midscale: "Midscale (3★)",
-  upscale: "Upscale (4★)",
-  luxury: "Luxury (5★)",
-};
-
-const CATEGORY_COLOR: Record<HotelCategory, string> = {
-  budget: "bg-slate-100 text-slate-800",
-  midscale: "bg-blue-100 text-blue-800",
-  upscale: "bg-purple-100 text-purple-800",
-  luxury: "bg-amber-100 text-amber-800",
-};
+import { hotelGroupTotals } from "@/lib/hotel-group";
 
 export default function HotelGroupDashboard() {
+  const { user, loading } = useAuth();
+  const t = useTranslations("hotelGroupe");
   const locale = useLocale();
-  const lp = locale === "fr" ? "" : `/${locale}`;
-  const tg = useTranslations("hotelGroupe");
-  const { user } = useAuth();
-
-  const [orgs, setOrgs] = useState<Organization[]>([]);
-  const [activeOrgId, setActiveOrgId] = useState<string | null>(null);
-  const [hotels, setHotels] = useState<Hotel[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const [showCreate, setShowCreate] = useState(false);
-  const [newName, setNewName] = useState("");
-  const [newCategory, setNewCategory] = useState<HotelCategory>("midscale");
-  const [newCommune, setNewCommune] = useState("");
-  const [newChambres, setNewChambres] = useState(0);
-
-  useEffect(() => {
-    if (!user || !isSupabaseConfigured) return;
-    listMyOrganizations()
-      .then((list) => {
-        const hotelOrgs = list.filter((o) => o.org_type === "hotel_group");
-        setOrgs(hotelOrgs);
-        if (hotelOrgs.length > 0 && !activeOrgId) setActiveOrgId(hotelOrgs[0].id);
-      })
-      .catch((e) => setError(errMsg(e, tg("error"))));
-  }, [user, activeOrgId, tg]);
-
-  useEffect(() => {
-    if (!activeOrgId) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLoading(true);
-    listHotels(activeOrgId)
-      .then(setHotels)
-      .catch((e) => setError(errMsg(e, tg("error"))))
-      .finally(() => setLoading(false));
-  }, [activeOrgId, tg]);
-
-  const handleCreate = async () => {
-    if (!activeOrgId || !newName.trim()) return;
-    try {
-      await createHotel({
-        org_id: activeOrgId,
-        name: newName.trim(),
-        category: newCategory,
-        commune: newCommune.trim() || undefined,
-        nb_chambres: newChambres,
-      });
-      setNewName(""); setNewCommune(""); setNewChambres(0); setNewCategory("midscale");
-      setShowCreate(false);
-      const list = await listHotels(activeOrgId);
-      setHotels(list);
-    } catch (e) {
-      setError(errMsg(e, tg("errorCreation")));
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm(tg("deleteConfirm"))) return;
-    try {
-      await deleteHotel(id);
-      const list = await listHotels(activeOrgId!);
-      setHotels(list);
-    } catch (e) {
-      setError(errMsg(e, tg("errorDeletion")));
-    }
-  };
-
-  const activeOrg = orgs.find((o) => o.id === activeOrgId) ?? null;
-  const totalRooms = hotels.reduce((s, h) => s + (h.nb_chambres ?? 0), 0);
-  const totalCapex = hotels.reduce((s, h) => s + (h.prix_acquisition ?? 0), 0);
-
-  if (!user) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <p className="text-sm text-muted">{tg("login")}</p>
-        <Link href={`${lp}/connexion`} className="mt-4 inline-flex rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white">
-          {tg("loginBtn")}
-        </Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bg-background min-h-screen py-8 sm:py-12">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <Link href={`${lp}/hotellerie`} className="text-xs text-muted hover:text-navy">{tg("hubLink")}</Link>
-            <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{tg("title")}</h1>
-            <p className="mt-1 text-sm text-muted">
-              {tg("subtitle")} {tg("linkSubtitle")}
-            </p>
-          </div>
-          {orgs.length === 0 && (
-            <Link href={`${lp}/profil/organisation`} className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light">
-              {tg("createGroup")}
-            </Link>
-          )}
-        </div>
-
-        {orgs.length === 0 && (
-          <div className="mt-8 rounded-xl border border-dashed border-card-border bg-card p-10 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-purple-700 to-purple-500 text-white shadow-sm">
-              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m18-18v18M6 8.25h2.25M6 12h2.25m-2.25 3.75h2.25M9.75 8.25h.008v.008H9.75V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008zm5.625-7.5h.008v.008h-.008V8.25zm.375 3.75h.008v.008h-.008V12zm.375 3.75h.008v.008h-.008v-.008z" />
-              </svg>
-            </div>
-            <h2 className="mt-3 text-lg font-semibold text-navy">{tg("noGroup")}</h2>
-            <p className="mt-1 text-sm text-muted">
-              {tg("noGroupDesc")}
-            </p>
-          </div>
-        )}
-
-        {orgs.length > 1 && (
-          <div className="mt-6 flex items-center gap-2">
-            <label className="text-xs text-muted">{tg("groupLabel")}</label>
-            <select
-              value={activeOrgId ?? ""}
-              onChange={(e) => setActiveOrgId(e.target.value)}
-              className="rounded-lg border border-input-border bg-input-bg px-3 py-1.5 text-sm"
-            >
-              {orgs.map((o) => (
-                <option key={o.id} value={o.id}>{o.name}</option>
-              ))}
-            </select>
-          </div>
-        )}
-
-        {activeOrg && (
-          <>
-            {/* KPIs consolidés */}
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-xl border border-card-border bg-card p-4">
-                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{tg("establishments")}</div>
-                <div className="mt-1 text-2xl font-bold text-navy">{hotels.length}</div>
-              </div>
-              <div className="rounded-xl border border-card-border bg-card p-4">
-                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{tg("totalRooms")}</div>
-                <div className="mt-1 text-2xl font-bold text-navy">{totalRooms.toLocaleString("fr-FR")}</div>
-              </div>
-              <div className="rounded-xl border border-card-border bg-card p-4">
-                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{tg("capexCumul")}</div>
-                <div className="mt-1 text-2xl font-bold text-navy">{formatEUR(totalCapex)}</div>
-              </div>
-              <div className="rounded-xl border border-card-border bg-card p-4">
-                <div className="text-xs uppercase tracking-wider text-muted font-semibold">{tg("organisation")}</div>
-                <div className="mt-1 text-sm font-bold text-navy truncate">{activeOrg.name}</div>
-                <div className="mt-0.5 text-xs text-muted">{tg("hotelGroup")}</div>
-              </div>
-            </div>
-
-            {/* Actions */}
-            <div className="mt-6 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-navy">{tg("myHotels")}</h2>
-              <button
-                onClick={() => setShowCreate(!showCreate)}
-                className="rounded-lg bg-navy px-3 py-2 text-sm font-semibold text-white hover:bg-navy-light"
-              >
-                {showCreate ? tg("cancel") : tg("addHotel")}
-              </button>
-            </div>
-
-            {showCreate && (
-              <div className="mt-4 rounded-xl border border-card-border bg-card p-5">
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <input
-                    type="text"
-                    placeholder={tg("hotelName")}
-                    value={newName}
-                    onChange={(e) => setNewName(e.target.value)}
-                    className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
-                  />
-                  <select
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value as HotelCategory)}
-                    className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
-                  >
-                    {(Object.keys(CATEGORY_LABEL) as HotelCategory[]).map((c) => (
-                      <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>
-                    ))}
-                  </select>
-                  <input
-                    type="text"
-                    placeholder={tg("commune")}
-                    value={newCommune}
-                    onChange={(e) => setNewCommune(e.target.value)}
-                    className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
-                  />
-                  <input
-                    type="number"
-                    placeholder={tg("nbRooms")}
-                    value={newChambres || ""}
-                    onChange={(e) => setNewChambres(Number(e.target.value) || 0)}
-                    className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
-                  />
-                </div>
-                <div className="mt-3 flex justify-end">
-                  <button
-                    onClick={handleCreate}
-                    disabled={!newName.trim()}
-                    className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-40"
-                  >
-                    {tg("createHotel")}
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
-
-            {!loading && hotels.length === 0 && !showCreate && (
-              <div className="mt-4 rounded-xl border border-dashed border-card-border bg-card p-8 text-center text-sm text-muted">
-                {tg("noHotelDesc")}
-              </div>
-            )}
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {hotels.map((h) => (
-                <div key={h.id} className="rounded-xl border border-card-border bg-card p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-base font-semibold text-navy truncate">{h.name}</h3>
-                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${CATEGORY_COLOR[h.category]}`}>
-                          {CATEGORY_LABEL[h.category]}
-                        </span>
-                      </div>
-                      <div className="mt-1 text-xs text-muted">
-                        {h.commune ? `${h.commune} · ` : ""}
-                        {h.nb_chambres > 0 ? `${h.nb_chambres} ${tg("roomsCount")}` : tg("roomsNotSet")}
-                        {h.operator_type !== "independent" ? ` · ${h.operator_type}` : ""}
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => handleDelete(h.id)}
-                      className="rounded-md p-1 text-muted hover:text-rose-600 hover:bg-rose-50"
-                      title={tg("deleteBtn")}
-                    >
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79" />
-                      </svg>
-                    </button>
-                  </div>
-
-                  {(h.classe_energie || h.year_built || h.surface_m2 || h.prix_acquisition) && (
-                    <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
-                      {h.classe_energie && (
-                        <div className="flex justify-between border-t border-card-border/50 pt-1.5">
-                          <span className="text-muted">{tg("energyClass")}</span>
-                          <span className="font-medium text-navy">{h.classe_energie}</span>
-                        </div>
-                      )}
-                      {h.year_built && (
-                        <div className="flex justify-between border-t border-card-border/50 pt-1.5">
-                          <span className="text-muted">{tg("yearBuilt")}</span>
-                          <span className="font-medium text-navy">{h.year_built}</span>
-                        </div>
-                      )}
-                      {h.prix_acquisition && (
-                        <div className="flex justify-between col-span-2 border-t border-card-border/50 pt-1.5">
-                          <span className="text-muted">{tg("acquisitionPrice")}</span>
-                          <span className="font-medium text-navy">{formatEUR(h.prix_acquisition)}</span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  <div className="mt-4 flex flex-wrap gap-1.5 border-t border-card-border pt-3">
-                    <Link href={`${lp}/hotellerie/valorisation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      {tg("valorisation")}
-                    </Link>
-                    <Link href={`${lp}/hotellerie/dscr?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      {tg("dscr")}
-                    </Link>
-                    <Link href={`${lp}/hotellerie/exploitation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      {tg("exploitation")}
-                    </Link>
-                    <Link href={`${lp}/hotellerie/compset?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      {tg("revpar")}
-                    </Link>
-                    <Link href={`${lp}/hotellerie/renovation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                      {tg("renovation")}
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
+  if (loading) return <p role="status" className="p-6">{t("loading")}</p>;
+  if (!user) return <div className="p-6 text-center"><p>{t("login")}</p><Link className="mt-4 inline-block underline" href={`${locale === "fr" ? "" : `/${locale}`}/connexion`}>{t("loginBtn")}</Link></div>;
+  if (!isSupabaseConfigured) return <p className="p-6">{t("unavailable")}</p>;
+  return <Groups key={user.id} />;
 }
 
-// formatPct used in future period KPI cards; kept to avoid churn when we add them.
-void formatPct;
+function Groups() {
+  const t = useTranslations("hotelGroupe");
+  const locale = useLocale();
+  const prefix = locale === "fr" ? "" : `/${locale}`;
+  const [orgs, setOrgs] = useState<Organization[] | null>(null);
+  const [selected, setSelected] = useState("");
+  const [error, setError] = useState(false);
+  const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    let active = true;
+    void listMyOrganizations().then(list => { if (active) { setOrgs(list.filter(o => o.org_type === "hotel_group")); setError(false); } }).catch(() => { if (active) setError(true); });
+    return () => { active = false; };
+  }, [retry]);
+  const org = orgs?.find(o => o.id === selected) ?? orgs?.[0];
+  return <div className="mx-auto max-w-6xl px-4 py-10">
+    <Link className="text-sm underline" href={`${prefix}/hotellerie`}>{t("hubLink")}</Link>
+    <h1 className="mt-3 text-2xl font-bold">{t("title")}</h1>
+    <p className="mt-3 text-sm">{t("subtitle")} {t("linkSubtitle")}</p>
+    {error && <div className="mt-4"><p role="alert">{t("error")}</p><button className="underline" onClick={() => { setError(false); setRetry(n => n + 1); }}>{t("retry")}</button></div>}
+    {!orgs && !error && <p role="status" className="mt-4">{t("loading")}</p>}
+    {orgs?.length === 0 && <div className="mt-6 rounded-lg border p-4"><h2 className="font-semibold">{t("noGroup")}</h2><p className="mt-2">{t("noGroupDesc")}</p><Link className="mt-3 inline-block underline" href={`${prefix}/profil/organisation`}>{t("createGroup")}</Link></div>}
+    {!!orgs?.length && <label className="mt-5 block text-sm" htmlFor="hotel-group-org">{t("groupLabel")}<select id="hotel-group-org" value={org?.id ?? ""} onChange={e => setSelected(e.target.value)} className="mt-1 block w-full min-w-0 rounded-lg border p-2">{orgs.map(o => <option key={o.id} value={o.id}>{o.name}</option>)}</select></label>}
+    {org && <GroupHotels key={org.id} org={org} />}
+  </div>;
+}
+
+function GroupHotels({ org }: { org: Organization }) {
+  const t = useTranslations("hotelGroupe");
+  const locale = useLocale();
+  const prefix = locale === "fr" ? "" : `/${locale}`;
+  const [hotels, setHotels] = useState<Hotel[] | null>(null);
+  const [loadError, setLoadError] = useState(false);
+  const [error, setError] = useState(false);
+  const [retry, setRetry] = useState(0);
+  const [showCreate, setShowCreate] = useState(false);
+  const [name, setName] = useState("");
+  const [commune, setCommune] = useState("");
+  const [category, setCategory] = useState<HotelCategory>("midscale");
+  const [rooms, setRooms] = useState("");
+  const [busy, setBusy] = useState(false);
+  const lock = useRef(false);
+  const alive = useRef(false);
+  useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
+  useEffect(() => {
+    let active = true;
+    void listHotels(org.id).then(list => { if (active) { setHotels(list); setLoadError(false); } }).catch(() => { if (active) setLoadError(true); });
+    return () => { active = false; };
+  }, [org.id, retry]);
+  const mutate = async (action: () => Promise<unknown>, created = false) => {
+    if (lock.current) return;
+    lock.current = true; setBusy(true); setError(false);
+    try {
+      await action();
+      if (alive.current) { setHotels(null); setRetry(n => n + 1); if (created) { setShowCreate(false); setName(""); setCommune(""); setRooms(""); } }
+    } catch { if (alive.current) setError(true); }
+    finally { lock.current = false; if (alive.current) setBusy(false); }
+  };
+  const totals = hotels ? hotelGroupTotals(hotels) : null;
+  const money = (n: number | null | undefined) => typeof n === "number" && Number.isFinite(n) && n >= 0 ? new Intl.NumberFormat(locale === "lb" ? "de-DE" : locale, { style: "currency", currency: "EUR" }).format(n) : t("unknown");
+  return <section className="mt-6" aria-label={org.name}>
+    {loadError && <div><p role="alert">{t("error")}</p><button className="underline" onClick={() => { setLoadError(false); setRetry(n => n + 1); }}>{t("retry")}</button></div>}
+    {!hotels && !loadError && <p role="status">{t("loading")}</p>}
+    {totals && <><dl className="grid gap-3 sm:grid-cols-3">
+      <div className="rounded-lg border p-4"><dt>{t("establishments")}</dt><dd data-total="hotels" className="mt-2 text-xl font-bold">{hotels!.length}</dd></div>
+      <div className="rounded-lg border p-4"><dt>{t("totalRooms")}</dt><dd data-total="rooms" className="mt-2 text-xl font-bold">{totals.rooms ?? t("unknown")}</dd></div>
+      <div className="rounded-lg border p-4"><dt>{t("capexCumul")}</dt><dd data-total="acquisition" className="mt-2 break-words text-xl font-bold">{money(totals.acquisition)}</dd></div>
+    </dl><p className="mt-3 text-sm">{t("totalScope")}</p></>}
+    <button id="hotel-group-add" disabled={busy} className="mt-5 rounded-lg bg-navy p-3 text-white disabled:opacity-50" onClick={() => setShowCreate(!showCreate)}>{t(showCreate ? "cancel" : "addHotel")}</button>
+    {showCreate && <form className="mt-4 rounded-lg border p-4" onSubmit={e => { e.preventDefault(); void mutate(() => createHotel({ org_id: org.id, name, commune, category, nb_chambres: Number(rooms) }), true); }}>
+      <fieldset disabled={busy} className="grid min-w-0 gap-4 sm:grid-cols-2">
+        <label className="min-w-0 text-sm" htmlFor="hotel-group-name">{t("hotelName")}<input id="hotel-group-name" required maxLength={160} value={name} onChange={e => setName(e.target.value)} className="mt-1 block w-full rounded-lg border p-2" /></label>
+        <label className="min-w-0 text-sm" htmlFor="hotel-group-category">{t("category")}<select id="hotel-group-category" value={category} onChange={e => setCategory(e.target.value as HotelCategory)} className="mt-1 block w-full rounded-lg border p-2">{(["budget", "midscale", "upscale", "luxury"] as const).map(c => <option key={c} value={c}>{t(c)}</option>)}</select></label>
+        <label className="min-w-0 text-sm" htmlFor="hotel-group-commune">{t("commune")}<input id="hotel-group-commune" maxLength={160} value={commune} onChange={e => setCommune(e.target.value)} className="mt-1 block w-full rounded-lg border p-2" /></label>
+        <label className="min-w-0 text-sm" htmlFor="hotel-group-rooms">{t("nbRooms")}<input id="hotel-group-rooms" required type="number" min="1" max="100000" step="1" value={rooms} onChange={e => setRooms(e.target.value)} className="mt-1 block w-full rounded-lg border p-2" /></label>
+      </fieldset>
+      <button id="hotel-group-save" disabled={busy || !name.trim()} className="mt-4 rounded-lg bg-emerald-700 p-3 text-white disabled:opacity-50">{t(busy ? "loading" : "createHotel")}</button>
+    </form>}
+    {error && <p role="alert" className="mt-4 text-red-700">{t("error")}</p>}
+    {hotels?.length === 0 && <p className="mt-4">{t("noHotelDesc")}</p>}
+    <div className="mt-5 grid gap-4 sm:grid-cols-2">{hotels?.map(h => <article key={h.id} data-hotel={h.id} className="min-w-0 rounded-lg border p-4">
+      <h2 className="break-words text-lg font-semibold"><Link className="underline" href={`${prefix}/hotellerie/groupe/${h.id}`}>{h.name}</Link></h2>
+      <p className="mt-2 text-sm">{h.commune} · {h.nb_chambres > 0 ? `${h.nb_chambres} ${t("roomsCount")}` : t("roomsNotSet")}</p>
+      <p className="mt-2 text-sm">{t("acquisitionPrice")} : {money(h.prix_acquisition)}</p>
+      <div className="mt-4 flex flex-wrap gap-3"><Link className="rounded-lg border p-2 text-sm" href={`${prefix}/hotellerie/groupe/${h.id}`}>{t("openFile")}</Link><button disabled={busy} className="rounded-lg border p-2 text-sm" data-delete onClick={() => { if (confirm(t("deleteConfirm"))) void mutate(() => deleteHotel(h.id)); }}>{t("deleteBtn")}</button></div>
+    </article>)}</div>
+    <p className="mt-6 text-sm">{t("toolScope")}</p>
+    <div className="mt-3 flex flex-wrap gap-3">{["valorisation", "dscr", "exploitation", "compset", "renovation"].map((route, i) => <Link key={route} className="rounded-lg border p-2 text-sm" href={`${prefix}/hotellerie/${route}`}>{t(["valorisation", "dscr", "exploitation", "revpar", "renovation"][i])}</Link>)}</div>
+  </section>;
+}

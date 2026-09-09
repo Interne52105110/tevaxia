@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({ getUser: vi.fn(), from: vi.fn(), update: vi.fn(), insert: vi.fn(), eq: vi.fn(), select: vi.fn(), single: vi.fn() }));
 vi.mock("./supabase", () => ({ isSupabaseConfigured: true, supabase: { auth: { getUser: mocks.getUser }, from: mocks.from } }));
-import { savePeriod } from "./hotels";
+import { savePeriod, createHotel } from "./hotels";
 import { prepareHotelPeriod } from "./hotel-period";
 const input = () => prepareHotelPeriod({ period_start: "2026-01-01", period_end: "2026-03-31", notes: "Documented accounts" }, "hotel");
 describe("hotel period persistence", () => {
@@ -31,5 +31,16 @@ describe("hotel period persistence", () => {
     await savePeriod(input()); expect(mocks.insert.mock.calls[0][0].created_by).toBe("user");
     mocks.single.mockResolvedValue({ data: null, error: new Error("write denied") });
     await expect(savePeriod(input())).rejects.toThrow("write denied");
+  });
+  it("validates hotel creation and requires an authenticated author", async () => {
+    for (const rooms of [0, -1, 1.5, NaN, 100001]) await expect(createHotel({ org_id: "org", name: "Hotel", nb_chambres: rooms })).rejects.toThrow("Invalid hotel");
+    await expect(createHotel({ org_id: "org", name: "  ", nb_chambres: 10 })).rejects.toThrow("Invalid hotel");
+    expect(mocks.from).not.toHaveBeenCalled();
+    mocks.getUser.mockResolvedValue({ data: { user: null }, error: null });
+    await expect(createHotel({ org_id: "org", name: "Hotel", nb_chambres: 10 })).rejects.toThrow("Authentication");
+    expect(mocks.from).not.toHaveBeenCalled();
+    mocks.getUser.mockResolvedValue({ data: { user: { id: "user" } }, error: null });
+    await createHotel({ org_id: "org", name: " Hotel ", nb_chambres: 10 });
+    expect(mocks.insert.mock.calls[0][0]).toMatchObject({ name: "Hotel", nb_chambres: 10, created_by: "user" });
   });
 });

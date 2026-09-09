@@ -111,20 +111,22 @@ export async function createHotel(input: {
   country?: string;
 }): Promise<Hotel> {
   const client = ensureClient();
-  const { data: { user } } = await client.auth.getUser();
+  if (!input.org_id || !input.name.trim() || input.name.trim().length > 160 || (input.commune?.length ?? 0) > 160 || !Number.isSafeInteger(input.nb_chambres) || input.nb_chambres! < 1 || input.nb_chambres! > 100000 || (input.category && !["budget", "midscale", "upscale", "luxury"].includes(input.category))) throw new Error("Invalid hotel details");
+  const { data: { user }, error: authError } = await client.auth.getUser();
+  if (authError || !user) throw new Error("Authentication required");
   const slug = slugify(input.name) + "-" + Math.random().toString(36).slice(2, 6);
 
   const { data, error } = await client
     .from("hotels")
     .insert({
       org_id: input.org_id,
-      name: input.name,
+      name: input.name.trim(),
       slug,
       category: input.category ?? "midscale",
       nb_chambres: input.nb_chambres ?? 0,
       commune: input.commune ?? null,
       country: input.country ?? "LU",
-      created_by: user?.id ?? null,
+      created_by: user.id,
     })
     .select("*")
     .single();

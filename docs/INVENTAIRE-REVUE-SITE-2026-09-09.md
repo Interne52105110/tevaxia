@@ -236,3 +236,5 @@ Les contrôles détaillés et limites sont consignés dans AUDIT-METIER-2026-09-
 | `/wizard-particulier` | `calculations`, `estimation`, `market-data` |
 
 Périodes des hôtels enregistrés et rapport propriétaire corrigés : résultats déclarés/sources, zéro distinct d’inconnu, authentification et réponses tardives, PDF cinq langues. Le tableau de groupe et les autres parcours connectés restent à vérifier.
+
+Tableau de groupe hôtelier corrigé : totaux incomplets inconnus, prix d’acquisition distincts des CAPEX, fiches accessibles, états asynchrones et créations validées. Impayés, housekeeping et alertes restent à revoir.
