@@ -198,7 +198,7 @@ export interface DCFResult {
   valeurTerminaleNette: number;
   valeurTerminaleActualisee: number;
   valeurDCF: number;
-  irr: number; // Taux de rendement interne
+  irr: number | null; // Identity at the DCF value for conventional positive flows, not an independent investment return
   sensibilite: { tauxActu: number; tauxCapSortie: number; valeur: number }[];
 }
 
@@ -221,6 +221,14 @@ export function calculerIRR(cashFlows: number[], guess: number = 0.08, maxIter: 
 }
 
 export function calculerDCF(input: DCFInput): DCFResult {
+  const between=(value:number,min:number,max:number)=>Number.isFinite(value)&&value>=min&&value<=max;
+  if (!input || !between(input.loyerAnnuelInitial,0,1e12) || !between(input.chargesAnnuelles,0,1e12)
+    || !between(input.tauxIndexation,-1,1) || !between(input.tauxProgressionCharges,-1,1)
+    || !between(input.tauxVacance,0,1) || !between(input.fraisCessionPct,0,1)
+    || !between(input.tauxActualisation,0,1) || !between(input.tauxCapSortie,Number.MIN_VALUE,1)
+    || !Number.isInteger(input.periodeAnalyse) || !between(input.periodeAnalyse,1,50)) {
+    throw new RangeError('Invalid DCF inputs');
+  }
   const cashFlows: DCFCashFlow[] = [];
   let totalNOIActualise = 0;
 
@@ -238,10 +246,9 @@ export function calculerDCF(input: DCFInput): DCFResult {
   }
 
   // Terminal value (année n+1)
-  const dernierCF = cashFlows[cashFlows.length - 1];
-  const noiTerminal = dernierCF
-    ? dernierCF.noi * (1 + input.tauxIndexation)
-    : 0;
+  const noiTerminal = input.loyerAnnuelInitial * Math.pow(1 + input.tauxIndexation, input.periodeAnalyse) * (1 - input.tauxVacance)
+    - input.chargesAnnuelles * Math.pow(1 + input.tauxProgressionCharges, input.periodeAnalyse);
+  if (!Number.isFinite(noiTerminal) || noiTerminal <= 0) throw new RangeError('Capitalised terminal income must be positive');
   const valeurTerminaleBrute = input.tauxCapSortie > 0 ? noiTerminal / input.tauxCapSortie : 0;
   const fraisCession = valeurTerminaleBrute * input.fraisCessionPct;
   const valeurTerminaleNette = valeurTerminaleBrute - fraisCession;
@@ -250,10 +257,9 @@ export function calculerDCF(input: DCFInput): DCFResult {
 
   const valeurDCF = totalNOIActualise + valeurTerminaleActualisee;
 
-  // IRR : cash flow initial = -valeurDCF (investissement), puis NOI annuels, dernière année + valeur terminale nette
-  const irrFlows = [-valeurDCF, ...cashFlows.map((cf) => cf.noi)];
-  irrFlows[irrFlows.length - 1] += valeurTerminaleNette;
-  const irr = calculerIRR(irrFlows);
+  // At its own present value, the discount rate is a root by construction.
+  // Only report this identity for conventional flows; no Newton fallback or independent yield claim.
+  const irr = valeurDCF > 0 && cashFlows.every(cf=>cf.noi>=0) ? input.tauxActualisation : null;
 
   // Sensibilité : matrice taux actualisation × taux de sortie
   const sensibilite: { tauxActu: number; tauxCapSortie: number; valeur: number }[] = [];
@@ -261,7 +267,7 @@ export function calculerDCF(input: DCFInput): DCFResult {
     for (const dCap of [-0.5, 0, 0.5]) {
       const ta = input.tauxActualisation + dActu / 100;
       const tc = input.tauxCapSortie + dCap / 100;
-      if (ta <= 0 || tc <= 0) continue;
+      if (ta < 0 || tc <= 0) continue;
       let totNOI = 0;
       for (const cf of cashFlows) {
         totNOI += cf.noi / Math.pow(1 + ta, cf.annee);
@@ -270,8 +276,8 @@ export function calculerDCF(input: DCFInput): DCFResult {
       const vtNette = vtBrute - vtBrute * input.fraisCessionPct;
       const vtActu = vtNette / Math.pow(1 + ta, input.periodeAnalyse);
       sensibilite.push({
-        tauxActu: +(input.tauxActualisation * 100 + dActu).toFixed(1),
-        tauxCapSortie: +(input.tauxCapSortie * 100 + dCap).toFixed(1),
+        tauxActu: input.tauxActualisation * 100 + dActu,
+        tauxCapSortie: input.tauxCapSortie * 100 + dCap,
         valeur: totNOI + vtActu,
       });
     }

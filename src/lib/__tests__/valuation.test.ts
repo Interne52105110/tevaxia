@@ -195,3 +195,19 @@ describe('Annual term and reversion equivalent yield',()=>{
  it('uses a stable annuity limit at zero and very small term rates',()=>{expect(calculerTermeReversion({...i,tauxTerme:0}).valeurTerme).toBe(180000);expect(calculerTermeReversion({...i,tauxTerme:1e-12}).valeurTerme).toBeCloseTo(180000,4)});
  it('rejects invalid perpetual yields, rents and unsupported fractional annual terms',()=>{for(const patch of [{tauxReversion:0},{tauxReversion:-0.01},{erv:0},{loyerEnPlace:-1},{dureeRestanteBail:2.5},{dureeRestanteBail:101},{tauxTerme:NaN}])expect(()=>calculerTermeReversion({...i,...patch})).toThrow()});
 });
+
+
+describe('DCF terminal income and validation',()=>{
+ const input={loyerAnnuelInitial:10000,tauxIndexation:.1,tauxVacance:.1,chargesAnnuelles:2000,tauxProgressionCharges:.2,periodeAnalyse:2,tauxActualisation:.05,tauxCapSortie:.1,fraisCessionPct:.1};
+ it('projects terminal rent and expenses independently and discounts the sale at year N',()=>{
+  const r=calculerDCF(input);
+  // Year 1 = 9000-2000; year 2 = 9900-2400; year 3 = 10890-2880.
+  expect(r.cashFlows.map(c=>c.noi)).toEqual([7000,7500]);
+  expect(r.noiTerminal).toBeCloseTo(8010,8);expect(r.valeurTerminaleNette).toBeCloseTo(72090,8);
+  expect(r.valeurDCF).toBeCloseTo(7000/1.05+(7500+72090)/1.05**2,8);
+  expect(r.irr).toBe(.05);
+ });
+ it('accepts zero discount and keeps exact sensitivity rate coordinates',()=>{const r=calculerDCF({...input,tauxActualisation:0});expect(r.valeurDCF).toBeCloseTo(86590,8);expect(r.irr).toBe(0);expect(r.sensibilite.some(c=>c.tauxActu===0)).toBe(true);const precise=calculerDCF({...input,tauxActualisation:.05555});expect(precise.sensibilite.some(c=>Math.abs(c.tauxActu-5.555)<1e-10)).toBe(true)});
+ it('rejects invalid inputs and non-positive income that cannot support exit capitalisation',()=>{for(const patch of [{periodeAnalyse:0},{periodeAnalyse:1.5},{periodeAnalyse:51},{tauxCapSortie:0},{tauxActualisation:-1},{tauxVacance:1.1},{fraisCessionPct:-.1},{chargesAnnuelles:NaN},{loyerAnnuelInitial:-1},{tauxIndexation:-1.1},{chargesAnnuelles:20000}])expect(()=>calculerDCF({...input,...patch})).toThrow()});
+ it('does not claim an independent IRR for flows with interim losses',()=>{const r=calculerDCF({...input,chargesAnnuelles:12000,tauxProgressionCharges:-.5});expect(r.cashFlows[0].noi).toBe(-3000);expect(r.irr).toBeNull()});
+});

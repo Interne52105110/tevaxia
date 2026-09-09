@@ -3462,7 +3462,11 @@
     "templateBancaire": "Bank (MLV-Fokus)",
     "templateJudiciaire": "Geriichtlech (laang, historesch)",
     "templateSuccession": "Ierfschaft / Opdeelung",
-    "commissionnairePlaceholder": "Opdrag-Gëeebber (Bank / Riichter / Notar) — fakultativ"
+    "commissionnairePlaceholder": "Opdrag-Gëeebber (Bank / Riichter / Notar) — fakultativ",
+    "dcfAuditScope": "Vereinfacht jäerlecht DCF-Szenario: D’Ausgangswäerter si Beispiller a mussen duerch dokumentéiert Hypothesen ersat ginn. Loyeren a Käschten am éischte Joer, Fluxen um Enn vum Joer a konstante Leerstand. Aarbechten, Finanzéierung, Steieren an Acquisitiounskäschte sinn ausgeschloss a fir eng komplett Analys ze ergänzen.",
+    "dcfAuditTerminal": "D’Akommes beim Verkaf ass dat vum Joer N+1: Loyeren a Käschte wuessen all mat hirem eegenen Taux. Dëst Akommes muss fir déi gewielte Kapitaliséierung positiv sinn. De Verkafserléis no Fraise gëtt vum Enn vum Joer N ofgezinst.",
+    "dcfAuditReturn": "De berechente Präis ass e Barwäert no Ären Hypothesen. En internen Zënssaz mat dësem selwechte Präis als Investitioun entsprécht dem Diskontéierungstaux duerch d’Berechnung; e moosst net onofhängeg de Rendement vun engem reelle Kaf. De Wäert fléisst an d’Reconciliatioun an, ouni e Maartwäert ze zertifiéieren.",
+    "dcfAuditInvalid": "Gëlteg Montanten an Tauxen aginn: ganz Dauer vun 1–50 Joer, net negativ Loyeren a Käschten, Wuesstem vun −100 bis 100 %, Leerstand a Fraise vun 0 bis 100 %, Diskontéierung vun 0 bis 100 %, positiven Austrëttstaux bis 100 %. D’Akommes beim Verkaf muss positiv sinn."
   },
   "onboarding": {
     "heading": "Fannt d'Tools, déi op Äre Beruff zougeschnidde sinn",

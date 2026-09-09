@@ -3462,7 +3462,11 @@
     "templateBancaire": "Banking (MLV focus)",
     "templateJudiciaire": "Judicial (long, historical)",
     "templateSuccession": "Estate / inheritance",
-    "commissionnairePlaceholder": "Commissioning party (bank / judge / notary) — optional"
+    "commissionnairePlaceholder": "Commissioning party (bank / judge / notary) — optional",
+    "dcfAuditScope": "Simplified annual DCF scenario: initial figures are illustrative and must be replaced with documented assumptions. Year-one rents and expenses, year-end cash flows and constant vacancy. Works, financing, tax and acquisition costs are excluded; include them in a full analysis.",
+    "dcfAuditTerminal": "Exit income is year N+1 income: rents and expenses each grow at their own rate. This income must be positive for the selected capitalisation method. Sale proceeds net of fees are discounted from the end of year N.",
+    "dcfAuditReturn": "The calculated price is a present value under your assumptions. An IRR using that same price as the investment reproduces the discount rate by construction; it does not independently measure the return on an actual purchase. The value feeds reconciliation without certifying market value.",
+    "dcfAuditInvalid": "Enter valid amounts and rates: a whole duration of 1–50 years, non-negative rent and expenses, growth from −100 to 100%, vacancy and fees from 0 to 100%, discount rate from 0 to 100%, and a strictly positive exit rate up to 100%. Exit income must be positive."
   },
   "onboarding": {
     "heading": "Find the tools calibrated to your profession",

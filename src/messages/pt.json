@@ -3462,7 +3462,11 @@
     "templateBancaire": "Bancário (foco MLV)",
     "templateJudiciaire": "Judicial (longo, histórico)",
     "templateSuccession": "Sucessão / partilha",
-    "commissionnairePlaceholder": "Requerente (banco / juiz / notário) — opcional"
+    "commissionnairePlaceholder": "Requerente (banco / juiz / notário) — opcional",
+    "dcfAuditScope": "Cenário DCF anual simplificado: valores iniciais ilustrativos a substituir por pressupostos documentados. Rendas e despesas do primeiro ano, fluxos no final do ano e desocupação constante. Obras, financiamento, fiscalidade e custos de aquisição não estão incluídos; acrescente-os numa análise completa.",
+    "dcfAuditTerminal": "O rendimento de saída corresponde ao ano N+1: rendas e despesas crescem às respetivas taxas. Este rendimento deve ser positivo para a capitalização escolhida. A venda líquida de despesas é atualizada a partir do final do ano N.",
+    "dcfAuditReturn": "O preço calculado é um valor atual segundo os seus pressupostos. Uma TIR que utilize esse mesmo preço como investimento reproduz a taxa de atualização por construção; não mede de forma independente a rentabilidade de uma compra real. O valor alimenta a reconciliação, sem certificar um valor de mercado.",
+    "dcfAuditInvalid": "Introduza valores e taxas válidos: duração inteira de 1–50 anos, rendas e despesas não negativas, crescimento de −100 a 100%, desocupação e despesas de venda de 0 a 100%, atualização de 0 a 100% e taxa de saída estritamente positiva até 100%. O rendimento de saída deve ser positivo."
   },
   "onboarding": {
     "heading": "Encontre as ferramentas calibradas para a sua profissão",

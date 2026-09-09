@@ -3462,7 +3462,11 @@
     "templateBancaire": "Bancaire (MLV en focus)",
     "templateJudiciaire": "Judiciaire (long, historique)",
     "templateSuccession": "Succession / partage",
-    "commissionnairePlaceholder": "Commissionnaire (banque / juge / notaire) — optionnel"
+    "commissionnairePlaceholder": "Commissionnaire (banque / juge / notaire) — optionnel",
+    "dcfAuditScope": "Scénario DCF annuel simplifié : valeurs initiales illustratives à remplacer par des hypothèses documentées. Loyers et charges de l’année 1, flux en fin d’année, vacance constante. Travaux, financement, fiscalité et frais d’acquisition ne sont pas inclus ; ajoutez-les dans une analyse complète.",
+    "dcfAuditTerminal": "Le revenu de sortie est celui de l’année N+1 : loyers et charges progressent chacun à leur propre taux. Ce revenu doit être positif pour la capitalisation retenue. La revente nette de frais est actualisée à la fin de l’année N.",
+    "dcfAuditReturn": "Le prix calculé est une valeur actuelle selon vos hypothèses. Un TRI calculé en utilisant ce même prix comme investissement retrouve le taux d’actualisation par construction ; il ne mesure pas indépendamment la rentabilité d’un achat réel. La valeur alimente la réconciliation, sans certifier une valeur de marché.",
+    "dcfAuditInvalid": "Complétez les montants et taux valides : durée entière de 1 à 50 ans, loyers et charges non négatifs, croissance de −100 à 100 %, vacance et frais de 0 à 100 %, actualisation de 0 à 100 %, taux de sortie strictement positif jusqu’à 100 %. Le revenu de sortie doit être positif."
   },
   "onboarding": {
     "heading": "Trouvez les outils calibrés pour votre métier",
