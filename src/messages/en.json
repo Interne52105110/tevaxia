@@ -18715,5 +18715,28 @@
     "invalid": "Provide a file reference and a positive value from the valuation methods. Reductions must be finite, non-negative and total at most 100%.",
     "weights": "No risk weight or lending limit is inferred here. These depend on the exposure type, property, collateral, prudential regime and the conditions in CRR Articles 124–126, among other factors.",
     "source": "Reference text — Regulation (EU) 2024/1623 (CRR3)"
+  },
+  "bankApiAudit": {
+    "title": "Property estimation API for banks",
+    "intro": "Integrate an indicative Luxembourg apartment estimate into your workflow. Review the data, assumptions and limits before using results in a credit decision.",
+    "badge": "Arrange integration with our team",
+    "contact": "Request access",
+    "scopeTitle": "Calculation scope",
+    "scope": "The /api/v1/estimation API uses the public estimator's calculation: a municipal reference and internal adjustments. It supports freehold apartments, existing or off-plan when segment data is available.",
+    "data": "The currently integrated references come from the Housing Observatory publications of 25 June 2026. Unavailable prices are not replaced with fictional individual sales.",
+    "limits": "The range is conventional, with no measured statistical accuracy. The result is neither a signed appraisal, a TEGOVA-certified market value nor a financing decision.",
+    "try": "Try the public calculator",
+    "requestTitle": "Request example",
+    "auth": "Use a server API key in Authorization: Bearer or X-API-Key. Do not expose it in public browser code. The example below uses the actual accepted field names.",
+    "response": "A successful response contains success, data and meta. data includes estimationCentrale, estimationBasse, estimationHaute, prixM2Base, prixM2Ajuste, sourceBase and ajustements. meta describes the method and limits; no comparable-sale count, recommended LTV or certified MLV is returned.",
+    "errors": "Handle errors: 400 for invalid requests, 401 for authentication, 404 when no estimate is available, 429 for call limits and 500 for server errors.",
+    "docs": "Read the API documentation",
+    "prudentialTitle": "Prudential value and credit risk",
+    "prudential": "The legacy /api/v1/mlv path calculates arithmetic sensitivity to entered reductions. Its mlv and ratioMLVsurMV fields describe this scenario only; ltvBands is empty and the result is marked non-regulatory. It does not validate CRR requirements or risk weights.",
+    "valuation": "Review the valuation methods",
+    "integrationTitle": "Prepare integration",
+    "integration": "Check your use cases, required data, error handling and human review. An address alone does not provide all the characteristics needed for an estimate.",
+    "logging": "Logging for database-managed keys records the key identifier, endpoint, status, call duration and last use. This description is not a general privacy guarantee: processing scope, retention and service providers must be documented contractually.",
+    "availability": "Agree availability, response times, hosting, quotas and service commitments before integration. No numerical performance or guaranteed update frequency is stated here."
   }
 }

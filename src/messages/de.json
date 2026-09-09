@@ -18715,5 +18715,28 @@
     "invalid": "Geben Sie eine Unterlagenreferenz und einen positiven Wert aus den Methoden an. Die Abschläge müssen endlich, nicht negativ und zusammen höchstens 100 % sein.",
     "weights": "Hier werden weder Risikogewicht noch Kreditgrenze abgeleitet. Sie hängen unter anderem von Risikoposition, Immobilie, Sicherheiten, Aufsichtsrahmen und den Voraussetzungen der CRR-Artikel 124–126 ab.",
     "source": "Referenztext — Verordnung (EU) 2024/1623 (CRR3)"
+  },
+  "bankApiAudit": {
+    "title": "Immobilienschätzungs-API für Banken",
+    "intro": "Integrieren Sie eine indikative Schätzung luxemburgischer Wohnungen. Prüfen Sie Daten, Annahmen und Grenzen vor der Verwendung in einer Kreditentscheidung.",
+    "badge": "Integration mit unserem Team vorbereiten",
+    "contact": "Zugang anfragen",
+    "scopeTitle": "Berechnungsumfang",
+    "scope": "Die API /api/v1/estimation verwendet die Berechnung des öffentlichen Rechners: Gemeindereferenz und interne Anpassungen. Sie unterstützt Eigentumswohnungen im Bestand oder im Bau, sofern Segmentdaten vorliegen.",
+    "data": "Die eingebundenen Referenzen stammen aus den Veröffentlichungen des Wohnungsobservatoriums vom 25. Juni 2026. Fehlende Preise werden nicht durch fiktive Einzelverkäufe ersetzt.",
+    "limits": "Die Bandbreite ist konventionell, ohne gemessene statistische Genauigkeit. Das Ergebnis ist weder ein unterschriebenes Gutachten noch ein TEGOVA-zertifizierter Marktwert oder eine Finanzierungsentscheidung.",
+    "try": "Öffentlichen Rechner testen",
+    "requestTitle": "Beispielanfrage",
+    "auth": "Verwenden Sie einen serverseitigen API-Schlüssel in Authorization: Bearer oder X-API-Key. Veröffentlichen Sie ihn nicht im Browsercode. Das Beispiel zeigt die tatsächlich akzeptierten Feldnamen.",
+    "response": "Eine erfolgreiche Antwort enthält success, data und meta. data enthält unter anderem estimationCentrale, estimationBasse, estimationHaute, prixM2Base, prixM2Ajuste, sourceBase und ajustements. meta beschreibt Methode und Grenzen; Vergleichsverkaufszahl, empfohlener LTV und zertifizierter MLV werden nicht geliefert.",
+    "errors": "Behandeln Sie Fehler: 400 bei ungültiger Anfrage, 401 bei Authentifizierung, 404 ohne verfügbare Schätzung, 429 bei Aufrufgrenzen und 500 bei Serverfehlern.",
+    "docs": "API-Dokumentation lesen",
+    "prudentialTitle": "Prudentieller Wert und Kreditrisiko",
+    "prudential": "Der historische Pfad /api/v1/mlv berechnet eine arithmetische Sensitivität für eingegebene Abschläge. Die Felder mlv und ratioMLVsurMV beschreiben nur dieses Szenario; ltvBands ist leer und das Ergebnis als nicht regulatorisch gekennzeichnet. CRR-Anforderungen und Risikogewichte werden nicht validiert.",
+    "valuation": "Bewertungsmethoden prüfen",
+    "integrationTitle": "Integration vorbereiten",
+    "integration": "Prüfen Sie Anwendungsfälle, erforderliche Daten, Fehlerbehandlung und menschliche Kontrolle. Eine Adresse allein liefert nicht alle Merkmale für eine Schätzung.",
+    "logging": "Bei datenbankverwalteten Schlüsseln werden Schlüsselkennung, Endpoint, Status, Aufrufdauer und letzte Nutzung protokolliert. Dies ist keine umfassende Datenschutzgarantie: Verarbeitungsumfang, Aufbewahrung und Dienstleister sind vertraglich zu dokumentieren.",
+    "availability": "Verfügbarkeit, Antwortzeiten, Hosting, Kontingente und Servicezusagen sind vor der Integration zu vereinbaren. Es werden keine Leistungszahlen oder garantierten Aktualisierungsintervalle zugesagt."
   }
 }

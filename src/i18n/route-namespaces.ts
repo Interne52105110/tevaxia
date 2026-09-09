@@ -66,7 +66,6 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   ],
   "/api-banques": [
     "aiChat",
-    "apiBanques",
     "backup",
     "cookie",
     "crmContextBar",

@@ -18715,5 +18715,28 @@
     "invalid": "Indique uma referência do dossier e um valor positivo obtido pelos métodos. As reduções devem ser finitas, não negativas e somar no máximo 100%.",
     "weights": "Não é inferida qualquer ponderação de risco ou limite de crédito. A sua determinação depende, nomeadamente, da exposição, imóvel, garantias, regime prudencial e condições dos artigos 124–126 do CRR.",
     "source": "Texto de referência — Regulamento (UE) 2024/1623 (CRR3)"
+  },
+  "bankApiAudit": {
+    "title": "API de estimativa imobiliária para bancos",
+    "intro": "Integre uma estimativa indicativa de apartamentos luxemburgueses. Analise os dados, pressupostos e limites antes de utilizar os resultados numa decisão de crédito.",
+    "badge": "Preparar a integração com a nossa equipa",
+    "contact": "Pedir acesso",
+    "scopeTitle": "Âmbito do cálculo",
+    "scope": "A API /api/v1/estimation utiliza o cálculo do estimador público: referência municipal e ajustes internos. Abrange apartamentos em plena propriedade, existentes ou em VEFA quando existem dados do segmento.",
+    "data": "As referências integradas provêm das publicações do Observatório da Habitação de 25 de junho de 2026. Preços indisponíveis não são substituídos por vendas individuais fictícias.",
+    "limits": "O intervalo é convencional, sem precisão estatística medida. O resultado não é uma avaliação assinada, um valor de mercado certificado TEGOVA ou uma decisão de financiamento.",
+    "try": "Testar o calculador público",
+    "requestTitle": "Exemplo de pedido",
+    "auth": "Utilize uma chave API no servidor em Authorization: Bearer ou X-API-Key. Não a exponha no código público do navegador. O exemplo apresenta os nomes dos campos efetivamente aceites.",
+    "response": "Uma resposta bem-sucedida contém success, data e meta. data inclui estimationCentrale, estimationBasse, estimationHaute, prixM2Base, prixM2Ajuste, sourceBase e ajustements. meta descreve o método e os limites; não são fornecidos contagem de vendas comparáveis, LTV recomendado ou MLV certificado.",
+    "errors": "Trate os erros: 400 para pedidos inválidos, 401 para autenticação, 404 quando não existe estimativa, 429 para limites de chamadas e 500 para erros do servidor.",
+    "docs": "Consultar a documentação API",
+    "prudentialTitle": "Valor prudencial e risco de crédito",
+    "prudential": "O caminho histórico /api/v1/mlv calcula uma sensibilidade aritmética às reduções introduzidas. Os campos mlv e ratioMLVsurMV descrevem apenas esse cenário; ltvBands está vazio e o resultado é marcado como não regulamentar. Não valida requisitos CRR ou ponderações de risco.",
+    "valuation": "Examinar os métodos de avaliação",
+    "integrationTitle": "Preparar a integração",
+    "integration": "Verifique os casos de uso, dados necessários, tratamento de erros e revisão humana. Uma morada por si só não fornece todas as características necessárias à estimativa.",
+    "logging": "O registo das chaves geridas em base de dados inclui identificador da chave, endpoint, estado, duração da chamada e última utilização. Esta descrição não constitui garantia geral de privacidade: tratamentos, conservação e prestadores devem ser documentados contratualmente.",
+    "availability": "Disponibilidade, tempos de resposta, alojamento, quotas e compromissos de serviço devem ser acordados antes da integração. Não são anunciados indicadores de desempenho ou frequência garantida de atualização."
   }
 }

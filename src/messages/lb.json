@@ -18715,5 +18715,28 @@
     "invalid": "Gitt eng Dossierreferenz an e positive Wäert aus de Methoden un. D’Ofschléi mussen endlech, net negativ an zesummen héchstens 100 % sinn.",
     "weights": "Hei gëtt weder e Risikogewiicht nach eng Prêtlimitt ofgeleet. Si hänken ënner anerem vun der Expositioun, dem Objet, de Garantien, dem prudentielle Regime an de Konditioune vun den CRR-Artikelen 124–126 of.",
     "source": "Referenztext — Reglement (EU) 2024/1623 (CRR3)"
+  },
+  "bankApiAudit": {
+    "title": "Immobiliëschätzungs-API fir Banken",
+    "intro": "Integréiert eng indikativ Schätzung vu lëtzebuergeschen Appartementer. Préift Donnéeën, Hypothesen a Grenzen, ier Dir d’Resultater an enger Kreditdecisioun benotzt.",
+    "badge": "Integratioun mat eiser Ekipp virbereeden",
+    "contact": "Zougang ufroen",
+    "scopeTitle": "Ëmfang vun der Berechnung",
+    "scope": "D’API /api/v1/estimation benotzt d’Berechnung vum ëffentleche Rechner: Gemengereferenz an intern Upassungen. Si ënnerstëtzt Appartementer am vollen Eegentum, bestoend oder a VEFA, wann Donnéeë fir de Segment disponibel sinn.",
+    "data": "Déi integréiert Referenze stamen aus de Publikatioune vum Observatoire de l’Habitat vum 25. Juni 2026. Feelend Präisser ginn net duerch fiktiv individuell Verkeef ersat.",
+    "limits": "D’Spann ass konventionell, ouni gemoosse statistesch Prezisioun. D’Resultat ass weder eng ënnerschriwwen Expertise, en TEGOVA-zertifiéierte Maartwäert nach eng Finanzéierungsdecisioun.",
+    "try": "Ëffentleche Rechner testen",
+    "requestTitle": "Beispillufro",
+    "auth": "Benotzt en API-Schlëssel um Server an Authorization: Bearer oder X-API-Key. Verëffentlecht en net am Browsercode. D’Beispill weist déi tatsächlech akzeptéiert Feldnimm.",
+    "response": "Eng erfollegräich Äntwert enthält success, data a meta. data enthält ënner anerem estimationCentrale, estimationBasse, estimationHaute, prixM2Base, prixM2Ajuste, sourceBase an ajustements. meta beschreift Method a Grenzen; keng Unzuel vu Vergläichsverkeef, kee recommandéierte LTV a kee zertifiéierte MLV gëtt geliwwert.",
+    "errors": "Behandelt Feeler: 400 fir ongëlteg Ufroen, 401 fir Authentifikatioun, 404 wann et keng Schätzung gëtt, 429 fir Ufrogrenzen a 500 fir Serverfeeler.",
+    "docs": "API-Dokumentatioun liesen",
+    "prudentialTitle": "Prudentielle Wäert a Kreditrisiko",
+    "prudential": "Den historesche Wee /api/v1/mlv berechent eng arithmetesch Sensibilitéit fir aginn Ofschléi. D’Felder mlv a ratioMLVsurMV beschreiwen nëmmen dëst Szenario; ltvBands ass eidel an d’Resultat ass als net reglementaresch markéiert. CRR-Ufuerderungen a Risikogewiichter ginn net validéiert.",
+    "valuation": "Bewäertungsmethoden préiwen",
+    "integrationTitle": "Integratioun virbereeden",
+    "integration": "Préift Uwendungsfäll, néideg Donnéeën, Feelerbehandlung a mënschlech Kontroll. Eng Adress eleng liwwert net all néideg Charakteristike fir eng Schätzung.",
+    "logging": "Fir Schlësselen aus der Datebank ginn d'Schlëssel-ID, Endpoint, Status, Ufro-Dauer an déi lescht Notzung protokolléiert. Dat ass keng allgemeng Dateschutzgarantie: Ëmfang, Späicherdauer an Déngschtleeschter musse vertraglech dokumentéiert ginn.",
+    "availability": "Disponibilitéit, Äntwertzäiten, Hosting, Quoten a Servicezousoe si virun der Integratioun ze vereinbaren. Hei gi keng Leeschtungszuelen oder garantéiert Aktualiséierungsintervalle versprach."
   }
 }

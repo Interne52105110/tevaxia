@@ -13,7 +13,6 @@ export const CLIENT_NAMESPACES = [
   "ais",
   "amlKyc",
   "amlKycArchives",
-  "apiBanques",
   "backup",
   "bailCommercial",
   "bailCommercialLabels",

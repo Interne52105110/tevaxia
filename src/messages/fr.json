@@ -18715,5 +18715,28 @@
     "invalid": "Renseignez la référence du dossier et une valeur positive issue des méthodes. Les décotes doivent être finies, non négatives et leur total au plus égal à 100 %.",
     "weights": "Aucune pondération de risque ni limite de prêt n’est déduite ici. Leur détermination dépend notamment du type d’exposition, du bien, des garanties, du régime prudentiel et des conditions des articles 124 à 126 du CRR.",
     "source": "Texte de référence — règlement (UE) 2024/1623 (CRR3)"
+  },
+  "bankApiAudit": {
+    "title": "API d’estimation immobilière pour les banques",
+    "intro": "Intégrez une estimation indicative d’appartement luxembourgeois à votre parcours. Les données, hypothèses et limites doivent être examinées avant toute utilisation dans une décision de crédit.",
+    "badge": "Intégration à préparer avec notre équipe",
+    "contact": "Demander un accès",
+    "scopeTitle": "Périmètre du calcul",
+    "scope": "L’API /api/v1/estimation utilise le même calcul que l’estimateur public : référence communale et ajustements internes. Elle prend en charge les appartements en pleine propriété, existants ou en VEFA lorsque les données du segment sont disponibles.",
+    "data": "Les références actuellement intégrées proviennent des publications de l’Observatoire de l’Habitat du 25 juin 2026. Les prix indisponibles ne sont pas remplacés par des ventes individuelles fictives.",
+    "limits": "La fourchette est conventionnelle, sans précision statistique mesurée. Le résultat n’est ni une expertise signée, ni une valeur de marché certifiée TEGOVA, ni une décision de financement.",
+    "try": "Tester le calculateur public",
+    "requestTitle": "Exemple de requête",
+    "auth": "Utilisez une clé API serveur dans Authorization: Bearer ou X-API-Key. Ne l’exposez pas dans le code public du navigateur. L’exemple ci-dessous montre les noms de champs réellement acceptés.",
+    "response": "Une réponse réussie contient success, data et meta. data comprend notamment estimationCentrale, estimationBasse, estimationHaute, prixM2Base, prixM2Ajuste, sourceBase et ajustements. meta précise la méthode et les limites ; aucun nombre de ventes comparables, LTV recommandé ou MLV certifiée n’est fourni.",
+    "errors": "Prévoyez le traitement des erreurs : 400 pour une requête invalide, 401 pour l’authentification, 404 si aucune estimation n’est disponible, 429 pour une limite d’appels et 500 pour une erreur serveur.",
+    "docs": "Consulter la documentation API",
+    "prudentialTitle": "Valeur prudentielle et risque de crédit",
+    "prudential": "Le chemin historique /api/v1/mlv réalise une sensibilité arithmétique à des décotes saisies. Les champs mlv et ratioMLVsurMV décrivent ce scénario uniquement ; ltvBands est vide et le résultat est marqué non réglementaire. Il ne valide pas les conditions du CRR ni les pondérations de risque.",
+    "valuation": "Examiner les méthodes de valorisation",
+    "integrationTitle": "Préparer l’intégration",
+    "integration": "Vérifiez vos cas d’usage, les données requises, la gestion des erreurs et les contrôles humains. Une adresse seule ne fournit pas toutes les caractéristiques nécessaires à l’estimation.",
+    "logging": "La journalisation des clés gérées en base porte sur l’identifiant de clé, l’endpoint, le statut, la durée d’appel et la dernière utilisation. Ce descriptif ne constitue pas une garantie globale de confidentialité : périmètre des traitements, conservation et sous-traitants doivent être documentés contractuellement.",
+    "availability": "Disponibilité, délais de réponse, hébergement, quotas et engagements de service sont à convenir avant intégration. Aucune performance chiffrée ni cadence garantie de mise à jour n’est annoncée ici."
   }
 }
