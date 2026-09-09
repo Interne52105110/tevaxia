@@ -121,3 +121,16 @@ Chaque question admet « je ne sais pas ». Le dossier final distingue les répo
 Source : Guichet.lu, certificat de performance énergétique des bâtiments d’habitation et documents nécessaires, consulté le 9 septembre 2026. Le questionnaire ne détermine pas les aides : les critères techniques, dates, démarches et confirmations du dossier restent nécessaires.
 
 Validation : 1 140 tests / 93 fichiers réussis. Quatre tests de recueil remplacent seize tests qui validaient les anciennes hypothèses arbitraires (classe et aides). Compilation et lint réussis. Parcours des vingt questions, toutes réponses inconnues, modification, remise à zéro, métadonnées et responsive contrôlés dans cinq langues.
+
+
+## Chauffage / HVAC
+
+Le calcul précédent comportait une erreur d’unité de facteur 1 000 dans la conversion de puissance et heures en consommation. Il combinait également des tableaux de puissance non démontrés « EN 12831 », des prix et caractéristiques de catalogues sans devis de modèle précis, un forfait d’eau chaude par nombre de pièces, des aides automatiques et une déduction TVA appliquée aux coûts sans base fiscale cohérente.
+
+Le module compare maintenant deux scénarios explicitement documentés : chaleur utile annuelle, facteur saisonnier, prix de l’énergie, entretien et autres coûts annuels. Énergie achetée = chaleur utile / facteur saisonnier. Exemple : 18 000 kWh / 0,9 = 20 000 kWh ; 18 000 / 3 = 6 000 kWh. À 0,10 et 0,25 EUR/kWh avec 200 et 250 EUR d’entretien : coûts 2 200 et 1 750 EUR, économie 450 EUR. Les hausses de coût restent négatives. Aucune performance saisonnière n’est déduite d’un COP ponctuel.
+
+Le détail conserve sept lots et ajoute les autres frais, saisis d’après les devis TTC. Les aides sont confirmées par le dossier, zéro sinon ; elles ne peuvent dépasser les devis et ne comprennent pas une économie TVA déjà incluse au prix TTC. Le retour simple et le solde nominal utilisent l’horizon saisi, avec prix constants, sans crédit/actualisation/remplacement. Aucun devis signifie budget incomplet et retour non calculé, sans ancienne valeur fictive de 99 ans.
+
+La charge thermique et la puissance disponible sont renseignées depuis l’étude et les fiches aux mêmes conditions. Leur différence n’est pas une certification de dimensionnement : pas d’autosélection de produit, débit VMC, validation de modulation, appoint ou émetteurs. Le guide officiel Klima-Agence de planification des pompes à chaleur est lié ; aucun taux d’aide historique de ce guide n’est repris. Métadonnées et carte d’accueil adaptées.
+
+Validation : 1 144 tests / 94 fichiers réussis, compilation et lint ciblé réussis. Les cinq langues et quatre largeurs ont été vérifiées, avec unités, coûts négatifs, aides excessives, facteurs invalides et horizon de retour. Cinq PDF (dix pages) ont été générés et inspectés ; les montants et kWh correspondent au scénario. Ancien générateur PDF HVAC devenu inutilisé supprimé. La mise en ligne est suivie au journal opérationnel.

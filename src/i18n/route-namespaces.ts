@@ -396,14 +396,13 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/energy/hvac": [
-    "aiAnalysis",
     "aiChat",
     "backup",
-    "common",
     "cookie",
     "crmContextBar",
     "hotellerieContextBar",
     "hvac",
+    "hvacScenarioAudit",
     "nav",
     "pmsContextBar",
     "syndicContextBar"

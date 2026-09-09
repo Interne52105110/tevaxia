@@ -92,6 +92,7 @@ export const CLIENT_NAMESPACES = [
   "hotellerieToolPages",
   "hotellerieValorisation",
   "hvac",
+  "hvacScenarioAudit",
   "indices",
   "inspectionTegova",
   "invitation",
