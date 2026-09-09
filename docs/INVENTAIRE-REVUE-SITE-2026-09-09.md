@@ -378,3 +378,10 @@ Navigation 400d356 confirmée en production : CI 34407231200 success ; Vercel dp
 - Neuf tests métier supplémentaires et cinq essais de composants réels avec services simulés : annulation, double clic, échec/reprise, paramètres d’identité/version, changement de compte pendant une requête. Suite 1 331 tests / 126 fichiers réussie. Ces garde-fous applicatifs ne remplacent pas la vérification des politiques SQL/RPC, toujours inaccessible en production.
 
 PWA 9168e0e confirmée en production : CI 34407993584 success ; Vercel dpl_AUYFPJfPghiRcQ9vaqQQRYoAQuxh Ready. Vrai navigateur isolé sur tevaxia.lu : cinq coupures réseau, fallback localisé, suppression du cache v3 fictif, cache étranger conservé, aucun cache de navigation privée, en-tête HTTP no-store du worker vérifié.
+
+
+## 10 septembre — pied de page commun
+
+Traduction des derniers libellés fixes (accroche, conditions, solutions, plan, contact) dans les cinq langues ; conservation des liens internes localisés. Textes secondaires portés à 14 px avant zoom global et opacité 75 % pour améliorer la lecture. Lien énergie remplacé par Klima-Agence (https://www.klima-agence.lu/fr, consulté le 10 septembre). Build et lint réussis ; navigateur : cinq langues, quatre largeurs 320/390/768/1440, libellés/liens/styles contrôlés, capture allemande inspectée. Aucun calcul modifié.
+
+Le lot précédent ff435db est publié : CI 34409790040 réussie, déploiement dpl_Hh2nfATUGV8Ka3X3h2rpUSiAf4Gy Ready ; cinq pages factures vérifiées en production avec HTTP 200, titre exact, lien de connexion et quatre largeurs.

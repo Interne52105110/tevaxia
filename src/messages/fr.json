@@ -109,7 +109,11 @@
       "trust": "Notre approche",
       "pricing": "Tarifs",
       "faq": "FAQ"
-    }
+    },
+    "footerTagline": "Outils immobiliers pour le Luxembourg.",
+    "termsOfUse": "Conditions générales d’utilisation",
+    "footerSolutions": "Solutions",
+    "siteMap": "Plan du site"
   },
   "home": {
     "heroTitle": "L'analyse immobilière du Luxembourg,",
