@@ -19941,5 +19941,13 @@
     "frLink": "DGFiP: zugelassene Plattformen",
     "luLink": "Guichet.lu: elektronische Rechnungen",
     "formatLink": "FNFE-MPE: Factur-X-Prüfung"
+  },
+  "invoiceDraft": {
+    "readError": "Der gespeicherte Entwurf konnte nicht geladen werden. Bewahren Sie vor dem Zurücksetzen eine Kopie auf.",
+    "saveError": "Der Entwurf konnte in diesem Browser nicht gespeichert werden.",
+    "backup": "JSON-Kopie sichern",
+    "legacy": "Auf diesem Gerät liegt ein alter Entwurf ohne Kontozuordnung vor.",
+    "restore": "Alten Entwurf wiederherstellen",
+    "legacyConfirm": "Dieser Entwurf könnte einem anderen Nutzer dieses Geräts gehören. Bestätigen Sie, dass er Ihnen gehört, bevor der aktuelle Entwurf ersetzt wird."
   }
 }

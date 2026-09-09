@@ -901,3 +901,14 @@ Enregistrement lié au compte capturé avant la génération ; un document comme
 Sept tests service nouveaux ; suite 1 371 tests / 131 fichiers réussie, lint sans erreur et build réussi. Cinq langues en navigateur isolé : lecture en échec puis reprise, absence de faux historique vide, double clic PDF et erreur, annulation/échec de suppression, isolation au changement de compte et déconnexion. Les services de ces scénarios sont simulés : aucune donnée client modifiée. Les politiques RLS réelles et l’ancien brouillon local partagé restent hors de cette validation.
 
 PDF 6daf17b publié : CI 34415552734 réussie ; dpl_99ovP9AWSk55MSypRvWke8uSaxup Ready. Page facturation, métadonnées/liens, quatre largeurs et interactions de calcul vérifiées en production dans les cinq langues.
+
+
+## 10 septembre — brouillons de facturation isolés et récupérables
+
+L’éditeur attend la résolution de l’authentification et remonte un état distinct par compte/visiteur. Les brouillons sont enregistrés sous des clés séparées ; l’historique et le préremplissage locatif utilisent la même destination. L’ancienne clé commune est conservée, sans chargement automatique ; restauration volontaire avec confirmation d’appartenance. Une structure illisible bloque l’enregistrement automatique et permet d’exporter les données brutes avant réinitialisation. Champs numériques temporairement vides conservés invalides, non transformés en zéro. Échec de stockage signalé au lieu d’être masqué.
+
+Génération protégée contre les doubles clics ; champs verrouillés pendant l’export. Résultat tardif abandonné après changement de compte/démontage, contrôle du propriétaire avant téléchargement authentifié, libération différée des URL. Ce stockage local n’est pas un coffre chiffré ; les règles de TVA du préremplissage locatif et les modèles métier ne sont pas certifiés par ce lot.
+
+Neuf tests nouveaux : suite 1 380 tests / 132 fichiers, lint sans erreur et build réussis. Cinq langues en navigateur isolé : deux comptes et visiteur, restauration annulée puis acceptée, ancien original préservé, double clic/génération et changement d’identité, brouillon corrompu non écrasé, quota de stockage signalé. Cinq téléchargements réels sur serveur local compilé avec trafic Supabase bloqué ; scénarios de calcul et quatre largeurs toujours réussis. Aucun enregistrement client de production exécuté.
+
+Historique f80eebe publié : CI 34416090971 réussie ; dpl_EiiDcqiAKWWubsNECZaYGQLtCxZb Ready. Accès anonyme, lien de connexion et quatre largeurs vérifiés dans les cinq langues sur la production.

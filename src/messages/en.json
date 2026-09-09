@@ -19941,5 +19941,13 @@
     "frLink": "DGFiP: approved platforms",
     "luLink": "Guichet.lu: electronic invoicing",
     "formatLink": "FNFE-MPE: Factur-X validation"
+  },
+  "invoiceDraft": {
+    "readError": "The saved draft could not be loaded. Keep a copy before resetting.",
+    "saveError": "The draft could not be saved in this browser.",
+    "backup": "Keep a JSON copy",
+    "legacy": "An old draft not linked to an account exists on this device.",
+    "restore": "Restore the old draft",
+    "legacyConfirm": "This draft may belong to another user of this device. Confirm it is yours before replacing the current draft."
   }
 }

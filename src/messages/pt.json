@@ -19941,5 +19941,13 @@
     "frLink": "DGFiP: plataformas autorizadas",
     "luLink": "Guichet.lu: faturação eletrónica",
     "formatLink": "FNFE-MPE: validação Factur-X"
+  },
+  "invoiceDraft": {
+    "readError": "Não foi possível carregar o rascunho guardado. Conserve uma cópia antes de repor.",
+    "saveError": "Não foi possível guardar o rascunho neste navegador.",
+    "backup": "Guardar uma cópia JSON",
+    "legacy": "Existe neste dispositivo um rascunho antigo não associado a uma conta.",
+    "restore": "Restaurar o rascunho antigo",
+    "legacyConfirm": "Este rascunho pode pertencer a outro utilizador deste dispositivo. Confirme que é seu antes de substituir o rascunho atual."
   }
 }

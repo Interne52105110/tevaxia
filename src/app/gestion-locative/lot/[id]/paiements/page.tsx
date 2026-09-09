@@ -1,5 +1,7 @@
 "use client";
 
+import { storeInvoiceDraft } from "@/lib/facturation/draft";
+
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -127,7 +129,7 @@ export default function PaymentsPage() {
   };
 
   const prefillFacturX = (payment: RentalPayment, monthIdx: number) => {
-    if (!lot) return;
+    if (!lot || !user) return;
     const profile = getProfile();
     const monthLabel = MONTHS[monthIdx - 1];
     const now = new Date(selectedYear, monthIdx - 1, 1);
@@ -174,7 +176,7 @@ export default function PaymentsPage() {
       notes: ["Loyer d'habitation — exempt TVA art. 261 D CGI"],
       payment_terms: "Paiement avant le 5 du mois",
     };
-    try { localStorage.setItem("tevaxia-facturation-draft", JSON.stringify(draft)); } catch {}
+    try { storeInvoiceDraft(draft, user!.id); } catch (e) { setError(errMsg(e, t("error"))); return; }
     window.location.href = `${lp}/facturation/emission`;
   };
 

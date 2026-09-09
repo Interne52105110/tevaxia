@@ -19941,5 +19941,13 @@
     "frLink": "DGFiP : plateformes agréées",
     "luLink": "Guichet.lu : facturation électronique",
     "formatLink": "FNFE-MPE : validation Factur-X"
+  },
+  "invoiceDraft": {
+    "readError": "Le brouillon enregistré ne peut pas être chargé. Conservez une copie avant de réinitialiser.",
+    "saveError": "Le brouillon ne peut pas être enregistré dans ce navigateur.",
+    "backup": "Conserver une copie JSON",
+    "legacy": "Un ancien brouillon non rattaché à un compte est présent sur cet appareil.",
+    "restore": "Restaurer cet ancien brouillon",
+    "legacyConfirm": "Ce brouillon peut provenir d’un autre utilisateur de cet appareil. Confirmez qu’il vous appartient avant de remplacer le brouillon actuel."
   }
 }

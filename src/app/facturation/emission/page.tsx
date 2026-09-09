@@ -1,16 +1,16 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useLocale, useTranslations } from "next-intl";
 import { computeTotals, validateInvoice, formatInvoiceNumber, VAT_RATES_FR, VAT_RATES_LU, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
-import { saveToHistory } from "@/lib/facturation/history";
+import { assertHistoryOwner, saveToHistory } from "@/lib/facturation/history";
 import { track, captureError } from "@/lib/analytics";
 
 type TemplateId = "generic" | "landlord" | "syndic" | "hotel" | "lease" | "valuer";
 
-const STORAGE_KEY = "tevaxia-facturation-draft";
+import { invoiceDraftKey, LEGACY_INVOICE_DRAFT_KEY, parseInvoiceDraft, storeInvoiceDraft } from "@/lib/facturation/draft";
 
 function _fmt2(n: number): string { return n.toFixed(2); }
 function formatEUR(n: number, currency = "EUR", locale = "fr"): string {
@@ -112,8 +112,14 @@ function defaultInvoice(): FacturXInvoice {
 }
 
 export default function EmissionPage() {
+  const { user, loading } = useAuth();
+  const t = useTranslations("facturation.historique");
+  if (loading) return <div className="p-12 text-center">{t("loading")}</div>;
+  return <InvoiceEditor key={user?.id ?? "guest"} userId={user?.id ?? null} />;
+}
+
+function InvoiceEditor({ userId }: { userId: string | null }) {
   const t = useTranslations("facturation.emission");
-  const { user, loading: authLoading } = useAuth();
   const tHist = useTranslations("facturation.historique");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
@@ -125,19 +131,43 @@ export default function EmissionPage() {
   const [errors, setErrors] = useState<string[]>([]);
   const [success, setSuccess] = useState<string | null>(null);
 
+  const td = useTranslations("invoiceDraft");
+  const [storageError, setStorageError] = useState<string | null>(null);
+  const [legacy, setLegacy] = useState(false);
+  const [backupKey, setBackupKey] = useState(invoiceDraftKey(userId));
+  const [allowSave, setAllowSave] = useState(true);
+  const active = useRef(false), operation = useRef(false);
+  useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- mount/dep-driven sync with external source (URL, localStorage, Supabase)
-      if (raw) setInv(JSON.parse(raw));
-    } catch {}
+      setLegacy(localStorage.getItem(LEGACY_INVOICE_DRAFT_KEY) !== null);
+      const raw = localStorage.getItem(invoiceDraftKey(userId));
+      if (raw !== null) setInv(parseInvoiceDraft(raw));
+    } catch { setStorageError(td("readError")); setAllowSave(false); }
     setHydrated(true);
-  }, []);
-
+  }, [userId, td]);
   useEffect(() => {
-    if (!hydrated) return;
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(inv)); } catch {}
-  }, [inv, hydrated]);
+    if (!hydrated || !allowSave) return;
+    try { storeInvoiceDraft(inv, userId); setStorageError(null); }
+    catch { setStorageError(td("saveError")); }
+  }, [inv, hydrated, allowSave, userId, td]);
+  const restoreLegacy = () => {
+    if (!confirm(td("legacyConfirm"))) return;
+    try {
+      const raw = localStorage.getItem(LEGACY_INVOICE_DRAFT_KEY);
+      if (raw === null) throw new Error("Missing legacy draft");
+      setInv(parseInvoiceDraft(raw)); setAllowSave(true); setLegacy(false);
+    } catch { setBackupKey(LEGACY_INVOICE_DRAFT_KEY); setStorageError(td("readError")); }
+  };
+  const backupDraft = () => {
+    try {
+      const raw = localStorage.getItem(backupKey);
+      if (raw === null) return;
+      const url = URL.createObjectURL(new Blob([raw], { type: "application/json" }));
+      const a = document.createElement("a"); a.href = url; a.download = "tevaxia-brouillon-original.json"; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch { setStorageError(td("readError")); }
+  };
 
   const totals = useMemo(() => { try { return computeTotals(inv); } catch { return null; } }, [inv]);
   const validation = useMemo(() => validateInvoice(inv), [inv]);
@@ -164,13 +194,14 @@ export default function EmissionPage() {
 
   const resetAll = () => {
     if (!confirm(t("resetConfirm"))) return;
+    setAllowSave(true); setStorageError(null);
     setInv(defaultInvoice());
     setTemplate("generic");
   };
 
   const generate = async () => {
-    if (authLoading || generating) return;
-    const historyOwner = user?.id ?? null;
+    if (operation.current || !active.current) return;
+    const historyOwner = userId;
     if (!totals) { setErrors([t("calculationError")]); return; }
     const errs = validateInvoice(inv);
     if (errs.length) {
@@ -179,26 +210,29 @@ export default function EmissionPage() {
       return;
     }
     setErrors([]);
+    operation.current = true;
     setGenerating(true);
     try {
       const { generateFacturXPdf } = await import("@/lib/facturation/factur-x-pdf");
       const artifacts = await generateFacturXPdf(inv, { locale });
+      if (historyOwner) await assertHistoryOwner(historyOwner);
+      if (!active.current) return;
       // Download PDF
       const pdfBlob = new Blob([artifacts.pdfBytes as BlobPart], { type: "application/pdf" });
       const pdfUrl = URL.createObjectURL(pdfBlob);
       const a1 = document.createElement("a");
       a1.href = pdfUrl; a1.download = artifacts.pdfFilename;
       document.body.appendChild(a1); a1.click(); document.body.removeChild(a1);
-      URL.revokeObjectURL(pdfUrl);
+      setTimeout(() => URL.revokeObjectURL(pdfUrl), 1000);
       // Download XML
       const xmlBlob = new Blob([artifacts.xml], { type: "application/xml" });
       const xmlUrl = URL.createObjectURL(xmlBlob);
       const a2 = document.createElement("a");
       a2.href = xmlUrl; a2.download = artifacts.xmlFilename;
       document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
-      URL.revokeObjectURL(xmlUrl);
+      setTimeout(() => URL.revokeObjectURL(xmlUrl), 1000);
       // Sauvegarde historique (silencieux si non-auth)
-      void saveToHistory(inv, template, historyOwner).catch(() => setErrors([tHist("saveError")]));
+      void saveToHistory(inv, template, historyOwner).catch(() => { if (active.current) setErrors([tHist("saveError")]); });
       track("facturation_generated", {
         template,
         currency: inv.currency,
@@ -210,9 +244,11 @@ export default function EmissionPage() {
       setSuccess(t("successMsg"));
     } catch (e) {
       captureError(e, { module: "facturation", action: "generate", template, profile: inv.profile });
-      setErrors([(e as Error).message]);
+      if (active.current) setErrors([(e as Error).message]);
+    } finally {
+      operation.current = false;
+      if (active.current) setGenerating(false);
     }
-    setGenerating(false);
   };
 
   const vatRates = inv.seller.country_code === "LU"
@@ -221,6 +257,7 @@ export default function EmissionPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6">
+      <fieldset disabled={generating} className="min-w-0">
       <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <Link href={`${lp}/facturation`} className="text-xs text-muted hover:text-navy">← {t("backLanding")}</Link>
@@ -239,6 +276,8 @@ export default function EmissionPage() {
         </div>
       </div>
 
+      {storageError && <div role="alert" className="mb-4 rounded border border-rose-300 bg-rose-50 p-4 text-rose-900">{storageError} <button type="button" onClick={backupDraft} className="underline">{td("backup")}</button></div>}
+      {legacy && <div className="mb-4 rounded border border-amber-300 bg-amber-50 p-4 text-amber-950">{td("legacy")} <button type="button" onClick={restoreLegacy} className="underline">{td("restore")}</button></div>}
       {!totals && <p role="alert" className="mb-4 text-sm text-red-700">{t("calculationError")}</p>}
       {/* Template selector */}
       <div className="mb-5 rounded-xl border border-card-border bg-card p-4">
@@ -453,6 +492,7 @@ export default function EmissionPage() {
           </div>
         </aside>
       </div>
+      </fieldset>
     </div>
   );
 }

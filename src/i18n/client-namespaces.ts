@@ -94,6 +94,7 @@ export const CLIENT_NAMESPACES = [
   "hvacScenarioAudit",
   "inspectionTegova",
   "invitation",
+  "invoiceDraft",
   "latePayment",
   "lenozThresholdAudit",
   "liensPartages",

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { storeInvoiceDraft } from "@/lib/facturation/draft";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { listHistory, deleteHistoryEntry, assertHistoryOwner, type FacturXHistoryEntry } from "@/lib/facturation/history";
@@ -59,7 +60,7 @@ function HistoryContent({ userId }: { userId: string }) {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
   const editEntry = (e: FacturXHistoryEntry) => perform(async () => {
-    localStorage.setItem("tevaxia-facturation-draft", JSON.stringify(e.invoice_data));
+    storeInvoiceDraft(e.invoice_data, userId);
     window.location.href = `${lp}/facturation/emission`;
   });
   const remove = (e: FacturXHistoryEntry) => perform(async () => {
