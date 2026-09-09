@@ -890,3 +890,14 @@ Validation : suite 1 364 tests / 130 fichiers réussie, quatre tests PDF ciblés
 Références : https://fnfe-mpe.org/factur-x/implementer-factur-x/ ; https://github.com/ZUGFeRD/mustangproject/releases/tag/core-2.26.0 ; https://www.impots.gouv.fr/facturation-electronique-et-plateformes-agreees ; https://guichet.public.lu/fr/entreprises/gestion-juridique-comptabilite/marche-public-concession/facturation/emission-facture-electronique-marche-public-contrat-concession.html.
 
 Arrondis 062bfdb publiés : CI 34412816970 réussie ; dpl_22pXmA9ACUE455odp9PJPPPTBX7s Ready, cinq langues contrôlées sur la production.
+
+
+## 10 septembre — historique de facturation et sauvegarde complète
+
+Lecture par pages avec curseur d’identifiant, filtre explicite user_id et contrôle du compte avant/après les requêtes. Les limites 200/500 deviennent des tailles de pages ; aucun résultat partiel n’est présenté comme complet en cas d’erreur. La sauvegarde ZIP utilise l’utilisateur de son contexte. Une limite opérationnelle de 100 000 entrées entraîne une erreur explicite, pas une troncature. La lecture n’est pas un snapshot transactionnel si les données changent simultanément.
+
+Enregistrement lié au compte capturé avant la génération ; un document commencé anonymement n’est pas enregistré dans un compte connecté plus tard. Échec de sauvegarde signalé. Suppression filtrée par propriétaire et identifiant, avec vérification d’une ligne réellement supprimée. L’historique est remonté séparément pour chaque utilisateur : annulation des anciennes lectures, erreurs visibles avec reprise, actions mutuellement verrouillées, erreur PDF gérée, contrôle d’identité après génération, URL de téléchargement libérée après délai. Montants localisés, dates civiles sans décalage de fuseau, entête mobile et libellés accessibles améliorés.
+
+Sept tests service nouveaux ; suite 1 371 tests / 131 fichiers réussie, lint sans erreur et build réussi. Cinq langues en navigateur isolé : lecture en échec puis reprise, absence de faux historique vide, double clic PDF et erreur, annulation/échec de suppression, isolation au changement de compte et déconnexion. Les services de ces scénarios sont simulés : aucune donnée client modifiée. Les politiques RLS réelles et l’ancien brouillon local partagé restent hors de cette validation.
+
+PDF 6daf17b publié : CI 34415552734 réussie ; dpl_99ovP9AWSk55MSypRvWke8uSaxup Ready. Page facturation, métadonnées/liens, quatre largeurs et interactions de calcul vérifiées en production dans les cinq langues.

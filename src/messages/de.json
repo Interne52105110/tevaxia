@@ -12652,7 +12652,11 @@
         "delete": "Löschen"
       },
       "hintTitle": "Originale aufbewahren",
-      "hintBody": "Ein neu erzeugtes Dokument ist eine neue Kopie gespeicherter Daten, kein ausgestelltes oder signiertes Original. Bewahren Sie geprüfte und versandte Originale separat auf."
+      "hintBody": "Ein neu erzeugtes Dokument ist eine neue Kopie gespeicherter Daten, kein ausgestelltes oder signiertes Original. Bewahren Sie geprüfte und versandte Originale separat auf.",
+      "loadError": "Der Verlauf konnte nicht geladen werden. Bitte erneut versuchen.",
+      "actionError": "Der Vorgang ist fehlgeschlagen oder das Konto hat sich geändert. Bitte erneut versuchen.",
+      "retry": "Erneut versuchen",
+      "saveError": "Die Dateien sind vorbereitet, konnten aber nicht im Verlauf gespeichert werden."
     }
   },
   "syndicContextBar": {

@@ -12652,7 +12652,11 @@
         "delete": "Läschen"
       },
       "hintTitle": "Originaler behalen",
-      "hintBody": "E nei generéiert Dokument ass eng nei Kopie vu gespäicherten Donnéeën, keen ausgestallt oder ënnerschriwwent Original. Haalt validéiert a verschéckten Originaler separat."
+      "hintBody": "E nei generéiert Dokument ass eng nei Kopie vu gespäicherten Donnéeën, keen ausgestallt oder ënnerschriwwent Original. Haalt validéiert a verschéckten Originaler separat.",
+      "loadError": "Den Historique konnt net geluede ginn. Probéiert nach eng Kéier.",
+      "actionError": "D’Aktioun ass feelgeschloen oder de Kont huet geännert. Probéiert nach eng Kéier.",
+      "retry": "Nach eng Kéier probéieren",
+      "saveError": "D’Dateie si virbereet, mee konnten net am Historique gespäichert ginn."
     }
   },
   "syndicContextBar": {

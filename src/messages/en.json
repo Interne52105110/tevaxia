@@ -12774,7 +12774,11 @@
         "delete": "Delete"
       },
       "hintTitle": "Keeping originals",
-      "hintBody": "A regenerated document is a new copy of saved data, not the issued or signed original. Keep your validated and sent originals separately."
+      "hintBody": "A regenerated document is a new copy of saved data, not the issued or signed original. Keep your validated and sent originals separately.",
+      "loadError": "History could not be loaded. Please retry.",
+      "actionError": "The operation failed or the account changed. Please retry.",
+      "retry": "Retry",
+      "saveError": "The files are prepared, but saving to history failed."
     }
   },
   "syndicContextBar": {

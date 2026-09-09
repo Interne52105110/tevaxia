@@ -12652,7 +12652,11 @@
         "delete": "Eliminar"
       },
       "hintTitle": "Conservação dos originais",
-      "hintBody": "Um documento regenerado é uma nova cópia dos dados guardados, não o original emitido ou assinado. Conserve separadamente os originais validados e enviados."
+      "hintBody": "Um documento regenerado é uma nova cópia dos dados guardados, não o original emitido ou assinado. Conserve separadamente os originais validados e enviados.",
+      "loadError": "Não foi possível carregar o histórico. Tente novamente.",
+      "actionError": "A operação falhou ou a conta mudou. Tente novamente.",
+      "retry": "Tentar novamente",
+      "saveError": "Os ficheiros estão preparados, mas não foi possível guardá-los no histórico."
     }
   },
   "syndicContextBar": {

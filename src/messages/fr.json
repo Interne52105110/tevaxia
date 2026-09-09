@@ -12774,7 +12774,11 @@
         "delete": "Supprimer"
       },
       "hintTitle": "Conservation des originaux",
-      "hintBody": "Un document régénéré est une nouvelle copie des données enregistrées, pas l’original émis ou signé. Conservez séparément vos originaux validés et transmis."
+      "hintBody": "Un document régénéré est une nouvelle copie des données enregistrées, pas l’original émis ou signé. Conservez séparément vos originaux validés et transmis.",
+      "loadError": "Impossible de charger l’historique. Réessayez.",
+      "actionError": "L’opération a échoué ou le compte a changé. Réessayez.",
+      "retry": "Réessayer",
+      "saveError": "Les fichiers sont préparés, mais la sauvegarde dans l’historique a échoué."
     }
   },
   "syndicContextBar": {

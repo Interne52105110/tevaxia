@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
+import { useAuth } from "@/components/AuthProvider";
 import { useLocale, useTranslations } from "next-intl";
 import { computeTotals, validateInvoice, formatInvoiceNumber, VAT_RATES_FR, VAT_RATES_LU, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
 import { saveToHistory } from "@/lib/facturation/history";
@@ -112,6 +113,7 @@ function defaultInvoice(): FacturXInvoice {
 
 export default function EmissionPage() {
   const t = useTranslations("facturation.emission");
+  const { user, loading: authLoading } = useAuth();
   const tHist = useTranslations("facturation.historique");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
@@ -167,6 +169,8 @@ export default function EmissionPage() {
   };
 
   const generate = async () => {
+    if (authLoading || generating) return;
+    const historyOwner = user?.id ?? null;
     if (!totals) { setErrors([t("calculationError")]); return; }
     const errs = validateInvoice(inv);
     if (errs.length) {
@@ -194,7 +198,7 @@ export default function EmissionPage() {
       document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
       URL.revokeObjectURL(xmlUrl);
       // Sauvegarde historique (silencieux si non-auth)
-      void saveToHistory(inv, template);
+      void saveToHistory(inv, template, historyOwner).catch(() => setErrors([tHist("saveError")]));
       track("facturation_generated", {
         template,
         currency: inv.currency,
