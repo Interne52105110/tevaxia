@@ -652,3 +652,14 @@ Green Key 80f0167 confirmé en production : CI34383215142 réussie, dpl_D142ZVm9
 - Vérification : 1 260 tests / 116 fichiers, ESLint ciblé, build production. Composant réel avec services simulés : cinq langues, montants inconnus/zéro, changements de groupe, création/doublon, suppression confirmée/annulée, erreurs/réessai et déconnexion. Parcours public et formulaire avec CSS réel sur quatre largeurs. Aucune mutation QA dans les comptes de production.
 
 La livraison précédente des périodes et PDF (3c1cc7c) est confirmée : CI 34386805577 réussie ; Vercel dpl_FfHVzmz5RDdgo1RXW3sPqem5prBi Ready sur tevaxia.lu ; parcours public vérifié dans les cinq langues.
+
+
+## Impayés hôteliers — calcul documenté des intérêts
+
+- Suppression du taux présumé de 12,5 %, des probabilités de recouvrement 95/80/55/30 %, du calendrier arbitraire présenté comme légal et des frais automatiques par palier.
+- Une facture à principal constant ; distinction entreprise/consommateur/pouvoir public ; principal taxes comprises, frais explicitement documentés saisis une fois. Aucune validation d’exigibilité ou de recouvrabilité, aucun envoi. Les paiements partiels/principaux variables restent hors périmètre.
+- Segments réels consécutifs, premier/dernier jour inclus, sans trou/chevauchement et chacun dans un semestre ; taux saisi et sourcé pour chaque segment. Base ACT/365 selon la formule Guichet, calcul entier en centimes et taux à quatre décimales, arrondi au centime par segment. Aucun taux 2026 appliqué par défaut.
+- Sources officielles consultées le 9 septembre 2026 : https://guichet.public.lu/fr/entreprises/gestion-juridique-comptabilite/facturation/encaissement/interets-retard.html et https://mj.gouvernement.lu/fr/service-citoyens/taux-interet-legal.html . Les conditions commerciales et consommateurs diffèrent ; le forfait commercial ne s’applique pas universellement.
+- Vérification : 1 266 tests / 117 fichiers ; exemple officiel 2 000 EUR, 12,5 %, 19 jours = 13,01 EUR ; année bissextile, deux taux, frais uniques, zéros, dates/trous/chevauchements et injection CSV. Build et lint ciblé réussis. Navigateur cinq langues/quatre largeurs : exemple, export, zéro/inconnu, changement de semestre et deux taux.
+
+Le groupe hôtelier (403e8cc) est confirmé en production : CI 34387445135 réussie, Vercel dpl_9nod77ZZ5o1dxiaGp9KPivAWA7v1 Ready, parcours public cinq langues vérifié.
