@@ -974,12 +974,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/hotellerie/dscr": [
     "aiChat",
     "backup",
+    "common",
     "cookie",
     "crmContextBar",
-    "hotellerieCalc",
+    "hotelCoverageEvidence",
     "hotellerieContextBar",
-    "hotellerieDscr",
-    "hotellerieToolPages",
     "nav",
     "pmsContextBar",
     "syndicContextBar"
