@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { fetchECBRatesClient, type ECBRates } from "@/lib/ecb-rates";
 import { OAT_10Y, TAUX_HYPOTHECAIRE, TAUX_DIRECTEUR_BCE, INFLATION } from "@/lib/macro-data";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
   Legend, ResponsiveContainer,
 } from "recharts";
-import SEOContent from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
@@ -25,82 +23,10 @@ import {
 } from "@/lib/calculations";
 import { PdfButton } from "@/components/PdfButton";
 const _lazy_generateBancairePdfBlob = async (...args: Parameters<typeof import("@/components/ToolsPdf")["generateBancairePdfBlob"]>): Promise<Blob> => (await import("@/components/ToolsPdf")).generateBancairePdfBlob(...args);
+import LoanOffers, {LoanRateSources} from "@/components/LoanOffers";
 import MortgageConditions from "@/components/MortgageConditions";
 
 type ActiveTab = "ltv" | "capacite" | "amortissement" | "dscr" | "cpe" | "remboursement" | "comparateur";
-
-/* ── Taux du marché luxembourgeois ─────────────────────────────── */
-const TAUX_MARCHE_LU = {
-  lastUpdate: "2026-04-01",
-  source: "BCL / Switchr.lu — taux moyens observés",
-  rates: [
-    { label: "fixedLabel10y", duree: 10, min: 2.85, max: 3.15 },
-    { label: "fixedLabel15y", duree: 15, min: 2.95, max: 3.25 },
-    { label: "fixedLabel20y", duree: 20, min: 3.05, max: 3.40 },
-    { label: "fixedLabel25y", duree: 25, min: 3.15, max: 3.55 },
-    { label: "variableLabel", duree: 0, min: 2.75, max: 3.05 },
-  ],
-  bclRefi: 3.65,
-  bclDeposit: 3.25,
-};
-
-function MarketRatesBox({ onSelectRate }: { onSelectRate?: (midpoint: number, duree: number) => void }) {
-  const t = useTranslations("outilsBancaires");
-  const [ecb, setEcb] = useState<ECBRates | null>(null);
-
-  useEffect(() => {
-    fetchECBRatesClient().then(setEcb);
-  }, []);
-
-  const bceRefi = ecb?.mainRefi ?? TAUX_MARCHE_LU.bclRefi;
-  const bceDeposit = ecb?.depositFacility ?? TAUX_MARCHE_LU.bclDeposit;
-  const bceDate = ecb?.lastUpdate ?? TAUX_MARCHE_LU.lastUpdate;
-  const isLive = ecb?.live ?? false;
-
-  return (
-    <div className="mt-4 rounded-lg bg-navy/5 p-3">
-      <div className="text-xs font-semibold text-navy mb-2">{t("tauxMarcheTitle")}</div>
-      <div className="space-y-1">
-        {TAUX_MARCHE_LU.rates.map((r) => {
-          const mid = Math.round(((r.min + r.max) / 2) * 100) / 100;
-          return (
-            <button
-              key={r.label}
-              type="button"
-              onClick={() => onSelectRate?.(mid, r.duree)}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-xs hover:bg-navy/10 transition-colors cursor-pointer"
-            >
-              <span className="text-muted">{t(r.label)}</span>
-              <span className="font-mono text-navy">{r.min.toFixed(2)} — {r.max.toFixed(2)} %</span>
-            </button>
-          );
-        })}
-      </div>
-      <div className="mt-2 border-t border-navy/10 pt-2 text-[11px] text-muted space-y-0.5">
-        <div className="flex justify-between">
-          <span>{t("tauxDirecteurBCE")}</span>
-          <span className="font-mono text-navy">{bceRefi.toFixed(2)} %</span>
-        </div>
-        <div className="flex justify-between">
-          <span>{t("tauxDepotBCE")}</span>
-          <span className="font-mono text-navy">{bceDeposit.toFixed(2)} %</span>
-        </div>
-        {isLive && (
-          <div className="flex items-center gap-1 mt-1">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-500" />
-            <span className="text-[10px] text-green-700">{t("tauxLive")}</span>
-          </div>
-        )}
-      </div>
-      <p className="mt-2 text-[10px] text-muted">{t("tauxMarcheSource")}</p>
-      <p className="text-[10px] text-muted">{t("tauxMarcheDate", { date: bceDate })}</p>
-      <p className="text-[10px] text-muted italic">{t("tauxNote")}</p>
-      {onSelectRate && (
-        <p className="mt-1 text-[10px] text-navy/60 font-medium">{t("tauxClickHint")}</p>
-      )}
-    </div>
-  );
-}
 
 function TabLTV() {
   const t = useTranslations("outilsBancaires");
@@ -217,12 +143,7 @@ function TabCapacite() {
           <InputField label={t("loanDuration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
           <InputField label={t("remainingBalanceInsurance")} value={tauxAssurance} onChange={(v) => setTauxAssurance(Number(v))} suffix={t("pctCapital")} step={0.05} hint={t("remainingBalanceInsuranceHint")} />
         </div>
-        <MarketRatesBox
-          onSelectRate={(mid, dureeRate) => {
-            setTauxInteret(mid);
-            if (dureeRate > 0) setDuree(dureeRate);
-          }}
-        />
+        <LoanRateSources />
       </div>
       <div className="space-y-6">
         <ResultPanel
@@ -281,12 +202,7 @@ function TabAmortissement() {
             <InputField label={t("annualInterestRate")} value={taux} onChange={(v) => setTaux(Number(v))} suffix="%" step={0.1} />
             <InputField label={t("duration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
           </div>
-          <MarketRatesBox
-            onSelectRate={(mid, dureeRate) => {
-              setTaux(mid);
-              if (dureeRate > 0) setDuree(dureeRate);
-            }}
-          />
+          <LoanRateSources />
         </div>
         <ResultPanel
           title={t("summary")}
@@ -404,167 +320,6 @@ function TabDSCR() {
   );
 }
 
-interface OffreBancaire {
-  nom: string;
-  taux: number;
-  duree: number;
-  assuranceSRD: number; // % capital
-  fraisDossier: number; // € forfait
-}
-
-function TabComparateur() {
-  const _t = useTranslations("outilsBancaires");
-  const [capital, setCapital] = useState(600000);
-  const [offres, setOffres] = useState<OffreBancaire[]>([
-    { nom: "Spuerkeess", taux: 3.10, duree: 25, assuranceSRD: 0.30, fraisDossier: 1500 },
-    { nom: "BIL", taux: 3.25, duree: 25, assuranceSRD: 0.28, fraisDossier: 1200 },
-    { nom: "BGL BNP", taux: 3.20, duree: 25, assuranceSRD: 0.32, fraisDossier: 1800 },
-  ]);
-
-  const updateOffre = (index: number, field: keyof OffreBancaire, value: string | number) => {
-    setOffres((prev) => {
-      const next = [...prev];
-      next[index] = { ...next[index], [field]: typeof next[index][field] === "number" ? Number(value) : value };
-      return next;
-    });
-  };
-
-  const resultats = useMemo(() => {
-    return offres.map((o) => {
-      const mensualite = calculerMensualite(capital, o.taux / 100, o.duree);
-      const assuranceMensuelle = capital * (o.assuranceSRD / 100) / 12;
-      const mensualiteTotal = mensualite + assuranceMensuelle;
-      const totalInterets = mensualite * o.duree * 12 - capital;
-      const totalAssurance = assuranceMensuelle * o.duree * 12;
-      const coutTotal = capital + totalInterets + totalAssurance + o.fraisDossier;
-      const tauxEffectifGlobal = totalInterets / capital * 100 / o.duree;
-      return { ...o, mensualite, assuranceMensuelle, mensualiteTotal, totalInterets, totalAssurance, coutTotal, tauxEffectifGlobal };
-    });
-  }, [offres, capital]);
-
-  // Find best offer (lowest total cost)
-  const bestIdx = resultats.reduce((bestI, r, i, arr) => (r.coutTotal < arr[bestI].coutTotal ? i : bestI), 0);
-
-  return (
-    <div className="space-y-6">
-      <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-base font-semibold text-navy">Capital à emprunter</h2>
-        <InputField label="Montant du prêt" value={capital} onChange={(v) => setCapital(Number(v))} suffix="€" />
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-3">
-        {offres.map((o, i) => (
-          <div key={i} className={`rounded-xl border p-5 ${i === bestIdx ? "border-emerald-400 bg-emerald-50" : "border-card-border bg-card"}`}>
-            <div className="flex items-center justify-between mb-3">
-              <input
-                type="text"
-                value={o.nom}
-                onChange={(e) => updateOffre(i, "nom", e.target.value)}
-                className="flex-1 rounded-lg border border-input-border bg-input-bg px-2 py-1 text-sm font-semibold text-navy"
-              />
-              {i === bestIdx && (
-                <span className="ml-2 shrink-0 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold text-white">
-                  MEILLEURE
-                </span>
-              )}
-            </div>
-            <div className="space-y-2">
-              <InputField label="Taux annuel" value={o.taux} onChange={(v) => updateOffre(i, "taux", v)} suffix="%" step={0.05} />
-              <InputField label="Durée" value={o.duree} onChange={(v) => updateOffre(i, "duree", v)} suffix="ans" min={5} max={35} />
-              <InputField label="Assurance SRD" value={o.assuranceSRD} onChange={(v) => updateOffre(i, "assuranceSRD", v)} suffix="% capital" step={0.05} />
-              <InputField label="Frais de dossier" value={o.fraisDossier} onChange={(v) => updateOffre(i, "fraisDossier", v)} suffix="€" />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Comparison table */}
-      <div className="rounded-xl border border-card-border bg-card overflow-hidden">
-        <div className="p-5 pb-3">
-          <h3 className="text-base font-semibold text-navy">Comparaison détaillée</h3>
-          <p className="mt-0.5 text-xs text-muted">Offre la moins chère mise en évidence. Basé sur coût total toutes charges comprises.</p>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-card-border bg-background">
-                <th className="px-3 py-2 text-left font-semibold text-navy">Indicateur</th>
-                {resultats.map((r, i) => (
-                  <th key={i} className={`px-3 py-2 text-right font-semibold ${i === bestIdx ? "text-emerald-800" : "text-navy"}`}>
-                    {r.nom}
-                    {i === bestIdx && <span className="ml-1 text-[9px]">✓</span>}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-card-border/40">
-                <td className="px-3 py-2 text-muted">Mensualité crédit</td>
-                {resultats.map((r, i) => (
-                  <td key={i} className="px-3 py-2 text-right font-mono">{formatEUR2(r.mensualite)}</td>
-                ))}
-              </tr>
-              <tr className="border-b border-card-border/40">
-                <td className="px-3 py-2 text-muted">Assurance SRD</td>
-                {resultats.map((r, i) => (
-                  <td key={i} className="px-3 py-2 text-right font-mono">{formatEUR2(r.assuranceMensuelle)}</td>
-                ))}
-              </tr>
-              <tr className="border-b border-card-border/40 bg-background/50">
-                <td className="px-3 py-2 font-semibold">Mensualité TOTALE</td>
-                {resultats.map((r, i) => (
-                  <td key={i} className={`px-3 py-2 text-right font-mono font-semibold ${i === bestIdx ? "text-emerald-700" : "text-navy"}`}>
-                    {formatEUR2(r.mensualiteTotal)}
-                  </td>
-                ))}
-              </tr>
-              <tr className="border-b border-card-border/40">
-                <td className="px-3 py-2 text-muted">Total intérêts</td>
-                {resultats.map((r, i) => (
-                  <td key={i} className="px-3 py-2 text-right font-mono text-muted">{formatEUR(r.totalInterets)}</td>
-                ))}
-              </tr>
-              <tr className="border-b border-card-border/40">
-                <td className="px-3 py-2 text-muted">Total assurance</td>
-                {resultats.map((r, i) => (
-                  <td key={i} className="px-3 py-2 text-right font-mono text-muted">{formatEUR(r.totalAssurance)}</td>
-                ))}
-              </tr>
-              <tr className="border-b border-card-border/40">
-                <td className="px-3 py-2 text-muted">Frais de dossier</td>
-                {resultats.map((r, i) => (
-                  <td key={i} className="px-3 py-2 text-right font-mono text-muted">{formatEUR(r.fraisDossier)}</td>
-                ))}
-              </tr>
-              <tr className="border-t-2 border-navy bg-navy/5">
-                <td className="px-3 py-3 font-semibold text-navy">COÛT TOTAL CRÉDIT</td>
-                {resultats.map((r, i) => {
-                  const diff = r.coutTotal - resultats[bestIdx].coutTotal;
-                  return (
-                    <td key={i} className={`px-3 py-3 text-right font-mono font-bold ${i === bestIdx ? "text-emerald-800" : "text-navy"}`}>
-                      {formatEUR(r.coutTotal)}
-                      {i !== bestIdx && diff > 0 && (
-                        <div className="text-[9px] font-normal text-rose-700">+{formatEUR(diff)}</div>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
-        <strong>Méthodologie :</strong> le coût total inclut le capital remboursé, les intérêts, l&apos;assurance
-        solde restant dû et les frais de dossier. Au Luxembourg, l&apos;assurance SRD est obligatoire. Les taux
-        indicatifs sont ceux du marché LU T1 2026 (Spuerkeess/BIL/BGL). Négociez votre taux personnel selon
-        votre profil (revenus, LTV, apport, relation bancaire).
-      </div>
-    </div>
-  );
-}
-
 function TabRemboursement() {
   const t = useTranslations("outilsBancaires");
   const [capital, setCapital] = useState(600000);
@@ -603,12 +358,7 @@ function TabRemboursement() {
             <InputField label={t("annualInterestRate")} value={taux} onChange={(v) => setTaux(Number(v))} suffix="%" step={0.1} />
             <InputField label={t("duration")} value={duree} onChange={(v) => setDuree(Number(v))} suffix={t("years")} min={5} max={35} />
           </div>
-          <MarketRatesBox
-            onSelectRate={(mid, dureeRate) => {
-              setTaux(mid);
-              if (dureeRate > 0) setDuree(dureeRate);
-            }}
-          />
+          <LoanRateSources />
         </div>
 
         <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
@@ -839,7 +589,7 @@ export default function OutilsBancaires() {
         {activeTab === "dscr" && <TabDSCR />}
         {activeTab === "cpe" && <MortgageConditions />}
         {activeTab === "remboursement" && <TabRemboursement />}
-        {activeTab === "comparateur" && <TabComparateur />}
+        {activeTab === "comparateur" && <LoanOffers />}
 
         {/* Historique taux BCE / OAT / hypothécaire */}
         <RatesHistoryChart />
@@ -847,28 +597,7 @@ export default function OutilsBancaires() {
         <RelatedTools keys={["achatLocation", "frais", "aides", "estimation"]} />
       </div>
 
-      <SEOContent
-        ns="outilsBancaires"
-        sections={[
-          { titleKey: "creditTitle", contentKey: "creditContent" },
-          { titleKey: "ltvTitle", contentKey: "ltvContent" },
-          { titleKey: "capaciteTitle", contentKey: "capaciteContent" },
-          { titleKey: "amortissementTitle", contentKey: "amortissementContent" },
-          { titleKey: "dscrTitle", contentKey: "dscrContent" },
-        ]}
-        faq={[
-          { questionKey: "faq1Q", answerKey: "faq1A" },
-          { questionKey: "faq2Q", answerKey: "faq2A" },
-          { questionKey: "faq3Q", answerKey: "faq3A" },
-          { questionKey: "faq4Q", answerKey: "faq4A" },
-          { questionKey: "faq5Q", answerKey: "faq5A" },
-        ]}
-        relatedLinks={[
-          { href: "/achat-vs-location", labelKey: "achatLocation" },
-          { href: "/simulateur-aides", labelKey: "aides" },
-          { href: "/frais-acquisition", labelKey: "frais" },
-        ]}
-      />
+
     </div>
   );
 }

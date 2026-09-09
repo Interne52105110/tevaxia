@@ -93,6 +93,7 @@ export const CLIENT_NAMESPACES = [
   "inspectionTegova",
   "invitation",
   "liensPartages",
+  "loanOffersAudit",
   "marche",
   "marcheForecast",
   "mesEvaluations",

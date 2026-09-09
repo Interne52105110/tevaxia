@@ -1,0 +1,18 @@
+"use client";
+import {useState} from 'react';
+import {useLocale,useTranslations} from 'next-intl';
+import {compareLoanOffers,LOAN_OFFER_EXAMPLE,type LoanOffer} from '@/lib/loan-offers';
+export function LoanRateSources(){const t=useTranslations('loanOffersAudit');return <div className="mt-4 space-y-2 rounded-lg border border-card-border p-4 text-sm text-muted"><p>{t('ratesNote')}</p><a className="block text-energy underline" href="https://www.bcl.lu/fr/statistiques/series_statistiques_luxembourg/03_marche_capitaux_interets/index.html">{t('ratesSource')}</a></div>}
+export default function LoanOffers(){
+ const t=useTranslations('loanOffersAudit'),locale=useLocale();const [capital,setCapital]=useState(600000);const [offers,setOffers]=useState<LoanOffer[]>(()=>Array.from({length:3},()=>({...LOAN_OFFER_EXAMPLE})));
+ let comparison=null;try{comparison=compareLoanOffers(capital,offers)}catch{/* Hide incomplete results. */}
+ const money=(n:number)=>new Intl.NumberFormat(locale==='lb'?'de-DE':locale,{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(n);
+ const inputClass='mt-1.5 w-full min-w-0 rounded-lg border border-input-border bg-input-bg px-3 py-2.5';
+ return <section id="loan-offers" className="space-y-5"><h2 className="text-lg font-semibold">{t('title')}</h2><p className="text-sm text-muted">{t('intro')}</p><p className="text-sm text-muted">{t('example')}</p>
+ <label className="block max-w-md text-sm">{t('capital')}<input id="offer-capital" className={inputClass} type="number" min={1} max={1e12} value={Number.isNaN(capital)?'':capital} onChange={e=>setCapital(e.target.valueAsNumber)}/></label>
+ <div className="grid gap-4 lg:grid-cols-3">{offers.map((offer,i)=><div key={i} className="min-w-0 rounded-xl border border-card-border bg-card p-5"><h3 className="mb-3 font-semibold">{t('offer')} {i+1}</h3><div className="space-y-3">{(Object.keys(LOAN_OFFER_EXAMPLE) as (keyof LoanOffer)[]).map(key=><label key={key} className="block text-sm">{t(key)}<input id={'offer-'+i+'-'+key} className={inputClass} type="number" step={key==='years'?1:'any'} min={key==='years'?1:0} max={key==='years'?50:key==='rate'?30:1e9} value={Number.isNaN(offer[key])?'':offer[key]} onChange={e=>setOffers(offers.map((o,j)=>i===j?{...o,[key]:e.target.valueAsNumber}:o))}/></label>)}</div></div>)}</div>
+ {!comparison&&<p role="alert" className="text-red-700">{t('invalid')}</p>}
+ {comparison&&<div id="offer-results" className="space-y-4"><p className="text-sm text-muted">{t(comparison.sameTerm?'rankingNote':'differentTerms')}</p><div className="overflow-x-auto rounded-xl border border-card-border"><table className="w-full text-sm"><thead><tr><th className="p-3 text-left">{t('indicator')}</th>{offers.map((_,i)=><th key={i} className="p-3 text-right">{t('offer')} {i+1}{comparison.lowest.includes(i)&&<span className="block text-xs text-energy">{t('lowest')}</span>}</th>)}</tr></thead><tbody>{(['monthlyLoan','monthlyOutflow','upfront','interest','insurance','fees','cost','total'] as const).map(key=><tr key={key} className="border-t border-card-border"><th className="p-3 text-left font-medium">{t(key)}</th>{comparison.results.map((r,i)=><td id={'offer-'+i+'-'+key} key={i} className="whitespace-nowrap p-3 text-right">{money(r[key])}</td>)}</tr>)}</tbody></table></div></div>}
+ <div className="space-y-3 rounded-xl border border-card-border p-5 text-sm text-muted"><h3 className="font-semibold">{t('method')}</h3><p>{t('formula')}</p><p>{t('insuranceNote')}</p><p>{t('limits')}</p><a className="block text-energy underline" href="https://logement.public.lu/fr/proprietaire/fiscalit/assurance-solde-restant-du.html">{t('insuranceSource')}</a></div><LoanRateSources/>
+ </section>;
+}
