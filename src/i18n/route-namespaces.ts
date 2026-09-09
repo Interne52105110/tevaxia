@@ -1093,11 +1093,12 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/hotellerie/observatoire-lu": [
     "aiChat",
     "backup",
+    "common",
     "cookie",
     "crmContextBar",
+    "hotelTourismEvidence",
     "hotellerieContextBar",
     "nav",
-    "observatoireHotellerie",
     "pmsContextBar",
     "syndicContextBar"
   ],

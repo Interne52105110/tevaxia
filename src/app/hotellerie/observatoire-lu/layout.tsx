@@ -1,19 +1,4 @@
 import type { Metadata } from "next";
 import { localizedAlternates } from "@/lib/seo";
-
-export const metadata: Metadata = {
-  title: "Observatoire hôtelier Luxembourg — Occupation, RevPAR, ADR",
-  description:
-    "Données publiques STATEC + Eurostat + STR EMEA : nuitées, occupation, RevPAR national par catégorie d'hôtel (1-2★ à 5★), saisonnalité, provenance des clients. Alternative gratuite aux panels payants STR Global / Horwath.",
-  openGraph: {
-    title: "Observatoire hôtelier LU — données publiques gratuites",
-    description:
-      "Occupation, RevPAR, ADR par catégorie. STATEC + Eurostat + STR EMEA.",
-    type: "website",
-  },
-  alternates: localizedAlternates("/hotellerie/observatoire-lu", "fr"),
-};
-
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
-}
+export const metadata:Metadata={title:"Fréquentation hôtelière au Luxembourg — Eurostat | Tevaxia",description:"Séries mensuelles officielles pour le Luxembourg : hôtels et hébergements similaires (NACE I55.1), résidents et non-résidents réunis. Les données nationales ne décrivent ni un hôtel particulier ni une catégorie d’étoiles.",alternates:localizedAlternates("/hotellerie/observatoire-lu","fr")};
+export default function Layout({children}:{children:React.ReactNode}){return children;}

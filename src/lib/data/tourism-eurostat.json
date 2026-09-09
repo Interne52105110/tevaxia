@@ -1,0 +1,285 @@
+{
+  "sources": {
+    "nights": {
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tour_occ_nim?geo=LU&nace_r2=I551&c_resid=TOTAL&unit=NR&sinceTimePeriod=2023-01&lang=EN",
+      "updated": "2026-08-31T23:00:00+0200",
+      "retrieved": "2026-09-09",
+      "file": "eurostat-tourism-nights-2026-09-09.json",
+      "sha256": "4c85c8e8c6637cf8922190df01161f30d2a1f10f7dc26f4fa3240f20dc32f5bd"
+    },
+    "arrivals": {
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tour_occ_arm?geo=LU&nace_r2=I551&c_resid=TOTAL&unit=NR&sinceTimePeriod=2023-01&lang=EN",
+      "updated": "2026-08-31T23:00:00+0200",
+      "retrieved": "2026-09-09",
+      "file": "eurostat-tourism-arrivals-2026-09-09.json",
+      "sha256": "96384958f0d048cf416d77b3b0b60dcfe2a6aff4bf3e5f99ad31de1eccd1f0fa"
+    },
+    "rooms": {
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tour_occ_mnor?geo=LU&accomunit=BEDRM&unit=PC&sinceTimePeriod=2023-01&lang=EN",
+      "updated": "2026-08-31T23:00:00+0200",
+      "retrieved": "2026-09-09",
+      "file": "eurostat-tourism-rooms-2026-09-09.json",
+      "sha256": "72ab642cf9d40348be6f371abb93300c914b2f7b975b927b3d129d338a508343"
+    }
+  },
+  "rows": [
+    {
+      "period": "2023-01",
+      "nights": 106284,
+      "arrivals": 57791,
+      "roomOccupancyPct": 33.04
+    },
+    {
+      "period": "2023-02",
+      "nights": 111809,
+      "arrivals": 61364,
+      "roomOccupancyPct": 36.09
+    },
+    {
+      "period": "2023-03",
+      "nights": 138281,
+      "arrivals": 75681,
+      "roomOccupancyPct": 35.84
+    },
+    {
+      "period": "2023-04",
+      "nights": 167263,
+      "arrivals": 90212,
+      "roomOccupancyPct": 44.02
+    },
+    {
+      "period": "2023-05",
+      "nights": 168829,
+      "arrivals": 92630,
+      "roomOccupancyPct": 44.41
+    },
+    {
+      "period": "2023-06",
+      "nights": 175114,
+      "arrivals": 94471,
+      "roomOccupancyPct": 47.3
+    },
+    {
+      "period": "2023-07",
+      "nights": 195007,
+      "arrivals": 111848,
+      "roomOccupancyPct": 50.47
+    },
+    {
+      "period": "2023-08",
+      "nights": 189574,
+      "arrivals": 105734,
+      "roomOccupancyPct": 47.94
+    },
+    {
+      "period": "2023-09",
+      "nights": 177970,
+      "arrivals": 96901,
+      "roomOccupancyPct": 50.06
+    },
+    {
+      "period": "2023-10",
+      "nights": 181693,
+      "arrivals": 95215,
+      "roomOccupancyPct": 45.96
+    },
+    {
+      "period": "2023-11",
+      "nights": 145918,
+      "arrivals": 78350,
+      "roomOccupancyPct": 38.77
+    },
+    {
+      "period": "2023-12",
+      "nights": 141504,
+      "arrivals": 80250,
+      "roomOccupancyPct": 36.79
+    },
+    {
+      "period": "2024-01",
+      "nights": 110600,
+      "arrivals": 60724,
+      "roomOccupancyPct": 30.63
+    },
+    {
+      "period": "2024-02",
+      "nights": 125260,
+      "arrivals": 68527,
+      "roomOccupancyPct": 34.55
+    },
+    {
+      "period": "2024-03",
+      "nights": 143968,
+      "arrivals": 80315,
+      "roomOccupancyPct": 33.32
+    },
+    {
+      "period": "2024-04",
+      "nights": 161231,
+      "arrivals": 87574,
+      "roomOccupancyPct": 42.62
+    },
+    {
+      "period": "2024-05",
+      "nights": 194893,
+      "arrivals": 106318,
+      "roomOccupancyPct": 47.63
+    },
+    {
+      "period": "2024-06",
+      "nights": 194020,
+      "arrivals": 105429,
+      "roomOccupancyPct": 46.65
+    },
+    {
+      "period": "2024-07",
+      "nights": 199109,
+      "arrivals": 112054,
+      "roomOccupancyPct": 49.11
+    },
+    {
+      "period": "2024-08",
+      "nights": 210460,
+      "arrivals": 118535,
+      "roomOccupancyPct": 54.7
+    },
+    {
+      "period": "2024-09",
+      "nights": 183105,
+      "arrivals": 95755,
+      "roomOccupancyPct": 46.47
+    },
+    {
+      "period": "2024-10",
+      "nights": 177871,
+      "arrivals": 97803,
+      "roomOccupancyPct": 42.22
+    },
+    {
+      "period": "2024-11",
+      "nights": 163084,
+      "arrivals": 87436,
+      "roomOccupancyPct": 40.24
+    },
+    {
+      "period": "2024-12",
+      "nights": 161739,
+      "arrivals": 92315,
+      "roomOccupancyPct": 40.03
+    },
+    {
+      "period": "2025-01",
+      "nights": 125013,
+      "arrivals": 67275,
+      "roomOccupancyPct": 31.84
+    },
+    {
+      "period": "2025-02",
+      "nights": 127230,
+      "arrivals": 69391,
+      "roomOccupancyPct": 34.19
+    },
+    {
+      "period": "2025-03",
+      "nights": 150390,
+      "arrivals": 83623,
+      "roomOccupancyPct": 37.01
+    },
+    {
+      "period": "2025-04",
+      "nights": 168108,
+      "arrivals": 93875,
+      "roomOccupancyPct": 43.54
+    },
+    {
+      "period": "2025-05",
+      "nights": 181919,
+      "arrivals": 102231,
+      "roomOccupancyPct": 44.13
+    },
+    {
+      "period": "2025-06",
+      "nights": 184692,
+      "arrivals": 108703,
+      "roomOccupancyPct": 46.3
+    },
+    {
+      "period": "2025-07",
+      "nights": 213130,
+      "arrivals": 116098,
+      "roomOccupancyPct": 49.34
+    },
+    {
+      "period": "2025-08",
+      "nights": 201901,
+      "arrivals": 107471,
+      "roomOccupancyPct": 48.46
+    },
+    {
+      "period": "2025-09",
+      "nights": 177657,
+      "arrivals": 104360,
+      "roomOccupancyPct": 36.55
+    },
+    {
+      "period": "2025-10",
+      "nights": 173837,
+      "arrivals": 100783,
+      "roomOccupancyPct": 43.08
+    },
+    {
+      "period": "2025-11",
+      "nights": 152974,
+      "arrivals": 90259,
+      "roomOccupancyPct": 37.73
+    },
+    {
+      "period": "2025-12",
+      "nights": 163056,
+      "arrivals": 94247,
+      "roomOccupancyPct": 39.11
+    },
+    {
+      "period": "2026-01",
+      "nights": 116440,
+      "arrivals": 65625,
+      "roomOccupancyPct": 29.88
+    },
+    {
+      "period": "2026-02",
+      "nights": 120737,
+      "arrivals": 69630,
+      "roomOccupancyPct": 32.6
+    },
+    {
+      "period": "2026-03",
+      "nights": 145116,
+      "arrivals": 82752,
+      "roomOccupancyPct": 34.17
+    },
+    {
+      "period": "2026-04",
+      "nights": 172702,
+      "arrivals": 95701,
+      "roomOccupancyPct": 43.29
+    },
+    {
+      "period": "2026-05",
+      "nights": 178477,
+      "arrivals": 99132,
+      "roomOccupancyPct": 41.36
+    },
+    {
+      "period": "2026-06",
+      "nights": 172461,
+      "arrivals": 100244,
+      "roomOccupancyPct": 40.92
+    },
+    {
+      "period": "2026-07",
+      "nights": null,
+      "arrivals": null,
+      "roomOccupancyPct": null
+    }
+  ]
+}

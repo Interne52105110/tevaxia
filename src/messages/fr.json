@@ -7777,8 +7777,8 @@
     "miceDesc": "Revenu groupes corporate : RFP, conversion, F&B capture, location salle.",
     "esgTitle": "Certifications ESG Green Key",
     "esgDesc": "Pré-diagnostic Green Key 29 critères : éligibilité label, roadmap investissements.",
-    "observatoireTitle": "Observatoire hôtelier Luxembourg",
-    "observatoireDesc": "Données publiques STATEC + Eurostat + STR EMEA — occupation, nuitées, RevPAR national par catégorie. Alternative gratuite à STR Global / Horwath."
+    "observatoireTitle": "Fréquentation hôtelière au Luxembourg — Eurostat",
+    "observatoireDesc": "Séries mensuelles officielles pour le Luxembourg : hôtels et hébergements similaires (NACE I55.1), résidents et non-résidents réunis. Les données nationales ne décrivent ni un hôtel particulier ni une catégorie d’étoiles."
   },
   "hotellerieToolPages": {
     "backToHub": "Hub hôtellerie",
@@ -10754,23 +10754,23 @@
       "tools": [
         {
           "href": "/hotellerie/valorisation",
-          "title": "Valorisation hôtelière TEGOVA",
-          "description": "DCF + multiples EBITDA + prix par clé selon EVS 2025."
+          "title": "Valorisation hôtelière documentée",
+          "description": "Deux calculs distincts : capitalisation d’un revenu annuel justifié et comparaison de transactions par chambre. Aucun taux, prix par chambre ou poids entre méthodes n’est présumé."
         },
         {
           "href": "/hotellerie/dscr",
-          "title": "DSCR bancaire",
-          "description": "Capacité de financement et stress test taux."
+          "title": "Couverture de dette hôtelière documentée",
+          "description": "Prêt amortissable à taux fixe, échéances mensuelles et flux disponible annuel déclaré. Aucun seuil bancaire, refus de crédit ou scénario de baisse n’est présumé."
         },
         {
           "href": "/hotellerie/observatoire-lu",
-          "title": "Observatoire LU",
-          "description": "Données STATEC nuitées + indices RevPAR par région."
+          "title": "Fréquentation hôtelière au Luxembourg — Eurostat",
+          "description": "Séries mensuelles officielles pour le Luxembourg : hôtels et hébergements similaires (NACE I55.1), résidents et non-résidents réunis. Les données nationales ne décrivent ni un hôtel particulier ni une catégorie d’étoiles."
         },
         {
           "href": "/hotellerie/pre-acquisition",
-          "title": "Pré-acquisition",
-          "description": "Outil E-2 / marchand de biens hôteliers."
+          "title": "Pré-acquisition hôtelière documentée",
+          "description": "Analyse de trésorerie d’un projet d’acquisition. Aucun prix de marché, multiple sectoriel, croissance ou score d’achat n’est présumé. Chaque montant et chaque année nécessitent une justification."
         }
       ],
       "faq": [
@@ -11505,8 +11505,8 @@
         "desc": "Adaptatif HOTREC, forecast 7 j par courbe business."
       },
       "observatoireLu": {
-        "title": "Observatoire hôtelier LU",
-        "desc": "STATEC + Eurostat + STR EMEA, occupation/ADR/RevPAR trimestriels."
+        "title": "Fréquentation hôtelière au Luxembourg — Eurostat",
+        "desc": "Séries mensuelles officielles pour le Luxembourg : hôtels et hébergements similaires (NACE I55.1), résidents et non-résidents réunis. Les données nationales ne décrivent ni un hôtel particulier ni une catégorie d’étoiles."
       },
       "benchmark": {
         "title": "Benchmark groupe",
@@ -12808,7 +12808,7 @@
     "exploitation": "Bilan exploitation",
     "exploitationDesc": "Recettes et charges documentées, GOP, EBITDA avant réserve et indicateurs par chambre-nuit disponible.",
     "observatoire": "Observatoire LU",
-    "observatoireDesc": "Stats STATEC, pickup courbe, événements.",
+    "observatoireDesc": "Séries mensuelles officielles pour le Luxembourg : hôtels et hébergements similaires (NACE I55.1), résidents et non-résidents réunis. Les données nationales ne décrivent ni un hôtel particulier ni une catégorie d’étoiles.",
     "renovation": "Rénovation énergétique",
     "renovationDesc": "ROI + dossier MyEnergy.",
     "amlKyc": "AML / KYC",
@@ -12864,7 +12864,7 @@
     "forecast": "Revenue forecast",
     "forecastDesc": "Projection OTB + événements LU + pickup.",
     "observatoire": "Observatoire LU",
-    "observatoireDesc": "Tendances marché hôtelier LU.",
+    "observatoireDesc": "Séries mensuelles officielles pour le Luxembourg : hôtels et hébergements similaires (NACE I55.1), résidents et non-résidents réunis. Les données nationales ne décrivent ni un hôtel particulier ni une catégorie d’étoiles.",
     "pms": "PMS opérationnel",
     "pmsDesc": "Réservations, folios, check-in/out de tes propriétés."
   },
@@ -19383,5 +19383,30 @@
     "invalid": "Renseigner les dates, références et montants, y compris les zéros. Il faut au moins un hôtel concurrent, au plus un hôtel étudié ; ventes ≤ disponibilités ≤ chambres × jours. Des recettes positives sans nuitée vendue ne sont pas acceptées.",
     "importError": "Fichier incomplet ou incompatible : les données courantes restent conservées.",
     "storage": "Enregistrer le JSON pour reprendre après fermeture. Les sources saisies ne sont pas vérifiées automatiquement ; aucune donnée privée STR n’est fournie ni collectée par cette page."
+  },
+  "hotelTourismEvidence": {
+    "title": "Fréquentation hôtelière au Luxembourg — Eurostat",
+    "year": "Année",
+    "summary": "Totaux des mois publiés",
+    "nights": "Nuitées de personnes",
+    "arrivals": "Arrivées",
+    "changePct": "Variation sur les mêmes mois de N−1",
+    "monthly": "Observations mensuelles",
+    "period": "Mois",
+    "occupancy": "Occupation nette des chambres (%)",
+    "unavailable": "Non publié",
+    "csv": "Exporter CSV",
+    "sources": "Sources et dates",
+    "source_nights": "Eurostat tour_occ_nim : nuitées, hôtels et similaires",
+    "source_arrivals": "Eurostat tour_occ_arm : arrivées, hôtels et similaires",
+    "source_rooms": "Eurostat tour_occ_mnor : occupation nette des chambres",
+    "methodology": "Méthodologie Eurostat du tourisme",
+    "scope": "Séries mensuelles officielles pour le Luxembourg : hôtels et hébergements similaires (NACE I55.1), résidents et non-résidents réunis. Les données nationales ne décrivent ni un hôtel particulier ni une catégorie d’étoiles.",
+    "units": "Une nuitée compte une personne hébergée pendant une nuit ; ce n’est pas une chambre-nuitée vendue. Les arrivées comptent les arrivées dans les établissements, pas les visiteurs uniques du pays. Ces séries ne permettent pas de calculer un ADR ou un RevPAR.",
+    "totalsScope": "{months} mois avec nuitées publiées. Le total d’une année incomplète reste un cumul partiel ; les valeurs absentes ne sont pas remplacées par zéro.",
+    "changeScope": "La variation compare exactement les mois de nuitées disponibles avec les mêmes mois de l’année précédente. Elle reste indisponible si cette comparaison est incomplète. Aucun total partiel n’est comparé à une année entière.",
+    "occupancyScope": "L’occupation est la série mensuelle officielle des chambres (BEDRM), distincte de celle des lits. Aucune moyenne simple des taux mensuels n’est présentée comme taux annuel. Les mois absents restent non publiés.",
+    "sourceDates": "Mise à jour des séries : {updated}. Extraction conservée : {retrieved}.",
+    "limits": "Les publications peuvent être révisées. Aucune ventilation par étoiles, origine détaillée des visiteurs, estimation d’ADR ou prévision n’est reconstituée à partir de ces séries."
   }
 }

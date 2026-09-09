@@ -7777,8 +7777,8 @@
     "miceDesc": "Corporate group revenue: RFP, conversion, F&B capture, meeting-room rental.",
     "esgTitle": "Certifications ESG Green Key",
     "esgDesc": "Green Key pre-diagnostic over 29 criteria: label eligibility, investment roadmap.",
-    "observatoireTitle": "Luxembourg hotel observatory",
-    "observatoireDesc": "Public data STATEC + Eurostat + STR EMEA — national occupancy, nights, RevPAR by category. Free alternative to STR Global / Horwath."
+    "observatoireTitle": "Hotel activity in Luxembourg — Eurostat",
+    "observatoireDesc": "Official monthly series for Luxembourg: hotels and similar accommodation (NACE I55.1), residents and non-residents combined. National data describes neither an individual hotel nor a star category."
   },
   "hotellerieToolPages": {
     "backToHub": "Hospitality hub",
@@ -10754,23 +10754,23 @@
       "tools": [
         {
           "href": "/hotellerie/valorisation",
-          "title": "TEGOVA hotel valuation",
-          "description": "DCF + EBITDA multiples + price per key under EVS 2025."
+          "title": "Documented hotel valuation",
+          "description": "Two separate calculations: capitalisation of supported annual income and comparison of transaction prices per room. No rate, price per room or weighting between methods is assumed."
         },
         {
           "href": "/hotellerie/dscr",
-          "title": "Bank DSCR",
-          "description": "Financing capacity and rate stress test."
+          "title": "Documented hotel debt coverage",
+          "description": "Fixed-rate amortising loan, monthly payments and declared annual available cash flow. No bank threshold, credit refusal or downside scenario is assumed."
         },
         {
           "href": "/hotellerie/observatoire-lu",
-          "title": "LU observatory",
-          "description": "STATEC overnight stays + RevPAR indices by region."
+          "title": "Hotel activity in Luxembourg — Eurostat",
+          "description": "Official monthly series for Luxembourg: hotels and similar accommodation (NACE I55.1), residents and non-residents combined. National data describes neither an individual hotel nor a star category."
         },
         {
           "href": "/hotellerie/pre-acquisition",
-          "title": "Pre-acquisition",
-          "description": "E-2 / hotel dealer tool."
+          "title": "Documented hotel acquisition",
+          "description": "Cash flow analysis of an acquisition project. No market price, sector multiple, growth or purchase score is assumed. Each amount and year requires supporting evidence."
         }
       ],
       "faq": [
@@ -11505,8 +11505,8 @@
         "desc": "Adaptive HOTREC, 7-day forecast by business curve."
       },
       "observatoireLu": {
-        "title": "LU hotel observatory",
-        "desc": "STATEC + Eurostat + STR EMEA, quarterly occ/ADR/RevPAR."
+        "title": "Hotel activity in Luxembourg — Eurostat",
+        "desc": "Official monthly series for Luxembourg: hotels and similar accommodation (NACE I55.1), residents and non-residents combined. National data describes neither an individual hotel nor a star category."
       },
       "benchmark": {
         "title": "Group benchmark",
@@ -12808,7 +12808,7 @@
     "exploitation": "Operating P&L",
     "exploitationDesc": "Documented revenue and costs, GOP, EBITDA before reserve and indicators per available room-night.",
     "observatoire": "LU observatory",
-    "observatoireDesc": "STATEC stats, pickup curve, events.",
+    "observatoireDesc": "Official monthly series for Luxembourg: hotels and similar accommodation (NACE I55.1), residents and non-residents combined. National data describes neither an individual hotel nor a star category.",
     "renovation": "Energy renovation",
     "renovationDesc": "ROI + MyEnergy file.",
     "amlKyc": "AML / KYC",
@@ -12864,7 +12864,7 @@
     "forecast": "Revenue forecast",
     "forecastDesc": "OTB projection + LU events + pickup.",
     "observatoire": "LU observatory",
-    "observatoireDesc": "LU hotel market trends.",
+    "observatoireDesc": "Official monthly series for Luxembourg: hotels and similar accommodation (NACE I55.1), residents and non-residents combined. National data describes neither an individual hotel nor a star category.",
     "pms": "Operational PMS",
     "pmsDesc": "Reservations, folios, check-in/out of your properties."
   },
@@ -19383,5 +19383,30 @@
     "invalid": "Enter dates, references and amounts, including zeros. At least one competitor and at most one subject are required; sold ≤ available ≤ rooms × days. Positive room revenue without sold room nights is not accepted.",
     "importError": "Incomplete or incompatible file: current data is preserved.",
     "storage": "Save JSON to resume after closing. Entered sources are not automatically verified; this page does not provide or collect private STR data."
+  },
+  "hotelTourismEvidence": {
+    "title": "Hotel activity in Luxembourg — Eurostat",
+    "year": "Year",
+    "summary": "Totals for published months",
+    "nights": "Guest nights",
+    "arrivals": "Arrivals",
+    "changePct": "Change over the same months of the previous year",
+    "monthly": "Monthly observations",
+    "period": "Month",
+    "occupancy": "Net bedroom occupancy (%)",
+    "unavailable": "Unpublished",
+    "csv": "Export CSV",
+    "sources": "Sources and dates",
+    "source_nights": "Eurostat tour_occ_nim: nights, hotels and similar",
+    "source_arrivals": "Eurostat tour_occ_arm: arrivals, hotels and similar",
+    "source_rooms": "Eurostat tour_occ_mnor: net bedroom occupancy",
+    "methodology": "Eurostat tourism methodology",
+    "scope": "Official monthly series for Luxembourg: hotels and similar accommodation (NACE I55.1), residents and non-residents combined. National data describes neither an individual hotel nor a star category.",
+    "units": "A guest night counts one person staying for one night; it is not a sold room night. Arrivals count arrivals at establishments, not unique visitors to the country. These series cannot produce ADR or RevPAR.",
+    "totalsScope": "{months} months with published guest nights. An incomplete year remains a partial cumulative total; missing values are not replaced by zero.",
+    "changeScope": "The change compares exactly the months with available guest-night data against the same months of the preceding year. It remains unavailable if that comparison is incomplete. A partial total is never compared with a full year.",
+    "occupancyScope": "Occupancy is the official monthly bedroom series (BEDRM), distinct from bed-place occupancy. No simple monthly average is presented as an annual rate. Missing months remain unpublished.",
+    "sourceDates": "Series updated: {updated}. Snapshot retrieved: {retrieved}.",
+    "limits": "Publications may be revised. No star-category breakdown, detailed visitor origins, ADR estimate or forecast is reconstructed from these series."
   }
 }

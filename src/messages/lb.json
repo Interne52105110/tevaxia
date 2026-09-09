@@ -7655,8 +7655,8 @@
     "miceDesc": "Ëmsaz Firmen-Gruppen: RFP, Conversion, F&B-Capture, Locatioun vu Sall.",
     "esgTitle": "Certifications ESG Green Key",
     "esgDesc": "Green-Key-Virdiagnos iwwer 29 Critères: Label-Eegenheet, Investitiouns-Roadmap.",
-    "observatoireTitle": "Hotel-Observatoire Lëtzebuerg",
-    "observatoireDesc": "Ëffentlech Donnéeë STATEC + Eurostat + STR EMEA — Occupatioun, Nuechten, RevPAR national no Kategorie."
+    "observatoireTitle": "Hotelfrequentatioun zu Lëtzebuerg — Eurostat",
+    "observatoireDesc": "Offiziell Mountsreie fir Lëtzebuerg: Hoteller an änlech Ënnerkonften (NACE I55.1), Awunner an Net-Awunner zesummen. National Date beschreiwe weder en eenzelen Hotel nach eng Stärekategorie."
   },
   "hotellerieToolPages": {
     "backToHub": "Hotellerie-Hub",
@@ -10632,23 +10632,23 @@
       "tools": [
         {
           "href": "/hotellerie/valorisation",
-          "title": "TEGOVA-Hotelbewäertung",
-          "description": "DCF + EBITDA-Multiplikatoren + Präis pro Schlëssel no EVS 2025."
+          "title": "Dokumentéiert Hotelbewäertung",
+          "description": "Zwou getrennte Berechnungen: Kapitaliséierung vu begrënntem Joresertrag a Verglach vun Transaktiounspräisser pro Zëmmer. Keng virausgesate Sätz, Zëmmerpräisser oder Methodengewiichter."
         },
         {
           "href": "/hotellerie/dscr",
-          "title": "Bank-DSCR",
-          "description": "Finanzéierungskapazitéit an Zinns-Stresstest."
+          "title": "Dokumentéiert Hotel-Scholdendeckung",
+          "description": "Amortiséierbare Prêt mat festem Zëns, monatleche Bezuelungen an deklaréiertem verfügbarem Jorescashflow. Keng virausgesate Bankschwellen, Kredittrefusen oder Stressszenarien."
         },
         {
           "href": "/hotellerie/observatoire-lu",
-          "title": "LU-Observatoire",
-          "description": "STATEC Iwwernuechtungen + RevPAR-Indizen no Regioun."
+          "title": "Hotelfrequentatioun zu Lëtzebuerg — Eurostat",
+          "description": "Offiziell Mountsreie fir Lëtzebuerg: Hoteller an änlech Ënnerkonften (NACE I55.1), Awunner an Net-Awunner zesummen. National Date beschreiwe weder en eenzelen Hotel nach eng Stärekategorie."
         },
         {
           "href": "/hotellerie/pre-acquisition",
-          "title": "Pre-Akquisitioun",
-          "description": "E-2 / Hotel-Hänneler-Tool."
+          "title": "Dokumentéierten Hotelkaf",
+          "description": "Geldflossanalyse vun engem Kafprojet. Keng ugeholl Maartpräisser, Branchenmultiple, Wuesstemsraten oder Kafscoren. All Betrag an all Joer brauch eng Begrënnung."
         }
       ],
       "faq": [
@@ -11383,8 +11383,8 @@
         "desc": "Adaptiv HOTREC, 7-Dag-Forecast."
       },
       "observatoireLu": {
-        "title": "LU-Hotel-Observatoire",
-        "desc": "STATEC + Eurostat + STR EMEA."
+        "title": "Hotelfrequentatioun zu Lëtzebuerg — Eurostat",
+        "desc": "Offiziell Mountsreie fir Lëtzebuerg: Hoteller an änlech Ënnerkonften (NACE I55.1), Awunner an Net-Awunner zesummen. National Date beschreiwe weder en eenzelen Hotel nach eng Stärekategorie."
       },
       "benchmark": {
         "title": "Grupp-Benchmark",
@@ -12686,7 +12686,7 @@
     "exploitation": "Exploitatiounsbilan",
     "exploitationDesc": "Dokumentéiert Recetten a Käschten, GOP, EBITDA virun der Reserve an Indicateure pro disponibeler Zëmmernuecht.",
     "observatoire": "LU-Observatoire",
-    "observatoireDesc": "STATEC-Statistiken, Pickup-Kurv, Eventer.",
+    "observatoireDesc": "Offiziell Mountsreie fir Lëtzebuerg: Hoteller an änlech Ënnerkonften (NACE I55.1), Awunner an Net-Awunner zesummen. National Date beschreiwe weder en eenzelen Hotel nach eng Stärekategorie.",
     "renovation": "Energetesch Renovatioun",
     "renovationDesc": "ROI + MyEnergy-Akte.",
     "amlKyc": "AML / KYC",
@@ -12742,7 +12742,7 @@
     "forecast": "Revenue Forecast",
     "forecastDesc": "OTB-Projektioun + LU-Eventer + Pickup.",
     "observatoire": "LU-Observatoire",
-    "observatoireDesc": "LU-Hotelmaart-Trends.",
+    "observatoireDesc": "Offiziell Mountsreie fir Lëtzebuerg: Hoteller an änlech Ënnerkonften (NACE I55.1), Awunner an Net-Awunner zesummen. National Date beschreiwe weder en eenzelen Hotel nach eng Stärekategorie.",
     "pms": "Operatif PMS",
     "pmsDesc": "Reservatiounen, Folios, Check-in/out vun Ären Hotelen."
   },
@@ -19383,5 +19383,30 @@
     "invalid": "Daten, Referenzen a Beträg inklusiv Nullwäerter aginn. Op d’mannst ee Konkurrent an héchstens een ënnersichten Hotel; verkaaft ≤ disponibel ≤ Zëmmer × Deeg. Positiv Recetten ouni verkaaft Zëmmernuechte ginn net akzeptéiert.",
     "importError": "Onkompletten oder inkompatibele Fichier: Déi aktuell Date bleiwen erhalen.",
     "storage": "JSON späicheren, fir méi spéit weiderzemaachen. Aginne Quelle ginn net automatesch gepréift; dës Säit liwwert oder sammelt keng privat STR-Donnéeën."
+  },
+  "hotelTourismEvidence": {
+    "title": "Hotelfrequentatioun zu Lëtzebuerg — Eurostat",
+    "year": "Joer",
+    "summary": "Totaler vun de publizéierte Méint",
+    "nights": "Persounennuechten",
+    "arrivals": "Arrivéeën",
+    "changePct": "Ännerung iwwer déiselwecht Méint vum Virjoer",
+    "monthly": "Mountlech Observatiounen",
+    "period": "Mount",
+    "occupancy": "Nettoauslaaschtung vun den Zëmmeren (%)",
+    "unavailable": "Net publizéiert",
+    "csv": "CSV exportéieren",
+    "sources": "Quellen an Datumer",
+    "source_nights": "Eurostat tour_occ_nim: Nuechten, Hoteller an änlech Betriber",
+    "source_arrivals": "Eurostat tour_occ_arm: Arrivéeën, Hoteller an änlech Betriber",
+    "source_rooms": "Eurostat tour_occ_mnor: Nettoauslaaschtung vun den Zëmmeren",
+    "methodology": "Eurostat-Tourismusmethodologie",
+    "scope": "Offiziell Mountsreie fir Lëtzebuerg: Hoteller an änlech Ënnerkonften (NACE I55.1), Awunner an Net-Awunner zesummen. National Date beschreiwe weder en eenzelen Hotel nach eng Stärekategorie.",
+    "units": "Eng Persounennuecht zielt eng Persoun fir eng Nuecht, net e verkaaft Zëmmer. Arrivéeë zielen Arrivéeën a Betriber, net eenzegaarteg Visiteure vum Land. ADR a RevPAR kënnen net domat berechent ginn.",
+    "totalsScope": "{months} Méint mat publizéierten Nuechten. En onkomplett Joer bleift e partiellen Total; feelend Wäerter ginn net duerch null ersat.",
+    "changeScope": "D’Ännerung vergläicht genee déi Méint mat disponibelen Nuechte mat deene selwechte Méint vum Virjoer. Bei onkomplettem Verglach bleift si net disponibel. E partiellen Total gëtt net mat engem ganze Joer verglach.",
+    "occupancyScope": "D’Auslaaschtung ass déi offiziell mountlech Zëmmerrei (BEDRM), net d’Betterei. Keng einfach Mountsmoyenne gëtt als Joresrate presentéiert. Feelend Méint bleiwen net publizéiert.",
+    "sourceDates": "Aktualiséierung vun de Reien: {updated}. Gespäichert Extraktioun: {retrieved}.",
+    "limits": "Publikatioune kënne revidéiert ginn. Keng Stärekategorien, detailléiert Hierkonft, ADR-Schätzung oder Prognos ginn aus dëse Reien rekonstruéiert."
   }
 }
