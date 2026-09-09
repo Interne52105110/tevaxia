@@ -33,11 +33,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // Check existing session (shared via .tevaxia.lu cookies)
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+    let active = true;
+    let receivedAuthEvent = false;
 
     // Track if we've already synced in this session to avoid re-running on
     // chaque TOKEN_REFRESHED / INITIAL_SESSION (déclenché ~1×/heure).
@@ -60,7 +57,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
     // Listen for auth changes (PKCE callback, sign out, token refresh)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!active) return;
+      receivedAuthEvent = true;
       setUser(session?.user ?? null);
+      setLoading(false);
       if (event === "SIGNED_OUT") {
         syncedOnce = false;
       }
@@ -75,7 +75,20 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       }
     });
 
-    return () => subscription.unsubscribe();
+    // Subscribe before reading the initial snapshot. A later auth event takes
+    // precedence over a stale getSession response (including sign-out).
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      if (active && !receivedAuthEvent) setUser(session?.user ?? null);
+    }).catch(() => {
+      if (active && !receivedAuthEvent) setUser(null);
+    }).finally(() => {
+      if (active) setLoading(false);
+    });
+
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signOut = async () => {

@@ -426,3 +426,9 @@ Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg e
 - Sources : https://www.rics.org/profession-standards/rics-standards-and-guidance/sector-standards/valuation-standards/valuation-of-development-property ; https://guichet.public.lu/fr/citoyens/logement/acquisition/aspects-contractuels/acquerir-bien-a-construire.html . Aucun label de conformité RICS n’est attribué au résultat.
 - Validation : six tests métier dédiés, suite de 1 189 tests/102 fichiers ; parcours navigateur cinq langues/quatre largeurs, export/rechargement complet et rejet sans perte des dossiers invalides. Dix PDF, 35 pages rendues et inspectées visuellement, montants/références/limites de pages contrôlés.
 - Cas chiffré : recettes 1 000 000 €, coûts 620 000 €, terrain 200 000 €, acquisition 24 000 € → bénéfice 156 000 €, cible 150 000 €, écart 6 000 €. En résiduel : budget 220 000 €, prix terrain 205 607,47 € avec frais proportionnels déclarés à 7 %.
+
+
+## Chargement initial de session
+- Abonnement aux événements d’authentification avant lecture de la session initiale ; un événement récent prend la priorité sur une réponse initiale tardive.
+- Une erreur de lecture initiale est interceptée et libère l’état de chargement. Le démontage du composant désabonne et empêche les mises à jour tardives.
+- Fixture React hors ligne du composant réel : session normale, rejet initial, connexion/déconnexion/rafraîchissement prioritaires, démontage et absence de promesse rejetée non traitée. Aucun compte réel utilisé. Suite 1 189 tests, lint du composant.
