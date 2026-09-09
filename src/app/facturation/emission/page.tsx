@@ -4,6 +4,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useLocale, useTranslations } from "next-intl";
+import { SUPPORTED_INVOICE_PROFILES } from "@/lib/facturation/invoice-validation";
 import { computeTotals, validateInvoice, formatInvoiceNumber, VAT_RATES_FR, VAT_RATES_LU, type FacturXInvoice, type FacturXLine, type VatCategoryCode } from "@/lib/facturation/factur-x";
 import { assertHistoryOwner, saveToHistory } from "@/lib/facturation/history";
 import { track, captureError } from "@/lib/analytics";
@@ -299,6 +300,9 @@ function InvoiceEditor({ userId }: { userId: string | null }) {
           {/* Invoice header */}
           <Section title={t("sections.invoice")}>
             <div className="grid gap-3 sm:grid-cols-3">
+              <SelectField label={t("fields.profile")} value={inv.profile}
+                options={SUPPORTED_INVOICE_PROFILES.map(profile => ({ v: profile, l: profile.replaceAll("_", " ") }))}
+                onChange={(v) => setField("profile", v as FacturXInvoice["profile"])} />
               <Field label={t("fields.invoiceNumber")} value={inv.invoice_number}
                 onChange={(v) => setField("invoice_number", v)} />
               <Field label={t("fields.issueDate")} type="date" value={inv.issue_date}

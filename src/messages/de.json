@@ -12605,7 +12605,8 @@
         "paymentReference": "Zahlungsreferenz",
         "paymentTerms": "Zahlungsbedingungen",
         "notesPlaceholder": "Eine Erwähnung pro Zeile (AGB, SEPA-Mandat, Verzugsstrafen…)",
-        "discount": "Rabatt (%)"
+        "discount": "Rabatt (%)",
+        "profile": "Profil der XML-Datei"
       },
       "vat": {
         "S": "Standard",

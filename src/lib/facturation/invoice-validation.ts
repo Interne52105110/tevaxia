@@ -1,3 +1,5 @@
+export const SUPPORTED_INVOICE_PROFILES = ["BASIC", "EN_16931", "EXTENDED"] as const;
+
 export interface ValidationError { rule: string; field: string; message: string }
 const object = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === "object" && !Array.isArray(value);
 const text = (value: unknown) => typeof value === "string" && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(value);
@@ -10,6 +12,7 @@ export function validateInvoice(inv: unknown): ValidationError[] {
   const add = (rule: string, field: string, message: string) => errors.push({ rule, field, message });
   if (!object(inv)) return [{ rule: "INPUT", field: "invoice", message: "Objet facture requis" }];
   if (typeof inv.profile !== "string" || !["MINIMUM", "BASIC_WL", "BASIC", "EN_16931", "EXTENDED"].includes(inv.profile)) add("INPUT", "profile", "Profil inconnu");
+  if (inv.profile === "MINIMUM" || inv.profile === "BASIC_WL") add("PROFILE", "profile", "Ce profil sans lignes détaillées n’est pas pris en charge. Choisissez BASIC, EN 16931 ou EXTENDED.");
   if (!text(inv.invoice_number) || !(inv.invoice_number as string).trim()) add("BR-02", "invoice_number", "Numéro de facture requis");
   if (!date(inv.issue_date)) add("BR-03", "issue_date", "Date d’émission réelle au format YYYY-MM-DD requise");
   if (inv.due_date !== undefined && inv.due_date !== "" && !date(inv.due_date)) add("INPUT", "due_date", "Échéance invalide");

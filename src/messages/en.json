@@ -12727,7 +12727,8 @@
         "paymentReference": "Payment reference",
         "paymentTerms": "Payment terms",
         "notesPlaceholder": "One mention per line (T&C, SEPA mandate, late penalties…)",
-        "discount": "Discount (%)"
+        "discount": "Discount (%)",
+        "profile": "XML file profile"
       },
       "vat": {
         "S": "Standard",

@@ -12605,7 +12605,8 @@
         "paymentReference": "Bezuelungsreferenz",
         "paymentTerms": "Bezuelungskonditiounen",
         "notesPlaceholder": "Eng Mentioun pro Zeile (CGV, SEPA-Mandat, Verspéidungspenalitéiten…)",
-        "discount": "Remise (%)"
+        "discount": "Remise (%)",
+        "profile": "Profil vun der XML-Datei"
       },
       "vat": {
         "S": "Standard",

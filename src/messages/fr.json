@@ -12727,7 +12727,8 @@
         "paymentReference": "Référence paiement",
         "paymentTerms": "Conditions de paiement",
         "notesPlaceholder": "Une mention par ligne (CGV, mandat SEPA, pénalités de retard…)",
-        "discount": "Remise (%)"
+        "discount": "Remise (%)",
+        "profile": "Profil du fichier XML"
       },
       "vat": {
         "S": "Standard",

@@ -451,3 +451,14 @@ Génération protégée contre les doubles clics ; champs verrouillés pendant l
 Neuf tests nouveaux : suite 1 380 tests / 132 fichiers, lint sans erreur et build réussis. Cinq langues en navigateur isolé : deux comptes et visiteur, restauration annulée puis acceptée, ancien original préservé, double clic/génération et changement d’identité, brouillon corrompu non écrasé, quota de stockage signalé. Cinq téléchargements réels sur serveur local compilé avec trafic Supabase bloqué ; scénarios de calcul et quatre largeurs toujours réussis. Aucun enregistrement client de production exécuté.
 
 Historique f80eebe publié : CI 34416090971 réussie ; dpl_EiiDcqiAKWWubsNECZaYGQLtCxZb Ready. Accès anonyme, lien de connexion et quatre largeurs vérifiés dans les cinq langues sur la production.
+
+
+## 10 septembre — profils XML réellement disponibles
+
+Contrôle externe du même cas complet dans les cinq profils annoncés : BASIC, EN 16931 et EXTENDED validés ; MINIMUM et BASIC WL échouent aux schémas (structure spécifique incompatible avec les lignes et notes générées). Ces deux profils sont désormais refusés explicitement par la validation commune, donc par le formulaire et l’API. Aucun changement silencieux de profil. Un sélecteur de profil permet de corriger un ancien brouillon tout en conservant ses données. Les trois profils disponibles restent soumis aux mentions requises et à la validation du destinataire ; le passage d’un exemple complet n’est pas une certification générale.
+
+Cinq tests supplémentaires ; suite 1 385 tests / 132 fichiers, lint sans erreur et build réussis. Validateur utilisé : Mustang CLI 2.26.0, contrôles XML/schémas/Schematron, sources et traces dans work/facturx-validation/profile-*.log. Cette correction ne traite pas encore les motifs d’exonération ni toutes les identités fiscales requises.
+
+Brouillons e62cc49 publiés : CI 34416743081 réussie ; dpl_2n47tS86gohHK9Z6DYPwEurfygDa Ready. Cinq langues en production, brouillon visiteur, interactions de calcul et quatre largeurs vérifiés.
+
+Navigateur réel : cinq langues, ancien MINIMUM conservé et export bloqué, choix BASIC/EN 16931/EXTENDED enregistrés et export activé, quatre largeurs sans débordement.

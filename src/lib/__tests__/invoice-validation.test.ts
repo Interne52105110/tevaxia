@@ -6,6 +6,15 @@ describe("billing input integrity without unsafe coercion", () => {
     for (const data of [null, 42, "invoice", [], {}, { ...invoice(), seller: null }, { ...invoice(), buyer: [] }, { ...invoice(), lines: [null] }, { ...invoice(), lines: {} }]) expect(validateInvoice(data).length).toBeGreaterThan(0);
   });
   it("accepts the existing basic shape", () => expect(validateInvoice(invoice())).toEqual([]));
+  it.each(["MINIMUM", "BASIC_WL"])("rejects unsupported %s exports while preserving the selected profile", profile => {
+    const data = { ...invoice(), profile };
+    expect(validateInvoice(data).some(error => error.rule === "PROFILE")).toBe(true);
+    expect(() => buildFacturXCiiXml(data as FacturXInvoice)).toThrow(/profil/);
+    expect(data.profile).toBe(profile);
+  });
+  it.each(["BASIC", "EN_16931", "EXTENDED"])("keeps supported %s exports available", profile => {
+    expect(validateInvoice({ ...invoice(), profile })).toEqual([]);
+  });
   it("blocks malformed data at the shared XML/export boundary", () => {
     expect(()=>buildFacturXCiiXml({...invoice(),lines:[{...invoice().lines[0],unit_price_net:undefined}]} as unknown as FacturXInvoice)).toThrow(RangeError);
     expect(()=>buildFacturXCiiXml(null as unknown as FacturXInvoice)).toThrow(RangeError);

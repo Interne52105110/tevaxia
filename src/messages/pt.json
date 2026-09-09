@@ -12605,7 +12605,8 @@
         "paymentReference": "Referencia pagamento",
         "paymentTerms": "Condicoes pagamento",
         "notesPlaceholder": "Uma mencao por linha (CGV, mandato SEPA, penalizacoes…)",
-        "discount": "Desconto (%)"
+        "discount": "Desconto (%)",
+        "profile": "Perfil do ficheiro XML"
       },
       "vat": {
         "S": "Padrao",
