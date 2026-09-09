@@ -19408,5 +19408,28 @@
     "occupancyScope": "Occupancy is the official monthly bedroom series (BEDRM), distinct from bed-place occupancy. No simple monthly average is presented as an annual rate. Missing months remain unpublished.",
     "sourceDates": "Series updated: {updated}. Snapshot retrieved: {retrieved}.",
     "limits": "Publications may be revised. No star-category breakdown, detailed visitor origins, ADR estimate or forecast is reconstructed from these series."
+  },
+  "hotelPublishedDeals": {
+    "title": "Published hotel transactions — European selection",
+    "country": "Country",
+    "all": "All",
+    "LU": "Luxembourg",
+    "BE": "Belgium",
+    "DE": "Germany",
+    "announced": "Agreement announcement",
+    "completed": "Reported completion",
+    "amount": "Approximate published amount",
+    "rooms": "Published rooms",
+    "perRoom": "Approximate published amount / room",
+    "publisher": "Release publisher",
+    "completionSource": "Completion release",
+    "detailSource": "Agreement scope",
+    "csv": "Export CSV",
+    "scope": "Limited selection of transactions identified in releases by the parties, checked on 9 September 2026. Each amount retains its published scope. This selection does not measure Luxembourg or Greater Region market volume.",
+    "limits": "Approximate amounts are not appraisal values. Uncorroborated prices, category averages and implied capitalisation rates from the previous table are not retained. No market total is inferred from these examples.",
+    "antwerpScope": "Pandox disposal: approximately €19 million for the hotel property and operations, with 262 rooms. Completion announced on 2 February 2026; agreement announced on 2 December 2025.",
+    "cologneScope": "Pandox acquisition of a hotel property leased to AccorInvest: approximately €66 million including stamp duty, with 275 rooms. Agreement on 6 March 2025 and completion on 1 April 2025. This is not a property price excluding duties.",
+    "ratioScope": "The per-room ratio divides the approximate published amount by the rooms in that transaction. It retains duties and operations where included; it is not an adjusted comparable for another hotel.",
+    "empty": "No corroborated transaction is retained for this country in this selection. This does not mean that no transaction occurred there."
   }
 }

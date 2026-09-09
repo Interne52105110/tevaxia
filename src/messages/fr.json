@@ -19408,5 +19408,28 @@
     "occupancyScope": "L’occupation est la série mensuelle officielle des chambres (BEDRM), distincte de celle des lits. Aucune moyenne simple des taux mensuels n’est présentée comme taux annuel. Les mois absents restent non publiés.",
     "sourceDates": "Mise à jour des séries : {updated}. Extraction conservée : {retrieved}.",
     "limits": "Les publications peuvent être révisées. Aucune ventilation par étoiles, origine détaillée des visiteurs, estimation d’ADR ou prévision n’est reconstituée à partir de ces séries."
+  },
+  "hotelPublishedDeals": {
+    "title": "Transactions hôtelières publiées — sélection européenne",
+    "country": "Pays",
+    "all": "Tous",
+    "LU": "Luxembourg",
+    "BE": "Belgique",
+    "DE": "Allemagne",
+    "announced": "Annonce de l’accord",
+    "completed": "Réalisation annoncée",
+    "amount": "Montant publié approximatif",
+    "rooms": "Chambres publiées",
+    "perRoom": "Montant publié / chambre, approximatif",
+    "publisher": "Émetteur du communiqué",
+    "completionSource": "Communiqué de réalisation",
+    "detailSource": "Périmètre de l’accord",
+    "csv": "Exporter CSV",
+    "scope": "Sélection limitée d’opérations identifiées dans des communiqués des parties, vérifiés le 9 septembre 2026. Chaque montant conserve son périmètre publié. Cette sélection ne mesure pas le volume du marché luxembourgeois ni celui de la Grande Région.",
+    "limits": "Les montants approximatifs ne sont pas des valeurs d’expertise. Les prix non corroborés, moyennes par catégorie et taux de capitalisation implicites de l’ancienne grille ne sont pas repris. Aucun total de marché n’est déduit de ces exemples.",
+    "antwerpScope": "Cession par Pandox : environ 19 M€ pour l’immeuble hôtelier et l’exploitation, 262 chambres. Réalisation annoncée le 2 février 2026 ; accord annoncé le 2 décembre 2025.",
+    "cologneScope": "Acquisition par Pandox d’un immeuble hôtelier loué à AccorInvest : environ 66 M€, droits de mutation inclus, 275 chambres. L’accord date du 6 mars 2025 et la réalisation du 1er avril 2025. Ce montant n’est pas un prix d’immeuble hors droits.",
+    "ratioScope": "Le ratio par chambre est le montant approximatif publié divisé par le nombre de chambres de la même opération. Il conserve les droits et l’exploitation lorsqu’ils sont inclus ; il ne constitue pas un comparable ajusté à un autre hôtel.",
+    "empty": "Aucune opération corroborée n’est retenue pour ce pays dans cette sélection. Cela ne signifie pas qu’aucune transaction n’y a eu lieu."
   }
 }

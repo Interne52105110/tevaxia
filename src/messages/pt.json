@@ -19408,5 +19408,28 @@
     "occupancyScope": "A ocupação corresponde à série mensal oficial dos quartos (BEDRM), distinta da ocupação das camas. Não se apresenta a média simples dos meses como taxa anual. Meses ausentes permanecem não publicados.",
     "sourceDates": "Atualização das séries: {updated}. Extração conservada: {retrieved}.",
     "limits": "As publicações podem ser revistas. Não são reconstruídas categorias de estrelas, origens detalhadas, estimativas de ADR ou previsões a partir destas séries."
+  },
+  "hotelPublishedDeals": {
+    "title": "Transações hoteleiras publicadas — seleção europeia",
+    "country": "País",
+    "all": "Todos",
+    "LU": "Luxemburgo",
+    "BE": "Bélgica",
+    "DE": "Alemanha",
+    "announced": "Anúncio do acordo",
+    "completed": "Conclusão anunciada",
+    "amount": "Montante publicado aproximado",
+    "rooms": "Quartos publicados",
+    "perRoom": "Montante publicado / quarto, aproximado",
+    "publisher": "Emissor do comunicado",
+    "completionSource": "Comunicado de conclusão",
+    "detailSource": "Âmbito do acordo",
+    "csv": "Exportar CSV",
+    "scope": "Seleção limitada de operações identificadas em comunicados das partes, verificados em 9 de setembro de 2026. Cada montante mantém o âmbito publicado. Esta seleção não mede o volume do mercado luxemburguês nem da Grande Região.",
+    "limits": "Os montantes aproximados não são valores de avaliação. Não são mantidos preços não corroborados, médias por categoria ou taxas de capitalização implícitas da tabela anterior. Não se deduz um total de mercado destes exemplos.",
+    "antwerpScope": "Venda pela Pandox: cerca de 19 milhões de euros pelo imóvel e exploração hoteleira, com 262 quartos. Conclusão anunciada em 2 de fevereiro de 2026; acordo anunciado em 2 de dezembro de 2025.",
+    "cologneScope": "Aquisição pela Pandox de imóvel hoteleiro arrendado à AccorInvest: cerca de 66 milhões de euros, incluindo imposto de transmissão, com 275 quartos. Acordo em 6 de março de 2025 e conclusão em 1 de abril de 2025. Não corresponde ao preço do imóvel sem impostos.",
+    "ratioScope": "O rácio por quarto divide o montante aproximado publicado pelo número de quartos da mesma operação. Mantém impostos e exploração quando incluídos; não é um comparável ajustado a outro hotel.",
+    "empty": "Não foi retida uma operação corroborada para este país nesta seleção. Isso não significa que não tenha ocorrido qualquer transação."
   }
 }

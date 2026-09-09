@@ -19408,5 +19408,28 @@
     "occupancyScope": "Die Auslastung stammt aus der offiziellen monatlichen Zimmerreihe (BEDRM), nicht aus der Bettenreihe. Kein einfacher Monatsmittelwert wird als Jahresrate dargestellt. Fehlende Monate bleiben unveröffentlicht.",
     "sourceDates": "Aktualisierung der Reihen: {updated}. Abruf der gespeicherten Daten: {retrieved}.",
     "limits": "Publikationen können revidiert werden. Keine Aufschlüsselung nach Sternen oder genauer Gästeherkunft, ADR-Schätzung oder Prognose wird aus diesen Reihen konstruiert."
+  },
+  "hotelPublishedDeals": {
+    "title": "Veröffentlichte Hoteltransaktionen — europäische Auswahl",
+    "country": "Land",
+    "all": "Alle",
+    "LU": "Luxemburg",
+    "BE": "Belgien",
+    "DE": "Deutschland",
+    "announced": "Ankündigung der Vereinbarung",
+    "completed": "Gemeldeter Abschluss",
+    "amount": "Veröffentlichter ungefährer Betrag",
+    "rooms": "Veröffentlichte Zimmeranzahl",
+    "perRoom": "Ungefährer Betrag / Zimmer",
+    "publisher": "Herausgeber der Mitteilung",
+    "completionSource": "Abschlussmitteilung",
+    "detailSource": "Umfang der Vereinbarung",
+    "csv": "CSV exportieren",
+    "scope": "Begrenzte Auswahl von Transaktionen aus Mitteilungen der Parteien, geprüft am 9. September 2026. Jeder Betrag behält seinen veröffentlichten Umfang. Die Auswahl misst kein Marktvolumen Luxemburgs oder der Großregion.",
+    "limits": "Ungefähre Beträge sind keine Gutachtenwerte. Unbestätigte Preise, Kategoriemittelwerte und implizite Kapitalisierungssätze der alten Tabelle werden nicht übernommen. Daraus wird kein Marktgesamtvolumen abgeleitet.",
+    "antwerpScope": "Veräußerung durch Pandox: rund 19 Mio. Euro für Hotelimmobilie und Betrieb mit 262 Zimmern. Abschluss am 2. Februar 2026 angekündigt; Vereinbarung am 2. Dezember 2025 angekündigt.",
+    "cologneScope": "Erwerb einer an AccorInvest vermieteten Hotelimmobilie durch Pandox: rund 66 Mio. Euro einschließlich Grunderwerbsteuer, 275 Zimmer. Vereinbarung am 6. März 2025, Abschluss am 1. April 2025. Kein Immobilienpreis ohne Erwerbsteuer.",
+    "ratioScope": "Der Zimmerquotient teilt den ungefähren veröffentlichten Betrag durch die Zimmerzahl derselben Transaktion. Enthaltene Steuern und Betriebe bleiben enthalten; dies ist kein angepasster Vergleichswert für ein anderes Hotel.",
+    "empty": "Für dieses Land ist in dieser Auswahl keine bestätigte Transaktion enthalten. Das bedeutet nicht, dass dort keine Transaktion stattgefunden hat."
   }
 }

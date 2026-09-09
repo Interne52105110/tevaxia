@@ -19408,5 +19408,28 @@
     "occupancyScope": "D’Auslaaschtung ass déi offiziell mountlech Zëmmerrei (BEDRM), net d’Betterei. Keng einfach Mountsmoyenne gëtt als Joresrate presentéiert. Feelend Méint bleiwen net publizéiert.",
     "sourceDates": "Aktualiséierung vun de Reien: {updated}. Gespäichert Extraktioun: {retrieved}.",
     "limits": "Publikatioune kënne revidéiert ginn. Keng Stärekategorien, detailléiert Hierkonft, ADR-Schätzung oder Prognos ginn aus dëse Reien rekonstruéiert."
+  },
+  "hotelPublishedDeals": {
+    "title": "Publizéiert Hoteltransaktiounen — europäesch Auswiel",
+    "country": "Land",
+    "all": "All",
+    "LU": "Lëtzebuerg",
+    "BE": "Belsch",
+    "DE": "Däitschland",
+    "announced": "Annonce vum Accord",
+    "completed": "Gemellte Ofschloss",
+    "amount": "Publizéierten ongeféiere Betrag",
+    "rooms": "Publizéiert Zëmmerzuel",
+    "perRoom": "Ongeféiere Betrag / Zëmmer",
+    "publisher": "Erausgi vun",
+    "completionSource": "Ofschlosscommuniqué",
+    "detailSource": "Ëmfang vum Accord",
+    "csv": "CSV exportéieren",
+    "scope": "Begrenzt Auswiel vun Transaktiounen aus Communiquéë vun de Parteien, gepréift den 9. September 2026. All Betrag behält säi publizéierten Ëmfang. D’Auswiel moosst kee Maartvolume vu Lëtzebuerg oder der Groussregioun.",
+    "limits": "Ongeféier Beträg si keng Expertisewäerter. Net corroboréiert Präisser, Kategoriemoyennen an implizitt Kapitaliséierungssätz aus der aler Tabell ginn net iwwerholl. Kee Gesamtmaartvolume gëtt ofgeleet.",
+    "antwerpScope": "Verkaf duerch Pandox: ongeféier 19 Milliounen Euro fir d’Hotelimmobilie an de Betrib, mat 262 Zëmmeren. Ofschloss den 2. Februar 2026 gemellt; Accord den 2. Dezember 2025 annoncéiert.",
+    "cologneScope": "Kaf duerch Pandox vun enger un AccorInvest verlounter Hotelimmobilie: ongeféier 66 Milliounen Euro inklusiv Mutatiounssteier, mat 275 Zëmmeren. Accord de 6. Mäerz 2025, Ofschloss den 1. Abrëll 2025. Kee reine Immobiliepräis ouni Steier.",
+    "ratioScope": "De Betrag pro Zëmmer deelt de publizéierten ongeféiere Betrag duerch d’Zëmmerzuel vun där Transaktioun. Abegraff Steieren a Betriber bleiwen abegraff; et ass keen ugepasste Vergläichswäert fir en aneren Hotel.",
+    "empty": "Fir dëst Land ass keng corroboréiert Transaktioun an dëser Auswiel enthalen. Dat heescht net, datt do keng Transaktioun stattfonnt huet."
   }
 }
