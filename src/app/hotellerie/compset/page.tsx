@@ -1,108 +1,13 @@
 "use client";
-
-import { useState, useMemo } from "react";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { COMPSET_LU, averageADR, averageOccupancy, averageRevPAR, type HotelCategory } from "@/lib/hotellerie/compset-lu";
-
-export default function CompsetPage() {
-  const t = useTranslations("hotelCompset");
-  const [category, setCategory] = useState<HotelCategory | "all">("all");
-
-  const CATEGORIES: { value: HotelCategory; label: string; color: string }[] = [
-    { value: "budget", label: t("catBudget"), color: "bg-slate-100 text-slate-800" },
-    { value: "midscale", label: t("catMidscale"), color: "bg-blue-100 text-blue-800" },
-    { value: "upscale", label: t("catUpscale"), color: "bg-purple-100 text-purple-800" },
-    { value: "luxury", label: t("catLuxury"), color: "bg-amber-100 text-amber-800" },
-  ];
-
-  const filtered = useMemo(() => {
-    return category === "all" ? COMPSET_LU : COMPSET_LU.filter((c) => c.category === category);
-  }, [category]);
-
-  const zones = useMemo(() => {
-    const set = new Set(filtered.map((c) => c.zone));
-    return Array.from(set);
-  }, [filtered]);
-
-  return (
-    <div className="bg-background py-8 sm:py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Link href="/hotellerie" className="text-xs text-muted hover:text-navy">{t("backHub")}</Link>
-        <div className="mt-2 mb-8">
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("pageTitle")}</h1>
-          <p className="mt-2 text-muted">{t("pageSubtitle")}</p>
-        </div>
-
-        <div className="flex flex-wrap gap-2 mb-6">
-          <button onClick={() => setCategory("all")}
-            className={`rounded-lg px-3 py-2 text-xs font-medium ${category === "all" ? "bg-navy text-white" : "border border-card-border bg-card text-slate hover:bg-slate-50"}`}>
-            {t("filterAll")}
-          </button>
-          {CATEGORIES.map((c) => (
-            <button key={c.value} onClick={() => setCategory(c.value)}
-              className={`rounded-lg px-3 py-2 text-xs font-medium ${category === c.value ? "bg-navy text-white" : "border border-card-border bg-card text-slate hover:bg-slate-50"}`}>
-              {c.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-3 mb-8">
-          <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-            <div className="text-xs uppercase tracking-wider text-muted">{t("kpiAdrAvg")}</div>
-            <div className="mt-1 text-2xl font-bold text-navy">{averageADR(filtered)} €</div>
-            <div className="text-xs text-muted">{t("kpiZonesCategories", { n: filtered.length })}</div>
-          </div>
-          <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-            <div className="text-xs uppercase tracking-wider text-muted">{t("kpiOccupancyAvg")}</div>
-            <div className="mt-1 text-2xl font-bold text-navy">{(averageOccupancy(filtered) * 100).toFixed(1)}%</div>
-          </div>
-          <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-            <div className="text-xs uppercase tracking-wider text-muted">{t("kpiRevparAvg")}</div>
-            <div className="mt-1 text-2xl font-bold text-navy">{averageRevPAR(filtered)} €</div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card shadow-sm overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-card-border bg-background text-left">
-                <th className="px-4 py-2 font-semibold text-slate">{t("thZone")}</th>
-                <th className="px-4 py-2 font-semibold text-slate">{t("thCategory")}</th>
-                <th className="px-4 py-2 font-semibold text-slate text-right">{t("thAdr")}</th>
-                <th className="px-4 py-2 font-semibold text-slate text-right">{t("thOccupancy")}</th>
-                <th className="px-4 py-2 font-semibold text-slate text-right">{t("thRevpar")}</th>
-                <th className="px-4 py-2 font-semibold text-slate">{t("thSource")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((e, i) => {
-                const cat = CATEGORIES.find((c) => c.value === e.category);
-                return (
-                  <tr key={i} className="border-b border-card-border/50 hover:bg-background">
-                    <td className="px-4 py-2 font-medium text-navy">{e.zone}</td>
-                    <td className="px-4 py-2">
-                      <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${cat?.color}`}>{cat?.label}</span>
-                    </td>
-                    <td className="px-4 py-2 text-right font-mono font-semibold">{e.adr} €</td>
-                    <td className="px-4 py-2 text-right font-mono">{(e.occupancy * 100).toFixed(1)}%</td>
-                    <td className="px-4 py-2 text-right font-mono font-bold text-navy">{e.revPAR} €</td>
-                    <td className="px-4 py-2 text-xs text-muted">{e.source}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        <p className="mt-4 text-xs text-muted">
-          <strong>{t("zonesCovered", { n: zones.length })}</strong> {t("zonesCoveredDesc")}
-        </p>
-
-        <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-5 text-sm text-blue-900">
-          <strong>{t("aboutStrong")}</strong> {t("aboutBody")}
-        </div>
-      </div>
-    </div>
-  );
+import {useMemo,useState} from 'react';
+import {useLocale,useTranslations} from 'next-intl';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import {calculateCompset,parseCompset,compsetCsv,type CompsetInput} from '@/lib/hotellerie/compset-evidence';
+const fields=['name','rooms','available','sold','revenue','reference'] as const;
+type DraftHotel={id:string;role:'benchmark'|'subject'}&Record<typeof fields[number],string>;
+const empty=(id:string):DraftHotel=>({id,role:'benchmark',name:'',rooms:'',available:'',sold:'',revenue:'',reference:''});
+export default function CompsetPage(){const t=useTranslations('hotelCompsetEvidence'),locale=useLocale(),[start,setStart]=useState(''),[end,setEnd]=useState(''),[selection,setSelection]=useState(''),[hotels,setHotels]=useState<DraftHotel[]>([empty('initial')]),[error,setError]=useState(false);const input=useMemo(()=>({version:1,start,end,selectionReference:selection,hotels:hotels.map(h=>({...h,...Object.fromEntries(['rooms','available','sold','revenue'].map(k=>[k,h[k as keyof DraftHotel].trim()?Number(h[k as keyof DraftHotel]):NaN]))}))}) as unknown as CompsetInput,[start,end,selection,hotels]);const result=useMemo(()=>{try{return calculateCompset(input)}catch{return null}},[input]);const fmt=(n:number,d=2)=>n.toLocaleString(locale==='lb'?'de-DE':locale,{minimumFractionDigits:d,maximumFractionDigits:d});const render=(key:string,value:number|null)=>value===null?'—':fmt(value,['available','sold','rooms'].includes(key)?0:2)+(key==='occupancyPct'?' %':['revenue','adr','revpar'].includes(key)?' €':'');const save=(data:string,ext:string)=>{const url=URL.createObjectURL(new Blob([data],{type:ext==='json'?'application/json':'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='hotel-comparison.'+ext;a.click();window.setTimeout(()=>URL.revokeObjectURL(url),1000)};
+ return <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 [overflow-wrap:anywhere]"><Breadcrumbs/><h1 className="mt-3 text-2xl font-bold text-navy sm:text-3xl">{t('title')}</h1><p className="mt-3 text-sm text-muted">{t('scope')}</p><div className="mt-6 grid gap-4 sm:grid-cols-2">{[['start',start,setStart],['end',end,setEnd]].map(([k,v,set])=><label key={String(k)} className="text-sm">{t(k as string)}<input id={'compset-'+k} type="date" value={v as string} onChange={e=>(set as (s:string)=>void)(e.target.value)} className="mt-2 w-full min-w-0 rounded-lg border border-input-border bg-input-bg px-3 py-2"/></label>)}</div><label className="mt-4 block text-sm">{t('selectionReference')}<textarea id="compset-selection" maxLength={500} value={selection} onChange={e=>setSelection(e.target.value)} className="mt-2 w-full rounded-lg border border-input-border bg-input-bg px-3 py-2"/></label><p className="mt-3 text-sm text-muted">{t('basis')}</p><div className="mt-6 space-y-4">{hotels.map((h,k)=><section key={h.id} data-compset-input={k} className="rounded-xl border border-card-border bg-card p-4"><h2 className="text-lg font-semibold">{t('hotel')} {k+1}</h2><div className="mt-3 grid gap-4 sm:grid-cols-2"><label className="min-w-0 text-sm">{t('role')}<select data-field="role" value={h.role} onChange={e=>setHotels(old=>old.map((v,n)=>n===k?{...v,role:e.target.value as DraftHotel['role']}:v))} className="mt-2 w-full min-w-0 rounded-lg border border-input-border bg-input-bg px-3 py-2"><option value="benchmark">{t('benchmark')}</option><option value="subject">{t('subject')}</option></select></label>{fields.map(key=><label key={key} className="min-w-0 text-sm">{t(key)}<input data-field={key} type={['rooms','available','sold','revenue'].includes(key)?'number':'text'} step={key==='revenue'?'0.01':'1'} maxLength={key==='name'?160:500} value={h[key]} onChange={e=>setHotels(old=>old.map((v,n)=>n===k?{...v,[key]:e.target.value}:v))} className="mt-2 w-full min-w-0 rounded-lg border border-input-border bg-input-bg px-3 py-2"/></label>)}</div></section>)}</div><div className="mt-4 flex flex-wrap gap-3"><button id="compset-add" disabled={hotels.length>=100} onClick={()=>setHotels(old=>[...old,empty(crypto.randomUUID())])} className="rounded border border-card-border px-4 py-2 text-sm disabled:opacity-40">{t('add')}</button><button id="compset-remove" disabled={hotels.length<=1} onClick={()=>setHotels(old=>old.slice(0,-1))} className="rounded border border-card-border px-4 py-2 text-sm disabled:opacity-40">{t('remove')}</button></div>
+ {!result?<p role="status" className="mt-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">{t('invalid')}</p>:<section data-compset-results className="mt-8"><h2 className="text-xl font-semibold">{t('result')}</h2><p className="mt-3 text-sm text-muted">{t('aggregation')}</p><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{(['available','sold','revenue','adr','occupancyPct','revpar'] as const).map(k=><div key={k} className="min-w-0 rounded-lg border border-card-border bg-card p-4"><h3 className="text-sm">{t(k)}</h3><p data-compset-total={k} className="mt-2 text-xl font-semibold">{render(k,result.totals[k])}</p></div>)}</div><h2 className="mt-6 text-lg font-semibold">{t('indices')}</h2><p className="mt-2 text-sm text-muted">{t('indexScope')}</p><div className="mt-3 grid gap-3 sm:grid-cols-3">{(['ari','mpi','rgi'] as const).map(k=><div key={k} className="rounded-lg border border-card-border bg-card p-4"><h3>{k.toUpperCase()}</h3><p data-compset-index={k} className="mt-2 text-xl font-semibold">{render(k,result[k])}</p></div>)}</div><div className="mt-5 overflow-x-auto rounded-lg border border-card-border"><table className="w-full min-w-[900px] text-sm"><thead><tr>{['name','role','available','sold','revenue','adr','occupancyPct','revpar'].map(k=><th key={k} className="p-3 text-left">{t(k)}</th>)}</tr></thead><tbody>{result.hotels.map(h=><tr data-compset-hotel={h.id} key={h.id} className="border-t border-card-border"><td className="p-3">{h.name}</td><td className="p-3">{t(h.role)}</td>{(['available','sold','revenue','adr','occupancyPct','revpar'] as const).map(k=><td key={k} className="whitespace-nowrap p-3">{render(k,h[k])}</td>)}</tr>)}</tbody></table></div><div className="mt-4 flex flex-wrap gap-3"><button id="compset-csv" onClick={()=>save(compsetCsv(input),'csv')} className="rounded border border-card-border px-4 py-2 text-sm">{t('csv')}</button><button id="compset-json" onClick={()=>save(JSON.stringify(input,null,2),'json')} className="rounded border border-card-border px-4 py-2 text-sm">{t('json')}</button></div></section>}
+ <label className="mt-6 block text-sm">{t('import')}<input id="compset-import" type="file" accept=".json,application/json" className="mt-2 block max-w-full" onChange={async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>200000)throw Error();const data=parseCompset(await f.text());setStart(data.start);setEnd(data.end);setSelection(data.selectionReference);setHotels(data.hotels.map(h=>({id:h.id,role:h.role,name:h.name,reference:h.reference,rooms:String(h.rooms),available:String(h.available),sold:String(h.sold),revenue:String(h.revenue)})));setError(false)}catch{setError(true)}finally{e.target.value=''}}}/></label>{error&&<p role="alert" className="mt-3 text-sm text-red-700">{t('importError')}</p>}<p className="mt-3 text-sm text-muted">{t('storage')}</p><a className="mt-4 block text-sm underline" href="https://www.costar.com/products/str-benchmark/resources/glossary" target="_blank" rel="noopener noreferrer">{t('source')}</a></div>;
 }

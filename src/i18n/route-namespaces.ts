@@ -965,9 +965,10 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/hotellerie/compset": [
     "aiChat",
     "backup",
+    "common",
     "cookie",
     "crmContextBar",
-    "hotelCompset",
+    "hotelCompsetEvidence",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",

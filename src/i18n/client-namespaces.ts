@@ -75,7 +75,7 @@ export const CLIENT_NAMESPACES = [
   "hotelBenchmark",
   "hotelCapex",
   "hotelCertifsEsg",
-  "hotelCompset",
+  "hotelCompsetEvidence",
   "hotelCoverageEvidence",
   "hotelDd",
   "hotelDetail",
