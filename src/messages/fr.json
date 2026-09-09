@@ -12304,10 +12304,10 @@
     },
     "invoices": {
       "title": "Factures",
-      "intro": "Conforme loi TVA LU art. 61-63. Facture émise = immuable (base trigger DB).",
+      "intro": "Factures enregistrées pour cet établissement. Le statut « payée » est un marquage manuel ; les montants ne constituent pas un rapprochement des encaissements.",
       "kpiTotal": "Factures total",
-      "kpiIssued": "CA émis TTC",
-      "kpiCollected": "Encaissé TTC",
+      "kpiIssued": "Factures émises TTC",
+      "kpiCollected": "Factures marquées payées TTC",
       "empty": "Aucune facture. Générez la première depuis une réservation.",
       "colNumber": "N° facture",
       "colDate": "Date",
@@ -12321,7 +12321,9 @@
       "actionPdf": "PDF",
       "actionIssue": "Émettre",
       "actionMarkPaid": "Marquer payée",
-      "confirmIssue": "Émettre la facture {number} ? Elle deviendra immuable (art. 61-63 loi TVA LU)."
+      "confirmIssue": "Émettre la facture {number} ? Elle deviendra immuable (art. 61-63 loi TVA LU).",
+      "loadError": "Impossible de charger toutes les factures. Aucun total partiel n’est affiché.",
+      "retry": "Réessayer"
     },
     "reports": {
       "title": "Rapports & analytics",

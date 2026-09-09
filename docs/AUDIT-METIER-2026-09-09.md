@@ -774,3 +774,21 @@ Hub hôtellerie (0abe245) confirmé en production : CI 34399433885 success, Verc
 Guides Bëllegen Akt/notaire (90e8308) confirmés en production : CI 34401078513 success, Vercel dpl_G6YiD4erXhSzvLfMAP3FF9MVGrYL Ready ; dix pages revérifiées, y compris traduction du sommaire.
 
 Contrôle d’accès Supabase complémentaire : la session navigateur authentifiée ne donne pas accès au projet de la configuration Tevaxia et redirige vers une autre organisation. Aucun compte, permission, secret ou donnée modifié. L’absence d’accès empêche toujours de certifier/appliquer les changements SQL en production ; la revue des autres surfaces continue.
+
+
+## Factures PMS — lecture complète et totaux par devise
+
+- Suppression du plafond silencieux de 500 factures, y compris dans le fournisseur de sauvegarde qui réutilise cette lecture. Pagination par 500, nombre exact, ordre stable date/identifiant ; refus des résultats tronqués, doublons, changement du nombre de lignes ou périmètre incorrect. Plafond de sécurité de 200 000 provoquant une erreur explicite, jamais un total partiel.
+- Identité contrôlée avant/après lecture et propriété filtrée par propriétaire. Cela complète les contrôles applicatifs sans certifier les RLS ni les RPC en production.
+- Écran réinitialisé par utilisateur/établissement ; réponses tardives ignorées, déconnexion affichée immédiatement avec lien localisé ; erreur et bouton Réessayer distincts de la liste vide. Tableau contenu horizontalement sur mobile.
+- Totaux en centimes signés, séparés par devise ; contrôle HT + TVA + taxe de séjour = TTC ; montants absents/incohérents refusés. Les libellés décrivent les factures émises et celles marquées manuellement payées, sans les assimiler à un rapprochement des encaissements. Retrait de l’affirmation globale de conformité/immutabilité non vérifiée sur cet écran.
+- Huit tests supplémentaires : plus de 1 000 lignes, erreurs/vide, troncature, doublons/périmètre/changements, identité, devises/avoirs et montants invalides. Suite : 1 308 tests / 123 fichiers réussis. Émission, marquage payé, PDF et SQL restent à revoir séparément.
+
+TVA logement (81ae7a2) confirmée en production : CI 34401827599 success ; Vercel dpl_Eq5QY8nP4S1VwHePzA7xemHMo865 Ready et domaine tevaxia.lu associé ; cinq pages/quatre largeurs réussies. Le projet Supabase public présent dans les scripts de production est bien dpynqvilgniohgtichbz, identique à la configuration locale et inaccessible avec la session disponible.
+
+
+### Correction du périmètre des contrôles de routes PMS
+
+Le contrôle renforcé des factures a révélé l’absence des alias des pages internes PMS en EN/DE/PT/LB (HTTP 404). Certains anciens tests anonymes reconnaissaient le lien de connexion de l’en-tête général sur la page 404 : leurs résultats ne prouvaient donc pas l’accessibilité des routes traduites. Les validations hors ligne des composants et des calculs restent distinctes et valides. Ajout de 92 alias pages/layouts vers les composants canoniques, avec reprise du noindex et du layout de propriété. Le test factures exige maintenant HTTP 200 et le titre exact du contenu ; un inventaire HTTP distinct contrôle les 21 pages dynamiques dans les cinq langues. Cette correction ne vaut pas certification des opérations connectées ni des autres pages du site.
+
+Validation finale locale du lot factures/routes : build et lint réussis ; cinq écrans factures avec titre/statut HTTP vérifiés, quatre largeurs, erreur/retry/déconnexion/changement de compte testés sur composants réels avec services simulés ; 105 URL PMS vérifiées HTTP 200 sans contenu 404. Aucun test d’écriture en production.

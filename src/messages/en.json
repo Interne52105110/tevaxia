@@ -12304,10 +12304,10 @@
     },
     "invoices": {
       "title": "Invoices",
-      "intro": "LU VAT law art. 61-63 compliant. Once issued, invoice is immutable (DB trigger).",
+      "intro": "Invoices recorded for this property. “Paid” is a manual status; these amounts are not a reconciliation of cash receipts.",
       "kpiTotal": "Total invoices",
-      "kpiIssued": "Issued revenue",
-      "kpiCollected": "Collected",
+      "kpiIssued": "Issued invoices incl. VAT",
+      "kpiCollected": "Invoices marked paid incl. VAT",
       "empty": "No invoice. Generate the first from a booking.",
       "colNumber": "Invoice no.",
       "colDate": "Date",
@@ -12321,7 +12321,9 @@
       "actionPdf": "PDF",
       "actionIssue": "Issue",
       "actionMarkPaid": "Mark paid",
-      "confirmIssue": "Issue invoice {number}? It will become immutable (art. 61-63 LU VAT law)."
+      "confirmIssue": "Issue invoice {number}? It will become immutable (art. 61-63 LU VAT law).",
+      "loadError": "Unable to load all invoices. No partial totals are displayed.",
+      "retry": "Retry"
     },
     "reports": {
       "title": "Reports & analytics",

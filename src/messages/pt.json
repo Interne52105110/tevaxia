@@ -12182,10 +12182,10 @@
     },
     "invoices": {
       "title": "Faturas",
-      "intro": "Conforme lei IVA LU art. 61-63. Fatura emitida = imutável (trigger DB).",
+      "intro": "Faturas registadas para este estabelecimento. «Paga» é um estado manual; os montantes não representam uma reconciliação dos recebimentos.",
       "kpiTotal": "Total faturas",
-      "kpiIssued": "Faturação emitida",
-      "kpiCollected": "Recebido",
+      "kpiIssued": "Faturas emitidas com IVA",
+      "kpiCollected": "Faturas marcadas como pagas com IVA",
       "empty": "Sem faturas. Gere a primeira a partir de uma reserva.",
       "colNumber": "N.º fatura",
       "colDate": "Data",
@@ -12199,7 +12199,9 @@
       "actionPdf": "PDF",
       "actionIssue": "Emitir",
       "actionMarkPaid": "Marcar paga",
-      "confirmIssue": "Emitir fatura {number}? Tornar-se-á imutável (art. 61-63 lei IVA LU)."
+      "confirmIssue": "Emitir fatura {number}? Tornar-se-á imutável (art. 61-63 lei IVA LU).",
+      "loadError": "Não foi possível carregar todas as faturas. Não são apresentados totais parciais.",
+      "retry": "Tentar novamente"
     },
     "reports": {
       "title": "Relatórios & analytics",

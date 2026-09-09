@@ -12182,10 +12182,10 @@
     },
     "invoices": {
       "title": "Rechnungen",
-      "intro": "Konform LU MwStG Art. 61-63. Ausgestellte Rechnung = unveränderbar (DB-Trigger).",
+      "intro": "Für diesen Betrieb erfasste Rechnungen. „Bezahlt“ ist ein manueller Status; die Beträge sind kein Abgleich der Zahlungseingänge.",
       "kpiTotal": "Rechnungen total",
-      "kpiIssued": "Ausgestellter Umsatz",
-      "kpiCollected": "Eingenommen",
+      "kpiIssued": "Ausgestellte Rechnungen brutto",
+      "kpiCollected": "Als bezahlt markierte Rechnungen brutto",
       "empty": "Keine Rechnung. Erstellen Sie die erste aus einer Buchung.",
       "colNumber": "Rech.-Nr.",
       "colDate": "Datum",
@@ -12199,7 +12199,9 @@
       "actionPdf": "PDF",
       "actionIssue": "Ausstellen",
       "actionMarkPaid": "Als bezahlt markieren",
-      "confirmIssue": "Rechnung {number} ausstellen? Sie wird unveränderbar (Art. 61-63 LU MwStG)."
+      "confirmIssue": "Rechnung {number} ausstellen? Sie wird unveränderbar (Art. 61-63 LU MwStG).",
+      "loadError": "Nicht alle Rechnungen konnten geladen werden. Es werden keine unvollständigen Summen angezeigt.",
+      "retry": "Erneut versuchen"
     },
     "reports": {
       "title": "Berichte & Analytics",

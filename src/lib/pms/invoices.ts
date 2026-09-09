@@ -6,16 +6,59 @@ function ensureClient() {
   return supabase;
 }
 
-export async function listInvoices(propertyId: string): Promise<PmsInvoice[]> {
-  if (!isSupabaseConfigured || !supabase) return [];
-  const { data, error } = await supabase
-    .from("pms_invoices")
-    .select("*")
-    .eq("property_id", propertyId)
-    .order("issue_date", { ascending: false })
-    .limit(500);
-  if (error) return [];
-  return (data ?? []) as PmsInvoice[];
+/** Sum recorded amounts in integer cents, keeping each currency separate. */
+export function invoiceTotalsByCurrency(invoices: PmsInvoice[]) {
+  const totals = new Map<string, { issued: bigint; paid: bigint }>();
+  for (const inv of invoices) {
+    if (!/^[A-Z]{3}$/.test(inv.currency) || typeof inv.issued !== "boolean" || typeof inv.paid !== "boolean") throw new Error("Invalid invoice status or currency");
+    const cents = (value: number) => {
+      const text = String(value);
+      if (value == null || !/^-?\d+(\.\d{1,2})?$/.test(text)) throw new Error("Invalid invoice amount");
+      const [whole, fraction = ""] = text.replace(/^-/, "").split(".");
+      return (BigInt(whole) * 100n + BigInt(fraction.padEnd(2, "0"))) * (text.startsWith("-") ? -1n : 1n);
+    };
+    const gross = cents(inv.total_ttc);
+    if (cents(inv.total_ht) + cents(inv.total_tva) + cents(inv.taxe_sejour) !== gross) throw new Error("Unbalanced invoice");
+    const row = totals.get(inv.currency) ?? { issued: 0n, paid: 0n };
+    if (inv.issued) row.issued += gross;
+    if (inv.paid) row.paid += gross;
+    totals.set(inv.currency, row);
+  }
+  const amount = (n: bigint) => {
+    if (n > BigInt(Number.MAX_SAFE_INTEGER) || n < BigInt(-Number.MAX_SAFE_INTEGER)) throw new Error("Invoice total too large");
+    return Number(n) / 100;
+  };
+  return [...totals].sort(([a], [b]) => a.localeCompare(b)).map(([currency, row]) => ({ currency, issued: amount(row.issued), paid: amount(row.paid) }));
+}
+
+/** Complete live read. A changing or truncated result must not become a partial KPI or backup. */
+export async function listInvoices(propertyId: string, expectedUserId?: string): Promise<PmsInvoice[]> {
+  const client = ensureClient();
+  const identity = await client.auth.getUser();
+  const userId = identity.data.user?.id;
+  if (identity.error || !userId || (expectedUserId && expectedUserId !== userId)) throw new Error("Authentication changed");
+  const property = await client.from("pms_properties").select("id").eq("id", propertyId).eq("user_id", userId).single();
+  if (property.error || !property.data) throw new Error("Property unavailable");
+  const rows: PmsInvoice[] = [], ids = new Set<string>();
+  let expected: number | null = null;
+  for (let offset = 0; ; offset += 500) {
+    const result = await client.from("pms_invoices").select("*", { count: "exact" })
+      .eq("property_id", propertyId).order("issue_date", { ascending: false }).order("id").range(offset, offset + 499);
+    if (result.error) throw result.error;
+    if (result.count == null || result.count > 200000 || (expected !== null && expected !== result.count)) throw new Error("Incomplete or changing invoice read");
+    expected = result.count;
+    const page = (result.data ?? []) as PmsInvoice[];
+    for (const row of page) {
+      if (!row.id || ids.has(row.id) || row.property_id !== propertyId) throw new Error("Invalid invoice page");
+      ids.add(row.id); rows.push(row);
+    }
+    if (rows.length === expected) break;
+    if (page.length !== 500 || rows.length > expected) throw new Error("Incomplete invoice read");
+  }
+  const finalIdentity = await client.auth.getUser();
+  if (finalIdentity.error || finalIdentity.data.user?.id !== userId) throw new Error("Authentication changed");
+  invoiceTotalsByCurrency(rows);
+  return rows;
 }
 
 export async function getInvoice(id: string): Promise<PmsInvoice | null> {

@@ -12182,10 +12182,10 @@
     },
     "invoices": {
       "title": "Rechnungen",
-      "intro": "Konform LU MwStG Art. 61-63. Erausgestallte Rechnung = onverännerlech (DB-Trigger).",
+      "intro": "Rechnunge fir dëse Betrib. „Bezuelt“ ass e manuelle Status; d’Zomme sinn keen Ofgläich vun de Bezuelungsagang.",
       "kpiTotal": "Rechnungen Total",
-      "kpiIssued": "Erausgestallten Ëmsaz",
-      "kpiCollected": "Kasséiert",
+      "kpiIssued": "Ausgestallte Rechnungen inkl. TVA",
+      "kpiCollected": "Als bezuelt markéiert Rechnungen inkl. TVA",
       "empty": "Keng Rechnung. Erstellt déi éischt aus enger Reservéierung.",
       "colNumber": "Rech.-Nr.",
       "colDate": "Datum",
@@ -12199,7 +12199,9 @@
       "actionPdf": "PDF",
       "actionIssue": "Erausginn",
       "actionMarkPaid": "Als bezuelt markéieren",
-      "confirmIssue": "Rechnung {number} erausginn? Si gëtt onverännerlech (Art. 61-63 LU MwStG)."
+      "confirmIssue": "Rechnung {number} erausginn? Si gëtt onverännerlech (Art. 61-63 LU MwStG).",
+      "loadError": "Net all Rechnunge konnte geluede ginn. Et gi keng onvollstänneg Zommen ugewisen.",
+      "retry": "Nach eng Kéier probéieren"
     },
     "reports": {
       "title": "Berichter & Analytics",
