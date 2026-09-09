@@ -3466,7 +3466,13 @@
     "dcfAuditScope": "Vereinfachtes jährliches DCF-Szenario: Die Ausgangswerte sind Beispiele und durch dokumentierte Annahmen zu ersetzen. Mieten und Kosten des ersten Jahres, Zahlungsströme am Jahresende, konstanter Leerstand. Bauarbeiten, Finanzierung, Steuern und Erwerbskosten sind ausgeschlossen und in einer vollständigen Analyse zu ergänzen.",
     "dcfAuditTerminal": "Der Verkaufsertrag basiert auf dem Einkommen des Jahres N+1: Mieten und Kosten wachsen jeweils mit ihrem eigenen Satz. Dieses Einkommen muss für die gewählte Kapitalisierung positiv sein. Der Verkaufserlös nach Gebühren wird vom Ende des Jahres N abgezinst.",
     "dcfAuditReturn": "Der berechnete Preis ist ein Barwert gemäß Ihren Annahmen. Ein interner Zinsfuß mit diesem Preis als Investition ergibt konstruktionsbedingt den Diskontierungssatz und misst nicht unabhängig die Rendite eines tatsächlichen Kaufs. Der Wert fließt in die Abstimmung ein, ohne einen Marktwert zu bestätigen.",
-    "dcfAuditInvalid": "Gültige Beträge und Sätze eingeben: ganze Laufzeit von 1–50 Jahren, nicht negative Mieten und Kosten, Wachstum von −100 bis 100 %, Leerstand und Gebühren von 0 bis 100 %, Diskontierung von 0 bis 100 %, positiver Exit-Satz bis 100 %. Das Einkommen bei Verkauf muss positiv sein."
+    "dcfAuditInvalid": "Gültige Beträge und Sätze eingeben: ganze Laufzeit von 1–50 Jahren, nicht negative Mieten und Kosten, Wachstum von −100 bis 100 %, Leerstand und Gebühren von 0 bis 100 %, Diskontierung von 0 bis 100 %, positiver Exit-Satz bis 100 %. Das Einkommen bei Verkauf muss positiv sein.",
+    "capAuditScope": "Direkte Kapitalisierung eines stabilisierten jährlichen Nettoertrags. Ausgangswerte sind Beispiele und durch dokumentierte Annahmen zu ersetzen. Finanzierung, Einkommensteuer, Erwerbskosten und ein gesondertes Bauprogramm werden nicht berechnet. Der Satz muss zum gleichen Ertrags- und Kostenumfang passen.",
+    "capAuditCharges": "Leerstand bezieht sich auf die Bruttomiete. Verwaltung und Instandhaltungsrücklage werden auf die Bruttomiete vor Leerstand berechnet; sonstige Kosten sind Jahresbeträge. Bruttorendite ist Bruttomiete / Wert, Nettorendite NOI / Wert. Der ERV-Quotient ist vor Kosten; Erwerbskosten sind in keinem dieser Quotienten enthalten.",
+    "capAuditInvalid": "Geben Sie nicht negative Beträge und gültige Sätze ein (0–100 %, Kapitalisierung strikt positiv). Die Methode verlangt einen positiven Nettoertrag. Bei Verlusten ist eine andere Analyse erforderlich; daraus folgt nicht automatisch ein Marktwert von null oder darunter.",
+    "capAuditErvRatio": "Marktmiete nach Leerstand / Wert, vor Kosten",
+    "capAuditGap": "Abweichung der Marktmiete von der Vertragsmiete",
+    "capAuditErvOptional": "Optional: Ohne Beleg leer lassen. Null bedeutet eine Marktmiete von null und unterscheidet sich von einer fehlenden Angabe."
   },
   "onboarding": {
     "heading": "Finden Sie die auf Ihren Beruf zugeschnittenen Tools",

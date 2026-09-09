@@ -3466,7 +3466,13 @@
     "dcfAuditScope": "Simplified annual DCF scenario: initial figures are illustrative and must be replaced with documented assumptions. Year-one rents and expenses, year-end cash flows and constant vacancy. Works, financing, tax and acquisition costs are excluded; include them in a full analysis.",
     "dcfAuditTerminal": "Exit income is year N+1 income: rents and expenses each grow at their own rate. This income must be positive for the selected capitalisation method. Sale proceeds net of fees are discounted from the end of year N.",
     "dcfAuditReturn": "The calculated price is a present value under your assumptions. An IRR using that same price as the investment reproduces the discount rate by construction; it does not independently measure the return on an actual purchase. The value feeds reconciliation without certifying market value.",
-    "dcfAuditInvalid": "Enter valid amounts and rates: a whole duration of 1–50 years, non-negative rent and expenses, growth from −100 to 100%, vacancy and fees from 0 to 100%, discount rate from 0 to 100%, and a strictly positive exit rate up to 100%. Exit income must be positive."
+    "dcfAuditInvalid": "Enter valid amounts and rates: a whole duration of 1–50 years, non-negative rent and expenses, growth from −100 to 100%, vacancy and fees from 0 to 100%, discount rate from 0 to 100%, and a strictly positive exit rate up to 100%. Exit income must be positive.",
+    "capAuditScope": "Direct capitalisation of stabilised annual net income. Initial figures are examples to replace with documented assumptions. Financing, income tax, acquisition costs and a separate works programme are not calculated. The rate must match the same income and expense scope.",
+    "capAuditCharges": "Vacancy applies to gross rent. Management and maintenance provision are calculated on gross rent before vacancy; other expenses are annual amounts. Gross yield is gross rent / value and net yield is NOI / value. The ERV ratio below remains before expenses; none of these ratios includes acquisition costs.",
+    "capAuditInvalid": "Enter non-negative amounts and valid rates (0–100%, with a strictly positive capitalisation rate). This method requires positive net income. Negative income calls for a different analysis; it does not automatically imply zero or negative market value.",
+    "capAuditErvRatio": "Market rent after vacancy / value, before expenses",
+    "capAuditGap": "Market rent difference from passing rent",
+    "capAuditErvOptional": "Optional: leave blank if undocumented. Zero means zero market rent and differs from missing information."
   },
   "onboarding": {
     "heading": "Find the tools calibrated to your profession",

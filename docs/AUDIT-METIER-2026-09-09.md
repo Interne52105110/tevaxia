@@ -246,3 +246,13 @@ Le batch valide son corps même s'il est null, conserve les index et détaille l
 OpenAPI 1.1.0 corrige les champs, énumérations, valeurs par défaut et limites des schémas estimation, batch, sensibilité historique MLV et DCF annuel. Les promesses de certification, exemple de MLV avec champs inexistants et description du DCF comme multi-locataires sont retirés. Les autres endpoints de la spécification restent à revoir. La documentation web explique le contrat strict, les succès partiels et la vérification de response.ok ; ses métadonnées sont reprises dans les cinq langues. La clé sandbox publique ne déborde plus sur mobile.
 
 Validation : 1 148 tests / 97 fichiers réussis, compilation et lint réussis. Un test lit directement le YAML publié et soumet son exemple, ses énumérations et ses valeurs par défaut au vrai traitement avec authentification simulée. Contrôles de types invalides, corps null, communes ambiguës, concordance unitaire/batch et succès partiel. Cinq langues, quatre largeurs, métadonnées, spécification servie et maintien de la réponse 401 sans clé vérifiés. Aucun appel avec une clé de client.
+
+## Capitalisation directe — revenus, ratios et invalides
+
+Les montants, taux, ERV facultative et limites numériques sont validés. Un taux nul, un revenu net non positif ou un dépassement numérique ne produit plus une valeur présentée comme exploitable. Les sensibilités à des taux impossibles sont omises au lieu d'afficher zéro. Le formulaire transmet sa valeur après calcul et efface l'entrée de réconciliation lorsque le scénario devient invalide.
+
+Les bases sont explicites : vacance sur le loyer brut ; gestion et provision sur le brut avant vacance ; autres charges annuelles. Exemple indépendant : 10 000 EUR de loyer brut, vacance 10 %, charges fixes 1 000 + 200 + 100 EUR, gestion 5 % et provision 1 % : charges totales 1 900 EUR, NOI 7 100 EUR, capitalisation à 5 % = 142 000 EUR. Les ratios brut/net sont distingués ; le ratio ERV après vacance reste avant charges. L'ERV vide signifie inconnue, zéro signifie un loyer de marché nul. Des loyers égaux ne sont plus qualifiés de surloyer.
+
+Le contrat OpenAPI de capitalisation décrit les vrais paramètres et fractions de taux, et son accès public actuel. Les champs historiques de ratios de l'API conservent leur formule documentée. Une protection contre l'infini est également ajoutée au DCF pour un taux de sortie extrêmement petit.
+
+Validation : 1 153 tests / 97 fichiers réussis, compilation et lint réussis. Cinq langues, quatre largeurs, NOI, ERV vide/nulle/négative, taux nul, champs vides, transfert et effacement en réconciliation, API valide/400 contrôlés. Aucun nouveau PDF dans ce lot.

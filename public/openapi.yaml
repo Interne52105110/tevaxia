@@ -461,12 +461,76 @@ paths:
   /api/v1/capitalisation:
     post:
       summary: Capitalisation directe
-      description: VM = NOI / taux de cap. Taux par asset-type LU.
+      description: >-
+        Capitalisation directe d’un NOI annuel stabilisé positif. Vacance sur le brut ; frais de gestion et
+        provision sur le brut avant vacance. Taux choisi par l’utilisateur, sans taux de marché automatique.
+        Hors financement, fiscalité, acquisition et programme de travaux distinct. Les rendements Initial et
+        Reversionnaire historiques sont avant charges après vacance ; rendementNet est NOI / valeur.
       tags:
         - Evaluation
       responses:
         '200':
-          description: Valeur capitalisée
+          description: Scénario de capitalisation dans success/data
+        '400':
+          description: Entrées invalides, NOI non positif ou dépassement numérique
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - loyerBrutAnnuel
+                - chargesNonRecuperables
+                - assurancePNO
+                - taxeFonciere
+                - tauxVacance
+                - provisionGrosEntretien
+                - fraisGestion
+                - tauxCapitalisation
+              properties:
+                loyerBrutAnnuel:
+                  type: number
+                  minimum: 0
+                  maximum: 1000000000000
+                chargesNonRecuperables:
+                  type: number
+                  minimum: 0
+                  maximum: 1000000000000
+                assurancePNO:
+                  type: number
+                  minimum: 0
+                  maximum: 1000000000000
+                taxeFonciere:
+                  type: number
+                  minimum: 0
+                  maximum: 1000000000000
+                tauxVacance:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                provisionGrosEntretien:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                fraisGestion:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                tauxCapitalisation:
+                  type: number
+                  exclusiveMinimum: 0
+                  maximum: 1
+                  description: 'Fraction : 0.05 = 5 %'
+                ervAnnuel:
+                  type: number
+                  minimum: 0
+                  maximum: 1000000000000
+                  description: Facultatif ; omis = inconnu, zéro = loyer de marché nul
   /api/v1/capital-investi:
     post:
       summary: Capital investi total

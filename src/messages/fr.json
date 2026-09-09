@@ -3466,7 +3466,13 @@
     "dcfAuditScope": "Scénario DCF annuel simplifié : valeurs initiales illustratives à remplacer par des hypothèses documentées. Loyers et charges de l’année 1, flux en fin d’année, vacance constante. Travaux, financement, fiscalité et frais d’acquisition ne sont pas inclus ; ajoutez-les dans une analyse complète.",
     "dcfAuditTerminal": "Le revenu de sortie est celui de l’année N+1 : loyers et charges progressent chacun à leur propre taux. Ce revenu doit être positif pour la capitalisation retenue. La revente nette de frais est actualisée à la fin de l’année N.",
     "dcfAuditReturn": "Le prix calculé est une valeur actuelle selon vos hypothèses. Un TRI calculé en utilisant ce même prix comme investissement retrouve le taux d’actualisation par construction ; il ne mesure pas indépendamment la rentabilité d’un achat réel. La valeur alimente la réconciliation, sans certifier une valeur de marché.",
-    "dcfAuditInvalid": "Complétez les montants et taux valides : durée entière de 1 à 50 ans, loyers et charges non négatifs, croissance de −100 à 100 %, vacance et frais de 0 à 100 %, actualisation de 0 à 100 %, taux de sortie strictement positif jusqu’à 100 %. Le revenu de sortie doit être positif."
+    "dcfAuditInvalid": "Complétez les montants et taux valides : durée entière de 1 à 50 ans, loyers et charges non négatifs, croissance de −100 à 100 %, vacance et frais de 0 à 100 %, actualisation de 0 à 100 %, taux de sortie strictement positif jusqu’à 100 %. Le revenu de sortie doit être positif.",
+    "capAuditScope": "Capitalisation directe d’un revenu net annuel stabilisé. Les valeurs initiales sont des exemples à remplacer par des hypothèses documentées. Aucun financement, impôt sur le revenu, frais d’acquisition ou programme de travaux distinct n’est calculé. Le taux doit correspondre au même périmètre de revenus et de charges.",
+    "capAuditCharges": "La vacance porte sur le loyer brut. Gestion et provision d’entretien sont calculées sur le loyer brut avant vacance ; les autres charges sont des montants annuels. Le rendement brut est loyer brut / valeur, le net est NOI / valeur. Le ratio ERV ci-dessous reste avant charges ; aucun de ces ratios n’inclut les frais d’acquisition.",
+    "capAuditInvalid": "Saisissez des montants non négatifs et des taux valides (0 à 100 %, capitalisation strictement positive). Le revenu net doit être positif pour cette méthode. Un revenu déficitaire nécessite une autre analyse ; il ne donne pas automatiquement une valeur de marché nulle ou négative.",
+    "capAuditErvRatio": "Loyer de marché après vacance / valeur, avant charges",
+    "capAuditGap": "Écart du loyer de marché au loyer en place",
+    "capAuditErvOptional": "Facultatif : laissez vide si non documenté. Zéro signifie un loyer de marché nul ; il est distinct d’une information absente."
   },
   "onboarding": {
     "heading": "Trouvez les outils calibrés pour votre métier",

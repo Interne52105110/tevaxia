@@ -3466,7 +3466,13 @@
     "dcfAuditScope": "Vereinfacht jäerlecht DCF-Szenario: D’Ausgangswäerter si Beispiller a mussen duerch dokumentéiert Hypothesen ersat ginn. Loyeren a Käschten am éischte Joer, Fluxen um Enn vum Joer a konstante Leerstand. Aarbechten, Finanzéierung, Steieren an Acquisitiounskäschte sinn ausgeschloss a fir eng komplett Analys ze ergänzen.",
     "dcfAuditTerminal": "D’Akommes beim Verkaf ass dat vum Joer N+1: Loyeren a Käschte wuessen all mat hirem eegenen Taux. Dëst Akommes muss fir déi gewielte Kapitaliséierung positiv sinn. De Verkafserléis no Fraise gëtt vum Enn vum Joer N ofgezinst.",
     "dcfAuditReturn": "De berechente Präis ass e Barwäert no Ären Hypothesen. En internen Zënssaz mat dësem selwechte Präis als Investitioun entsprécht dem Diskontéierungstaux duerch d’Berechnung; e moosst net onofhängeg de Rendement vun engem reelle Kaf. De Wäert fléisst an d’Reconciliatioun an, ouni e Maartwäert ze zertifiéieren.",
-    "dcfAuditInvalid": "Gëlteg Montanten an Tauxen aginn: ganz Dauer vun 1–50 Joer, net negativ Loyeren a Käschten, Wuesstem vun −100 bis 100 %, Leerstand a Fraise vun 0 bis 100 %, Diskontéierung vun 0 bis 100 %, positiven Austrëttstaux bis 100 %. D’Akommes beim Verkaf muss positiv sinn."
+    "dcfAuditInvalid": "Gëlteg Montanten an Tauxen aginn: ganz Dauer vun 1–50 Joer, net negativ Loyeren a Käschten, Wuesstem vun −100 bis 100 %, Leerstand a Fraise vun 0 bis 100 %, Diskontéierung vun 0 bis 100 %, positiven Austrëttstaux bis 100 %. D’Akommes beim Verkaf muss positiv sinn.",
+    "capAuditScope": "Direkt Kapitaliséierung vun engem stabiliséierte jäerlechen Nettoakommes. D’Ausgangswäerter si Beispiller a mussen duerch dokumentéiert Hypothesen ersat ginn. Finanzéierung, Akommessteier, Acquisitiounskäschten an e separate Bauprogramm ginn net berechent. Den Taux muss zum selwechten Ëmfang vun Akommes a Käschte passen.",
+    "capAuditCharges": "De Leerstand bezitt sech op de Bruttoloyer. Gestioun an Ënnerhaltsprovisioun ginn op de Bruttoloyer virum Leerstand berechent; aner Käschte si Joresmontanten. Bruttorendement ass Bruttoloyer / Wäert, Nettorendement ass NOI / Wäert. Den ERV-Quotient ass viru Käschten; keng vun dëse Quotiente enthält Acquisitiounskäschten.",
+    "capAuditInvalid": "Gitt net negativ Montanten a gëlteg Tauxen an (0–100 %, Kapitaliséierung strikt positiv). D’Method erfuerdert positivt Nettoakommes. E Verloscht erfuerdert eng aner Analys; dat bedeit net automatesch e Maartwäert vun null oder manner.",
+    "capAuditErvRatio": "Maartloyer nom Leerstand / Wäert, viru Käschten",
+    "capAuditGap": "Differenz vum Maartloyer zum aktuelle Loyer",
+    "capAuditErvOptional": "Fakultativ: Ouni Dokumentatioun eidel loossen. Null bedeit e Maartloyer vun null an ass net datselwecht wéi eng feelend Informatioun."
   },
   "onboarding": {
     "heading": "Fannt d'Tools, déi op Äre Beruff zougeschnidde sinn",

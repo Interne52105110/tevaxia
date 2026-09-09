@@ -4,13 +4,13 @@ import { useState, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
-import { formatEUR, formatEUR2, formatPct } from "@/lib/calculations";
+import { formatEUR } from "@/lib/calculations";
 import {
   calculerComparaison,
-  calculerCapitalisation,
   reconcilier,
   type Comparable,
 } from "@/lib/valuation";
+import {CapitalisationScenario} from "@/components/CapitalisationScenario";
 import {PrudentialValue} from "@/components/PrudentialValue";
 import {DcfScenario} from "@/components/DcfScenario";
 import { EsgDossier } from "@/components/EsgDossier";
@@ -472,132 +472,7 @@ function TabComparaison({
 // TAB 2 — CAPITALISATION DIRECTE
 // ============================================================
 
-function TabCapitalisation({ onValeur }: { onValeur: (v: number) => void }) {
-  const t = useTranslations("valorisation");
-  const [loyerBrut, setLoyerBrut] = useState(36000);
-  const [chargesNonRecup, setChargesNonRecup] = useState(1800);
-  const [tauxVacance, setTauxVacance] = useState(5);
-  const [provisionEntretien, setProvisionEntretien] = useState(3);
-  const [assurancePNO, setAssurancePNO] = useState(400);
-  const [fraisGestion, setFraisGestion] = useState(5);
-  const [taxeFonciere, setTaxeFonciere] = useState(200);
-  const [tauxCap, setTauxCap] = useState(4.0);
-  const [ervAnnuel, setErvAnnuel] = useState(0);
-
-  const result = useMemo(() => {
-    const r = calculerCapitalisation({
-      loyerBrutAnnuel: loyerBrut,
-      chargesNonRecuperables: chargesNonRecup,
-      tauxVacance: tauxVacance / 100,
-      provisionGrosEntretien: provisionEntretien / 100,
-      assurancePNO,
-      fraisGestion: fraisGestion / 100,
-      taxeFonciere,
-      tauxCapitalisation: tauxCap / 100,
-      ervAnnuel: ervAnnuel > 0 ? ervAnnuel : undefined,
-    });
-    onValeur(r.valeur);
-    return r;
-  }, [loyerBrut, chargesNonRecup, tauxVacance, provisionEntretien, assurancePNO, fraisGestion, taxeFonciere, tauxCap, ervAnnuel, onValeur]);
-
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div className="space-y-6">
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("capRevenus")}</h2>
-          <div className="space-y-4">
-            <InputField label={t("loyerBrutAnnuel")} value={loyerBrut} onChange={(v) => setLoyerBrut(Number(v))} suffix="€" hint={`${formatEUR2(loyerBrut / 12)} /${t("suffixMois")}`} />
-            <InputField label={t("tauxDeVacance")} value={tauxVacance} onChange={(v) => setTauxVacance(Number(v))} suffix="%" step={0.5} hint={t("tauxVacanceHint")} />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("capChargesProprietaire")}</h2>
-          <div className="space-y-4">
-            <InputField label={t("chargesNonRecup")} value={chargesNonRecup} onChange={(v) => setChargesNonRecup(Number(v))} suffix={t("suffixEurAn")} />
-            <InputField label={t("provisionEntretien")} value={provisionEntretien} onChange={(v) => setProvisionEntretien(Number(v))} suffix={t("suffixPctLoyer")} step={0.5} />
-            <InputField label={t("assurancePNO")} value={assurancePNO} onChange={(v) => setAssurancePNO(Number(v))} suffix={t("suffixEurAn")} />
-            <InputField label={t("fraisGestion")} value={fraisGestion} onChange={(v) => setFraisGestion(Number(v))} suffix={t("suffixPctLoyer")} step={0.5} />
-            <InputField label={t("impotFoncier")} value={taxeFonciere} onChange={(v) => setTaxeFonciere(Number(v))} suffix={t("suffixEurAn")} hint={t("impotFoncierHint")} />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("capERVTitle")}</h2>
-          <InputField
-            label={t("loyerMarcheERV")}
-            value={ervAnnuel}
-            onChange={(v) => setErvAnnuel(Number(v))}
-            suffix="€"
-            hint={t("loyerMarcheERVHint")}
-          />
-        </div>
-
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("capTauxCap")}</h2>
-          <InputField
-            label={t("tauxDeCapitalisation")}
-            value={tauxCap}
-            onChange={(v) => setTauxCap(Number(v))}
-            suffix="%"
-            step={0.1}
-            hint={t("tauxCapHint")}
-          />
-          <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
-            <p className="text-xs text-amber-800 leading-relaxed">
-              {t("capTauxCapNote")}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        <ResultPanel
-          title={t("capResultNOI")}
-          lines={[
-            { label: t("loyerBrutAnnuel"), value: formatEUR(loyerBrut) },
-            { label: t("capVacanceLine", { pct: tauxVacance }), value: `- ${formatEUR(loyerBrut * tauxVacance / 100)}`, sub: true },
-            { label: t("capLoyerBrutEffectif"), value: formatEUR(result.loyerBrutEffectif) },
-            { label: t("capChargesProprietaireLine"), value: `- ${formatEUR(result.totalCharges)}` },
-            { label: t("capNOI"), value: formatEUR(result.noi), highlight: true, large: true },
-          ]}
-        />
-
-        <ResultPanel
-          title={t("valeurParCapitalisation")}
-          className="border-gold/30"
-          lines={[
-            { label: t("capNOIDivTaux", { noi: formatEUR(result.noi), taux: tauxCap }), value: `${formatEUR(result.noi)} / ${tauxCap}%`, sub: true },
-            { label: t("valeurEstimee"), value: formatEUR(result.valeur), highlight: true, large: true },
-            { label: t("rendementInitial"), value: formatPct(result.rendementInitial) },
-            { label: t("rendementBrut"), value: formatPct(result.rendementBrut), sub: true },
-            { label: t("rendementNet"), value: formatPct(result.rendementNet), sub: true },
-            ...(result.rendementReversionnaire !== undefined ? [
-              { label: t("rendementReversionnaire"), value: formatPct(result.rendementReversionnaire) },
-              { label: result.sousLoue ? t("sousLoue") : t("surLoue"), value: `${result.potentielReversion ? (result.potentielReversion > 0 ? "+" : "") + result.potentielReversion.toFixed(1) + "%" : "0%"}`, warning: !result.sousLoue },
-            ] : []),
-          ]}
-        />
-
-        {/* Sensibilité au taux de capitalisation */}
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="mb-3 text-base font-semibold text-navy">{t("capSensibiliteTauxCap")}</h3>
-          <div className="space-y-1">
-            {result.sensibilite.map((s) => {
-              const isActive = Math.abs(s.tauxCap - tauxCap) < 0.01;
-              return (
-                <div key={s.tauxCap} className={`flex justify-between py-1.5 px-2 rounded text-sm ${isActive ? "bg-navy/5 font-semibold" : ""}`}>
-                  <span className="text-muted">{t("taux")} {s.tauxCap.toFixed(2)}%</span>
-                  <span className="font-mono">{formatEUR(s.valeur)}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+function TabCapitalisation({onValeur}:{onValeur:(value:number)=>void}) {return <CapitalisationScenario onValeur={onValeur}/>;}
 
 // ============================================================
 // TAB 3 — DCF

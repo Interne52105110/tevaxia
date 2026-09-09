@@ -112,6 +112,10 @@ export interface CapitalisationResult {
 }
 
 export function calculerCapitalisation(input: CapitalisationInput): CapitalisationResult {
+  if (!input || [input.loyerBrutAnnuel,input.chargesNonRecuperables,input.assurancePNO,input.taxeFonciere].some(v=>!Number.isFinite(v)||v<0||v>1e12)
+    || [input.tauxVacance,input.provisionGrosEntretien,input.fraisGestion].some(v=>!Number.isFinite(v)||v<0||v>1)
+    || !Number.isFinite(input.tauxCapitalisation) || input.tauxCapitalisation<=0 || input.tauxCapitalisation>1
+    || (input.ervAnnuel!==undefined&&(!Number.isFinite(input.ervAnnuel)||input.ervAnnuel<0||input.ervAnnuel>1e12))) throw new RangeError('Invalid direct capitalisation inputs');
   const loyerBrutEffectif = input.loyerBrutAnnuel * (1 - input.tauxVacance);
   const fraisGestionMontant = input.loyerBrutAnnuel * input.fraisGestion;
   const provisionMontant = input.loyerBrutAnnuel * input.provisionGrosEntretien;
@@ -124,14 +128,15 @@ export function calculerCapitalisation(input: CapitalisationInput): Capitalisati
     input.taxeFonciere;
 
   const noi = loyerBrutEffectif - totalCharges;
-  const valeur = input.tauxCapitalisation > 0 ? noi / input.tauxCapitalisation : 0;
+  const valeur = noi / input.tauxCapitalisation;
+  if (noi <= 0 || !Number.isFinite(valeur)) throw new RangeError('Positive net income is required for direct capitalisation');
 
   // Rendement réversionnaire
   const rendementInitial = valeur > 0 ? loyerBrutEffectif / valeur : 0;
   let rendementReversionnaire: number | undefined;
   let sousLoue: boolean | undefined;
   let potentielReversion: number | undefined;
-  if (input.ervAnnuel && input.ervAnnuel > 0) {
+  if (input.ervAnnuel !== undefined) {
     const ervEffectif = input.ervAnnuel * (1 - input.tauxVacance);
     rendementReversionnaire = valeur > 0 ? ervEffectif / valeur : 0;
     sousLoue = input.loyerBrutAnnuel < input.ervAnnuel;
@@ -141,9 +146,9 @@ export function calculerCapitalisation(input: CapitalisationInput): Capitalisati
   }
 
   // Sensibilité cap rate ±25bps, ±50bps, ±100bps
-  const sensibilite = [-1.0, -0.5, -0.25, 0, 0.25, 0.5, 1.0].map((delta) => {
-    const t = input.tauxCapitalisation + delta / 100;
-    return { tauxCap: (input.tauxCapitalisation * 100 + delta), valeur: t > 0 ? noi / t : 0 };
+  const sensibilite = [-1.0, -0.5, -0.25, 0, 0.25, 0.5, 1.0].flatMap(delta => {
+    const t=input.tauxCapitalisation+delta/100;
+    return t>0&&t<=1&&Number.isFinite(noi/t)?[{tauxCap:t*100,valeur:noi/t}]:[];
   });
 
   return {
@@ -256,6 +261,7 @@ export function calculerDCF(input: DCFInput): DCFResult {
   const valeurTerminaleActualisee = valeurTerminaleNette * facteurTerminal;
 
   const valeurDCF = totalNOIActualise + valeurTerminaleActualisee;
+  if (![totalNOIActualise,valeurTerminaleBrute,valeurTerminaleNette,valeurTerminaleActualisee,valeurDCF].every(Number.isFinite)) throw new RangeError('DCF result exceeds numerical limits');
 
   // At its own present value, the discount rate is a root by construction.
   // Only report this identity for conventional flows; no Newton fallback or independent yield claim.

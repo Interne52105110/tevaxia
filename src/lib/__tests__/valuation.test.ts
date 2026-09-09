@@ -219,3 +219,13 @@ describe('prudential sensitivity guards',()=>{
  it('keeps adjustments additive and bounds the total without inventing risk weights',()=>{expect(calculerMLV(i).mlv).toBe(900000);expect(calculerMLV({...i,decoteConjoncturelle:95}).mlv).toBe(0);expect(calculerMLV(i).ltvBands).toEqual([])});
  it('rejects invalid values, negative adjustments and totals above 100 percent',()=>{for(const patch of [{valeurMarche:0},{valeurMarche:Infinity},{decoteConjoncturelle:NaN},{decoteSpecifique:-1},{decoteConjoncturelle:96}])expect(()=>calculerMLV({...i,...patch})).toThrow()});
 });
+
+
+describe('direct capitalisation boundaries',()=>{
+ const i={loyerBrutAnnuel:10000,chargesNonRecuperables:1000,tauxVacance:.1,provisionGrosEntretien:.01,assurancePNO:200,fraisGestion:.05,taxeFonciere:100,tauxCapitalisation:.05};
+ it('deducts vacancy and expenses on their stated gross rent basis',()=>{const r=calculerCapitalisation({...i,ervAnnuel:12000});expect(r.loyerBrutEffectif).toBe(9000);expect(r.totalCharges).toBe(1900);expect(r.noi).toBe(7100);expect(r.valeur).toBe(142000);expect(r.rendementNet).toBe(.05);expect(r.rendementReversionnaire).toBe(10800/142000)});
+ it('distinguishes omitted ERV, zero ERV and equal rents',()=>{expect(calculerCapitalisation(i).rendementReversionnaire).toBeUndefined();expect(calculerCapitalisation({...i,ervAnnuel:0}).potentielReversion).toBe(-100);expect(calculerCapitalisation({...i,ervAnnuel:10000}).potentielReversion).toBe(0)});
+ it('rejects invalid rates, negative costs, non-positive NOI and numeric overflow',()=>{for(const patch of [{tauxCapitalisation:0},{tauxCapitalisation:Number.MIN_VALUE},{chargesNonRecuperables:-1},{tauxVacance:1.1},{fraisGestion:NaN},{ervAnnuel:-1},{loyerBrutAnnuel:0},{chargesNonRecuperables:20000}])expect(()=>calculerCapitalisation({...i,...patch})).toThrow()});
+ it('omits impossible sensitivity rates instead of publishing zero values',()=>{const r=calculerCapitalisation({...i,tauxCapitalisation:.001});expect(r.sensibilite.every(s=>s.tauxCap>0&&s.valeur>0)).toBe(true)});
+ it('rejects DCF exit-rate overflow rather than serializing infinity',()=>{expect(()=>calculerDCF({loyerAnnuelInitial:10000,tauxIndexation:0,tauxVacance:0,chargesAnnuelles:1000,tauxProgressionCharges:0,periodeAnalyse:2,tauxActualisation:0,tauxCapSortie:Number.MIN_VALUE,fraisCessionPct:0})).toThrow()});
+});
