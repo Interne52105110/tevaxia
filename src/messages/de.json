@@ -431,8 +431,8 @@
         "faq5q": "Wie erhalte ich den Klimabonus?",
         "faq5a": "Myenergy kontaktieren, Energieaudit durchfuehren, nach Abschluss der Arbeiten Antrag beim Umweltministerium stellen."
       },
-      "auditTitle": "Schneller Energie-Audit",
-      "auditDesc": "Ermitteln Sie die CPE-Klasse Ihrer Wohnung in 10 Fragen: Dämmung, Verglasung, Heizung, Lüftung. Sofortiges Ergebnis A bis I."
+      "auditTitle": "Energetische Untersuchung vorbereiten",
+      "auditDesc": "20 Fragen zum Sammeln Ihrer Angaben vor einem Fachtermin. Sie können „Ich weiß es nicht“ wählen. Dieser Fragebogen berechnet nicht die Energieeffizienz Ihres Gebäudes."
     },
     "impact": {
       "title": "Auswirkung der Energieklasse auf den Wert",
@@ -11062,8 +11062,8 @@
   },
   "energyAudit": {
     "back": "← Energie",
-    "title": "Energie-Audit geführt",
-    "subtitle": "20 Fragen zur Diagnose Ihrer Immobilie mit priorisiertem Renovierungsplan und Klimabonus.",
+    "title": "Energetische Untersuchung vorbereiten",
+    "subtitle": "20 Fragen zum Sammeln Ihrer Angaben vor einem Fachtermin. Sie können „Ich weiß es nicht“ wählen. Dieser Fragebogen berechnet nicht die Energieeffizienz Ihres Gebäudes.",
     "freeAudit": "Kostenlos, anonym",
     "twentyQuestions": "20 Fragen · 3 min",
     "klimabonusAware": "Klimabonus 2026",
@@ -11090,7 +11090,7 @@
     "restart": "↻ Neustart",
     "detailRenov": "Renovierungssimulator",
     "simulateAides": "Alle LU-Beihilfen",
-    "disclaimer": "Indikative Ergebnisse. Für offiziellen CPE-Audit myenergy.lu konsultieren.",
+    "disclaimer": "Aus diesen Antworten lassen sich weder Energieklasse noch Energiepunktzahl, Einsparungen oder Förderbeträge ableiten. Budget, Bewohnerzahl und Sanierungspläne messen nicht die Gebäudeleistung.",
     "q_construction_year": "Baujahr?",
     "y_pre1960": "Vor 1960",
     "y_1960_1980": "1960-1980",
@@ -18414,5 +18414,27 @@
     "cash": "Eigenmittel für Kaufpreis + bezifferte Gebühren",
     "financeNote": "Simulation mit konstantem Nominalzins, Zahlung am Monatsende, ohne Versicherung und Bankgebühren. Die Eigenmittel beziehen sich auf den Kaufpreis; bezifferte Gebühren kommen hinzu. Kein Kreditangebot.",
     "quote": "Detaillierter Erwerbskostenrechner"
+  },
+  "energyQuestionnaireAudit": {
+    "title": "Energetische Untersuchung vorbereiten",
+    "intro": "20 Fragen zum Sammeln Ihrer Angaben vor einem Fachtermin. Sie können „Ich weiß es nicht“ wählen. Dieser Fragebogen berechnet nicht die Energieeffizienz Ihres Gebäudes.",
+    "unknown": "Ich weiß es nicht",
+    "unanswered": "Unbeantwortet",
+    "summary": "Ihre Vorbereitungsunterlagen",
+    "documented": "Ausgefüllte Antworten",
+    "unknownCount": "Zu ergänzende Antworten",
+    "scope": "Aus diesen Antworten lassen sich weder Energieklasse noch Energiepunktzahl, Einsparungen oder Förderbeträge ableiten. Budget, Bewohnerzahl und Sanierungspläne messen nicht die Gebäudeleistung.",
+    "documents": "Unterlagen und Themen für das Fachgespräch",
+    "envelope": "Gebäudehülle: Pläne, Flächen, Aufbau und Dicke der Dämmung, Rechnungen, Fenstereigenschaften und beobachtete Mängel.",
+    "heating": "Heizung: Typ und Leistung, Wartung, Heizflächen, Regelung und Energierechnungen der letzten drei Jahre. Ein Austausch erfordert eine angepasste Untersuchung.",
+    "ventilation": "Lüftung: vorhandene Anlage, Wartung, Luftwechsel und Feuchtigkeitsspuren. Lassen Sie die Ursachen vor der Planung von Arbeiten prüfen.",
+    "water": "Warmwasser: Anlage, Kapazität, Alter, Wartung und Nutzung. Trennen Sie den Verbrauch von der Heizung, sofern die Messwerte dies erlauben.",
+    "usage": "Nutzung und Projekt: Bezugsfläche, Belegung, Komfortziele, Einschränkungen und Budget. Maßnahmen gemeinsam untersuchen; Einsparungen lassen sich nicht einfach addieren.",
+    "grants": "Förderungen hängen von Maßnahmen, technischen Kriterien, Terminen und Verfahren ab. Aktuelle Bedingungen prüfen und bestätigen lassen; hier wird kein Pauschalsatz angewendet.",
+    "source": "Guichet.lu — Energieausweis und erforderliche Unterlagen",
+    "edit": "Antworten bearbeiten",
+    "finish": "Unterlagen anzeigen",
+    "progress": "Fortschritt des Fragebogens, keine Energiepunktzahl",
+    "reset": "Antworten löschen"
   }
 }

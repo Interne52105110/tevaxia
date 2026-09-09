@@ -431,8 +431,8 @@
         "faq5q": "How do I get the Klimabonus?",
         "faq5a": "Contact Myenergy for free advice, conduct an energy audit, then apply after works to the Ministry of the Environment."
       },
-      "auditTitle": "Quick energy audit",
-      "auditDesc": "Diagnose your home's EPC class in 10 questions: insulation, glazing, heating, ventilation. Instant A to I result."
+      "auditTitle": "Prepare an energy assessment",
+      "auditDesc": "20 questions to gather information before meeting a professional. You may answer “I do not know”. This questionnaire does not calculate your building’s energy performance."
     },
     "impact": {
       "title": "Energy class impact on property value",
@@ -11184,8 +11184,8 @@
   },
   "energyAudit": {
     "back": "← Energy",
-    "title": "Guided energy audit",
-    "subtitle": "20 questions to diagnose your property, identify priority items and estimate a renovation plan with applicable Klimabonus.",
+    "title": "Prepare an energy assessment",
+    "subtitle": "20 questions to gather information before meeting a professional. You may answer “I do not know”. This questionnaire does not calculate your building’s energy performance.",
     "freeAudit": "Free, anonymous",
     "twentyQuestions": "20 questions · 3 min",
     "klimabonusAware": "Klimabonus 2026 aware",
@@ -11212,7 +11212,7 @@
     "restart": "↻ Restart",
     "detailRenov": "Detailed renovation simulator",
     "simulateAides": "All LU aids",
-    "disclaimer": "Indicative results based on questionnaire. For an official audit eligible for subsidies, consult myenergy.lu (CPE audit). Cost ranges are LU 2026 averages.",
+    "disclaimer": "These answers cannot establish an energy certificate class, an energy score, savings or grant amounts. Budget, occupancy and renovation plans are not measures of building performance.",
     "q_construction_year": "Building construction year?",
     "y_pre1960": "Before 1960",
     "y_1960_1980": "1960-1980",
@@ -18414,5 +18414,27 @@
     "cash": "Price deposit + quantified fees",
     "financeNote": "Simulation at a constant nominal rate, payments at month end, excluding insurance and bank fees. The deposit applies to the price; quantified fees are additional. This is not a credit offer.",
     "quote": "Detailed acquisition cost calculator"
+  },
+  "energyQuestionnaireAudit": {
+    "title": "Prepare an energy assessment",
+    "intro": "20 questions to gather information before meeting a professional. You may answer “I do not know”. This questionnaire does not calculate your building’s energy performance.",
+    "unknown": "I do not know",
+    "unanswered": "Not answered",
+    "summary": "Your preparation file",
+    "documented": "Documented answers",
+    "unknownCount": "Answers to complete",
+    "scope": "These answers cannot establish an energy certificate class, an energy score, savings or grant amounts. Budget, occupancy and renovation plans are not measures of building performance.",
+    "documents": "Documents and points to discuss with the professional",
+    "envelope": "Envelope: plans, areas, insulation composition and thickness, renovation invoices, window specifications and observed defects.",
+    "heating": "Heating: system reference and power, maintenance, emitters, controls and energy bills from the last three years. Selecting a replacement requires a tailored study.",
+    "ventilation": "Ventilation: existing system, maintenance, air renewal and signs of damp. Have the causes assessed before defining works.",
+    "water": "Hot water: equipment, capacity, age, maintenance and usage. Separate its consumption from heating where readings allow.",
+    "usage": "Use and project: reference area, occupancy, comfort goals, constraints and budget. Study works together; their savings cannot simply be added.",
+    "grants": "Grants depend on works, technical criteria, dates and application steps. Check current conditions and obtain confirmation; no flat percentage is applied here.",
+    "source": "Guichet.lu — energy certificate and useful documents",
+    "edit": "Edit answers",
+    "finish": "View my file",
+    "progress": "Questionnaire progress, not an energy score",
+    "reset": "Clear answers"
   }
 }

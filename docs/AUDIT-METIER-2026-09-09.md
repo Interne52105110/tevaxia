@@ -110,3 +110,14 @@ La valeur saisie n’est plus appelée « estimation indépendante » ou « mod�
 Le PDF utilise maintenant la langue sélectionnée et les montants à deux décimales. L’apport sur prix et les frais chiffrés sont distingués ; le modèle de crédit exclut assurance et frais bancaires. Les saisies incohérentes bloquent l’export et les erreurs de génération sont affichées sans effacer les champs.
 
 Validation : 1 152 tests réussis, lint et compilation réussis, cinq langues et quatre largeurs vérifiées. Dix pages PDF de référence inspectées visuellement ; cinq autres PDF ont été réellement téléchargés via le formulaire local et leur contenu contrôlé. Contrôles d’interface : valeur optionnelle, A+/isolation distinctes, forfait supprimé, exclusion terrain/VEFA, taux zéro, champs invalides et bouton bloqué.
+
+
+## Questionnaire énergétique
+
+Les vingt questions sont conservées comme recueil déclaratif avant une étude professionnelle. L’ancien score, sa conversion en CPE A–G, les recommandations chiffrées sans métrés, les pourcentages forfaitaires Klimabonus et les gains additionnés puis plafonnés à 85 % sont supprimés. Le budget, l’occupation ou l’intention de rénover ne changent plus artificiellement une classe énergétique.
+
+Chaque question admet « je ne sais pas ». Le dossier final distingue les réponses renseignées des inconnues, conserve toutes les réponses et fournit une liste de documents à examiner avec le professionnel. Un avancement de questionnaire n’est pas présenté comme une note énergétique. La navigation est explicite, sans temporisation susceptible de sauter une question après plusieurs clics. Modification et remise à zéro sont disponibles. Les métadonnées dans les cinq langues et la carte d’accueil énergie sont alignées.
+
+Source : Guichet.lu, certificat de performance énergétique des bâtiments d’habitation et documents nécessaires, consulté le 9 septembre 2026. Le questionnaire ne détermine pas les aides : les critères techniques, dates, démarches et confirmations du dossier restent nécessaires.
+
+Validation : 1 140 tests / 93 fichiers réussis. Quatre tests de recueil remplacent seize tests qui validaient les anciennes hypothèses arbitraires (classe et aides). Compilation et lint réussis. Parcours des vingt questions, toutes réponses inconnues, modification, remise à zéro, métadonnées et responsive contrôlés dans cinq langues.

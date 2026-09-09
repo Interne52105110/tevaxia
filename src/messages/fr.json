@@ -431,8 +431,8 @@
         "faq5q": "Comment beneficier du Klimabonus ?",
         "faq5a": "Contactez Myenergy pour un conseil gratuit, realisez un audit energetique, puis deposez votre demande de prime aupres du Ministere de l'Environnement apres les travaux."
       },
-      "auditTitle": "Audit énergétique rapide",
-      "auditDesc": "Diagnostiquez la classe CPE de votre logement en 10 questions : isolation, vitrage, chauffage, ventilation. Résultat instantané A à I."
+      "auditTitle": "Préparer une étude énergétique",
+      "auditDesc": "20 questions pour rassembler vos informations avant un rendez-vous avec un professionnel. Vous pouvez répondre « Je ne sais pas ». Ce questionnaire ne calcule pas la performance énergétique de votre bâtiment."
     },
     "impact": {
       "title": "Impact de la classe énergie sur la valeur",
@@ -11184,8 +11184,8 @@
   },
   "energyAudit": {
     "back": "← Énergie",
-    "title": "Audit énergetique guidé",
-    "subtitle": "20 questions pour diagnostiquer votre bien, identifier les postes prioritaires et estimer un plan de rénovation avec Klimabonus applicable.",
+    "title": "Préparer une étude énergétique",
+    "subtitle": "20 questions pour rassembler vos informations avant un rendez-vous avec un professionnel. Vous pouvez répondre « Je ne sais pas ». Ce questionnaire ne calcule pas la performance énergétique de votre bâtiment.",
     "freeAudit": "Gratuit, anonyme",
     "twentyQuestions": "20 questions · 3 min",
     "klimabonusAware": "Intègre Klimabonus 2026",
@@ -11212,7 +11212,7 @@
     "restart": "↻ Recommencer",
     "detailRenov": "Simulateur rénovation détaillé",
     "simulateAides": "Toutes les aides LU",
-    "disclaimer": "Résultats indicatifs basés sur le questionnaire. Pour un audit officiel ouvrant droit aux subsides, consultez myenergy.lu (audit CPE). Les fourchettes de coût sont des moyennes 2026 LU, variant selon prestataire et qualité des matériaux.",
+    "disclaimer": "Ces réponses ne permettent pas d’attribuer une classe CPE, un score énergétique, des économies ou un montant d’aides. Le budget, le nombre d’occupants et les projets de travaux ne constituent pas une mesure de la performance du bâtiment.",
     "q_construction_year": "Année de construction du bâtiment ?",
     "y_pre1960": "Avant 1960",
     "y_1960_1980": "1960-1980",
@@ -18414,5 +18414,27 @@
     "cash": "Apport sur prix + frais chiffrés",
     "financeNote": "Simulation à taux nominal constant, mensualités en fin de mois, hors assurance et frais bancaires. L’apport indiqué porte sur le prix ; les frais chiffrés s’y ajoutent. Ce n’est pas une offre de crédit.",
     "quote": "Calcul détaillé des frais d’acquisition"
+  },
+  "energyQuestionnaireAudit": {
+    "title": "Préparer une étude énergétique",
+    "intro": "20 questions pour rassembler vos informations avant un rendez-vous avec un professionnel. Vous pouvez répondre « Je ne sais pas ». Ce questionnaire ne calcule pas la performance énergétique de votre bâtiment.",
+    "unknown": "Je ne sais pas",
+    "unanswered": "Sans réponse",
+    "summary": "Votre dossier de préparation",
+    "documented": "Réponses renseignées",
+    "unknownCount": "Réponses à compléter",
+    "scope": "Ces réponses ne permettent pas d’attribuer une classe CPE, un score énergétique, des économies ou un montant d’aides. Le budget, le nombre d’occupants et les projets de travaux ne constituent pas une mesure de la performance du bâtiment.",
+    "documents": "Documents et points à examiner avec le professionnel",
+    "envelope": "Enveloppe : plans, surfaces, composition et épaisseur des isolants, factures de travaux, caractéristiques des fenêtres et éventuels défauts observés.",
+    "heating": "Chauffage : référence et puissance du système, entretien, émetteurs, régulation et factures d’énergie des trois dernières années. Le choix d’un remplacement nécessite une étude adaptée.",
+    "ventilation": "Ventilation : système existant, entretien, renouvellement d’air et traces d’humidité. Faites examiner les causes avant de définir les travaux.",
+    "water": "Eau chaude : équipement, capacité, âge, entretien et usages. Distinguez ses consommations de celles du chauffage si les relevés le permettent.",
+    "usage": "Usage et projet : surface de référence, occupation, confort recherché, contraintes et budget. Les travaux doivent être étudiés ensemble ; leurs gains ne s’additionnent pas automatiquement.",
+    "grants": "Les aides dépendent des travaux, critères techniques, dates et démarches du dossier. Vérifiez les conditions en vigueur et obtenez une confirmation ; aucun pourcentage forfaitaire n’est appliqué ici.",
+    "source": "Guichet.lu — certificat énergétique et documents utiles",
+    "edit": "Modifier les réponses",
+    "finish": "Voir mon dossier",
+    "progress": "Avancement du questionnaire, sans score énergétique",
+    "reset": "Effacer les réponses"
   }
 }

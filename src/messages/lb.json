@@ -431,8 +431,8 @@
         "faq5q": "Wei kreen ech de Klimabonus?",
         "faq5a": "Myenergy kontakteieren, Audit maachen, Primm no den Aarbechte froen."
       },
-      "auditTitle": "Séier Energie-Audit",
-      "auditDesc": "Diagnostizéiert d'CPE-Klass vun Ärer Wunneng an 10 Froen: Isolatioun, Verglasung, Heizung, Lëftung. Direktt Resultat A bis I."
+      "auditTitle": "Eng Energiestudie virbereeden",
+      "auditDesc": "20 Froen, fir Är Informatioune virun engem Rendez-vous mat engem Fachmann ze sammelen. Dir kënnt „Ech weess et net“ wielen. Dëse Questionnaire berechent net d’Energieeffizienz vun Ärem Gebai."
     },
     "impact": {
       "title": "Impakt vun der Energieklass op de Wäert",
@@ -11062,8 +11062,8 @@
   },
   "energyAudit": {
     "back": "← Energie",
-    "title": "Geféiert Energie-Audit",
-    "subtitle": "20 Froen fir Ären Immobilien ze diagnostizéieren, mat Priorisatiounsplang a Klimabonus.",
+    "title": "Eng Energiestudie virbereeden",
+    "subtitle": "20 Froen, fir Är Informatioune virun engem Rendez-vous mat engem Fachmann ze sammelen. Dir kënnt „Ech weess et net“ wielen. Dëse Questionnaire berechent net d’Energieeffizienz vun Ärem Gebai.",
     "freeAudit": "Gratis, anonym",
     "twentyQuestions": "20 Froen · 3 min",
     "klimabonusAware": "Klimabonus 2026",
@@ -11090,7 +11090,7 @@
     "restart": "↻ Nei ufänken",
     "detailRenov": "Renovatiounssimulator",
     "simulateAides": "All LU Hëllefen",
-    "disclaimer": "Indikativ Resultater. Fir offizielle CPE-Audit myenergy.lu.",
+    "disclaimer": "Dës Äntwerte bestëmme weder eng CPE-Klass nach en Energiescore, Erspuernisser oder Hëllefsbeträg. Budget, Awunnerzuel a Renovatiounspläng moossen net d’Leeschtung vum Gebai.",
     "q_construction_year": "Baujoer?",
     "y_pre1960": "Virun 1960",
     "y_1960_1980": "1960-1980",
@@ -18414,5 +18414,27 @@
     "cash": "Eegemëttel fir de Präis + beziffert Fraisen",
     "financeNote": "Simulatioun mat konstantem Nominalzëns, Bezuelung um Enn vum Mount, ouni Versécherung a Bankfraisen. D’Eegemëttel bezéie sech op de Präis; beziffert Fraise kommen dobäi. Keng Kreditoffer.",
     "quote": "Detailléierte Rechner fir Kafkäschten"
+  },
+  "energyQuestionnaireAudit": {
+    "title": "Eng Energiestudie virbereeden",
+    "intro": "20 Froen, fir Är Informatioune virun engem Rendez-vous mat engem Fachmann ze sammelen. Dir kënnt „Ech weess et net“ wielen. Dëse Questionnaire berechent net d’Energieeffizienz vun Ärem Gebai.",
+    "unknown": "Ech weess et net",
+    "unanswered": "Keng Äntwert",
+    "summary": "Äre Virbereedungsdossier",
+    "documented": "Ausgefëllten Äntwerten",
+    "unknownCount": "Äntwerten ze ergänzen",
+    "scope": "Dës Äntwerte bestëmme weder eng CPE-Klass nach en Energiescore, Erspuernisser oder Hëllefsbeträg. Budget, Awunnerzuel a Renovatiounspläng moossen net d’Leeschtung vum Gebai.",
+    "documents": "Dokumenter a Punkte fir d’Fachgespréich",
+    "envelope": "Gebaihüll: Pläng, Flächen, Opbau an Déckt vun der Isolatioun, Rechnungen, Fënstereegenschaften a festgestallte Mängel.",
+    "heating": "Heizung: Referenz a Leeschtung vum System, Entretien, Heizflächen, Regulatioun an Energierechnunge vun de leschten dräi Joer. En Ersatz erfuerdert eng ugepasste Studie.",
+    "ventilation": "Ventilatioun: besteeënde System, Entretien, Loftwiessel a Fiichtegkeetsspuren. Loosst d’Ursaache préiwen, ier d’Aarbechte festgeluecht ginn.",
+    "water": "Waarmwaasser: Ausrüstung, Kapazitéit, Alter, Entretien a Gebrauch. Trennt de Verbrauch vun der Heizung, wann d’Miesswäerter dat erlaben.",
+    "usage": "Gebrauch a Projet: Referenzfläch, Besetzung, Komfortziler, Contrainten a Budget. Aarbechten zesummen ënnersichen; Erspuernisser kënnen net einfach zesummegerechent ginn.",
+    "grants": "Hëllefen hänke vun Aarbechten, technesche Kritären, Datumen a Prozeduren of. Préift déi aktuell Konditiounen a loosst se bestätegen; hei gëtt kee Pauschalprozentsaz applizéiert.",
+    "source": "Guichet.lu — Energiepass an nëtzlech Dokumenter",
+    "edit": "Äntwerten änneren",
+    "finish": "Mäin Dossier weisen",
+    "progress": "Fortschrëtt vum Questionnaire, keen Energiescore",
+    "reset": "Äntwerten läschen"
   }
 }

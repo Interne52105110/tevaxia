@@ -431,8 +431,8 @@
         "faq5q": "Como obter o Klimabonus?",
         "faq5a": "Contactar Myenergy, realizar auditoria, pedir premio apos obras."
       },
-      "auditTitle": "Auditoria energética rápida",
-      "auditDesc": "Diagnostique a classe CPE da sua habitação em 10 perguntas: isolamento, vidros, aquecimento, ventilação. Resultado instantâneo A a I."
+      "auditTitle": "Preparar um estudo energético",
+      "auditDesc": "20 perguntas para reunir informações antes de consultar um profissional. Pode responder « Não sei ». Este questionário não calcula o desempenho energético do edifício."
     },
     "impact": {
       "title": "Impacto da classe energética no valor",
@@ -11062,8 +11062,8 @@
   },
   "energyAudit": {
     "back": "← Energia",
-    "title": "Auditoria energética guiada",
-    "subtitle": "20 perguntas para diagnosticar o seu imóvel com plano de renovação priorizado e Klimabonus.",
+    "title": "Preparar um estudo energético",
+    "subtitle": "20 perguntas para reunir informações antes de consultar um profissional. Pode responder « Não sei ». Este questionário não calcula o desempenho energético do edifício.",
     "freeAudit": "Gratuito, anónimo",
     "twentyQuestions": "20 perguntas · 3 min",
     "klimabonusAware": "Klimabonus 2026",
@@ -11090,7 +11090,7 @@
     "restart": "↻ Reiniciar",
     "detailRenov": "Simulador renovação",
     "simulateAides": "Todos apoios LU",
-    "disclaimer": "Resultados indicativos. Para auditoria oficial consulte myenergy.lu.",
+    "disclaimer": "Estas respostas não permitem atribuir classe energética, pontuação, poupanças ou montantes de apoios. O orçamento, os ocupantes e os planos de obras não medem o desempenho do edifício.",
     "q_construction_year": "Ano construção?",
     "y_pre1960": "Antes 1960",
     "y_1960_1980": "1960-1980",
@@ -18414,5 +18414,27 @@
     "cash": "Entrada sobre o preço + despesas quantificadas",
     "financeNote": "Simulação com taxa nominal constante, pagamentos no fim do mês, sem seguro e comissões bancárias. A entrada aplica-se ao preço; as despesas quantificadas acrescem. Não é uma oferta de crédito.",
     "quote": "Calculadora detalhada de despesas de aquisição"
+  },
+  "energyQuestionnaireAudit": {
+    "title": "Preparar um estudo energético",
+    "intro": "20 perguntas para reunir informações antes de consultar um profissional. Pode responder « Não sei ». Este questionário não calcula o desempenho energético do edifício.",
+    "unknown": "Não sei",
+    "unanswered": "Sem resposta",
+    "summary": "O seu dossier de preparação",
+    "documented": "Respostas preenchidas",
+    "unknownCount": "Respostas a completar",
+    "scope": "Estas respostas não permitem atribuir classe energética, pontuação, poupanças ou montantes de apoios. O orçamento, os ocupantes e os planos de obras não medem o desempenho do edifício.",
+    "documents": "Documentos e pontos a discutir com o profissional",
+    "envelope": "Envolvente: plantas, áreas, composição e espessura do isolamento, faturas de obras, características das janelas e defeitos observados.",
+    "heating": "Aquecimento: referência e potência do sistema, manutenção, emissores, controlo e faturas de energia dos últimos três anos. A substituição exige um estudo adequado.",
+    "ventilation": "Ventilação: sistema existente, manutenção, renovação de ar e sinais de humidade. Avalie as causas antes de definir as obras.",
+    "water": "Água quente: equipamento, capacidade, idade, manutenção e utilização. Separe o consumo do aquecimento se as leituras o permitirem.",
+    "usage": "Utilização e projeto: área de referência, ocupação, conforto pretendido, restrições e orçamento. Estude as obras em conjunto; as poupanças não se somam automaticamente.",
+    "grants": "Os apoios dependem das obras, critérios técnicos, datas e procedimentos. Verifique as condições atuais e obtenha confirmação; não se aplica uma percentagem fixa.",
+    "source": "Guichet.lu — certificado energético e documentos úteis",
+    "edit": "Editar respostas",
+    "finish": "Ver o meu dossier",
+    "progress": "Progresso do questionário, sem pontuação energética",
+    "reset": "Apagar respostas"
   }
 }
