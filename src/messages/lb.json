@@ -286,7 +286,7 @@
       },
       "terresAgricoles": {
         "title": "Landwirtschaftlech Flächen",
-        "description": "Bewäertung vu landwirtschaftleche Flächen zu Lëtzebuerg. Präis pro Hektar, Zonéierung, Virkaafsrechter.",
+        "description": "Agrarberechnung mat dokumentéierte Präisser a Käschten, Hektar/m²-Konversioun a publizéierter nationaler SER-Serie.",
         "tag": "Pachtvertrag"
       },
       "transparence": {
@@ -19077,5 +19077,37 @@
     "net": "Saldo vum Mount",
     "landCost": "Präis vum Terrain",
     "outflows": "Ausgabe vum Mount, mat Terrain an Acquisitioun"
+  },
+  "agriculturalEvidence": {
+    "title": "Agrarflächen — dokumentéiert Berechnung",
+    "scope": "Berechent e Betrag mat engem begrënnte Präis pro Hektar, Gebaierbäiträg a Käschten. Keng virausgesate Regionalpräisser, Pachtofschléi, Ofrëss- oder Asbestkäschten.",
+    "surfaceHa": "Fläch vum Terrain (ha)",
+    "priceHa": "Ugesate Präis (€/ha)",
+    "priceReference": "Quell, Datum a Begrënnung vum Präis",
+    "buildingValue": "Bäitrag vun erhale Gebaier (€)",
+    "buildingReference": "Begrënnung vum Gebaierbäitrag, och bei null",
+    "demolitionCost": "Ugesaten Ofrësskäschten (€)",
+    "demolitionReference": "Ofrëssdevis oder Begrënnung fir null",
+    "remediationCost": "Käschte fir Sanéierung / Asbestentsuergung (€)",
+    "remediationReference": "Sanéierungsdevis oder Begrënnung fir null",
+    "rightsReference": "Bewäert Rechter, Pacht, Urbanismus a Steierbasis",
+    "landValue": "Terrainsbetrag mam aginnene Präis",
+    "netValue": "Nettoresultat no den aginnene Hypotheesen",
+    "surfaceM2": "Fläch (m²)",
+    "invalid": "Fläch, Beträg an all Referenzen ergänzen. D’Fläch muss positiv sinn; Käschten däerfen explizitt null sinn.",
+    "result": "Berechnungsdetail",
+    "referenceTitle": "Publizéiert national Serie — SER / LUSTAT",
+    "referenceScope": "Transaktioune vun Agrarfläche vu Baueren; net landwirtschaftlech Notzunge sinn ausgeschloss. National Date si keng lokal Präisser oder Bewäertung vun Ärer Parzell. De kombinéierte Median ass net d’Moyenne vun den zwou Kolonnen.",
+    "referenceFees": "Notiz vun der Serie: ouni TVA, mat Notaireskäschten; zënter 2015 mat TVA op Notaireskäschten. Net mat engem Terrainspräis ouni Niewekäschte vermëschen.",
+    "referenceDate": "Uginn Publikatioun: 23. August 2025. Ofgeruff: 9. September 2026. Lescht Joer an dëser Serie: 2024.",
+    "year": "Joer",
+    "arable": "Akerland (€/ha)",
+    "grassland": "Dauergréngland (€/ha)",
+    "combinedMedian": "Aker- a Gréngland — Median (€/ha)",
+    "source": "Offiziell LUSTAT-Tabell",
+    "methodology": "Ëmfang vun der Serie — SER",
+    "rightsScope": "Pacht, Servituten, PAG a Geneemegunge musse fir déi betraffe Parzell gepréift ginn. Eng Pacht oder d’Enn vun engem Betrib léist hei weder e forfaitären Ofschlag nach eng automatesch Ofrëssflicht aus. Erhalen an ofgerappt Gebaier trennen, fir duebelt Zielen ze vermeiden.",
+    "csv": "Berechnung als CSV exportéieren",
+    "formula": "Fläch × Hektarpräis + erhale Gebaier − Ofrëss − Sanéierung. Käschten op der beschriwwener Steierbasis aginn; keng automatesch Steier oder Hëllef."
   }
 }

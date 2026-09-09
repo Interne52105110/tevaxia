@@ -1,0 +1,150 @@
+export const AGRICULTURAL_REFERENCE = {
+  "retrieved": "2026-09-09",
+  "publicationDate": "2025-08-23",
+  "dataflow": "LU1:DF_D2121(1.0)",
+  "source": "https://lustat.statec.lu/rest/data/LU1,DF_D2121,1.0/all",
+  "structure": "https://lustat.statec.lu/rest/dataflow/LU1/DF_D2121/1.0?references=all",
+  "csvSha256": "ab24409898b12d330e13be021d247e1f9413c8aec69d4def531d5a53c37389ee",
+  "structureSha256": "80bbd8914562ba9d907a26a338cfd6b6bc6df43db70b81615673136022817a4b",
+  "unit": "EUR/ha",
+  "codes": {
+    "arable": "SL01",
+    "grassland": "SL02",
+    "combinedMedian": "SL03"
+  },
+  "note": "sans TVA, y compris frais de notaire (à partir de 2015 la TVA sur les frais de notaire est incluse)",
+  "observations": [
+    {
+      "year": 2003,
+      "arable": 14987.0,
+      "grassland": 15959.0,
+      "combinedMedian": 15355.0
+    },
+    {
+      "year": 2004,
+      "arable": 16180.0,
+      "grassland": 15160.0,
+      "combinedMedian": 15449.0
+    },
+    {
+      "year": 2005,
+      "arable": 14874.0,
+      "grassland": 12070.0,
+      "combinedMedian": 13908.0
+    },
+    {
+      "year": 2006,
+      "arable": 16429.0,
+      "grassland": 14492.0,
+      "combinedMedian": 15682.0
+    },
+    {
+      "year": 2007,
+      "arable": 17789.0,
+      "grassland": 17353.0,
+      "combinedMedian": 17528.0
+    },
+    {
+      "year": 2008,
+      "arable": 18227.0,
+      "grassland": 15008.0,
+      "combinedMedian": 17267.0
+    },
+    {
+      "year": 2009,
+      "arable": 21159.0,
+      "grassland": 18349.0,
+      "combinedMedian": 20000.0
+    },
+    {
+      "year": 2010,
+      "arable": 20714.0,
+      "grassland": 17788.0,
+      "combinedMedian": 19930.0
+    },
+    {
+      "year": 2011,
+      "arable": 23648.0,
+      "grassland": 23474.0,
+      "combinedMedian": 23648.0
+    },
+    {
+      "year": 2012,
+      "arable": 24230.0,
+      "grassland": 22280.0,
+      "combinedMedian": 22515.0
+    },
+    {
+      "year": 2013,
+      "arable": 26621.0,
+      "grassland": 26560.0,
+      "combinedMedian": 26621.0
+    },
+    {
+      "year": 2014,
+      "arable": 27438.0,
+      "grassland": 21244.0,
+      "combinedMedian": 25108.0
+    },
+    {
+      "year": 2015,
+      "arable": 27738.0,
+      "grassland": 27769.0,
+      "combinedMedian": 27764.0
+    },
+    {
+      "year": 2016,
+      "arable": 26030.0,
+      "grassland": 25100.0,
+      "combinedMedian": 25535.0
+    },
+    {
+      "year": 2017,
+      "arable": 35590.0,
+      "grassland": 32800.0,
+      "combinedMedian": 34420.0
+    },
+    {
+      "year": 2018,
+      "arable": 35110.0,
+      "grassland": 34080.0,
+      "combinedMedian": 34245.0
+    },
+    {
+      "year": 2019,
+      "arable": 37300.0,
+      "grassland": 29615.0,
+      "combinedMedian": 34550.0
+    },
+    {
+      "year": 2020,
+      "arable": 46500.0,
+      "grassland": 44570.0,
+      "combinedMedian": 46205.0
+    },
+    {
+      "year": 2021,
+      "arable": 47290.0,
+      "grassland": 41930.0,
+      "combinedMedian": 45990.0
+    },
+    {
+      "year": 2022,
+      "arable": 42720.0,
+      "grassland": 46305.0,
+      "combinedMedian": 43320.0
+    },
+    {
+      "year": 2023,
+      "arable": 42540.0,
+      "grassland": 32590.0,
+      "combinedMedian": 38280.0
+    },
+    {
+      "year": 2024,
+      "arable": 48180.0,
+      "grassland": 48700.0,
+      "combinedMedian": 48455.0
+    }
+  ]
+} as const;

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { localizedAlternates } from "@/lib/seo";
 export const metadata: Metadata = {
-  title: "Agricultural Land Valuation Luxembourg",
-  description: "Estimate the value of agricultural land in Luxembourg. Price per hectare, farm buildings, demolition, asbestos removal, PAG buildability.",
+  title: "Agrarflächen — dokumentéiert Berechnung | Tevaxia",
+  description: "Agrarberechnung mat dokumentéierte Präisser a Käschten, Hektar/m²-Konversioun a publizéierter nationaler SER-Serie.",
   alternates: localizedAlternates("/terres-agricoles", "lb"),
 };
 export default function Layout({ children }: { children: React.ReactNode }) { return children; }

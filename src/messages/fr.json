@@ -286,7 +286,7 @@
       },
       "terresAgricoles": {
         "title": "Terres Agricoles",
-        "description": "Estimation de la valeur des terres agricoles au Luxembourg. Prix par hectare, zonage, droits de préemption.",
+        "description": "Calcul agricole avec prix et coûts documentés, conversion hectare/m² et série nationale SER publiée.",
         "tag": "Bail à ferme"
       },
       "transparence": {
@@ -19077,5 +19077,37 @@
     "net": "Solde mensuel",
     "landCost": "Prix du terrain",
     "outflows": "Dépenses du mois, foncier et acquisition inclus"
+  },
+  "agriculturalEvidence": {
+    "title": "Terres agricoles — calcul documenté",
+    "scope": "Calculez une valeur selon un prix par hectare et des contributions ou coûts que vous justifiez. Aucun prix régional, abattement de bail, coût de démolition ou désamiantage n’est présumé.",
+    "surfaceHa": "Surface du terrain (ha)",
+    "priceHa": "Prix retenu (€/ha)",
+    "priceReference": "Source, date et justification du prix retenu",
+    "buildingValue": "Contribution des bâtiments conservés (€)",
+    "buildingReference": "Justification des bâtiments, y compris si nulle",
+    "demolitionCost": "Coût de démolition retenu (€)",
+    "demolitionReference": "Devis de démolition ou justification de zéro",
+    "remediationCost": "Coût de remise en état / désamiantage (€)",
+    "remediationReference": "Devis de remise en état ou justification de zéro",
+    "rightsReference": "Droits évalués, bail, urbanisme et périmètre fiscal retenus",
+    "landValue": "Valeur du terrain selon le prix saisi",
+    "netValue": "Résultat net selon les hypothèses saisies",
+    "surfaceM2": "Surface (m²)",
+    "invalid": "Renseignez la surface, les montants et toutes les références. Une surface doit être positive ; les coûts peuvent être explicitement nuls.",
+    "result": "Calcul détaillé",
+    "referenceTitle": "Série nationale publiée — SER / LUSTAT",
+    "referenceScope": "Transactions de terres agricoles réalisées par des agriculteurs ; usages non agricoles exclus. Ces données nationales ne constituent pas un prix local ni une estimation de votre parcelle. La médiane combinée n’est pas la moyenne des deux colonnes.",
+    "referenceFees": "Note de la série : hors TVA, frais de notaire compris ; depuis 2015, TVA sur les frais de notaire incluse. Ne mélangez pas cette base avec un prix de terrain hors frais.",
+    "referenceDate": "Publication indiquée : 23 août 2025. Extraction : 9 septembre 2026. Dernière année présente dans cette série : 2024.",
+    "year": "Année",
+    "arable": "Terres arables (€/ha)",
+    "grassland": "Prairies permanentes (€/ha)",
+    "combinedMedian": "Arables et prairies — médiane (€/ha)",
+    "source": "Tableau officiel LUSTAT",
+    "methodology": "Périmètre de la série — SER",
+    "rightsScope": "Le bail rural, les servitudes, le PAG et les autorisations doivent être examinés pour la parcelle concernée. La présence d’un bail ou l’arrêt d’une exploitation ne déclenche ici ni décote forfaitaire ni obligation de démolition. Les bâtiments conservés et démolis doivent être distingués pour éviter un double comptage.",
+    "csv": "Exporter le calcul CSV",
+    "formula": "Surface × prix par hectare + bâtiments conservés − démolition − remise en état. Les coûts saisis doivent suivre la base fiscale que vous avez décrite ; aucune taxe ni aide n’est ajoutée automatiquement."
   }
 }

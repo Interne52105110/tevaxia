@@ -432,3 +432,13 @@ Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg e
 - Abonnement aux événements d’authentification avant lecture de la session initiale ; un événement récent prend la priorité sur une réponse initiale tardive.
 - Une erreur de lecture initiale est interceptée et libère l’état de chargement. Le démontage du composant désabonne et empêche les mises à jour tardives.
 - Fixture React hors ligne du composant réel : session normale, rejet initial, connexion/déconnexion/rafraîchissement prioritaires, démontage et absence de promesse rejetée non traitée. Aucun compte réel utilisé. Suite 1 189 tests, lint du composant.
+
+
+## Terres agricoles — suppression des prix présumés et série officielle
+- Retrait de la grille région/qualité sans transactions identifiées, de la décote forfaitaire de bail 30 %, des valeurs bâtiments 150 €/m² et des coûts automatiques 80/45 €/m². Une cessation d’exploitation ne déclenche plus une démolition calculée.
+- Calcul documenté : hectares × prix/ha + bâtiments conservés − démolition − remise en état ; chaque montant et le périmètre des droits/TVA doivent être explicités. Pas de valeur de marché certifiée ni de contrôle juridique de parcelle revendiqué.
+- Conversion 1 ha = 10 000 m², surface à quatre décimales d’hectare, prix/coûts à deux décimales, arrondi monétaire en entiers au centime ; zéros explicites, données absentes bloquantes, résultats nets négatifs conservés.
+- Série SER/LUSTAT DF_D2121 : 66 observations nationales 2003–2024, trois séries distinctes (arables, prairies, médiane combinée). Publication indiquée 23/08/2025, extraction 09/09/2026. Source liée par le portail ministériel : https://lustat.statec.lu/rest/data/LU1,DF_D2121,1.0/all .
+- Périmètre : transactions d’agriculteurs, usages non agricoles exclus. Note officielle : hors TVA, frais de notaire inclus et, depuis 2015, TVA sur ces frais incluse. Aucune moyenne reconstituée, aucune projection 2026 et aucune application automatique à la parcelle.
+- CSV et structure SDMX conservés avec SHA-256 et attributs Git de préservation des octets ; toutes les observations recoupées et labels lus dans CL_D2121_SPECIFICATION. Source de méthode : https://agriculture.public.lu/de/agrarstatistik/landwirtschaftliche-preise-und-indizes.html .
+- Validation : cinq tests métier/source, suite 1 194 tests/103 fichiers, build et lint, cinq langues/quatre largeurs et CSV contrôlés. Cas 2,5 ha × 40 000,25 €/ha = 100 000,63 € ; +10 000 −2 000 −3 000 = 105 000,63 €.

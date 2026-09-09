@@ -2450,15 +2450,16 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/terres-agricoles": [
+    "agriculturalEvidence",
     "aiChat",
     "backup",
+    "common",
     "cookie",
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar",
-    "terresAgricoles"
+    "syndicContextBar"
   ],
   "/transparence": [
     "aiChat",

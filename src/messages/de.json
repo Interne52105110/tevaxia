@@ -286,7 +286,7 @@
       },
       "terresAgricoles": {
         "title": "Landwirtschaftliche Flächen",
-        "description": "Bewertung landwirtschaftlicher Flächen in Luxemburg. Preis pro Hektar, Zonierung, Vorkaufsrechte.",
+        "description": "Agrarberechnung mit belegten Preisen und Kosten, Hektar/m²-Umrechnung und veröffentlichter nationaler SER-Reihe.",
         "tag": "Pachtvertrag"
       },
       "transparence": {
@@ -19077,5 +19077,37 @@
     "net": "Monatssaldo",
     "landCost": "Grundstückspreis",
     "outflows": "Monatsausgaben einschließlich Grundstück und Erwerb"
+  },
+  "agriculturalEvidence": {
+    "title": "Agrarflächen — dokumentierte Berechnung",
+    "scope": "Berechnen Sie einen Betrag anhand eines belegten Hektarpreises, Gebäudebeiträgen und Kosten. Keine vorgegebenen Regionalpreise, Pachtabschläge, Abriss- oder Asbestkosten.",
+    "surfaceHa": "Grundstücksfläche (ha)",
+    "priceHa": "Angesetzter Preis (€/ha)",
+    "priceReference": "Quelle, Datum und Begründung des Preises",
+    "buildingValue": "Wertbeitrag erhaltener Gebäude (€)",
+    "buildingReference": "Begründung des Gebäudebeitrags, auch bei null",
+    "demolitionCost": "Angesetzte Abrisskosten (€)",
+    "demolitionReference": "Abrissangebot oder Begründung für null",
+    "remediationCost": "Sanierungs- / Asbestentsorgungskosten (€)",
+    "remediationReference": "Sanierungsangebot oder Begründung für null",
+    "rightsReference": "Bewertete Rechte, Pacht, Planung und Steuerbasis",
+    "landValue": "Grundstücksbetrag zum erfassten Preis",
+    "netValue": "Nettoergebnis nach erfassten Annahmen",
+    "surfaceM2": "Fläche (m²)",
+    "invalid": "Fläche, Beträge und alle Belege ergänzen. Die Fläche muss positiv sein; Kosten dürfen ausdrücklich null sein.",
+    "result": "Berechnung",
+    "referenceTitle": "Veröffentlichte nationale Reihe — SER / LUSTAT",
+    "referenceScope": "Agrarflächentransaktionen von Landwirten; nicht landwirtschaftliche Nutzungen ausgeschlossen. Nationale Daten sind keine örtlichen Preise oder Bewertung Ihres Grundstücks. Der kombinierte Median ist nicht der Durchschnitt der beiden Spalten.",
+    "referenceFees": "Hinweis der Reihe: ohne Mehrwertsteuer, einschließlich Notarkosten; seit 2015 einschließlich Mehrwertsteuer auf Notarkosten. Nicht mit einem Grundstückspreis ohne Nebenkosten vermischen.",
+    "referenceDate": "Angegebene Veröffentlichung: 23. August 2025. Abruf: 9. September 2026. Letztes Jahr dieser Reihe: 2024.",
+    "year": "Jahr",
+    "arable": "Ackerland (€/ha)",
+    "grassland": "Dauergrünland (€/ha)",
+    "combinedMedian": "Acker- und Grünland — Median (€/ha)",
+    "source": "Offizielle LUSTAT-Tabelle",
+    "methodology": "Abdeckung der Reihe — SER",
+    "rightsScope": "Pachtverträge, Dienstbarkeiten, PAG und Genehmigungen sind grundstücksbezogen zu prüfen. Pacht oder Betriebsaufgabe lösen hier weder pauschale Abschläge noch automatische Abrisspflichten aus. Erhaltene und abgerissene Gebäude getrennt behandeln, um Doppelzählungen zu vermeiden.",
+    "csv": "Berechnung als CSV exportieren",
+    "formula": "Fläche × Hektarpreis + erhaltene Gebäude − Abriss − Sanierung. Kosten nach der beschriebenen Steuerbasis eingeben; keine automatische Steuer oder Förderung."
   }
 }

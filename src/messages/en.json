@@ -286,7 +286,7 @@
       },
       "terresAgricoles": {
         "title": "Agricultural Land",
-        "description": "Agricultural land valuation in Luxembourg. Price per hectare, zoning, pre-emption rights.",
+        "description": "Agricultural calculation with documented prices and costs, hectare/m² conversion and published SER national data.",
         "tag": "Farm lease"
       },
       "transparence": {
@@ -19077,5 +19077,37 @@
     "net": "Monthly balance",
     "landCost": "Land price",
     "outflows": "Monthly costs, including land and acquisition"
+  },
+  "agriculturalEvidence": {
+    "title": "Agricultural land — documented calculation",
+    "scope": "Calculate an amount from a supported price per hectare, building contributions and costs. No regional price, lease discount, demolition or asbestos cost is assumed.",
+    "surfaceHa": "Land area (ha)",
+    "priceHa": "Selected price (€/ha)",
+    "priceReference": "Source, date and rationale for the selected price",
+    "buildingValue": "Contribution of retained buildings (€)",
+    "buildingReference": "Building rationale, including zero value",
+    "demolitionCost": "Selected demolition cost (€)",
+    "demolitionReference": "Demolition quote or reason for zero",
+    "remediationCost": "Site remediation / asbestos removal cost (€)",
+    "remediationReference": "Remediation quote or reason for zero",
+    "rightsReference": "Rights valued, lease, planning and selected tax basis",
+    "landValue": "Land amount from the entered price",
+    "netValue": "Net result under entered assumptions",
+    "surfaceM2": "Area (m²)",
+    "invalid": "Enter the area, amounts and all references. Area must be positive; costs may be explicitly zero.",
+    "result": "Calculation details",
+    "referenceTitle": "Published national series — SER / LUSTAT",
+    "referenceScope": "Agricultural land transactions by farmers; non-agricultural uses excluded. These national figures are not local prices or an appraisal of your plot. The combined median is not the average of the two columns.",
+    "referenceFees": "Series note: excluding VAT, including notarial fees; since 2015, VAT on notarial fees is included. Do not mix this basis with a land price excluding fees.",
+    "referenceDate": "Stated publication: 23 August 2025. Retrieved: 9 September 2026. Last year in this series: 2024.",
+    "year": "Year",
+    "arable": "Arable land (€/ha)",
+    "grassland": "Permanent grassland (€/ha)",
+    "combinedMedian": "Arable and grassland — median (€/ha)",
+    "source": "Official LUSTAT table",
+    "methodology": "Series coverage — SER",
+    "rightsScope": "Rural leases, easements, the PAG and permits require plot-specific review. A lease or cessation of farming triggers neither a fixed discount nor an automatic demolition requirement here. Distinguish retained buildings from demolished buildings to avoid double counting.",
+    "csv": "Export calculation CSV",
+    "formula": "Area × price per hectare + retained buildings − demolition − remediation. Enter costs on the tax basis you describe; no tax or grant is added automatically."
   }
 }

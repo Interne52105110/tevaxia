@@ -286,7 +286,7 @@
       },
       "terresAgricoles": {
         "title": "Terrenos Agrícolas",
-        "description": "Avaliação de terrenos agrícolas no Luxemburgo. Preço por hectare, zonamento, direitos de preferência.",
+        "description": "Cálculo agrícola com preços e custos documentados, conversão hectare/m² e série nacional SER publicada.",
         "tag": "Arrendamento rural"
       },
       "transparence": {
@@ -19077,5 +19077,37 @@
     "net": "Saldo mensal",
     "landCost": "Preço do terreno",
     "outflows": "Despesas do mês, incluindo terreno e aquisição"
+  },
+  "agriculturalEvidence": {
+    "title": "Terrenos agrícolas — cálculo documentado",
+    "scope": "Calcule um valor com preço por hectare, contributo dos edifícios e custos justificados. Não se presume preço regional, desconto por arrendamento, demolição ou remoção de amianto.",
+    "surfaceHa": "Área do terreno (ha)",
+    "priceHa": "Preço adotado (€/ha)",
+    "priceReference": "Fonte, data e justificação do preço",
+    "buildingValue": "Contributo dos edifícios conservados (€)",
+    "buildingReference": "Justificação dos edifícios, incluindo valor nulo",
+    "demolitionCost": "Custo de demolição adotado (€)",
+    "demolitionReference": "Orçamento de demolição ou justificação de zero",
+    "remediationCost": "Custo de recuperação / remoção de amianto (€)",
+    "remediationReference": "Orçamento de recuperação ou justificação de zero",
+    "rightsReference": "Direitos avaliados, arrendamento, urbanismo e base fiscal",
+    "landValue": "Valor do terreno ao preço introduzido",
+    "netValue": "Resultado líquido segundo as hipóteses",
+    "surfaceM2": "Área (m²)",
+    "invalid": "Introduza a área, os valores e todas as referências. A área deve ser positiva; custos explicitamente nulos são aceites.",
+    "result": "Detalhe do cálculo",
+    "referenceTitle": "Série nacional publicada — SER / LUSTAT",
+    "referenceScope": "Transações de terrenos agrícolas por agricultores; usos não agrícolas excluídos. Os dados nacionais não são preços locais nem avaliação da sua parcela. A mediana combinada não é a média das duas colunas.",
+    "referenceFees": "Nota da série: sem IVA, incluindo despesas notariais; desde 2015, inclui IVA sobre despesas notariais. Não misture esta base com um preço do terreno sem despesas.",
+    "referenceDate": "Publicação indicada: 23 de agosto de 2025. Consulta: 9 de setembro de 2026. Último ano nesta série: 2024.",
+    "year": "Ano",
+    "arable": "Terras aráveis (€/ha)",
+    "grassland": "Pastagens permanentes (€/ha)",
+    "combinedMedian": "Aráveis e pastagens — mediana (€/ha)",
+    "source": "Tabela oficial LUSTAT",
+    "methodology": "Âmbito da série — SER",
+    "rightsScope": "Arrendamento rural, servidões, PAG e autorizações exigem análise da parcela. Um arrendamento ou fim da exploração não determina aqui desconto fixo nem obrigação automática de demolição. Distinga edifícios conservados e demolidos para evitar dupla contagem.",
+    "csv": "Exportar cálculo CSV",
+    "formula": "Área × preço por hectare + edifícios conservados − demolição − recuperação. Introduza custos na base fiscal descrita; não se acrescentam impostos ou apoios automaticamente."
   }
 }

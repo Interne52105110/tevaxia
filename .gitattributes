@@ -1,3 +1,5 @@
 
 # Preserve original source bytes for reproducible SHA-256 verification.
 docs/sources/rnpp-2026-07-01.csv -text
+docs/sources/agricultural-land-d2121-2026-09-09.csv -text
+docs/sources/agricultural-land-d2121-structure.xml -text
