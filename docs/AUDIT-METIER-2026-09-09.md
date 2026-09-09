@@ -663,3 +663,13 @@ La livraison précédente des périodes et PDF (3c1cc7c) est confirmée : CI 343
 - Vérification : 1 266 tests / 117 fichiers ; exemple officiel 2 000 EUR, 12,5 %, 19 jours = 13,01 EUR ; année bissextile, deux taux, frais uniques, zéros, dates/trous/chevauchements et injection CSV. Build et lint ciblé réussis. Navigateur cinq langues/quatre largeurs : exemple, export, zéro/inconnu, changement de semestre et deux taux.
 
 Le groupe hôtelier (403e8cc) est confirmé en production : CI 34387445135 réussie, Vercel dpl_9nod77ZZ5o1dxiaGp9KPivAWA7v1 Ready, parcours public cinq langues vérifié.
+
+
+## Housekeeping — plan quotidien documenté
+
+- Suppression des chambres/occupations/coûts préremplis, courbe hebdomadaire inventée, superviseur minimum imposé, majoration automatique de 25 % et analyse IA avec benchmarks non sourcés.
+- Saisie des chambres de départ et recouches à nettoyer, minutes observées et parties communes, heures payées et minutes productives par agent, coûts employeur séparés et nombre/heures de supervision explicites. Pas d’import PMS automatique.
+- Besoin agents = plafond(charge/minutes productives), facturation de la totalité des heures payées ; superviseurs ajoutés sans contribution supposée au nettoyage. Zéro travail = zéro agent, aucun superviseur imposé. Ratios sans chambres inconnus. Contrôles de dates, précision, capacité, temps et sources. Pas de validation réglementaire du planning.
+- Vérification : 1 272 tests / 118 fichiers, lint ciblé et build réussis. Cas de 400 minutes = 1 agent à 160 EUR + supervision 60 EUR = 220 EUR ; 400,01 minutes nécessitent 2 vacations. Absence de travail, tâches des parties communes sans chambres, capacités impossibles et arrondis employeur couverts. Parcours et CSV cinq langues/quatre largeurs vérifiés.
+
+Le calcul des impayés (f5ccd3b) est confirmé en production : CI 34388203562 réussie, Vercel dpl_EkYoUyUFVerMN5rXPLbDELfCHnrc Ready, cinq parcours complets sur tevaxia.lu.

@@ -240,3 +240,5 @@ Périodes des hôtels enregistrés et rapport propriétaire corrigés : résulta
 Tableau de groupe hôtelier corrigé : totaux incomplets inconnus, prix d’acquisition distincts des CAPEX, fiches accessibles, états asynchrones et créations validées. Impayés, housekeeping et alertes restent à revoir.
 
 Impayés hôteliers corrigés : intérêts documentés ACT/365, segments sourcés, pas de probabilités de recouvrement ni frais/taux automatiques. Housekeeping et alertes restent à revoir.
+
+Housekeeping corrigé : tâches/temps/coûts employeur réels saisis, vacations entières, pas de semaine inventée ou de supervision imposée. Alertes à revoir : promesses de cron/email non étayées dans ce dépôt.
