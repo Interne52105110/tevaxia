@@ -583,3 +583,16 @@ La route est conservée et propose un parcours vers les outils déjà corrigés 
 Budget MICE 49453db confirmé en production : CI34381335085 réussie, déploiement dpl_E5fUqk1VAfsf68R3GFyEECNDRj6n Ready, cinq langues/quatre largeurs, calculs, capacités, zéros et CSV contrôlés sur tevaxia.lu.
 
 Validation du parcours motel/aparthotel : build et lint réussis ; cinq langues et quatre largeurs, trois destinations localisées, navigation réelle vers le compte d’exploitation et absence des anciens calculs vérifiées.
+
+
+### CAPEX hôtelier — dépenses et réserve séparées
+
+Le modèle précédent ajoutait les versements annuels à la réserve FF&E aux rénovations calculées en pourcentage du chiffre d’affaires : un transfert interne pouvait être compté comme une dépense supplémentaire. Il imposait aussi des cycles 5/10/20 ans et des ratios par catégorie sans références documentées.
+
+Le nouveau plan requiert le solde initial réellement disponible, puis des années consécutives (1 à 30), des dépenses et fonds supplémentaires affectés explicites, avec références aux devis, échéanciers et financements. Le total CAPEX correspond aux seules dépenses. Solde annuel = solde précédent + fonds affectés − dépenses ; aucune injection complémentaire n’est simulée. Le besoin complémentaire est le maximum des déficits de clôture et non leur somme. Un versement ultérieur ne supprime pas le déficit d’une clôture antérieure.
+
+La portée annuelle est affichée : aucune vérification des dates de paiement dans l’année, des intérêts ou de l’inflation n’est implicite. Le besoin réel intra-annuel peut dépasser le déficit de clôture. Montants au centime, calcul en entiers, zéro explicite, absence et valeurs invalides bloquées. CSV exporte les soldes et sources par année, sépare dépenses et financement et protège les références commençant par une formule.
+
+Validation : build/lint réussis ; 1 242 tests dans 112 fichiers, dont 6 nouveaux cas CAPEX. Contrôle UI cinq langues/quatre largeurs et cinq CSV : ouverture 100 EUR, fonds 20 EUR et travaux 80 EUR en 2026, puis fonds 20 EUR et travaux 70 EUR en 2027 donnent 150 EUR de dépenses, 40 EUR de fonds supplémentaires, solde −10 EUR et besoin complémentaire 10 EUR. Années non consécutives/champs manquants bloqués ; zéros conservés.
+
+Parcours motel/aparthotel 7c29974 confirmé en production : CI34381868504 réussie, déploiement dpl_F78T7y6JoPxRJ21se9bQueb9r2Nn Ready, cinq langues et quatre largeurs vérifiées avec navigation vers l’exploitation.

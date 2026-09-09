@@ -12339,8 +12339,8 @@
       "dscrDesc": "Monatlech Amortiséierung, dokumentéierte Cashflow, aginnenen Zil-DSCR, LTV mat belegtem Wäert an explizitte Stresscashflow.",
       "compsetTitle": "Dokumentéierten Hotelverglach",
       "compsetDesc": "Dokumentéiert Observatiounen iwwer eng gemeinsam Period vun 1 bis 366 Deeg vergläichen. Keng virausgefëllte STR-, Horwath- oder regional Moyennen. D’Resultater beschreiwen nëmmen déi aginne Stéchprouf; hir Relevanz muss begrënnt ginn.",
-      "capexTitle": "CAPEX-Plang 10 Joer",
-      "capexDesc": "Renovatioun + FF&E-Lifecycle",
+      "capexTitle": "Dokumentéierte CAPEX- a Finanzéierungsplang",
+      "capexDesc": "Plangt Investitiounsausgaben a Finanzéierung iwwer 1 bis 30 konsekutiv Joren. Reservenzouféiwerunge si verfügbar Fongen a keng zweet Ausgab zousätzlech zu den Aarbechten.",
       "e2Title": "E‑2-Dokumentatioun — Haaptinvestor",
       "e2Desc": "Dokumenter fir en E‑2-Haaptinvestor an den USA virbereeden. D’Zoustänn beschreiwen Är Dokumentatioun ouni Eligibilitéitsuerteel oder Wahrscheinlechkeetsberechnung."
     },
@@ -19495,5 +19495,28 @@
     "recordsTitle": "Beleger virbereeden",
     "recordsBody": "Zëmmernuechten a Verfügbarkeeten, tatsächlech Präisser, Kaffis- an aner Recetten, Léin a Patronatskäschten, Kontrakter a Rechnungen, Ënnerhalt an Investitiounen. Benotzt eng kohärent Steierbasis.",
     "independent": "D’Tools sinn onofhängeg: Gitt Är Donnéeën a Quellen an all Tool an. Fläch, duerchschnëttlech Openthaltsdauer a Kitchenette eleng bestëmme keng Rentabilitéit."
+  },
+  "capexPlan": {
+    "title": "Dokumentéierte CAPEX- a Finanzéierungsplang",
+    "back": "Zréck bei d’Hoteltools",
+    "scope": "Plangt Investitiounsausgaben a Finanzéierung iwwer 1 bis 30 konsekutiv Joren. Reservenzouféiwerunge si verfügbar Fongen a keng zweet Ausgab zousätzlech zu den Aarbechten.",
+    "opening": "Verfügbar Fongen am Ufank (€)",
+    "openingReference": "Beleg vum Ufankssaldo",
+    "annual": "Plangjoer",
+    "year": "Kalennerjoer",
+    "spending": "Investitiounsausgaben (€)",
+    "funding": "Zousätzlech zougedeelt Fongen (€)",
+    "reference": "Devisen, Zäitplang, Finanzéierung a Steierbasis; och Nulle begrënnen.",
+    "remove": "Dëst Joer ewechhuelen",
+    "add": "Joer derbäisetzen",
+    "timing": "Saldoe beim Joresofschloss, ouni automatesch Zënsen oder Inflatioun. De zousätzleche Besoin ass de gréissten Defizit bei dësen Ofschlëss, net d’Zomm vun den Defiziter. Keng automatesch Ausgläichszuelung. Bezuelungsdatumer am Joer kënnen e méi héije Besoin verursaachen.",
+    "invalid": "Gitt konsekutiv Joren (2000–2099), all netnegativ Beträg op de Cent a Quellen an.",
+    "results": "Finanzéierungsplang",
+    "totalSpending": "Gesamtausgaben (€)",
+    "totalFunding": "Zousätzlech Fongen am Ganzen (€)",
+    "closing": "Saldo virun zousätzlecher Finanzéierung (€)",
+    "additionalFunding": "Maximale Zousazbesoin bei Joresofschlëss (€)",
+    "gap": "Defizit beim Ofschloss (€)",
+    "csv": "Plang als CSV exportéieren"
   }
 }

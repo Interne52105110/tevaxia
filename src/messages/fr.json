@@ -12461,8 +12461,8 @@
       "dscrDesc": "Amortissement mensuel, flux disponible documenté, DSCR cible saisi, LTV sur valeur justifiée et scénario de flux explicite.",
       "compsetTitle": "Comparatif hôtelier documenté",
       "compsetDesc": "Comparer des observations documentées sur une période commune de 1 à 366 jours. Aucune donnée STR, Horwath ou moyenne régionale n’est préremplie. Les résultats décrivent uniquement l’échantillon saisi et sa pertinence doit être justifiée.",
-      "capexTitle": "CAPEX plan 10 ans",
-      "capexDesc": "Rénovation + FF&E lifecycle",
+      "capexTitle": "Plan CAPEX et financement documenté",
+      "capexDesc": "Planifiez vos dépenses d’investissement et leurs financements sur 1 à 30 années consécutives. Les versements à une réserve sont des fonds disponibles : ils ne s’ajoutent pas aux travaux comme une seconde dépense.",
       "e2Title": "Dossier documentaire E‑2 — investisseur principal",
       "e2Desc": "Préparer les pièces du dossier E‑2 d’un investisseur principal aux États-Unis. Les états ci-dessous décrivent votre documentation, sans calcul de probabilité ni avis d’éligibilité."
     },
@@ -19495,5 +19495,28 @@
     "recordsTitle": "Préparez vos justificatifs",
     "recordsBody": "Détail des nuitées et des disponibilités, tarifs réellement pratiqués, recettes de petit-déjeuner et autres services, salaires et charges employeur, contrats et factures, entretien et investissements. Séparez les montants HT et TTC selon une base cohérente.",
     "independent": "Les outils sont indépendants : reportez vos données et références dans chacun. La surface, la durée moyenne du séjour et la présence d’une kitchenette ne suffisent pas à déterminer une rentabilité."
+  },
+  "capexPlan": {
+    "title": "Plan CAPEX et financement documenté",
+    "back": "Retour aux outils hôteliers",
+    "scope": "Planifiez vos dépenses d’investissement et leurs financements sur 1 à 30 années consécutives. Les versements à une réserve sont des fonds disponibles : ils ne s’ajoutent pas aux travaux comme une seconde dépense.",
+    "opening": "Fonds disponibles au début (€)",
+    "openingReference": "Justificatif du solde initial",
+    "annual": "Année du plan",
+    "year": "Année civile",
+    "spending": "Dépenses d’investissement (€)",
+    "funding": "Fonds supplémentaires affectés (€)",
+    "reference": "Devis, échéancier, financement et base fiscale des montants ; justifiez aussi les zéros.",
+    "remove": "Retirer cette année",
+    "add": "Ajouter une année",
+    "timing": "Soldes calculés aux clôtures annuelles, sans intérêts ni inflation automatiques. Le besoin complémentaire est le plus grand déficit observé à ces clôtures, pas la somme des déficits. Il ne comprend pas d’injection correctrice automatique. Les dates de paiement dans l’année peuvent créer un besoin plus élevé.",
+    "invalid": "Renseignez des années consécutives (2000–2099), tous les montants positifs ou nuls au centime et les références.",
+    "results": "Plan de financement",
+    "totalSpending": "Dépenses totales (€)",
+    "totalFunding": "Fonds supplémentaires totaux (€)",
+    "closing": "Solde avant financement complémentaire (€)",
+    "additionalFunding": "Besoin complémentaire maximal aux clôtures (€)",
+    "gap": "Déficit à la clôture (€)",
+    "csv": "Exporter le plan CSV"
   }
 }

@@ -12339,8 +12339,8 @@
       "dscrDesc": "Amortização mensal, fluxo documentado, DSCR pretendido, LTV com valor justificado e cenário de fluxo explícito.",
       "compsetTitle": "Comparação hoteleira documentada",
       "compsetDesc": "Comparar observações documentadas num período comum de 1 a 366 dias. Não existem médias STR, Horwath ou regionais pré-preenchidas. Os resultados descrevem apenas a amostra introduzida, cuja relevância deve ser justificada.",
-      "capexTitle": "Plano CAPEX 10 anos",
-      "capexDesc": "Renovação + ciclo FF&E",
+      "capexTitle": "Plano CAPEX e financiamento documentado",
+      "capexDesc": "Planeie investimentos e financiamento durante 1 a 30 anos consecutivos. Os depósitos na reserva são fundos disponíveis, não uma segunda despesa somada às obras.",
       "e2Title": "Dossier documental E‑2 — investidor principal",
       "e2Desc": "Preparar documentos para um investidor principal E‑2 nos Estados Unidos. Os estados descrevem a documentação, sem parecer de elegibilidade nem cálculo de probabilidade."
     },
@@ -19495,5 +19495,28 @@
     "recordsTitle": "Preparar comprovativos",
     "recordsBody": "Quartos-noite e disponibilidade, preços praticados, receitas de pequeno-almoço e serviços, salários e custos patronais, contratos e faturas, manutenção e investimentos. Use uma base fiscal coerente.",
     "independent": "As ferramentas são independentes: introduza dados e referências em cada uma. Área, duração média da estadia e kitchenette não bastam para determinar rentabilidade."
+  },
+  "capexPlan": {
+    "title": "Plano CAPEX e financiamento documentado",
+    "back": "Voltar às ferramentas hoteleiras",
+    "scope": "Planeie investimentos e financiamento durante 1 a 30 anos consecutivos. Os depósitos na reserva são fundos disponíveis, não uma segunda despesa somada às obras.",
+    "opening": "Fundos disponíveis no início (€)",
+    "openingReference": "Comprovativo do saldo inicial",
+    "annual": "Ano do plano",
+    "year": "Ano civil",
+    "spending": "Despesas de investimento (€)",
+    "funding": "Fundos adicionais afetados (€)",
+    "reference": "Orçamentos, calendário, financiamento e base fiscal; justifique também os zeros.",
+    "remove": "Remover este ano",
+    "add": "Adicionar ano",
+    "timing": "Saldos no fecho anual, sem juros ou inflação automáticos. A necessidade adicional é o maior défice nos fechos, não a soma dos défices. Não se presume uma entrada corretiva de fundos. As datas de pagamento dentro do ano podem criar uma necessidade superior.",
+    "invalid": "Introduza anos consecutivos (2000–2099), todos os montantes não negativos ao cêntimo e referências.",
+    "results": "Plano de financiamento",
+    "totalSpending": "Despesas totais (€)",
+    "totalFunding": "Fundos adicionais totais (€)",
+    "closing": "Saldo antes de financiamento complementar (€)",
+    "additionalFunding": "Necessidade adicional máxima nos fechos (€)",
+    "gap": "Défice no fecho (€)",
+    "csv": "Exportar plano CSV"
   }
 }

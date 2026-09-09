@@ -12339,8 +12339,8 @@
       "dscrDesc": "Monatliche Tilgung, dokumentierter Cashflow, erfasster Ziel-DSCR, LTV mit belegtem Wert und explizites Stressszenario.",
       "compsetTitle": "Dokumentierter Hotelvergleich",
       "compsetDesc": "Dokumentierte Beobachtungen über einen gemeinsamen Zeitraum von 1 bis 366 Tagen vergleichen. Keine vorausgefüllten STR-, Horwath- oder Regionalwerte. Ergebnisse beschreiben nur die eingegebene Stichprobe; ihre Eignung ist zu begründen.",
-      "capexTitle": "10-Jahres-CAPEX-Plan",
-      "capexDesc": "Renovierung + FF&E-Lifecycle",
+      "capexTitle": "Dokumentierter CAPEX- und Finanzierungsplan",
+      "capexDesc": "Planen Sie Investitionsausgaben und Finanzierung für 1 bis 30 aufeinanderfolgende Jahre. Rücklagenzuführungen sind verfügbare Mittel und keine zusätzliche Ausgabe neben den Arbeiten.",
       "e2Title": "E‑2-Unterlagen — Hauptinvestor",
       "e2Desc": "Unterlagen für einen E‑2-Hauptinvestor in den USA vorbereiten. Die Zustände beschreiben Ihre Dokumentation ohne Eignungsurteil oder Wahrscheinlichkeitsberechnung."
     },
@@ -19495,5 +19495,28 @@
     "recordsTitle": "Belege vorbereiten",
     "recordsBody": "Zimmernächte und Verfügbarkeiten, tatsächliche Preise, Frühstücks- und sonstige Erlöse, Löhne und Arbeitgeberkosten, Verträge und Rechnungen, Instandhaltung und Investitionen. Verwenden Sie eine einheitliche Steuerbasis.",
     "independent": "Die Tools sind unabhängig: Tragen Sie Daten und Quellen jeweils ein. Fläche, Aufenthaltsdauer und Küchenzeile allein bestimmen keine Rentabilität."
+  },
+  "capexPlan": {
+    "title": "Dokumentierter CAPEX- und Finanzierungsplan",
+    "back": "Zurück zu den Hoteltools",
+    "scope": "Planen Sie Investitionsausgaben und Finanzierung für 1 bis 30 aufeinanderfolgende Jahre. Rücklagenzuführungen sind verfügbare Mittel und keine zusätzliche Ausgabe neben den Arbeiten.",
+    "opening": "Anfangs verfügbare Mittel (€)",
+    "openingReference": "Nachweis des Anfangssaldos",
+    "annual": "Planjahr",
+    "year": "Kalenderjahr",
+    "spending": "Investitionsausgaben (€)",
+    "funding": "Zusätzlich zugeordnete Mittel (€)",
+    "reference": "Angebote, Zeitplan, Finanzierung und Steuerbasis; auch Nullwerte belegen.",
+    "remove": "Dieses Jahr entfernen",
+    "add": "Jahr hinzufügen",
+    "timing": "Salden zum Jahresende ohne automatische Zinsen oder Inflation. Der zusätzliche Bedarf ist das größte Abschlussdefizit, nicht die Summe aller Defizite. Keine automatische Ausgleichszahlung. Zahlungszeitpunkte im Jahr können einen höheren Bedarf verursachen.",
+    "invalid": "Aufeinanderfolgende Jahre (2000–2099), alle nichtnegativen Beträge auf Cent und Quellen eingeben.",
+    "results": "Finanzierungsplan",
+    "totalSpending": "Gesamtausgaben (€)",
+    "totalFunding": "Zusätzliche Mittel insgesamt (€)",
+    "closing": "Saldo vor ergänzender Finanzierung (€)",
+    "additionalFunding": "Maximaler Zusatzbedarf zum Jahresende (€)",
+    "gap": "Abschlussdefizit (€)",
+    "csv": "Plan als CSV exportieren"
   }
 }

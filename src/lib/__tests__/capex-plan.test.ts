@@ -1,0 +1,9 @@
+import {expect,it} from "vitest";
+import {calculateCapexPlan,capexPlanCsv,type CapexPlan} from "../hotellerie/capex-plan";
+const plan:CapexPlan={opening:100,openingReference:"Bank balance",years:[{year:2026,spending:80,funding:20,reference:"Approved budget"},{year:2027,spending:70,funding:20,reference:"Quote"}]};
+it("does not count reserve transfers as capital spending",()=>{const r=calculateCapexPlan(plan);expect(r.totalSpending).toBe(150);expect(r.totalFunding).toBe(40);expect(r.closing).toBe(-10);expect(r.additionalFunding).toBe(10);expect(r.years[0].closing).toBe(40)});
+it("keeps the maximum earlier deficit even when a later deposit restores the closing balance",()=>{const r=calculateCapexPlan({...plan,opening:0,years:[{...plan.years[0],spending:100,funding:0},{...plan.years[1],spending:0,funding:150}]});expect(r.closing).toBe(50);expect(r.additionalFunding).toBe(100)});
+it("does not sum recurring negative balances as separate funding needs",()=>{const r=calculateCapexPlan({...plan,opening:0,years:plan.years.map(y=>({...y,funding:0,spending:100}))});expect(r.additionalFunding).toBe(200)});
+it("keeps zero, cents and a positive unused balance",()=>{const r=calculateCapexPlan({...plan,opening:.3,years:[{...plan.years[0],funding:0,spending:.1}]});expect(r.closing).toBe(.2);expect(r.additionalFunding).toBe(0)});
+it("rejects gaps, duplicates, unknown inputs and unreferenced assumptions",()=>{for(const p of [{...plan,opening:NaN},{...plan,openingReference:""},{...plan,years:[plan.years[1],plan.years[0]]},{...plan,years:[{...plan.years[0],spending:.001}]},{...plan,years:[{...plan.years[0],reference:""}]}])expect(()=>calculateCapexPlan(p)).toThrow()});
+it("exports annual balances and keeps expense and funding totals separate",()=>{const csv=capexPlanCsv(plan);expect(csv).toContain('"totalSpending";"150"');expect(csv).toContain('"totalFunding";"40"');expect(csv).toContain('"additionalFunding";"10"')});

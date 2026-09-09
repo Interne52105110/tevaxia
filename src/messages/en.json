@@ -12461,8 +12461,8 @@
       "dscrDesc": "Monthly amortisation, documented available cash, entered DSCR target, evidenced-value LTV and explicit cash-flow stress.",
       "compsetTitle": "Documented hotel comparison",
       "compsetDesc": "Compare documented observations over a common period of 1 to 366 days. No STR, Horwath or regional averages are prefilled. Results describe only the entered sample, whose relevance needs justification.",
-      "capexTitle": "10-year CAPEX plan",
-      "capexDesc": "Renovation + FF&E lifecycle",
+      "capexTitle": "Documented CAPEX and funding plan",
+      "capexDesc": "Plan investment spending and funding over 1 to 30 consecutive years. Reserve deposits are available funding: they are not added to works as a second expense.",
       "e2Title": "E‑2 evidence file — principal investor",
       "e2Desc": "Prepare evidence for a principal E‑2 investor in the United States. Statuses describe your documentation, without an eligibility opinion or probability calculation."
     },
@@ -19495,5 +19495,28 @@
     "recordsTitle": "Prepare supporting records",
     "recordsBody": "Room nights and availability, actual rates, breakfast and other service revenue, salaries and employer costs, contracts and invoices, maintenance and investment. Use a consistent basis for amounts including or excluding tax.",
     "independent": "Tools are independent: enter your data and references in each. Floor area, average stay and a kitchenette alone cannot determine profitability."
+  },
+  "capexPlan": {
+    "title": "Documented CAPEX and funding plan",
+    "back": "Back to hotel tools",
+    "scope": "Plan investment spending and funding over 1 to 30 consecutive years. Reserve deposits are available funding: they are not added to works as a second expense.",
+    "opening": "Opening available funds (€)",
+    "openingReference": "Opening balance evidence",
+    "annual": "Plan year",
+    "year": "Calendar year",
+    "spending": "Investment spending (€)",
+    "funding": "Additional allocated funds (€)",
+    "reference": "Quotes, schedule, funding and tax basis; document zeros too.",
+    "remove": "Remove this year",
+    "add": "Add a year",
+    "timing": "Balances are calculated at annual close, without automatic interest or inflation. Additional funding need is the largest closing deficit, not the sum of deficits. No corrective cash injection is assumed. Payment timing within the year may create a larger need.",
+    "invalid": "Enter consecutive years (2000–2099), all nonnegative amounts to the cent and supporting references.",
+    "results": "Funding plan",
+    "totalSpending": "Total spending (€)",
+    "totalFunding": "Total additional funds (€)",
+    "closing": "Balance before additional financing (€)",
+    "additionalFunding": "Maximum additional need at annual close (€)",
+    "gap": "Closing deficit (€)",
+    "csv": "Export plan CSV"
   }
 }

@@ -939,12 +939,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/hotellerie/capex": [
-    "aiAnalysis",
     "aiChat",
     "backup",
+    "capexPlan",
     "cookie",
     "crmContextBar",
-    "hotelCapex",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
