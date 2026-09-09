@@ -25,7 +25,7 @@ const LOW_PRIORITY = [
   "/pricing", "/plan-du-site", "/mentions-legales", "/confidentialite",
   "/hotellerie/valorisation", "/hotellerie/dscr",
   "/hotellerie/exploitation", "/hotellerie/renovation",
-  "/hotellerie/revpar-comparison", "/hotellerie/score-e2",
+  "/hotellerie/compset", "/hotellerie/score-e2",
 ];
 
 const ENERGY_PAGES = [

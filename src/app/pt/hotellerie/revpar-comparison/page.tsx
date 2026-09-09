@@ -1,1 +1,5 @@
-export { default } from "@/app/hotellerie/revpar-comparison/page";
+import { permanentRedirect } from "next/navigation";
+
+export default function RevparComparisonPage() {
+  permanentRedirect("/pt/hotellerie/compset");
+}

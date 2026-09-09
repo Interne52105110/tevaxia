@@ -93,7 +93,6 @@ export const CLIENT_NAMESPACES = [
   "hotellerieCalc",
   "hotellerieContextBar",
   "hotellerieHub",
-  "hotellerieRevpar",
   "hotellerieToolPages",
   "hvac",
   "hvacScenarioAudit",

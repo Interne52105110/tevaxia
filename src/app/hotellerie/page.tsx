@@ -6,7 +6,7 @@ import SEOContent from "@/components/SEOContent";
 export const metadata: Metadata = {
   title: "Outils pré-acquisition hôtelière Luxembourg",
   description:
-    "6 outils pour acheteurs et investisseurs hôteliers : valorisation RevPAR/EBITDA, DSCR, bilan d'exploitation, rénovation énergétique, score E-2.",
+    "Outils pour acheteurs et investisseurs hôteliers : valorisation documentée, couverture de dette, exploitation, comparatif RevPAR et préparation du dossier E-2.",
 };
 
 interface HotelTool {
@@ -76,18 +76,6 @@ const TOOLS: HotelTool[] = [
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-      </svg>
-    ),
-  },
-  {
-    href: "/hotellerie/revpar-comparison",
-    titleKey: "revparComparisonTitle",
-    descKey: "revparComparisonDesc",
-    status: "ready",
-    color: "from-orange-700 to-orange-500",
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
       </svg>
     ),
   },

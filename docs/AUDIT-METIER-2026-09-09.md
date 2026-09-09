@@ -537,3 +537,12 @@ La page /hotellerie/transactions remplace la grille de prix et rendements non co
 Le montant par chambre divise le montant approximatif publié par les chambres de l'opération ; son périmètre (droits, exploitation) est conservé et il ne devient pas un comparable ajusté ou un prix immobilier hors droits. Le filtre Luxembourg indique qu'aucune opération corroborée n'est retenue dans cette sélection, sans affirmer une absence de transactions dans le pays.
 
 Validation : compilation et lint réussis, cinq langues/quatre largeurs, filtres pays/absence de données, montant de 66 M EUR / 275 = environ 240 000 EUR par chambre, dates et CSV avec périmètres et liens vérifiés. La suite générale de référence comporte 1 230 tests ; ce lot de données publiées a fait l'objet de contrôles ciblés de rendu et d'export. L'ancien hotel-transactions.ts n'est plus appelé par la page ; ses anciennes lignes ne sont pas présentées comme validées.
+
+
+### Consolidation du comparatif RevPAR — 9 septembre 2026
+
+Les cinq anciennes routes `/hotellerie/revpar-comparison` redirigent définitivement vers le comparatif documenté de leur langue. Le menu, les liens contextuels, le plan du site et le sitemap pointent directement vers ce comparatif ; la carte doublonnée du hub est retirée. Cela supprime de l’interface publique l’ancien diagnostic arbitraire et le manque à gagner calculé sur 365 jours sans période documentée. Le comparatif conservé exige des volumes et des références sur une période commune et exclut l’hôtel étudié de son groupe de comparaison.
+
+Le lot transactions adbd224 est confirmé en production : CI 34373327389 réussie, déploiement dpl_5roUyQVJWM1iJJJzYwzKBHVmN6w3 Ready, vérifications des montants, périmètres, dates, filtres, CSV et quatre largeurs dans les cinq langues réussies.
+
+Validation de la consolidation : compilation de production et lint réussis ; réponse HTTP 308, destination dans la même langue et formulaire du comparatif vérifiés dans les cinq langues en local. Les redirections sont déclarées dans next.config.ts pour précéder le rendu diffusé de la page.

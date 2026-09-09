@@ -33,7 +33,7 @@ export const LINK_TERMS: LinkTerm[] = [
   { term: "Factur-X", href: "/facturation", caseSensitive: true },
 
   // Hôtellerie
-  { term: "RevPAR", href: "/hotellerie/revpar-comparison", caseSensitive: true },
+  { term: "RevPAR", href: "/hotellerie/compset", caseSensitive: true },
   { term: "visa E-2", href: "/hotellerie/score-e2" },
 
   // Outils (plus génériques — priorité basse, moins de chance d'être atteints)

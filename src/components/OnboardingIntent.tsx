@@ -161,7 +161,7 @@ export default function OnboardingIntent() {
         { href: "/hotellerie/valorisation", label: t("hotellerie.link2") },
         { href: "/hotellerie/exploitation", label: t("hotellerie.link4") },
         { href: "/hotellerie/dscr", label: t("hotellerie.link3") },
-        { href: "/hotellerie/revpar-comparison", label: t("hotellerie.linkRevpar") },
+        { href: "/hotellerie/compset", label: t("hotellerie.linkRevpar") },
         { href: "/hotellerie/renovation", label: t("hotellerie.linkReno") },
         { href: "/hotellerie/score-e2", label: t("hotellerie.link5") },
       ],

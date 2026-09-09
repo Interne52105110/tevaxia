@@ -28,6 +28,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     const LOCALES = ["en", "de", "lb", "pt"];
     const renames: Array<{ from: string; to: string }> = [
+      { from: "/hotellerie/revpar-comparison", to: "/hotellerie/compset" },
       { from: "/energy/cpe", to: "/energy/audit" },
       { from: "/energy/epbd-2050", to: "/energy/epbd" },
       { from: "/esg/crrem", to: "/esg/crrem-pathways" },

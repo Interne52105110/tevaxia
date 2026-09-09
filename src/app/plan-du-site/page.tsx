@@ -101,7 +101,7 @@ const SECTIONS: Section[] = [
       { href: "/hotellerie/dscr", key: "hotelDscr" },
       { href: "/hotellerie/exploitation", key: "hotelExploitation" },
       { href: "/hotellerie/renovation", key: "hotelRenovation" },
-      { href: "/hotellerie/revpar-comparison", key: "hotelRevpar" },
+      { href: "/hotellerie/compset", key: "hotelRevpar" },
       { href: "/hotellerie/score-e2", key: "hotelE2" },
       { href: "/hotellerie/forecast", key: "hotelForecast" },
       { href: "/hotellerie/compset", key: "hotelCompset" },

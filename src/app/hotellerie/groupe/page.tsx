@@ -304,7 +304,7 @@ export default function HotelGroupDashboard() {
                     <Link href={`${lp}/hotellerie/exploitation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
                       {tg("exploitation")}
                     </Link>
-                    <Link href={`${lp}/hotellerie/revpar-comparison?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
+                    <Link href={`${lp}/hotellerie/compset?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
                       {tg("revpar")}
                     </Link>
                     <Link href={`${lp}/hotellerie/renovation?hotel=${h.id}`} className="rounded-md border border-card-border bg-background px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">

@@ -46,7 +46,7 @@ const TOOL_KEYS: Record<string, string> = {
   hotelDscr: "/hotellerie/dscr",
   hotelExploitation: "/hotellerie/exploitation",
   hotelRenovation: "/hotellerie/renovation",
-  hotelRevpar: "/hotellerie/revpar-comparison",
+  hotelRevpar: "/hotellerie/compset",
   hotelE2: "/hotellerie/score-e2",
 };
 
