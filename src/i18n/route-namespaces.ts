@@ -921,11 +921,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "backup",
     "cookie",
     "crmContextBar",
-    "hotelAlerts",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar"
+    "syndicContextBar",
+    "yieldRules"
   ],
   "/hotellerie/benchmark": [
     "aiChat",

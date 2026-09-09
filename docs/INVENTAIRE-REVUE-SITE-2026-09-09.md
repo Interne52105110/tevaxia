@@ -242,3 +242,5 @@ Tableau de groupe hôtelier corrigé : totaux incomplets inconnus, prix d’acqu
 Impayés hôteliers corrigés : intérêts documentés ACT/365, segments sourcés, pas de probabilités de recouvrement ni frais/taux automatiques. Housekeeping et alertes restent à revoir.
 
 Housekeeping corrigé : tâches/temps/coûts employeur réels saisis, vacations entières, pas de semaine inventée ou de supervision imposée. Alertes à revoir : promesses de cron/email non étayées dans ce dépôt.
+
+Alertes hôtelières corrigées comme configuration de règles : surveillance/notification non confirmées, écritures explicites contrôlées. À poursuivre : cohérence marketing/accueil/tarifs avec les capacités réelles et parcours PMS, location/syndic/agences.

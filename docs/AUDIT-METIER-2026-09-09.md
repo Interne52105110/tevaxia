@@ -673,3 +673,14 @@ Le groupe hôtelier (403e8cc) est confirmé en production : CI 34387445135 réus
 - Vérification : 1 272 tests / 118 fichiers, lint ciblé et build réussis. Cas de 400 minutes = 1 agent à 160 EUR + supervision 60 EUR = 220 EUR ; 400,01 minutes nécessitent 2 vacations. Absence de travail, tâches des parties communes sans chambres, capacités impossibles et arrondis employeur couverts. Parcours et CSV cinq langues/quatre largeurs vérifiés.
 
 Le calcul des impayés (f5ccd3b) est confirmé en production : CI 34388203562 réussie, Vercel dpl_EkYoUyUFVerMN5rXPLbDELfCHnrc Ready, cinq parcours complets sur tevaxia.lu.
+
+
+## Alertes hôtelières — configuration honnête et écritures contrôlées
+
+- Le dépôt contient le stockage hotel_yield_alerts mais aucun évaluateur de ces règles ni preuve du cron 07:00/SMTP annoncés. Le cron applicatif quotidien et la fonction check-alerts concernent d’autres fonctions. Retrait des promesses IA « agit », surveillance quotidienne et emails assurés. L’écran décrit explicitement son périmètre de configuration ; aucun moteur de surveillance n’a été créé ou certifié.
+- Règles historiques conservées, statuts/préférences indiqués comme paramètres enregistrés et non preuves de traitement. Nouvelles règles désactivées et email/push faux par défaut. Liens vers comparaisons documentées pour contrôle manuel.
+- Édition avec bouton Enregistrer, aucune requête par frappe, seuils/fenêtres validés (occupation 0–100 %, GOP négatif possible), gestion des types historiques inconnus. Erreurs de lecture et d’écriture visibles ; changements utilisateur/hôtel isolés, anti-double-clic, brouillon conservé en cas d’erreur.
+- Services : vérification de l’identité actuelle avant action ; lecture de l’hôtel accessible avant enregistrement ; mise à jour/suppression filtrées par règle, utilisateur et hôtel. Aucune politique RLS de production modifiée ni certification de son état effectif. Les notifications existantes ne sont pas activées/modifiées silencieusement lors de l’édition.
+- Vérification : 1 278 tests / 119 fichiers, lint et build réussis. Tests service pour identité changée, accès hôtel refusé, portée des mutations, erreurs et notifications non activées ; composant simulé cinq langues pour frappes sans écriture, validation, doublon, brouillon après erreur, changement hôtel/compte, suppression et déconnexion ; parcours public/formulaire quatre largeurs. Aucune écriture ou notification QA en production.
+
+Housekeeping (ee4eac0) confirmé en ligne : CI 34388944339 réussie, Vercel dpl_752FT4TzJyuKCbzEeXUiiBPRG6rC Ready, cinq parcours métier complets vérifiés sur tevaxia.lu.

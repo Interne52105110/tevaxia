@@ -1,212 +1,66 @@
 "use client";
-
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
-import { supabase } from "@/lib/supabase";
-
-interface AlertRow {
-  id: string;
-  hotel_id: string;
-  alert_type: "pickup_deviation" | "adr_compset_change" | "occupancy_drop" | "revpar_delta" | "gop_margin_below";
-  threshold_pct: number;
-  threshold_days: number;
-  is_active: boolean;
-  last_triggered_at: string | null;
-  trigger_count: number;
-  notify_email: boolean;
-  notify_push: boolean;
-  created_at: string;
-}
-
-interface HotelRow {
-  id: string;
-  name: string;
-  nb_chambres: number | null;
-  category: string | null;
-}
-
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { YIELD_TYPES, loadYieldRules, saveYieldRule, removeYieldRule, validateYieldDraft, type YieldRule, type YieldType } from "@/lib/hotel-yield-rules";
 export default function YieldAlertsPage() {
-  const { user } = useAuth();
-  const t = useTranslations("hotelAlerts");
-  const [hotels, setHotels] = useState<HotelRow[]>([]);
-  const [alerts, setAlerts] = useState<AlertRow[]>([]);
-  const [selectedHotel, setSelectedHotel] = useState<string>("");
-  const [loading, setLoading] = useState(true);
-
-  const ALERT_TYPE_LABELS: Record<AlertRow["alert_type"], { title: string; desc: string; icon: string }> = {
-    pickup_deviation: { title: t("typePickupTitle"), desc: t("typePickupDesc"), icon: "📉" },
-    adr_compset_change: { title: t("typeAdrTitle"), desc: t("typeAdrDesc"), icon: "💰" },
-    occupancy_drop: { title: t("typeOccTitle"), desc: t("typeOccDesc"), icon: "🛏" },
-    revpar_delta: { title: t("typeRevparTitle"), desc: t("typeRevparDesc"), icon: "📊" },
-    gop_margin_below: { title: t("typeGopTitle"), desc: t("typeGopDesc"), icon: "⚠️" },
+  const { user, loading } = useAuth();
+  const t = useTranslations("yieldRules"), locale = useLocale();
+  if (loading) return <p role="status" className="p-6">{t("loading")}</p>;
+  if (!user) return <div className="p-6 text-center"><Link className="underline" href={`${locale === "fr" ? "" : `/${locale}`}/connexion`}>{t("signIn")}</Link></div>;
+  if (!isSupabaseConfigured) return <p className="p-6">{t("unavailable")}</p>;
+  return <Rules key={user.id} userId={user.id} />;
+}
+function Rules({ userId }: { userId: string }) {
+  const t = useTranslations("yieldRules"), locale = useLocale(), prefix = locale === "fr" ? "" : `/${locale}`;
+  const [data, setData] = useState<Awaited<ReturnType<typeof loadYieldRules>> | null>(null);
+  const [selected, setSelected] = useState("");
+  const [retry, setRetry] = useState(0), [error, setError] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void loadYieldRules(userId).then(result => { if (active) { setData(result); setError(false); } }).catch(() => { if (active) setError(true); });
+    return () => { active = false; };
+  }, [userId, retry]);
+  const hotel = data?.hotels.find(h => h.id === selected) ?? data?.hotels[0];
+  return <div className="mx-auto max-w-5xl px-4 py-10">
+    <Link className="text-sm underline" href={`${prefix}/hotellerie`}>{t("back")}</Link><h1 className="mt-3 text-2xl font-bold">{t("title")}</h1><p className="mt-4 rounded-lg border p-4 text-sm">{t("scope")}</p>
+    {error && <div className="mt-4"><p role="alert">{t("error")}</p><button className="underline" onClick={() => { setError(false); setRetry(n => n + 1); }}>{t("retry")}</button></div>}
+    {!data && !error && <p role="status" className="mt-4">{t("loading")}</p>}
+    {data?.hotels.length === 0 && <p className="mt-4">{t("noHotels")} <Link className="underline" href={`${prefix}/hotellerie/groupe`}>{t("group")}</Link></p>}
+    {!!data?.hotels.length && <label className="mt-5 block text-sm" htmlFor="yield-hotel">{t("hotel")}<select id="yield-hotel" value={hotel?.id ?? ""} onChange={e => setSelected(e.target.value)} className="mt-1 block w-full rounded-lg border p-2">{data.hotels.map(h => <option key={h.id} value={h.id}>{h.name}</option>)}</select></label>}
+    {hotel && data && <HotelRules key={`${hotel.id}:${retry}`} hotelId={hotel.id} userId={userId} rules={data.rules.filter(r => r.hotel_id === hotel.id)} onSaved={() => { setData(null); setRetry(n => n + 1); }} />}
+    <p className="mt-6 text-sm">{t("manual")}</p><div className="mt-3 flex flex-wrap gap-3"><Link className="underline" href={`${prefix}/hotellerie/benchmark`}>{t("benchmark")}</Link><Link className="underline" href={`${prefix}/hotellerie/compset`}>{t("compset")}</Link></div>
+  </div>;
+}
+function HotelRules({ hotelId, userId, rules, onSaved }: { hotelId: string; userId: string; rules: YieldRule[]; onSaved: () => void }) {
+  const t = useTranslations("yieldRules");
+  const [draft, setDraft] = useState<{ id?: string; type: string; pct: string; days: string; active: boolean } | null>(null);
+  const [busy, setBusy] = useState(false), [error, setError] = useState(false);
+  const lock = useRef(false), alive = useRef(false);
+  useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
+  const input = draft ? { id: draft.id, hotel_id: hotelId, alert_type: draft.type as YieldType, threshold_pct: draft.pct.trim() ? Number(draft.pct) : NaN, threshold_days: draft.days.trim() ? Number(draft.days) : NaN, is_active: draft.active } : null;
+  let valid = false; if (input) { try { validateYieldDraft(input); valid = true; } catch {} }
+  const mutate = async (action: () => Promise<void>) => {
+    if (lock.current) return;
+    lock.current = true; setBusy(true); setError(false);
+    try { await action(); if (alive.current) onSaved(); }
+    catch { if (alive.current) setError(true); }
+    finally { lock.current = false; if (alive.current) setBusy(false); }
   };
-
-  const refresh = useCallback(async () => {
-    if (!user || !supabase) return;
-    const { data: hs } = await supabase.from("hotels").select("id, name, nb_chambres, category").eq("created_by", user.id);
-    setHotels((hs ?? []) as HotelRow[]);
-    if (!selectedHotel && hs && hs.length > 0) setSelectedHotel((hs[0] as HotelRow).id);
-    const { data: al } = await supabase.from("hotel_yield_alerts").select("*").eq("user_id", user.id);
-    setAlerts((al ?? []) as AlertRow[]);
-    setLoading(false);
-  }, [user, selectedHotel]);
-
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- mount/dep-driven sync with external source (URL, localStorage, Supabase)
-  useEffect(() => { void refresh(); }, [refresh]);
-
-  const handleCreate = async (type: AlertRow["alert_type"]) => {
-    if (!supabase || !user || !selectedHotel) return;
-    const defaults: Record<AlertRow["alert_type"], { threshold_pct: number; threshold_days: number }> = {
-      pickup_deviation: { threshold_pct: 20, threshold_days: 30 },
-      adr_compset_change: { threshold_pct: 10, threshold_days: 7 },
-      occupancy_drop: { threshold_pct: 50, threshold_days: 7 },
-      revpar_delta: { threshold_pct: 15, threshold_days: 14 },
-      gop_margin_below: { threshold_pct: 25, threshold_days: 30 },
-    };
-    const d = defaults[type];
-    await supabase.from("hotel_yield_alerts").insert({
-      hotel_id: selectedHotel,
-      user_id: user.id,
-      alert_type: type,
-      threshold_pct: d.threshold_pct,
-      threshold_days: d.threshold_days,
-      is_active: true,
-      notify_email: true,
-      notify_push: false,
-    });
-    await refresh();
-  };
-
-  const handleToggle = async (id: string, isActive: boolean) => {
-    if (!supabase) return;
-    await supabase.from("hotel_yield_alerts").update({ is_active: !isActive }).eq("id", id);
-    await refresh();
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!supabase || !confirm(t("confirmDelete"))) return;
-    await supabase.from("hotel_yield_alerts").delete().eq("id", id);
-    await refresh();
-  };
-
-  const handleThresholdChange = async (id: string, pct: number) => {
-    if (!supabase) return;
-    await supabase.from("hotel_yield_alerts").update({ threshold_pct: pct }).eq("id", id);
-    await refresh();
-  };
-
-  if (!user) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("mustSignIn")}</div>;
-  if (loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
-
-  const hotelAlerts = alerts.filter((a) => a.hotel_id === selectedHotel);
-  const availableTypes = (Object.keys(ALERT_TYPE_LABELS) as AlertRow["alert_type"][])
-    .filter((t) => !hotelAlerts.some((a) => a.alert_type === t));
-
-  return (
-    <div className="bg-background py-8 sm:py-12">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <Link href="/hotellerie" className="text-xs text-muted hover:text-navy">{t("backHub")}</Link>
-        <div className="mt-2 mb-6">
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("pageTitle")}</h1>
-          <p className="mt-2 text-muted">
-            {t("pageSubtitle")} <strong>{t("pageSubtitleAct")}</strong>.
-          </p>
-        </div>
-
-        {hotels.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-card-border p-8 text-center text-sm text-muted">
-            {t("noHotelsTitle")}{" "}
-            <Link href="/hotellerie/groupe" className="text-navy underline">/hotellerie/groupe</Link>.
-          </div>
-        ) : (
-          <>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-slate mb-1">{t("hotelLabel")}</label>
-              <select value={selectedHotel} onChange={(e) => setSelectedHotel(e.target.value)}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm">
-                {hotels.map((h) => (
-                  <option key={h.id} value={h.id}>{h.name} {h.nb_chambres ? `(${h.nb_chambres} ${t("chambresSuffix")})` : ""}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-              <h2 className="text-base font-semibold text-navy mb-4">{t("activeAlertsTitle", { n: hotelAlerts.length })}</h2>
-              {hotelAlerts.length === 0 ? (
-                <p className="text-sm text-muted">{t("noAlertsConfigured")}</p>
-              ) : (
-                <div className="space-y-3">
-                  {hotelAlerts.map((a) => {
-                    const meta = ALERT_TYPE_LABELS[a.alert_type];
-                    return (
-                      <div key={a.id} className={`rounded-lg border p-4 ${a.is_active ? "border-emerald-200 bg-emerald-50/40" : "border-card-border bg-background opacity-60"}`}>
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2">
-                              <span className="text-lg">{meta.icon}</span>
-                              <span className="text-sm font-semibold text-navy">{meta.title}</span>
-                            </div>
-                            <p className="text-xs text-muted mt-0.5">{meta.desc}</p>
-                            <div className="mt-2 flex items-center gap-2 text-xs">
-                              <label>{t("thresholdLabel")}</label>
-                              <input type="number" value={a.threshold_pct}
-                                onChange={(e) => handleThresholdChange(a.id, Number(e.target.value))}
-                                className="w-20 rounded border border-card-border bg-white px-2 py-0.5 text-xs font-mono" />
-                              <span className="text-muted">{t("overDays", { n: a.threshold_days })}</span>
-                              {a.trigger_count > 0 && (
-                                <span className="ml-auto text-[10px] rounded-full bg-rose-100 text-rose-800 px-2 py-0.5">
-                                  {a.trigger_count > 1 ? t("triggersMany", { n: a.trigger_count }) : t("triggersOne", { n: a.trigger_count })}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="flex flex-col items-end gap-1">
-                            <button onClick={() => handleToggle(a.id, a.is_active)}
-                              className={`rounded-full px-3 py-1 text-xs font-medium ${a.is_active ? "bg-emerald-600 text-white" : "border border-card-border bg-white text-slate"}`}>
-                              {a.is_active ? t("btnActive") : t("btnInactive")}
-                            </button>
-                            <button onClick={() => handleDelete(a.id)}
-                              className="text-xs text-muted hover:text-rose-600">
-                              {t("btnDelete")}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {availableTypes.length > 0 && (
-              <div className="mt-6 rounded-xl border border-card-border bg-card p-6 shadow-sm">
-                <h2 className="text-base font-semibold text-navy mb-3">{t("addAlertTitle")}</h2>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {availableTypes.map((tp) => {
-                    const meta = ALERT_TYPE_LABELS[tp];
-                    return (
-                      <button key={tp} onClick={() => handleCreate(tp)}
-                        className="rounded-lg border border-card-border bg-background p-3 text-left hover:bg-slate-50 hover:border-navy/30">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg">{meta.icon}</span>
-                          <span className="text-sm font-semibold text-navy">{meta.title}</span>
-                        </div>
-                        <p className="mt-1 text-xs text-muted">{meta.desc}</p>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50 p-5 text-xs text-blue-900">
-              <strong>{t("cronStrong")}</strong> {t("cronBody")}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
+  const label = (type: string) => (YIELD_TYPES as readonly string[]).includes(type) ? t(type) : t("unknown");
+  return <section className="mt-5">
+    <h2 className="text-xl font-semibold">{t("saved")}</h2><p className="mt-2 text-sm">{t("historyScope")}</p>
+    {!rules.length && <p className="mt-4">{t("empty")}</p>}
+    {rules.map(r => <article key={r.id} data-yield-rule={r.id} className="mt-4 rounded-lg border p-4"><h3 className="font-semibold">{label(r.alert_type)}</h3><p className="mt-2 text-sm">{t("threshold")}: {Number.isFinite(r.threshold_pct) ? r.threshold_pct : "—"} % · {r.threshold_days} {t("days")} · {t(r.is_active ? "enabled" : "disabled")}</p><p className="mt-2 text-sm">{t("notificationFlags")}: email {t(r.notify_email ? "yes" : "no")}, push {t(r.notify_push ? "yes" : "no")}</p><div className="mt-3 flex flex-wrap gap-3"><button data-edit disabled={busy} className="rounded-lg border p-2 text-sm" onClick={() => setDraft({ id: r.id, type: r.alert_type, pct: String(r.threshold_pct), days: String(r.threshold_days), active: r.is_active })}>{t("edit")}</button><button data-delete disabled={busy} className="rounded-lg border p-2 text-sm" onClick={() => { if (confirm(t("confirmDelete"))) void mutate(() => removeYieldRule(userId, r.id, hotelId)); }}>{t("delete")}</button></div></article>)}
+    <button id="yield-add" disabled={busy} className="mt-4 rounded-lg border p-3" onClick={() => setDraft(draft ? null : { type: "", pct: "", days: "", active: false })}>{t(draft ? "cancel" : "add")}</button>
+    {draft && <form className="mt-4 rounded-lg border p-4" onSubmit={e => { e.preventDefault(); if (valid && input) void mutate(() => saveYieldRule(userId, input)); }}><fieldset disabled={busy} className="grid min-w-0 gap-4 sm:grid-cols-3">
+      <label className="min-w-0 text-sm" htmlFor="yield-type">{t("type")}<select id="yield-type" value={draft.type} onChange={e => setDraft({ ...draft, type: e.target.value })} className="mt-1 block w-full rounded-lg border p-2"><option value="">{t("choose")}</option>{YIELD_TYPES.map(k => <option key={k} value={k}>{t(k)}</option>)}</select></label>
+      <label className="min-w-0 text-sm" htmlFor="yield-pct">{t("threshold")}<input id="yield-pct" type="number" step="0.01" value={draft.pct} onChange={e => setDraft({ ...draft, pct: e.target.value })} className="mt-1 block w-full rounded-lg border p-2" /></label>
+      <label className="min-w-0 text-sm" htmlFor="yield-days">{t("window")}<input id="yield-days" type="number" min="1" max="366" step="1" value={draft.days} onChange={e => setDraft({ ...draft, days: e.target.value })} className="mt-1 block w-full rounded-lg border p-2" /></label>
+      <label className="text-sm sm:col-span-3"><input id="yield-active" type="checkbox" checked={draft.active} onChange={e => setDraft({ ...draft, active: e.target.checked })} /> {t("activeField")}</label>
+    </fieldset><p className="mt-3 text-sm">{t("validation")}</p><button id="yield-save" disabled={!valid || busy} className="mt-4 rounded-lg bg-navy p-3 text-white disabled:opacity-50">{t(busy ? "loading" : "save")}</button></form>}
+    {error && <p role="alert" className="mt-4 text-red-700">{t("error")}</p>}
+  </section>;
 }

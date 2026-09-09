@@ -73,7 +73,6 @@ export const CLIENT_NAMESPACES = [
   "globalSearch",
   "greenKeyFile",
   "hotelAcquisitionEvidence",
-  "hotelAlerts",
   "hotelBenchmark",
   "hotelCompsetEvidence",
   "hotelCoverageEvidence",
@@ -209,4 +208,5 @@ export const CLIENT_NAMESPACES = [
   "wizardParticulier",
   "wizardParticulierPage",
   "workspaces",
+  "yieldRules",
 ] as const;
