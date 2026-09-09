@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -8,315 +8,103 @@ import { pdf } from "@react-pdf/renderer";
 import { useAuth } from "@/components/AuthProvider";
 import HotelOwnerReportPdf from "@/components/HotelOwnerReportPdf";
 import { getHotel, listPeriods, savePeriod, type Hotel, type HotelPeriod } from "@/lib/hotels";
-import { listMyOrganizations, type Organization } from "@/lib/orgs";
-import { formatEUR, formatPct } from "@/lib/calculations";
-import { errMsg } from "@/lib/errors";
-
-const QUARTER_PRESETS = [
-  { label: "Q1", startM: 0, endM: 2 },
-  { label: "Q2", startM: 3, endM: 5 },
-  { label: "Q3", startM: 6, endM: 8 },
-  { label: "Q4", startM: 9, endM: 11 },
-];
+import { periodFields, prepareHotelPeriod, type PeriodField } from "@/lib/hotel-period";
+import { listMyOrganizations } from "@/lib/orgs";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export default function HotelDetailPage() {
+  const { user, loading } = useAuth();
+  const locale = useLocale();
+  const t = useTranslations("hotelDetail");
+  const params = useParams();
+  if (loading) return <p role="status" className="p-6">{t("loading")}</p>;
+  if (!user) return <div className="p-6 text-center"><Link className="underline" href={`${locale === "fr" ? "" : `/${locale}`}/connexion`}>{t("signIn")}</Link></div>;
+  if (!isSupabaseConfigured) return <p className="p-6">{t("unavailable")}</p>;
+  return <HotelDetail key={`${user.id}:${params.id}`} id={String(params.id ?? "")} />;
+}
+
+function HotelDetail({ id }: { id: string }) {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
   const t = useTranslations("hotelDetail");
-  const { user } = useAuth();
-  const params = useParams();
-  const id = String(params?.id ?? "");
-
-  const [hotel, setHotel] = useState<Hotel | null>(null);
-  const [org, setOrg] = useState<Organization | null>(null);
-  const [periods, setPeriods] = useState<HotelPeriod[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const [showForm, setShowForm] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const thisYear = new Date().getFullYear();
-
-  type Draft = Partial<HotelPeriod>;
-  const emptyDraft: Draft = {
-    period_label: `Q1 ${thisYear}`,
-    period_start: `${thisYear}-01-01`,
-    period_end: `${thisYear}-03-31`,
-    occupancy: 0.65,
-    adr: 120,
-    revpar: null,
-  };
-  const [draft, setDraft] = useState<Draft>(emptyDraft);
-
-  const refresh = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const h = await getHotel(id);
-      setHotel(h);
-      if (h) {
-        const ps = await listPeriods(h.id);
-        setPeriods(ps);
-        const orgs = await listMyOrganizations();
-        setOrg(orgs.find((o) => o.id === h.org_id) ?? null);
-      }
-    } catch (e) { setError(errMsg(e, t("error"))); }
-    finally { setLoading(false); }
-  }, [id, t]);
-
+  const [data, setData] = useState<{ hotel: Hotel | null; periods: HotelPeriod[]; group: string } | null>(null);
+  const [loadError, setLoadError] = useState(false);
+  const [error, setError] = useState("");
+  const [reload, setReload] = useState(0);
+  const [draft, setDraft] = useState<Partial<HotelPeriod> | null>(null);
+  const [busy, setBusy] = useState(false);
+  const lock = useRef(false);
+  const alive = useRef(false);
+  useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
   useEffect(() => {
-    if (id && user) void refresh();
-  }, [id, user, refresh]);
-
-  const applyQuarterPreset = (q: typeof QUARTER_PRESETS[0], year: number) => {
-    const start = new Date(Date.UTC(year, q.startM, 1));
-    const end = new Date(Date.UTC(year, q.endM + 1, 0));
-    setDraft((p) => ({
-      ...p,
-      period_label: `${q.label} ${year}`,
-      period_start: start.toISOString().slice(0, 10),
-      period_end: end.toISOString().slice(0, 10),
-    }));
-  };
-
-  const handleSave = async () => {
-    if (!hotel || !draft.period_start || !draft.period_end) return;
+    let active = true;
+    void (async () => {
+      const hotel = await getHotel(id);
+      const [periods, orgs] = hotel ? await Promise.all([listPeriods(id), listMyOrganizations()]) : [[], []];
+      if (active) { setData({ hotel, periods, group: orgs.find(o => o.id === hotel?.org_id)?.name ?? "" }); setLoadError(false); }
+    })().catch(() => { if (active) setLoadError(true); });
+    return () => { active = false; };
+  }, [id, reload]);
+  const money = (n: number | null | undefined) => typeof n === "number" && Number.isFinite(n)
+    ? new Intl.NumberFormat(locale === "lb" ? "de-DE" : locale, { style: "currency", currency: "EUR" }).format(n) : t("unknown");
+  const save = async () => {
+    if (!draft || !data?.hotel || lock.current) return;
+    let input;
+    try { input = prepareHotelPeriod(draft, id, draft.id); }
+    catch (e) { setError(t(e instanceof Error ? e.message : "error")); return; }
+    lock.current = true; setBusy(true); setError("");
     try {
-      const revpar = draft.adr != null && draft.occupancy != null ? draft.adr * draft.occupancy : null;
-      const revenueTotal =
-        (draft.revenue_rooms ?? 0) + (draft.revenue_fb ?? 0) + (draft.revenue_mice ?? 0) + (draft.revenue_other ?? 0);
-      const totalCharges =
-        (draft.staff_cost ?? 0) + (draft.energy_cost ?? 0) + (draft.other_opex ?? 0);
-      const gop = revenueTotal - totalCharges;
-      const gopMargin = revenueTotal > 0 ? gop / revenueTotal : null;
-      const ffe = revenueTotal > 0 ? revenueTotal * 0.04 : 0;
-      const ebitda = gop - ffe;
-      const ebitdaMargin = revenueTotal > 0 ? ebitda / revenueTotal : null;
-
-      await savePeriod({
-        id: editingId ?? undefined,
-        hotel_id: hotel.id,
-        period_start: draft.period_start,
-        period_end: draft.period_end,
-        period_label: draft.period_label ?? null,
-        occupancy: draft.occupancy ?? null,
-        adr: draft.adr ?? null,
-        revpar,
-        revenue_rooms: draft.revenue_rooms ?? null,
-        revenue_fb: draft.revenue_fb ?? null,
-        revenue_mice: draft.revenue_mice ?? null,
-        revenue_other: draft.revenue_other ?? null,
-        revenue_total: revenueTotal || null,
-        staff_cost: draft.staff_cost ?? null,
-        energy_cost: draft.energy_cost ?? null,
-        other_opex: draft.other_opex ?? null,
-        ffe_reserve: ffe || null,
-        gop: revenueTotal > 0 ? gop : null,
-        gop_margin: gopMargin,
-        ebitda: revenueTotal > 0 ? ebitda : null,
-        ebitda_margin: ebitdaMargin,
-        compset_revpar: draft.compset_revpar ?? null,
-        mpi: draft.mpi ?? null,
-        ari: draft.ari ?? null,
-        rgi: draft.rgi ?? null,
-        notes: draft.notes ?? null,
-      });
-      setShowForm(false);
-      setEditingId(null);
-      setDraft(emptyDraft);
-      await refresh();
-    } catch (e) { setError(errMsg(e, t("error"))); }
+      await savePeriod(input);
+      if (alive.current) { setDraft(null); setData(null); setReload(n => n + 1); }
+    } catch { if (alive.current) setError(t("error")); }
+    finally { lock.current = false; if (alive.current) setBusy(false); }
   };
-
-  const downloadReport = async (period: HotelPeriod) => {
-    if (!hotel || !org) return;
-    const sorted = [...periods].sort((a, b) => a.period_start.localeCompare(b.period_start));
-    const currIdx = sorted.findIndex((p) => p.id === period.id);
-    const previous = currIdx > 0 ? sorted[currIdx - 1] : null;
-
-    const blob = await pdf(
-      <HotelOwnerReportPdf hotel={hotel} period={period} groupName={org.name} previousPeriod={previous} />
-    ).toBlob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    const safeName = hotel.name.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
-    a.download = `owner-report-${safeName}-${period.period_start.slice(0, 7)}.pdf`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const report = async (period: HotelPeriod) => {
+    if (!data?.hotel || lock.current) return;
+    lock.current = true; setBusy(true); setError("");
+    try {
+      const keys = [...Object.values(periodFields), "reportTitle", "reportDate", "historyScope", "ownerReportInfo", "notesPlaceholder", "revenuTotal", "revparAuto", "unknown", "rooms"];
+      const labels = Object.fromEntries(keys.map(k => [k, t(k)]));
+      const blob = await pdf(<HotelOwnerReportPdf hotel={data.hotel} period={period} groupName={data.group} locale={locale} labels={labels} />).toBlob();
+      if (!alive.current) return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a"); a.href = url;
+      a.download = `hotel-report-${period.period_start}.pdf`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch { if (alive.current) setError(t("error")); }
+    finally { lock.current = false; if (alive.current) setBusy(false); }
   };
-
-  if (loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
-  if (!hotel) return (
-    <div className="mx-auto max-w-5xl px-4 py-16 text-center">
-      <p className="text-sm text-muted">{t("notFound")}</p>
-      <Link href={`${lp}/hotellerie/groupe`} className="mt-4 inline-flex text-sm text-navy underline">{t("backToGroup")}</Link>
-    </div>
-  );
-
-  return (
-    <div className="bg-background min-h-screen py-8 sm:py-12">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Link href={`${lp}/hotellerie/groupe`} className="text-xs text-muted hover:text-navy">← {org?.name ?? "Groupe"}</Link>
-
-        <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-bold text-navy sm:text-3xl">{hotel.name}</h1>
-            <p className="mt-1 text-sm text-muted">
-              {hotel.category} · {hotel.nb_chambres} {t("rooms")}
-              {hotel.commune ? ` · ${hotel.commune}` : ""}
-            </p>
-          </div>
-          <button onClick={() => { setShowForm(!showForm); setEditingId(null); setDraft(emptyDraft); }}
-            className="rounded-lg bg-purple-700 px-3 py-2 text-sm font-semibold text-white hover:bg-purple-800">
-            {showForm ? t("cancelBtn") : t("addPeriod")}
-          </button>
-        </div>
-
-        {showForm && (
-          <div className="mt-4 rounded-xl border border-card-border bg-card p-5">
-            <h2 className="text-base font-semibold text-navy">{editingId ? t("editPeriodTitle") : t("newPeriodTitle")}</h2>
-
-            <div className="mt-2 flex flex-wrap gap-2">
-              {QUARTER_PRESETS.map((q) => (
-                <button key={q.label} onClick={() => applyQuarterPreset(q, thisYear)}
-                  className="rounded-md border border-card-border bg-white px-2 py-1 text-[11px] font-medium text-navy hover:bg-slate-50">
-                  {q.label} {thisYear}
-                </button>
-              ))}
-              {QUARTER_PRESETS.map((q) => (
-                <button key={q.label + "prev"} onClick={() => applyQuarterPreset(q, thisYear - 1)}
-                  className="rounded-md border border-card-border bg-white px-2 py-1 text-[11px] font-medium text-muted hover:bg-slate-50">
-                  {q.label} {thisYear - 1}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              <input type="text" placeholder={t("periodLabelPlaceholder")} value={draft.period_label ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, period_label: e.target.value }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm sm:col-span-3" />
-              <div><label className="block text-xs text-muted mb-1">{t("startDate")}</label>
-                <input type="date" value={draft.period_start ?? ""} onChange={(e) => setDraft((p) => ({ ...p, period_start: e.target.value }))}
-                  className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
-              <div><label className="block text-xs text-muted mb-1">{t("endDate")}</label>
-                <input type="date" value={draft.period_end ?? ""} onChange={(e) => setDraft((p) => ({ ...p, period_end: e.target.value }))}
-                  className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
-              <div></div>
-
-              <div><label className="block text-xs text-muted mb-1">{t("occupancyRate")}</label>
-                <input type="number" step="0.01" value={draft.occupancy ?? ""}
-                  onChange={(e) => setDraft((p) => ({ ...p, occupancy: Number(e.target.value) || null }))}
-                  placeholder="0.65"
-                  className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
-              <div><label className="block text-xs text-muted mb-1">{t("adrLabel")}</label>
-                <input type="number" value={draft.adr ?? ""}
-                  onChange={(e) => setDraft((p) => ({ ...p, adr: Number(e.target.value) || null }))}
-                  placeholder="120"
-                  className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" /></div>
-              <div>
-                <label className="block text-xs text-muted mb-1">{t("revparAuto")}</label>
-                <div className="rounded-lg border border-input-border bg-slate-50 px-3 py-2 text-sm text-muted">
-                  {draft.adr != null && draft.occupancy != null
-                    ? formatEUR(draft.adr * draft.occupancy)
-                    : "—"}
-                </div>
-              </div>
-
-              <input type="number" placeholder={t("revenueRooms")} value={draft.revenue_rooms ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, revenue_rooms: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder={t("revenueFb")} value={draft.revenue_fb ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, revenue_fb: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder={t("revenueMice")} value={draft.revenue_mice ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, revenue_mice: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-
-              <input type="number" placeholder={t("staffCost")} value={draft.staff_cost ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, staff_cost: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder={t("energyCost")} value={draft.energy_cost ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, energy_cost: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder={t("otherOpex")} value={draft.other_opex ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, other_opex: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-
-              <input type="number" placeholder={t("mpiCompset")} value={draft.mpi ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, mpi: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder={t("ariCompset")} value={draft.ari ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, ari: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-              <input type="number" placeholder={t("rgiCompset")} value={draft.rgi ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, rgi: Number(e.target.value) || null }))}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-
-              <textarea placeholder={t("notesPlaceholder")} value={draft.notes ?? ""}
-                onChange={(e) => setDraft((p) => ({ ...p, notes: e.target.value }))}
-                rows={2}
-                className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm sm:col-span-3" />
-            </div>
-            <div className="mt-3 flex justify-end">
-              <button onClick={handleSave}
-                className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
-                {editingId ? t("saveBtn") : t("addPeriodBtn")}
-              </button>
-            </div>
-          </div>
-        )}
-
-        {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
-
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold text-navy">{t("periodsTitle")}</h2>
-          {periods.length === 0 && (
-            <div className="mt-2 rounded-xl border border-dashed border-card-border bg-card p-8 text-center text-sm text-muted">
-              {t("noPeriods")}
-            </div>
-          )}
-
-          <div className="mt-3 space-y-3">
-            {periods.map((p) => (
-              <div key={p.id} className="rounded-xl border border-card-border bg-card p-4">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <div className="text-sm font-semibold text-navy">{p.period_label || `${p.period_start} → ${p.period_end}`}</div>
-                    <div className="mt-0.5 text-xs text-muted">
-                      RevPAR {p.revpar != null ? formatEUR(p.revpar) : "—"}
-                      {p.occupancy != null ? ` · ${t("occShort")} ${(p.occupancy * 100).toFixed(0)}%` : ""}
-                      {p.adr != null ? ` · ADR ${formatEUR(p.adr)}` : ""}
-                      {p.gop_margin != null ? ` · GOP ${formatPct(p.gop_margin)}` : ""}
-                    </div>
-                  </div>
-                  <div className="flex shrink-0 gap-1">
-                    <button onClick={() => downloadReport(p)}
-                      className="rounded-md bg-purple-50 border border-purple-200 px-3 py-1 text-xs font-medium text-purple-800 hover:bg-purple-100">
-                      {t("ownerReportPdf")}
-                    </button>
-                    <button onClick={() => { setEditingId(p.id); setDraft(p as Draft); setShowForm(true); }}
-                      className="rounded-md border border-card-border bg-white px-3 py-1 text-xs font-medium text-navy hover:bg-slate-50">
-                      {t("editBtn")}
-                    </button>
-                  </div>
-                </div>
-                {(p.revenue_total != null || p.ebitda != null) && (
-                  <div className="mt-3 grid grid-cols-3 gap-3 border-t border-card-border/50 pt-2 text-xs">
-                    {p.revenue_total != null && <div><span className="text-muted">{t("revenuTotal")}</span><div className="font-semibold text-navy">{formatEUR(p.revenue_total)}</div></div>}
-                    {p.gop != null && <div><span className="text-muted">{t("gopLabel")}</span><div className="font-semibold text-emerald-700">{formatEUR(p.gop)}</div></div>}
-                    {p.ebitda != null && <div><span className="text-muted">{t("ebitdaLabel")}</span><div className="font-semibold text-purple-700">{formatEUR(p.ebitda)}</div></div>}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
-          {t("ownerReportInfo")}
-        </div>
-      </div>
-    </div>
-  );
+  return <div className="mx-auto max-w-6xl px-4 py-10">
+    <Link className="text-sm underline" href={`${lp}/hotellerie/groupe`}>{t("backToGroup")}</Link>
+    {loadError && <div className="mt-4"><p role="alert">{t("error")}</p><button className="underline" onClick={() => { setLoadError(false); setReload(n => n + 1); }}>{t("retry")}</button></div>}
+    {!data && !loadError && <p className="mt-4" role="status">{t("loading")}</p>}
+    {data && !data.hotel && <p className="mt-4">{t("notFound")}</p>}
+    {data?.hotel && <>
+      <h1 className="mt-4 break-words text-2xl font-bold">{data.hotel.name}</h1>
+      <p className="mt-2 text-sm">{data.hotel.nb_chambres} {t("rooms")} · {data.hotel.commune}</p>
+      <p className="mt-4 rounded-lg border p-4 text-sm">{t("scope")}</p>
+      <button id="period-add" disabled={busy} className="mt-4 rounded-lg bg-navy p-3 text-white disabled:opacity-50" onClick={() => { setDraft(draft ? null : {}); setError(""); }}>{t(draft ? "cancelBtn" : "addPeriod")}</button>
+      {draft && <form className="mt-4 rounded-lg border p-4" onSubmit={e => { e.preventDefault(); void save(); }}>
+        <h2 className="font-semibold">{t(draft.id ? "editPeriodTitle" : "newPeriodTitle")}</h2>
+        {draft.id && <p className="mt-2 text-sm">{t("editScope")}</p>}
+        <fieldset disabled={busy} className="mt-4 grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {(["period_label", "period_start", "period_end"] as const).map((key, i) => <label key={key} className="min-w-0 text-sm" htmlFor={`period-${key}`}>{t(["periodLabelPlaceholder", "startDate", "endDate"][i])}<input id={`period-${key}`} className="mt-1 block w-full min-w-0 rounded-lg border p-2" type={i ? "date" : "text"} maxLength={160} required={i > 0} value={draft[key] ?? ""} onChange={e => setDraft({ ...draft, [key]: e.target.value })} /></label>)}
+          {(Object.keys(periodFields) as PeriodField[]).map(key => <label key={key} className="min-w-0 text-sm" htmlFor={`period-${key}`}>{t(periodFields[key])}<input id={`period-${key}`} type="number" step={key === "occupancy" || ["mpi", "ari", "rgi"].includes(key) ? "0.0001" : "0.01"} min={key === "gop" || key === "ebitda" ? -1e9 : 0} max={key === "occupancy" ? 1 : 1e9} value={draft[key] ?? ""} onChange={e => setDraft({ ...draft, [key]: e.target.value === "" ? null : Number(e.target.value) })} className="mt-1 block w-full min-w-0 rounded-lg border p-2" /></label>)}
+          <label className="min-w-0 text-sm sm:col-span-2 lg:col-span-3" htmlFor="period-notes">{t("notesPlaceholder")}<textarea id="period-notes" required maxLength={3000} rows={4} value={draft.notes ?? ""} onChange={e => setDraft({ ...draft, notes: e.target.value })} className="mt-1 block w-full rounded-lg border p-2" /></label>
+        </fieldset>
+        <button id="period-save" disabled={busy} className="mt-4 rounded-lg bg-emerald-700 p-3 text-white disabled:opacity-50">{busy ? t("loading") : t("saveBtn")}</button>
+      </form>}
+      {error && <p role="alert" className="mt-4 text-red-700">{error}</p>}
+      <h2 className="mt-8 text-xl font-semibold">{t("periodsTitle")}</h2>
+      <p className="mt-3 text-sm">{t("historyScope")}</p>
+      {!data.periods.length && <p className="mt-4">{t("noPeriods")}</p>}
+      {data.periods.map(p => <article data-period={p.id} key={p.id} className="mt-4 rounded-lg border p-4">
+        <h3 className="break-words font-semibold">{p.period_label}</h3><p className="mt-1 text-sm">{p.period_start} → {p.period_end}</p>
+        <dl className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{(["revenue_total", "gop", "ebitda", "ffe_reserve"] as const).map((key, i) => <div key={key}><dt className="text-sm">{t(["revenuTotal", "gopLabel", "ebitdaLabel", "ffeLabel"][i])}</dt><dd className="break-words font-semibold" data-metric={key}>{money(p[key])}</dd></div>)}</dl>
+        <div className="mt-4 flex flex-wrap gap-3"><button disabled={busy} data-report className="rounded-lg border p-2 text-sm disabled:opacity-50" onClick={() => void report(p)}>{t("ownerReportPdf")}</button><button disabled={busy} data-edit className="rounded-lg border p-2 text-sm" onClick={() => { setDraft({ ...p, gop: null, ebitda: null, ffe_reserve: null }); setError(""); }}>{t("editBtn")}</button></div>
+      </article>)}
+      <p className="mt-6 text-sm">{t("ownerReportInfo")}</p>
+    </>}
+  </div>;
 }

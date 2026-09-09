@@ -3,6 +3,7 @@
 // ============================================================
 
 import { supabase, isSupabaseConfigured } from "./supabase";
+import { prepareHotelPeriod } from "./hotel-period";
 
 export type HotelCategory = "budget" | "midscale" | "upscale" | "luxury";
 export type OperatorType = "independent" | "franchise" | "management" | "owner_operated";
@@ -158,17 +159,19 @@ export async function listPeriods(hotelId: string): Promise<HotelPeriod[]> {
 
 export async function savePeriod(input: Omit<HotelPeriod, "id" | "created_at" | "updated_at" | "created_by"> & { id?: string }): Promise<HotelPeriod> {
   const client = ensureClient();
-  const { data: { user } } = await client.auth.getUser();
+  const { data: { user }, error: authError } = await client.auth.getUser();
+  if (authError || !user) throw new Error("Authentication required");
+  input = prepareHotelPeriod(input, input.hotel_id, input.id);
 
   if (input.id) {
-    const { data, error } = await client.from("hotel_periods").update(input).eq("id", input.id).select("*").single();
+    const { data, error } = await client.from("hotel_periods").update(input).eq("id", input.id).eq("hotel_id", input.hotel_id).select("*").single();
     if (error) throw error;
     return data as HotelPeriod;
   }
 
   const { data, error } = await client
     .from("hotel_periods")
-    .insert({ ...input, created_by: user?.id ?? null })
+    .insert({ ...input, created_by: user.id })
     .select("*")
     .single();
   if (error) throw error;
