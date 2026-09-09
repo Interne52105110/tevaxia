@@ -8531,7 +8531,8 @@
     "confirmIssue": "Dësen Fondsoprouf erausginn? En gëtt offiziell an d'Chargen ginn opgefuerdert.",
     "confirmDeleteCall": "Dësen Fondsoprouf läschen? All verbonnen Chargen gi verluer.",
     "chargesGenerated": "Chargen no Tantièmen generéiert.",
-    "generateHint": "Klickt op 'Chargen pro Lot generéieren' fir de Gesamtbetrag automatesch no den Tantièmen vun all Lot ze verdeelen."
+    "generateHint": "Klickt op 'Chargen pro Lot generéieren' fir de Gesamtbetrag automatesch no den Tantièmen vun all Lot ze verdeelen.",
+    "documentScope": "De PDF stellt en Appel de fonds duer. Déi gefrote Zomme ginn net automatesch an eng Leeschtungsrechnung oder eng TVA-Befreiung ëmgewandelt."
   },
   "syndicAssemblees": {
     "error": "Feeler",

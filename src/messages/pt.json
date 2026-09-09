@@ -8531,7 +8531,8 @@
     "confirmIssue": "Emitir esta chamada de fundos? Tornar-se-á oficial e os encargos serão chamados.",
     "confirmDeleteCall": "Eliminar esta chamada de fundos? Todos os encargos associados serão perdidos.",
     "chargesGenerated": "encargos gerados segundo milésimos.",
-    "generateHint": "Clique em 'Gerar encargos por lote' para distribuir automaticamente o montante total segundo os milésimos de cada lote."
+    "generateHint": "Clique em 'Gerar encargos por lote' para distribuir automaticamente o montante total segundo os milésimos de cada lote.",
+    "documentScope": "O PDF apresenta um pedido de provisão de fundos. Os montantes pedidos não são automaticamente convertidos numa fatura de serviços ou numa isenção de IVA."
   },
   "syndicAssemblees": {
     "error": "Erro",

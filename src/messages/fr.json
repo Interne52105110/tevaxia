@@ -8653,7 +8653,8 @@
     "confirmIssue": "Émettre cet appel de fonds ? Il deviendra officiel et les charges seront appelées.",
     "confirmDeleteCall": "Supprimer cet appel de fonds ? Toutes les charges associées seront perdues.",
     "chargesGenerated": "charges générées selon les tantièmes.",
-    "generateHint": "Cliquez sur « Générer les charges par lot » pour répartir automatiquement le montant total selon les tantièmes de chaque lot."
+    "generateHint": "Cliquez sur « Générer les charges par lot » pour répartir automatiquement le montant total selon les tantièmes de chaque lot.",
+    "documentScope": "Le PDF présente un appel de fonds. Les montants appelés ne sont pas automatiquement convertis en facture de prestations ni en exonération de TVA."
   },
   "syndicAssemblees": {
     "error": "Erreur",

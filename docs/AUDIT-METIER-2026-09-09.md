@@ -934,3 +934,14 @@ Date par défaut calculée selon le jour civil au Luxembourg ; ajout des trente 
 Profils b284e4f publiés : CI 34416998109 réussie ; dpl_CjrRyk1aAP9qRVr2HJXeMBkU2oaq Ready. Cinq langues et quatre largeurs, profil incompatible conservé/bloqué et trois profils disponibles vérifiés en production. Les mentions fiscales obligatoires et la conversion directe des appels syndic restent des travaux distincts.
 
 Contrôle navigateur cinq langues : nouveau numéro et taux vides, cinq modèles nécessitant prix/taux, absence de notes juridiques automatiques, taux personnalisé 19 % produisant 119 EUR pour 100 EUR HT. Quatre largeurs et anciens scénarios d’arrondis/remises réussis.
+
+
+## 10 septembre — appels de fonds distincts des factures fiscales
+
+Retrait des boutons de conversion Factur-X individuelle/groupée et du générateur qui attribuait automatiquement une exonération TVA et des références CGI/LTVA aux appels de fonds. Le PDF d’appel de fonds existant et ses actions individuelle/groupée sont conservés. Un texte localisé précise la nature du document. Ce lot ne certifie ni les règles de répartition ni le traitement fiscal propre à chaque syndicat.
+
+Référence sur la nature provisionnelle des appels en France : https://www.service-public.gouv.fr/particuliers/vosdroits/F20586. Le retrait des assertions fiscales LU/FR repose sur l’absence des informations nécessaires dans la conversion, sans appliquer un régime français au Luxembourg.
+
+Lint sans erreur (une directive existante inutile), build réussi. Cinq langues testées sur l’écran réel avec services/rendu PDF simulés : texte de portée, absence des boutons fiscaux, actions PDF individuelle/groupée conservant le montant et le nom du fichier. Aucun PDF client ni opération financière produit par ces tests. Le rendu existant de l’appel n’a pas été modifié.
+
+Modèles e141499 publiés : CI 34417387221 réussie ; dpl_33mUwmg8eW6Rh3LhPSzzktNwTCKt Ready. Cinq langues, modèles sans taux implicite, taux personnalisé et quatre largeurs vérifiés en production.

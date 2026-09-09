@@ -8531,7 +8531,8 @@
     "confirmIssue": "Diese Zahlungsaufforderung ausstellen? Sie wird offiziell und die Umlagen werden eingefordert.",
     "confirmDeleteCall": "Diese Zahlungsaufforderung löschen? Alle zugehörigen Umlagen gehen verloren.",
     "chargesGenerated": "Umlagen nach Anteilen generiert.",
-    "generateHint": "Klicken Sie auf 'Umlagen pro Einheit generieren', um den Gesamtbetrag automatisch nach den Anteilen jeder Einheit zu verteilen."
+    "generateHint": "Klicken Sie auf 'Umlagen pro Einheit generieren', um den Gesamtbetrag automatisch nach den Anteilen jeder Einheit zu verteilen.",
+    "documentScope": "Das PDF stellt eine Zahlungsanforderung dar. Angeforderte Beträge werden nicht automatisch in eine Leistungsrechnung oder eine MwSt.-Befreiung umgewandelt."
   },
   "syndicAssemblees": {
     "error": "Fehler",

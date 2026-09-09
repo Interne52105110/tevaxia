@@ -17,8 +17,6 @@ import {
 import { listAllocationKeys, type AllocationKey } from "@/lib/coownership-allocations";
 import { formatEUR } from "@/lib/calculations";
 import { errMsg } from "@/lib/errors";
-import { buildCoproFacturX } from "@/lib/facturation/factur-x-syndic-builder";
-import { track, captureError } from "@/lib/analytics";
 
 const STATUS_COLOR: Record<CallStatus, string> = {
   draft: "bg-slate-100 text-slate-800",
@@ -196,56 +194,6 @@ export default function FundsCallsPage() {
     }
   };
 
-  const downloadFacturX = async (call: CoownershipCall, unit: CoownershipUnit, charge: UnitCharge) => {
-    if (!coown) return;
-    const profile = getProfile();
-    const inv = buildCoproFacturX({
-      call: {
-        id: call.id, label: call.label,
-        period_start: call.period_start, period_end: call.period_end, due_date: call.due_date,
-        bank_iban: call.bank_iban, bank_bic: call.bank_bic, bank_account_holder: call.bank_account_holder,
-      },
-      charge: { id: charge.id, amount_due: charge.amount_due, payment_reference: charge.payment_reference ?? "" },
-      unit: { lot_number: unit.lot_number, owner_name: unit.owner_name, tantiemes: unit.tantiemes },
-      coownership: {
-        name: coown.name, address: coown.address, commune: coown.commune,
-        total_tantiemes: coown.total_tantiemes,
-      },
-      syndic: {
-        name: profile.nomComplet || profile.societe || "Syndic",
-        address: profile.adresse, country_code: "LU",
-      },
-    });
-    const { generateFacturXPdf } = await import("@/lib/facturation/factur-x-pdf");
-    const artifacts = await generateFacturXPdf(inv, { locale });
-    const blob = new Blob([artifacts.pdfBytes as BlobPart], { type: "application/pdf" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url; a.download = artifacts.pdfFilename;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const downloadAllFacturX = async (call: CoownershipCall) => {
-    if (!coown) return;
-    let count = 0;
-    try {
-      for (const charge of charges) {
-        const unit = units.find((u) => u.id === charge.unit_id);
-        if (unit) {
-          await downloadFacturX(call, unit, charge);
-          count++;
-          // small delay so browser doesn't throttle multi-downloads
-          await new Promise((r) => setTimeout(r, 200));
-        }
-      }
-      track("syndic_facturx_batch", { call_id: call.id, nb_invoices: count, total_amount: call.total_amount });
-    } catch (e) {
-      captureError(e, { module: "syndic_facturx_batch", call_id: call.id, partial_count: count });
-      setError(errMsg(e, t("error")));
-    }
-  };
-
   if (!coown) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
 
   const activeCall = calls.find((c) => c.id === activeCallId) ?? null;
@@ -384,11 +332,6 @@ export default function FundsCallsPage() {
                         className="rounded-lg border border-card-border bg-white px-3 py-1.5 text-xs font-medium text-navy hover:bg-slate-50">
                         {t("downloadAllPdfs")}
                       </button>
-                      <button onClick={() => downloadAllFacturX(activeCall)}
-                        className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-900 hover:bg-amber-100"
-                        title="Génère N Factur-X EN 16931 (1 par copropriétaire) pour transmission e-invoicing">
-                        ⚡ Factur-X (×{charges.length})
-                      </button>
                     </>
                   )}
                   <button onClick={() => handleDeleteCall(activeCall.id)}
@@ -397,6 +340,7 @@ export default function FundsCallsPage() {
                   </button>
                 </div>
 
+                <p className="mb-4 text-sm text-slate">{t("documentScope")}</p>
                 {/* Charges table */}
                 {charges.length > 0 && (
                   <div className="mt-5 overflow-x-auto">
@@ -442,11 +386,6 @@ export default function FundsCallsPage() {
                                 <button onClick={() => downloadCallPdf(activeCall, unit, ch)}
                                   className="rounded-md border border-card-border bg-white px-2 py-1 text-[10px] font-medium text-navy hover:bg-slate-50">
                                   PDF
-                                </button>
-                                <button onClick={() => downloadFacturX(activeCall, unit, ch)}
-                                  className="rounded-md border border-amber-300 bg-amber-50 px-2 py-1 text-[10px] font-medium text-amber-900 hover:bg-amber-100"
-                                  title="Génère Factur-X EN 16931 (PDF/A-3 + XML embarqué)">
-                                  ⚡ Factur-X
                                 </button>
                               </td>
                             </tr>

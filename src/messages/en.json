@@ -8653,7 +8653,8 @@
     "confirmIssue": "Issue this funds call? It will become official and charges will be called.",
     "confirmDeleteCall": "Delete this funds call? All associated charges will be lost.",
     "chargesGenerated": "charges generated based on shares.",
-    "generateHint": "Click 'Generate charges per unit' to automatically distribute the total amount based on each unit's shares."
+    "generateHint": "Click 'Generate charges per unit' to automatically distribute the total amount based on each unit's shares.",
+    "documentScope": "The PDF is a funds call. Called amounts are not automatically converted into a service invoice or a VAT exemption."
   },
   "syndicAssemblees": {
     "error": "Error",
