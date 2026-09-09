@@ -494,11 +494,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "backup",
     "cookie",
     "crmContextBar",
-    "esgCrrem",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar"
+    "syndicContextBar",
+    "trajectoryAudit"
   ],
   "/esg": [
     "aiChat",
