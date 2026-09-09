@@ -3,11 +3,10 @@ import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import SEOContent from "@/components/SEOContent";
 
-export const metadata: Metadata = {
-  title: "Outils pré-acquisition hôtelière Luxembourg",
-  description:
-    "Outils pour acheteurs et investisseurs hôteliers : valorisation documentée, couverture de dette, exploitation, comparatif RevPAR et préparation du dossier E-2.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("hotellerieHub");
+  return { title: t("title"), description: t("description") };
+}
 
 interface HotelTool {
   href: string;
@@ -206,7 +205,7 @@ export default async function HotellerieHub() {
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 21v-6.75M3 21h18M3 21l9-9 9 9M3 14.25V6.375a1.125 1.125 0 011.125-1.125h15.75c.621 0 1.125.504 1.125 1.125v7.875" />
               </svg>
-              Dashboard Groupe hôtelier →
+              {t("groupLink")} →
             </Link>
           </div>
         </div>
@@ -340,6 +339,13 @@ export default async function HotellerieHub() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-5xl px-4 pb-12">
+        <h2 className="text-xl font-bold text-navy">{t("sourcesTitle")}</h2>
+        <div className="mt-3 flex flex-wrap gap-4 text-sm underline">
+          <a href="https://pfi.public.lu/dam-assets/pdf/legislation/tva/loi/loi-tva-2026-01-01.pdf">{t("taxSource")}</a>
+          <a href="https://travel.state.gov/content/travel/en/us-visas/employment/treaty-trader-investor-visa-e.html">{t("e2Source")}</a>
+        </div>
+      </section>
       <SEOContent
         ns="hotellerieHub"
         sections={[
