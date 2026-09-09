@@ -1,8 +1,4 @@
-import type { Metadata } from "next";
-import { localizedAlternates } from "@/lib/seo";
-export const metadata: Metadata = {
-  title: "VRD-Schätzer Lëtzebuerg — Mengen a Leeschtungsverzeechnes",
-  description: "Professionell VRD-Budgetschätzung: Äerdaarbechten, Stroossebauen, EU/EP-Netzer, Tréchenleitungen, Beliichtung, Landschaftsbauen. 9 Loser, beleete Präisser Batiprix/CTG/CSDC-CT.",
-  alternates: localizedAlternates("/calculateur-vrd", "lb"),
-};
-export default function Layout({ children }: { children: React.ReactNode }) { return children; }
+import type {Metadata} from 'next';
+import {localizedAlternates} from '@/lib/seo';
+export const metadata:Metadata={title:"Dokumentéierte VRD-Budget a Métrés",description:"Berechent Stroossen- a Reseauaarbechte mat dokumentéierte Quantitéiten a Präisser mat TVA. Déi néng virgeschloe Lousen hëllefe bei der Glidderung, ouni integréiert Batiprix-, CTG- oder Creos-Tariffer. Gefäll, Buedem an Transportdistanze mussen an Ären Devisë berücksichtegt sinn; kee Koeffizient gëtt automatesch dobäigesat.",alternates:localizedAlternates('/calculateur-vrd',"lb")};
+export default function Layout({children}:{children:React.ReactNode}){return children;}

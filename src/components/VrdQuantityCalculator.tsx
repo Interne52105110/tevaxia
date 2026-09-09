@@ -1,0 +1,12 @@
+"use client";
+import {useMemo,useState} from 'react';
+import {useLocale,useTranslations} from 'next-intl';
+import {rectangularVrdQuantity} from '@/lib/vrd-quantity';
+export default function VrdQuantityCalculator({onAdd,disabled=false}:{disabled?:boolean;onAdd:(item:{label:string;quantity:string;unit:'m2'|'m3'})=>void}){
+ const locale=useLocale(),t=useTranslations('vrdBudget'),[label,setLabel]=useState(''),[length,setLength]=useState(''),[width,setWidth]=useState(''),[depth,setDepth]=useState(''),[mode,setMode]=useState('area');
+ const q=useMemo(()=>{try{return rectangularVrdQuantity(Number(length),Number(width),mode==='area'?null:Number(depth))}catch{return null}},[length,width,depth,mode]);
+ const css='mt-1 w-full min-w-0 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm';
+ return <section className="mt-6 rounded-xl border border-sky-200 bg-sky-50 p-4"><h2 className="text-lg font-semibold text-navy">{t('geometryTitle')}</h2><p className="mt-2 text-sm text-muted">{t('geometryScope')}</p><div className="mt-3 grid gap-3 sm:grid-cols-2"><label className="min-w-0 text-sm">{t('label')}<input id="vrd-geometry-label" value={label} maxLength={140} onChange={e=>setLabel(e.target.value)} className={css}/></label><label className="min-w-0 text-sm">{t('mode')}<select id="vrd-geometry-mode" value={mode} onChange={e=>setMode(e.target.value)} className={css}><option value="area">{t('area')}</option><option value="volume">{t('volume')}</option></select></label></div><div className="mt-3 grid gap-3 sm:grid-cols-3">{([['length',length,setLength],['width',width,setWidth],...(mode==='volume'?[['depth',depth,setDepth] as const]:[])] as const).map(([key,value,set])=><label key={key} className="min-w-0 text-sm">{t(key)}<input id={'vrd-geometry-'+key} type="number" step="any" min="0" value={value} onChange={e=>set(e.target.value)} className={css}/></label>)}</div>
+  {q&&<p id="vrd-geometry-result" className="mt-3 font-semibold">{q.quantity.toLocaleString(locale==='lb'?'de-DE':locale,{maximumFractionDigits:4})} {q.unit==='m2'?'m²':'m³'}</p>}<button id="vrd-geometry-add" type="button" disabled={disabled||!q||!label.trim()} onClick={()=>{if(q)onAdd({label:label.trim()+` (${length} m × ${width} m${mode==='volume'?` × ${depth} cm`:''})`,quantity:String(q.quantity),unit:q.unit})}} className="mt-3 rounded-lg border border-navy/30 px-3 py-2 text-sm disabled:opacity-50">{t('transfer')}</button><p className="mt-2 text-xs text-muted">{t('transferScope')}</p>
+ </section>;
+}

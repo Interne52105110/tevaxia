@@ -191,7 +191,7 @@
       },
       "calculateurVrd": {
         "title": "VRD Estimator",
-        "description": "Quantities, bill of quantities and budget estimation for infrastructure projects. 9 lots, sourced prices (Batiprix, CTG, CSDC-CT).",
+        "description": "Price road and utility works using documented quantities and VAT-inclusive prices. The nine suggested lots are classification aids, with no integrated Batiprix, CTG or Creos tariff. Slope, soil conditions and transport distances must be reflected in your quotes; no multiplier is added automatically.",
         "tag": "Engineering office"
       },
       "convertisseurSurfaces": {
@@ -18990,5 +18990,20 @@
     "csv": "Export the CSV schedule",
     "indexScope": "The STATEC index measures price changes in residential construction, excluding VAT and land. It is not a quote or a universal price per m². No unit cost on this page is attributed to STATEC or Batiprix.",
     "source": "STATEC methodology"
+  },
+  "vrdBudget": {
+    "title": "Documented civil works budget and quantities",
+    "scope": "Price road and utility works using documented quantities and VAT-inclusive prices. The nine suggested lots are classification aids, with no integrated Batiprix, CTG or Creos tariff. Slope, soil conditions and transport distances must be reflected in your quotes; no multiplier is added automatically.",
+    "geometryTitle": "Optional rectangular quantity calculation",
+    "geometryScope": "Area = length × width. Volume = length × width × thickness in cm / 100, rounded to four decimals. This geometric calculation does not design roads, pipes or basins. It does not account for bulking, compaction, losses or excavated material reuse.",
+    "label": "Measured item name",
+    "mode": "Calculation",
+    "area": "Area",
+    "volume": "Volume",
+    "length": "Length (m)",
+    "width": "Width (m)",
+    "depth": "Thickness / depth (cm)",
+    "transfer": "Add this quantity to the schedule",
+    "transferScope": "The added item retains the dimensions in its label. Then enter the VAT-inclusive price and reference. Avoid entering the same item manually as well."
   }
 }

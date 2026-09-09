@@ -191,7 +191,7 @@
       },
       "calculateurVrd": {
         "title": "Estimateur VRD",
-        "description": "Métrés, bordereau de prix et estimation budgétaire pour projets d'infrastructure. 9 lots, prix sourcés (Batiprix, CTG, CSDC-CT).",
+        "description": "Chiffrez les travaux de voirie et réseaux à partir de quantités et prix TTC documentés. Les neuf lots proposés sont des repères de classement, sans tarif Batiprix, CTG ou Creos intégré. La pente, la nature du sol et les distances de transport doivent être prises en compte dans vos devis ; aucun coefficient n’est ajouté automatiquement.",
         "tag": "Bureau d'études"
       },
       "convertisseurSurfaces": {
@@ -18990,5 +18990,20 @@
     "csv": "Exporter le bordereau CSV",
     "indexScope": "L’indice STATEC mesure une évolution de prix dans la construction résidentielle, hors TVA et terrain. Il ne fournit pas un devis ni un tarif universel par m². Aucun coût unitaire de cette page n’est attribué au STATEC ou à Batiprix.",
     "source": "Méthodologie STATEC"
+  },
+  "vrdBudget": {
+    "title": "Budget VRD et métrés déclarés",
+    "scope": "Chiffrez les travaux de voirie et réseaux à partir de quantités et prix TTC documentés. Les neuf lots proposés sont des repères de classement, sans tarif Batiprix, CTG ou Creos intégré. La pente, la nature du sol et les distances de transport doivent être prises en compte dans vos devis ; aucun coefficient n’est ajouté automatiquement.",
+    "geometryTitle": "Métré rectangulaire facultatif",
+    "geometryScope": "Surface = longueur × largeur. Volume = longueur × largeur × épaisseur en cm / 100, arrondi à quatre décimales. Ce calcul géométrique ne dimensionne ni chaussée, ni canalisation, ni bassin. Il n’intègre pas le foisonnement, le compactage, les pertes ou la réutilisation des déblais.",
+    "label": "Nom du poste mesuré",
+    "mode": "Calcul",
+    "area": "Surface",
+    "volume": "Volume",
+    "length": "Longueur (m)",
+    "width": "Largeur (m)",
+    "depth": "Épaisseur / profondeur (cm)",
+    "transfer": "Ajouter ce métré au bordereau",
+    "transferScope": "Le poste ajouté conserve les dimensions dans son libellé. Renseignez ensuite le prix TTC et sa référence. Évitez de saisir aussi le même poste manuellement."
   }
 }

@@ -140,12 +140,15 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "backup",
     "calculateurVrd",
     "common",
+    "constructionBudget",
     "cookie",
     "crmContextBar",
+    "estimateurConstruction",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar"
+    "syndicContextBar",
+    "vrdBudget"
   ],
   "/carte": [
     "aiChat",
@@ -528,6 +531,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/estimateur-construction": [
     "aiChat",
     "backup",
+    "calculateurVrd",
     "common",
     "constructionBudget",
     "cookie",
@@ -536,7 +540,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",
-    "syndicContextBar"
+    "syndicContextBar",
+    "vrdBudget"
   ],
   "/estimation": [
     "aiAnalysis",

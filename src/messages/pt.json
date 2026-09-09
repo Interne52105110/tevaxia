@@ -191,7 +191,7 @@
       },
       "calculateurVrd": {
         "title": "Estimador VRD",
-        "description": "Medições, mapa de quantidades e estimativa orçamental para projetos de infraestrutura. 9 lotes, preços referenciados (Batiprix, CTG, CSDC-CT).",
+        "description": "Orçamente vias e redes com quantidades e preços com IVA documentados. Os nove lotes sugeridos auxiliam a classificação, sem tarifas Batiprix, CTG ou Creos integradas. O declive, solo e distâncias de transporte devem constar das suas propostas; não é aplicado qualquer coeficiente automático.",
         "tag": "Gabinete de estudos"
       },
       "convertisseurSurfaces": {
@@ -18990,5 +18990,20 @@
     "csv": "Exportar mapa CSV",
     "indexScope": "O índice STATEC mede variações de preços na construção residencial, excluindo IVA e terreno. Não é uma proposta nem um preço universal por m². Nenhum preço unitário desta página é atribuído ao STATEC ou Batiprix.",
     "source": "Metodologia STATEC"
+  },
+  "vrdBudget": {
+    "title": "Orçamento VRD e medições declaradas",
+    "scope": "Orçamente vias e redes com quantidades e preços com IVA documentados. Os nove lotes sugeridos auxiliam a classificação, sem tarifas Batiprix, CTG ou Creos integradas. O declive, solo e distâncias de transporte devem constar das suas propostas; não é aplicado qualquer coeficiente automático.",
+    "geometryTitle": "Medição retangular facultativa",
+    "geometryScope": "Área = comprimento × largura. Volume = comprimento × largura × espessura em cm / 100, arredondado a quatro casas decimais. Este cálculo geométrico não dimensiona pavimentos, tubagens ou bacias. Não inclui empolamento, compactação, perdas ou reutilização de terras escavadas.",
+    "label": "Nome do artigo medido",
+    "mode": "Cálculo",
+    "area": "Área",
+    "volume": "Volume",
+    "length": "Comprimento (m)",
+    "width": "Largura (m)",
+    "depth": "Espessura / profundidade (cm)",
+    "transfer": "Adicionar esta medição ao mapa",
+    "transferScope": "As dimensões ficam na descrição do artigo. Introduza depois o preço com IVA e a referência. Evite introduzir também o mesmo artigo manualmente."
   }
 }

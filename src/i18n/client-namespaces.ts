@@ -205,6 +205,7 @@ export const CLIENT_NAMESPACES = [
   "valuationSession",
   "vefa",
   "verify",
+  "vrdBudget",
   "wizardParticulier",
   "wizardParticulierPage",
   "workspaces",

@@ -191,7 +191,7 @@
       },
       "calculateurVrd": {
         "title": "VRD-Schätzer",
-        "description": "Mengenermëttlung, Leeschtungsverzechnes a Budgetschätzung fir Infrastrukturprojeten. 9 Loser, beleete Präisser (Batiprix, CTG, CSDC-CT).",
+        "description": "Berechent Stroossen- a Reseauaarbechte mat dokumentéierte Quantitéiten a Präisser mat TVA. Déi néng virgeschloe Lousen hëllefe bei der Glidderung, ouni integréiert Batiprix-, CTG- oder Creos-Tariffer. Gefäll, Buedem an Transportdistanze mussen an Ären Devisë berücksichtegt sinn; kee Koeffizient gëtt automatesch dobäigesat.",
         "tag": "Ingenieurbüro"
       },
       "convertisseurSurfaces": {
@@ -18990,5 +18990,20 @@
     "csv": "CSV-Verzeechnes exportéieren",
     "indexScope": "De STATEC-Index moosst Präisverännerungen am Wunnengsbau ouni TVA an Terrain. En ass weder en Devis nach en universelle Präis pro m². Keen Eenheetspräis op dëser Säit gëtt STATEC oder Batiprix zougeschriwwen.",
     "source": "STATEC-Methodik"
+  },
+  "vrdBudget": {
+    "title": "Dokumentéierte VRD-Budget a Métrés",
+    "scope": "Berechent Stroossen- a Reseauaarbechte mat dokumentéierte Quantitéiten a Präisser mat TVA. Déi néng virgeschloe Lousen hëllefe bei der Glidderung, ouni integréiert Batiprix-, CTG- oder Creos-Tariffer. Gefäll, Buedem an Transportdistanze mussen an Ären Devisë berücksichtegt sinn; kee Koeffizient gëtt automatesch dobäigesat.",
+    "geometryTitle": "Fakultative rechteckege Métré",
+    "geometryScope": "Fläch = Längt × Breet. Volume = Längt × Breet × Déckt a cm / 100, op véier Dezimalplazen ofgerënnt. Dës Geometrie dimensionéiert keng Strooss, Leedung oder Baseng. Oplackerung, Verdichtung, Verloschter a Wiederverwendung vum Ausgruewmaterial sinn net abegraff.",
+    "label": "Numm vum gemoossene Posten",
+    "mode": "Berechnung",
+    "area": "Fläch",
+    "volume": "Volume",
+    "length": "Längt (m)",
+    "width": "Breet (m)",
+    "depth": "Déckt / Déift (cm)",
+    "transfer": "Dëse Métré an de Bordereau iwwerhuelen",
+    "transferScope": "D’Dimensioune bleiwen an der Bezeechnung vum Posten. Gitt duerno de Präis mat TVA an d’Referenz an. Erfaasst dee selwechte Posten net nach eng Kéier manuell."
   }
 }

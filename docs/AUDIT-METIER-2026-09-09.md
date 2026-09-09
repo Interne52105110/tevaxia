@@ -397,3 +397,11 @@ Validation : compilation, lint et suite de tests réussis. Dix PDF (Luxembourg e
 - Méthodologie primaire : https://statistiques.public.lu/fr/donnees/methodologie/methodes/economie-totale-prix/prix-construction.html ; l’indice mesure une évolution des prix, hors TVA et terrain, et ne constitue pas un devis.
 - Vérification : 1180 tests / 100 fichiers réussis, build réussi, lint sans erreur (un avertissement existant dans calculateur-loyer). Cinq parcours navigateur et cinq CSV : 12,5 × 80,12 = 1001,50 € travaux, 200 € frais, 10 % aléas sur travaux = 100,15 €, total 1301,65 €. Cas vide/zéro/référence manquante et largeurs 320/390/768/1440 contrôlés.
 - Marché bf64d1f : CI 34355538434 réussie, déploiement dpl_9mXNPPsXk4QyR17NGnmPax6MMEge prêt, cinq parcours de production réussis.
+
+### VRD : métrés explicites et budget documenté — 9 septembre
+- Suppression des prix unitaires présumés Batiprix/CTG/Creos, des valeurs de projet fictives et des coefficients pente/sol rocheux non justifiés. Neuf suggestions de lots conservées pour le classement.
+- Bordereau TTC commun avec le budget de construction, prix et références requis ; aucune quantité/prix par défaut ne produit un résultat complet. Les dimensions d’un métré transféré restent dans le libellé.
+- Calcul géométrique facultatif : longueur × largeur ; volume = longueur × largeur × épaisseur en cm / 100. Quantité arrondie à quatre décimales, bornes et valeurs invalides contrôlées. Aucune prétention au dimensionnement de réseaux/chaussée, ni foisonnement/compactage automatique.
+- CSV et PDF réutilisent le moteur de totaux en centimes. Cinq PDF (15 pages) rendus et contrôlés. Les anciens générateurs ConstructionDoc/VrdDoc de ToolsPdf sont désormais sans appel depuis ces pages et restent hérités.
+- Vérification : 1183 tests / 101 fichiers, build réussi, lint sans erreur (avertissement existant calculateur-loyer). Cinq parcours VRD et cinq parcours de non-régression construction réussis à 320/390/768/1440 px ; cinq CSV vérifiés. Cas : 100 × 6 × 20/100 = 120 m³ ; 120 × 22 = 2640 € TTC.
+- Construction 110e281 : CI 34356811700 réussie, déploiement dpl_58h2QQ7HXktoEtdvsFSMPiyb1BNw prêt et cinq parcours de production réussis.
