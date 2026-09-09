@@ -14186,8 +14186,8 @@
   "hotelBenchmark": {
     "backHub": "← Hôtellerie",
     "pageTitle": "Benchmark inter-hôtels",
-    "pageSubtitle": "Classement des hôtels de votre groupe par score composite (occupation 35 % · ADR 30 % · GOP margin 35 %). Identifie les outliers à optimiser.",
-    "supabaseRequired": "Supabase requis + org_type=hotel_group (migration 013).",
+    "pageSubtitle": "Comparez les indicateurs enregistrés pour des dates de début et de fin strictement identiques. Tri alphabétique, sans score de performance.",
+    "supabaseRequired": "Le service hôtelier est temporairement indisponible.",
     "loading": "Chargement…",
     "signIn": "Se connecter",
     "noOrgs": "Vous n'avez pas encore d'organisation de type « groupe hôtelier ». Créez-en une depuis",
@@ -14214,7 +14214,18 @@
     "scoringStrong": "Scoring :",
     "scoringBody": "occupation (35 %) + ADR normalisé 300 € = 100 (30 %) + GOP margin (35 %). ≥ 75 excellent · 60-75 bon · 45-60 à surveiller · < 45 préoccupant. Permet d'identifier les outliers à cloner (top) ou optimiser (bottom). Cf.",
     "scoringLink": "observatoire LU",
-    "scoringSuffix": "pour le benchmarking externe."
+    "scoringSuffix": "pour le benchmarking externe.",
+    "periodScope": "Comparez les indicateurs enregistrés pour des dates de début et de fin strictement identiques. Tri alphabétique, sans score de performance.",
+    "loadError": "Chargement impossible. Réessayez ; aucune donnée manquante n’est remplacée par zéro.",
+    "retry": "Réessayer",
+    "organization": "Organisation",
+    "periodStart": "Début de période",
+    "periodEnd": "Fin de période",
+    "choosePeriod": "Choisissez deux dates valides, avec une fin égale ou postérieure au début.",
+    "missingScope": "Un tiret indique une valeur absente ou invalide. Les montants sont en EUR ; les taux sont affichés en pourcentage.",
+    "noExactPeriod": "Aucun enregistrement pour cette période exacte.",
+    "noAggregate": "Aucune moyenne de groupe n’est calculée à partir de ces ratios : les volumes de chambres disponibles, vendues et les revenus documentés sont nécessaires.",
+    "documentedComparison": "Ouvrir le comparatif documenté"
   },
   "hotelCapex": {
     "backHub": "← Hôtellerie",

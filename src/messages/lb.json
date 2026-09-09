@@ -14186,8 +14186,8 @@
   "hotelBenchmark": {
     "backHub": "← Hotellerie",
     "pageTitle": "Inter-Hotel-Benchmark",
-    "pageSubtitle": "Classement vun den Hoteler vun Ärer Gruppe no Composite Score (Belegung 35 % · ADR 30 % · GOP-Marge 35 %). Identifizéiert Outliers fir ze optiméieren.",
-    "supabaseRequired": "Supabase gefuerdert + org_type=hotel_group (Migratioun 013).",
+    "pageSubtitle": "Vergläicht erfaasst Kennzuele fir genee déiselwecht Ufanks- an Enndatumer. Alphabetesch Reiefolleg, ouni Leeschtungsscore.",
+    "supabaseRequired": "Den Hotelservice ass temporär net disponibel.",
     "loading": "Lueden…",
     "signIn": "Umellen",
     "noOrgs": "Dir hutt nach keng Organisatioun vum Typ Hotelgrupp. Erstellt eng ënnert",
@@ -14214,7 +14214,18 @@
     "scoringStrong": "Scoring:",
     "scoringBody": "Belegung (35 %) + normaliséiert ADR 300 € = 100 (30 %) + GOP-Marge (35 %). ≥ 75 exzellent · 60-75 gutt · 45-60 ze iwwerwaachen · < 45 bedenklech. Hëlleft Outliers ze identifizéieren fir ze klonen (Top) oder ze optiméieren (Bottom). Kuckt",
     "scoringLink": "LU-Observatoire",
-    "scoringSuffix": "fir en extern Benchmarking."
+    "scoringSuffix": "fir en extern Benchmarking.",
+    "periodScope": "Vergläicht erfaasst Kennzuele fir genee déiselwecht Ufanks- an Enndatumer. Alphabetesch Reiefolleg, ouni Leeschtungsscore.",
+    "loadError": "D’Luede war net méiglech. Probéiert nach eng Kéier; feelend Donnéeë ginn net duerch null ersat.",
+    "retry": "Nach eng Kéier probéieren",
+    "organization": "Organisatioun",
+    "periodStart": "Ufank vun der Period",
+    "periodEnd": "Enn vun der Period",
+    "choosePeriod": "Wielt gëlteg Datumer; d’Enn däerf net virum Ufank leien.",
+    "missingScope": "E Stréch weist e feelenden oder ongëltege Wäert. Beträg an EUR; Tauxen a Prozent.",
+    "noExactPeriod": "Keen Datensatz fir genee dës Period.",
+    "noAggregate": "Aus dëse Verhältnisser gëtt kee Gruppenduerchschnëtt berechent: dokumentéiert disponibel a verkaaft Zëmmeren an Ëmsätz si néideg.",
+    "documentedComparison": "Dokumentéierte Verglach opmaachen"
   },
   "hotelCapex": {
     "backHub": "← Hotellerie",

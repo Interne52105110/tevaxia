@@ -14186,8 +14186,8 @@
   "hotelBenchmark": {
     "backHub": "← Hotel suite",
     "pageTitle": "Inter-hotel benchmark",
-    "pageSubtitle": "Ranking of the hotels in your group by composite score (occupancy 35% · ADR 30% · GOP margin 35%). Identifies outliers to optimise.",
-    "supabaseRequired": "Supabase required + org_type=hotel_group (migration 013).",
+    "pageSubtitle": "Compare recorded indicators for exactly matching start and end dates. Alphabetical order, with no performance score.",
+    "supabaseRequired": "The hotel service is temporarily unavailable.",
     "loading": "Loading…",
     "signIn": "Sign in",
     "noOrgs": "You don't yet have a hotel group organisation. Create one from",
@@ -14214,7 +14214,18 @@
     "scoringStrong": "Scoring:",
     "scoringBody": "occupancy (35%) + ADR normalised 300 € = 100 (30%) + GOP margin (35%). ≥ 75 excellent · 60-75 good · 45-60 to monitor · < 45 concerning. Helps identify outliers to clone (top) or optimise (bottom). See",
     "scoringLink": "LU observatory",
-    "scoringSuffix": "for external benchmarking."
+    "scoringSuffix": "for external benchmarking.",
+    "periodScope": "Compare recorded indicators for exactly matching start and end dates. Alphabetical order, with no performance score.",
+    "loadError": "Unable to load. Please retry; missing data is never replaced with zero.",
+    "retry": "Retry",
+    "organization": "Organization",
+    "periodStart": "Period start",
+    "periodEnd": "Period end",
+    "choosePeriod": "Choose valid dates, with the end on or after the start.",
+    "missingScope": "A dash indicates a missing or invalid value. Amounts are in EUR; rates are percentages.",
+    "noExactPeriod": "No record for this exact period.",
+    "noAggregate": "No group average is calculated from these ratios: documented available rooms, sold rooms and revenue volumes are required.",
+    "documentedComparison": "Open the documented comparison"
   },
   "hotelCapex": {
     "backHub": "← Hotel suite",

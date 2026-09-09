@@ -14186,8 +14186,8 @@
   "hotelBenchmark": {
     "backHub": "← Hotelaria",
     "pageTitle": "Benchmark inter-hotéis",
-    "pageSubtitle": "Classificação dos hotéis do seu grupo por score composto (ocupação 35 % · ADR 30 % · GOP margin 35 %). Identifica os outliers a otimizar.",
-    "supabaseRequired": "Supabase requerido + org_type=hotel_group (migração 013).",
+    "pageSubtitle": "Compare indicadores registados com datas de início e fim exatamente iguais. Ordem alfabética, sem pontuação de desempenho.",
+    "supabaseRequired": "O serviço hoteleiro está temporariamente indisponível.",
     "loading": "A carregar…",
     "signIn": "Iniciar sessão",
     "noOrgs": "Ainda não tem uma organização do tipo grupo hoteleiro. Crie uma em",
@@ -14214,7 +14214,18 @@
     "scoringStrong": "Scoring:",
     "scoringBody": "ocupação (35 %) + ADR normalizado 300 € = 100 (30 %) + GOP margin (35 %). ≥ 75 excelente · 60-75 bom · 45-60 a vigiar · < 45 preocupante. Permite identificar outliers a clonar (top) ou otimizar (bottom). Cf.",
     "scoringLink": "observatório LU",
-    "scoringSuffix": "para benchmarking externo."
+    "scoringSuffix": "para benchmarking externo.",
+    "periodScope": "Compare indicadores registados com datas de início e fim exatamente iguais. Ordem alfabética, sem pontuação de desempenho.",
+    "loadError": "Não foi possível carregar. Tente novamente; dados em falta nunca são substituídos por zero.",
+    "retry": "Tentar novamente",
+    "organization": "Organização",
+    "periodStart": "Início do período",
+    "periodEnd": "Fim do período",
+    "choosePeriod": "Escolha datas válidas, com o fim igual ou posterior ao início.",
+    "missingScope": "Um traço indica um valor ausente ou inválido. Montantes em EUR; taxas em percentagem.",
+    "noExactPeriod": "Sem registo para este período exato.",
+    "noAggregate": "Não é calculada uma média do grupo a partir destes rácios: são necessários volumes documentados de quartos disponíveis, vendidos e receitas.",
+    "documentedComparison": "Abrir o comparativo documentado"
   },
   "hotelCapex": {
     "backHub": "← Hotelaria",

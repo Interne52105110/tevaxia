@@ -546,3 +546,16 @@ Les cinq anciennes routes `/hotellerie/revpar-comparison` redirigent définitive
 Le lot transactions adbd224 est confirmé en production : CI 34373327389 réussie, déploiement dpl_5roUyQVJWM1iJJJzYwzKBHVmN6w3 Ready, vérifications des montants, périmètres, dates, filtres, CSV et quatre largeurs dans les cinq langues réussies.
 
 Validation de la consolidation : compilation de production et lint réussis ; réponse HTTP 308, destination dans la même langue et formulaire du comparatif vérifiés dans les cinq langues en local. Les redirections sont déclarées dans next.config.ts pour précéder le rendu diffusé de la page.
+
+
+### Benchmark des hôtels enregistrés — période commune et données absentes
+
+Le tableau connecté exige une date de début et de fin explicites. Chaque hôtel est interrogé sur ces deux dates exactes ; aucune dernière période choisie par tri textuel ne se substitue à la période demandée. Les hôtels sans enregistrement restent affichés avec un statut explicite. Les doublons pour une même période, comme les erreurs de lecture, déclenchent une erreur plutôt qu’une sélection silencieuse.
+
+Suppression du score arbitraire (35 % occupation + 30 % ADR normalisé + 35 % marge) et des moyennes simples présentées comme indicateurs du groupe. Le tableau est alphabétique et affiche les ratios enregistrés, sans les certifier ni les recalculer depuis des volumes absents. Le comparatif documenté reste accessible pour agréger des volumes réellement renseignés. Zéro reste zéro ; les valeurs absentes/non finies et l’occupation hors 0–100 % sont rendues indisponibles. Les marges négatives sont conservées.
+
+Les chargements sont associés à l’utilisateur, l’organisation et les dates ; les réponses obsolètes sont ignorées. Déconnexion, changement de sélection et erreurs ne laissent pas apparaître l’ancien tableau comme résultat courant. Tous les liens internes conservent la langue. Les erreurs sont affichées avec une nouvelle tentative ; le tableau est défilable au clavier sur petit écran.
+
+Validation ciblée : composant réel exécuté avec services simulés dans les cinq langues, périodes exactes contrôlées dans les requêtes, absence de requête avant saisie, zéro/absence/marge négative, changement rapide d’organisation, erreur/nouvelle tentative, déconnexion et lien de connexion localisé. Aucun compte client ni donnée réelle n’a été modifié. Lint réussi. Les parcours connectés réels et leurs droits serveur ne sont pas certifiés par cette simulation.
+
+Compilation de production réussie. Contrôle public local aux largeurs 320/390/768/1440 dans les cinq langues : service de comptes non configuré localement, aucune ligne protégée affichée. Les liens de connexion et états connectés ont été contrôlés dans la simulation ; le contrôle public en production est effectué après déploiement. Le message de service indisponible est traduit sans exposer de noms de tables ou de migrations.
