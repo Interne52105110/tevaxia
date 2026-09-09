@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { getProperty } from "@/lib/pms/properties";
-import { invoiceTotalsByCurrency, listInvoices, issueInvoice, markInvoicePaid } from "@/lib/pms/invoices";
+import { listInvoices, issueInvoice, markInvoicePaid } from "@/lib/pms/invoices";
 import type { PmsProperty, PmsInvoice } from "@/lib/pms/types";
 import { prepareInvoiceRecord, INVOICE_RECORD_LABEL_KEYS } from "@/lib/pms/invoice-record";
-import { errMsg } from "@/lib/pms/errors";
+import { invoiceDocumentTotals } from "@/lib/pms/invoice-status";
 
 function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
   const { propertyId } = use(props.params);
@@ -24,6 +24,8 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const actionLock = useRef(false);
+  const [busy, setBusy] = useState<string | null>(null);
   const exportLock = useRef(false);
   const [exporting, setExporting] = useState<string | null>(null);
   const request = useRef(0);
@@ -48,7 +50,7 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
   }, [user, authLoading, reload]);
 
   const handleDownloadPdf = async (inv: PmsInvoice) => {
-    if (!property || exportLock.current) return;
+    if (!property || exportLock.current || actionLock.current) return;
     exportLock.current = true; setExporting(inv.id); setError(null);
     const current = request.current;
     try {
@@ -65,34 +67,32 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
     finally { exportLock.current = false; setExporting(null); }
   };
 
-  const handleIssue = async (inv: PmsInvoice) => {
-    if (!confirm(t("confirmIssue", { number: inv.invoice_number }))) return;
+  const handleStatus = async (inv: PmsInvoice, status: "issued" | "paid") => {
+    if (!user || actionLock.current || exportLock.current) return;
+    if (status === "issued" && !confirm(t("confirmIssue", { number: inv.invoice_number }))) return;
+    actionLock.current = true; setBusy(inv.id); setError(null);
+    const current = request.current;
     try {
-      await issueInvoice(inv.id);
-      await reload();
-    } catch (e) { setError(errMsg(e)); }
-  };
-
-  const handleMarkPaid = async (inv: PmsInvoice) => {
-    try {
-      await markInvoicePaid(inv.id);
-      await reload();
-    } catch (e) { setError(errMsg(e)); }
+      const input = { id: inv.id, propertyId, userId: user.id, updatedAt: inv.updated_at, invoiceNumber: inv.invoice_number };
+      if (status === "issued") await issueInvoice(input); else await markInvoicePaid(input);
+      if (current === request.current) await reload();
+    } catch { if (current === request.current) setError(t("statusError")); }
+    finally { actionLock.current = false; setBusy(null); }
   };
 
   if (authLoading || loading) return <div className="mx-auto max-w-6xl px-4 py-16 text-center text-muted">{tc("loading")}</div>;
-  if (error && !property) return <div className="p-6"><h1 className="text-2xl font-bold">{t("title")}</h1><p role="alert" className="mt-3">{error}</p><button className="mt-3 underline" onClick={() => { void reload(); }}>{t("retry")}</button></div>;
+  if (error && !property) return <div className="p-6"><h1 className="break-words text-2xl font-bold">{t("title")}</h1><p role="alert" className="mt-3">{error}</p><button className="mt-3 underline" onClick={() => { void reload(); }}>{t("retry")}</button></div>;
   if (!user || !property) return <div className="mx-auto max-w-3xl px-4 py-12 text-center text-sm text-muted"><Link href="/connexion" className="text-navy underline">{tc("signInLink")}</Link></div>;
 
-  const totals = invoiceTotalsByCurrency(invoices);
+  const totals = invoiceDocumentTotals(invoices);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <Link href={`${prefix}/pms/${propertyId}`} className="text-xs text-navy hover:underline">← {property.name}</Link>
-      <h1 className="mt-1 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+      <h1 className="mt-1 break-words text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
       <p className="mt-1 text-sm text-muted">{t("intro")}</p>
 
-      {error && <div className="mt-3 rounded-md bg-rose-50 border border-rose-200 p-3 text-xs text-rose-900">{error}</div>}
+      {error && <div className="mt-3 rounded-md bg-rose-50 border border-rose-200 p-3 text-xs text-rose-900"><p role="alert">{error}</p><button className="mt-2 underline" disabled={busy !== null || exporting !== null} onClick={() => { void reload(); }}>{t("retry")}</button></div>}
 
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="rounded-xl border border-card-border bg-card p-4">
@@ -101,11 +101,11 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
         </div>
         <div className="rounded-xl border border-card-border bg-card p-4">
           <div className="text-xs text-muted">{t("kpiIssued")}</div>
-          <div className="text-xl font-bold text-navy">{totals.length ? totals.map(row => <div key={row.currency}>{formatEUR(row.issued, row.currency)}</div>) : "—"}</div>
+          <div className="text-xl font-bold text-navy">{totals.length ? totals.map(row => <div key={`${row.type}:${row.currency}`} className="mt-2"><div className="text-xs font-normal">{tr(row.type)}</div>{formatEUR(row.issued, row.currency)}</div>) : "—"}</div>
         </div>
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
           <div className="text-xs text-emerald-800">{t("kpiCollected")}</div>
-          <div className="text-xl font-bold text-emerald-900">{totals.length ? totals.map(row => <div key={row.currency}>{formatEUR(row.paid, row.currency)}</div>) : "—"}</div>
+          <div className="text-xl font-bold text-emerald-900">{totals.length ? totals.map(row => <div key={`${row.type}:${row.currency}`} className="mt-2"><div className="text-xs font-normal">{tr(row.type)}</div>{formatEUR(row.paid, row.currency)}</div>) : "—"}</div>
         </div>
       </div>
 
@@ -117,7 +117,7 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
             <thead>
               <tr className="border-b border-card-border">
                 <th className="py-2 px-2 text-left font-medium text-muted">{t("colNumber")}</th>
-                <th className="py-2 px-2 text-left font-medium text-muted">{t("colDate")}</th>
+                <th className="py-2 px-2 text-left font-medium text-muted">{tr("type")}</th><th className="py-2 px-2 text-left font-medium text-muted">{t("colDate")}</th>
                 <th className="py-2 px-2 text-left font-medium text-muted">{t("colClient")}</th>
                 <th className="py-2 px-2 text-right font-medium text-muted">{t("colHt")}</th>
                 <th className="py-2 px-2 text-right font-medium text-muted">{t("colTva")}</th>
@@ -132,7 +132,7 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
               {invoices.map((inv) => (
                 <tr key={inv.id} className="border-b border-card-border/40">
                   <td className="py-2 px-2 font-mono">{inv.invoice_number}</td>
-                  <td className="py-2 px-2 font-mono">{inv.issue_date}</td>
+                  <td className="py-2 px-2">{tr(inv.invoice_type)}</td><td className="py-2 px-2 font-mono">{inv.issue_date}</td>
                   <td className="py-2 px-2">{inv.customer_name}</td>
                   <td className="py-2 px-2 text-right font-mono">{formatEUR(Number(inv.total_ht), inv.currency)}</td>
                   <td className="py-2 px-2 text-right font-mono">{formatEUR(Number(inv.total_tva), inv.currency)}</td>
@@ -145,12 +145,12 @@ function InvoicesScreen(props: { params: Promise<{ propertyId: string }> }) {
                     {inv.paid ? <span className="text-emerald-700">✓</span> : <span className="text-muted">—</span>}
                   </td>
                   <td className="py-2 px-2 text-right text-[11px]">
-                    <button type="button" disabled={exporting !== null} onClick={() => handleDownloadPdf(inv)} className="text-navy hover:underline mr-2 disabled:opacity-50">{exporting === inv.id ? tr("downloading") : tr("download")}</button>
+                    <button type="button" disabled={exporting !== null || busy !== null} onClick={() => handleDownloadPdf(inv)} className="text-navy hover:underline mr-2 disabled:opacity-50">{exporting === inv.id ? tr("downloading") : tr("download")}</button>
                     {!inv.issued && (
-                      <button type="button" onClick={() => handleIssue(inv)} className="text-emerald-700 hover:underline mr-2">{t("actionIssue")}</button>
+                      <button type="button" aria-busy={busy === inv.id} disabled={busy !== null || exporting !== null} onClick={() => handleStatus(inv, "issued")} className="text-emerald-700 hover:underline mr-2">{busy === inv.id ? t("updating") : t("actionIssue")}</button>
                     )}
                     {inv.issued && !inv.paid && (
-                      <button type="button" onClick={() => handleMarkPaid(inv)} className="text-emerald-700 hover:underline">{t("actionMarkPaid")}</button>
+                      <button type="button" aria-busy={busy === inv.id} disabled={busy !== null || exporting !== null} onClick={() => handleStatus(inv, "paid")} className="text-emerald-700 hover:underline">{busy === inv.id ? t("updating") : t("actionMarkPaid")}</button>
                     )}
                   </td>
                 </tr>
@@ -167,6 +167,6 @@ export default function InvoicesPage(props: { params: Promise<{ propertyId: stri
   const { propertyId } = use(props.params), { user, loading } = useAuth();
   const tc = useTranslations("pms.common"), t = useTranslations("pms.invoices"), locale = useLocale();
   if (loading) return <p className="p-6">{tc("loading")}</p>;
-  if (!user) return <div className="p-6"><h1 className="text-2xl font-bold">{t("title")}</h1><Link className="mt-4 inline-block underline" href={`${locale === "fr" ? "" : `/${locale}`}/connexion`}>{tc("signInLink")}</Link></div>;
+  if (!user) return <div className="p-6"><h1 className="break-words text-2xl font-bold">{t("title")}</h1><Link className="mt-4 inline-block underline" href={`${locale === "fr" ? "" : `/${locale}`}/connexion`}>{tc("signInLink")}</Link></div>;
   return <InvoicesScreen key={`${user.id}:${propertyId}`} {...props} />;
 }

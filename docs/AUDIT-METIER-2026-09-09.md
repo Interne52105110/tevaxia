@@ -828,3 +828,14 @@ Validation finale navigation : build/lint réussis ; dix menus testés (PMS/synd
 - Aucun compte, aucune facture, aucun document métier en production modifié par ces essais. Le cache HTTP général du navigateur et les sauvegardes applicatives constituent d’autres mécanismes ; ce lot porte sur le service worker.
 
 Navigation 400d356 confirmée en production : CI 34407231200 success ; Vercel dpl_Hc6tve1KeXoR7jQjrqb9VqGqp5Rs Ready ; 140 URL internes et cinq pages hors ligne avec métadonnées/noindex et quatre largeurs revérifiées. Menus connectés contrôlés séparément sur composants réels avec services simulés.
+
+
+## Documents de facturation — statuts explicites et écritures contrôlées
+
+- Écran renommé Documents de facturation ; type affiché et montants séparés par type ET devise. Factures standards, acomptes, avoirs et pro forma ne sont plus regroupés dans un seul montant qui pourrait être pris pour du chiffre d’affaires. Les montants restent ceux des documents, avec leurs signes, sans compensation/requalification implicite.
+- « Marquer émis » remplace « Émettre » ; la confirmation décrit uniquement l’enregistrement d’un statut pour un original émis/contrôlé par l’utilisateur. Retrait de la promesse d’immutabilité. Le marquage payé reste déclaratif et n’est pas présenté comme un rapprochement des encaissements.
+- Avant écriture : identité, propriété détenue par l’utilisateur, identifiant, référence, version updated_at et montants contrôlés. UPDATE conditionnel sur propriété/référence/version/statut antérieur ; le marquage payé exige un document déjà émis. Une nouvelle tentative ne réécrit pas un horodatage déjà enregistré. Zéro ligne modifiée provoque une vérification explicite du statut, et non un faux succès.
+- Verrou UI partagé pour les actions de statut ; génération PDF et modification du statut ne se chevauchent plus. Erreur localisée prudente (« non confirmée »), relecture disponible, réponses anciennes ignorées après changement de compte. Aucun test d’écriture sur données réelles.
+- Neuf tests métier supplémentaires et cinq essais de composants réels avec services simulés : annulation, double clic, échec/reprise, paramètres d’identité/version, changement de compte pendant une requête. Suite 1 331 tests / 126 fichiers réussie. Ces garde-fous applicatifs ne remplacent pas la vérification des politiques SQL/RPC, toujours inaccessible en production.
+
+PWA 9168e0e confirmée en production : CI 34407993584 success ; Vercel dpl_AUYFPJfPghiRcQ9vaqQQRYoAQuxh Ready. Vrai navigateur isolé sur tevaxia.lu : cinq coupures réseau, fallback localisé, suppression du cache v3 fictif, cache étranger conservé, aucun cache de navigation privée, en-tête HTTP no-store du worker vérifié.

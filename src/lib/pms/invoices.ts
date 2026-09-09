@@ -6,7 +6,7 @@ function ensureClient() {
   return supabase;
 }
 
-import { invoiceTotalsByCurrency } from "./invoice-record";
+import { invoiceDocumentTotals, type InvoiceStatusInput } from "./invoice-status";
 export { invoiceTotalsByCurrency } from "./invoice-record";
 
 /** Complete live read. A changing or truncated result must not become a partial KPI or backup. */
@@ -35,7 +35,7 @@ export async function listInvoices(propertyId: string, expectedUserId?: string):
   }
   const finalIdentity = await client.auth.getUser();
   if (finalIdentity.error || finalIdentity.data.user?.id !== userId) throw new Error("Authentication changed");
-  invoiceTotalsByCurrency(rows);
+  invoiceDocumentTotals(rows);
   return rows;
 }
 
@@ -67,23 +67,44 @@ export async function createInvoice(
   return data as PmsInvoice;
 }
 
-export async function issueInvoice(id: string): Promise<void> {
+/** Records a manual status only. Invoice issuance/immutability require their own server workflow. */
+async function markInvoiceStatus(input: InvoiceStatusInput, field: "issued" | "paid"): Promise<void> {
+  const { id, propertyId, userId, updatedAt, invoiceNumber } = input;
+  if (!id || !propertyId || !userId || !invoiceNumber || !updatedAt || !Number.isFinite(Date.parse(updatedAt))) throw new Error("Invalid document reference");
   const client = ensureClient();
-  const { error } = await client
-    .from("pms_invoices")
-    .update({ issued: true, issued_at: new Date().toISOString() })
-    .eq("id", id);
-  if (error) throw error;
+  const checkIdentity = async () => {
+    const auth = await client.auth.getUser();
+    if (auth.error || auth.data.user?.id !== userId) throw new Error("Authentication changed");
+  };
+  await checkIdentity();
+  const property = await client.from("pms_properties").select("id").eq("id", propertyId).eq("user_id", userId).single();
+  if (property.error || !property.data) throw new Error("Property unavailable");
+  const read = async () => {
+    const result = await client.from("pms_invoices").select("*").eq("id", id).eq("property_id", propertyId).single();
+    if (result.error || !result.data) throw new Error("Document unavailable");
+    const inv = result.data as PmsInvoice;
+    if (inv.id !== id || inv.property_id !== propertyId || inv.invoice_number !== invoiceNumber) throw new Error("Document changed");
+    invoiceDocumentTotals([inv]);
+    return inv;
+  };
+  const current = await read();
+  await checkIdentity();
+  if (current[field]) return; // A retry must not rewrite the original status timestamp.
+  if (current.updated_at !== updatedAt || (field === "paid" && !current.issued)) throw new Error("Document changed or not issued");
+  let update = client.from("pms_invoices").update({ [field]: true, [field === "issued" ? "issued_at" : "paid_at"]: new Date().toISOString() })
+    .eq("id", id).eq("property_id", propertyId).eq("invoice_number", invoiceNumber).eq("updated_at", updatedAt).eq(field, false);
+  if (field === "paid") update = update.eq("issued", true);
+  const result = await update.select("id").maybeSingle();
+  if (result.error) throw result.error;
+  await checkIdentity();
+  if (!result.data) {
+    const latest = await read();
+    await checkIdentity();
+    if (!latest[field]) throw new Error("Document changed; reload before retrying");
+  }
 }
-
-export async function markInvoicePaid(id: string): Promise<void> {
-  const client = ensureClient();
-  const { error } = await client
-    .from("pms_invoices")
-    .update({ paid: true, paid_at: new Date().toISOString() })
-    .eq("id", id);
-  if (error) throw error;
-}
+export async function issueInvoice(input: InvoiceStatusInput): Promise<void> { await markInvoiceStatus(input, "issued"); }
+export async function markInvoicePaid(input: InvoiceStatusInput): Promise<void> { await markInvoiceStatus(input, "paid"); }
 
 /**
  * Calcule les totaux d'une facture (HT, TVA par catégorie, TTC, taxe séjour).

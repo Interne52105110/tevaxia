@@ -9,7 +9,7 @@ function query(result: unknown) {
   q.then = (resolve: (value: unknown) => unknown) => Promise.resolve(result).then(resolve);
   return q;
 }
-const rows = Array.from({ length: 1001 }, (_, i) => ({ id: String(i), property_id: "p", currency: "EUR", issued: true, paid: false, total_ht: 100, total_tva: 3, taxe_sejour: 0, total_ttc: 103 }));
+const rows = Array.from({ length: 1001 }, (_, i) => ({ id: String(i), property_id: "p", invoice_type: "standard", currency: "EUR", issued: true, paid: false, total_ht: 100, total_tva: 3, taxe_sejour: 0, total_ttc: 103 }));
 function property() { const q = query({ data: { id: "p" } }); mock.from.mockReturnValueOnce(q); return q; }
 beforeEach(() => { vi.resetAllMocks(); mock.auth.mockResolvedValue({ data: { user: { id: "u" } } }); });
 it("loads every page beyond 500 and 1000 for display and backup", async () => {
