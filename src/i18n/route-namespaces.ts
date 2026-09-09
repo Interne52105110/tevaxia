@@ -2445,6 +2445,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "common",
     "cookie",
     "crmContextBar",
+    "esgDossierAudit",
     "hotellerieContextBar",
     "nav",
     "pmsContextBar",

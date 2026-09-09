@@ -18602,5 +18602,31 @@
     "loadExample": "Pädagogescht Beispill lueden",
     "exampleReference": "Fiktivt pädagogescht Beispill — keng offiziell Trajektorie",
     "exampleNote": "Fiktivt Beispill: Gläichstand 2026, Iwwerschreidung ëm 10 kWh/m² an 1 kg CO₂e/m² am Joer 2027, 2028 erëm ënner den Ziler. Et erkläert d'Rechnung a stellt weder e Gebai nach eng CRREM-Trajektorie duer."
+  },
+  "esgDossierAudit": {
+    "title": "Ëmwelt vum Gebai a Wäertannahmen",
+    "intro": "Notéiert déi bekannt Donnéeën aus dem Dossier. En Equipement oder eng Energieklass ergëtt keng automatesch Prime oder Ofschlag.",
+    "scope": "Dës Ëmweltiwwersiicht ass kee kompletten ESG-Rating, keen techneschen Audit a keng RICS/TEGOVA-Zertifikatioun. Sozial a Gouvernance-Aspekter ginn domat net komplett erfaasst. Donnéeën, Beleeger, Käschten, Loyeren, Risiken a Vergläichsobjete mussen am Kontext vum Gebai iwwerpréift ginn.",
+    "epc": "Primärenergieklass vum gültegen Energiepass",
+    "unknown": "Onbekannt / ze kontrolléieren",
+    "yes": "Jo, laut Donnéeë present",
+    "no": "Nee, laut Donnéeën net present",
+    "certifications": "Deklaréiert Zertifikater: Numm, Versioun, Ëmfang a Gültegkeet",
+    "references": "Quellen an Datumer vun den Dossierkontrollen",
+    "referenceNote": "Gitt déi benotzte Kaarten, Etüden, Attester a Visiten un. Eng „Nee“-Äntwert brauch Beleeger a beweist net datt kee Risiko existéiert. Zertifikat, Equipement a Leeschtung sinn net dat selwecht.",
+    "summary": "Stand vun den Donnéeën",
+    "answered": "Beäntwert Froen",
+    "missing": "Onbekannt Äntwerten",
+    "countNote": "Dës Zuele weisen nëmmen de Fortschrëtt vun de siwen Äntwerten, ouni Qualitéitsnot oder Risikogewiichtung. Energiepass, Zertifikater a Referenze bleiwen ze iwwerpréiwen.",
+    "sensitivity": "Eng Wäertupassung simuléieren",
+    "value": "Uginnene Referenzwäert (€)",
+    "adjustment": "Gewielten Upassung (%, vun −100 bis +100)",
+    "adjustmentReference": "Begrënnung vun der Hypothes a Referenze vun de Vergläichsobjeten",
+    "sensitivityNote": "De Prozentsaz ass Är Hypothes, keen observéierte Maartsaz vun Tevaxia. Erkläert d'Auswiel an d'Upassung vun de Vergläichsobjeten. Vermeit Effekter duebel ze zielen, déi schonn a Loyeren, Rendement, Aarbechten oder Referenzwäert abegraff sinn. Null bedeit datt hei keen Effekt beziffert gëtt, net datt keen existéiert.",
+    "invalid": "Gitt e positive Wäert an e gültege Prozentsaz un; all Hypothes ausser null brauch eng Begrënnung.",
+    "change": "Simuléiert Ännerung (€)",
+    "adjusted": "Wäert no der aginnener Upassung (€)",
+    "resultNote": "Dës Sensitivitéit bleift vun anere Bewäertungsmethoden getrennt a gëtt net automatesch an hiert Resultat oder de Bewäertungs-PDF iwwerholl.",
+    "source": "RICS: ESG-Faktoren an der kommerzieller Immobiliebewäertung, Editioun 2026"
   }
 }

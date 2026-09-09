@@ -18602,5 +18602,31 @@
     "loadExample": "Carregar exemplo pedagógico",
     "exampleReference": "Exemplo pedagógico fictício — sem trajetória oficial",
     "exampleNote": "Exemplo fictício: igualdade em 2026, excesso de 10 kWh/m² e 1 kg CO₂e/m² em 2027, regresso abaixo das metas em 2028. Ilustra o cálculo sem representar um edifício ou trajetória CRREM."
+  },
+  "esgDossierAudit": {
+    "title": "Ambiente do imóvel e hipóteses de valor",
+    "intro": "Registe os elementos conhecidos do processo. Um equipamento ou classe energética não gera automaticamente um prémio ou desconto.",
+    "scope": "Este registo ambiental não é uma classificação ESG completa, auditoria técnica nem certificação RICS/TEGOVA. Não abrange por si só as dimensões sociais e de governação. Declarações, documentos, custos, rendas, riscos e comparáveis devem ser analisados no contexto do imóvel.",
+    "epc": "Classe de energia primária do certificado válido",
+    "unknown": "Desconhecido / por verificar",
+    "yes": "Sim, declarado presente",
+    "no": "Não, declarado ausente",
+    "certifications": "Certificações declaradas: nome, versão, âmbito e validade",
+    "references": "Fontes e datas das verificações do processo",
+    "referenceNote": "Indique mapas, estudos, atestados e visitas utilizados. Uma resposta « não » exige comprovativos e não demonstra ausência de todos os riscos. Certificado, equipamento e desempenho não são equivalentes.",
+    "summary": "Estado das declarações",
+    "answered": "Respostas preenchidas",
+    "missing": "Respostas desconhecidas",
+    "countNote": "As contagens mostram apenas o avanço das sete respostas, sem nota de qualidade ou ponderação de riscos. Certificado energético, certificações e referências continuam sujeitos a análise.",
+    "sensitivity": "Simular um ajustamento de valor",
+    "value": "Valor de referência fornecido (€)",
+    "adjustment": "Ajustamento escolhido (%, de −100 a +100)",
+    "adjustmentReference": "Justificação da hipótese e referências dos comparáveis",
+    "sensitivityNote": "A percentagem é uma hipótese sua, não uma taxa observada calculada pela Tevaxia. Explique a seleção e os ajustamentos dos comparáveis. Evite duplicar efeitos já incluídos nas rendas, rendimento, obras ou valor de referência. Zero significa que nenhum efeito é quantificado aqui, não que nenhum exista.",
+    "invalid": "Introduza um valor positivo e percentagem válida; qualquer hipótese não nula exige justificação.",
+    "change": "Variação simulada (€)",
+    "adjusted": "Valor após o ajustamento introduzido (€)",
+    "resultNote": "Esta sensibilidade permanece separada dos outros métodos e não é incluída automaticamente no resultado ou PDF de avaliação.",
+    "source": "RICS: fatores ESG na avaliação de imóveis comerciais, edição 2026"
   }
 }

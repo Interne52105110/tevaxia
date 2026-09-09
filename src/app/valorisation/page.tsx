@@ -16,7 +16,7 @@ import {
   reconcilier,
   type Comparable,
 } from "@/lib/valuation";
-import { evaluerESG } from "@/lib/esg";
+import { EsgDossier } from "@/components/EsgDossier";
 import SEOContent from "@/components/SEOContent";
 import {
   rechercherCommune,
@@ -850,134 +850,7 @@ function TabTermeReversion({ onValeur }: { onValeur: (v: number) => void }) {
 // TAB — ESG / DURABILITÉ
 // ============================================================
 
-function TabESG() {
-  const t = useTranslations("valorisation");
-  const [classeEnergie, setClasseEnergie] = useState("D");
-  const [anneeConstruction, setAnneeConstruction] = useState(1990);
-  const [zoneInondable, setZoneInondable] = useState(false);
-  const [risqueSecheresse, setRisqueSecheresse] = useState(false);
-  const [risqueGlissement, setRisqueGlissement] = useState(false);
-  const [proximitePollue, setProximitePollue] = useState(false);
-  const [isolationRecente, setIsolationRecente] = useState(false);
-  const [panneauxSolaires, setPanneauxSolaires] = useState(false);
-  const [pompeAChaleur, setPompeAChaleur] = useState(false);
-  const [certifications, setCertifications] = useState<string[]>([]);
-
-  const result = useMemo(() =>
-    evaluerESG({
-      classeEnergie,
-      anneeConstruction,
-      zoneInondable,
-      risqueSecheresse,
-      risqueGlissementTerrain: risqueGlissement,
-      proximiteSitePollue: proximitePollue,
-      isolationRecente,
-      panneauxSolaires,
-      pompeAChaleur,
-      certifications,
-    }),
-  [classeEnergie, anneeConstruction, zoneInondable, risqueSecheresse, risqueGlissement, proximitePollue, isolationRecente, panneauxSolaires, pompeAChaleur, certifications]);
-
-  const scoreColor = result.score >= 60 ? "text-success" : result.score >= 40 ? "text-warning" : "text-error";
-
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div className="space-y-6">
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgPerfEnergetique")}</h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <InputField label={t("esgClasseEnergie")} type="select" value={classeEnergie} onChange={setClasseEnergie} options={[
-              { value: "A", label: "A" }, { value: "B", label: "B" }, { value: "C", label: "C" },
-              { value: "D", label: "D" }, { value: "E", label: "E" }, { value: "F", label: "F" }, { value: "G", label: "G" },
-            ]} />
-            <InputField label={t("esgAnneeConstruction")} value={anneeConstruction} onChange={(v) => setAnneeConstruction(Number(v))} min={1800} max={2026} />
-          </div>
-        </div>
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgRisquesEnv")}</h2>
-          <div className="space-y-3">
-            <ToggleField label={t("esgZoneInondable")} checked={zoneInondable} onChange={setZoneInondable} />
-            <ToggleField label={t("esgRisqueSecheresse")} checked={risqueSecheresse} onChange={setRisqueSecheresse} />
-            <ToggleField label={t("esgRisqueGlissement")} checked={risqueGlissement} onChange={setRisqueGlissement} />
-            <ToggleField label={t("esgProximitePollue")} checked={proximitePollue} onChange={setProximitePollue} />
-          </div>
-        </div>
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-base font-semibold text-navy">{t("esgEquipementsDurables")}</h2>
-          <div className="space-y-3">
-            <ToggleField label={t("esgIsolationRecente")} checked={isolationRecente} onChange={setIsolationRecente} />
-            <ToggleField label={t("esgPanneauxSolaires")} checked={panneauxSolaires} onChange={setPanneauxSolaires} />
-            <ToggleField label={t("esgPompeAChaleur")} checked={pompeAChaleur} onChange={setPompeAChaleur} />
-          </div>
-          <div className="mt-4">
-            <label className="block text-sm font-medium text-slate mb-2">{t("esgCertifications")}</label>
-            <div className="flex flex-wrap gap-2">
-              {["BREEAM", "DGNB", "WELL", "LEED", "HQE", "Minergie"].map((cert) => (
-                <button key={cert} onClick={() => setCertifications((prev) => prev.includes(cert) ? prev.filter((c) => c !== cert) : [...prev, cert])}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${certifications.includes(cert) ? "bg-navy text-white" : "bg-background text-muted border border-card-border hover:bg-navy/5"}`}>
-                  {cert}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="space-y-6">
-        {/* Score ESG */}
-        <div className="rounded-2xl border border-card-border bg-card p-8 text-center shadow-sm">
-          <div className="text-sm text-muted">{t("esgScoreESG")}</div>
-          <div className={`text-5xl font-bold mt-2 ${scoreColor}`}>{result.score}/100</div>
-          <div className={`mt-2 text-lg font-semibold ${scoreColor}`}>{t("esgNiveau")} {result.niveau} — {t(result.niveauLabelKey)}</div>
-          <div className="mt-3 text-sm font-medium">
-            {t("esgImpactEstime")} : <span className={result.impactValeur >= 0 ? "text-success" : "text-error"}>{result.impactValeur > 0 ? "+" : ""}{result.impactValeur}%</span>
-          </div>
-        </div>
-        {/* Risques */}
-        <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-navy mb-3">{t("esgRisquesIdentifies")}</h3>
-          <div className="space-y-2">
-            {result.risques.map((r, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm">
-                <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${r.niveau === "eleve" ? "bg-red-100 text-red-700" : r.niveau === "moyen" ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"}`}>
-                  {t(`esgNiveauRisque_${r.niveau}`)}
-                </span>
-                <span className="text-slate">{t(r.labelKey)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        {result.opportuniteKeys.length > 0 && (
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-base font-semibold text-navy mb-3">{t("esgPointsPositifs")}</h3>
-            <ul className="space-y-1 text-sm text-slate">
-              {result.opportuniteKeys.map((oKey, i) => {
-                // Handle special certification key format: "esgOppoCertifications:BREEAM, DGNB"
-                if (oKey.startsWith("esgOppoCertifications:")) {
-                  const certs = oKey.split(":")[1];
-                  return <li key={i}>+ {t("esgOppoCertifications", { certs })}</li>;
-                }
-                return <li key={i}>+ {t(oKey)}</li>;
-              })}
-            </ul>
-          </div>
-        )}
-        {result.recommandationKeys.length > 0 && (
-          <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <h3 className="text-base font-semibold text-navy mb-3">{t("esgRecommandations")}</h3>
-            <ul className="space-y-1 text-sm text-slate">
-              {result.recommandationKeys.map((rKey, i) => <li key={i}>{t(rKey)}</li>)}
-            </ul>
-          </div>
-        )}
-        <div className="rounded-lg bg-navy/5 border border-navy/10 p-3">
-          <p className="text-xs text-slate leading-relaxed">
-            {t("esgEVSNote")}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+function TabESG() { return <EsgDossier />; }
 
 // ============================================================
 // TAB — RÉSIDUELLE ÉNERGÉTIQUE
@@ -1732,7 +1605,7 @@ export default function Valorisation() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs />
         <div className="mb-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 [overflow-wrap:anywhere]">
             <h1 className="text-2xl font-bold text-navy sm:text-3xl">
               {t("pageTitle")}
             </h1>

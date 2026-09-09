@@ -18602,5 +18602,31 @@
     "loadExample": "Charger un exemple pédagogique",
     "exampleReference": "Exemple pédagogique fictif — aucune trajectoire officielle",
     "exampleNote": "Exemple fictif : égalité en 2026, dépassement de 10 kWh/m² et 1 kg CO₂e/m² en 2027, retour sous les cibles en 2028. Il illustre le calcul, sans représenter un bâtiment ou une trajectoire CRREM."
+  },
+  "esgDossierAudit": {
+    "title": "Environnement du bien et hypothèses de valeur",
+    "intro": "Consignez les éléments connus du dossier. La présence d’un équipement ou d’une classe énergétique ne produit pas automatiquement une prime ou une décote.",
+    "scope": "Ce relevé environnemental ne constitue ni une note ESG complète, ni un audit technique, ni une certification RICS/TEGOVA. Il ne couvre pas à lui seul les dimensions sociales et de gouvernance. Les déclarations, documents, coûts, loyers, risques et comparables doivent être examinés dans le contexte du bien.",
+    "epc": "Classe d’énergie primaire du CPE valide",
+    "unknown": "Inconnu / à vérifier",
+    "yes": "Oui, déclaré présent",
+    "no": "Non, déclaré absent",
+    "certifications": "Certifications déclarées : nom, version, périmètre et validité",
+    "references": "Sources et dates des vérifications du dossier",
+    "referenceNote": "Précisez les cartes, études, attestations et visites utilisées. Une case « non » doit être étayée ; elle ne prouve pas l’absence de tout risque. Un certificat, un équipement et sa performance ne sont pas équivalents.",
+    "summary": "État des déclarations",
+    "answered": "Réponses renseignées",
+    "missing": "Réponses inconnues",
+    "countNote": "Ces nombres indiquent seulement l’avancement des sept réponses, sans note de qualité ou pondération des risques. Les champs CPE, certifications et références restent des informations à examiner.",
+    "sensitivity": "Simulation d’un ajustement de valeur",
+    "value": "Valeur de référence fournie (€)",
+    "adjustment": "Ajustement choisi (%, de −100 à +100)",
+    "adjustmentReference": "Justification de l’hypothèse et référence des comparables",
+    "sensitivityNote": "Le pourcentage est votre hypothèse, pas un taux observé calculé par Tevaxia. Expliquez la sélection et les ajustements des comparables. Évitez de compter deux fois un effet déjà inclus dans les loyers, le rendement, les travaux ou la valeur de référence. Un ajustement nul signifie qu’aucun effet n’est chiffré ici, pas qu’il n’existe aucun effet.",
+    "invalid": "Renseignez une valeur positive et un pourcentage valide ; toute hypothèse non nulle nécessite une justification.",
+    "change": "Variation simulée (€)",
+    "adjusted": "Valeur après l’ajustement saisi (€)",
+    "resultNote": "Cette sensibilité reste distincte des autres méthodes de valorisation et n’est pas intégrée automatiquement à leur résultat ou au PDF d’évaluation.",
+    "source": "RICS : prise en compte des facteurs ESG dans la valorisation commerciale, édition 2026"
   }
 }

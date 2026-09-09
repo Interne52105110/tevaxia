@@ -18602,5 +18602,31 @@
     "loadExample": "Lehrbeispiel laden",
     "exampleReference": "Fiktives Lehrbeispiel — keine offizielle Trajektorie",
     "exampleNote": "Fiktives Beispiel: Gleichstand 2026, Überschreitung um 10 kWh/m² und 1 kg CO₂e/m² im Jahr 2027, 2028 wieder unter den Zielen. Es erklärt die Rechnung und stellt weder ein Gebäude noch eine CRREM-Trajektorie dar."
+  },
+  "esgDossierAudit": {
+    "title": "Gebäudeumwelt und Wertannahmen",
+    "intro": "Erfassen Sie bekannte Informationen aus dem Dossier. Eine Ausstattung oder Energieklasse erzeugt keinen automatischen Zu- oder Abschlag.",
+    "scope": "Diese Umweltübersicht ist kein vollständiges ESG-Rating, technisches Gutachten oder RICS/TEGOVA-Zertifikat. Soziale und Governance-Aspekte werden damit nicht vollständig erfasst. Angaben, Belege, Kosten, Mieten, Risiken und Vergleichsobjekte müssen im Objektkontext geprüft werden.",
+    "epc": "Primärenergieklasse des gültigen Energieausweises",
+    "unknown": "Unbekannt / zu prüfen",
+    "yes": "Ja, laut Angabe vorhanden",
+    "no": "Nein, laut Angabe nicht vorhanden",
+    "certifications": "Angegebene Zertifikate: Name, Version, Umfang und Gültigkeit",
+    "references": "Quellen und Daten der Dossierprüfungen",
+    "referenceNote": "Nennen Sie verwendete Karten, Studien, Bescheinigungen und Besichtigungen. Ein „Nein“ benötigt Belege und beweist keine allgemeine Risikofreiheit. Zertifikat, Ausstattung und tatsächliche Leistung sind nicht gleichzusetzen.",
+    "summary": "Stand der Angaben",
+    "answered": "Beantwortete Fragen",
+    "missing": "Unbekannte Antworten",
+    "countNote": "Die Anzahl zeigt nur den Fortschritt der sieben Antworten, ohne Qualitätsnote oder Risikogewichtung. Energieausweis, Zertifikate und Referenzen bleiben zu prüfende Informationen.",
+    "sensitivity": "Wertanpassung simulieren",
+    "value": "Angegebener Referenzwert (€)",
+    "adjustment": "Gewählte Anpassung (%, von −100 bis +100)",
+    "adjustmentReference": "Begründung der Annahme und Referenzen der Vergleichsobjekte",
+    "sensitivityNote": "Der Prozentsatz ist Ihre Annahme, kein von Tevaxia ermittelter Marktsatz. Begründen Sie Auswahl und Anpassung der Vergleichsobjekte. Vermeiden Sie die doppelte Erfassung von Effekten, die bereits in Mieten, Rendite, Arbeiten oder Referenzwert enthalten sind. Null bedeutet, dass hier kein Effekt beziffert wird, nicht dass keiner besteht.",
+    "invalid": "Positiven Wert und gültigen Prozentsatz eingeben; jede Annahme ungleich null benötigt eine Begründung.",
+    "change": "Simulierte Änderung (€)",
+    "adjusted": "Wert nach eingegebener Anpassung (€)",
+    "resultNote": "Diese Sensitivität bleibt von anderen Bewertungsmethoden getrennt und wird nicht automatisch in deren Ergebnis oder das Bewertungs-PDF übernommen.",
+    "source": "RICS: ESG-Faktoren in der Gewerbeimmobilienbewertung, Ausgabe 2026"
   }
 }

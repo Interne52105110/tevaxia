@@ -164,3 +164,13 @@ Limite d’intégration : la bibliothèque officielle CRREM consultée le 9 sept
 L’accueil ESG expose les deux outils opérationnels avec des liens conservant la langue ; les promesses de reporting SFDR/CRR, la décote automatique et les modules futurs sans date vérifiée sont retirés de la présentation. Métadonnées traduites alignées.
 
 Validation : 1 137 tests / 95 fichiers réussis ; cinq tests remplacent douze tests de l’ancienne approximation. Lint et compilation réussis. Cinq langues et quatre largeurs contrôlées, bilan de 23 500 kWh / 150 m² et 4 200 kg / 150 m², dépassement strict, retour sous cible, années manquantes, champs vides, référence absente, décimales avec virgule et imports tabulés vérifiés. Les graphiques, le détail annuel, les métadonnées et les liens localisés de l’accueil ont été contrôlés. Cette page ne proposait pas de PDF.
+
+## Valorisation — onglet environnement / ESG
+
+Le score automatique, les niveaux A–E, les primes/décotes forfaitaires par CPE, risque, équipement, âge et certificat sont supprimés. Le relevé distingue désormais inconnu, présent et absent ; aucune réponse manquante ne devient une absence de risque. Le CPE A+ à I, les certifications et les sources du dossier sont déclaratifs. Les compteurs indiquent uniquement les réponses renseignées sur sept, pas une note ESG. L’outil explicite les dimensions environnementales couvertes et ne prétend pas couvrir seul social et gouvernance.
+
+Une sensibilité de valeur séparée applique uniquement le pourcentage saisi à une valeur fournie, avec justification obligatoire pour tout ajustement non nul. Exemple : 1 000 000 EUR et −5 % donnent −50 000 EUR et 950 000 EUR ; +6 % donne 1 060 000 EUR. Changer le CPE ou la PAC n’altère pas ces montants. Le texte rappelle le besoin de comparables et le risque de double comptage dans loyers/rendement/travaux. Le résultat n’alimente pas automatiquement la réconciliation ni le PDF d’évaluation.
+
+Source professionnelle : RICS, ESG and sustainability in commercial property valuation, quatrième édition 2026, entrée en vigueur le 30 avril 2026, consultée le 9 septembre. Aucun pourcentage de marché n’est déduit de ce standard.
+
+Validation : 1 130 tests / 95 fichiers réussis ; trois tests remplacent dix tests de l’ancien score. Lint et compilation réussis. Cinq langues et quatre largeurs testées, états inconnus, indépendance CPE/valeur, ajustements positifs/négatifs, justification manquante et entrées invalides. Un débordement préexistant du titre allemand de la valorisation a été corrigé par retour à la ligne du groupe titre/badge.

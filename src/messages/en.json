@@ -18602,5 +18602,31 @@
     "loadExample": "Load an educational example",
     "exampleReference": "Fictional educational example — no official trajectory",
     "exampleNote": "Fictional example: equality in 2026, exceedance of 10 kWh/m² and 1 kg CO₂e/m² in 2027, back below targets in 2028. It illustrates arithmetic and does not represent a building or CRREM trajectory."
+  },
+  "esgDossierAudit": {
+    "title": "Property environment and valuation assumptions",
+    "intro": "Record known information from the file. Equipment or an energy class does not automatically create a premium or discount.",
+    "scope": "This environmental record is not a complete ESG rating, technical audit or RICS/TEGOVA certification. It does not alone cover social and governance matters. Declarations, documents, costs, rents, risks and comparables require assessment in the property's context.",
+    "epc": "Primary-energy class of the valid EPC",
+    "unknown": "Unknown / to be checked",
+    "yes": "Yes, declared present",
+    "no": "No, declared absent",
+    "certifications": "Declared certifications: name, version, scope and validity",
+    "references": "Sources and dates of file checks",
+    "referenceNote": "Identify maps, studies, attestations and inspections used. A “no” answer needs evidence; it does not establish the absence of all risk. A certificate, equipment and its performance are different things.",
+    "summary": "Declaration status",
+    "answered": "Answers provided",
+    "missing": "Unknown answers",
+    "countNote": "These counts show progress through seven answers only, without a quality score or risk weighting. EPC, certification and reference fields remain information to review.",
+    "sensitivity": "Simulate a valuation adjustment",
+    "value": "Supplied reference value (€)",
+    "adjustment": "Selected adjustment (%, from −100 to +100)",
+    "adjustmentReference": "Assumption rationale and comparable references",
+    "sensitivityNote": "The percentage is your assumption, not an observed rate calculated by Tevaxia. Explain comparable selection and adjustments. Avoid counting an effect already included in rents, yield, works or the reference value twice. Zero means no effect is quantified here, not that no effect exists.",
+    "invalid": "Enter a positive value and a valid percentage; any non-zero assumption needs a rationale.",
+    "change": "Simulated change (€)",
+    "adjusted": "Value after the entered adjustment (€)",
+    "resultNote": "This sensitivity remains separate from other valuation methods and is not automatically included in their result or the valuation PDF.",
+    "source": "RICS: ESG factors in commercial property valuation, 2026 edition"
   }
 }
