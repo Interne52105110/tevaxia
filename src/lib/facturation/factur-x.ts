@@ -25,6 +25,8 @@
 //
 // ============================================================
 
+import { validateInvoice } from "./invoice-validation";
+
 export type VatScheme =
   | "FR" // France
   | "LU" // Luxembourg
@@ -280,6 +282,8 @@ function renderVatBreakdown(totals: FacturXTotals): string {
 }
 
 export function buildFacturXCiiXml(inv: FacturXInvoice): string {
+  const errors = validateInvoice(inv);
+  if (errors.length) throw new RangeError(errors.map(error => `${error.field}: ${error.message}`).join("; "));
   const totals = computeTotals(inv);
   const guideline = profileToGuideline(inv.profile);
   const notes = (inv.notes ?? []).map((n) =>
@@ -405,78 +409,4 @@ export function formatInvoiceNumber(prefix: string, year: number, sequence: numb
 // Validation EN 16931 business rules (sous-ensemble V1)
 // ============================================================
 
-export interface ValidationError {
-  rule: string;
-  field: string;
-  message: string;
-}
-
-export function validateInvoice(inv: FacturXInvoice): ValidationError[] {
-  const errors: ValidationError[] = [];
-
-  // BR-01 : An Invoice shall have a Specification identifier
-  // (géré par profile)
-
-  // BR-02 : An Invoice shall have an Invoice number
-  if (!inv.invoice_number?.trim()) {
-    errors.push({ rule: "BR-02", field: "invoice_number", message: "Numéro de facture requis" });
-  }
-
-  // BR-03 : An Invoice shall have an Invoice issue date
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(inv.issue_date)) {
-    errors.push({ rule: "BR-03", field: "issue_date", message: "Date d'émission au format YYYY-MM-DD requise" });
-  }
-
-  // BR-04 : An Invoice shall have an Invoice type code
-  if (!inv.document_type) {
-    errors.push({ rule: "BR-04", field: "document_type", message: "Type de document requis" });
-  }
-
-  // BR-05 : An Invoice shall have an Invoice currency code
-  if (!/^[A-Z]{3}$/.test(inv.currency)) {
-    errors.push({ rule: "BR-05", field: "currency", message: "Code devise ISO 4217 requis" });
-  }
-
-  // BR-06 : An Invoice shall contain the Seller name
-  if (!inv.seller.name?.trim()) {
-    errors.push({ rule: "BR-06", field: "seller.name", message: "Nom du vendeur requis" });
-  }
-
-  // BR-07 : An Invoice shall contain the Buyer name
-  if (!inv.buyer.name?.trim()) {
-    errors.push({ rule: "BR-07", field: "buyer.name", message: "Nom de l'acheteur requis" });
-  }
-
-  // BR-08 : Seller postal address country code
-  if (!/^[A-Z]{2}$/.test(inv.seller.country_code)) {
-    errors.push({ rule: "BR-08", field: "seller.country_code", message: "Pays vendeur ISO alpha-2 requis" });
-  }
-
-  // BR-11 : Buyer postal address country code
-  if (!/^[A-Z]{2}$/.test(inv.buyer.country_code)) {
-    errors.push({ rule: "BR-11", field: "buyer.country_code", message: "Pays acheteur ISO alpha-2 requis" });
-  }
-
-  // BR-16 : An Invoice shall have at least one Invoice line
-  if (!inv.lines.length) {
-    errors.push({ rule: "BR-16", field: "lines", message: "Au moins une ligne requise" });
-  }
-
-  // BR-21 à 25 : chaque ligne
-  inv.lines.forEach((l, i) => {
-    if (!l.name?.trim()) {
-      errors.push({ rule: "BR-21", field: `lines[${i}].name`, message: `Libellé ligne ${i + 1} requis` });
-    }
-    if (!(l.quantity > 0)) {
-      errors.push({ rule: "BR-22", field: `lines[${i}].quantity`, message: `Quantité ligne ${i + 1} > 0 requise` });
-    }
-    if (l.unit_price_net < 0) {
-      errors.push({ rule: "BR-27", field: `lines[${i}].unit_price_net`, message: `Prix unitaire ligne ${i + 1} ne peut être négatif` });
-    }
-    if (!(l.vat_rate_percent >= 0 && l.vat_rate_percent <= 100)) {
-      errors.push({ rule: "BR-CO-17", field: `lines[${i}].vat_rate_percent`, message: `Taux TVA ligne ${i + 1} hors bornes` });
-    }
-  });
-
-  return errors;
-}
+export { validateInvoice, type ValidationError } from "./invoice-validation";

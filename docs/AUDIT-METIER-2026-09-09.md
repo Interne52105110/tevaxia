@@ -855,3 +855,12 @@ La route /api/v1/facturation/generate acceptait toute valeur non vide de clé. E
 Périmètre limité à l’accès HTTP : le modèle fiscal, le schéma complet, les calculs XML et la conformité PDF/A/Factur-X ne sont pas validés par ce lot. Anomalies déjà repérées dans le générateur : allégations de conformité non démontrées, pagination absente et textes tronqués ; elles nécessitent une reprise séparée des documents et de leurs interfaces.
 
 Le pied de page 9520bb3 est publié : CI 34410196241 réussie, dpl_9wn53Bt7MS52th1LFRjKwBvsZ9x4 Ready, cinq versions contrôlées en production.
+
+
+## 10 septembre — validation commune des données de facturation
+
+Validation robuste sur une entrée inconnue, sans coercition de chaînes en nombres ni plantage sur les objets incomplets : dates réelles, identités structurées, champs textuels/XML, montants finis, catégories/types/profils connus, bornes de remise et cohérence catégorie/taux. Le générateur XML partagé refuse les entrées invalides avant export, y compris les appels directs. Ce contrôle d’intégrité ne certifie ni le traitement fiscal ni le profil XML annoncé. Neuf nouveaux tests ; suite 1 350 tests / 128 fichiers, lint et build réussis. Cinq corps invalides testés sur le véritable serveur local avec une clé de test éphémère : tous 422, aucun document généré. Aucun changement de données de production.
+
+Le contrôle des arrondis a reproduit une anomalie restante : quantité 1 × prix HT 1,005 devient 1,00 dans le moteur actuel. Les arrondis, remises XML et restitution PDF feront l’objet du lot suivant ; ils ne sont pas déclarés corrigés ici.
+
+API d4fa6ba publiée : CI 34410562093 réussie, dpl_HVnGdw6hJiwvpyzDQYmRZXrxPsB8 Ready ; contrôle production sans clé/clé fictive/sandbox = 401/401/403, OPTIONS 204.
