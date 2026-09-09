@@ -2,14 +2,13 @@
 
 Cet inventaire décrit les routes sources hors copies linguistiques. Une route recensée ne signifie pas que son calcul ou son contenu est validé. Les lots validés sont détaillés dans les rapports datés.
 
-## Points prioritaires restant à vérifier
+## État actualisé après les lots du 9 septembre
 
-- Fiches agences : frais forfaitaires 1,3 % + 500 EUR, financement et export.
-- Séries macroéconomiques : provenance de chaque valeur, années estimées, réutilisation en estimation et valorisation.
-- Valorisation et prévisions, comparables, emphytéose, construction, agricole, commercial, hôtellerie.
-- Énergie : questionnaire audit, HVAC, LENOZ, ESG/CRREM/taxonomie et anciennes API Java.
-- Fonctions de gestion locative, copropriété et agence ; données, autorisations, exports et cas limites.
-- Parcours généraux, pages éditoriales, liens, cinq langues et lisibilité.
+Les contrôles détaillés et limites sont consignés dans AUDIT-METIER-2026-09-09.md. Les listes de dépendances ci-dessous sont l’inventaire initial, pas une certification.
+
+- Lots repris et vérifiés : frais d’acquisition/fiches agence, capitalisation et DCF, comparables et réconciliation, préparation CPE/HVAC/LENOZ/ESG/CRREM/taxonomie, prévisions hôtelières/STR, données municipales/RNPP/HPI, marché commercial publié, scénarios de prix, budgets construction/VRD, commandes PDF communes et bilan promoteur.
+- Restent à revoir : emphytéose, foncier agricole, autres modèles hôteliers/STR, modules de gestion locative/copropriété/agence, parcours authentifiés, anciennes API Java et schémas des API encore non alignés.
+- Restent également les pages éditoriales, les exports historiques, les anciens liens partagés et les fonctions non couvertes par les lots détaillés. Les cinq langues sont contrôlées pour chaque lot, pas encore exhaustivement pour toutes les routes.
 
 ## Routes et dépendances directes
 
