@@ -18786,5 +18786,9 @@
     "resultNote": "Le résultat dépend de la sélection et des vérifications du rédacteur. Le nombre de références et leur pondération ne mesurent pas la précision. Reprenez les pièces et le raisonnement dans le dossier final.",
     "invalid": "Renseignez chaque référence : adresse, source, mois de vente valide non futur, prix et surface positifs, justification et poids de 0 à 100. Au moins un poids doit être positif. Chaque ajustement doit être compris entre −100 et 100 %, et leur somme supérieure à −100 %.",
     "methodSource": "RICS — utilisation et vérification des références comparables"
+  },
+  "valuationSession": {
+    "persistence": "Les saisies restent conservées entre les onglets et les modes pendant cette session de page. Réinitialiser efface tous les formulaires. Une fermeture ou un rechargement peut perdre ces saisies.",
+    "incomeSource": "Méthode de revenu retenue (dernier onglet de revenu consulté)"
   }
 }

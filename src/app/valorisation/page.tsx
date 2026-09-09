@@ -93,9 +93,14 @@ function TabMLV({valeurMarche}:{valeurMarche:number}) {return <PrudentialValue v
 // ============================================================
 
 export default function Valorisation() {
-  const t = useTranslations("valorisation");
+  const t = useTranslations("valorisation"), sessionText=useTranslations("valuationSession");
   const [viewMode, setViewMode] = useState<"calculateur" | "rapport">("calculateur");
   const [activeTab, setActiveTab] = useState<ActiveTab>("comparaison");
+  const [visitedTabs,setVisitedTabs]=useState<ActiveTab[]>(['comparaison']);
+  const [sessionRevision,setSessionRevision]=useState(0);
+  const [reportVisited,setReportVisited]=useState(false);
+  const [incomeSource,setIncomeSource]=useState<'capitalisation'|'terme_reversion'>('capitalisation');
+  const selectTab=(tab:ActiveTab)=>{setActiveTab(tab);setVisitedTabs(prev=>prev.includes(tab)?prev:[...prev,tab]);if(tab==='capitalisation'||tab==='terme_reversion')setIncomeSource(tab)};
   const [surfaceBien, setSurfaceBien] = useState(80);
   const [assetType, setAssetType] = useState<AssetType>("residential_apartment");
   const [evsValueType, setEvsValueType] = useState<EVSValueType>("market_value");
@@ -115,7 +120,10 @@ export default function Valorisation() {
   // Valeurs remontées par chaque onglet
   const comparisonResult=useMemo(()=>{try{return calculerComparaisonDocumentee(comparables,surfaceBien)}catch{return null}},[comparables,surfaceBien]);
   const valeurComparaison=comparisonResult?.valeurEstimeePonderee??0;
-  const [valeurCapitalisation, setValeurCapitalisation] = useState(0);
+  const [directCapitalisation,setDirectCapitalisation]=useState(0);
+  const [termCapitalisation,setTermCapitalisation]=useState(0);
+  const valeurCapitalisation=incomeSource==='capitalisation'?directCapitalisation:termCapitalisation;
+  const incomeLabel=t(incomeSource==='capitalisation'?'tabCapitalisation':'tabTermeReversion');
   const [valeurDCF, setValeurDCF] = useState(0);
 
   // Template de rapport PDF + commissionnaire (banque / juge / notaire)
@@ -124,14 +132,16 @@ export default function Valorisation() {
   const [signature, setSignature] = useState<{ hash: string; url: string; date: string; payload: string } | null>(null);
 
   // Stable callback refs
-  const onValeurCap = useCallback((v: number) => setValeurCapitalisation(v), []);
+  const onValeurCap = useCallback((v: number) => setDirectCapitalisation(v), []);
+  const onValeurTerm = useCallback((v: number) => setTermCapitalisation(v), []);
   const onValeurDCF = useCallback((v: number) => setValeurDCF(v), []);
 
   const [reconciliationWeights,setReconciliationWeights]=useState<ReconciliationWeights>({comparison:50,capitalisation:25,dcf:25});
   const reconciliation=useMemo(()=>{try{return reconcilier({valeurComparaison,poidsComparaison:reconciliationWeights.comparison,valeurCapitalisation,poidsCapitalisation:reconciliationWeights.capitalisation,valeurDCF,poidsDCF:reconciliationWeights.dcf})}catch{return null}},[valeurComparaison,valeurCapitalisation,valeurDCF,reconciliationWeights]);
   const valeurMarchePourMLV=reconciliation?.valeurReconciliee??0;
 
-  const signaturePayload={comparables,commune:selectedCommune?.commune,assetType:assetConfig.id,evsType:evsInfo.id,surface:surfaceBien,prixM2Commune:selectedCommune?.prixM2Existant,valeurComparaison,valeurCapitalisation,valeurDCF,valeurReconciliee:valeurMarchePourMLV,reconciliationWeights};
+  const reportMethods=reconciliation?.methodes.map(m=>({...m,nom:m.nom==='Capitalisation'?incomeLabel:m.nom}));
+  const signaturePayload={incomeSource,comparables,commune:selectedCommune?.commune,assetType:assetConfig.id,evsType:evsInfo.id,surface:surfaceBien,prixM2Commune:selectedCommune?.prixM2Existant,valeurComparaison,valeurCapitalisation,valeurDCF,valeurReconciliee:valeurMarchePourMLV,reconciliationWeights};
   const currentSignature=signature?.payload===JSON.stringify(signaturePayload)?signature:null;
 
   // Tab labels inside component to use t()
@@ -148,10 +158,23 @@ export default function Valorisation() {
 
   // Reset complet
   const handleReset = useCallback(() => {
+    setSurfaceBien(80);
+    setAssetType("residential_apartment");
+    setEvsValueType("market_value");
+    setReportTemplate("standard");
+    setCommissionnaire("");
     setCommuneSearch("");
     setSelectedResult(null);
     setComparables([]);
-    setValeurCapitalisation(0);
+    setDirectCapitalisation(0);
+    setTermCapitalisation(0);
+    setIncomeSource('capitalisation');
+    setVisitedTabs(['comparaison']);
+    setActiveTab('comparaison');
+    setSessionRevision(n=>n+1);
+    setSignature(null);
+    setReportVisited(false);
+    setViewMode('calculateur');
     setValeurDCF(0);
     setReconciliationWeights({comparison:50,capitalisation:25,dcf:25});
   }, []);
@@ -187,7 +210,7 @@ export default function Valorisation() {
             {t("modeCalculateur")}
           </button>
           <button
-            onClick={() => setViewMode("rapport")}
+            onClick={() => {setReportVisited(true);setViewMode("rapport")}}
             className={`rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
               viewMode === "rapport"
                 ? "bg-navy text-white shadow-sm"
@@ -317,7 +340,7 @@ export default function Valorisation() {
                     type: "valorisation",
                     commune: selectedCommune?.commune,
                     valeurPrincipale: valeurMarchePourMLV,
-                    data: { surfaceBien, assetType, evsValueType, commune: selectedCommune?.commune, valeurComparaison, valeurCapitalisation, valeurDCF, valeurReconciliee:valeurMarchePourMLV, reconciliationWeights, comparables },
+                    data: { surfaceBien, assetType, evsValueType, commune: selectedCommune?.commune, valeurComparaison, valeurCapitalisation, valeurDCF, valeurReconciliee:valeurMarchePourMLV, reconciliationWeights, comparables, incomeSource },
                   });
                 }}
                 label={t("sauvegarder")}
@@ -336,7 +359,7 @@ export default function Valorisation() {
                     valeurCapitalisation: valeurCapitalisation || undefined,
                     valeurDCF: valeurDCF || undefined,
                     valeurRéconciliee: valeurMarchePourMLV,
-                    reconciliation: reconciliation?.methodes,
+                    reconciliation: reportMethods,
                     prixM2Commune: selectedCommune?.prixM2Existant || undefined,
                     transactionsCommune: selectedCommune?.nbTransactions || undefined,
                     comparables: (comparisonResult?comparables:[]).map(c => {
@@ -377,7 +400,7 @@ export default function Valorisation() {
                   valeurCapitalisation: valeurCapitalisation || undefined,
                   valeurDCF: valeurDCF || undefined,
                   valeurReconciliee: valeurMarchePourMLV,
-                  reconciliation: reconciliation?.methodes,
+                  reconciliation: reportMethods,
                   comparables: comparisonResult?comparables:[],
                 })}
                 className="rounded-lg border border-gold px-3 py-2 text-xs font-medium text-gold-dark hover:bg-gold/10 transition-colors"
@@ -400,7 +423,7 @@ export default function Valorisation() {
                     valeurCapitalisation: valeurCapitalisation || undefined,
                     valeurDCF: valeurDCF || undefined,
                     valeurRetenue: valeurMarchePourMLV,
-                    reconciliation: reconciliation?.methodes,
+                    reconciliation: reportMethods,
                   },
                 }}
               />
@@ -410,7 +433,7 @@ export default function Valorisation() {
                 onSigned={(hash, url, date) => setSignature({ hash, url, date, payload:JSON.stringify(signaturePayload) })}
               />
             </>)}
-            {(selectedCommune || comparables.length > 0 || valeurComparaison > 0 || valeurCapitalisation > 0 || valeurDCF > 0) && (
+            {(selectedCommune || comparables.length > 0 || visitedTabs.length > 1 || reportVisited) && (
               <button
                 onClick={handleReset}
                 className="rounded-lg border border-error/30 px-3 py-2 text-xs font-medium text-error hover:bg-error/5 transition-colors"
@@ -422,7 +445,8 @@ export default function Valorisation() {
         </div>
 
         {/* MODE CALCULATEUR */}
-        {viewMode === "calculateur" && (<>
+        <div key={sessionRevision} hidden={viewMode !== "calculateur"}>
+        <p className="mb-4 text-sm text-muted">{sessionText("persistence")}</p>
         {/* Checklist EVS */}
         {(() => {
           const check = evaluerChecklist({
@@ -474,7 +498,7 @@ export default function Valorisation() {
           {TABS.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => selectTab(tab.id)}
               className={`whitespace-nowrap rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
                 activeTab === tab.id
                   ? "bg-navy text-white shadow-sm"
@@ -486,7 +510,7 @@ export default function Valorisation() {
           ))}
         </div>
 
-        {activeTab === "comparaison" && (
+        {visitedTabs.includes("comparaison") && (<div hidden={activeTab !== "comparaison"}>
           <TabComparaison
             surfaceBien={surfaceBien}
             result={comparisonResult}
@@ -498,21 +522,22 @@ export default function Valorisation() {
             comparables={comparables}
             setComparables={setComparables}
           />
-        )}
-        {activeTab === "capitalisation" && <TabCapitalisation onValeur={onValeurCap} />}
-        {activeTab === "terme_reversion" && <TabTermeReversion onValeur={onValeurCap} />}
-        {activeTab === "dcf" && <TabDCF onValeur={onValeurDCF} />}
-        {activeTab === "esg" && <TabESG />}
-        {activeTab === "energie" && <TabEnergie />}
-        {activeTab === "mlv" && <TabMLV valeurMarche={valeurMarchePourMLV} />}
-        {activeTab === "reconciliation" && (
+        </div>)}
+        {visitedTabs.includes("capitalisation") && <div hidden={activeTab !== "capitalisation"}><TabCapitalisation onValeur={onValeurCap} /></div>}
+        {visitedTabs.includes("terme_reversion") && <div hidden={activeTab !== "terme_reversion"}><TabTermeReversion onValeur={onValeurTerm} /></div>}
+        {visitedTabs.includes("dcf") && <div hidden={activeTab !== "dcf"}><TabDCF onValeur={onValeurDCF} /></div>}
+        {visitedTabs.includes("esg") && <div hidden={activeTab !== "esg"}><TabESG /></div>}
+        {visitedTabs.includes("energie") && <div hidden={activeTab !== "energie"}><TabEnergie /></div>}
+        {visitedTabs.includes("mlv") && <div hidden={activeTab !== "mlv"}><TabMLV valeurMarche={valeurMarchePourMLV} /></div>}
+        {visitedTabs.includes("reconciliation") && (<div hidden={activeTab !== "reconciliation"}>
+          <p id="reconciliation-income-source" className="mb-3 text-sm text-muted">{sessionText("incomeSource")} : {incomeLabel}</p>
           <ReconciliationPanel values={{comparison:valeurComparaison,capitalisation:valeurCapitalisation,dcf:valeurDCF}} weights={reconciliationWeights} onWeights={setReconciliationWeights} result={reconciliation}/>
 
-        )}
-        </>)}
+        </div>)}
+        </div>
 
         {/* MODE RAPPORT EVS */}
-        {viewMode === "rapport" && (
+        {reportVisited && (<div key={"report-"+sessionRevision} hidden={viewMode !== "rapport"}>
           <ReportModeEVS
             surfaceBien={surfaceBien}
             assetType={t(assetConfig.labelKey)}
@@ -523,7 +548,7 @@ export default function Valorisation() {
             valeurDCF={valeurDCF}
             valeurMarchePourMLV={valeurMarchePourMLV}
           />
-        )}
+        </div>)}
 
         <RelatedTools keys={["hedonique", "comparer", "dcfMulti", "indices", "marche", "estimation"]} />
       </div>

@@ -18786,5 +18786,9 @@
     "resultNote": "The result depends on the author’s selection and checks. The number of references and their weights do not measure accuracy. Include the evidence and reasoning in the final file.",
     "invalid": "Complete each reference: address, source, valid non-future sale month, positive price and area, reasons and weight from 0 to 100. At least one weight must be positive. Each adjustment must be from −100 to 100%, and their sum greater than −100%.",
     "methodSource": "RICS — use and verification of comparable evidence"
+  },
+  "valuationSession": {
+    "persistence": "Inputs are retained between tabs and modes during this page session. Reset clears all forms. Closing or reloading may lose these inputs.",
+    "incomeSource": "Selected income method (last income tab viewed)"
   }
 }

@@ -18786,5 +18786,9 @@
     "resultNote": "Das Ergebnis hängt von Auswahl und Prüfung durch den Verfasser ab. Anzahl und Gewichtung der Referenzen messen keine Genauigkeit. Belege und Begründung gehören in die abschließende Akte.",
     "invalid": "Jede Referenz benötigt Adresse, Quelle, gültigen nicht zukünftigen Verkaufsmonat, positiven Preis und Fläche, Begründung sowie Gewicht von 0 bis 100. Mindestens ein Gewicht muss positiv sein. Jede Anpassung liegt zwischen −100 und 100 %, ihre Summe über −100 %.",
     "methodSource": "RICS — Verwendung und Prüfung von Vergleichsdaten"
+  },
+  "valuationSession": {
+    "persistence": "Eingaben bleiben während dieser Seitensitzung zwischen Tabs und Modi erhalten. Zurücksetzen leert alle Formulare. Beim Schließen oder Neuladen können die Eingaben verloren gehen.",
+    "incomeSource": "Gewählte Ertragsmethode (zuletzt geöffneter Ertragstab)"
   }
 }

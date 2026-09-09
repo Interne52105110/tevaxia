@@ -278,3 +278,12 @@ Le calcul utilise des ajustements additifs et des poids relatifs explicites. Sur
 Source méthodologique : https://www.rics.org/profession-standards/rics-standards-and-guidance/sector-standards/valuation-standards/comparable-evidence-in-real-estate-valuation (première édition toujours applicable pendant la consultation de la deuxième édition). Le logiciel ne certifie pas la réalité des ventes saisies.
 
 Validation : 1 160 tests / 97 fichiers réussis, compilation et lint réussis. Exemple indépendant : 600 000/75 m² ajusté de +10−5 %, poids 1, et 400 000/60 m² sans ajustement, poids 3 ; surface évaluée 90 m², résultat 639 000 EUR. Cinq langues, quatre largeurs, références vides, invalides, sources et date requises, liaison réconciliation et changement de surface depuis un autre onglet contrôlés. DOCX téléchargé dans le navigateur avec montant, dates et sources vérifiés. Quatre PDF de test, 32 pages, régénérés avec une référence descriptive longue et toutes les pages inspectées.
+
+
+## Valorisation — conservation des saisies pendant la session
+
+Les méthodes visitées restent montées et masquées lors du changement d’onglet. Le passage calculateur/rapport conserve également les formulaires et le brouillon. La capitalisation directe et le terme/réversion ont désormais des résultats séparés ; le dernier onglet de revenu consulté détermine la méthode retenue, identifiée dans la réconciliation et les libellés exportés. Ouvrir une autre méthode ne réinitialise plus les saisies précédentes.
+
+Le bouton Réinitialiser efface maintenant tous les formulaires du parcours : méthodes, notes, scénarios, brouillon, signatures, références, résultats et paramètres généraux reviennent à leur état initial. Ce maintien de saisie concerne la session de page ; il ne promet pas une sauvegarde durable après rechargement ou fermeture.
+
+Validation : compilation et lint réussis ; parcours dans cinq langues et quatre largeurs. Loyers, taux, notes et brouillon conservés après plusieurs allers-retours ; valeurs directe et terme/réversion distinctes ; DCF conservé ; réinitialisation des champs et retrait des anciens exports vérifiés. Aucune formule numérique modifiée par ce lot.

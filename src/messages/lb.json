@@ -18786,5 +18786,9 @@
     "resultNote": "D’Resultat hänkt vun der Auswiel an de Kontrolle vum Verfaasser of. D’Zuel an d’Gewiicht vun de Referenze moosse keng Genauegkeet. Huelt d’Beweiser an d’Begrënnung an de finalen Dossier op.",
     "invalid": "Fëllt all Referenz aus: Adress, Quell, gültege Verkafsmount net an der Zukunft, positive Präis a Fläch, Begrënnung a Gewiicht vun 0 bis 100. Op d’mannst ee Gewiicht muss positiv sinn. All Upassung läit tëscht −100 an 100 %, hir Zomm iwwer −100 %.",
     "methodSource": "RICS — Notzung a Kontroll vu Vergläichsreferenzen"
+  },
+  "valuationSession": {
+    "persistence": "D’Agabe bleiwen tëscht den Tabs a Modi an dëser Säitesessioun erhalen. Zerécksetzen läscht all Formulairen. Beim Zoumaachen oder Neiluede kënnen d’Agabe verluer goen.",
+    "incomeSource": "Ausgewielt Ertragsmethod (lescht gekuckten Ertragstab)"
   }
 }

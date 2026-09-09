@@ -18786,5 +18786,9 @@
     "resultNote": "O resultado depende da seleção e das verificações do autor. O número e os pesos das referências não medem a precisão. Inclua os documentos e o raciocínio no processo final.",
     "invalid": "Complete cada referência: endereço, fonte, mês de venda válido não futuro, preço e área positivos, justificação e peso de 0 a 100. Pelo menos um peso deve ser positivo. Cada ajuste deve estar entre −100 e 100 %, com soma superior a −100 %.",
     "methodSource": "RICS — utilização e verificação de referências comparáveis"
+  },
+  "valuationSession": {
+    "persistence": "Os dados mantêm-se entre separadores e modos durante esta sessão da página. Reiniciar limpa todos os formulários. Fechar ou recarregar pode perder os dados.",
+    "incomeSource": "Método de rendimento selecionado (último separador de rendimento consultado)"
   }
 }

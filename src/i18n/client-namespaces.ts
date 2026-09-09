@@ -195,6 +195,7 @@ export const CLIENT_NAMESPACES = [
   "terresAgricoles",
   "trajectoryAudit",
   "valorisation",
+  "valuationSession",
   "vefa",
   "verify",
   "wizardParticulier",

@@ -2454,7 +2454,8 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "saveButton",
     "syndicContextBar",
     "termReversionAudit",
-    "valorisation"
+    "valorisation",
+    "valuationSession"
   ],
   "/vefa": [
     "acquisitionAudit",
