@@ -616,3 +616,18 @@ La documentation officielle distingue critères impératifs et progressifs, pré
 Validation : build/lint réussis ; 1 246 tests dans 113 fichiers, dont 4 nouveaux contrôles du dossier. Cinq langues, quatre largeurs, statuts initiaux inconnus, obligation de preuve, ajout de ligne et export vérifiés ; cinq CSV relus avec version et statuts exacts. Les intitulés du hub sont alignés sur la préparation documentaire.
 
 CAPEX 5b234a7 confirmé en production : CI34382425442 réussie, dpl_HHdfFbVcXDyqnz4Y2UKDM45jXGG6 Ready ; cinq langues/quatre largeurs, calculs et exports vérifiés sur tevaxia.lu.
+
+
+### Due diligence hôtelière — déclarations documentées et PDF
+
+Les 50 points sont conservés comme aide de préparation non exhaustive, sans affiliation aux standards HVS/Cushman & Wakefield revendiquée. Les priorités sont indicatives. Dix-neuf libellés ont été réécrits comme documents et exigences à faire vérifier : notamment TVA par prestation/boisson, autorisations, contrôles techniques, contrats et cotisations, exigences énergétiques et RH. Retrait des raccourcis « hébergement 90j », « F&B 14 % », norme CE pour l’air, contrôleur systématiquement nommé, échéances énergétiques universelles et références sociales non établies.
+
+Les statuts restent déclaratifs : preuve référencée, réserve ou hors périmètre déclaré. Un statut hors « à traiter » exige une note pour compter dans l’avancement et autoriser l’export. Le nom est requis ; les notes sont limitées à 1 000 caractères. Le pourcentage mesure les points renseignés avec justificatif, pas la conformité. L’analyse IA qui recommandait go/stop, décote ou conditions contractuelles est retirée.
+
+PDF : mention de brouillon et limites, 50 points et leurs statuts conservés, justificatifs sur toute la largeur, titre de rubrique solidaire du premier point, pagination des autres points, pied de page sur chaque feuille. Le verrou d’export évite les doubles clics ; un échec est signalé et le bouton est réactivé. La langue des libellés est dérivée à l’affichage, sans figer les traductions dans l’état du formulaire. Liens localisés, boutons plus lisibles et retours à la ligne sur mobile.
+
+Sources primaires utilisées pour orienter les vérifications, sans certification juridique du dossier : https://pfi.public.lu/fr/citoyen/tva/taux-tva.html ; https://pfi.public.lu/fr/publications/textes-de-loi/tva010126.html ; https://guichet.public.lu/fr/entreprises/creation-developpement/autorisation-etablissement/commerce/etablissement-hebergement.html .
+
+Validation : build/lint réussis ; cinq langues et quatre largeurs. 0/50 initialement, statut sans note non compté et export bloqué, trois points justifiés donnent 3/50 ; double clic produit un seul téléchargement. Cinq PDF finaux de trois pages : 50 libellés intégralement retrouvés, note longue complète, réserves et mentions de brouillon sur chaque page, limites de page contrôlées. Les 15 pages ont été rendues en PNG et inspectées après correction des notes étroites et titres orphelins du premier rendu. La suite générale de référence reste à 1 246 tests dans 113 fichiers, complétée ici par ces contrôles de formulaire et PDF.
+
+Green Key 80f0167 confirmé en production : CI34383215142 réussie, dpl_D142ZVm9MdDKAyynkg3X1HCWq682 Ready, cinq langues/quatre largeurs et cinq CSV contrôlés sur tevaxia.lu.

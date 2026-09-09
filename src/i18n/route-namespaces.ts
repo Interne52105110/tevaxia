@@ -985,7 +985,6 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "syndicContextBar"
   ],
   "/hotellerie/due-diligence": [
-    "aiAnalysis",
     "aiChat",
     "backup",
     "cookie",

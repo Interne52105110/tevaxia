@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { pdf, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 interface DDItem {
   id: string;
@@ -78,40 +77,42 @@ const CAT_COLORS: Record<DDItem["category"], string> = {
 };
 
 const pdfStyles = StyleSheet.create({
-  page: { padding: 36, fontSize: 9, fontFamily: "Helvetica", color: "#0B2447" },
+  page: { padding: 36, paddingBottom: 60, fontSize: 9, fontFamily: "Helvetica", color: "#0B2447" },
   title: { fontSize: 14, fontWeight: "bold", marginBottom: 8 },
   sectionTitle: { fontSize: 11, fontWeight: "bold", marginTop: 10, marginBottom: 4, color: "#1B2A4A" },
-  row: { flexDirection: "row", borderBottom: "0.5 solid #e5e7eb", paddingVertical: 2 },
-  label: { width: "60%", fontSize: 8 },
-  status: { width: "15%", fontSize: 8, fontWeight: "bold" },
-  notes: { width: "25%", fontSize: 7, color: "#475569" },
+  row: { borderBottom: "0.5 solid #e5e7eb", paddingVertical: 5 },
+  label: { fontSize: 9, marginBottom: 2 },
+  status: { fontSize: 8, fontWeight: "bold" },
+  notes: { fontSize: 8, color: "#475569", marginTop: 3 },
 });
 
-function DdPdf({ hotelName: _hotelName, items, labels }: { hotelName: string; items: DDItem[]; labels: { title: string; dateLine: string; categoryLabels: Record<DDItem["category"], string>; catPoints: (n: number) => string; statusNa: string; noNotes: string } }) {
+function DdPdf({ hotelName: _hotelName, items, labels }: { hotelName: string; items: DDItem[]; labels: { title: string; dateLine: string; categoryLabels: Record<DDItem["category"], string>; catPoints: (n: number) => string; statusLabels: Record<DDItem["status"], string>; noNotes: string; notice: string; footer: string } }) {
   const byCategory = Object.keys(CAT_COLORS) as DDItem["category"][];
   return (
     <Document>
       <Page size="A4" style={pdfStyles.page}>
         <Text style={pdfStyles.title}>{labels.title}</Text>
         <Text style={{ fontSize: 9, marginBottom: 10 }}>{labels.dateLine}</Text>
+        <Text style={{fontSize:8,marginBottom:10}}>{labels.notice}</Text>
         {byCategory.map((cat) => {
           const catItems = items.filter((i) => i.category === cat);
           if (catItems.length === 0) return null;
           return (
-            <View key={cat} wrap={false}>
-              <Text style={pdfStyles.sectionTitle}>{labels.categoryLabels[cat]} ({labels.catPoints(catItems.length)})</Text>
+            <View key={cat}>
               {catItems.map((i) => (
-                <View key={i.id} style={pdfStyles.row}>
-                  <Text style={pdfStyles.label}>{i.critical ? "★ " : ""}{i.label}</Text>
+                <View key={i.id} style={pdfStyles.row} wrap={false}>
+                  {i.id===catItems[0].id&&<Text style={pdfStyles.sectionTitle}>{labels.categoryLabels[cat]} ({labels.catPoints(catItems.length)})</Text>}
+                  <Text style={pdfStyles.label}>{i.critical ? "[!] " : ""}{i.label}</Text>
                   <Text style={pdfStyles.status}>
-                    {i.status === "ok" ? "OK" : i.status === "nc" ? "NC" : i.status === "na" ? labels.statusNa : "TODO"}
+                    {labels.statusLabels[i.status]}
                   </Text>
-                  <Text style={pdfStyles.notes}>{i.notes || labels.noNotes}</Text>
+                  {i.notes&&<Text style={pdfStyles.notes}>{i.notes}</Text>}
                 </View>
               ))}
             </View>
           );
         })}
+        <Text fixed style={{position:"absolute",bottom:22,left:36,right:36,fontSize:7}}>{labels.footer}</Text>
       </Page>
     </Document>
   );
@@ -122,9 +123,14 @@ export default function DueDiligencePage() {
   const locale = useLocale();
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
   const [hotelName, setHotelName] = useState("");
-  const [items, setItems] = useState<DDItem[]>(
-    DD_STRUCTURE.map((it) => ({ ...it, status: "todo" as const, notes: "", label: t(`items.${it.id}`) })),
+  const [busy,setBusy]=useState(false),[exportError,setExportError]=useState(false);
+  const exporting=useRef(false);
+  const prefix=locale==="fr"?"":`/${locale}`;
+  const [draftItems, setItems] = useState<DDItem[]>(
+    DD_STRUCTURE.map((it) => ({ ...it, status: "todo" as const, notes: "", label: "" })),
   );
+
+  const items=useMemo(()=>draftItems.map(it=>({...it,label:t(`items.${it.id}`)})),[draftItems,t]);
 
   const CATEGORY_LABELS: Record<DDItem["category"], string> = {
     technique: t("catTechnique"),
@@ -136,10 +142,11 @@ export default function DueDiligencePage() {
   };
 
   const progress = useMemo(() => {
-    const done = items.filter((it) => it.status !== "todo").length;
-    const ok = items.filter((it) => it.status === "ok").length;
-    const nc = items.filter((it) => it.status === "nc").length;
-    const criticalNc = items.filter((it) => it.critical && it.status === "nc").length;
+    const documented=items.filter(it=>it.notes.trim());
+    const done = documented.filter((it) => it.status !== "todo").length;
+    const ok = documented.filter((it) => it.status === "ok").length;
+    const nc = documented.filter((it) => it.status === "nc").length;
+    const criticalNc = documented.filter((it) => it.critical && it.status === "nc").length;
     return { total: items.length, done, ok, nc, criticalNc, pct: (done / items.length) * 100 };
   }, [items]);
 
@@ -147,13 +154,18 @@ export default function DueDiligencePage() {
     setItems((prev) => prev.map((it) => it.id === id ? { ...it, ...patch } : it));
   };
 
+  const invalidNotes=items.some(it=>it.status!=="todo"&&!it.notes.trim());
   const downloadPdf = async () => {
+    if(exporting.current||invalidNotes||!hotelName.trim())return;
+    exporting.current=true;setBusy(true);setExportError(false);
+    try {
     const labels = {
       title: t("pdfTitle", { name: hotelName || t("defaultHotel") }),
       dateLine: t("pdfDate", { date: new Date().toLocaleDateString(dateLocale) }),
       categoryLabels: CATEGORY_LABELS,
       catPoints: (n: number) => t("catPoints", { n }),
-      statusNa: t("statusNa"),
+      statusLabels: {ok:t("kpiOk"),nc:t("kpiNc"),na:t("statusNa"),todo:t("kpiTodo")},
+      notice:t("scopeNotice"),footer:t("pdfFooter"),
       noNotes: t("pdfNoNotes"),
     };
     const blob = await pdf(<DdPdf hotelName={hotelName || t("defaultHotel")} items={items} labels={labels} />).toBlob();
@@ -162,33 +174,36 @@ export default function DueDiligencePage() {
     a.href = url;
     a.download = `due-diligence-${(hotelName || "hotel").replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-${new Date().toISOString().slice(0, 10)}.pdf`;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }catch{setExportError(true)}finally{exporting.current=false;setBusy(false)}
   };
 
   return (
     <div className="bg-background py-8 sm:py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Link href="/hotellerie" className="text-xs text-muted hover:text-navy">{t("backHub")}</Link>
+        <Link href={`${prefix}/hotellerie`} className="text-xs text-muted hover:text-navy">{t("backHub")}</Link>
         <div className="mt-2 mb-6">
           <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("pageTitle")}</h1>
           <p className="mt-2 text-muted">{t("pageSubtitle")}</p>
         </div>
 
-        <div className="mb-6 flex items-center gap-4">
-          <input type="text" placeholder={t("hotelNamePlaceholder")} value={hotelName}
+        <p className="mb-4 rounded border p-4 text-sm">{t("scopeNotice")}</p>
+        <div className="mb-6 flex flex-wrap items-center gap-4">
+          <input id="dd-hotel" aria-label={t("hotelNamePlaceholder")} maxLength={160} type="text" placeholder={t("hotelNamePlaceholder")} value={hotelName}
             onChange={(e) => setHotelName(e.target.value)}
-            className="flex-1 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-          <button onClick={downloadPdf}
-            className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light">
-            {t("exportBtn")}
+            className="min-w-0 flex-1 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
+          <button id="dd-pdf" onClick={downloadPdf} disabled={busy||invalidNotes||!hotelName.trim()}
+            className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light disabled:opacity-40">
+            {busy?t("exporting"):t("exportBtn")}
           </button>
         </div>
 
+        {exportError&&<p role="alert" className="mb-4 text-red-700">{t("exportError")}</p>}
         <div className="mb-6 grid gap-3 sm:grid-cols-5">
           <div className="rounded-xl border border-card-border bg-card p-4">
             <div className="text-xs text-muted">{t("progress")}</div>
             <div className="mt-1 text-2xl font-bold text-navy">{progress.pct.toFixed(0)}%</div>
-            <div className="text-xs text-muted">{progress.done}/{progress.total}</div>
+            <div className="text-xs text-muted"><span data-dd-progress>{progress.done}/{progress.total}</span></div>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
             <div className="text-xs text-emerald-700">{t("kpiOk")}</div>
@@ -217,31 +232,32 @@ export default function DueDiligencePage() {
               </div>
               <div className="divide-y divide-card-border/50">
                 {catItems.map((it) => (
-                  <div key={it.id} className="px-4 py-3">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1">
+                  <div key={it.id} data-dd-item={it.id} className="px-4 py-3">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <div className="min-w-0 flex-1">
                         <span className="text-sm text-navy">
                           {it.critical && <span className="text-rose-600 mr-1">★</span>}
                           {it.label}
                         </span>
                       </div>
-                      <div className="flex gap-1 shrink-0">
+                      <div className="flex flex-wrap gap-1">
                         {(["ok", "nc", "na"] as const).map((s) => (
-                          <button key={s} onClick={() => setItem(it.id, { status: it.status === s ? "todo" : s })}
-                            className={`rounded px-2 py-0.5 text-[10px] font-medium ${
+                          <button key={s} data-status={s} aria-pressed={it.status===s} onClick={() => setItem(it.id, { status: it.status === s ? "todo" : s })}
+                            className={`rounded px-3 py-1 text-sm font-medium ${
                               it.status === s
                                 ? s === "ok" ? "bg-emerald-600 text-white" : s === "nc" ? "bg-rose-600 text-white" : "bg-slate-500 text-white"
                                 : "border border-card-border text-muted"
                             }`}>
-                            {s === "ok" ? t("kpiOk") : s === "nc" ? "NC" : t("statusNa")}
+                            {s === "ok" ? t("kpiOk") : s === "nc" ? t("kpiNc") : t("statusNa")}
                           </button>
                         ))}
                       </div>
                     </div>
-                    <input type="text" value={it.notes}
+                    <textarea aria-label={`${it.label}: ${t("notesPlaceholder")}`} maxLength={1000} rows={2} value={it.notes}
                       onChange={(e) => setItem(it.id, { notes: e.target.value })}
                       placeholder={t("notesPlaceholder")}
-                      className="mt-1.5 w-full rounded border border-card-border/50 bg-transparent px-2 py-1 text-[11px]" />
+                      className="mt-1.5 w-full rounded border border-card-border/50 bg-transparent px-2 py-1 text-sm" />
+                    {it.status!=="todo"&&!it.notes.trim()&&<p className="mt-1 text-sm text-amber-800">{t("proofRequired")}</p>}
                   </div>
                 ))}
               </div>
@@ -249,20 +265,7 @@ export default function DueDiligencePage() {
           );
         })}
 
-        <AiAnalysisCard
-          context={[
-            `Due diligence hôtelière — ${hotelName || "Hôtel"}`,
-            `Progrès: ${progress.done}/${progress.total} (${progress.pct.toFixed(0)}%)`,
-            `OK: ${progress.ok} · NC: ${progress.nc} · ★ critiques NC: ${progress.criticalNc}`,
-            "",
-            `Items critiques NC:`,
-            ...items.filter((i) => i.critical && i.status === "nc").map((i) => `  [${i.category.toUpperCase()}] ${i.label} — ${i.notes || "pas de note"}`),
-            "",
-            `Items NC non-critiques:`,
-            ...items.filter((i) => !i.critical && i.status === "nc").slice(0, 10).map((i) => `  [${i.category}] ${i.label}`),
-          ].join("\n")}
-          prompt="Analyse cette due diligence hôtelière Luxembourg. Livre : (1) synthèse du risque global (feu vert / orange / rouge) en fonction des ★ critiques NC, (2) top 3 des points à sécuriser AVANT signature (LOI non-binding / SPA), (3) conditions suspensives recommandées, (4) impact probable sur le prix (décote/escrow/warranty selon gravité), (5) recommandation d'avancement de la transaction : go / go-conditionnel / stop. Référence HVS / Cushman & Wakefield Hospitality standards. Concret pour un investisseur/banquier."
-        />
+
       </div>
     </div>
   );
