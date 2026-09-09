@@ -18875,5 +18875,31 @@
     "unavailable": "Gemeinde nicht in diesem Auszug: kein geschätzter Wert angezeigt.",
     "scope": "Administrativer Auszug aus dem nationalen Personenregister, veröffentlicht vom CTIE. Die Summe umfasst Volljährige und Minderjährige beider Geschlechter. Nicht mit der STATEC-Statistik der Wohnbevölkerung gleichzusetzen. Einkommen, Beschäftigungsquote, Dichte und Wachstum werden daraus nicht abgeleitet.",
     "source": "Offizielle Quelle CTIE / RNPP — CC0-Lizenz"
+  },
+  "officialPriceIndex": {
+    "changeTitle": "Jährliche Wohnimmobilienpreisänderung — Luxemburg",
+    "indexTitle": "Jährlicher Wohnimmobilienpreisindex — 2015 = 100",
+    "scope": "Nationale Jahresdurchschnitte für neue und bestehende, von Haushalten erworbene Wohnungen und Häuser. Veröffentlichte Beobachtungen 2015–2025, keine Prognose für 2026. Der nationale Index misst keine Veränderung einer bestimmten Gemeinde oder Immobilie.",
+    "table": "Jahresbeobachtungen anzeigen",
+    "year": "Jahr",
+    "index": "Index (2015 = 100)",
+    "change": "Jährliche Änderung",
+    "source": "Quelle Eurostat prc_hpi_a — Stand 2. Juli 2026",
+    "pageTitle": "Immobilienindizes und Gemeindebeobachtungen",
+    "pageScope": "Nationale Eurostat-Reihe und kommunale Transaktionsmittelwerte des Wohnungsobservatoriums. Die Differenz zwischen Angebots- und registrierten Preisen ist weder zeitlicher Trend noch verhandelbarer Abschlag oder Maß für die Marktgesundheit.",
+    "latestIndex": "Jahresindex {year} (2015 = 100)",
+    "latestChange": "Änderung des Jahresdurchschnitts {year}",
+    "communesTitle": "Beobachtungen je Gemeinde",
+    "communesScope": "Bestehende Wohnungen: registrierte Durchschnittspreise je m², Zeitraum je Zeile. Nicht veröffentlichte Werte bleiben fehlend und sind nicht null. Ein einfacher Gemeindedurchschnitt ist kein nationaler Durchschnittspreis. Die CSV enthält die ausgewählten Beobachtungen ohne Schätzung fehlender Werte.",
+    "search": "Gemeinde suchen",
+    "export": "Auswahl als CSV exportieren",
+    "commune": "Gemeinde",
+    "prixM2Existant": "Registrierter Preis / m²",
+    "nbTransactions": "Veröffentlichte Transaktionen",
+    "period": "Zeitraum",
+    "unpublished": "Nicht veröffentlicht",
+    "communesSource": "Quelle Wohnungsobservatorium — Transaktionen",
+    "map": "Karte anzeigen",
+    "estimate": "Immobilie schätzen"
   }
 }

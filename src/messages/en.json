@@ -18875,5 +18875,31 @@
     "unavailable": "Municipality absent from this extract: no estimated value is displayed.",
     "scope": "Administrative extract from the national register of natural persons published by CTIE. The total adds adults and minors of both sexes. This differs from STATEC resident-population statistics. No income, employment rate, density or growth rate is inferred from this extract.",
     "source": "Official CTIE / RNPP source — CC0 licence"
+  },
+  "officialPriceIndex": {
+    "changeTitle": "Annual house-price change — Luxembourg",
+    "indexTitle": "Annual house-price index — 2015 = 100",
+    "scope": "National annual averages, new and existing dwellings purchased by households. Published observations from 2015 to 2025, with no 2026 forecast. The national index does not measure changes in a particular municipality or property.",
+    "table": "View annual observations",
+    "year": "Year",
+    "index": "Index (2015 = 100)",
+    "change": "Annual change",
+    "source": "Eurostat prc_hpi_a source — updated 2 July 2026",
+    "pageTitle": "Property indices and municipal observations",
+    "pageScope": "Eurostat national series and municipal transaction averages from the Housing Observatory. The gap between asking and recorded prices is neither a time trend, a negotiable discount nor a measure of market health.",
+    "latestIndex": "Annual index {year} (2015 = 100)",
+    "latestChange": "Annual average change {year}",
+    "communesTitle": "Municipal observations",
+    "communesScope": "Existing apartments: recorded average prices per m², with periods shown for each row. Unpublished values remain missing, not zero. A simple average of municipalities is not the national average price. The CSV contains the selected observations, without estimating missing values.",
+    "search": "Search for a municipality",
+    "export": "Export selection as CSV",
+    "commune": "Municipality",
+    "prixM2Existant": "Recorded price / m²",
+    "nbTransactions": "Published transactions",
+    "period": "Period",
+    "unpublished": "Not published",
+    "communesSource": "Housing Observatory source — transactions",
+    "map": "View map",
+    "estimate": "Estimate a property"
   }
 }

@@ -18875,5 +18875,31 @@
     "unavailable": "Commune absente de cet extrait : aucune valeur estimée affichée.",
     "scope": "Extrait administratif du registre national des personnes physiques publié par le CTIE. Le total additionne les personnes majeures et mineures des deux sexes. Il ne doit pas être confondu avec les statistiques STATEC de population résidente. Aucun revenu, taux d’emploi, densité ou taux de croissance n’est déduit de cet extrait.",
     "source": "Source officielle CTIE / RNPP — licence CC0"
+  },
+  "officialPriceIndex": {
+    "changeTitle": "Variation annuelle des prix des logements — Luxembourg",
+    "indexTitle": "Indice annuel des prix des logements — base 100 en 2015",
+    "scope": "Moyennes annuelles nationales, logements neufs et existants acquis par les ménages. Observations publiées de 2015 à 2025, sans prévision 2026. L’indice national ne mesure pas l’évolution d’une commune ou d’un bien particulier.",
+    "table": "Voir les observations annuelles",
+    "year": "Année",
+    "index": "Indice (2015 = 100)",
+    "change": "Variation annuelle",
+    "source": "Source Eurostat prc_hpi_a — mise à jour du 2 juillet 2026",
+    "pageTitle": "Indices immobiliers et observations communales",
+    "pageScope": "Série nationale Eurostat et moyennes de transactions par commune issues de l’Observatoire de l’Habitat. L’écart entre prix annoncés et prix enregistrés ne constitue ni une tendance temporelle, ni une décote négociable, ni une mesure de santé du marché.",
+    "latestIndex": "Indice annuel {year} (2015 = 100)",
+    "latestChange": "Variation de la moyenne annuelle {year}",
+    "communesTitle": "Observations par commune",
+    "communesScope": "Appartements existants : moyennes enregistrées au m², périodes indiquées par ligne. Les valeurs non publiées restent absentes ; elles ne valent pas zéro. Une moyenne simple des communes ne représente pas le prix moyen national. Le CSV contient les observations de la sélection, sans estimation des valeurs absentes.",
+    "search": "Rechercher une commune",
+    "export": "Exporter la sélection CSV",
+    "commune": "Commune",
+    "prixM2Existant": "Prix enregistré / m²",
+    "nbTransactions": "Transactions publiées",
+    "period": "Période",
+    "unpublished": "Non publié",
+    "communesSource": "Source Observatoire de l’Habitat — transactions",
+    "map": "Voir la carte",
+    "estimate": "Estimer un bien"
   }
 }

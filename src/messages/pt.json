@@ -18875,5 +18875,31 @@
     "unavailable": "Município ausente deste extrato: não é apresentado um valor estimado.",
     "scope": "Extrato administrativo do registo nacional de pessoas singulares publicado pelo CTIE. O total soma adultos e menores de ambos os sexos. Distingue-se das estatísticas de população residente do STATEC. Não são inferidos rendimento, emprego, densidade ou crescimento deste extrato.",
     "source": "Fonte oficial CTIE / RNPP — licença CC0"
+  },
+  "officialPriceIndex": {
+    "changeTitle": "Variação anual dos preços da habitação — Luxemburgo",
+    "indexTitle": "Índice anual de preços da habitação — 2015 = 100",
+    "scope": "Médias anuais nacionais de habitações novas e existentes adquiridas por famílias. Observações publicadas de 2015 a 2025, sem previsão para 2026. O índice nacional não mede a evolução de um município ou imóvel específico.",
+    "table": "Ver observações anuais",
+    "year": "Ano",
+    "index": "Índice (2015 = 100)",
+    "change": "Variação anual",
+    "source": "Fonte Eurostat prc_hpi_a — atualização de 2 de julho de 2026",
+    "pageTitle": "Índices imobiliários e observações municipais",
+    "pageScope": "Série nacional Eurostat e médias municipais de transações do Observatório da Habitação. A diferença entre preços anunciados e registados não é uma tendência temporal, desconto negociável ou medida da saúde do mercado.",
+    "latestIndex": "Índice anual {year} (2015 = 100)",
+    "latestChange": "Variação da média anual {year}",
+    "communesTitle": "Observações por município",
+    "communesScope": "Apartamentos existentes: preços médios registados por m², com períodos em cada linha. Valores não publicados permanecem ausentes, não zero. A média simples dos municípios não representa o preço médio nacional. O CSV contém as observações selecionadas, sem estimar valores ausentes.",
+    "search": "Pesquisar município",
+    "export": "Exportar seleção CSV",
+    "commune": "Município",
+    "prixM2Existant": "Preço registado / m²",
+    "nbTransactions": "Transações publicadas",
+    "period": "Período",
+    "unpublished": "Não publicado",
+    "communesSource": "Fonte Observatório da Habitação — transações",
+    "map": "Ver mapa",
+    "estimate": "Estimar imóvel"
   }
 }

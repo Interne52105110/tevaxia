@@ -1,0 +1,68 @@
+{
+  "dataset": "prc_hpi_a",
+  "geo": "LU",
+  "purchase": "TOTAL",
+  "indexUnit": "I15_A_AVG",
+  "changeUnit": "RCH_A_AVG",
+  "updated": "2026-07-02T11:00:00+0200",
+  "retrievedDate": "2026-09-09",
+  "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table?lang=en",
+  "apiUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hpi_a?geo=LU&purchase=TOTAL&sinceTimePeriod=2014&lang=EN",
+  "rows": [
+    {
+      "year": 2015,
+      "index": 100.0,
+      "changePct": 5.4
+    },
+    {
+      "year": 2016,
+      "index": 106.07,
+      "changePct": 6.1
+    },
+    {
+      "year": 2017,
+      "index": 112.09,
+      "changePct": 5.7
+    },
+    {
+      "year": 2018,
+      "index": 120.41,
+      "changePct": 7.4
+    },
+    {
+      "year": 2019,
+      "index": 131.88,
+      "changePct": 9.5
+    },
+    {
+      "year": 2020,
+      "index": 151.04,
+      "changePct": 14.5
+    },
+    {
+      "year": 2021,
+      "index": 172.12,
+      "changePct": 14.0
+    },
+    {
+      "year": 2022,
+      "index": 188.53,
+      "changePct": 9.5
+    },
+    {
+      "year": 2023,
+      "index": 171.45,
+      "changePct": -9.1
+    },
+    {
+      "year": 2024,
+      "index": 162.52,
+      "changePct": -5.2
+    },
+    {
+      "year": 2025,
+      "index": 165.14,
+      "changePct": 1.6
+    }
+  ]
+}

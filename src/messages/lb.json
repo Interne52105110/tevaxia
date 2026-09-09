@@ -18875,5 +18875,31 @@
     "unavailable": "Gemeng net an dësem Extrait: kee geschate Wäert ugewisen.",
     "scope": "Administrativen Extrait aus dem nationale Persouneregister, publizéiert vum CTIE. Den Total zielt Volljäreger a Mannerjäreger vu béide Geschlechter zesummen. Net mat der STATEC-Statistik vun der Wunnbevëlkerung gläichzesetzen. Akommes, Beschäftegung, Dicht a Wuesstem ginn net aus dësem Extrait ofgeleet.",
     "source": "Offiziell Quell CTIE / RNPP — CC0-Lizenz"
+  },
+  "officialPriceIndex": {
+    "changeTitle": "Jäerlech Ännerung vun de Wunnengspräisser — Lëtzebuerg",
+    "indexTitle": "Jäerleche Wunnengspräisindex — 2015 = 100",
+    "scope": "National Joresduerchschnëtter fir nei a bestoend Wunnengen an Haiser, déi vu Stéit kaaft goufen. Publizéiert Observatioune vun 2015 bis 2025, keng Prognos fir 2026. Den nationalen Index moosst keng Entwécklung vun enger bestëmmter Gemeng oder Immobilie.",
+    "table": "Joresobservatioune weisen",
+    "year": "Joer",
+    "index": "Index (2015 = 100)",
+    "change": "Jäerlech Ännerung",
+    "source": "Quell Eurostat prc_hpi_a — Stand 2. Juli 2026",
+    "pageTitle": "Immobilienindicen a Gemengenobservatiounen",
+    "pageScope": "National Eurostat-Serie a kommunal Transaktiounsmëttel vum Observatoire de l’Habitat. Den Ënnerscheed tëscht annoncéierten a registréierte Präisser ass weder en Zäittrend, en verhandelbare Rabatt nach eng Mooss fir d’Gesondheet vum Maart.",
+    "latestIndex": "Joresindex {year} (2015 = 100)",
+    "latestChange": "Ännerung vum Joresduerchschnëtt {year}",
+    "communesTitle": "Observatioune pro Gemeng",
+    "communesScope": "Bestoend Appartementer: registréiert Duerchschnëttspräisser pro m², Period pro Zeil. Net publizéiert Wäerter bleiwe feelend, net null. En einfache Gemengenduerchschnëtt ass keen nationale Präisduerchschnëtt. Den CSV enthält déi gewielten Observatiounen ouni Schätzung vu feelende Wäerter.",
+    "search": "Gemeng sichen",
+    "export": "Auswiel als CSV exportéieren",
+    "commune": "Gemeng",
+    "prixM2Existant": "Registréierte Präis / m²",
+    "nbTransactions": "Publizéiert Transaktiounen",
+    "period": "Period",
+    "unpublished": "Net publizéiert",
+    "communesSource": "Quell Observatoire de l’Habitat — Transaktiounen",
+    "map": "Kaart weisen",
+    "estimate": "Immobilie schätzen"
   }
 }

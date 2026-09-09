@@ -156,6 +156,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "officialPriceIndex",
     "pmsContextBar",
     "populationEvidence",
     "syndicContextBar"
@@ -179,6 +180,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "crmContextBar",
     "hotellerieContextBar",
     "nav",
+    "officialPriceIndex",
     "pmsContextBar",
     "populationEvidence",
     "syndicContextBar"
@@ -1166,12 +1168,11 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
   "/indices": [
     "aiChat",
     "backup",
-    "common",
     "cookie",
     "crmContextBar",
     "hotellerieContextBar",
-    "indices",
     "nav",
+    "officialPriceIndex",
     "pmsContextBar",
     "syndicContextBar"
   ],
@@ -1250,6 +1251,7 @@ export const ROUTE_NAMESPACES: Record<string, readonly string[]> = {
     "hotellerieContextBar",
     "marche",
     "nav",
+    "officialPriceIndex",
     "pmsContextBar",
     "syndicContextBar"
   ],

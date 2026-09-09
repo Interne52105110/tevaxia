@@ -1,78 +1,22 @@
 "use client";
-
-import { XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Area, AreaChart } from "recharts";
-import { INDICES_PRIX_ANNUELS } from "@/lib/adjustments";
-
-const data = Object.entries(INDICES_PRIX_ANNUELS).map(([annee, variation]) => ({
-  annee: Number(annee),
-  variation,
-}));
-
-// Calculer l'indice cumulé (base 100 en 2015)
-let indice = 100;
-const dataWithIndex = data.map((d) => {
-  indice = indice * (1 + d.variation / 100);
-  return { ...d, indice: Math.round(indice * 10) / 10 };
-});
-
-export function PriceEvolutionChart({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={compact ? "" : "rounded-xl border border-card-border bg-card p-4 shadow-sm"}>
-      {!compact && (
-        <div className="mb-3">
-          <h3 className="text-sm font-semibold text-navy">Évolution des prix résidentiels au Luxembourg</h3>
-          <p className="text-[10px] text-muted">Variation annuelle en % — Source : STATEC / Observatoire de l&apos;Habitat</p>
-        </div>
-      )}
-      <ResponsiveContainer width="100%" height={compact ? 120 : 200}>
-        <AreaChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
-          <defs>
-            <linearGradient id="colorVar" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#1B2A4A" stopOpacity={0.15} />
-              <stop offset="95%" stopColor="#1B2A4A" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="annee" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-          <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `${v}%`} />
-          <Tooltip
-            formatter={(value) => [`${Number(value) > 0 ? "+" : ""}${value}%`, "Variation"]}
-            labelFormatter={(label) => `Année ${label}`}
-            contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid #e5e2db" }}
-          />
-          <ReferenceLine y={0} stroke="#DC2626" strokeDasharray="3 3" strokeOpacity={0.5} />
-          <Area type="monotone" dataKey="variation" stroke="#1B2A4A" fill="url(#colorVar)" strokeWidth={2} dot={{ r: 3, fill: "#1B2A4A" }} />
-        </AreaChart>
-      </ResponsiveContainer>
-    </div>
-  );
+import {useId} from 'react';
+import {useLocale,useTranslations} from 'next-intl';
+import {XAxis,YAxis,Tooltip,ResponsiveContainer,ReferenceLine,Line,LineChart} from 'recharts';
+import {HOUSE_PRICE_INDEX,HOUSE_PRICE_INDEX_SOURCE} from '@/lib/house-price-index';
+function OfficialPriceChart({kind,compact=false}:{kind:'changePct'|'index';compact?:boolean}){
+ const t=useTranslations('officialPriceIndex'),locale=useLocale(),id=useId(),number=(n:number,d=2)=>n.toLocaleString(locale==='lb'?'de-DE':locale,{minimumFractionDigits:d,maximumFractionDigits:d});
+ return <section data-official-hpi={kind} className={compact?'':'rounded-xl border border-card-border bg-card p-4 shadow-sm'} aria-labelledby={id}>
+  <h3 id={id} className="text-sm font-semibold text-navy">{t(kind==='index'?'indexTitle':'changeTitle')}</h3>
+  <p className="mt-1 text-xs text-muted">{t('scope')}</p>
+  <ResponsiveContainer width="100%" height={compact?120:200}><LineChart data={HOUSE_PRICE_INDEX} margin={{top:15,right:8,bottom:0,left:-15}}>
+   <XAxis dataKey="year" tick={{fontSize:10}} tickLine={false}/><YAxis tick={{fontSize:10}} tickFormatter={v=>kind==='changePct'?`${v}%`:String(v)}/>
+   <Tooltip formatter={value=>[number(Number(value),kind==='changePct'?1:2)+(kind==='changePct'?' %':''),t(kind==='index'?'index':'change')]} labelFormatter={label=>String(label)}/>
+   <ReferenceLine y={kind==='index'?100:0} stroke="#64748b" strokeDasharray="3 3"/>
+   <Line type="linear" dataKey={kind} stroke={kind==='index'?'#9e7b21':'#1B2A4A'} dot={{r:3}} strokeWidth={2} isAnimationActive={false}/>
+  </LineChart></ResponsiveContainer>
+  <details className="mt-2 text-xs"><summary className="cursor-pointer text-navy">{t('table')}</summary><div className="overflow-x-auto"><table className="mt-2 w-full"><thead><tr><th className="p-1 text-left">{t('year')}</th><th className="p-1 text-right">{t('index')}</th><th className="p-1 text-right">{t('change')}</th></tr></thead><tbody>{HOUSE_PRICE_INDEX.map(r=><tr key={r.year} data-hpi-year={r.year}><td className="p-1">{r.year}</td><td className="p-1 text-right">{number(r.index)}</td><td className="p-1 text-right">{number(r.changePct,1)} %</td></tr>)}</tbody></table></div></details>
+  <a className="mt-2 inline-block text-xs text-navy underline" href={HOUSE_PRICE_INDEX_SOURCE.sourceUrl} target="_blank" rel="noopener noreferrer">{t('source')}</a>
+ </section>;
 }
-
-export function PriceIndexChart() {
-  return (
-    <div className="rounded-xl border border-card-border bg-card p-4 shadow-sm">
-      <div className="mb-3">
-        <h3 className="text-sm font-semibold text-navy">Indice des prix (base 100 = 2015)</h3>
-        <p className="text-[10px] text-muted">Évolution cumulée — Source : STATEC</p>
-      </div>
-      <ResponsiveContainer width="100%" height={200}>
-        <AreaChart data={dataWithIndex} margin={{ top: 5, right: 5, bottom: 0, left: -10 }}>
-          <defs>
-            <linearGradient id="colorIdx" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#C8A951" stopOpacity={0.2} />
-              <stop offset="95%" stopColor="#C8A951" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="annee" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-          <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-          <Tooltip
-            formatter={(value) => [Number(value).toFixed(1), "Indice"]}
-            labelFormatter={(label) => `Année ${label}`}
-            contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid #e5e2db" }}
-          />
-          <ReferenceLine y={100} stroke="#6B7280" strokeDasharray="3 3" strokeOpacity={0.3} label={{ value: "Base 100", fontSize: 9, fill: "#6B7280" }} />
-          <Area type="monotone" dataKey="indice" stroke="#C8A951" fill="url(#colorIdx)" strokeWidth={2} dot={{ r: 3, fill: "#C8A951" }} />
-        </AreaChart>
-      </ResponsiveContainer>
-    </div>
-  );
-}
+export function PriceEvolutionChart({compact=false}:{compact?:boolean}){return <OfficialPriceChart kind="changePct" compact={compact}/>}
+export function PriceIndexChart(){return <OfficialPriceChart kind="index"/>}

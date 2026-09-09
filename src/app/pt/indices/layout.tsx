@@ -1,29 +1,4 @@
-import type { Metadata } from "next";
-import { localizedAlternates } from "@/lib/seo";
-
-export const metadata: Metadata = {
-  title: "Índice preço imobiliário Luxemburgo 2026 — €/m² por comuna",
-  description:
-    "Monthly Luxembourg property price index for 2026. Average price per m² by municipality, trends, top gainers and decliners, market evolution. Observatoire de l'Habitat data.",
-  keywords: [
-    "Luxembourg property price index 2026",
-    "price per m2 Luxembourg",
-    "Luxembourg real estate trends",
-    "Luxembourg property market 2026",
-    "Luxembourg municipality prices",
-  ],
-  openGraph: {
-    title: "Luxembourg Property Price Index — March 2026",
-    description:
-      "Average price per m² by municipality, trends and evolution of the Luxembourg property market. Updated monthly.",
-    url: "https://tevaxia.lu/en/indices",
-    siteName: "tevaxia.lu",
-    locale: "en",
-    type: "article",
-  },
-  alternates: localizedAlternates("/indices", "pt"),
-};
-
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
-}
+import type {Metadata} from "next";
+import {localizedAlternates} from "@/lib/seo";
+export const metadata:Metadata={title:"Índices imobiliários e observações municipais",description:"Série nacional Eurostat e médias municipais de transações do Observatório da Habitação. A diferença entre preços anunciados e registados não é uma tendência temporal, desconto negociável ou medida da saúde do mercado.",alternates:localizedAlternates("/indices","pt")};
+export default function Layout({children}:{children:React.ReactNode}){return children;}

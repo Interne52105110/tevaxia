@@ -1,0 +1,221 @@
+{
+  "version": "2.0",
+  "class": "dataset",
+  "label": "House price index - annual data",
+  "source": "ESTAT",
+  "updated": "2026-07-02T11:00:00+0200",
+  "value": {
+    "0": 94.89,
+    "1": 100.0,
+    "2": 106.07,
+    "3": 112.09,
+    "4": 120.41,
+    "5": 131.88,
+    "6": 151.04,
+    "7": 172.12,
+    "8": 188.53,
+    "9": 171.45,
+    "10": 162.52,
+    "11": 165.14,
+    "12": 57.46,
+    "13": 60.56,
+    "14": 64.23,
+    "15": 67.87,
+    "16": 72.91,
+    "17": 79.86,
+    "18": 91.46,
+    "19": 104.23,
+    "20": 114.17,
+    "21": 103.82,
+    "22": 98.42,
+    "23": 100.0,
+    "24": 4.4,
+    "25": 5.4,
+    "26": 6.1,
+    "27": 5.7,
+    "28": 7.4,
+    "29": 9.5,
+    "30": 14.5,
+    "31": 14.0,
+    "32": 9.5,
+    "33": -9.1,
+    "34": -5.2,
+    "35": 1.6
+  },
+  "id": [
+    "freq",
+    "purchase",
+    "unit",
+    "geo",
+    "time"
+  ],
+  "size": [
+    1,
+    1,
+    3,
+    1,
+    12
+  ],
+  "dimension": {
+    "freq": {
+      "label": "Time frequency",
+      "category": {
+        "index": {
+          "A": 0
+        },
+        "label": {
+          "A": "Annual"
+        }
+      }
+    },
+    "purchase": {
+      "label": "Purchases",
+      "category": {
+        "index": {
+          "TOTAL": 0
+        },
+        "label": {
+          "TOTAL": "Total"
+        }
+      }
+    },
+    "unit": {
+      "label": "Unit of measure",
+      "category": {
+        "index": {
+          "I15_A_AVG": 0,
+          "I25_A_AVG": 1,
+          "RCH_A_AVG": 2
+        },
+        "label": {
+          "I15_A_AVG": "Annual average index, 2015=100",
+          "I25_A_AVG": "Annual average index, 2025=100",
+          "RCH_A_AVG": "Annual average rate of change"
+        }
+      }
+    },
+    "geo": {
+      "label": "Geopolitical entity (reporting)",
+      "category": {
+        "index": {
+          "LU": 0
+        },
+        "label": {
+          "LU": "Luxembourg"
+        }
+      }
+    },
+    "time": {
+      "label": "Time",
+      "category": {
+        "index": {
+          "2014": 0,
+          "2015": 1,
+          "2016": 2,
+          "2017": 3,
+          "2018": 4,
+          "2019": 5,
+          "2020": 6,
+          "2021": 7,
+          "2022": 8,
+          "2023": 9,
+          "2024": 10,
+          "2025": 11
+        },
+        "label": {
+          "2014": "2014",
+          "2015": "2015",
+          "2016": "2016",
+          "2017": "2017",
+          "2018": "2018",
+          "2019": "2019",
+          "2020": "2020",
+          "2021": "2021",
+          "2022": "2022",
+          "2023": "2023",
+          "2024": "2024",
+          "2025": "2025"
+        }
+      }
+    }
+  },
+  "extension": {
+    "lang": "EN",
+    "description": "<p>The House Price Index (HPI) shows price changes of residential properties purchased by households. Available data units in this dataset (total, newly built, and existing dwellings) include the annual average index based on 2015=100 and 2010=100, and the annual average rate of change.</p>",
+    "id": "PRC_HPI_A",
+    "agencyId": "ESTAT",
+    "version": "1.0",
+    "datastructure": {
+      "id": "PRC_HPI_A",
+      "agencyId": "ESTAT",
+      "version": "41.0"
+    },
+    "annotation": [
+      {
+        "type": "CREATED",
+        "date": "2013-03-25T15:00:11+0100"
+      },
+      {
+        "type": "DISSEMINATION_DOI_XML",
+        "title": "<adms:identifier xmlns:adms=\"http://www.w3.org/ns/adms#\" xmlns:skos=\"http://www.w3.org/2004/02/skos/core.html\" xmlns:dct=\"http://purl.org/dc/terms/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><adms:Identifier rdf:about=\"https://doi.org/10.2908/PRC_HPI_A\"><skos:notation rdf:datatype=\"http://purl.org/spar/datacite/doi\">10.2908/PRC_HPI_A</skos:notation><dct:creator rdf:resource=\"http://publications.europa.eu/resource/authority/corporate-body/ESTAT\"/><dct:issued rdf:datatype=\"http://www.w3.org/2001/XMLSchema#date\">2023-01-19</dct:issued></adms:Identifier></adms:identifier>"
+      },
+      {
+        "type": "DISSEMINATION_OBJECT_TYPE",
+        "title": "DATASET"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_DATA",
+        "date": "2026-07-02T11:00:00+0200"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_GLOBAL",
+        "date": "2026-07-02T11:00:00+0200"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_PLANNED",
+        "date": "2026-07-02T11:00:00+0200"
+      },
+      {
+        "type": "ESMS_HTML",
+        "title": "Explanatory texts (metadata)",
+        "href": "https://ec.europa.eu/eurostat/cache/metadata/en/prc_hpi_inx_esms.htm"
+      },
+      {
+        "type": "ESMS_SDMX",
+        "title": "Explanatory texts (metadata)",
+        "href": "https://ec.europa.eu/eurostat/api/dissemination/files?file=metadata/prc_hpi_inx_esms.sdmx.zip"
+      },
+      {
+        "type": "OBS_COUNT",
+        "title": "5958"
+      },
+      {
+        "type": "OBS_PERIOD_OVERALL_LATEST",
+        "title": "2025"
+      },
+      {
+        "type": "OBS_PERIOD_OVERALL_OLDEST",
+        "title": "2005"
+      },
+      {
+        "type": "SOURCE_INSTITUTIONS",
+        "text": "Eurostat"
+      },
+      {
+        "type": "UPDATE_DATA",
+        "date": "2026-07-02T11:00:00+0200"
+      },
+      {
+        "type": "UPDATE_STRUCTURE",
+        "date": "2026-07-02T11:00:00+0200"
+      }
+    ],
+    "positions-with-no-data": {
+      "freq": [],
+      "purchase": [],
+      "unit": [],
+      "geo": [],
+      "time": []
+    }
+  }
+}
