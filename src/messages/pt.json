@@ -12604,7 +12604,8 @@
         "vatCategory": "Cat. IVA",
         "paymentReference": "Referencia pagamento",
         "paymentTerms": "Condicoes pagamento",
-        "notesPlaceholder": "Uma mencao por linha (CGV, mandato SEPA, penalizacoes…)"
+        "notesPlaceholder": "Uma mencao por linha (CGV, mandato SEPA, penalizacoes…)",
+        "discount": "Desconto (%)"
       },
       "vat": {
         "S": "Padrao",
@@ -12623,7 +12624,8 @@
       },
       "validation": {
         "title": "Corrigir antes de gerar:"
-      }
+      },
+      "calculationError": "Cálculo indisponível: verifique os montantes e as quantidades introduzidos."
     },
     "historique": {
       "back": "Voltar",

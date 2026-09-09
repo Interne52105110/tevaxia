@@ -26,6 +26,7 @@
 // ============================================================
 
 import { validateInvoice } from "./invoice-validation";
+import { invoiceAmount, invoiceLineCents, invoiceLineAmount, invoiceVatCents, invoiceDecimalText, invoiceDiscountedUnitPrice } from "./invoice-arithmetic";
 
 export type VatScheme =
   | "FR" // France
@@ -116,10 +117,6 @@ function fmt2(n: number): string {
   return (Math.round(n * 100) / 100).toFixed(2);
 }
 
-function fmt4(n: number): string {
-  return (Math.round(n * 10000) / 10000).toFixed(4);
-}
-
 function dateToCii(iso: string): string {
   // "2026-03-15" -> "20260315" (format 102)
   return iso.replace(/-/g, "");
@@ -158,39 +155,30 @@ export interface FacturXTotals {
 }
 
 export function computeTotals(inv: FacturXInvoice): FacturXTotals {
-  const lineTotals = inv.lines.map((l) => {
-    const gross = l.quantity * l.unit_price_net;
-    const discount = l.discount_percent ? gross * (l.discount_percent / 100) : 0;
-    return Math.round((gross - discount) * 100) / 100;
+  const lineTotals = inv.lines.map(invoiceLineCents);
+  const lineCents = lineTotals.reduce((sum, value) => sum + value, 0n);
+  const line_total = invoiceAmount(lineCents);
+  const groups = new Map<string, { cat: VatCategoryCode; rate: number; base: bigint }>();
+  inv.lines.forEach((line, i) => {
+    const key = `${line.vat_category}|${line.vat_rate_percent}`;
+    const group = groups.get(key) ?? { cat: line.vat_category, rate: line.vat_rate_percent, base: 0n };
+    group.base += lineTotals[i]; groups.set(key, group);
   });
-  const line_total = lineTotals.reduce((s, v) => s + v, 0);
-
-  // Grouper par (category, rate)
-  const groups = new Map<string, { cat: VatCategoryCode; rate: number; base: number }>();
-  inv.lines.forEach((l, i) => {
-    const key = `${l.vat_category}|${l.vat_rate_percent}`;
-    const g = groups.get(key) ?? { cat: l.vat_category, rate: l.vat_rate_percent, base: 0 };
-    g.base += lineTotals[i];
-    groups.set(key, g);
+  let vatCents = 0n;
+  const vat_breakdown = Array.from(groups.values()).map(group => {
+    const tax = invoiceVatCents(group.base, group.rate); vatCents += tax;
+    return { category: group.cat, rate_percent: group.rate, taxable_amount: invoiceAmount(group.base), tax_amount: invoiceAmount(tax) };
   });
-
-  const vat_breakdown = Array.from(groups.values()).map((g) => ({
-    category: g.cat,
-    rate_percent: g.rate,
-    taxable_amount: Math.round(g.base * 100) / 100,
-    tax_amount: Math.round(g.base * (g.rate / 100) * 100) / 100,
-  }));
-
-  const tax_basis = line_total; // pas d'allowances/charges doc en V1
-  const vat_total = vat_breakdown.reduce((s, v) => s + v.tax_amount, 0);
-  const grand_total = Math.round((tax_basis + vat_total) * 100) / 100;
+  const tax_basis = line_total;
+  const vat_total = invoiceAmount(vatCents);
+  const grand_total = invoiceAmount(lineCents + vatCents);
 
   return {
     line_total,
     allowance_total: 0,
     charge_total: 0,
     tax_basis,
-    vat_total: Math.round(vat_total * 100) / 100,
+    vat_total,
     grand_total,
     paid_amount: 0,
     amount_due: grand_total,
@@ -236,9 +224,7 @@ ${vatBlock}
 }
 
 function renderLine(line: FacturXLine, idx: number): string {
-  const gross = line.quantity * line.unit_price_net;
-  const discount = line.discount_percent ? gross * (line.discount_percent / 100) : 0;
-  const net = Math.round((gross - discount) * 100) / 100;
+  const net = invoiceLineAmount(line);
   const desc = line.description
     ? `<ram:Description>${xmlEscape(line.description)}</ram:Description>`
     : "";
@@ -252,17 +238,17 @@ function renderLine(line: FacturXLine, idx: number): string {
       </ram:SpecifiedTradeProduct>
       <ram:SpecifiedLineTradeAgreement>
         <ram:NetPriceProductTradePrice>
-          <ram:ChargeAmount>${fmt4(line.unit_price_net)}</ram:ChargeAmount>
+          <ram:ChargeAmount>${invoiceDiscountedUnitPrice(line)}</ram:ChargeAmount>
         </ram:NetPriceProductTradePrice>
       </ram:SpecifiedLineTradeAgreement>
       <ram:SpecifiedLineTradeDelivery>
-        <ram:BilledQuantity unitCode="${xmlEscape(line.unit_code ?? "C62")}">${fmt4(line.quantity)}</ram:BilledQuantity>
+        <ram:BilledQuantity unitCode="${xmlEscape(line.unit_code ?? "C62")}">${invoiceDecimalText(line.quantity)}</ram:BilledQuantity>
       </ram:SpecifiedLineTradeDelivery>
       <ram:SpecifiedLineTradeSettlement>
         <ram:ApplicableTradeTax>
           <ram:TypeCode>VAT</ram:TypeCode>
           <ram:CategoryCode>${xmlEscape(line.vat_category)}</ram:CategoryCode>
-          <ram:RateApplicablePercent>${fmt2(line.vat_rate_percent)}</ram:RateApplicablePercent>
+          <ram:RateApplicablePercent>${invoiceDecimalText(line.vat_rate_percent)}</ram:RateApplicablePercent>
         </ram:ApplicableTradeTax>
         <ram:SpecifiedTradeSettlementLineMonetarySummation>
           <ram:LineTotalAmount>${fmt2(net)}</ram:LineTotalAmount>
@@ -277,7 +263,7 @@ function renderVatBreakdown(totals: FacturXTotals): string {
       <ram:TypeCode>VAT</ram:TypeCode>
       <ram:BasisAmount>${fmt2(v.taxable_amount)}</ram:BasisAmount>
       <ram:CategoryCode>${xmlEscape(v.category)}</ram:CategoryCode>
-      <ram:RateApplicablePercent>${fmt2(v.rate_percent)}</ram:RateApplicablePercent>
+      <ram:RateApplicablePercent>${invoiceDecimalText(v.rate_percent)}</ram:RateApplicablePercent>
     </ram:ApplicableTradeTax>`).join("\n");
 }
 

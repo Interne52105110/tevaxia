@@ -13,9 +13,9 @@ type TemplateId = "generic" | "landlord" | "syndic" | "hotel" | "lease" | "value
 const STORAGE_KEY = "tevaxia-facturation-draft";
 
 function _fmt2(n: number): string { return n.toFixed(2); }
-function formatEUR(n: number, currency = "EUR"): string {
+function formatEUR(n: number, currency = "EUR", locale = "fr"): string {
   if (!isFinite(n)) return "—";
-  return new Intl.NumberFormat("fr-FR", { style: "currency", currency, maximumFractionDigits: 2 }).format(n);
+  return new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { style: "currency", currency, maximumFractionDigits: 2 }).format(n);
 }
 
 function blankLine(): FacturXLine {
@@ -138,7 +138,7 @@ export default function EmissionPage() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(inv)); } catch {}
   }, [inv, hydrated]);
 
-  const totals = useMemo(() => computeTotals(inv), [inv]);
+  const totals = useMemo(() => { try { return computeTotals(inv); } catch { return null; } }, [inv]);
   const validation = useMemo(() => validateInvoice(inv), [inv]);
 
   const setSeller = <K extends keyof FacturXInvoice["seller"]>(k: K, v: FacturXInvoice["seller"][K]) => {
@@ -168,6 +168,7 @@ export default function EmissionPage() {
   };
 
   const generate = async () => {
+    if (!totals) { setErrors([t("calculationError")]); return; }
     const errs = validateInvoice(inv);
     if (errs.length) {
       setErrors(errs.map((e) => `${e.rule}: ${e.message}`));
@@ -216,13 +217,13 @@ export default function EmissionPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <Link href={`${lp}/facturation`} className="text-xs text-muted hover:text-navy">← {t("backLanding")}</Link>
           <h1 className="text-2xl font-bold text-navy mt-1">{t("title")}</h1>
           <p className="text-sm text-muted mt-1">{t("subtitle")}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Link href={`${lp}/facturation/historique`}
             className="rounded-lg border border-card-border bg-white px-3 py-2 text-xs font-semibold text-slate hover:bg-background">
             📋 {tHist("title")}
@@ -234,6 +235,7 @@ export default function EmissionPage() {
         </div>
       </div>
 
+      {!totals && <p role="alert" className="mb-4 text-sm text-red-700">{t("calculationError")}</p>}
       {/* Template selector */}
       <div className="mb-5 rounded-xl border border-card-border bg-card p-4">
         <div className="text-xs uppercase tracking-wider font-bold text-navy mb-3">{t("template.label")}</div>
@@ -333,14 +335,16 @@ export default function EmissionPage() {
                       <button onClick={() => removeLine(idx)} className="text-xs text-rose-700 hover:underline">{t("removeLine")}</button>
                     )}
                   </div>
-                  <div className="grid gap-2 sm:grid-cols-[2fr_repeat(4,1fr)]">
+                  <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                     <Field label={t("fields.lineName")} value={l.name} onChange={(v) => updateLine(idx, { name: v })} />
                     <NumField label={t("fields.quantity")} value={l.quantity} step={0.01}
                       onChange={(v) => updateLine(idx, { quantity: v })} />
                     <NumField label={t("fields.unitPrice")} value={l.unit_price_net} step={0.01}
                       onChange={(v) => updateLine(idx, { unit_price_net: v })} />
+                    <NumField label={t("fields.discount")} value={l.discount_percent ?? 0} step={0.01}
+                      onChange={(v) => updateLine(idx, { discount_percent: v })} />
                     <SelectField label={t("fields.vatRate")} value={String(l.vat_rate_percent)}
-                      options={vatRates.map((r) => ({ v: String(r), l: `${r}%` }))}
+                      options={[...new Set([...vatRates, l.vat_rate_percent])].map((r) => ({ v: String(r), l: `${r}%` }))}
                       onChange={(v) => updateLine(idx, { vat_rate_percent: Number(v) })} />
                     <SelectField label={t("fields.vatCategory")} value={l.vat_category}
                       options={[
@@ -395,17 +399,17 @@ export default function EmissionPage() {
             <div className="space-y-1.5 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted">{t("totals.ht")}</span>
-                <span className="font-mono">{formatEUR(totals.line_total, inv.currency)}</span>
+                <span className="font-mono">{formatEUR(totals?.line_total ?? NaN, inv.currency, locale)}</span>
               </div>
-              {totals.vat_breakdown.map((v, i) => (
+              {(totals?.vat_breakdown ?? []).map((v, i) => (
                 <div key={i} className="flex justify-between text-xs text-muted">
                   <span>{t("totals.vat")} {v.rate_percent}%</span>
-                  <span className="font-mono">{formatEUR(v.tax_amount, inv.currency)}</span>
+                  <span className="font-mono">{formatEUR(v.tax_amount, inv.currency, locale)}</span>
                 </div>
               ))}
               <div className="flex justify-between pt-2 border-t border-card-border">
                 <span className="font-bold text-navy">{t("totals.ttc")}</span>
-                <span className="font-mono font-bold text-navy">{formatEUR(totals.grand_total, inv.currency)}</span>
+                <span className="font-mono font-bold text-navy">{formatEUR(totals?.grand_total ?? NaN, inv.currency, locale)}</span>
               </div>
             </div>
           </div>
@@ -435,7 +439,7 @@ export default function EmissionPage() {
           )}
 
           <button onClick={generate}
-            disabled={generating || validation.length > 0}
+            disabled={generating || validation.length > 0 || !totals}
             className="w-full rounded-lg bg-navy px-5 py-3 text-sm font-bold text-white hover:bg-navy-light disabled:opacity-50 transition-colors">
             {generating ? t("generating") : t("generate")} →
           </button>
@@ -467,7 +471,7 @@ function Field({ label, value, onChange, type = "text", placeholder, required }:
       <div className="text-muted font-medium mb-0.5">
         {label}{required && <span className="text-rose-600 ml-0.5">*</span>}
       </div>
-      <input type={type} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
+      <input aria-label={label} type={type} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
         className="w-full rounded border border-input-border bg-input-bg px-2 py-1.5 text-sm" />
     </label>
   );
@@ -479,7 +483,7 @@ function NumField({ label, value, onChange, step = 1 }: {
   return (
     <label className="block text-xs">
       <div className="text-muted font-medium mb-0.5">{label}</div>
-      <input type="number" value={value} step={step} onChange={(e) => onChange(Number(e.target.value) || 0)}
+      <input aria-label={label} type="number" value={Number.isFinite(value) ? value : ""} step={step} onChange={(e) => onChange(e.target.value === "" ? NaN : Number(e.target.value))}
         className="w-full rounded border border-input-border bg-input-bg px-2 py-1.5 text-sm text-right font-mono" />
     </label>
   );
@@ -491,8 +495,9 @@ function SelectField({ label, value, options, onChange }: {
   return (
     <label className="block text-xs">
       <div className="text-muted font-medium mb-0.5">{label}</div>
-      <select value={value} onChange={(e) => onChange(e.target.value)}
+      <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)}
         className="w-full rounded border border-input-border bg-input-bg px-2 py-1.5 text-sm">
+        {!options.some(option => option.v === value) && <option value={value}>{value}</option>}
         {options.map((o) => <option key={o.v} value={o.v}>{o.l}</option>)}
       </select>
     </label>

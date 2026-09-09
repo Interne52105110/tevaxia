@@ -864,3 +864,14 @@ Validation robuste sur une entrée inconnue, sans coercition de chaînes en nomb
 Le contrôle des arrondis a reproduit une anomalie restante : quantité 1 × prix HT 1,005 devient 1,00 dans le moteur actuel. Les arrondis, remises XML et restitution PDF feront l’objet du lot suivant ; ils ne sont pas déclarés corrigés ici.
 
 API d4fa6ba publiée : CI 34410562093 réussie, dpl_HVnGdw6hJiwvpyzDQYmRZXrxPsB8 Ready ; contrôle production sans clé/clé fictive/sandbox = 401/401/403, OPTIONS 204.
+
+
+## 10 septembre — arrondis et cohérence écran/PDF/XML
+
+Moteur décimal exact (BigInt) pour prix × quantité × remise, arrondi de chaque ligne au centime, somme des lignes arrondies et TVA arrondie par catégorie/taux. Cas 1,005 → 1,01 corrigé ; résidus binaires éliminés. XML : prix unitaire net après remise et quantités/taux sans réduction silencieuse à quatre/deux décimales. PDF : mêmes montants de lignes, prix et quantités saisis conservés. Plafond opérationnel de conversion : 9 999 999 999,99 ; dépassement affiché indisponible et export bloqué dans le formulaire.
+
+Écran : affichage monétaire selon les cinq langues, remise visible/modifiable, taux enregistré hors liste conservé au lieu d’afficher une autre option ; champs numériques vides invalides, non transformés en zéro. Grille plus lisible, entête mobile sans débordement et libellés accessibles explicites.
+
+Dix tests nouveaux ; suite 1 360 tests / 129 fichiers, ciblés 52, lint et compilation réussis. Navigateur réel cinq langues × quatre largeurs : taux 20 conservé, remise 10 → 20 → 10 modifiant le TTC, montant effacé bloquant l’export, dépassement géré. PDF technique d’une page rendu et inspecté : lignes 1,01 / 0,60 / 0,02, HT 1,63, TVA 0,33, TTC 1,96. XML embarqué identique au standalone, totaux réconciliés. Exemple arithmétique fictif, pas une validation de l’application territoriale du taux. Aucun téléchargement ni sauvegarde de facture client exécuté pour la QA navigateur.
+
+Références des équations consultées : https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-10/ et https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-17/. Ce lot ne certifie pas le format Factur-X/Peppol ; revendications PDF/A, pagination/textes longs, modèles métier et historique restent à reprendre. Validation 61b45b0 publiée : CI 34411171766 réussie, dpl_Ha6EMwu83rsLKEdBjmP8vsGTK34B Ready.

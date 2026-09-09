@@ -12726,7 +12726,8 @@
         "vatCategory": "VAT cat.",
         "paymentReference": "Payment reference",
         "paymentTerms": "Payment terms",
-        "notesPlaceholder": "One mention per line (T&C, SEPA mandate, late penalties…)"
+        "notesPlaceholder": "One mention per line (T&C, SEPA mandate, late penalties…)",
+        "discount": "Discount (%)"
       },
       "vat": {
         "S": "Standard",
@@ -12745,7 +12746,8 @@
       },
       "validation": {
         "title": "Fix before generation:"
-      }
+      },
+      "calculationError": "Calculation unavailable: check the entered amounts and quantities."
     },
     "historique": {
       "back": "Back",

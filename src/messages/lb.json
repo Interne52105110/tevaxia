@@ -12604,7 +12604,8 @@
         "vatCategory": "TVA-Kat.",
         "paymentReference": "Bezuelungsreferenz",
         "paymentTerms": "Bezuelungskonditiounen",
-        "notesPlaceholder": "Eng Mentioun pro Zeile (CGV, SEPA-Mandat, Verspéidungspenalitéiten…)"
+        "notesPlaceholder": "Eng Mentioun pro Zeile (CGV, SEPA-Mandat, Verspéidungspenalitéiten…)",
+        "discount": "Remise (%)"
       },
       "vat": {
         "S": "Standard",
@@ -12623,7 +12624,8 @@
       },
       "validation": {
         "title": "Virun Generéierung ze korrigéieren:"
-      }
+      },
+      "calculationError": "Berechnung net disponibel: Kontrolléiert déi aginn Zommen a Quantitéiten."
     },
     "historique": {
       "back": "Zréck",

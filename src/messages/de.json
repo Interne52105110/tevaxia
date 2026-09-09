@@ -12604,7 +12604,8 @@
         "vatCategory": "MwSt-Kat.",
         "paymentReference": "Zahlungsreferenz",
         "paymentTerms": "Zahlungsbedingungen",
-        "notesPlaceholder": "Eine Erwähnung pro Zeile (AGB, SEPA-Mandat, Verzugsstrafen…)"
+        "notesPlaceholder": "Eine Erwähnung pro Zeile (AGB, SEPA-Mandat, Verzugsstrafen…)",
+        "discount": "Rabatt (%)"
       },
       "vat": {
         "S": "Standard",
@@ -12623,7 +12624,8 @@
       },
       "validation": {
         "title": "Vor Erzeugung korrigieren:"
-      }
+      },
+      "calculationError": "Berechnung nicht verfügbar: Prüfen Sie die eingegebenen Beträge und Mengen."
     },
     "historique": {
       "back": "Zurück",

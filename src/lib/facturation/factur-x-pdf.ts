@@ -19,6 +19,7 @@
 import { PDFDocument, PDFName, StandardFonts, rgb, AFRelationship } from "pdf-lib";
 import type { FacturXInvoice } from "./factur-x";
 import { buildFacturXCiiXml, computeTotals } from "./factur-x";
+import { invoiceDecimalText, invoiceLineAmount } from "./invoice-arithmetic";
 
 // ============================================================
 // Rendu visuel PDF
@@ -115,12 +116,11 @@ async function drawInvoice(pdf: PDFDocument, inv: FacturXInvoice): Promise<void>
 
   // Lines
   for (const l of inv.lines) {
-    const gross = l.quantity * l.unit_price_net;
-    const net = l.discount_percent ? gross * (1 - l.discount_percent / 100) : gross;
+    const net = invoiceLineAmount(l);
     const nameTrunc = l.name.length > 45 ? l.name.slice(0, 42) + "..." : l.name;
     page.drawText(nameTrunc, { x: M, y, size: 10, font, color: black });
-    page.drawText(l.quantity.toFixed(2), { x: 320, y, size: 10, font: mono, color: black });
-    page.drawText(l.unit_price_net.toFixed(2), { x: 370, y, size: 10, font: mono, color: black });
+    page.drawText(invoiceDecimalText(l.quantity), { x: 320, y, size: 10, font: mono, color: black });
+    page.drawText(invoiceDecimalText(l.unit_price_net), { x: 370, y, size: 10, font: mono, color: black });
     page.drawText(`${l.vat_rate_percent}%`, { x: 440, y, size: 10, font: mono, color: black });
     page.drawText(net.toFixed(2), { x: W - M - 60, y, size: 10, font: mono, color: black });
     y -= 16;

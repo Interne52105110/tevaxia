@@ -12726,7 +12726,8 @@
         "vatCategory": "Cat. TVA",
         "paymentReference": "Référence paiement",
         "paymentTerms": "Conditions de paiement",
-        "notesPlaceholder": "Une mention par ligne (CGV, mandat SEPA, pénalités de retard…)"
+        "notesPlaceholder": "Une mention par ligne (CGV, mandat SEPA, pénalités de retard…)",
+        "discount": "Remise (%)"
       },
       "vat": {
         "S": "Standard",
@@ -12745,7 +12746,8 @@
       },
       "validation": {
         "title": "À corriger avant génération :"
-      }
+      },
+      "calculationError": "Calcul indisponible : vérifiez les montants et les quantités saisis."
     },
     "historique": {
       "back": "Retour",
