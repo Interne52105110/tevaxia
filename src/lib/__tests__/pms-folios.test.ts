@@ -1,8 +1,8 @@
+import { CHARGE_CATEGORIES } from "../pms/charge-entry";
 import { describe, it, expect } from "vitest";
 import {
   groupChargesByCategory,
   computeVatBreakdown,
-  CATEGORY_DEFAULT_TVA,
   CATEGORY_LABELS,
   FB_CATEGORIES,
   OTHER_CATEGORIES,
@@ -38,21 +38,6 @@ function fakeCharge(overrides: Partial<PmsFolioCharge>): PmsFolioCharge {
   };
 }
 
-describe("CATEGORY_DEFAULT_TVA — taux LU", () => {
-  it("hébergement = 3%", () => {
-    expect(CATEGORY_DEFAULT_TVA.room).toBe(3);
-    expect(CATEGORY_DEFAULT_TVA.extra_bed).toBe(3);
-  });
-  it("F&B = 17%", () => {
-    expect(CATEGORY_DEFAULT_TVA.breakfast).toBe(17);
-    expect(CATEGORY_DEFAULT_TVA.dinner).toBe(17);
-    expect(CATEGORY_DEFAULT_TVA.bar).toBe(17);
-  });
-  it("taxe séjour = 0%", () => {
-    expect(CATEGORY_DEFAULT_TVA.taxe_sejour).toBe(0);
-  });
-});
-
 describe("FB_CATEGORIES vs OTHER_CATEGORIES sans chevauchement", () => {
   it("aucune catégorie dans les deux listes", () => {
     const overlap = FB_CATEGORIES.filter((c) => OTHER_CATEGORIES.includes(c));
@@ -62,13 +47,14 @@ describe("FB_CATEGORIES vs OTHER_CATEGORIES sans chevauchement", () => {
     expect(FB_CATEGORIES).toContain("breakfast");
     expect(FB_CATEGORIES).toContain("dinner");
     expect(FB_CATEGORIES).toContain("bar");
-    expect(FB_CATEGORIES).toContain("meeting_room");
+    expect(FB_CATEGORIES).not.toContain("meeting_room");
+    expect(OTHER_CATEGORIES).toContain("meeting_room");
   });
 });
 
 describe("CATEGORY_LABELS exhaustif", () => {
-  it("toutes les clés de CATEGORY_DEFAULT_TVA ont un label", () => {
-    for (const k of Object.keys(CATEGORY_DEFAULT_TVA)) {
+  it("toutes les catégories de saisie ont un label", () => {
+    for (const k of CHARGE_CATEGORIES) {
       expect(CATEGORY_LABELS[k as keyof typeof CATEGORY_LABELS]).toBeDefined();
     }
   });

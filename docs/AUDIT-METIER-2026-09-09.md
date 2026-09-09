@@ -709,3 +709,15 @@ Alertes (7540004) confirmées en production : CI 34389785747 réussie, Vercel dp
 - Vérification : 1 286 tests / 120 fichiers, 1 test Python, lint ciblé et build réussis ; composants réels page/parent/menu/PDF avec services simulés dans les cinq langues, quatre largeurs ; échantillon 30 chambres-nuitées/15 occupées = 50 %, 19 lignes dont 246,39 EUR hors taxe de séjour + 6 EUR = 252,39 EUR au total ; pagination 1 001 lignes et erreurs couvertes. Aucune écriture client effectuée pour les tests.
 
 Offre publique hôtel et guide (7c4eacb) confirmés en production : CI 34392746536, Vercel dpl_DoxNMXaWvj2PE1foPZSLvuS2UhwU Ready, 25 pages publiques revérifiées cinq langues/quatre largeurs.
+
+
+## PMS — saisie documentée des prestations et fiabilité des folios
+
+- Prix HT et TVA désormais saisis explicitement avec référence obligatoire, quantité visible, aperçu HT/TVA/TTC ; retrait des prix inventés et des taux imposés par catégorie. Un taux nul doit être justifié. Source : loi TVA 2026, annexe B (restauration distincte des boissons alcooliques).
+- Arrondis exacts en centimes : HT arrondi avant calcul de TVA, limites et précision conformes aux colonnes SQL. Exemple : 1,15 × 8,01 = 9,21 HT ; 17 % = 1,57 ; TTC 10,78. Ventilations additionnées en centimes, salle de réunion classée hors F&B.
+- Identité et propriété du folio ouvert contrôlées avant écriture ; verrou de formulaire et UUID stable pour reprise idempotente après erreur réseau. Une erreur conserve les saisies. Référence visible dans les lignes enregistrées.
+- Consulter un folio ou le POS ne crée plus de folio ni de prestations automatiquement. L’ouverture explicite ne réouvre pas un folio soldé. Lecture des lignes paginée, erreurs/troncatures refusées ; changement de compte ou réservation isolé.
+- Vérification : 1 295 tests / 121 fichiers (12 nouveaux tests, retrait de 3 tests qui consacraient les anciens taux incorrects), lint et build réussis. Dix parcours de composants réels avec services simulés, cinq langues, quatre largeurs ; références visibles, double clic, reprise réseau, changement d’identité et absence d’écriture à la consultation contrôlés. Débordement mobile du tableau des catégories corrigé. Aucune écriture de client réel pour la QA.
+- Limites restant à traiter : règlement/auto-posting SQL, génération des factures, exhaustivité du sélecteur de réservations POS. Ces contrôles clients ne certifient pas les RPC/RLS de production. Accès CLI Supabase indisponible (authentification absente), aucune migration SQL appliquée.
+
+Journal mensuel (db5191b) confirmé en production : CI 34394676709 réussie, Vercel dpl_9cdMsEtNPhTstKTNup4qE2dVdZy2 Ready, cinq parcours publics revérifiés.

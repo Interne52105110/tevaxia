@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, use, useCallback } from "react";
+import { useEffect, useMemo, useState, use, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
@@ -9,29 +9,18 @@ import { getProperty } from "@/lib/pms/properties";
 import { getReservation } from "@/lib/pms/reservations";
 import {
   getFolioByReservation, openFolio, autoPostRoomCharges,
-  listFolioCharges, postCharge, voidCharge, settleFolio,
+  listFolioCharges, voidCharge, settleFolio,
   groupChargesByCategory, computeVatBreakdown,
-  CATEGORY_LABELS, CATEGORY_DEFAULT_TVA,
 } from "@/lib/pms/folios";
 import type {
   PmsProperty, PmsReservation, PmsFolio, PmsFolioCharge, PmsChargeCategory,
 } from "@/lib/pms/types";
-import { formatEUR } from "@/lib/calculations";
+
 import { errMsg } from "@/lib/pms/errors";
 import { buildPmsFacturX } from "@/lib/facturation/factur-x-pms-builder";
 import { generateFacturXPdf } from "@/lib/facturation/factur-x-pdf";
+import ChargeEntry from "@/components/pms/ChargeEntry";
 import { track, captureError } from "@/lib/analytics";
-
-const QUICK_CATEGORIES: { cat: PmsChargeCategory; labelKey: string; defaultPrice: number }[] = [
-  { cat: "breakfast", labelKey: "quickBreakfast", defaultPrice: 15 },
-  { cat: "bar", labelKey: "quickBar", defaultPrice: 10 },
-  { cat: "minibar", labelKey: "quickMinibar", defaultPrice: 8 },
-  { cat: "parking", labelKey: "quickParking", defaultPrice: 12 },
-  { cat: "laundry", labelKey: "quickLaundry", defaultPrice: 20 },
-  { cat: "spa", labelKey: "quickSpa", defaultPrice: 40 },
-  { cat: "room_service", labelKey: "quickRoomService", defaultPrice: 25 },
-  { cat: "dinner", labelKey: "quickDinner", defaultPrice: 35 },
-];
 
 const STATUS_COLORS: Record<PmsFolio["status"], string> = {
   open: "bg-blue-100 text-blue-900",
@@ -69,11 +58,13 @@ const CATEGORY_KEY: Record<PmsChargeCategory, string> = {
   other: "catOther",
 };
 
-export default function FolioPage(props: { params: Promise<{ propertyId: string; resId: string }> }) {
+function FolioScreen(props: { params: Promise<{ propertyId: string; resId: string }> }) {
   const { propertyId, resId } = use(props.params);
   const router = useRouter();
   const t = useTranslations("pmsFolio");
+  const te = useTranslations("pmsChargeEntry");
   const locale = useLocale();
+  const formatEUR = (n: number) => new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
 
   const fmtDateTime = useCallback((s: string | null | undefined): string => {
@@ -89,117 +80,61 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showVoided, setShowVoided] = useState(false);
+  const mutationLock = useRef(false);
+  const [mutating, setMutating] = useState(false);
 
-  // Form posting
-  const [form, setForm] = useState<{
-    category: PmsChargeCategory; description: string;
-    quantity: string; unit_price_ht: string; tva_rate: string; notes: string;
-  }>({
-    category: "bar", description: "", quantity: "1", unit_price_ht: "",
-    tva_rate: String(CATEGORY_DEFAULT_TVA.bar), notes: "",
-  });
-
+  const request = useRef(0);
+  useEffect(() => () => { request.current++; }, []);
   const reload = useCallback(async () => {
     if (!propertyId || !resId) return;
-    setLoading(true);
+    const current = ++request.current;
+    setLoading(true); setError(null);
     try {
       const [p, r] = await Promise.all([getProperty(propertyId), getReservation(resId)]);
-      setProperty(p); setReservation(r);
-      let f = await getFolioByReservation(resId);
-      // Si pas de folio (réservation jamais check-in), on le crée manuellement
-      if (!f && r && (r.status === "checked_in" || r.status === "checked_out")) {
-        f = await openFolio(propertyId, resId);
-        if (f) await autoPostRoomCharges(f.id);
-        f = await getFolioByReservation(resId);
-      }
-      setFolio(f);
-      if (f) {
-        const cs = await listFolioCharges(f.id, showVoided);
-        setCharges(cs);
-      }
+      if (!p || !r || r.property_id !== propertyId) throw new Error("Property or reservation unavailable");
+      const f = await getFolioByReservation(resId);
+      if (f && f.property_id !== propertyId) throw new Error("Folio mismatch");
+      const cs = f ? await listFolioCharges(f.id, showVoided) : [];
+      groupChargesByCategory(cs); computeVatBreakdown(cs);
+      if (current !== request.current) return;
+      setProperty(p); setReservation(r); setFolio(f); setCharges(cs);
     } catch (e) {
-      setError(errMsg(e));
+      if (current === request.current) setError(errMsg(e));
     }
-    setLoading(false);
+    if (current === request.current) setLoading(false);
   }, [propertyId, resId, showVoided]);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- mount/dep-driven sync with external source (URL, localStorage, Supabase)
   useEffect(() => { if (!authLoading && user) void reload(); }, [user, authLoading, reload]);
 
   const handleOpenFolio = async () => {
-    if (!folio) {
-      try {
-        const f = await openFolio(propertyId, resId);
-        await autoPostRoomCharges(f.id);
-        await reload();
-      } catch (e) {
-        setError(errMsg(e));
-      }
-    }
-  };
-
-  const handlePost = async () => {
-    if (!folio) return;
-    if (!form.description.trim() || !form.unit_price_ht) {
-      setError(t("errDescPriceRequired"));
-      return;
-    }
+    if (folio || mutationLock.current) return;
+    mutationLock.current = true; setMutating(true);
     try {
-      await postCharge({
-        folio_id: folio.id,
-        category: form.category,
-        description: form.description,
-        quantity: Number(form.quantity) || 1,
-        unit_price_ht: Number(form.unit_price_ht),
-        tva_rate: Number(form.tva_rate),
-        notes: form.notes || undefined,
-      });
-      setForm({ ...form, description: "", unit_price_ht: "", notes: "" });
-      setError(null);
+      const f = await openFolio(propertyId, resId);
+      if (f.status === "open") await autoPostRoomCharges(f.id);
       await reload();
-    } catch (e) {
-      setError(errMsg(e));
-    }
+    } catch (e) { setError(errMsg(e)); }
+    finally { mutationLock.current = false; setMutating(false); }
   };
-
-  const handleQuickPost = async (qc: typeof QUICK_CATEGORIES[number]) => {
-    if (!folio) return;
-    try {
-      await postCharge({
-        folio_id: folio.id,
-        category: qc.cat,
-        description: t(qc.labelKey),
-        quantity: 1,
-        unit_price_ht: qc.defaultPrice / (1 + CATEGORY_DEFAULT_TVA[qc.cat] / 100),
-        tva_rate: CATEGORY_DEFAULT_TVA[qc.cat],
-      });
-      await reload();
-    } catch (e) {
-      setError(errMsg(e));
-    }
-  };
-
   const handleVoid = async (chargeId: string) => {
+    if (mutationLock.current) return;
     const reason = prompt(t("voidPrompt"));
-    if (!reason) return;
-    try {
-      await voidCharge(chargeId, reason);
-      await reload();
-    } catch (e) {
-      setError(errMsg(e));
-    }
+    if (!reason?.trim()) return;
+    mutationLock.current = true; setMutating(true);
+    try { await voidCharge(chargeId, reason.trim()); await reload(); }
+    catch (e) { setError(errMsg(e)); }
+    finally { mutationLock.current = false; setMutating(false); }
   };
-
   const handleSettle = async () => {
-    if (!folio) return;
+    if (!folio || mutationLock.current) return;
     if (!confirm(t("confirmSettle", { amount: formatEUR(folio.total_ttc) }))) return;
+    mutationLock.current = true; setMutating(true);
     try {
       const invoiceId = await settleFolio(folio.id);
       alert(t("factureGenerated"));
-      router.push(`/pms/${propertyId}/factures?invoice=${invoiceId}`);
-    } catch (e) {
-      setError(errMsg(e));
-    }
+      router.push(`${locale === "fr" ? "" : `/${locale}`}/pms/${propertyId}/factures?invoice=${invoiceId}`);
+    } catch (e) { setError(errMsg(e)); }
+    finally { mutationLock.current = false; setMutating(false); }
   };
 
   const handleFacturX = async () => {
@@ -253,6 +188,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
   const breakdown = useMemo(() => computeVatBreakdown(charges), [charges]);
 
   if (authLoading || loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
+  if (error && (!property || !reservation)) return <div className="p-6"><p role="alert">{te("error")}</p><button className="mt-3 underline" onClick={() => { void reload(); }}>{te("retry")}</button></div>;
   if (!user || !property || !reservation) return (
     <div className="mx-auto max-w-4xl px-4 py-12 text-center text-sm text-muted">
       <Link href="/connexion" className="text-navy underline">{t("signIn")}</Link>
@@ -263,9 +199,9 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
     <div className="mx-auto max-w-7xl px-4 py-8">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-xs text-muted">
-        <Link href={`/pms/${propertyId}`} className="hover:text-navy">{property.name}</Link>
+        <Link href={`${locale === "fr" ? "" : `/${locale}`}/pms/${propertyId}`} className="hover:text-navy">{property.name}</Link>
         <span>/</span>
-        <Link href={`/pms/${propertyId}/reservations/${resId}`} className="hover:text-navy">
+        <Link href={`${locale === "fr" ? "" : `/${locale}`}/pms/${propertyId}/reservations/${resId}`} className="hover:text-navy">
           {t("breadcrumbReservation", { n: reservation.reservation_number })}
         </Link>
         <span>/</span>
@@ -294,7 +230,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
               {t(STATUS_KEY[folio.status])}
             </span>
             {folio.status === "pending_settlement" && (
-              <button onClick={handleSettle}
+              <button disabled={mutating} onClick={handleSettle}
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
                 {t("btnGenerate")}
               </button>
@@ -307,7 +243,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
               </button>
             )}
             {folio.status === "settled" && folio.invoice_id && (
-              <Link href={`/pms/${propertyId}/factures?invoice=${folio.invoice_id}`}
+              <Link href={`${locale === "fr" ? "" : `/${locale}`}/pms/${propertyId}/factures?invoice=${folio.invoice_id}`}
                 className="rounded-lg border border-navy bg-white px-4 py-2 text-sm font-semibold text-navy">
                 {t("btnSeeInvoice")}
               </Link>
@@ -329,7 +265,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
               {t("preChargeHint")}
             </p>
           ) : null}
-          <button onClick={handleOpenFolio}
+          <button disabled={mutating} onClick={handleOpenFolio}
             className="mt-4 rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light">
             {t("btnOpenFolio")}
           </button>
@@ -348,59 +284,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
               highlight sub={folio.balance_due > 0 ? t("kpiBalanceRemaining") : t("kpiSettled")} t={t} />
           </div>
 
-          {/* Quick post buttons */}
-          {folio.status === "open" && (
-            <div className="mt-6">
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">{t("quickPostTitle")}</div>
-              <div className="flex flex-wrap gap-2">
-                {QUICK_CATEGORIES.map((qc) => (
-                  <button key={qc.cat} onClick={() => handleQuickPost(qc)}
-                    className="rounded-lg border border-card-border bg-card px-3 py-2 text-xs font-semibold text-navy hover:border-navy">
-                    {t("quickPostBtn", { label: t(qc.labelKey) })} <span className="text-[10px] text-muted">{t("quickPostBtnPrice", { amount: formatEUR(qc.defaultPrice) })}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Form custom post */}
-          {folio.status === "open" && (
-            <div className="mt-4 rounded-xl border border-card-border bg-card p-4">
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">{t("customPostTitle")}</div>
-              <div className="grid gap-3 sm:grid-cols-6">
-                <select value={form.category}
-                  onChange={(e) => {
-                    const cat = e.target.value as PmsChargeCategory;
-                    setForm((f) => ({ ...f, category: cat, tva_rate: String(CATEGORY_DEFAULT_TVA[cat]) }));
-                  }}
-                  className="rounded-lg border border-input-border bg-input-bg px-2 py-2 text-sm">
-                  {(Object.keys(CATEGORY_LABELS) as PmsChargeCategory[])
-                    .filter((c) => c !== "room" && c !== "taxe_sejour")
-                    .map((c) => (
-                      <option key={c} value={c}>{t(CATEGORY_KEY[c])}</option>
-                    ))}
-                </select>
-                <input type="text" placeholder={t("fDescription")} value={form.description}
-                  onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="sm:col-span-2 rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm" />
-                <input type="number" placeholder={t("fQty")} value={form.quantity} step={0.5}
-                  onChange={(e) => setForm({ ...form, quantity: e.target.value })}
-                  className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm text-right font-mono" />
-                <input type="number" placeholder={t("fPuHt")} value={form.unit_price_ht} step={0.01}
-                  onChange={(e) => setForm({ ...form, unit_price_ht: e.target.value })}
-                  className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm text-right font-mono" />
-                <input type="number" placeholder={t("fTva")} value={form.tva_rate} step={0.5}
-                  onChange={(e) => setForm({ ...form, tva_rate: e.target.value })}
-                  className="rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm text-right font-mono" />
-              </div>
-              <div className="mt-3 flex justify-end">
-                <button onClick={handlePost}
-                  className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light">
-                  {t("btnPost")}
-                </button>
-              </div>
-            </div>
-          )}
+          {folio.status === "open" && <ChargeEntry key={folio.id} userId={user.id} folioId={folio.id} onPosted={() => { void reload(); }} />}
 
           {/* Charges table */}
           <div className="mt-6 flex items-center justify-between">
@@ -445,6 +329,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
                       </td>
                       <td className="px-3 py-2">
                         <div className="font-medium">{c.description}</div>
+                        {c.notes && <div className="mt-1 max-w-sm whitespace-pre-wrap text-xs text-muted [overflow-wrap:anywhere]">{te("reference")} : {c.notes}</div>}
                         {c.source && c.source !== "manual" && (
                           <div className="text-[9px] text-muted uppercase">{c.source.replace("_", " ")}</div>
                         )}
@@ -457,7 +342,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
                       <td className="px-3 py-2 text-right font-mono text-xs font-semibold text-navy">{formatEUR(Number(c.line_ttc))}</td>
                       <td className="px-3 py-2 text-right">
                         {!c.voided && folio.status === "open" && (
-                          <button onClick={() => handleVoid(c.id)}
+                          <button disabled={mutating} onClick={() => handleVoid(c.id)}
                             className="text-[10px] text-rose-700 hover:underline">{t("btnVoid")}</button>
                         )}
                       </td>
@@ -478,7 +363,7 @@ export default function FolioPage(props: { params: Promise<{ propertyId: string;
 
           {/* Récap par catégorie */}
           {Object.keys(grouped).length > 0 && (
-            <div className="mt-6 rounded-xl border border-card-border bg-card p-4">
+            <div tabIndex={0} role="region" aria-label={t("breakdownTitle")} className="mt-6 overflow-x-auto rounded-xl border border-card-border bg-card p-4">
               <h2 className="text-sm font-bold uppercase tracking-wider text-navy mb-3">{t("breakdownTitle")}</h2>
               <table className="w-full text-sm">
                 <thead>
@@ -518,6 +403,8 @@ function KpiCard({ label, ht, ttc, sub, highlight = false, t }: {
   label: string; ht: number; ttc: number; sub?: string; highlight?: boolean;
   t: (key: string, values?: Record<string, string | number>) => string;
 }) {
+  const locale = useLocale();
+  const formatEUR = (n: number) => new Intl.NumberFormat(locale === "lb" ? "de-LU" : locale, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
   return (
     <div className={`rounded-xl border p-3 ${highlight ? "border-navy bg-navy text-white" : "border-card-border bg-card"}`}>
       <div className={`text-[10px] uppercase tracking-wider ${highlight ? "text-white/70" : "text-muted"}`}>{label}</div>
@@ -527,4 +414,12 @@ function KpiCard({ label, ht, ttc, sub, highlight = false, t }: {
       </div>
     </div>
   );
+}
+
+export default function FolioPage(props: { params: Promise<{ propertyId: string; resId: string }> }) {
+  const ids = use(props.params), { user, loading } = useAuth();
+  const t = useTranslations("pmsFolio"), locale = useLocale();
+  if (loading) return <p className="p-6">{t("loading")}</p>;
+  if (!user) return <div className="p-6"><h1 className="text-2xl font-bold">{t("title")}</h1><Link className="mt-4 inline-block underline" href={`${locale === "fr" ? "" : `/${locale}`}/connexion`}>{t("signIn")}</Link></div>;
+  return <FolioScreen key={`${user.id}:${ids.propertyId}:${ids.resId}`} {...props} />;
 }

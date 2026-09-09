@@ -118,6 +118,7 @@ export const CLIENT_NAMESPACES = [
   "plusValuesAudit",
   "pms",
   "pmsChannels",
+  "pmsChargeEntry",
   "pmsContextBar",
   "pmsFolio",
   "pmsForecast",
