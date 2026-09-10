@@ -3,7 +3,7 @@
 // ============================================================
 // Spécificités luxembourgeoises prises en compte :
 // - plafond légal de loyer basé sur 5 % du capital investi réévalué
-// - impact classe énergétique (Klimabonus en rénovation)
+// - énergie : indicateur de priorité de vérification, sans droit aux aides calculé
 // - aides communales / Habitat Abordable
 
 import { calculerCapitalInvesti } from "./calculations";
@@ -12,7 +12,7 @@ import { supabase } from "./supabase";
 const STORAGE_KEY = "tevaxia_rental_properties";
 const CLOUD_CAP = 500;
 
-export type EnergyClass = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "NC";
+export type EnergyClass = "A+" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "NC";
 
 export interface RentalLot {
   id: string;
@@ -54,10 +54,8 @@ export interface LotAnalysis {
   plafondComplet: boolean;
 
   rendementBrutPct: number; // loyerAnnuel / prixAcquisition
-  rendementNetApproximatif: number; // brut - 1.5% charges
 
-  klimabonusEligible: boolean; // classes E/F/G éligibles à la rénovation
-  klimabonusMessage?: string;
+  renovationPriority: boolean; // Internal review flag, never a grant eligibility decision.
 }
 
 export interface PortfolioSummary {
@@ -69,7 +67,7 @@ export interface PortfolioSummary {
   capitalTotal: number;
   rendementBrutMoyen: number;
   lotsHorsPlafond: number;
-  lotsKlimabonus: number;
+  lotsRenovationPriority: number;
 }
 
 // ---------- Storage ----------
@@ -91,7 +89,7 @@ function validateLots(value: unknown): asserts value is RentalLot[] {
     for (const key of ['surface','prixAcquisition','anneeAcquisition','travauxMontant','travauxAnnee','loyerMensuelActuel','chargesMensuelles']) {
       if (typeof row[key] !== 'number' || !Number.isFinite(row[key]) || row[key] < 0) throw new Error('Invalid rental amount');
     }
-    if (typeof row.vacant !== 'boolean' || typeof row.estMeuble !== 'boolean' || !['A','B','C','D','E','F','G','NC'].includes(row.classeEnergie)) throw new Error('Invalid rental characteristics');
+    if (typeof row.vacant !== 'boolean' || typeof row.estMeuble !== 'boolean' || !['A+','A','B','C','D','E','F','G','H','I','NC'].includes(row.classeEnergie)) throw new Error('Invalid rental characteristics');
     if (typeof row.createdAt !== 'string' || typeof row.updatedAt !== 'string' || !Number.isFinite(Date.parse(row.createdAt)) || !Number.isFinite(Date.parse(row.updatedAt))) throw new Error('Invalid rental dates');
   }
 }
@@ -230,7 +228,7 @@ export function analyzeLot(lot: RentalLot): LotAnalysis {
     anneeBail: currentYear,
     surfaceHabitable: lot.surface,
     appliquerVetuste: true,
-    tauxVetusteAnnuel: 0.01,
+    tauxVetusteAnnuel: 0.01, // Legacy required argument; the shared engine applies its own depreciation rules.
     estMeuble: lot.estMeuble,
   });
 
@@ -243,10 +241,7 @@ export function analyzeLot(lot: RentalLot): LotAnalysis {
     ? loyerAnnuelActuel / lot.prixAcquisition
     : 0;
 
-  const klimabonusEligible = ["E", "F", "G"].includes(lot.classeEnergie);
-  const klimabonusMessage = klimabonusEligible
-    ? "Classe énergie E/F/G — rénovation énergétique éligible Klimabonus (jusqu'à 65 % des travaux + prime CO₂)."
-    : undefined;
+  const renovationPriority = ["E", "F", "G", "H", "I"].includes(lot.classeEnergie);
 
   return {
     lot,
@@ -256,9 +251,7 @@ export function analyzeLot(lot: RentalLot): LotAnalysis {
     plafondComplet: capital.donneesCompletes,
     depasseLegal: capital.donneesCompletes && lot.loyerMensuelActuel > capital.loyerMensuelMax && capital.loyerMensuelMax > 0,
     rendementBrutPct,
-    rendementNetApproximatif: Math.max(0, rendementBrutPct - 0.015),
-    klimabonusEligible,
-    klimabonusMessage,
+    renovationPriority,
   };
 }
 
@@ -278,6 +271,6 @@ export function summarize(lots: RentalLot[]): PortfolioSummary {
     capitalTotal,
     rendementBrutMoyen,
     lotsHorsPlafond: analyses.filter((a) => a.depasseLegal).length,
-    lotsKlimabonus: analyses.filter((a) => a.klimabonusEligible).length,
+    lotsRenovationPriority: analyses.filter((a) => a.renovationPriority).length,
   };
 }

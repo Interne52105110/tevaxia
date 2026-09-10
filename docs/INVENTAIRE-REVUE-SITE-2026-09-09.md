@@ -655,3 +655,16 @@ Sauvegarde de métadonnées liée à un jeton de session capturé et vérifié p
 Validation : 16 nouveaux tests, suite 1 558 tests / 145 fichiers réussie ; lint sans avertissement, compilation réussie. Fixture cinq langues : lecture refusée, champs bloqués tant que non chargés, changement de compte, fin de requête tardive, refus d’enregistrement sans faux succès, saisies préservées. Parcours publics profil/valorisation/nouveau lot cinq langues/quatre largeurs sans débordement ni erreur de page.
 
 Lots locatifs 6bef222 publiés : CI 34426893810 réussie, dpl_6ED6hwmvt6hcNFXtuVVRyC4GG2Te Ready. Portefeuille/nouveau lot en production cinq langues/quatre largeurs sans erreur. Les essais d’écritures restent simulés.
+
+
+## 10 septembre — indications métier du portefeuille locatif
+
+Classe énergétique : prise en charge A+ à I (et NC). Le repère E à I devient une priorité de vérification de rénovation, sans attribution d’éligibilité ou de montant Klimabonus. Suppression des messages « 65 % + prime CO₂ » et de la promesse de hausse de valeur. Messages traduits et liens vers les conditions officielles. Source Energiepass : https://guichet.public.lu/fr/citoyens/logement/acquisition/performances-energie/demande-passeport-energetique.html ; conditions rénovation 2026 : https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html (âge, caractéristiques des travaux, calendrier et accord préalable sont distincts de la classe).
+
+Retrait du « net approximatif = brut − 1,5 point », faute de dépenses réelles : net non calculé. Brut potentiel du lot et brut du portefeuille occupé restent distingués. Aucune conformité affirmée lorsque les données du plafond sont incomplètes. Le paramètre legacy tauxVetusteAnnuel reste transmis pour compatibilité du type ; le moteur partagé applique ses propres règles et n’est pas modifié ici.
+
+FAQ/texte SEO du hub dans cinq langues : retrait des affirmations de rendement maximal de 5 % du prix d’achat, vétusté forfaitaire libre de 1 %, supplément meublé automatique de 10 %, absence de toute transmission en ligne. La base du rendement et celle du plafond légal sont distinguées ; données manquantes et parcours de vérification explicités. Le fonctionnement cloud/local décrit correspond au nouveau stockage par compte. Références : https://logement.public.lu/fr/proprietaire/logement-location/faq-bail-a-loyer.html et https://guichet.public.lu/fr/citoyens/logement/location/contrat-litige/conclure-contrat-bail-location.html . Ce lot ne certifie pas tous les contrats/baux générés ni les autres pages fiscales.
+
+Validation : 1 561 tests / 145 fichiers réussis, dont trois cas supplémentaires A+/H/I et assertions métier actualisées. Lint propre ; compilation finale réussie après maintien du paramètre legacy requis. Fixture cinq langues avec véritables analyzeLot/summarize/InputField : priorité de rénovation, absence de faux net et de droit aux aides, options A+/H/I, source officielle. Hub public local cinq langues/quatre largeurs, sections/FAQ révisées et liens officiels vérifiés.
+
+Profil ef18a54 publié : CI 34427678853 réussie, dpl_DRNriAYhrEwSQnYSxmAvtgdhwnkb Ready. Parcours production profil/valorisation/nouveau lot cinq langues/quatre largeurs réussi.

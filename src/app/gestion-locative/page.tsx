@@ -134,6 +134,10 @@ export default function GestionLocativeLanding() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-5xl px-4 py-6 flex flex-wrap gap-4 text-sm">
+        <a className="underline" href="https://logement.public.lu/fr/proprietaire/logement-location/faq-bail-a-loyer.html">{t("officialRent")}</a>
+        <a className="underline" href="https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html">{t("officialEnergy")}</a>
+      </div>
       <SEOContent
         ns="gestionLocative"
         sections={[

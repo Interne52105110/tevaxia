@@ -31,6 +31,7 @@ function LotEditPageContent() {
   const currentYear = new Date().getFullYear();
 
   const ENERGY_CLASSES: Array<{ value: EnergyClass; label: string }> = [
+    { value: "A+", label: "A+" },
     { value: "A", label: t("energyA") },
     { value: "B", label: t("energyB") },
     { value: "C", label: t("energyC") },
@@ -38,6 +39,8 @@ function LotEditPageContent() {
     { value: "E", label: t("energyE") },
     { value: "F", label: t("energyF") },
     { value: "G", label: t("energyG") },
+    { value: "H", label: "H" },
+    { value: "I", label: "I" },
     { value: "NC", label: t("energyNC") },
   ];
 
@@ -256,7 +259,7 @@ function LotEditPageContent() {
                 </div>
                 <div>
                   <div className="text-xs text-muted">{t("yieldNetApprox")}</div>
-                  <div className="text-lg font-bold text-navy">{formatPct(analysis.rendementNetApproximatif)}</div>
+                  <div className="text-lg font-bold text-navy">{t("yieldUnavailable")}</div>
                 </div>
               </div>
               <p className="mt-3 text-xs text-muted">
@@ -264,11 +267,11 @@ function LotEditPageContent() {
               </p>
             </div>
 
-            {analysis.klimabonusMessage && (
+            {analysis.renovationPriority && (
               <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
                 <div className="font-semibold">{t("klimaOpportunity")}</div>
-                <div className="mt-1 text-xs">{analysis.klimabonusMessage}</div>
-                <Link href={`${lp}/simulateur-aides`} className="mt-2 inline-flex text-xs font-medium text-emerald-900 underline hover:no-underline">
+                <div className="mt-1 text-xs">{t("renovationNote")}</div>
+                <Link href="https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html" className="mt-2 inline-flex text-xs font-medium text-emerald-900 underline hover:no-underline">
                   {t("klimaCta")}
                 </Link>
               </div>

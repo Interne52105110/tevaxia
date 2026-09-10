@@ -26,7 +26,7 @@ describe("analyzeLot", () => {
     const r = analyzeLot(mkLot());
     expect(r.loyerLegalMensuelMax).toBeGreaterThan(0);
     expect(r.rendementBrutPct).toBeGreaterThan(0);
-    expect(r.rendementNetApproximatif).toBeGreaterThanOrEqual(0);
+    expect(r).not.toHaveProperty("rendementNetApproximatif");
   });
 
   it("does not certify legal overage with missing construction data", () => {
@@ -43,19 +43,19 @@ describe("analyzeLot", () => {
     expect(r.ecartLegalPct).toBeLessThan(0);
   });
 
-  it("flags class E/F/G as Klimabonus-eligible", () => {
-    for (const classe of ["E", "F", "G"] as const) {
+  it("flags E through I for renovation review without deciding grant eligibility", () => {
+    for (const classe of ["E", "F", "G", "H", "I"] as const) {
       const r = analyzeLot(mkLot({ classeEnergie: classe }));
-      expect(r.klimabonusEligible).toBe(true);
-      expect(r.klimabonusMessage).toBeTruthy();
+      expect(r.renovationPriority).toBe(true);
+      expect(r).not.toHaveProperty("klimabonusEligible");
     }
   });
 
-  it("does NOT flag class A/B/C/D as Klimabonus-eligible", () => {
-    for (const classe of ["A", "B", "C", "D"] as const) {
+  it("does not assign a renovation priority to A+ through D", () => {
+    for (const classe of ["A+", "A", "B", "C", "D"] as const) {
       const r = analyzeLot(mkLot({ classeEnergie: classe }));
-      expect(r.klimabonusEligible).toBe(false);
-      expect(r.klimabonusMessage).toBeUndefined();
+      expect(r.renovationPriority).toBe(false);
+      expect(r).not.toHaveProperty("klimabonusEligible");
     }
   });
 
@@ -98,7 +98,7 @@ describe("summarize", () => {
       mkLot({ id: "b", classeEnergie: "F" }),
       mkLot({ id: "c", classeEnergie: "G" }),
     ]);
-    expect(s.lotsKlimabonus).toBe(2);
+    expect(s.lotsRenovationPriority).toBe(2);
   });
 
   it("does not certify incomplete lots as above the legal ceiling", () => {

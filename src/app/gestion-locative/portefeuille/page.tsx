@@ -119,13 +119,13 @@ function PortefeuillePageContent() {
                     {t("alertOffLimit", { n: summary.lotsHorsPlafond })}
                   </span>
                 )}
-                {summary.lotsKlimabonus > 0 && (
+                {summary.lotsRenovationPriority > 0 && (
                   <span className="rounded-full bg-amber-100 text-amber-800 px-2 py-0.5 text-xs font-medium">
-                    {t("alertKlimabonus", { n: summary.lotsKlimabonus })}
+                    {t("alertKlimabonus", { n: summary.lotsRenovationPriority })}
                   </span>
                 )}
-                {summary.lotsHorsPlafond === 0 && summary.lotsKlimabonus === 0 && (
-                  <span className="text-xs text-emerald-700">{t("alertCompliant")}</span>
+                {summary.lotsHorsPlafond === 0 && summary.lotsRenovationPriority === 0 && (
+                  <span className="text-xs text-amber-800">{analyses.some(a=>!a.plafondComplet) ? t("alertIncomplete") : t("alertCompliant")}</span>
                 )}
               </div>
             </div>
@@ -161,7 +161,7 @@ function PortefeuillePageContent() {
                         </span>
                         {l.vacant && <span className="rounded-full bg-amber-100 text-amber-800 px-2 py-0.5 text-[10px] font-semibold">{t("badgeVacant")}</span>}
                         {a.depasseLegal && <span className="rounded-full bg-rose-100 text-rose-800 px-2 py-0.5 text-[10px] font-semibold">{t("badgeOffLimit")}</span>}
-                        {a.klimabonusEligible && <span className="rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-semibold">{t("badgeKlimabonus")}</span>}
+                        {a.renovationPriority && <span className="rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-semibold">{t("badgeKlimabonus")}</span>}
                       </div>
                       <div className="mt-1 text-xs text-muted">
                         {l.address ? `${l.address}${l.commune ? " · " : ""}` : ""}{l.commune ?? ""}
@@ -212,9 +212,9 @@ function PortefeuillePageContent() {
                   </div>
 
                   {!a.plafondComplet && <p className="mt-3 text-xs text-amber-800">{tl("donneesIncompletes")} <Link className="underline" href={`${lp}/calculateur-loyer`}>{tl("title")}</Link></p>}
-                  {a.klimabonusMessage && (
+                  {a.renovationPriority && (
                     <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-2 text-xs text-emerald-900">
-                      🌱 {a.klimabonusMessage}
+                      {t("renovationNote")} <a className="underline" href="https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html">{t("renovationSource")}</a>
                     </div>
                   )}
                   {a.depasseLegal && (
@@ -238,6 +238,7 @@ function PortefeuillePageContent() {
 
 function classeColor(c: string): string {
   const map: Record<string, string> = {
+    "A+": "bg-emerald-100 text-emerald-800",
     A: "bg-emerald-100 text-emerald-800",
     B: "bg-emerald-100 text-emerald-800",
     C: "bg-lime-100 text-lime-800",
@@ -245,6 +246,8 @@ function classeColor(c: string): string {
     E: "bg-amber-100 text-amber-800",
     F: "bg-orange-100 text-orange-800",
     G: "bg-rose-100 text-rose-800",
+    H: "bg-rose-100 text-rose-800",
+    I: "bg-rose-100 text-rose-800",
     NC: "bg-slate-100 text-slate-700",
   };
   return map[c] ?? "bg-slate-100 text-slate-700";
