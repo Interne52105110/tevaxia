@@ -18,7 +18,6 @@ import DashboardHero from "@/components/profil/DashboardHero";
 import WorkspacesGrid from "@/components/profil/WorkspacesGrid";
 import ProfileTypeSelector from "@/components/profil/ProfileTypeSelector";
 import type { ProfileType } from "@/lib/profile-types";
-import { errMsg } from "@/lib/errors";
 
 // ============================================================
 // MARKET ALERTS TYPES & SECTION
@@ -687,30 +686,10 @@ function ProfileContent() {
 
 function SecuritySection() {
   const t = useTranslations("profil.security");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
+  const { signOutAll, signingOut } = useAuth();
   const handleGlobalSignOut = async () => {
-    if (!supabase) return;
     if (!confirm(t("confirmRevokeAll"))) return;
-    setLoading(true);
-    setError(null);
-    setMessage(null);
-    try {
-      // scope: 'global' révoque TOUS les refresh tokens de l'utilisateur
-      // sur tous les appareils + ce navigateur
-      const { error } = await supabase.auth.signOut({ scope: "global" });
-      if (error) throw error;
-      setMessage(t("revokedOk"));
-      // Redirection après 1,5s pour que le user voie le message
-      setTimeout(() => {
-        window.location.href = "/connexion?revoked=1";
-      }, 1500);
-    } catch (e) {
-      setError(errMsg(e, "Erreur"));
-      setLoading(false);
-    }
+    await signOutAll();
   };
 
   return (
@@ -722,14 +701,14 @@ function SecuritySection() {
         <div className="flex-1">
           <h3 className="text-sm font-semibold text-amber-900">{t("title")}</h3>
           <p className="mt-1 text-xs text-amber-800">{t("description")}</p>
-          {message && <p className="mt-2 text-xs text-emerald-700 font-medium">{message}</p>}
-          {error && <p className="mt-2 text-xs text-rose-700 font-medium">{error}</p>}
+
+
           <button
             onClick={handleGlobalSignOut}
-            disabled={loading}
+            disabled={signingOut}
             className="mt-3 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-900 hover:bg-amber-100 disabled:opacity-50"
           >
-            {loading ? t("loading") : t("revokeAllCta")}
+            {signingOut ? t("loading") : t("revokeAllCta")}
           </button>
         </div>
       </div>

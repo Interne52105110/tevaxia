@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Connexion() {
   const t = useTranslations("connexion");
-  const { user, signOut, loading: authLoading } = useAuth();
+  const { user, signOut, signingOut, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profession, setProfession] = useState("");
@@ -86,7 +86,7 @@ export default function Connexion() {
                   {t("myEvaluations")}
                 </Link>
               )}
-              <button onClick={signOut} className="block w-full rounded-lg border border-card-border px-4 py-2.5 text-sm font-medium text-muted hover:bg-background transition-colors">
+              <button onClick={signOut} disabled={signingOut} className="block w-full rounded-lg border border-card-border px-4 py-2.5 text-sm font-medium text-muted hover:bg-background transition-colors">
                 {t("signOut")}
               </button>
             </div>

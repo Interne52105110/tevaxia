@@ -114,7 +114,12 @@
     "termsOfUse": "Conditions générales d’utilisation",
     "footerSolutions": "Solutions",
     "siteMap": "Plan du site",
-    "cookieSettings": "Réglages des cookies"
+    "cookieSettings": "Réglages des cookies",
+    "signedOut": "Ce navigateur a été déconnecté.",
+    "signedOutAll": "Les sessions de ce compte ne peuvent plus être renouvelées. Les jetons d’accès déjà délivrés restent valides jusqu’à leur expiration.",
+    "signOutFailed": "La déconnexion de ce navigateur n’a pas pu être terminée. Réessayez.",
+    "signOutRemoteUnconfirmed": "Ce navigateur est déconnecté. La révocation côté serveur n’a pas pu être confirmée.",
+    "signOutSyncUnconfirmed": "Ce navigateur est déconnecté, mais la synchronisation avec les autres onglets n’a pas pu être confirmée."
   },
   "home": {
     "heroTitle": "L'analyse immobilière du Luxembourg,",
@@ -5082,10 +5087,10 @@
     "unsavedChanges": "Modifications non enregistrées",
     "security": {
       "title": "Sécurité du compte",
-      "description": "En cas de suspicion de compromission (mot de passe divulgué, appareil perdu, connexion suspecte), révoquez toutes vos sessions actives. Vous devrez vous reconnecter sur tous vos appareils.",
-      "revokeAllCta": "🚨 Déconnecter toutes mes sessions",
-      "confirmRevokeAll": "Confirmer : déconnecter toutes vos sessions sur tous les appareils ? Vous devrez vous reconnecter.",
-      "revokedOk": "✓ Toutes les sessions ont été révoquées. Redirection en cours...",
+      "description": "Cette action révoque le renouvellement des sessions de ce compte sur tous les appareils et déconnecte ce navigateur. Les jetons d’accès existants restent valides jusqu’à leur expiration.",
+      "revokeAllCta": "Révoquer toutes mes sessions",
+      "confirmRevokeAll": "Révoquer le renouvellement de toutes vos sessions et déconnecter ce navigateur ?",
+      "revokedOk": "Les sessions de ce compte ne peuvent plus être renouvelées. Les jetons d’accès déjà délivrés restent valides jusqu’à leur expiration.",
       "loading": "Révocation..."
     },
     "invoices": {

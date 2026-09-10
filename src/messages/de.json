@@ -114,7 +114,12 @@
     "termsOfUse": "Nutzungsbedingungen",
     "footerSolutions": "Lösungen",
     "siteMap": "Seitenübersicht",
-    "cookieSettings": "Cookie-Einstellungen"
+    "cookieSettings": "Cookie-Einstellungen",
+    "signedOut": "Dieser Browser wurde abgemeldet.",
+    "signedOutAll": "Sitzungen dieses Kontos können nicht mehr erneuert werden. Bereits ausgestellte Zugriffstoken bleiben bis zu ihrem Ablauf gültig.",
+    "signOutFailed": "Die Abmeldung dieses Browsers konnte nicht abgeschlossen werden. Bitte erneut versuchen.",
+    "signOutRemoteUnconfirmed": "Dieser Browser ist abgemeldet. Der serverseitige Widerruf konnte nicht bestätigt werden.",
+    "signOutSyncUnconfirmed": "Dieser Browser ist abgemeldet, die Synchronisierung mit anderen Tabs konnte jedoch nicht bestätigt werden."
   },
   "home": {
     "heroTitle": "Luxemburger Immobilienanalyse,",
@@ -5082,10 +5087,10 @@
     "unsavedChanges": "Ungespeicherte Änderungen",
     "security": {
       "title": "Kontosicherheit",
-      "description": "Bei Verdacht auf Kompromittierung alle aktiven Sitzungen widerrufen. Sie müssen sich auf allen Geräten neu anmelden.",
-      "revokeAllCta": "🚨 Alle Sitzungen abmelden",
-      "confirmRevokeAll": "Alle Sitzungen auf allen Geräten abmelden?",
-      "revokedOk": "✓ Alle Sitzungen widerrufen. Weiterleitung...",
+      "description": "Dies widerruft die Sitzungserneuerung für dieses Konto auf allen Geräten und meldet diesen Browser ab. Bestehende Zugriffstoken bleiben bis zu ihrem Ablauf gültig.",
+      "revokeAllCta": "Alle meine Sitzungen widerrufen",
+      "confirmRevokeAll": "Die Erneuerung aller Ihrer Sitzungen widerrufen und diesen Browser abmelden?",
+      "revokedOk": "Sitzungen dieses Kontos können nicht mehr erneuert werden. Bereits ausgestellte Zugriffstoken bleiben bis zu ihrem Ablauf gültig.",
       "loading": "Widerrufen..."
     },
     "invoices": {

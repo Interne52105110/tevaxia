@@ -114,7 +114,12 @@
     "termsOfUse": "Benotzungsbedéngungen",
     "footerSolutions": "Léisungen",
     "siteMap": "Säiteniwwersiicht",
-    "cookieSettings": "Cookie-Astellungen"
+    "cookieSettings": "Cookie-Astellungen",
+    "signedOut": "Dëse Browser gouf ofgemellt.",
+    "signedOutAll": "Sessioune vun dësem Kont kënnen net méi erneiert ginn. Schonn ausgestallten Zougrëffstoken bleiwe bis zu hirem Oflaf valabel.",
+    "signOutFailed": "D’Ofmeldung vun dësem Browser konnt net ofgeschloss ginn. Probéiert nach eng Kéier.",
+    "signOutRemoteUnconfirmed": "Dëse Browser ass ofgemellt. De Widderruff um Server konnt net bestätegt ginn.",
+    "signOutSyncUnconfirmed": "Dëse Browser ass ofgemellt, mee d’Synchroniséierung mat aneren Tabs konnt net bestätegt ginn."
   },
   "home": {
     "heroTitle": "D'Immobilien-Analyse vu Lëtzebuerg,",
@@ -5082,10 +5087,10 @@
     "unsavedChanges": "Net gespäichert Ännerungen",
     "security": {
       "title": "Sécurité vum Kont",
-      "description": "Bei Verdacht op Kompromëtt all aktiv Sessiounen ofmellen. Dir musst Iech op all Apparat nei umellen.",
-      "revokeAllCta": "🚨 All Sessiounen ofmellen",
-      "confirmRevokeAll": "Confirméieren: all Sessiounen op all Apparater ofmellen?",
-      "revokedOk": "✓ All Sessiounen ofgemellt. Weiderleedung...",
+      "description": "Dës Aktioun widderrifft d’Erneierung vun de Sessioune vun dësem Kont op allen Apparater a mellt dëse Browser of. Bestehend Zougrëffstoken bleiwe bis zu hirem Oflaf valabel.",
+      "revokeAllCta": "All meng Sessioune widderruffen",
+      "confirmRevokeAll": "D’Erneierung vun all Äre Sessioune widderruffen an dëse Browser ofmellen?",
+      "revokedOk": "Sessioune vun dësem Kont kënnen net méi erneiert ginn. Schonn ausgestallten Zougrëffstoken bleiwe bis zu hirem Oflaf valabel.",
       "loading": "Ofmellen..."
     },
     "invoices": {

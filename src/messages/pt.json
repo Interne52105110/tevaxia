@@ -114,7 +114,12 @@
     "termsOfUse": "Condições de utilização",
     "footerSolutions": "Soluções",
     "siteMap": "Mapa do site",
-    "cookieSettings": "Definições de cookies"
+    "cookieSettings": "Definições de cookies",
+    "signedOut": "Este navegador terminou a sessão.",
+    "signedOutAll": "As sessões desta conta já não podem ser renovadas. Os tokens de acesso emitidos continuam válidos até expirarem.",
+    "signOutFailed": "Não foi possível terminar a sessão neste navegador. Tente novamente.",
+    "signOutRemoteUnconfirmed": "A sessão terminou neste navegador. Não foi possível confirmar a revogação no servidor.",
+    "signOutSyncUnconfirmed": "A sessão terminou neste navegador, mas não foi possível confirmar a sincronização com outros separadores."
   },
   "home": {
     "heroTitle": "Análise imobiliária do Luxemburgo,",
@@ -5082,10 +5087,10 @@
     "unsavedChanges": "Alterações não guardadas",
     "security": {
       "title": "Segurança da conta",
-      "description": "Em caso de suspeita de compromisso, revogar todas as sessões ativas. Terá de iniciar sessão novamente em todos os dispositivos.",
-      "revokeAllCta": "🚨 Terminar todas as sessões",
-      "confirmRevokeAll": "Confirmar: terminar todas as sessões em todos os dispositivos?",
-      "revokedOk": "✓ Todas as sessões revogadas. A redirecionar...",
+      "description": "Esta ação revoga a renovação das sessões desta conta em todos os dispositivos e termina a sessão neste navegador. Os tokens de acesso existentes continuam válidos até expirarem.",
+      "revokeAllCta": "Revogar todas as minhas sessões",
+      "confirmRevokeAll": "Revogar a renovação de todas as suas sessões e terminar a sessão neste navegador?",
+      "revokedOk": "As sessões desta conta já não podem ser renovadas. Os tokens de acesso emitidos continuam válidos até expirarem.",
       "loading": "A revogar..."
     },
     "invoices": {
