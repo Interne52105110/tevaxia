@@ -2126,7 +2126,7 @@
     "consent_marketing_emails_title": "E-mails de marketing",
     "consent_marketing_emails_desc": "Newsletters, novidades do produto, promoções. Sem envio sem opt-in explícito.",
     "consent_analytics_usage_title": "Analítica do produto",
-    "consent_analytics_usage_desc": "Medição anónima de audiência (PostHog alojado na UE) para melhorar as ferramentas. Sem revenda.",
+    "consent_analytics_usage_desc": "Limitada a páginas públicas e ativada apenas nas definições de cookies.",
     "consent_third_party_sharing_title": "Partilha com terceiros",
     "consent_third_party_sharing_desc": "Autoriza o envio de dados agregados a parceiros (ex. fornecedores de IA externos para AiAnalysisCard). Desativado por defeito.",
     "consent_profile_personalization_title": "Personalização do perfil",
@@ -3565,7 +3565,7 @@
     }
   },
   "cookie": {
-    "message": "Os cookies técnicos permitem o funcionamento do site. Com o seu consentimento, Google Analytics e PostHog podem medir visitas e utilização das páginas. Pode aceitar, recusar ou retirar o consentimento a qualquer momento nas definições de cookies no rodapé. A escolha aplica-se a este navegador neste site.",
+    "message": "Com o seu consentimento, o PostHog mede apenas visitas a determinadas páginas públicas. Excluem-se parâmetros de URL, conteúdo dos formulários, páginas privadas e identidade da conta. O Google Analytics está desativado. Pode alterar a sua escolha nas definições de cookies no rodapé.",
     "privacyLink": "Política de privacidade",
     "refuse": "Recusar medição de audiência",
     "accept": "Aceitar medição de audiência",
@@ -3772,7 +3772,7 @@
       "title": "2. Dados recolhidos",
       "navigation": {
         "label": "Dados de navegacao:",
-        "text": "Cookies tecnicos necessarios ao funcionamento do site. Google Analytics (com consentimento previo) para medicao de audiencia: paginas visitadas, duracao da visita, tipo de navegador, endereco IP anonimizado."
+        "text": "Com o seu consentimento, o PostHog mede apenas visitas a determinadas páginas públicas. Excluem-se parâmetros de URL, conteúdo dos formulários, páginas privadas e identidade da conta. O Google Analytics está desativado. Pode alterar a sua escolha nas definições de cookies no rodapé. Medição de páginas públicas com consentimento; identificador aleatório limitado à página, sem rastreio entre visitas. O prestador recebe informações técnicas necessárias à ligação de rede."
       },
       "compte": {
         "label": "Conta de utilizador:",
@@ -3812,13 +3812,13 @@
       "fonctionnement": "Funcionamento do servico (calculos, simulacoes, apresentacao de resultados)",
       "sauvegarde": "Salvaguarda de simulacoes e avaliacoes na sua conta",
       "personnalisation": "Personalizacao dos relatorios de avaliacao (perfil de avaliador)",
-      "amelioration": "Melhoria do servico (estatisticas de audiencia anonimizadas)"
+      "amelioration": "Medição de páginas públicas com consentimento"
     },
     "baseLegale": {
       "title": "4. Base juridica do tratamento",
       "consentement": {
         "label": "Consentimento (art. 6.1.a RGPD):",
-        "text": "cookies analiticos Google Analytics."
+        "text": "Medição de páginas públicas com consentimento"
       },
       "contrat": {
         "label": "Execucao do contrato (art. 6.1.b RGPD):",
@@ -3841,14 +3841,16 @@
       "vercelLoc": "Estados Unidos (clausulas contratuais tipo)",
       "render": "Alojamento API energy-api",
       "renderLoc": "Estados Unidos",
-      "google": "Analytics, autenticacao OAuth",
+      "google": "Autenticação OAuth",
       "googleLoc": "Estados Unidos (EU-US Data Privacy Framework)",
       "linkedin": "Autenticacao OAuth",
       "linkedinLoc": "Estados Unidos (clausulas contratuais tipo)",
       "stripe": "Pagamento de subscricoes (planos pagos)",
       "stripeLoc": "Stripe Payments Europe Ltd — Irlanda (UE)",
       "enableBanking": "Ligacao bancaria PSD2 (AIS) para reconciliacao",
-      "enableBankingLoc": "Enable Banking Oy — Finlandia (UE)"
+      "enableBankingLoc": "Enable Banking Oy — Finlandia (UE)",
+      "posthog": "Medição de páginas públicas com consentimento",
+      "posthogLoc": "PostHog EU"
     },
     "duree": {
       "title": "6. Duracao de conservacao",
@@ -3878,7 +3880,7 @@
       },
       "analytiques": {
         "label": "Cookies analiticos (consentimento):",
-        "text": "Google Analytics, apenas colocados apos consentimento explicito. Permitem a medicao de audiencia anonimizada."
+        "text": "Com o seu consentimento, o PostHog mede apenas visitas a determinadas páginas públicas. Excluem-se parâmetros de URL, conteúdo dos formulários, páginas privadas e identidade da conta. O Google Analytics está desativado. Pode alterar a sua escolha nas definições de cookies no rodapé. Medição de páginas públicas com consentimento; identificador aleatório limitado à página, sem rastreio entre visitas. O prestador recebe informações técnicas necessárias à ligação de rede."
       },
       "auth": {
         "label": "Cookies de autenticacao:",
@@ -5023,7 +5025,7 @@
       "productNews": "Novidades do produto",
       "productNewsHint": "Novidades do produto, se um serviço de envio estiver ativo.",
       "consentAnalytics": "Análise anonimizada",
-      "consentAnalyticsHint": "Google Analytics para medir a audiência do site. Dados agregados, nunca pessoais.",
+      "consentAnalyticsHint": "Limitada a páginas públicas e ativada apenas nas definições de cookies.",
       "consentMarketing": "Marketing",
       "consentMarketingHint": "Autorizar o uso do seu email para comunicação comercial tevaxia.",
       "consentThirdParty": "Partilha com parceiros",

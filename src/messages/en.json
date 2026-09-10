@@ -2126,7 +2126,7 @@
     "consent_marketing_emails_title": "Marketing emails",
     "consent_marketing_emails_desc": "Newsletters, product updates, promotions. No send without explicit opt-in.",
     "consent_analytics_usage_title": "Product analytics",
-    "consent_analytics_usage_desc": "Anonymous audience measurement (PostHog EU-hosted) to improve tools. No resale.",
+    "consent_analytics_usage_desc": "Limited to public pages and enabled only through cookie settings.",
     "consent_third_party_sharing_title": "Third-party sharing",
     "consent_third_party_sharing_desc": "Authorises sending aggregated data to partners (e.g. external AI providers for AiAnalysisCard). Off by default.",
     "consent_profile_personalization_title": "Profile personalization",
@@ -3565,7 +3565,7 @@
     }
   },
   "cookie": {
-    "message": "Technical cookies support the site’s operation. With your consent, Google Analytics and PostHog can measure visits and page usage. You can accept, refuse or withdraw consent at any time through “Cookie settings” in the footer. This choice applies to this browser on this site.",
+    "message": "With your consent, PostHog measures visits to selected public pages only. URL parameters, form content, private pages and account identity are excluded. Google Analytics is disabled. You can change your choice using the cookie settings in the footer.",
     "privacyLink": "Privacy Policy",
     "refuse": "Refuse audience measurement",
     "accept": "Accept audience measurement",
@@ -3772,7 +3772,7 @@
       "title": "2. Data Collected",
       "navigation": {
         "label": "Browsing data:",
-        "text": "Technical cookies required for the operation of the site. Google Analytics (with prior consent) for audience measurement: pages visited, visit duration, browser type, anonymised IP address."
+        "text": "With your consent, PostHog measures visits to selected public pages only. URL parameters, form content, private pages and account identity are excluded. Google Analytics is disabled. You can change your choice using the cookie settings in the footer. Public-page measurement with consent; a random identifier limited to the page, without tracking across visits. The provider receives technical information needed for the network connection."
       },
       "compte": {
         "label": "User account:",
@@ -3812,13 +3812,13 @@
       "fonctionnement": "Service operation (calculations, simulations, display of results)",
       "sauvegarde": "Saving simulations and valuations to your account",
       "personnalisation": "Personalisation of valuation reports (valuer profile)",
-      "amelioration": "Service improvement (anonymised audience statistics)"
+      "amelioration": "Public-page measurement with consent"
     },
     "baseLegale": {
       "title": "4. Legal Basis for Processing",
       "consentement": {
         "label": "Consent (Art. 6.1.a GDPR):",
-        "text": "Google Analytics analytical cookies."
+        "text": "Public-page measurement with consent"
       },
       "contrat": {
         "label": "Performance of a contract (Art. 6.1.b GDPR):",
@@ -3841,14 +3841,16 @@
       "vercelLoc": "United States (standard contractual clauses)",
       "render": "energy-api API hosting",
       "renderLoc": "United States",
-      "google": "Analytics, OAuth authentication",
+      "google": "OAuth authentication",
       "googleLoc": "United States (EU-US Data Privacy Framework)",
       "linkedin": "OAuth authentication",
       "linkedinLoc": "United States (standard contractual clauses)",
       "stripe": "Subscription payment processing (paid plans)",
       "stripeLoc": "Stripe Payments Europe Ltd — Ireland (EU)",
       "enableBanking": "PSD2 bank connection (AIS) for reconciliation",
-      "enableBankingLoc": "Enable Banking Oy — Finland (EU)"
+      "enableBankingLoc": "Enable Banking Oy — Finland (EU)",
+      "posthog": "Public-page measurement with consent",
+      "posthogLoc": "PostHog EU"
     },
     "duree": {
       "title": "6. Data Retention",
@@ -3878,7 +3880,7 @@
       },
       "analytiques": {
         "label": "Analytical cookies (consent):",
-        "text": "Google Analytics, only set after explicit consent. Enable anonymised audience measurement."
+        "text": "With your consent, PostHog measures visits to selected public pages only. URL parameters, form content, private pages and account identity are excluded. Google Analytics is disabled. You can change your choice using the cookie settings in the footer. Public-page measurement with consent; a random identifier limited to the page, without tracking across visits. The provider receives technical information needed for the network connection."
       },
       "auth": {
         "label": "Authentication cookies:",
@@ -5023,7 +5025,7 @@
       "productNews": "Product news",
       "productNewsHint": "Product updates, if a delivery service is enabled.",
       "consentAnalytics": "Anonymized analytics",
-      "consentAnalyticsHint": "Google Analytics to measure site audience. Aggregated data, never personal.",
+      "consentAnalyticsHint": "Limited to public pages and enabled only through cookie settings.",
       "consentMarketing": "Marketing",
       "consentMarketingHint": "Allow use of your email address for tevaxia commercial communication.",
       "consentThirdParty": "Sharing with partners",

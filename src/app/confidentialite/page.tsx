@@ -96,6 +96,7 @@ export default async function Confidentialite() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate/10">
+                  <tr><td className="py-2 pr-4">PostHog</td><td className="py-2 pr-4">{t("soustraitants.posthog")}</td><td className="py-2">{t("soustraitants.posthogLoc")}</td></tr>
                   <tr>
                     <td className="py-2 pr-4">Supabase Inc.</td>
                     <td className="py-2 pr-4">{t("soustraitants.supabase")}</td>

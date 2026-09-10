@@ -1396,3 +1396,15 @@ Les autres modèles nationaux, le traitement complet des revenus locatifs UK et 
 - Validation : 1 839 tests / 161 fichiers ; lint ciblé et compilation Next réussis. API des sept pays, graphiques, récupération après erreur et quatre largeurs (320/390/768/1440) dans cinq langues vérifiés sur build final local.
 - Lot précédent dd331e9 : CI34445786113 réussie, dpl_9mb9oHtG2pENGHNbNcqMkd2AmzBQ Ready avec alias tevaxia.lu ; contrôles UK API et cinq langues en production réussis.
 - Restent notamment la fiscalité complète des autres pays, la réduction britannique du moteur de rendement séparé, les flux MFA et les validations serveur SQL déjà documentées. Audit exhaustif non terminé.
+
+
+## 10 septembre — réduction des données de mesure d’audience
+
+- Les configurations automatiques transmettaient potentiellement URL complète, référent et interactions. PostHog est désormais limité aux pages publiques d’une liste explicite, avec consentement navigateur ; les routes privées/dynamiques/inconnues sont exclues.
+- Reconstruction des événements au dernier contrôle avant envoi : uniquement page publique canonique sans paramètres/fragment, identifiant aléatoire en mémoire, métadonnées de transport nécessaires. Aucun titre, référent, formulaire, trait de compte ou événement métier. Aucun profil de personne ; pas d’identité conservée entre chargements de document.
+- Autocapture, replay, erreurs, performances, heatmaps, enquêtes, scripts externes et requêtes de configuration distantes du SDK désactivés. La navigation vers une page privée suspend la capture ; révocation conservée.
+- Google Analytics n’est plus chargé. Sa mesure améliorée peut produire des événements d’historique même avec send_page_view=false ; aucun accès de configuration GA distant n’est disponible pour vérifier ces collectes. Le collecteur public restreint PostHog conserve une mesure limitée, lorsqu’une clé est configurée. Nettoyage des anciens cookies GA conservé.
+- Texte du bandeau, descriptions de préférences et sections audience de la confidentialité corrigés en cinq langues. Ceci ne constitue pas une validation de toute la politique de confidentialité ni de Sentry, qui relève du diagnostic d’erreurs et reste à examiner séparément.
+- Validation : 1 856 tests / 162 fichiers, lint et build réussis. Test du SDK réellement installé avec toutes les requêtes interceptées : corps des envois contrôlé, aucun secret synthétique d’URL/formulaire, pas d’envoi privé ni après retrait. Pages profil/confidentialité contrôlées en cinq langues et quatre largeurs.
+- Sources : https://posthog.com/docs/libraries/js/config ; https://developers.google.com/analytics/devguides/collection/ga4/views . Aucun événement réel de client ni réglage de compte externe modifié.
+- Lot trésorerie 571bc35 : CI34446783395 réussie ; dpl_3yYyC2penYcpcXgeovhfCizkkF5f Ready / alias tevaxia.lu ; contrôle API et graphiques en production réussi dans cinq langues.

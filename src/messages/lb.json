@@ -2126,7 +2126,7 @@
     "consent_marketing_emails_title": "Marketing-E-Mailen",
     "consent_marketing_emails_desc": "Newsletteren, Produktnoriichten, Promotiounen. Keng Ervirsende ouni ausdrécklechen Opt-in.",
     "consent_analytics_usage_title": "Produktanalyse",
-    "consent_analytics_usage_desc": "Anonym Auditorium-Miessung (PostHog EU-gehost) fir d'Tools ze verbesseren. Keng Weierverkaf.",
+    "consent_analytics_usage_desc": "Op ëffentlech Säite limitéiert an nëmmen iwwer d’Cookie-Astellungen aktivéiert.",
     "consent_third_party_sharing_title": "Weiderleetung un Drëtt",
     "consent_third_party_sharing_desc": "Erlaabt d'Senden vun aggregéierten Donnéeën un Partner (z. B. extern KI-Fournisseuren fir AiAnalysisCard). Standardméisseg ausgeschalt.",
     "consent_profile_personalization_title": "Profilpersonaliséierung",
@@ -3565,7 +3565,7 @@
     }
   },
   "cookie": {
-    "message": "Technesch Cookië suerge fir de Fonctionnement vum Site. Mat Ärem Accord kënne Google Analytics a PostHog d’Visitten an d’Benotzung vun de Säite moossen. Dir kënnt iwwer d’Cookie-Astellungen ënnen op der Säit zu all Moment zoustëmmen, refuséieren oder Ären Accord zeréckzéien. Dëse Choix gëllt fir dëse Browser op dësem Site.",
+    "message": "Mat Ärer Zoustëmmung moosst PostHog nëmme Visitte vu bestëmmten ëffentleche Säiten. URL-Parameteren, Formularinhalter, privat Säiten an d’Identitéit vum Kont sinn ausgeschloss. Google Analytics ass deaktivéiert. Dir kënnt Är Wiel an de Cookie-Astellungen am Säitefouss änneren.",
     "privacyLink": "Dateschutz",
     "refuse": "Visitemiessung refuséieren",
     "accept": "Visitemiessung erlaben",
@@ -3772,7 +3772,7 @@
       "title": "2. Gesammelten Donnéeën",
       "navigation": {
         "label": "Navigatiounsdonnéeën:",
-        "text": "Technesch Cookies, déi fir de Fonctionnement vum Site néideg sinn. Google Analytics (mat virhereger Zoustëmmung) fir d'Besuchermessung: besichten Säiten, Besuchsdauer, Browsertyp, anonymiséiert IP-Adress."
+        "text": "Mat Ärer Zoustëmmung moosst PostHog nëmme Visitte vu bestëmmten ëffentleche Säiten. URL-Parameteren, Formularinhalter, privat Säiten an d’Identitéit vum Kont sinn ausgeschloss. Google Analytics ass deaktivéiert. Dir kënnt Är Wiel an de Cookie-Astellungen am Säitefouss änneren. Miessung vun ëffentleche Säite mat Zoustëmmung; zoufälleg Kennung nëmme fir d’Säit, ouni Tracking tëscht de Visitten. Den Ubidder kritt déi technesch Informatiounen, déi fir d’Netzverbindung néideg sinn."
       },
       "compte": {
         "label": "Benotzerkonto:",
@@ -3812,13 +3812,13 @@
       "fonctionnement": "Fonctionnement vum Service (Berechnungen, Simulatiounen, Uweisunge vu Resultater)",
       "sauvegarde": "Späichere vu Simulatiounen a Bewäertungen op Ärem Konto",
       "personnalisation": "Personaliséierung vun de Bewäertungsberichter (Gutachterprofil)",
-      "amelioration": "Verbesserung vum Service (anonymiséiert Besucherstatistiken)"
+      "amelioration": "Miessung vun ëffentleche Säite mat Zoustëmmung"
     },
     "baseLegale": {
       "title": "4. Rechtsgrondlag vun der Veraarbechtung",
       "consentement": {
         "label": "Zoustëmmung (Art. 6 Abs. 1 lit. a DSGVO):",
-        "text": "analytesch Cookies vu Google Analytics."
+        "text": "Miessung vun ëffentleche Säite mat Zoustëmmung"
       },
       "contrat": {
         "label": "Vertragserfëllung (Art. 6 Abs. 1 lit. b DSGVO):",
@@ -3841,14 +3841,16 @@
       "vercelLoc": "Vereenegt Staaten (Standardvertragsklauselen)",
       "render": "energy-api API-Hosting",
       "renderLoc": "Vereenegt Staaten",
-      "google": "Analytics, OAuth-Authentifikatioun",
+      "google": "OAuth-Authentifikatioun",
       "googleLoc": "Vereenegt Staaten (EU-US Data Privacy Framework)",
       "linkedin": "OAuth-Authentifikatioun",
       "linkedinLoc": "Vereenegt Staaten (Standardvertragsklauselen)",
       "stripe": "Bezuelung vun bezuelenden Abonnementer",
       "stripeLoc": "Stripe Payments Europe Ltd — Irland (EU)",
       "enableBanking": "PSD2-Bankverbindung (AIS) fir Rapprochement",
-      "enableBankingLoc": "Enable Banking Oy — Finnland (EU)"
+      "enableBankingLoc": "Enable Banking Oy — Finnland (EU)",
+      "posthog": "Miessung vun ëffentleche Säite mat Zoustëmmung",
+      "posthogLoc": "PostHog EU"
     },
     "duree": {
       "title": "6. Dauer vun der Opbewahrung",
@@ -3878,7 +3880,7 @@
       },
       "analytiques": {
         "label": "Analytesch Cookies (Zoustëmmung):",
-        "text": "Google Analytics, ginn nëmmen no ausdrécklecher Zoustëmmung gesat. Erméiglechen anonymiséiert Besuchermessung."
+        "text": "Mat Ärer Zoustëmmung moosst PostHog nëmme Visitte vu bestëmmten ëffentleche Säiten. URL-Parameteren, Formularinhalter, privat Säiten an d’Identitéit vum Kont sinn ausgeschloss. Google Analytics ass deaktivéiert. Dir kënnt Är Wiel an de Cookie-Astellungen am Säitefouss änneren. Miessung vun ëffentleche Säite mat Zoustëmmung; zoufälleg Kennung nëmme fir d’Säit, ouni Tracking tëscht de Visitten. Den Ubidder kritt déi technesch Informatiounen, déi fir d’Netzverbindung néideg sinn."
       },
       "auth": {
         "label": "Authentifikatiounscookies:",
@@ -5023,7 +5025,7 @@
       "productNews": "Produktnoutizen",
       "productNewsHint": "Produktneiegkeeten, wann e Versandservice aktiv ass.",
       "consentAnalytics": "Anonymiséiert Analyse",
-      "consentAnalyticsHint": "Google Analytics fir d'Audiomessung. Aggregéiert Donnéeën, ni perséinlech.",
+      "consentAnalyticsHint": "Op ëffentlech Säite limitéiert an nëmmen iwwer d’Cookie-Astellungen aktivéiert.",
       "consentMarketing": "Marketing",
       "consentMarketingHint": "Benotzung vun Ärer E-Mail-Adress fir tevaxia Kommunikatioun.",
       "consentThirdParty": "Deelen mat Partner",
