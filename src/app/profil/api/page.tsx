@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
@@ -64,7 +64,7 @@ function UsageChart({ data, dateLocale }: { data: ApiUsageDay[]; dateLocale: str
           const heightPct = (d.total / max) * 100;
           const errorPct = d.total > 0 ? (d.errors / d.total) * 100 : 0;
           return (
-            <div key={d.day} className="flex-1 flex flex-col justify-end" title={`${d.day}: ${d.total} (${d.errors})`}>
+            <div key={d.day} className="h-full flex-1 flex flex-col justify-end" title={`${d.day}: ${d.total} (${d.errors})`}>
               <div className="w-full bg-rose-500" style={{ height: `${(heightPct * errorPct) / 100}%` }}></div>
               <div className="w-full bg-navy" style={{ height: `${heightPct - (heightPct * errorPct) / 100}%` }}></div>
             </div>
@@ -80,15 +80,29 @@ function UsageChart({ data, dateLocale }: { data: ApiUsageDay[]; dateLocale: str
 }
 
 export default function ApiDashboardPage() {
+  const { user, loading } = useAuth();
+  const t = useTranslations("profilApi");
+  const locale = useLocale(), lp = locale === "fr" ? "" : `/${locale}`;
+  if (loading) return <p role="status" className="p-8">{t("loading")}</p>;
+  if (!isSupabaseConfigured) return <p className="p-8">{t("supabaseNotConfigured")}</p>;
+  if (!user) return <div className="mx-auto max-w-4xl px-4 py-12 text-center"><h2>{t("loginRequired")}</h2><Link href={`${lp}/connexion`} className="mt-4 inline-flex rounded-lg bg-navy px-4 py-2 text-sm text-white">{t("login")}</Link></div>;
+  return <ApiWorkspace key={user.id} userId={user.id} />;
+}
+
+function ApiWorkspace({ userId }: { userId: string }) {
   const t = useTranslations("profilApi");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
-  const { user, loading: authLoading } = useAuth();
+  const active = useRef(true), actionLock = useRef(false);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
 
   const [keys, setKeys] = useState<ApiKey[]>([]);
   const [activeKeyId, setActiveKeyId] = useState<string | null>(null);
-  const [usage, setUsage] = useState<ApiUsageDay[]>([]);
+  const [usage, setUsage] = useState<ApiUsageDay[] | null>(null);
+  const [usageError, setUsageError] = useState(false);
+  const [usageRefresh, setUsageRefresh] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -101,94 +115,49 @@ export default function ApiDashboardPage() {
   };
 
   const reloadKeys = useCallback(async () => {
-    if (!isSupabaseConfigured) return;
-    setLoading(true);
+    if (!active.current) return;
+    setLoading(true); setError(null);
     try {
-      const list = await listMyApiKeys();
+      const list = await listMyApiKeys(userId);
+      if (!active.current) return;
       setKeys(list);
-      if (!activeKeyId && list.length > 0) setActiveKeyId(list[0].id);
-    } catch (e) {
-      setError(errMsg(e, t("errLoad")));
-    } finally {
-      setLoading(false);
-    }
-  }, [activeKeyId, t]);
+      setActiveKeyId(current => list.some(k => k.id === current) ? current : list[0]?.id ?? null);
+    } catch (e) { if (active.current) setError(errMsg(e, t("errLoad"))); }
+    finally { if (active.current) setLoading(false); }
+  }, [userId, t]);
 
-  useEffect(() => {
-    if (user) reloadKeys();
-  }, [user, reloadKeys]);
-
+  useEffect(() => { void reloadKeys(); }, [reloadKeys]);
   useEffect(() => {
     if (!activeKeyId) return;
-    getUsageDaily(activeKeyId, 30).then(setUsage).catch(() => setUsage([]));
-  }, [activeKeyId]);
+    let cancelled = false;
+    setUsage(null); setUsageError(false);
+    getUsageDaily(activeKeyId, 30, userId).then(data => { if (!cancelled) setUsage(data); }).catch(() => { if (!cancelled) setUsageError(true); });
+    return () => { cancelled = true; };
+  }, [activeKeyId, userId, usageRefresh]);
 
-  if (authLoading) {
-    return <div className="mx-auto max-w-4xl px-4 py-12 text-center text-muted">{t("loading")}</div>;
-  }
+  const runAction = async (action: () => Promise<void>) => {
+    if (actionLock.current || !active.current) return;
+    actionLock.current = true; setBusy(true); setError(null);
+    try { await action(); }
+    catch (e) { if (active.current) setError(errMsg(e, t("errGeneric"))); }
+    finally { actionLock.current = false; if (active.current) setBusy(false); }
+  };
 
-  if (!isSupabaseConfigured) {
-    return (
-      <div className="mx-auto max-w-4xl px-4 py-12">
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
-          {t("supabaseNotConfigured")}
-        </div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return (
-      <div className="mx-auto max-w-4xl px-4 py-12 text-center">
-        <div className="rounded-xl border border-card-border bg-card p-8">
-          <h2 className="text-lg font-semibold text-navy">{t("loginRequired")}</h2>
-          <Link href={`${lp}/connexion`} className="mt-4 inline-flex items-center gap-2 rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:bg-navy-light">
-            {t("login")}
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const handleCreate = async () => {
+  const handleCreate = () => runAction(async () => {
     if (!newKeyName.trim()) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const { plainKey } = await createApiKey({ name: newKeyName.trim() });
-      setCreatedKeyPlain(plainKey);
-      setNewKeyName("");
-      await reloadKeys();
-    } catch (e) {
-      setError(errMsg(e, t("errCreate")));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRevoke = async (id: string) => {
-    try {
-      await revokeApiKey(id);
-      await reloadKeys();
-    } catch (e) {
-      setError(errMsg(e, t("errRevoke")));
-    }
-  };
-
-  const handleDelete = async (id: string) => {
+    const { plainKey } = await createApiKey({ name: newKeyName.trim() }, userId);
+    if (!active.current) return;
+    setCreatedKeyPlain(plainKey); setNewKeyName(""); await reloadKeys();
+  });
+  const handleRevoke = (id: string) => runAction(async () => { await revokeApiKey(id, userId); if (active.current) await reloadKeys(); });
+  const handleDelete = (id: string) => {
     if (!confirm(t("confirmDelete"))) return;
-    try {
-      await deleteApiKey(id);
-      if (activeKeyId === id) setActiveKeyId(null);
-      await reloadKeys();
-    } catch (e) {
-      setError(errMsg(e, t("errDelete")));
-    }
+    void runAction(async () => { await deleteApiKey(id, userId); if (active.current) await reloadKeys(); });
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mb-6 flex items-start justify-between">
+    <fieldset disabled={busy} aria-busy={busy} className="mx-auto min-w-0 max-w-5xl px-4 py-10 sm:px-6 lg:px-8 [overflow-wrap:anywhere]">
+      <div className="mb-6 flex flex-wrap gap-3 items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold text-navy">{t("pageTitle")}</h1>
           <p className="mt-1 text-sm text-muted">{t("pageDesc")}</p>
@@ -197,7 +166,7 @@ export default function ApiDashboardPage() {
       </div>
 
       {error && (
-        <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">{error}</div>
+        <div role="alert" className="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800"><p>{error}</p><button className="underline" onClick={() => void reloadKeys()}>{t("retry")}</button></div>
       )}
 
       {createdKeyPlain && (
@@ -205,9 +174,9 @@ export default function ApiDashboardPage() {
           <h3 className="text-base font-semibold text-emerald-900">{t("newKeyTitle")}</h3>
           <p className="mt-1 text-xs text-emerald-800">{t("newKeyDesc")}</p>
           <div className="mt-3 flex gap-2">
-            <code className="flex-1 break-all rounded-lg bg-white border border-emerald-300 p-3 text-xs text-emerald-900">{createdKeyPlain}</code>
+            <code className="min-w-0 flex-1 break-all rounded-lg bg-white border border-emerald-300 p-3 text-xs text-emerald-900">{createdKeyPlain}</code>
             <button
-              onClick={() => navigator.clipboard.writeText(createdKeyPlain)}
+              onClick={() => void runAction(async () => { await navigator.clipboard.writeText(createdKeyPlain); })}
               className="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700"
             >
               {t("copy")}
@@ -263,12 +232,12 @@ export default function ApiDashboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-card-border/50">
-              {keys.length === 0 ? (
-                <tr><td colSpan={6} className="py-6 text-center text-muted">{t("noKey")}</td></tr>
+              {loading ? (<tr><td colSpan={6} role="status" className="py-6 text-center">{t("loading")}</td></tr>) : keys.length === 0 ? (
+                <tr><td colSpan={6} className="py-6 text-center text-muted">{error ? t("errLoad") : t("noKey")}</td></tr>
               ) : (
                 keys.map((k) => (
-                  <tr key={k.id} className={`${k.id === activeKeyId ? "bg-blue-50" : ""} cursor-pointer`} onClick={() => setActiveKeyId(k.id)}>
-                    <td className="py-2 font-medium text-navy">{k.name}</td>
+                  <tr key={k.id} className={`${k.id === activeKeyId ? "bg-blue-50" : ""} cursor-pointer`} onClick={() => { if (!actionLock.current) setActiveKeyId(k.id); }}>
+                    <td className="py-2 font-medium text-navy"><button onClick={() => setActiveKeyId(k.id)} className="text-left underline">{k.name}</button></td>
                     <td className="py-2"><code className="text-xs">{k.key_prefix}…</code></td>
                     <td className="py-2 text-xs">{t(TIER_KEY[k.tier])}</td>
                     <td className="py-2">
@@ -298,7 +267,7 @@ export default function ApiDashboardPage() {
           <h2 className="text-base font-semibold text-navy">{t("usageTitle")}</h2>
           <p className="mt-1 text-xs text-muted">{t("selectedKey")} <code>{keys.find((k) => k.id === activeKeyId)?.key_prefix}…</code></p>
           <div className="mt-4">
-            <UsageChart data={usage} dateLocale={dateLocale} />
+            {usageError ? <div role="alert"><p>{t("errLoad")}</p><button className="underline" onClick={() => setUsageRefresh(v => v + 1)}>{t("retry")}</button></div> : usage === null ? <p role="status">{t("loading")}</p> : <UsageChart data={usage} dateLocale={dateLocale} />}
           </div>
         </div>
       )}
@@ -315,7 +284,7 @@ export default function ApiDashboardPage() {
           link: () => <Link href={`${lp}/api-banques`} className="underline">/api-banques</Link>,
         })}
       </div>
-    </div>
+    </fieldset>
   );
 }
 

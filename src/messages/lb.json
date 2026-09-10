@@ -17299,6 +17299,7 @@
     "dash": "—"
   },
   "profilApi": {
+    "retry": "Nach eng Kéier probéieren",
     "loading": "Lueden…",
     "backToProfile": "← Profil",
     "loginRequired": "Umeldung erfuerderlech",

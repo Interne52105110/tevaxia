@@ -17299,6 +17299,7 @@
     "dash": "—"
   },
   "profilApi": {
+    "retry": "Retry",
     "loading": "Loading…",
     "backToProfile": "← Profile",
     "loginRequired": "Sign in required",

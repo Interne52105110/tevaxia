@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { missingApiKeyColumn } from "./api-key-schema";
 
 export const API_CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -125,19 +126,22 @@ async function lookupSupabaseKey(plainKey: string): Promise<ApiKeyRecord | null>
   const client = getServiceClient();
   if (!client) return null;
   const hash = await hashKey(plainKey);
-  const { data, error } = await client
-    .from("api_keys")
-    .select("id, name, tier, active, user_id")
-    .eq("key_hash", hash)
-    .eq("active", true)
-    .maybeSingle();
+  let { data, error } = await client.from("api_keys")
+    .select("id, name, tier, active, user_id, revoked_at")
+    .eq("key_hash", hash).eq("active", true).is("revoked_at", null).maybeSingle();
+  const legacy = missingApiKeyColumn(error, ["active"]);
+  if (legacy) {
+    const result = await client.from("api_keys").select("id, name, tier, user_id, revoked_at")
+      .eq("key_hash", hash).is("revoked_at", null).maybeSingle();
+    data = result.data as typeof data; error = result.error;
+  }
   if (error) {
     // Diagnostic code only: never log keys, query values or database messages.
     const code = typeof error.code === "string" && /^[A-Z0-9_]{1,32}$/.test(error.code) ? error.code : "UNKNOWN";
     console.error("API_KEY_LOOKUP_UNAVAILABLE", code);
     throw new Error("API key lookup unavailable");
   }
-  if (!data || data.active !== true || !["free", "pro", "enterprise"].includes(data.tier) || typeof data.id !== "string" || !data.id || typeof data.user_id !== "string" || !data.user_id) return null;
+  if (!data || (!legacy && data.active !== true) || data.revoked_at !== null || !["free", "pro", "enterprise"].includes(data.tier) || typeof data.id !== "string" || !data.id || typeof data.user_id !== "string" || !data.user_id) return null;
   return {
     id: data.id,
     name: data.name,

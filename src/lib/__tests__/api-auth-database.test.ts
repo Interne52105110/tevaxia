@@ -4,11 +4,11 @@ vi.mock('@supabase/supabase-js', () => ({ createClient: mock.create }));
 import { authenticateApiRequestAsync } from '../api-auth';
 let sequence = 0;
 const request = (key: string) => new Request('https://tevaxia.lu/api/v1/estimation', { headers: { 'X-API-Key': key } });
-const record = { id: 'db-key', name: 'test', tier: 'pro', active: true, user_id: 'u' };
+const record = { id: 'db-key', name: 'test', tier: 'pro', active: true, user_id: 'u', revoked_at: null };
 beforeEach(() => {
  vi.clearAllMocks(); vi.spyOn(console, "error").mockImplementation(() => {});
  vi.stubEnv('TEVAXIA_API_KEYS',''); vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL','https://example.supabase.co'); vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY','test-only');
- const q = { select: () => q, eq: (...args: unknown[]) => { mock.eq(...args); return q; }, maybeSingle: mock.result };
+ const q = { select: () => q, is: (...args: unknown[]) => { mock.eq(...args); return q; }, eq: (...args: unknown[]) => { mock.eq(...args); return q; }, maybeSingle: mock.result };
  mock.create.mockReturnValue({ from: () => q }); mock.result.mockResolvedValue({ data: record });
 });
 afterEach(() => { vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
@@ -46,4 +46,21 @@ it("logs only a diagnostic code, never database messages or key contents", async
  mock.result.mockResolvedValue({ error: { code: "PGRST205", message: "private-secret-host" } });
  await authenticateApiRequestAsync(request("private-key-for-diagnostic-test"));
  expect(console.error).toHaveBeenCalledExactlyOnceWith("API_KEY_LOOKUP_UNAVAILABLE", "PGRST205");
+});
+
+it("supports production keys using revocation dates only when active is explicitly absent", async () => {
+ mock.result.mockResolvedValueOnce({ error: { code: "42703", message: "column api_keys.active does not exist" } }).mockResolvedValueOnce({ data: { ...record, active: undefined } });
+ const result = await authenticateApiRequestAsync(request("legacy-active-column-key"));
+ expect(result.ok).toBe(true); expect(mock.eq).toHaveBeenCalledWith("revoked_at", null);
+ expect(mock.result).toHaveBeenCalledTimes(2);
+});
+it("never falls back for a disabled or revoked key, or an unrelated missing column", async () => {
+ for (const data of [{ ...record, active: false }, { ...record, revoked_at: "2026-09-01" }]) {
+  mock.result.mockResolvedValue({ data });
+  expect((await authenticateApiRequestAsync(request("disabled-"+sequence++))).ok).toBe(false);
+ }
+ mock.result.mockClear().mockResolvedValue({ error: { code: "42703", message: "column api_keys.user_id does not exist" } });
+ const result = await authenticateApiRequestAsync(request("missing-owner-column"));
+ expect(result.ok).toBe(false);if(!result.ok)expect(result.response.status).toBe(503);
+ expect(mock.result).toHaveBeenCalledTimes(1);
 });

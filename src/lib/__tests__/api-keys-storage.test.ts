@@ -1,0 +1,24 @@
+import { beforeEach, expect, it, vi } from 'vitest';
+const mock=vi.hoisted(()=>({auth:vi.fn(),from:vi.fn(),rpc:vi.fn(),pages:[] as unknown[],queries:[] as Record<string,ReturnType<typeof vi.fn>>[]}));
+vi.mock('../supabase',()=>({isSupabaseConfigured:true,supabase:{auth:{getUser:mock.auth},from:mock.from,rpc:mock.rpc}}));
+import {createApiKey,listMyApiKeys,revokeApiKey,deleteApiKey,getUsageDaily} from '../api-keys';
+const row={id:'a',user_id:'u',created_at:'2026-09-01',tier:'free',active:true,revoked_at:null};
+beforeEach(()=>{vi.resetAllMocks();mock.pages=[];mock.queries=[];mock.auth.mockResolvedValue({data:{user:{id:'u'}}});mock.from.mockImplementation(()=>{const result=mock.pages.shift(),q:Record<string,ReturnType<typeof vi.fn>>={};for(const name of ['select','eq','order','limit','gt','insert','update','delete'])q[name]=vi.fn(()=>q);q.then=vi.fn(resolve=>Promise.resolve(result).then(resolve));q.single=vi.fn(async()=>result);q.maybeSingle=vi.fn(async()=>result);mock.queries.push(q);return q});});
+it('binds the owner and reads beyond a short page without selecting key hashes',async()=>{mock.pages=[{data:[row]},{data:[{...row,id:'b'}]},{data:[]}];expect(await listMyApiKeys('u')).toHaveLength(2);for(const q of mock.queries){expect(q.eq).toHaveBeenCalledWith('user_id','u');expect(q.select.mock.calls[0][0]).not.toContain('key_hash')}expect(mock.queries[1].gt).toHaveBeenCalledWith('id','a');});
+it('does not return partial keys or another owner',async()=>{mock.pages=[{data:[row]},{error:{message:'offline'}}];await expect(listMyApiKeys('u')).rejects.toThrow('read failed');mock.pages=[{data:[{...row,user_id:'v'}]}];await expect(listMyApiKeys('u')).rejects.toThrow('Invalid API key page');});
+it('does not create a key for a different captured account',async()=>{await expect(createApiKey({name:'Test'},'v')).rejects.toThrow('account changed');expect(mock.from).not.toHaveBeenCalled();});
+it('creates only a free individual key and stores a hash instead of the secret',async()=>{mock.pages=[{data:row}];const result=await createApiKey({name:' Test ',tier:'enterprise'} as never,'u');const inserted=mock.queries[0].insert.mock.calls[0][0];expect(inserted).toMatchObject({user_id:'u',tier:'free',name:'Test'});expect(result.plainKey).toMatch(/^tvx_[0-9a-f]{48}$/);expect(inserted.key_hash).toMatch(/^[0-9a-f]{64}$/);expect(JSON.stringify(inserted)).not.toContain(result.plainKey);});
+it('does not return a newly created secret after identity changes',async()=>{mock.pages=[{data:row}];mock.auth.mockResolvedValueOnce({data:{user:{id:'u'}}}).mockResolvedValueOnce({data:{user:{id:'u'}}}).mockResolvedValue({data:{user:{id:'v'}}});await expect(createApiKey({name:'Test'},'u')).rejects.toThrow('account changed');});
+it('requires confirmation for owned revocation and deletion',async()=>{mock.pages=[{data:[]}];await expect(revokeApiKey('a','u')).rejects.toThrow('could not be confirmed');expect(mock.queries[0].eq).toHaveBeenCalledWith('user_id','u');mock.pages=[{data:[{id:'a',revoked_at:'2026-09-10T12:00:00Z'}]}];await expect(revokeApiKey('a','u')).resolves.toBeUndefined();mock.pages=[{data:[]}];await expect(deleteApiKey('a','u')).rejects.toThrow('could not be confirmed');});
+it('turns SQL numeric strings into numbers and rejects misleading nulls',async()=>{mock.pages=[{data:{id:'a'}}];mock.rpc.mockResolvedValue({data:[{day:'2026-09-01',total:'10',errors:'2',avg_latency_ms:'12.5'}]});expect(await getUsageDaily('a',30,'u')).toEqual([{day:'2026-09-01',total:10,errors:2,avg_latency_ms:12.5}]);mock.pages=[{data:{id:'a'}}];mock.rpc.mockResolvedValue({data:[{day:'2026-09-01',total:null,errors:0,avg_latency_ms:0}]});await expect(getUsageDaily('a',30,'u')).rejects.toThrow('Invalid API usage data');});
+it('does not disguise an unavailable usage query as zero calls',async()=>{mock.pages=[{data:{id:'a'}}];mock.rpc.mockResolvedValue({error:{message:'offline'}});await expect(getUsageDaily('a',30,'u')).rejects.toThrow('read failed');});
+
+it("supports absent optional schema columns without dropping a present disabled flag",async()=>{
+ mock.pages=[{error:{code:'42703',message:'column api_keys.org_id does not exist'}},{data:[{...row,active:false}]},{data:[]}];
+ const keys=await listMyApiKeys('u');expect(keys[0].active).toBe(false);expect(mock.queries[1].select.mock.calls[0][0]).toContain('active');expect(mock.queries[1].select.mock.calls[0][0]).not.toContain('org_id');
+});
+it("revokes a legacy key by date only after an explicit missing active column error",async()=>{
+ mock.pages=[{error:{code:'PGRST204',message:"Could not find the 'active' column of 'api_keys' in the schema cache"}},{data:[{id:'a',revoked_at:'2026-09-10T12:00:00Z'}]}];
+ await expect(revokeApiKey('a','u')).resolves.toBeUndefined();
+ expect(mock.queries[1].update.mock.calls[0][0]).not.toHaveProperty('active');expect(mock.queries[1].eq).toHaveBeenCalledWith('user_id','u');
+});

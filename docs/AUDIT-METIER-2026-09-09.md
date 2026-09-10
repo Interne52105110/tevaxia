@@ -1019,3 +1019,20 @@ Sandbox documentée dans cinq langues conformément au code : 10 requêtes/minut
 Test additionnel de non-divulgation du journal : suite 1 460 tests / 139 fichiers réussie, lint et compilation réussis. Diagnostic de production à préciser après publication.
 
 Contrôle navigateur local réussi : nouveau texte sandbox dans cinq langues, quatre largeurs sans débordement, spécification 1.1.1 servie avec les quotas corrigés.
+
+
+## 10 septembre — schéma réel des clés et isolation de leur gestion
+
+Le diagnostic serveur a identifié 42703. Des requêtes anonymes en lecture, limitées à zéro ligne, confirment sur dpynqvilgniohgtichbz que api_keys possède id/name/tier/user_id/key_hash/key_prefix/created_at/last_used_at/revoked_at, mais pas active, is_active ni org_id. Aucune clé ni ligne client lue. La description OpenAPI de la base renvoie 401 ; pas de tentative de contournement. Les anciens constats tirés du seul schéma local 004 ne décrivent donc pas exactement la production.
+
+Authentification compatible : sur le schéma complet, active=true ET revoked_at=null requis ; uniquement si active est explicitement absent, recherche hachée filtrée par revoked_at=null. Une clé désactivée, révoquée ou une erreur sur une autre colonne ne déclenche jamais cette compatibilité. L’import PMS continue d’exiger une organisation vérifiable : l’absence d’org_id n’autorise aucune écriture et reste une limitation à résoudre dans le schéma/mécanisme d’attribution, pas par suppression du contrôle.
+
+Gestion des clés : compte initiateur requis avant/après opération, pagination complète et filtre propriétaire explicite, absence de hash dans les listes, création individuelle uniquement Free, secret affiché seulement au compte initiateur. Création sans colonnes optionnelles inexistantes ; lecture retire uniquement la colonne explicitement absente et conserve les autres. Révocation par date sur l’ancien schéma, après reconnaissance exacte de la colonne active absente. Révocation/suppression confirmées par les lignes retournées. Les règles RLS et l’attribution des niveaux payants restent non certifiées : aucune migration appliquée.
+
+Écran remonté par compte, effacement des secrets et résultats à la déconnexion/changement de compte, actions verrouillées et erreurs de presse-papiers traitées. Erreurs de listes/statistiques séparées d’un résultat vide, statistiques annulées au changement de clé et réessayables, sélection de clé accessible au clavier. Valeurs numériques SQL converties et vérifiées avant agrégation ; hauteur du graphique définie pour ses barres. Les webhooks sont remis à zéro par le remontage, mais leurs services/opérations ne sont pas certifiés par ce lot.
+
+Douze nouveaux tests depuis 49ce0da : suite 1 472 tests / 140 fichiers. Essais navigateur isolés cinq langues avec services simulés : compte capturé, arrivée tardive d’un secret, verrou, révocation/suppression échouées, annulation, erreur de statistiques et reprise, lecture échouée, déconnexion. Aucune clé réelle créée/révoquée/supprimée ; aucun webhook envoyé.
+
+49ce0da publié : CI 34421360148 réussie, dpl_J2T8qPK68eDuQPtKVdqCb3Gma9fR Ready ; documentation cinq langues/quatre largeurs et spécification corrigée contrôlées en production. Sur cette version, le 503 de lecture de clé était encore présent ; le nouveau correctif de compatibilité reste à confirmer une fois déployé. Sandbox facturation refusée 403 comme prévu.
+
+Compilation et lint réussis après adaptation du typage de la sélection dynamique. Local réel sans configuration Supabase : message de configuration affiché sans débordement dans cinq langues/quatre largeurs ; tests HTTP facturation/PMS locaux réussis. Les parcours connectés sont ceux de la simulation décrite ci-dessus.
