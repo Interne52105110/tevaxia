@@ -521,3 +521,18 @@ Validation de tout le lot avant une unique écriture : dates réelles et uniques
 Facturation e6dc52d : CI 34419175142 réussie ; déploiement dpl_9M77qSaCsd3Ef1cUUiACm8reT4jN Ready avec alias tevaxia.lu. Contrôles production cinq langues/quatre largeurs réussis, sans création de facture client.
 
 Compilation de production et contrôles HTTP locaux réussis : GET documentaire, OPTIONS, POST sans clé et avec clé fictive refusés en 401, réponses non mises en cache.
+
+
+## 10 septembre — données et interactions des prévisions hôtelières
+
+Le CSV exige désormais un ratio entre 0 et 1 ou le signe % explicite : 1 signifie 100 %, 1 % signifie 0,01 ; 82 seul est refusé. Aide actualisée dans cinq langues. Les observations remplacées doivent être complètes, avec ADR nul uniquement si aucune chambre n’est vendue, et RevPAR cohérent. Dates selon le jour civil luxembourgeois. Les anciennes lignes partielles restent lisibles mais une nouvelle écriture ne peut pas effacer involontairement des mesures absentes.
+
+Lecture paginée jusqu’à épuisement, sans supposer qu’une page courte est la dernière ; erreur/cursor incohérent refusé sans résultat partiel. Chaque opération reçoit le compte initiateur, vérifie l’hôtel et l’appartenance à son organisation. Écritures réservées aux rôles admin/member au niveau du client ; les politiques RLS de production restent à vérifier indépendamment. Suppression filtrée par hôtel et identifiant, avec confirmation de la ligne retournée. Enregistrement confirmé par les dates retournées ; created_by existant n’est pas réécrit.
+
+Écran remonté par compte, requêtes tardives ignorées après changement d’hôtel/déconnexion, saisies remises à zéro au changement d’hôtel, verrou pendant les actions. Chargement et erreur distincts d’un historique réellement insuffisant ; bouton réessayer. Confirmation avant suppression. Une sauvegarde échouée conserve la saisie. Le compteur d’historique correspond aux 60 lignes effectivement affichées. Aucun changement à la méthode de prévision dans ce lot.
+
+Huit nouveaux tests : suite 1 451 tests / 138 fichiers réussie, lint sans erreur. Navigateur isolé cinq langues avec les véritables composants/calculs et services simulés : CSV ambigu rejeté avant écriture, unité explicite, compte/hôtel transmis, verrou, changement de compte pendant sauvegarde, erreurs lecture/sauvegarde/suppression, annulation de suppression, déconnexion. Une resélection du même hôtel invalidait la requête sans la relancer : corrigée et scénarios rejoués avec succès. Pas de données client modifiées ; ces essais ne certifient pas les RLS ni la transactionnalité des contrôles d’accès séparés.
+
+Import PMS cae2153 : CI 34420109744 réussie ; déploiement dpl_4FEf9KFTFayGWcohYn8j3CvXq35q Ready avec alias tevaxia.lu. Contrôles HTTP en production réussis : documentation, prévol, refus des requêtes sans clé et avec clé fictive, no-store.
+
+Compilation de production réussie après le dernier correctif. Parcours anonyme réel local : lien de connexion localisé et absence de débordement aux largeurs 320/390/768/1440 dans cinq langues. Les scénarios connectés ci-dessus restent des simulations de services.

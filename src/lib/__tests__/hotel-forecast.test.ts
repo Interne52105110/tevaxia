@@ -122,3 +122,12 @@ describe('hotel data validation and consistency',()=>{
   expect(()=>holtWinters([1,NaN],2)).toThrow();expect(()=>holtWinters([1,2],0)).toThrow();expect(()=>holtWinters([1,2],2,{m:0})).toThrow();expect(()=>holtWinters([1,2],2,{alpha:2})).toThrow();
  });
 });
+
+
+it("requires explicit CSV percentages and complete observations", () => {
+  expect(parseCsvMetrics("2024-01-01,1,100")[0].occupancy).toBe(1);
+  expect(parseCsvMetrics("2024-01-01,1%,100")[0].occupancy).toBe(.01);
+  for (const csv of ["2024-01-01,82,100", "2024-01-01,0,100"]) expect(() => parseCsvMetrics(csv)).toThrow();
+  for (const row of [null, { metric_date: "2024-01-01", occupancy: .8 }, { metric_date: "2024-01-01", adr: 125 }, { metric_date: "2024-01-01", occupancy: 0, adr: null, revpar: 1 }]) expect(() => validateMetricInputs([row as never])).toThrow();
+  expect(validateMetricInputs([{ metric_date: "2024-01-01", occupancy: 0, adr: null }])[0].revpar).toBe(0);
+});

@@ -6,6 +6,7 @@
 // Tous les calculs sont faits côté navigateur sans dépendance externe.
 
 import { supabase, isSupabaseConfigured } from "./supabase";
+import { invoiceDate } from "./facturation/templates";
 
 export interface DailyMetric {
   id: string;
@@ -35,42 +36,77 @@ function ensureClient() {
 
 // ---------- CRUD ----------
 
-export async function listMetrics(hotelId: string, from?: string, to?: string): Promise<DailyMetric[]> {
+async function assertMetricUser(expectedUserId: string) {
   const client = ensureClient();
-  let q = client.from("hotel_daily_metrics").select("*").eq("hotel_id", hotelId);
-  if (from) q = q.gte("metric_date", from);
-  if (to) q = q.lte("metric_date", to);
-  const { data, error } = await q.order("metric_date", { ascending: true });
-  if (error) throw error;
-  return (data ?? []) as DailyMetric[];
+  const { data, error } = await client.auth.getUser();
+  if (!expectedUserId || error || data.user?.id !== expectedUserId) throw new Error("Hotel account changed or unavailable");
+  return client;
+}
+
+async function assertHotelAccess(hotelId: string, expectedUserId: string, write = false) {
+  const client = await assertMetricUser(expectedUserId);
+  if (!hotelId) throw new RangeError("Missing hotel");
+  const { data: hotel, error } = await client.from("hotels").select("org_id").eq("id", hotelId).maybeSingle();
+  if (error || !hotel?.org_id) throw new Error("Hotel unavailable");
+  const { data: member, error: memberError } = await client.from("org_members").select("role").eq("org_id", hotel.org_id).eq("user_id", expectedUserId).maybeSingle();
+  if (memberError || !member || !(write ? ["admin", "member"] : ["admin", "member", "viewer"]).includes(member.role)) throw new Error("Hotel access denied");
+  await assertMetricUser(expectedUserId);
+  return client;
+}
+
+/** Read every page, including when the server applies a smaller page limit. */
+export async function listMetrics(hotelId: string, from: string | undefined, to: string | undefined, expectedUserId: string): Promise<DailyMetric[]> {
+  const client = await assertHotelAccess(hotelId, expectedUserId);
+  const rows: DailyMetric[] = [];
+  let cursor = "";
+  for (;;) {
+    await assertMetricUser(expectedUserId);
+    let q = client.from("hotel_daily_metrics").select("*").eq("hotel_id", hotelId).order("metric_date", { ascending: true }).limit(200);
+    if (from) q = q.gte("metric_date", from);
+    if (to) q = q.lte("metric_date", to);
+    if (cursor) q = q.gt("metric_date", cursor);
+    const { data, error } = await q;
+    if (error || !data) throw new Error("Hotel metrics read failed");
+    await assertMetricUser(expectedUserId);
+    if (!data.length) return rows;
+    for (const row of data) {
+      if (row.hotel_id !== hotelId || typeof row.metric_date !== "string" || row.metric_date <= cursor) throw new Error("Invalid hotel metrics page");
+      cursor = row.metric_date;
+      rows.push(row as DailyMetric);
+    }
+    if (rows.length > 100000) throw new Error("Hotel metrics result too large");
+  }
 }
 
 export interface MetricInput { metric_date:string; occupancy?:number|null; adr?:number|null; revpar?:number|null; source?:DailyMetric['source']; notes?:string }
-const validDay=(date:string)=>/^\d{4}-\d{2}-\d{2}$/.test(date)&&date>='2000-01-01'&&date<=new Date().toISOString().slice(0,10)&&Number.isFinite(Date.parse(date+'T00:00:00Z'))&&new Date(date+'T00:00:00Z').toISOString().slice(0,10)===date;
+const validDay=(date:string)=>/^\d{4}-\d{2}-\d{2}$/.test(date)&&date>='2000-01-01'&&date<=invoiceDate()&&Number.isFinite(Date.parse(date+'T00:00:00Z'))&&new Date(date+'T00:00:00Z').toISOString().slice(0,10)===date;
 const validMetric=(n:number|null|undefined,max:number)=>n==null||Number.isFinite(n)&&n>=0&&n<=max;
 /** Validate the complete batch before any database write. Never persist demo data. */
 export function validateMetricInputs(rows:MetricInput[]):MetricInput[]{
- if(!Array.isArray(rows)||rows.length<1||rows.length>3660||new Set(rows.map(r=>r.metric_date)).size!==rows.length)throw new RangeError('Invalid metric batch');
+ if(!Array.isArray(rows)||rows.length<1||rows.length>3660||rows.some(r=>!r||typeof r!=='object')||new Set(rows.map(r=>r.metric_date)).size!==rows.length)throw new RangeError('Invalid metric batch');
  return rows.map(r=>{
-  if(!validDay(r.metric_date)||!validMetric(r.occupancy,1)||!validMetric(r.adr,1e6)||!validMetric(r.revpar,1e6)||r.occupancy==null&&r.adr==null&&r.revpar==null||r.source&&!['manual','csv_import','pms_sync'].includes(r.source)||r.notes!=null&&(typeof r.notes!=='string'||r.notes.length>2000))throw new RangeError('Invalid hotel metric');
-  const revpar=r.occupancy!=null&&r.adr!=null?r.occupancy*r.adr:r.revpar??null;
+  if(!validDay(r.metric_date)||!validMetric(r.occupancy,1)||!validMetric(r.adr,1e6)||!validMetric(r.revpar,1e6)||r.occupancy==null||r.adr===undefined||r.adr==null&&r.occupancy!==0||r.occupancy===0&&r.adr!=null&&r.adr!==0||r.source&&!['manual','csv_import','pms_sync'].includes(r.source)||r.notes!=null&&(typeof r.notes!=='string'||r.notes.length>2000))throw new RangeError('Invalid hotel metric');
+  const revpar=r.occupancy===0?0:r.occupancy!=null&&r.adr!=null?r.occupancy*r.adr:r.revpar??null;
   if(r.revpar!=null&&revpar!=null&&Math.abs(r.revpar-revpar)>.02)throw new RangeError('Inconsistent RevPAR');
   return {...r,revpar};
  });
 }
-export async function upsertMetrics(hotelId:string,rows:MetricInput[]):Promise<number>{
- const valid=validateMetricInputs(rows);
- if(!hotelId)throw new RangeError('Missing hotel');
- const client=ensureClient();const {data:{user},error:authError}=await client.auth.getUser();
- if(authError)throw authError;if(!user)throw new Error('Authentication required');
- const payload=valid.map(r=>({hotel_id:hotelId,metric_date:r.metric_date,occupancy:r.occupancy??null,adr:r.adr??null,revpar:r.revpar??null,source:r.source??'manual',notes:r.notes??null,created_by:user.id}));
- const {error}=await client.from('hotel_daily_metrics').upsert(payload,{onConflict:'hotel_id,metric_date'});if(error)throw error;return payload.length;
+export async function upsertMetrics(hotelId: string, rows: MetricInput[], expectedUserId: string): Promise<number> {
+  const valid = validateMetricInputs(rows);
+  const client = await assertHotelAccess(hotelId, expectedUserId, true);
+  const payload = valid.map(r => ({ hotel_id: hotelId, metric_date: r.metric_date, occupancy: r.occupancy, adr: r.adr ?? null, revpar: r.occupancy === 0 ? 0 : r.revpar, source: r.source ?? "manual", notes: r.notes ?? null }));
+  const { data, error } = await client.from("hotel_daily_metrics").upsert(payload, { onConflict: "hotel_id,metric_date" }).select("metric_date");
+  if (error || !data || data.length !== payload.length || new Set(data.map(r => r.metric_date)).size !== payload.length || payload.some(r => !data.some(saved => saved.metric_date === r.metric_date))) throw new Error("Hotel metrics save could not be confirmed");
+  await assertMetricUser(expectedUserId);
+  return data.length;
 }
 
-export async function deleteMetric(id: string): Promise<void> {
-  const client = ensureClient();
-  const { error } = await client.from("hotel_daily_metrics").delete().eq("id", id);
-  if (error) throw error;
+export async function deleteMetric(id: string, hotelId: string, expectedUserId: string): Promise<void> {
+  if (!id) throw new RangeError("Missing metric");
+  const client = await assertHotelAccess(hotelId, expectedUserId, true);
+  const { data, error } = await client.from("hotel_daily_metrics").delete().eq("id", id).eq("hotel_id", hotelId).select("id");
+  if (error || !data || data.length !== 1 || data[0].id !== id) throw new Error("Hotel metric deletion could not be confirmed");
+  await assertMetricUser(expectedUserId);
 }
 
 // ---------- CSV parse ----------
@@ -103,7 +139,7 @@ export function parseCsvMetrics(csv:string):{metric_date:string;occupancy:number
  if(csv.length>2_000_000)throw new RangeError('CSV too large');const rows=csvRows(csv);
  if(rows[0]?.[0]==='date'){if(rows.shift()!.join(',')!=='date,occupancy,adr')throw new RangeError('Invalid CSV header')}
  const number=(s:string)=>{const v=s.replace(/[ \u00a0\u202f]/g,'').replace(',','.');if(!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(v))throw new RangeError('Invalid number');return Number(v)};
- const result=rows.map(r=>{if(r.length!==3)throw new RangeError('Invalid CSV columns');const pct=r[1].endsWith('%'),raw=number(pct?r[1].slice(0,-1):r[1]);return {metric_date:r[0],occupancy:pct||raw>1?raw/100:raw,adr:number(r[2])}});
+ const result=rows.map(r=>{if(r.length!==3)throw new RangeError('Invalid CSV columns');const pct=r[1].endsWith('%'),raw=number(pct?r[1].slice(0,-1):r[1]);return {metric_date:r[0],occupancy:pct?raw/100:raw,adr:number(r[2])}});
  validateMetricInputs(result);return result;
 }
 
@@ -202,7 +238,7 @@ export function buildForecast(metrics:DailyMetric[],metric:'occupancy'|'adr'|'re
  if(!Array.isArray(metrics)||metrics.length>3660||!['occupancy','adr','revpar'].includes(metric)||!Number.isInteger(horizonDays)||horizonDays<1||horizonDays>180||!Number.isFinite(variationPct)||variationPct<0||variationPct>100)throw new RangeError('Invalid forecast assumptions');
  const valid=metrics.filter(r=>r.source!=='forecast_seed').sort((a,b)=>a.metric_date.localeCompare(b.metric_date));
  valid.forEach((r,i)=>{
-  if(!validDay(r.metric_date)||!validMetric(r.occupancy,1)||!validMetric(r.adr,1e6)||!validMetric(r.revpar,1e6)||metric==='revpar'&&(r.occupancy==null||r.adr==null)||metric!=='revpar'&&r[metric]==null)throw new RangeError('Incomplete or invalid daily data');
+  if(!validDay(r.metric_date)||!validMetric(r.occupancy,1)||!validMetric(r.adr,1e6)||!validMetric(r.revpar,1e6)||metric==='revpar'&&(r.occupancy==null||r.adr===undefined||r.adr==null)||metric!=='revpar'&&r[metric]==null)throw new RangeError('Incomplete or invalid daily data');
   if(i&&Date.parse(r.metric_date+'T00:00:00Z')-Date.parse(valid[i-1].metric_date+'T00:00:00Z')!==86400000)throw new RangeError('Days must be unique and consecutive');
  });
  if(valid.length<14)return null;

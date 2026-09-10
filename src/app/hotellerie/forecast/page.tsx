@@ -12,6 +12,7 @@ import {
   type DailyMetric, type ForecastResult,
 } from "@/lib/hotel-forecast";
 
+import { invoiceDate, addInvoiceDays } from "@/lib/facturation/templates";
 import { errMsg } from "@/lib/errors";
 
 type MetricKey = "occupancy" | "adr" | "revpar";
@@ -27,11 +28,27 @@ const METRIC_COLOR: Record<MetricKey, string> = {
 };
 
 export default function HotelForecastPage() {
+  const { user, loading } = useAuth();
+  const locale = useLocale();
+  const t = useTranslations("hotelForecast");
+  const lp = locale === "fr" ? "" : `/${locale}`;
+  if (loading) return <p role="status" className="p-8">{t("loading")}</p>;
+  if (!user) return <div className="mx-auto max-w-3xl px-4 py-16 text-center"><p className="text-sm text-muted">{t("loginPrompt")}</p><Link href={`${lp}/connexion`} className="mt-4 inline-flex rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white">{t("loginBtn")}</Link></div>;
+  return <ForecastWorkspace key={user.id} userId={user.id} />;
+}
+
+function ForecastWorkspace({ userId }: { userId: string }) {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
   const t = useTranslations("hotelForecast");
   const formatEUR=(value:number)=>value.toLocaleString(locale === "lb" ? "de-DE" : locale,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2});
-  const { user } = useAuth();
+  const active = useRef(true);
+  const actionLock = useRef(false);
+  const [busy, setBusy] = useState(false);
+  const [hotelsLoading, setHotelsLoading] = useState(true);
+  const [metricsLoading, setMetricsLoading] = useState(false);
+  const [reload, setReload] = useState(0);
+  useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
 
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [activeHotelId, setActiveHotelId] = useState<string | null>(null);
@@ -47,43 +64,46 @@ export default function HotelForecastPage() {
 
   const [showManual, setShowManual] = useState(false);
   const [manualEntry, setManualEntry] = useState({
-    metric_date: new Date().toISOString().slice(0, 10),
+    metric_date: invoiceDate(),
     occupancy: NaN,
     adr: NaN,
   });
 
   useEffect(() => {
-    if (!user) return;
+    let cancelled = false;
     void (async () => {
+      setHotelsLoading(true); setError(null);
       try {
         const orgs = await listMyOrganizations();
         const hotelOrgs = orgs.filter((o) => o.org_type === "hotel_group");
-        if (hotelOrgs.length === 0) return;
         const allHotels: Hotel[] = [];
         for (const o of hotelOrgs) {
-          const hs = await listHotels(o.id);
-          allHotels.push(...hs);
+          if (cancelled) return;
+          allHotels.push(...await listHotels(o.id));
         }
+        if (cancelled) return;
         setHotels(allHotels);
-        if (allHotels.length > 0) setActiveHotelId(allHotels[0].id);
-      } catch (e) { setError(errMsg(e, t("error"))); }
+        setActiveHotelId(allHotels[0]?.id ?? null);
+      } catch (e) { if (!cancelled) setError(errMsg(e, t("error"))); }
+      finally { if (!cancelled) setHotelsLoading(false); }
     })();
-  }, [user, t]);
+    return () => { cancelled = true; };
+  }, [userId, t, reload]);
 
   const refreshMetrics = useCallback(async (hotelId: string) => {
     const request = ++metricsRequest.current;
+    setMetricsLoading(true); setError(null);
     try {
-      // Charge les 365 derniers jours pour historique
-      const from = new Date();
-      from.setUTCDate(from.getUTCDate() - 365);
-      const ms = await listMetrics(hotelId, from.toISOString().slice(0, 10));
-      if (request === metricsRequest.current) setMetrics(ms);
-    } catch (e) { if (request === metricsRequest.current) setError(errMsg(e, t("error"))); }
-  }, [t]);
+      const ms = await listMetrics(hotelId, addInvoiceDays(invoiceDate(), -365), invoiceDate(), userId);
+      if (active.current && request === metricsRequest.current) setMetrics(ms);
+    } catch (e) { if (active.current && request === metricsRequest.current) { setMetrics([]); setError(errMsg(e, t("error"))); } }
+    finally { if (active.current && request === metricsRequest.current) setMetricsLoading(false); }
+  }, [t, userId]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (activeHotelId) void refreshMetrics(activeHotelId);
+    const counter = metricsRequest;
+    return () => { counter.current++; };
   }, [activeHotelId, refreshMetrics]);
 
   const forecast: ForecastResult | null = useMemo(() => {
@@ -91,48 +111,30 @@ export default function HotelForecastPage() {
     try { return buildForecast(metrics, activeMetric, horizon, variation); } catch { return null; }
   }, [metrics, activeMetric, horizon, variation]);
 
-  const handleImportCsv = async () => {
-    if (!activeHotelId || !csvText.trim()) return;
-    try {
-      const rows = parseCsvMetrics(csvText);
-      if (rows.length === 0) { setError(t("noCsvRows")); return; }
-      await upsertMetrics(activeHotelId, rows.map((r) => ({ ...r, source: "csv_import" as const })));
-      setCsvText(""); setShowCsvImport(false);
-      await refreshMetrics(activeHotelId);
-    } catch (e) { setError(errMsg(e, t("error"))); }
+  const runAction = async (action: (hotelId: string) => Promise<void>) => {
+    if (!activeHotelId || actionLock.current || !active.current) return;
+    const hotelId = activeHotelId;
+    actionLock.current = true; setBusy(true); setError(null);
+    try { await action(hotelId); if (active.current) await refreshMetrics(hotelId); }
+    catch (e) { if (active.current) setError(errMsg(e, t("error"))); }
+    finally { actionLock.current = false; if (active.current) setBusy(false); }
   };
-
-  const handleManualSave = async () => {
-    if (!activeHotelId) return;
-    try {
-      await upsertMetrics(activeHotelId, [{
-        metric_date: manualEntry.metric_date,
-        occupancy: manualEntry.occupancy,
-        adr: manualEntry.adr,
-        source: "manual",
-      }]);
-      setShowManual(false);
-      await refreshMetrics(activeHotelId);
-    } catch (e) { setError(errMsg(e, t("error"))); }
+  const handleImportCsv = () => runAction(async hotelId => {
+    const rows = parseCsvMetrics(csvText);
+    await upsertMetrics(hotelId, rows.map(r => ({ ...r, source: "csv_import" as const })), userId);
+    if (active.current) { setCsvText(""); setShowCsvImport(false); }
+  });
+  const handleManualSave = () => runAction(async hotelId => {
+    await upsertMetrics(hotelId, [{ ...manualEntry, source: "manual" }], userId);
+    if (active.current) setShowManual(false);
+  });
+  const handleDeleteMetric = (id: string) => {
+    if (window.confirm(t("confirmDelete"))) void runAction(hotelId => deleteMetric(id, hotelId, userId));
   };
-
-  const handleDeleteMetric = async (id: string) => {
-    try { await deleteMetric(id); if (activeHotelId) await refreshMetrics(activeHotelId); }
-    catch (e) { setError(errMsg(e, t("error"))); }
-  };
-
-  if (!user) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <p className="text-sm text-muted">{t("loginPrompt")}</p>
-        <Link href={`${lp}/connexion`} className="mt-4 inline-flex rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white">{t("loginBtn")}</Link>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-background min-h-screen py-8 sm:py-12 [overflow-wrap:anywhere]">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <fieldset disabled={busy} aria-busy={busy} className="mx-auto min-w-0 max-w-6xl px-4 sm:px-6 lg:px-8">
         <Link href={`${lp}/hotellerie`} className="text-xs text-muted hover:text-navy">{t("hubLink")}</Link>
         <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
         <p className="mt-1 text-sm text-muted">
@@ -140,9 +142,10 @@ export default function HotelForecastPage() {
         </p>
 
         {metrics.some(r=>r.source === "forecast_seed") && <p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{t("excludedDemo")}</p>}
-        {error && <p className="mt-4 text-xs text-rose-700">{error}</p>}
+        {error && <div role="alert" className="mt-4 text-sm text-rose-700"><p>{error}</p><button className="mt-2 underline" onClick={() => activeHotelId ? void refreshMetrics(activeHotelId) : setReload(v => v + 1)}>{t("retry")}</button></div>}
+        {(hotelsLoading || metricsLoading) && <p role="status" className="mt-4 text-sm">{t("loading")}</p>}
 
-        {hotels.length === 0 && (
+        {!hotelsLoading && !error && hotels.length === 0 && (
           <div className="mt-8 rounded-xl border border-dashed border-card-border bg-card p-10 text-center">
             <p className="text-sm text-muted">
               {t("noHotel")}{" "}
@@ -156,7 +159,7 @@ export default function HotelForecastPage() {
           <>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <label className="text-xs text-muted">{t("hotelLabel")}</label>
-              <select value={activeHotelId ?? ""} onChange={(e) => {metricsRequest.current++;setMetrics([]);setError(null);setActiveHotelId(e.target.value)}}
+              <select value={activeHotelId ?? ""} onChange={(e) => {if(e.target.value===activeHotelId)return;metricsRequest.current++;setMetrics([]);setError(null);setShowManual(false);setShowCsvImport(false);setCsvText("");setManualEntry({metric_date:invoiceDate(),occupancy:NaN,adr:NaN});setActiveHotelId(e.target.value)}}
                 className="rounded-lg border border-input-border bg-input-bg px-3 py-1.5 text-sm">
                 {hotels.map((h) => <option key={h.id} value={h.id}>{h.name}</option>)}
               </select>
@@ -246,7 +249,7 @@ export default function HotelForecastPage() {
             </div>
 
             {/* Chart + KPIs */}
-            {forecast ? (
+            {!metricsLoading && !error && (forecast ? (
               <>
                 <div className="mt-4 grid gap-3 sm:grid-cols-4">
                   <KpiCard label={t("kpiAvgHistorical", { metric: t(METRIC_I18N_KEY[activeMetric]) })}
@@ -305,13 +308,13 @@ export default function HotelForecastPage() {
               <div className="mt-6 rounded-xl border border-dashed border-card-border bg-card p-8 text-center text-sm text-muted">
                 {t("minDataWarning")}
               </div>
-            )}
+            ))}
 
             {/* Recent metrics table */}
             {metrics.length > 0 && (
               <details className="mt-4">
                 <summary className="cursor-pointer text-sm font-medium text-navy hover:underline">
-                  {t("showHistory", { count: metrics.length })}
+                  {t("showHistory", { count: Math.min(metrics.length, 60) })}
                 </summary>
                 <div className="mt-2 overflow-x-auto rounded-xl border border-card-border bg-card max-h-96">
                   <table className="w-full text-xs">
@@ -350,7 +353,7 @@ export default function HotelForecastPage() {
         <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs text-blue-900">
           {t("methodology")}
         </div>
-      </div>
+      </fieldset>
     </div>
   );
 }
