@@ -1408,3 +1408,14 @@ Les autres modèles nationaux, le traitement complet des revenus locatifs UK et 
 - Validation : 1 856 tests / 162 fichiers, lint et build réussis. Test du SDK réellement installé avec toutes les requêtes interceptées : corps des envois contrôlé, aucun secret synthétique d’URL/formulaire, pas d’envoi privé ni après retrait. Pages profil/confidentialité contrôlées en cinq langues et quatre largeurs.
 - Sources : https://posthog.com/docs/libraries/js/config ; https://developers.google.com/analytics/devguides/collection/ga4/views . Aucun événement réel de client ni réglage de compte externe modifié.
 - Lot trésorerie 571bc35 : CI34446783395 réussie ; dpl_3yYyC2penYcpcXgeovhfCizkkF5f Ready / alias tevaxia.lu ; contrôle API et graphiques en production réussi dans cinq langues.
+
+
+## 10 septembre — diagnostic d’erreurs sans contexte de dossiers
+
+- Filtre final partagé entre navigateur, Node et Edge : reconstruction des événements Sentry, exclusion des messages variables, URL de dossiers, requêtes/en-têtes/cookies, utilisateur, contexte métier, variables, breadcrumbs et pièces jointes.
+- Préservation du type d’erreur, identifiant technique, environnement standard, version/hash admissible et repères de fichiers compilés/ligne/colonne. Les messages privés et le contexte de code ne sont plus disponibles dans les rapports, ce qui réduit volontairement le détail de diagnostic.
+- Traces de performances serveur/Edge, logs et replay désactivés ; collecte automatique de corps, headers, paramètres, variables, entrées/sorties IA et données de requêtes DB désactivée explicitement.
+- 1 865 tests / 163 fichiers ; lint et compilation finale réussis. Transports des SDK réels navigateur et Node testés localement avec faux secrets : aucun message/URL/identité/contexte/pièce jointe transmis, erreur et ligne conservées, aucun envoi réel. Runtime Edge compile avec le même filtre ; pas de faux incident généré en production.
+- Politique : description ciblée du diagnostic et mention Sentry dans les cinq langues. Les autres affirmations historiques de la politique (purges, durées, mécanismes métier) ne sont pas toutes certifiées par ce lot.
+- Sources : https://docs.sentry.io/platforms/javascript/guides/nextjs/data-management/sensitive-data/ ; https://docs.sentry.io/platforms/javascript/enriching-events/attachments/ ; options et enveloppes du SDK installé examinées.
+- Lot audience 6b01c42 : CI34447862615 réussie, dpl_A7PQHWmAufhUzDn7XUoT875z1gt2 Ready avec alias tevaxia.lu, contrôles profil/confidentialité cinq langues en production réussis.

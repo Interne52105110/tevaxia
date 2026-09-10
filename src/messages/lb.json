@@ -3762,7 +3762,7 @@
   },
   "confidentialite": {
     "title": "Dateschutzrichtlinn",
-    "lastUpdate": "Lescht Aktualiséierung: Abrëll 2026",
+    "lastUpdate": "Lescht Aktualiséierung: 10. September 2026",
     "responsable": {
       "title": "1. Responsabele fir d'Dateveraarbechtung",
       "name": "tevaxia.lu",
@@ -3805,6 +3805,10 @@
       "paiement": {
         "label": "Bezuelungsdonnéeën (Stripe):",
         "text": "Wann Dir e bezuelende Plang abonnéiert, gëtt d'Bezuelung (Kreditkaart, SEPA) komplett vun Stripe Payments Europe Limited (Irland) verwalt. tevaxia kritt a späichert ni Är voll Kartennummer: nëmmen eng Stripe-Client-ID, déi 4 lescht Zifferen vun Ärer Kaart a säi Verfallsdatum ginn an eiser Datebank behalen, fir datt Dir Äert Abonnement verwalte kënnt."
+      },
+      "diagnostic": {
+        "label": "Technesch Feelerdiagnos:",
+        "text": "Wann Sentry konfiguréiert ass, kann de Site en technesche Rapport mat Feelerzort a Positiounen am generéierte Code schécken. Variabel Messagen, Dossier-URLen, Ufroen, Headeren, Kontidentitéiten, Geschäftskontexter a Fichieren als Uschlëss ginn aus dem Rapport ewechgeholl. Performance-Tracing a Sessiounsopzeechnunge sinn deaktivéiert. Den Ubidder kritt déi néideg Netzwierkinformatioune fir d’Verbindung."
       }
     },
     "finalites": {
@@ -3850,7 +3854,9 @@
       "enableBanking": "PSD2-Bankverbindung (AIS) fir Rapprochement",
       "enableBankingLoc": "Enable Banking Oy — Finnland (EU)",
       "posthog": "Miessung vun ëffentleche Säite mat Zoustëmmung",
-      "posthogLoc": "PostHog EU"
+      "posthogLoc": "PostHog EU",
+      "sentry": "Technesch Feelerdiagnos",
+      "sentryLoc": "Jee no Projetskonfiguratioun"
     },
     "duree": {
       "title": "6. Dauer vun der Opbewahrung",

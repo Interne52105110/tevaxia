@@ -2,6 +2,7 @@
 // Init uniquement si le DSN est défini — sinon aucun impact runtime.
 
 import * as Sentry from "@sentry/nextjs";
+import { DIAGNOSTIC_PRIVACY_OPTIONS } from "./src/lib/diagnostic-privacy";
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
@@ -12,7 +13,7 @@ if (dsn) {
     // 0 = no perf tracing on the client. Saves the tracing instrumentation
     // from running on every nav. Default integrations (breadcrumbs,
     // global error handlers) are kept so window.onerror is still captured.
-    tracesSampleRate: 0,
+    ...DIAGNOSTIC_PRIVACY_OPTIONS,
     debug: false,
     integrations: [],
     // Drop documented browser noise that has no application root cause:

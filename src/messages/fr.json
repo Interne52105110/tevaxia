@@ -3762,7 +3762,7 @@
   },
   "confidentialite": {
     "title": "Politique de confidentialité",
-    "lastUpdate": "Dernière mise à jour : avril 2026",
+    "lastUpdate": "Dernière mise à jour : 10 septembre 2026",
     "responsable": {
       "title": "1. Responsable du traitement",
       "name": "tevaxia.lu",
@@ -3805,6 +3805,10 @@
       "paiement": {
         "label": "Données de paiement (Stripe) :",
         "text": "Si vous souscrivez à un plan payant, le traitement du paiement (carte bancaire, SEPA) est entièrement géré par Stripe Payments Europe Limited (Irlande). tevaxia ne reçoit et ne stocke jamais votre numéro de carte complet : seul un identifiant de client Stripe, les 4 derniers chiffres de votre carte et sa date d'expiration sont conservés dans notre base pour vous permettre de gérer votre abonnement."
+      },
+      "diagnostic": {
+        "label": "Diagnostic technique des erreurs :",
+        "text": "Lorsque Sentry est configuré, le site peut transmettre un rapport technique limité au type d’erreur et aux repères du code généré. Les messages variables, URL de dossiers, requêtes, en-têtes, identités de compte, contextes métier et pièces jointes sont retirés du rapport. Le traçage des performances et l’enregistrement de sessions sont désactivés. Le prestataire reçoit les informations réseau nécessaires à la connexion."
       }
     },
     "finalites": {
@@ -3850,7 +3854,9 @@
       "enableBanking": "Connexion bancaire PSD2 (AIS) pour rapprochement",
       "enableBankingLoc": "Enable Banking Oy — Finlande (UE)",
       "posthog": "Mesure des pages publiques avec consentement",
-      "posthogLoc": "PostHog EU"
+      "posthogLoc": "PostHog EU",
+      "sentry": "Diagnostic technique des erreurs",
+      "sentryLoc": "Selon la configuration du projet"
     },
     "duree": {
       "title": "6. Durée de conservation",

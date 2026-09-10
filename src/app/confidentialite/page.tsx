@@ -61,6 +61,8 @@ export default async function Confidentialite() {
             </p>
           </section>
 
+          <p><strong>{t("donnees.diagnostic.label")}</strong><br />{t("donnees.diagnostic.text")}</p>
+
           {/* 3. Finalités */}
           <section>
             <h2 className="text-lg font-semibold text-navy">{t("finalites.title")}</h2>
@@ -96,6 +98,7 @@ export default async function Confidentialite() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate/10">
+                  <tr><td className="py-2 pr-4">Sentry</td><td className="py-2 pr-4">{t("soustraitants.sentry")}</td><td className="py-2">{t("soustraitants.sentryLoc")}</td></tr>
                   <tr><td className="py-2 pr-4">PostHog</td><td className="py-2 pr-4">{t("soustraitants.posthog")}</td><td className="py-2">{t("soustraitants.posthogLoc")}</td></tr>
                   <tr>
                     <td className="py-2 pr-4">Supabase Inc.</td>
