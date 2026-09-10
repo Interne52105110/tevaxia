@@ -232,7 +232,7 @@ export default function AssembliesPage() {
 
   const downloadConvocation = async (unit?: CoownershipUnit) => {
     if (!activeAssembly || !coown) return;
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const syndic = { name: profile.nomComplet || "Syndic", address: profile.adresse, email: profile.email, phone: profile.telephone };
     const blob = await pdf(
       <ConvocationPdf
@@ -261,7 +261,7 @@ export default function AssembliesPage() {
 
   const downloadMinutes = async () => {
     if (!activeAssembly || !coown) return;
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const syndic = { name: profile.nomComplet || "Syndic", email: profile.email };
     const blob = await pdf(
       <AssemblyMinutesPdf

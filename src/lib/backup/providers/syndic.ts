@@ -50,7 +50,7 @@ async function collect(ctx: ExportContext): Promise<BackupBundle> {
   let pdfModule: typeof import("@react-pdf/renderer") | null = null;
   let AssemblyMinutesPdf: typeof import("@/components/AssemblyMinutesPdf").default | null = null;
   let FundsCallPdf: typeof import("@/components/FundsCallPdf").default | null = null;
-  const profile = getProfile();
+  const profile = getProfile(ctx.userId);
 
   // Plafond pour ne pas exploser le ZIP (N grosses copro × 4 calls × 40 units)
   const MAX_PDFS = 150;

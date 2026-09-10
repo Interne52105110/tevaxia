@@ -164,7 +164,7 @@ export default function FundsCallsPage() {
 
   const downloadCallPdf = async (call: CoownershipCall, unit: CoownershipUnit, charge: UnitCharge) => {
     if (!coown) return;
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const blob = await pdf(
       <FundsCallPdf
         coownership={{ name: coown.name, address: coown.address, commune: coown.commune, total_tantiemes: coown.total_tantiemes }}

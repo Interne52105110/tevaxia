@@ -141,7 +141,7 @@ function PaymentsPageContent() {
   const prepareInvoice = (payment: RentalPayment) => {
     if (!lot || !user) return;
     try {
-      const profile = getProfile();
+      const profile = getProfile(user?.id ?? null);
       const draft = rentalInvoiceDraft(payment, lot, user.id, { name: profile.nomComplet || profile.societe || "", address: profile.adresse }, { rent: ti("rent"), charges: ti("charges") });
       storeInvoiceDraft(draft, user.id);
       window.location.href = `${lp}/facturation/emission`;
@@ -149,7 +149,7 @@ function PaymentsPageContent() {
   };
 
   const downloadReceipt = async (payment: RentalPayment) => {
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const blob = await pdf(
       <RentReceiptPdf
         lot={lot}

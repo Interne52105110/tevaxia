@@ -1,5 +1,7 @@
 "use client";
 
+import { useAuth } from "@/components/AuthProvider";
+
 import { useState, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
@@ -90,6 +92,7 @@ function TabMLV({valeurMarche}:{valeurMarche:number}) {return <PrudentialValue v
 // ============================================================
 
 export default function Valorisation() {
+  const { user } = useAuth();
   const t = useTranslations("valorisation"), sessionText=useTranslations("valuationSession"), scopeText=useTranslations("valuationScope");
   const [viewMode, setViewMode] = useState<"calculateur" | "rapport">("calculateur");
   const [activeTab, setActiveTab] = useState<ActiveTab>("comparaison");
@@ -301,7 +304,7 @@ export default function Valorisation() {
               />
               <PdfButton
                 generateBlob={() => {
-                  const prof = getProfile();
+                  const prof = getProfile(user?.id ?? null);
                   return _lazy_generateReportBlob({
                     dateRapport: new Date().toISOString().split("T")[0],
                     commune: selectedCommune?.commune,
@@ -355,7 +358,7 @@ export default function Valorisation() {
                   valeurReconciliee: valeurMarchePourMLV,
                   reconciliation: reportMethods,
                   comparables: comparisonResult?comparables:[],
-                })}
+                }, user?.id ?? null)}
                 className="rounded-lg border border-gold px-3 py-2 text-xs font-medium text-gold-dark hover:bg-gold/10 transition-colors"
               >
                 DOCX

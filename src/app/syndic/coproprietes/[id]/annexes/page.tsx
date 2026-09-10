@@ -68,7 +68,7 @@ export default function AnnexesPage() {
 
   const downloadPdf = async () => {
     if (!bundle) return;
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const blob = await pdf(
       <CoownershipAnnexesPdf
         bundle={bundle}

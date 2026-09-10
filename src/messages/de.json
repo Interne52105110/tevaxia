@@ -5069,7 +5069,11 @@
       "statusOpen": "Fällig",
       "view": "Anzeigen",
       "legalNote": "10 Jahre für Buchhaltung aufbewahren."
-    }
+    },
+    "profileStorageError": "Laden oder Änderung konnte nicht bestätigt werden. Die angezeigten Daten können eine lokale Kopie sein. Versuchen Sie es erneut, bevor Sie sich darauf verlassen.",
+    "profileRetry": "Erneut versuchen",
+    "profileLegacyNotice": "Eine ältere Sicherung ohne Kontozuordnung bleibt in diesem Browser erhalten. Sie wird nicht automatisch angezeigt oder importiert.",
+    "profileLegacyDownload": "Ältere Sicherung herunterladen"
   },
   "mesEvaluations": {
     "title": "Meine Bewertungen",

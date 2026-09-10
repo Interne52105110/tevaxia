@@ -61,7 +61,7 @@ export default function BonDeVisitePage() {
       return;
     }
     try {
-      const profile = getProfile();
+      const profile = getProfile(user?.id ?? null);
       const blob = await pdf(
         <VisitReceiptPdf
           agency={{

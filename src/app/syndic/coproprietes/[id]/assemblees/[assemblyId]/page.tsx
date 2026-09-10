@@ -137,7 +137,7 @@ export default function AssemblyDetailPage() {
 
   const downloadConvocationPdf = async () => {
     if (!assembly || !coown) return;
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const blob = await pdf(
       <ConvocationPdf
         coownership={{ name: coown.name, address: coown.address, commune: coown.commune }}
@@ -163,7 +163,7 @@ export default function AssemblyDetailPage() {
     await Promise.all(resolutions.map(async (r) => {
       votesMap[r.id] = await listVotes(r.id);
     }));
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const blob = await pdf(
       <AssemblyMinutesPdf
         coownership={{ name: coown.name, address: coown.address, total_tantiemes: coown.total_tantiemes }}

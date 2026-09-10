@@ -32,89 +32,79 @@ const DEFAULT_PROFILE: UserProfile = {
 
 // ── localStorage (primaire, fonctionne hors ligne) ──────────
 
-export function getProfile(): UserProfile {
-  if (typeof window === "undefined") return DEFAULT_PROFILE;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? { ...DEFAULT_PROFILE, ...JSON.parse(raw) } : DEFAULT_PROFILE;
-  } catch {
-    return DEFAULT_PROFILE;
+export function profileStorageKey(userId: string | null): string {
+  return `${STORAGE_KEY}:v2:${userId ? `user:${encodeURIComponent(userId)}` : 'guest'}`;
+}
+export function legacyProfileSnapshot(): string | null {
+  return typeof window === 'undefined' ? null : localStorage.getItem(STORAGE_KEY);
+}
+export function defaultProfile(): UserProfile { return {...DEFAULT_PROFILE}; }
+function parseProfile(value: unknown): UserProfile {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid profile');
+  const input=value as Record<string,unknown>, result=defaultProfile();
+  for(const key of ['nomComplet','societe','qualifications','telephone','email','adresse','mentionLegale','logoUrl','updatedAt'] as const) {
+    if(input[key]===undefined)continue;
+    if(typeof input[key]!=='string')throw new Error('Invalid profile field');
+    result[key]=input[key];
   }
+  if(result.updatedAt && !Number.isFinite(Date.parse(result.updatedAt)))throw new Error('Invalid profile date');
+  return result;
 }
-
-function saveProfileLocal(profile: UserProfile) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+export function getProfile(userId: string | null): UserProfile {
+  if(typeof window==='undefined')return defaultProfile();
+  const raw=localStorage.getItem(profileStorageKey(userId));
+  return raw ? parseProfile(JSON.parse(raw)) : defaultProfile();
 }
-
-// ── Supabase cloud (user_metadata) ──────────────────────────
-
-/** Pousse le profil dans auth.users.raw_user_meta_data si connecté */
-export async function syncProfileToCloud(profile: UserProfile): Promise<void> {
-  if (!supabase) return;
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-    await supabase.auth.updateUser({ data: { profile } });
-  } catch (err) {
-    console.error("[profile] cloud sync failed:", err);
-  }
+function saveProfileLocal(profile: UserProfile,userId: string | null) {
+  if(typeof window!=='undefined')localStorage.setItem(profileStorageKey(userId),JSON.stringify(parseProfile(profile)));
 }
-
-/** Charge le profil depuis le cloud ; retourne null si indisponible */
-export async function loadProfileFromCloud(): Promise<UserProfile | null> {
-  if (!supabase) return null;
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
-    const cloud = user.user_metadata?.profile as UserProfile | undefined;
-    if (!cloud || !cloud.nomComplet) return null;
-    return { ...DEFAULT_PROFILE, ...cloud };
-  } catch {
-    return null;
-  }
+async function requireProfileOwner(userId: string) {
+  if(!supabase)throw new Error('Profile service unavailable');
+  const {data,error}=await supabase.auth.getUser();
+  if(error || data.user?.id!==userId)throw new Error('Profile account changed');
+  return data.user;
 }
-
-// ── API publique ────────────────────────────────────────────
-
-/**
- * Sauvegarde le profil dans localStorage ET dans Supabase (si connecté).
- * Le timestamp updatedAt permet le merge cloud/local au chargement.
- */
-export async function saveProfile(profile: UserProfile): Promise<void> {
-  const stamped = { ...profile, updatedAt: new Date().toISOString() };
-  saveProfileLocal(stamped);
-  await syncProfileToCloud(stamped);
+/** Bind the metadata request to the captured token, even if browser auth changes meanwhile. */
+async function profileToken(userId: string): Promise<string> {
+  if(!supabase)throw new Error('Profile service unavailable');
+  const session=await supabase.auth.getSession();
+  const token=session.data.session?.access_token;
+  if(session.error || !token)throw new Error('Profile session unavailable');
+  const verified=await supabase.auth.getUser(token);
+  if(verified.error || verified.data.user?.id!==userId)throw new Error('Profile account changed');
+  return token;
 }
-
-/**
- * Charge le meilleur profil : compare local et cloud, garde le plus récent.
- * Retourne le profil mergé et synchronise les deux stores.
- */
-export async function loadAndMergeProfile(): Promise<UserProfile> {
-  const local = getProfile();
-  const cloud = await loadProfileFromCloud();
-  if (!cloud) return local;
-
-  const localTime = local.updatedAt ? new Date(local.updatedAt).getTime() : 0;
-  const cloudTime = cloud.updatedAt ? new Date(cloud.updatedAt).getTime() : 0;
-
-  if (cloudTime > localTime) {
-    // Cloud plus récent -> met à jour le local
-    saveProfileLocal(cloud);
-    return cloud;
-  }
-  if (localTime > cloudTime && local.nomComplet) {
-    // Local plus récent -> pousse vers le cloud
-    syncProfileToCloud(local);
-  }
-  return local;
+export async function syncProfileToCloud(profile: UserProfile,userId: string): Promise<void> {
+  const token=await profileToken(userId);
+  const url=process.env.NEXT_PUBLIC_SUPABASE_URL,key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if(!url || !key)throw new Error('Profile service unavailable');
+  const response=await fetch(`${url}/auth/v1/user`,{method:'PUT',headers:{apikey:key,Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({data:{profile:parseProfile(profile)}}),cache:'no-store',signal:AbortSignal.timeout(15000)});
+  if(!response.ok)throw new Error('Profile save not confirmed');
+  const result=await response.json();
+  if(result?.id!==userId || JSON.stringify(parseProfile(result.user_metadata?.profile))!==JSON.stringify(parseProfile(profile)))throw new Error('Profile save not confirmed');
+  await requireProfileOwner(userId);
 }
-
-export function hasProfile(): boolean {
-  const p = getProfile();
-  return p.nomComplet.length > 0;
+export async function loadProfileFromCloud(userId: string): Promise<UserProfile | null> {
+  const user=await requireProfileOwner(userId),cloud=user.user_metadata?.profile;
+  return cloud===undefined || cloud===null ? null : parseProfile(cloud);
 }
+export async function saveProfile(profile: UserProfile,userId: string | null): Promise<void> {
+  getProfile(userId); // Preserve malformed existing storage instead of silently replacing it.
+  const stamped={...parseProfile(profile),updatedAt:new Date().toISOString()};
+  if(userId)await syncProfileToCloud(stamped,userId);
+  saveProfileLocal(stamped,userId);
+}
+/** Reads never upload local identity details. Cloud is authoritative for the selected account. */
+export async function loadAndMergeProfile(userId: string | null): Promise<UserProfile> {
+  const local=getProfile(userId),snapshot=JSON.stringify(local);
+  if(!userId)return local;
+  const profile=(await loadProfileFromCloud(userId)) ?? defaultProfile();
+  await requireProfileOwner(userId);
+  if(JSON.stringify(getProfile(userId))!==snapshot)throw new Error('Profile changed during load');
+  saveProfileLocal(profile,userId);
+  return profile;
+}
+export function hasProfile(userId: string | null): boolean { return getProfile(userId).nomComplet.length>0; }
 
 // ── Upload logo via Supabase Storage ───────────────────────
 // Prérequis : créer le bucket "avatars" dans le dashboard Supabase
@@ -133,7 +123,7 @@ export interface UploadLogoResult {
  * Upload un logo dans Supabase Storage (bucket "avatars").
  * Retourne l'URL publique ou un message d'erreur localisé.
  */
-export async function uploadLogo(file: File): Promise<UploadLogoResult> {
+export async function uploadLogo(file: File, userId: string): Promise<UploadLogoResult> {
   if (!supabase) return { url: null, error: "Supabase non configuré." };
 
   // Validation format
@@ -146,21 +136,20 @@ export async function uploadLogo(file: File): Promise<UploadLogoResult> {
     return { url: null, error: `Fichier trop volumineux (max ${LOGO_MAX_SIZE / 1024} Ko).` };
   }
 
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { url: null, error: "Vous devez être connecté pour uploader un logo." };
+  const token=await profileToken(userId);
 
-  const ext = file.name.split(".").pop()?.toLowerCase() || "png";
-  const path = `logos/${user.id}.${ext}`;
+  const ext = ({"image/png":"png","image/jpeg":"jpg","image/svg+xml":"svg"} as Record<string,string>)[file.type];
+  const path = `logos/${userId}.${ext}`;
 
   const { error } = await supabase.storage
     .from("avatars")
-    .upload(path, file, { upsert: true, contentType: file.type });
+    .upload(path, file, { upsert: true, contentType: file.type, headers: {Authorization: `Bearer ${token}`} });
 
   if (error) {
-    console.error("[profile] logo upload error:", error);
-    return { url: null, error: `Erreur d'upload : ${error.message}` };
+    return { url: null, error: "Le téléversement du logo n’a pas été confirmé." };
   }
 
+  await requireProfileOwner(userId);
   const { data } = supabase.storage.from("avatars").getPublicUrl(path);
   return { url: data.publicUrl, error: null };
 }

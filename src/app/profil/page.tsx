@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import InputField from "@/components/InputField";
 import { useAuth } from "@/components/AuthProvider";
 import { supabase } from "@/lib/supabase";
 import { useTranslations, useLocale } from "next-intl";
-import { getProfile, saveProfile, loadAndMergeProfile, uploadLogo, type UserProfile } from "@/lib/profile";
+import { getProfile, defaultProfile, legacyProfileSnapshot, saveProfile, loadAndMergeProfile, uploadLogo, type UserProfile } from "@/lib/profile";
 import { listMySharedLinks, deleteSharedLink, buildSharedLinkUrl, type SharedLink } from "@/lib/shared-links";
 import { buildDataExport, downloadAsJsonFile } from "@/lib/data-export";
 import DeleteAccountSection from "@/components/DeleteAccountSection";
@@ -385,10 +385,21 @@ const TABS: { key: TabKey; labelKey: string; icon: string }[] = [
 ];
 
 export default function Profil() {
+  const { user, loading } = useAuth();
+  if(loading)return null;
+  return <ProfileContent key={user?.id ?? "guest"} />;
+}
+
+function ProfileContent() {
   const t = useTranslations("profil");
   const locale = useLocale();
   const { user } = useAuth();
-  const [profile, setProfile] = useState<UserProfile>(getProfile());
+  const [profile, setProfile] = useState<UserProfile>(defaultProfile);
+  const live=useRef(true), action=useRef(false);
+  const [profileError,setProfileError]=useState(false);
+  const [profileReady,setProfileReady]=useState(false);
+  const [legacy,setLegacy]=useState(false);
+  const [revision,setRevision]=useState(0);
   const [profileTypes, setProfileTypes] = useState<ProfileType[]>([]);
   const [saved, setSaved] = useState(false);
   const [syncing, setSyncing] = useState(false);
@@ -398,18 +409,17 @@ export default function Profil() {
   const [tab, setTab] = useState<TabKey>("identity");
 
   useEffect(() => {
-    // Charge le profil local immédiatement, puis merge avec le cloud
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setProfile(getProfile());
-    loadAndMergeProfile().then((merged) => setProfile(merged));
-  }, []);
+    let active=true;live.current=true;
+    try {setProfile(getProfile(user?.id ?? null));setLegacy(legacyProfileSnapshot()!==null);} catch {setProfileError(true);}
+    loadAndMergeProfile(user?.id ?? null).then(merged=>{if(active){setProfile(merged);setProfileReady(true);setProfileError(false);}}).catch(()=>{if(active)setProfileError(true);});
+    return ()=>{active=false;live.current=false;};
+  }, [user?.id,revision]);
 
   // Deep-link des onglets via ?section=
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const s = params.get("section") as TabKey | null;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- mount/dep-driven sync with external source (URL, localStorage, Supabase)
     if (s && TABS.some((tb) => tb.key === s)) setTab(s);
   }, []);
 
@@ -423,41 +433,41 @@ export default function Profil() {
   };
 
   const update = (field: keyof UserProfile, value: string) => {
+    if(!profileReady || action.current)return;
     setProfile((prev) => ({ ...prev, [field]: value }));
     setSaved(false);
     setDirty(true);
   };
 
   const handleSave = async () => {
-    setSyncing(true);
-    await saveProfile(profile);
-    setSyncing(false);
-    setSaved(true);
-    setDirty(false);
-    setTimeout(() => setSaved(false), 2000);
+    if(action.current || !profileReady)return;
+    action.current=true;setSyncing(true);setProfileError(false);setSaved(false);
+    try {
+      await saveProfile(profile,user?.id ?? null);
+      if(live.current){setSaved(true);setDirty(false);}
+    } catch {if(live.current)setProfileError(true);}
+    finally {action.current=false;if(live.current)setSyncing(false);}
   };
-
   const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploadError(null);
-    setUploading(true);
-    const result = await uploadLogo(file);
-    setUploading(false);
-    if (result.error) {
-      setUploadError(result.error);
-      return;
-    }
-    if (result.url) {
-      setProfile((prev) => ({ ...prev, logoUrl: result.url! }));
-      setDirty(true);
-      setSaved(false);
-    }
-    e.target.value = "";
+    const file=e.target.files?.[0];
+    if(!file || !user || action.current || !profileReady)return;
+    action.current=true;setUploadError(null);setUploading(true);
+    try {
+      const result=await uploadLogo(file,user.id);
+      if(!live.current)return;
+      if(result.error){setUploadError(t("profileStorageError"));return;}
+      if(result.url){setProfile(prev=>({...prev,logoUrl:result.url!}));setDirty(true);setSaved(false);}
+    } catch {if(live.current)setUploadError(t("profileStorageError"));}
+    finally {action.current=false;if(live.current)setUploading(false);}
+  };
+  const downloadLegacy = () => {
+    try {const raw=legacyProfileSnapshot();if(raw===null)return;const url=URL.createObjectURL(new Blob([raw],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='tevaxia-profile-legacy.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch{setProfileError(true);}
   };
 
   return (
     <div className="bg-background py-6 sm:py-10">
+      {profileError && <div role="alert" className="mx-auto max-w-5xl p-4 text-sm text-rose-700">{t("profileStorageError")} {!profileReady && <button className="underline" onClick={()=>{setRevision(n=>n+1);}}>{t("profileRetry")}</button>}</div>}
+      {legacy && <div className="mx-auto max-w-5xl p-4 text-sm">{t("profileLegacyNotice")} <button className="underline" onClick={downloadLegacy}>{t("profileLegacyDownload")}</button></div>}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <DashboardHero user={user} profile={profile} />
 
@@ -501,7 +511,7 @@ export default function Profil() {
           {/* Contenu onglet actif */}
           <div className="space-y-6 min-w-0">
             {tab === "identity" && (
-              <>
+              <fieldset disabled={syncing || uploading || !profileReady} className="min-w-0 space-y-5">
                 <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
                   <h2 className="mb-4 text-base font-semibold text-navy">{t("identity")}</h2>
                   <div className="space-y-4">
@@ -573,7 +583,7 @@ export default function Profil() {
                               type="file"
                               accept="image/png,image/jpeg,image/svg+xml"
                               onChange={handleLogoUpload}
-                              disabled={uploading}
+                              disabled={uploading || syncing || !profileReady}
                               className="sr-only"
                             />
                           </label>
@@ -609,7 +619,7 @@ export default function Profil() {
                     </div>
                   </div>
                 </div>
-              </>
+              </fieldset>
             )}
 
             {tab === "notifications" && (
@@ -663,7 +673,7 @@ export default function Profil() {
             <span className="text-xs text-white/80">{t("unsavedChanges")}</span>
             <button
               onClick={handleSave}
-              disabled={syncing}
+              disabled={syncing || uploading || !profileReady}
               className="rounded-full bg-gold px-4 py-1 text-xs font-bold text-navy-dark hover:brightness-105 disabled:opacity-60"
             >
               {syncing ? t("syncing") : saved ? t("profileSaved") : t("saveProfile")}

@@ -1103,3 +1103,16 @@ Vues recréées au changement de compte et, pour un lot, d’identifiant. Charge
 Validation : 17 nouveaux tests, suite complète 1 542 tests / 144 fichiers réussie, lint sans avertissement et compilation réussie. Fixture navigateur avec pages réelles cinq langues : compte remplacé, ancienne requête retardée ignorée, erreur de lecture non assimilée à un portefeuille vide, erreur d’écriture sans navigation, identifiant de réessai stable, verrou et changement de compte pendant sauvegarde. Aucune donnée client lue ou modifiée pour ces scénarios ; Supabase simulé. Les règles de paiement/colocation, calculs fiscaux, profils globaux et politiques RLS réelles ne sont pas certifiés par ce lot. Le SQL local de plafond cloud doit encore être revu, notamment son comportement concurrent ; aucune migration appliquée.
 
 Documentation PropCalc 8d10f99 publiée : CI 34425950581 réussie, dpl_88sEAAGv6qLV51Pf5K3VhN6Zm8Wt Ready. Cinq langues en production : quatre largeurs, code fetch extrait/exécuté, vrai widget chargé et modules britanniques affichés.
+
+
+## 10 septembre — identité utilisée dans les rapports
+
+Profil local séparé par compte/invité avec clé v2 ; ancienne sauvegarde globale conservée et téléchargeable explicitement. Tous les consommateurs existants du profil (valorisation, DOCX, bail, quittance, syndic, visite, exports) transmettent le compte concerné. Une lecture du profil n’envoie plus la version locale vers les métadonnées cloud. Le profil cloud vide est respecté, et une lecture concurrente n’écrase pas une modification locale.
+
+Sauvegarde de métadonnées liée à un jeton de session capturé et vérifié pour le compte attendu : contrat PUT /auth/v1/user confirmé dans le SDK installé. Réponse HTTP, identité et contenu confirmés avant cache/succès ; vérification du compte courant après la requête. Le téléversement de logo utilise également le jeton capturé dans l’option headers documentée par le SDK installé ; extension dérivée du type MIME accepté plutôt que du nom fourni. Aucune requête réelle de modification de profil ou de logo effectuée pendant l’audit.
+
+Écran de profil recréé au changement de compte, chargements tardifs ignorés, champs verrouillés pendant chargement/écriture, erreurs visibles, anciennes saisies conservées après refus de sauvegarde. Nettoyage de sa clé v2 ajouté à la suppression de compte. Les mises en page PDF/DOCX n’ont pas été modifiées ni recertifiées ; seul le choix du profil est modifié. Les autres paramètres utilisateur/exports globaux restent à revoir séparément.
+
+Validation : 16 nouveaux tests, suite 1 558 tests / 145 fichiers réussie ; lint sans avertissement, compilation réussie. Fixture cinq langues : lecture refusée, champs bloqués tant que non chargés, changement de compte, fin de requête tardive, refus d’enregistrement sans faux succès, saisies préservées. Parcours publics profil/valorisation/nouveau lot cinq langues/quatre largeurs sans débordement ni erreur de page.
+
+Lots locatifs 6bef222 publiés : CI 34426893810 réussie, dpl_6ED6hwmvt6hcNFXtuVVRyC4GG2Te Ready. Portefeuille/nouveau lot en production cinq langues/quatre largeurs sans erreur. Les essais d’écritures restent simulés.

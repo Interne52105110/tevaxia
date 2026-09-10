@@ -5069,7 +5069,11 @@
       "statusOpen": "Devida",
       "view": "Ver",
       "legalNote": "Conservar 10 anos para contabilidade."
-    }
+    },
+    "profileStorageError": "Não foi possível confirmar o carregamento ou a alteração. Os dados apresentados podem ser uma cópia local. Tente novamente antes de os utilizar.",
+    "profileRetry": "Tentar novamente",
+    "profileLegacyNotice": "Uma cópia de segurança antiga sem conta associada é conservada neste navegador. Não é apresentada nem importada automaticamente.",
+    "profileLegacyDownload": "Descarregar a cópia antiga"
   },
   "mesEvaluations": {
     "title": "As minhas avaliações",

@@ -36,7 +36,7 @@ export async function buildDataExport(): Promise<DataExport> {
     user_email: null,
     user_id: null,
     tier: null,
-    profile: getProfile() as unknown as Record<string, unknown>,
+    profile: {},
     valuations: [],
     rental_lots: [],
     market_alerts: [],
@@ -47,6 +47,7 @@ export async function buildDataExport(): Promise<DataExport> {
   const authSnapshot = supabase ? await supabase.auth.getUser() : null;
   if (authSnapshot?.error) throw new Error("Account unavailable");
   const rentalUserId=authSnapshot?.data.user?.id ?? null;
+  exp.profile=getProfile(rentalUserId) as unknown as Record<string,unknown>;
 
   // Items locaux/mergés
   const [{ items: valuations }, { items: lots, cloudError }] = await Promise.all([

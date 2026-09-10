@@ -125,7 +125,7 @@ export default function RelancesPage() {
     const rule = rules.find((r) => r.palier === palier);
     if (!rule) return;
     const { late_interest, penalty, total_claimed, letter_body } = prepareReminder(charge, rule);
-    const profile = getProfile();
+    const profile = getProfile(user?.id ?? null);
     const blob = await pdf(
       <ReminderLetterPdf
         coownership={{ name: coown.name, address: coown.address, commune: coown.commune }}

@@ -5069,7 +5069,11 @@
       "statusOpen": "Schëlleg",
       "view": "Kucken",
       "legalNote": "10 Joer konservéieren."
-    }
+    },
+    "profileStorageError": "D’Luede oder d’Ännerung konnt net bestätegt ginn. Déi ugewisen Donnéeë kënnen eng lokal Kopie sinn. Probéiert nach eng Kéier, ier Dir Iech drop verlooss.",
+    "profileRetry": "Nach eng Kéier probéieren",
+    "profileLegacyNotice": "Eng al Sécherung ouni Kontzouuerdnung bleift an dësem Browser erhalen. Si gëtt net automatesch ugewisen oder importéiert.",
+    "profileLegacyDownload": "Al Sécherung eroflueden"
   },
   "mesEvaluations": {
     "title": "Meng Bewäertungen",

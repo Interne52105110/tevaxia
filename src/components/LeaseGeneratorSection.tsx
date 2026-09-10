@@ -1,11 +1,13 @@
 "use client";
 
+import { useAuth } from "@/components/AuthProvider";
+
 import { useState } from "react";
 import { pdf } from "@react-pdf/renderer";
 import LeasePdf from "@/components/LeasePdf";
 import SignatureCanvas from "@/components/SignatureCanvas";
 import type { RentalLot } from "@/lib/gestion-locative";
-import { getProfile } from "@/lib/profile";
+import { getProfile, defaultProfile } from "@/lib/profile";
 import { errMsg } from "@/lib/errors";
 
 interface Props {
@@ -13,7 +15,9 @@ interface Props {
 }
 
 export default function LeaseGeneratorSection({ lot }: Props) {
-  const profile = getProfile();
+  const { user } = useAuth();
+  let profile;
+  try {profile=getProfile(user?.id ?? null);} catch {profile=defaultProfile();}
   const [open, setOpen] = useState(false);
   const [tenantName, setTenantName] = useState(lot.tenantName ?? "");
   const [tenantAddress, setTenantAddress] = useState("");
@@ -41,6 +45,7 @@ export default function LeaseGeneratorSection({ lot }: Props) {
     setLoading(true);
     setError(null);
     try {
+      const profile=getProfile(user?.id ?? null);
       const landlordSigned = sigLandlord ? new Date().toISOString() : null;
       const tenantSigned = sigTenant ? new Date().toISOString() : null;
 

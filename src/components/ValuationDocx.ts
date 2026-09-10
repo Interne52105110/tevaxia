@@ -28,10 +28,10 @@ interface DocxReportData {
   narrative?: string;
 }
 
-export async function downloadDocxReport(data: DocxReportData) {
+export async function downloadDocxReport(data: DocxReportData, userId: string | null) {
+  const profile = getProfile(userId);
   const { Document, Paragraph, TextRun, HeadingLevel, Packer } = await import("docx");
   const { saveAs } = await import("file-saver");
-  const profile = getProfile();
 
   const sections: InstanceType<typeof Paragraph>[] = [];
 

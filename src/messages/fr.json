@@ -5069,7 +5069,11 @@
       "statusOpen": "Due",
       "view": "Voir",
       "legalNote": "Les PDF sont générés par Stripe et conformes aux mentions légales LU (art. 61-63 loi TVA 12/02/1979, RGD 24/03/2023). Conservez-les 10 ans pour votre comptabilité."
-    }
+    },
+    "profileStorageError": "Impossible de confirmer le chargement ou la modification. Les données affichées peuvent être une copie locale. Réessayez avant de vous y fier.",
+    "profileRetry": "Réessayer",
+    "profileLegacyNotice": "Une ancienne sauvegarde non rattachée à un compte est conservée dans ce navigateur. Elle n’est ni affichée ni importée automatiquement.",
+    "profileLegacyDownload": "Télécharger l’ancienne sauvegarde"
   },
   "mesEvaluations": {
     "title": "Mes évaluations",
