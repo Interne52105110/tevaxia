@@ -4987,7 +4987,7 @@
     "localNote": "Äre Profil gëtt lokal gespäichert. Erstellt e Konto fir ze synchroniséieren an all Virdeeler fräizeschalten.",
     "deleteAccount": {
       "title": "Mäi Kont läschen",
-      "desc": "Onwiderrufbar. Läscht Ären Kont an all déi zougehéireg Donnéeën: Profil, gespäichert Bewäertungen, Vermietungslotss, Maartalarmer, ëffentlech Deelungslinken an API-Schlësselen. Lokale Späicher gëtt och geläscht. No dem Recht op Läschung (DSGVO Art. 17).",
+      "desc": "D’Läsche vum Zougangskont ass irreversibel. Identifizéiert lokal Kopië vun dësem Kont ginn aus dësem Browser geläscht. Gaaschtdonnéeën, eeler net zougeuerdent Donnéeën, erofgeluede Fichieren a Kopien op anere Plaze musse separat behandelt ginn. Dëse Knäppchen bestätegt net, datt all Rechnungen, Fichieren an Donnéeë vun anere Servicer komplett geläscht sinn.",
       "ctaOpen": "Mäi Kont läschen",
       "confirmTitle": "Läschung confirméieren",
       "confirmDesc": "Fir ze confirméieren, genau aginn: {token}",
@@ -4995,7 +4995,11 @@
       "confirmCta": "Endgülteg läschen",
       "cancel": "Ofbriechen",
       "deleting": "Gëtt geläscht…",
-      "typeWrong": "Text stëmmt net iwwerenee."
+      "typeWrong": "Text stëmmt net iwwerenee.",
+      "targetAccount": "Betraffene Kont: {email}",
+      "notConfirmed": "D’Läsche gouf net bestätegt. Kontrolléiert Är Verbindung, éier Dir nach eng Kéier probéiert; wéinst dësem Feeler goufe keng lokal Kopië geläscht.",
+      "deletedNotice": "De Server huet d’Läsche vum Kont bestätegt. Seng identifizéiert lokal Kopië goufen aus dësem Browser geläscht.",
+      "deletedPartialNotice": "De Server huet d’Läsche vum Kont bestätegt, mee d’lokal Botze konnt net komplett bestätegt ginn. Kontrolléiert d’Donnéeën, déi an dësem Browser gespäichert sinn."
     },
     "preferences": {
       "title": "Notifikatiounen & Akkorder",

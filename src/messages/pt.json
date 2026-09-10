@@ -4987,7 +4987,7 @@
     "localNote": "O seu perfil está guardado localmente. Crie uma conta para sincronizar e aceder a todas as vantagens.",
     "deleteAccount": {
       "title": "Eliminar a minha conta",
-      "desc": "Ação irreversível. Elimina a sua conta e todos os dados associados: perfil, avaliações guardadas, lotes locativos, alertas de mercado, links de partilha públicos e chaves API. O armazenamento local também é limpo. De acordo com o direito ao apagamento (RGPD Art. 17).",
+      "desc": "A eliminação da conta de acesso é irreversível. As cópias locais identificadas desta conta serão removidas deste navegador. Dados de convidado ou antigos sem titular identificado, ficheiros descarregados e cópias guardadas noutros locais devem ser tratados separadamente. Este botão não certifica a eliminação completa de faturas, ficheiros ou dados conservados por outros serviços.",
       "ctaOpen": "Eliminar a minha conta",
       "confirmTitle": "Confirmar eliminação",
       "confirmDesc": "Para confirmar, digite exatamente: {token}",
@@ -4995,7 +4995,11 @@
       "confirmCta": "Eliminar definitivamente",
       "cancel": "Cancelar",
       "deleting": "A eliminar…",
-      "typeWrong": "O texto introduzido não corresponde."
+      "typeWrong": "O texto introduzido não corresponde.",
+      "targetAccount": "Conta abrangida: {email}",
+      "notConfirmed": "A eliminação não foi confirmada. Verifique o estado da sessão antes de tentar novamente; nenhuma cópia local foi removida com base neste erro.",
+      "deletedNotice": "O servidor confirmou a eliminação da conta. As cópias locais identificadas foram removidas deste navegador.",
+      "deletedPartialNotice": "O servidor confirmou a eliminação da conta, mas a limpeza local não pôde ser totalmente confirmada. Verifique os dados guardados neste navegador."
     },
     "preferences": {
       "title": "Notificações & consentimentos",

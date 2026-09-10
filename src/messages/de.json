@@ -4987,7 +4987,7 @@
     "localNote": "Ihr Profil wird lokal gespeichert. Erstellen Sie ein Konto, um zu synchronisieren und alle Vorteile freizuschalten.",
     "deleteAccount": {
       "title": "Mein Konto löschen",
-      "desc": "Unwiderruflich. Löscht Ihr Konto und alle zugehörigen Daten: Profil, gespeicherte Bewertungen, Mietobjekte, Marktalarme, öffentliche Freigabelinks und API-Schlüssel. Lokaler Speicher wird ebenfalls geleert. Gemäß Recht auf Löschung (DSGVO Art. 17).",
+      "desc": "Das Löschen des Anmeldekontos ist unwiderruflich. Identifizierte lokale Kopien dieses Kontos werden aus diesem Browser entfernt. Gastdaten, ältere nicht zugeordnete Daten, heruntergeladene Dateien und anderswo gespeicherte Kopien müssen separat behandelt werden. Diese Schaltfläche bestätigt keine vollständige Löschung von Rechnungen, Dateien oder Daten anderer Dienste.",
       "ctaOpen": "Mein Konto löschen",
       "confirmTitle": "Löschung bestätigen",
       "confirmDesc": "Zur Bestätigung genau eingeben: {token}",
@@ -4995,7 +4995,11 @@
       "confirmCta": "Endgültig löschen",
       "cancel": "Abbrechen",
       "deleting": "Wird gelöscht…",
-      "typeWrong": "Eingabe stimmt nicht überein."
+      "typeWrong": "Eingabe stimmt nicht überein.",
+      "targetAccount": "Betroffenes Konto: {email}",
+      "notConfirmed": "Die Löschung ist nicht bestätigt. Prüfen Sie vor einem erneuten Versuch Ihren Anmeldestatus; aufgrund dieses Fehlers wurden keine lokalen Kopien entfernt.",
+      "deletedNotice": "Der Server hat die Kontolöschung bestätigt. Die identifizierten lokalen Kopien wurden aus diesem Browser entfernt.",
+      "deletedPartialNotice": "Der Server hat die Kontolöschung bestätigt, die lokale Bereinigung konnte jedoch nicht vollständig bestätigt werden. Prüfen Sie die in diesem Browser gespeicherten Daten."
     },
     "preferences": {
       "title": "Benachrichtigungen & Einwilligungen",

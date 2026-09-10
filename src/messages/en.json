@@ -4987,7 +4987,7 @@
     "localNote": "Your profile is stored locally. Create an account to sync and unlock all benefits.",
     "deleteAccount": {
       "title": "Delete my account",
-      "desc": "Irreversible action. This deletes your account and all associated data: profile, saved valuations, rental lots, market alerts, public share links and API keys. Local storage is also cleared. In accordance with the right to erasure (GDPR Art. 17).",
+      "desc": "Deleting the sign-in account is irreversible. Identified local copies for this account will be removed from this browser. Guest or unassigned older data, downloaded files and copies held elsewhere must be handled separately. This button does not certify complete erasure of invoices, files or data retained by other services.",
       "ctaOpen": "Delete my account",
       "confirmTitle": "Confirm deletion",
       "confirmDesc": "To confirm, type exactly: {token}",
@@ -4995,7 +4995,11 @@
       "confirmCta": "Delete permanently",
       "cancel": "Cancel",
       "deleting": "Deleting…",
-      "typeWrong": "The typed text does not match."
+      "typeWrong": "The typed text does not match.",
+      "targetAccount": "Account concerned: {email}",
+      "notConfirmed": "Deletion is not confirmed. Check your sign-in status before retrying; no local copy was removed on the basis of this error.",
+      "deletedNotice": "The server confirmed account deletion. Its identified local copies were removed from this browser.",
+      "deletedPartialNotice": "The server confirmed account deletion, but local cleanup could not be fully confirmed. Check the data stored in this browser."
     },
     "preferences": {
       "title": "Notifications & consents",

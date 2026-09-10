@@ -4987,7 +4987,7 @@
     "localNote": "Votre profil est stocké localement. Créez un compte pour synchroniser et accéder à tous les avantages.",
     "deleteAccount": {
       "title": "Supprimer mon compte",
-      "desc": "Action irréversible. Cette opération efface votre compte ainsi que toutes les données associées : profil, évaluations sauvegardées, lots locatifs, alertes marché, liens de partage publics et clés API. La sauvegarde locale (localStorage) est également vidée. En accord avec le droit à l'effacement (RGPD Art. 17).",
+      "desc": "La suppression du compte de connexion est irréversible. Les copies locales identifiées de ce compte seront retirées de ce navigateur. Les données invitées ou anciennes non attribuées, les fichiers téléchargés et les copies détenues ailleurs restent à traiter séparément. Ce bouton ne certifie pas l’effacement complet des factures, fichiers et données conservés par d’autres services.",
       "ctaOpen": "Supprimer mon compte",
       "confirmTitle": "Confirmer la suppression",
       "confirmDesc": "Pour confirmer, saisissez exactement : {token}",
@@ -4995,7 +4995,11 @@
       "confirmCta": "Supprimer définitivement",
       "cancel": "Annuler",
       "deleting": "Suppression…",
-      "typeWrong": "Le texte saisi ne correspond pas."
+      "typeWrong": "Le texte saisi ne correspond pas.",
+      "targetAccount": "Compte concerné : {email}",
+      "notConfirmed": "La suppression n’est pas confirmée. Vérifiez l’état de votre connexion avant de réessayer ; aucune copie locale n’a été retirée sur la base de cette erreur.",
+      "deletedNotice": "La suppression du compte a été confirmée par le serveur. Ses copies locales identifiées ont été retirées de ce navigateur.",
+      "deletedPartialNotice": "La suppression du compte a été confirmée par le serveur, mais le nettoyage local n’a pas pu être entièrement confirmé. Vérifiez les données enregistrées dans ce navigateur."
     },
     "preferences": {
       "title": "Notifications & consentements",
