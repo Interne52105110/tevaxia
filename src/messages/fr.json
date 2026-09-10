@@ -11108,7 +11108,7 @@
   "profileTypes": {
     "title": "Mes profils",
     "description": "Sélectionnez un ou plusieurs profils pour personnaliser votre tableau de bord. Laissez vide pour tout afficher.",
-    "loading": "Chargement…",
+    "loading": "Chargement des profils…",
     "saved": "Enregistré",
     "selectedCount": "{count, plural, one {# profil sélectionné} other {# profils sélectionnés}}",
     "customizeCta": "Personnaliser mes espaces",
@@ -11148,7 +11148,11 @@
     "str_operator": {
       "label": "Location courte durée",
       "description": "Airbnb, Booking, opérateur STR sous règlement EU 2024/1028"
-    }
+    },
+    "saving": "Enregistrement…",
+    "loadFailed": "Impossible de charger vos profils. Rechargez avant de les modifier.",
+    "saveFailed": "Enregistrement non confirmé. Vos profils affichés restent inchangés ; rechargez pour vérifier les données du compte.",
+    "retry": "Recharger"
   },
   "syndicBenchmark": {
     "loginPrompt": "Connectez-vous pour accéder au benchmark inter-copropriétés.",

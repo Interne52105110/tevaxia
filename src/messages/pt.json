@@ -10986,7 +10986,7 @@
   "profileTypes": {
     "title": "Os meus perfis",
     "description": "Selecione um ou mais perfis para personalizar o painel. Deixe em branco para mostrar tudo.",
-    "loading": "A carregar…",
+    "loading": "A carregar perfis…",
     "saved": "Guardado",
     "selectedCount": "{count, plural, one {# perfil selecionado} other {# perfis selecionados}}",
     "customizeCta": "Personalizar os meus espaços",
@@ -11026,7 +11026,11 @@
     "str_operator": {
       "label": "Alojamento local",
       "description": "Airbnb, Booking, operador STR sob regulamento UE 2024/1028"
-    }
+    },
+    "saving": "A guardar…",
+    "loadFailed": "Não foi possível carregar os seus perfis. Recarregue antes de alterar.",
+    "saveFailed": "A gravação não foi confirmada. Os perfis apresentados permanecem inalterados; recarregue para verificar os dados da conta.",
+    "retry": "Recarregar"
   },
   "syndicBenchmark": {
     "loginPrompt": "Inicie sessão para aceder ao benchmark de condomínios.",

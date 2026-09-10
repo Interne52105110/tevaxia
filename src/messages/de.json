@@ -10986,7 +10986,7 @@
   "profileTypes": {
     "title": "Meine Profile",
     "description": "Wählen Sie ein oder mehrere Profile, um Ihr Dashboard zu personalisieren. Leer lassen, um alles anzuzeigen.",
-    "loading": "Lädt…",
+    "loading": "Profile werden geladen…",
     "saved": "Gespeichert",
     "selectedCount": "{count, plural, one {# Profil ausgewählt} other {# Profile ausgewählt}}",
     "customizeCta": "Arbeitsbereiche anpassen",
@@ -11026,7 +11026,11 @@
     "str_operator": {
       "label": "Kurzzeitvermietung",
       "description": "Airbnb, Booking, STR-Betreiber nach EU 2024/1028"
-    }
+    },
+    "saving": "Wird gespeichert…",
+    "loadFailed": "Ihre Profile konnten nicht geladen werden. Laden Sie sie vor Änderungen erneut.",
+    "saveFailed": "Die Speicherung wurde nicht bestätigt. Die angezeigten Profile bleiben unverändert; laden Sie die Kontodaten erneut zur Prüfung.",
+    "retry": "Neu laden"
   },
   "syndicBenchmark": {
     "loginPrompt": "Melden Sie sich an, um auf den WEG-Benchmark zuzugreifen.",

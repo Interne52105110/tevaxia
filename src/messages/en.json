@@ -11108,7 +11108,7 @@
   "profileTypes": {
     "title": "My profiles",
     "description": "Select one or more profiles to personalize your dashboard. Leave empty to show everything.",
-    "loading": "Loading…",
+    "loading": "Loading profiles…",
     "saved": "Saved",
     "selectedCount": "{count, plural, one {# profile selected} other {# profiles selected}}",
     "customizeCta": "Customise my workspaces",
@@ -11148,7 +11148,11 @@
     "str_operator": {
       "label": "Short-term rental",
       "description": "Airbnb, Booking, STR operator under EU 2024/1028"
-    }
+    },
+    "saving": "Saving…",
+    "loadFailed": "Your profiles could not be loaded. Reload before making changes.",
+    "saveFailed": "Saving was not confirmed. The displayed profiles remain unchanged; reload to check the account data.",
+    "retry": "Reload"
   },
   "syndicBenchmark": {
     "loginPrompt": "Sign in to access the cross-coownership benchmark.",

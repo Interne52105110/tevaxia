@@ -10986,7 +10986,7 @@
   "profileTypes": {
     "title": "Meng Profiler",
     "description": "Wielt een oder méi Profiler aus, fir Äert Dashboard ze personaliséieren. Eidel loossen fir alles ze weisen.",
-    "loading": "Lued…",
+    "loading": "Profiler gi gelueden…",
     "saved": "Gespäichert",
     "selectedCount": "{count, plural, one {# Profil ausgewielt} other {# Profiler ausgewielt}}",
     "customizeCta": "Meng Espaces personaliséieren",
@@ -11026,7 +11026,11 @@
     "str_operator": {
       "label": "Kuerzzäitlocatioun",
       "description": "Airbnb, Booking, STR-Betreiber ënner EU-Reglement 2024/1028"
-    }
+    },
+    "saving": "Gëtt gespäichert…",
+    "loadFailed": "Är Profiler konnten net geluede ginn. Luet se nei, ier Dir se ännert.",
+    "saveFailed": "D’Späichere gouf net bestätegt. Déi ugewise Profiler bleiwen onverännert; luet nei fir d’Kontodaten ze kontrolléieren.",
+    "retry": "Nei lueden"
   },
   "syndicBenchmark": {
     "loginPrompt": "Mellt Iech un, fir Zougang zum Portfolio-Benchmark ze kréien.",
