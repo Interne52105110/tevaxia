@@ -5974,7 +5974,8 @@
       "faq5q": "Ist PropCalc mit Page Buildern kompatibel?",
       "faq5a": "Ja, mit Elementor, Divi, WPBakery und WooCommerce."
     },
-    "demoFranceTransferAssumption": "Frankreich: Für eine bestehende Wohnimmobilie als Kapitalanlage werden ohne Departement 6,3185 % Übertragungssteuern angesetzt, ohne Befreiungen, nach der DGFiP-Tabelle vom 1. Juni 2026. Der tatsächliche Betrag hängt von Ort und Urkunde ab."
+    "demoFranceTransferAssumption": "Frankreich: Für eine bestehende Wohnimmobilie als Kapitalanlage werden ohne Departement 6,3185 % Übertragungssteuern angesetzt, ohne Befreiungen, nach der DGFiP-Tabelle vom 1. Juni 2026. Der tatsächliche Betrag hängt von Ort und Urkunde ab.",
+    "demoFranceFeeScope": "Die berechneten französischen Erwerbskosten sind eine Teilsumme: Formalitäten, Auslagen, zusätzliche Urkunden, Maklergebühren und Kreditbesicherung sind in dieser Demo nicht enthalten. Ergänzen Sie das Budget anhand der Angebote von Notar und Kreditgeber."
   },
   "solutions": {
     "syndic": {
@@ -17639,7 +17640,8 @@
     "heroCtaWidget": "Widget einbetten",
     "statCalculations": "API-Berechnungen",
     "jsTitle": "JavaScript-Beispiel",
-    "jsIntro": "Das Beispiel ruft die API mit fetch auf, prüft Fehler und liest die zurückgegebenen Daten und Annahmen. Schätzungen hängen vom Szenario ab; kein Zahlenwert wird garantiert."
+    "jsIntro": "Das Beispiel ruft die API mit fetch auf, prüft Fehler und liest die zurückgegebenen Daten und Annahmen. Schätzungen hängen vom Szenario ab; kein Zahlenwert wird garantiert.",
+    "frenchFeesInputs": "Frankreich: price enthält gegebenenfalls die Umsatzsteuer. Bei isNew=true ist frenchVatOnFullPrice anzugeben (Neubauverkauf mit Umsatzsteuer auf den gesamten Preis, keine Margenbesteuerung). Bei true ist frenchVatRate erforderlich: 0.055, 0.1 oder 0.2. Bei false werden reguläre Übertragungssteuern angesetzt. loanGuaranteeCost ist der angebotene Besicherungsbetrag, nur mit Kredit zulässig; ohne Angabe bleibt er unbeziffert. acquisitionCoverage nennt ausgeschlossene Kosten: totalFees ist eine Teilsumme, keine vollständige notarielle Abrechnung."
   },
   "statusPage": {
     "metaTitle": "Service-Status, tevaxia.lu",

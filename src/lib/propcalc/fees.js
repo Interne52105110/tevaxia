@@ -107,14 +107,21 @@ function calculateFranceFees(params, countryData) {
   const acq = countryData.acquisitionFees;
   const items = [];
 
-  if (isNew) {
-    // New property: reduced registration + VAT is included in price
-    const registrationAmount = propertyPrice * acq.new.registrationRate;
+  if (regionCode && !findRegion(acq.regions, regionCode)) throw new RangeError('Unsupported French department');
+  if (isNew && typeof params.frenchVatOnFullPrice !== 'boolean') throw new RangeError('For a new French property, explicitly state frenchVatOnFullPrice; building age alone does not establish reduced transfer-tax eligibility');
+  const reducedRate = isNew && params.frenchVatOnFullPrice === true;
+  if (reducedRate && ![0.055, 0.1, 0.2].includes(params.frenchVatRate)) throw new RangeError('An explicit supported French sale VAT rate is required (0.055, 0.1 or 0.2)');
+  if (!reducedRate && params.frenchVatRate !== undefined) throw new RangeError('frenchVatRate requires a confirmed new sale subject to VAT on the full price');
+  if (!isNew && params.frenchVatOnFullPrice !== undefined) throw new RangeError('French sale VAT fields require isNew');
+  const excludedCosts = ['formalities', 'disbursements', 'additionalActs', 'agencyFees'];
+  if (reducedRate) {
+    const taxBase = propertyPrice / (1 + params.frenchVatRate);
+    const registrationAmount = taxBase * acq.new.registrationRate;
     items.push({
       label: 'fees.registrationTax',
       amount: Math.round(registrationAmount * 100) / 100,
       rate: acq.new.registrationRate * 100,
-      details: 'Taxe de publicit\u00e9 fonci\u00e8re 0.715%',
+      details: `Droits réduits 0,71498 % sur prix HT ${taxBase.toFixed(2)} EUR ; prix saisi TTC, TVA ${(params.frenchVatRate * 100).toFixed(1)} % déjà incluse. Vente neuve soumise à TVA sur le prix total confirmée ; TVA sur marge exclue.`,
     });
   } else {
     // Residential ordinary-rate snapshot, not a nationwide average or a tax assessment.
@@ -142,31 +149,27 @@ function calculateFranceFees(params, countryData) {
     details: '\u00c9moluments du notaire (bar\u00e8me + TVA 20%)',
   });
 
-  // CSI (Contribution de S\u00e9curit\u00e9 Immobili\u00e8re)
-  const csiAmount = Math.max(propertyPrice * acq.csi, acq.csiMinimum);
-  items.push({
-    label: 'fees.csi',
-    amount: Math.round(csiAmount * 100) / 100,
-    rate: acq.csi * 100,
-    details: `CSI ${(acq.csi * 100).toFixed(1)}% (min ${acq.csiMinimum} EUR)`,
-  });
+  // The local land-register regime is outside this ordinary publication estimate.
+  if (regionCode === '67') {
+    excludedCosts.push('localLandRegisterPublication');
+  } else {
+    const csiAmount = Math.max(propertyPrice * acq.csi, acq.csiMinimum);
+    items.push({ label: 'fees.csi', amount: Math.round(csiAmount * 100) / 100, rate: acq.csi * 100, details: `CSI de la vente 0,1 % (minimum ${acq.csiMinimum} EUR), hors garantie du prêt` });
+  }
 
-  // Mortgage registration (PPD by default)
-  if (loanAmount > 0) {
-    const ppdRate = acq.mortgageRegistration.ppd.rate;
-    const mortgageRegAmount = loanAmount * ppdRate;
-    items.push({
-      label: 'fees.mortgageRegistration',
-      amount: Math.round(mortgageRegAmount * 100) / 100,
-      rate: ppdRate * 100,
-      details: 'Privil\u00e8ge de pr\u00eateur de deniers (PPD)',
-    });
+  // A guarantee is chosen in the loan offer. A 0.05% registration charge is not its full cost.
+  if (params.loanGuaranteeCost !== undefined) {
+    if (!Number.isFinite(params.loanGuaranteeCost) || params.loanGuaranteeCost < 0 || params.loanGuaranteeCost > 1e12 || !(loanAmount > 0)) throw new RangeError('loanGuaranteeCost requires a loan and a finite non-negative quoted cost');
+    items.push({ label: 'fees.mortgageRegistration', amount: Math.round(params.loanGuaranteeCost * 100) / 100, details: 'Coût de garantie renseigné depuis le devis de financement ; aucun type de garantie présumé' });
+  } else if (loanAmount > 0) {
+    excludedCosts.push('loanGuarantee');
   }
 
   const total = items.reduce((sum, item) => sum + item.amount, 0);
 
   return {
     items,
+    coverage: { status: 'partial', excludedCosts, priceBasis: 'VAT-inclusive when applicable', reducedRate, saleVatRate: reducedRate ? params.frenchVatRate : null },
     total: Math.round(total * 100) / 100,
     totalPercent: propertyPrice > 0 ? Math.round((total / propertyPrice) * 10000) / 100 : 0,
   };
@@ -384,6 +387,9 @@ function calculateUKFees(params, countryData) {
  * @param {boolean} params.isFirstTimeBuyer
  * @param {number} params.loanAmount
  * @param {number} params.buyerAge
+ * @param {boolean} [params.frenchVatOnFullPrice] - Explicit reduced-rate qualification for a new French sale
+ * @param {number} [params.frenchVatRate] - Declared sale VAT ratio, with a VAT-inclusive property price
+ * @param {number} [params.loanGuaranteeCost] - Quoted French financing guarantee cost, not a statutory rate
  * @param {Object} params.countryData - Full country data JSON
  * @returns {Object} { items: [{label, amount, rate, details}], total, totalPercent }
  */

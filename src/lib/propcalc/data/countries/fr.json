@@ -63,25 +63,15 @@
       "source": "https://www.impots.gouv.fr/sites/default/files/media/1_metier/3_partenaire/notaires/dmto/dmto_2026-06.pdf"
     },
     "new": {
-      "registrationRate": 0.00715,
+      "registrationRate": 0.0071498,
       "vatRate": 0.2,
       "notes": [
-        "TVA 20% incluse dans le prix",
-        "Droits réduits 0.715%"
+        "0,7 % + prélèvement de 2,14 % du droit, sur prix HT, uniquement si vente neuve soumise à TVA sur prix total.",
+        "Prix TTC saisi, taux de TVA explicite ; aucun droit réduit déduit du seul âge du bien."
       ]
     },
     "csi": 0.001,
     "csiMinimum": 15,
-    "mortgageRegistration": {
-      "ppd": {
-        "rate": 0.0005,
-        "notes": "PPD: exempt de taxe foncière, juste CSI 0.05%"
-      },
-      "conventional": {
-        "rate": 0.00715,
-        "csiRate": 0.0005
-      }
-    },
     "regions": [
       {
         "code": "75",

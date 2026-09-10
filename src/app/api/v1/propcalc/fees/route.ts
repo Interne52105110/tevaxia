@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   try { assertPropcalcApiInput(body, 'fees'); }
   catch (error) { return NextResponse.json({ success: false, error: error instanceof RangeError ? error.message : 'Invalid input' }, { status: 400, headers: CORS_HEADERS }); }
 
-  const { country, price, isPrimary, isFirstTime, isNew, region, loanAmount, buyerAge } = body;
+  const { country, price, isPrimary, isFirstTime, isNew, region, loanAmount, buyerAge, frenchVatOnFullPrice, frenchVatRate, loanGuaranteeCost } = body;
 
   if (!country || !price) {
     return NextResponse.json(
@@ -57,6 +57,7 @@ export async function POST(request: Request) {
       loanAmount: loanAmount ?? 0,
       buyerAge: buyerAge ?? 0,
       countryData,
+      frenchVatOnFullPrice, frenchVatRate, loanGuaranteeCost,
     });
 
     assertFinitePropcalcResult(result);
@@ -64,7 +65,8 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        assumptions: { isNew: isNew ?? false, isPrimary: isPrimary ?? false, isFirstTime: isFirstTime ?? false, region: region ?? null, loanAmount: loanAmount ?? 0, buyerAge: buyerAge ?? null, ...(country.toLowerCase() === 'fr' && !isNew ? { frenchTransferTax: { rateSnapshot: "2026-06-01", scope: "Ordinary residential transfer, no local exemptions; isFirstTime and isPrimary must apply to the entire acquired share. Mixed buyer eligibility is not modeled.", unlocatedDepartmentalRateAssumption: region ? null : (isFirstTime && isPrimary ? 0.045 : 0.05), source: "https://www.impots.gouv.fr/droits-denregistrement" } } : {}) },
+        assumptions: { isNew: isNew ?? false, isPrimary: isPrimary ?? false, isFirstTime: isFirstTime ?? false, region: region ?? null, loanAmount: loanAmount ?? 0, buyerAge: buyerAge ?? null, ...(country.toLowerCase() === 'fr' && !(isNew && frenchVatOnFullPrice) ? { frenchTransferTax: { rateSnapshot: "2026-06-01", scope: "Ordinary residential transfer, no local exemptions; isFirstTime and isPrimary must apply to the entire acquired share. Mixed buyer eligibility is not modeled.", unlocatedDepartmentalRateAssumption: region ? null : (isFirstTime && isPrimary ? 0.045 : 0.05), source: "https://www.impots.gouv.fr/droits-denregistrement" } } : {}) },
+        acquisitionCoverage: result.coverage ?? null,
         data: {
           currency: countryData.currency,
           totalFees: result.total,

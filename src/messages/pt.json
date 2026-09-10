@@ -5974,7 +5974,8 @@
       "faq5q": "O PropCalc e compativel com page builders?",
       "faq5a": "Sim, com Elementor, Divi e WooCommerce."
     },
-    "demoFranceTransferAssumption": "França: impostos de transmissão simulados a 6,3185 %, sem departamento, para investimento em habitação existente e sem isenções, segundo a tabela DGFiP de 1 de junho de 2026. O valor real depende da localização e da escritura."
+    "demoFranceTransferAssumption": "França: impostos de transmissão simulados a 6,3185 %, sem departamento, para investimento em habitação existente e sem isenções, segundo a tabela DGFiP de 1 de junho de 2026. O valor real depende da localização e da escritura.",
+    "demoFranceFeeScope": "Os custos de aquisição franceses calculados são um subtotal: formalidades, despesas adiantadas, atos adicionais, comissão da agência e garantia do empréstimo não estão incluídos nesta demonstração. Complete o orçamento com propostas do notário e do credor."
   },
   "solutions": {
     "syndic": {
@@ -17639,7 +17640,8 @@
     "heroCtaWidget": "Integrar o widget",
     "statCalculations": "Cálculos da API",
     "jsTitle": "Exemplo JavaScript",
-    "jsIntro": "Este exemplo chama a API com fetch, verifica erros e lê os dados e pressupostos devolvidos. As estimativas dependem do cenário; nenhum resultado numérico é garantido."
+    "jsIntro": "Este exemplo chama a API com fetch, verifica erros e lê os dados e pressupostos devolvidos. As estimativas dependem do cenário; nenhum resultado numérico é garantido.",
+    "frenchFeesInputs": "França: price inclui IVA quando aplicável. Com isNew=true, indique frenchVatOnFullPrice (venda nova sujeita a IVA sobre o preço total, excluindo IVA sobre a margem). Se true, frenchVatRate é obrigatório: 0.055, 0.1 ou 0.2. Se false, simulam-se impostos de transmissão ordinários. loanGuaranteeCost é o custo de garantia do orçamento, aceite apenas com empréstimo; sem indicação, fica por quantificar. acquisitionCoverage lista custos excluídos: totalFees é um subtotal, não uma conta notarial completa."
   },
   "statusPage": {
     "metaTitle": "Estado dos serviços, tevaxia.lu",

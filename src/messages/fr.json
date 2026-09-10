@@ -5974,7 +5974,8 @@
       "faq5q": "PropCalc fonctionne-t-il avec WooCommerce ou Jetstreambuilder ?",
       "faq5a": "Oui, PropCalc est compatible avec les principaux page builders (Elementor, Divi, WPBakery) et s'integre dans les themes WooCommerce sans conflit."
     },
-    "demoFranceTransferAssumption": "France : droits de mutation simulés à 6,3185 % sans département, pour un investissement dans l’ancien hors exonérations, selon le tableau DGFiP du 1er juin 2026. Le montant réel dépend du lieu et de l’acte."
+    "demoFranceTransferAssumption": "France : droits de mutation simulés à 6,3185 % sans département, pour un investissement dans l’ancien hors exonérations, selon le tableau DGFiP du 1er juin 2026. Le montant réel dépend du lieu et de l’acte.",
+    "demoFranceFeeScope": "Les frais français calculés sont un sous-total : formalités, débours, actes complémentaires, frais d’agence et coût de garantie du prêt ne sont pas inclus dans cette démonstration. Complétez le budget avec les devis du notaire et du prêteur."
   },
   "solutionsHub": {
     "meta": {
@@ -17639,7 +17640,8 @@
     "heroCtaWidget": "Intégrer le widget",
     "statCalculations": "Calculs API",
     "jsTitle": "Exemple JavaScript",
-    "jsIntro": "Cet exemple appelle l’API avec fetch, contrôle les erreurs et lit les données et hypothèses renvoyées. Les estimations dépendent du scénario ; aucun résultat chiffré n’est garanti."
+    "jsIntro": "Cet exemple appelle l’API avec fetch, contrôle les erreurs et lit les données et hypothèses renvoyées. Les estimations dépendent du scénario ; aucun résultat chiffré n’est garanti.",
+    "frenchFeesInputs": "France : price est le prix TTC lorsque la vente est soumise à TVA. Avec isNew=true, renseignez frenchVatOnFullPrice (vente neuve soumise à TVA sur le prix total, hors TVA sur marge). Si true, frenchVatRate est obligatoire : 0.055, 0.1 ou 0.2. Si false, les droits ordinaires sont simulés. loanGuaranteeCost est un coût de garantie issu du devis, accepté uniquement avec un prêt ; absent, il reste non chiffré. acquisitionCoverage indique les frais exclus : totalFees est un sous-total, pas un décompte notarial complet."
   },
   "statusPage": {
     "metaTitle": "État des services, tevaxia.lu",

@@ -1341,3 +1341,16 @@ Portée limitée : ce lot corrige les DMTO de droit commun dans l'ancien. La bra
 Le contrôle mobile de ce lot a également corrigé le titre PropCalc : balise br auparavant affichée en texte brut, responsable du débordement horizontal. Balise riche appariée dans les cinq traductions et retour à la ligne des longs mots ; agrandissement général de 10 % conservé. Compilation finale et lint réussis.
 
 Les anciennes pages autonomes DE/PT/LB ont été remplacées par la page partagée traduite, comme EN : elles ne contenaient pas le simulateur actuel. Les cinq locales bénéficient désormais des mêmes corrections.
+
+
+## 10 septembre 2026 — PropCalc France : neuf, devis de garantie et périmètre des frais
+
+Le seul indicateur isNew ne déclenche plus les droits réduits. L'API exige frenchVatOnFullPrice pour une vente neuve : false conserve le droit commun, true qualifie une vente neuve soumise à TVA sur le prix total (hors TVA sur marge), avec frenchVatRate explicite 0.055, 0.1 ou 0.2. price représente le prix TTC ; les droits réduits exacts de 0,71498 % portent sur son équivalent HT. Aucune TVA n'est ajoutée deux fois. Les émoluments de vente et la CSI ordinaire restent séparés.
+
+L'ancienne garantie PPD calculée automatiquement à 0,05 % du prêt est supprimée. Le financement ne permet pas de déduire son type ni son coût complet : loanGuaranteeCost reprend uniquement un devis renseigné, avec un prêt, sans faux taux réglementaire. Une absence reste inconnue et un devis explicite nul reste distinct. Le même montant et la couverture des coûts sont propagés à cashflow. Les formalités, débours, actes supplémentaires et frais d'agence restent exclus ; en 67, la publication au livre foncier est signalée hors calcul au lieu d'appliquer la CSI ordinaire. La réponse acquisitionCoverage indique toujours partial pour ce sous-total : aucune affirmation de décompte notarial complet. La démonstration et la documentation développeur rendent ce périmètre visible dans les cinq langues.
+
+Validation : 1793 tests / 158 fichiers réussis, dont 14 nouveaux cas (vente récente sans TVA, qualification manquante, bases HT aux trois taux, types invalides, coût de garantie absent/nul/renseigné, absence de prêt, couverture partielle et propagation cashflow). Exemple 240 000 EUR TTC à 20 % : base HT 200 000 EUR, droits réduits 1 429,96 EUR ; pas 1 716 EUR calculés sur le TTC. Aucune opération client ou acte réel créé.
+
+Sources : [DGFiP, achat dans le neuf](https://www.impots.gouv.fr/particulier/achat-dans-le-neuf), [Notaires de France, assiette HT dans le neuf](https://www.immobilier.notaires.fr/node/953), [CGI 1647, prélèvement de 2,14 % sur le droit réduit](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000053562192/2026-05-17), [Service Public, hypothèque légale spéciale depuis 2022](https://www.service-public.gouv.fr/particuliers/vosdroits/F786), [BOFiP, régime local de publicité foncière](https://bofip.impots.gouv.fr/bofip/3311-PGP.html/identifiant=BOI-ENR-DMTOI-10-20-20260617).
+
+Limites conservées : devis notarial requis pour compléter les frais ; régime simplifié, sans qualification juridique automatique, exonérations locales ni coacquéreurs mixtes. Les autres modèles nationaux et fiscaux ne sont pas certifiés par ce lot. La revue globale de Tevaxia reste en cours.

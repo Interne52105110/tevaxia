@@ -172,6 +172,8 @@ export default async function PropCalcDevelopersPage() {
             </table>
           </div>
 
+          <p className="mb-8 text-sm text-muted [overflow-wrap:anywhere]">{t("frenchFeesInputs")}</p>
+
           {/* Curl example */}
           <h3 className="text-sm font-semibold text-navy mb-4">{t("apiExampleTitle")}</h3>
           <div className="rounded-xl border border-card-border bg-navy p-6 overflow-x-auto">
@@ -201,7 +203,8 @@ if (!response.ok || !result.success) {
   throw new Error(result.error || 'Calculation failed');
 }
 console.log(result.data);
-console.log(result.assumptions);`}</code></pre>
+console.log(result.assumptions);
+console.log(result.acquisitionCoverage);`}</code></pre>
           </div>
         </div>
       </section>

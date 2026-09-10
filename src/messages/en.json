@@ -5974,7 +5974,8 @@
       "faq5q": "Is PropCalc compatible with page builders?",
       "faq5a": "Yes, compatible with Elementor, Divi, WPBakery and WooCommerce themes."
     },
-    "demoFranceTransferAssumption": "France: transfer taxes modeled at 6.3185% without a department, for an existing residential investment with no exemptions, using the DGFiP table of 1 June 2026. The actual amount depends on the location and deed."
+    "demoFranceTransferAssumption": "France: transfer taxes modeled at 6.3185% without a department, for an existing residential investment with no exemptions, using the DGFiP table of 1 June 2026. The actual amount depends on the location and deed.",
+    "demoFranceFeeScope": "The calculated French acquisition costs are a subtotal: formalities, disbursements, additional deeds, agency fees and loan guarantee costs are excluded from this demo. Complete the budget with quotes from the notary and lender."
   },
   "solutionsHub": {
     "meta": {
@@ -17639,7 +17640,8 @@
     "heroCtaWidget": "Embed the widget",
     "statCalculations": "API calculations",
     "jsTitle": "JavaScript example",
-    "jsIntro": "This example calls the API with fetch, checks errors and reads the returned data and assumptions. Estimates depend on the scenario; no numerical result is guaranteed."
+    "jsIntro": "This example calls the API with fetch, checks errors and reads the returned data and assumptions. Estimates depend on the scenario; no numerical result is guaranteed.",
+    "frenchFeesInputs": "France: price includes VAT when applicable. With isNew=true, provide frenchVatOnFullPrice (a new sale subject to VAT on the full price, excluding margin VAT). If true, frenchVatRate is required: 0.055, 0.1 or 0.2. If false, ordinary transfer taxes are modeled. loanGuaranteeCost is a quoted guarantee cost, accepted only with a loan; if absent, it remains unpriced. acquisitionCoverage lists excluded costs: totalFees is a subtotal, not a complete notarial statement."
   },
   "statusPage": {
     "metaTitle": "Service status, tevaxia.lu",

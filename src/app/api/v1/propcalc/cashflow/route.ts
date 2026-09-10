@@ -104,6 +104,7 @@ export async function POST(request: Request) {
       loanAmount: Math.max(0, propertyPrice - downPayment),
       buyerAge: 0,
       countryData,
+      loanGuaranteeCost: body.loanGuaranteeCost,
     }) as AcquisitionFeesResult;
 
     if (downPayment > propertyPrice + feesResult.total) throw new RangeError("Down payment exceeds total investment");
@@ -138,6 +139,7 @@ export async function POST(request: Request) {
       {
         success: true,
         assumptions: { vacancyRate: 0.05, marginalRate: marginalRate ?? 0.30, socialChargesRate, annualAppreciation: 0.02, annualRentGrowth: 0.02, annualExpenseGrowth: 0.02, monthlyCharges: 0, annualPropertyTax: 0, annualInsurance: 0, managementRate: 0, annualMaintenance: 0, financingIncludesAcquisitionFees: true, ...(country.toLowerCase() === 'fr' ? { frenchTransferTax: { rateSnapshot: "2026-06-01", departmentalRateAssumption: 0.05, combinedRate: 0.063185, scope: "Unlocated ordinary residential investment, no first-primary or local exemptions", source: "https://www.impots.gouv.fr/droits-denregistrement" } } : {}) },
+        acquisitionCoverage: feesResult.coverage ?? null,
         data: {
           currency: countryData.currency,
           monthlyCashFlow: result.monthlyCashFlow,

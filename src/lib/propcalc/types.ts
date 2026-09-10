@@ -1,4 +1,5 @@
 export interface AcquisitionFeesResult {
+  coverage?: { status: string; excludedCosts: string[]; priceBasis: string; reducedRate: boolean; saleVatRate: number | null };
   items: Array<{ label: string; amount: number; rate?: number }>;
   total: number;
   totalPercent: number;

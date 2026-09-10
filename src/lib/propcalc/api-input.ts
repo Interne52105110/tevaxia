@@ -1,14 +1,15 @@
 export type PropcalcEndpoint = 'fees' | 'mortgage' | 'yield' | 'cashflow';
 export interface PropcalcApiInput {
+ frenchVatOnFullPrice?: boolean; frenchVatRate?: number; loanGuaranteeCost?: number;
  country: string; price?: number; isPrimary?: boolean; isFirstTime?: boolean; isNew?: boolean; region?: string; loanAmount?: number; buyerAge?: number;
  monthlyIncome?: number; existingDebts?: number; downPayment?: number; annualRate?: number; durationYears?: number; residencyStatus?: 'resident' | 'nonResident' | 'nonEU';
  purchasePrice?: number; monthlyRent?: number; monthlyCharges?: number; annualPropertyTax?: number; vacancyRate?: number; managementRate?: number; taxRegime?: string; marginalRate?: number; propertyPrice?: number;
 }
 const fields: Record<PropcalcEndpoint, string[]> = {
- fees: ['country','price','isPrimary','isFirstTime','isNew','region','loanAmount','buyerAge'],
+ fees: ['country','price','isPrimary','isFirstTime','isNew','region','loanAmount','buyerAge','frenchVatOnFullPrice','frenchVatRate','loanGuaranteeCost'],
  mortgage: ['country','monthlyIncome','existingDebts','downPayment','annualRate','durationYears','residencyStatus'],
  yield: ['country','purchasePrice','monthlyRent','monthlyCharges','annualPropertyTax','vacancyRate','managementRate','taxRegime','marginalRate'],
- cashflow: ['country','propertyPrice','downPayment','monthlyRent','annualRate','durationYears','marginalRate'],
+ cashflow: ['country','propertyPrice','downPayment','monthlyRent','annualRate','durationYears','marginalRate','loanGuaranteeCost'],
 };
 const required: Record<PropcalcEndpoint,string[]> = { fees:['price'],mortgage:['monthlyIncome'],yield:['purchasePrice','monthlyRent'],cashflow:['propertyPrice','downPayment','monthlyRent','annualRate','durationYears'] };
 /** Types and arithmetic domains only; national fiscal assumptions require a separate review. */
@@ -17,16 +18,17 @@ export function assertPropcalcApiInput(value: unknown, endpoint: PropcalcEndpoin
  const input=value as Record<string,unknown>;
  if (Object.keys(input).some(key=>!fields[endpoint].includes(key))) throw new RangeError('Unsupported input field');
  if (typeof input.country!=='string' || !/^[a-z]{2}$/i.test(input.country)) throw new RangeError('A supported two-letter country code is required');
+ if (input.country.toLowerCase() !== 'fr' && ['frenchVatOnFullPrice','frenchVatRate','loanGuaranteeCost'].some(key=>input[key]!==undefined)) throw new RangeError('French acquisition fields require country fr');
  for(const key of required[endpoint])if(input[key]===undefined)throw new RangeError(`${key} is required`);
  for(const [key,val] of Object.entries(input)){
   if(key==='country')continue;
-  if(['isPrimary','isFirstTime','isNew'].includes(key)){if(typeof val!=='boolean')throw new RangeError(`${key} must be boolean`);continue;}
+  if(['isPrimary','isFirstTime','isNew','frenchVatOnFullPrice'].includes(key)){if(typeof val!=='boolean')throw new RangeError(`${key} must be boolean`);continue;}
   if(['region','taxRegime','residencyStatus'].includes(key)){
    if(typeof val!=='string'||val.length>80)throw new RangeError(`${key} must be a string`);
    if(key==='residencyStatus'&&!['resident','nonResident','nonEU'].includes(val))throw new RangeError('Invalid residencyStatus');
    continue;
   }
-  const rate=['annualRate','vacancyRate','managementRate','marginalRate'].includes(key);
+  const rate=['annualRate','vacancyRate','managementRate','marginalRate','frenchVatRate'].includes(key);
   const max=rate?1:key==='durationYears'?50:key==='buyerAge'?130:1e12;
   if(typeof val!=='number'||!Number.isFinite(val)||val<0||val>max)throw new RangeError(`${key} must be a finite number between 0 and ${max}${rate?' (decimal ratio)':''}`);
   if(['price','monthlyIncome','purchasePrice','propertyPrice','monthlyRent','durationYears'].includes(key)&&val===0)throw new RangeError(`${key} must be positive`);
