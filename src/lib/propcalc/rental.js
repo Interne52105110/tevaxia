@@ -1,4 +1,5 @@
 import { calculateFrenchRentalTax } from './french-rental-tax';
+import { calculateItalianRentalTax } from './italian-rental-tax';
 
 /**
  * Rental Yield Calculation Engine
@@ -109,6 +110,10 @@ export function calculateNetYield(params) {
  * @param {boolean} [params.frenchMicroEligible]
  * @param {boolean} [params.frenchNonProfessional]
  * @param {string} [params.frenchSocialRegime]
+ * @param {boolean} [params.italianCedolareEligible]
+ * @param {number} [params.italianAnnualContractRent]
+ * @param {number} [params.annualMortgageInterest]
+ * @param {number} [params.annualDepreciation]
  * @param {string} params.countryCode
  * @param {string} params.taxRegime - Regime code from country JSON
  * @param {number} params.marginalRate - User's marginal income tax rate (decimal)
@@ -118,6 +123,7 @@ export function calculateNetYield(params) {
  */
 export function calculateTaxImpact(params) {
   if (params.countryCode === 'fr') return calculateFrenchRentalTax(params);
+  if (params.countryCode === 'it') return calculateItalianRentalTax(params);
   const {
     netRent,
     purchasePrice,

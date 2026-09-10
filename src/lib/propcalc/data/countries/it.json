@@ -77,9 +77,7 @@
         },
         "type": "all",
         "flatRate": 0.21,
-        "strRate": 0.26,
-        "strCondition": "26% pour 2e+ bien en location courte durée (depuis 2024)",
-        "notes": "Pas de déductions sous cedolare secca"
+        "notes": "Scénario à 21 % sur le loyer contractuel brut : personne physique éligible hors activité professionnelle, bail résidentiel ordinaire à loyer libre et option valide confirmés. Charges, intérêts et amortissement non déductibles. Courte durée et taux réduits exclus."
       },
       {
         "code": "irpef",
@@ -89,8 +87,8 @@
           "it": "IRPEF"
         },
         "type": "all",
-        "maintenanceDeduction": 0.05,
-        "notes": "5% abattement maintenance ou frais réels + surcharges régionales/communales"
+        "notes": "IRPEF non calculé : la base cadastrale/contractuelle, les régimes particuliers et les surtaxes nécessitent une évaluation distincte. Aucun raccourci au résultat net de charges.",
+        "supported": false
       }
     ],
     "imu": {

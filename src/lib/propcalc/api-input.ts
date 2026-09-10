@@ -2,6 +2,7 @@ export type PropcalcEndpoint = 'fees' | 'mortgage' | 'yield' | 'cashflow';
 export interface PropcalcApiInput {
  frenchVatOnFullPrice?: boolean; frenchVatRate?: number; loanGuaranteeCost?: number;
  taxYear?: number; frenchMicroEligible?: boolean; frenchNonProfessional?: boolean; frenchSocialRegime?: string; annualTaxReceipts?: number;
+ italianCedolareEligible?: boolean; italianAnnualContractRent?: number;
  ukAdditionalProperty?: boolean; ukNonResident?: boolean;
  country: string; price?: number; isPrimary?: boolean; isFirstTime?: boolean; isNew?: boolean; region?: string; loanAmount?: number; buyerAge?: number;
  monthlyIncome?: number; existingDebts?: number; downPayment?: number; annualRate?: number; durationYears?: number; residencyStatus?: 'resident' | 'nonResident' | 'nonEU';
@@ -10,7 +11,7 @@ export interface PropcalcApiInput {
 const fields: Record<PropcalcEndpoint, string[]> = {
  fees: ['country','price','isPrimary','isFirstTime','isNew','region','loanAmount','buyerAge','frenchVatOnFullPrice','frenchVatRate','loanGuaranteeCost','ukAdditionalProperty','ukNonResident'],
  mortgage: ['country','monthlyIncome','existingDebts','downPayment','annualRate','durationYears','residencyStatus'],
- yield: ['country','purchasePrice','monthlyRent','monthlyCharges','annualPropertyTax','vacancyRate','managementRate','taxRegime','marginalRate','taxYear','frenchMicroEligible','frenchNonProfessional','frenchSocialRegime','annualTaxReceipts'],
+ yield: ['country','purchasePrice','monthlyRent','monthlyCharges','annualPropertyTax','vacancyRate','managementRate','taxRegime','marginalRate','taxYear','frenchMicroEligible','frenchNonProfessional','frenchSocialRegime','annualTaxReceipts','italianCedolareEligible','italianAnnualContractRent'],
  cashflow: ['country','propertyPrice','downPayment','monthlyRent','annualRate','durationYears','marginalRate','loanGuaranteeCost'],
 };
 const required: Record<PropcalcEndpoint,string[]> = { fees:['price'],mortgage:['monthlyIncome'],yield:['purchasePrice','monthlyRent'],cashflow:['propertyPrice','downPayment','monthlyRent','annualRate','durationYears'] };
@@ -22,10 +23,11 @@ export function assertPropcalcApiInput(value: unknown, endpoint: PropcalcEndpoin
  if (typeof input.country!=='string' || !/^[a-z]{2}$/i.test(input.country)) throw new RangeError('A supported two-letter country code is required');
  if (input.country.toLowerCase() !== 'fr' && ['frenchVatOnFullPrice','frenchVatRate','loanGuaranteeCost','taxYear','frenchMicroEligible','frenchNonProfessional','frenchSocialRegime','annualTaxReceipts'].some(key=>input[key]!==undefined)) throw new RangeError('French acquisition fields require country fr');
  if (input.country.toLowerCase() !== 'uk' && ['ukAdditionalProperty','ukNonResident'].some(key=>input[key]!==undefined)) throw new RangeError('UK acquisition fields require country uk');
+ if (input.country.toLowerCase() !== 'it' && ['italianCedolareEligible','italianAnnualContractRent'].some(key=>input[key]!==undefined)) throw new RangeError('Italian rental fields require country it');
  for(const key of required[endpoint])if(input[key]===undefined)throw new RangeError(`${key} is required`);
  for(const [key,val] of Object.entries(input)){
   if(key==='country')continue;
-  if(['isPrimary','isFirstTime','isNew','frenchVatOnFullPrice','frenchMicroEligible','frenchNonProfessional','ukAdditionalProperty','ukNonResident'].includes(key)){if(typeof val!=='boolean')throw new RangeError(`${key} must be boolean`);continue;}
+  if(['italianCedolareEligible','isPrimary','isFirstTime','isNew','frenchVatOnFullPrice','frenchMicroEligible','frenchNonProfessional','ukAdditionalProperty','ukNonResident'].includes(key)){if(typeof val!=='boolean')throw new RangeError(`${key} must be boolean`);continue;}
   if(['region','taxRegime','residencyStatus','frenchSocialRegime'].includes(key)){
    if(typeof val!=='string'||val.length>80)throw new RangeError(`${key} must be a string`);
    if(key==='residencyStatus'&&!['resident','nonResident','nonEU'].includes(val))throw new RangeError('Invalid residencyStatus');
