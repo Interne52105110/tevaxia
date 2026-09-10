@@ -12561,9 +12561,9 @@
     },
     "sandbox": {
       "title": "Sandbox — test gratuit sans inscription",
-      "desc": "Utilisez la clé publique de sandbox ci-dessous pour tester l'API sans créer de compte. Rate-limitée à 60 requêtes par minute, réponses identiques à la production mais non facturées.",
+      "desc": "Cette clé publique permet d’essayer les endpoints accessibles au niveau Free. Son quota est partagé entre tous ses utilisateurs sur une même instance : 10 requêtes par minute et 200 par fenêtre de 24 heures.",
       "badge": "Sandbox",
-      "warning": "⚠ La sandbox est en lecture seule et peut être désactivée sans préavis. Pour un usage durable, créez votre propre clé via /profil/api (plan Free : 10 000 requêtes/mois)."
+      "warning": "La disponibilité dépend du quota restant et du service. Cette clé ne permet ni les exports de facturation ni l’import PMS. Pour un usage individuel, créez une clé depuis /profil/api ; aucune capacité mensuelle distincte n’est garantie."
     },
     "ai": {
       "title": "Endpoints IA — analyse & chat",

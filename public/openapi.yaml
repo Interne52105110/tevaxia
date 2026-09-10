@@ -1,11 +1,16 @@
 openapi: 3.1.0
 info:
   title: tevaxia.lu API
-  version: 1.1.0
+  version: 1.1.1
   description: >-
     API de calculs indicatifs. Les hypothèses internes ne constituent ni une expertise certifiée ni une
     décision de crédit. Authentification selon chaque endpoint, par X-API-Key ou Authorization: Bearer. Les
     endpoints authentifiés appliquent des quotas et peuvent retourner 429 avec Retry-After.
+    Pour les clés API, les limites sont partagées par clé sur une même instance serveur : Free 10/minute
+    et 200/24 heures, Pro 60/minute et 5000/24 heures, Enterprise 600/minute et 100000/24 heures.
+    Les fenêtres démarrent au premier appel ; ces compteurs en mémoire ne constituent pas un quota
+    global distribué. La clé sandbox partage le quota Free entre ses utilisateurs. Une indisponibilité
+    de la vérification des clés peut retourner 503.
   contact:
     name: Support tevaxia.lu
     email: contact@tevaxia.lu

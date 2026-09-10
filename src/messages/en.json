@@ -12561,9 +12561,9 @@
     },
     "sandbox": {
       "title": "Sandbox — free test without registration",
-      "desc": "Use the public sandbox key below to test the API without creating an account. Rate-limited to 60 requests per minute, responses identical to production but not billed.",
+      "desc": "This public key lets you try endpoints available to the Free tier. Its quota is shared by all users on the same server instance: 10 requests per minute and 200 per 24-hour window.",
       "badge": "Sandbox",
-      "warning": "⚠ The sandbox is read-only and may be disabled without notice. For sustained use, create your own key via /profil/api (Free plan: 10,000 requests/month)."
+      "warning": "Availability depends on the remaining quota and service. This key cannot export invoices or import PMS observations. For individual use, create a key at /profil/api; no separate monthly capacity is guaranteed."
     },
     "ai": {
       "title": "AI endpoints — analysis & chat",

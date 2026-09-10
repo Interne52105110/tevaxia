@@ -12439,9 +12439,9 @@
     },
     "sandbox": {
       "title": "Sandbox — gratis Test ouni Aschreiwung",
-      "desc": "Benotzt de ëffentleche Sandbox-Schlëssel hei drënner fir d'API ouni Kont z'testen. Rate-limitéiert op 60 Ufroen pro Minutt, Äntwerten identesch mat der Produktioun awer net rechnungsfäeg.",
+      "desc": "Mat dësem ëffentleche Schlëssel kënnt Dir Endpunkte vum Free-Niveau testen. All Benotzer op därselwechter Serverinstanz deelen d’Quota: 10 Ufroe pro Minutt an 200 pro 24-Stonne-Fënster.",
       "badge": "Sandbox",
-      "warning": "⚠ D'Sandbox ass nëmme liesen an ka ouni Virwarnung deaktivéiert ginn. Fir laangfristeg Notzung erstellt Äre eegene Schlëssel iwwer /profil/api (Free-Plang: 10.000 Ufroen/Mount)."
+      "warning": "D’Disponibilitéit hänkt vun der reschtlecher Quota a vum Service of. Dëse Schlëssel erlaabt weder Rechnungsexporter nach PMS-Importer. Fir individuell Notzung erstellt e Schlëssel ënner /profil/api; eng separat monatlech Kapazitéit gëtt net garantéiert."
     },
     "ai": {
       "title": "IA-Endpoints — Analyse & Chat",

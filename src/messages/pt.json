@@ -12439,9 +12439,9 @@
     },
     "sandbox": {
       "title": "Sandbox — teste gratuito sem registo",
-      "desc": "Use a chave pública de sandbox abaixo para testar a API sem criar conta. Rate-limit 60 pedidos por minuto, respostas idênticas à produção mas não faturadas.",
+      "desc": "Esta chave pública permite testar endpoints disponíveis no nível Free. A quota é partilhada por todos os utilizadores na mesma instância do servidor: 10 pedidos por minuto e 200 por janela de 24 horas.",
       "badge": "Sandbox",
-      "warning": "⚠ A sandbox é apenas leitura e pode ser desativada sem aviso. Para uso duradouro, crie a sua própria chave via /profil/api (plano Free: 10 000 pedidos/mês)."
+      "warning": "A disponibilidade depende da quota restante e do serviço. Esta chave não permite exportar faturas nem importar observações PMS. Para uso individual, crie uma chave em /profil/api; não é garantida uma capacidade mensal separada."
     },
     "ai": {
       "title": "Endpoints IA — análise & chat",

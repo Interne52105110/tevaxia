@@ -131,7 +131,12 @@ async function lookupSupabaseKey(plainKey: string): Promise<ApiKeyRecord | null>
     .eq("key_hash", hash)
     .eq("active", true)
     .maybeSingle();
-  if (error) throw new Error("API key lookup unavailable");
+  if (error) {
+    // Diagnostic code only: never log keys, query values or database messages.
+    const code = typeof error.code === "string" && /^[A-Z0-9_]{1,32}$/.test(error.code) ? error.code : "UNKNOWN";
+    console.error("API_KEY_LOOKUP_UNAVAILABLE", code);
+    throw new Error("API key lookup unavailable");
+  }
   if (!data || data.active !== true || !["free", "pro", "enterprise"].includes(data.tier) || typeof data.id !== "string" || !data.id || typeof data.user_id !== "string" || !data.user_id) return null;
   return {
     id: data.id,

@@ -1008,3 +1008,14 @@ Huit nouveaux tests : hachage SHA-256 effectivement utilisé dans la recherche, 
 Prévisions 189b933 publiées : CI 34420790269 réussie ; déploiement dpl_87WnrFkk3kuzxxPvtmFLHWou8WVG Ready avec alias tevaxia.lu.
 
 Compilation réussie ; tests HTTP locaux facturation/PMS réussis (absence/clé fictive 401, sandbox facturation 403, prévols). Prévisions : contrôle public production réussi dans cinq langues/quatre largeurs.
+
+
+## 10 septembre — documentation des quotas et diagnostic de la lecture des clés
+
+Sandbox documentée dans cinq langues conformément au code : 10 requêtes/minute et 200/fenêtre de 24 heures, partagées entre utilisateurs d’une même clé sur une instance serveur. Retrait des anciennes annonces 60/minute et 10 000/mois. Facturation/PMS exclus de cette clé Free. OpenAPI 1.1.1 précise les limites par niveau, les fenêtres et le caractère non distribué des compteurs, ainsi que l’indisponibilité possible de l’authentification.
+
+4c41933 est déployé (CI 34421001459 réussie, dpl_HfvSqq49umETHK1zV4D7vB4GZNrS Ready), mais le contrôle production a révélé une erreur de lecture des clés Supabase : clé fictive renvoyée en 503, anciennement masquée en 401. Le contrôle production ne valide donc PAS une authentification fonctionnelle pour les clés stockées en base. Sans clé, le refus 401 fonctionne. Aucune tentative d’écriture client. Un diagnostic serveur minimal est ajouté : uniquement un code d’erreur technique filtré, jamais la clé, le message de base ni les paramètres.
+
+Test additionnel de non-divulgation du journal : suite 1 460 tests / 139 fichiers réussie, lint et compilation réussis. Diagnostic de production à préciser après publication.
+
+Contrôle navigateur local réussi : nouveau texte sandbox dans cinq langues, quatre largeurs sans débordement, spécification 1.1.1 servie avec les quotas corrigés.
