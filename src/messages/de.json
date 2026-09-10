@@ -4951,7 +4951,8 @@
     "legalNoticePrefix": "Mit der Erstellung eines Kontos akzeptieren Sie unsere",
     "legalNoticeLink": "rechtlichen Hinweise",
     "legalNoticeMiddle": "und unsere",
-    "privacyPolicyLink": "Datenschutzrichtlinie"
+    "privacyPolicyLink": "Datenschutzrichtlinie",
+    "callbackFailed": "Die Anmeldung konnte nicht abgeschlossen werden. Bitte starten Sie auf dieser Seite erneut."
   },
   "profil": {
     "title": "Mein Profil",

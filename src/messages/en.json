@@ -4951,7 +4951,8 @@
     "legalNoticePrefix": "By creating an account, you agree to our",
     "legalNoticeLink": "legal notice",
     "legalNoticeMiddle": "and our",
-    "privacyPolicyLink": "privacy policy"
+    "privacyPolicyLink": "privacy policy",
+    "callbackFailed": "Sign-in could not be completed. Please start again from this page."
   },
   "profil": {
     "title": "My profile",

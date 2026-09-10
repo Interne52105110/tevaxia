@@ -4951,7 +4951,8 @@
     "legalNoticePrefix": "En créant un compte, vous acceptez nos",
     "legalNoticeLink": "mentions légales",
     "legalNoticeMiddle": "et notre",
-    "privacyPolicyLink": "politique de confidentialité"
+    "privacyPolicyLink": "politique de confidentialité",
+    "callbackFailed": "La connexion n’a pas pu être finalisée. Recommencez depuis cette page."
   },
   "profil": {
     "title": "Mon profil",

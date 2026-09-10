@@ -4951,7 +4951,8 @@
     "legalNoticePrefix": "Ao criar uma conta, aceita os nossos",
     "legalNoticeLink": "avisos legais",
     "legalNoticeMiddle": "e a nossa",
-    "privacyPolicyLink": "política de privacidade"
+    "privacyPolicyLink": "política de privacidade",
+    "callbackFailed": "Não foi possível concluir o início de sessão. Tente novamente a partir desta página."
   },
   "profil": {
     "title": "O meu perfil",

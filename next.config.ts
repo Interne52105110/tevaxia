@@ -67,6 +67,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      { source: "/auth/callback", headers: [{ key: "Referrer-Policy", value: "no-referrer" }] },
     ];
   },
 };

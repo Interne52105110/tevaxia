@@ -34,8 +34,8 @@ export default function Connexion() {
     if (hasCode) setIsCallback(true);
     // Affiche l'erreur renvoyée par /auth/callback
     const err = params.get("error");
-    if (err) setError(err);
-  }, []);
+    if (err) setError(err === "not_configured" ? t("authNotConfigured") : t("callbackFailed"));
+  }, [t]);
 
   if (!supabase) {
     return (

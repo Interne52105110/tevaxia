@@ -21,3 +21,8 @@ it('disables transaction/log/replay capture and automatic request data',()=>{
  expect(DIAGNOSTIC_PRIVACY_OPTIONS.tracesSampleRate).toBe(0);expect(DIAGNOSTIC_PRIVACY_OPTIONS.beforeSendTransaction()).toBeNull();expect(DIAGNOSTIC_PRIVACY_OPTIONS.beforeSendLog()).toBeNull();
  expect(DIAGNOSTIC_PRIVACY_OPTIONS.dataCollection.httpBodies).toEqual([]);expect(DIAGNOSTIC_PRIVACY_OPTIONS.maxBreadcrumbs).toBe(0);
 });
+it('preserves only generated source-map IDs and sanitized code filenames',()=>{
+ const id='12345678-1234-1234-1234-123456789abc';
+ const result=sanitizeDiagnosticEvent({type:undefined,debug_meta:{images:[{type:'sourcemap',code_file:'https://tevaxia.lu/_next/static/chunks/app-abcd1234.js?token=SECRET',debug_id:id},{type:'sourcemap',code_file:'/locataire/SECRET',debug_id:id},{type:'sourcemap',code_file:'https://tevaxia.lu/_next/static/chunks/app-abcd1234.js',debug_id:'SECRET'}]}},{});
+ expect(result.debug_meta?.images).toEqual([{type:'sourcemap',code_file:'https://tevaxia.lu/_next/static/chunks/app-abcd1234.js',debug_id:id}]);
+});

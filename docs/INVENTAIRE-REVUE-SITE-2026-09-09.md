@@ -958,3 +958,14 @@ Les autres modèles nationaux, le traitement complet des revenus locatifs UK et 
 - Politique : description ciblée du diagnostic et mention Sentry dans les cinq langues. Les autres affirmations historiques de la politique (purges, durées, mécanismes métier) ne sont pas toutes certifiées par ce lot.
 - Sources : https://docs.sentry.io/platforms/javascript/guides/nextjs/data-management/sensitive-data/ ; https://docs.sentry.io/platforms/javascript/enriching-events/attachments/ ; options et enveloppes du SDK installé examinées.
 - Lot audience 6b01c42 : CI34447862615 réussie, dpl_A7PQHWmAufhUzDn7XUoT875z1gt2 Ready avec alias tevaxia.lu, contrôles profil/confidentialité cinq langues en production réussis.
+
+
+## 10 septembre — retour OAuth et destinations de connexion
+
+- Correction de la redirection ouverte : `next` ne peut plus désigner une URL externe, une adresse relative de réseau, un chemin avec antislash/contrôle, un encodage détourné ou un autre gestionnaire auth/API. Les chemins internes de pages sont conservés ; paramètres et fragments retirés.
+- Les erreurs du fournisseur ne sont plus copiées dans l’URL ou affichées telles quelles sur la page de connexion. Messages fixes localisés, langue conservée lorsque la destination est localisée.
+- Les cookies de l’échange OAuth sont préparés en mémoire puis attachés uniquement à la réponse de succès ; plus d’échec d’écriture silencieux. Une erreur ne renvoie pas une réponse partiellement authentifiée.
+- Redirections non mises en cache, sans référent et non indexables. Le test sur build réel a détecté que l’en-tête global Next écrasait Referrer-Policy : règle explicite finale ajoutée pour /auth/callback.
+- 1 892 tests / 165 fichiers, lint et build final réussis ; callback sans code et page connexion contrôlés dans cinq langues et quatre largeurs. Échanges de codes, cookies et échecs testés avec mocks isolés, aucun compte réel ni fournisseur OAuth utilisé.
+- Complément diagnostic : conservation exclusive des identifiants de source maps générés avec fichiers compilés nettoyés, pour préserver la résolution du code sans restaurer le contexte privé.
+- Lot diagnostic c8f31c9 : CI34448851034 réussie, dpl_8MNqPJoJXnEWLKpVijfBpEQf6W7h Ready / alias tevaxia.lu ; contrôle public cinq langues en production réussi.

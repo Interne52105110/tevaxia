@@ -4951,7 +4951,8 @@
     "legalNoticePrefix": "Mat der Erstellung vun engem Konto akzeptéiert Dir eis",
     "legalNoticeLink": "legal Mentiounen",
     "legalNoticeMiddle": "an eis",
-    "privacyPolicyLink": "Dateschutzrichtlinn"
+    "privacyPolicyLink": "Dateschutzrichtlinn",
+    "callbackFailed": "D’Umeldung konnt net ofgeschloss ginn. Probéiert et vun dëser Säit aus nach eng Kéier."
   },
   "profil": {
     "title": "Mäi Profil",

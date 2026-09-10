@@ -1,6 +1,7 @@
 import type { ErrorEvent, EventHint, StackFrame } from '@sentry/nextjs';
 
 const ERROR_TYPES = new Set(['Error', 'TypeError', 'RangeError', 'ReferenceError', 'SyntaxError', 'URIError', 'EvalError', 'AggregateError']);
+const DEBUG_ID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 
 /** Only generated code files; never a document URL, tenant route or uploaded filename. */
 export function diagnosticCodeFile(value: unknown): string | undefined {
@@ -31,6 +32,12 @@ export function sanitizeDiagnosticEvent(event: ErrorEvent, hint: EventHint): Err
     level: event.level === 'fatal' ? 'fatal' : 'error',
     environment: ['production', 'development', 'test'].includes(event.environment ?? '') ? event.environment : undefined,
     release: /^(?:[a-f0-9]{7,64}|\d+\.\d+\.\d+)$/.test(event.release ?? '') ? event.release : undefined,
+    // Build-generated IDs let uploaded source maps resolve code locations without
+    // retaining the original event's arbitrary diagnostic metadata.
+    debug_meta: { images: event.debug_meta?.images?.flatMap(image => {
+      const codeFile = image.type === 'sourcemap' ? diagnosticCodeFile(image.code_file) : undefined;
+      return codeFile && DEBUG_ID.test(image.debug_id) ? [{ type: 'sourcemap' as const, code_file: codeFile, debug_id: image.debug_id }] : [];
+    }) ?? [] },
     message: 'Application error (private details omitted)',
     exception: event.exception ? { values: event.exception.values?.slice(-5).map(value => ({
       type: ERROR_TYPES.has(value.type ?? '') ? value.type : 'Error',
