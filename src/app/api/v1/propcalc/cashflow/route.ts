@@ -1,3 +1,4 @@
+import { assertPropcalcApiInput, assertFinitePropcalcResult } from "@/lib/propcalc/api-input";
 import { NextResponse } from 'next/server';
 import { calculateInvestorCashFlow } from '@/lib/propcalc/cashflow';
 import { calculateAcquisitionFees } from '@/lib/propcalc/fees';
@@ -18,6 +19,9 @@ export async function POST(request: Request) {
       { status: 400, headers: CORS_HEADERS },
     );
   }
+
+  try { assertPropcalcApiInput(body, 'cashflow'); }
+  catch (error) { return NextResponse.json({ success: false, error: error instanceof RangeError ? error.message : 'Invalid input' }, { status: 400, headers: CORS_HEADERS }); }
 
   const {
     country,
@@ -97,11 +101,12 @@ export async function POST(request: Request) {
       isNew: false,
       isPrimaryResidence: false,
       isFirstTimeBuyer: false,
-      loanAmount: propertyPrice - downPayment,
+      loanAmount: Math.max(0, propertyPrice - downPayment),
       buyerAge: 0,
       countryData,
     }) as AcquisitionFeesResult;
 
+    if (downPayment > propertyPrice + feesResult.total) throw new RangeError("Down payment exceeds total investment");
     const socialChargesRate = country.toLowerCase() === 'fr' ? 0.172 : 0;
 
     const cashflowParams = {
@@ -127,10 +132,14 @@ export async function POST(request: Request) {
       cashflowParams as unknown as Parameters<typeof calculateInvestorCashFlow>[0],
     ) as CashFlowResult;
 
+    assertFinitePropcalcResult(result);
+
     return NextResponse.json(
       {
         success: true,
+        assumptions: { vacancyRate: 0.05, marginalRate: marginalRate ?? 0.30, socialChargesRate, annualAppreciation: 0.02, annualRentGrowth: 0.02, annualExpenseGrowth: 0.02, monthlyCharges: 0, annualPropertyTax: 0, annualInsurance: 0, managementRate: 0, annualMaintenance: 0, financingIncludesAcquisitionFees: true },
         data: {
+          currency: countryData.currency,
           monthlyCashFlow: result.monthlyCashFlow,
           cashOnCash: result.cashOnCash,
           noi: result.noi,
@@ -149,7 +158,7 @@ export async function POST(request: Request) {
       { headers: CORS_HEADERS },
     );
   } catch (e) {
-    const message = e instanceof Error ? e.message : 'Unknown error';
+    const message = e instanceof RangeError ? e.message : 'Unable to calculate this scenario';
     return NextResponse.json(
       { success: false, error: `Calculation error: ${message}` },
       { status: 400, headers: CORS_HEADERS },

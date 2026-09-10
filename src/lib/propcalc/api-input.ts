@@ -1,0 +1,39 @@
+export type PropcalcEndpoint = 'fees' | 'mortgage' | 'yield' | 'cashflow';
+export interface PropcalcApiInput {
+ country: string; price?: number; isPrimary?: boolean; isFirstTime?: boolean; isNew?: boolean; region?: string; loanAmount?: number; buyerAge?: number;
+ monthlyIncome?: number; existingDebts?: number; downPayment?: number; annualRate?: number; durationYears?: number; residencyStatus?: 'resident' | 'nonResident' | 'nonEU';
+ purchasePrice?: number; monthlyRent?: number; monthlyCharges?: number; annualPropertyTax?: number; vacancyRate?: number; managementRate?: number; taxRegime?: string; marginalRate?: number; propertyPrice?: number;
+}
+const fields: Record<PropcalcEndpoint, string[]> = {
+ fees: ['country','price','isPrimary','isFirstTime','isNew','region','loanAmount','buyerAge'],
+ mortgage: ['country','monthlyIncome','existingDebts','downPayment','annualRate','durationYears','residencyStatus'],
+ yield: ['country','purchasePrice','monthlyRent','monthlyCharges','annualPropertyTax','vacancyRate','managementRate','taxRegime','marginalRate'],
+ cashflow: ['country','propertyPrice','downPayment','monthlyRent','annualRate','durationYears','marginalRate'],
+};
+const required: Record<PropcalcEndpoint,string[]> = { fees:['price'],mortgage:['monthlyIncome'],yield:['purchasePrice','monthlyRent'],cashflow:['propertyPrice','downPayment','monthlyRent','annualRate','durationYears'] };
+/** Types and arithmetic domains only; national fiscal assumptions require a separate review. */
+export function assertPropcalcApiInput(value: unknown, endpoint: PropcalcEndpoint): asserts value is PropcalcApiInput {
+ if (!value || typeof value !== 'object' || Array.isArray(value)) throw new RangeError('A JSON object is required');
+ const input=value as Record<string,unknown>;
+ if (Object.keys(input).some(key=>!fields[endpoint].includes(key))) throw new RangeError('Unsupported input field');
+ if (typeof input.country!=='string' || !/^[a-z]{2}$/i.test(input.country)) throw new RangeError('A supported two-letter country code is required');
+ for(const key of required[endpoint])if(input[key]===undefined)throw new RangeError(`${key} is required`);
+ for(const [key,val] of Object.entries(input)){
+  if(key==='country')continue;
+  if(['isPrimary','isFirstTime','isNew'].includes(key)){if(typeof val!=='boolean')throw new RangeError(`${key} must be boolean`);continue;}
+  if(['region','taxRegime','residencyStatus'].includes(key)){
+   if(typeof val!=='string'||val.length>80)throw new RangeError(`${key} must be a string`);
+   if(key==='residencyStatus'&&!['resident','nonResident','nonEU'].includes(val))throw new RangeError('Invalid residencyStatus');
+   continue;
+  }
+  const rate=['annualRate','vacancyRate','managementRate','marginalRate'].includes(key);
+  const max=rate?1:key==='durationYears'?50:key==='buyerAge'?130:1e12;
+  if(typeof val!=='number'||!Number.isFinite(val)||val<0||val>max)throw new RangeError(`${key} must be a finite number between 0 and ${max}${rate?' (decimal ratio)':''}`);
+  if(['price','monthlyIncome','purchasePrice','propertyPrice','monthlyRent','durationYears'].includes(key)&&val===0)throw new RangeError(`${key} must be positive`);
+  if(endpoint==='cashflow'&&key==='downPayment'&&val===0)throw new RangeError('A positive downPayment is required for cash-on-cash analysis');
+ }
+}
+export function assertFinitePropcalcResult(value: unknown): void {
+ if(typeof value==='number'&&!Number.isFinite(value))throw new RangeError('Non-finite calculation result');
+ if(value&&typeof value==='object')for(const child of Object.values(value))assertFinitePropcalcResult(child);
+}

@@ -1068,3 +1068,14 @@ f33388b webhooks publié : CI 34423248700 réussie, dpl_CNjN6FNAL7uBpKYpGxyK9wqo
 Le navigateur a révélé une copie statique anglaise de PropCalc développeurs également utilisée par DE/PT/LB. Les quatre routes réexportent désormais la page traduite commune et sa métadonnée ; exemple data-lang et liens internes localisés. Le CTA Documentation rejoint la section API existante au lieu de la racine API sans route. Les routes status réexportent également la métadonnée traduite. Une URL longue qui débordait à 320 px est rendue sécable. Les promesses de package/extensions/autres canaux restent un sujet distinct non certifié ici.
 
 Compilation finale réussie. Navigateur local : status, PropCalc développeurs et organisation dans cinq langues et aux largeurs 320/390/768/1440, sans débordement ni erreur de page. Métadonnée status, contact visible, retour localisé, marque rendue, CTA Documentation vers #api et message de configuration vérifiés. Sonde publique Supabase avec apikey vérifiée séparément en 200, sans lecture de compte ni de données client.
+
+
+## 10 septembre — validation des entrées de l’API PropCalc
+
+Les quatre POST frais/emprunt/rendement/cash-flow refusent désormais les corps autres qu’un objet, les champs inconnus, les types incorrects, null explicite et les nombres non finis/hors domaine. Les taux sont des ratios décimaux. Les durées supérieures au plafond national sont refusées au lieu d’être tronquées ; un régime locatif inconnu n’est plus ignoré. Le cash-flow refuse un apport nul (ratio sur fonds propres indéfini) ou supérieur au coût total. Les résultats non finis ne sont plus sérialisés en null.
+
+Les réponses indiquent la devise et les hypothèses effectivement appliquées : frais approximatifs de financement, fiscalité marginale, vacance, coûts omis et progression selon le calcul. Ces informations rendent le modèle inspectable ; elles ne constituent pas une validation fiscale des dix pays. Retrait de l’en-tête annonçant un quota non implémenté, réponses no-store et documentation dans cinq langues précisant unités/types. Exemple curl corrigé (isNew, ancien champ type non pris en charge).
+
+Validation : 33 nouveaux tests, suite complète 1 525 tests / 143 fichiers réussie, lint sans erreur. Requêtes HTTP locales des quatre calculs et OPTIONS réussies, dont erreurs d’entrée et scénarios fictifs valides avec devise/hypothèses. Aucun enregistrement client modifié.
+
+Lot précédent 94ce575 publié : CI 34424347826 réussie, déploiement dpl_BjtpgzrtCjWMFUD3UsR7X9ga9PQY Ready. Parcours production état/PropCalc développeurs/organisation cinq langues et quatre largeurs réussis.

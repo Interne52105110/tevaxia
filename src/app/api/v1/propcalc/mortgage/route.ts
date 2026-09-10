@@ -1,3 +1,4 @@
+import { assertPropcalcApiInput, assertFinitePropcalcResult } from "@/lib/propcalc/api-input";
 import { NextResponse } from 'next/server';
 import { calculateBorrowingCapacity } from '@/lib/propcalc/mortgage';
 import { getCountryData, CORS_HEADERS } from '@/lib/propcalc/countries';
@@ -16,6 +17,9 @@ export async function POST(request: Request) {
       { status: 400, headers: CORS_HEADERS },
     );
   }
+
+  try { assertPropcalcApiInput(body, 'mortgage'); }
+  catch (error) { return NextResponse.json({ success: false, error: error instanceof RangeError ? error.message : 'Invalid input' }, { status: 400, headers: CORS_HEADERS }); }
 
   const {
     country,
@@ -55,9 +59,10 @@ export async function POST(request: Request) {
       typeof annualRate === 'number' ? annualRate : borrowingRules.defaultRate / 100;
     const duration =
       typeof durationYears === 'number'
-        ? Math.min(durationYears, borrowingRules.maxDurationYears)
+        ? durationYears
         : Math.min(25, borrowingRules.maxDurationYears);
 
+    if (duration > borrowingRules.maxDurationYears) throw new RangeError("Duration exceeds this scenario configuration");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result: any = calculateBorrowingCapacity({
       monthlyIncome,
@@ -70,10 +75,14 @@ export async function POST(request: Request) {
       residencyStatus: residencyStatus ?? 'resident',
     });
 
+    assertFinitePropcalcResult(result);
+
     return NextResponse.json(
       {
         success: true,
+        assumptions: { annualRate: rate, durationYears: duration, existingDebts: existingDebts ?? 0, downPayment: downPayment ?? 0, insuranceRate: 0, estimatedFeeRate: 0.08, residencyStatus: residencyStatus ?? "resident" },
         data: {
+          currency: countryData.currency,
           maxLoanAmount: result.maxLoanAmount,
           maxPropertyPrice: result.maxPropertyPrice,
           monthlyPayment: result.monthlyPayment,
@@ -88,7 +97,7 @@ export async function POST(request: Request) {
       { headers: CORS_HEADERS },
     );
   } catch (e) {
-    const message = e instanceof Error ? e.message : 'Unknown error';
+    const message = e instanceof RangeError ? e.message : 'Unable to calculate this scenario';
     return NextResponse.json(
       { success: false, error: `Calculation error: ${message}` },
       { status: 400, headers: CORS_HEADERS },

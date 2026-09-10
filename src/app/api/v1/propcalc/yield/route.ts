@@ -1,3 +1,4 @@
+import { assertPropcalcApiInput, assertFinitePropcalcResult } from "@/lib/propcalc/api-input";
 import { NextResponse } from 'next/server';
 import { calculateNetYield, calculateTaxImpact } from '@/lib/propcalc/rental';
 import { getCountryData, CORS_HEADERS } from '@/lib/propcalc/countries';
@@ -16,6 +17,9 @@ export async function POST(request: Request) {
       { status: 400, headers: CORS_HEADERS },
     );
   }
+
+  try { assertPropcalcApiInput(body, 'yield'); }
+  catch (error) { return NextResponse.json({ success: false, error: error instanceof RangeError ? error.message : 'Invalid input' }, { status: 400, headers: CORS_HEADERS }); }
 
   const {
     country,
@@ -75,6 +79,7 @@ export async function POST(request: Request) {
 
     // Calculate tax impact if a tax regime or marginal rate is provided
     const regimes = countryData.rentalTax?.regimes || [];
+    if (taxRegime !== undefined && !regimes.some((regime: { code: string }) => regime.code === taxRegime)) throw new RangeError('Unsupported tax regime');
     const selectedRegime = taxRegime ?? regimes[0]?.code ?? '';
     const socialChargesRate = country.toLowerCase() === 'fr' ? 0.172 : 0;
 
@@ -91,10 +96,14 @@ export async function POST(request: Request) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
+    assertFinitePropcalcResult({ yieldResult, taxResult });
+
     return NextResponse.json(
       {
         success: true,
+        assumptions: { taxRegime: selectedRegime, marginalRate: marginalRate ?? 0.30, socialChargesRate, vacancyRate: vacancyRate ?? 0, managementRate: managementRate ?? 0, monthlyCharges: monthlyCharges ?? 0, annualPropertyTax: annualPropertyTax ?? 0, annualInsurance: 0, annualMaintenance: 0 },
         data: {
+          currency: countryData.currency,
           grossYield: yieldResult.grossYield,
           netYield: yieldResult.netYield,
           netAfterTax: taxResult.netAfterTax,
@@ -114,7 +123,7 @@ export async function POST(request: Request) {
       { headers: CORS_HEADERS },
     );
   } catch (e) {
-    const message = e instanceof Error ? e.message : 'Unknown error';
+    const message = e instanceof RangeError ? e.message : 'Unable to calculate this scenario';
     return NextResponse.json(
       { success: false, error: `Calculation error: ${message}` },
       { status: 400, headers: CORS_HEADERS },

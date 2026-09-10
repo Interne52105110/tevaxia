@@ -49,5 +49,5 @@ export const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
-  'X-RateLimit-Limit': '1000',
+  'Cache-Control': 'no-store',
 };

@@ -1,3 +1,4 @@
+import { assertPropcalcApiInput, assertFinitePropcalcResult } from "@/lib/propcalc/api-input";
 import { NextResponse } from 'next/server';
 import { calculateAcquisitionFees } from '@/lib/propcalc/fees';
 import { getCountryData, CORS_HEADERS } from '@/lib/propcalc/countries';
@@ -16,6 +17,9 @@ export async function POST(request: Request) {
       { status: 400, headers: CORS_HEADERS },
     );
   }
+
+  try { assertPropcalcApiInput(body, 'fees'); }
+  catch (error) { return NextResponse.json({ success: false, error: error instanceof RangeError ? error.message : 'Invalid input' }, { status: 400, headers: CORS_HEADERS }); }
 
   const { country, price, isPrimary, isFirstTime, isNew, region, loanAmount, buyerAge } = body;
 
@@ -55,10 +59,14 @@ export async function POST(request: Request) {
       countryData,
     });
 
+    assertFinitePropcalcResult(result);
+
     return NextResponse.json(
       {
         success: true,
+        assumptions: { isNew: isNew ?? false, isPrimary: isPrimary ?? false, isFirstTime: isFirstTime ?? false, region: region ?? null, loanAmount: loanAmount ?? 0, buyerAge: buyerAge ?? null },
         data: {
+          currency: countryData.currency,
           totalFees: result.total,
           percentOfPrice: result.totalPercent,
           breakdown: result.items,
@@ -67,7 +75,7 @@ export async function POST(request: Request) {
       { headers: CORS_HEADERS },
     );
   } catch (e) {
-    const message = e instanceof Error ? e.message : 'Unknown error';
+    const message = e instanceof RangeError ? e.message : 'Unable to calculate this scenario';
     return NextResponse.json(
       { success: false, error: `Calculation error: ${message}` },
       { status: 400, headers: CORS_HEADERS },

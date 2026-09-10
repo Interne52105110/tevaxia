@@ -93,7 +93,7 @@ export default async function PropCalcDevelopersPage() {
             { value: "5", label: t("statChannels") },
             { value: "10", label: t("statCountries") },
             { value: "16", label: t("statFunctions") },
-            { value: "1K", label: t("statCalls") },
+            { value: "JSON", label: t("statCalls") },
             { value: "0", label: t("statDeps") },
           ].map((s) => (
             <div key={s.label}>
@@ -194,7 +194,7 @@ export default async function PropCalcDevelopersPage() {
   -d '{
     "country": "lu",
     "price": 700000,
-    "type": "existing"
+    "isNew": false
   }'`}</code></pre>
           </div>
         </div>
