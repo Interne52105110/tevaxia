@@ -20005,5 +20005,30 @@
     "night": "Nuitée",
     "breakfast": "Petit-déjeuner",
     "scope": "Le modèle prépare des libellés. Renseignez les prix, la catégorie et le taux de TVA selon la prestation et le régime applicable. Attribuez un numéro selon votre propre séquence de facturation."
+  },
+  "insuranceBudget": {
+    "back": "Retour à la gestion locative",
+    "title": "Assurance impayés : comparer vos devis",
+    "intro": "Saisissez les primes annuelles de devis reçus pour comparer leur coût. Aucun tarif d’assureur, classement ou garantie d’indemnisation n’est généré.",
+    "scopeTitle": "Périmètre des devis",
+    "scopeNote": "Les devis doivent couvrir le même ensemble de lots. Le loyer et les charges ci-dessous représentent un montant mensuel moyen par lot ; la prime saisie couvre l’ensemble, frais et taxes inclus.",
+    "rent": "Loyer mensuel moyen par lot (€)",
+    "charges": "Charges mensuelles moyennes par lot (€)",
+    "lots": "Nombre de lots",
+    "quote": "Devis {name}",
+    "annualInput": "Prime annuelle totale du devis (€)",
+    "annual": "Coût annuel déclaré",
+    "monthly": "Équivalent mensuel",
+    "ratio": "Prime / base annuelle loyers et charges",
+    "missing": "Non calculé",
+    "invalid": "Vérifiez les montants : positifs ou nuls, deux décimales maximum ; nombre entier de 1 à 500 lots.",
+    "calculationNote": "Base annuelle = (loyer + charges) × lots × 12. Équivalent mensuel = prime annuelle ÷ 12, arrondi uniquement à l’affichage : il ne décrit pas l’échéancier de l’assureur. Le pourcentage mesure un coût, pas la qualité de la couverture. Sans devis saisi, aucun prix n’est calculé.",
+    "compareTitle": "Comparer aussi les conditions",
+    "checkScope": "Vérifier les logements, locataires, loyers et charges réellement assurés dans chaque devis.",
+    "checkLimits": "Comparer plafonds mensuels, annuels et par sinistre, durée de garantie, franchises et délais de carence.",
+    "checkEligibility": "Lire les conditions d’éligibilité, exclusions et obligations déclaratives propres au contrat.",
+    "checkClaims": "Vérifier les délais de déclaration, justificatifs requis, protection juridique et conditions de prise en charge.",
+    "sourcesTitle": "Informations des assureurs",
+    "sourcesNote": "Exemples de pages officielles consultées le 10 septembre 2026. Liste non exhaustive, sans recommandation ni reprise de tarifs ; seules les conditions de votre devis font foi."
   }
 }

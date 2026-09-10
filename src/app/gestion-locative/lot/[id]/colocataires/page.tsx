@@ -15,7 +15,7 @@ import {
   type Cotenant,
   type CotenantStatus,
 } from "@/lib/cotenants";
-import { formatEUR } from "@/lib/calculations";
+
 import { isSupabaseConfigured } from "@/lib/supabase";
 
 
@@ -34,6 +34,7 @@ export default function CotenantsPage() {
 
 function CotenantsPageContent() {
   const locale = useLocale();
+  const formatEUR=(n:number)=>new Intl.NumberFormat(locale==='lb'?'de-LU':locale,{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
   const t = useTranslations("glColoc");
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
   const lp = locale === "fr" ? "" : `/${locale}`;

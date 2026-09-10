@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { getTenantPortalData, type TenantPortalData } from "@/lib/tenant-portal";
-import { formatEUR } from "@/lib/calculations";
 import {summarizeTenantPayments} from '@/lib/tenant-portal-data';
 
 export default function TenantPortal() {
@@ -15,6 +14,7 @@ export default function TenantPortal() {
 
 function TenantPortalContent({token}:{token:string}) {
   const locale = useLocale();
+  const formatEUR=(n:number)=>new Intl.NumberFormat(locale==='lb'?'de-LU':locale,{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
   const t = useTranslations("tenantPortal");
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
   const [data, setData] = useState<TenantPortalData | null>(null);

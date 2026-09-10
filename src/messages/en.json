@@ -20005,5 +20005,30 @@
     "night": "Overnight stay",
     "breakfast": "Breakfast",
     "scope": "Templates prepare line labels. Enter prices, VAT category and rate according to the service and applicable tax treatment. Assign a number from your own invoicing sequence."
+  },
+  "insuranceBudget": {
+    "back": "Back to rental management",
+    "title": "Rent default insurance: compare your quotes",
+    "intro": "Enter annual premiums from quotes you received to compare their cost. No insurer tariff, ranking or indemnity guarantee is generated.",
+    "scopeTitle": "Quote scope",
+    "scopeNote": "Quotes must cover the same set of properties. Rent and charges below are monthly averages per property; each premium covers the whole set, including fees and taxes.",
+    "rent": "Average monthly rent per property (€)",
+    "charges": "Average monthly charges per property (€)",
+    "lots": "Number of properties",
+    "quote": "Quote {name}",
+    "annualInput": "Total annual quoted premium (€)",
+    "annual": "Declared annual cost",
+    "monthly": "Monthly equivalent",
+    "ratio": "Premium / annual rent and charges base",
+    "missing": "Not calculated",
+    "invalid": "Check amounts: nonnegative with at most two decimals; property count must be an integer from 1 to 500.",
+    "calculationNote": "Annual base = (rent + charges) × properties × 12. Monthly equivalent = annual premium ÷ 12, rounded only for display; it is not the insurer’s payment schedule. The percentage measures cost, not coverage quality. No entered quote means no calculated price.",
+    "compareTitle": "Also compare the terms",
+    "checkScope": "Check which properties, tenants, rent and charges are actually insured in each quote.",
+    "checkLimits": "Compare monthly, annual and per-claim limits, coverage duration, deductibles and waiting periods.",
+    "checkEligibility": "Read the contract-specific eligibility conditions, exclusions and disclosure obligations.",
+    "checkClaims": "Check claim notification deadlines, required evidence, legal protection and coverage conditions.",
+    "sourcesTitle": "Insurer information",
+    "sourcesNote": "Examples of official pages consulted on 10 September 2026. Non-exhaustive list, without recommendations or quoted tariffs; the terms of your own quote govern."
   }
 }

@@ -20005,5 +20005,30 @@
     "night": "Dormida",
     "breakfast": "Pequeno-almoço",
     "scope": "Os modelos preparam designações. Introduza preços, categoria e taxa de IVA de acordo com a prestação e o regime aplicável. Atribua um número da sua própria sequência de faturação."
+  },
+  "insuranceBudget": {
+    "back": "Voltar à gestão de arrendamento",
+    "title": "Seguro de rendas em falta: comparar propostas",
+    "intro": "Introduza os prémios anuais das propostas recebidas para comparar custos. Não são geradas tarifas de seguradoras, classificações ou garantias de indemnização.",
+    "scopeTitle": "Âmbito das propostas",
+    "scopeNote": "As propostas devem abranger os mesmos imóveis. A renda e os encargos abaixo são médias mensais por imóvel; cada prémio cobre o conjunto, incluindo taxas e impostos.",
+    "rent": "Renda mensal média por imóvel (€)",
+    "charges": "Encargos mensais médios por imóvel (€)",
+    "lots": "Número de imóveis",
+    "quote": "Proposta {name}",
+    "annualInput": "Prémio anual total da proposta (€)",
+    "annual": "Custo anual declarado",
+    "monthly": "Equivalente mensal",
+    "ratio": "Prémio / base anual de rendas e encargos",
+    "missing": "Não calculado",
+    "invalid": "Verifique os montantes: não negativos, com até duas casas decimais; número inteiro de 1 a 500 imóveis.",
+    "calculationNote": "Base anual = (renda + encargos) × imóveis × 12. Equivalente mensal = prémio anual ÷ 12, arredondado apenas na apresentação; não representa o calendário de pagamentos da seguradora. A percentagem mede custo, não qualidade da cobertura. Sem proposta introduzida, não é calculado preço.",
+    "compareTitle": "Comparar também as condições",
+    "checkScope": "Verificar quais os imóveis, inquilinos, rendas e encargos efetivamente segurados em cada proposta.",
+    "checkLimits": "Comparar limites mensais, anuais e por sinistro, duração da cobertura, franquias e períodos de carência.",
+    "checkEligibility": "Ler as condições de elegibilidade, exclusões e obrigações de declaração de cada contrato.",
+    "checkClaims": "Verificar prazos de participação, documentos exigidos, proteção jurídica e condições de cobertura.",
+    "sourcesTitle": "Informações das seguradoras",
+    "sourcesNote": "Exemplos de páginas oficiais consultadas em 10 de setembro de 2026. Lista não exaustiva, sem recomendações nem reprodução de tarifas; prevalecem as condições da sua proposta."
   }
 }

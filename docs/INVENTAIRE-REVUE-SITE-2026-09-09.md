@@ -774,3 +774,18 @@ Accueil /locataire dans cinq langues aligné sur le portail réel : informations
 CTA désormais vers les instructions de demande au bailleur, au lieu d'un mail au support présenté comme une demande de lien personnel. Métadonnées publiques/privées localisées et cohérentes, noindex/no-referrer privés maintenus. Retour à la ligne des titres longs dans le composant de présentation partagé. Aucun moteur de calcul modifié ; dernière suite 1 646 tests / 149 fichiers réussie.
 
 Colocation dbb10a6 publiée : CI34435564791 réussie, dpl_JMTcq5aQhDUabQvD5WnLcsQeAU32 Ready ; contrôle public production cinq langues/quatre largeurs réussi (cotenants-public-prod.log). Migrations SQL 064/065 toujours non appliquées en production.
+
+
+## 10 septembre — assurance impayés : devis saisis et affichage des centimes
+
+Suppression du catalogue de cinq offres chiffrées sans source, du classement « meilleure valeur », des coefficients de risque arbitraires et de la recommandation IA construite sur ces chiffres. La page Foyer consultée annonce jusqu'à 12 mois, contrairement aux 30 mois codés auparavant ; aucun tarif complet comparable n'a été établi pour les offres fictivement comparées. Cette correction n'affirme pas que ces assureurs ne proposent pas de garantie : deux liens officiels sont conservés comme références non exhaustives, sans classement.
+
+L'outil compare désormais trois devis personnels A/B/C : prime annuelle totale réellement saisie pour le même ensemble de lots, équivalent mensuel et ratio de coût par rapport à la base annuelle déclarée. Sans devis, résultat non calculé ; zéro explicite conservé. La quantité multiplie uniquement la base locative, jamais une prime déjà donnée pour tout le portefeuille. Arrondi d'affichage seulement pour l'équivalent mensuel ; aucune indemnisation, éligibilité ou valeur de couverture calculée. Conditions à comparer : périmètre, plafonds, franchise, carence, exclusions et déclaration de sinistre. Suppression de l'ancien texte de caution trois mois et de la promesse de déductibilité fiscale forfaitaire.
+
+Sources consultées le 10 septembre 2026 : https://www.foyer.lu/fr/particuliers/habitation-quotidien/assurance-loyer-impaye/ et https://www.baloise.lu/fr/particuliers/mon-assurance-luxembourg/assurance-habitation/assurance-habitation-home.html . Aucun assureur contacté ni devis demandé/transmis.
+
+Correction complémentaire d'affichage : le format monétaire global arrondissait à l'euro. Paiements/quittances à l'écran, colocation, portail locataire et comparateur assurance affichent maintenant deux décimales selon la langue. Les tests UI de ces trois écrans locatifs ont été relancés avec le format réel, au lieu du formateur simulé utilisé dans les premiers essais ; cinq langues réussies, sans perte des centimes. Les PDF de quittance comportaient déjà deux décimales et ne sont pas modifiés.
+
+Suite complète : 1 660 tests / 150 fichiers réussis, dont 14 nouveaux cas sur le budget d'assurance. Lint sans avertissement. Validation finale de compilation/affichage public consignée au déploiement.
+
+Présentation locataire 55cc640 publiée : CI34436264220 réussie, dpl_G7T5QeV4xkSWNPHGhrTDtbHZ9JnW Ready ; contrôle production cinq langues/quatre largeurs, quatre fonctions, cinq FAQ, ancre d'accès et métadonnées privées localisées réussi (tenant-landing-public-prod.log). Les alias de page ont été corrigés pour exporter generateMetadata.

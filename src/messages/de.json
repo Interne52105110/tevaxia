@@ -20005,5 +20005,30 @@
     "night": "Übernachtung",
     "breakfast": "Frühstück",
     "scope": "Vorlagen bereiten Positionsbezeichnungen vor. Tragen Sie Preise, MwSt.-Kategorie und Satz gemäß Leistung und steuerlicher Behandlung ein. Vergeben Sie eine Nummer aus Ihrer eigenen Rechnungsfolge."
+  },
+  "insuranceBudget": {
+    "back": "Zurück zur Mietverwaltung",
+    "title": "Mietausfallversicherung: eigene Angebote vergleichen",
+    "intro": "Geben Sie die Jahresprämien erhaltener Angebote ein, um deren Kosten zu vergleichen. Es werden keine Versicherertarife, Ranglisten oder Entschädigungsgarantien erstellt.",
+    "scopeTitle": "Umfang der Angebote",
+    "scopeNote": "Alle Angebote müssen dieselben Objekte abdecken. Miete und Nebenkosten sind Monatsdurchschnitte je Objekt; jede Prämie gilt für alle Objekte zusammen, einschließlich Gebühren und Steuern.",
+    "rent": "Durchschnittliche Monatsmiete je Objekt (€)",
+    "charges": "Durchschnittliche monatliche Nebenkosten je Objekt (€)",
+    "lots": "Anzahl der Objekte",
+    "quote": "Angebot {name}",
+    "annualInput": "Gesamte Jahresprämie des Angebots (€)",
+    "annual": "Angegebene Jahreskosten",
+    "monthly": "Monatlicher Vergleichswert",
+    "ratio": "Prämie / Jahresbasis Miete und Nebenkosten",
+    "missing": "Nicht berechnet",
+    "invalid": "Beträge prüfen: mindestens null und höchstens zwei Dezimalstellen; Objektanzahl als ganze Zahl von 1 bis 500.",
+    "calculationNote": "Jahresbasis = (Miete + Nebenkosten) × Objekte × 12. Monatswert = Jahresprämie ÷ 12, nur zur Anzeige gerundet; dies ist kein Zahlungsplan des Versicherers. Der Prozentsatz misst Kosten, nicht die Qualität der Deckung. Ohne Angebot wird kein Preis berechnet.",
+    "compareTitle": "Auch die Bedingungen vergleichen",
+    "checkScope": "Prüfen, welche Objekte, Mieter, Mieten und Nebenkosten tatsächlich versichert sind.",
+    "checkLimits": "Monatliche, jährliche und schadensbezogene Grenzen, Deckungsdauer, Selbstbehalte und Wartezeiten vergleichen.",
+    "checkEligibility": "Vertragsspezifische Aufnahmebedingungen, Ausschlüsse und Anzeigepflichten lesen.",
+    "checkClaims": "Meldefristen, erforderliche Nachweise, Rechtsschutz und Leistungsbedingungen prüfen.",
+    "sourcesTitle": "Informationen der Versicherer",
+    "sourcesNote": "Beispiele offizieller Seiten, abgerufen am 10. September 2026. Nicht abschließende Liste ohne Empfehlung oder Tarifübernahme; maßgeblich sind die Bedingungen Ihres Angebots."
   }
 }

@@ -16,7 +16,7 @@ import {
   listPaymentsForLot, upsertPayment, markPaid, seedYear, deletePayment, summarizeRentalPayments, confirmRentalPayment,
   type RentalPayment,
 } from "@/lib/rental-payments";
-import { formatEUR } from "@/lib/calculations";
+
 
 
 const STATUS_COLOR: Record<string, string> = {
@@ -36,6 +36,7 @@ export default function PaymentsPage() {
 
 function PaymentsPageContent() {
   const locale = useLocale();
+  const formatEUR=(n:number)=>new Intl.NumberFormat(locale==='lb'?'de-LU':locale,{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
   const lp = locale === "fr" ? "" : `/${locale}`;
   const t = useTranslations("paiementsLocatifs");
   const ti = useTranslations("invoiceTemplate");

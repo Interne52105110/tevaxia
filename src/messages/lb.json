@@ -20005,5 +20005,30 @@
     "night": "Iwwernuechtung",
     "breakfast": "Frühstück",
     "scope": "D’Virlag bereet d’Bezeechnunge vir. Gitt Präisser, TVA-Kategorie an Taux no der Leeschtung an dem uwendbare Regime an. Vergitt eng Nummer aus Ärer eegener Rechnungssequenz."
+  },
+  "insuranceBudget": {
+    "back": "Zréck bei d’Locatiounsgestioun",
+    "title": "Assurance géint Loyersausfall: Är Offere vergläichen",
+    "intro": "Gitt d’Joresprime vun erhalenen Offeren an, fir d’Käschten ze vergläichen. Et gi keng Assurancetariffer, Ranglëschten oder Indemnisatiounsgarantië generéiert.",
+    "scopeTitle": "Ëmfang vun den Offeren",
+    "scopeNote": "D’Offere mussen déi selwecht Wunnengen ofdecken. Loyer a Käschte sinn duerchschnëttlech Mountsbeträg pro Wunneng; all Prime gëllt fir de ganze Bestand, mat Fraisen a Steieren.",
+    "rent": "Duerchschnëttleche Mountsloyer pro Wunneng (€)",
+    "charges": "Duerchschnëttlech Mountskäschte pro Wunneng (€)",
+    "lots": "Zuel vu Wunnengen",
+    "quote": "Offer {name}",
+    "annualInput": "Gesamtjoresprime vun der Offer (€)",
+    "annual": "Deklaréiert Joreskäschten",
+    "monthly": "Mountsequivalent",
+    "ratio": "Prime / Joresbasis Loyer a Käschten",
+    "missing": "Net berechent",
+    "invalid": "Kontrolléiert d’Beträg: op d’mannst null a maximal zwou Dezimalstellen; eng ganz Zuel vun 1 bis 500 Wunnengen.",
+    "calculationNote": "Joresbasis = (Loyer + Käschten) × Wunnengen × 12. Mountsequivalent = Joresprime ÷ 12, nëmme fir d’Affichage gerënnt; dat ass keen Echeancier vum Assureur. De Prozentsaz moosst Käschten, net d’Qualitéit vun der Ofdeckung. Ouni aginn Offer gëtt kee Präis berechent.",
+    "compareTitle": "Och d’Konditioune vergläichen",
+    "checkScope": "Kontrolléieren, wéi eng Wunnengen, Locatairen, Loyeren a Käschte wierklech verséchert sinn.",
+    "checkLimits": "Mounts-, Jores- a Schuedslimiten, Garantiedauer, Franchisen a Waardezäite vergläichen.",
+    "checkEligibility": "Déi vertragspezifesch Konditiounen, Ausschlëss an Deklaratiounsflichte liesen.",
+    "checkClaims": "Meldungsfristen, néideg Beleeër, Rechtsschutz an d’Konditioune vun der Leeschtung kontrolléieren.",
+    "sourcesTitle": "Informatioune vun den Assureuren",
+    "sourcesNote": "Beispiller vun offizielle Säiten, consultéiert den 10. September 2026. Net komplett Lëscht, ouni Recommandatioun oder iwwerholl Tariffer; d’Konditioune vun Ärer Offer si bestëmmend."
   }
 }
