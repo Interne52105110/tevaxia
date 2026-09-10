@@ -65,6 +65,7 @@ export function compareCountries(params) {
       isNew: false,
       isPrimaryResidence: false,
       isFirstTimeBuyer: false,
+      ukAdditionalProperty: code === 'uk',
       loanAmount: referencePrice * ltvRatio,
       countryData,
     });
@@ -84,6 +85,7 @@ export function compareCountries(params) {
       isNew: false,
       isPrimaryResidence: false,
       isFirstTimeBuyer: false,
+      ukAdditionalProperty: code === 'uk',
       loanAmount: Math.round(propertyPrice * ltvRatio),
       countryData,
     });

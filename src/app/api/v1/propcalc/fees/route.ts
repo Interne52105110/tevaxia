@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   try { assertPropcalcApiInput(body, 'fees'); }
   catch (error) { return NextResponse.json({ success: false, error: error instanceof RangeError ? error.message : 'Invalid input' }, { status: 400, headers: CORS_HEADERS }); }
 
-  const { country, price, isPrimary, isFirstTime, isNew, region, loanAmount, buyerAge, frenchVatOnFullPrice, frenchVatRate, loanGuaranteeCost } = body;
+  const { country, price, isPrimary, isFirstTime, isNew, region, loanAmount, buyerAge, frenchVatOnFullPrice, frenchVatRate, loanGuaranteeCost, ukAdditionalProperty, ukNonResident } = body;
 
   if (!country || !price) {
     return NextResponse.json(
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
       loanAmount: loanAmount ?? 0,
       buyerAge: buyerAge ?? 0,
       countryData,
-      frenchVatOnFullPrice, frenchVatRate, loanGuaranteeCost,
+      frenchVatOnFullPrice, frenchVatRate, loanGuaranteeCost, ukAdditionalProperty, ukNonResident,
     });
 
     assertFinitePropcalcResult(result);

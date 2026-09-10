@@ -250,128 +250,35 @@ function calculateGermanyFees(params, countryData) {
 }
 
 /**
- * Determine which stamp duty system and bands to use for a UK region.
- */
-function getUKStampDutyConfig(regionCode, countryData, isFirstTimeBuyer) {
-  const stampDuty = countryData.acquisitionFees.stampDuty;
-
-  let systemKey;
-  switch (regionCode) {
-    case 'SCT':
-      systemKey = 'scotland';
-      break;
-    case 'WLS':
-      systemKey = 'wales';
-      break;
-    case 'ENG':
-    case 'NIR':
-    default:
-      systemKey = 'england';
-      break;
-  }
-
-  const system = stampDuty[systemKey];
-
-  // Use first-time buyer bands if eligible
-  let bands = system.bands;
-  if (isFirstTimeBuyer && system.firstTimeBuyer) {
-    const ftb = system.firstTimeBuyer;
-    // Check max property price limit for FTB relief (England has 500k cap)
-    if (ftb.maxPropertyPrice === null || ftb.maxPropertyPrice === undefined) {
-      bands = ftb.bands;
-    } else {
-      // FTB bands only apply if we don't know the price yet; we handle the cap in the caller
-      bands = ftb.bands;
-    }
-  }
-
-  return {
-    name: system.name,
-    bands,
-    surcharge: system.additionalPropertySurcharge || 0,
-    nonResidentSurcharge: system.nonResidentSurcharge || 0,
-    firstTimeBuyerMaxPrice: system.firstTimeBuyer
-      ? system.firstTimeBuyer.maxPropertyPrice
-      : null,
-    standardBands: system.bands,
-  };
-}
-
-/**
  * Calculate UK-specific acquisition fees.
  */
 function calculateUKFees(params, countryData) {
-  const {
-    propertyPrice,
-    regionCode,
-    isFirstTimeBuyer,
-    isPrimaryResidence,
-  } = params;
-
-  const acq = countryData.acquisitionFees;
-  const items = [];
-
-  // Determine stamp duty bands
-  const sdConfig = getUKStampDutyConfig(regionCode, countryData, isFirstTimeBuyer);
-  const isAdditionalProperty = !isPrimaryResidence;
-
-  // Check FTB price cap (England: 500k) - fall back to standard bands if over limit
-  let bands = sdConfig.bands;
-  if (isFirstTimeBuyer && sdConfig.firstTimeBuyerMaxPrice !== null) {
-    if (propertyPrice > sdConfig.firstTimeBuyerMaxPrice) {
-      bands = sdConfig.standardBands;
-    }
-  }
-
-  const stampDutyAmount = calculateStampDuty(
-    propertyPrice,
-    bands,
-    sdConfig.surcharge,
-    isAdditionalProperty,
-  );
-
-  items.push({
-    label: 'fees.stampDuty',
-    amount: Math.round(stampDutyAmount * 100) / 100,
-    rate: propertyPrice > 0 ? Math.round((stampDutyAmount / propertyPrice) * 10000) / 100 : 0,
-    details: sdConfig.name,
-  });
-
-  // Solicitor / Conveyancing
-  const solicitorAmount = acq.solicitor.typicalFixed;
-  items.push({
-    label: 'fees.solicitor',
-    amount: solicitorAmount,
-    rate: propertyPrice > 0 ? Math.round((solicitorAmount / propertyPrice) * 10000) / 100 : 0,
-    details: 'Solicitor / conveyancing fees',
-  });
-
-  // Land Registry
-  const landRegistryAmount = acq.landRegistry.typicalFixed;
-  items.push({
-    label: 'fees.landRegistry',
-    amount: landRegistryAmount,
-    rate: propertyPrice > 0
-      ? Math.round((landRegistryAmount / propertyPrice) * 10000) / 100
-      : 0,
-    details: 'Land Registry fee',
-  });
-
-  // Survey
-  const surveyAmount = acq.survey.typicalFixed;
-  items.push({
-    label: 'fees.survey',
-    amount: surveyAmount,
-    rate: propertyPrice > 0 ? Math.round((surveyAmount / propertyPrice) * 10000) / 100 : 0,
-    details: 'Home survey',
-  });
-
-  const total = items.reduce((sum, item) => sum + item.amount, 0);
-
+  const { propertyPrice, regionCode, isFirstTimeBuyer, isPrimaryResidence } = params;
+  const region = regionCode || 'ENG';
+  if (!['ENG', 'NIR', 'SCT', 'WLS'].includes(region)) throw new RangeError('Unsupported UK tax jurisdiction');
+  const additional = params.ukAdditionalProperty === true;
+  const nonResident = params.ukNonResident === true;
+  if (additional && isFirstTimeBuyer) throw new RangeError('First-time eligibility cannot be combined with an additional-property scenario');
+  const eligibleFirst = isFirstTimeBuyer === true && isPrimaryResidence === true && !additional;
+  const systemKey = region === 'SCT' ? 'scotland' : region === 'WLS' ? 'wales' : 'england';
+  const system = countryData.acquisitionFees.stampDuty[systemKey];
+  const ftb = system.firstTimeBuyer;
+  const relief = eligibleFirst && systemKey !== 'wales' && (!ftb.maxPropertyPrice || propertyPrice <= ftb.maxPropertyPrice);
+  let bands = relief ? ftb.bands : system.bands;
+  const additionalApplies = additional && propertyPrice >= 40000;
+  if (systemKey === 'wales' && additionalApplies) bands = system.higherBands;
+  let duty = calculateStampDuty(propertyPrice, bands, 0, false);
+  if (additionalApplies && systemKey !== 'wales') duty += propertyPrice * system.additionalPropertySurcharge;
+  const nonResidentApplies = nonResident && systemKey === 'england' && propertyPrice >= 40000;
+  if (nonResidentApplies) duty += propertyPrice * system.nonResidentSurcharge;
+  const total = Math.round(duty * 100) / 100;
   return {
-    items,
-    total: Math.round(total * 100) / 100,
-    totalPercent: propertyPrice > 0 ? Math.round((total / propertyPrice) * 10000) / 100 : 0,
+    items: [{ label: 'fees.stampDuty', amount: total, rate: Math.round(duty / propertyPrice * 10000) / 100,
+      details: `${system.name}; ${region}; additional-property rates ${additionalApplies ? 'applied' : 'not applied'}; non-resident surcharge ${nonResidentApplies ? 'applied' : 'not applied'}; first-buyer relief ${relief ? 'applied' : 'not applied'}. Ordinary single residential purchase by individuals; no linked transactions, new lease rent, corporate or transitional rules.` }],
+    total, totalPercent: Math.round(duty / propertyPrice * 10000) / 100,
+    coverage: { status: 'partial', excludedCosts: ['conveyancing', 'landRegistration', 'survey', 'financing'],
+      region, defaultRegionAssumed: !regionCode, additionalPropertyAssumption: additional, nonResidentAssumption: nonResident,
+      firstBuyerReliefApplied: relief, rateSnapshot: '2026-09-10' },
   };
 }
 
@@ -389,6 +296,8 @@ function calculateUKFees(params, countryData) {
  * @param {number} params.buyerAge
  * @param {boolean} [params.frenchVatOnFullPrice] - Explicit reduced-rate qualification for a new French sale
  * @param {number} [params.frenchVatRate] - Declared sale VAT ratio, with a VAT-inclusive property price
+ * @param {boolean} [params.ukAdditionalProperty] - Confirm higher-rate liability, independently of main-residence use
+ * @param {boolean} [params.ukNonResident] - Non-resident surcharge qualification for SDLT
  * @param {number} [params.loanGuaranteeCost] - Quoted French financing guarantee cost, not a statutory rate
  * @param {Object} params.countryData - Full country data JSON
  * @returns {Object} { items: [{label, amount, rate, details}], total, totalPercent }

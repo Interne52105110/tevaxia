@@ -51,7 +51,7 @@ const COUNTRY_DEFAULTS: Record<string, { price: number; rent: number; rate: numb
   de: { price: 450_000, rent: 1_600, rate: 0.038, label: "Deutschland", flag: "\u{1F1E9}\u{1F1EA}", appreciation: -0.02, currency: "EUR", currencySymbol: "€" },
   be: { price: 320_000, rent: 1_250, rate: 0.034, label: "Belgique", flag: "\u{1F1E7}\u{1F1EA}", appreciation: 0.005, currency: "EUR", currencySymbol: "€" },
   es: { price: 280_000, rent: 1_200, rate: 0.035, label: "España", flag: "\u{1F1EA}\u{1F1F8}", appreciation: 0.06, currency: "EUR", currencySymbol: "€" },
-  gb: { price: 400_000, rent: 1_800, rate: 0.045, label: "United Kingdom", flag: "\u{1F1EC}\u{1F1E7}", appreciation: 0.02, currency: "GBP", currencySymbol: "£" },
+  uk: { price: 400_000, rent: 1_800, rate: 0.045, label: "United Kingdom", flag: "\u{1F1EC}\u{1F1E7}", appreciation: 0.02, currency: "GBP", currencySymbol: "£" },
   us: { price: 450_000, rent: 2_200, rate: 0.068, label: "United States", flag: "\u{1F1FA}\u{1F1F8}", appreciation: 0.035, currency: "USD", currencySymbol: "$" },
 };
 
@@ -95,6 +95,7 @@ export default function PropcalcCashflowDemo() {
         isNew: false,
         isPrimaryResidence: false,
         isFirstTimeBuyer: false,
+        ukAdditionalProperty: countryCode === 'uk',
         loanAmount: price - downPayment,
         buyerAge: 0,
         countryData,
@@ -295,6 +296,7 @@ export default function PropcalcCashflowDemo() {
               </LineChart>
             </ResponsiveContainer>
             <p className="mt-3 text-[10px] text-muted">{t("demoDisclaimer")}</p>
+            {countryCode === "uk" && <p className="mt-3 text-sm text-muted">{t("demoUKScope")} <a className="underline" href="https://www.gov.uk/stamp-duty-land-tax/residential-property-rates">HMRC</a></p>}
             {countryCode === "fr" && <p className="mt-3 text-sm text-muted">{t("demoFranceTransferAssumption")} {t("demoFranceFeeScope")} {t("demoFranceRentalScope")} <a className="underline" href="https://www.impots.gouv.fr/droits-denregistrement">DGFiP</a></p>}
           </div>
         </div>

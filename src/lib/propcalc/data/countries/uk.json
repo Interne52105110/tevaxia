@@ -176,22 +176,36 @@
           ],
           "notes": "No specific first-time buyer relief in Wales"
         },
-        "additionalPropertySurcharge": 0.05,
+        "additionalPropertySurcharge": 0,
         "nonResidentSurcharge": 0,
-        "notes": "Wales has no non-resident surcharge"
+        "notes": "Higher-rate residential transactions use their own bands from 11 December 2024, not a flat addition to main-rate bands. No non-resident surcharge.",
+        "higherBands": [
+          {
+            "upTo": 180000,
+            "rate": 0.05
+          },
+          {
+            "upTo": 250000,
+            "rate": 0.085
+          },
+          {
+            "upTo": 400000,
+            "rate": 0.1
+          },
+          {
+            "upTo": 750000,
+            "rate": 0.125
+          },
+          {
+            "upTo": 1500000,
+            "rate": 0.15
+          },
+          {
+            "upTo": null,
+            "rate": 0.17
+          }
+        ]
       }
-    },
-    "solicitor": {
-      "typicalFixed": 1500,
-      "notes": "Solicitor/conveyancer fees typically £1,000-£2,000"
-    },
-    "landRegistry": {
-      "typicalFixed": 300,
-      "notes": "Land Registry fee varies by property price (£100-£500)"
-    },
-    "survey": {
-      "typicalFixed": 500,
-      "notes": "Home survey £300-£1,500 depending on type (Level 1-3)"
     },
     "new": {
       "vatRate": 0,

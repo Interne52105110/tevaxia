@@ -105,6 +105,7 @@ export async function POST(request: Request) {
       buyerAge: 0,
       countryData,
       loanGuaranteeCost: body.loanGuaranteeCost,
+      ukAdditionalProperty: country.toLowerCase() === 'uk',
     }) as AcquisitionFeesResult;
 
     if (downPayment > propertyPrice + feesResult.total) throw new RangeError("Down payment exceeds total investment");
