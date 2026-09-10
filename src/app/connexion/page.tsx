@@ -1,13 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Connexion() {
   const t = useTranslations("connexion");
+  const locale = useLocale();
+  const pathname = usePathname();
+  const prefix = locale === "fr" ? "" : `/${locale}`;
+  const requestPending = useRef(false);
   const { user, signOut, signingOut, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +24,9 @@ export default function Connexion() {
   const [error, setError] = useState("");
 
   // Detect energy section (pathname-based since energy is now on main domain)
-  const isEnergy = typeof window !== "undefined" && window.location.pathname.startsWith("/energy");
+  const isEnergy = /^\/(?:en\/|de\/|pt\/|lb\/)?energy(?:\/|$)/.test(pathname ?? "");
+  const busy = loading || oauthLoading !== null;
+  const destination = `${prefix}${isEnergy ? "/energy" : "/mes-evaluations"}`;
 
   // Gère l'affichage d'un état "callback en cours" si on revient d'OAuth
   // avec ?code= mais que la session n'est pas encore hydratée côté client.
@@ -78,11 +85,11 @@ export default function Connexion() {
             <p className="mt-1 text-sm text-muted">{user.email}</p>
             <div className="mt-6 space-y-3">
               {isEnergy ? (
-                <Link href="/energy" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
+                <Link href={`${prefix}/energy`} className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
                   {t("backToEnergySimulators")}
                 </Link>
               ) : (
-                <Link href="/mes-evaluations" className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
+                <Link href={`${prefix}/mes-evaluations`} className="block rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors">
                   {t("myEvaluations")}
                 </Link>
               )}
@@ -98,31 +105,49 @@ export default function Connexion() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!supabase || requestPending.current || authLoading || signingOut) return;
+    requestPending.current = true;
     setLoading(true);
     setError("");
     setMessage("");
-
-    if (!supabase) return;
-
-    if (mode === "signup") {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: profession ? { data: { profession } } : undefined,
-      });
-      if (error) {
-        setError(error.message);
+    try {
+      if (mode === "signup") {
+        const { error: signupError } = await supabase.auth.signUp({
+          email, password,
+          options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destination)}`, ...(profession ? { data: { profession } } : {}) },
+        });
+        if (signupError) setError(t("requestFailed"));
+        else setMessage(t("checkEmailConfirmation"));
       } else {
-        setMessage(t("checkEmailConfirmation"));
+        const { error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+        if (loginError) setError(loginError.code === "invalid_credentials" || loginError.message === "Invalid login credentials" ? t("invalidCredentials") : t("requestFailed"));
       }
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        setError(error.message === "Invalid login credentials" ? t("invalidCredentials") : error.message);
-      }
+    } catch {
+      setError(t("requestFailed"));
+    } finally {
+      requestPending.current = false;
+      setLoading(false);
     }
+  };
 
-    setLoading(false);
+  const handleOAuth = async (provider: "google" | "linkedin") => {
+    if (!supabase || requestPending.current || authLoading || signingOut) return;
+    requestPending.current = true;
+    setOauthLoading(provider);
+    setError("");
+    setMessage("");
+    try {
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider: provider === "linkedin" ? "linkedin_oidc" : "google",
+        options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destination)}` },
+      });
+      if (oauthError) setError(t("requestFailed"));
+    } catch {
+      setError(t("requestFailed"));
+    } finally {
+      requestPending.current = false;
+      setOauthLoading(null);
+    }
   };
 
   return (
@@ -146,23 +171,8 @@ export default function Connexion() {
           {/* OAuth providers */}
           <div className="space-y-2 mb-6">
             <button
-              disabled={!!oauthLoading}
-              onClick={async () => {
-                if (!supabase) return;
-                setOauthLoading("google");
-                setError("");
-                const next = isEnergy ? "/energy" : "/mes-evaluations";
-                const { error: oauthError } = await supabase.auth.signInWithOAuth({
-                  provider: "google",
-                  options: {
-                    redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
-                  },
-                });
-                if (oauthError) {
-                  setError(oauthError.message);
-                  setOauthLoading(null);
-                }
-              }}
+              disabled={busy || authLoading || signingOut}
+              onClick={() => handleOAuth("google")}
               className="flex w-full items-center justify-center gap-3 rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm font-medium text-slate hover:bg-background transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {oauthLoading === "google" ? (
@@ -178,23 +188,8 @@ export default function Connexion() {
               {oauthLoading === "google" ? t("redirecting") : t("continueWithGoogle")}
             </button>
             <button
-              disabled={!!oauthLoading}
-              onClick={async () => {
-                if (!supabase) return;
-                setOauthLoading("linkedin");
-                setError("");
-                const next = isEnergy ? "/energy" : "/mes-evaluations";
-                const { error: oauthError } = await supabase.auth.signInWithOAuth({
-                  provider: "linkedin_oidc",
-                  options: {
-                    redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
-                  },
-                });
-                if (oauthError) {
-                  setError(oauthError.message);
-                  setOauthLoading(null);
-                }
-              }}
+              disabled={busy || authLoading || signingOut}
+              onClick={() => handleOAuth("linkedin")}
               className="flex w-full items-center justify-center gap-3 rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm font-medium text-slate hover:bg-background transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {oauthLoading === "linkedin" ? (
@@ -213,10 +208,13 @@ export default function Connexion() {
             <div className="relative flex justify-center"><span className="bg-card px-3 text-xs text-muted">{t("orByEmail")}</span></div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} aria-busy={busy} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate mb-1">{t("email")}</label>
+              <label htmlFor="login-email" className="block text-sm font-medium text-slate mb-1">{t("email")}</label>
               <input
+                id="login-email"
+                autoComplete="email"
+                disabled={busy}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -226,8 +224,11 @@ export default function Connexion() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate mb-1">{t("password")}</label>
+              <label htmlFor="login-password" className="block text-sm font-medium text-slate mb-1">{t("password")}</label>
               <input
+                id="login-password"
+                autoComplete={mode === "signup" ? "new-password" : "current-password"}
+                disabled={busy}
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -240,8 +241,10 @@ export default function Connexion() {
 
             {mode === "signup" && (
               <div>
-                <label className="block text-sm font-medium text-slate mb-1">{t("profession")} <span className="text-muted font-normal">({t("optional")})</span></label>
+                <label htmlFor="login-profession" className="block text-sm font-medium text-slate mb-1">{t("profession")} <span className="text-muted font-normal">({t("optional")})</span></label>
                 <select
+                  id="login-profession"
+                  disabled={busy}
                   value={profession}
                   onChange={(e) => setProfession(e.target.value)}
                   className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2.5 text-sm shadow-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
@@ -260,20 +263,20 @@ export default function Connexion() {
             )}
 
             {error && (
-              <div className="rounded-lg bg-red-50 border border-red-200 p-3">
+              <div role="alert" className="rounded-lg bg-red-50 border border-red-200 p-3">
                 <p className="text-xs text-red-700">{error}</p>
               </div>
             )}
 
             {message && (
-              <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <div role="status" className="rounded-lg bg-green-50 border border-green-200 p-3">
                 <p className="text-xs text-green-700">{message}</p>
               </div>
             )}
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={busy || authLoading || signingOut}
               className="w-full rounded-lg bg-navy px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-light transition-colors disabled:opacity-50"
             >
               {loading ? "..." : mode === "login" ? t("signIn") : t("createMyAccount")}
@@ -282,7 +285,8 @@ export default function Connexion() {
 
           <div className="mt-6 text-center">
             <button
-              onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); setMessage(""); }}
+              disabled={busy || authLoading || signingOut}
+              onClick={() => { if (requestPending.current) return; setMode(mode === "login" ? "signup" : "login"); setError(""); setMessage(""); }}
               className="text-sm text-navy hover:underline"
             >
               {mode === "login" ? t("noAccountYet") : t("alreadyHaveAccount")}
@@ -291,9 +295,9 @@ export default function Connexion() {
 
           <p className="mt-4 text-center text-xs text-muted">
             {t("legalNoticePrefix")}{" "}
-            <Link href="/mentions-legales" className="text-navy hover:underline">{t("legalNoticeLink")}</Link>
+            <Link href={`${prefix}/mentions-legales`} className="text-navy hover:underline">{t("legalNoticeLink")}</Link>
             {" "}{t("legalNoticeMiddle")}{" "}
-            <Link href="/confidentialite" className="text-navy hover:underline">{t("privacyPolicyLink")}</Link>.
+            <Link href={`${prefix}/confidentialite`} className="text-navy hover:underline">{t("privacyPolicyLink")}</Link>.
           </p>
         </div>
       </div>

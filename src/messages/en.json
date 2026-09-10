@@ -4957,7 +4957,8 @@
     "legalNoticeLink": "legal notice",
     "legalNoticeMiddle": "and our",
     "privacyPolicyLink": "privacy policy",
-    "callbackFailed": "Sign-in could not be completed. Please start again from this page."
+    "callbackFailed": "Sign-in could not be completed. Please start again from this page.",
+    "requestFailed": "The request could not be completed. Check your connection and try again. If the problem persists, try again later."
   },
   "profil": {
     "title": "My profile",

@@ -4957,7 +4957,8 @@
     "legalNoticeLink": "mentions légales",
     "legalNoticeMiddle": "et notre",
     "privacyPolicyLink": "politique de confidentialité",
-    "callbackFailed": "La connexion n’a pas pu être finalisée. Recommencez depuis cette page."
+    "callbackFailed": "La connexion n’a pas pu être finalisée. Recommencez depuis cette page.",
+    "requestFailed": "La demande n’a pas abouti. Vérifiez votre connexion et réessayez. Si le problème persiste, réessayez plus tard."
   },
   "profil": {
     "title": "Mon profil",

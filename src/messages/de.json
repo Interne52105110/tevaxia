@@ -4957,7 +4957,8 @@
     "legalNoticeLink": "rechtlichen Hinweise",
     "legalNoticeMiddle": "und unsere",
     "privacyPolicyLink": "Datenschutzrichtlinie",
-    "callbackFailed": "Die Anmeldung konnte nicht abgeschlossen werden. Bitte starten Sie auf dieser Seite erneut."
+    "callbackFailed": "Die Anmeldung konnte nicht abgeschlossen werden. Bitte starten Sie auf dieser Seite erneut.",
+    "requestFailed": "Die Anfrage konnte nicht abgeschlossen werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut. Falls das Problem bestehen bleibt, versuchen Sie es später erneut."
   },
   "profil": {
     "title": "Mein Profil",

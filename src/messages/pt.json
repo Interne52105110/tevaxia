@@ -4957,7 +4957,8 @@
     "legalNoticeLink": "avisos legais",
     "legalNoticeMiddle": "e a nossa",
     "privacyPolicyLink": "política de privacidade",
-    "callbackFailed": "Não foi possível concluir o início de sessão. Tente novamente a partir desta página."
+    "callbackFailed": "Não foi possível concluir o início de sessão. Tente novamente a partir desta página.",
+    "requestFailed": "Não foi possível concluir o pedido. Verifique a sua ligação e tente novamente. Se o problema persistir, tente mais tarde."
   },
   "profil": {
     "title": "O meu perfil",

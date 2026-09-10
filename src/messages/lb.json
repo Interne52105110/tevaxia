@@ -4957,7 +4957,8 @@
     "legalNoticeLink": "legal Mentiounen",
     "legalNoticeMiddle": "an eis",
     "privacyPolicyLink": "Dateschutzrichtlinn",
-    "callbackFailed": "D’Umeldung konnt net ofgeschloss ginn. Probéiert et vun dëser Säit aus nach eng Kéier."
+    "callbackFailed": "D’Umeldung konnt net ofgeschloss ginn. Probéiert et vun dëser Säit aus nach eng Kéier.",
+    "requestFailed": "D’Ufro konnt net ofgeschloss ginn. Kontrolléiert Är Verbindung a probéiert nach eng Kéier. Wann de Problem bestoe bleift, probéiert et méi spéit nach eng Kéier."
   },
   "profil": {
     "title": "Mäi Profil",
