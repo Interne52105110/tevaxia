@@ -1,3 +1,4 @@
+import {resolveRentalCloudId,requireRentalOwner} from "./rental-cloud-identity";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
 export interface TenantPortalToken {
@@ -65,17 +66,18 @@ export async function createTenantToken(input: {
   tenant_name?: string | null;
   tenant_email?: string | null;
   expires_in_days?: number;
-}): Promise<TenantPortalToken> {
-  const client = ensureClient();
-  const { data: userData } = await client.auth.getUser();
-  if (!userData?.user) throw new Error("Auth requise");
+}, owner:string): Promise<TenantPortalToken> {
+  const cloudId=await resolveRentalCloudId(input.lot_id,owner),client=await requireRentalOwner(owner);
+  const days=input.expires_in_days??365;
+  if(!Number.isInteger(days)||days<1||days>3650)throw new Error("Invalid portal expiry");
+  for(const value of [input.tenant_name,input.tenant_email])if(value!==null&&value!==undefined&&typeof value!=="string")throw new Error("Invalid tenant label");
   const token = `tnt_${generateToken()}`;
-  const expiresAt = new Date(Date.now() + (input.expires_in_days ?? 365) * 86400_000);
+  const expiresAt = new Date(Date.now() + days * 86400_000);
   const { data, error } = await client
     .from("tenant_portal_tokens")
     .insert({
-      lot_id: input.lot_id,
-      owner_id: userData.user.id,
+      lot_id: cloudId,
+      owner_id: owner,
       tenant_name: input.tenant_name ?? null,
       tenant_email: input.tenant_email ?? null,
       token,
@@ -83,8 +85,9 @@ export async function createTenantToken(input: {
     })
     .select()
     .single();
-  if (error) throw error;
-  return data as TenantPortalToken;
+  if(error||!data||data.owner_id!==owner||data.lot_id!==cloudId||data.token!==token||data.expires_at!==expiresAt.toISOString()&&Date.parse(data.expires_at)!==expiresAt.getTime())throw new Error("Tenant portal creation not confirmed");
+  await requireRentalOwner(owner);
+  return {...data,lot_id:input.lot_id} as TenantPortalToken;
 }
 
 export async function revokeTenantToken(id: string): Promise<void> {

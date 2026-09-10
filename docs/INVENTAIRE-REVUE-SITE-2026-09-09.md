@@ -715,3 +715,18 @@ Sources consultées le 10 septembre : https://energy.ec.europa.eu/topics/energy-
 Validation : lint sans avertissement, compilation réussie ; page publique cinq langues/quatre largeurs, cinq réponses FAQ et JSON-LD, trois sources, neuf liens localisés, titres HTML/OpenGraph vérifiés. Aucun moteur de calcul modifié dans ce lot ; suite précédente de 1 589 tests / 146 fichiers réussie.
 
 Portefeuille manuel dc04dcf publié : CI 34431987740 réussie, dpl_CGnxWsNt7KWts9SPQfJkDsRwTk7v Ready ; contrôle production cinq langues/quatre largeurs et téléchargement CSV réussi (manual-portfolio-public-prod.log), avec données synthétiques uniquement dans le navigateur de test.
+
+
+## 10 septembre — registre locatif et quittances
+
+Correction de la correspondance entre identifiant local du lot et clé primaire cloud : toutes les opérations de paiement et la création du lien locataire résolvent désormais le lot du propriétaire connecté. Lectures paginées complètes, validation des lignes/montants/périodes, refus des réponses partielles, identité vérifiée avant et après requêtes. Création d'un mois sans écraser un mois existant ; modification limitée aux montants, contrôle de version, confirmation explicite des écritures et suppressions. Les lignes payées, annulées ou déjà quittancées ne sont plus modifiables/supprimables dans cet écran. La génération annuelle compte les lignes effectivement créées. Un échec de lecture des paiements fait échouer la sauvegarde au lieu d'omettre les données.
+
+Totaux fondés sur les échéances réellement enregistrées, hors annulations, calculés en centimes. Aucun montant annuel inventé à partir du loyer actuel. Le solde reste indéterminé en présence d'un paiement partiel dont le montant n'est pas enregistré. Le graphique représente les périodes de loyer, pas des encaissements bancaires annuels ; suppression du seuil arbitraire de ponctualité. Déclaration manuelle du paiement aujourd'hui, date Luxembourg, sans mode de règlement inventé. Contrôles verrouillés pendant les actions, erreurs et reprise explicites, réponses d'un ancien compte ignorées. Formulaire mobile sans débordement, agrandissement global conservé.
+
+Quittance française : relecture du paiement avant génération, parties nommées et montants cohérents requis. Suppression de l'affirmation de conformité à l'article 25 de la loi du 21 septembre 2006, qui n'établit pas cette conformité. Mention de déclaration à vérifier et signer, sans certification juridique ni validation bancaire. Mise en page corrigée pour noms/adresses longs, signature et pied de page lisibles ; deux PDF synthétiques (une et deux pages) rendus et inspectés visuellement. Libellé FR explicite dans les cinq langues.
+
+Validation : 1 613 tests / 147 fichiers réussis, dont 24 nouveaux cas du registre ; lint sans avertissement ; compilation réussie. Scénarios UI isolés cinq langues (échec d'écriture, verrouillage, changement de compte, réponses tardives), et CSS compilé sur quatre largeurs de 320 à 1440 px. Aucune écriture sur paiements réels, aucun lien locataire réel créé, aucune quittance client transmise.
+
+Limites : politiques RLS, clés étrangères et triggers de production non certifiés sans accès administrateur. La migration locale 016 ne vérifie pas dans sa politique l'appartenance du lot : les contrôles applicatifs ne remplacent pas une protection SQL contre des appels REST directs. Les autres fonctions du portail locataire restent à examiner. Aucun rapprochement bancaire, montant partiel détaillé, archivage probant ou conformité PDF/A de ces quittances n'est annoncé.
+
+Accueil Énergie cb7438b publié : CI 34432494891 réussie, dpl_J185h9Qjh4fFosJud4Av65bnANBP Ready ; contrôle de production cinq langues/quatre largeurs réussi.

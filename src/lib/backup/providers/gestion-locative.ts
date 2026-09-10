@@ -13,12 +13,9 @@ async function collect(ctx: ExportContext): Promise<BackupBundle> {
 
   const paymentsAll: unknown[] = [];
   for (const lot of lots) {
-    try {
-      const payments = await listPaymentsForLot(lot.id);
-      paymentsAll.push(...payments);
-    } catch {
-      // Lot local-only — pas de paiements cloud
-    }
+    if(!ctx.userId)throw new Error("Rental account required");
+    const payments=await listPaymentsForLot(lot.id,ctx.userId);
+    paymentsAll.push(...payments);
   }
 
   const files: Record<string, string> = {
