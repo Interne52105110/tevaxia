@@ -14500,7 +14500,11 @@
     "lotYield": "Gross yield",
     "warningOffLimit": "⚠️ Rent above legal cap. The tenant can legally request a reduction.",
     "storageAuth": "Your lots are stored locally AND synced to your account (500 lots max, kept 180 days after last change).",
-    "storageGuest": "Lots are stored locally in your browser. Sign in to sync them to your account and access them from any device."
+    "storageGuest": "Lots are stored locally in your browser. Sign in to sync them to your account and access them from any device.",
+    "storageError": "Loading or the change could not be confirmed. The displayed data may be a local copy. Retry before relying on it.",
+    "retry": "Retry",
+    "legacyNotice": "An older backup without an account owner is preserved in this browser. It is not displayed or imported automatically.",
+    "legacyDownload": "Download the older backup"
   },
   "glRelances": {
     "backHub": "← Rental management",
@@ -14748,7 +14752,8 @@
     "btnCreate": "Create the lot",
     "btnSave": "Save",
     "nameRequired": "Give the lot a name (e.g. \"Studio Belair\").",
-    "defaultNewName": "New lot"
+    "defaultNewName": "New lot",
+    "storageError": "Saving or loading could not be confirmed. Your entries remain on screen; please retry."
   },
   "glColoc": {
     "backLot": "← {lotName}",

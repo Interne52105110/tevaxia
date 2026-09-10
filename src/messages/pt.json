@@ -14500,7 +14500,11 @@
     "lotYield": "Rentabilidade bruta",
     "warningOffLimit": "⚠️ Renda acima do limite legal. O inquilino pode legalmente pedir uma redução.",
     "storageAuth": "Os seus lotes são guardados localmente E sincronizados na sua conta (máx 500 lotes, conservados 180 dias a partir da última modificação).",
-    "storageGuest": "Os lotes são guardados localmente no seu navegador. Inicie sessão para os sincronizar na sua conta e recuperá-los em qualquer dispositivo."
+    "storageGuest": "Os lotes são guardados localmente no seu navegador. Inicie sessão para os sincronizar na sua conta e recuperá-los em qualquer dispositivo.",
+    "storageError": "Não foi possível confirmar o carregamento ou a alteração. Os dados apresentados podem ser uma cópia local. Tente novamente antes de os utilizar.",
+    "retry": "Tentar novamente",
+    "legacyNotice": "Uma cópia de segurança antiga sem conta associada é conservada neste navegador. Não é apresentada nem importada automaticamente.",
+    "legacyDownload": "Descarregar a cópia antiga"
   },
   "glRelances": {
     "backHub": "← Gestão de arrendamento",
@@ -14748,7 +14752,8 @@
     "btnCreate": "Criar o lote",
     "btnSave": "Guardar",
     "nameRequired": "Dê um nome ao lote (ex. «Studio Belair»).",
-    "defaultNewName": "Novo lote"
+    "defaultNewName": "Novo lote",
+    "storageError": "Não foi possível confirmar a gravação ou o carregamento. As suas entradas permanecem no ecrã; tente novamente."
   },
   "glColoc": {
     "backLot": "← {lotName}",

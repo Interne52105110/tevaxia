@@ -14500,7 +14500,11 @@
     "lotYield": "Rendement brut",
     "warningOffLimit": "⚠️ Loyer supérieur au plafond légal. Le locataire peut légalement demander une réduction.",
     "storageAuth": "Vos lots sont stockés localement ET synchronisés sur votre compte (500 lots max, conservés 180 jours à partir de la dernière modification).",
-    "storageGuest": "Les lots sont stockés localement dans votre navigateur. Connectez-vous pour les synchroniser sur votre compte et les retrouver depuis n'importe quel appareil."
+    "storageGuest": "Les lots sont stockés localement dans votre navigateur. Connectez-vous pour les synchroniser sur votre compte et les retrouver depuis n'importe quel appareil.",
+    "storageError": "Impossible de confirmer le chargement ou la modification. Les données affichées peuvent être une copie locale. Réessayez avant de vous y fier.",
+    "retry": "Réessayer",
+    "legacyNotice": "Une ancienne sauvegarde non rattachée à un compte est conservée dans ce navigateur. Elle n’est ni affichée ni importée automatiquement.",
+    "legacyDownload": "Télécharger l’ancienne sauvegarde"
   },
   "glRelances": {
     "backHub": "← Gestion locative",
@@ -14748,7 +14752,8 @@
     "btnCreate": "Créer le lot",
     "btnSave": "Enregistrer",
     "nameRequired": "Donnez un nom au lot (ex. « Studio Belair »).",
-    "defaultNewName": "Nouveau lot"
+    "defaultNewName": "Nouveau lot",
+    "storageError": "Impossible de confirmer la sauvegarde ou le chargement. Vos saisies sont conservées à l’écran ; réessayez."
   },
   "glColoc": {
     "backLot": "← {lotName}",

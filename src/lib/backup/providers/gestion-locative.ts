@@ -7,8 +7,9 @@ import type { ExportProvider, ExportContext, BackupBundle } from "../types";
 import { listLotsAsync } from "@/lib/gestion-locative";
 import { listPaymentsForLot } from "@/lib/rental-payments";
 
-async function collect(_ctx: ExportContext): Promise<BackupBundle> {
-  const { items: lots } = await listLotsAsync();
+async function collect(ctx: ExportContext): Promise<BackupBundle> {
+  const { items: lots, cloudError } = await listLotsAsync(ctx.userId);
+  if (cloudError) throw new Error("Rental backup unavailable");
 
   const paymentsAll: unknown[] = [];
   for (const lot of lots) {

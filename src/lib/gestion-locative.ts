@@ -74,130 +74,111 @@ export interface PortfolioSummary {
 
 // ---------- Storage ----------
 
-function load(): RentalLot[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as RentalLot[]) : [];
-  } catch {
-    return [];
+export function rentalStorageKey(userId: string | null): string {
+  return `${STORAGE_KEY}:v2:${userId ? `user:${encodeURIComponent(userId)}` : 'guest'}`;
+}
+export function legacyRentalSnapshot(): string | null {
+  return typeof window === 'undefined' ? null : localStorage.getItem(STORAGE_KEY);
+}
+function validateLots(value: unknown): asserts value is RentalLot[] {
+  if (!Array.isArray(value) || value.length > CLOUD_CAP) throw new Error('Invalid rental portfolio');
+  const ids = new Set<string>();
+  for (const row of value) {
+    if (!row || typeof row !== 'object' || typeof row.id !== 'string' || !row.id || ids.has(row.id) || typeof row.name !== 'string' || !row.name.trim()) throw new Error('Invalid rental lot');
+    ids.add(row.id);
+    for(const key of ["address","commune","tenantName","leaseStartDate","leaseEndDate"])if(row[key]!==undefined && typeof row[key]!=="string")throw new Error("Invalid rental text");
+    if(row.nbChambres!==undefined && (typeof row.nbChambres!=="number" || !Number.isFinite(row.nbChambres) || row.nbChambres<0))throw new Error("Invalid rental rooms");
+    for (const key of ['surface','prixAcquisition','anneeAcquisition','travauxMontant','travauxAnnee','loyerMensuelActuel','chargesMensuelles']) {
+      if (typeof row[key] !== 'number' || !Number.isFinite(row[key]) || row[key] < 0) throw new Error('Invalid rental amount');
+    }
+    if (typeof row.vacant !== 'boolean' || typeof row.estMeuble !== 'boolean' || !['A','B','C','D','E','F','G','NC'].includes(row.classeEnergie)) throw new Error('Invalid rental characteristics');
+    if (typeof row.createdAt !== 'string' || typeof row.updatedAt !== 'string' || !Number.isFinite(Date.parse(row.createdAt)) || !Number.isFinite(Date.parse(row.updatedAt))) throw new Error('Invalid rental dates');
   }
 }
-
-function persist(lots: RentalLot[]) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(lots));
+function load(userId: string | null): RentalLot[] {
+  if (typeof window === 'undefined') return [];
+  const raw = localStorage.getItem(rentalStorageKey(userId));
+  const lots: unknown = raw ? JSON.parse(raw) : [];
+  validateLots(lots);
+  return lots;
 }
-
-export function listLots(): RentalLot[] {
-  return load().sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || ""));
+function persist(lots: RentalLot[], userId: string | null) {
+  validateLots(lots);
+  if (typeof window !== 'undefined') localStorage.setItem(rentalStorageKey(userId), JSON.stringify(lots));
 }
-
-export function getLot(id: string): RentalLot | null {
-  return load().find((l) => l.id === id) ?? null;
+async function requireOwner(userId: string) {
+  if (!supabase) throw new Error('Cloud unavailable');
+  const { data, error } = await supabase.auth.getUser();
+  if (error || data?.user?.id !== userId) throw new Error('Rental account changed');
 }
-
-export function saveLot(lot: Omit<RentalLot, "id" | "createdAt" | "updatedAt"> & { id?: string }): RentalLot {
-  const lots = load();
-  const now = new Date().toISOString();
-  let result: RentalLot;
-  if (lot.id) {
-    const idx = lots.findIndex((l) => l.id === lot.id);
-    const existing = idx >= 0 ? lots[idx] : null;
-    result = {
-      ...(existing ?? { createdAt: now }),
-      ...lot,
-      id: lot.id,
-      updatedAt: now,
-      createdAt: existing?.createdAt ?? now,
-    } as RentalLot;
-    if (idx >= 0) lots[idx] = result;
-    else lots.push(result);
-  } else {
-    result = {
-      ...lot,
-      id: `lot_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
-      createdAt: now,
-      updatedAt: now,
-    };
-    lots.push(result);
-  }
-  if (lots.length > CLOUD_CAP) lots.length = CLOUD_CAP;
-  persist(lots);
-  void cloudUpsertLot(result);
+export function listLots(userId: string | null): RentalLot[] {
+  return load(userId).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
+}
+export function getLot(id: string, userId: string | null): RentalLot | null {
+  return load(userId).find(l=>l.id===id) ?? null;
+}
+export async function getLotAsync(id: string, userId: string | null): Promise<RentalLot | null> {
+  const result = await listLotsAsync(userId);
+  if (result.cloudError) throw new Error('Rental portfolio unavailable');
+  return result.items.find(l=>l.id===id) ?? null;
+}
+export async function saveLot(lot: Omit<RentalLot, 'id'|'createdAt'|'updatedAt'> & {id?:string}, userId: string | null): Promise<RentalLot> {
+  const lots = load(userId), now = new Date().toISOString();
+  const existing = lot.id ? lots.find(l=>l.id===lot.id) : undefined;
+  const result: RentalLot = {...lot,id:lot.id || crypto.randomUUID(),createdAt:existing?.createdAt ?? now,updatedAt:now};
+  validateLots([result]);
+  const next = [...lots.filter(l=>l.id!==result.id),result];
+  validateLots(next); // Refuse capacity overflow; never truncate existing records.
+  if (userId) await cloudUpsertLot(result,userId);
+  persist([...load(userId).filter(l=>l.id!==result.id),result],userId);
   return result;
 }
-
-export function deleteLot(id: string): void {
-  persist(load().filter((l) => l.id !== id));
-  void cloudDeleteLot(id);
-}
-
-// ---------- Cloud sync (Supabase) ----------
-
-async function cloudUpsertLot(l: RentalLot): Promise<void> {
-  if (!supabase) return;
-  try {
-    const { data: auth } = await supabase.auth.getUser();
-    const user = auth?.user;
-    if (!user) return;
-    await supabase.from("rental_lots").upsert(
-      {
-        user_id: user.id,
-        local_id: l.id,
-        name: l.name,
-        address: l.address ?? null,
-        commune: l.commune ?? null,
-        surface: l.surface,
-        nb_chambres: l.nbChambres ?? null,
-        classe_energie: l.classeEnergie,
-        est_meuble: l.estMeuble,
-        prix_acquisition: l.prixAcquisition,
-        annee_acquisition: l.anneeAcquisition,
-        travaux_montant: l.travauxMontant,
-        travaux_annee: l.travauxAnnee,
-        loyer_mensuel_actuel: l.loyerMensuelActuel,
-        charges_mensuelles: l.chargesMensuelles,
-        tenant_name: l.tenantName ?? null,
-        lease_start_date: l.leaseStartDate ?? null,
-        lease_end_date: l.leaseEndDate ?? null,
-        vacant: l.vacant,
-      },
-      { onConflict: "user_id,local_id" }
-    );
-  } catch (e) {
-    console.warn("cloudUpsertLot failed:", e);
+export async function deleteLot(id: string, userId: string | null): Promise<void> {
+  load(userId);
+  if (userId) {
+    await requireOwner(userId);
+    const {data,error}=await supabase!.from('rental_lots').delete().eq('user_id',userId).eq('local_id',id).select('local_id');
+    if(error || data?.length!==1 || data[0].local_id!==id) throw new Error('Rental deletion not confirmed');
+    await requireOwner(userId);
   }
+  persist(load(userId).filter(l=>l.id!==id),userId);
 }
-
-async function cloudDeleteLot(localId: string): Promise<void> {
-  if (!supabase) return;
-  try {
-    const { data: auth } = await supabase.auth.getUser();
-    const user = auth?.user;
-    if (!user) return;
-    await supabase.from("rental_lots").delete().eq("user_id", user.id).eq("local_id", localId);
-  } catch (e) {
-    console.warn("cloudDeleteLot failed:", e);
+async function cloudUpsertLot(l: RentalLot, userId: string): Promise<void> {
+  await requireOwner(userId);
+  const {data,error}=await supabase!.from('rental_lots').upsert({
+    user_id:userId,local_id:l.id,name:l.name,address:l.address??null,commune:l.commune??null,
+    surface:l.surface,nb_chambres:l.nbChambres??null,classe_energie:l.classeEnergie,est_meuble:l.estMeuble,
+    prix_acquisition:l.prixAcquisition,annee_acquisition:l.anneeAcquisition,travaux_montant:l.travauxMontant,travaux_annee:l.travauxAnnee,
+    loyer_mensuel_actuel:l.loyerMensuelActuel,charges_mensuelles:l.chargesMensuelles,tenant_name:l.tenantName??null,
+    lease_start_date:l.leaseStartDate??null,lease_end_date:l.leaseEndDate??null,vacant:l.vacant,
+  },{onConflict:'user_id,local_id'}).select('local_id');
+  if(error || data?.length!==1 || data[0].local_id!==l.id) throw new Error('Rental save not confirmed');
+  await requireOwner(userId);
+}
+async function cloudListLots(userId: string): Promise<RentalLot[]> {
+  await requireOwner(userId);
+  const data: Record<string, unknown>[] = [];
+  let cursor: string | null = null;
+  for (;;) {
+    let query=supabase!.from('rental_lots').select('*').eq('user_id',userId).gt('expires_at',new Date().toISOString()).order('id').limit(200);
+    if(cursor)query=query.gt('id',cursor);
+    const result=await query;
+    if(result.error || !Array.isArray(result.data)) throw new Error('Rental portfolio unavailable');
+    await requireOwner(userId);
+    if(!result.data.length)break;
+    const next=result.data[result.data.length-1].id;
+    if(typeof next!=='string' || (cursor!==null && next<=cursor))throw new Error('Invalid rental page');
+    data.push(...result.data);
+    if(data.length>CLOUD_CAP)throw new Error('Rental portfolio capacity exceeded');
+    cursor=next;
   }
-}
-
-async function cloudListLots(): Promise<RentalLot[]> {
-  if (!supabase) return [];
-  try {
-    const { data: auth } = await supabase.auth.getUser();
-    const user = auth?.user;
-    if (!user) return [];
-    const nowIso = new Date().toISOString();
-    const { data, error } = await supabase
-      .from("rental_lots")
-      .select("*")
-      .eq("user_id", user.id)
-      .gt("expires_at", nowIso)
-      .order("updated_at", { ascending: false })
-      .limit(CLOUD_CAP);
-    if (error || !data) return [];
-    return data.map((d) => ({
+  for(const row of data) {
+    if(row.user_id!==userId || typeof row.est_meuble!=='boolean' || typeof row.vacant!=='boolean')throw new Error('Invalid rental owner or flags');
+    for(const key of ['surface','prix_acquisition','annee_acquisition','travaux_montant','travaux_annee','loyer_mensuel_actuel','charges_mensuelles']) {
+      const v=row[key];if((typeof v!=='number' && typeof v!=='string') || String(v).trim()==='' || !Number.isFinite(Number(v)))throw new Error('Invalid rental amount');
+    }
+  }
+    const items = data.map((d) => ({
       id: (d.local_id as string) || (d.id as string),
       name: d.name as string,
       address: (d.address as string | null) ?? undefined,
@@ -216,43 +197,25 @@ async function cloudListLots(): Promise<RentalLot[]> {
       leaseStartDate: (d.lease_start_date as string | null) ?? undefined,
       leaseEndDate: (d.lease_end_date as string | null) ?? undefined,
       vacant: Boolean(d.vacant),
-      createdAt: (d.created_at as string) || new Date().toISOString(),
-      updatedAt: (d.updated_at as string) || new Date().toISOString(),
+      createdAt: d.created_at as string,
+      updatedAt: d.updated_at as string,
     }));
-  } catch (e) {
-    console.warn("cloudListLots failed:", e);
-    return [];
-  }
+  validateLots(items);
+  return items;
 }
-
-/**
- * Liste asynchrone mergée local + cloud. Met à jour le localStorage
- * avec le résultat fusionné.
- */
-export async function listLotsAsync(): Promise<{ items: RentalLot[]; cloud: boolean }> {
-  const local = load();
-  const cloud = await cloudListLots();
-  if (cloud.length === 0) {
-    return { items: local.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)), cloud: false };
+/** Account-specific cache. A successful cloud snapshot is authoritative, including an empty one. */
+export async function listLotsAsync(userId: string | null): Promise<{items:RentalLot[];cloud:boolean;cloudError:boolean}> {
+  const local=load(userId);
+  const snapshot=JSON.stringify(local);
+  if(!userId) return {items:local.sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)),cloud:false,cloudError:false};
+  try {
+    const items=await cloudListLots(userId);
+    if(JSON.stringify(load(userId))!==snapshot)throw new Error("Rental cache changed during load");
+    persist(items,userId);
+    return {items:items.sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)),cloud:true,cloudError:false};
+  } catch {
+    return {items:load(userId),cloud:false,cloudError:true};
   }
-  const byId = new Map<string, RentalLot>();
-  for (const l of local) byId.set(l.id, l);
-  for (const l of cloud) {
-    const existing = byId.get(l.id);
-    if (!existing || existing.updatedAt < l.updatedAt) byId.set(l.id, l);
-  }
-  const merged = Array.from(byId.values()).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
-  const capped = merged.slice(0, CLOUD_CAP);
-  persist(capped);
-  return { items: capped, cloud: true };
-}
-
-/** À la connexion : pousse tous les lots locaux vers le cloud. */
-export async function syncLocalLotsToCloud(): Promise<number> {
-  const local = load();
-  if (local.length === 0) return 0;
-  await Promise.all(local.map((l) => cloudUpsertLot(l)));
-  return local.length;
 }
 
 // ---------- Calculs ----------

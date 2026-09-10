@@ -14500,7 +14500,11 @@
     "lotYield": "Brutto-Rendite",
     "warningOffLimit": "⚠️ Miete über gesetzlicher Obergrenze. Der Mieter kann rechtlich eine Reduzierung verlangen.",
     "storageAuth": "Ihre Lots sind lokal UND mit Ihrem Konto synchronisiert (max. 500 Lots, 180 Tage ab letzter Änderung).",
-    "storageGuest": "Lots werden lokal in Ihrem Browser gespeichert. Melden Sie sich an, um sie mit Ihrem Konto zu synchronisieren und von jedem Gerät aus zuzugreifen."
+    "storageGuest": "Lots werden lokal in Ihrem Browser gespeichert. Melden Sie sich an, um sie mit Ihrem Konto zu synchronisieren und von jedem Gerät aus zuzugreifen.",
+    "storageError": "Laden oder Änderung konnte nicht bestätigt werden. Die angezeigten Daten können eine lokale Kopie sein. Versuchen Sie es erneut, bevor Sie sich darauf verlassen.",
+    "retry": "Erneut versuchen",
+    "legacyNotice": "Eine ältere Sicherung ohne Kontozuordnung bleibt in diesem Browser erhalten. Sie wird nicht automatisch angezeigt oder importiert.",
+    "legacyDownload": "Ältere Sicherung herunterladen"
   },
   "glRelances": {
     "backHub": "← Mietverwaltung",
@@ -14748,7 +14752,8 @@
     "btnCreate": "Lot erstellen",
     "btnSave": "Speichern",
     "nameRequired": "Geben Sie dem Lot einen Namen (z. B. „Studio Belair“).",
-    "defaultNewName": "Neues Lot"
+    "defaultNewName": "Neues Lot",
+    "storageError": "Speichern oder Laden konnte nicht bestätigt werden. Ihre Eingaben bleiben auf dem Bildschirm; versuchen Sie es erneut."
   },
   "glColoc": {
     "backLot": "← {lotName}",

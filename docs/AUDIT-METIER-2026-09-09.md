@@ -1090,3 +1090,16 @@ Inspection du widget livré : code Royaume-Uni uk, modules rental/stampduty (et 
 Lint et compilation réussis. Navigateur local : cinq langues, quatre largeurs sans débordement, exécution de l’exemple fetch extrait de la page, chargement du vrai bundle/CSS depuis l’exemple HTML, dix onglets et modules britanniques rental/stampduty rendus. Aucune donnée client écrite. Le premier essai de fixture inter-origines était bloqué par la protection loopback du navigateur ; fixture même origine utilisée, sans désactiver la protection.
 
 Lot API c98d753 publié : CI 34425528743 réussie, dpl_A3gwDQ2zgsaFvhxybz9fhP7mRFht Ready et alias tevaxia.lu. Requêtes HTTP production quatre calculs/OPTIONS/entrées invalides réussies ; documentation production cinq langues/quatre largeurs réussie.
+
+
+## 10 septembre — isolation des lots locatifs par compte
+
+Suppression de l’envoi automatique de la sauvegarde globale des lots lors de la connexion. Nouveau stockage local v2 par compte (et espace invité distinct), identité explicitement transmise par portefeuille/édition/paiements/colocataires/export/sauvegarde. L’ancien contenu non attribué reste intact et peut être téléchargé depuis le portefeuille ; il n’est pas affiché ni importé automatiquement dans un compte. Suppression de compte : nettoyage de sa clé locative v2 ajouté.
+
+Écritures cloud : contrôle du compte avant/après, propriétaire explicite, résultat confirmé avant mise à jour du cache. Réessai de création avec identifiant stable ; erreur de sauvegarde visible et navigation seulement après réussite. Pas de troncature silencieuse au-delà de 500 lots. Lecture par pages successives jusqu’à épuisement ; erreur intermédiaire ne produit pas de résultat partiel présenté comme complet. Une liste cloud vide confirmée est autoritaire et ne ressuscite pas l’ancien cache. Une modification locale intervenue pendant la lecture empêche son écrasement. Les erreurs cloud affichent un avertissement sur la copie locale ; stockage invalide/quota ne sont pas remplacés silencieusement par un portefeuille vide.
+
+Vues recréées au changement de compte et, pour un lot, d’identifiant. Chargements tardifs du portefeuille/éditeur ignorés ; boutons d’écriture verrouillés. Accès direct à un lot relit la source du compte au lieu de dépendre uniquement d’une visite préalable au portefeuille. Les exports locatifs refusent une lecture cloud non confirmée.
+
+Validation : 17 nouveaux tests, suite complète 1 542 tests / 144 fichiers réussie, lint sans avertissement et compilation réussie. Fixture navigateur avec pages réelles cinq langues : compte remplacé, ancienne requête retardée ignorée, erreur de lecture non assimilée à un portefeuille vide, erreur d’écriture sans navigation, identifiant de réessai stable, verrou et changement de compte pendant sauvegarde. Aucune donnée client lue ou modifiée pour ces scénarios ; Supabase simulé. Les règles de paiement/colocation, calculs fiscaux, profils globaux et politiques RLS réelles ne sont pas certifiés par ce lot. Le SQL local de plafond cloud doit encore être revu, notamment son comportement concurrent ; aucune migration appliquée.
+
+Documentation PropCalc 8d10f99 publiée : CI 34425950581 réussie, dpl_88sEAAGv6qLV51Pf5K3VhN6Zm8Wt Ready. Cinq langues en production : quatre largeurs, code fetch extrait/exécuté, vrai widget chargé et modules britanniques affichés.

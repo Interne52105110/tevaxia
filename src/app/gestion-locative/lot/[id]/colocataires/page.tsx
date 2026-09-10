@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
-import { getLot, type RentalLot } from "@/lib/gestion-locative";
+import { getLotAsync, type RentalLot } from "@/lib/gestion-locative";
 import {
   listCotenantsForLot,
   createCotenant,
@@ -26,6 +26,13 @@ const STATUS_COLOR: Record<CotenantStatus, string> = {
 };
 
 export default function CotenantsPage() {
+  const { user, loading } = useAuth();
+  const routeParams = useParams();
+  if (loading) return null;
+  return <CotenantsPageContent key={`${user?.id ?? "guest"}:${String(routeParams?.id ?? "")}`} />;
+}
+
+function CotenantsPageContent() {
   const locale = useLocale();
   const t = useTranslations("glColoc");
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
@@ -61,7 +68,7 @@ export default function CotenantsPage() {
     if (!id) return;
     try {
       setLoading(true);
-      const l = getLot(id);
+      const l = await getLotAsync(id, user?.id ?? null);
       setLot(l);
       if (isSupabaseConfigured && user) {
         const list = await listCotenantsForLot(id);

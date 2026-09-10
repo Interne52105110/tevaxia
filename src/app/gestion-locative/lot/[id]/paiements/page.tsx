@@ -11,7 +11,7 @@ import { pdf } from "@react-pdf/renderer";
 import { useAuth } from "@/components/AuthProvider";
 import RentReceiptPdf from "@/components/RentReceiptPdf";
 import { getProfile } from "@/lib/profile";
-import { getLot, type RentalLot } from "@/lib/gestion-locative";
+import { getLotAsync, type RentalLot } from "@/lib/gestion-locative";
 import {
   listPaymentsForLot, upsertPayment, markPaid, seedYear, deletePayment,
   type RentalPayment,
@@ -28,6 +28,13 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 export default function PaymentsPage() {
+  const { user, loading } = useAuth();
+  const routeParams = useParams();
+  if (loading) return null;
+  return <PaymentsPageContent key={`${user?.id ?? "guest"}:${String(routeParams?.id ?? "")}`} />;
+}
+
+function PaymentsPageContent() {
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
   const t = useTranslations("paiementsLocatifs");
@@ -61,18 +68,19 @@ export default function PaymentsPage() {
   const refresh = useCallback(async () => {
     if (!id) return;
     try {
-      const l = getLot(id);
+      const l = await getLotAsync(id, user?.id ?? null);
+      if(!l)throw new Error(t("error"));
       setLot(l);
       const ps = await listPaymentsForLot(id);
       setPayments(ps);
     } catch (e) { setError(errMsg(e, t("error"))); }
-  }, [id, t]);
+  }, [id, user, t]);
 
   useEffect(() => {
     if (id && user) void refresh();
   }, [id, user, refresh]);
 
-  if (!lot) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
+  if (!lot) return <div role={error ? "alert" : undefined} className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{error ? t("error") : t("loading")}</div>;
 
   const yearPayments = payments.filter((p) => p.period_year === selectedYear);
   const byMonth = new Map<number, RentalPayment>();

@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
 import { syncLocalToCloud } from "@/lib/storage";
-import { syncLocalLotsToCloud } from "@/lib/gestion-locative";
 import type { User } from "@supabase/supabase-js";
 
 interface AuthContextType {
@@ -51,7 +50,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           : (cb) => setTimeout(cb, 0);
       schedule(() => {
         void syncLocalToCloud();
-        void syncLocalLotsToCloud();
       });
     };
 

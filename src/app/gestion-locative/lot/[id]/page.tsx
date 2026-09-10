@@ -1,15 +1,25 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
+
+import { useEffect, useMemo, useState, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import LeaseGeneratorSection from "@/components/LeaseGeneratorSection";
-import { analyzeLot, getLot, saveLot, type EnergyClass, type RentalLot } from "@/lib/gestion-locative";
+import { analyzeLot, getLotAsync, saveLot, type EnergyClass, type RentalLot } from "@/lib/gestion-locative";
 import { formatEUR, formatPct } from "@/lib/calculations";
 
 export default function LotEditPage() {
+  const { user, loading } = useAuth();
+  const routeParams = useParams();
+  if (loading) return null;
+  return <LotEditPageContent key={`${user?.id ?? "guest"}:${String(routeParams?.id ?? "")}`} />;
+}
+
+function LotEditPageContent() {
+  const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
   const locale = useLocale();
@@ -31,6 +41,11 @@ export default function LotEditPage() {
     { value: "NC", label: t("energyNC") },
   ];
 
+  const [newId] = useState(()=>crypto.randomUUID());
+  const [error,setError] = useState(false);
+  const [busy,setBusy] = useState(false);
+  const action = useRef(false);
+  const live = useRef(true);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [commune, setCommune] = useState("");
@@ -54,13 +69,15 @@ export default function LotEditPage() {
   const [existing, setExisting] = useState<RentalLot | null>(null);
 
   useEffect(() => {
-    if (isNew) return;
-    const lot = getLot(id);
+    live.current=true;
+    let active=true;
+    if (isNew) return ()=>{live.current=false;};
+    void getLotAsync(id,user?.id ?? null).then(lot=>{
+    if(!active)return;
     if (!lot) {
       router.replace(`${lp}/gestion-locative/portefeuille`);
       return;
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setExisting(lot);
     setName(lot.name);
     setAddress(lot.address ?? "");
@@ -79,7 +96,9 @@ export default function LotEditPage() {
     setTenantName(lot.tenantName ?? "");
     setLeaseStartDate(lot.leaseStartDate ?? "");
     setLeaseEndDate(lot.leaseEndDate ?? "");
-  }, [id, isNew, lp, router]);
+    }).catch(()=>{if(active)setError(true);});
+    return ()=>{active=false;live.current=false;};
+  }, [id, isNew, lp, router, user?.id]);
 
   const previewLot: RentalLot = useMemo(
     () => ({
@@ -109,13 +128,15 @@ export default function LotEditPage() {
 
   const analysis = useMemo(() => analyzeLot(previewLot), [previewLot]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    if(action.current)return;
     if (!name.trim()) {
       alert(t("nameRequired"));
       return;
     }
-    saveLot({
-      id: isNew ? undefined : id,
+    action.current=true;setBusy(true);setError(false);
+    try { await saveLot({
+      id: isNew ? newId : id,
       name: name.trim(),
       address: address.trim() || undefined,
       commune: commune.trim() || undefined,
@@ -133,8 +154,10 @@ export default function LotEditPage() {
       leaseStartDate: leaseStartDate || undefined,
       leaseEndDate: leaseEndDate || undefined,
       vacant,
-    });
-    router.push(`${lp}/gestion-locative/portefeuille`);
+    }, user?.id ?? null);
+    if(live.current)router.push(`${lp}/gestion-locative/portefeuille`);
+    } catch {if(live.current)setError(true);}
+    finally {action.current=false;if(live.current)setBusy(false);}
   };
 
   return (
@@ -143,7 +166,8 @@ export default function LotEditPage() {
         <Link href={`${lp}/gestion-locative/portefeuille`} className="text-xs text-muted hover:text-navy">{t("backPortfolio")}</Link>
         <h1 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">{isNew ? t("titleNew") : t("titleEdit")}</h1>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
+        {error && <p role="alert" className="mt-4 text-sm text-rose-700">{t("storageError")}</p>}
+        <fieldset disabled={busy || (!isNew && !existing)} className="mt-6 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
           <div className="space-y-5">
             <div className="rounded-xl border border-card-border bg-card p-5">
               <h2 className="text-sm font-semibold text-navy uppercase tracking-wider">{t("identificationTitle")}</h2>
@@ -250,9 +274,9 @@ export default function LotEditPage() {
               </div>
             )}
           </div>
-        </div>
+        </fieldset>
 
-        {!isNew && (
+        {!isNew && existing && (
           <>
             <div className="mt-6 flex flex-wrap gap-2">
               <Link href={`${lp}/gestion-locative/lot/${previewLot.id}/paiements`}
@@ -281,7 +305,7 @@ export default function LotEditPage() {
             {t("btnCancel")}
           </Link>
           <button
-            onClick={handleSave}
+            disabled={busy || (!isNew && !existing)} onClick={handleSave}
             className="rounded-lg bg-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-light"
           >
             {isNew ? t("btnCreate") : t("btnSave")}

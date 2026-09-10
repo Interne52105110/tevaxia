@@ -14500,7 +14500,11 @@
     "lotYield": "Brutto-Rendite",
     "warningOffLimit": "⚠️ Miet iwwer dem legale Plafong. De Locatair kann legal eng Reduzéierung verlaangen.",
     "storageAuth": "Är Lots gi lokal a synchroniséiert op Ärem Kont gespäichert (max 500 Lots, 180 Deeg conservéiert no der leschter Ännerung).",
-    "storageGuest": "D'Lots gi lokal an Ärem Navigateur gespäichert. Mellt Iech un fir se op Ärem Kont ze synchroniséieren an vun all Apparat drop ze kommen."
+    "storageGuest": "D'Lots gi lokal an Ärem Navigateur gespäichert. Mellt Iech un fir se op Ärem Kont ze synchroniséieren an vun all Apparat drop ze kommen.",
+    "storageError": "D’Luede oder d’Ännerung konnt net bestätegt ginn. Déi ugewisen Donnéeë kënnen eng lokal Kopie sinn. Probéiert nach eng Kéier, ier Dir Iech drop verlooss.",
+    "retry": "Nach eng Kéier probéieren",
+    "legacyNotice": "Eng al Sécherung ouni Kontzouuerdnung bleift an dësem Browser erhalen. Si gëtt net automatesch ugewisen oder importéiert.",
+    "legacyDownload": "Al Sécherung eroflueden"
   },
   "glRelances": {
     "backHub": "← Locatiouns-Gestioun",
@@ -14748,7 +14752,8 @@
     "btnCreate": "Lot erstellen",
     "btnSave": "Späicheren",
     "nameRequired": "Gitt dem Lot en Numm (z. B. « Studio Belair »).",
-    "defaultNewName": "Nei Lot"
+    "defaultNewName": "Nei Lot",
+    "storageError": "D’Späicheren oder d’Luede konnt net bestätegt ginn. Är Agabe bleiwen um Bildschierm; probéiert nach eng Kéier."
   },
   "glColoc": {
     "backLot": "← {lotName}",

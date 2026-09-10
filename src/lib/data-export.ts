@@ -44,11 +44,16 @@ export async function buildDataExport(): Promise<DataExport> {
     api_keys: [],
   };
 
+  const authSnapshot = supabase ? await supabase.auth.getUser() : null;
+  if (authSnapshot?.error) throw new Error("Account unavailable");
+  const rentalUserId=authSnapshot?.data.user?.id ?? null;
+
   // Items locaux/mergés
-  const [{ items: valuations }, { items: lots }] = await Promise.all([
+  const [{ items: valuations }, { items: lots, cloudError }] = await Promise.all([
     listerEvaluationsAsync(),
-    listLotsAsync(),
+    listLotsAsync(rentalUserId),
   ]);
+  if(cloudError) throw new Error("Rental export unavailable");
   exp.valuations = valuations;
   exp.rental_lots = lots;
 
@@ -57,6 +62,7 @@ export async function buildDataExport(): Promise<DataExport> {
   try {
     const { data: auth } = await supabase.auth.getUser();
     const user = auth?.user;
+    if ((user?.id ?? null)!==rentalUserId) throw new Error("Export account changed");
     if (!user) return exp;
 
     exp.user_email = user.email ?? null;
@@ -87,6 +93,8 @@ export async function buildDataExport(): Promise<DataExport> {
     console.warn("buildDataExport partial failure:", e);
   }
 
+  const finalAuth = await supabase.auth.getUser();
+  if (finalAuth.error || (finalAuth.data.user?.id ?? null) !== rentalUserId) throw new Error("Export account changed");
   return exp;
 }
 

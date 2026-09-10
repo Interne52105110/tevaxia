@@ -1,41 +1,64 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { listLotsAsync, deleteLot, analyzeLot, summarize, type RentalLot } from "@/lib/gestion-locative";
+import { listLotsAsync, deleteLot, legacyRentalSnapshot, analyzeLot, summarize, type RentalLot } from "@/lib/gestion-locative";
 import { formatEUR, formatPct } from "@/lib/calculations";
 import { useAuth } from "@/components/AuthProvider";
 
 export default function PortefeuillePage() {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  return <PortefeuillePageContent key={user?.id ?? "guest"} />;
+}
+
+function PortefeuillePageContent() {
   const locale = useLocale();
   const t = useTranslations("glPortefeuille");
   const tl = useTranslations("calculLoyer");
   const lp = locale === "fr" ? "" : `/${locale}`;
   const { user } = useAuth();
 
+  const live = useRef(true);
+  const action = useRef(false);
+  const [error, setError] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [legacy, setLegacy] = useState(false);
+  const [revision, setRevision] = useState(0);
   const [lots, setLots] = useState<RentalLot[]>([]);
   const [hydrated, setHydrated] = useState(false);
   const [cloudSynced, setCloudSynced] = useState(false);
 
   useEffect(() => {
-    listLotsAsync().then(({ items, cloud }) => {
-      setLots(items);
-      setCloudSynced(cloud);
-      setHydrated(true);
-    });
-  }, []);
+    live.current = true;
+    let active = true;
+    try { setLegacy(legacyRentalSnapshot() !== null); } catch { setError(true); }
+    listLotsAsync(user?.id ?? null).then(({items,cloud,cloudError})=>{
+      if (!active) return;
+      setLots(items); setCloudSynced(cloud); setError(cloudError); setHydrated(true);
+    }).catch(()=>{if(active) { setError(true); setHydrated(true); }});
+    return ()=>{active=false;live.current=false;};
+  }, [user?.id, revision]);
 
   const analyses = useMemo(() => lots.map(analyzeLot), [lots]);
   const summary = useMemo(() => summarize(lots), [lots]);
 
-  const handleDelete = (id: string) => {
-    if (!confirm(t("confirmDelete"))) return;
-    deleteLot(id);
-    listLotsAsync().then(({ items, cloud }) => {
-      setLots(items);
-      setCloudSynced(cloud);
-    });
+  const handleDelete = async (id: string) => {
+    if(action.current || !confirm(t("confirmDelete"))) return;
+    action.current=true;setBusy(true);setError(false);
+    try {
+      await deleteLot(id,user?.id ?? null);
+      if(live.current) { setLots(items=>items.filter(l=>l.id!==id)); setRevision(n=>n+1); }
+    } catch {if(live.current)setError(true);}
+    finally {action.current=false;if(live.current)setBusy(false);}
+  };
+  const downloadLegacy = () => {
+    try {
+      const raw=legacyRentalSnapshot();if(raw===null)return;
+      const url=URL.createObjectURL(new Blob([raw],{type:'application/json'}));
+      const a=document.createElement('a');a.href=url;a.download='tevaxia-rental-legacy.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    } catch {setError(true);}
   };
 
   return (
@@ -65,6 +88,8 @@ export default function PortefeuillePage() {
           </Link>
         </div>
 
+        {error && <div role="alert" className="mt-4 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">{t("storageError")} <button onClick={()=>setRevision(n=>n+1)} className="underline">{t("retry")}</button></div>}
+        {legacy && <div className="mt-4 rounded-lg border border-card-border p-4 text-sm">{t("legacyNotice")} <button onClick={downloadLegacy} className="underline">{t("legacyDownload")}</button></div>}
         {hydrated && lots.length > 0 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-xl border border-card-border bg-card p-4">
@@ -107,7 +132,7 @@ export default function PortefeuillePage() {
           </div>
         )}
 
-        {hydrated && lots.length === 0 && (
+        {hydrated && !error && lots.length === 0 && (
           <div className="mt-8 rounded-xl border border-dashed border-card-border bg-card p-10 text-center">
             <div className="text-4xl">🏠</div>
             <h2 className="mt-3 text-lg font-semibold text-navy">{t("emptyTitle")}</h2>
@@ -152,7 +177,7 @@ export default function PortefeuillePage() {
                         {t("btnEdit")}
                       </Link>
                       <button
-                        onClick={() => handleDelete(l.id)}
+                        disabled={busy} onClick={() => void handleDelete(l.id)}
                         className="rounded-md p-1.5 text-muted hover:text-rose-600 hover:bg-rose-50"
                         title={t("btnDelete")}
                       >
