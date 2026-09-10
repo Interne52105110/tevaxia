@@ -5977,7 +5977,9 @@
     "demoFranceTransferAssumption": "Frankräich: Ouni Departement gi fir eng bestoend Wunnimmobilie als Investitioun 6,3185 % Iwwerdroungssteieren ugesat, ouni Befreiungen, no der DGFiP-Tabell vum 1. Juni 2026. De reelle Betrag hänkt vun der Plaz an dem Akt of.",
     "demoFranceFeeScope": "Déi berechent franséisch Akafskäschte sinn eng Deelsumm: Formalitéiten, Auslagen, zousätzlech Akten, Agencekäschten a Kredittgarantie sinn an dëser Demo net abegraff. Ergänzt de Budget mat den Devisë vum Notaire a vum Kreditgeber.",
     "demoFranceRentalScope": "Franséischt Szenario fir onmiwweléiert Locatioun: vereinfacht Besteierung mat reelle Käschten, 35 % Grenzsteiersaz a 17,2 % Sozialofgaben. Keng Berechnung vu miwweléierte Mietregimer oder der kompletter Stotsteier.",
-    "demoUKScope": "Britescht Szenario nëmme fir England an Nordirland: zousätzleche Wunnimmobilienakaf vun enger Privatpersoun, déi fir SDLT als resident gëllt, mat 5 % Zouschlag an ouni Éischtkeefererliichterung. Juristesch Käschten, Registréierung, Expertise a Finanzéierung musse mam Devis ergänzt ginn; hei gëtt nëmmen d’Akafssteier berechent."
+    "demoUKScope": "Britescht Szenario nëmme fir England an Nordirland: zousätzleche Wunnimmobilienakaf vun enger Privatpersoun, déi fir SDLT als resident gëllt, mat 5 % Zouschlag an ouni Éischtkeefererliichterung. Juristesch Käschten, Registréierung, Expertise a Finanzéierung musse mam Devis ergänzt ginn; hei gëtt nëmmen d’Akafssteier berechent.",
+    "demoInvalidInput": "Kontrolléiert de Präis an de Loyer: de Präis muss positiv sinn an de Loyer däerf net negativ sinn.",
+    "demoCashflowAssumptions": "Szenario mat konstante Viraussetzungen: Loyeren a Käschte klamme vum zweete Joer un ëm 2 %, Prêt iwwer 25 Joer mat monatleche Raten, keng automatesch steierlech Ofschreiwung. De marginale Steiersaz ass keng komplett national Steierberechnung. Déi brittesch Reduktioun vun 20 % ass op de Locatiounsgewënn limitéiert; genuch ugepasst Gesamtakommes gëtt ugeholl, ouni Virtrag vu Finanzéierungskäschten. Zukünfteg Steierännerunge ginn net virausgesot."
   },
   "solutions": {
     "syndic": {

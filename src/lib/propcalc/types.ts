@@ -6,6 +6,10 @@ export interface AcquisitionFeesResult {
 }
 
 export interface CashFlowProjectionYear {
+  annualCashFlow: number;
+  annualInterest: number;
+  annualMortgage: number;
+  principalPaid: number;
   year: number;
   propertyValue: number;
   cumulativeCashFlow: number;

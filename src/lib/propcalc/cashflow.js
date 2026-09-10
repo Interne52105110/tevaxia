@@ -1,210 +1,86 @@
-/**
- * Investor Cash-Flow Calculation Engine
- * Pure calculation functions - no UI dependencies.
+/** Fixed-rate, monthly amortisation and constant-assumption rental scenario.
+ * Tax is a marginal-rate scenario, not a household tax return or forecast of law.
  */
-
-/**
- * Calculate investor cash-flow analysis.
- *
- * @param {Object} params
- * @param {number} params.propertyPrice - Purchase price
- * @param {number} params.acquisitionFees - Total acquisition fees
- * @param {number} params.downPayment - Cash down payment
- * @param {number} params.annualRate - Mortgage annual interest rate (decimal)
- * @param {number} params.loanDurationYears - Mortgage duration in years
- * @param {number} params.monthlyRent - Monthly rental income
- * @param {number} params.vacancyRate - Annual vacancy rate (decimal)
- * @param {number} params.monthlyCharges - Monthly condo / management charges
- * @param {number} params.annualPropertyTax - Annual property tax
- * @param {number} params.annualInsurance - Annual landlord insurance
- * @param {number} params.managementRate - Management fee as % of rent (decimal)
- * @param {number} params.annualMaintenance - Annual maintenance budget
- * @param {number} params.marginalTaxRate - Marginal income tax rate (decimal)
- * @param {number} params.socialChargesRate - Social charges rate (decimal)
- * @param {number} params.annualAppreciation - Annual property appreciation (decimal)
- * @returns {Object}
- */
+const money = value => Math.round((value + Number.EPSILON) * 100) / 100;
 export function calculateInvestorCashFlow(params) {
   const {
-    propertyPrice,
-    acquisitionFees = 0,
-    downPayment,
-    annualRate,
-    loanDurationYears,
-    monthlyRent,
-    vacancyRate = 0,
-    monthlyCharges = 0,
-    annualPropertyTax = 0,
-    annualInsurance = 0,
-    managementRate = 0,
-    annualMaintenance = 0,
-    marginalTaxRate = 0.30,
-    socialChargesRate = 0,
-    annualAppreciation = 0.02,
-    countryCode = '',
-    countryData = null,
+    propertyPrice, acquisitionFees = 0, downPayment, annualRate, loanDurationYears,
+    monthlyRent, vacancyRate = 0, monthlyCharges = 0, annualPropertyTax = 0,
+    annualInsurance = 0, managementRate = 0, annualMaintenance = 0,
+    marginalTaxRate = .30, socialChargesRate = 0, annualAppreciation = .02,
+    countryCode = '', annualDepreciation = 0,
   } = params;
-
-  const totalInvestment = propertyPrice + acquisitionFees;
-  const loanAmount = totalInvestment - downPayment;
-  const loanDurationMonths = loanDurationYears * 12;
-  const cashInvested = downPayment;
-
-  // Monthly mortgage
-  let monthlyMortgage = 0;
-  if (loanAmount > 0 && loanDurationMonths > 0) {
-    if (annualRate === 0) {
-      monthlyMortgage = loanAmount / loanDurationMonths;
-    } else {
-      const r = annualRate / 12;
-      const c = Math.pow(1 + r, loanDurationMonths);
-      monthlyMortgage = loanAmount * (r * c) / (c - 1);
-    }
+  for (const value of [propertyPrice, acquisitionFees, downPayment, annualRate,
+    loanDurationYears, monthlyRent, vacancyRate, monthlyCharges, annualPropertyTax,
+    annualInsurance, managementRate, annualMaintenance, marginalTaxRate,
+    socialChargesRate, annualDepreciation]) {
+    if (!Number.isFinite(value) || value < 0) throw new RangeError('Amounts and rates must be finite and non-negative');
   }
-
-  // Annual income
-  const grossAnnualRent = monthlyRent * 12;
-  const vacancyLoss = grossAnnualRent * vacancyRate;
-  const effectiveRent = grossAnnualRent - vacancyLoss;
-
-  // Annual expenses
-  const managementFees = effectiveRent * managementRate;
-  const totalAnnualExpenses =
-    monthlyCharges * 12 +
-    annualPropertyTax +
-    annualInsurance +
-    managementFees +
-    annualMaintenance;
-
-  // Net operating income (NOI)
-  const noi = effectiveRent - totalAnnualExpenses;
-
-  // Annual mortgage
-  const annualMortgage = monthlyMortgage * 12;
-
-  // Annual interest (first year approximation)
-  const annualInterest = loanAmount * annualRate;
-
-  // Depreciation: non-cash deduction that reduces taxable income
-  // Building value is typically ~80% of property price (land is not depreciable)
-  const buildingRatio = 0.80;
-  const buildingValue = propertyPrice * buildingRatio;
-  let depreciationYears = 0;
-
-  // Country-specific depreciation rules
-  const depreciation = countryData?.rentalTax?.depreciation;
-  const regimes = countryData?.rentalTax?.regimes || [];
-  if (depreciation) {
-    // DE: AfA rules
-    depreciationYears = depreciation.post1925?.years || depreciation.standard?.years || 50;
-  } else if (regimes.some((r) => r.depreciationYears)) {
-    // US: 27.5 years
-    depreciationYears = regimes.find((r) => r.depreciationYears)?.depreciationYears || 0;
+  if (propertyPrice <= 0 || loanDurationYears <= 0 || loanDurationYears > 50 ||
+    !Number.isInteger(loanDurationYears * 12) ||
+    [annualRate, vacancyRate, managementRate, marginalTaxRate, socialChargesRate].some(v => v > 1) ||
+    !Number.isFinite(annualAppreciation) || annualAppreciation <= -1 || annualAppreciation > 1) {
+    throw new RangeError('Invalid rate, price or whole-month loan duration');
   }
-
-  const annualDepreciation = depreciationYears > 0 ? buildingValue / depreciationYears : 0;
-
-  // Cash-flow before tax
-  const cashFlowBeforeTax = noi - annualMortgage;
-
-  // Tax calculation with depreciation + interest deductions
-  // Taxable income = NOI - depreciation - mortgage interest (for most countries)
-  // Depreciation reduces TAX, not actual cash flow
-  let taxableIncome;
-  if (countryCode === 'uk') {
-    // UK: interest not deductible (20% tax credit instead)
-    taxableIncome = Math.max(0, noi - annualDepreciation);
-  } else {
-    // US, DE, FR, LU, ES, PT, IT, BE, NL: interest + depreciation deductible
-    taxableIncome = Math.max(0, noi - annualDepreciation - annualInterest);
+  const totalInvestment = money(propertyPrice + acquisitionFees);
+  const cashInvested = money(downPayment);
+  if (cashInvested > totalInvestment) throw new RangeError('Down payment exceeds total investment');
+  const loanAmount = money(totalInvestment - cashInvested);
+  const months = loanDurationYears * 12;
+  const rate = annualRate / 12;
+  const monthlyMortgage = money(rate === 0 ? loanAmount / months : loanAmount * rate / (1 - Math.pow(1 + rate, -months)));
+  // No invented building/land split or automatically qualified depreciation.
+  // UK: current 20% scenario; assumes adjusted income does not further limit relief.
+  // No loss/finance-cost carry-forward, allowances or future statutory changes.
+  function tax(noi, interest) {
+    const taxableIncome = money(Math.max(0, noi - annualDepreciation - (countryCode === 'uk' ? 0 : interest)));
+    const credit = countryCode === 'uk' ? Math.min(interest, taxableIncome) * .20 : 0;
+    const incomeTax = money(Math.max(0, taxableIncome * marginalTaxRate - credit));
+    const socialCharges = money(taxableIncome * socialChargesRate);
+    return { taxableIncome, incomeTax, socialCharges, totalTax: money(incomeTax + socialCharges) };
   }
-
-  let incomeTax = Math.max(0, taxableIncome * marginalTaxRate);
-
-  // UK: 20% tax credit on mortgage interest (Section 24)
-  if (countryCode === 'uk' && annualInterest > 0) {
-    incomeTax = Math.max(0, incomeTax - annualInterest * 0.20);
-  }
-
-  const socialCharges = Math.max(0, taxableIncome * socialChargesRate);
-  const totalTax = incomeTax + socialCharges;
-
-  // Cash-flow after tax (depreciation is non-cash, so NOT subtracted from cash flow)
-  const cashFlowAfterTax = cashFlowBeforeTax - totalTax;
-
-  // Returns
-  const grossYield = propertyPrice > 0 ? grossAnnualRent / propertyPrice : 0;
-  const netYield = propertyPrice > 0 ? noi / propertyPrice : 0;
-  const cashOnCash = cashInvested > 0 ? cashFlowAfterTax / cashInvested : 0;
-
-  // Leverage effect
-  const returnWithoutLeverage = cashInvested > 0 && propertyPrice > 0
-    ? (noi - totalTax) / totalInvestment
-    : 0;
-  const leverageEffect = cashOnCash - returnWithoutLeverage;
-
-  // 10-year projection
+  let remainingLoan = loanAmount, cumulativeCashFlow = 0;
   const projection = [];
-  let projPropertyValue = propertyPrice;
-  let projRemainingLoan = loanAmount;
-  let projRent = monthlyRent;
-  let cumulativeCashFlow = 0;
-
-  for (let year = 1; year <= Math.min(20, loanDurationYears + 5); year++) {
-    projPropertyValue *= (1 + annualAppreciation);
-    projRent *= 1.02; // assume 2% rent indexation
-
-    const yearRent = projRent * 12 * (1 - vacancyRate);
-    const yearExpenses = totalAnnualExpenses * Math.pow(1.02, year - 1);
-    const yearNOI = yearRent - yearExpenses;
-    const yearMortgage = year <= loanDurationYears ? annualMortgage : 0;
-
-    // Principal paydown
-    if (year <= loanDurationYears && projRemainingLoan > 0) {
-      const yearInterest = projRemainingLoan * annualRate;
-      projRemainingLoan -= (yearMortgage - yearInterest);
-      projRemainingLoan = Math.max(0, projRemainingLoan);
+  for (let year = 1; year <= Math.min(20, Math.ceil(loanDurationYears) + 5); year++) {
+    let annualInterest = 0, annualMortgage = 0, principalPaid = 0;
+    for (let month = (year - 1) * 12 + 1; month <= Math.min(year * 12, months); month++) {
+      if (remainingLoan <= 0) break;
+      const interest = money(remainingLoan * rate);
+      const payment = month === months ? money(remainingLoan + interest) : Math.min(monthlyMortgage, money(remainingLoan + interest));
+      const principal = money(payment - interest);
+      remainingLoan = money(Math.max(0, remainingLoan - principal));
+      annualInterest = money(annualInterest + interest);
+      annualMortgage = money(annualMortgage + payment);
+      principalPaid = money(principalPaid + principal);
     }
-
-    // Tax with depreciation deduction (depreciation reduces taxable income, not cash flow)
-    const yearInterestForTax = projRemainingLoan > 0 ? projRemainingLoan * annualRate : 0;
-    const yearTaxableIncome = Math.max(0, yearNOI - annualDepreciation - (countryCode === 'uk' ? 0 : yearInterestForTax));
-    const yearTax = yearTaxableIncome * (marginalTaxRate + socialChargesRate);
-    const yearCashFlow = yearNOI - yearMortgage - yearTax;
-    cumulativeCashFlow += yearCashFlow;
-
-    const equity = projPropertyValue - projRemainingLoan;
-
-    projection.push({
-      year,
-      propertyValue: Math.round(projPropertyValue),
-      equity: Math.round(equity),
-      annualCashFlow: Math.round(yearCashFlow),
-      cumulativeCashFlow: Math.round(cumulativeCashFlow),
-      remainingLoan: Math.round(projRemainingLoan),
-    });
+    const growth = Math.pow(1.02, year - 1);
+    const grossAnnualRent = money(monthlyRent * 12 * growth);
+    const effectiveRent = money(grossAnnualRent * (1 - vacancyRate));
+    const operatingExpenses = money((monthlyCharges * 12 + annualPropertyTax + annualInsurance + annualMaintenance) * growth + effectiveRent * managementRate);
+    const noi = money(effectiveRent - operatingExpenses);
+    const taxes = tax(noi, annualInterest);
+    const cashFlowBeforeTax = money(noi - annualMortgage);
+    const annualCashFlow = money(cashFlowBeforeTax - taxes.totalTax);
+    cumulativeCashFlow = money(cumulativeCashFlow + annualCashFlow);
+    const propertyValue = money(propertyPrice * Math.pow(1 + annualAppreciation, year));
+    projection.push({ year, propertyValue, equity: money(propertyValue - remainingLoan),
+      annualCashFlow, cumulativeCashFlow, remainingLoan, annualInterest, annualMortgage,
+      principalPaid, grossAnnualRent, effectiveRent, operatingExpenses, noi,
+      cashFlowBeforeTax, ...taxes });
   }
-
+  const first = projection[0];
+  const cashOnCash = cashInvested > 0 ? first.annualCashFlow / cashInvested : 0;
+  const unleveredReturn = (first.noi - tax(first.noi, 0).totalTax) / totalInvestment;
+  const ratio = value => Math.round(value * 10000) / 10000;
   return {
-    monthlyMortgage: Math.round(monthlyMortgage * 100) / 100,
-    grossAnnualRent: Math.round(grossAnnualRent),
-    effectiveRent: Math.round(effectiveRent),
-    noi: Math.round(noi),
-    annualMortgage: Math.round(annualMortgage),
-    annualDepreciation: Math.round(annualDepreciation),
-    taxableIncome: Math.round(taxableIncome),
-    cashFlowBeforeTax: Math.round(cashFlowBeforeTax),
-    incomeTax: Math.round(incomeTax),
-    socialCharges: Math.round(socialCharges),
-    cashFlowAfterTax: Math.round(cashFlowAfterTax),
-    monthlyCashFlow: Math.round(cashFlowAfterTax / 12),
-    grossYield: Math.round(grossYield * 10000) / 10000,
-    netYield: Math.round(netYield * 10000) / 10000,
-    cashOnCash: Math.round(cashOnCash * 10000) / 10000,
-    leverageEffect: Math.round(leverageEffect * 10000) / 10000,
-    totalInvestment: Math.round(totalInvestment),
-    cashInvested: Math.round(cashInvested),
-    loanAmount: Math.round(loanAmount),
-    projection,
+    monthlyMortgage, grossAnnualRent: first.grossAnnualRent, effectiveRent: first.effectiveRent,
+    noi: first.noi, annualMortgage: first.annualMortgage, annualInterest: first.annualInterest,
+    annualDepreciation: money(annualDepreciation), taxableIncome: first.taxableIncome,
+    cashFlowBeforeTax: first.cashFlowBeforeTax, incomeTax: first.incomeTax,
+    socialCharges: first.socialCharges, cashFlowAfterTax: first.annualCashFlow,
+    monthlyCashFlow: money(first.annualCashFlow / 12), grossYield: ratio(first.grossAnnualRent / propertyPrice),
+    netYield: ratio(first.noi / propertyPrice), cashOnCash: ratio(cashOnCash),
+    leverageEffect: cashInvested > 0 ? ratio(cashOnCash - unleveredReturn) : 0,
+    totalInvestment, cashInvested, loanAmount, projection,
   };
 }

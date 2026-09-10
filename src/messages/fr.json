@@ -5977,7 +5977,9 @@
     "demoFranceTransferAssumption": "France : droits de mutation simulés à 6,3185 % sans département, pour un investissement dans l’ancien hors exonérations, selon le tableau DGFiP du 1er juin 2026. Le montant réel dépend du lieu et de l’acte.",
     "demoFranceFeeScope": "Les frais français calculés sont un sous-total : formalités, débours, actes complémentaires, frais d’agence et coût de garantie du prêt ne sont pas inclus dans cette démonstration. Complétez le budget avec les devis du notaire et du prêteur.",
     "demoFranceRentalScope": "Scénario français de location nue : imposition simplifiée au réel, taux marginal 35 % et prélèvements sociaux 17,2 %. Il ne simule pas les régimes de location meublée ni l’impôt complet du foyer.",
-    "demoUKScope": "Scénario britannique limité à l’Angleterre et à l’Irlande du Nord : achat résidentiel supplémentaire par un particulier résident au sens du SDLT, majoration de 5 %, sans avantage primo-accédant. Les frais de conseil juridique, d’enregistrement, d’expertise et de financement sont à ajouter sur devis ; seul l’impôt d’acquisition est chiffré ici."
+    "demoUKScope": "Scénario britannique limité à l’Angleterre et à l’Irlande du Nord : achat résidentiel supplémentaire par un particulier résident au sens du SDLT, majoration de 5 %, sans avantage primo-accédant. Les frais de conseil juridique, d’enregistrement, d’expertise et de financement sont à ajouter sur devis ; seul l’impôt d’acquisition est chiffré ici.",
+    "demoInvalidInput": "Vérifiez le prix et le loyer : le prix doit être positif et le loyer ne peut pas être négatif.",
+    "demoCashflowAssumptions": "Scénario à hypothèses constantes : loyers et charges +2 % à partir de la deuxième année, prêt sur 25 ans avec échéances mensuelles, aucun amortissement fiscal automatique. Le taux marginal ne constitue pas un calcul complet de l’impôt national. Au Royaume-Uni, la réduction de 20 % est plafonnée au bénéfice ; le revenu global est supposé suffisant, sans report des frais. Les changements futurs de fiscalité ne sont pas projetés."
   },
   "solutionsHub": {
     "meta": {

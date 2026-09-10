@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     marginalRate,
   } = body;
 
-  if (!country || !propertyPrice || !downPayment || !monthlyRent || annualRate == null || !durationYears) {
+  if (!country || !propertyPrice || downPayment == null || !monthlyRent || annualRate == null || !durationYears) {
     return NextResponse.json(
       {
         success: false,
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
 
   if (typeof durationYears !== 'number' || durationYears <= 0 || durationYears > 50) {
     return NextResponse.json(
-      { success: false, error: 'durationYears must be a positive number ≤ 50' },
+      { success: false, error: 'durationYears must be a positive number â‰¤ 50' },
       { status: 400, headers: CORS_HEADERS },
     );
   }
@@ -139,7 +139,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        assumptions: { vacancyRate: 0.05, marginalRate: marginalRate ?? 0.30, socialChargesRate, annualAppreciation: 0.02, annualRentGrowth: 0.02, annualExpenseGrowth: 0.02, monthlyCharges: 0, annualPropertyTax: 0, annualInsurance: 0, managementRate: 0, annualMaintenance: 0, financingIncludesAcquisitionFees: true, ...(country.toLowerCase() === 'fr' ? { frenchTransferTax: { rateSnapshot: "2026-06-01", departmentalRateAssumption: 0.05, combinedRate: 0.063185, scope: "Unlocated ordinary residential investment, no first-primary or local exemptions", source: "https://www.impots.gouv.fr/droits-denregistrement" } } : {}) },
+        assumptions: { taxModel: 'constant marginal-rate scenario, not a household tax assessment or future-law forecast', annualDepreciation: 0, ukFinanceRelief: country.toLowerCase() === 'uk' ? { rate: 0.20, profitCap: true, adjustedIncomeCapAssumedNonBinding: true, carryForwardModeled: false } : null, amortization: 'monthly, rounded to cents; final payment settles balance', indexationStartsInYear: 2, vacancyRate: 0.05, marginalRate: marginalRate ?? 0.30, socialChargesRate, annualAppreciation: 0.02, annualRentGrowth: 0.02, annualExpenseGrowth: 0.02, monthlyCharges: 0, annualPropertyTax: 0, annualInsurance: 0, managementRate: 0, annualMaintenance: 0, financingIncludesAcquisitionFees: true, ...(country.toLowerCase() === 'fr' ? { frenchTransferTax: { rateSnapshot: "2026-06-01", departmentalRateAssumption: 0.05, combinedRate: 0.063185, scope: "Unlocated ordinary residential investment, no first-primary or local exemptions", source: "https://www.impots.gouv.fr/droits-denregistrement" } } : {}) },
         acquisitionCoverage: feesResult.coverage ?? null,
         data: {
           currency: countryData.currency,

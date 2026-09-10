@@ -20,10 +20,7 @@ import { getCountryData } from "@/lib/propcalc/countries";
 
 interface ProjectionRow {
   year: number;
-  rentalIncome: number;
-  operatingExpenses: number;
-  debtService: number;
-  yearCashFlow: number;
+  annualCashFlow: number;
   cumulativeCashFlow: number;
   propertyValue: number;
   remainingLoan: number;
@@ -131,7 +128,7 @@ export default function PropcalcCashflowDemo() {
 
   const chartData = result?.projection.map((p) => ({
     year: `A${p.year}`,
-    cash: Math.round(p.yearCashFlow),
+    cash: Math.round(p.annualCashFlow),
     cumul: Math.round(p.cumulativeCashFlow),
     equity: Math.round(p.equity),
   })) ?? [];
@@ -203,7 +200,7 @@ export default function PropcalcCashflowDemo() {
                   value={ratePct}
                   onChange={(e) => setRatePct(Number(e.target.value))}
                   min={1}
-                  max={6}
+                  max={10}
                   step={0.1}
                   className="mt-1 w-full"
                 />
@@ -231,6 +228,7 @@ export default function PropcalcCashflowDemo() {
               </div>
             )}
 
+            {!result && <p role="alert" className="mt-4 text-sm text-rose-700">{t("demoInvalidInput")}</p>}
             {result && (
               <dl className="mt-4 space-y-1.5 border-t border-card-border/50 pt-4 text-xs">
                 <div className="flex justify-between">
@@ -296,6 +294,7 @@ export default function PropcalcCashflowDemo() {
               </LineChart>
             </ResponsiveContainer>
             <p className="mt-3 text-[10px] text-muted">{t("demoDisclaimer")}</p>
+            <p className="mt-3 text-sm text-muted">{t("demoCashflowAssumptions")}</p>
             {countryCode === "uk" && <p className="mt-3 text-sm text-muted">{t("demoUKScope")} <a className="underline" href="https://www.gov.uk/stamp-duty-land-tax/residential-property-rates">HMRC</a></p>}
             {countryCode === "fr" && <p className="mt-3 text-sm text-muted">{t("demoFranceTransferAssumption")} {t("demoFranceFeeScope")} {t("demoFranceRentalScope")} <a className="underline" href="https://www.impots.gouv.fr/droits-denregistrement">DGFiP</a></p>}
           </div>

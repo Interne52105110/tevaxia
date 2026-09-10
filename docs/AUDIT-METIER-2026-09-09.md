@@ -1384,3 +1384,15 @@ Validation : 1826 tests / 160 fichiers, dont 14 nouveaux tests et exemples offic
 Sources : [HMRC, taux SDLT résidentiels](https://www.gov.uk/stamp-duty-land-tax/residential-property-rates), [HMRC, non-résidents](https://www.gov.uk/guidance/rates-of-stamp-duty-land-tax-for-non-uk-residents), [Gouvernement gallois, tranches LTT](https://www.gov.wales/land-transaction-tax-rates-and-bands), [Gouvernement gallois, conditions des taux majorés](https://www.gov.wales/higher-rates-land-transaction-tax-overview), [Revenue Scotland, LBTT résidentiel](https://revenue.scot/taxes/land-buildings-transaction-tax/residential-property), [Revenue Scotland, ADS](https://revenue.scot/taxes/land-buildings-transaction-tax/additional-dwelling-supplement-ads), [Revenue Scotland, primo-accédants](https://revenue.scot/taxes/land-buildings-transaction-tax/lbtt-legislation-guidance/lbtt3001-exemptions-reliefs/lbtt3010-tax-reliefs/lbtt3048-first-time-buyer-relief).
 
 Les autres modèles nationaux, le traitement complet des revenus locatifs UK et les autres parcours du site restent à auditer.
+
+
+## 10 septembre — échéancier et graphique de trésorerie PropCalc
+
+- Le graphique lisait `yearCashFlow`, absent du moteur : raccordé à `annualCashFlow`, 20 barres vérifiées dans les sept scénarios et les cinq langues.
+- Échéancier mensuel à taux fixe, intérêts/principal au centime, solde réglé à la dernière échéance ; année partielle de six mois testée. La première projection reprend exactement le résultat annuel de synthèse ; indexation de 2 % seulement à partir de l’année 2.
+- Suppression de l’amortissement fiscal automatique fondé sur une quote-part de bâtiment inventée. Aucune déduction par défaut ; taux marginal explicitement présenté comme scénario constant et non déclaration fiscale nationale.
+- Même calcul fiscal dans les résultats et projections ; réduction britannique de 20 % plafonnée au bénéfice, hypothèse de revenu global ajusté non limitant explicitée, aucun report ni prévision de lois futures. Source officielle : https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4460 . Cette simplification ne remplace pas le calcul fiscal du foyer.
+- Comparaison sans levier recalculée sans déduction d’intérêts. Résultats conservés au centime, invalidité du prix/loyer signalée, curseur compatible avec l’hypothèse américaine de 6,8 %.
+- Validation : 1 839 tests / 161 fichiers ; lint ciblé et compilation Next réussis. API des sept pays, graphiques, récupération après erreur et quatre largeurs (320/390/768/1440) dans cinq langues vérifiés sur build final local.
+- Lot précédent dd331e9 : CI34445786113 réussie, dpl_9mb9oHtG2pENGHNbNcqMkd2AmzBQ Ready avec alias tevaxia.lu ; contrôles UK API et cinq langues en production réussis.
+- Restent notamment la fiscalité complète des autres pays, la réduction britannique du moteur de rendement séparé, les flux MFA et les validations serveur SQL déjà documentées. Audit exhaustif non terminé.

@@ -5977,7 +5977,9 @@
     "demoFranceTransferAssumption": "Frankreich: Für eine bestehende Wohnimmobilie als Kapitalanlage werden ohne Departement 6,3185 % Übertragungssteuern angesetzt, ohne Befreiungen, nach der DGFiP-Tabelle vom 1. Juni 2026. Der tatsächliche Betrag hängt von Ort und Urkunde ab.",
     "demoFranceFeeScope": "Die berechneten französischen Erwerbskosten sind eine Teilsumme: Formalitäten, Auslagen, zusätzliche Urkunden, Maklergebühren und Kreditbesicherung sind in dieser Demo nicht enthalten. Ergänzen Sie das Budget anhand der Angebote von Notar und Kreditgeber.",
     "demoFranceRentalScope": "Französisches Szenario für unmöblierte Vermietung: vereinfachte Besteuerung mit tatsächlichen Kosten, 35 % Grenzsteuersatz und 17,2 % Sozialabgaben. Keine Berechnung möblierter Mietregime oder der vollständigen Haushaltssteuer.",
-    "demoUKScope": "Britisches Szenario nur für England und Nordirland: zusätzlicher Wohnimmobilienkauf durch eine für SDLT als ansässig geltende Privatperson, mit 5 % Aufschlag und ohne Ersterwerberbefreiung. Rechtsberatung, Registrierung, Gutachten und Finanzierung sind nach Angebot zu ergänzen; hier wird nur die Erwerbsteuer berechnet."
+    "demoUKScope": "Britisches Szenario nur für England und Nordirland: zusätzlicher Wohnimmobilienkauf durch eine für SDLT als ansässig geltende Privatperson, mit 5 % Aufschlag und ohne Ersterwerberbefreiung. Rechtsberatung, Registrierung, Gutachten und Finanzierung sind nach Angebot zu ergänzen; hier wird nur die Erwerbsteuer berechnet.",
+    "demoInvalidInput": "Prüfen Sie Preis und Miete: Der Preis muss positiv sein, die Miete darf nicht negativ sein.",
+    "demoCashflowAssumptions": "Szenario mit konstanten Annahmen: Mieten und Kosten steigen ab dem zweiten Jahr um 2 %, Darlehen über 25 Jahre mit monatlichen Raten, keine automatische steuerliche Abschreibung. Der Grenzsteuersatz ersetzt keine vollständige nationale Steuerberechnung. Die britische Ermäßigung von 20 % ist auf den Vermietungsgewinn begrenzt; ausreichendes bereinigtes Gesamteinkommen wird angenommen, ohne Kostenvortrag. Künftige Steueränderungen werden nicht prognostiziert."
   },
   "solutions": {
     "syndic": {

@@ -5977,7 +5977,9 @@
     "demoFranceTransferAssumption": "France: transfer taxes modeled at 6.3185% without a department, for an existing residential investment with no exemptions, using the DGFiP table of 1 June 2026. The actual amount depends on the location and deed.",
     "demoFranceFeeScope": "The calculated French acquisition costs are a subtotal: formalities, disbursements, additional deeds, agency fees and loan guarantee costs are excluded from this demo. Complete the budget with quotes from the notary and lender.",
     "demoFranceRentalScope": "French unfurnished-rental scenario: simplified actual-expense taxation, 35% marginal income-tax rate and 17.2% social levies. It does not model furnished-rental regimes or complete household taxation.",
-    "demoUKScope": "UK scenario limited to England and Northern Ireland: an additional residential purchase by an individual treated as UK-resident for SDLT, with the 5% surcharge and no first-buyer relief. Conveyancing, registration, survey and financing costs must be added from quotes; only acquisition tax is priced here."
+    "demoUKScope": "UK scenario limited to England and Northern Ireland: an additional residential purchase by an individual treated as UK-resident for SDLT, with the 5% surcharge and no first-buyer relief. Conveyancing, registration, survey and financing costs must be added from quotes; only acquisition tax is priced here.",
+    "demoInvalidInput": "Check the price and rent: price must be positive and rent cannot be negative.",
+    "demoCashflowAssumptions": "Constant-assumption scenario: rent and expenses rise 2% from year two, a 25-year loan with monthly repayments, and no automatic tax depreciation. The marginal rate is not a complete national tax assessment. UK 20% relief is capped at property profit; adjusted total income is assumed sufficient, with no finance-cost carry-forward. Future tax changes are not forecast."
   },
   "solutionsHub": {
     "meta": {

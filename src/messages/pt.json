@@ -5977,7 +5977,9 @@
     "demoFranceTransferAssumption": "França: impostos de transmissão simulados a 6,3185 %, sem departamento, para investimento em habitação existente e sem isenções, segundo a tabela DGFiP de 1 de junho de 2026. O valor real depende da localização e da escritura.",
     "demoFranceFeeScope": "Os custos de aquisição franceses calculados são um subtotal: formalidades, despesas adiantadas, atos adicionais, comissão da agência e garantia do empréstimo não estão incluídos nesta demonstração. Complete o orçamento com propostas do notário e do credor.",
     "demoFranceRentalScope": "Cenário francês de arrendamento não mobilado: tributação simplificada com despesas reais, taxa marginal de 35 % e contribuições sociais de 17,2 %. Não simula regimes de arrendamento mobilado nem o imposto completo do agregado.",
-    "demoUKScope": "Cenário britânico limitado a Inglaterra e Irlanda do Norte: compra residencial adicional por particular residente para efeitos de SDLT, com sobretaxa de 5 % e sem benefício de primeira compra. Custos jurídicos, registo, avaliação e financiamento devem ser acrescentados por orçamento; apenas o imposto de aquisição é calculado."
+    "demoUKScope": "Cenário britânico limitado a Inglaterra e Irlanda do Norte: compra residencial adicional por particular residente para efeitos de SDLT, com sobretaxa de 5 % e sem benefício de primeira compra. Custos jurídicos, registo, avaliação e financiamento devem ser acrescentados por orçamento; apenas o imposto de aquisição é calculado.",
+    "demoInvalidInput": "Verifique o preço e a renda: o preço deve ser positivo e a renda não pode ser negativa.",
+    "demoCashflowAssumptions": "Cenário com pressupostos constantes: rendas e despesas aumentam 2% a partir do segundo ano, empréstimo de 25 anos com prestações mensais e sem depreciação fiscal automática. A taxa marginal não constitui um cálculo completo do imposto nacional. No Reino Unido, a redução de 20% é limitada ao lucro imobiliário; pressupõe-se rendimento global ajustado suficiente, sem reporte de custos financeiros. Não se projetam alterações fiscais futuras."
   },
   "solutions": {
     "syndic": {
