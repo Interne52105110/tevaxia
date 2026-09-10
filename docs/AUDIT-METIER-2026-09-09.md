@@ -997,3 +997,14 @@ Huit nouveaux tests : suite 1 451 tests / 138 fichiers réussie, lint sans erreu
 Import PMS cae2153 : CI 34420109744 réussie ; déploiement dpl_4FEf9KFTFayGWcohYn8j3CvXq35q Ready avec alias tevaxia.lu. Contrôles HTTP en production réussis : documentation, prévol, refus des requêtes sans clé et avec clé fictive, no-store.
 
 Compilation de production réussie après le dernier correctif. Parcours anonyme réel local : lien de connexion localisé et absence de débordement aux largeurs 320/390/768/1440 dans cinq langues. Les scénarios connectés ci-dessus restent des simulations de services.
+
+
+## 10 septembre — erreurs d’authentification API et bornes de quotas
+
+La recherche partagée d’une clé vérifie les métadonnées renvoyées : active=true, propriétaire et identifiant présents, niveau free/pro/enterprise reconnu. Un niveau inconnu est refusé au lieu de provoquer une erreur dans les quotas. Une erreur de requête ou une exception réseau renvoie une indisponibilité 503 générique et non mise en cache, sans détail de base exposé. Les fenêtres de quota se réinitialisent exactement à leur borne annoncée (>=), sans seconde de rejet avec Retry-After=0. Le commentaire sandbox précise le partage par clé et instance ; aucune limite globale ou par IP n’est prétendue.
+
+Huit nouveaux tests : hachage SHA-256 effectivement utilisé dans la recherche, propriétaire conservé, métadonnées invalides refusées, erreurs renvoyées/levées, dix appels puis reprise exactement à 60 secondes. Suite 1 459 tests / 139 fichiers et lint réussis. Aucun changement de tarification ni de politique d’attribution des niveaux. Le schéma local 004 permet au propriétaire de modifier sa ligne de clé ; l’autorité sur le niveau payant et les éventuelles politiques plus récentes exigent une vérification Supabase de production qui n’est pas disponible. Ce lot ne certifie pas ces droits en base.
+
+Prévisions 189b933 publiées : CI 34420790269 réussie ; déploiement dpl_87WnrFkk3kuzxxPvtmFLHWou8WVG Ready avec alias tevaxia.lu.
+
+Compilation réussie ; tests HTTP locaux facturation/PMS réussis (absence/clé fictive 401, sandbox facturation 403, prévols). Prévisions : contrôle public production réussi dans cinq langues/quatre largeurs.

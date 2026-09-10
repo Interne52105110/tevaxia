@@ -34,7 +34,7 @@ const TIER_LIMITS: Record<ApiKeyRecord["tier"], { perMinute: number; perDay: num
 };
 
 // Clé sandbox publique pour la documentation API — rate-limitée comme
-// un tier free (10/min, 200/j par IP). En lecture seule sur l'estimation.
+// un tier free partagé par clé et par instance (10/min, 200/j).
 const SANDBOX_KEY: ApiKeyRecord = {
   id: "sandbox:public",
   name: "sandbox-public",
@@ -82,11 +82,11 @@ function checkRateLimit(key: string, tier: ApiKeyRecord["tier"]): { allowed: boo
     dayWindowStart: now,
   };
 
-  if (now - state.minuteWindowStart > minuteMs) {
+  if (now - state.minuteWindowStart >= minuteMs) {
     state.minuteCount = 0;
     state.minuteWindowStart = now;
   }
-  if (now - state.dayWindowStart > dayMs) {
+  if (now - state.dayWindowStart >= dayMs) {
     state.dayCount = 0;
     state.dayWindowStart = now;
   }
@@ -131,7 +131,8 @@ async function lookupSupabaseKey(plainKey: string): Promise<ApiKeyRecord | null>
     .eq("key_hash", hash)
     .eq("active", true)
     .maybeSingle();
-  if (error || !data) return null;
+  if (error) throw new Error("API key lookup unavailable");
+  if (!data || data.active !== true || !["free", "pro", "enterprise"].includes(data.tier) || typeof data.id !== "string" || !data.id || typeof data.user_id !== "string" || !data.user_id) return null;
   return {
     id: data.id,
     name: data.name,
@@ -160,7 +161,13 @@ export async function authenticateApiRequestAsync(request: Request): Promise<Aut
   // Try env first (fast), then Supabase
   let record = loadEnvKeys().find((r) => r.key === apiKey) ?? null;
   if (!record) {
-    record = await lookupSupabaseKey(apiKey);
+    try { record = await lookupSupabaseKey(apiKey); }
+    catch {
+      return { ok: false, response: NextResponse.json(
+        { success: false, error: "API authentication temporarily unavailable" },
+        { status: 503, headers: { ...API_CORS_HEADERS, "Cache-Control": "no-store" } },
+      ) };
+    }
   }
 
   if (!record) {
