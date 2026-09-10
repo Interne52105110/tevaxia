@@ -1250,3 +1250,18 @@ Correction complémentaire d'affichage : le format monétaire global arrondissai
 Suite complète : 1 660 tests / 150 fichiers réussis, dont 14 nouveaux cas sur le budget d'assurance. Lint sans avertissement. Validation finale de compilation/affichage public consignée au déploiement.
 
 Présentation locataire 55cc640 publiée : CI34436264220 réussie, dpl_G7T5QeV4xkSWNPHGhrTDtbHZ9JnW Ready ; contrôle production cinq langues/quatre largeurs, quatre fonctions, cinq FAQ, ancre d'accès et métadonnées privées localisées réussi (tenant-landing-public-prod.log). Les alias de page ont été corrigés pour exporter generateMetadata.
+
+
+## 10 septembre — préparation fiscale locative
+
+Suppression de l'assurance fictive de 450 euros par lot, du plancher zéro qui effaçait les déficits, de l'addition automatique de toutes les provisions aux recettes imposables et de l'affectation automatique au seul mois de loyer. L'ACD décrit le rattachement à la perception avec une exception pour les recettes périodiques proches du changement d'année, le traitement des avances sur frais et la distinction entretien/investissement. Le relevé applicatif utilise la date de paiement déclarée, signale les années différentes et paiements partiels sans montant ; il n'effectue pas cette qualification fiscale à la place du déclarant.
+
+Nouvelle feuille préparatoire aux frais réels pour patrimoine privé : recettes fiscalement retenues et sept catégories de frais à renseigner explicitement, zéro seulement après saisie/action explicite. Amortissement déterminé séparément, aucun taux automatique ou forfait de frais de gestion. Calcul en centimes et résultats négatifs conservés ; total incomplet dès qu'un lot a une rubrique vide/invalide. Aucun impôt, régime forfaitaire, société, exonération ou gestion locative sociale calculé. Suppression de l'import OCR classant automatiquement des travaux en entretien et de la recommandation IA alimentée par des références/formulaires/forfaits non établis.
+
+Sources consultées : https://impotsdirects.public.lu/fr/az/l/logem_loc.html ; https://guichet.public.lu/fr/citoyens/fiscalite/immobilier/location/declarer-revenu-location.html . Liens officiels visibles dans la feuille.
+
+Données : chargement complet par compte via helpers lots/paiements déjà contrôlés, trois lectures concurrentes maximum, aucun résultat partiel après échec ; réponses tardives ignorées. Brouillons distincts par année dans la session du compte, sans stockage cloud annoncé. Téléchargement JSON pour conserver la saisie et le relevé source ; aucun dépôt fiscal transmis. Métadonnées localisées/noindex dans les cinq langues et suppression du titre caché dupliqué.
+
+Validation : 1 676 tests / 151 fichiers réussis, dont 16 nouveaux ; lint et compilation réussis. UI isolée cinq langues/quatre largeurs : rubriques vides, déficit exact, changement d'année/compte, export JSON réel, avertissements paiements partiels/changement d'année, panne et réessai. L'accès public est contrôlé séparément sans utiliser de données fiscales réelles.
+
+Assurance/centimes 6848618 publié : CI34436670520 réussie, dpl_FvjNaPfsN16pSP6wRubfWgW2BmXJ Ready ; QA production cinq langues/quatre largeurs avec devis synthétiques réussi (insurance-budget-public-prod.log). Aucun devis assureur envoyé.

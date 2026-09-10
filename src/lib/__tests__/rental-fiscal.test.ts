@@ -1,0 +1,25 @@
+import {describe,it,expect,vi,beforeEach} from 'vitest';
+const mocks=vi.hoisted(()=>({lots:vi.fn(),payments:vi.fn(),owner:vi.fn()}));
+vi.mock('../gestion-locative',()=>({listLotsAsync:mocks.lots}));
+vi.mock('../rental-payments',()=>({listPaymentsForLot:mocks.payments}));
+vi.mock('../rental-cloud-identity',()=>({requireRentalOwner:mocks.owner}));
+import {loadRentalFiscalSnapshot,calculateRentalFiscalDraft,fiscalPaymentSummary,fiscalExpenseKeys,type RentalFiscalDraft} from '../rental-fiscal';
+import type {RentalPayment} from '../rental-payments';
+const p=(patch:Partial<RentalPayment>={})=>({id:'a',lot_id:'lot',user_id:'owner',period_year:2025,period_month:12,amount_rent:1000.01,amount_charges:100.02,amount_total:1100.03,status:'paid',paid_at:'2026-01-10',...patch}) as RentalPayment;
+const zero=():RentalFiscalDraft=>Object.fromEntries(['receipts',...fiscalExpenseKeys].map(key=>[key,'0']));
+beforeEach(()=>{vi.resetAllMocks();mocks.owner.mockResolvedValue({});mocks.lots.mockResolvedValue({items:[{id:'lot'}],cloud:true,cloudError:false});mocks.payments.mockResolvedValue([p()])});
+describe('rental fiscal preparation',()=>{
+ it('uses declared payment year, flags cross-year allocation rather than automatically assigning tax year',()=>{expect(fiscalPaymentSummary([p()],2026)).toMatchObject({rent:1000.01,charges:100.02,paid:1,crossYear:1});expect(fiscalPaymentSummary([p()],2025)).toMatchObject({rent:0,paid:0,crossYear:1})});
+ it('does not count due, cancelled or partial entries as fully received',()=>{expect(fiscalPaymentSummary([p({status:'partial',paid_at:null}),p({status:'cancelled'}),p({status:'due'})],2026)).toEqual({rent:0,charges:0,paid:0,partial:1,crossYear:0})});
+ it('sums source money exactly in cents',()=>{expect(fiscalPaymentSummary([p({amount_rent:0.1}),p({amount_rent:0.2})],2026).rent).toBe(0.3)});
+ it('rejects impossible source dates',()=>{expect(()=>fiscalPaymentSummary([p({paid_at:'2026-02-30'})],2026)).toThrow()});
+ it('does not invent default insurance or treat empty expenses as confirmed zero',()=>{expect(calculateRentalFiscalDraft({receipts:'1000'})).toBeNull();expect(calculateRentalFiscalDraft({})).toBeNull()});
+ it('keeps a deficit instead of clamping it to zero',()=>{expect(calculateRentalFiscalDraft({...zero(),receipts:'1000.01',maintenance:'1200.02'})).toEqual({receipts:1000.01,expenses:1200.02,net:-200.01})});
+ it('preserves explicitly confirmed zeros',()=>{expect(calculateRentalFiscalDraft(zero())).toEqual({receipts:0,expenses:0,net:0})});
+ it('includes only manually qualified receipts and costs',()=>{expect(calculateRentalFiscalDraft({...zero(),receipts:'500',insurance:'100',other:'20'})).toEqual({receipts:500,expenses:120,net:380})});
+ it.each(['NaN','Infinity','-1','1.001'])('rejects invalid draft money %s',value=>{expect(()=>calculateRentalFiscalDraft({...zero(),insurance:value})).toThrow()});
+ it('requires a complete authoritative cloud source',async()=>{mocks.lots.mockResolvedValue({items:[{id:'lot'}],cloud:false,cloudError:true});await expect(loadRentalFiscalSnapshot('owner')).rejects.toThrow();expect(mocks.payments).not.toHaveBeenCalled()});
+ it('rejects a failed payment read without returning a partial snapshot',async()=>{mocks.lots.mockResolvedValue({items:[{id:'a'},{id:'b'}],cloud:true,cloudError:false});mocks.payments.mockImplementation(async id=>{if(id==='b')throw Error('offline');return [p()]});await expect(loadRentalFiscalSnapshot('owner')).rejects.toThrow('offline')});
+ it('passes captured owner throughout and refuses a changed account after reads',async()=>{mocks.owner.mockResolvedValueOnce({}).mockRejectedValueOnce(Error('changed'));await expect(loadRentalFiscalSnapshot('owner')).rejects.toThrow('changed');expect(mocks.payments).toHaveBeenCalledWith('lot','owner')});
+ it('accepts a confirmed empty portfolio',async()=>{mocks.lots.mockResolvedValue({items:[],cloud:true,cloudError:false});expect(await loadRentalFiscalSnapshot('owner')).toEqual([])});
+});
