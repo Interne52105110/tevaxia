@@ -1,160 +1,53 @@
-// ============================================================
-// PMS WEBHOOK — Ingestion quotidienne depuis Mews / Cloudbeds
-// ============================================================
-// Reçoit des données de performance journalière (occupancy, ADR)
-// et les insère dans hotel_daily_metrics. Authentifié par clé API
-// + signature HMAC optionnelle pour les PMS qui la supportent.
-
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { authenticateApiRequestAsync, API_CORS_HEADERS, corsPreflightResponse, logApiCall } from "@/lib/api-auth";
+import { parsePmsImport, PMS_SOURCES } from "@/lib/pms/webhook-input";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+export const runtime = "nodejs";
+const headers = { ...API_CORS_HEADERS, "Cache-Control": "no-store" };
+const errorResponse = (error: string, status: number) => NextResponse.json({ error }, { status, headers });
+export async function OPTIONS() { return corsPreflightResponse(); }
 
-interface PmsPayload {
-  hotel_id: string;
-  source: "mews" | "cloudbeds" | "opera" | "protel" | "generic";
-  metrics: {
-    date: string; // YYYY-MM-DD
-    occupancy?: number; // 0-1
-    adr?: number;
-    revpar?: number;
-    rooms_sold?: number;
-    rooms_available?: number;
-  }[];
-}
-
-function parseOccupancy(m: PmsPayload["metrics"][0]): number | null {
-  if (m.occupancy !== undefined && m.occupancy !== null) {
-    return m.occupancy > 1 ? m.occupancy / 100 : m.occupancy;
-  }
-  if (m.rooms_sold !== undefined && m.rooms_available !== undefined && m.rooms_available > 0) {
-    return m.rooms_sold / m.rooms_available;
-  }
-  return null;
-}
-
-export async function POST(request: NextRequest) {
-  // Auth: require x-api-key header
-  const apiKey = request.headers.get("x-api-key");
-  if (!apiKey) {
-    return NextResponse.json({ error: "Missing x-api-key header" }, { status: 401 });
-  }
-
-  if (!supabaseUrl || !supabaseServiceKey) {
-    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
-  }
-
-  const admin = createClient(supabaseUrl, supabaseServiceKey);
-
-  // Validate API key
-  const { data: keyRow, error: keyErr } = await admin
-    .from("api_keys")
-    .select("id, org_id, is_active")
-    .eq("key_hash", apiKey)
-    .maybeSingle();
-
-  if (keyErr || !keyRow || !keyRow.is_active) {
-    return NextResponse.json({ error: "Invalid or inactive API key" }, { status: 403 });
-  }
-
-  let body: PmsPayload;
+/** Normalized observations, authenticated through the shared hashed-key lookup. */
+export async function POST(request: Request) {
+  const started = Date.now();
+  const auth = await authenticateApiRequestAsync(request);
+  if (!auth.ok) { auth.response.headers.set("Cache-Control", "no-store"); return auth.response; }
+  const key = auth.keyRecord;
+  if (key.source !== "supabase" || !key.userId || !["pro", "enterprise"].includes(key.tier)) return errorResponse("An organization-bound Pro or Enterprise key is required", 403);
+  let body: unknown;
+  try { body = await request.json(); } catch { return errorResponse("Invalid JSON body", 400); }
+  let input;
+  try { input = parsePmsImport(body); } catch (error) { return errorResponse(error instanceof RangeError ? error.message : "Invalid metrics", 422); }
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL, serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceKey) return errorResponse("Metrics service unavailable", 503);
   try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
-  }
-
-  if (!body.hotel_id || !Array.isArray(body.metrics) || body.metrics.length === 0) {
-    return NextResponse.json({ error: "hotel_id and metrics[] required" }, { status: 400 });
-  }
-
-  if (body.metrics.length > 366) {
-    return NextResponse.json({ error: "Maximum 366 metrics per request" }, { status: 400 });
-  }
-
-  // Verify hotel belongs to the org
-  const { data: hotel, error: hotelErr } = await admin
-    .from("hotels")
-    .select("id, org_id")
-    .eq("id", body.hotel_id)
-    .maybeSingle();
-
-  if (hotelErr || !hotel || hotel.org_id !== keyRow.org_id) {
-    return NextResponse.json({ error: "Hotel not found or unauthorized" }, { status: 404 });
-  }
-
-  // Upsert metrics
-  const source = body.source || "generic";
-  const rows = body.metrics
-    .filter((m) => m.date && /^\d{4}-\d{2}-\d{2}$/.test(m.date))
-    .map((m) => ({
-      hotel_id: body.hotel_id,
-      metric_date: m.date,
-      occupancy: parseOccupancy(m),
-      adr: m.adr ?? null,
-      revpar: m.revpar ?? null,
-      source: `pms_sync`,
-      notes: `PMS: ${source}`,
-    }));
-
-  if (rows.length === 0) {
-    return NextResponse.json({ error: "No valid metrics in payload" }, { status: 400 });
-  }
-
-  const { error: upsertErr } = await admin
-    .from("hotel_daily_metrics")
-    .upsert(rows, { onConflict: "hotel_id,metric_date" });
-
-  if (upsertErr) {
-    return NextResponse.json({ error: upsertErr.message }, { status: 500 });
-  }
-
-  // Log API usage
-  await admin.from("api_usage_log").insert({
-    api_key_id: keyRow.id,
-    endpoint: "/api/v1/pms/webhook",
-    method: "POST",
-    status_code: 200,
-  }).then(() => {});
-
-  return NextResponse.json({
-    success: true,
-    hotel_id: body.hotel_id,
-    source,
-    metrics_received: body.metrics.length,
-    metrics_upserted: rows.length,
-  });
+    const admin = createClient(url, serviceKey, { auth: { persistSession: false } });
+    const { data: keyRow, error: keyError } = await admin.from("api_keys").select("org_id").eq("id", key.id).eq("user_id", key.userId).eq("active", true).maybeSingle();
+    if (keyError) return errorResponse("Metrics authorization unavailable", 503);
+    if (!keyRow?.org_id) return errorResponse("Active organization key required", 403);
+    const { data: member, error: memberError } = await admin.from("org_members").select("role").eq("org_id", keyRow.org_id).eq("user_id", key.userId).maybeSingle();
+    if (memberError) return errorResponse("Metrics authorization unavailable", 503);
+    if (!member || !["admin", "member"].includes(member.role)) return errorResponse("Organization write access required", 403);
+    const { data: hotel, error: hotelError } = await admin.from("hotels").select("id").eq("id", input.hotelId).eq("org_id", keyRow.org_id).maybeSingle();
+    if (hotelError) return errorResponse("Metrics authorization unavailable", 503);
+    if (!hotel) return errorResponse("Hotel not found or unauthorized", 404);
+    const { data, error } = await admin.from("hotel_daily_metrics").upsert(input.rows, { onConflict: "hotel_id,metric_date" }).select("metric_date");
+    if (error || !data || data.length !== input.rows.length || new Set(data.map(row => row.metric_date)).size !== input.rows.length || input.rows.some(row => !data.some(saved => saved.metric_date === row.metric_date))) return errorResponse("Metrics import could not be confirmed", 500);
+    // Logging failures must not turn a confirmed import into a reported failure/retry.
+    try { await logApiCall(key, "/api/v1/pms/webhook", 200, Date.now() - started); } catch {}
+    return NextResponse.json({ success: true, hotel_id: input.hotelId, source: input.source, metrics_received: input.rows.length, metrics_upserted: data.length }, { headers });
+  } catch { return errorResponse("Metrics service unavailable", 503); }
 }
 
-// GET — documentation
 export async function GET() {
   return NextResponse.json({
-    endpoint: "/api/v1/pms/webhook",
-    method: "POST",
-    description: "Ingest daily hotel performance metrics from a PMS (Property Management System)",
-    authentication: "x-api-key header (obtain from /profil/organisation)",
-    supported_sources: ["mews", "cloudbeds", "opera", "protel", "generic"],
-    payload: {
-      hotel_id: "UUID of the hotel",
-      source: "PMS identifier (e.g., 'mews')",
-      metrics: [{
-        date: "YYYY-MM-DD",
-        occupancy: "0-1 (or 0-100, auto-normalized)",
-        adr: "Average Daily Rate in EUR",
-        revpar: "Revenue Per Available Room (optional, auto-computed if missing)",
-        rooms_sold: "Alternative to occupancy: number of rooms sold",
-        rooms_available: "Total rooms available (used with rooms_sold)",
-      }],
-    },
-    limits: {
-      max_metrics_per_request: 366,
-      rate_limit: "100 requests/hour per API key",
-    },
-    example_curl: `curl -X POST https://tevaxia.lu/api/v1/pms/webhook \\
-  -H "Content-Type: application/json" \\
-  -H "x-api-key: YOUR_KEY" \\
-  -d '{"hotel_id":"...","source":"mews","metrics":[{"date":"2026-04-15","occupancy":0.82,"adr":145}]}'`,
-  });
+    endpoint: "/api/v1/pms/webhook", method: "POST",
+    description: "Import normalized daily observations in EUR. Adapt vendor payloads to this format; this is not a native vendor connector.",
+    authentication: "Active database Pro/Enterprise API key tied to the hotel organization; its user must currently be an admin or member. X-API-Key or Authorization: Bearer.",
+    supported_sources: PMS_SOURCES,
+    payload: { hotel_id: "Hotel UUID", source: "Optional source label; default generic", currency: "EUR only; default EUR", occupancy_unit: "ratio (default, 0–1) or percent (0–100), explicitly declared", metrics: [{ date: "Unique real date from 2000-01-01 through today in Luxembourg", occupancy: "Required unless both room counts are supplied", adr: "EUR, required and nonnegative; null allowed only at zero occupancy. At zero occupancy, use zero or null.", revpar: "Optional, must agree with occupancy × ADR within EUR 0.02", rooms_sold: "Optional nonnegative integer, at most rooms_available", rooms_available: "Positive integer when room counts are supplied" }] },
+    semantics: "All rows are validated before writing. Each row replaces occupancy, ADR and RevPAR for its date. Partial observations, duplicate dates, unknown units and inconsistent values are rejected. No percentage is guessed.",
+    limits: { max_metrics_per_request: 366, rate_limit: "Shared tier limits per server instance: Pro 60/min and 5000/day; Enterprise 600/min and 100000/day" },
+  }, { headers });
 }

@@ -508,3 +508,16 @@ Mustang CLI 2.26.0 : matrice de 18 XML (S/Z/E/AE/G/O × BASIC/EN 16931/EXTENDED)
 Sources primaires : https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-26/ ; BR-S-02, BR-E-02, BR-E-10, BR-AE-02, BR-AE-10, BR-G-10, BR-O-02, BR-O-10 et BR-O-11 dans le même référentiel. Structure CII contrôlée sur les schémas Factur-X distribués avec Mustang. Ces sources étayent les contrôles du format, pas l’application d’un régime fiscal à une opération réelle.
 
 Préremplissage locatif a147a9d publié : CI 34418273901 réussie ; dpl_Ev5hroUsm8DTUAA1hfBGF95bUikr Ready. Scénarios connectés vérifiés avec des données et services simulés, sans opération client de production.
+
+
+## 10 septembre — import des observations PMS
+
+Authentification via la recherche partagée de clé hachée, puis contrôle explicite de la clé active, de son propriétaire, de son organisation, du rôle actuel admin/member et de l’appartenance de l’hôtel. Les clés environnement/sandbox et les comptes viewer ne peuvent pas écrire. Les anciennes références à is_active et api_usage_log, absentes du schéma versionné, sont remplacées par les mécanismes partagés existants.
+
+Validation de tout le lot avant une unique écriture : dates réelles et uniques jusqu’au jour luxembourgeois, EUR, occupation avec unité explicite ratio/percent ou chambres vendues/disponibles cohérentes, ADR complet et RevPAR concordant. Aucun pourcentage deviné ni ligne invalide silencieusement ignorée. Les observations partielles sont refusées pour ne pas écraser des valeurs par des champs absents. Confirmation des dates effectivement retournées, erreurs techniques génériques, échec de journalisation sans faux échec d’un import déjà confirmé. Documentation GET précise : format normalisé nécessitant un adaptateur fournisseur, limites par instance, aucune promesse de connecteur natif.
+
+29 tests supplémentaires ; suite 1 443 tests / 137 fichiers et lint réussis. Contrôles d’écriture avec base simulée : droits, organisation, absence de toute écriture si une ligne est invalide, calculs et confirmation. Les politiques et écritures Supabase de production restent non vérifiées faute d’accès ; ce lot n’applique aucune migration et ne modifie aucune observation client pendant les essais.
+
+Facturation e6dc52d : CI 34419175142 réussie ; déploiement dpl_9M77qSaCsd3Ef1cUUiACm8reT4jN Ready avec alias tevaxia.lu. Contrôles production cinq langues/quatre largeurs réussis, sans création de facture client.
+
+Compilation de production et contrôles HTTP locaux réussis : GET documentaire, OPTIONS, POST sans clé et avec clé fictive refusés en 401, réponses non mises en cache.
