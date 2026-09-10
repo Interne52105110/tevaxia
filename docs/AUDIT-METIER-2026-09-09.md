@@ -1265,3 +1265,16 @@ Données : chargement complet par compte via helpers lots/paiements déjà contr
 Validation : 1 676 tests / 151 fichiers réussis, dont 16 nouveaux ; lint et compilation réussis. UI isolée cinq langues/quatre largeurs : rubriques vides, déficit exact, changement d'année/compte, export JSON réel, avertissements paiements partiels/changement d'année, panne et réessai. L'accès public est contrôlé séparément sans utiliser de données fiscales réelles.
 
 Assurance/centimes 6848618 publié : CI34436670520 réussie, dpl_FvjNaPfsN16pSP6wRubfWgW2BmXJ Ready ; QA production cinq langues/quatre largeurs avec devis synthétiques réussi (insurance-budget-public-prod.log). Aucun devis assureur envoyé.
+
+
+## 10 septembre — gestion locative sociale, exonération datée
+
+L'ancien calcul utilisait 75 % pour toutes les années, sur deux loyers supposés identiques, avec une économie présentée comme un gain général. Correction des millésimes vérifiés par l'ACD : 50 % de 2017 à 2022, 75 % en 2023, 90 % depuis 2024 (jusqu'à 2026 dans l'outil) sur les revenus nets éligibles. Années hors de ce périmètre refusées. Confirmation de l'éligibilité via organisme conventionné avant toute estimation d'avantage.
+
+Saisies désormais distinctes pour loyers et frais annuels des scénarios classique/social, aucune hypothèse préremplie. Comparaison des revenus nets après impôt approximé au taux marginal saisi, sans confondre économie d'impôt et gain total. L'écart peut être négatif lorsque le loyer social est inférieur. Les déficits restent visibles et leur traitement fiscal n'est pas inventé. Le taux constant n'est pas un calcul complet d'IR (barème, autres revenus, famille) ni de trésorerie.
+
+Suppression de la référence erronée à L.162bis, des économies typiques 40–60 %, de la réduction de loyer universelle 10–15 %, de l'exclusion automatique des classes F/G et du contrat minimal universel de trois ans. Liste de contacts/partenaires potentiellement obsolète remplacée par le répertoire ministériel, sans se présenter comme partenaire commercial. Sources consultées : https://impotsdirects.public.lu/fr/az/l/logem_loc.html ; https://logement.public.lu/fr/proprietaire/logement-location/gestion-locative-sociale.html .
+
+Validation : 1 695 tests / 152 fichiers réussis, dont 19 nouveaux sur millésimes, base nette, éligibilité, revenus différents, pertes, centimes et données invalides. Lint sans avertissement. Compilation et contrôles publics finaux consignés au déploiement.
+
+Préparation fiscale 75e6579 publiée : CI34437444961 réussie, dpl_2MsMJCfnSggf9HJdPUGrLFTky8RK Ready ; QA publique production cinq langues/quatre largeurs, métadonnées localisées/noindex et accès authentifié requis réussie (rental-fiscal-public-prod.log).
