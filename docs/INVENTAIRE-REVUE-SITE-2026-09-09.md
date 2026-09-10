@@ -817,3 +817,16 @@ Suppression de la référence erronée à L.162bis, des économies typiques 40�
 Validation : 1 695 tests / 152 fichiers réussis, dont 19 nouveaux sur millésimes, base nette, éligibilité, revenus différents, pertes, centimes et données invalides. Lint sans avertissement. Compilation et contrôles publics finaux consignés au déploiement.
 
 Préparation fiscale 75e6579 publiée : CI34437444961 réussie, dpl_2MsMJCfnSggf9HJdPUGrLFTky8RK Ready ; QA publique production cinq langues/quatre largeurs, métadonnées localisées/noindex et accès authentifié requis réussie (rental-fiscal-public-prod.log).
+
+
+## État des lieux : constat incomplet visible et PDF à signer — 10 septembre 2026
+
+- Suppression de la promesse de conformité automatique et de la référence erronée à l’article 9. Texte vérifié sur Guichet.lu : entrée obligatoire si garantie locative, document écrit/précis/contradictoire/daté/signé ; sortie généralement recommandée et usure normale distincte des dégâts imputables. Source : https://guichet.public.lu/fr/citoyens/logement/location/contrat-litige/etat-lieux-bail-loyer.html (page actualisée le 19 juin 2025, consultée le 10 septembre 2026).
+- Date et nombre de clés initialement inconnus, aucune valeur de deux clés inventée. Date réelle, adresse et parties obligatoires pour l’export ; clés facultatives mais entières entre 0 et 999. Zéro explicite conservé. Relevés vides libellés « non renseigné » avec unités dans le PDF.
+- Les 37 points de la liste restent exportés, même sans évaluation. Ajout de « non applicable / absent » et retour à « non évalué ». Une observation seule ne devient pas une évaluation. Le pourcentage porte sur cette liste indicative, sans certifier l’inspection complète du bien ; autres pièces/réserves à détailler dans les observations générales.
+- Projet PDF explicitement non signé, à relire ensemble et signer. Pas de signature électronique, horodatage probant, photographie jointe ni archivage certifié promis. Saisie temporaire sans sauvegarde automatique annoncée.
+- Export protégé contre les doubles clics, erreurs de génération et achèvement après départ de la page. Saisies conservées sur erreur ; formulaire gelé pendant génération ; lien de retour et métadonnées localisés dans les cinq langues.
+- Modèle PDF extrait dans RentalInspectionPdf. Paragraphes longs paginables, titres attachés au premier élément, signatures conservées ensemble, pied et numéros sur chaque page. Le contrôle visuel a détecté un problème d’héritage de hauteur de ligne du moteur PDF, corrigé ; vérification géométrique de tout texte dans la feuille ajoutée au contrôle des documents.
+- Validation : 1 711 tests / 153 fichiers, lint et build de production ; 10 PDF synthétiques dans les cinq langues (courts 2 pages, longs 5 pages), 35 pages rendues et inspectées, vérification des fins d’observations, des états inconnus et des numéros. Parcours public cinq langues / quatre largeurs, validations des champs, remise à zéro d’un état et téléchargement réel du PDF. Aucune donnée d’un client utilisée ou modifiée.
+
+La revue globale Tevaxia reste en cours. Les migrations de sécurité Supabase 064/065 sont préparées/testées localement, mais non appliquées en production faute d’accès administrateur.
