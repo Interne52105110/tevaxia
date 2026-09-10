@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { probeService as probe, aggregateStatus, type ServiceCheck as Check } from "@/lib/service-status";
+import { getTranslations, getLocale } from "next-intl/server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("statusPage");
@@ -13,31 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const revalidate = 60;
 
-interface Check {
-  name: string;
-  description: string;
-  url?: string;
-  status: "ok" | "degraded" | "down" | "unknown";
-  latencyMs?: number;
-}
-
-async function probe(name: string, description: string, url: string, timeoutMs = 5000): Promise<Check> {
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), timeoutMs);
-    const start = Date.now();
-    const res = await fetch(url, { signal: controller.signal, cache: "no-store" });
-    const latency = Date.now() - start;
-    clearTimeout(timeout);
-    if (!res.ok) return { name, description, url, status: "degraded", latencyMs: latency };
-    return { name, description, url, status: latency < 2000 ? "ok" : "degraded", latencyMs: latency };
-  } catch {
-    return { name, description, url, status: "down" };
-  }
-}
-
 export default async function StatusPage() {
-  const t = await getTranslations("statusPage");
+  const [t, locale] = await Promise.all([getTranslations("statusPage"), getLocale()]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -51,7 +29,9 @@ export default async function StatusPage() {
       ? probe(
           t("checkDbName"),
           t("checkDbDesc"),
-          `${supabaseUrl}/auth/v1/settings`
+          `${supabaseUrl}/auth/v1/settings`,
+          5000,
+          { apikey: anon }
         )
       : Promise.resolve<Check>({
           name: t("checkDbName"),
@@ -61,7 +41,7 @@ export default async function StatusPage() {
     probe(
       t("checkApiName"),
       t("checkApiDesc"),
-      `https://www.tevaxia.lu/api/v1/estimation?commune=Luxembourg&surface=80`
+      `https://www.tevaxia.lu/api/v1/estimation`
     ),
     probe(
       t("checkObservName"),
@@ -70,11 +50,7 @@ export default async function StatusPage() {
     ),
   ]);
 
-  const globalStatus: Check["status"] = checks.some((c) => c.status === "down")
-    ? "down"
-    : checks.some((c) => c.status === "degraded")
-      ? "degraded"
-      : "ok";
+  const globalStatus = aggregateStatus(checks);
 
   const overallLabel: Record<Check["status"], { label: string; color: string; emoji: string }> = {
     ok: { label: t("overallOk"), color: "from-emerald-600 to-emerald-800", emoji: "✓" },
@@ -97,7 +73,7 @@ export default async function StatusPage() {
     <div className="bg-background min-h-screen py-10 sm:py-14">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="mb-2 text-xs text-muted">
-          <Link href="/" className="hover:text-navy">{"← "}{t("backLink")}</Link>
+          <Link href={locale === "fr" ? "/" : `/${locale}`} className="hover:text-navy">{"← "}{t("backLink")}</Link>
         </div>
         <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("pageTitle")}</h1>
         <p className="mt-2 text-sm text-muted">{t("pageIntro")}</p>

@@ -1,1 +1,1 @@
-export { default } from "@/app/en/propcalc/developers/page";
+export { default, generateMetadata } from "@/app/propcalc/developers/page";

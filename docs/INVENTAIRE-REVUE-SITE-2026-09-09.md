@@ -592,3 +592,18 @@ ce86ddf confirmé publié : CI 34422245054 réussie, dpl_8oNStEVmcgVBdVuZFEL2Qqx
 Contrôle supplémentaire de contenu rendu : les anciennes variables de traduction utilisées comme fonctions masquaient des extraits de code. Balises riches corrigées pour la signature, l’événement et les exemples endpoint/authentification/corps/lien, puis vérifiées dans cinq langues. Le sélecteur des nouvelles configurations n’affiche que health.check.
 
 Compilation finale réussie après corrections de contenu riche. Parcours public local cinq langues/quatre largeurs et refus HTTP facturation/PMS rejoués avec succès ; aucun envoi de webhook.
+
+
+## 10 septembre — page d’état et textes riches restants
+
+Page d’état : portée reformulée en contrôles HTTP ponctuels. Le fichier robots.txt, le contrat GET de l’API, la configuration publique d’authentification et le portail externe ne valident ni toutes les pages, ni les transactions/calculs, ni les données/RLS. Retrait de l’annonce de contrôle des paiements et d’actualisation automatique toutes les 60 secondes dans le navigateur. La sonde d’authentification transmet désormais l’en-tête public apikey côté serveur. HTTP 401/403 reste inconnu, pas une preuve de panne. Un état inconnu empêche le résultat global positif ; une liste vide est également inconnue. Les temporisateurs sont libérés dans tous les cas, corps de réponse annulé et seuil lent explicite à 2 secondes. Retour à l’accueil localisé.
+
+Analyse des appels t.rich avec fonctions de rendu et messages FR : six substitutions mal formées supplémentaires détectées sur organisation/propcalc-développeurs/état. Balises riches corrigées pour la marque et le contact, message d’organisation indisponible remplacé par une information utilisateur sans demander au visiteur de configurer des variables ou migrations. L’analyse ciblée ne trouve plus ce motif ; ce n’est pas une certification de toutes les traductions ni des promesses commerciales de PropCalc.
+
+Six nouveaux tests : suite 1 492 tests / 142 fichiers réussie, lint sans erreur. Cas couverts : agrégation inconnue/vide/dégradée/échouée, autorisation HTTP inconnue, en-tête transmis sans présence dans le résultat, nettoyage du timeout après réussite/échec, réponses lentes et HTTP 500. Aucun test de transaction ni envoi de message externe.
+
+f33388b webhooks publié : CI 34423248700 réussie, dpl_CNjN6FNAL7uBpKYpGxyK9wqodKjS Ready avec alias tevaxia.lu. Refus HTTP production facturation/PMS passés et parcours public de gestion des clés cinq langues/quatre largeurs réussi. Les tests de livraison webhook restent simulés.
+
+Le navigateur a révélé une copie statique anglaise de PropCalc développeurs également utilisée par DE/PT/LB. Les quatre routes réexportent désormais la page traduite commune et sa métadonnée ; exemple data-lang et liens internes localisés. Le CTA Documentation rejoint la section API existante au lieu de la racine API sans route. Les routes status réexportent également la métadonnée traduite. Une URL longue qui débordait à 320 px est rendue sécable. Les promesses de package/extensions/autres canaux restent un sujet distinct non certifié ici.
+
+Compilation finale réussie. Navigateur local : status, PropCalc développeurs et organisation dans cinq langues et aux largeurs 320/390/768/1440, sans débordement ni erreur de page. Métadonnée status, contact visible, retour localisé, marque rendue, CTA Documentation vers #api et message de configuration vérifiés. Sonde publique Supabase avec apikey vérifiée séparément en 200, sans lecture de compte ni de données client.

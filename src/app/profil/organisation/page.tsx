@@ -126,11 +126,7 @@ export default function OrgPage() {
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
           <h2 className="text-lg font-semibold">{t("supabaseNotConfiguredTitle")}</h2>
           <p className="mt-2 text-sm">
-            {t.rich("supabaseNotConfiguredBody", {
-              url: () => <code>NEXT_PUBLIC_SUPABASE_URL</code>,
-              anon: () => <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>,
-              sql: () => <code>003_create_organizations.sql</code>,
-            })}
+            {t("supabaseNotConfiguredBody")}
           </p>
         </div>
       </div>

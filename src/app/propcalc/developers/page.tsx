@@ -1,16 +1,16 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("propcalcDevelopers");
+  const [t, locale] = await Promise.all([getTranslations("propcalcDevelopers"), getLocale()]);
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: "https://www.tevaxia.lu/propcalc/developers",
+      url: `https://www.tevaxia.lu${locale === "fr" ? "" : `/${locale}`}/propcalc/developers`,
     },
   };
 }
@@ -29,7 +29,7 @@ const CHROME_PORTALS = [
 ];
 
 export default async function PropCalcDevelopersPage() {
-  const t = await getTranslations("propcalcDevelopers");
+  const [t, locale] = await Promise.all([getTranslations("propcalcDevelopers"), getLocale()]);
 
   const widgetAttrs = [
     { attr: "data-country", desc: t("widgetAttrCountryDesc") },
@@ -56,7 +56,7 @@ export default async function PropCalcDevelopersPage() {
   ];
 
   return (
-    <div className="bg-background">
+    <div className="bg-background [overflow-wrap:anywhere]">
       {/* Hero */}
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-5xl px-4 text-center">
@@ -71,7 +71,7 @@ export default async function PropCalcDevelopersPage() {
             {t("heroIntro")}
           </p>
           <div className="mt-8 flex gap-4 justify-center flex-wrap">
-            <Link href="https://www.tevaxia.lu/api/v1/propcalc" className="rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white hover:bg-navy-light transition-colors">
+            <Link href="#api" className="rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white hover:bg-navy-light transition-colors">
               {t("heroCtaDocs")} {"→"}
             </Link>
             <Link href="https://www.npmjs.com/package/@tevaxia/propcalc" className="rounded-xl border border-card-border px-8 py-3.5 text-sm font-semibold text-navy hover:bg-card transition-colors">
@@ -123,7 +123,7 @@ export default async function PropCalcDevelopersPage() {
 
 <script src="https://www.tevaxia.lu/propcalc/propcalc.min.js"></script>
 
-<div data-propcalc data-country="lu" data-lang="fr"></div>`}</code></pre>
+<div data-propcalc data-country="lu" data-lang="${locale}"></div>`}</code></pre>
           </div>
 
           <h3 className="text-sm font-semibold text-navy mb-4">{t("widgetAttrsTitle")}</h3>
@@ -313,10 +313,10 @@ console.log(fees.transferTax);  // 42 000`}</code></pre>
           <h2 className="text-2xl font-bold text-navy mb-4">{t("ctaTitle")}</h2>
           <p className="text-muted mb-8">{t("ctaIntro")}</p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Link href="https://www.tevaxia.lu/propcalc" className="rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white hover:bg-navy-light transition-colors">
+            <Link href={`${locale === "fr" ? "" : `/${locale}`}/propcalc`} className="rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white hover:bg-navy-light transition-colors">
               {t("ctaPrimary")} {"→"}
             </Link>
-            <Link href="https://www.tevaxia.lu" className="rounded-xl border border-card-border px-8 py-3.5 text-sm font-semibold text-navy hover:bg-card transition-colors">
+            <Link href={locale === "fr" ? "/" : `/${locale}`} className="rounded-xl border border-card-border px-8 py-3.5 text-sm font-semibold text-navy hover:bg-card transition-colors">
               {t("ctaSecondary")}
             </Link>
           </div>
