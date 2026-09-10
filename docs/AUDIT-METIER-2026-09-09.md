@@ -1204,3 +1204,12 @@ Validation : 1 629 tests / 148 fichiers réussis, dont 16 nouveaux ; lint et com
 Limite SQL importante : la migration locale 026 autorise une création de jeton selon owner_id sans vérifier le propriétaire du lot, et sa fonction SECURITY DEFINER ne recoupe pas cette propriété. Le correctif applicatif de création ne suffit pas contre des appels REST directs. Les politiques/fonctions effectives de production restent non vérifiables sans accès SQL administrateur. Aucune certification de sécurité de la base ni de complétude de l'historique n'est faite. Les fonctions inutilisées listTenantTokens/revokeTenantToken et l'assistant restent hors de ce lot.
 
 Registre locatif 3aec2d2 publié : CI 34434288822 réussie, dpl_8V3dfNPk7cPVTN1n4BZqfQMyprdp Ready, contrôle public de production cinq langues/quatre largeurs réussi (rental-ledger-public-prod.log).
+
+
+## 10 septembre — correctif SQL de propriété préparé et testé, NON appliqué
+
+Ajout de la migration 064_rental_portal_ownership.sql et du test scripts/test-rental-portal-sql.cjs. Dans PostgreSQL PGlite 0.5.8 en mémoire, les migrations historiques 001/006/016/026 reproduisent effectivement l'accès à un lot tiers par jeton de propriétaire incohérent. Après 064 : accès croisés bloqués par politiques restrictives, contrôle de propriété dans la RPC, paiements filtrés par propriétaire, search_path fixé et droits EXECUTE ciblés. Écritures légitimes conservées, jetons incohérents/révoqués/expirés refusés, tri et limite 24 maintenus, migration réexécutable sans suppression de données. Test supplémentaire avec politiques permissives larges pour vérifier qu'elles ne contournent pas les restrictions.
+
+La migration n'est PAS appliquée à Supabase production : accès administrateur indisponible, et le déploiement Vercel ne lance pas les migrations. Procédure et limites dans docs/RENTAL-PORTAL-SQL-064.md. Aucun jeton réel ni compte client utilisé pour ces tests. La reproduction locale ne démontre pas que les politiques historiques sont actives en production.
+
+Portail locataire ac06483 publié : CI 34434739685 réussie, dpl_2dTz9B4n7aM733VNQrC1bEaNAy9U Ready ; QA production cinq langues/quatre largeurs, lien malformé sans RPC, noindex/no-referrer réussie (tenant-portal-public-prod.log). Suite applicative 1 629 tests / 148 fichiers inchangée pour ce lot SQL/documentation.

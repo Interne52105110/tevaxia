@@ -1,0 +1,55 @@
+// Isolated in-memory PostgreSQL only. Never opens a production connection.
+// PGLITE_MODULE can point to a separately installed @electric-sql/pglite package.
+const {PGlite}=require(process.env.PGLITE_MODULE||'@electric-sql/pglite');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const migrations=path.join(__dirname,'../supabase/migrations');
+const a='00000000-0000-4000-8000-000000000001',b='00000000-0000-4000-8000-000000000002';
+const la='10000000-0000-4000-8000-000000000001',lb='10000000-0000-4000-8000-000000000002';
+(async()=>{const db=new PGlite();try{
+ await db.exec(`CREATE ROLE anon; CREATE ROLE authenticated; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY);
+ CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$SELECT NULLIF(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
+ GRANT USAGE ON SCHEMA auth TO anon,authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO anon,authenticated;`);
+ for(const file of ['001_create_valuations.sql','006_cloud_sync_valuations_and_lots.sql','016_rental_payments.sql','026_tenant_portal_tokens.sql'])await db.exec(fs.readFileSync(path.join(migrations,file),'utf8'));
+ await db.exec(`GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO authenticated;
+ INSERT INTO auth.users VALUES ('${a}'),('${b}');
+ INSERT INTO rental_lots(id,user_id,name) VALUES ('${la}','${a}','A private lot'),('${lb}','${b}','B private lot');
+ INSERT INTO rental_payments(lot_id,user_id,period_year,period_month,amount_rent) VALUES ('${la}','${a}',2026,1,123),('${lb}','${b}',2026,1,456),('${la}','${b}',2025,1,999);
+ INSERT INTO tenant_portal_tokens(lot_id,owner_id,token) VALUES ('${la}','${a}','valid-a'),('${lb}','${a}','legacy-mismatch');`);
+ const rpc=async token=>(await db.query('SELECT public.get_tenant_portal_data($1) AS data',[token])).rows[0].data;
+ await db.exec('SET ROLE anon');
+ assert.equal((await rpc('legacy-mismatch')).lot.name,'B private lot');
+ console.log('PASS baseline reproduces cross-owner token exposure in historical migrations');
+ await db.exec('RESET ROLE');
+ const sql=fs.readFileSync(path.join(migrations,'064_rental_portal_ownership.sql'),'utf8');
+ await db.exec(sql);await db.exec(sql);
+ console.log('PASS migration applies twice without data deletion');
+ // Unknown permissive policies must not bypass the new restrictive checks.
+ await db.exec('CREATE POLICY qa_broad_access ON rental_payments FOR ALL USING (true) WITH CHECK (true); CREATE POLICY qa_broad_tokens ON tenant_portal_tokens FOR ALL USING (true) WITH CHECK (true);');
+ await db.exec(`SET ROLE authenticated; SELECT set_config('request.jwt.claim.sub','${a}',false);`);
+ assert.deepEqual((await db.query('SELECT amount_rent::text AS amount FROM rental_payments')).rows,[{amount:'123'}]);
+ assert.equal((await db.query('SELECT token FROM tenant_portal_tokens')).rows.length,1);
+ await assert.rejects(db.query('INSERT INTO rental_payments(lot_id,user_id,period_year,period_month) VALUES ($1,$2,2026,2)',[lb,a]),/row-level security/);
+ await assert.rejects(db.query('INSERT INTO tenant_portal_tokens(lot_id,owner_id,token) VALUES ($1,$2,$3)',[lb,a,'blocked']),/row-level security/);
+ await assert.rejects(db.query('UPDATE tenant_portal_tokens SET lot_id=$1 WHERE token=$2',[lb,'valid-a']),/row-level security/);
+ assert.equal((await db.query('DELETE FROM rental_payments WHERE lot_id=$1 RETURNING id',[lb])).rows.length,0);
+ await db.query('INSERT INTO rental_payments(lot_id,user_id,period_year,period_month,amount_rent) VALUES ($1,$2,2026,2,100)',[la,a]);
+ await db.query('UPDATE rental_payments SET amount_charges=10 WHERE lot_id=$1 AND period_month=2',[la]);
+ assert.equal((await db.query('SELECT amount_total::text AS amount FROM rental_payments WHERE period_month=2')).rows[0].amount,'110');
+ console.log('PASS owned writes work; cross-owner reads, inserts, reassignment and deletion are blocked even with broad permissive policies');
+ await db.exec('RESET ROLE; SET ROLE anon');
+ assert.deepEqual(await rpc('legacy-mismatch'),{error:'invalid_token'});
+ const valid=await rpc('valid-a');assert.equal(valid.lot.name,'A private lot');assert.equal(valid.payments.length,2);assert.ok(valid.payments.every(p=>p.amount_total!==999));
+ await assert.rejects(db.query('SELECT * FROM tenant_portal_tokens'),/permission denied/);
+ console.log('PASS public RPC rejects mismatched token, filters mismatched payments, and direct anonymous table access remains denied');
+ await db.exec(`RESET ROLE; INSERT INTO rental_payments(lot_id,user_id,period_year,period_month,amount_rent) SELECT '${la}','${a}',1990+i,1,1 FROM generate_series(0,24) i;`);
+ const capped=await rpc('valid-a');assert.equal(capped.payments.length,24);assert.equal(capped.payments[0].period,'2026-02');
+ await db.exec("UPDATE tenant_portal_tokens SET revoked_at=NOW() WHERE token='valid-a'");
+ assert.deepEqual(await rpc('valid-a'),{error:'invalid_token'});
+ await db.exec("UPDATE tenant_portal_tokens SET revoked_at=NULL,expires_at=NOW()-INTERVAL '1 day' WHERE token='valid-a'");
+ assert.deepEqual(await rpc('valid-a'),{error:'invalid_token'});
+ assert.deepEqual(await rpc('missing'),{error:'invalid_token'});
+ const config=(await db.query("SELECT proconfig FROM pg_proc WHERE oid='public.get_tenant_portal_data(text)'::regprocedure")).rows[0].proconfig;
+ assert.ok(config.some(s=>s.startsWith('search_path=')));
+ console.log('PASS bounded sorted history, revoked/expired/missing tokens and fixed function search_path');
+ console.log('PASS all SQL checks; local PGlite only, production unchanged');
+ }finally{await db.close()}})().catch(e=>{console.error(e);process.exit(1)});
