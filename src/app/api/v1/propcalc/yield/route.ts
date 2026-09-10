@@ -90,6 +90,7 @@ export async function POST(request: Request) {
       annualRent: country.toLowerCase() === 'fr' ? (body.annualTaxReceipts ?? yieldResult.effectiveRent) : annualRent,
       taxYear: body.taxYear, frenchMicroEligible: body.frenchMicroEligible, frenchNonProfessional: body.frenchNonProfessional, frenchSocialRegime: body.frenchSocialRegime,
       italianCedolareEligible: body.italianCedolareEligible, italianAnnualContractRent: body.italianAnnualContractRent,
+      portugueseCategoryFConfirmed: body.portugueseCategoryFConfirmed, portugueseRentalUse: body.portugueseRentalUse, portugueseAnnualTaxReceipts: body.portugueseAnnualTaxReceipts, portugueseDeductibleExpenses: body.portugueseDeductibleExpenses, portugueseModerateRentEligible: body.portugueseModerateRentEligible,
       countryCode: country.toLowerCase(),
       taxRegime: selectedRegime,
       marginalRate: marginalRate ?? 0.30,
@@ -103,7 +104,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        assumptions: { taxRegime: selectedRegime, marginalRate: marginalRate ?? 0.30, socialChargesRate, vacancyRate: vacancyRate ?? 0, managementRate: managementRate ?? 0, monthlyCharges: monthlyCharges ?? 0, annualPropertyTax: annualPropertyTax ?? 0, annualInsurance: 0, annualMaintenance: 0, ...(country.toLowerCase() === 'it' ? { italianTax: taxResult.italianTaxAssumptions } : {}), ...(country.toLowerCase() === 'fr' ? { frenchTax: taxResult.frenchTaxAssumptions, annualTaxReceipts: body.annualTaxReceipts ?? yieldResult.effectiveRent, receiptBasis: body.annualTaxReceipts === undefined ? "Modeled rent after vacancy; tenant charges must be included where taxable" : "Explicit aggregate tax receipts supplied by caller" } : {}) },
+        assumptions: { taxRegime: selectedRegime, marginalRate: marginalRate ?? 0.30, socialChargesRate, vacancyRate: vacancyRate ?? 0, managementRate: managementRate ?? 0, monthlyCharges: monthlyCharges ?? 0, annualPropertyTax: annualPropertyTax ?? 0, annualInsurance: 0, annualMaintenance: 0, ...(country.toLowerCase() === 'pt' ? { portugueseTax: taxResult.portugueseTaxAssumptions } : {}), ...(country.toLowerCase() === 'it' ? { italianTax: taxResult.italianTaxAssumptions } : {}), ...(country.toLowerCase() === 'fr' ? { frenchTax: taxResult.frenchTaxAssumptions, annualTaxReceipts: body.annualTaxReceipts ?? yieldResult.effectiveRent, receiptBasis: body.annualTaxReceipts === undefined ? "Modeled rent after vacancy; tenant charges must be included where taxable" : "Explicit aggregate tax receipts supplied by caller" } : {}) },
         data: {
           currency: countryData.currency,
           grossYield: yieldResult.grossYield,

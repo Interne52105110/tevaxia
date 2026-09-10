@@ -122,13 +122,13 @@
       {
         "code": "flat_resident",
         "name": {
-          "en": "Flat rate 28%",
-          "fr": "Taux forfaitaire 28%",
-          "pt": "Taxa autónoma 28%"
+          "en": "Autonomous rate — qualified category F",
+          "fr": "Taux autonome — catégorie F qualifiée",
+          "pt": "Taxa autónoma — categoria F confirmada"
         },
         "type": "resident",
-        "flatRate": 0.28,
-        "notes": "Résidents : flat 28% ou option pour le barème progressif"
+        "flatRate": 0.25,
+        "notes": "Habitation 25 %, autre location catégorie F 28 %. Dès 2026, habitation éligible à EBF art. 45-C : 10 %, sauf taux plus favorable (hors scénario). Recettes fiscales et dépenses payées éligibles explicitement renseignées, sans intérêts/amortissement/AIMI."
       },
       {
         "code": "progressive_resident",
@@ -138,18 +138,18 @@
           "pt": "Englobamento"
         },
         "type": "resident",
-        "notes": "Option englobamento : barème progressif 14.5-48%"
+        "notes": "Englobamento : scénario au taux marginal saisi sur la base fiscale catégorie F ; pas de déduction des intérêts ou amortissements ni de liquidation du barème du foyer."
       },
       {
         "code": "flat_nonresident",
         "name": {
-          "en": "Non-resident flat 25%",
-          "fr": "Non-résident 25%",
-          "pt": "Não residente 25%"
+          "en": "Autonomous rate — qualified category F",
+          "fr": "Taux autonome — catégorie F qualifiée",
+          "pt": "Taxa autónoma — categoria F confirmada"
         },
         "type": "nonResident",
         "flatRate": 0.25,
-        "notes": "25% flat pour non-résidents"
+        "notes": "Habitation 25 %, autre location catégorie F 28 %. Dès 2026, habitation éligible à EBF art. 45-C : 10 %, sauf taux plus favorable (hors scénario). Recettes fiscales et dépenses payées éligibles explicitement renseignées, sans intérêts/amortissement/AIMI."
       }
     ],
     "leaseReductions": [
@@ -223,7 +223,8 @@
         "upTo": null,
         "rate": 0.48
       }
-    ]
+    ],
+    "leaseReductionsScope": "Les taux réduits de longue durée nécessitent notamment durée, date/renouvellement, conditions de loyer et éventuelles règles transitoires. Ils ne sont pas appliqués automatiquement par /yield."
   },
   "macro": {
     "hicpAvg": 3.5,

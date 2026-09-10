@@ -176,6 +176,7 @@ export default async function PropCalcDevelopersPage() {
 
           <p className="mb-8 text-sm text-muted [overflow-wrap:anywhere]">{t("frenchRentalInputs")}</p>
           <p className="mb-8 text-sm text-muted [overflow-wrap:anywhere]">{t("italianRentalInputs")}</p>
+          <p className="mb-8 text-sm text-muted [overflow-wrap:anywhere]">{t("portugueseRentalInputs")}</p>
 
           <p className="mb-8 text-sm text-muted [overflow-wrap:anywhere]">{t("ukFeesInputs")}</p>
 

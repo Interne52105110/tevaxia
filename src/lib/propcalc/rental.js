@@ -1,5 +1,6 @@
 import { calculateFrenchRentalTax } from './french-rental-tax';
 import { calculateItalianRentalTax } from './italian-rental-tax';
+import { calculatePortugueseRentalTax } from './portuguese-rental-tax';
 
 /**
  * Rental Yield Calculation Engine
@@ -124,6 +125,7 @@ export function calculateNetYield(params) {
 export function calculateTaxImpact(params) {
   if (params.countryCode === 'fr') return calculateFrenchRentalTax(params);
   if (params.countryCode === 'it') return calculateItalianRentalTax(params);
+  if (params.countryCode === 'pt') return calculatePortugueseRentalTax(params);
   const {
     netRent,
     purchasePrice,

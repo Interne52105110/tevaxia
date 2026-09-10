@@ -2,6 +2,7 @@ export type PropcalcEndpoint = 'fees' | 'mortgage' | 'yield' | 'cashflow';
 export interface PropcalcApiInput {
  frenchVatOnFullPrice?: boolean; frenchVatRate?: number; loanGuaranteeCost?: number;
  taxYear?: number; frenchMicroEligible?: boolean; frenchNonProfessional?: boolean; frenchSocialRegime?: string; annualTaxReceipts?: number;
+ portugueseCategoryFConfirmed?: boolean; portugueseRentalUse?: string; portugueseAnnualTaxReceipts?: number; portugueseDeductibleExpenses?: number; portugueseModerateRentEligible?: boolean;
  italianCedolareEligible?: boolean; italianAnnualContractRent?: number;
  ukAdditionalProperty?: boolean; ukNonResident?: boolean;
  country: string; price?: number; isPrimary?: boolean; isFirstTime?: boolean; isNew?: boolean; region?: string; loanAmount?: number; buyerAge?: number;
@@ -11,7 +12,7 @@ export interface PropcalcApiInput {
 const fields: Record<PropcalcEndpoint, string[]> = {
  fees: ['country','price','isPrimary','isFirstTime','isNew','region','loanAmount','buyerAge','frenchVatOnFullPrice','frenchVatRate','loanGuaranteeCost','ukAdditionalProperty','ukNonResident'],
  mortgage: ['country','monthlyIncome','existingDebts','downPayment','annualRate','durationYears','residencyStatus'],
- yield: ['country','purchasePrice','monthlyRent','monthlyCharges','annualPropertyTax','vacancyRate','managementRate','taxRegime','marginalRate','taxYear','frenchMicroEligible','frenchNonProfessional','frenchSocialRegime','annualTaxReceipts','italianCedolareEligible','italianAnnualContractRent'],
+ yield: ['country','purchasePrice','monthlyRent','monthlyCharges','annualPropertyTax','vacancyRate','managementRate','taxRegime','marginalRate','taxYear','frenchMicroEligible','frenchNonProfessional','frenchSocialRegime','annualTaxReceipts','italianCedolareEligible','italianAnnualContractRent','portugueseCategoryFConfirmed','portugueseRentalUse','portugueseAnnualTaxReceipts','portugueseDeductibleExpenses','portugueseModerateRentEligible'],
  cashflow: ['country','propertyPrice','downPayment','monthlyRent','annualRate','durationYears','marginalRate','loanGuaranteeCost'],
 };
 const required: Record<PropcalcEndpoint,string[]> = { fees:['price'],mortgage:['monthlyIncome'],yield:['purchasePrice','monthlyRent'],cashflow:['propertyPrice','downPayment','monthlyRent','annualRate','durationYears'] };
@@ -21,14 +22,16 @@ export function assertPropcalcApiInput(value: unknown, endpoint: PropcalcEndpoin
  const input=value as Record<string,unknown>;
  if (Object.keys(input).some(key=>!fields[endpoint].includes(key))) throw new RangeError('Unsupported input field');
  if (typeof input.country!=='string' || !/^[a-z]{2}$/i.test(input.country)) throw new RangeError('A supported two-letter country code is required');
- if (input.country.toLowerCase() !== 'fr' && ['frenchVatOnFullPrice','frenchVatRate','loanGuaranteeCost','taxYear','frenchMicroEligible','frenchNonProfessional','frenchSocialRegime','annualTaxReceipts'].some(key=>input[key]!==undefined)) throw new RangeError('French acquisition fields require country fr');
+ if (input.country.toLowerCase() !== 'fr' && ['frenchVatOnFullPrice','frenchVatRate','loanGuaranteeCost','frenchMicroEligible','frenchNonProfessional','frenchSocialRegime','annualTaxReceipts'].some(key=>input[key]!==undefined)) throw new RangeError('French acquisition fields require country fr');
  if (input.country.toLowerCase() !== 'uk' && ['ukAdditionalProperty','ukNonResident'].some(key=>input[key]!==undefined)) throw new RangeError('UK acquisition fields require country uk');
  if (input.country.toLowerCase() !== 'it' && ['italianCedolareEligible','italianAnnualContractRent'].some(key=>input[key]!==undefined)) throw new RangeError('Italian rental fields require country it');
+ if (!['fr','pt'].includes(input.country.toLowerCase()) && input.taxYear!==undefined) throw new RangeError('taxYear is supported only for France and Portugal');
+ if (input.country.toLowerCase() !== 'pt' && ['portugueseCategoryFConfirmed', 'portugueseRentalUse', 'portugueseAnnualTaxReceipts', 'portugueseDeductibleExpenses', 'portugueseModerateRentEligible'].some(key=>input[key]!==undefined)) throw new RangeError('Portuguese rental fields require country pt');
  for(const key of required[endpoint])if(input[key]===undefined)throw new RangeError(`${key} is required`);
  for(const [key,val] of Object.entries(input)){
   if(key==='country')continue;
-  if(['italianCedolareEligible','isPrimary','isFirstTime','isNew','frenchVatOnFullPrice','frenchMicroEligible','frenchNonProfessional','ukAdditionalProperty','ukNonResident'].includes(key)){if(typeof val!=='boolean')throw new RangeError(`${key} must be boolean`);continue;}
-  if(['region','taxRegime','residencyStatus','frenchSocialRegime'].includes(key)){
+  if(['portugueseCategoryFConfirmed','portugueseModerateRentEligible','italianCedolareEligible','isPrimary','isFirstTime','isNew','frenchVatOnFullPrice','frenchMicroEligible','frenchNonProfessional','ukAdditionalProperty','ukNonResident'].includes(key)){if(typeof val!=='boolean')throw new RangeError(`${key} must be boolean`);continue;}
+  if(['portugueseRentalUse','region','taxRegime','residencyStatus','frenchSocialRegime'].includes(key)){
    if(typeof val!=='string'||val.length>80)throw new RangeError(`${key} must be a string`);
    if(key==='residencyStatus'&&!['resident','nonResident','nonEU'].includes(val))throw new RangeError('Invalid residencyStatus');
    continue;
