@@ -5846,7 +5846,7 @@
   },
   "propcalc": {
     "badge": "Kostenloses WordPress-Plugin",
-    "heroTitle": "Der Multi-Länder-Immobilien-<br/>rechner für WordPress",
+    "heroTitle": "Der Multi-Länder-Immobilien-<br></br>rechner für WordPress",
     "heroDescription": "10 Länder mit regionaler Granularität. 10 Berechnungsmodule. 7 Sprachen. Erwerbsnebenkosten, Kreditkapazität, Mietrendite, Cash-Flow und internationaler Vergleich — 100% clientseitig, DSGVO-konform.",
     "downloadCta": "Auf WordPress.org herunterladen →",
     "viewModules": "Alle Module anzeigen",
@@ -5973,7 +5973,8 @@
       "faq4a": "Ja, Open Source auf GitHub.",
       "faq5q": "Ist PropCalc mit Page Buildern kompatibel?",
       "faq5a": "Ja, mit Elementor, Divi, WPBakery und WooCommerce."
-    }
+    },
+    "demoFranceTransferAssumption": "Frankreich: Für eine bestehende Wohnimmobilie als Kapitalanlage werden ohne Departement 6,3185 % Übertragungssteuern angesetzt, ohne Befreiungen, nach der DGFiP-Tabelle vom 1. Juni 2026. Der tatsächliche Betrag hängt von Ort und Urkunde ab."
   },
   "solutions": {
     "syndic": {

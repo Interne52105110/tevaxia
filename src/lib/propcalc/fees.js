@@ -117,17 +117,19 @@ function calculateFranceFees(params, countryData) {
       details: 'Taxe de publicit\u00e9 fonci\u00e8re 0.715%',
     });
   } else {
-    // Existing property: DMTO (registration / transfer tax)
+    // Residential ordinary-rate snapshot, not a nationwide average or a tax assessment.
     const region = findRegion(acq.regions, regionCode);
-    const dmtoRate = region ? region.registrationTaxRate : acq.old.typicalTotal;
-    const dmtoAmount = propertyPrice * dmtoRate;
+    if (regionCode && !region) throw new RangeError('Unsupported French department; use a listed department or an explicit unlocated scenario');
+    const firstPrimary = params.isFirstTimeBuyer === true && params.isPrimaryResidence === true;
+    const departmentalRate = firstPrimary
+      ? (region?.firstPrimaryDepartmentalTaxRate ?? acq.old.departmentalTax)
+      : (region?.departmentalTaxRate ?? acq.old.departmentalTaxMax);
+    const dmtoRate = departmentalRate * (1 + acq.old.collectionRate) + acq.old.communalTax;
     items.push({
       label: 'fees.registrationTax',
-      amount: Math.round(dmtoAmount * 100) / 100,
-      rate: dmtoRate * 100,
-      details: region
-        ? `DMTO ${region.name} (${(dmtoRate * 100).toFixed(2)}%)`
-        : `DMTO taux moyen (${(dmtoRate * 100).toFixed(1)}%)`,
+      amount: Math.round(propertyPrice * dmtoRate * 100) / 100,
+      rate: Math.round(dmtoRate * 1e7) / 1e5,
+      details: `DMTO résidentiel ${region ? region.name : 'hypothèse sans département'} : ${(dmtoRate * 100).toFixed(5)} % ; département ${(departmentalRate * 100).toFixed(2)} %, commune 1,20 %, collecte 2,37 % du droit départemental. Tableau ${acq.old.rateSnapshot}.${firstPrimary ? ' Primo-accession et résidence principale confirmées pour toute la part acquise ; cas mixtes exclus.' : ''} Hors exonérations locales et cas particuliers.`,
     });
   }
 

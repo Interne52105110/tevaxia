@@ -64,7 +64,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        assumptions: { isNew: isNew ?? false, isPrimary: isPrimary ?? false, isFirstTime: isFirstTime ?? false, region: region ?? null, loanAmount: loanAmount ?? 0, buyerAge: buyerAge ?? null },
+        assumptions: { isNew: isNew ?? false, isPrimary: isPrimary ?? false, isFirstTime: isFirstTime ?? false, region: region ?? null, loanAmount: loanAmount ?? 0, buyerAge: buyerAge ?? null, ...(country.toLowerCase() === 'fr' && !isNew ? { frenchTransferTax: { rateSnapshot: "2026-06-01", scope: "Ordinary residential transfer, no local exemptions; isFirstTime and isPrimary must apply to the entire acquired share. Mixed buyer eligibility is not modeled.", unlocatedDepartmentalRateAssumption: region ? null : (isFirstTime && isPrimary ? 0.045 : 0.05), source: "https://www.impots.gouv.fr/droits-denregistrement" } } : {}) },
         data: {
           currency: countryData.currency,
           totalFees: result.total,

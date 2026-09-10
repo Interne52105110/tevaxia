@@ -5846,7 +5846,7 @@
   },
   "propcalc": {
     "badge": "Plugin WordPress Gratuito",
-    "heroTitle": "A calculadora imobiliária<br/>multi-países para WordPress",
+    "heroTitle": "A calculadora imobiliária<br></br>multi-países para WordPress",
     "heroDescription": "10 países com granularidade regional. 10 módulos de cálculo. 7 línguas. Custos de aquisição, capacidade de empréstimo, rendimento de aluguer, cash-flow e comparador internacional — 100% do lado do cliente, em conformidade com o RGPD.",
     "downloadCta": "Transferir no WordPress.org →",
     "viewModules": "Ver todos os módulos",
@@ -5973,7 +5973,8 @@
       "faq4a": "Sim, open source no GitHub.",
       "faq5q": "O PropCalc e compativel com page builders?",
       "faq5a": "Sim, com Elementor, Divi e WooCommerce."
-    }
+    },
+    "demoFranceTransferAssumption": "França: impostos de transmissão simulados a 6,3185 %, sem departamento, para investimento em habitação existente e sem isenções, segundo a tabela DGFiP de 1 de junho de 2026. O valor real depende da localização e da escritura."
   },
   "solutions": {
     "syndic": {

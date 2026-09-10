@@ -5846,7 +5846,7 @@
   },
   "propcalc": {
     "badge": "Gratis WordPress-Plugin",
-    "heroTitle": "De Multi-Länner-Immobilie-<br/>rechner fir WordPress",
+    "heroTitle": "De Multi-Länner-Immobilie-<br></br>rechner fir WordPress",
     "heroDescription": "10 Länner mat regionaler Granularitéit. 10 Berechnungsmoduler. 7 Sproochen. Erwerbsniewekäschten, Kreditkapazitéit, Locatiounsrendite, Cash-Flow an internationale Vergläich — 100% clientsäiteg, RGPD-konform.",
     "downloadCta": "Op WordPress.org eroflueden →",
     "viewModules": "All Moduler kucken",
@@ -5973,7 +5973,8 @@
       "faq4a": "Jo, Open Source op GitHub.",
       "faq5q": "Ass PropCalc kompatibel mat Page Buildern?",
       "faq5a": "Jo, mat Elementor, Divi an WooCommerce."
-    }
+    },
+    "demoFranceTransferAssumption": "Frankräich: Ouni Departement gi fir eng bestoend Wunnimmobilie als Investitioun 6,3185 % Iwwerdroungssteieren ugesat, ouni Befreiungen, no der DGFiP-Tabell vum 1. Juni 2026. De reelle Betrag hänkt vun der Plaz an dem Akt of."
   },
   "solutions": {
     "syndic": {

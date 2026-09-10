@@ -5846,7 +5846,7 @@
   },
   "propcalc": {
     "badge": "Free WordPress Plugin",
-    "heroTitle": "The multi-country real estate<br/>calculator for WordPress",
+    "heroTitle": "The multi-country real estate<br></br>calculator for WordPress",
     "heroDescription": "10 countries with regional granularity. 10 calculation modules. 7 languages. Acquisition fees, borrowing capacity, rental yield, cash-flow and international comparator — 100% client-side, GDPR compliant.",
     "downloadCta": "Download on WordPress.org →",
     "viewModules": "View all modules",
@@ -5973,7 +5973,8 @@
       "faq4a": "Yes, the project is open source on GitHub. Contributions are welcome via pull requests.",
       "faq5q": "Is PropCalc compatible with page builders?",
       "faq5a": "Yes, compatible with Elementor, Divi, WPBakery and WooCommerce themes."
-    }
+    },
+    "demoFranceTransferAssumption": "France: transfer taxes modeled at 6.3185% without a department, for an existing residential investment with no exemptions, using the DGFiP table of 1 June 2026. The actual amount depends on the location and deed."
   },
   "solutionsHub": {
     "meta": {

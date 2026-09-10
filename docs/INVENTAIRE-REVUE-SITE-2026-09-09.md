@@ -865,3 +865,18 @@ La revue globale reste en cours ; les migrations Supabase 064/065 ne sont toujou
 - Validation : 1 758 tests / 156 fichiers, dont 19 cas de lecture stricte, absence confirmée, réponse étrangère, erreurs, conflits, valeurs non confirmées, retrait des accords, création sans upsert et changement de compte. Lint/build ; fixture avec vrais composants AuthProvider/formulaire/service, serveur simulé, cinq langues/quatre largeurs, échecs puis reprise, modification conservée, requête suspendue et changement de compte, accès au bandeau réel. Contrôle public anonyme du profil dans les cinq langues. Sonde du schéma public user_preferences avec limit=0 : HTTP 200, zéro ligne ; aucune préférence réelle lue ou modifiée.
 
 La revue globale reste en cours. Les contrôles des droits/cascades SQL effectifs en production nécessitent toujours l’accès administrateur Supabase manquant ; les migrations 064/065 restent non appliquées.
+
+
+## 10 septembre 2026 — PropCalc : droits de mutation résidentiels français
+
+Les quinze départements proposés sont recalés sur le tableau DGFiP du 1er juin 2026 : taux départemental 5 %, taxe communale 1,20 %, prélèvement 2,37 % du droit départemental, soit 6,3185 %. L'ancien 5,81 %/6,2 % sous-estimait les droits. Les deux conditions primo-accession ET résidence principale sont requises pour écarter la hausse sur toute la part acquise : 4,5 % départemental, total 5,80665 %. Le cas d'acquéreurs à éligibilités mixtes et les exonérations locales ne sont pas modélisés. Un département inconnu est refusé ; une localisation absente donne une hypothèse explicitement identifiée, jamais une moyenne nationale. Les API fees/cashflow exposent la date et la portée de cette hypothèse ; la démonstration du site la présente dans ses cinq langues.
+
+Validation : 1779 tests / 157 fichiers réussis, dont 21 contrôles supplémentaires (15 départements, conditions cumulatives, 200 000 EUR → 12 637 EUR de droits / 11 613,30 EUR si éligible, émoluments séparés, refus d'un département inconnu, propagation API). Aucun acte réel ni donnée client modifié. Le barème est un instantané daté, pas un calcul historique ou futur automatique.
+
+Sources : [DGFiP, tableau au 1er juin 2026](https://www.impots.gouv.fr/sites/default/files/media/1_metier/3_partenaire/notaires/dmto/dmto_2026-06.pdf), [BOFiP, régime de droit commun au 17 juin 2026](https://bofip.impots.gouv.fr/bofip/3311-PGP.html/identifiant=BOI-ENR-DMTOI-10-20-20260617), [CGI 1647, prélèvement pour frais d'assiette](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000053562192/2026-05-17).
+
+Portée limitée : ce lot corrige les DMTO de droit commun dans l'ancien. La branche neuf (assiette HT/TTC et éligibilité TVA), la garantie de prêt ancienne PPD, les frais de formalités/débours, le livre foncier d'Alsace-Moselle et les autres modèles fiscaux PropCalc restent à traiter ; le total actuel ne vaut pas décompte notarial complet. La revue exhaustive de Tevaxia n'est pas terminée.
+
+Le contrôle mobile de ce lot a également corrigé le titre PropCalc : balise br auparavant affichée en texte brut, responsable du débordement horizontal. Balise riche appariée dans les cinq traductions et retour à la ligne des longs mots ; agrandissement général de 10 % conservé. Compilation finale et lint réussis.
+
+Les anciennes pages autonomes DE/PT/LB ont été remplacées par la page partagée traduite, comme EN : elles ne contenaient pas le simulateur actuel. Les cinq locales bénéficient désormais des mêmes corrections.

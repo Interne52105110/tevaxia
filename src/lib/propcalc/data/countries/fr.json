@@ -52,10 +52,15 @@
       "departmentalTax": 0.045,
       "departmentalTaxMax": 0.05,
       "communalTax": 0.012,
-      "typicalTotal": 0.058,
+      "typicalTotal": 0.063185,
       "notes": [
-        "Depuis avril 2025: départements peuvent monter à 5.0% (jusqu'au 31/03/2028)"
-      ]
+        "Simulation résidentielle de droit commun selon le tableau DGFiP au 01/06/2026 ; hors exonérations locales et cas particuliers.",
+        "Sans département : hypothèse explicite de taux départemental 5 %, et non taux moyen national.",
+        "La hausse temporaire est écartée seulement si toute la part acquise remplit les conditions de primo-accession et de résidence principale."
+      ],
+      "collectionRate": 0.0237,
+      "rateSnapshot": "2026-06-01",
+      "source": "https://www.impots.gouv.fr/sites/default/files/media/1_metier/3_partenaire/notaires/dmto/dmto_2026-06.pdf"
     },
     "new": {
       "registrationRate": 0.00715,
@@ -81,77 +86,107 @@
       {
         "code": "75",
         "name": "Paris",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "77",
         "name": "Seine-et-Marne",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "78",
         "name": "Yvelines",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "91",
         "name": "Essonne",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "92",
         "name": "Hauts-de-Seine",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "93",
         "name": "Seine-Saint-Denis",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "94",
         "name": "Val-de-Marne",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "95",
         "name": "Val-d'Oise",
-        "registrationTaxRate": 0.0581
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "13",
         "name": "Bouches-du-Rhône (Marseille)",
-        "registrationTaxRate": 0.062
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "31",
         "name": "Haute-Garonne (Toulouse)",
-        "registrationTaxRate": 0.062
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "33",
         "name": "Gironde (Bordeaux)",
-        "registrationTaxRate": 0.062
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "44",
         "name": "Loire-Atlantique (Nantes)",
-        "registrationTaxRate": 0.062
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "59",
         "name": "Nord (Lille)",
-        "registrationTaxRate": 0.062
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "67",
         "name": "Bas-Rhin (Strasbourg)",
-        "registrationTaxRate": 0.062
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       },
       {
         "code": "69",
         "name": "Rhône (Lyon)",
-        "registrationTaxRate": 0.062
+        "registrationTaxRate": 0.063185,
+        "departmentalTaxRate": 0.05,
+        "firstPrimaryDepartmentalTaxRate": 0.045
       }
     ]
   },

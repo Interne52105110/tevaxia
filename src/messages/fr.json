@@ -5846,7 +5846,7 @@
   },
   "propcalc": {
     "badge": "Plugin WordPress Gratuit",
-    "heroTitle": "Le calculateur immobilier<br/>multi-pays pour WordPress",
+    "heroTitle": "Le calculateur immobilier<br></br>multi-pays pour WordPress",
     "heroDescription": "10 pays avec granularité régionale. 10 modules de calcul. 7 langues. Frais d'acquisition, capacité d'emprunt, rendement locatif, cash-flow et comparateur international — 100% côté client, conforme RGPD.",
     "downloadCta": "Télécharger sur WordPress.org →",
     "viewModules": "Voir tous les modules",
@@ -5973,7 +5973,8 @@
       "faq4a": "Oui, le projet est open source sur GitHub. Les contributions (code, traductions, donnees pays) sont bienvenues via pull requests.",
       "faq5q": "PropCalc fonctionne-t-il avec WooCommerce ou Jetstreambuilder ?",
       "faq5a": "Oui, PropCalc est compatible avec les principaux page builders (Elementor, Divi, WPBakery) et s'integre dans les themes WooCommerce sans conflit."
-    }
+    },
+    "demoFranceTransferAssumption": "France : droits de mutation simulés à 6,3185 % sans département, pour un investissement dans l’ancien hors exonérations, selon le tableau DGFiP du 1er juin 2026. Le montant réel dépend du lieu et de l’acte."
   },
   "solutionsHub": {
     "meta": {

@@ -54,7 +54,7 @@ export default function PropCalcPage() {
 
   return (
     <>
-    <div className="bg-background">
+    <div className="bg-background [overflow-wrap:anywhere]">
       {/* Hero */}
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-5xl px-4 text-center">
@@ -62,7 +62,7 @@ export default function PropCalcPage() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>
             {t("badge")}
           </div>
-          <h1 className="text-4xl font-bold text-navy sm:text-5xl tracking-tight">
+          <h1 className="text-4xl font-bold text-navy sm:text-5xl tracking-tight [overflow-wrap:anywhere]">
             {t.rich("heroTitle", { br: () => <br /> })}
           </h1>
           <p className="mt-6 text-lg text-muted max-w-2xl mx-auto leading-relaxed">

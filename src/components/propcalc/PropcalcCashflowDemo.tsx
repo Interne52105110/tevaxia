@@ -295,6 +295,7 @@ export default function PropcalcCashflowDemo() {
               </LineChart>
             </ResponsiveContainer>
             <p className="mt-3 text-[10px] text-muted">{t("demoDisclaimer")}</p>
+            {countryCode === "fr" && <p className="mt-3 text-sm text-muted">{t("demoFranceTransferAssumption")} <a className="underline" href="https://www.impots.gouv.fr/droits-denregistrement">DGFiP</a></p>}
           </div>
         </div>
       </div>
