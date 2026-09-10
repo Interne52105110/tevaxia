@@ -1,26 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
-import { supabase } from "@/lib/supabase";
+import { useLocale, useTranslations } from "next-intl";
+import { loadAccountDashboard, type AccountDashboard } from "@/lib/account-dashboard";
 import type { UserProfile } from "@/lib/profile";
 import type { User } from "@supabase/supabase-js";
 
 interface DashboardHeroProps {
   user: User | null;
   profile: UserProfile;
-}
-
-interface Stats {
-  tier: string;
-  valuationsCount: number;
-  alertsActive: number;
-  sharedLinksActive: number;
-  apiKeysCount: number;
-  aiUsageToday: number;
-  aiQuotaFree: number;
-  itemsCap: number;
-  hasByok: boolean;
 }
 
 const TIER_STYLE: Record<string, { dot: string; label: string }> = {
@@ -48,9 +36,13 @@ function firstName(profile: UserProfile, user: User | null): string {
   return "";
 }
 
-export default function DashboardHero({ user, profile }: DashboardHeroProps) {
-  const t = useTranslations("dashboardHero");
-  const [stats, setStats] = useState<Stats | null>(null);
+export default function DashboardHero(props: DashboardHeroProps) {
+  return <AccountHero key={props.user?.id ?? "guest"} {...props} />;
+}
+function AccountHero({ user, profile }: DashboardHeroProps) {
+  const t = useTranslations("dashboardHero"), locale = useLocale();
+  const [stats, setStats] = useState<AccountDashboard | null>(null);
+  const [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);
   const [hour, setHour] = useState(() => new Date().getHours());
 
   useEffect(() => {
@@ -59,37 +51,13 @@ export default function DashboardHero({ user, profile }: DashboardHeroProps) {
   }, []);
 
   useEffect(() => {
-    if (!user || !supabase) return;
-    const load = async () => {
-      const [tierRes, valuationsRes, alertsRes, sharedRes, apiKeysRes, aiRes] = await Promise.all([
-        supabase!.from("user_tiers").select("tier, items_cap").eq("user_id", user.id).maybeSingle(),
-        supabase!.from("valuations").select("id", { count: "exact", head: true }).eq("user_id", user.id),
-        supabase!.from("market_alerts").select("id", { count: "exact", head: true }).eq("user_id", user.id).eq("active", true),
-        supabase!.from("shared_links").select("id", { count: "exact", head: true }).eq("user_id", user.id).gte("expires_at", new Date().toISOString()),
-        supabase!.from("api_keys").select("id", { count: "exact", head: true }).eq("user_id", user.id).eq("active", true),
-        supabase!.from("user_ai_settings").select("daily_usage, last_usage_date, ai_api_key_encrypted").eq("user_id", user.id).maybeSingle(),
-      ]);
-
-      const today = new Date().toISOString().slice(0, 10);
-      const aiData = aiRes.data as { daily_usage?: number; last_usage_date?: string; ai_api_key_encrypted?: string | null } | null;
-      const aiToday = aiData?.last_usage_date === today ? (aiData?.daily_usage ?? 0) : 0;
-
-      setStats({
-        tier: (tierRes.data as { tier?: string } | null)?.tier ?? "free",
-        itemsCap: (tierRes.data as { items_cap?: number } | null)?.items_cap ?? 500,
-        valuationsCount: valuationsRes.count ?? 0,
-        alertsActive: alertsRes.count ?? 0,
-        sharedLinksActive: sharedRes.count ?? 0,
-        apiKeysCount: apiKeysRes.count ?? 0,
-        aiUsageToday: aiToday,
-        aiQuotaFree: 5,
-        hasByok: !!aiData?.ai_api_key_encrypted,
-      });
-    };
-    void load();
-  }, [user]);
-
-  const tierStyle = TIER_STYLE[stats?.tier ?? "free"] ?? TIER_STYLE.free;
+    if (!user) return;
+    let active = true;
+    void loadAccountDashboard(user.id).then(result => { if (active) setStats(result); }).catch(() => { if (active) setFailed(true); });
+    return () => { active = false; };
+  }, [user, attempt]);
+  const reload = () => { setStats(null); setFailed(false); setAttempt(value => value + 1); };
+  const tierStyle = stats?.plan ? TIER_STYLE[stats.plan.tier] : { dot: "bg-slate-400", label: t("planUnknown") };
   const name = firstName(profile, user);
   const greeting = t(greetingKey(hour));
   const initial = (name || profile.societe || user?.email || "?").slice(0, 1).toUpperCase();
@@ -133,38 +101,18 @@ export default function DashboardHero({ user, profile }: DashboardHeroProps) {
               <span className={`h-1.5 w-1.5 rounded-full ${tierStyle.dot}`} />
               {tierStyle.label}
             </span>
-            {stats?.hasByok && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium ring-1 ring-white/15">
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
-                </svg>
-                {t("byokActive")}
-              </span>
-            )}
+
           </div>
         </div>
 
-        {/* KPIs — 4 cards, grandes numériques, hints minimaux */}
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <Kpi
-            label={t("kpiValuations")}
-            value={stats?.valuationsCount ?? "—"}
-            hint={stats ? `/ ${stats.itemsCap.toLocaleString("fr-FR")}` : undefined}
-          />
-          <Kpi
-            label={t("kpiAiAnalyses")}
-            value={stats ? (stats.hasByok ? "∞" : String(stats.aiUsageToday)) : "—"}
-            hint={stats ? (stats.hasByok ? t("aiUnlimited") : `/ ${stats.aiQuotaFree} ${t("aiToday")}`) : undefined}
-          />
-          <Kpi
-            label={t("kpiActiveAlerts")}
-            value={stats?.alertsActive ?? "—"}
-          />
-          <Kpi
-            label={t("kpiSharedLinks")}
-            value={stats?.sharedLinksActive ?? "—"}
-            hint={stats && stats.apiKeysCount > 0 ? t("sharedApiKeys", { count: stats.apiKeysCount }) : undefined}
-          />
+        <p className="mt-5 text-xs text-white/70">{t("countScope")}</p>
+        {(failed || stats?.incomplete) && <p role="alert" className="mt-3 text-sm text-amber-200">{t("countsUnavailable")}</p>}
+        <button type="button" onClick={reload} className="mt-2 text-xs text-white/80 underline">{t("refreshCounts")}</button>
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <Kpi label={t("kpiValuations")} value={stats?.valuations ?? "—"} hint={stats?.plan ? `/ ${new Intl.NumberFormat(locale).format(stats.plan.itemsCap)}` : undefined} />
+          <Kpi label={t("kpiApiKeys")} value={stats?.apiKeys ?? "—"} />
+          <Kpi label={t("kpiActiveAlerts")} value={stats?.thresholds ?? "—"} />
+          <Kpi label={t("kpiSharedLinks")} value={stats?.sharedLinks ?? "—"} />
         </div>
       </div>
     </div>
@@ -172,11 +120,12 @@ export default function DashboardHero({ user, profile }: DashboardHeroProps) {
 }
 
 function Kpi({ label, value, hint }: { label: string; value: number | string; hint?: string }) {
+  const locale = useLocale();
   return (
-    <div className="rounded-xl bg-white/[0.06] backdrop-blur-sm px-4 py-3 ring-1 ring-white/10 transition-colors hover:bg-white/[0.09]">
-      <div className="text-[10px] uppercase tracking-wider text-white/50 font-medium">{label}</div>
-      <div className="mt-1 flex items-baseline gap-1.5">
-        <span className="text-3xl font-bold tabular-nums tracking-tight">{value}</span>
+    <div className="min-w-0 rounded-xl bg-white/[0.06] backdrop-blur-sm px-4 py-3 ring-1 ring-white/10 transition-colors hover:bg-white/[0.09] [overflow-wrap:anywhere]">
+      <div className="text-xs text-white/70 font-medium">{label}</div>
+      <div className="mt-1 flex flex-wrap items-baseline gap-1.5">
+        <span className="min-w-0 text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">{typeof value === 'number' ? new Intl.NumberFormat(locale).format(value) : value}</span>
         {hint && <span className="text-[10px] text-white/40 font-mono truncate">{hint}</span>}
       </div>
     </div>
