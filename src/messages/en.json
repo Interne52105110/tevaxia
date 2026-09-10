@@ -20211,5 +20211,28 @@
     "loading": "Preparing…",
     "error": "The export could not be completed. No file was downloaded. Check your connection and account, then retry.",
     "done": "Download started. Check your browser’s downloads for the file."
+  },
+  "ownedLinks": {
+    "title": "Public shared links",
+    "scope": "Anyone with the link can view the shared copy. This list includes expired links and links that reached their limit. Counts reflect the last load; refresh to update them.",
+    "refresh": "Refresh",
+    "error": "Read or action not confirmed. Refresh before retrying; missing results are not treated as zero.",
+    "loading": "Loading…",
+    "empty": "No saved shared links.",
+    "count": "{n} saved links",
+    "untitled": "Untitled",
+    "views": "Views: {n} / limit: {max}",
+    "unlimited": "no cap",
+    "expires": "Expires: {date}",
+    "limitReached": "View limit reached",
+    "copy": "Copy link",
+    "copied": "Copied",
+    "details": "Details",
+    "revoke": "Revoke",
+    "confirm": "Revoke this public link? Its access will be removed.",
+    "detailScope": "Views are not unique visitors. Opening a link may add a view. Details reflect the time they were loaded.",
+    "timeline": "Daily views",
+    "comments": "Comments: {n}",
+    "anonymous": "Anonymous visitor"
   }
 }

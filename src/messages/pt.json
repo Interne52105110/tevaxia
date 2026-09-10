@@ -20211,5 +20211,28 @@
     "loading": "A preparar…",
     "error": "Não foi possível concluir a exportação. Nenhum ficheiro foi descarregado. Verifique a ligação e a conta e tente novamente.",
     "done": "Download iniciado. Verifique os downloads do navegador."
+  },
+  "ownedLinks": {
+    "title": "Ligações públicas partilhadas",
+    "scope": "Qualquer pessoa com a ligação pode consultar a cópia partilhada. A lista inclui ligações expiradas ou que atingiram o limite. As contagens correspondem à última leitura; atualize para as renovar.",
+    "refresh": "Atualizar",
+    "error": "Leitura ou ação não confirmada. Atualize antes de tentar novamente; resultados em falta não são tratados como zero.",
+    "loading": "A carregar…",
+    "empty": "Nenhuma ligação partilhada guardada.",
+    "count": "{n} ligações guardadas",
+    "untitled": "Sem título",
+    "views": "Consultas: {n} / limite: {max}",
+    "unlimited": "sem limite",
+    "expires": "Expira: {date}",
+    "limitReached": "Limite de consultas atingido",
+    "copy": "Copiar ligação",
+    "copied": "Copiado",
+    "details": "Detalhes",
+    "revoke": "Revogar",
+    "confirm": "Revogar esta ligação pública? O acesso será removido.",
+    "detailScope": "Consultas não equivalem a visitantes únicos. Abrir uma ligação pode acrescentar uma consulta. Os detalhes refletem o momento da leitura.",
+    "timeline": "Consultas diárias",
+    "comments": "Comentários: {n}",
+    "anonymous": "Visitante anónimo"
   }
 }

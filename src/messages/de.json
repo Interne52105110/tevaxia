@@ -20211,5 +20211,28 @@
     "loading": "Wird vorbereitet…",
     "error": "Der Export konnte nicht abgeschlossen werden. Es wurde keine Datei heruntergeladen. Prüfen Sie Verbindung und Konto und versuchen Sie es erneut.",
     "done": "Download gestartet. Prüfen Sie den Download-Ordner Ihres Browsers."
+  },
+  "ownedLinks": {
+    "title": "Öffentlich geteilte Links",
+    "scope": "Jeder mit dem Link kann die geteilte Kopie ansehen. Die Liste enthält auch abgelaufene Links und Links mit erreichtem Aufruflimit. Zähler entsprechen dem letzten Laden; aktualisieren Sie sie bei Bedarf.",
+    "refresh": "Aktualisieren",
+    "error": "Abfrage oder Aktion nicht bestätigt. Aktualisieren Sie vor einem erneuten Versuch; fehlende Ergebnisse werden nicht als null gewertet.",
+    "loading": "Wird geladen…",
+    "empty": "Keine geteilten Links gespeichert.",
+    "count": "{n} gespeicherte Links",
+    "untitled": "Ohne Titel",
+    "views": "Aufrufe: {n} / Limit: {max}",
+    "unlimited": "unbegrenzt",
+    "expires": "Ablauf: {date}",
+    "limitReached": "Aufruflimit erreicht",
+    "copy": "Link kopieren",
+    "copied": "Kopiert",
+    "details": "Details",
+    "revoke": "Widerrufen",
+    "confirm": "Diesen öffentlichen Link widerrufen? Der Zugang wird entfernt.",
+    "detailScope": "Aufrufe sind keine eindeutigen Besucher. Das Öffnen eines Links kann einen Aufruf hinzufügen. Details entsprechen dem Zeitpunkt des Ladens.",
+    "timeline": "Tägliche Aufrufe",
+    "comments": "Kommentare: {n}",
+    "anonymous": "Anonymer Besucher"
   }
 }

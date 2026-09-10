@@ -65,22 +65,6 @@ export async function createSharedLink(input: {
   return data as SharedLink;
 }
 
-export async function listMySharedLinks(): Promise<SharedLink[]> {
-  const client = ensureClient();
-  const { data, error } = await client
-    .from("shared_links")
-    .select("*")
-    .order("created_at", { ascending: false });
-  if (error) throw error;
-  return (data ?? []) as SharedLink[];
-}
-
-export async function deleteSharedLink(id: string): Promise<void> {
-  const client = ensureClient();
-  const { error } = await client.from("shared_links").delete().eq("id", id);
-  if (error) throw error;
-}
-
 export async function fetchSharedLinkByToken(token: string): Promise<SharedLinkPublic> {
   const client = ensureClient();
   const { data, error } = await client.rpc("get_shared_link", { p_token: token });
@@ -96,21 +80,6 @@ export function buildSharedLinkUrl(token: string, baseUrl?: string): string {
 export interface SharedLinkTimelineDay {
   day: string; // YYYY-MM-DD
   views: number;
-}
-
-export async function fetchSharedLinkTimeline(
-  linkId: string,
-  days = 30,
-): Promise<SharedLinkTimelineDay[]> {
-  const client = ensureClient();
-  const { data, error } = await client.rpc("get_shared_link_timeline", {
-    p_link_id: linkId,
-    p_days: days,
-  });
-  if (error) throw error;
-  const payload = data as { success?: boolean; timeline?: SharedLinkTimelineDay[] };
-  if (!payload?.success) return [];
-  return payload.timeline ?? [];
 }
 
 export interface SharedLinkComment {
@@ -139,13 +108,4 @@ export async function postSharedLinkComment(input: {
   if (error) return { success: false, error: "not_found" };
   const payload = data as { success?: boolean; error?: PostCommentError };
   return { success: !!payload?.success, error: payload?.error };
-}
-
-export async function listSharedLinkComments(linkId: string): Promise<SharedLinkComment[]> {
-  const client = ensureClient();
-  const { data, error } = await client.rpc("list_shared_link_comments", { p_link_id: linkId });
-  if (error) return [];
-  const payload = data as { success?: boolean; comments?: SharedLinkComment[] };
-  if (!payload?.success) return [];
-  return payload.comments ?? [];
 }

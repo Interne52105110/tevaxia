@@ -20211,5 +20211,28 @@
     "loading": "Gëtt virbereet…",
     "error": "Den Export konnt net ofgeschloss ginn. Keng Datei gouf erofgelueden. Kontrolléiert Är Verbindung an Äre Kont a probéiert nach eng Kéier.",
     "done": "Download gestart. Kontrolléiert d’Downloads an Ärem Browser."
+  },
+  "ownedLinks": {
+    "title": "Ëffentlech gedeelt Linken",
+    "scope": "Jiddereen, deen de Link huet, kann déi gedeelt Kopie kucken. D’Lëscht enthält och ofgelaf Linken a Linken, deenen hir Limitt erreecht ass. D’Zuele stamen aus dem leschte Lueden; aktualiséiert se bei Bedarf.",
+    "refresh": "Aktualiséieren",
+    "error": "Liesen oder Aktioun net confirméiert. Aktualiséiert virum nächste Versuch; feelend Resultater ginn net als null gewäert.",
+    "loading": "Gëtt gelueden…",
+    "empty": "Keng gedeelt Linke gespäichert.",
+    "count": "{n} gespäichert Linken",
+    "untitled": "Ouni Titel",
+    "views": "Opriff: {n} / Limitt: {max}",
+    "unlimited": "ouni Limitt",
+    "expires": "Leeft of: {date}",
+    "limitReached": "Limitt vun den Opriff erreecht",
+    "copy": "Link kopéieren",
+    "copied": "Kopéiert",
+    "details": "Detailer",
+    "revoke": "Zréckzéien",
+    "confirm": "Dësen ëffentleche Link zréckzéien? Den Zougang gëtt ewechgeholl.",
+    "detailScope": "Opriff si keng eenzegaarteg Visiteuren. E Link opzemaache kann en Opruff derbäisetzen. D’Detailer entspriechen dem Zäitpunkt vum Lueden.",
+    "timeline": "Deeglech Opriff",
+    "comments": "Kommentaren: {n}",
+    "anonymous": "Anonyme Visiteur"
   }
 }

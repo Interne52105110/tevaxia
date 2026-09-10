@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/AuthProvider";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
-import { listMySharedLinks, type SharedLink } from "@/lib/shared-links";
+import { listOwnedSharedLinks, type OwnedSharedLink as SharedLink } from "@/lib/owned-shared-links";
 import { listMyMandates, type AgencyMandate } from "@/lib/agency-mandates";
 import { listMyActivity, type ActivityEntry } from "@/lib/activity-log";
 import { listerEvaluationsAsync, type SavedValuation } from "@/lib/storage";
@@ -33,6 +33,8 @@ function DashboardPageContent() {
   const [archiveLoaded,setArchiveLoaded]=useState(false);
   const [evals, setEvals] = useState<SavedValuation[]>([]);
   const [links, setLinks] = useState<SharedLink[]>([]);
+  const [linksFailed,setLinksFailed]=useState(false);
+  const linkText=useTranslations("ownedLinks");
   const [mandates, setMandates] = useState<AgencyMandate[]>([]);
   const [activity, setActivity] = useState<ActivityEntry[]>([]);
   const [rentalLotsCount, setRentalLotsCount] = useState(0);
@@ -49,7 +51,7 @@ function DashboardPageContent() {
     (async () => {
       try {
         const [l, m, a] = await Promise.all([
-          isSupabaseConfigured ? listMySharedLinks() : Promise.resolve([]),
+          isSupabaseConfigured ? listOwnedSharedLinks(user.id).catch(() => { if (!cancel) setLinksFailed(true); return []; }) : Promise.resolve([]),
           isSupabaseConfigured ? listMyMandates() : Promise.resolve([]),
           isSupabaseConfigured ? listMyActivity(10) : Promise.resolve([]),
         ]);
@@ -69,7 +71,7 @@ function DashboardPageContent() {
     return () => { cancel = true; };
   }, [user, authLoading]);
 
-  const activeLinks = links.filter((l) => new Date(l.expires_at) > new Date());
+  const activeLinks = links.filter((l) => new Date(l.expires_at) > new Date() && (l.max_views === null || l.view_count < l.max_views));
   const activeMandates = mandates.filter((m) => ["mandat_signe", "sous_compromis"].includes(m.status));
   const soldMandates = mandates.filter((m) => m.status === "vendu");
   const totalCommission = soldMandates.reduce((s, m) => s + (Number(m.commission_amount_percue) || 0), 0);
@@ -106,6 +108,7 @@ function DashboardPageContent() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       {archiveError && <p role="alert" className="text-sm text-amber-800">{t("archiveError")}</p>}
+      {linksFailed && <p role="alert" className="text-sm text-amber-800">{linkText("error")}</p>}
       <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
       <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
 
@@ -113,7 +116,7 @@ function DashboardPageContent() {
         <KpiCard label={t("kpi.evaluations")} value={archiveLoaded && !archiveError ? evals.length : "—"} href={`${lp}/mes-evaluations`} />
         <KpiCard label={t("kpi.rentalLots")} value={rentalLotsCount} href={`${lp}/gestion-locative/portefeuille`} />
         <KpiCard label={t("kpi.activeMandates")} value={activeMandates.length} href={`${lp}/pro-agences/mandats`} />
-        <KpiCard label={t("kpi.activeShareLinks")} value={activeLinks.length} href={`${lp}/profil/liens-partages`} />
+        <KpiCard label={t("kpi.activeShareLinks")} value={linksFailed ? "—" : activeLinks.length} href={`${lp}/profil/liens-partages`} />
       </div>
 
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -132,7 +135,7 @@ function DashboardPageContent() {
         <div className="rounded-2xl border border-card-border bg-card p-5">
           <div className="text-xs text-muted">{t("kpi.shareLinkViews")}</div>
           <div className="mt-1 text-2xl font-bold text-navy">
-            {links.reduce((s, l) => s + l.view_count, 0)}
+            {linksFailed ? "—" : links.reduce((s, l) => s + l.view_count, 0)}
           </div>
           <Link href={`${lp}/profil/liens-partages`} className="mt-1 inline-block text-[10px] text-navy/70 hover:text-navy">
             {t("kpi.viewAnalytics")}

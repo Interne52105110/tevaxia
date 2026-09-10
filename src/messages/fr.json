@@ -20211,5 +20211,28 @@
     "loading": "Préparation…",
     "error": "L’export n’a pas pu être terminé. Aucun fichier n’a été téléchargé. Réessayez une fois votre connexion et votre compte vérifiés.",
     "done": "Téléchargement lancé. Vérifiez le fichier dans les téléchargements de votre navigateur."
+  },
+  "ownedLinks": {
+    "title": "Liens publics partagés",
+    "scope": "Toute personne possédant le lien peut consulter la copie partagée. La liste inclut les liens expirés ou ayant atteint leur limite. Compteurs relevés au dernier chargement ; actualisez pour les mettre à jour.",
+    "refresh": "Actualiser",
+    "error": "Lecture ou action non confirmée. Actualisez avant de réessayer ; aucun résultat manquant n’est assimilé à zéro.",
+    "loading": "Chargement…",
+    "empty": "Aucun lien partagé enregistré.",
+    "count": "{n} liens enregistrés",
+    "untitled": "Sans titre",
+    "views": "Consultations : {n} / limite : {max}",
+    "unlimited": "sans plafond",
+    "expires": "Expiration : {date}",
+    "limitReached": "Limite de consultations atteinte",
+    "copy": "Copier le lien",
+    "copied": "Copié",
+    "details": "Détails",
+    "revoke": "Révoquer",
+    "confirm": "Révoquer ce lien public ? Son accès sera supprimé.",
+    "detailScope": "Les consultations ne comptent pas des visiteurs uniques. Une ouverture de lien peut ajouter une consultation. Les détails sont relevés à leur chargement.",
+    "timeline": "Consultations quotidiennes",
+    "comments": "Commentaires : {n}",
+    "anonymous": "Visiteur anonyme"
   }
 }
