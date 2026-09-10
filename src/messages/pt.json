@@ -20234,5 +20234,24 @@
     "timeline": "Consultas diárias",
     "comments": "Comentários: {n}",
     "anonymous": "Visitante anónimo"
+  },
+  "shareCreation": {
+    "open": "Partilhar uma ligação pública",
+    "title": "Preparar a partilha",
+    "scope": "Qualquer pessoa com esta ligação pode consultar uma cópia dos dados e resultados do cálculo sem conta. Verifique as informações antes de criar a ligação. Alterações posteriores do cálculo não atualizam esta cópia. Revogue o acesso no seu perfil. O limite de consultas não garante um bloqueio estrito de aberturas simultâneas.",
+    "labelTitle": "Título opcional (até 200 caracteres)",
+    "days": "Validade: de 1 a 365 dias",
+    "views": "Limite de consultas: vazio sem limite, ou de 1 a 1 000 000",
+    "generate": "Criar ligação",
+    "loading": "A criar…",
+    "created": "Ligação confirmada",
+    "expires": "Expira: {date}",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "another": "Criar outra ligação",
+    "invalid": "Verifique o título, o número inteiro de dias e o limite inteiro de consultas. Esta tentativa inválida não criou uma ligação.",
+    "uncertain": "Criação não confirmada. Uma ligação pode ter sido guardada: verifique o perfil. Tentar novamente com os mesmos parâmetros procura a mesma ligação antes de criar outra.",
+    "copyFailed": "Cópia não confirmada. Pode selecionar a ligação e copiá-la manualmente.",
+    "invalidPayload": "Estes dados não podem ser partilhados: verifique os resultados e o tamanho."
   }
 }

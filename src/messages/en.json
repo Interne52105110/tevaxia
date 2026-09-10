@@ -20234,5 +20234,24 @@
     "timeline": "Daily views",
     "comments": "Comments: {n}",
     "anonymous": "Anonymous visitor"
+  },
+  "shareCreation": {
+    "open": "Share a public link",
+    "title": "Prepare sharing",
+    "scope": "Anyone with this link can view a copy of the calculation’s data and results without an account. Check the information before creating the link. Later calculation changes will not update this copy. Revoke access from your profile. The view cap does not guarantee a strict block on simultaneous openings.",
+    "labelTitle": "Optional title (up to 200 characters)",
+    "days": "Validity: 1 to 365 days",
+    "views": "View cap: blank for no cap, otherwise 1 to 1,000,000",
+    "generate": "Create link",
+    "loading": "Creating…",
+    "created": "Link confirmed",
+    "expires": "Expires: {date}",
+    "copy": "Copy",
+    "copied": "Copied",
+    "another": "Create another link",
+    "invalid": "Check the title, whole number of days and whole-number view cap. This invalid attempt did not create a link.",
+    "uncertain": "Creation not confirmed. A link may have been saved: check your profile. Retrying with the same settings looks up the same link before creating a new one.",
+    "copyFailed": "Copy not confirmed. You can select the link and copy it manually.",
+    "invalidPayload": "These data cannot be shared: check the results and their size."
   }
 }

@@ -20234,5 +20234,24 @@
     "timeline": "Consultations quotidiennes",
     "comments": "Commentaires : {n}",
     "anonymous": "Visiteur anonyme"
+  },
+  "shareCreation": {
+    "open": "Partager un lien public",
+    "title": "Préparer le partage",
+    "scope": "Toute personne possédant ce lien pourra consulter une copie des données et résultats du calcul, sans compte. Vérifiez les informations avant de créer le lien. Les changements ultérieurs du calcul ne modifieront pas cette copie. Révocation depuis votre profil. Le plafond de consultations ne garantit pas un blocage strict des ouvertures simultanées.",
+    "labelTitle": "Titre facultatif (200 caractères maximum)",
+    "days": "Validité : de 1 à 365 jours",
+    "views": "Plafond de consultations : vide sans plafond, sinon de 1 à 1 000 000",
+    "generate": "Créer le lien",
+    "loading": "Création…",
+    "created": "Lien confirmé",
+    "expires": "Expiration : {date}",
+    "copy": "Copier",
+    "copied": "Copié",
+    "another": "Créer un autre lien",
+    "invalid": "Vérifiez le titre, le nombre entier de jours et le plafond entier de consultations. Aucun lien n’a été créé par cette tentative invalide.",
+    "uncertain": "Création non confirmée. Un lien a pu être enregistré : vérifiez votre profil. Réessayer avec les mêmes paramètres recherche le même lien avant toute nouvelle création.",
+    "copyFailed": "Copie non confirmée. Vous pouvez sélectionner le lien et le copier manuellement.",
+    "invalidPayload": "Ces données ne peuvent pas être partagées : vérifiez les résultats et leur taille."
   }
 }

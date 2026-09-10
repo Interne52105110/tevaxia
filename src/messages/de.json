@@ -20234,5 +20234,24 @@
     "timeline": "Tägliche Aufrufe",
     "comments": "Kommentare: {n}",
     "anonymous": "Anonymer Besucher"
+  },
+  "shareCreation": {
+    "open": "Öffentlichen Link teilen",
+    "title": "Freigabe vorbereiten",
+    "scope": "Jeder mit diesem Link kann eine Kopie der Berechnungsdaten und Ergebnisse ohne Konto ansehen. Prüfen Sie die Informationen vor der Erstellung. Spätere Änderungen der Berechnung ändern diese Kopie nicht. Widerruf über Ihr Profil. Das Aufruflimit garantiert keine strikte Sperre gleichzeitiger Zugriffe.",
+    "labelTitle": "Optionaler Titel (höchstens 200 Zeichen)",
+    "days": "Gültigkeit: 1 bis 365 Tage",
+    "views": "Aufruflimit: leer für unbegrenzt, sonst 1 bis 1.000.000",
+    "generate": "Link erstellen",
+    "loading": "Wird erstellt…",
+    "created": "Link bestätigt",
+    "expires": "Ablauf: {date}",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "another": "Weiteren Link erstellen",
+    "invalid": "Prüfen Sie Titel, ganze Anzahl der Tage und ganzzahliges Aufruflimit. Dieser ungültige Versuch hat keinen Link erstellt.",
+    "uncertain": "Erstellung nicht bestätigt. Ein Link könnte gespeichert sein: Prüfen Sie Ihr Profil. Ein erneuter Versuch mit gleichen Einstellungen sucht zuerst denselben Link.",
+    "copyFailed": "Kopieren nicht bestätigt. Sie können den Link markieren und manuell kopieren.",
+    "invalidPayload": "Diese Daten können nicht geteilt werden: Prüfen Sie Ergebnisse und Umfang."
   }
 }

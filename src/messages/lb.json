@@ -20234,5 +20234,24 @@
     "timeline": "Deeglech Opriff",
     "comments": "Kommentaren: {n}",
     "anonymous": "Anonyme Visiteur"
+  },
+  "shareCreation": {
+    "open": "En ëffentleche Link deelen",
+    "title": "Deelen virbereeden",
+    "scope": "Jiddereen, deen dëse Link huet, kann eng Kopie vun de Berechnungsdaten a Resultater ouni Kont kucken. Kontrolléiert d’Informatioune virun der Erstellung. Spéider Ännerunge vun der Berechnung änneren dës Kopie net. De Link kann am Profil zréckgezu ginn. D’Limitt vun den Opriff garantéiert keng strikt Spär vu gläichzäitegen Zougrëffer.",
+    "labelTitle": "Optionalen Titel (maximal 200 Zeechen)",
+    "days": "Gültegkeet: 1 bis 365 Deeg",
+    "views": "Limitt vun den Opriff: eidel fir ouni Limitt, soss 1 bis 1.000.000",
+    "generate": "Link erstellen",
+    "loading": "Gëtt erstallt…",
+    "created": "Link confirméiert",
+    "expires": "Leeft of: {date}",
+    "copy": "Kopéieren",
+    "copied": "Kopéiert",
+    "another": "En anere Link erstellen",
+    "invalid": "Kontrolléiert den Titel, déi ganz Zuel vun Deeg an déi ganz Limitt vun den Opriff. Dësen ongëltege Versuch huet kee Link erstallt.",
+    "uncertain": "Erstellung net confirméiert. E Link kéint gespäichert sinn: kontrolléiert Äre Profil. En neie Versuch mat de selwechte Parameteren sicht als éischt dee selwechte Link.",
+    "copyFailed": "Kopéieren net confirméiert. Dir kënnt de Link auswielen a manuell kopéieren.",
+    "invalidPayload": "Dës Donnéeë kënnen net gedeelt ginn: kontrolléiert d’Resultater an hir Gréisst."
   }
 }

@@ -10,6 +10,7 @@ Run before build (also wired into npm script).
 """
 import re
 from pathlib import Path
+from generate_route_namespaces import CLIENT_DIRECTIVE_RE, collect_ns_from_subtree
 
 ROOT = Path(__file__).parent.parent
 SRC = ROOT / "src"
@@ -18,16 +19,16 @@ OUT = SRC / "i18n" / "client-namespaces.ts"
 
 def collect_client_namespaces() -> list[str]:
     namespaces: set[str] = set()
+    visited: set[tuple[Path, bool]] = set()
     # Pass 1: literal useTranslations("ns") in client components
     for f in SRC.rglob("*.tsx"):
         try:
             text = f.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
-        if '"use client"' not in text:
+        if not CLIENT_DIRECTIVE_RE.search(text):
             continue
-        for m in re.findall(r"useTranslations\(\s*['\"]([^'\"]+)['\"]", text):
-            namespaces.add(m.split(".")[0])
+        namespaces |= collect_ns_from_subtree(f, visited)
 
     # Pass 2: <SEOContent ns="..."> — SEOContent is a client component that
     # builds namespaces dynamically as `${ns}.seo`. Page is a server component

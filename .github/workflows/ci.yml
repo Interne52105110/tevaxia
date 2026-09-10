@@ -21,6 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --no-fund
 
+      - name: Generate and test page translations
+        run: |
+          python scripts/test_route_namespaces.py
+          npm run i18n:scan
+
       - name: Typecheck
         run: npx tsc --noEmit
 

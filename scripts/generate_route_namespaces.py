@@ -48,6 +48,7 @@ MODULE_CONTEXT_BAR_NS = {
 }
 
 USE_T_RE = re.compile(r"useTranslations\(\s*['\"]([^'\"]+)['\"]")
+CLIENT_DIRECTIVE_RE = re.compile(r"^\s*(['\"])use client\1\s*;?", re.MULTILINE)
 SEO_NS_RE = re.compile(r"<SEOContent[^>]*\sns=\"([^\"]+)\"")
 IMPORT_RE = re.compile(
     r"""(?:import|from)\s*(?:[^'"]*['"])([^'"]+)['"]""",
@@ -76,16 +77,20 @@ def resolve_import(spec: str, from_file: Path) -> Path | None:
     return None
 
 
-def collect_ns_from_subtree(entry: Path, visited: set[Path]) -> set[str]:
+def collect_ns_from_subtree(entry: Path, visited: set[tuple[Path, bool]], inherited_client: bool = False) -> set[str]:
     """Walk the import graph from `entry`, collect useTranslations ns from
     every reachable client component (and SEOContent ns props anywhere)."""
-    if entry in visited or not entry.is_file():
+    if not entry.is_file():
         return set()
-    visited.add(entry)
     try:
         text = entry.read_text(encoding="utf-8")
     except UnicodeDecodeError:
         return set()
+    is_client = inherited_client or bool(CLIENT_DIRECTIVE_RE.search(text))
+    identity = (entry.resolve(), is_client)
+    if identity in visited:
+        return set()
+    visited.add(identity)
     namespaces: set[str] = set()
 
     # SEOContent ns="X" dispatch — namespace is reachable via client even if
@@ -94,7 +99,6 @@ def collect_ns_from_subtree(entry: Path, visited: set[Path]) -> set[str]:
         namespaces.add(m.split(".")[0])
 
     # useTranslations literals — only count for client files.
-    is_client = '"use client"' in text
     if is_client:
         for m in USE_T_RE.findall(text):
             namespaces.add(m.split(".")[0])
@@ -103,11 +107,11 @@ def collect_ns_from_subtree(entry: Path, visited: set[Path]) -> set[str]:
     for spec in IMPORT_RE.findall(text):
         resolved = resolve_import(spec, entry)
         if resolved:
-            namespaces |= collect_ns_from_subtree(resolved, visited)
+            namespaces |= collect_ns_from_subtree(resolved, visited, is_client)
     for spec in DYN_IMPORT_RE.findall(text):
         resolved = resolve_import(spec, entry)
         if resolved:
-            namespaces |= collect_ns_from_subtree(resolved, visited)
+            namespaces |= collect_ns_from_subtree(resolved, visited, is_client)
 
     return namespaces
 
@@ -115,7 +119,7 @@ def collect_ns_from_subtree(entry: Path, visited: set[Path]) -> set[str]:
 def common_namespaces() -> set[str]:
     """Namespaces required by the always-mounted layout-tree components."""
     ns: set[str] = set(MODULE_CONTEXT_BAR_NS)
-    visited: set[Path] = set()
+    visited: set[tuple[Path, bool]] = set()
     for f in LAYOUT_TREE_FILES:
         ns |= collect_ns_from_subtree(f, visited)
     return ns
@@ -145,7 +149,7 @@ def page_to_route(page_path: Path) -> str:
 
 def namespaces_for_page(page: Path, common: set[str]) -> set[str]:
     """Include client imports of every layout wrapping this canonical page."""
-    visited: set[Path] = set()
+    visited: set[tuple[Path, bool]] = set()
     ns = collect_ns_from_subtree(page, visited) | common
     directory = page.parent
     while directory.is_relative_to(APP):

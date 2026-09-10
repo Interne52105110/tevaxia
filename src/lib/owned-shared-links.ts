@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import type { SharedLink, SharedLinkComment, SharedLinkTimelineDay } from './shared-links';
+import { canonicalSharedJson, sharedPayloadJson, type SharedLinkDraft } from './shared-link-draft';
 export type OwnedSharedLink = Omit<SharedLink, 'payload'> & { owner_user_id: string };
 const columns = 'id,token,owner_user_id,org_id,tool_type,title,view_count,max_views,expires_at,created_at';
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -25,6 +26,33 @@ async function context(owner: string) {
 }
 export async function assertSharedLinkAccount(owner: string): Promise<void> {
   await currentToken(owner);
+}
+export async function createOwnedSharedLink(owner: string, draft: SharedLinkDraft, stillCurrent: () => boolean): Promise<OwnedSharedLink> {
+  if (draft.owner_user_id !== owner || !uuid.test(draft.id) || !tools.includes(draft.tool_type) || draft.org_id !== null || (draft.title !== null && (typeof draft.title !== 'string' || draft.title.length > 200)) || (draft.max_views !== null && (!Number.isSafeInteger(draft.max_views) || draft.max_views < 1 || draft.max_views > 1000000)) || typeof draft.expires_at !== 'string' || !Number.isFinite(Date.parse(draft.expires_at))) throw new Error('Invalid shared-link draft');
+  // Copy before any await, so caller mutations cannot change the content being published.
+  const snapshot = { ...draft, payload: JSON.parse(sharedPayloadJson(draft.payload)) };
+  const { base, headers } = await context(owner), url = endpoint(base, owner);
+  url.searchParams.set('id', 'eq.' + snapshot.id); url.searchParams.set('select', columns + ',payload'); url.searchParams.set('limit', '2');
+  function confirmed(value: unknown): OwnedSharedLink {
+    const row = parseLink(value, owner), payload = (value as SharedLink).payload;
+    if (row.id !== snapshot.id || row.org_id !== null || row.tool_type !== snapshot.tool_type || row.title !== snapshot.title || row.max_views !== snapshot.max_views || Date.parse(row.expires_at) !== Date.parse(snapshot.expires_at) || canonicalSharedJson(payload) !== canonicalSharedJson(snapshot.payload)) throw new Error('Shared-link creation not confirmed');
+    return row;
+  }
+  await currentToken(owner); if (!stillCurrent()) throw new Error('Shared-link account changed');
+  // Recover the same attempt after a lost response; never silently create a second public copy.
+  const existing = await fetch(url.toString(), { headers, cache: 'no-store', signal: AbortSignal.timeout(15000) });
+  if (!existing.ok) throw new Error('Shared-link creation not confirmed');
+  const previous: unknown = await existing.json();
+  if (!Array.isArray(previous) || previous.length > 1) throw new Error('Shared-link creation not confirmed');
+  if (previous.length) { const row = confirmed(previous[0]); await currentToken(owner); return row; }
+  await currentToken(owner); if (!stillCurrent()) throw new Error('Shared-link account changed');
+  if (Date.parse(snapshot.expires_at) <= Date.now() || Date.parse(snapshot.expires_at) > Date.now() + 366 * 86400000) throw new Error('Invalid shared-link expiration');
+  const createUrl = endpoint(base, owner); createUrl.searchParams.set('select', columns + ',payload');
+  const response = await fetch(createUrl.toString(), { method: 'POST', headers, body: JSON.stringify(snapshot), cache: 'no-store', signal: AbortSignal.timeout(15000) });
+  if (!response.ok) throw new Error('Shared-link creation not confirmed');
+  const data: unknown = await response.json();
+  if (!Array.isArray(data) || data.length !== 1) throw new Error('Shared-link creation not confirmed');
+  const row = confirmed(data[0]); await currentToken(owner); return row;
 }
 function endpoint(base: string, owner: string) {
   const url = new URL(base + '/rest/v1/shared_links'); url.searchParams.set('select', columns); url.searchParams.set('owner_user_id', 'eq.' + owner); return url;
