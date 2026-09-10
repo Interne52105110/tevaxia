@@ -113,7 +113,8 @@
     "footerTagline": "Real estate tools for Luxembourg.",
     "termsOfUse": "Terms of use",
     "footerSolutions": "Solutions",
-    "siteMap": "Site map"
+    "siteMap": "Site map",
+    "cookieSettings": "Cookie settings"
   },
   "home": {
     "heroTitle": "Luxembourg real estate analysis,",
@@ -3564,10 +3565,13 @@
     }
   },
   "cookie": {
-    "message": "This site uses technical cookies (session, preferences) and, with your consent, Google Analytics audience measurement cookies. If you are signed in, your saved calculations are synced to your account (Supabase EU, 180 days, 500 items max).",
+    "message": "Technical cookies support the site’s operation. With your consent, Google Analytics and PostHog can measure visits and page usage. You can accept, refuse or withdraw consent at any time through “Cookie settings” in the footer. This choice applies to this browser on this site.",
     "privacyLink": "Privacy Policy",
-    "refuse": "Decline",
-    "accept": "Accept"
+    "refuse": "Refuse audience measurement",
+    "accept": "Accept audience measurement",
+    "settingsTitle": "Cookie settings",
+    "close": "Close",
+    "storageWarning": "Your choice applies on this page, but the browser prevents it from being remembered. You may be asked again on the next page load."
   },
   "pricing": {
     "title": "Pricing",

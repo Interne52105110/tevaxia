@@ -113,7 +113,8 @@
     "footerTagline": "Immobilienwerkzeuge für Luxemburg.",
     "termsOfUse": "Nutzungsbedingungen",
     "footerSolutions": "Lösungen",
-    "siteMap": "Seitenübersicht"
+    "siteMap": "Seitenübersicht",
+    "cookieSettings": "Cookie-Einstellungen"
   },
   "home": {
     "heroTitle": "Luxemburger Immobilienanalyse,",
@@ -3564,10 +3565,13 @@
     }
   },
   "cookie": {
-    "message": "Diese Website verwendet technische Cookies (Sitzung, Einstellungen) und, mit Ihrer Zustimmung, Google-Analytics-Cookies zur Reichweitenmessung. Wenn Sie angemeldet sind, werden Ihre gespeicherten Berechnungen mit Ihrem Konto synchronisiert (Supabase EU, 180 Tage, max. 500 Einträge).",
+    "message": "Technische Cookies ermöglichen den Betrieb der Website. Mit Ihrer Zustimmung können Google Analytics und PostHog Besuche und die Seitennutzung messen. Über die Cookie-Einstellungen in der Fußzeile können Sie jederzeit zustimmen, ablehnen oder Ihre Zustimmung widerrufen. Die Auswahl gilt für diesen Browser auf dieser Website.",
     "privacyLink": "Datenschutzrichtlinie",
-    "refuse": "Ablehnen",
-    "accept": "Akzeptieren"
+    "refuse": "Besuchsmessung ablehnen",
+    "accept": "Besuchsmessung erlauben",
+    "settingsTitle": "Cookie-Einstellungen",
+    "close": "Schließen",
+    "storageWarning": "Ihre Auswahl gilt auf dieser Seite, kann aber vom Browser nicht gespeichert werden. Beim nächsten Laden kann sie erneut abgefragt werden."
   },
   "pricing": {
     "title": "Preise",

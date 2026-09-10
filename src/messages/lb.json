@@ -113,7 +113,8 @@
     "footerTagline": "Immobilien-Tools fir Lëtzebuerg.",
     "termsOfUse": "Benotzungsbedéngungen",
     "footerSolutions": "Léisungen",
-    "siteMap": "Säiteniwwersiicht"
+    "siteMap": "Säiteniwwersiicht",
+    "cookieSettings": "Cookie-Astellungen"
   },
   "home": {
     "heroTitle": "D'Immobilien-Analyse vu Lëtzebuerg,",
@@ -3564,10 +3565,13 @@
     }
   },
   "cookie": {
-    "message": "Dëse Site benotzt technesch Cookien (Sessioun, Preferenzen) an, mat Ärem Accord, Google-Analytics-Cookien fir d'Audiometrung. Wann Dir ageloggt sidd, ginn Är gespäichert Berechnunge mat Ärem Kont synchroniséiert (Supabase EU, 180 Deeg, max 500 Elementer).",
+    "message": "Technesch Cookië suerge fir de Fonctionnement vum Site. Mat Ärem Accord kënne Google Analytics a PostHog d’Visitten an d’Benotzung vun de Säite moossen. Dir kënnt iwwer d’Cookie-Astellungen ënnen op der Säit zu all Moment zoustëmmen, refuséieren oder Ären Accord zeréckzéien. Dëse Choix gëllt fir dëse Browser op dësem Site.",
     "privacyLink": "Dateschutz",
-    "refuse": "Refuséieren",
-    "accept": "Akzeptéieren"
+    "refuse": "Visitemiessung refuséieren",
+    "accept": "Visitemiessung erlaben",
+    "settingsTitle": "Cookie-Astellungen",
+    "close": "Zoumaachen",
+    "storageWarning": "Äre Choix gëllt op dëser Säit, mee de Browser kann en net späicheren. Beim nächste Luede kënnt Dir nach eng Kéier gefrot ginn."
   },
   "pricing": {
     "title": "Tariffer",

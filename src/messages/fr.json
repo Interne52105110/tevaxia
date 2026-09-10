@@ -113,7 +113,8 @@
     "footerTagline": "Outils immobiliers pour le Luxembourg.",
     "termsOfUse": "Conditions générales d’utilisation",
     "footerSolutions": "Solutions",
-    "siteMap": "Plan du site"
+    "siteMap": "Plan du site",
+    "cookieSettings": "Réglages des cookies"
   },
   "home": {
     "heroTitle": "L'analyse immobilière du Luxembourg,",
@@ -3564,10 +3565,13 @@
     }
   },
   "cookie": {
-    "message": "Ce site utilise des cookies techniques (session, préférences) et, avec votre accord, des cookies de mesure d'audience Google Analytics. Si vous êtes connecté, vos calculs sauvegardés sont synchronisés sur votre compte (Supabase UE, 180 jours, 500 items max).",
+    "message": "Les cookies techniques servent au fonctionnement du site. Avec votre accord, Google Analytics et PostHog peuvent mesurer les visites et l’utilisation des pages. Vous pouvez accepter, refuser ou retirer votre accord à tout moment via « Réglages des cookies » en pied de page. Le choix concerne ce navigateur sur ce site.",
     "privacyLink": "Politique de confidentialité",
-    "refuse": "Refuser",
-    "accept": "Accepter"
+    "refuse": "Refuser la mesure d’audience",
+    "accept": "Accepter la mesure d’audience",
+    "settingsTitle": "Réglages des cookies",
+    "close": "Fermer",
+    "storageWarning": "Votre choix est appliqué dans cette page, mais le navigateur empêche de le mémoriser. Il pourra être demandé à nouveau au prochain chargement."
   },
   "pricing": {
     "title": "Tarifs",

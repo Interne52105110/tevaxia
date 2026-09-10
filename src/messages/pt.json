@@ -113,7 +113,8 @@
     "footerTagline": "Ferramentas imobiliárias para o Luxemburgo.",
     "termsOfUse": "Condições de utilização",
     "footerSolutions": "Soluções",
-    "siteMap": "Mapa do site"
+    "siteMap": "Mapa do site",
+    "cookieSettings": "Definições de cookies"
   },
   "home": {
     "heroTitle": "Análise imobiliária do Luxemburgo,",
@@ -3564,10 +3565,13 @@
     }
   },
   "cookie": {
-    "message": "Este site utiliza cookies técnicos (sessão, preferências) e, com o seu consentimento, cookies de análise de audiência Google Analytics. Se estiver ligado, os seus cálculos guardados são sincronizados na sua conta (Supabase UE, 180 dias, 500 itens máx).",
+    "message": "Os cookies técnicos permitem o funcionamento do site. Com o seu consentimento, Google Analytics e PostHog podem medir visitas e utilização das páginas. Pode aceitar, recusar ou retirar o consentimento a qualquer momento nas definições de cookies no rodapé. A escolha aplica-se a este navegador neste site.",
     "privacyLink": "Política de privacidade",
-    "refuse": "Recusar",
-    "accept": "Aceitar"
+    "refuse": "Recusar medição de audiência",
+    "accept": "Aceitar medição de audiência",
+    "settingsTitle": "Definições de cookies",
+    "close": "Fechar",
+    "storageWarning": "A escolha aplica-se nesta página, mas o navegador impede a sua gravação. Poderá ser solicitada novamente no próximo carregamento."
   },
   "pricing": {
     "title": "Preços",

@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import LocaleLink from "./LocaleLink";
+import CookieSettingsButton from "./CookieSettingsButton";
 
 export default async function Footer() {
   const [tc, tn] = await Promise.all([
@@ -28,6 +29,7 @@ export default async function Footer() {
             <ul className="space-y-1.5 text-sm">
               <li><LocaleLink href="/mentions-legales" className="hover:text-white transition-colors">{tc("legalNotice")}</LocaleLink></li>
               <li><LocaleLink href="/confidentialite" className="hover:text-white transition-colors">{tc("privacy")}</LocaleLink></li>
+              <li><CookieSettingsButton label={tc("cookieSettings")} className="text-left hover:text-white transition-colors" /></li>
               <li><LocaleLink href="/cgu" className="hover:text-white transition-colors">{tc("termsOfUse")}</LocaleLink></li>
               <li><LocaleLink href="/solutions" className="hover:text-white transition-colors">{tc("footerSolutions")}</LocaleLink></li>
               <li><LocaleLink href="/plan-du-site" className="hover:text-white transition-colors">{tc("siteMap")}</LocaleLink></li>
