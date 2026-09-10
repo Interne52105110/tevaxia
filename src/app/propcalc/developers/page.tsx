@@ -23,11 +23,6 @@ function Icon({ d, className = "" }: { d: string; className?: string }) {
   );
 }
 
-const CHROME_PORTALS = [
-  "atHome.lu", "ImmoScout24", "Idealista", "Rightmove",
-  "SeLoger", "LeBonCoin", "Funda", "Zillow",
-];
-
 export default async function PropCalcDevelopersPage() {
   const [t, locale] = await Promise.all([getTranslations("propcalcDevelopers"), getLocale()]);
 
@@ -45,14 +40,6 @@ export default async function PropCalcDevelopersPage() {
     { method: "POST", path: "/yield", desc: t("apiEndpointYieldDesc") },
     { method: "POST", path: "/cashflow", desc: t("apiEndpointCashflowDesc") },
     { method: "GET", path: "/countries", desc: t("apiEndpointCountriesDesc") },
-  ];
-
-  const sheetsFunctions = [
-    { fn: "=PROPCALC_FEES(prix; pays; region)", desc: t("sheetsFnFeesDesc") },
-    { fn: "=PROPCALC_MORTGAGE(revenus; charges; pays)", desc: t("sheetsFnMortgageDesc") },
-    { fn: "=PROPCALC_YIELD(prix; loyer; charges; pays)", desc: t("sheetsFnYieldDesc") },
-    { fn: "=PROPCALC_CAPACITY(prix; apport; taux; duree)", desc: t("sheetsFnCapacityDesc") },
-    { fn: "=PROPCALC_TAX_RATE(prix; pays; region)", desc: t("sheetsFnTaxRateDesc") },
   ];
 
   return (
@@ -74,8 +61,8 @@ export default async function PropCalcDevelopersPage() {
             <Link href="#api" className="rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white hover:bg-navy-light transition-colors">
               {t("heroCtaDocs")} {"→"}
             </Link>
-            <Link href="https://www.npmjs.com/package/@tevaxia/propcalc" className="rounded-xl border border-card-border px-8 py-3.5 text-sm font-semibold text-navy hover:bg-card transition-colors">
-              {t("heroCtaNpm")}
+            <Link href="#widget" className="rounded-xl border border-card-border px-8 py-3.5 text-sm font-semibold text-navy hover:bg-card transition-colors">
+              {t("heroCtaWidget")}
             </Link>
           </div>
           <p className="mt-6 text-xs text-muted">
@@ -88,13 +75,12 @@ export default async function PropCalcDevelopersPage() {
 
       {/* Stats bar */}
       <section className="border-y border-card-border bg-card">
-        <div className="mx-auto max-w-5xl px-4 py-8 grid grid-cols-2 sm:grid-cols-5 gap-8 text-center">
+        <div className="mx-auto max-w-5xl px-4 py-8 grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
-            { value: "5", label: t("statChannels") },
+            { value: "2", label: t("statChannels") },
             { value: "10", label: t("statCountries") },
-            { value: "16", label: t("statFunctions") },
+            { value: "4", label: t("statCalculations") },
             { value: "JSON", label: t("statCalls") },
-            { value: "0", label: t("statDeps") },
           ].map((s) => (
             <div key={s.label}>
               <div className="text-3xl font-bold text-navy">{s.value}</div>
@@ -123,7 +109,7 @@ export default async function PropCalcDevelopersPage() {
 
 <script src="https://www.tevaxia.lu/propcalc/propcalc.min.js"></script>
 
-<div data-propcalc data-country="lu" data-lang="${locale}"></div>`}</code></pre>
+<div data-propcalc data-country="lu" data-lang="${locale === "lb" ? "fr" : locale}"></div>`}</code></pre>
           </div>
 
           <h3 className="text-sm font-semibold text-navy mb-4">{t("widgetAttrsTitle")}</h3>
@@ -200,110 +186,23 @@ export default async function PropCalcDevelopersPage() {
         </div>
       </section>
 
-      {/* Package npm */}
-      <section id="npm" className="py-20">
+      <section id="javascript" className="py-20">
         <div className="mx-auto max-w-5xl px-4">
-          <div className="flex items-center gap-3 justify-center mb-4">
-            <div className="w-10 h-10 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
-              <Icon d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-            </div>
-            <h2 className="text-2xl font-bold text-navy">{t("npmTitle")}</h2>
+          <h2 className="text-2xl font-bold text-navy text-center mb-4">{t("jsTitle")}</h2>
+          <p className="text-muted text-center max-w-xl mx-auto mb-8">{t("jsIntro")}</p>
+          <div className="rounded-xl border border-card-border bg-navy p-6 overflow-x-auto">
+            <pre className="text-sm font-mono text-white/80 leading-relaxed"><code>{`const response = await fetch('https://www.tevaxia.lu/api/v1/propcalc/fees', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ country: 'lu', price: 700000, isNew: false }),
+});
+const result = await response.json();
+if (!response.ok || !result.success) {
+  throw new Error(result.error || 'Calculation failed');
+}
+console.log(result.data);
+console.log(result.assumptions);`}</code></pre>
           </div>
-          <p className="text-muted text-center max-w-xl mx-auto mb-12">
-            {t("npmIntro")}
-          </p>
-
-          {/* Install */}
-          <div className="rounded-xl border border-card-border bg-navy p-4 mb-8 text-center">
-            <code className="text-sm font-mono text-white/80">npm install @tevaxia/propcalc</code>
-          </div>
-
-          {/* Code example */}
-          <div className="rounded-xl border border-card-border bg-navy p-6 mb-8 overflow-x-auto">
-            <pre className="text-sm font-mono text-white/80 leading-relaxed"><code>{`import { calculateAcquisitionFees, getCountryData } from '@tevaxia/propcalc';
-
-const lu = getCountryData('lu');
-const fees = calculateAcquisitionFees({ countryData: lu, price: 700000 });
-
-console.log(fees.total);        // 49 000
-console.log(fees.notaryFees);   // 7 000
-console.log(fees.transferTax);  // 42 000`}</code></pre>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-4">
-            {[
-              { value: "16", label: t("statFunctions") },
-              { value: "10", label: t("statCountries") },
-              { value: "MIT", label: t("npmStatLicense") },
-              { value: "0", label: t("statDeps") },
-            ].map((s) => (
-              <div key={s.label} className="p-4 rounded-xl border border-card-border bg-card text-center">
-                <div className="text-xl font-bold text-navy">{s.value}</div>
-                <div className="text-xs text-muted mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Extension Chrome */}
-      <section id="chrome" className="py-20 bg-card border-y border-card-border">
-        <div className="mx-auto max-w-5xl px-4">
-          <div className="flex items-center gap-3 justify-center mb-4">
-            <div className="w-10 h-10 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
-              <Icon d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-            </div>
-            <h2 className="text-2xl font-bold text-navy">{t("chromeTitle")}</h2>
-          </div>
-          <p className="text-muted text-center max-w-xl mx-auto mb-12">
-            {t("chromeIntro")}
-          </p>
-
-          <h3 className="text-sm font-semibold text-navy mb-4 text-center">{t("chromePortalsTitle")}</h3>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-            {CHROME_PORTALS.map((portal) => (
-              <div key={portal} className="p-4 rounded-xl border border-card-border bg-background text-center">
-                <div className="text-sm font-semibold text-navy">{portal}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link href="#chrome-web-store" className="rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white hover:bg-navy-light transition-colors inline-block">
-              {t("chromeInstall")} {"→"}
-            </Link>
-            <p className="mt-4 text-xs text-muted">
-              {t("chromeFooter")}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Google Sheets */}
-      <section id="sheets" className="py-20">
-        <div className="mx-auto max-w-5xl px-4">
-          <div className="flex items-center gap-3 justify-center mb-4">
-            <div className="w-10 h-10 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
-              <Icon d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M10.875 12c-.621 0-1.125.504-1.125 1.125M12 10.875c-.621 0-1.125.504-1.125 1.125m0 0v1.5c0 .621.504 1.125 1.125 1.125m-1.125-2.625c0 .621.504 1.125 1.125 1.125m0 0c.621 0 1.125.504 1.125 1.125m-1.125-1.125c-.621 0-1.125.504-1.125 1.125" />
-            </div>
-            <h2 className="text-2xl font-bold text-navy">{t("sheetsTitle")}</h2>
-          </div>
-          <p className="text-muted text-center max-w-xl mx-auto mb-12">
-            {t("sheetsIntro")}
-          </p>
-
-          <div className="grid gap-3">
-            {sheetsFunctions.map((f) => (
-              <div key={f.fn} className="flex flex-col sm:flex-row gap-2 sm:gap-4 p-4 rounded-xl border border-card-border bg-card">
-                <code className="text-xs font-mono text-teal bg-teal/10 px-3 py-1.5 rounded shrink-0 self-start">{f.fn}</code>
-                <span className="text-xs text-muted self-center">{f.desc}</span>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-8 text-center text-xs text-muted">
-            {t("sheetsFooter")}
-          </p>
         </div>
       </section>
 

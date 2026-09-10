@@ -618,3 +618,14 @@ Les réponses indiquent la devise et les hypothèses effectivement appliquées :
 Validation : 33 nouveaux tests, suite complète 1 525 tests / 143 fichiers réussie, lint sans erreur. Requêtes HTTP locales des quatre calculs et OPTIONS réussies, dont erreurs d’entrée et scénarios fictifs valides avec devise/hypothèses. Aucun enregistrement client modifié.
 
 Lot précédent 94ce575 publié : CI 34424347826 réussie, déploiement dpl_BjtpgzrtCjWMFUD3UsR7X9ga9PQY Ready. Parcours production état/PropCalc développeurs/organisation cinq langues et quatre largeurs réussis.
+
+
+## 10 septembre — intégrations PropCalc utilisables
+
+Documentation recentrée sur le widget livré et les quatre calculs REST. Retrait de la commande npm et de ses résultats codés en dur, du bouton Chrome sans cible et des fonctions Sheets sans procédure d’installation fournie. Cela ne conclut pas à l’absence de produits externes ; leur distribution n’a pas pu être vérifiée. Exemple JavaScript fetch exécutant l’API avec traitement des erreurs et lecture des hypothèses, sans montant garanti. Retrait des affirmations de licence/zéro dépendance/16 fonctions non justifiées par ces intégrations.
+
+Inspection du widget livré : code Royaume-Uni uk, modules rental/stampduty (et non yield/transfertax), sept langues, sans lb. Documentation alignée ; exemple de la page luxembourgeoise explicitement en français. Bundle inchangé : ce contrôle de chargement ne constitue pas une validation de ses règles fiscales.
+
+Lint et compilation réussis. Navigateur local : cinq langues, quatre largeurs sans débordement, exécution de l’exemple fetch extrait de la page, chargement du vrai bundle/CSS depuis l’exemple HTML, dix onglets et modules britanniques rental/stampduty rendus. Aucune donnée client écrite. Le premier essai de fixture inter-origines était bloqué par la protection loopback du navigateur ; fixture même origine utilisée, sans désactiver la protection.
+
+Lot API c98d753 publié : CI 34425528743 réussie, dpl_A3gwDQ2zgsaFvhxybz9fhP7mRFht Ready et alias tevaxia.lu. Requêtes HTTP production quatre calculs/OPTIONS/entrées invalides réussies ; documentation production cinq langues/quatre largeurs réussie.
