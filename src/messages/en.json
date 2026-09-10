@@ -20202,5 +20202,14 @@
     "removeNamed": "Delete tracking for {commune}",
     "pause": "Pause",
     "resume": "Resume"
+  },
+  "accountExport": {
+    "title": "Export an account snapshot",
+    "scope": "Included: profile, this account’s local copies in this browser (including the valuation recovery bin), visible cloud valuations and rental lots, manual tracking, shared-link and API-key metadata, and stored plan. Local copies and cloud records are separate.",
+    "limits": "This file does not contain all your data: other browsers, unassigned legacy caches, other modules and workspaces, documents, invoices, secrets and shared-link contents are excluded. Successive reads are not a backup at one single point in time. For a wider request, contact contact@tevaxia.lu.",
+    "download": "Prepare JSON file",
+    "loading": "Preparing…",
+    "error": "The export could not be completed. No file was downloaded. Check your connection and account, then retry.",
+    "done": "Download started. Check your browser’s downloads for the file."
   }
 }

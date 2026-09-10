@@ -20202,5 +20202,14 @@
     "removeNamed": "Beobachtung für {commune} löschen",
     "pause": "Pausieren",
     "resume": "Fortsetzen"
+  },
+  "accountExport": {
+    "title": "Kontodaten als Momentaufnahme exportieren",
+    "scope": "Enthalten: Profil, lokale Kopien dieses Kontos in diesem Browser (einschließlich des Papierkorbs für Bewertungen), sichtbare Cloud-Bewertungen und Mietobjekte, manuelle Beobachtungen, Metadaten geteilter Links und API-Schlüssel sowie gespeicherter Tarif. Lokale Kopien und Cloud-Daten sind getrennt.",
+    "limits": "Diese Datei enthält nicht alle Daten: Andere Browser, nicht zugeordnete alte Zwischenspeicher, andere Module und Arbeitsbereiche, Dokumente, Rechnungen, Geheimnisse und Inhalte geteilter Links sind ausgeschlossen. Aufeinanderfolgende Abfragen ergeben keine Sicherung zu einem einzigen Zeitpunkt. Für umfassendere Anfragen: contact@tevaxia.lu.",
+    "download": "JSON-Datei vorbereiten",
+    "loading": "Wird vorbereitet…",
+    "error": "Der Export konnte nicht abgeschlossen werden. Es wurde keine Datei heruntergeladen. Prüfen Sie Verbindung und Konto und versuchen Sie es erneut.",
+    "done": "Download gestartet. Prüfen Sie den Download-Ordner Ihres Browsers."
   }
 }

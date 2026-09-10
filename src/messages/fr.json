@@ -20202,5 +20202,14 @@
     "removeNamed": "Supprimer le suivi de {commune}",
     "pause": "Mettre en pause",
     "resume": "Reprendre"
+  },
+  "accountExport": {
+    "title": "Exporter un instantané du compte",
+    "scope": "Inclus : profil, copies locales de ce compte dans ce navigateur (dont la corbeille des évaluations), évaluations et lots visibles dans le cloud, suivis manuels, métadonnées des liens partagés et des clés API, plan enregistré. Les copies locales et les données cloud sont séparées.",
+    "limits": "Ce fichier ne contient pas toutes vos données : autres navigateurs, anciens caches non attribués, autres modules et espaces de travail, documents, factures, secrets et contenu des liens partagés sont exclus. Les lectures successives ne constituent pas une sauvegarde à un instant unique. Pour une demande plus large, contactez contact@tevaxia.lu.",
+    "download": "Préparer le fichier JSON",
+    "loading": "Préparation…",
+    "error": "L’export n’a pas pu être terminé. Aucun fichier n’a été téléchargé. Réessayez une fois votre connexion et votre compte vérifiés.",
+    "done": "Téléchargement lancé. Vérifiez le fichier dans les téléchargements de votre navigateur."
   }
 }

@@ -20202,5 +20202,14 @@
     "removeNamed": "Eliminar o acompanhamento de {commune}",
     "pause": "Pausar",
     "resume": "Retomar"
+  },
+  "accountExport": {
+    "title": "Exportar um retrato dos dados da conta",
+    "scope": "Inclui: perfil, cópias locais desta conta neste navegador (incluindo a reciclagem de avaliações), avaliações e imóveis arrendados visíveis na nuvem, acompanhamentos manuais, metadados de ligações partilhadas e chaves API, e plano registado. As cópias locais e os dados da nuvem ficam separados.",
+    "limits": "Este ficheiro não contém todos os seus dados: exclui outros navegadores, caches antigos sem conta atribuída, outros módulos e espaços de trabalho, documentos, faturas, segredos e conteúdos das ligações partilhadas. Leituras sucessivas não são uma cópia num único instante. Para um pedido mais amplo: contact@tevaxia.lu.",
+    "download": "Preparar ficheiro JSON",
+    "loading": "A preparar…",
+    "error": "Não foi possível concluir a exportação. Nenhum ficheiro foi descarregado. Verifique a ligação e a conta e tente novamente.",
+    "done": "Download iniciado. Verifique os downloads do navegador."
   }
 }

@@ -20202,5 +20202,14 @@
     "removeNamed": "Observatioun fir {commune} läschen",
     "pause": "Pauséieren",
     "resume": "Weiderféieren"
+  },
+  "accountExport": {
+    "title": "Eng Momentopnam vun de Kontodaten exportéieren",
+    "scope": "Enthalen: Profil, lokal Kopië vun dësem Kont an dësem Browser (inklusiv de Pabeierkuerf vun de Bewäertungen), siichtbar Cloud-Bewäertungen a Mietobjeten, manuell Suivien, Metadate vu gedeelt Linken an API-Schlësselen an de gespäicherten Tarif. Lokal Kopien a Cloud-Date si getrennt.",
+    "limits": "Dës Datei enthält net all Är Donnéeën: aner Browser, al net zougeuerdent Cache-Daten, aner Modullen an Aarbechtsberäicher, Dokumenter, Rechnungen, Geheimnisser an Inhalter vu gedeelt Linke sinn ausgeschloss. Successiv Liesvirgäng si keng Sécherung zu engem eenzegen Zäitpunkt. Fir eng méi breet Ufro: contact@tevaxia.lu.",
+    "download": "JSON-Datei virbereeden",
+    "loading": "Gëtt virbereet…",
+    "error": "Den Export konnt net ofgeschloss ginn. Keng Datei gouf erofgelueden. Kontrolléiert Är Verbindung an Äre Kont a probéiert nach eng Kéier.",
+    "done": "Download gestart. Kontrolléiert d’Downloads an Ärem Browser."
   }
 }
