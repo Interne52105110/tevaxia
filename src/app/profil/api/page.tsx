@@ -22,6 +22,7 @@ import {
   listMyWebhooks,
   toggleWebhookActive,
   triggerTestWebhook,
+  validateWebhookUrl,
   type ApiWebhook,
   type ApiWebhookEvent,
 } from "@/lib/api-webhooks";
@@ -272,7 +273,7 @@ function ApiWorkspace({ userId }: { userId: string }) {
         </div>
       )}
 
-      <WebhooksSection lp={lp} />
+      <WebhooksSection lp={lp} userId={userId} />
 
       <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-5 text-sm text-blue-900">
         <strong>{t("docTitle")}</strong>{" "}
@@ -288,14 +289,24 @@ function ApiWorkspace({ userId }: { userId: string }) {
   );
 }
 
-function WebhooksSection({ lp }: { lp: string }) {
+function WebhooksSection({ lp, userId }: { lp: string; userId: string }) {
   const t = useTranslations("profilApi");
   void lp;
+  const live = useRef(true), lock = useRef(false);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => { live.current = true; return () => { live.current = false; }; }, []);
+  const runAction = async (action: () => Promise<void>) => {
+    if (lock.current || !live.current) return;
+    lock.current = true; setBusy(true); setError(null);
+    try { await action(); }
+    catch (e) { if (live.current) setError(errMsg(e, t("errGeneric"))); }
+    finally { lock.current = false; if (live.current) setBusy(false); }
+  };
   const [webhooks, setWebhooks] = useState<ApiWebhook[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [newUrl, setNewUrl] = useState("");
-  const [newEvent, setNewEvent] = useState<ApiWebhookEvent>("estimation.price_change");
+  const [newEvent, setNewEvent] = useState<ApiWebhookEvent>("health.check");
   const [newThreshold, setNewThreshold] = useState(5);
   const [testResult, setTestResult] = useState<Record<string, { ok: boolean; status?: number; durationMs?: number; error?: string }>>({});
   const [error, setError] = useState<string | null>(null);
@@ -303,24 +314,22 @@ function WebhooksSection({ lp }: { lp: string }) {
   const reload = useCallback(async () => {
     setLoading(true);
     try {
-      const list = await listMyWebhooks();
-      setWebhooks(list);
+      const list = await listMyWebhooks(userId);
+      if (live.current) setWebhooks(list);
     } catch (e) {
-      setError(errMsg(e, t("errGeneric")));
+      if (live.current) setError(errMsg(e, t("errGeneric")));
     } finally {
-      setLoading(false);
+      if (live.current) setLoading(false);
     }
-  }, [t]);
+  }, [t, userId]);
 
   useEffect(() => { void reload(); }, [reload]);
 
-  const handleCreate = async () => {
-    if (!newUrl.trim() || !newUrl.match(/^https?:\/\//)) {
-      setError(t("urlInvalid"));
-      return;
-    }
+  const handleCreate = () => runAction(async () => {
+    try { validateWebhookUrl(newUrl); } catch { setError(t("urlInvalid")); return; }
     try {
-      await createWebhook({ event_type: newEvent, url: newUrl, threshold_pct: newThreshold });
+      await createWebhook({ event_type: newEvent, url: newUrl, threshold_pct: newThreshold }, userId);
+      if (!live.current) return;
       setNewUrl("");
       setShowCreate(false);
       setError(null);
@@ -328,27 +337,24 @@ function WebhooksSection({ lp }: { lp: string }) {
     } catch (e) {
       setError(errMsg(e, t("errCreate")));
     }
-  };
+  });
 
-  const handleTest = async (id: string) => {
-    setTestResult((prev) => ({ ...prev, [id]: { ok: false } }));
-    const r = await triggerTestWebhook(id);
-    setTestResult((prev) => ({ ...prev, [id]: r }));
-  };
-
-  const handleToggle = async (id: string, active: boolean) => {
-    await toggleWebhookActive(id, !active);
-    await reload();
-  };
-
-  const handleDelete = async (id: string) => {
+  const handleTest = (id: string) => runAction(async () => {
+    setTestResult(prev => { const next = { ...prev }; delete next[id]; return next; });
+    const result = await triggerTestWebhook(id, userId);
+    if (live.current) setTestResult(prev => ({ ...prev, [id]: result }));
+  });
+  const handleToggle = (id: string, active: boolean) => runAction(async () => {
+    await toggleWebhookActive(id, !active, userId);
+    if (live.current) await reload();
+  });
+  const handleDelete = (id: string) => {
     if (!confirm(t("confirmDeleteWebhook"))) return;
-    await deleteWebhook(id);
-    await reload();
+    void runAction(async () => { await deleteWebhook(id, userId); if (live.current) await reload(); });
   };
 
   return (
-    <div className="mt-8 rounded-xl border border-card-border bg-card p-5">
+    <fieldset disabled={busy} aria-busy={busy} className="mt-8 min-w-0 rounded-xl border border-card-border bg-card p-5">
       <div className="flex items-start justify-between gap-3 flex-wrap mb-4">
         <div>
           <h2 className="text-base font-semibold text-navy">{t("webhooksTitle")}</h2>
@@ -366,7 +372,7 @@ function WebhooksSection({ lp }: { lp: string }) {
         </button>
       </div>
 
-      {error && <div className="mb-3 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-800">{error}</div>}
+      {error && <div role="alert" className="mb-3 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-800">{error}</div>}
 
       {showCreate && (
         <div className="mb-4 rounded-lg border border-navy/20 bg-navy/5 p-4 space-y-3">
@@ -388,8 +394,6 @@ function WebhooksSection({ lp }: { lp: string }) {
                 onChange={(e) => setNewEvent(e.target.value as ApiWebhookEvent)}
                 className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm"
               >
-                <option value="estimation.price_change">estimation.price_change</option>
-                <option value="estimation.new">estimation.new</option>
                 <option value="health.check">health.check</option>
               </select>
             </div>
@@ -420,7 +424,7 @@ function WebhooksSection({ lp }: { lp: string }) {
       {loading ? (
         <p className="text-xs text-muted">{t("loading")}</p>
       ) : webhooks.length === 0 ? (
-        <p className="text-xs text-muted italic">{t("noWebhook")}</p>
+        <p className="text-xs text-muted italic">{error ? t("errGeneric") : t("noWebhook")}</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
@@ -476,6 +480,6 @@ function WebhooksSection({ lp }: { lp: string }) {
           event: () => <code>estimation.price_change</code>,
         })}
       </p>
-    </div>
+    </fieldset>
   );
 }

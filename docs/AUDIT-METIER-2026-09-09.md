@@ -1036,3 +1036,20 @@ Douze nouveaux tests depuis 49ce0da : suite 1 472 tests / 140 fichiers. Essais n
 49ce0da publié : CI 34421360148 réussie, dpl_J2T8qPK68eDuQPtKVdqCb3Gma9fR Ready ; documentation cinq langues/quatre largeurs et spécification corrigée contrôlées en production. Sur cette version, le 503 de lecture de clé était encore présent ; le nouveau correctif de compatibilité reste à confirmer une fois déployé. Sandbox facturation refusée 403 comme prévu.
 
 Compilation et lint réussis après adaptation du typage de la sélection dynamique. Local réel sans configuration Supabase : message de configuration affiché sans débordement dans cinq langues/quatre largeurs ; tests HTTP facturation/PMS locaux réussis. Les parcours connectés sont ceux de la simulation décrite ci-dessus.
+
+
+## 10 septembre — webhooks : résultat réel, portée et gestion
+
+Le client respecte désormais le résultat métier de la livraison : une réponse HTTP 200 du endpoint de test ne suffit pas. Seuls ok=true et un statut de destination 2xx donnent un succès. Erreurs de transport, statut 500 du destinataire, réponse malformée ou échec du endpoint restent des échecs. Compte et session vérifiés avant envoi, résultat refusé après changement de compte. Aucun webhook réel envoyé pendant les essais.
+
+Les actions de l’écran sont verrouillées, les erreurs de création/test/activation/suppression sont traitées et les réponses après démontage ignorées. Les appels de gestion reçoivent le compte initiateur, filtrent le propriétaire, lisent toutes les pages et confirment les lignes modifiées/supprimées. Les listes n’incluent plus les secrets de signature. La lecture publique à zéro ligne confirme l’existence des colonnes utilisées sur api_webhooks en production, sans lecture de données client ; elle ne certifie pas les politiques RLS.
+
+Recherche dans les sources : le seul envoi implémenté est le test manuel health.check. Les annonces de notifications automatiques sur variation de prix ont été remplacées dans cinq langues par la portée réelle. Nouvelles configurations limitées à health.check ; anciennes étiquettes conservées et clairement non automatiques. Validation HTTPS sans identifiants intégrés, port 443, conforme aux contraintes du transport serveur existant ; protection DNS et refus des destinations privées restent côté serveur. Message d’indisponibilité de gestion des clés reformulé sans prescription de migrations au visiteur.
+
+Quatorze nouveaux tests : suite 1 486 tests / 141 fichiers réussie ; lint sans erreur. Navigateur isolé cinq langues avec services simulés : échec de livraison visible, verrou, compte capturé, action échouée traitée, ancien résultat ignoré après changement de compte. Aucune création/suppression réelle et aucune notification externe. Les tentatives automatiques, leur planification et un provisionnement de secrets côté utilisateur ne sont pas implémentés par ce lot.
+
+ce86ddf confirmé publié : CI 34422245054 réussie, dpl_8oNStEVmcgVBdVuZFEL2Qqxtbqcx Ready avec alias tevaxia.lu. Après Ready, contrôles HTTP production facturation/PMS réussis : absence/clé fictive 401, sandbox facturation 403, prévols. Le 503 dû à la colonne active absente est résolu pour la recherche de clé testée. Pas de test avec une clé client valide et pas d’import PMS autorisé. Parcours public gestion des clés cinq langues/quatre largeurs réussi en production. Les premiers essais avant Ready visaient encore l’ancienne version et ne sont pas ceux retenus pour cette confirmation.
+
+Contrôle supplémentaire de contenu rendu : les anciennes variables de traduction utilisées comme fonctions masquaient des extraits de code. Balises riches corrigées pour la signature, l’événement et les exemples endpoint/authentification/corps/lien, puis vérifiées dans cinq langues. Le sélecteur des nouvelles configurations n’affiche que health.check.
+
+Compilation finale réussie après corrections de contenu riche. Parcours public local cinq langues/quatre largeurs et refus HTTP facturation/PMS rejoués avec succès ; aucun envoi de webhook.
