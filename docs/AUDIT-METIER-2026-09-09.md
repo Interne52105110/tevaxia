@@ -1213,3 +1213,16 @@ Ajout de la migration 064_rental_portal_ownership.sql et du test scripts/test-re
 La migration n'est PAS appliquée à Supabase production : accès administrateur indisponible, et le déploiement Vercel ne lance pas les migrations. Procédure et limites dans docs/RENTAL-PORTAL-SQL-064.md. Aucun jeton réel ni compte client utilisé pour ces tests. La reproduction locale ne démontre pas que les politiques historiques sont actives en production.
 
 Portail locataire ac06483 publié : CI 34434739685 réussie, dpl_2dTz9B4n7aM733VNQrC1bEaNAy9U Ready ; QA production cinq langues/quatre largeurs, lien malformé sans RPC, noindex/no-referrer réussie (tenant-portal-public-prod.log). Suite applicative 1 629 tests / 148 fichiers inchangée pour ce lot SQL/documentation.
+
+
+## 10 septembre — colocation : identité, parts et arrondis
+
+CRUD colocataires lié au propriétaire et à la clé primaire cloud du lot, lectures paginées jusqu'à fin explicite, réponses contrôlées, versions et confirmation des modifications/suppressions. Création avec identifiant stable de formulaire pour éviter un doublon lors d'une réponse ambiguë. Dates, parts et garanties validées. Les saisies de parts sont désormais des brouillons avec bouton d'enregistrement individuel ; suppression des écritures à chaque frappe. La préparation automatique ne modifie plus le cloud par une série d'écritures susceptibles de s'arrêter à mi-chemin.
+
+Répartition : seuls les actifs comptent pour les 100 %. Les parts historiques des occupants partis/en attente sont préservées sans diminuer le reliquat. Les actifs à zéro reçoivent des centièmes de pourcentage totalisant exactement le reliquat ; dépassement ou absence de bénéficiaire du reliquat refusés. Montants nominaux calculés seulement pour une répartition enregistrée complète, avec distribution des centimes restants conservant le total exact. Garanties affichées = montants déclarés des actifs, sans prétendre suivre les versements/remboursements ou certifier un plafond réglementaire. Suppression des références d'articles non vérifiées ; lien Guichet et distinction entre répartition interne et obligations envers le bailleur. Source consultée : https://guichet.public.lu/fr/citoyens/logement/location/contrat-litige/conclure-contrat-bail-location.html .
+
+UI : actions verrouillées, erreurs récupérables, données/saisies préservées après échec, réponses tardives d'un ancien compte ignorées. KPI empilés sur mobile, tableau défilant. Validation : 1 646 tests / 149 fichiers réussis, dont 17 nouveaux cas ; lint sans avertissement, compilation réussie, UI isolée cinq langues/quatre largeurs (brouillons sans écriture, préparation, erreur, confirmation, somme exacte et changement de compte).
+
+Migration 065_cotenant_lot_ownership.sql préparée : politique restrictive pour l'appartenance du lot, test PostgreSQL PGlite en mémoire étendu et réussi. Comme 064, NON appliquée en production faute d'accès SQL administrateur. Aucun colocataire réel modifié ni contrat signé ; les contrôles applicatifs ne certifient pas les politiques effectives de production.
+
+Lot SQL/documentation bc96f7a poussé, CI34435011694 réussie, Vercel dpl_4cdkEdVWrcrzJXXXmF31wCBMM11R Ready ; cela ne signifie pas que la migration 064 a été exécutée.

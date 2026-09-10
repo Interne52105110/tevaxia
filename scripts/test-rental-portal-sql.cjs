@@ -10,6 +10,8 @@ const la='10000000-0000-4000-8000-000000000001',lb='10000000-0000-4000-8000-0000
  CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$SELECT NULLIF(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
  GRANT USAGE ON SCHEMA auth TO anon,authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO anon,authenticated;`);
  for(const file of ['001_create_valuations.sql','006_cloud_sync_valuations_and_lots.sql','016_rental_payments.sql','026_tenant_portal_tokens.sql'])await db.exec(fs.readFileSync(path.join(migrations,file),'utf8'));
+ // Only the rental portion; the remainder depends on unrelated syndic tables.
+ await db.exec(fs.readFileSync(path.join(migrations,'030_dunning_and_coliving.sql'),'utf8').split('-- Relances sur appels de fonds')[0]);
  await db.exec(`GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO authenticated;
  INSERT INTO auth.users VALUES ('${a}'),('${b}');
  INSERT INTO rental_lots(id,user_id,name) VALUES ('${la}','${a}','A private lot'),('${lb}','${b}','B private lot');
@@ -22,6 +24,8 @@ const la='10000000-0000-4000-8000-000000000001',lb='10000000-0000-4000-8000-0000
  await db.exec('RESET ROLE');
  const sql=fs.readFileSync(path.join(migrations,'064_rental_portal_ownership.sql'),'utf8');
  await db.exec(sql);await db.exec(sql);
+ const cotenantSql=fs.readFileSync(path.join(migrations,'065_cotenant_lot_ownership.sql'),'utf8');
+ await db.exec(cotenantSql);await db.exec(cotenantSql);
  console.log('PASS migration applies twice without data deletion');
  // Unknown permissive policies must not bypass the new restrictive checks.
  await db.exec('CREATE POLICY qa_broad_access ON rental_payments FOR ALL USING (true) WITH CHECK (true); CREATE POLICY qa_broad_tokens ON tenant_portal_tokens FOR ALL USING (true) WITH CHECK (true);');
@@ -36,6 +40,12 @@ const la='10000000-0000-4000-8000-000000000001',lb='10000000-0000-4000-8000-0000
  await db.query('UPDATE rental_payments SET amount_charges=10 WHERE lot_id=$1 AND period_month=2',[la]);
  assert.equal((await db.query('SELECT amount_total::text AS amount FROM rental_payments WHERE period_month=2')).rows[0].amount,'110');
  console.log('PASS owned writes work; cross-owner reads, inserts, reassignment and deletion are blocked even with broad permissive policies');
+ await assert.rejects(db.query('INSERT INTO rental_cotenants(lot_id,user_id,name) VALUES ($1,$2,$3)',[lb,a,'cross owner']),/row-level security/);
+ const cot=(await db.query('INSERT INTO rental_cotenants(lot_id,user_id,name,share_pct) VALUES ($1,$2,$3,50) RETURNING id',[la,a,'owned cotenant'])).rows[0];
+ await assert.rejects(db.query('UPDATE rental_cotenants SET lot_id=$1 WHERE id=$2',[lb,cot.id]),/row-level security/);
+ await db.query('UPDATE rental_cotenants SET share_pct=75 WHERE id=$1',[cot.id]);
+ assert.equal((await db.query('SELECT share_pct::text AS share FROM rental_cotenants WHERE id=$1',[cot.id])).rows[0].share,'75.00');
+ console.log('PASS cotenant migration: owned creation/update work, cross-owner insertion/reassignment blocked');
  await db.exec('RESET ROLE; SET ROLE anon');
  assert.deepEqual(await rpc('legacy-mismatch'),{error:'invalid_token'});
  const valid=await rpc('valid-a');assert.equal(valid.lot.name,'A private lot');assert.equal(valid.payments.length,2);assert.ok(valid.payments.every(p=>p.amount_total!==999));

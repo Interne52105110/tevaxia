@@ -17,3 +17,8 @@ Résultats : défaut historique reproduit, migration appliquée deux fois, écri
 Avant application, examiner les définitions effectives des trois tables et de la fonction, leurs propriétaires, droits et politiques, ainsi que les dépendances éventuelles. Mesurer les associations incohérentes sans exporter de données personnelles ; décider de leur traitement séparément, sans les réattribuer automatiquement. Appliquer `supabase/migrations/064_rental_portal_ownership.sql` dans une transaction administrative, puis contrôler avec deux comptes de test et un lien de test dédié. Ne pas annoncer ce correctif comme actif avant cette vérification.
 
 Références : [politiques restrictives PostgreSQL](https://www.postgresql.org/docs/16/sql-createpolicy.html), [fonctions et search_path Supabase](https://supabase.com/docs/guides/database/functions), [PGlite en mémoire](https://pglite.dev/docs/).
+
+
+## Complément 065 — colocataires
+
+La migration 065_cotenant_lot_ownership.sql applique la même restriction au lien entre rental_cotenants et rental_lots. Elle dépend de 006/030 et reste également NON appliquée à la production. Le test local couvre désormais création/modification légitimes et refus de l'insertion ou réaffectation vers un lot tiers. Les prérequis de vérification administrative ci-dessus restent applicables.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -11,13 +11,13 @@ import {
   createCotenant,
   updateCotenant,
   deleteCotenant,
-  autoBalanceShares,
+  autoBalanceShares, allocateSharedRents,
   type Cotenant,
   type CotenantStatus,
 } from "@/lib/cotenants";
 import { formatEUR } from "@/lib/calculations";
 import { isSupabaseConfigured } from "@/lib/supabase";
-import { errMsg } from "@/lib/errors";
+
 
 const STATUS_COLOR: Record<CotenantStatus, string> = {
   active: "bg-emerald-100 text-emerald-800",
@@ -40,6 +40,10 @@ function CotenantsPageContent() {
   const params = useParams();
   const id = String(params?.id ?? "");
   const { user, loading: authLoading } = useAuth();
+  const ownerId=user?.id;
+  const live=useRef(true),running=useRef(false),createId=useRef<string|null>(null);
+  const [busy,setBusy]=useState(false),[ready,setReady]=useState(false);
+  const [shareDrafts,setShareDrafts]=useState<Record<string,string>>({});
 
   const STATUS_LABELS: Record<CotenantStatus, string> = {
     active: t("statusActive"),
@@ -64,73 +68,40 @@ function CotenantsPageContent() {
     status: "active" as CotenantStatus,
   });
 
-  const refresh = useCallback(async () => {
-    if (!id) return;
-    try {
-      setLoading(true);
-      const l = await getLotAsync(id, user?.id ?? null);
-      setLot(l);
-      if (isSupabaseConfigured && user) {
-        const list = await listCotenantsForLot(id);
-        setCotenants(list);
-      }
-    } catch (e) {
-      setError(errMsg(e, t("errGeneric")));
-    } finally {
-      setLoading(false);
-    }
-  }, [id, user, t]);
-
-  useEffect(() => {
-    if (id && user) void refresh();
-  }, [id, user, refresh]);
-
-  const handleCreate = async () => {
-    if (!form.name.trim()) {
-      setError(t("errNameRequired"));
-      return;
-    }
-    try {
-      await createCotenant({
-        lot_id: id,
-        name: form.name,
-        email: form.email || undefined,
-        phone: form.phone || undefined,
-        share_pct: form.share_pct,
-        deposit_amount: form.deposit_amount,
-        bail_start: form.bail_start || undefined,
-        bail_end: form.bail_end || undefined,
-        status: form.status,
-      });
-      setForm({ name: "", email: "", phone: "", share_pct: 0, deposit_amount: 0, bail_start: "", bail_end: "", status: "active" });
-      setShowForm(false);
-      setError(null);
-      await refresh();
-    } catch (e) {
-      setError(errMsg(e, t("errCreate")));
-    }
+  const refresh=useCallback(async()=>{
+    if(!id||!ownerId)throw new Error('Account required');
+    if(live.current)setReady(false);
+    const l=await getLotAsync(id,ownerId);if(!l)throw new Error('Lot unavailable');
+    const list=await listCotenantsForLot(id,ownerId);
+    if(live.current){setLot(l);setCotenants(list);setReady(true);setError(null);}
+  },[id,ownerId]);
+  useEffect(()=>{live.current=true;if(id&&ownerId)void refresh().catch(()=>{if(live.current)setError(t('errGeneric'))}).finally(()=>{if(live.current)setLoading(false)});return()=>{live.current=false};},[id,ownerId,refresh,t]);
+  const runAction=async(work:()=>Promise<void>)=>{
+    if(running.current||!ready||!ownerId)return;
+    running.current=true;setBusy(true);setError(null);
+    try{await work();if(live.current)await refresh();}catch{if(live.current)setError(t('errGeneric'));}
+    finally{running.current=false;if(live.current)setBusy(false);}
   };
-
-  const handleUpdateShare = async (cot: Cotenant, newPct: number) => {
-    await updateCotenant(cot.id, { share_pct: newPct });
-    await refresh();
+  const handleCreate=async()=>{
+    if(!form.name.trim()){setError(t('errNameRequired'));return;}
+    await runAction(async()=>{
+      createId.current??=crypto.randomUUID();
+      await createCotenant({id:createId.current,lot_id:id,...form,email:form.email||undefined,phone:form.phone||undefined,bail_start:form.bail_start||undefined,bail_end:form.bail_end||undefined},ownerId!);
+      if(live.current){createId.current=null;setForm({name:'',email:'',phone:'',share_pct:0,deposit_amount:0,bail_start:'',bail_end:'',status:'active'});setShowForm(false);}
+    });
   };
-
-  const handleDelete = async (cotId: string) => {
-    if (!confirm(t("confirmDelete"))) return;
-    await deleteCotenant(cotId);
-    await refresh();
+  const handleUpdateShare=async(cot:Cotenant)=>runAction(async()=>{
+    const draft=shareDrafts[cot.id];if(draft===undefined||!draft.trim())throw new Error('Share required');
+    await updateCotenant(cot,{share_pct:Number(draft)},ownerId!);
+    if(live.current)setShareDrafts(previous=>{const next={...previous};delete next[cot.id];return next});
+  });
+  const handleDelete=async(cot:Cotenant)=>{
+    if(!confirm(t('confirmDelete')))return;
+    await runAction(()=>deleteCotenant(cot,ownerId!));
   };
-
-  const handleAutoBalance = async () => {
-    const balanced = autoBalanceShares(cotenants);
-    for (const c of cotenants) {
-      const newPct = balanced[c.id];
-      if (newPct !== c.share_pct) {
-        await updateCotenant(c.id, { share_pct: newPct });
-      }
-    }
-    await refresh();
+  const handleAutoBalance=()=>{
+    try{const balanced=autoBalanceShares(cotenants);setShareDrafts(Object.fromEntries(cotenants.filter(c=>c.status==='active'&&balanced[c.id]!==c.share_pct).map(c=>[c.id,String(balanced[c.id])])));setError(null);}
+    catch{setError(t('balanceError'));}
   };
 
   if (!isSupabaseConfigured) {
@@ -152,16 +123,17 @@ function CotenantsPageContent() {
   if (loading) return <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
   if (!lot) return (
     <div className="mx-auto max-w-5xl px-4 py-16 text-center text-muted">
-      {t("lotNotFound")} <Link href={`${lp}/gestion-locative/portefeuille`} className="text-navy underline">{t("backLink")}</Link>
+      {error?t("errGeneric"):t("lotNotFound")} {error&&<button className="underline mr-3" onClick={()=>void refresh().catch(()=>setError(t("errGeneric")))}>{t("retry")}</button>} <Link href={`${lp}/gestion-locative/portefeuille`} className="text-navy underline">{t("backLink")}</Link>
     </div>
   );
 
   const totalShare = cotenants
     .filter((c) => c.status === "active")
-    .reduce((s, c) => s + Number(c.share_pct), 0);
-  const totalDeposit = cotenants.reduce((s, c) => s + Number(c.deposit_amount), 0);
-  const loyerTotal = lot.loyerMensuelActuel + lot.chargesMensuelles;
-  const shareValid = Math.abs(totalShare - 100) < 0.01;
+    .reduce((s, c) => s + Math.round(c.share_pct*100), 0)/100;
+  const totalDeposit = cotenants.filter(c=>c.status==="active").reduce((s,c)=>s+Math.round(c.deposit_amount*100),0)/100;
+  const loyerTotal = (Math.round(lot.loyerMensuelActuel*100)+Math.round(lot.chargesMensuelles*100))/100;
+  const allocations=allocateSharedRents(loyerTotal,cotenants);
+  const shareValid = Math.round(totalShare*100) === 10000;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
@@ -173,9 +145,11 @@ function CotenantsPageContent() {
         {t("pageSubtitle", { rent: formatEUR(loyerTotal) })}
       </p>
 
-      {error && <div className="mt-4 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-800">{error}</div>}
+      {error && <div role="alert" className="mt-4 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-800">{error}<button className="ml-3 underline" disabled={busy} onClick={()=>void refresh().catch(()=>setError(t("errGeneric")))}>{t("retry")}</button></div>}
 
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <p className="mt-4 text-sm text-muted">{t("draftNote")}</p>
+      <fieldset className="min-w-0" disabled={busy||!ready} aria-busy={busy}>
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="rounded-xl border border-card-border bg-card p-4 text-center">
           <div className="text-xs text-muted">{t("kpiActive")}</div>
           <div className="mt-1 text-2xl font-bold text-navy">
@@ -185,7 +159,7 @@ function CotenantsPageContent() {
         <div className={`rounded-xl border p-4 text-center ${shareValid ? "border-emerald-200 bg-emerald-50" : "border-amber-200 bg-amber-50"}`}>
           <div className="text-xs text-muted">{t("kpiTotalShare")}</div>
           <div className={`mt-1 text-2xl font-bold ${shareValid ? "text-emerald-900" : "text-amber-900"}`}>
-            {totalShare.toFixed(1)} %
+            {totalShare.toFixed(2)} %
           </div>
           {!shareValid && <div className="text-[10px] text-amber-700">{t("kpiShareWarn")}</div>}
         </div>
@@ -251,7 +225,7 @@ function CotenantsPageContent() {
                 onChange={(e) => setForm((f) => ({ ...f, share_pct: Number(e.target.value) }))}
                 min={0}
                 max={100}
-                step={0.5}
+                step={0.01}
                 className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-sm font-mono"
               />
             </label>
@@ -327,7 +301,7 @@ function CotenantsPageContent() {
             </thead>
             <tbody>
               {cotenants.map((c) => {
-                const loyerNominatif = loyerTotal * (Number(c.share_pct) / 100);
+                const loyerNominatif = allocations?.[c.id];
                 return (
                   <tr key={c.id} className="border-b border-card-border/40 hover:bg-background/40">
                     <td className="px-4 py-3 font-medium">{c.name}</td>
@@ -339,22 +313,23 @@ function CotenantsPageContent() {
                     <td className="px-4 py-3 text-right">
                       <input
                         type="number"
-                        value={c.share_pct}
-                        onChange={(e) => handleUpdateShare(c, Number(e.target.value))}
+                        value={shareDrafts[c.id]??String(c.share_pct)}
+                        onChange={(e)=>setShareDrafts(previous=>({...previous,[c.id]:e.target.value}))}
                         min={0}
                         max={100}
-                        step={0.5}
+                        step={0.01}
                         className="w-20 rounded border border-input-border bg-input-bg px-2 py-1 text-xs text-right font-mono"
                       />
+                      {shareDrafts[c.id]!==undefined&&<button className="block mt-2 ml-auto underline text-xs" onClick={()=>handleUpdateShare(c)}>{t("saveShare")}</button>}
                     </td>
                     <td className="px-4 py-3 text-right font-mono text-sm font-semibold text-navy">
-                      {formatEUR(loyerNominatif)}
+                      {loyerNominatif===undefined?"—":formatEUR(loyerNominatif)}
                     </td>
                     <td className="px-4 py-3 text-right font-mono text-xs">{formatEUR(Number(c.deposit_amount))}</td>
                     <td className="px-4 py-3 text-xs text-muted font-mono">
-                      {c.bail_start ? new Date(c.bail_start).toLocaleDateString(dateLocale, { month: "short", year: "2-digit" }) : "—"}
+                      {c.bail_start ? new Date(c.bail_start+"T12:00:00Z").toLocaleDateString(dateLocale, { month: "short", year: "2-digit", timeZone:"Europe/Luxembourg" }) : "—"}
                       {" → "}
-                      {c.bail_end ? new Date(c.bail_end).toLocaleDateString(dateLocale, { month: "short", year: "2-digit" }) : "∞"}
+                      {c.bail_end ? new Date(c.bail_end+"T12:00:00Z").toLocaleDateString(dateLocale, { month: "short", year: "2-digit", timeZone:"Europe/Luxembourg" }) : "∞"}
                     </td>
                     <td className="px-4 py-3 text-center">
                       <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] ${STATUS_COLOR[c.status]}`}>
@@ -362,7 +337,7 @@ function CotenantsPageContent() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <button onClick={() => handleDelete(c.id)} className="text-xs text-rose-700 hover:underline">
+                      <button onClick={() => handleDelete(c)} className="text-xs text-rose-700 hover:underline">
                         {t("btnDelete")}
                       </button>
                     </td>
@@ -374,8 +349,9 @@ function CotenantsPageContent() {
         </div>
       )}
 
+      </fieldset>
       <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-900">
-        <strong>{t("legalStrong")}</strong> {t("legalBody")}
+        <strong>{t("legalStrong")}</strong> {t("legalBody")} <a className="underline" href="https://guichet.public.lu/fr/citoyens/logement/location/contrat-litige/conclure-contrat-bail-location.html">{t("officialSource")}</a>
       </div>
     </div>
   );
