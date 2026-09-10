@@ -1,1 +1,1 @@
-export { default, metadata } from "@/app/locataire/[token]/layout";
+export { default, generateMetadata } from "@/app/locataire/[token]/layout";

@@ -17850,86 +17850,86 @@
     "locataire": {
       "meta": {
         "title": "Portal de inquilino Luxemburgo — tevaxia",
-        "description": "Aceda ao seu portal de inquilino: recibos de renda, vistoria digital, avisos de encargos, assistente IA arrendamento. Link mágico seguro fornecido pelo seu senhorio."
+        "description": "Consulte os dados do imóvel e as prestações de renda declaradas pelo senhorio através da ligação pessoal que lhe foi transmitida."
       },
       "hero": {
         "badge": "Portal de inquilino",
-        "title": "O seu arrendamento no Luxemburgo",
-        "titleAccent": "tudo num só lugar",
-        "subtitle": "Recibos de renda, vistoria digital, avisos de encargos, trocas com o seu senhorio ou agência. Acesso seguro por link mágico, sem criação de conta.",
-        "primaryCta": "Pedir o meu link de acesso",
+        "title": "O seu registo de arrendamento",
+        "titleAccent": "partilhado pelo senhorio",
+        "subtitle": "Dados do imóvel, rendas e encargos registados e estados de pagamento declarados. Consulte este registo com a ligação pessoal enviada pelo senhorio, sem criar conta.",
+        "primaryCta": "Como obter a minha ligação",
         "secondaryCta": "Compreender o seu arrendamento"
       },
       "features": {
         "title": "O que encontra no portal",
-        "intro": "Todas as peças do seu contrato acessíveis 24/7, conformes ao direito de arrendamento luxemburguês.",
+        "intro": "O portal apresenta informações registadas pelo senhorio. Não contém automaticamente todos os documentos do contrato.",
         "items": [
           {
-            "icon": "🧾",
-            "title": "Recibos de renda",
-            "desc": "Descarregue os seus recibos mensais assinados. Indispensáveis para diligências administrativas."
+            "icon": "⌂",
+            "title": "Dados do imóvel",
+            "desc": "Designação, morada, área e classe energética introduzidas pelo senhorio."
           },
           {
-            "icon": "📋",
-            "title": "Vistoria digital",
-            "desc": "Vistorias de entrada e saída com data e hora e fotografias. Comparação lado a lado."
+            "icon": "€",
+            "title": "Prestações registadas",
+            "desc": "Período, renda sem encargos, adiantamentos de encargos e total de cada linha apresentada."
           },
           {
-            "icon": "💶",
-            "title": "Avisos de encargos",
-            "desc": "Regularização anual detalhada por rubrica, com justificativos."
+            "icon": "✓",
+            "title": "Estados declarados",
+            "desc": "Prestações declaradas pagas, parcialmente pagas ou pendentes. Não constituem confirmação bancária."
           },
           {
-            "icon": "🤖",
-            "title": "Assistente IA arrendamento",
-            "desc": "Faça perguntas sobre a lei de 21 de setembro de 2006 — direitos, deveres, caução."
+            "icon": "≡",
+            "title": "Histórico apresentado",
+            "desc": "Até às 24 últimas prestações registadas. Uma eventual data de emissão de recibo não é um PDF assinado disponível para descarregar."
           }
         ]
       },
       "access": {
         "title": "Como aceder ao seu portal",
-        "intro": "Sem criação de conta. O seu senhorio ou agência envia-lhe um link mágico pessoal seguro.",
+        "intro": "O senhorio deve utilizar o registo de arrendamento e transmitir-lhe pessoalmente uma ligação de acesso.",
         "steps": [
           {
             "number": "1",
-            "title": "Pedido ao senhorio",
-            "desc": "Contacte o seu senhorio ou a agência e peça o seu link de acesso de inquilino tevaxia."
+            "title": "Peça a ligação ao senhorio",
+            "desc": "Contacte diretamente o senhorio ou o gestor do imóvel."
           },
           {
             "number": "2",
-            "title": "Receção por e-mail",
-            "desc": "Recebe um e-mail com o seu link pessoal. Válido durante toda a duração do arrendamento."
+            "title": "Receba a ligação pessoal",
+            "desc": "O senhorio transmite a ligação pelo canal acordado. Não é prometido envio automático por email."
           },
           {
             "number": "3",
-            "title": "Acesso direto",
-            "desc": "Clique no link: chega ao seu processo sem palavra-passe. Sem aplicação para instalar."
+            "title": "Consulte os dados partilhados",
+            "desc": "Abra a ligação sem criar conta. A validade depende da data de expiração e de eventual revogação."
           }
         ],
-        "note": "Não recebeu link? O seu senhorio pode ainda não usar tevaxia. Convide-o a descobrir a nossa solução de gestão de arrendamento."
+        "note": "Mantenha a ligação confidencial: qualquer pessoa que a possua pode consultar os dados partilhados. Sem ligação, contacte o senhorio."
       },
       "faq": {
         "title": "Perguntas frequentes",
         "items": [
           {
-            "q": "O link é seguro?",
-            "a": "O token é aleatório (256 bits), único e opaco. Pode pedir ao senhorio para o revogar a qualquer momento."
+            "q": "Posso descarregar um recibo assinado?",
+            "a": "O ecrã mostra as prestações e a data de emissão, quando registada. Peça ao senhorio um documento de recibo assinado."
           },
           {
-            "q": "Que fazer em caso de litígio sobre encargos?",
-            "a": "Tem o direito de consultar os justificativos. A lei de 21 de setembro de 2006 enquadra a regularização. Em caso de desacordo persistente, a comissão de rendas pode ser acionada."
+            "q": "O saldo está completo?",
+            "a": "Abrange apenas as linhas apresentadas. Um pagamento parcial sem montante conhecido torna o saldo indeterminado; confirme a situação completa com o senhorio."
           },
           {
-            "q": "A caução é gerida aqui?",
-            "a": "O acompanhamento da caução (depositada em conta bloqueada conforme artigo 5 da lei) é visível no portal, com data de depósito e restituição prevista."
+            "q": "A caução e os autos de vistoria estão disponíveis?",
+            "a": "O portal atual não acompanha movimentos de caução nem disponibiliza autos de vistoria ou comprovativos detalhados de encargos. Solicite-os ao senhorio."
           },
           {
-            "q": "E se eu mudar de casa?",
-            "a": "O seu novo senhorio enviará um novo link. O antigo permanece consultável em modo leitura por 12 meses."
+            "q": "Durante quanto tempo é válida a ligação?",
+            "a": "A ligação tem uma data de expiração e pode ser revogada. A duração não corresponde automaticamente ao contrato; não são garantidos mais 12 meses de acesso após a saída."
           },
           {
-            "q": "Quanto custa este acesso?",
-            "a": "O acesso de inquilino é gratuito. É o seu senhorio que subscreve tevaxia."
+            "q": "E se uma informação estiver incorreta?",
+            "a": "Contacte o senhorio indicando o período e o montante. Este espaço de consulta não permite pagar renda nem alterar o registo."
           }
         ]
       },

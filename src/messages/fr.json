@@ -17850,86 +17850,86 @@
     "locataire": {
       "meta": {
         "title": "Espace locataire Luxembourg — portail tevaxia",
-        "description": "Accédez à votre espace locataire : quittances de loyer, état des lieux numérique, avis de charges, assistant IA bail. Lien magique sécurisé fourni par votre bailleur."
+        "description": "Consultez les informations du logement et les échéances de loyer déclarées par votre bailleur, à partir du lien personnel qu’il vous transmet."
       },
       "hero": {
         "badge": "Portail locataire",
-        "title": "Votre bail au Luxembourg",
-        "titleAccent": "tout au même endroit",
-        "subtitle": "Quittances de loyer, état des lieux numérique, avis de charges, échanges avec votre bailleur ou agence. Accès sécurisé par lien magique, sans création de compte.",
-        "primaryCta": "Demander mon lien d'accès",
+        "title": "Votre suivi locatif",
+        "titleAccent": "partagé par le bailleur",
+        "subtitle": "Informations du logement, loyers et charges enregistrés, statuts de paiement déclarés. Consultez ce relevé avec le lien personnel transmis par votre bailleur, sans créer de compte.",
+        "primaryCta": "Comment obtenir mon lien",
         "secondaryCta": "Comprendre votre bail"
       },
       "features": {
         "title": "Ce que vous trouvez dans votre espace",
-        "intro": "Toutes les pièces de votre bail accessibles 24/7, conformes au droit locatif luxembourgeois.",
+        "intro": "Le portail affiche un relevé des informations enregistrées par le bailleur. Il ne contient pas automatiquement tous les documents du bail.",
         "items": [
           {
-            "icon": "🧾",
-            "title": "Quittances de loyer",
-            "desc": "Téléchargez vos quittances mensuelles signées. Indispensables pour vos démarches administratives."
+            "icon": "⌂",
+            "title": "Informations du logement",
+            "desc": "Désignation, adresse, surface et classe énergétique renseignées par le bailleur."
           },
           {
-            "icon": "📋",
-            "title": "État des lieux numérique",
-            "desc": "État d'entrée et de sortie horodatés avec photos. Comparaison côte à côte pour le contradictoire."
+            "icon": "€",
+            "title": "Échéances enregistrées",
+            "desc": "Période, loyer hors charges, provisions sur charges et total de chaque ligne affichée."
           },
           {
-            "icon": "💶",
-            "title": "Avis de charges",
-            "desc": "Régularisation annuelle détaillée poste par poste, avec pièces justificatives."
+            "icon": "✓",
+            "title": "Statuts déclarés",
+            "desc": "Échéances déclarées payées, partielles ou en attente. Il ne s’agit pas d’une confirmation bancaire."
           },
           {
-            "icon": "🤖",
-            "title": "Assistant IA bail",
-            "desc": "Posez vos questions sur la loi du 21 septembre 2006 modifiée — droits, obligations, dépôt de garantie."
+            "icon": "≡",
+            "title": "Historique affiché",
+            "desc": "Jusqu’aux 24 dernières échéances enregistrées. Une date de quittance éventuellement renseignée ne constitue pas un PDF signé téléchargeable."
           }
         ]
       },
       "access": {
         "title": "Comment accéder à votre espace",
-        "intro": "Aucune création de compte. Votre bailleur ou agence vous envoie un lien magique sécurisé personnel.",
+        "intro": "Votre bailleur doit utiliser le suivi locatif et vous transmettre personnellement un lien d’accès.",
         "steps": [
           {
             "number": "1",
-            "title": "Demande au bailleur",
-            "desc": "Contactez votre bailleur ou l'agence qui gère votre bail et demandez votre lien d'accès locataire tevaxia."
+            "title": "Demandez le lien au bailleur",
+            "desc": "Contactez directement votre bailleur ou le gestionnaire du logement."
           },
           {
             "number": "2",
-            "title": "Réception par e-mail",
-            "desc": "Vous recevez un e-mail contenant votre lien personnel. Valide pour toute la durée de votre bail."
+            "title": "Recevez votre lien personnel",
+            "desc": "Le bailleur vous transmet le lien par le canal convenu. Aucun envoi automatique par e-mail n’est annoncé."
           },
           {
             "number": "3",
-            "title": "Accès direct",
-            "desc": "Cliquez sur le lien : vous arrivez sur votre dossier sans mot de passe. Pas d'application à installer."
+            "title": "Consultez les données partagées",
+            "desc": "Ouvrez le lien sans créer de compte. Sa validité dépend de sa date d’expiration et de son éventuelle révocation."
           }
         ],
-        "note": "Vous n'avez pas reçu de lien ? Votre bailleur n'utilise peut-être pas encore tevaxia. Invitez-le à découvrir notre solution gestion locative."
+        "note": "Conservez ce lien confidentiel : toute personne qui le possède peut accéder aux informations partagées. Sans lien, contactez votre bailleur."
       },
       "faq": {
         "title": "Questions fréquentes",
         "items": [
           {
-            "q": "Le lien est-il sécurisé ?",
-            "a": "Le token est aléatoire (256 bits), unique et opaque. Vous pouvez demander à votre bailleur de le révoquer à tout moment."
+            "q": "Puis-je télécharger une quittance signée ?",
+            "a": "Cet écran affiche les échéances et, lorsqu’elle est renseignée, une date d’émission. Pour obtenir une quittance signée, demandez le document à votre bailleur."
           },
           {
-            "q": "Que faire en cas de litige sur les charges ?",
-            "a": "Vous avez le droit de consulter les pièces justificatives. La loi du 21 septembre 2006 modifiée encadre la régularisation. En cas de désaccord persistant, la commission des loyers peut être saisie."
+            "q": "Le solde est-il exhaustif ?",
+            "a": "Il porte uniquement sur les échéances affichées. Un paiement partiel sans montant connu rend le solde indéterminé ; faites confirmer la situation complète par votre bailleur."
           },
           {
-            "q": "Le dépôt de garantie est-il géré ici ?",
-            "a": "Le suivi du dépôt de garantie (placé sur compte bloqué selon l'article 5 de la loi) est visible dans votre espace, avec date de placement et restitution prévue."
+            "q": "Le dépôt de garantie et l’état des lieux sont-ils disponibles ?",
+            "a": "Le portail actuel ne propose pas le suivi des mouvements de garantie, les états des lieux ou les justificatifs détaillés de charges. Demandez-les au bailleur."
           },
           {
-            "q": "Et si je change de logement ?",
-            "a": "Votre nouveau bailleur vous transmettra un nouveau lien. L'ancien reste consultable en mode lecture seule pendant 12 mois."
+            "q": "Combien de temps le lien reste-t-il valable ?",
+            "a": "Le lien possède une date d’expiration et peut être révoqué. Sa durée n’est pas automatiquement celle du bail ; aucun accès supplémentaire de 12 mois n’est garanti après un départ."
           },
           {
-            "q": "Combien coûte cet accès pour moi ?",
-            "a": "L'accès locataire est gratuit. C'est votre bailleur qui souscrit à tevaxia."
+            "q": "Que faire si une information est incorrecte ?",
+            "a": "Contactez le bailleur avec la période et le montant concernés. Cet espace est en lecture seule et ne permet pas de régler un loyer ou de modifier le relevé."
           }
         ]
       },

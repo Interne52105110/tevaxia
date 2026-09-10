@@ -1226,3 +1226,12 @@ UI : actions verrouillées, erreurs récupérables, données/saisies préservée
 Migration 065_cotenant_lot_ownership.sql préparée : politique restrictive pour l'appartenance du lot, test PostgreSQL PGlite en mémoire étendu et réussi. Comme 064, NON appliquée en production faute d'accès SQL administrateur. Aucun colocataire réel modifié ni contrat signé ; les contrôles applicatifs ne certifient pas les politiques effectives de production.
 
 Lot SQL/documentation bc96f7a poussé, CI34435011694 réussie, Vercel dpl_4cdkEdVWrcrzJXXXmF31wCBMM11R Ready ; cela ne signifie pas que la migration 064 a été exécutée.
+
+
+## 10 septembre — présentation publique du portail locataire
+
+Accueil /locataire dans cinq langues aligné sur le portail réel : informations du logement, échéances et statuts déclarés, historique borné. Suppression des promesses non réalisées : quittances signées téléchargeables, états des lieux avec photos, justificatifs de charges, gestion des mouvements de garantie, assistant de dossier, envoi automatique de mail, durée automatique égale au bail et maintien 12 mois après départ. Le jeton est généré sur 24 octets, pas 256 bits comme annoncé ; le chiffre promotionnel est supprimé au profit d'une indication claire qu'un détenteur du lien peut lire les données partagées.
+
+CTA désormais vers les instructions de demande au bailleur, au lieu d'un mail au support présenté comme une demande de lien personnel. Métadonnées publiques/privées localisées et cohérentes, noindex/no-referrer privés maintenus. Retour à la ligne des titres longs dans le composant de présentation partagé. Aucun moteur de calcul modifié ; dernière suite 1 646 tests / 149 fichiers réussie.
+
+Colocation dbb10a6 publiée : CI34435564791 réussie, dpl_JMTcq5aQhDUabQvD5WnLcsQeAU32 Ready ; contrôle public production cinq langues/quatre largeurs réussi (cotenants-public-prod.log). Migrations SQL 064/065 toujours non appliquées en production.

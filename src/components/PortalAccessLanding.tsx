@@ -8,6 +8,7 @@ export type PortalLandingProps = {
     titleAccent: string;
     subtitle: string;
     primaryCta: string;
+    primaryHref?: string;
     secondaryCta: string;
     secondaryHref: string;
   };
@@ -19,7 +20,7 @@ export type PortalLandingProps = {
 
 export default function PortalAccessLanding({ lp, hero, features, access, faq, related }: PortalLandingProps) {
   return (
-    <div className="bg-background">
+    <div className="bg-background [overflow-wrap:anywhere]">
       <section className="bg-gradient-to-b from-navy via-navy to-navy-light text-white">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
           <span className="inline-flex items-center gap-2 rounded-full bg-gold/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold ring-1 ring-gold/30">
@@ -33,7 +34,7 @@ export default function PortalAccessLanding({ lp, hero, features, access, faq, r
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="mailto:contact@tevaxia.lu"
+              href={hero.primaryHref ?? "mailto:contact@tevaxia.lu"}
               className="inline-flex items-center gap-2 rounded-md bg-gold px-5 py-2.5 text-sm font-semibold text-navy hover:bg-gold-light transition-colors"
             >
               {hero.primaryCta}
@@ -64,7 +65,7 @@ export default function PortalAccessLanding({ lp, hero, features, access, faq, r
         </div>
       </section>
 
-      <section className="border-y border-card-border bg-card/40">
+      <section id="acces-portail" className="border-y border-card-border bg-card/40">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16">
           <h2 className="text-2xl font-bold text-navy sm:text-3xl">{access.title}</h2>
           <p className="mt-3 max-w-3xl text-base text-slate-700 leading-relaxed">{access.intro}</p>

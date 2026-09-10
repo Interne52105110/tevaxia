@@ -17850,86 +17850,86 @@
     "locataire": {
       "meta": {
         "title": "Mieterportal Luxemburg — tevaxia",
-        "description": "Zugang zu Ihrem Mieterportal: Mietquittungen, digitale Wohnungsübergabe, Nebenkostenabrechnungen, KI-Mietassistent. Sicherer Magic-Link Ihres Vermieters."
+        "description": "Wohnungsdaten und vom Vermieter erfasste Mietposten über den persönlich übermittelten Link einsehen."
       },
       "hero": {
         "badge": "Mieterportal",
-        "title": "Ihr Mietvertrag in Luxemburg",
-        "titleAccent": "alles an einem Ort",
-        "subtitle": "Mietquittungen, digitale Wohnungsübergabe, Nebenkostenabrechnungen, Austausch mit Vermieter oder Agentur. Sicherer Magic-Link ohne Kontoerstellung.",
-        "primaryCta": "Meinen Zugangslink anfordern",
+        "title": "Ihre Mietübersicht",
+        "titleAccent": "vom Vermieter geteilt",
+        "subtitle": "Wohnungsdaten, erfasste Mieten und Nebenkosten sowie erklärte Zahlungsstatus. Diese Übersicht ist über den persönlichen Link des Vermieters ohne Kontoerstellung zugänglich.",
+        "primaryCta": "So erhalte ich meinen Link",
         "secondaryCta": "Ihren Mietvertrag verstehen"
       },
       "features": {
         "title": "Was Sie in Ihrem Portal finden",
-        "intro": "Alle Vertragsunterlagen rund um die Uhr verfügbar, konform mit luxemburgischem Mietrecht.",
+        "intro": "Das Portal zeigt die vom Vermieter erfassten Informationen. Es enthält nicht automatisch sämtliche Mietunterlagen.",
         "items": [
           {
-            "icon": "🧾",
-            "title": "Mietquittungen",
-            "desc": "Unterzeichnete monatliche Quittungen herunterladen. Unverzichtbar für Behördengänge."
+            "icon": "⌂",
+            "title": "Wohnungsdaten",
+            "desc": "Vom Vermieter eingegebene Bezeichnung, Adresse, Fläche und Energieklasse."
           },
           {
-            "icon": "📋",
-            "title": "Digitale Wohnungsübergabe",
-            "desc": "Zeitgestempelte Ein- und Ausgangsprotokolle mit Fotos. Vergleich nebeneinander."
+            "icon": "€",
+            "title": "Erfasste Mietposten",
+            "desc": "Zeitraum, Miete ohne Nebenkosten, Nebenkostenvorauszahlungen und Gesamtbetrag jeder angezeigten Zeile."
           },
           {
-            "icon": "💶",
-            "title": "Nebenkostenabrechnung",
-            "desc": "Detaillierte jährliche Abrechnung Posten für Posten, mit Belegen."
+            "icon": "✓",
+            "title": "Erklärter Zahlungsstatus",
+            "desc": "Als bezahlt, teilweise bezahlt oder offen erfasste Posten. Dies sind keine Bankbestätigungen."
           },
           {
-            "icon": "🤖",
-            "title": "KI-Mietassistent",
-            "desc": "Fragen zum Gesetz vom 21. September 2006 — Rechte, Pflichten, Kaution."
+            "icon": "≡",
+            "title": "Angezeigter Verlauf",
+            "desc": "Bis zu 24 zuletzt erfasste Mietposten. Ein gegebenenfalls erfasstes Quittungsdatum ist kein herunterladbares unterschriebenes PDF."
           }
         ]
       },
       "access": {
         "title": "So greifen Sie auf Ihr Portal zu",
-        "intro": "Keine Kontoerstellung. Ihr Vermieter oder die Agentur sendet Ihnen einen sicheren persönlichen Magic-Link.",
+        "intro": "Ihr Vermieter muss die Mietverwaltung nutzen und Ihnen persönlich einen Zugangslink übermitteln.",
         "steps": [
           {
             "number": "1",
-            "title": "Anfrage beim Vermieter",
-            "desc": "Kontaktieren Sie Ihren Vermieter oder die Agentur und fordern Sie Ihren tevaxia-Mieterzugang an."
+            "title": "Vermieter kontaktieren",
+            "desc": "Fragen Sie direkt Ihren Vermieter oder die Wohnungsverwaltung."
           },
           {
             "number": "2",
-            "title": "E-Mail-Zustellung",
-            "desc": "Sie erhalten eine E-Mail mit Ihrem persönlichen Link. Gültig für die gesamte Mietdauer."
+            "title": "Persönlichen Link erhalten",
+            "desc": "Der Vermieter übermittelt den Link über den vereinbarten Kanal. Ein automatischer E-Mail-Versand wird nicht zugesagt."
           },
           {
             "number": "3",
-            "title": "Direktzugriff",
-            "desc": "Klicken Sie auf den Link: Sie gelangen ohne Passwort zu Ihrer Akte. Keine App zu installieren."
+            "title": "Geteilte Daten einsehen",
+            "desc": "Öffnen Sie den Link ohne Kontoerstellung. Die Gültigkeit hängt vom Ablaufdatum und einem möglichen Widerruf ab."
           }
         ],
-        "note": "Keinen Link erhalten? Ihr Vermieter nutzt tevaxia eventuell noch nicht. Laden Sie ihn ein, unsere Mietverwaltungslösung zu entdecken."
+        "note": "Bewahren Sie den Link vertraulich auf: Wer ihn besitzt, kann die geteilten Informationen lesen. Ohne Link wenden Sie sich an den Vermieter."
       },
       "faq": {
         "title": "Häufig gestellte Fragen",
         "items": [
           {
-            "q": "Ist der Link sicher?",
-            "a": "Der Token ist zufällig (256 Bit), eindeutig und opak. Sie können Ihren Vermieter jederzeit bitten, ihn zu widerrufen."
+            "q": "Kann ich eine unterschriebene Mietquittung herunterladen?",
+            "a": "Die Seite zeigt Mietposten und gegebenenfalls ein erfasstes Ausstellungsdatum. Fordern Sie eine unterschriebene Quittung beim Vermieter an."
           },
           {
-            "q": "Was bei Streit über Nebenkosten?",
-            "a": "Sie haben das Recht, Belege einzusehen. Das Gesetz vom 21. September 2006 regelt die Abrechnung. Bei dauerhaftem Streit kann die Mietkommission angerufen werden."
+            "q": "Ist der Saldo vollständig?",
+            "a": "Er umfasst nur die angezeigten Posten. Ohne bekannten Teilzahlungsbetrag bleibt der Saldo unbestimmt; lassen Sie die vollständige Übersicht vom Vermieter bestätigen."
           },
           {
-            "q": "Wird die Kaution hier verwaltet?",
-            "a": "Ja — die Kaution (auf Sperrkonto gemäß Artikel 5 des Gesetzes) ist im Portal sichtbar, mit Hinterlegungs- und voraussichtlichem Rückgabedatum."
+            "q": "Sind Kaution und Übergabeprotokolle verfügbar?",
+            "a": "Das Portal verfolgt derzeit keine Kautionsbewegungen und stellt weder Übergabeprotokolle noch detaillierte Nebenkostenbelege bereit. Fragen Sie den Vermieter danach."
           },
           {
-            "q": "Was beim Umzug?",
-            "a": "Ihr neuer Vermieter sendet einen neuen Link. Der alte bleibt 12 Monate nur zur Ansicht verfügbar."
+            "q": "Wie lange gilt der Link?",
+            "a": "Der Link hat ein Ablaufdatum und kann widerrufen werden. Die Laufzeit entspricht nicht automatisch dem Mietvertrag; weitere 12 Monate Zugriff nach dem Auszug sind nicht garantiert."
           },
           {
-            "q": "Was kostet mich dieser Zugang?",
-            "a": "Der Mieterzugang ist kostenlos. Ihr Vermieter abonniert tevaxia."
+            "q": "Was tun bei falschen Angaben?",
+            "a": "Kontaktieren Sie den Vermieter unter Angabe von Zeitraum und Betrag. Diese Leseansicht ermöglicht weder Mietzahlungen noch Änderungen der Einträge."
           }
         ]
       },

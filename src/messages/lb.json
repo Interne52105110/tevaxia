@@ -17850,86 +17850,86 @@
     "locataire": {
       "meta": {
         "title": "Locatairesportal Lëtzebuerg — tevaxia",
-        "description": "Zougang zu Ärem Locatairesportal: Locatiounsquittungen, digital Wunnengsiwwerreechung, Lastenofrechnungen, KI-Locatiounsassistent. Séchere Magic-Link vum Bailleur."
+        "description": "Kuckt d’Wunnengsdonnéeën an déi vum Proprietär deklaréiert Loyersecheancen iwwer de perséinlech gedeelt Link."
       },
       "hero": {
         "badge": "Locatairesportal",
-        "title": "Äre Bail zu Lëtzebuerg",
-        "titleAccent": "alles op enger Plaz",
-        "subtitle": "Locatiounsquittungen, digital Wunnengsiwwerreechung, Lastenofrechnungen, Austausch mat Bailleur oder Agence. Séchere Magic-Link ouni Kontoerstellung.",
-        "primaryCta": "Mäi Zougangslink ufroen",
+        "title": "Äre Loyerssuivi",
+        "titleAccent": "vum Proprietär gedeelt",
+        "subtitle": "Wunnengsdonnéeën, erfaasste Loyer a Käschten an deklaréiert Bezuelstatussen. Consultéiert dësen Extrait iwwer de perséinleche Link vum Proprietär, ouni e Kont unzeleeën.",
+        "primaryCta": "Wéi kréien ech mäi Link",
         "secondaryCta": "Äre Bail verstoen"
       },
       "features": {
         "title": "Wat Dir am Portal fannt",
-        "intro": "All Är Bail-Dokumenter 24/7 verfügbar, konform mat Lëtzebuerger Locatiounsrecht.",
+        "intro": "De Portal weist d’Informatiounen, déi de Proprietär erfaasst huet. En enthält net automatesch all Dokumenter vum Bail.",
         "items": [
           {
-            "icon": "🧾",
-            "title": "Locatiounsquittungen",
-            "desc": "Är ënnerschriwwen monatlech Quittungen eroflueden. Onverzichtbar fir administrativ Schrëtt."
+            "icon": "⌂",
+            "title": "Wunnengsdonnéeën",
+            "desc": "Bezeechnung, Adress, Fläch an Energieklass, déi de Proprietär aginn huet."
           },
           {
-            "icon": "📋",
-            "title": "Digital Wunnengsiwwerreechung",
-            "desc": "Zäitgestempelt Ein- an Ausgangsprotokoller mat Fotoen. Vergläich niewenanner."
+            "icon": "€",
+            "title": "Erfaasst Echeancen",
+            "desc": "Period, Loyer ouni Käschten, Käschtevirschëss an Total vun all ugewisener Zeil."
           },
           {
-            "icon": "💶",
-            "title": "Lastenofrechnung",
-            "desc": "Detailléiert jährlech Ofrechnung Pos fir Pos, mat Beleeg."
+            "icon": "✓",
+            "title": "Deklaréiert Statussen",
+            "desc": "Als bezuelt, deelweis bezuelt oder oppe deklaréiert Echeancen. Dat si keng Bankbestätegungen."
           },
           {
-            "icon": "🤖",
-            "title": "KI-Locatiounsassistent",
-            "desc": "Froen iwwer d'Gesetz vum 21. September 2006 — Rechter, Flichten, Garantie."
+            "icon": "≡",
+            "title": "Ugewisene Verlaf",
+            "desc": "Bis zu de 24 leschten erfaassten Echeancen. En eventuell erfaasste Quittungsdatum ass kee signéierte PDF fir erofzelueden."
           }
         ]
       },
       "access": {
         "title": "Wéi op Äert Portal zougräifen",
-        "intro": "Keng Kontoerstellung. Äre Bailleur oder d'Agence schéckt Iech e séchere perséinleche Magic-Link.",
+        "intro": "Äre Proprietär muss de Loyerssuivi benotzen an Iech perséinlech en Zougangslink schécken.",
         "steps": [
           {
             "number": "1",
-            "title": "Ufro beim Bailleur",
-            "desc": "Kontaktéiert Äre Bailleur oder d'Agence a froet Ären tevaxia-Locatairezougang un."
+            "title": "Frot de Proprietär",
+            "desc": "Kontaktéiert direkt Äre Proprietär oder de Verwalter vun der Wunneng."
           },
           {
             "number": "2",
-            "title": "Receptioun per Mail",
-            "desc": "Dir kritt eng E-Mail mat Ärem perséinleche Link. Gëlteg fir d'ganz Locatiounsdauer."
+            "title": "Kritt Äre perséinleche Link",
+            "desc": "De Proprietär deelt de Link iwwer den ofgemaachte Kanal. En automateschen E-Mail-Versand gëtt net versprach."
           },
           {
             "number": "3",
-            "title": "Direkten Zougang",
-            "desc": "Klickt op de Link: Dir kommt ouni Passwuert op Är Akt. Keng App ze installéieren."
+            "title": "Consultéiert déi gedeelt Donnéeën",
+            "desc": "Maacht de Link op ouni e Kont unzeleeën. D’Gëltegkeet hänkt vum Oflafdatum an engem méigleche Widderruff of."
           }
         ],
-        "note": "Keen Link kritt? Äre Bailleur benotzt eventuell nach net tevaxia. Invitéiert hien, eis Locatiounsverwaltungsléisung z'entdecken."
+        "note": "Halt de Link vertraulech: jiddereen, deen en huet, kann déi gedeelt Donnéeë liesen. Ouni Link kontaktéiert Dir de Proprietär."
       },
       "faq": {
         "title": "Heefeg gestallt Froen",
         "items": [
           {
-            "q": "Ass de Link sécher?",
-            "a": "Den Token ass zoufälleg (256 Bit), eenzegaarteg an opak. Dir kënnt Äre Bailleur zu all Moment froen, en ze widerrufen."
+            "q": "Kann ech eng ënnerschriwwe Quittung eroflueden?",
+            "a": "D’Säit weist d’Echeancen an en Ausstellungsdatum, wann en erfaasst ass. Frot de Proprietär no engem ënnerschriwwene Quittungsdokument."
           },
           {
-            "q": "Wat bei Sträit iwwer d'Lasten?",
-            "a": "Dir hutt d'Recht, d'Beleeg ze konsultéieren. D'Gesetz vum 21. September 2006 regelt d'Ofrechnung. Bei dauerhaftem Sträit kann d'Locatiounskommissioun ugeruff ginn."
+            "q": "Ass de Saldo komplett?",
+            "a": "En ëmfaasst nëmmen déi ugewisen Zeilen. Bei enger Deelbezuelung ouni bekannte Betrag bleift en onbestëmmt; loosst déi komplett Situatioun vum Proprietär bestätegen."
           },
           {
-            "q": "Gëtt d'Garantie hei verwalt?",
-            "a": "Jo — d'Garantie (op gespaartem Kont laut Artikel 5 vum Gesetz) ass am Portal sichtbar, mat Hannerleeungs- a viraussichtlechen Restitutiounsdaten."
+            "q": "Sinn d’Garantie an den Etat des lieux disponibel?",
+            "a": "De Portal verfollegt aktuell keng Garantiebeweegungen a stellt keen Etat des lieux oder detailléiert Käschtebeleeër zur Verfügung. Frot se beim Proprietär un."
           },
           {
-            "q": "Wat beim Ëmplënneren?",
-            "a": "Äre neie Bailleur schéckt e neie Link. Den ale bleift 12 Méint nëmmen ze liesen."
+            "q": "Wéi laang bleift de Link gëlteg?",
+            "a": "De Link huet en Oflafdatum a kann zréckgezu ginn. Seng Dauer entsprécht net automatesch dem Bail; weider 12 Méint Zougang nom Auszuch sinn net garantéiert."
           },
           {
-            "q": "Wat kascht mech dëse Zougang?",
-            "a": "De Locatairezougang ass gratis. Äre Bailleur abonnéiert tevaxia."
+            "q": "Wat maachen ech bei falschen Donnéeën?",
+            "a": "Kontaktéiert de Proprietär mat der betraffener Period an dem Betrag. Dëse Liesberäich erlaabt keng Loyersbezuelung a keng Ännerung vum Extrait."
           }
         ]
       },

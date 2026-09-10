@@ -1,1 +1,1 @@
-export { default } from "@/app/locataire/page";
+export { default, generateMetadata } from "@/app/locataire/page";

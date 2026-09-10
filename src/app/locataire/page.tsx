@@ -30,6 +30,7 @@ export default async function LocatairePage() {
         titleAccent: t("hero.titleAccent"),
         subtitle: t("hero.subtitle"),
         primaryCta: t("hero.primaryCta"),
+        primaryHref: "#acces-portail",
         secondaryCta: t("hero.secondaryCta"),
         secondaryHref: `${lp}/guide/bail-habitation-luxembourg`,
       }}

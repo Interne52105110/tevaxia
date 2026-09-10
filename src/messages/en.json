@@ -17850,86 +17850,86 @@
     "locataire": {
       "meta": {
         "title": "Tenant portal Luxembourg — tevaxia",
-        "description": "Access your tenant portal: rent receipts, digital condition reports, charge statements, lease AI assistant. Secure magic link provided by your landlord."
+        "description": "View property information and rent entries declared by your landlord using the personal link they share with you."
       },
       "hero": {
         "badge": "Tenant portal",
-        "title": "Your Luxembourg lease",
-        "titleAccent": "all in one place",
-        "subtitle": "Rent receipts, digital condition reports, charge statements, exchanges with your landlord or agency. Secure magic link access without account creation.",
-        "primaryCta": "Request my access link",
+        "title": "Your rental records",
+        "titleAccent": "shared by your landlord",
+        "subtitle": "Property details, recorded rent and charges, and declared payment statuses. View these records using your landlord’s personal link without creating an account.",
+        "primaryCta": "How to obtain my link",
         "secondaryCta": "Understand your lease"
       },
       "features": {
         "title": "What you find in your portal",
-        "intro": "All your lease documents accessible 24/7, compliant with Luxembourg rental law.",
+        "intro": "The portal displays information recorded by the landlord. It does not automatically contain every lease document.",
         "items": [
           {
-            "icon": "🧾",
-            "title": "Rent receipts",
-            "desc": "Download your signed monthly receipts. Essential for administrative procedures."
+            "icon": "⌂",
+            "title": "Property details",
+            "desc": "Name, address, surface area and energy class entered by the landlord."
           },
           {
-            "icon": "📋",
-            "title": "Digital condition report",
-            "desc": "Time-stamped entry and exit reports with photos. Side-by-side comparison."
+            "icon": "€",
+            "title": "Recorded entries",
+            "desc": "Period, rent excluding charges, charge advances and total for each displayed entry."
           },
           {
-            "icon": "💶",
-            "title": "Charge statements",
-            "desc": "Annual reconciliation broken down line by line, with supporting documents."
+            "icon": "✓",
+            "title": "Declared statuses",
+            "desc": "Entries declared paid, partly paid or pending. These are not bank confirmations."
           },
           {
-            "icon": "🤖",
-            "title": "AI lease assistant",
-            "desc": "Ask about Luxembourg law of 21 September 2006 — rights, duties, deposit."
+            "icon": "≡",
+            "title": "Displayed history",
+            "desc": "Up to the 24 latest recorded entries. An optional receipt issue date is not a downloadable signed PDF."
           }
         ]
       },
       "access": {
         "title": "How to access your portal",
-        "intro": "No account creation. Your landlord or agency sends you a secure personal magic link.",
+        "intro": "Your landlord must use the rental records tool and personally share an access link with you.",
         "steps": [
           {
             "number": "1",
-            "title": "Request from landlord",
-            "desc": "Contact your landlord or the agency managing your lease and request your tevaxia tenant access link."
+            "title": "Ask your landlord",
+            "desc": "Contact your landlord or property manager directly."
           },
           {
             "number": "2",
-            "title": "Receive by email",
-            "desc": "You receive an email with your personal link. Valid for the entire lease duration."
+            "title": "Receive your personal link",
+            "desc": "Your landlord shares the link through the agreed channel. Automatic email delivery is not promised."
           },
           {
             "number": "3",
-            "title": "Direct access",
-            "desc": "Click the link: you reach your file without a password. No app to install."
+            "title": "View shared records",
+            "desc": "Open the link without creating an account. Access depends on its expiry date and any revocation."
           }
         ],
-        "note": "Haven't received a link? Your landlord may not use tevaxia yet. Invite them to discover our rental management solution."
+        "note": "Keep the link confidential: anyone holding it can access the shared information. Contact your landlord if you do not have a link."
       },
       "faq": {
         "title": "Frequently asked questions",
         "items": [
           {
-            "q": "Is the link secure?",
-            "a": "The token is random (256 bits), unique and opaque. You can ask your landlord to revoke it at any time."
+            "q": "Can I download a signed rent receipt?",
+            "a": "This screen shows rent entries and an issue date when recorded. Ask your landlord for a signed receipt document."
           },
           {
-            "q": "What if I dispute the charges?",
-            "a": "You have the right to consult supporting documents. Luxembourg law of 21 September 2006 governs reconciliation. In case of persistent disagreement, the rent commission can be seized."
+            "q": "Is the balance complete?",
+            "a": "It covers displayed entries only. A partial payment without a known amount makes the balance unknown; confirm the complete position with your landlord."
           },
           {
-            "q": "Is the deposit managed here?",
-            "a": "Yes — the deposit (placed on a blocked account per Article 5 of the law) is visible in your portal, with placement and expected restitution dates."
+            "q": "Are the deposit and inspection reports available?",
+            "a": "The current portal does not track deposit movements or provide inspection reports and detailed supporting documents for charges. Ask your landlord for them."
           },
           {
-            "q": "What if I move?",
-            "a": "Your new landlord will send you a new link. The old one stays read-only for 12 months."
+            "q": "How long is the link valid?",
+            "a": "The link has an expiry date and can be revoked. Its duration does not automatically match the lease; an additional 12 months of access after departure is not guaranteed."
           },
           {
-            "q": "How much does this access cost me?",
-            "a": "Tenant access is free. Your landlord subscribes to tevaxia."
+            "q": "What if information is incorrect?",
+            "a": "Contact your landlord with the period and amount concerned. This read-only space cannot be used to pay rent or edit the records."
           }
         ]
       },
