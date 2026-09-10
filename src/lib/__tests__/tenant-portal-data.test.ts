@@ -1,0 +1,21 @@
+import {describe,it,expect,vi} from 'vitest';
+const rpc=vi.hoisted(()=>vi.fn());
+vi.mock('../supabase',()=>({isSupabaseConfigured:true,supabase:{rpc}}));
+import {parseTenantPortalData,summarizeTenantPayments} from '../tenant-portal-data';
+import {getTenantPortalData} from '../tenant-portal';
+const payment={id:'a',period:'2026-02',amount_rent:'100.10',amount_charges:'10.20',amount_total:'110.30',status:'due',paid_at:null,receipt_issued_at:null};
+const raw=()=>({lot:{name:'Lot',address:null,commune:null,surface:70,nb_chambres:null,classe_energie:'I',est_meuble:false},tenant_name:null,payments:[{...payment}]});
+describe('tenant portal data',()=>{
+ it('normalizes numeric amounts before summing, preserving cents',()=>{const p=parseTenantPortalData(raw());expect(p.payments[0].amount_total).toBe(110.3);expect(summarizeTenantPayments([...p.payments,...p.payments])).toMatchObject({remaining:220.6,unpaid:2})});
+ it('never treats a partial payment as wholly outstanding',()=>{const r=raw();r.payments[0].status='partial';expect(summarizeTenantPayments(parseTenantPortalData(r).payments).remaining).toBeNull()});
+ it('excludes cancelled and settled entries from the balance',()=>{const p=parseTenantPortalData(raw()).payments[0];expect(summarizeTenantPayments([{...p,status:'cancelled'},{...p,status:'paid'},p])).toEqual({remaining:110.3,unpaid:1,paid:1})});
+ it.each(['NaN','Infinity','-1','1.001',''])('rejects corrupt money %s',amount=>{const r=raw();r.payments[0].amount_total=amount;expect(()=>parseTenantPortalData(r)).toThrow()});
+ it('rejects inconsistent totals',()=>{const r=raw();r.payments[0].amount_total='111';expect(()=>parseTenantPortalData(r)).toThrow()});
+ it('rejects a missing payment array rather than showing zero',()=>{expect(()=>parseTenantPortalData({...raw(),payments:null})).toThrow()});
+ it('rejects duplicate periods and duplicate identities',()=>{const r=raw();r.payments.push({...payment,id:'b'});expect(()=>parseTenantPortalData(r)).toThrow();r.payments[1]={...payment,period:'2026-01'};expect(()=>parseTenantPortalData(r)).toThrow()});
+ it('rejects unknown statuses and impossible dates',()=>{const r=raw();r.payments[0].status='unknown';expect(()=>parseTenantPortalData(r)).toThrow();expect(()=>parseTenantPortalData({...raw(),payments:[{...payment,status:'paid',paid_at:'2026-02-30'}]})).toThrow()});
+ it('sorts displayed periods and accepts empty history',()=>{const r=raw();r.payments.push({...payment,id:'b',period:'2026-03'});expect(parseTenantPortalData(r).payments[0].period).toBe('2026-03');expect(summarizeTenantPayments(parseTenantPortalData({...raw(),payments:[]}).payments).remaining).toBe(0)});
+ it('distinguishes invalid links from transport failures',async()=>{rpc.mockResolvedValueOnce({data:{error:'invalid_token'},error:null});expect((await getTenantPortalData('tnt_'+'a'.repeat(48))).error).toBe('invalid_token');rpc.mockResolvedValueOnce({data:null,error:new Error('offline')});await expect(getTenantPortalData('tnt_'+'a'.repeat(48))).rejects.toThrow('offline')});
+ it('does not query malformed tokens',async()=>{rpc.mockClear();expect((await getTenantPortalData('invalid')).error).toBe('invalid_token');expect(rpc).not.toHaveBeenCalled()});
+ it('does not present an unknown RPC error as an expired link',()=>{expect(()=>parseTenantPortalData({error:'database_unavailable'})).toThrow()});
+});

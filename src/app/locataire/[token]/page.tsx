@@ -5,15 +5,21 @@ import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { getTenantPortalData, type TenantPortalData } from "@/lib/tenant-portal";
 import { formatEUR } from "@/lib/calculations";
+import {summarizeTenantPayments} from '@/lib/tenant-portal-data';
 
 export default function TenantPortal() {
   const params = useParams();
+  const token=String(params?.token??'');
+  return <TenantPortalContent key={token} token={token}/>;
+}
+
+function TenantPortalContent({token}:{token:string}) {
   const locale = useLocale();
   const t = useTranslations("tenantPortal");
   const dateLocale = locale === "fr" ? "fr-FR" : locale === "de" ? "de-LU" : locale === "pt" ? "pt-PT" : locale === "lb" ? "de-LU" : "en-GB";
-  const token = String(params?.token ?? "");
   const [data, setData] = useState<TenantPortalData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0);
 
   const STATUS_LABELS: Record<string, string> = {
     due: t("statusDue"),
@@ -32,12 +38,13 @@ export default function TenantPortal() {
   };
 
   useEffect(() => {
-    if (!token) return;
+    let live=true;
     getTenantPortalData(token)
-      .then((d) => setData(d))
-      .catch((e) => setData({ error: e?.message ?? t("errGeneric") } as TenantPortalData))
-      .finally(() => setLoading(false));
-  }, [token, t]);
+      .then((d) => {if(live)setData(d)})
+      .catch(() => {if(live)setFailed(true)})
+      .finally(() => {if(live)setLoading(false)});
+    return()=>{live=false};
+  }, [token, attempt]);
 
   if (loading) {
     return <div className="mx-auto max-w-4xl px-4 py-16 text-center text-muted">{t("loading")}</div>;
@@ -46,21 +53,20 @@ export default function TenantPortal() {
   if (!data || data.error || !data.lot) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-navy mb-2">{t("invalidLinkTitle")}</h1>
-        <p className="text-muted">{t("invalidLinkBody")}</p>
+        <h1 className="text-2xl font-bold text-navy mb-2">{t(failed?"unavailableTitle":"invalidLinkTitle")}</h1>
+        <p className="text-muted" role={failed?'alert':undefined}>{t(failed?"unavailableBody":"invalidLinkBody")}</p>
+        {failed&&<button className="mt-4 underline" onClick={()=>{setLoading(true);setFailed(false);setAttempt(n=>n+1)}}>{t('retry')}</button>}
       </div>
     );
   }
 
   const { lot, tenant_name, payments } = data;
-  const unpaid = payments.filter((p) => p.status === "due" || p.status === "late" || p.status === "partial");
-  const totalDue = unpaid.reduce((sum, p) => sum + p.amount_total, 0);
-  const paidCount = payments.filter((p) => p.status === "paid").length;
+  const totals=summarizeTenantPayments(payments),totalDue=totals.remaining,paidCount=totals.paid;
 
   return (
     <div className="bg-background min-h-screen py-8 sm:py-12">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-gradient-to-br from-teal-700 to-cyan-600 p-6 sm:p-8 text-white shadow-lg">
+        <div className="rounded-2xl bg-gradient-to-br from-teal-700 to-cyan-600 p-6 sm:p-8 text-white shadow-lg [overflow-wrap:anywhere]">
           <div className="text-xs uppercase tracking-wider text-white/70">{t("heroKicker")}</div>
           <h1 className="mt-1 text-2xl sm:text-3xl font-bold">{lot.name}</h1>
           {lot.address && <p className="mt-1 text-sm text-white/80">{lot.address}{lot.commune ? `, ${lot.commune}` : ""}</p>}
@@ -77,11 +83,11 @@ export default function TenantPortal() {
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
             <div className="text-xs uppercase tracking-wider text-muted">{t("paymentsDueTitle")}</div>
-            <div className={`mt-1 text-2xl font-bold ${totalDue > 0 ? "text-rose-700" : "text-emerald-700"}`}>
-              {formatEUR(totalDue)}
+            <div className={`mt-1 text-2xl font-bold ${totalDue === null || totalDue > 0 ? "text-rose-700" : "text-emerald-700"}`}>
+              {totalDue===null?t('partialUnknown'):formatEUR(totalDue)}
             </div>
             <div className="mt-1 text-xs text-muted">
-              {unpaid.length > 1 ? t("echeancesMany", { n: unpaid.length }) : t("echeancesOne", { n: unpaid.length })}
+              {totals.unpaid > 1 ? t("echeancesMany", { n: totals.unpaid }) : t("echeancesOne", { n: totals.unpaid })}
             </div>
           </div>
           <div className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
@@ -91,6 +97,8 @@ export default function TenantPortal() {
           </div>
         </div>
 
+        <p className="mt-4 text-sm text-muted">{t('scopeNote')}</p>
+
         {/* Historique paiements */}
         <div className="mt-6 rounded-xl border border-card-border bg-card shadow-sm overflow-hidden">
           <div className="px-5 py-3 border-b border-card-border bg-background">
@@ -99,7 +107,7 @@ export default function TenantPortal() {
           {payments.length === 0 ? (
             <div className="p-8 text-center text-sm text-muted">{t("noPaymentsYet")}</div>
           ) : (
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto"><table className="w-full min-w-[640px] text-sm">
               <thead>
                 <tr className="border-b border-card-border text-left text-xs text-muted">
                   <th className="px-5 py-2 font-medium">{t("thPeriode")}</th>
@@ -123,12 +131,12 @@ export default function TenantPortal() {
                       </span>
                     </td>
                     <td className="px-5 py-2 text-xs text-muted">
-                      {p.receipt_issued_at ? `✓ ${new Date(p.receipt_issued_at).toLocaleDateString(dateLocale)}` : "—"}
+                      {p.receipt_issued_at ? new Date(p.receipt_issued_at).toLocaleDateString(dateLocale,{timeZone:'Europe/Luxembourg'}) : "—"}
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           )}
         </div>
 

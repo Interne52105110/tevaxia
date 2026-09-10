@@ -1191,3 +1191,16 @@ Validation : 1 613 tests / 147 fichiers réussis, dont 24 nouveaux cas du regist
 Limites : politiques RLS, clés étrangères et triggers de production non certifiés sans accès administrateur. La migration locale 016 ne vérifie pas dans sa politique l'appartenance du lot : les contrôles applicatifs ne remplacent pas une protection SQL contre des appels REST directs. Les autres fonctions du portail locataire restent à examiner. Aucun rapprochement bancaire, montant partiel détaillé, archivage probant ou conformité PDF/A de ces quittances n'est annoncé.
 
 Accueil Énergie cb7438b publié : CI 34432494891 réussie, dpl_J185h9Qjh4fFosJud4Av65bnANBP Ready ; contrôle de production cinq langues/quatre largeurs réussi.
+
+
+## 10 septembre — portail locataire : solde, historique et erreurs
+
+Réponse RPC validée avant affichage : montants numériques normalisés en centimes, total loyer + charges, statuts, périodes et dates contrôlés ; doublons/refus de données incomplètes au lieu d'un solde zéro trompeur. Paiement partiel sans montant connu : solde indéterminé. Annulations et paiements soldés exclus des échéances en attente. Le solde concerne uniquement les lignes affichées ; les 24 dernières échéances ne sont plus présentées comme 24 mois consécutifs ou comme l'intégralité de la dette.
+
+Un problème réseau/service est désormais distinct d'un lien révoqué ou expiré, avec réessai. Changement de jeton : ancien contenu démonté et réponses tardives ignorées. Tableau horizontal consultable sur petit écran. Suppression de la certification RGPD/bail non établie ; la date d'émission enregistrée n'est plus présentée comme une quittance signée accessible. Métadonnée no-referrer ajoutée, noindex maintenu. Aucun jeton réel utilisé : validation locale sur données synthétiques et contrôle public de jetons malformés qui ne déclenchent pas de RPC.
+
+Validation : 1 629 tests / 148 fichiers réussis, dont 16 nouveaux ; lint et compilation réussis. UI cinq langues/quatre largeurs, changement de jeton, réponse tardive, panne, reprise et lien invalide vérifiés.
+
+Limite SQL importante : la migration locale 026 autorise une création de jeton selon owner_id sans vérifier le propriétaire du lot, et sa fonction SECURITY DEFINER ne recoupe pas cette propriété. Le correctif applicatif de création ne suffit pas contre des appels REST directs. Les politiques/fonctions effectives de production restent non vérifiables sans accès SQL administrateur. Aucune certification de sécurité de la base ni de complétude de l'historique n'est faite. Les fonctions inutilisées listTenantTokens/revokeTenantToken et l'assistant restent hors de ce lot.
+
+Registre locatif 3aec2d2 publié : CI 34434288822 réussie, dpl_8V3dfNPk7cPVTN1n4BZqfQMyprdp Ready, contrôle public de production cinq langues/quatre largeurs réussi (rental-ledger-public-prod.log).

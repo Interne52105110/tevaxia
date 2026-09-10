@@ -1,5 +1,6 @@
 import {resolveRentalCloudId,requireRentalOwner} from "./rental-cloud-identity";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import {parseTenantPortalData} from './tenant-portal-data';
 
 export interface TenantPortalToken {
   id: string;
@@ -100,10 +101,11 @@ export async function revokeTenantToken(id: string): Promise<void> {
 }
 
 export async function getTenantPortalData(token: string): Promise<TenantPortalData> {
+  if(!/^tnt_[a-f0-9]{48}$/.test(token))return {lot:null,tenant_name:null,payments:[],error:'invalid_token'};
   const client = ensureClient();
   const { data, error } = await client.rpc("get_tenant_portal_data", { p_token: token });
   if (error) throw error;
-  return data as TenantPortalData;
+  return parseTenantPortalData(data);
 }
 
 export function buildTenantPortalUrl(token: string, baseUrl?: string): string {
