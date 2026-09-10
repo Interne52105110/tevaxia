@@ -1,3 +1,5 @@
+import { calculateFrenchRentalTax } from './french-rental-tax';
+
 /**
  * Rental Yield Calculation Engine
  * Pure calculation functions - no UI dependencies.
@@ -101,6 +103,12 @@ export function calculateNetYield(params) {
  *
  * @param {Object} params
  * @param {number} params.netRent - Net rent before income tax
+ * @param {number} params.purchasePrice
+ * @param {number} params.annualRent - Aggregate tax receipts for the French scenario
+ * @param {number} [params.taxYear]
+ * @param {boolean} [params.frenchMicroEligible]
+ * @param {boolean} [params.frenchNonProfessional]
+ * @param {string} [params.frenchSocialRegime]
  * @param {string} params.countryCode
  * @param {string} params.taxRegime - Regime code from country JSON
  * @param {number} params.marginalRate - User's marginal income tax rate (decimal)
@@ -109,6 +117,7 @@ export function calculateNetYield(params) {
  * @returns {Object} { taxableIncome, incomeTax, socialCharges, totalTax, netAfterTax, netNetYield }
  */
 export function calculateTaxImpact(params) {
+  if (params.countryCode === 'fr') return calculateFrenchRentalTax(params);
   const {
     netRent,
     purchasePrice,

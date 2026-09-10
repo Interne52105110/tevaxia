@@ -80,14 +80,15 @@ export async function POST(request: Request) {
     // Calculate tax impact if a tax regime or marginal rate is provided
     const regimes = countryData.rentalTax?.regimes || [];
     if (taxRegime !== undefined && !regimes.some((regime: { code: string }) => regime.code === taxRegime)) throw new RangeError('Unsupported tax regime');
-    const selectedRegime = taxRegime ?? regimes[0]?.code ?? '';
-    const socialChargesRate = country.toLowerCase() === 'fr' ? 0.172 : 0;
+    const selectedRegime = taxRegime ?? (country.toLowerCase() === 'fr' ? 'reel_foncier' : regimes[0]?.code ?? '');
+    const socialChargesRate = country.toLowerCase() === 'fr' ? (body.frenchSocialRegime === 'solidarity_only' ? .075 : selectedRegime.startsWith('micro_bic') ? .186 : .172) : 0;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const taxResult: any = calculateTaxImpact({
       netRent: yieldResult.netRent,
       purchasePrice,
-      annualRent,
+      annualRent: country.toLowerCase() === 'fr' ? (body.annualTaxReceipts ?? yieldResult.effectiveRent) : annualRent,
+      taxYear: body.taxYear, frenchMicroEligible: body.frenchMicroEligible, frenchNonProfessional: body.frenchNonProfessional, frenchSocialRegime: body.frenchSocialRegime,
       countryCode: country.toLowerCase(),
       taxRegime: selectedRegime,
       marginalRate: marginalRate ?? 0.30,
@@ -101,7 +102,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        assumptions: { taxRegime: selectedRegime, marginalRate: marginalRate ?? 0.30, socialChargesRate, vacancyRate: vacancyRate ?? 0, managementRate: managementRate ?? 0, monthlyCharges: monthlyCharges ?? 0, annualPropertyTax: annualPropertyTax ?? 0, annualInsurance: 0, annualMaintenance: 0 },
+        assumptions: { taxRegime: selectedRegime, marginalRate: marginalRate ?? 0.30, socialChargesRate, vacancyRate: vacancyRate ?? 0, managementRate: managementRate ?? 0, monthlyCharges: monthlyCharges ?? 0, annualPropertyTax: annualPropertyTax ?? 0, annualInsurance: 0, annualMaintenance: 0, ...(country.toLowerCase() === 'fr' ? { frenchTax: taxResult.frenchTaxAssumptions, annualTaxReceipts: body.annualTaxReceipts ?? yieldResult.effectiveRent, receiptBasis: body.annualTaxReceipts === undefined ? "Modeled rent after vacancy; tenant charges must be included where taxable" : "Explicit aggregate tax receipts supplied by caller" } : {}) },
         data: {
           currency: countryData.currency,
           grossYield: yieldResult.grossYield,

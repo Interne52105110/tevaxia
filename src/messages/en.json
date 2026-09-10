@@ -5880,7 +5880,7 @@
     "countriesTitle": "10 Countries with Regional Granularity",
     "countriesSubtitle": "Country-specific tax rules, official fee schedules and built-in regional variations.",
     "countryFR": "France",
-    "countryFRDetail": "15 departments, HCSF 35%, 4 rental tax regimes",
+    "countryFRDetail": "15 departments, HCSF 35%, 5 rental tax regimes",
     "countryDE": "Germany",
     "countryDEDetail": "16 Bundesländer, AfA depreciation, Grunderwerbsteuer",
     "countryGB": "United Kingdom",
@@ -5975,7 +5975,8 @@
       "faq5a": "Yes, compatible with Elementor, Divi, WPBakery and WooCommerce themes."
     },
     "demoFranceTransferAssumption": "France: transfer taxes modeled at 6.3185% without a department, for an existing residential investment with no exemptions, using the DGFiP table of 1 June 2026. The actual amount depends on the location and deed.",
-    "demoFranceFeeScope": "The calculated French acquisition costs are a subtotal: formalities, disbursements, additional deeds, agency fees and loan guarantee costs are excluded from this demo. Complete the budget with quotes from the notary and lender."
+    "demoFranceFeeScope": "The calculated French acquisition costs are a subtotal: formalities, disbursements, additional deeds, agency fees and loan guarantee costs are excluded from this demo. Complete the budget with quotes from the notary and lender.",
+    "demoFranceRentalScope": "French unfurnished-rental scenario: simplified actual-expense taxation, 35% marginal income-tax rate and 17.2% social levies. It does not model furnished-rental regimes or complete household taxation."
   },
   "solutionsHub": {
     "meta": {
@@ -17641,7 +17642,8 @@
     "statCalculations": "API calculations",
     "jsTitle": "JavaScript example",
     "jsIntro": "This example calls the API with fetch, checks errors and reads the returned data and assumptions. Estimates depend on the scenario; no numerical result is guaranteed.",
-    "frenchFeesInputs": "France: price includes VAT when applicable. With isNew=true, provide frenchVatOnFullPrice (a new sale subject to VAT on the full price, excluding margin VAT). If true, frenchVatRate is required: 0.055, 0.1 or 0.2. If false, ordinary transfer taxes are modeled. loanGuaranteeCost is a quoted guarantee cost, accepted only with a loan; if absent, it remains unpriced. acquisitionCoverage lists excluded costs: totalFees is a subtotal, not a complete notarial statement."
+    "frenchFeesInputs": "France: price includes VAT when applicable. With isNew=true, provide frenchVatOnFullPrice (a new sale subject to VAT on the full price, excluding margin VAT). If true, frenchVatRate is required: 0.055, 0.1 or 0.2. If false, ordinary transfer taxes are modeled. loanGuaranteeCost is a quoted guarantee cost, accepted only with a loan; if absent, it remains unpriced. acquisitionCoverage lists excluded costs: totalFees is a subtotal, not a complete notarial statement.",
+    "frenchRentalInputs": "French rental taxation (/yield): taxYear is 2025 or 2026 (default 2026). The default is reel_foncier, a simplified unfurnished actual-expense scenario. Micro regimes require frenchMicroEligible=true to confirm eligibility and aggregate household/activity receipts, including prior-year micro-BIC conditions. Furnished rental requires frenchNonProfessional=true. micro_bic means long-term rental, micro_bic_tourism classified tourism, and micro_bic_tourism_unclassified unclassified tourism. annualTaxReceipts supplies aggregate taxable receipts, including taxable tenant charges; otherwise modeled rent after vacancy is used. frenchSocialRegime=solidarity_only requires qualifying social-insurance affiliation; standard is the default. The marginal-rate calculation is not a household tax assessment. Activity contributions, loss carryovers and special regimes are excluded."
   },
   "statusPage": {
     "metaTitle": "Service status, tevaxia.lu",

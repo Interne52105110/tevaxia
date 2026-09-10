@@ -5880,7 +5880,7 @@
     "countriesTitle": "10 Länner mat regionaler Granularitéit",
     "countriesSubtitle": "Länderspezifesch Steierregelen, offiziell Gebührentabellen an integréiert regional Variatiounen.",
     "countryFR": "Frankräich",
-    "countryFRDetail": "15 Départementer, HCSF 35%, 4 Locatiounssteierregimer",
+    "countryFRDetail": "15 Départementer, HCSF 35%, 5 Locatiounssteierregimer",
     "countryDE": "Däitschland",
     "countryDEDetail": "16 Bundesländer, AfA-Ofschreiwung, Grunderwerbsteuer",
     "countryGB": "Groussbritannien",
@@ -5975,7 +5975,8 @@
       "faq5a": "Jo, mat Elementor, Divi an WooCommerce."
     },
     "demoFranceTransferAssumption": "Frankräich: Ouni Departement gi fir eng bestoend Wunnimmobilie als Investitioun 6,3185 % Iwwerdroungssteieren ugesat, ouni Befreiungen, no der DGFiP-Tabell vum 1. Juni 2026. De reelle Betrag hänkt vun der Plaz an dem Akt of.",
-    "demoFranceFeeScope": "Déi berechent franséisch Akafskäschte sinn eng Deelsumm: Formalitéiten, Auslagen, zousätzlech Akten, Agencekäschten a Kredittgarantie sinn an dëser Demo net abegraff. Ergänzt de Budget mat den Devisë vum Notaire a vum Kreditgeber."
+    "demoFranceFeeScope": "Déi berechent franséisch Akafskäschte sinn eng Deelsumm: Formalitéiten, Auslagen, zousätzlech Akten, Agencekäschten a Kredittgarantie sinn an dëser Demo net abegraff. Ergänzt de Budget mat den Devisë vum Notaire a vum Kreditgeber.",
+    "demoFranceRentalScope": "Franséischt Szenario fir onmiwweléiert Locatioun: vereinfacht Besteierung mat reelle Käschten, 35 % Grenzsteiersaz a 17,2 % Sozialofgaben. Keng Berechnung vu miwweléierte Mietregimer oder der kompletter Stotsteier."
   },
   "solutions": {
     "syndic": {
@@ -17641,7 +17642,8 @@
     "statCalculations": "API-Berechnungen",
     "jsTitle": "JavaScript-Beispill",
     "jsIntro": "Dëst Beispill rifft d’API mat fetch op, kontrolléiert Feeler a liest d’Donnéeën an d’Hypotheesen. Schätzungen hänke vum Szenario of; kee bestëmmte Betrag gëtt garantéiert.",
-    "frenchFeesInputs": "Frankräich: price enthält TVA, wa se ufält. Mat isNew=true muss frenchVatOnFullPrice uginn ginn (Neibauverkaf mat TVA op de ganze Präis, keng Margebesteierung). Bei true ass frenchVatRate obligatoresch: 0.055, 0.1 oder 0.2. Bei false ginn déi ordinär Iwwerdroungssteiere simuléiert. loanGuaranteeCost ass de Garantiepräis aus dem Devis, nëmme mat Kredit erlaabt; ouni Angab bleift en onbekannt. acquisitionCoverage weist ausgeschlosse Käschten: totalFees ass eng Deelsumm, keng komplett Notairesofrechnung."
+    "frenchFeesInputs": "Frankräich: price enthält TVA, wa se ufält. Mat isNew=true muss frenchVatOnFullPrice uginn ginn (Neibauverkaf mat TVA op de ganze Präis, keng Margebesteierung). Bei true ass frenchVatRate obligatoresch: 0.055, 0.1 oder 0.2. Bei false ginn déi ordinär Iwwerdroungssteiere simuléiert. loanGuaranteeCost ass de Garantiepräis aus dem Devis, nëmme mat Kredit erlaabt; ouni Angab bleift en onbekannt. acquisitionCoverage weist ausgeschlosse Käschten: totalFees ass eng Deelsumm, keng komplett Notairesofrechnung.",
+    "frenchRentalInputs": "Franséisch Mietbesteierung (/yield): taxYear ass 2025 oder 2026 (Standard 2026). Standard ass reel_foncier, eng vereinfacht onmiwweléiert Locatioun mat reelle Käschten. Mikroregimer verlaange frenchMicroEligible=true fir d’Berechtegung an déi gesammelt Stot-/Aktivitéitsrecetten ze bestätegen, inklusiv Virjoerskonditioune fir micro-BIC. Miwweléiert Locatioun verlaangt frenchNonProfessional=true. micro_bic ass laangfristeg, micro_bic_tourism klasséiert an micro_bic_tourism_unclassified net klasséiert Tourismuslocatioun. annualTaxReceipts enthält gesammelt steierbar Recetten inklusiv steierbare Niewekäschten; soss gëllt de simuléierte Loyer nom Leerstand. frenchSocialRegime=solidarity_only setzt eng berechtegend Sozialversécherung viraus; standard ass de Standard. Keng komplett Stotsteierberechnung; Aktivitéitscotisatiounen, Verloschtvirträg a Spezialregimer sinn ausgeschloss."
   },
   "statusPage": {
     "metaTitle": "Service-Status, tevaxia.lu",

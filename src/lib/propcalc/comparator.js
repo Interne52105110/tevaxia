@@ -115,9 +115,9 @@ export function compareCountries(params) {
     const taxResult = calculateTaxImpact({
       netRent: yieldResult.netRent,
       purchasePrice: propertyPrice,
-      annualRent: estimatedMonthlyRent * 12,
+      annualRent: code === 'fr' ? yieldResult.effectiveRent : estimatedMonthlyRent * 12,
       countryCode: code,
-      taxRegime: countryData.rentalTax?.regimes?.[0]?.code || '',
+      taxRegime: code === 'fr' ? 'reel_foncier' : countryData.rentalTax?.regimes?.[0]?.code || '',
       marginalRate: marginalTaxRate,
       socialChargesRate: code === 'fr' ? 0.172 : 0,
       countryData,

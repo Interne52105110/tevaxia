@@ -174,6 +174,8 @@ export default async function PropCalcDevelopersPage() {
 
           <p className="mb-8 text-sm text-muted [overflow-wrap:anywhere]">{t("frenchFeesInputs")}</p>
 
+          <p className="mb-8 text-sm text-muted [overflow-wrap:anywhere]">{t("frenchRentalInputs")}</p>
+
           {/* Curl example */}
           <h3 className="text-sm font-semibold text-navy mb-4">{t("apiExampleTitle")}</h3>
           <div className="rounded-xl border border-card-border bg-navy p-6 overflow-x-auto">

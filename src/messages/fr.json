@@ -5880,7 +5880,7 @@
     "countriesTitle": "10 Pays avec Granularité Régionale",
     "countriesSubtitle": "Règles fiscales par pays, barèmes de frais officiels et variations régionales intégrées.",
     "countryFR": "France",
-    "countryFRDetail": "15 départements, HCSF 35%, 4 régimes locatifs",
+    "countryFRDetail": "15 départements, HCSF 35%, 5 régimes locatifs",
     "countryDE": "Allemagne",
     "countryDEDetail": "16 Bundesländer, amortissement AfA, Grunderwerbsteuer",
     "countryGB": "Royaume-Uni",
@@ -5975,7 +5975,8 @@
       "faq5a": "Oui, PropCalc est compatible avec les principaux page builders (Elementor, Divi, WPBakery) et s'integre dans les themes WooCommerce sans conflit."
     },
     "demoFranceTransferAssumption": "France : droits de mutation simulés à 6,3185 % sans département, pour un investissement dans l’ancien hors exonérations, selon le tableau DGFiP du 1er juin 2026. Le montant réel dépend du lieu et de l’acte.",
-    "demoFranceFeeScope": "Les frais français calculés sont un sous-total : formalités, débours, actes complémentaires, frais d’agence et coût de garantie du prêt ne sont pas inclus dans cette démonstration. Complétez le budget avec les devis du notaire et du prêteur."
+    "demoFranceFeeScope": "Les frais français calculés sont un sous-total : formalités, débours, actes complémentaires, frais d’agence et coût de garantie du prêt ne sont pas inclus dans cette démonstration. Complétez le budget avec les devis du notaire et du prêteur.",
+    "demoFranceRentalScope": "Scénario français de location nue : imposition simplifiée au réel, taux marginal 35 % et prélèvements sociaux 17,2 %. Il ne simule pas les régimes de location meublée ni l’impôt complet du foyer."
   },
   "solutionsHub": {
     "meta": {
@@ -17641,7 +17642,8 @@
     "statCalculations": "Calculs API",
     "jsTitle": "Exemple JavaScript",
     "jsIntro": "Cet exemple appelle l’API avec fetch, contrôle les erreurs et lit les données et hypothèses renvoyées. Les estimations dépendent du scénario ; aucun résultat chiffré n’est garanti.",
-    "frenchFeesInputs": "France : price est le prix TTC lorsque la vente est soumise à TVA. Avec isNew=true, renseignez frenchVatOnFullPrice (vente neuve soumise à TVA sur le prix total, hors TVA sur marge). Si true, frenchVatRate est obligatoire : 0.055, 0.1 ou 0.2. Si false, les droits ordinaires sont simulés. loanGuaranteeCost est un coût de garantie issu du devis, accepté uniquement avec un prêt ; absent, il reste non chiffré. acquisitionCoverage indique les frais exclus : totalFees est un sous-total, pas un décompte notarial complet."
+    "frenchFeesInputs": "France : price est le prix TTC lorsque la vente est soumise à TVA. Avec isNew=true, renseignez frenchVatOnFullPrice (vente neuve soumise à TVA sur le prix total, hors TVA sur marge). Si true, frenchVatRate est obligatoire : 0.055, 0.1 ou 0.2. Si false, les droits ordinaires sont simulés. loanGuaranteeCost est un coût de garantie issu du devis, accepté uniquement avec un prêt ; absent, il reste non chiffré. acquisitionCoverage indique les frais exclus : totalFees est un sous-total, pas un décompte notarial complet.",
+    "frenchRentalInputs": "Fiscalité locative française (/yield) : taxYear vaut 2025 ou 2026 (2026 par défaut). Le défaut est reel_foncier, location nue au réel simplifié. Les régimes micro exigent frenchMicroEligible=true pour confirmer l’éligibilité et les recettes agrégées du foyer/de l’activité ; le micro-BIC dépend aussi des années antérieures. Le meublé exige frenchNonProfessional=true. micro_bic désigne la longue durée, micro_bic_tourism le tourisme classé et micro_bic_tourism_unclassified le non-classé. annualTaxReceipts permet d’indiquer les recettes fiscales agrégées, charges taxables comprises ; sinon, on retient le loyer simulé après vacance. frenchSocialRegime=solidarity_only suppose une affiliation ouvrant droit au seul prélèvement de solidarité ; standard est le défaut. Le calcul au taux marginal n’est pas une liquidation de l’impôt du foyer. Cotisations d’activité, déficits reportables et régimes spéciaux sont exclus."
   },
   "statusPage": {
     "metaTitle": "État des services, tevaxia.lu",

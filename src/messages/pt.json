@@ -5880,7 +5880,7 @@
     "countriesTitle": "10 Países com Granularidade Regional",
     "countriesSubtitle": "Regras fiscais por país, tabelas de custos oficiais e variações regionais integradas.",
     "countryFR": "França",
-    "countryFRDetail": "15 departamentos, HCSF 35%, 4 regimes locativos",
+    "countryFRDetail": "15 departamentos, HCSF 35%, 5 regimes locativos",
     "countryDE": "Alemanha",
     "countryDEDetail": "16 Bundesländer, amortização AfA, Grunderwerbsteuer",
     "countryGB": "Reino Unido",
@@ -5975,7 +5975,8 @@
       "faq5a": "Sim, com Elementor, Divi e WooCommerce."
     },
     "demoFranceTransferAssumption": "França: impostos de transmissão simulados a 6,3185 %, sem departamento, para investimento em habitação existente e sem isenções, segundo a tabela DGFiP de 1 de junho de 2026. O valor real depende da localização e da escritura.",
-    "demoFranceFeeScope": "Os custos de aquisição franceses calculados são um subtotal: formalidades, despesas adiantadas, atos adicionais, comissão da agência e garantia do empréstimo não estão incluídos nesta demonstração. Complete o orçamento com propostas do notário e do credor."
+    "demoFranceFeeScope": "Os custos de aquisição franceses calculados são um subtotal: formalidades, despesas adiantadas, atos adicionais, comissão da agência e garantia do empréstimo não estão incluídos nesta demonstração. Complete o orçamento com propostas do notário e do credor.",
+    "demoFranceRentalScope": "Cenário francês de arrendamento não mobilado: tributação simplificada com despesas reais, taxa marginal de 35 % e contribuições sociais de 17,2 %. Não simula regimes de arrendamento mobilado nem o imposto completo do agregado."
   },
   "solutions": {
     "syndic": {
@@ -17641,7 +17642,8 @@
     "statCalculations": "Cálculos da API",
     "jsTitle": "Exemplo JavaScript",
     "jsIntro": "Este exemplo chama a API com fetch, verifica erros e lê os dados e pressupostos devolvidos. As estimativas dependem do cenário; nenhum resultado numérico é garantido.",
-    "frenchFeesInputs": "França: price inclui IVA quando aplicável. Com isNew=true, indique frenchVatOnFullPrice (venda nova sujeita a IVA sobre o preço total, excluindo IVA sobre a margem). Se true, frenchVatRate é obrigatório: 0.055, 0.1 ou 0.2. Se false, simulam-se impostos de transmissão ordinários. loanGuaranteeCost é o custo de garantia do orçamento, aceite apenas com empréstimo; sem indicação, fica por quantificar. acquisitionCoverage lista custos excluídos: totalFees é um subtotal, não uma conta notarial completa."
+    "frenchFeesInputs": "França: price inclui IVA quando aplicável. Com isNew=true, indique frenchVatOnFullPrice (venda nova sujeita a IVA sobre o preço total, excluindo IVA sobre a margem). Se true, frenchVatRate é obrigatório: 0.055, 0.1 ou 0.2. Se false, simulam-se impostos de transmissão ordinários. loanGuaranteeCost é o custo de garantia do orçamento, aceite apenas com empréstimo; sem indicação, fica por quantificar. acquisitionCoverage lista custos excluídos: totalFees é um subtotal, não uma conta notarial completa.",
+    "frenchRentalInputs": "Fiscalidade locativa francesa (/yield): taxYear é 2025 ou 2026 (padrão 2026). O padrão reel_foncier simula arrendamento não mobilado com despesas reais. Regimes micro exigem frenchMicroEligible=true para confirmar elegibilidade e receitas agregadas do agregado/atividade, incluindo condições de anos anteriores do micro-BIC. Arrendamento mobilado exige frenchNonProfessional=true. micro_bic é longa duração, micro_bic_tourism turismo classificado e micro_bic_tourism_unclassified turismo não classificado. annualTaxReceipts indica receitas fiscais agregadas, incluindo encargos tributáveis; sem indicação usa-se a renda simulada após vacância. frenchSocialRegime=solidarity_only exige filiação social elegível; standard é o padrão. O cálculo à taxa marginal não liquida o imposto do agregado. Exclui contribuições de atividade, perdas reportadas e regimes especiais."
   },
   "statusPage": {
     "metaTitle": "Estado dos serviços, tevaxia.lu",

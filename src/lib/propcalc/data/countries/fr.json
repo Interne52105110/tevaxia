@@ -211,9 +211,10 @@
           "fr": "Micro-BIC"
         },
         "type": "furnished",
-        "maxIncome": 15000,
-        "deductionRate": 0.3,
-        "notes": "Loi de Finances 2024 : seuil abaissé à 15 000 EUR, abattement 30% (meublé non-tourisme)"
+        "maxIncome": 83600,
+        "deductionRate": 0.5,
+        "notes": "Location meublée longue durée non professionnelle : abattement 50 %, minimum 305 EUR ; seuil micro-BIC 2026 de 83 600 EUR, éligibilité selon années antérieures et activité agrégée.",
+        "minimumDeduction": 305
       },
       {
         "code": "micro_bic_tourism",
@@ -222,15 +223,29 @@
           "fr": "Micro-BIC Tourisme classé"
         },
         "type": "furnished_tourism",
-        "maxIncome": 77700,
+        "maxIncome": 83600,
         "deductionRate": 0.5,
-        "notes": "Loi de Finances 2024 : seuil abaissé à 77 700 EUR, abattement 50% (meublé de tourisme classé)"
+        "notes": "Meublé de tourisme classé, hors chambres d’hôtes : 50 %, minimum 305 EUR ; seuil micro-BIC 2026 83 600 EUR, conditions à confirmer. Au-delà de 23 000 EUR de recettes, cotisations d’activité hors simulation.",
+        "minimumDeduction": 305
+      },
+      {
+        "code": "micro_bic_tourism_unclassified",
+        "name": {
+          "en": "Unclassified tourist furnished rental",
+          "fr": "Meublé de tourisme non classé"
+        },
+        "type": "furnished_tourism_unclassified",
+        "maxIncome": 15000,
+        "deductionRate": 0.3,
+        "minimumDeduction": 305,
+        "notes": "Depuis les revenus 2025 : abattement 30 %, minimum 305 EUR ; seuil 15 000 EUR, éligibilité micro-BIC à confirmer selon les années antérieures."
       }
     ],
     "socialCharges": {
       "resident": 0.172,
       "euNonResident": 0.075,
-      "nonEUNonResident": 0.172
+      "nonEUNonResident": 0.172,
+      "furnishedResident": 0.186
     },
     "incomeTaxBrackets": [
       {
@@ -256,7 +271,8 @@
     ],
     "nonResidentMinRate": 0.2,
     "nonResidentMinRateThreshold": 28797,
-    "nonResidentHighRate": 0.3
+    "nonResidentHighRate": 0.3,
+    "incomeYear": 2026
   },
   "macro": {
     "hicpAvg": 2.9,
