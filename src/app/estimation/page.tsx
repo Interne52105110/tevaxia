@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
@@ -26,6 +27,7 @@ import EstimationMethod from "@/components/EstimationMethod";
 import AiAnalysisCard from "@/components/AiAnalysisCard";
 
 export default function Estimation() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations("estimation");
   const locale = useLocale();
   const tv = useTranslations("valorisation");
@@ -593,14 +595,14 @@ export default function Estimation() {
                   }}
                 />
                 <SaveButton
-                  onClick={() => {
-                    sauvegarderEvaluation({
+                  onClick={async () => {
+                    await sauvegarderEvaluation({
                       nom: `${selectedResult?.commune.commune || communeSearch} — ${surface} m²`,
                       type: "estimation",
                       commune: selectedResult?.commune.commune,
                       valeurPrincipale: result.estimationCentrale,
                       data: { communeSearch, surface, nbChambres, etage, etat, exterieur, parking, classeEnergie, estNeuf },
-                    });
+                    }, valuationUser?.id ?? null);
                   }}
                   label={t("sauvegarder")}
                   successLabel={t("evaluationSauvegardee")}

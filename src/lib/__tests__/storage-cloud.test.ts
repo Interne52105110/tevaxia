@@ -1,64 +1,28 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-const mocks = vi.hoisted(() => ({ getUser: vi.fn(), upsert: vi.fn(), limit: vi.fn() }));
-vi.mock("../supabase", () => ({
-  supabase: {
-    auth: { getUser: mocks.getUser },
-    from: () => ({
-      upsert: mocks.upsert,
-      select: () => ({ eq: () => ({ gt: () => ({ order: () => ({ limit: mocks.limit }) }) }) }),
-    }),
-  },
-}));
-
-import { listerEvaluationsAsync, syncLocalToCloud } from "../storage";
-
-const valuation = (id: string) => ({ id, nom: id, date: "2026-09-08T10:00:00Z", type: "estimation", data: {} });
-
-beforeEach(() => {
-  vi.resetAllMocks();
-  const store = new Map<string, string>();
-  vi.stubGlobal("window", {});
-  vi.stubGlobal("localStorage", {
-    getItem: (key: string) => store.get(key) ?? null,
-    setItem: (key: string, value: string) => store.set(key, value),
-  });
-  mocks.getUser.mockResolvedValue({ data: { user: { id: "user" } } });
-});
-afterEach(() => vi.unstubAllGlobals());
-
-describe("cloud persistence", () => {
-  it("counts only writes confirmed by the server", async () => {
-    localStorage.setItem("tevaxia_valuations", JSON.stringify([valuation("a"), valuation("b")]));
-    mocks.upsert.mockResolvedValueOnce({ error: null }).mockResolvedValueOnce({ error: { message: "Rejected" } });
-    expect(await syncLocalToCloud()).toBe(1);
-  });
-
-  it("does not report anonymous records as synchronized", async () => {
-    localStorage.setItem("tevaxia_valuations", JSON.stringify([valuation("a")]));
-    mocks.getUser.mockResolvedValue({ data: { user: null } });
-    expect(await syncLocalToCloud()).toBe(0);
-    expect(mocks.upsert).not.toHaveBeenCalled();
-  });
-
-  it("preserves a local save made while the cloud request is pending", async () => {
-    mocks.limit.mockImplementation(async () => {
-      localStorage.setItem("tevaxia_valuations", JSON.stringify([valuation("new-local")]));
-      return { data: [{ ...valuation("remote"), local_id: "remote", created_at: "2026-09-08T09:00:00Z" }], error: null };
-    });
-    const result = await listerEvaluationsAsync();
-    expect(result.items.map((item) => item.id)).toEqual(["new-local", "remote"]);
-    expect(JSON.parse(localStorage.getItem("tevaxia_valuations")!).length).toBe(2);
-  });
-
-  it("does not resurrect a valuation deleted while a cloud read is pending", async () => {
-    localStorage.setItem("tevaxia_valuations", JSON.stringify([valuation("deleted")]));
-    mocks.limit.mockImplementation(async () => {
-      localStorage.setItem("tevaxia_valuations", "[]");
-      localStorage.setItem("tevaxia_trash", JSON.stringify([{ ...valuation("deleted"), deletedAt: new Date().toISOString() }]));
-      return { data: [{ ...valuation("deleted"), local_id: "deleted" }], error: null };
-    });
-    expect((await listerEvaluationsAsync()).items).toEqual([]);
-    expect(localStorage.getItem("tevaxia_valuations")).toBe("[]");
-  });
+import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
+const mocks=vi.hoisted(()=>({getUser:vi.fn(),execute:vi.fn(),calls:[] as unknown[][]}));
+vi.mock('../supabase',()=>({supabase:{auth:{getUser:mocks.getUser},from:(table:string)=>{
+ const calls:unknown[]=[table];mocks.calls.push(calls);
+ const q={select:(...v:unknown[])=>{calls.push(['select',...v]);return q},eq:(...v:unknown[])=>{calls.push(['eq',...v]);return q},gt:(...v:unknown[])=>{calls.push(['gt',...v]);return q},order:(...v:unknown[])=>{calls.push(['order',...v]);return q},limit:(...v:unknown[])=>{calls.push(['limit',...v]);return q},upsert:(...v:unknown[])=>{calls.push(['upsert',...v]);return q},delete:()=>{calls.push(['delete']);return q},then:(resolve:(v:unknown)=>void,reject:(e:unknown)=>void)=>Promise.resolve().then(()=>mocks.execute(calls)).then(resolve,reject)};return q;
+}}}));
+import {sauvegarderEvaluation,listerEvaluations,listerEvaluationsAsync,supprimerEvaluation,supprimerTout,restaurerEvaluation,listerCorbeille,valuationStorageKey,type SavedValuation} from '../storage';
+const saved=(id='v'):SavedValuation=>({id,nom:'Synthetic',date:'2026-09-10T00:00:00Z',type:'estimation',data:{x:1},valeurPrincipale:0});
+const row=(id='001')=>({id,user_id:'a',local_id:id,nom:'Synthetic cloud',created_at:'2026-09-10T00:00:00Z',type:'estimation',data:{x:1},valeur_principale:'0'});
+const input={nom:'Synthetic',type:'estimation' as const,data:{x:1}};
+const store=(items:SavedValuation[])=>localStorage.setItem(valuationStorageKey('a'),JSON.stringify({items,trash:[]}));
+beforeEach(()=>{vi.resetAllMocks();mocks.calls.length=0;const data=new Map<string,string>();vi.stubGlobal('window',{});vi.stubGlobal('localStorage',{getItem:(k:string)=>data.get(k)??null,setItem:(k:string,v:string)=>data.set(k,v)});mocks.getUser.mockResolvedValue({data:{user:{id:'a'}},error:null});mocks.execute.mockResolvedValue({data:[],error:null});});
+afterEach(()=>vi.unstubAllGlobals());
+describe('account calculation persistence',()=>{
+ it('refuses writes for a different account',async()=>{await expect(sauvegarderEvaluation(input,'b')).rejects.toThrow('account changed');expect(mocks.calls).toHaveLength(0)});
+ it('requires a confirmed saved row and an unchanged owner',async()=>{mocks.execute.mockImplementation(calls=>{const call=calls.find((c:unknown[])=>c[0]==='upsert');return {data:[{local_id:call[1].local_id}]}});const v=await sauvegarderEvaluation(input,'a');expect(listerEvaluations('a')[0]).toEqual(v);expect(listerEvaluations('b')).toEqual([]);expect(mocks.getUser).toHaveBeenCalledTimes(2)});
+ it('keeps a retry identity after an unconfirmed response',async()=>{mocks.execute.mockResolvedValueOnce({error:{code:'network'}}).mockImplementationOnce(calls=>({data:[{local_id:calls.find((c:unknown[])=>c[0]==='upsert')[1].local_id}]}));await expect(sauvegarderEvaluation({...input,nom:'retry'},'a')).rejects.toThrow('not confirmed');await sauvegarderEvaluation({...input,nom:'retry'},'a');const ids=mocks.calls.map(c=>(c.find(v=>Array.isArray(v)&&v[0]==='upsert') as unknown[])[1] as {local_id:string}).map(v=>v.local_id);expect(ids[0]).toBe(ids[1]);expect(listerEvaluations('a')).toHaveLength(1)});
+ it('does not cache after a changed account during save',async()=>{mocks.getUser.mockResolvedValueOnce({data:{user:{id:'a'}}}).mockResolvedValueOnce({data:{user:{id:'b'}}});mocks.execute.mockImplementation(calls=>({data:[{local_id:calls.find((c:unknown[])=>c[0]==='upsert')[1].local_id}]}));await expect(sauvegarderEvaluation({...input,nom:'switch'},'a')).rejects.toThrow('account changed');expect(listerEvaluations('a')).toEqual([])});
+ it('keeps active data when deletion is refused',async()=>{store([saved()]);await expect(supprimerEvaluation('v','a')).rejects.toThrow('not confirmed');expect(listerEvaluations('a')).toHaveLength(1);expect(listerCorbeille('a')).toEqual([])});
+ it('checks owner and row before moving a deletion to recovery',async()=>{store([saved()]);mocks.execute.mockResolvedValue({data:[{local_id:'v'}]});await supprimerEvaluation('v','a');expect(listerEvaluations('a')).toEqual([]);expect(listerCorbeille('a')[0].id).toBe('v');expect(JSON.stringify(mocks.calls)).toContain('["eq","user_id","a"]')});
+ it('preserves the recovery item after refused restoration',async()=>{store([saved()]);mocks.execute.mockResolvedValueOnce({data:[{local_id:'v'}]}).mockResolvedValueOnce({error:{code:'denied'}});await supprimerEvaluation('v','a');await expect(restaurerEvaluation('v','a')).rejects.toThrow('not confirmed');expect(listerCorbeille('a')[0].id).toBe('v')});
+ it('completes short pages until exhaustion',async()=>{mocks.execute.mockResolvedValueOnce({data:[row('001')]}).mockResolvedValueOnce({data:[row('002')]}).mockResolvedValueOnce({data:[]});const result=await listerEvaluationsAsync('a');expect(result.items).toHaveLength(2);expect(result.items[0].valeurPrincipale).toBe(0);expect(result.cloud).toBe(true);expect(JSON.stringify(mocks.calls)).toContain('["gt","id","001"]')});
+ it('does not present partial pages after a later failure',async()=>{store([saved()]);mocks.execute.mockResolvedValueOnce({data:[row()]}).mockResolvedValueOnce({error:{code:'failed'}});expect(await listerEvaluationsAsync('a')).toEqual({items:[saved()],cloud:false,cloudError:true})});
+ it('moves remotely removed cache records into local recovery',async()=>{store([saved()]);expect(await listerEvaluationsAsync('a')).toEqual({items:[],cloud:true,cloudError:false});expect(listerCorbeille('a')[0].id).toBe('v')});
+ it('does not overwrite a cache mutation arriving during a read',async()=>{mocks.execute.mockImplementationOnce(()=>{store([saved('new')]);return {data:[]}});expect(await listerEvaluationsAsync('a')).toEqual({items:[saved('new')],cloud:false,cloudError:true})});
+ it('rejects records belonging to another owner',async()=>{mocks.execute.mockResolvedValueOnce({data:[{...row(),user_id:'b'}]}).mockResolvedValueOnce({data:[]});expect((await listerEvaluationsAsync('a')).cloudError).toBe(true);expect(listerEvaluations('a')).toEqual([])});
+ it('keeps confirmed partial progress when delete-all later fails',async()=>{store([saved('a1'),saved('a2')]);mocks.execute.mockResolvedValueOnce({data:[{local_id:'a1'}]}).mockResolvedValueOnce({error:{code:'denied'}});await expect(supprimerTout('a')).rejects.toThrow();expect(listerEvaluations('a').map(v=>v.id)).toEqual(['a2']);expect(listerCorbeille('a').map(v=>v.id)).toEqual(['a1'])});
 });

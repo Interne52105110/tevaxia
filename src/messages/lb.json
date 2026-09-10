@@ -3974,7 +3974,9 @@
       "faq3a": "Laut Observatoire (2023) representéiert de Gewënn vun enger EPB-Klass ongeféier +3-5 % op de Präis.",
       "faq4q": "Kann een Immobilie vu verschiddene Gemengen vergläichen?",
       "faq4a": "Méiglech awer heikels. D'Präisënnerscheeder tëschent Lëtzebuerger Gemenge sinn ganz bedeitend (Faktor 2-3)."
-    }
+    },
+    "archiveError": "D’Luede oder d’Ännerung konnt net bestätegt ginn. Déi ugewisen Donnéeë kënnen eng lokal Kopie sinn. Probéiert nach eng Kéier, ier Dir Iech drop verlooss.",
+    "archiveLoading": "Gëtt gelueden…"
   },
   "convertisseurSurfaces": {
     "title": "Flächen-Ëmrechner",
@@ -5077,20 +5079,20 @@
   },
   "mesEvaluations": {
     "title": "Meng Bewäertungen",
-    "subtitle": "Lokal + synchroniséiert mat Ärem Kont wann ageloggt (500 max, 180 Deeg)",
+    "subtitle": "Getrennte Berechnunge fir all Kont an de Gaaschtberäich.",
     "trash": "Poubelle",
     "deleteAll": "Alles läschen",
     "noEvaluations": "Keng gespäichert Bewäertungen",
     "hint": "Benotzt de Knäppchen \"Späicheren\" an de Rechner fir Är Aarbecht ze späicheren.",
     "startEvaluation": "Eng Bewäertung ufänken",
-    "open": "Opmaachen",
+    "open": "Rechner opmaachen",
     "delete": "Läschen",
     "restore": "Erëmhierstellen",
     "trashCount": "Poubelle ({count})",
     "autoDelete": "Automatesch Läschung no 7 Deeg",
     "emptyTrash": "Poubelle eidel maachen",
     "storageTitle": "Lokale Späicher:",
-    "storageNote": "Är Bewäertunge ginn am Browser (localStorage) gespäichert. Geläschten Elementer bleiwen 7 Deeg an der Poubelle virun der definitiver Läschung. Maximal 50 Bewäertungen gespäichert.",
+    "storageNote": "Bis zu 500 aktiv Berechnunge pro Beräich. Agelogte Konte benotzen d’Cloud an e lokale Cache. De Pabeierkuerf vun dësem Browser erlaabt eng Recuperatioun wärend siwen Deeg.",
     "typeEstimation": "Schätzung",
     "typeValorisationEVS": "EVS-Bewäertung",
     "typeCapitalisation": "Kapitaliséierung",
@@ -5102,10 +5104,18 @@
     "typeAides": "Hëllefen-Simulator",
     "typeAchatLocation": "Kafen vs Lounen",
     "typeBilanPromoteur": "Promoteur-Bilan",
-    "cloudBadge": "Synchroniséiert",
-    "cloudHint": "Mat Ärem Kont synchroniséiert — max 500, 180 Deeg",
-    "cloudPending": "Synchroniséiert…",
-    "cloudPendingHint": "Synchronisatioun mat Ärem Kont leeft"
+    "cloudBadge": "Cloud gelueden",
+    "cloudHint": "D’Cloud-Liesung gouf beim leschte Luede bestätegt.",
+    "cloudPending": "Cloud net bestätegt",
+    "cloudPendingHint": "Dat lescht Luede vun der Cloud gouf net bestätegt.",
+    "viewData": "Gespäichert Donnéeë kucken",
+    "loading": "Gëtt gelueden…",
+    "confirmDeleteAll": "All Berechnunge vun dësem Beräich an de Pabeierkuerf réckelen?",
+    "confirmPermanent": "Déi betreffend Elementer definitiv aus dem lokale Pabeierkuerf läschen?",
+    "storageError": "D’Luede oder d’Ännerung konnt net bestätegt ginn. Déi ugewisen Donnéeë kënnen eng lokal Kopie sinn. Probéiert nach eng Kéier, ier Dir Iech drop verlooss.",
+    "retry": "Nach eng Kéier probéieren",
+    "legacyNotice": "Eng al Sécherung ouni Kontzouuerdnung bleift an dësem Browser erhalen. Si gëtt net automatesch ugewisen oder importéiert.",
+    "legacyDownload": "Al Sécherung eroflueden"
   },
   "portfolio": {
     "title": "Immobilie-Portfolio",
@@ -5220,7 +5230,9 @@
     "expensesColTotal": "Total",
     "expensesColRatio": "Käschten / Loyer",
     "expensesTotal": "TOTAL",
-    "expensesNote": "Indikativ Annahmen: Copro 250 €/Mount, PNO-Versécherung 0,5 %/J. vum Wäert, Grondsteier 0,1 %, Entretien 0,5 %, Gestioun 5 % vum Loyer. Verhältnis Käschten/Loyer ≤ 25 % gesond, ≥ 35 % bedenklech."
+    "expensesNote": "Indikativ Annahmen: Copro 250 €/Mount, PNO-Versécherung 0,5 %/J. vum Wäert, Grondsteier 0,1 %, Entretien 0,5 %, Gestioun 5 % vum Loyer. Verhältnis Käschten/Loyer ≤ 25 % gesond, ≥ 35 % bedenklech.",
+    "archiveError": "D’Luede oder d’Ännerung konnt net bestätegt ginn. Déi ugewisen Donnéeë kënnen eng lokal Kopie sinn. Probéiert nach eng Kéier, ier Dir Iech drop verlooss.",
+    "archiveLoading": "Gëtt gelueden…"
   },
   "hedonique": {
     "title": "Hedonesch Bewäertung",
@@ -12844,7 +12856,8 @@
       "hotellerie": "Hotellerie",
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
-    }
+    },
+    "archiveError": "D’Luede oder d’Ännerung konnt net bestätegt ginn. Déi ugewisen Donnéeë kënnen eng lokal Kopie sinn. Probéiert nach eng Kéier, ier Dir Iech drop verlooss."
   },
   "strHub": {
     "meta": {

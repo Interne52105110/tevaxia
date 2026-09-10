@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
@@ -11,6 +12,7 @@ import { sauvegarderEvaluation } from "@/lib/storage";
 import { calculerPlusValue, formatEUR2, type PlusValueInput } from "@/lib/calculations";
 
 export default function PlusValues() {
+  const { user: valuationUser } = useAuth();
  const t=useTranslations('plusValuesAudit');
  const [x,setX]=useState<PlusValueInput>({prixAcquisition:400000,anneeAcquisition:2015,dateAcquisition:'2015-01-15',prixCession:650000,anneeCession:2026,dateCession:'2026-09-08',travauxAnnee:2020,estResidencePrincipale:false,estCouple:false,revenuImposable:50000,modeAcquisition:'achat',soumisDependance:true});
  const set=(key:keyof PlusValueInput,value:unknown)=>setX(prev=>({...prev,[key]:value}));
@@ -69,7 +71,7 @@ export default function PlusValues() {
      ]}/>
      <p className="rounded-xl bg-amber-50 p-4 text-xs">{t('provision')}</p>
      <p className="text-xs text-muted">{t('produitHint')}</p>
-     <div className="flex flex-wrap gap-3 print:hidden"><SaveButton onClick={()=>sauvegarderEvaluation({nom:`${t('title')} — ${x.dateCession}`,type:'plus-values',valeurPrincipale:result.impotTotalMax,data:{...x,versionCalcul:2}})}/><button className="rounded-lg bg-navy px-4 py-2 text-sm text-white" onClick={()=>window.print()}>{t('imprimer')}</button></div>
+     <div className="flex flex-wrap gap-3 print:hidden"><SaveButton onClick={async ()=>await sauvegarderEvaluation({nom:`${t('title')} — ${x.dateCession}`,type:'plus-values',valeurPrincipale:result.impotTotalMax,data:{...x,versionCalcul:2}}, valuationUser?.id ?? null)}/><button className="rounded-lg bg-navy px-4 py-2 text-sm text-white" onClick={()=>window.print()}>{t('imprimer')}</button></div>
     </>}
     <div className="rounded-xl border border-card-border p-5 text-sm space-y-3"><h2 className="font-semibold">{t('sources')}</h2><p>{t('limitations')}</p><ul className="space-y-2">
      <li><a className="underline" href="https://impotsdirects.public.lu/fr/az/v/vente_immeuble.html">ACD — vente d’un immeuble</a></li>

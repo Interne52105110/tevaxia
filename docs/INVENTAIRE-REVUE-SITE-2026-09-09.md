@@ -668,3 +668,18 @@ FAQ/texte SEO du hub dans cinq langues : retrait des affirmations de rendement m
 Validation : 1 561 tests / 145 fichiers réussis, dont trois cas supplémentaires A+/H/I et assertions métier actualisées. Lint propre ; compilation finale réussie après maintien du paramètre legacy requis. Fixture cinq langues avec véritables analyzeLot/summarize/InputField : priorité de rénovation, absence de faux net et de droit aux aides, options A+/H/I, source officielle. Hub public local cinq langues/quatre largeurs, sections/FAQ révisées et liens officiels vérifiés.
 
 Profil ef18a54 publié : CI 34427678853 réussie, dpl_DRNriAYhrEwSQnYSxmAvtgdhwnkb Ready. Parcours production profil/valorisation/nouveau lot cinq langues/quatre largeurs réussi.
+
+
+## 10 septembre — évaluations sauvegardées séparées par compte
+
+Stockage v2 explicite par compte/invité, archive et corbeille regroupées en une écriture locale atomique. Anciennes données globales préservées et téléchargeables sans attribution automatique au compte connecté. Validation des données, montants finis, capacité explicite ; aucun écrasement silencieux d’une archive corrompue. Suppression de la synchronisation automatique des archives non attribuées à la connexion.
+
+Écritures cloud attendues et confirmées, propriétaire vérifié avant/après, lecture paginée complète ou erreur explicite. Une lecture cloud vide est respectée ; les copies locales disparues du cloud passent en récupération locale. Sauvegarde après résultat ambigu réutilisant le même identifiant, restauration conservant la date et l’identifiant. Erreurs de cache affichées, aucune réussite simulée. Les tests de mutations sont isolés : aucune archive client modifiée pendant l’audit ; politiques RLS et quota concurrent en production non certifiés.
+
+Tous les outils appelants transmettent le compte et attendent la sauvegarde. Bouton verrouillé pendant la requête, succès seulement après confirmation, état tardif ignoré après changement de compte. Mes évaluations, comparaison, tableau de bord et évaluations du portefeuille isolent leurs lectures ; exports refusés si lecture cloud incomplète. Détail des données sauvegardées accessible, zéro et montants négatifs affichables, lien vers l’outil localisé. Les biens saisis manuellement dans /portfolio restent un lot distinct à corriger.
+
+Validation métier/stockage : 1 569 tests / 145 fichiers réussis, dont 25 tests locaux/cloud. Fixture interface cinq langues réussie : détails, zéro, refus de suppression, changement de compte, requête tardive, sauvegarde refusée puis confirmée. Compilation et lint réussis avant contrôle final des ajustements mobiles. Le contrôle responsive a révélé des débordements sur achat/location, portefeuille et longs titres des frais d’acquisition ; correction en cours de validation, agrandissement global +10 % conservé.
+
+Lot précédent 105adf9 publié : CI 34428596071 réussie, dpl_8XAU6RAePLBhBNo9sKZXJLpwHnY1 Ready ; hub locatif en production vérifié dans cinq langues et quatre largeurs.
+
+Validation finale du lot évaluations : compilation et lint des ajustements réussis ; 13 routes × 5 langues × 4 largeurs (320/390/768/1440) vérifiées, sans débordement persistant ni erreur JavaScript. Les contrôles attendent le recalcul responsive des graphiques après changement de largeur. Montants achat/location empilés sur petit écran, filtres du portefeuille repliables et césure des longs titres/texte SEO. Publication à suivre.

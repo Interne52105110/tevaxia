@@ -3974,7 +3974,9 @@
       "faq3a": "Segundo o Observatório (2023), o ganho de uma classe CPE representa cerca de +3-5 % no preço.",
       "faq4q": "Posso comparar imóveis de municípios diferentes?",
       "faq4a": "É possível mas delicado. As diferenças de preço entre municípios são muito significativas (fator de 2-3)."
-    }
+    },
+    "archiveError": "Não foi possível confirmar o carregamento ou a alteração. Os dados apresentados podem ser uma cópia local. Tente novamente antes de os utilizar.",
+    "archiveLoading": "A carregar…"
   },
   "convertisseurSurfaces": {
     "title": "Conversor de superficies",
@@ -5077,20 +5079,20 @@
   },
   "mesEvaluations": {
     "title": "As minhas avaliações",
-    "subtitle": "Local + sincronizado na sua conta se estiver ligado (500 máx, 180 dias)",
+    "subtitle": "Cálculos separados por conta e espaço de convidado.",
     "trash": "Reciclagem",
     "deleteAll": "Apagar tudo",
     "noEvaluations": "Nenhuma avaliação guardada",
     "hint": "Utilize o botão \"Guardar\" nos calculadores para registar os seus trabalhos.",
     "startEvaluation": "Iniciar uma avaliação",
-    "open": "Abrir",
+    "open": "Abrir a ferramenta",
     "delete": "Apagar",
     "restore": "Restaurar",
     "trashCount": "Reciclagem ({count})",
     "autoDelete": "Eliminação automática após 7 dias",
     "emptyTrash": "Esvaziar reciclagem",
     "storageTitle": "Armazenamento local:",
-    "storageNote": "As suas avaliações são guardadas no navegador (localStorage). Os itens apagados permanecem na reciclagem durante 7 dias antes da eliminação definitiva. Máximo de 50 avaliações guardadas.",
+    "storageNote": "Até 500 cálculos ativos por espaço. As contas ligadas utilizam a cloud e uma cópia local. A reciclagem deste navegador permite recuperar dados durante sete dias.",
     "typeEstimation": "Estimativa",
     "typeValorisationEVS": "Avaliação EVS",
     "typeCapitalisation": "Capitalização",
@@ -5102,10 +5104,18 @@
     "typeAides": "Simulador de apoios",
     "typeAchatLocation": "Compra vs Arrendamento",
     "typeBilanPromoteur": "Balanço do promotor",
-    "cloudBadge": "Sincronizado",
-    "cloudHint": "Sincronizado na sua conta — 500 itens máx, mantidos 180 dias",
-    "cloudPending": "A sincronizar…",
-    "cloudPendingHint": "Sincronização com a sua conta em curso"
+    "cloudBadge": "Cloud carregada",
+    "cloudHint": "Leitura da cloud confirmada no último carregamento.",
+    "cloudPending": "Cloud não confirmada",
+    "cloudPendingHint": "O último carregamento da cloud não foi confirmado.",
+    "viewData": "Ver dados guardados",
+    "loading": "A carregar…",
+    "confirmDeleteAll": "Mover todos os cálculos deste espaço para a reciclagem?",
+    "confirmPermanent": "Remover definitivamente os elementos selecionados da reciclagem local?",
+    "storageError": "Não foi possível confirmar o carregamento ou a alteração. Os dados apresentados podem ser uma cópia local. Tente novamente antes de os utilizar.",
+    "retry": "Tentar novamente",
+    "legacyNotice": "Uma cópia de segurança antiga sem conta associada é conservada neste navegador. Não é apresentada nem importada automaticamente.",
+    "legacyDownload": "Descarregar a cópia antiga"
   },
   "portfolio": {
     "title": "Portfólio imobiliário",
@@ -5220,7 +5230,9 @@
     "expensesColTotal": "Total",
     "expensesColRatio": "Despesas / renda",
     "expensesTotal": "TOTAL",
-    "expensesNote": "Pressupostos indicativos: condomínio 250 €/mês, seguro PNO 0,5 %/ano do valor, imposto 0,1 %, manutenção 0,5 %, gestão 5 % das rendas. Rácio despesas/rendas ≤ 25 % saudável, ≥ 35 % preocupante."
+    "expensesNote": "Pressupostos indicativos: condomínio 250 €/mês, seguro PNO 0,5 %/ano do valor, imposto 0,1 %, manutenção 0,5 %, gestão 5 % das rendas. Rácio despesas/rendas ≤ 25 % saudável, ≥ 35 % preocupante.",
+    "archiveError": "Não foi possível confirmar o carregamento ou a alteração. Os dados apresentados podem ser uma cópia local. Tente novamente antes de os utilizar.",
+    "archiveLoading": "A carregar…"
   },
   "hedonique": {
     "title": "Avaliação hedónica",
@@ -12844,7 +12856,8 @@
       "hotellerie": "Hotelaria",
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
-    }
+    },
+    "archiveError": "Não foi possível confirmar o carregamento ou a alteração. Os dados apresentados podem ser uma cópia local. Tente novamente antes de os utilizar."
   },
   "strHub": {
     "meta": {

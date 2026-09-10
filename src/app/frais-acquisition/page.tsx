@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
@@ -16,6 +17,7 @@ import { PdfButton } from "@/components/PdfButton";
 const _lazy_generateFraisPdfBlob = async (...args: Parameters<typeof import("@/components/ToolsPdf")["generateFraisPdfBlob"]>): Promise<Blob> => (await import("@/components/ToolsPdf")).generateFraisPdfBlob(...args);
 
 export default function FraisAcquisition() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations("fraisAcquisition");
   const a = useTranslations("acquisitionAudit");
   const [prixBien, setPrixBien] = useState(750000);
@@ -70,7 +72,7 @@ export default function FraisAcquisition() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs />
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-navy sm:text-3xl">
+          <h1 className="text-2xl font-bold text-navy sm:text-3xl [overflow-wrap:anywhere]">
             {t("title")}
           </h1>
           <p className="mt-2 text-muted">
@@ -385,13 +387,13 @@ export default function FraisAcquisition() {
 
             <div className="flex flex-wrap justify-center gap-2">
               <SaveButton
-                onClick={() => {
-                  sauvegarderEvaluation({
+                onClick={async () => {
+                  await sauvegarderEvaluation({
                     nom: `${t("savePrefix")} — ${formatEUR(prixBien)}`,
                     type: "frais",
                     valeurPrincipale: result.totalFrais,
                     data: { prixBien, estNeuf, partTerrain, residencePrincipale: effRP, nbAcquereurs, montantHypotheque, quotePartPremier, credit1, credit2, accessoiresHypotheque, achatSociete },
-                  });
+                  }, valuationUser?.id ?? null);
                 }}
                 label={t("sauvegarder")}
                 successLabel={t("evaluationSauvegardee")}

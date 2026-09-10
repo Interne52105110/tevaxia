@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
 import { useTranslations } from "next-intl";
 
 interface SaveButtonProps {
@@ -9,12 +10,19 @@ interface SaveButtonProps {
   successLabel?: string;
 }
 
-export default function SaveButton({ onClick, label, successLabel }: SaveButtonProps) {
+export default function SaveButton(props: SaveButtonProps) {
+  const {user,loading}=useAuth();
+  if(loading)return null;
+  return <SaveButtonContent key={user?.id ?? "guest"} {...props}/>;
+}
+
+function SaveButtonContent({ onClick, label, successLabel }: SaveButtonProps) {
   const t = useTranslations("saveButton");
   const [state, setState] = useState<"idle" | "saving" | "done" | "error">("idle");
   const busy = useRef(false);
+  const live = useRef(true);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  useEffect(() => {live.current=true;return()=>{live.current=false;if(timer.current)clearTimeout(timer.current);};}, []);
 
   const handleClick = async () => {
     if (busy.current) return;
@@ -22,12 +30,14 @@ export default function SaveButton({ onClick, label, successLabel }: SaveButtonP
     setState("saving");
     try {
       await onClick();
+      if(!live.current)return;
       setState("done");
       timer.current = setTimeout(() => {
         setState("idle");
         busy.current = false;
       }, 2500);
     } catch {
+      if(!live.current)return;
       setState("error");
       busy.current = false;
     }

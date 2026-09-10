@@ -3974,7 +3974,9 @@
       "faq3a": "According to the Observatory (2023), gaining one EPC class represents about +3-5% on price. Apply proportional adjustment based on class difference.",
       "faq4q": "Can I compare properties from different municipalities?",
       "faq4a": "It's possible but tricky. Price gaps between Luxembourg municipalities are very significant (factor of 2-3). Prefer comparables from the same or similar neighbouring municipalities."
-    }
+    },
+    "archiveError": "Loading or the change could not be confirmed. The displayed data may be a local copy. Retry before relying on it.",
+    "archiveLoading": "Loading…"
   },
   "convertisseurSurfaces": {
     "title": "Surface Area Converter",
@@ -5077,20 +5079,20 @@
   },
   "mesEvaluations": {
     "title": "My valuations",
-    "subtitle": "Local + synced to your account if signed in (500 max, 180 days)",
+    "subtitle": "Separate saved calculations for each account and guest workspace.",
     "trash": "Trash",
     "deleteAll": "Delete all",
     "noEvaluations": "No saved valuations",
     "hint": "Use the \"Save\" button in the calculators to store your work.",
     "startEvaluation": "Start a valuation",
-    "open": "Open",
+    "open": "Open the tool",
     "delete": "Delete",
     "restore": "Restore",
     "trashCount": "Trash ({count})",
     "autoDelete": "Automatic deletion after 7 days",
     "emptyTrash": "Empty trash",
     "storageTitle": "Local storage:",
-    "storageNote": "Your valuations are saved in the browser (localStorage). Deleted items are kept in the trash for 7 days before permanent deletion. Maximum 50 valuations stored.",
+    "storageNote": "Up to 500 active calculations per workspace. Signed-in accounts use cloud storage and a local cache. This browser’s recovery bin is available for seven days.",
     "typeEstimation": "Estimation",
     "typeValorisationEVS": "EVS Valuation",
     "typeCapitalisation": "Capitalisation",
@@ -5102,10 +5104,18 @@
     "typeAides": "Subsidies simulator",
     "typeAchatLocation": "Buy vs Rent",
     "typeBilanPromoteur": "Developer appraisal",
-    "cloudBadge": "Synced",
-    "cloudHint": "Synced to your account — 500 items max, kept 180 days",
-    "cloudPending": "Syncing…",
-    "cloudPendingHint": "Syncing with your account in progress"
+    "cloudBadge": "Cloud loaded",
+    "cloudHint": "Cloud read confirmed on the latest load.",
+    "cloudPending": "Cloud unconfirmed",
+    "cloudPendingHint": "The latest cloud load was not confirmed.",
+    "viewData": "View saved data",
+    "loading": "Loading…",
+    "confirmDeleteAll": "Move all calculations in this workspace to the recovery bin?",
+    "confirmPermanent": "Permanently remove the selected items from the local recovery bin?",
+    "storageError": "Loading or the change could not be confirmed. The displayed data may be a local copy. Retry before relying on it.",
+    "retry": "Retry",
+    "legacyNotice": "An older backup without an account owner is preserved in this browser. It is not displayed or imported automatically.",
+    "legacyDownload": "Download the older backup"
   },
   "portfolio": {
     "title": "Property portfolio",
@@ -5220,7 +5230,9 @@
     "expensesColTotal": "Total",
     "expensesColRatio": "Expenses / rent",
     "expensesTotal": "TOTAL",
-    "expensesNote": "Indicative assumptions: condo 250 €/mo, PNO insurance 0.5%/y of value, property tax 0.1%, maintenance 0.5%, management 5% of rent. Expense/rent ratio ≤ 25% healthy, ≥ 35% concerning."
+    "expensesNote": "Indicative assumptions: condo 250 €/mo, PNO insurance 0.5%/y of value, property tax 0.1%, maintenance 0.5%, management 5% of rent. Expense/rent ratio ≤ 25% healthy, ≥ 35% concerning.",
+    "archiveError": "Loading or the change could not be confirmed. The displayed data may be a local copy. Retry before relying on it.",
+    "archiveLoading": "Loading…"
   },
   "hedonique": {
     "title": "Hedonic Valuation",
@@ -12966,7 +12978,8 @@
       "hotellerie": "Hospitality",
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
-    }
+    },
+    "archiveError": "Loading or the change could not be confirmed. The displayed data may be a local copy. Retry before relying on it."
   },
   "strHub": {
     "meta": {

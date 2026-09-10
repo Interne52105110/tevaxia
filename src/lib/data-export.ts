@@ -3,7 +3,7 @@
 // ============================================================
 // Agrège : profil, évaluations (local + cloud), lots locatifs (local +
 // cloud), alertes marché, liens partagés, clés API. Ne contient PAS
-// les clés API en clair (seulement les hashes). Téléchargement direct
+// les clés API en clair ni leurs hashes (métadonnées uniquement). Téléchargement direct
 // côté client.
 
 import { supabase } from "./supabase";
@@ -50,11 +50,11 @@ export async function buildDataExport(): Promise<DataExport> {
   exp.profile=getProfile(rentalUserId) as unknown as Record<string,unknown>;
 
   // Items locaux/mergés
-  const [{ items: valuations }, { items: lots, cloudError }] = await Promise.all([
-    listerEvaluationsAsync(),
+  const [{ items: valuations, cloudError: valuationCloudError }, { items: lots, cloudError }] = await Promise.all([
+    listerEvaluationsAsync(rentalUserId),
     listLotsAsync(rentalUserId),
   ]);
-  if(cloudError) throw new Error("Rental export unavailable");
+  if(cloudError || valuationCloudError) throw new Error("Rental export unavailable");
   exp.valuations = valuations;
   exp.rental_lots = lots;
 

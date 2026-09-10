@@ -1,140 +1,20 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import {
-  sauvegarderEvaluation,
-  listerEvaluations,
-  chargerEvaluation,
-  supprimerEvaluation,
-  supprimerTout,
-  listerCorbeille,
-  restaurerEvaluation,
-  supprimerDefinitivement,
-  viderCorbeille,
-  compterCorbeille,
-} from "../storage";
-
-// Polyfill minimal pour localStorage + crypto.randomUUID dans Vitest
-beforeEach(() => {
-  const store: Record<string, string> = {};
-  vi.stubGlobal("localStorage", {
-    getItem: (k: string) => (k in store ? store[k] : null),
-    setItem: (k: string, v: string) => { store[k] = v; },
-    removeItem: (k: string) => { delete store[k]; },
-    clear: () => { Object.keys(store).forEach((k) => delete store[k]); },
-    length: 0,
-    key: () => null,
-  });
-  vi.stubGlobal("window", { localStorage: { getItem: () => null, setItem: () => {} } });
-  // crypto.randomUUID est déjà disponible dans Node 20+ mais au cas où
-  if (!globalThis.crypto?.randomUUID) {
-    vi.stubGlobal("crypto", { randomUUID: () => `uuid-${Math.random().toString(36).slice(2)}` });
-  }
-});
-
-describe("sauvegarderEvaluation", () => {
-  it("saves a valuation with generated id and date", () => {
-    const v = sauvegarderEvaluation({
-      nom: "Test 1",
-      type: "estimation",
-      data: { foo: "bar" },
-    });
-    expect(v.id).toBeTruthy();
-    expect(v.date).toBeTruthy();
-    expect(v.nom).toBe("Test 1");
-  });
-
-  it("inserts newest at head", () => {
-    sauvegarderEvaluation({ nom: "First", type: "estimation", data: {} });
-    sauvegarderEvaluation({ nom: "Second", type: "estimation", data: {} });
-    const list = listerEvaluations();
-    expect(list[0].nom).toBe("Second");
-    expect(list[1].nom).toBe("First");
-  });
-});
-
-describe("listerEvaluations", () => {
-  it("returns empty array for fresh storage", () => {
-    expect(listerEvaluations()).toEqual([]);
-  });
-
-  it("returns all saved evaluations", () => {
-    sauvegarderEvaluation({ nom: "A", type: "estimation", data: {} });
-    sauvegarderEvaluation({ nom: "B", type: "frais", data: {} });
-    expect(listerEvaluations()).toHaveLength(2);
-  });
-});
-
-describe("chargerEvaluation", () => {
-  it("retrieves by id", () => {
-    const v = sauvegarderEvaluation({ nom: "X", type: "dcf", data: { k: 1 } });
-    const found = chargerEvaluation(v.id);
-    expect(found?.nom).toBe("X");
-  });
-
-  it("returns null for unknown id", () => {
-    expect(chargerEvaluation("does-not-exist")).toBeNull();
-  });
-});
-
-describe("supprimerEvaluation / corbeille", () => {
-  it("moves to trash", () => {
-    const v = sauvegarderEvaluation({ nom: "ToDelete", type: "estimation", data: {} });
-    supprimerEvaluation(v.id);
-    expect(listerEvaluations()).toHaveLength(0);
-    expect(listerCorbeille()).toHaveLength(1);
-    expect(listerCorbeille()[0].nom).toBe("ToDelete");
-  });
-
-  it("restaurerEvaluation brings back from trash", () => {
-    const v = sauvegarderEvaluation({ nom: "R", type: "estimation", data: {} });
-    supprimerEvaluation(v.id);
-    restaurerEvaluation(v.id);
-    expect(listerEvaluations().some((x) => x.id === v.id)).toBe(true);
-    expect(listerCorbeille()).toHaveLength(0);
-  });
-
-  it("supprimerDefinitivement removes from trash permanently", () => {
-    const v = sauvegarderEvaluation({ nom: "D", type: "estimation", data: {} });
-    supprimerEvaluation(v.id);
-    supprimerDefinitivement(v.id);
-    expect(listerEvaluations()).toHaveLength(0);
-    expect(listerCorbeille()).toHaveLength(0);
-  });
-
-  it("keeps the recoverable copy when restoring fails due to full storage", () => {
-    const v = sauvegarderEvaluation({ nom: "Recover", type: "estimation", data: {} });
-    supprimerEvaluation(v.id);
-    const setItem = localStorage.setItem;
-    const spy = vi.spyOn(localStorage, "setItem").mockImplementation((key, value) => {
-      if (key === "tevaxia_valuations") throw new Error("QuotaExceededError");
-      setItem(key, value);
-    });
-    expect(() => restaurerEvaluation(v.id)).toThrow("QuotaExceededError");
-    expect(listerCorbeille().map((item) => item.id)).toContain(v.id);
-    spy.mockRestore();
-    restaurerEvaluation(v.id);
-    expect(chargerEvaluation(v.id)?.nom).toBe("Recover");
-  });
-
-  it("compterCorbeille returns the count", () => {
-    sauvegarderEvaluation({ nom: "1", type: "estimation", data: {} });
-    const v2 = sauvegarderEvaluation({ nom: "2", type: "estimation", data: {} });
-    supprimerEvaluation(v2.id);
-    expect(compterCorbeille()).toBe(1);
-  });
-
-  it("viderCorbeille empties the trash", () => {
-    const v = sauvegarderEvaluation({ nom: "V", type: "estimation", data: {} });
-    supprimerEvaluation(v.id);
-    viderCorbeille();
-    expect(listerCorbeille()).toHaveLength(0);
-  });
-});
-
-describe("supprimerTout", () => {
-  it("empties both valuations and trash", () => {
-    sauvegarderEvaluation({ nom: "1", type: "estimation", data: {} });
-    sauvegarderEvaluation({ nom: "2", type: "estimation", data: {} });
-    supprimerTout();
-    expect(listerEvaluations()).toHaveLength(0);
-  });
+import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
+vi.mock('../supabase',()=>({supabase:null}));
+import {sauvegarderEvaluation,listerEvaluations,chargerEvaluation,supprimerEvaluation,supprimerTout,listerCorbeille,restaurerEvaluation,supprimerDefinitivement,viderCorbeille,compterCorbeille,valuationStorageKey,legacyValuationSnapshot} from '../storage';
+beforeEach(()=>{const store=new Map<string,string>();vi.stubGlobal('window',{});vi.stubGlobal('localStorage',{getItem:(k:string)=>store.get(k)??null,setItem:(k:string,v:string)=>store.set(k,v)});});
+afterEach(()=>{vi.unstubAllGlobals();vi.useRealTimers()});
+const input={nom:'Synthetic calculation',type:'estimation' as const,data:{price:500000},valeurPrincipale:0};
+describe('local calculation archive',()=>{
+ it('saves and reads a complete calculation including zero',async()=>{const v=await sauvegarderEvaluation(input,null);expect(v.id).toBeTruthy();expect(chargerEvaluation(v.id,null)).toEqual(v);expect(listerEvaluations(null)).toHaveLength(1)});
+ it('never imports the global archive or trash into an account',async()=>{localStorage.setItem('tevaxia_valuations','[{"legacy":true}]');localStorage.setItem('tevaxia_trash','legacy trash');expect(listerEvaluations('a')).toEqual([]);expect(listerEvaluations(null)).toEqual([]);expect(legacyValuationSnapshot()).toContain('legacy trash')});
+ it('isolates guest saves from account caches',async()=>{await sauvegarderEvaluation(input,null);expect(listerEvaluations('a')).toEqual([]);expect(listerEvaluations('b')).toEqual([])});
+ it('keeps the original malformed archive intact',async()=>{localStorage.setItem(valuationStorageKey(null),'{bad');await expect(sauvegarderEvaluation(input,null)).rejects.toThrow();expect(localStorage.getItem(valuationStorageKey(null))).toBe('{bad')});
+ it('rejects non-finite numbers nested in inputs',async()=>{await expect(sauvegarderEvaluation({...input,data:{nested:{amount:Infinity}}},null)).rejects.toThrow();expect(listerEvaluations(null)).toEqual([])});
+ it('moves a record atomically into its local recovery bin',async()=>{const v=await sauvegarderEvaluation(input,null);await supprimerEvaluation(v.id,null);expect(listerEvaluations(null)).toEqual([]);expect(listerCorbeille(null)[0].id).toBe(v.id);expect(compterCorbeille(null)).toBe(1)});
+ it('restores the same identity and original inputs',async()=>{const v=await sauvegarderEvaluation(input,null);await supprimerEvaluation(v.id,null);await restaurerEvaluation(v.id,null);expect(chargerEvaluation(v.id,null)).toEqual(v);expect(listerCorbeille(null)).toEqual([])});
+ it('keeps the recoverable copy when restore hits quota',async()=>{const v=await sauvegarderEvaluation(input,null);await supprimerEvaluation(v.id,null);const spy=vi.spyOn(localStorage,'setItem').mockImplementation(()=>{throw new Error('QuotaExceeded')});await expect(restaurerEvaluation(v.id,null)).rejects.toThrow('QuotaExceeded');expect(listerCorbeille(null)[0].id).toBe(v.id);spy.mockRestore();await restaurerEvaluation(v.id,null);expect(chargerEvaluation(v.id,null)).toEqual(v)});
+ it('keeps active data when the atomic delete cache write fails',async()=>{const v=await sauvegarderEvaluation(input,null);vi.spyOn(localStorage,'setItem').mockImplementation(()=>{throw new Error('QuotaExceeded')});await expect(supprimerEvaluation(v.id,null)).rejects.toThrow();expect(chargerEvaluation(v.id,null)).toEqual(v);expect(listerCorbeille(null)).toEqual([])});
+ it('permanent local deletion removes only the selected recovery item',async()=>{const a=await sauvegarderEvaluation(input,null),b=await sauvegarderEvaluation({...input,nom:'Second'},null);await supprimerTout(null);supprimerDefinitivement(a.id,null);expect(listerCorbeille(null).map(v=>v.id)).toEqual([b.id]);viderCorbeille(null);expect(listerCorbeille(null)).toEqual([])});
+ it('expires recovery records after seven days',async()=>{vi.useFakeTimers();const v=await sauvegarderEvaluation(input,null);await supprimerEvaluation(v.id,null);vi.setSystemTime(Date.now()+8*86400000);expect(listerCorbeille(null)).toEqual([])});
+ it('refuses capacity overflow without discarding previous calculations',async()=>{const v=await sauvegarderEvaluation(input,null);localStorage.setItem(valuationStorageKey(null),JSON.stringify({items:Array.from({length:500},(_,i)=>({...v,id:String(i)})),trash:[]}));await expect(sauvegarderEvaluation({...input,nom:'Over capacity'},null)).rejects.toThrow('capacity');expect(listerEvaluations(null)).toHaveLength(500)});
 });

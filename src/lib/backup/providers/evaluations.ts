@@ -6,8 +6,9 @@
 import type { ExportProvider, ExportContext, BackupBundle } from "../types";
 import { listerEvaluationsAsync } from "@/lib/storage";
 
-async function collect(_ctx: ExportContext): Promise<BackupBundle> {
-  const { items } = await listerEvaluationsAsync();
+async function collect(ctx: ExportContext): Promise<BackupBundle> {
+  const { items, cloudError } = await listerEvaluationsAsync(ctx.userId);
+  if(cloudError)throw new Error("Calculation backup unavailable");
   const files: Record<string, string> = {
     "valuations.json": JSON.stringify(items, null, 2),
   };

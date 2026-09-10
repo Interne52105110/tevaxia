@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
@@ -17,6 +18,7 @@ import { PdfButton } from "@/components/PdfButton";
 const _lazy_generateLoyerPdfBlob = async (...args: Parameters<typeof import("@/components/ToolsPdf")["generateLoyerPdfBlob"]>): Promise<Blob> => (await import("@/components/ToolsPdf")).generateLoyerPdfBlob(...args);
 
 export default function CalculateurLoyer() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations("calculLoyer");
   const [prixAcquisition, setPrixAcquisition] = useState(500000);
   const [anneeAcquisition, setAnneeAcquisition] = useState(2010);
@@ -102,7 +104,7 @@ export default function CalculateurLoyer() {
           capitalInvesti: r.capitalInvesti,
         };
       });
-  }, [historiqueAnnees, anneeAcquisition, prixAcquisition, travauxMontant, travauxAnnee, coproTranches, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible]);
+  }, [historiqueAnnees, anneeAcquisition, prixAcquisition, travauxMontant, travauxAnnee, coproTranches, surfaceHabitable, avecColocation, nbColocataires, appliquerVetuste, tauxVetuste, anneeConstruction, fraisAcquisition, terrainMontant]);
 
   // Scénario post-travaux : inclut les travaux projetés comme tranche supplémentaire
   const resultPostTravaux = useMemo(() => {
@@ -513,13 +515,13 @@ export default function CalculateurLoyer() {
 
             <div className="flex justify-center gap-2">
               <SaveButton
-                onClick={() => {
-                  sauvegarderEvaluation({
+                onClick={async () => {
+                  await sauvegarderEvaluation({
                     nom: `${t("savePrefix")} — ${formatEUR(prixAcquisition)} (${surfaceHabitable} m²)`,
                     type: "loyer",
                     valeurPrincipale: result.loyerMensuelMax,
                     data: { prixAcquisition, anneeAcquisition, travauxMontant, travauxAnnee, anneeBail, surfaceHabitable, appliquerVetuste, tauxVetuste, avecColocation, nbColocataires, estMeuble, anneeConstruction, fraisAcquisition, terrainMontant, entretienReevalue, mobilierEligible },
-                  });
+                  }, valuationUser?.id ?? null);
                 }}
                 label={t("saveButton")}
                 successLabel={t("saveToast")}

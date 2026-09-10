@@ -61,7 +61,7 @@ export default function SEOContent({ ns, sections, faq, relatedLinks }: SEOConte
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+      <article className="mx-auto max-w-4xl px-4 py-12 [overflow-wrap:anywhere] sm:px-6 lg:px-8">
         {/* Guide sections */}
         {sections.map((section) => (
           <section key={section.titleKey} className="mb-10">

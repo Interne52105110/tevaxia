@@ -3974,7 +3974,9 @@
       "faq3a": "Laut Observatorium (2023) repräsentiert der Gewinn einer EPB-Klasse etwa +3-5 % auf den Preis.",
       "faq4q": "Kann man Immobilien aus verschiedenen Gemeinden vergleichen?",
       "faq4a": "Möglich, aber heikel. Die Preisunterschiede zwischen Luxemburger Gemeinden sind sehr erheblich (Faktor 2-3)."
-    }
+    },
+    "archiveError": "Laden oder Änderung konnte nicht bestätigt werden. Die angezeigten Daten können eine lokale Kopie sein. Versuchen Sie es erneut, bevor Sie sich darauf verlassen.",
+    "archiveLoading": "Wird geladen…"
   },
   "convertisseurSurfaces": {
     "title": "Flächenumrechner",
@@ -5077,20 +5079,20 @@
   },
   "mesEvaluations": {
     "title": "Meine Bewertungen",
-    "subtitle": "Lokal + mit Ihrem Konto synchronisiert (max. 500, 180 Tage)",
+    "subtitle": "Getrennte Berechnungen für jedes Konto und den Gastbereich.",
     "trash": "Papierkorb",
     "deleteAll": "Alle löschen",
     "noEvaluations": "Keine gespeicherten Bewertungen",
     "hint": "Verwenden Sie die Schaltfläche \"Speichern\" in den Rechnern, um Ihre Arbeit zu sichern.",
     "startEvaluation": "Bewertung starten",
-    "open": "Öffnen",
+    "open": "Rechner öffnen",
     "delete": "Löschen",
     "restore": "Wiederherstellen",
     "trashCount": "Papierkorb ({count})",
     "autoDelete": "Automatische Löschung nach 7 Tagen",
     "emptyTrash": "Papierkorb leeren",
     "storageTitle": "Lokaler Speicher:",
-    "storageNote": "Ihre Bewertungen werden im Browser (localStorage) gespeichert. Gelöschte Elemente verbleiben 7 Tage im Papierkorb vor der endgültigen Löschung. Maximal 50 Bewertungen gespeichert.",
+    "storageNote": "Bis zu 500 aktive Berechnungen pro Bereich. Angemeldete Konten verwenden Cloud-Speicher und einen lokalen Cache. Der Papierkorb dieses Browsers ermöglicht sieben Tage lang eine Wiederherstellung.",
     "typeEstimation": "Schätzung",
     "typeValorisationEVS": "EVS-Bewertung",
     "typeCapitalisation": "Kapitalisierung",
@@ -5102,10 +5104,18 @@
     "typeAides": "Fördermittelrechner",
     "typeAchatLocation": "Kauf vs. Miete",
     "typeBilanPromoteur": "Projektentwicklerbilanz",
-    "cloudBadge": "Synchronisiert",
-    "cloudHint": "Mit Ihrem Konto synchronisiert — max. 500, 180 Tage aufbewahrt",
-    "cloudPending": "Synchronisiert…",
-    "cloudPendingHint": "Synchronisation mit Ihrem Konto läuft"
+    "cloudBadge": "Cloud geladen",
+    "cloudHint": "Cloud-Lesung beim letzten Laden bestätigt.",
+    "cloudPending": "Cloud nicht bestätigt",
+    "cloudPendingHint": "Das letzte Laden aus der Cloud wurde nicht bestätigt.",
+    "viewData": "Gespeicherte Daten ansehen",
+    "loading": "Wird geladen…",
+    "confirmDeleteAll": "Alle Berechnungen dieses Bereichs in den Papierkorb verschieben?",
+    "confirmPermanent": "Die betreffenden Einträge endgültig aus dem lokalen Papierkorb entfernen?",
+    "storageError": "Laden oder Änderung konnte nicht bestätigt werden. Die angezeigten Daten können eine lokale Kopie sein. Versuchen Sie es erneut, bevor Sie sich darauf verlassen.",
+    "retry": "Erneut versuchen",
+    "legacyNotice": "Eine ältere Sicherung ohne Kontozuordnung bleibt in diesem Browser erhalten. Sie wird nicht automatisch angezeigt oder importiert.",
+    "legacyDownload": "Ältere Sicherung herunterladen"
   },
   "portfolio": {
     "title": "Immobilien-Portfolio",
@@ -5220,7 +5230,9 @@
     "expensesColTotal": "Gesamt",
     "expensesColRatio": "Kosten / Miete",
     "expensesTotal": "GESAMT",
-    "expensesNote": "Indikative Annahmen: WEG 250 €/Monat, PNO-Versicherung 0,5 %/J. des Werts, Grundsteuer 0,1 %, Instandhaltung 0,5 %, Verwaltung 5 % der Miete. Verhältnis Kosten/Miete ≤ 25 % gesund, ≥ 35 % kritisch."
+    "expensesNote": "Indikative Annahmen: WEG 250 €/Monat, PNO-Versicherung 0,5 %/J. des Werts, Grundsteuer 0,1 %, Instandhaltung 0,5 %, Verwaltung 5 % der Miete. Verhältnis Kosten/Miete ≤ 25 % gesund, ≥ 35 % kritisch.",
+    "archiveError": "Laden oder Änderung konnte nicht bestätigt werden. Die angezeigten Daten können eine lokale Kopie sein. Versuchen Sie es erneut, bevor Sie sich darauf verlassen.",
+    "archiveLoading": "Wird geladen…"
   },
   "hedonique": {
     "title": "Hedonische Bewertung",
@@ -12844,7 +12856,8 @@
       "hotellerie": "Hotellerie",
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
-    }
+    },
+    "archiveError": "Laden oder Änderung konnte nicht bestätigt werden. Die angezeigten Daten können eine lokale Kopie sein. Versuchen Sie es erneut, bevor Sie sich darauf verlassen."
   },
   "strHub": {
     "meta": {

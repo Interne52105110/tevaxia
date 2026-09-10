@@ -3974,7 +3974,9 @@
       "faq3a": "Selon les études de l'Observatoire (2023), un gain d'une classe CPE représente environ +3 à +5 % sur le prix. Appliquez un ajustement proportionnel : si votre bien est en classe C et le comparable en classe E, ajustez de +6 à +10 %.",
       "faq4q": "Peut-on comparer des biens de communes différentes ?",
       "faq4a": "C'est possible mais délicat. Les écarts de prix entre communes luxembourgeoises sont très importants (facteur 2 à 3 entre Luxembourg-Ville et le Nord). Privilégiez les comparables de la même commune ou de communes limitrophes de profil similaire."
-    }
+    },
+    "archiveError": "Impossible de confirmer le chargement ou la modification. Les données affichées peuvent être une copie locale. Réessayez avant de vous y fier.",
+    "archiveLoading": "Chargement…"
   },
   "convertisseurSurfaces": {
     "title": "Convertisseur de surfaces",
@@ -5077,24 +5079,24 @@
   },
   "mesEvaluations": {
     "title": "Mes évaluations",
-    "subtitle": "Local + synchronisé sur votre compte si connecté (500 max, 180 jours)",
-    "cloudBadge": "Synchronisé",
-    "cloudHint": "Synchronisé sur votre compte — 500 items max, conservés 180 jours",
-    "cloudPending": "Sync en cours…",
-    "cloudPendingHint": "Synchronisation avec votre compte en cours",
+    "subtitle": "Sauvegardes séparées par compte et espace invité.",
+    "cloudBadge": "Cloud chargé",
+    "cloudHint": "Lecture cloud confirmée lors du dernier chargement.",
+    "cloudPending": "Cloud non confirmé",
+    "cloudPendingHint": "Le dernier chargement cloud n’a pas été confirmé.",
     "trash": "Corbeille",
     "deleteAll": "Tout supprimer",
     "noEvaluations": "Aucune évaluation sauvegardée",
     "hint": "Utilisez le bouton \"Sauvegarder\" dans les calculateurs pour enregistrer vos travaux.",
     "startEvaluation": "Commencer une évaluation",
-    "open": "Ouvrir",
+    "open": "Ouvrir l’outil",
     "delete": "Supprimer",
     "restore": "Restaurer",
     "trashCount": "Corbeille ({count})",
     "autoDelete": "Suppression automatique après 7 jours",
     "emptyTrash": "Vider la corbeille",
     "storageTitle": "Stockage local :",
-    "storageNote": "Vos évaluations sont sauvegardées dans le navigateur (localStorage). Les éléments supprimés sont conservés dans la corbeille pendant 7 jours avant suppression définitive. Maximum 50 évaluations conservées.",
+    "storageNote": "Maximum 500 évaluations actives par espace. Les comptes connectés utilisent le cloud et un cache local. La corbeille de ce navigateur permet une récupération pendant sept jours.",
     "typeEstimation": "Estimation",
     "typeValorisationEVS": "Valorisation EVS",
     "typeCapitalisation": "Capitalisation",
@@ -5105,7 +5107,15 @@
     "typeLoyer": "Capital investi / Loyer",
     "typeAides": "Simulateur d'aides",
     "typeAchatLocation": "Achat vs Location",
-    "typeBilanPromoteur": "Bilan promoteur"
+    "typeBilanPromoteur": "Bilan promoteur",
+    "viewData": "Voir les données enregistrées",
+    "loading": "Chargement…",
+    "confirmDeleteAll": "Déplacer toutes les évaluations de cet espace dans la corbeille ?",
+    "confirmPermanent": "Supprimer définitivement les éléments concernés de la corbeille locale ?",
+    "storageError": "Impossible de confirmer le chargement ou la modification. Les données affichées peuvent être une copie locale. Réessayez avant de vous y fier.",
+    "retry": "Réessayer",
+    "legacyNotice": "Une ancienne sauvegarde non rattachée à un compte est conservée dans ce navigateur. Elle n’est ni affichée ni importée automatiquement.",
+    "legacyDownload": "Télécharger l’ancienne sauvegarde"
   },
   "portfolio": {
     "title": "Portfolio immobilier",
@@ -5220,7 +5230,9 @@
     "expensesColTotal": "Total",
     "expensesColRatio": "Charges / loyers",
     "expensesTotal": "TOTAL",
-    "expensesNote": "Hypothèses indicatives : copro 250 €/mois, PNO 0,5 %/an de la valeur, taxe foncière 0,1 %, entretien 0,5 %, gestion 5 % des loyers. Ratio charges/loyers ≤ 25 % sain, ≥ 35 % préoccupant."
+    "expensesNote": "Hypothèses indicatives : copro 250 €/mois, PNO 0,5 %/an de la valeur, taxe foncière 0,1 %, entretien 0,5 %, gestion 5 % des loyers. Ratio charges/loyers ≤ 25 % sain, ≥ 35 % préoccupant.",
+    "archiveError": "Impossible de confirmer le chargement ou la modification. Les données affichées peuvent être une copie locale. Réessayez avant de vous y fier.",
+    "archiveLoading": "Chargement…"
   },
   "hedonique": {
     "title": "Valorisation hédonique",
@@ -12966,7 +12978,8 @@
       "hotellerie": "Hôtellerie",
       "str": "STR / Airbnb",
       "portfolio": "Portfolio"
-    }
+    },
+    "archiveError": "Impossible de confirmer le chargement ou la modification. Les données affichées peuvent être une copie locale. Réessayez avant de vous y fier."
   },
   "strHub": {
     "meta": {

@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
@@ -237,6 +238,7 @@ function deductionInteretsMax(annee: number, nbPersonnes: number): number {
 }
 
 export default function AchatVsLocation() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations("achatLocation");
   const [viewMode, setViewMode] = useState<"quick" | "full">("quick");
 
@@ -556,7 +558,7 @@ export default function AchatVsLocation() {
                   ? t("verdictAchat", { horizon })
                   : t("verdictLocation", { horizon })}
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-8">
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
                   <div className="text-xs text-white/50">{t("patrimoineAchat")}</div>
                   <div className="text-3xl font-bold mt-1">{formatEUR(result.derniere.patrimoineNetAchat)}</div>
@@ -595,13 +597,13 @@ export default function AchatVsLocation() {
 
             <div className="flex justify-end gap-2">
               <SaveButton
-                onClick={() => {
-                  sauvegarderEvaluation({
+                onClick={async () => {
+                  await sauvegarderEvaluation({
                     nom: `Achat vs Location — ${formatEUR(prixBien)} vs ${formatEUR(loyerMensuel)}/mois`,
                     type: "achat-location",
                     valeurPrincipale: result.derniere.patrimoineNetAchat,
                     data: { prixBien, apport, tauxCredit, dureeCredit, loyerMensuel, horizon, fraisAcquisitionPct, chargesCoproMensuel, taxeFonciereAn, entretienAnPct, appreciationAn, indexationLoyer, rendementPlacement },
-                  });
+                  }, valuationUser?.id ?? null);
                 }}
                 label="Sauvegarder"
                 successLabel="Sauvegardé !"

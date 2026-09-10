@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import SaveButton from "@/components/SaveButton";
 import { sauvegarderEvaluation } from "@/lib/storage";
 
 export default function RentabiliteStr() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations("strRentabilite");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
@@ -224,13 +226,13 @@ export default function RentabiliteStr() {
 
             <div className="flex justify-end">
               <SaveButton
-                onClick={() => sauvegarderEvaluation({
+                onClick={async () => await sauvegarderEvaluation({
                   nom: `STR — ${commune} ${surface}m² — ${formatEUR(result.netAfterTax)}/an`,
                   type: "str-rentabilite",
                   commune,
                   valeurPrincipale: result.netAfterTax,
                   data: { commune, surface, capacity, adr, occupancyPct, otaChannel, acquisitionPrice, marginalTaxRate },
-                })}
+                }, valuationUser?.id ?? null)}
                 label={t("save")}
                 successLabel={t("saved")}
               />

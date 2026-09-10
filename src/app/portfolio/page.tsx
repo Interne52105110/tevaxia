@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
@@ -6,7 +7,7 @@ import { useTranslations } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
-import { listerEvaluations, type SavedValuation } from "@/lib/storage";
+import { listerEvaluationsAsync, type SavedValuation } from "@/lib/storage";
 import SEOContent from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
 import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, Bar, Legend, Line, ComposedChart, CartesianGrid } from "recharts";
@@ -120,8 +121,17 @@ function extractSurface(v: SavedValuation): number {
 /* ------------------------------------------------------------------ */
 
 export default function Portfolio() {
+  const { user, loading } = useAuth();
+  if(loading)return null;
+  return <PortfolioContent key={user?.id ?? "guest"}/>;
+}
+
+function PortfolioContent() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations("portfolio");
   const [assets, setAssets] = useState<PortfolioAsset[]>(DEFAULT_ASSETS);
+  const [archiveError,setArchiveError]=useState(false);
+  const [archiveLoaded,setArchiveLoaded]=useState(false);
   const [savedValuations, setSavedValuations] = useState<SavedValuation[]>([]);
   const hydrated = useRef(false);
 
@@ -136,9 +146,11 @@ export default function Portfolio() {
   useEffect(() => {
     const stored = loadFromStorage();
     setAssets(stored);
-    setSavedValuations(listerEvaluations());
+    let active=true;
+    listerEvaluationsAsync(valuationUser?.id??null).then(({items,cloudError})=>{if(active){setSavedValuations(items);setArchiveError(cloudError);setArchiveLoaded(true);}}).catch(()=>{if(active){setArchiveError(true);setArchiveLoaded(true);}});
     hydrated.current = true;
-  }, []);
+    return()=>{active=false;};
+  }, [valuationUser?.id]);
 
   // Auto-save manual assets to localStorage
   useEffect(() => {
@@ -509,6 +521,8 @@ export default function Portfolio() {
 
   return (
     <div className="bg-background py-8 sm:py-12">
+      {!archiveLoaded && <p role="status" className="mx-auto max-w-7xl px-4 text-sm">{t("archiveLoading")}</p>}
+      {archiveError && <p role="alert" className="mx-auto max-w-7xl px-4 text-sm text-amber-800">{t("archiveError")}</p>}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -678,7 +692,7 @@ export default function Portfolio() {
           </div>
         )}
 
-        {chartData.length <= 1 && savedValuations.length === 0 && (
+        {archiveLoaded && !archiveError && chartData.length <= 1 && savedValuations.length === 0 && (
           <div className="mb-8 rounded-xl border border-dashed border-card-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted">
               {t("emptyChartHint")}
@@ -826,7 +840,7 @@ export default function Portfolio() {
         {/* ============================================================ */}
         {unifiedProperties.length > 0 && (
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <h2 className="text-base font-semibold text-navy">{t("comparisonTitle")}</h2>
               {/* Tab filter */}
               <div className="flex items-center gap-1 rounded-lg border border-card-border bg-background p-0.5">

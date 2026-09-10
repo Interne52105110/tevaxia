@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo, useEffect } from "react";
 import { useTranslations } from "next-intl";
@@ -6,7 +7,7 @@ import { estimer, type EstimationResult } from "@/lib/estimation";
 import { rechercherCommune, type SearchResult } from "@/lib/market-data";
 import { AJUST_ETAGE, AJUST_ETAT, AJUST_EXTERIEUR } from "@/lib/adjustments";
 import { formatEUR } from "@/lib/calculations";
-import { listerEvaluations, type SavedValuation } from "@/lib/storage";
+import { listerEvaluationsAsync, type SavedValuation } from "@/lib/storage";
 import InputField from "@/components/InputField";
 import ToggleField from "@/components/ToggleField";
 import ConfidenceGauge from "@/components/ConfidenceGauge";
@@ -243,13 +244,13 @@ function BienColumn({
 // ============================================================
 
 function SavedComparator({ t }: { t: ReturnType<typeof useTranslations> }) {
+  const {user:valuationUser}=useAuth();
+  const [archiveError,setArchiveError]=useState(false);
+  const [archiveLoaded,setArchiveLoaded]=useState(false);
   const [evaluations, setEvaluations] = useState<SavedValuation[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setEvaluations(listerEvaluations());
-  }, []);
+  useEffect(()=>{let active=true;listerEvaluationsAsync(valuationUser?.id??null).then(({items,cloudError})=>{if(active){setEvaluations(items);setArchiveError(cloudError);setArchiveLoaded(true);}}).catch(()=>{if(active){setArchiveError(true);setArchiveLoaded(true);}});return()=>{active=false;};},[valuationUser?.id]);
 
   const selected = useMemo(
     () => selectedIds.map((id) => evaluations.find((e) => e.id === id)).filter(Boolean) as SavedValuation[],
@@ -280,6 +281,8 @@ function SavedComparator({ t }: { t: ReturnType<typeof useTranslations> }) {
     }
   };
 
+  if(!archiveLoaded)return <p role="status">{t("archiveLoading")}</p>;
+  if(archiveError)return <p role="alert" className="p-4 text-sm text-amber-800">{t("archiveError")}</p>;
   if (evaluations.length === 0) {
     return (
       <div className="rounded-xl border-2 border-dashed border-card-border p-12 text-center">
@@ -585,6 +588,12 @@ function SavedComparator({ t }: { t: ReturnType<typeof useTranslations> }) {
 // ============================================================
 
 export default function Comparer() {
+  const { user, loading } = useAuth();
+  if(loading)return null;
+  return <ComparerContent key={user?.id ?? "guest"}/>;
+}
+
+function ComparerContent() {
   const t = useTranslations("comparer");
   const [tab, setTab] = useState<"live" | "saved">("live");
 

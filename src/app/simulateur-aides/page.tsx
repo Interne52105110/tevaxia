@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 
 import { useMemo, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -14,6 +15,7 @@ import AuthGate from '@/components/AuthGate';
 
 const parseSavings = (s: string): number[] | undefined => s.trim() ? s.split(';').map(n => n.trim() ? Number(n.trim().replace(',', '.')) : NaN) : undefined;
 export default function SimulateurAides() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations('aidesAudit');
   const old = useTranslations('simulateurAides');
   const locale = useLocale(), lp = locale === 'fr' ? '' : `/${locale}`;
@@ -106,7 +108,7 @@ export default function SimulateurAides() {
           <p className="rounded-xl border border-amber-200 bg-amber-50 text-amber-900 p-4 text-sm">{t('scope')}</p>
           {!form.residencePrincipale && <p className="text-sm text-muted">{t('nonRp')}</p>}
           <div className="flex flex-wrap gap-3 justify-end">
-            <SaveButton label={t('save')} successLabel={t('saved')} onClick={() => sauvegarderEvaluation({nom:`Aides 2026 — ${form.typeProjet}`,type:'aides',valeurPrincipale:result.totalGeneral,data:{...simulationInput,estimationComplete:result.estimationComplete,aidesNonChiffrees:result.aidesNonChiffrees}})} />
+            <SaveButton label={t('save')} successLabel={t('saved')} onClick={async () => await sauvegarderEvaluation({nom:`Aides 2026 — ${form.typeProjet}`,type:'aides',valeurPrincipale:result.totalGeneral,data:{...simulationInput,estimationComplete:result.estimationComplete,aidesNonChiffrees:result.aidesNonChiffrees}}, valuationUser?.id ?? null)} />
             <PdfButton label="PDF" filename="aides-logement-2026.pdf" generateBlob={async () => (await import('@/components/ToolsPdf')).generateAidesPdfBlob({profil:t(form.typeProjet),revenus:`2024: ${form.revenuNet2024 === undefined ? t('unknown') : formatEUR2(form.revenuNet2024)} ; 2025: ${form.revenuNet2025 === undefined ? t('unknown') : formatEUR2(form.revenuNet2025)}`,aides:result.aides.map(a => ({label:t(`names.${a.id}`),montant:a.montant,description:`${t(`descriptions.${a.id}`)} ${a.source}`,periodicite:a.periodicite})),totalAides:result.totalAidesDirectes,economiesFiscales:result.totalEconomies,totalAvantage:result.totalGeneral,scope:t('scope'),unknownLabel:t('unknown'),monthlyLabel:t('perMonth')})} />
           </div>
           <AuthGate><div className="space-y-4">{result.aides.map(a => <article key={a.id} className={panel}>

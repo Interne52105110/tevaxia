@@ -92,6 +92,7 @@ function TabMLV({valeurMarche}:{valeurMarche:number}) {return <PrudentialValue v
 // ============================================================
 
 export default function Valorisation() {
+  const { user: valuationUser } = useAuth();
   const { user } = useAuth();
   const t = useTranslations("valorisation"), sessionText=useTranslations("valuationSession"), scopeText=useTranslations("valuationScope");
   const [viewMode, setViewMode] = useState<"calculateur" | "rapport">("calculateur");
@@ -290,14 +291,14 @@ export default function Valorisation() {
                 />
               </div>
               <SaveButton
-                onClick={() => {
-                  sauvegarderEvaluation({
+                onClick={async () => {
+                  await sauvegarderEvaluation({
                     nom: `${t("pageTitle")} — ${selectedCommune?.commune || "?"} — ${surfaceBien} m²`,
                     type: "valorisation",
                     commune: selectedCommune?.commune,
                     valeurPrincipale: valeurMarchePourMLV,
                     data: { surfaceBien, assetType, evsValueType, commune: selectedCommune?.commune, valeurComparaison, valeurCapitalisation, valeurDCF, valeurReconciliee:valeurMarchePourMLV, reconciliationWeights, comparables, incomeSource },
-                  });
+                  }, valuationUser?.id ?? null);
                 }}
                 label={t("sauvegarder")}
                 successLabel={t("sauvegarde")}

@@ -8,11 +8,18 @@ import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { listMySharedLinks, type SharedLink } from "@/lib/shared-links";
 import { listMyMandates, type AgencyMandate } from "@/lib/agency-mandates";
 import { listMyActivity, type ActivityEntry } from "@/lib/activity-log";
-import { listerEvaluations, type SavedValuation } from "@/lib/storage";
+import { listerEvaluationsAsync, type SavedValuation } from "@/lib/storage";
 import { formatEUR } from "@/lib/calculations";
 import { SkeletonStat, SkeletonText } from "@/components/Skeleton";
 
 export default function DashboardPage() {
+  const { user, loading } = useAuth();
+  if(loading)return null;
+  return <DashboardPageContent key={user?.id ?? "guest"}/>;
+}
+
+function DashboardPageContent() {
+  const { user: valuationUser } = useAuth();
   const t = useTranslations("dashboardPage");
   const locale = useLocale();
   const lp = locale === "fr" ? "" : `/${locale}`;
@@ -22,6 +29,8 @@ export default function DashboardPage() {
     new Date(s).toLocaleDateString(dateLocale, { day: "2-digit", month: "short", year: "numeric" });
 
   const { user, loading: authLoading } = useAuth();
+  const [archiveError,setArchiveError]=useState(false);
+  const [archiveLoaded,setArchiveLoaded]=useState(false);
   const [evals, setEvals] = useState<SavedValuation[]>([]);
   const [links, setLinks] = useState<SharedLink[]>([]);
   const [mandates, setMandates] = useState<AgencyMandate[]>([]);
@@ -29,9 +38,7 @@ export default function DashboardPage() {
   const [rentalLotsCount, setRentalLotsCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setEvals(listerEvaluations());
-  }, []);
+  useEffect(()=>{let active=true;listerEvaluationsAsync(valuationUser?.id??null).then(({items,cloudError})=>{if(active){setEvals(items);setArchiveError(cloudError);setArchiveLoaded(true);}}).catch(()=>{if(active){setArchiveError(true);setArchiveLoaded(true);}});return()=>{active=false;};},[valuationUser?.id]);
 
   useEffect(() => {
     if (authLoading || !user) {
@@ -71,6 +78,7 @@ export default function DashboardPage() {
   if (authLoading || loading) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-10">
+      {archiveError && <p role="alert" className="text-sm text-amber-800">{t("archiveError")}</p>}
         <div className="h-7 w-72 animate-pulse rounded bg-card-border/50" />
         <SkeletonText lines={1} className="mt-2 max-w-xl" />
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -97,11 +105,12 @@ export default function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
+      {archiveError && <p role="alert" className="text-sm text-amber-800">{t("archiveError")}</p>}
       <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
       <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <KpiCard label={t("kpi.evaluations")} value={evals.length} href={`${lp}/mes-evaluations`} />
+        <KpiCard label={t("kpi.evaluations")} value={archiveLoaded && !archiveError ? evals.length : "—"} href={`${lp}/mes-evaluations`} />
         <KpiCard label={t("kpi.rentalLots")} value={rentalLotsCount} href={`${lp}/gestion-locative/portefeuille`} />
         <KpiCard label={t("kpi.activeMandates")} value={activeMandates.length} href={`${lp}/pro-agences/mandats`} />
         <KpiCard label={t("kpi.activeShareLinks")} value={activeLinks.length} href={`${lp}/profil/liens-partages`} />
@@ -234,7 +243,7 @@ export default function DashboardPage() {
   );
 }
 
-function KpiCard({ label, value, href }: { label: string; value: number; href: string }) {
+function KpiCard({ label, value, href }: { label: string; value: number | string; href: string }) {
   return (
     <Link href={href} className="rounded-xl border border-card-border bg-card p-4 hover:border-navy transition-colors">
       <div className="text-xs text-muted">{label}</div>
