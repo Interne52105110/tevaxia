@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
+import { portfolioStorageKey } from "@/lib/manual-portfolio";
 import { valuationStorageKey } from "@/lib/storage";
 import { profileStorageKey } from "@/lib/profile";
 import { rentalStorageKey } from "@/lib/gestion-locative";
@@ -44,7 +45,7 @@ export default function DeleteAccountSection() {
       const { error: rpcError } = await supabase!.rpc("delete_my_account");
       if (rpcError) throw rpcError;
       // Purge toute donnée locale
-      for (const k of [...TRASH_LOCAL_KEYS, rentalStorageKey(user.id), profileStorageKey(user.id), valuationStorageKey(user.id)]) {
+      for (const k of [...TRASH_LOCAL_KEYS, rentalStorageKey(user.id), profileStorageKey(user.id), valuationStorageKey(user.id), portfolioStorageKey(user.id)]) {
         try { localStorage.removeItem(k); } catch { /* ignore */ }
       }
       await signOut();

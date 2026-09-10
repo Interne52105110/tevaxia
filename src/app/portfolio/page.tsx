@@ -3,7 +3,7 @@ import { useAuth } from "@/components/AuthProvider";
 
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import InputField from "@/components/InputField";
 import ResultPanel from "@/components/ResultPanel";
 import { formatEUR, formatPct } from "@/lib/calculations";
@@ -12,22 +12,11 @@ import SEOContent from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
 import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, Bar, Legend, Line, ComposedChart, CartesianGrid } from "recharts";
 
-const STORAGE_KEY = "tevaxia_portfolio";
+import { readPortfolio, writePortfolio, portfolioRecovery, isPropertyValuation, valuationSurface, portfolioCsv, portfolioScenario, type PortfolioAsset } from "@/lib/manual-portfolio";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
-
-interface PortfolioAsset {
-  id: string;
-  nom: string;
-  type: string;
-  commune: string;
-  valeur: number;
-  loyerAnnuel: number;
-  surface: number;
-  dette: number;
-}
 
 /** Merged view: manual asset or saved valuation */
 interface UnifiedProperty {
@@ -50,18 +39,14 @@ const EMPTY_ASSET: Omit<PortfolioAsset, "id"> = {
   nom: "", type: "Appartement", commune: "", valeur: 0, loyerAnnuel: 0, surface: 0, dette: 0,
 };
 
-const DEFAULT_ASSETS: PortfolioAsset[] = [
-  { id: "1", nom: "Appartement Kirchberg", type: "Appartement", commune: "Luxembourg", valeur: 750000, loyerAnnuel: 28800, surface: 75, dette: 500000 },
-  { id: "2", nom: "Bureau Cloche d'Or", type: "Bureau", commune: "Luxembourg", valeur: 1200000, loyerAnnuel: 72000, surface: 150, dette: 800000 },
-];
-
 /* ------------------------------------------------------------------ */
 /*  Energy class helpers                                               */
 /* ------------------------------------------------------------------ */
 
-const ENERGY_CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-const ENERGY_SCORE: Record<string, number> = { A: 9, B: 8, C: 7, D: 6, E: 5, F: 4, G: 3, H: 2, I: 1 };
+const ENERGY_CLASSES = ["A+", "A", "B", "C", "D", "E", "F", "G", "H", "I"];
+const ENERGY_SCORE: Record<string, number> = { "A+": 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 4, G: 3, H: 2, I: 1 };
 const ENERGY_COLORS: Record<string, string> = {
+  "A+": "bg-green-700 text-white",
   A: "bg-green-600 text-white",
   B: "bg-green-500 text-white",
   C: "bg-lime-500 text-white",
@@ -74,27 +59,13 @@ const ENERGY_COLORS: Record<string, string> = {
 };
 
 function scoreToClass(score: number): string {
-  const idx = Math.max(0, Math.min(8, Math.round(9 - score)));
+  const idx = Math.max(0, Math.min(9, Math.round(10 - score)));
   return ENERGY_CLASSES[idx];
 }
 
 /* ------------------------------------------------------------------ */
 /*  localStorage helpers                                               */
 /* ------------------------------------------------------------------ */
-
-function loadFromStorage(): PortfolioAsset[] {
-  if (typeof window === "undefined") return DEFAULT_ASSETS;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    }
-  } catch {
-    // ignore corrupt data
-  }
-  return DEFAULT_ASSETS;
-}
 
 /* ------------------------------------------------------------------ */
 /*  Extract energy class from saved valuation data                     */
@@ -107,13 +78,6 @@ function extractEnergyClass(v: SavedValuation): string | undefined {
   if (typeof d.classe === "string" && ENERGY_CLASSES.includes(d.classe)) return d.classe;
   if (typeof d.energyClass === "string" && ENERGY_CLASSES.includes(d.energyClass)) return d.energyClass;
   return undefined;
-}
-
-function extractSurface(v: SavedValuation): number {
-  const d = v.data as Record<string, unknown>;
-  if (typeof d.surface === "number" && d.surface > 0) return d.surface;
-  if (typeof d.surface === "string" && Number(d.surface) > 0) return Number(d.surface);
-  return 0;
 }
 
 /* ------------------------------------------------------------------ */
@@ -129,49 +93,53 @@ export default function Portfolio() {
 function PortfolioContent() {
   const { user: valuationUser } = useAuth();
   const t = useTranslations("portfolio");
-  const [assets, setAssets] = useState<PortfolioAsset[]>(DEFAULT_ASSETS);
+  const locale=useLocale();
+  const lp=locale==="fr"?"":`/${locale}`;
+  const [assets, setAssets] = useState<PortfolioAsset[]>([]);
   const [archiveError,setArchiveError]=useState(false);
   const [archiveLoaded,setArchiveLoaded]=useState(false);
   const [savedValuations, setSavedValuations] = useState<SavedValuation[]>([]);
-  const hydrated = useRef(false);
+  const assetsRef=useRef<PortfolioAsset[]>([]);
+  const [manualLoaded,setManualLoaded]=useState(false);
+  const [manualError,setManualError]=useState(false);
+  const [writeError,setWriteError]=useState(false);
+  const [recovery,setRecovery]=useState<string|null>(null);
+  const live=useRef(true),pdfRunning=useRef(false);
+  const [pdfBusy,setPdfBusy]=useState(false);
+  const [pdfError,setPdfError]=useState(false);
 
   // Sorting state for comparison table
   const [sortKey, setSortKey] = useState<SortKey>("valeur");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
   // Tab state: "manual" | "saved" | "all"
-  const [activeTab, setActiveTab] = useState<"manual" | "saved" | "all">("all");
+  const [activeTab, setActiveTab] = useState<"manual" | "saved" | "all">("manual");
 
-  // Load from localStorage on mount (client only)
   useEffect(() => {
-    const stored = loadFromStorage();
-    setAssets(stored);
-    let active=true;
+    let active=true;live.current=true;
+    Promise.resolve().then(()=>{
+      if(!active)return;
+      try{const stored=readPortfolio(valuationUser?.id??null);assetsRef.current=stored;setAssets(stored);setManualLoaded(true);}
+      catch{setManualError(true);}
+      try{setRecovery(portfolioRecovery(valuationUser?.id??null));}catch{setManualError(true);}
+    });
     listerEvaluationsAsync(valuationUser?.id??null).then(({items,cloudError})=>{if(active){setSavedValuations(items);setArchiveError(cloudError);setArchiveLoaded(true);}}).catch(()=>{if(active){setArchiveError(true);setArchiveLoaded(true);}});
-    hydrated.current = true;
-    return()=>{active=false;};
+    return()=>{active=false;live.current=false;};
   }, [valuationUser?.id]);
 
-  // Auto-save manual assets to localStorage
-  useEffect(() => {
-    if (!hydrated.current) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(assets));
-    } catch {
-      // storage full or unavailable
-    }
-  }, [assets]);
-
-  const updateAsset = (index: number, field: keyof PortfolioAsset, value: string | number) => {
-    setAssets((prev) => {
-      const next = [...prev];
-      next[index] = { ...next[index], [field]: typeof next[index][field] === "number" ? Number(value) : value };
-      return next;
-    });
+  const commitAssets=(next:PortfolioAsset[])=>{
+    if(!manualLoaded||manualError)return;
+    try{writePortfolio(next,valuationUser?.id??null);assetsRef.current=next;setAssets(next);setWriteError(false);}
+    catch{setWriteError(true);}
   };
-
-  const addAsset = () => setAssets((prev) => [...prev, { ...EMPTY_ASSET, id: String(Date.now()) }]);
-  const removeAsset = (i: number) => setAssets((prev) => prev.filter((_, idx) => idx !== i));
+  const updateAsset = (index: number, field: keyof PortfolioAsset, value: string | number) => {
+    const next=[...assetsRef.current];
+    next[index]={...next[index],[field]:typeof next[index][field]==="number"?Number(value):value};
+    commitAssets(next);
+  };
+  const addAsset=()=>commitAssets([...assetsRef.current,{...EMPTY_ASSET,id:crypto.randomUUID()}]);
+  const removeAsset=(index:number)=>commitAssets(assetsRef.current.filter((_,i)=>i!==index));
+  const download=(text:string,name:string)=>{const url=URL.createObjectURL(new Blob([text],{type:"text/plain;charset=utf-8"}));const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);};
 
   /* ---------------------------------------------------------------- */
   /*  Unified properties (manual + saved valuations)                   */
@@ -191,9 +159,9 @@ function PortfolioContent() {
     }));
 
     const fromSaved: UnifiedProperty[] = savedValuations
-      .filter((v) => v.valeurPrincipale && v.valeurPrincipale > 0)
+      .filter(isPropertyValuation)
       .map((v) => {
-        const surface = extractSurface(v);
+        const surface = valuationSurface(v);
         return {
           id: `saved-${v.id}`,
           nom: v.nom,
@@ -229,7 +197,8 @@ function PortfolioContent() {
     const all = filteredProperties;
     const valeurTotale = all.reduce((s, a) => s + a.valeur, 0);
     const surfaceTotale = all.reduce((s, a) => s + a.surface, 0);
-    const avgPrixM2 = surfaceTotale > 0 ? valeurTotale / surfaceTotale : 0;
+    const valuedSurface=all.filter(p=>p.surface>0);
+    const avgPrixM2 = surfaceTotale > 0 ? valuedSurface.reduce((sum,p)=>sum+p.valeur,0) / surfaceTotale : 0;
     const nbProperties = all.length;
 
     // Energy stats (only from saved with energy class)
@@ -247,9 +216,7 @@ function PortfolioContent() {
     const equityTotale = valeurManuelle - detteTotale;
     const ltvGlobal = valeurManuelle > 0 ? detteTotale / valeurManuelle : 0;
     const rendementBrut = valeurManuelle > 0 ? loyerTotal / valeurManuelle : 0;
-    const rendementEquity = equityTotale > 0 ? loyerTotal / equityTotale : 0;
-    const loyerNet = loyerTotal * 0.7;
-    const rendementNet = valeurManuelle > 0 ? loyerNet / valeurManuelle : 0;
+
 
     // By type
     const parType: Record<string, { count: number; valeur: number }> = {};
@@ -263,8 +230,8 @@ function PortfolioContent() {
     return {
       valeurTotale, surfaceTotale, avgPrixM2, nbProperties,
       avgEnergyScore, avgEnergyClass, withEnergyCount: withEnergy.length,
-      detteTotale, loyerTotal, loyerNet, equityTotale, ltvGlobal,
-      rendementBrut, rendementNet, rendementEquity,
+      detteTotale, loyerTotal, equityTotale, ltvGlobal,
+      rendementBrut,
       parType, nbActifs: manualAssets.length,
     };
   }, [filteredProperties, assets]);
@@ -274,59 +241,19 @@ function PortfolioContent() {
   /* ---------------------------------------------------------------- */
 
   const chartData = useMemo(() => {
-    // Combine saved valuations (which have dates) to show cumulative portfolio value
-    const withDates = savedValuations
-      .filter((v) => v.valeurPrincipale && v.valeurPrincipale > 0 && v.date)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-    if (withDates.length === 0) return [];
-
-    // Group by date (day level) and show cumulative sum
-    const dayMap = new Map<string, number>();
-    let cumulative = 0;
-    for (const v of withDates) {
-      const day = new Date(v.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
-      cumulative += v.valeurPrincipale!;
-      dayMap.set(day, cumulative);
-    }
-
-    return Array.from(dayMap.entries()).map(([date, valeur]) => ({ date, valeur }));
-  }, [savedValuations]);
+    // Independent saved valuation records, not a cumulative property performance series.
+    return savedValuations.filter(isPropertyValuation).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).map(v=>({date:new Date(v.date).toLocaleDateString(locale==='lb'?'de-LU':locale),valeur:v.valeurPrincipale!}));
+  }, [savedValuations,locale]);
 
   /* ---------------------------------------------------------------- */
   /*  Cash flow 12 mois glissants                                      */
   /* ---------------------------------------------------------------- */
 
   const cashFlow12m = useMemo(() => {
-    const monthlyGrossIncome = stats.loyerTotal / 12;
-    // Hypothèses simplifiées (paramétrables à terme)
-    const vacancyRate = 0.05;    // 5 % vacance moyenne
-    const chargesRate = 0.15;    // 15 % charges non récupérables
-    const mortgageRate = 0.035;  // 3.5 % taux
-    const monthlyInterest = stats.detteTotale * (mortgageRate / 12);
-
-    const effectiveIncome = monthlyGrossIncome * (1 - vacancyRate);
-    const charges = effectiveIncome * chargesRate;
-    const netMonthly = effectiveIncome - charges - monthlyInterest;
-
-    const now = new Date();
-    const months: { label: string; income: number; charges: number; dette: number; net: number }[] = [];
-    for (let i = 0; i < 12; i++) {
-      const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
-      const label = d.toLocaleDateString("fr-FR", { month: "short", year: "2-digit" });
-      // Saisonnalité légère : décembre/janvier = -10 %, juin-août = +5 %
-      const month = d.getMonth();
-      const season = (month === 11 || month === 0) ? 0.90 : (month >= 5 && month <= 7) ? 1.05 : 1.0;
-      months.push({
-        label,
-        income: Math.round(effectiveIncome * season),
-        charges: -Math.round(charges),
-        dette: -Math.round(monthlyInterest),
-        net: Math.round(netMonthly * season),
-      });
-    }
-    return months;
-  }, [stats.loyerTotal, stats.detteTotale]);
+    const scenario=portfolioScenario(stats.loyerTotal,stats.detteTotale);
+    const now=new Date();
+    return Array.from({length:12},(_,i)=>({label:new Date(now.getFullYear(),now.getMonth()+i,1).toLocaleDateString(locale==='lb'?'de-LU':locale,{month:'short',year:'2-digit'}),income:scenario.income,charges:-scenario.charges,dette:-scenario.interest,net:scenario.net}));
+  }, [stats.loyerTotal, stats.detteTotale,locale]);
 
   const cashFlowAnnuel = useMemo(() => {
     const income = cashFlow12m.reduce((s, m) => s + m.income, 0);
@@ -363,8 +290,9 @@ function PortfolioContent() {
 
   // Best / worst performers (by value)
   const bestId = useMemo(() => {
-    if (filteredProperties.length === 0) return null;
-    return filteredProperties.reduce((best, p) => p.prixM2 > best.prixM2 ? p : best, filteredProperties[0]).id;
+    const known=filteredProperties.filter(p=>p.surface>0);
+    if (known.length === 0) return null;
+    return known.reduce((best, p) => p.prixM2 > best.prixM2 ? p : best, known[0]).id;
   }, [filteredProperties]);
 
   const worstId = useMemo(() => {
@@ -392,6 +320,9 @@ function PortfolioContent() {
   /* ---------------------------------------------------------------- */
 
   const handlePdfExport = useCallback(async () => {
+    if(pdfRunning.current)return;
+    pdfRunning.current=true;setPdfBusy(true);setPdfError(false);
+    try {
     const { generatePortfolioDashboardPdfBlob } = await import("@/components/PortfolioPdf");
     const blob = await generatePortfolioDashboardPdfBlob({
       properties: filteredProperties,
@@ -403,118 +334,20 @@ function PortfolioContent() {
         surfaceTotale: stats.surfaceTotale,
       },
     });
+    if(!live.current)return;
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = `portfolio-${new Date().toLocaleDateString("fr-FR").replace(/\//g, "-")}.pdf`;
     a.click();
-    URL.revokeObjectURL(url);
+    window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }catch{if(live.current)setPdfError(true);}
+    finally{pdfRunning.current=false;if(live.current)setPdfBusy(false);}
   }, [filteredProperties, stats]);
 
   /* ----------------------------------------------------------------- */
   /*  Export fiscal LU (formulaire 100 F — annexe 190 revenus locatifs) */
   /* ----------------------------------------------------------------- */
-  const handleFiscalExport = useCallback(() => {
-    const year = new Date().getFullYear() - 1; // déclaration porte sur l'exercice précédent
-    const rate = 0.035; // hypothèse taux moyen
-    const pnoRate = 0.005; // 0.5 % de la valeur
-    const taxeFonciereRate = 0.001; // 0.1 % de la valeur (indicatif, varie par commune)
-    const gestionRate = 0.05; // forfait 5 % des loyers
-    // Amortissement : dégressif selon ancienneté (règlement grand-ducal 21/12/2007)
-    const amortFixed = 0.02; // 2 % par défaut
-
-    const lines: string[][] = [];
-    const header = [
-      "Bien",
-      "Commune",
-      "Surface (m²)",
-      "Loyer annuel brut (€)",
-      "Intérêts emprunt (€)",
-      "Assurance PNO (€)",
-      "Taxe foncière (€)",
-      "Frais gestion 5 % (€)",
-      "Amortissement 2 % (€)",
-      "Total charges déductibles (€)",
-      "Revenu net locatif (€)",
-    ];
-    lines.push(header);
-
-    let totalRevenus = 0;
-    let totalInterets = 0;
-    let totalPNO = 0;
-    let totalTF = 0;
-    let totalGestion = 0;
-    let totalAmort = 0;
-    let totalCharges = 0;
-    let totalNet = 0;
-
-    for (const a of assets) {
-      const loyer = a.loyerAnnuel;
-      const interets = a.dette * rate;
-      const pno = a.valeur * pnoRate;
-      const tf = a.valeur * taxeFonciereRate;
-      const gestion = loyer * gestionRate;
-      const amort = a.valeur * amortFixed;
-      const charges = interets + pno + tf + gestion + amort;
-      const net = loyer - charges;
-
-      totalRevenus += loyer;
-      totalInterets += interets;
-      totalPNO += pno;
-      totalTF += tf;
-      totalGestion += gestion;
-      totalAmort += amort;
-      totalCharges += charges;
-      totalNet += net;
-
-      lines.push([
-        a.nom || "—",
-        a.commune || "—",
-        String(a.surface),
-        loyer.toFixed(0),
-        interets.toFixed(0),
-        pno.toFixed(0),
-        tf.toFixed(0),
-        gestion.toFixed(0),
-        amort.toFixed(0),
-        charges.toFixed(0),
-        net.toFixed(0),
-      ]);
-    }
-
-    lines.push([
-      "TOTAL",
-      "",
-      "",
-      totalRevenus.toFixed(0),
-      totalInterets.toFixed(0),
-      totalPNO.toFixed(0),
-      totalTF.toFixed(0),
-      totalGestion.toFixed(0),
-      totalAmort.toFixed(0),
-      totalCharges.toFixed(0),
-      totalNet.toFixed(0),
-    ]);
-
-    const preamble = [
-      `# Déclaration impôt sur le revenu ${year} — Annexe 190 (revenus locatifs)`,
-      `# Généré par tevaxia.lu le ${new Date().toLocaleDateString("fr-FR")}`,
-      `# Base légale : art. 99 LIR (revenus location), règlement GD 21/12/2007 (amortissement)`,
-      `# Hypothèses : taux emprunt ${(rate * 100).toFixed(1)}%, PNO ${(pnoRate * 100).toFixed(2)}% de la valeur, taxe foncière ${(taxeFonciereRate * 100).toFixed(2)}% de la valeur, gestion forfaitaire ${(gestionRate * 100).toFixed(0)}%, amortissement linéaire ${(amortFixed * 100).toFixed(0)}%`,
-      `# À reporter dans le formulaire 100 F (ligne 41 + annexe dédiée) ou 100 bis (conjoint séparé).`,
-      ``,
-    ];
-    const csv = preamble.join("\n") + lines.map((r) => r.map((c) => (c.includes(",") || c.includes(";") ? `"${c}"` : c)).join(";")).join("\n");
-
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `declaration-100F-annexe-190-${year}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }, [assets]);
-
   /* ---------------------------------------------------------------- */
   /*  Render                                                           */
   /* ---------------------------------------------------------------- */
@@ -524,76 +357,31 @@ function PortfolioContent() {
       {!archiveLoaded && <p role="status" className="mx-auto max-w-7xl px-4 text-sm">{t("archiveLoading")}</p>}
       {archiveError && <p role="alert" className="mx-auto max-w-7xl px-4 text-sm text-amber-800">{t("archiveError")}</p>}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {pdfError&&<p role="alert" className="mb-4 text-sm text-rose-800">{t("exportError")}</p>}
+        {(manualError||writeError)&&<p role="alert" className="mb-4 rounded border border-rose-300 p-3 text-sm text-rose-800">{t("storageError")}</p>}
+        {recovery&&<button className="mb-4 rounded border px-3 py-2 text-sm" onClick={()=>download(recovery,'portfolio-recovery.json')}>{t("recoverLocal")}</button>}
+        <p className="mb-4 text-sm text-muted">{t("scopeNotice")}</p>
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-navy sm:text-3xl">{t("title")}</h1>
+            <h1 className="text-2xl font-bold text-navy sm:text-3xl [overflow-wrap:anywhere]">{t("title")}</h1>
             <p className="mt-2 text-muted">{t("subtitle")}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button
-              onClick={() => {
-                // Export portfolio complet
-                const header = [
-                  "Nom", "Type", "Commune", "Valeur (€)", "Surface (m²)", "Prix/m² (€)",
-                  "Loyer annuel (€)", "Dette (€)", "LTV (%)", "Yield brut (%)", "Yield net (%)",
-                ];
-                const rows: string[] = [
-                  `# Export portfolio complet — ${new Date().toLocaleDateString("fr-FR")}`,
-                  `# ${assets.length} biens · valeur totale ${Math.round(stats.valeurTotale)} €`,
-                  "",
-                  header.map((h) => `"${h}"`).join(";"),
-                ];
-                for (const a of assets) {
-                  const prixM2 = a.surface > 0 ? Math.round(a.valeur / a.surface) : 0;
-                  const ltv = a.valeur > 0 ? (a.dette / a.valeur) * 100 : 0;
-                  const yieldBrut = a.valeur > 0 ? (a.loyerAnnuel / a.valeur) * 100 : 0;
-                  const chargesEst = a.loyerAnnuel * 0.15;
-                  const yieldNet = a.valeur > 0 ? ((a.loyerAnnuel - chargesEst) / a.valeur) * 100 : 0;
-                  rows.push([
-                    `"${a.nom.replace(/"/g, '""')}"`,
-                    `"${a.type}"`,
-                    `"${a.commune}"`,
-                    String(a.valeur),
-                    String(a.surface),
-                    String(prixM2),
-                    String(a.loyerAnnuel),
-                    String(a.dette),
-                    ltv.toFixed(2),
-                    yieldBrut.toFixed(2),
-                    yieldNet.toFixed(2),
-                  ].join(";"));
-                }
-                rows.push("");
-                rows.push(`"TOTAL";"";"";${stats.valeurTotale};${stats.surfaceTotale};;${stats.loyerTotal};${stats.detteTotale};${(stats.ltvGlobal * 100).toFixed(2)};${(stats.rendementBrut * 100).toFixed(2)};${(stats.rendementNet * 100).toFixed(2)}`);
-                const bom = "\uFEFF";
-                const blob = new Blob([bom + rows.join("\n")], { type: "text/csv;charset=utf-8;" });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `portfolio-complet-${new Date().toLocaleDateString("fr-FR").replace(/\//g, "-")}.csv`;
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
+              disabled={!manualLoaded||manualError}
+              onClick={() => download(portfolioCsv(assets,[t('fieldName'),t('fieldType'),t('fieldCommune'),t('fieldValue'),t('fieldSurface'),t('avgPriceM2'),t('fieldAnnualRent'),t('fieldDebt'),t('headerLTV'),t('headerGrossYield')]),'portfolio.csv')}
               className="inline-flex items-center gap-2 rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm font-semibold text-slate transition hover:bg-background active:scale-95"
-              title="Export CSV de tous les biens avec ratios"
+              title={t("csvScope")}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm0 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm0 4a1 1 0 011-1h5a1 1 0 110 2H6a1 1 0 01-1-1z" />
               </svg>
-              Export CSV complet
+              {t("csvManual")}
             </button>
+            <a href="https://impotsdirects.public.lu/fr/az/l/logem_loc.html" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-card-border px-4 py-2.5 text-sm font-semibold">{t("taxGuide")}</a>
             <button
-              onClick={handleFiscalExport}
-              title={t("exportFiscalHint")}
-              className="inline-flex items-center gap-2 rounded-lg border border-navy bg-white px-4 py-2.5 text-sm font-semibold text-navy transition hover:bg-navy/5 active:scale-95"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm0 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm0 4a1 1 0 011-1h5a1 1 0 110 2H6a1 1 0 01-1-1z" />
-              </svg>
-              {t("exportFiscal")}
-            </button>
-            <button
+              disabled={!manualLoaded||manualError||!archiveLoaded||archiveError||activeTab!=="manual"||pdfBusy}
               onClick={handlePdfExport}
               className="inline-flex items-center gap-2 rounded-lg bg-navy px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-light active:scale-95"
             >
@@ -630,7 +418,7 @@ function PortfolioContent() {
             <div className="text-xs text-muted">{t("numberOfProperties")}</div>
             <div className="text-2xl font-bold text-navy mt-1">{stats.nbProperties}</div>
             <div className="mt-2 text-xs text-muted">
-              {t("manualCount", { count: assets.length })} + {t("evaluationCount", { count: savedValuations.filter((v) => v.valeurPrincipale && v.valeurPrincipale > 0).length })}
+              {t("manualCount", { count: assets.length })} + {t("evaluationCount", { count: savedValuations.filter(isPropertyValuation).length })}
             </div>
           </div>
 
@@ -648,7 +436,7 @@ function PortfolioContent() {
               <div className="text-2xl font-bold text-navy mt-1">--</div>
             )}
             <div className="mt-2 text-xs text-muted">
-              {stats.avgEnergyClass ? `${t("score")} ${stats.avgEnergyScore.toFixed(1)} / 9` : t("noEPC")}
+              {stats.avgEnergyClass ? `${t("score")} ${stats.avgEnergyScore.toFixed(1)} / 10` : t("noEPC")}
             </div>
           </div>
         </div>
@@ -697,7 +485,7 @@ function PortfolioContent() {
             <p className="text-sm text-muted">
               {t("emptyChartHint")}
             </p>
-            <Link href="/estimation" className="mt-3 inline-block text-sm font-medium text-navy hover:underline">
+            <Link href={`${lp}/estimation`} className="mt-3 inline-block text-sm font-medium text-navy hover:underline">
               {t("startEstimation")} &rarr;
             </Link>
           </div>
@@ -708,7 +496,7 @@ function PortfolioContent() {
         {/* ============================================================ */}
         {stats.loyerTotal > 0 && (
           <div className="mb-8 rounded-xl border border-card-border bg-card p-6 shadow-sm">
-            <div className="flex items-start justify-between gap-3 mb-4">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-3 mb-4">
               <div>
                 <h3 className="text-sm font-semibold text-navy">{t("cashflowTitle")}</h3>
                 <p className="mt-0.5 text-[10px] text-muted">{t("cashflowSubtitle")}</p>
@@ -812,7 +600,7 @@ function PortfolioContent() {
                         <td className="px-3 py-2 text-right font-mono">{formatEUR(r.entretien)}</td>
                         <td className="px-3 py-2 text-right font-mono">{formatEUR(r.gestion)}</td>
                         <td className="px-3 py-2 text-right font-mono font-semibold text-navy">{formatEUR(r.total)}</td>
-                        <td className={`px-3 py-2 text-right font-mono ${r.ratioLoyer > 0.35 ? "text-rose-700 font-semibold" : r.ratioLoyer > 0.25 ? "text-amber-700" : "text-emerald-700"}`}>
+                        <td className="px-3 py-2 text-right font-mono">
                           {(r.ratioLoyer * 100).toFixed(1)} %
                         </td>
                       </tr>
@@ -915,7 +703,7 @@ function PortfolioContent() {
                           )}
                         </td>
                         <td className="px-3 py-2 text-muted whitespace-nowrap">
-                          {p.date ? new Date(p.date).toLocaleDateString("fr-FR") : "--"}
+                          {p.date ? new Date(p.date).toLocaleDateString(locale=== "lb" ? "de-LU" : locale) : "--"}
                         </td>
                       </tr>
                     );
@@ -947,12 +735,14 @@ function PortfolioContent() {
                 { label: t("kpiNbAssets"), value: String(stats.nbActifs) },
                 { label: t("kpiTotalSurface"), value: `${assets.reduce((s, a) => s + a.surface, 0)} m2` },
                 { label: t("kpiAnnualRent"), value: formatEUR(stats.loyerTotal) },
-                { label: t("kpiGrossYield"), value: formatPct(stats.rendementBrut) },
-                { label: t("kpiNetYield"), value: formatPct(stats.rendementNet) },
-                { label: t("kpiEquityYield"), value: formatPct(stats.rendementEquity), highlight: true },
-                { label: t("kpiLTV"), value: formatPct(stats.ltvGlobal), warning: stats.ltvGlobal > 0.75 },
+                { label: t("kpiGrossYield"), value: assets.some(a=>a.valeur>0)?formatPct(stats.rendementBrut):"—" },
+                { label: t("kpiNetYield"), value: t("notCalculated") },
+                { label: t("kpiEquityYield"), value: t("notCalculated"), highlight: true },
+                { label: t("kpiLTV"), value: assets.some(a=>a.valeur>0)?formatPct(stats.ltvGlobal):"—" },
               ]}
             />
+
+            <p className="text-sm text-muted">{t("missingExpenses")}</p>
 
             {/* Repartition */}
             <div className="rounded-xl border border-card-border bg-card p-6 shadow-sm">
@@ -975,19 +765,19 @@ function PortfolioContent() {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-base font-semibold text-navy">{t("manualAssets", { count: assets.length })}</h2>
-              <button onClick={addAsset} className="rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-light transition-colors">{t("addAsset")}</button>
+              <button disabled={!manualLoaded||manualError} onClick={addAsset} className="rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-light transition-colors">{t("addAsset")}</button>
             </div>
 
             {assets.map((asset, i) => (
               <div key={asset.id} className="rounded-xl border border-card-border bg-card p-5 shadow-sm">
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                   <span className="text-sm font-semibold text-navy">{asset.nom || `${t("asset")} ${i + 1}`}</span>
                   <div className="flex items-center gap-3">
-                    <Link href="/estimation" className="text-xs text-navy hover:underline font-medium">{t("reEstimate")}</Link>
-                    <button onClick={() => removeAsset(i)} className="text-xs text-error hover:underline">{t("delete")}</button>
+                    <Link href={`${lp}/estimation`} className="text-xs text-navy hover:underline font-medium">{t("reEstimate")}</Link>
+                    <button disabled={!manualLoaded||manualError} onClick={() => removeAsset(i)} className="text-xs text-error hover:underline">{t("delete")}</button>
                   </div>
                 </div>
-                <div className="grid gap-3 sm:grid-cols-4">
+                <fieldset disabled={!manualLoaded||manualError} className="grid gap-3 sm:grid-cols-4">
                   <InputField label={t("fieldName")} type="text" value={asset.nom} onChange={(v) => updateAsset(i, "nom", v)} />
                   <InputField label={t("fieldType")} type="select" value={asset.type} onChange={(v) => updateAsset(i, "type", v)} options={[
                     { value: "Appartement", label: t("typeAppartement") },
@@ -1006,7 +796,7 @@ function PortfolioContent() {
                   <div className="flex items-end text-xs text-muted pb-2">
                     {t("yield")}: {asset.valeur > 0 ? formatPct(asset.loyerAnnuel / asset.valeur) : "--"}
                   </div>
-                </div>
+                </fieldset>
               </div>
             ))}
 
@@ -1032,7 +822,7 @@ function PortfolioContent() {
                         <td className="px-3 py-1.5 text-right font-mono">{formatEUR(a.valeur)}</td>
                         <td className="px-3 py-1.5 text-right font-mono">{formatEUR(a.loyerAnnuel)}</td>
                         <td className="px-3 py-1.5 text-right font-mono">{a.valeur > 0 ? formatPct(a.loyerAnnuel / a.valeur) : "--"}</td>
-                        <td className={`px-3 py-1.5 text-right font-mono ${a.valeur > 0 && a.dette / a.valeur > 0.75 ? "text-error" : ""}`}>
+                        <td className="px-3 py-1.5 text-right font-mono">
                           {a.valeur > 0 ? formatPct(a.dette / a.valeur) : "--"}
                         </td>
                         <td className="px-3 py-1.5 text-right font-mono text-muted">

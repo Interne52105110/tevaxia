@@ -1,0 +1,20 @@
+import {beforeEach,afterEach,describe,it,expect,vi} from 'vitest';
+import {readPortfolio,writePortfolio,portfolioStorageKey,portfolioRecovery,isPropertyValuation,valuationSurface,portfolioCsv,portfolioScenario,type PortfolioAsset} from '../manual-portfolio';
+import type {SavedValuation} from '../storage';
+const asset:PortfolioAsset={id:'a',nom:'Synthetic',type:'Appartement',commune:'Luxembourg',valeur:100000,loyerAnnuel:12000,surface:50,dette:60000};
+const valuation:SavedValuation={id:'v',nom:'Scenario',date:'2026-09-10',type:'estimation',valeurPrincipale:100000,data:{surface:50}};
+beforeEach(()=>{const store=new Map<string,string>();vi.stubGlobal('window',{});vi.stubGlobal('localStorage',{getItem:(k:string)=>store.get(k)??null,setItem:(k:string,v:string)=>store.set(k,v)});});
+afterEach(()=>vi.unstubAllGlobals());
+describe('manual portfolio boundaries',()=>{
+ it('starts empty and stays empty after deleting the last asset',()=>{expect(readPortfolio('a')).toEqual([]);writePortfolio([asset],'a');writePortfolio([],'a');expect(readPortfolio('a')).toEqual([])});
+ it('isolates accounts and guest without importing legacy examples',()=>{localStorage.setItem('tevaxia_portfolio',JSON.stringify([asset]));writePortfolio([asset],'a');expect(readPortfolio('b')).toEqual([]);expect(readPortfolio(null)).toEqual([]);expect(portfolioRecovery('b')).toContain('Synthetic')});
+ it('preserves malformed data and refuses overwrite',()=>{localStorage.setItem(portfolioStorageKey('a'),'{bad');expect(()=>readPortfolio('a')).toThrow();expect(()=>writePortfolio([],'a')).toThrow();expect(localStorage.getItem(portfolioStorageKey('a'))).toBe('{bad');expect(portfolioRecovery('a')).toContain('{bad')});
+ it('preserves old state on quota failure',()=>{writePortfolio([asset],'a');vi.spyOn(localStorage,'setItem').mockImplementation(()=>{throw Error('quota')});expect(()=>writePortfolio([],'a')).toThrow();expect(readPortfolio('a')).toEqual([asset])});
+ it.each([-1,Infinity,NaN,1e13])('rejects invalid amounts %s',valeur=>{expect(()=>writePortfolio([{...asset,valeur}],'a')).toThrow();expect(readPortfolio('a')).toEqual([])});
+ it('rejects duplicate identities and invalid labels',()=>{expect(()=>writePortfolio([asset,asset],'a')).toThrow();expect(()=>writePortfolio([{...asset,nom:12} as unknown as PortfolioAsset],'a')).toThrow()});
+ it.each(['frais','loyer','aides','plus-values','achat-location','str-rentabilite','bilan-promoteur'] as const)('never counts %s as a property value',type=>expect(isPropertyValuation({...valuation,type})).toBe(false));
+ it('accepts actual valuations and excludes invalid values',()=>{expect(isPropertyValuation(valuation)).toBe(true);expect(isPropertyValuation({...valuation,type:'valorisation'})).toBe(true);expect(isPropertyValuation({...valuation,valeurPrincipale:Infinity})).toBe(false)});
+ it('extracts real surface keys and rejects infinity',()=>{expect(valuationSurface({...valuation,data:{surfaceBien:80}})).toBe(80);expect(valuationSurface({...valuation,data:{surfaceHabitable:'75'}})).toBe(75);expect(valuationSurface({...valuation,data:{surface:'Infinity'}})).toBe(0)});
+ it('exports only entered assets and gross ratios, safely quoting spreadsheet cells',()=>{const csv=portfolioCsv([{...asset,nom:'=SUM(1,2)',commune:'A;"B"\nC'}],['name']);expect(csv).toContain('"\'=SUM(1,2)"');expect(csv).toContain('"A;""B""\nC"');expect(csv).toContain('"60";"12"');expect(csv).not.toMatch(/amortissement|100F|0\.7/)});
+ it('scenario balance equals income minus costs and interest without fictional seasonality',()=>{const s=portfolioScenario(12000,60000);expect(s).toEqual({income:950,charges:142.5,interest:175,net:632.5});expect(s.net*12).toBe((s.income-s.charges-s.interest)*12)});
+});
