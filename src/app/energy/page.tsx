@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import SEOContent from "@/components/SEOContent";
 
-export const metadata: Metadata = {
-  title: "Tevaxia Energy — 8 Simulateurs Énergie & HVAC Immobilier Luxembourg",
-};
+export async function generateMetadata():Promise<Metadata>{
+  const t=await getTranslations("energy.home");
+  return {title:t("metaTitle"),description:t("heroDescription"),openGraph:{title:t("metaTitle"),description:t("heroDescription")},twitter:{title:t("metaTitle"),description:t("heroDescription")}};
+}
 
 const SIMULATORS = [
   {
@@ -120,7 +121,7 @@ export default async function EnergyHomePage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-navy via-navy-dark to-navy py-16 sm:py-24 text-white">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight [overflow-wrap:anywhere]">
             {t("heroTitle")}
             <br />
             <span className="text-energy-light">{t("heroHighlight")}</span>
@@ -144,7 +145,7 @@ export default async function EnergyHomePage() {
                 <div className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-br ${sim.color} p-3 text-white mb-4`}>
                   {sim.icon}
                 </div>
-                <h2 className="text-lg font-semibold text-foreground mb-2">{t(sim.titleKey)}</h2>
+                <h2 className="text-lg font-semibold text-foreground mb-2 [overflow-wrap:anywhere]">{t(sim.titleKey)}</h2>
                 <p className="text-sm text-muted leading-relaxed">{t(sim.descKey)}</p>
                 <div className="mt-4 flex items-center text-sm font-medium text-energy group-hover:text-energy-dark transition-colors">
                   {t("simuler")}
@@ -163,21 +164,14 @@ export default async function EnergyHomePage() {
         <div className="mx-auto max-w-3xl px-4 text-center">
           <h2 className="text-xl font-semibold text-foreground mb-4">{t("whyTitle")}</h2>
           <p className="text-muted leading-relaxed">
-            {t("whyDesc", { pct: "33%" })}
+            {t("whyDesc")}
           </p>
-          <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold text-energy">+33%</div>
-              <div className="text-xs text-muted mt-1">{t("statEcart")}</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-energy">62,5%</div>
-              <div className="text-xs text-muted mt-1">{t("statKlimabonus")}</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-energy">120-220</div>
-              <div className="text-xs text-muted mt-1">{t("statIsolation")}</div>
-            </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3 text-center">
+            {[
+              ["sourceCpe","https://guichet.public.lu/fr/citoyens/logement/acquisition/performances-energie/demande-passeport-energetique.html"],
+              ["sourceAid","https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html"],
+              ["sourceEpbd","https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/energy-performance-buildings-directive_en"],
+            ].map(([key,href])=><a key={key} href={href} className="rounded-lg border border-card-border px-4 py-3 text-sm text-energy underline [overflow-wrap:anywhere]">{t(key)}</a>)}
           </div>
         </div>
       </section>

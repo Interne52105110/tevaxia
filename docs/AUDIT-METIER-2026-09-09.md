@@ -1163,3 +1163,16 @@ Validation : 1 589 tests / 146 fichiers réussis, dont 20 nouveaux cas (isolatio
 Lot évaluations d9299e6 publié : CI 34430671783 réussie, dpl_GgrMDPo1c3Nj2Kbn1WVqvBjyLzPC Ready. Contrôle production de 13 routes × 5 langues × 4 largeurs réussi, sans débordement persistant ni erreur JavaScript (valuation-storage-public-prod.log).
 
 Validation finale portefeuille : compilation réussie ; parcours public cinq langues et quatre largeurs réussi avec un bien synthétique stocké uniquement dans un contexte navigateur de test. CSV réellement téléchargé et vérifié. Rendu visuel ordinateur et mobile inspecté ; tableaux gardés en défilement horizontal, message de net non calculé séparé pour éviter le débordement, en-tête du scénario empilé sur mobile. Aucun envoi de donnée client.
+
+
+## 10 septembre — accueil Énergie et cohérence des contenus
+
+Les pages détaillées EPBD/CRREM/rénovation utilisaient déjà les composants corrigés ; plusieurs anciens messages erronés sont désormais inutilisés. En revanche l’accueil /energy rendait encore +33 % de prime de valeur, 62,5 % de Klimabonus maximal, un coût d’isolation générique, les classes E-2030/D-2033 pour tout logement et des statistiques non établies. Ces affirmations sont supprimées de l’accueil et de ses cinq FAQ dans les cinq langues.
+
+Descriptions des cartes alignées sur les outils réellement disponibles : hypothèses de valeur saisies, VAN/TRI avec devis et aides confirmées, partage énergétique simulé sans certification réglementaire. CPE résidentiel A+ à I, distinction performance/isolation et professionnel habilité. EPBD : distinction trajectoire résidentielle nationale et seuils non résidentiels, sans attribution d’obligation à un bâtiment sur sa seule classe. Klimabonus rénovation sur conseil : conseil et accord de principe avant les travaux, conditions/dates à vérifier ; aucune subvention forfaitaire automatique. Trois liens officiels remplacent les chiffres généraux. Titres et descriptions metadata désormais localisés, sans le décompte erroné de huit outils (neuf cartes).
+
+Sources consultées le 10 septembre : https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/energy-performance-buildings-directive_en ; https://guichet.public.lu/fr/citoyens/aides/logement-construction/klimabonus-2026/renovation-energetique-logement-conseil-energie.html ; https://guichet.public.lu/fr/citoyens/logement/acquisition/performances-energie/demande-passeport-energetique.html . Ce lot ne certifie pas la transposition nationale exhaustive de l’EPBD ni l’éligibilité d’un projet individuel.
+
+Validation : lint sans avertissement, compilation réussie ; page publique cinq langues/quatre largeurs, cinq réponses FAQ et JSON-LD, trois sources, neuf liens localisés, titres HTML/OpenGraph vérifiés. Aucun moteur de calcul modifié dans ce lot ; suite précédente de 1 589 tests / 146 fichiers réussie.
+
+Portefeuille manuel dc04dcf publié : CI 34431987740 réussie, dpl_CGnxWsNt7KWts9SPQfJkDsRwTk7v Ready ; contrôle production cinq langues/quatre largeurs et téléchargement CSV réussi (manual-portfolio-public-prod.log), avec données synthétiques uniquement dans le navigateur de test.
